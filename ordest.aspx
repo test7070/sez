@@ -17,7 +17,7 @@
         q_desc = 1;
         q_tables = 's';
         var q_name = "orde";
-        var q_readonly = ['txtWorker','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
+        var q_readonly = ['txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [['txtMoney', 10, 2, 1],['txtTax', 10, 2, 1],['txtTotal', 10, 2, 1],['txtTotalus', 10, 2, 1],['txtWeight', 10, 2, 1]];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3],['txtTotal', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
@@ -845,20 +845,22 @@
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td> 
-                <td class="td4"><span> </span><a id='lblWeight' class="lbl"> </a></td>
-                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1"/></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-                <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td> 
+                <td class="td3"><span> </span><a id='lblWeight' class="lbl"> </a></td>
+                <td class="td4" colspan='2'><input id="txtWeight"  type="text" class="txt num c1"/></td>
+                <td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+                <td class="td6"><input id="txtWorker" type="text" class="txt c1" /></td> 
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id="lblApv" class="lbl"> </a></td>
             	<td class="td2"><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/> </td>
-            	
-                <td class="td5"><span> </span><a id='lblEnd' class="lbl"> </a></td>
-                <td class="td6"><input id="chkEnda" type="checkbox"/></td>
-                <td class="td7"></td>
-                <td class="td8" style="display: none;"><input id="btnOrdet" type="button"/></td>
-                
+                <td class="td3"><span> </span><a id='lblEnd' class="lbl"> </a></td>
+                <td class="td4"><input id="chkEnda" type="checkbox"/></td>
+                <td class="td5"></td>
+                <td class="td6" style="display: none;"><input id="btnOrdet" type="button"/></td>
+                <td></td>
+                <td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+                <td class="td8"><input id="txtWorker2" type="text" class="txt c1" /></td> 
+                 
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>

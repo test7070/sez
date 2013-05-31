@@ -20,7 +20,7 @@
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = ['txtNo3'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
-            var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtWeight', 10, 3, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [['txtOdate', '999/99/99']];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -86,8 +86,8 @@
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
 	                        var i, j = 0;
-	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret
-	                                                           , 'productno,product,unit,mount,price,noa,no2'
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2,txtWeight', b_ret.length, b_ret
+	                                                           , 'productno,product,unit,mount,price,noa,no2,weight'
 	                                                           , 'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
 	                        sum();
 	                    }
