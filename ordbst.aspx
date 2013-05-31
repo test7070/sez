@@ -81,8 +81,8 @@
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
 	                        var i, j = 0;
-	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret
-	                                                           , 'productno,product,unit,mount,price,noa,no2'
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret
+	                                                           , 'productno,product,unit,mount,price,noa,no2,dime,width,lengthb'
 	                                                           , 'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
 	                        sum();
 	                    }
