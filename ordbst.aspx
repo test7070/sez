@@ -16,7 +16,7 @@
             }
             q_tables = 's';
             var q_name = "ordb";
-            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa'];
+            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1],['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtTheory', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1]];
@@ -27,7 +27,11 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Odate';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+				             ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+				             ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+				             ['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,cmbPaytype','tgg_b.aspx']
+            );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
@@ -71,6 +75,18 @@
                 var
                 ret;
                 switch (b_pop) {
+					case 'ordes':
+	                    if (q_cur > 0 && q_cur < 4) {
+	                        b_ret = getb_ret();
+	                        if (!b_ret || b_ret.length == 0)
+	                            return;
+	                        var i, j = 0;
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret
+	                                                           , 'productno,product,unit,mount,price,noa,no2'
+	                                                           , 'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
+	                        sum();
+	                    }
+						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -723,7 +739,7 @@
                 <td class="td2" colspan='2'><input id="txtTotalus"  type="text" class="txt num c1" /></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl btn"></a></td>
+                <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
                 <td class="td8"><input id="txtWorker"  type="text" class="txt c1" /></td> 
             </tr>
             <tr class="tr8">
@@ -733,6 +749,8 @@
                 <td class="td4"><input id="chkEnda" type="checkbox"/></td>
                 <td class="td5"></td>  
                 <td class="td6"><input id="btnOrde" type="button" /></td>
+                <td class="td7"><span> </span><a id='lblWorker2' class="lbl"></a></td>
+                <td class="td8"><input id="txtWorker2"  type="text" class="txt c1" /></td> 
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
