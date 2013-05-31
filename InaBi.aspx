@@ -20,8 +20,8 @@
             var q_name = "ina";
             var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [['txtWeight', 10, 1, 1]];
-            var bbsNum = [['txtSize1', 10, 3, 1],['txtSize2', 10, 2, 1],['txtSize3', 10, 3, 1],['txtSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1]];
+            var bbmNum = [['txtWeight', 10, 1, 1],['txtPrice', 10, 0, 1]];
+            var bbsNum = [['txtSize1', 10, 3, 1],['txtSize2', 10, 2, 1],['txtSize3', 10, 3, 1],['txtSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtPrice', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -419,8 +419,8 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
                 <td align="center" style="width:20%"><a id='vewDatea_bi'> </a></td>
-                <td align="center" style="width:35%"><a id='vewNoa_bi'> </a></td>
-                <td align="center" style="width:40%"><a id='vewProductno_bi'> </a></td>
+                <td align="center" style="width:30%"><a id='vewNoa_bi'> </a></td>
+                <td align="center" style="width:45%"><a id='vewProductno_bi'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -432,13 +432,13 @@
         </div>
         <div class='dbbm' >
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr class="tr2">
+        <tr class="tr1">
         	<td class='td1'><span> </span><a id="lblNoa_bi" class="lbl"> </a></td>
             <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
            	<td> </td>
             <td> </td>
         </tr>
-        <tr class="tr1">
+        <tr class="tr2">
         	<td class='td1'><span> </span><a id="lblDatea_bi" class="lbl"> </a></td>
             <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
         </tr>
@@ -448,9 +448,13 @@
         	<td class="td3" colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
         	<td> </td>
         </tr>
-        <tr class="tr1">
+        <tr class="tr4">
         	<td class='td1'><span> </span><a id="lblWeight_bi" class="lbl"> </a></td>
             <td class="td2"><input id="txtWeight" type="text" class="txt num c1"/></td>
+        </tr>
+        <tr class="tr5">
+        	<td class='td1'><span> </span><a id="lblPrice_bi" class="lbl"> </a></td>
+            <td class="td2"><input id="txtPrice" type="text" class="txt num c1"/></td>
         </tr>
         </table>
         </div>
@@ -462,6 +466,7 @@
                 <td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblWeight_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblType_s'> </a></td>
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
@@ -471,6 +476,7 @@
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtPrice.*" type="text"  /></td>
                 <td ><input class="txt c1" id="txtTypea.*" type="text"/></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
