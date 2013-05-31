@@ -1054,7 +1054,7 @@
         </tr>
         <tr class="tr2">
             <td class='td1'  colspan="8" style="background-color: #FFEC8B;color: red;">  　 　※ 請填入整月的金額，系統立帳時會自動換算!!!</br>
-            	  　 　※ 健保當月退保(不含當月加保)，請清除健保相關金額!!!
+            	  　 　※ 健保當月退保(不含當月加保或滿一個月)，請清除健保相關金額!!!
             </td>
         </tr>
         <tr class="tr3">
