@@ -79,6 +79,7 @@
             }
 
             function q_funcPost(t_func, result) {
+            	
                 switch(t_func) {
                     case 'qtxt.query.chart01':
                         var as = _q_appendData("tmp0", "", true, true);
