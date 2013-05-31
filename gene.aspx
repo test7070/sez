@@ -63,7 +63,7 @@
 						alert('請先輸入'+q_getMsg('lblMon'));
 						return;
 					}
-					var t_where = "where=^^ left(a.datea,6)= '"+$('#txtMon').val()+"'^^";
+					var t_where = "where=^^ left(a.datea,6)= '"+$('#txtMon').val()+"' and c.productno!='' group by a.productno,a.product,a.unit,c.productno,c.product order by a.productno^^";
 			        q_gt('gene_import', t_where, 0, 0, 0, "", r_accy);
 				});
             }

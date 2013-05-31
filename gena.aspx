@@ -109,9 +109,9 @@
                 			}
                 			//看公司要用數量還是重量計算
                 			if(mw=='m')
-                				q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtUnit,txtStuffmount,txtStuffmoney', as.length, as, 'productno,product,acc1,acc2,bmount,unit,smount,msmoney', '');	
+                				q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtBornweight,txtUnit,txtStuffmount,txtStuffweight,txtStuffmoney', as.length, as, 'productno,product,acc1,acc2,bmount,bweight,unit,smount,sweight,msmoney', '');	
                 			if(mw=='w')
-                				 q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornweight,txtUnit,txtStuffweight,txtStuffmoney', as.length, as, 'productno,product,acc1,acc2,bweight,unit,sweight,wsmoney', '');
+                				 q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtBornweight,txtUnit,txtStuffmount,txtStuffweight,txtStuffmoney', as.length, as, 'productno,product,acc1,acc2,bmount,bweight,unit,smount,sweight,wsmoney', '');
                 			
                 			sum();
                 			//讀取直接人工54開頭和製造費用55開頭的會計科目
