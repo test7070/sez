@@ -268,6 +268,8 @@
 									$('#btnMinus_' + t_sel).data('info').isTre = true;
 								var t_where = "where=^^ tranno='"+ t_tranno +"' ^^";
             					q_gt('view_trds', t_where, 0, 0, 0, "checkBbs_trds_"+t_accy+"_"+t_tranno+"_"+t_sel, t_accy);             		
+							}else{
+								checkBbs(t_sel-1);
 							}
                     	}else if(t_name.substring(0,8)=="btnDele1"){
                     		var t_tranno = t_name.split('_')[1];
