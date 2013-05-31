@@ -90,7 +90,10 @@
             }
 
             function btnOk() {
-            	$('#txtWorker').val(r_name);
+            	 if(q_cur==1)
+	           	$('#txtWorker').val(r_name);
+	        else
+	           	$('#txtWorker2').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -328,6 +331,12 @@
             .txt.num {
                 text-align: right;
             }
+            .txt.col {
+                color: #FA0300;
+            }
+            .tbbs .X{
+            	background: #FFC991;
+            }
             .tbbm td {
                 margin: 0 -1px;
                 padding: 0;
@@ -346,6 +355,7 @@
             .tbbs input[type="text"] {
                 width: 98%;
             }
+            
             .tbbs a {
                 font-size: medium;
             }
@@ -421,6 +431,11 @@
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td colspan="2"><span> </span><a id='lblNotice' class="lbl"> </a></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -450,14 +465,14 @@
 						<input id="btnSssno.*" type="button" value="." style="float:left;width: 5%;"/>				
 					</td>
 					<td><input id="txtMon.*" class="txt c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtHeplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtHeminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td ><input id="txtHeplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td class="X"><input id="txtHeminus.*" class="txt num c1 col" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtLabplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtLabminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td class="X"><input id="txtLabminus.*" class="txt num c1 col" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtReplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtReminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td class="X"><input id="txtReminus.*" class="txt num c1 col" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtDisasterplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtDisasterminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td class="X"><input id="txtDisasterminus.*" class="txt num c1 col" type="text" style="float:left;width: 95%;"/></td>
 					<td>
 						<input id="txtVccno.*" class="txt c1" type="text" style="float:left;width: 85%;"/>
 						<input id="btnVccno.*" type="button" value="." style="float:left;width: 5%;"/>			

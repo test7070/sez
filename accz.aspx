@@ -487,8 +487,8 @@
             <tr>
                <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
                <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td3"><span> </span><a id='lblYear' class="lbl"></a></td>
+               <td class="td4"><input id="txtYear"  type="text" class="txt num c1"/></td>
                <td class="td5"></td>
                <td class="td6"></td>
  	       </tr>
@@ -506,14 +506,6 @@
                <td class="td3"></td>
                <td class="td4"></td>
 	           <td class="td5"></td>
-               <td class="td6"></td>
-            </tr>  
-	    <tr>
-               <td class="td1"><span> </span><a id='lblYear' class="lbl"></a></td>
-               <td class="td2"><input id="txtYear"  type="text" class="txt num c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-	           <td class="td5"></td>               
                <td class="td6"></td>
             </tr>
             <tr>
