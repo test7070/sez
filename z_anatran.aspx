@@ -61,7 +61,7 @@
                         case 'chart01':
                             $('#Loading').Loading();
                             Lock();
-                            q_func('z_anatran.' + t_report, encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($.trim($('#txtXcarno').val())));
+                            q_func('qtxt.query.chart01', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($.trim($('#txtXcarno').val())));
                             break;
                         case 'chart02':
                             $('#Loading').Loading();
@@ -93,7 +93,7 @@
 
             function q_funcPost(t_func, result) {
                 switch(t_func) {
-                    case 'z_anatran.chart01':
+                    case 'qtxt.query.chart01':
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] == undefined){
                         	$('#Loading').hide();
