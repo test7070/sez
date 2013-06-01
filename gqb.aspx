@@ -203,7 +203,6 @@
                     			Unlock(1);
                     		}
                     		else{
-                    			alert('gqb_status2  '+(t_sel-1));
                     			checkGqbStatus_btnModi(t_sel-1);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_statusA'){
