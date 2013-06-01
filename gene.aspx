@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtBornmount', 15, 0, 1],['txtBornweight', 15, 3, 1],['txtStuffmount', 15, 0, 1],['txtStuffweight', 15, 3, 1],['txtStuffmoney', 15, 0, 1]];
+            var bbsNum = [['txtBornmount', 15, 0, 1],['txtBornweight', 15, 2, 1],['txtStuffmount', 15, 0, 1],['txtStuffweight', 15, 2, 1],['txtStuffmoney', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
