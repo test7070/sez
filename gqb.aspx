@@ -271,7 +271,6 @@
             	if(n<0){
             		q_modif2();
             		Unlock(1);
-            		return false;
             	}else{
             		var t_checkno = $.trim($('#txtGqbno').val());
             		if(t_checkno.length>0){
@@ -365,11 +364,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-            }
-            function q_refreshf(){
-            	if(q_cur==2){
-            		checkGqbStatus_btnModi(1);
-            	}
             }
 
             function readonly(t_para, empty) {
