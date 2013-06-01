@@ -18,7 +18,7 @@
         var q_readonly = ['txtYear_depl','txtTotal','txtNoa'];
         var bbmNum = [['txtMount',10, 0, 1],['txtEcount',10, 0, 1],['txtRate',3, 2, 1],['txtScrapvalue',14, 0, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1]]; 
         //var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'acc1';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(
         	['txtDepl_ac', 'lblAcc', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
@@ -58,7 +58,10 @@
                 /*貼上資料*/
                 paste : function() {
                     for (var i in this.data) {
-                        $('#' + this.data[i].field).val(this.data[i].value);
+                       if(this.data[i].field == 'txtAcc1' && (this.data[i].value).length>5)
+                        	$('#' + this.data[i].field).val((this.data[i].value).substring(0,5));
+                        else
+                            $('#' + this.data[i].field).val(this.data[i].value);
                     }
                 }
             };
@@ -95,7 +98,11 @@
             		$(this).val(s1.substr(0,4) + '.' + s1.substr(4));
             	if(s1.length == 4)
             		$(this).val(s1 + '.');
-            })
+            }).focus(function() {
+				q_msg( $(this), '新增時只需輸入至小數點，系統將自動補齊後面4碼 ex:1451.');
+			}).blur(function () {
+				q_msg();
+			});
             $('#txtDepl_ac').change(function(){
             	var s1 = trim($(this).val());
             	if(s1.length > 4 && s1.indexOf('.') <0)
@@ -182,6 +189,26 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	 case 'NewAcc1': 
+                    if(q_cur==1 || q_cur==2){
+                    	var MaxAcc1Noq = '0000',k = 0;
+                    	var NewAs = new Array;
+                    	var as = _q_appendData(q_name, "", true);
+                    	for(var i = 0;i < as.length;i++){
+							if(as[i].acc1.length > 5){
+								NewAs[k] = (as[i].acc1).substring(5);
+								k++;
+							}
+						}
+						if(NewAs.length == 0){
+							MaxAcc1Noq = '0001';
+						}else{
+							MaxAcc1Noq = Math.max.apply(Math,NewAs)+1;
+							MaxAcc1Noq = padL(MaxAcc1Noq,'0',4);//左方補0
+						}
+						$('#txtAcc1').val($.trim($('#txtAcc1').val()) + MaxAcc1Noq);
+						_btnOk(Public_key_value, bbmKey[0], '','',2);
+                    }
                  case q_name: 
                  	if (q_cur == 4)  
                         q_Seek_gtPost();
@@ -223,22 +250,34 @@
         }
         function btnOk() {
              sum();
-       
+       		var t_acc1 = $.trim($('#txtAcc1').val());
             var t_noa = trim($('#txtNoa').val());
             var t_date = trim($('#txtDatea').val());
+            if(t_acc1.length < 5 || (q_cur==1 && t_acc1.substr(t_acc1.length-1,1) != '.')){
+				$('#txtAcc1').focus();
+				return;
+			}
             if ( t_noa.length == 0 || t_noa == "AUTO")  
                q_gtnoa(q_name, replaceAll('AZ'+ (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer( t_noa);
         }
 
-        function wrServer( key_value) {
+		var Public_key_value = '';
+        function wrServer(key_value) {
+        	Public_key_value = key_value;
             var i;
             xmlSql = '';
             if (q_cur == 2)   /// popSave
                 xmlSql = q_preXml();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-            _btnOk(key_value, bbmKey[0], '','',2);
+            var t_acc1 = $.trim($('#txtAcc1').val());
+            if(t_acc1.length == 5 && t_acc1.substr(t_acc1.length-1,1) == '.' && (q_cur==1 || q_cur==2)){
+	            t_where = "where=^^ left(acc1,5) = '" + $('#txtAcc1').val() + "'^^";
+	            q_gt(q_name,t_where , 0, 0, 0, "NewAcc1",r_accy+'_'+r_cno);
+			}else{
+				_btnOk(key_value, bbmKey[0], '','',2);
+			}
         }
        
         function refresh(recno) {

@@ -17,7 +17,7 @@
 			q_desc=1;
             q_tables = 's';
             var q_name = "lab_accc";
-            var q_readonly = ['txtNoa', 'txtSales','txtPart', 'txtPaybno', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno'];
+            var q_readonly = ['txtNoa', 'txtSales','txtPart', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -53,7 +53,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('lab_accc.typea'));
+                //q_cmbParse("cmbTypea", q_getPara('lab_accc.typea')); //20130601
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtMon').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
                 });
@@ -86,11 +86,13 @@
                 	if(!emp($('#txtNoa').val()))
 						q_func('lab_accc.gen', $('#txtNoa').val());
 				});
+				/*
 				$('#lblPaybno').click(function(){
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
 					q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
 				});
-				hiddenField();
+				*/
+				//hiddenField();
 				$('#cmbTypea').change(function(){
 					hiddenField();
 				});
@@ -100,7 +102,7 @@
 				$('#txtAccno').val(result.split(';')[0]);
 				$('#txtBvccno').val(result.split(';')[1]);
 				$('#txtEvccno').val(result.split(';')[2]);
-				$('#txtPaybno').val(result.split(';')[3]);
+				/*$('#txtPaybno').val(result.split(';')[3]);*/
 				alert('作業完畢');
 		    }
 
@@ -464,8 +466,8 @@
 						<td>
 						<input id="txtMon"  type="text" class="txt c1"/>
 						</td>
-						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1" ></select></td>
+						<!--<td><span> </span><a id='lblTypea' class="lbl"> </a></td>-->
+						<!--<td><select id="cmbTypea" class="txt c1" ></select></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSalesno' class="lbl btn"> </a></td>
@@ -522,8 +524,8 @@
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
-						<td colspan="2"><span> </span><a id='lblPaybno' class="lbl btn"> </a></td>
-						<td><input id="txtPaybno" type="text" class="txt c1"/></td>
+						<!--<td colspan="2"><span> </span><a id='lblPaybno' class="lbl btn"> </a></td>-->
+						<!--<td><input id="txtPaybno" type="text" class="txt c1"/></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
