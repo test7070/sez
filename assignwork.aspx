@@ -296,6 +296,24 @@
                 $('#txtDatea').val(q_date());
                 $('#txtOdate').val(q_date());
                 $('#txtWdate').val(q_date());
+                //下個月5日
+                var t_year = q_date().substring(0,3);
+                var t_mon = q_date().substring(4,6);
+                var t_day = '05';
+                if((dec(t_mon)+1) > 12){
+                	t_year = dec(t_year)+1;
+                	t_mon = '01';
+                }else{
+                	t_mon = (dec(t_mon)+1).toString();
+                	t_mon = padL(t_mon,'0',2);
+                }
+                var DateNew = new Date((dec(t_year)+1911) + '/' + t_mon + '/' + t_day);
+                if(DateNew.getDay() == 0){
+                	t_day = padL((dec(t_day)+1),'0',2);
+                }else if(DateNew.getDay() == 6){
+                	t_day = padL((dec(t_day)+2),'0',2);
+                }
+                $('#txtPaydate').val(t_year + '/' + t_mon + '/' + t_day);
 				/*t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
 	            t_date.setDate(t_date.getDate()+4);
 	            t_year = t_date.getUTCFullYear()-1911;
