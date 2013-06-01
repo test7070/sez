@@ -465,13 +465,13 @@
                     		}
                     		else{
                     			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
-            					q_gt('ufs', t_where, 0, 0, 0, "gqb_status2_"+n+"_"+t_checkno, r_accy);
+            					q_gt('ufs', t_where, 0, 0, 0, "gqb_status2_"+t_sel+"_"+t_checkno, r_accy);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_status2'){
                     		//檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]);
                     		var t_checkno = t_name.split('_')[3];               		
-                    		var as = _q_appendData("chk2s", "", true);
+                    		var as = _q_appendData("ufs", "", true);
                     		if(as[0]!=undefined){
                     			alert('支票【'+t_checkno+'】已兌現，兌現單號【'+as[0].noa+'】');
                     			Unlock(1);
@@ -490,13 +490,13 @@
                     		}
                     		else{
                     			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
-            					q_gt('ufs', t_where, 0, 0, 0, "gqb_statusB_"+n+"_"+t_checkno, r_accy);
+            					q_gt('ufs', t_where, 0, 0, 0, "gqb_statusB_"+t_sel+"_"+t_checkno, r_accy);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_statusB'){
                     		//檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]);
                     		var t_checkno = t_name.split('_')[3];               		
-                    		var as = _q_appendData("chk2s", "", true);
+                    		var as = _q_appendData("ufs", "", true);
                     		if(as[0]!=undefined){
                     			alert('支票【'+t_checkno+'】已兌現，兌現單號【'+as[0].noa+'】');
                     			Unlock(1);

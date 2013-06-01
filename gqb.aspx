@@ -186,23 +186,24 @@
                     		var t_checkno = t_name.split('_')[3];               		
                     		var as = _q_appendData("chk2s", "", true);
                     		if(as[0]!=undefined){
-                    			alert('支票【'+t_checkno+'】已託收，託收單號【'+as[0].noa+'】');
+                    			alert('支票【'+t_checkno+'】已託收禁止修改，託收單號【'+as[0].noa+'】');
                     			Unlock(1);
                     		}
                     		else{
                     			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
-            					q_gt('ufs', t_where, 0, 0, 0, "gqb_status2_"+n+"_"+t_checkno, r_accy);
+            					q_gt('ufs', t_where, 0, 0, 0, "gqb_status2_"+t_sel+"_"+t_checkno, r_accy);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_status2'){
                     		//檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]);
                     		var t_checkno = t_name.split('_')[3];               		
-                    		var as = _q_appendData("chk2s", "", true);
+                    		var as = _q_appendData("ufs", "", true);
                     		if(as[0]!=undefined){
-                    			alert('支票【'+t_checkno+'】已兌現，兌現單號【'+as[0].noa+'】');
+                    			alert('支票【'+t_checkno+'】已兌現禁止修改，兌現單號【'+as[0].noa+'】');
                     			Unlock(1);
                     		}
                     		else{
+                    			alert('gqb_status2  '+(t_sel-1));
                     			checkGqbStatus_btnModi(t_sel-1);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_statusA'){
@@ -211,20 +212,20 @@
                     		var t_checkno = t_name.split('_')[3];               		
                     		var as = _q_appendData("chk2s", "", true);
                     		if(as[0]!=undefined){
-                    			alert('支票【'+t_checkno+'】已託收，託收單號【'+as[0].noa+'】');
+                    			alert('支票【'+t_checkno+'】已託收禁止刪除，託收單號【'+as[0].noa+'】');
                     			Unlock(1);
                     		}
                     		else{
                     			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
-            					q_gt('ufs', t_where, 0, 0, 0, "gqb_statusB_"+n+"_"+t_checkno, r_accy);
+            					q_gt('ufs', t_where, 0, 0, 0, "gqb_statusB_"+t_sel+"_"+t_checkno, r_accy);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_statusB'){
                     		//檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]);
                     		var t_checkno = t_name.split('_')[3];               		
-                    		var as = _q_appendData("chk2s", "", true);
+                    		var as = _q_appendData("ufs", "", true);
                     		if(as[0]!=undefined){
-                    			alert('支票【'+t_checkno+'】已兌現，兌現單號【'+as[0].noa+'】');
+                    			alert('支票【'+t_checkno+'】已兌現禁止刪除，兌現單號【'+as[0].noa+'】');
                     			Unlock(1);
                     		}
                     		else{
@@ -264,12 +265,13 @@
             }
             function q_modif(){
             	Lock(1,{opacity:0});
-                checkGqbStatus_btnModi(1);
+            	checkGqbStatus_btnModi(0);
 			}
 			function checkGqbStatus_btnModi(n){
             	if(n<0){
             		q_modif2();
             		Unlock(1);
+            		return false;
             	}else{
             		var t_checkno = $.trim($('#txtGqbno').val());
             		if(t_checkno.length>0){
@@ -419,7 +421,7 @@
             }
 			function q_delef(){
                 Lock(1,{opacity:0});
-            	checkGqbStatus_btnDele(1);
+            	checkGqbStatus_btnDele(0);
 			}
             function btnDele() {
             	_btnDele();
