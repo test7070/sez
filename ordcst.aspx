@@ -87,7 +87,7 @@
 		                t_where = t_where;
 		            }
 		            else {
-		                alert(q_getMsg('msgtggEmp'));
+		                alert(q_getMsg('msgTggEmp'));
 		                return;
 		            }
 		            q_box('ordbsst_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
