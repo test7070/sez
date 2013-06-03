@@ -81,8 +81,8 @@
 				case 'view_workcs':
 					var as = _q_appendData("view_workcs", "", true);
 					if(as[0]!=undefined){
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtPrice,txtOrdeno,txtNo2'
-								, as.length, as, 'productno,product,unit,mount,price,ordeno,no2', 'txtProductno');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtPrice,txtOrdeno,txtNo2,txtMemo'
+								, as.length, as, 'productno,product,unit,mount,price,ordeno,no2,memo', 'txtProductno');
 					}
 					break;
                 case q_name: if (q_cur == 4)   // 查詢
