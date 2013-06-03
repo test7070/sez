@@ -85,6 +85,7 @@
 					var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
              	 	t_noa  =  t_noa.replace('noa=','');
    					$('#txtXnoa').val(t_noa);
+   					$('#chkXcarteam').children('input').attr('checked', 'checked');
 				}
 			}
 		</script>
