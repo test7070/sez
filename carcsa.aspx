@@ -127,6 +127,7 @@
 	                    $('#txtTypea').val(carcsa.type[n].memo);
 	                    $('#cmbTypea2').val(carcsa.type[n].typea);
 	                    $('#txtPrice').val(FormatNumber(carcsa.type[n].price));
+	                    $('#txtType').val(carcsa.type[n].cartype+' '+carcsa.type[n].memo+' '+carcsa.type[n].typea+' '+FormatNumber(carcsa.type[n].price));
                     }else{
                     	alert(n+"__$('#combType').change");
                     }
