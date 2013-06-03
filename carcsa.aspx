@@ -122,15 +122,15 @@
 				});
                 $('#combType').change(function() {         
                     var n = parseFloat($('#combType').val());
-                    if(n<carcsa.type.length){
+                    if(n>=0 && n<carcsa.type.length){
                     	$('#txtCartype').val(carcsa.type[n].cartype);
 	                    $('#txtTypea').val(carcsa.type[n].memo);
 	                    $('#cmbTypea2').val(carcsa.type[n].typea);
 	                    $('#txtPrice').val(FormatNumber(carcsa.type[n].price));
 	                    $('#txtType').val(carcsa.type[n].cartype+' '+carcsa.type[n].memo+' '+carcsa.type[n].typea+' '+FormatNumber(carcsa.type[n].price));
-                    }else{
+                    }/*else{
                     	alert(n+"__$('#combType').change");
-                    }
+                    }*/
                     sum();
                 });
                 $('#txtPrice').change(function() {
@@ -496,6 +496,7 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
+                $('#combType').val(0);
                 if($('#txtTrandate').val().length==0)
                		$('#txtTrandate').val(q_date());
                	if(q_cur==1 || q_cur==2)
