@@ -238,7 +238,7 @@
             }
 
             function btnPrint() {
-                q_box('z_oil.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+                q_box(location.href.replace('oil.aspx','z_oil.aspx'), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
