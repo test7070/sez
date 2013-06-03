@@ -143,6 +143,12 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'payaccs':
+                		t_payaccs = _q_appendData("payaccs", "", true);
+                	break;
+                	case 'vcc':
+                		t_vcc = _q_appendData("vcc", "", true);
+                	break;
                     case 'custroutine':
                     
                     	var custroutine = _q_appendData("custroutine", "", true);
@@ -227,6 +233,34 @@
                     }
                 }
                 _bbsAssign();
+                if(q_cur==2){
+                	if(t_payaccs[0] != undefined){
+	                	for (var i = 0; i < q_bbsCount; i++) {
+		                	for (var j = 0; j < t_payaccs.length; j++) {
+		                		if($("#txtCustno_"+i).val()==t_payaccs[j].custno && $("#txtProductno_"+i).val()==t_payaccs[j].productno && $("#txtMemo_"+i).val()==t_payaccs[j].memo2){
+		                			$('#btnMinus_'+j).attr('disabled', 'disabled');
+									$('#btnCustno_'+j).attr('disabled', 'disabled');
+									$('#txtCustno_'+j).attr('disabled', 'disabled');
+		                			$('#txtComp_'+j).attr('disabled', 'disabled');
+		                			$('#btnProductno_'+j).attr('disabled', 'disabled');
+		                			$('#txtProductno_'+j).attr('disabled', 'disabled');
+		                			$('#txtProduct_'+j).attr('disabled', 'disabled');
+		                			$('#txtMount_'+j).attr('disabled', 'disabled');
+		                			$('#txtMoney_'+j).attr('disabled', 'disabled');
+		                			$('#btnProductno2_'+j).attr('disabled', 'disabled');
+		                			$('#txtProductno2_'+j).attr('disabled', 'disabled');
+		                			$('#txtProduct2_'+j).attr('disabled', 'disabled');
+		                			$('#txtPlusmoney_'+j).attr('disabled', 'disabled');
+		                			$('#txtMinusmoney_'+j).attr('disabled', 'disabled');
+		                			$('#btnAcc1_'+j).attr('disabled', 'disabled');
+		                			$('#txtAcc3_'+j).attr('disabled', 'disabled');
+		                			$('#txtAcc4_'+j).attr('disabled', 'disabled');
+		                			$('#txtMemo_'+j).attr('disabled', 'disabled');
+		                		}	                		
+		                	}
+	                	}
+	                }
+                }
             }
             
 			function q_stPost() {
@@ -261,6 +295,33 @@
 				}
                 _btnModi();
                 $('#txtDatea').focus();
+                
+                if(t_payaccs[0] != undefined){
+                	for (var i = 0; i < q_bbsCount; i++) {
+	                	for (var j = 0; j < t_payaccs.length; j++) {
+	                		if($("#txtCustno_"+i).val()==t_payaccs[j].custno && $("#txtProductno_"+i).val()==t_payaccs[j].productno && $("#txtMemo_"+i).val()==t_payaccs[j].memo2){
+	                			$('#btnMinus_'+j).attr('disabled', 'disabled');
+								$('#btnCustno_'+j).attr('disabled', 'disabled');
+								$('#txtCustno_'+j).attr('disabled', 'disabled');
+	                			$('#txtComp_'+j).attr('disabled', 'disabled');
+	                			$('#btnProductno_'+j).attr('disabled', 'disabled');
+	                			$('#txtProductno_'+j).attr('disabled', 'disabled');
+	                			$('#txtProduct_'+j).attr('disabled', 'disabled');
+	                			$('#txtMount_'+j).attr('disabled', 'disabled');
+	                			$('#txtMoney_'+j).attr('disabled', 'disabled');
+	                			$('#btnProductno2_'+j).attr('disabled', 'disabled');
+	                			$('#txtProductno2_'+j).attr('disabled', 'disabled');
+	                			$('#txtProduct2_'+j).attr('disabled', 'disabled');
+	                			$('#txtPlusmoney_'+j).attr('disabled', 'disabled');
+	                			$('#txtMinusmoney_'+j).attr('disabled', 'disabled');
+	                			$('#btnAcc1_'+j).attr('disabled', 'disabled');
+	                			$('#txtAcc3_'+j).attr('disabled', 'disabled');
+	                			$('#txtAcc4_'+j).attr('disabled', 'disabled');
+	                			$('#txtMemo_'+j).attr('disabled', 'disabled');
+	                		}	                		
+	                	}
+                	}
+                }
             }
 
             function btnPrint() {
@@ -289,9 +350,17 @@
 
                 } // j
             }
-
+			
+			var t_payaccs,t_vcc;
             function refresh(recno) {
                 _refresh(recno);
+                
+                if(q_cur==0||q_cur==4){
+                	var t_where = "where=^^ rc2no ='"+$('#txtNoa').val()+"' ^^";
+                	q_gt('payaccs', t_where , 0, 0, 0, "", r_accy);
+                	var t_where = "where=^^ ordeno ='"+$('#txtNoa').val()+"' and payed!=0 ^^";
+                	q_gt('vcc', t_where , 0, 0, 0, "", r_accy);
+                }
             }
 
             function readonly(t_para, empty) {
@@ -344,6 +413,11 @@
             }
 
             function btnDele() {
+            	if(t_payaccs[0]!= undefined || t_vcc[0]!=undefined){
+            		alert('該單據內已收款或代付，無法刪除!!');
+            		return;
+            	}
+            	
                 _btnDele();
             }
 
