@@ -19,7 +19,7 @@
         var q_name = "vcc";
         var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
         var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
-        var q_readonly = ['txtNoa']; 
+        var q_readonly = ['txtNoa','txtAccno','txtWorker','txtWorker2']; 
         var q_readonlys= [];
         var bbmNum = [['txtTotalus', 10, 4, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtWeight', 10, 0, 1]];  // ���\ key �p��
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtGweight', 10, 1, 1]];
@@ -53,7 +53,7 @@
 		var t_spec;//儲存spec陣列
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd ]];
+            bbmMask = [['txtDatea', r_picd ],['txtMon', r_picm]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('vcc.typea'));  
             //q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
