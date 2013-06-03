@@ -152,7 +152,7 @@
                 t_where = t_where;
             }
             else {
-                alert(q_getMsg('msgtggEmp'));
+                alert(q_getMsg('msgTggEmp'));
                 return;
             }
             q_box("ordcs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));

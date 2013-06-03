@@ -19,7 +19,7 @@
         var q_name = "vcc";
         var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
         var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
-        var q_readonly = ['txtNoa']; 
+        var q_readonly = ['txtNoa','txtAccno','txtWorker','txtWorker2']; 
         var q_readonlys= [];
         var bbmNum = [['txtTotalus', 10, 4, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtWeight', 10, 0, 1]];  // ���\ key �p��
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtGweight', 10, 1, 1]];
@@ -53,7 +53,7 @@
 		var t_spec;//儲存spec陣列
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd ]];
+            bbmMask = [['txtDatea', r_picd ],['txtMon', r_picm]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('vcc.typea'));  
             //q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
@@ -164,16 +164,16 @@
                     break;
             }  /// end switch
         }
-        
+
         function lblOrdc() {
-            var t_tggno = trim($('#txtTggno').val());
+            var t_cno = trim($('#txtCno').val());
             var t_ordeno = trim($('#txtOrdeno').val());
             var t_where='';
-            if (t_tggno.length > 0) {
+            if (t_cno.length > 0) {
             	if (t_ordeno.length > 0) 
-            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND �y�k�A�Х� &&
+            		t_where = "enda=0 && ((select count(*) from ordc" + r_accy + " where left(cno,"+t_cno.length +")='"+t_cno + "' && ordc" +r_accy+ ".noa=ordcs"+r_accy+".noa)>0) && " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && kind='"+$('#cmbKind').val()+"'";
             	else
-                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND �y�k�A�Х� &&
+                	t_where = "enda=0 && ((select count(*) from ordc" + r_accy + " where left(cno,"+t_cno.length +")='"+t_cno + "' && ordc" +r_accy+ ".noa=ordcs"+r_accy+".noa)>0) && kind='"+$('#cmbKind').val()+"'";
                 t_where = t_where;
             }
             else {
@@ -329,7 +329,6 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-            $('#cmbKind').val(q_getPara('vcc.kind'));
             size_change();
         }
 

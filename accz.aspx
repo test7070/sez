@@ -26,8 +26,8 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno )
-            $('#txtNoa').focus
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno );
+            $('#txtNoa').focus();
         });
         //////////////////   end Ready
         function currentData() {
@@ -98,11 +98,7 @@
             		$(this).val(s1.substr(0,4) + '.' + s1.substr(4));
             	if(s1.length == 4)
             		$(this).val(s1 + '.');
-            }).focus(function() {
-				q_msg( $(this), '新增時只需輸入至小數點，系統將自動補齊後面4碼 ex:1451.');
-			}).blur(function () {
-				q_msg();
-			});
+            });
             $('#txtDepl_ac').change(function(){
             	var s1 = trim($(this).val());
             	if(s1.length > 4 && s1.indexOf('.') <0)
@@ -249,14 +245,15 @@
 			q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
         }
         function btnOk() {
-             sum();
+            sum();
        		var t_acc1 = $.trim($('#txtAcc1').val());
             var t_noa = trim($('#txtNoa').val());
             var t_date = trim($('#txtDatea').val());
             if(t_acc1.length < 5 || (q_cur==1 && t_acc1.substr(t_acc1.length-1,1) != '.')){
+            	alert('新增時只需輸入前四碼(主科目) ex: 1451');
 				$('#txtAcc1').focus();
 				return;
-			}
+			};
             if ( t_noa.length == 0 || t_noa == "AUTO")  
                q_gtnoa(q_name, replaceAll('AZ'+ (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else

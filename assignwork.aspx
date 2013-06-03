@@ -223,6 +223,7 @@
                     Unlock();
                     return;
                 }
+                /*
  				if($('#txtPaydate').val().length==0 || !q_cd($('#txtPaydate').val())){
  					//預設次月5日,遇六日順延
  					var t_paydate = $('#txtDatea').val();
@@ -245,6 +246,7 @@
             		}
             		$('#txtPaydate').val((t_year-1911)+'/'+(t_mon+1)+'/'+t_day);
  				}
+ 				*/
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -296,7 +298,7 @@
                 $('#txtDatea').val(q_date());
                 $('#txtOdate').val(q_date());
                 $('#txtWdate').val(q_date());
-                //下個月5日
+                //下個月5日遇六日則順延<Begin>
                 var t_year = q_date().substring(0,3);
                 var t_mon = q_date().substring(4,6);
                 var t_day = '05';
@@ -313,16 +315,8 @@
                 }else if(DateNew.getDay() == 6){
                 	t_day = padL((dec(t_day)+2),'0',2);
                 }
+                //下個月5日遇六日則順延<End> t_year,t_mon,t_day
                 $('#txtPaydate').val(t_year + '/' + t_mon + '/' + t_day);
-				/*t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
-	            t_date.setDate(t_date.getDate()+4);
-	            t_year = t_date.getUTCFullYear()-1911;
-	            t_year = t_year>99?t_year+'':'0'+t_year;
-	            t_month = t_date.getUTCMonth()+1;
-	            t_month = t_month>9?t_month+'':'0'+t_month;
-	            t_day = t_date.getUTCDate();
-	            t_day = t_day>9?t_day+'':'0'+t_day;
-	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);*/
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
 	            
