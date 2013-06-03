@@ -25,55 +25,77 @@
                 q_gf('', 'z_payacc');   
             });
             function q_gfPost() {
-                $('#q_report').q_report({
-	                    fileName : 'z_payacc',
-	                    options : [{/*請款日期*/
-	                        type : '1',
-	                        name : 'date'
-	                    },{/*客戶區間*/
-	                        type : '2',
-	                        name : 'xcust',
-	                        dbf : 'cust',
-	                        index : 'noa,comp',
-	                        src : 'cust_b.aspx'
-	                    },{/*業務區間*/
-	                        type : '2',
-	                        name : 'xsss',
-	                        dbf : 'sss',
-	                        index : 'noa,namea',
-	                        src : 'sss_b.aspx'
-	                    }, {/*代收項目*/
-                        type : '5', //select
-                        name : 'xproduct',
-                        value : [q_getPara('report.all')].concat(q_getPara('tproduct').split('&'))
-                    }]
-	                });
-                q_popAssign();
-				q_langShow();
-              $('#txtDate1').mask('999/99/99');
-                $('#txtDate2').mask('999/99/99');
-                 var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year + '/' + t_month+'/'+t_day);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year + '/' + t_month+'/'+t_day);
+            	q_gt('ucc', "where=^^ CHARINDEX('代收',product)>0 and left(noa,1)='E' ^^", 0, 0, 0, "");
             }
+            var t_item = "";
+            function q_gtPost(t_name) {
+            	switch (t_name) {
+            	  	case 'ucc':
+		                var as = _q_appendData("ucc", "", true);
+		                if (as[0] != undefined) {
+		                    t_item = "";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].product;
+		                    }
+		                    //q_cmbParse("cmbProductno", t_item); 
+		                }
+            		break;
+                  }
+                  
+                  if(t_item.length>0 ){
+	                  	$('#q_report').q_report({
+		                    fileName : 'z_payacc',
+		                    options : [{/*請款日期*/
+		                        type : '1',
+		                        name : 'date'
+		                    },{/*客戶區間*/
+		                        type : '2',
+		                        name : 'xcust',
+		                        dbf : 'cust',
+		                        index : 'noa,comp',
+		                        src : 'cust_b.aspx'
+		                    },{/*業務區間*/
+		                        type : '2',
+		                        name : 'xsss',
+		                        dbf : 'sss',
+		                        index : 'noa,namea',
+		                        src : 'sss_b.aspx'
+		                    }, {/*代收項目*/
+	                        type : '5', //select
+	                        name : 'xproduct',
+	                        value : [q_getPara('report.all')].concat(t_item.split(','))
+	                    }]
+					});
+		            q_getFormat();
+	                q_popAssign();
+					q_langShow();
+					t_item = "";
+	              $('#txtDate1').mask('999/99/99');
+	                $('#txtDate2').mask('999/99/99');
+	                 var t_date,t_year,t_month,t_day;
+		                t_date = new Date();
+		                t_date.setDate(1);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtDate1').val(t_year + '/' + t_month+'/'+t_day);
+		                
+		                t_date = new Date();
+		                t_date.setDate(35);
+		                t_date.setDate(0);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtDate2').val(t_year + '/' + t_month+'/'+t_day);
+                  }
+			}
+            
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
