@@ -54,6 +54,9 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            $('#btnImportWorkc').click(function(){
+            	
+            });
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -302,7 +305,6 @@
 </style>
 </head>
 <body>
-    <form id="form1" runat="server" style="height: 98%">
 <!--#include file="../inc/toolbar.inc"-->
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -350,6 +352,7 @@
 	        <tr>
 	        	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 	        	<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
+	        	<td><input class="btn"  id="btnImportWorkc" type="button"/></td>
 	        </tr>
         </table>
         </div>
@@ -392,7 +395,5 @@
         </table>
         </div>
         <input id="q_sys" type="hidden" />
-    
-    </form>
 </body>
 </html>
