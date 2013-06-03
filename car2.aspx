@@ -1035,6 +1035,14 @@
 						<td><input id="txtOutplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
+						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
+						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblWastedate" class="lbl"> </a></td>
+						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblSuspdate" class="lbl"> </a></td>
+						<td><input id="txtSuspdate" type="text" class="txt c1"/> </td>
+					</tr>
+					<tr class="other">
 						<td><span> </span><a id="lblPassdate" class="lbl"> </a></td>
 						<td><input id="txtPassdate" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblLimitdate" class="lbl"> </a></td>
@@ -1089,14 +1097,6 @@
 						<td><input id="txtEngineno" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblOldnoa" class="lbl"> </a></td>
 						<td><input id="txtOldnoa" type="text" class="txt c1"/> </td>
-					</tr>
-					<tr class="other">
-						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
-						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblWastedate" class="lbl"> </a></td>
-						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblSuspdate" class="lbl"> </a></td>
-						<td><input id="txtSuspdate" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblOverdate" class="lbl"> </a></td>
