@@ -55,39 +55,19 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
             $('#btnImportWorkc').click(function(){
-            	
+            	var t_tggno = $.trim($('#txtTggno').val());
+            	if(t_tggno.length != 0){
+                	var t_where = "where=^^ tggno='"+t_tggno+"' ^^";
+                	q_gt('view_workcs', t_where, 0, 0, 0, "", r_accy);
+               	}else{
+               		alert('請輸入 '+q_getMsg('lblTgg'));
+               	}
             });
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret; 
             switch (b_pop ) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'ordes':
-                    if (q_cur > 0 && q_cur < 4) {
-                        b_ret = getb_ret();
-                        if (!b_ret || b_ret.length == 0)
-                            return;
-                        var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2'
-                                                           , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
-                        bbsAssign();
-
-                        for (i = 0; i < ret.length; i++) {
-                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
-                            if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-                                $('#txtMount_' + k).val(b_ret[i]['notv']);
-                                $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-                            }
-                            else {
-                                $('#txtWeight_' + k).val(b_ret[i]['notv']);
-                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
-                            }
-
-                        }  /// for i
-                    }
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -98,6 +78,13 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
+				case 'view_workcs':
+					var as = _q_appendData("view_workcs", "", true);
+					if(as[0]!=undefined){
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtPrice,txtOrdeno,txtNo2'
+								, as.length, as, 'productno,product,unit,mount,price,ordeno,no2', 'txtProductno');
+					}
+					break;
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
