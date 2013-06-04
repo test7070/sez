@@ -17,7 +17,7 @@
             q_tables = 's';
             var q_name = "calctype";
             var q_readonly = [];
-            var q_readonlys = new Array();
+            var q_readonlys = ['txtNoq'];
             var bbmNum = [];
             var bbsNum = [['txtDiscount',10,3],['txtDiscount2',10,3]];
             var bbmMask = [];
@@ -414,7 +414,8 @@
 					<td  align="center"  style="width:40px;" >
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:100px;"><a id='lblTypea_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblNoq_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblTypea_s'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblIsoutside_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDiscount2_s'> </a></td>
@@ -423,8 +424,8 @@
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><input type="text" id="txtNoq.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtTypea.*" style="width:95%;" /></td>
 					<td  align="center"><input type="checkbox" id="chkIsoutside.*" /></td>
 					<td><input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" /></td>
