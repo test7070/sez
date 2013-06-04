@@ -55,37 +55,32 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
             q_mask(bbmMask);
+            $('#btnImportWorka').click(function(){
+            	var t_workno = $.trim($('#txtWorkno').val());
+            	if(!emp(t_workno)){
+                	t_where = "workno='" + t_workno + "'";
+                	q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workas', "95%", "95%", q_getMsg('popWorkas'));
+            	}else{
+            		alert('請輸入【' + q_getMsg('lblWorkno')+'】');
+            	}
+            });
 		}
 
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop ) {
-                case 'ordes':
-                    if (q_cur > 0 && q_cur < 4) {
-                        b_ret = getb_ret();
-                        if (!b_ret || b_ret.length == 0)
-                            return;
-                        var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2'
-                                                           , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
-                        bbsAssign();
-
-                        for (i = 0; i < ret.length; i++) {
-                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
-                            if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-                                $('#txtMount_' + k).val(b_ret[i]['notv']);
-                                $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-                            }
-                            else {
-                                $('#txtWeight_' + k).val(b_ret[i]['notv']);
-                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
-                            }
-
-                        }  /// for i
-                    }
-                    break;
-                
+				case 'workas':
+					if (q_cur > 0 && q_cur < 4) {
+						b_ret = getb_ret();
+						if (!b_ret || b_ret.length == 0)
+							return;
+						var i, j = 0;
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMonunt,txtTypea', b_ret.length, b_ret
+														   , 'productno,product,unit,mount,typea'
+														   , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+						bbsAssign();
+					}
+					break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -122,8 +117,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-
-            q_box('workc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('workc_s.aspx', q_name + '_s', "510px", "330px", q_getMsg("popSeek"));
         }
 
         function bbsAssign() {  /// 表身運算式
@@ -358,7 +352,7 @@
         	<td><span> </span><a id='lblCucdate' class="lbl"> </a></td>
             <td><input id="txtCucdate" type="text" class="txt c1"/></td>
         	<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-            <td><input id="txtWorkerno" type="text"  class="txt c1"/></td></tr>
+            <td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
 		<tr>
         	<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
 			<td><input id="txtProductno" type="text" class="txt c1"/></td>
@@ -372,10 +366,13 @@
         </tr>
 		<tr>
         	<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-			<td colspan='5'><input id="txtProduct" type="text" style="width: 98%;"/></td></tr>
+			<td colspan='4'><input id="txtProduct" type="text" style="width: 98%;"/></td>
+			<td><input class="btn"  id="btnImportWorka" type="button"/></td>
+		</tr>
         <tr>
         	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-	        <td colspan='5'><input id="txtMemo" type="text" style="width: 98%;"/></td></tr>
+	        <td colspan='5'><input id="txtMemo" type="text" style="width: 98%;"/></td>
+		</tr>
         </table>
         </div>
 

@@ -19,7 +19,7 @@
         var q_name = "workd";
         var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-        var q_readonly = ['txtNoa','txtWorker'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq'];
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,2,1],['txtErrmount', 15,2,1]];
@@ -56,11 +56,15 @@
             q_mask(bbmMask);
             $('#btnImportWorkc').click(function(){
             	var t_tggno = $.trim($('#txtTggno').val());
-            	if(t_tggno.length != 0){
-                	var t_where = "where=^^ tggno='"+t_tggno+"' ^^";
+            	var t_workcno = $.trim($('#txtWorkcno').val());
+            	var t_where = "where=^^ tggno='"+t_tggno+"'";
+            	if(!emp(t_tggno.length)){
+            		if(!emp(t_workcno.length))
+            			t_where = " workcno='"+t_workcno+"'";
+                	t_where += " ^^";
                 	q_gt('view_workcs', t_where, 0, 0, 0, "", r_accy);
                	}else{
-               		alert('請輸入 '+q_getMsg('lblTgg'));
+               		alert('請輸入【'+q_getMsg('lblTgg')+'】');
                	}
             });
         }
@@ -83,7 +87,10 @@
 					if(as[0]!=undefined){
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtPrice,txtOrdeno,txtNo2,txtMemo'
 								, as.length, as, 'productno,product,unit,mount,price,ordeno,no2,memo', 'txtProductno');
+						$('#txtWorkcno').val(as[0].noa);
+						sum();
 					}
+					
 					break;
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
@@ -98,7 +105,10 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
+			if(q_cur==1)
+				$('#txtWorker').val(r_name);
+			else
+            	$('#txtWorker2').val(r_name);
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -111,13 +121,16 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('workd_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('workd_s.aspx', q_name + '_s', "510px", "330px", q_getMsg("popSeek"));
         }
 
         function bbsAssign() {  /// 表身運算式
             _bbsAssign();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
+                $('#txtMount_' + j).change(function(){sum();});
+                $('#txtPrice_' + j).change(function(){sum();});
+                $('#txtTotal_' + j).change(function(){sum();});
             } //j
         }
 
@@ -158,10 +171,14 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t_mount = 0;t_price = 0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+				t_mount = dec($('#txtMount_' + j).val());
+				t_price = dec($('#txtPrice_' + j).val());
+				if(!emp(t_mount) || !emp(t_price))
+					$('#txtTotal_' + j).val(t_mount*t_price);
             }  // j
+            
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
@@ -291,7 +308,11 @@
 			}
 </style>
 </head>
-<body>
+<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+>
 <!--#include file="../inc/toolbar.inc"-->
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -333,19 +354,25 @@
 	            	<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
 	            	<input id="txtStore" type="text" class="txt" style='width:48%;'/>
 	            </td> 
-	        	<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+				<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
+	            <td><input id="txtWorkcno" type="text" class="txt c1"/></td>
+	        	<td><input class="btn"  id="btnImportWorkc" type="button"/></td>
+			</tr>
+			<tr>
+				<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 	            <td><input id="txtWorker" type="text" class="txt c1"/></td>
+				<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+	            <td><input id="txtWorker2" type="text" class="txt c1"/></td>
 			</tr>
 	        <tr>
 	        	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 	        	<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
-	        	<td><input class="btn"  id="btnImportWorkc" type="button"/></td>
 	        </tr>
         </table>
         </div>
 
         <div class='dbbs'>
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
             <tr style='color:White; background:#003366;' >
                 <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td style="width:10%;" align="center"><a id='lblProductnos'></a></td>
