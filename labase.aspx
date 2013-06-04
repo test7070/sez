@@ -1123,15 +1123,16 @@
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblPrefix_s'> </a></td>
-                <td align="center"><a id='lblNamea_s'> </a></td>
-                <td align="center"><a id='lblBirthday_s'> </a></td>
-                <td align="center"><a id='lblId_s'> </a></td>
-                <td align="center"><a id='lblCh_money_s'> </a></td>
-                <td align="center"><a id='lblAs_health_s'> </a></td>
-                <td align="center"><a id='lblIndate_s'> </a></td>
-                <td align="center"><a id='lblOutdate_s'> </a></td>
+                <td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width: 7%;"><a id='lblPrefix_s'> </a></td>
+                <td align="center" style="width: 10%;"><a id='lblNamea_s'> </a></td>
+                <td align="center" style="width: 10%;"><a id='lblBirthday_s'> </a></td>
+                <td align="center" style="width: 10%;"><a id='lblId_s'> </a></td>
+                <td align="center" style="width: 9%;"><a id='lblCh_money_s'> </a></td>
+                <td align="center" style="width: 9%;"><a id='lblAs_health_s'> </a></td>
+                <td align="center" style="width: 10%;"><a id='lblIndate_s'> </a></td>
+                <td align="center" style="width: 10%;"><a id='lblOutdate_s'> </a></td>
+                <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -1143,6 +1144,7 @@
                 <td ><input class="txt num c1" id="txtAs_health.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtIndate.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtOutdate.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
             </tr>
         </table>
         </div>
