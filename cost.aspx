@@ -26,7 +26,7 @@
             			,['txtInmount', 15, 0, 1],['txtInweight', 15, 3, 1],['txtInmoney', 15, 0, 1],['txtInprice', 15, 2, 1]
             			,['txtBornmount', 15, 0, 1],['txtBornweight', 15, 3, 1],['txtBornmoney', 15, 0, 1]
             			,['txtOutvmount', 15, 0, 1],['txtOutvweight', 15, 3, 1],['txtOutvmoney', 15, 0, 1]
-            			,['txtMount1', 15, 0, 1],['txtWeight1', 15, 3, 1],['txtMoney1', 15, 0, 1]
+            			,['txtMount', 15, 0, 1],['txtWeight', 15, 3, 1],['txtMoney', 15, 0, 1]
             			,['txtSalemount', 15, 0, 1],['txtSaleweight', 15, 3, 1],['txtSalemoney', 15, 0, 1]
             			,['txtGetmount', 15, 0, 1],['txtGetweight', 15, 3, 1],['txtGetmoney', 15, 0, 1]
             			,['txtOutsmount', 15, 0, 1],['txtOutsweight', 15, 3, 1],['txtOutsmoney', 15, 0, 1]
@@ -62,15 +62,20 @@
 
                 mainForm(1);
             }
+            var costunit='';
             function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtMon', r_picm]];
+				bbmMask = [['txtMon', r_picm],['txtDatea', r_picd]];
 				bbsMask = [];
 				q_mask(bbmMask);
-				
+				if(q_getPara('sys.costunit').toUpperCase()=='KG')
+					costunit='w';
+				else
+					costunit='m';
+					
 				$('#btnImport').click(function () {
 					//取得上個月
-					var prvmon='';
+					/*var prvmon='';
 					var t_prvmon=new Date(dec($('#txtMon').val().substr(0,3))+1911,dec($('#txtMon').val().substr(4,2))-1,1);
 				    t_prvmon.setDate(t_prvmon.getDate() -1)
 				    prvmon=''+(t_prvmon.getFullYear()-1911)+'/';
@@ -78,7 +83,9 @@
 				    prvmon = prvmon+(t_prvmon.getMonth()>9?(t_prvmon.getMonth()+1)+'':'0'+(t_prvmon.getMonth()+1));
 				    
 					var t_where = "where=^^ mon='"+prvmon+"' ^^";
-                	q_gt('cost', t_where, 0, 0, 0, "pevcost", r_accy+"_"+r_cno);
+                	q_gt('cost', t_where, 0, 0, 0, "pevcost", r_accy+"_"+r_cno);*/
+                	
+                	q_func('qtxt.query','vccadcxls.txt,vccaxls,'+encodeURI($('#txtNoa').val()) + ';' + encodeURI($('#txtDatea').val()) + ';' + encodeURI(q_getPara('sys.costunit')));
                 });
 					
             }
@@ -119,6 +126,11 @@
                     return;
                 }
                 
+                if($('#txtDatea').val().substr(0,6)!=$('#txtMon').val()){
+                	 alert('請輸入正確的'+q_getMsg('lblDatea')+'!!!');
+                	 return;
+                }
+                
                 sum();
                 
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -150,6 +162,7 @@
                 
                 $('#txtNoa').val('AUTO');
                 $('#txtMon').val(q_date().substr(0,6));
+                $('#txtDatea').val(q_date());
                 $('#txtMon').focus();
             }
 
@@ -189,49 +202,61 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                
+                 if (t_para &&!emp($('#txtNoa').val())&&!emp($('#txtMon').val())&&!emp($('#txtDatea').val())&&$('#txtDatea').val().substr(0,6)==$('#txtMon').val()){
+				    $('#btnImport').removeAttr('disabled');
+				}else {
+				    $('#btnImport').attr('disabled', 'disabled');
+				}
             }
             
             function sum() {
             	var t_gwelght=0,t_twelght = 0, t_welght = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
                 	//數量
-					/*
-					if(q_float('txtBeginmount_'+j)>0)
-						q_tr('txtBeginprice_'+j,round(q_float('txtBeginmoney_'+j)/q_float('txtBeginmount_'+j),2));
-					else
-						q_tr('txtBeginprice_'+j,0);
-					if(q_float('txtInmount_'+j)>0)
-						q_tr('txtInprice_'+j,round(q_float('txtInmoney_'+j)/q_float('txtInmount_'+j),2));
-					else
-						q_tr('txtInprice_'+j,0);
-					q_tr('txtMount1_'+,q_float('txtBeginmount_'+j)+q_float('txtInmount_'+j)+q_float('txtBornmount_'+j)+q_float('txtOutvmount_'+j));
-					q_tr('txtLastmount_'+j,q_float('txtMount1_'+j)-q_float('txtSalemount_'+j)-q_float('txtGetmount_'+j)-q_float('txtOutsmount_'+j)+q_float('txtBackmount_'+j)+q_float('txtOthermount_'+j));
-					*/
+					if(costunit=='m'){
+						if(q_float('txtBeginmount_'+j)>0)
+							q_tr('txtBeginprice_'+j,round(q_float('txtBeginmoney_'+j)/q_float('txtBeginmount_'+j),2));
+						else
+							q_tr('txtBeginprice_'+j,0);
+						if(q_float('txtInmount_'+j)>0)
+							q_tr('txtInprice_'+j,round(q_float('txtInmoney_'+j)/q_float('txtInmount_'+j),2));
+						else
+							q_tr('txtInprice_'+j,0);
+						q_tr('txtMount_'+j,q_float('txtBeginmount_'+j)+q_float('txtInmount_'+j)+q_float('txtBornmount_'+j)+q_float('txtOutvmount_'+j));
+						q_tr('txtLastmount_'+j,q_float('txtMount_'+j)-q_float('txtSalemount_'+j)-q_float('txtGetmount_'+j)-q_float('txtOutsmount_'+j)+q_float('txtBackmount_'+j)+q_float('txtOthermount_'+j));
+					}
+					
 					//重量
-					if(q_float('txtBeginweight_'+j)>0)
-						q_tr('txtBeginprice_'+j,round(q_float('txtBeginmoney_'+j)/q_float('txtBeginweight_'+j),2));
-					else
-						q_tr('txtBeginprice_'+j,0);
-					if(q_float('txtInweight_'+j)>0)
-						q_tr('txtInprice_'+j,round(q_float('txtInmoney_'+j)/q_float('txtInweight_'+j),2));
-					else
-						q_tr('txtInprice_'+j,0);
-					q_tr('txtWeight1_'+j,q_float('txtBeginweight_'+j)+q_float('txtInweight_'+j)+q_float('txtBornweight_'+j)+q_float('txtOutvweight_'+j));
-					q_tr('txtLastweight_'+j,q_float('txtWeight1_'+j)-q_float('txtSaleweight_'+j)-q_float('txtGetweight_'+j)-q_float('txtOutsweight_'+j)+q_float('txtBackweight_'+j)+q_float('txtOtherweight_'+j))
+					if(costunit=='w'){
+						if(q_float('txtBeginweight_'+j)>0)
+							q_tr('txtBeginprice_'+j,round(q_float('txtBeginmoney_'+j)/q_float('txtBeginweight_'+j),2));
+						else
+							q_tr('txtBeginprice_'+j,0);
+						if(q_float('txtInweight_'+j)>0)
+							q_tr('txtInprice_'+j,round(q_float('txtInmoney_'+j)/q_float('txtInweight_'+j),2));
+						else
+							q_tr('txtInprice_'+j,0);
+						q_tr('txtWeight_'+j,q_float('txtBeginweight_'+j)+q_float('txtInweight_'+j)+q_float('txtBornweight_'+j)+q_float('txtOutvweight_'+j));
+						q_tr('txtLastweight_'+j,q_float('txtWeight_'+j)-q_float('txtSaleweight_'+j)-q_float('txtGetweight_'+j)-q_float('txtOutsweight_'+j)+q_float('txtBackweight_'+j)+q_float('txtOtherweight_'+j))
+					}
 					
 					//金額
-					q_tr('txtMoney1_'+j,q_float('txtBeginmoney_'+j)+q_float('txtInmoney_'+j)+q_float('txtBornmoney_'+j)+q_float('txtOutvmoney_'+j));
-					q_tr('txtLastmoney_'+j,q_float('txtMoney1_'+j)-q_float('txtSalemoney_'+j)-q_float('txtGetmoney_'+j)-q_float('txtOutsmoney_'+j)+q_float('txtBackmoney_'+j)+q_float('txtOthermoney_'+j));
+					q_tr('txtMoney_'+j,q_float('txtBeginmoney_'+j)+q_float('txtInmoney_'+j)+q_float('txtBornmoney_'+j)+q_float('txtOutvmoney_'+j));
+					q_tr('txtLastmoney_'+j,q_float('txtMoney_'+j)-q_float('txtSalemoney_'+j)-q_float('txtGetmoney_'+j)-q_float('txtOutsmoney_'+j)+q_float('txtBackmoney_'+j)+q_float('txtOthermoney_'+j));
+					
 					//單價
-					//if(q_float('txtLastmount_'+j)>0)
-					//	q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastmount_'+j),2));
-					//else
-					//	q_tr('txtLastprice_'+j,0);
-					if(q_float('txtLastweight_'+j)>0)
-						q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastweight_'+j),2));
-					else
-						q_tr('txtLastprice_'+j,0);
+					if(costunit=='m'){
+						if(q_float('txtLastmount_'+j)>0)
+							q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastmount_'+j),2));
+						else
+							q_tr('txtLastprice_'+j,0);
+					}
+					if(costunit=='w'){
+						if(q_float('txtLastweight_'+j)>0)
+							q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastweight_'+j),2));
+						else
+							q_tr('txtLastprice_'+j,0);
+					}
                 } // j
             }
 
@@ -466,6 +491,8 @@
             <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
         </tr>
          <tr class="tr1">
+         	<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
+            <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
         	<td class="td3"><span> </span></td>
             <td class="td4"><input id="btnImport" type="button" style="float: left;"/></td>
         </tr>
@@ -486,8 +513,8 @@
                 <td align="center" style="width:3%;"><a id='lblBornmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutvmount_s'> </a></br> / <a id='lblOutvweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutvmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMount1_s'> </a></br> / <a id='lblWeight1_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMoney1_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblMount_s'> </a></br> / <a id='lblWeight_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblMoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSalemount_s'> </a></br> / <a id='lblSaleweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSalemoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblGetmount_s'> </a></br> / <a id='lblGetweight_s'> </a></td>
@@ -533,10 +560,10 @@
                 </td>
                 <td ><input  id="txtOutvmoney.*" type="text" class="txt c1 num"/></td>
                 
-                <td ><input  id="txtMount1.*" type="text" class="txt c1 num"/>
-                	<input  id="txtWeight1.*" type="text" class="txt c1 num"/>
+                <td ><input  id="txtMount.*" type="text" class="txt c1 num"/>
+                	<input  id="txtWeight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtMoney1.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtMoney.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtSalemount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtSaleweight.*" type="text" class="txt c1 num"/>
                 </td>
