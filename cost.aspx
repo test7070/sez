@@ -85,7 +85,7 @@
 					var t_where = "where=^^ mon='"+prvmon+"' ^^";
                 	q_gt('cost', t_where, 0, 0, 0, "pevcost", r_accy+"_"+r_cno);*/
                 	
-                	q_func('qtxt.query','vccadcxls.txt,vccaxls,'+encodeURI($('#txtNoa').val()) + ';' + encodeURI($('#txtDatea').val()) + ';' + encodeURI(q_getPara('sys.costunit')));
+                	q_func('qtxt.query','costnextmon.txt,costnextmon,'+encodeURI(r_accy) + ';'+encodeURI($('#txtNoa').val()) + ';' + encodeURI($('#txtDatea').val()) + ';' + encodeURI(q_getPara('sys.costunit')));
                 });
 					
             }
@@ -313,6 +313,10 @@
                 _btnCancel();
             }
             
+            function q_funcPost(t_func, result) {
+            	location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa='"+$('#txtNoa').val()+"';"+r_accy;
+		        alert('結轉功能執行完畢!!');
+            }
         </script> 
     <style type="text/css">
                   #dmain {
