@@ -204,7 +204,7 @@
                		 	var tmp = $('#txtVccano').val().split(',');
                     	for (var i in tmp)
                    			t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
-                		q_box("vcca_2.aspx?"+ r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'vcca', "95%", "95%", q_getMsg("popVcca"));
+                		q_box("vcca_2.aspx?"+ r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno+";ORIGIN=TRD&ORGCUSTNO="+$('#txtCustno').val()+"&CUSTNO2="+t_custno2+"&CUST2="+t_cust2, 'vcca', "95%", "95%", q_getMsg("popVcca"));
                 		break;
                     case 'custchg':
                         var as = _q_appendData("custchg", "", true);

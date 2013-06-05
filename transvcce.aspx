@@ -492,12 +492,18 @@
                 SendCommand(q_bbsCount-1);
             }
             function SaveData(){
-            	var t_carno = "";
+            	var t_string = "";
             	for(var i = 0; i < q_bbsCount; i++) {
             		if($.trim($('#txtCarno_'+i).val()).length>0)
-            			t_carno += (t_carno.length>0?',':'')+$.trim($('#txtCarno_'+i).val());
+            			t_string += (t_string.length>0?',':'')+$.trim($('#txtCarno_'+i).val());
             	}
-            	$('#txtCarno').val(t_carno);
+            	$('#txtCarno').val(t_string);
+            	t_string = "";
+            	for(var i = 0; i < q_bbsCount; i++) {
+            		if($.trim($('#txtMemo2_'+i).val()).length>0)
+            			t_string += (t_string.length>0?',':'')+$.trim($('#txtMemo2_'+i).val());
+            	}
+            	$('#txtMemo2').val(t_string);
             	var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -859,7 +865,8 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
 						<td align="center" style="width:200px; color:black;"><a id='vewAddr'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
-						<td align="center" style="width:350px; color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:250px; color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMemo2'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -870,6 +877,7 @@
 						<td id='addr' style="text-align: center;">~addr</td>
 						<td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
 						<td id='carno' style="text-align: left;">~carno</td>
+						<td id='memo2' style="text-align: left;">~memo2</td>
 					</tr>
 				</table>
 			</div>
@@ -879,7 +887,7 @@
 				<table class="tbbm"  id="tbbm">
 					<tr style="height: 1px;">
 						<td><input type="text" id="txtCarno" style="display:none;"> </td>
-						<td> </td>
+						<td><input type="text" id="txtMemo2" style="display:none;"> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
