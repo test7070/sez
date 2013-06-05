@@ -114,10 +114,10 @@
 					}
 				});
 				$("#txtAddrno").focus(function() {
-					var input = document.getElementById ("txtAddrno");
+		            var input = document.getElementById ("txtAddrno");
 		            if (typeof(input.selectionStart) != 'undefined' ) {	  
-		                input.selectionStart = 5;
-		                input.selectionEnd =8;
+		                input.selectionStart =  $(input).val().replace(/^(\w+\u002D).*$/g,'$1').length;
+		                input.selectionEnd = $(input).val().length;
 		            }
 				});
 				$('#btnUnpresent').click(function() {
