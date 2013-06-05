@@ -117,6 +117,10 @@
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("custdetail_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custdetail', "95%", "650px", q_getMsg('btnDetail'));
                 });
+                  $('#btnInvest').click(function() {
+                  	t_where = "noa='" + $('#txtNoa').val() + "'";
+                    q_box("invest_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invest', "95%", "650px", q_getMsg('btnInvest'));
+                });
                 $('#lblCredit').click(function(){
 					var t_noa = $('#txtNoa').val();
 					var t_where = '';
@@ -621,27 +625,32 @@
 							<div id="CreditShow">
 							</div>
 						</td>
-						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
-						<td><input id="txtTeam"   type="text"  class="txt c1"/>	</td>
+						<td><span> </span><a id='lblChkdate' class="lbl"> </a></td>
+						<td><input id="txtChkdate" type="text" class="txt c1"/></td>
+						<td><input id="btnInvest" type="button"/></td>
+						<!--<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
+						<td><input id="txtTeam"   type="text"  class="txt c1"/>	</td>-->
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id="lblInvest" class="lbl btn"> </a></td>
 						<td colspan="5" >
 							<input id="txtInvestdate"  type="text" style="float:left; width:20%;"/>
 							<input id="txtInvestmemo"  type="text" style="float:left; width:80%;"/>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtChkstatus"  type="text" class="txt c1"/></td>
+						
 						<td><span> </span><a id='lblUacc4' class="lbl"> </a></td>
 						<td><input id="txtUacc4" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblChkdate' class="lbl"> </a></td>
-						<td><input id="txtChkdate" type="text" class="txt c1"/></td>
+						
 						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
 						<td><input id="txtStartdate" type="text" class="txt c1" />	</td>
+						<td> </td>
+						<td> </td>
 						<td><span> </span><a id='lblUacc1' class="lbl"> </a></td>
 						<td><input id="txtUacc1"    type="text" class="txt c1"/></td>
 					</tr>
