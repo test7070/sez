@@ -184,6 +184,12 @@
             function btnModi() {
                  if (emp($('#txtNoa').val()))
                     return;
+                 
+                 if($('#txtDatea').val()<='102/05/31'){
+                	alert('已關帳!!');
+                	return;
+                }
+                 
                 _btnModi(1);
                 hiddenField();
                 $('#txtDatea').focus();
