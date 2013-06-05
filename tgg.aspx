@@ -18,7 +18,7 @@
 
             var q_name = "tgg";
             var q_readonly = [['txtWorker'],['txtUacc1'],['txtUacc2'],['txtUacc3']];
-            var bbmNum = [['txtDueday',10,0],['txtCredit',10,0]];
+            var bbmNum = [['txtDueday',10,0]];
             var bbmMask = [['txtChkdate','999/99/99'],['txtStartdate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -30,9 +30,9 @@
             aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
             							, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             							, ['txtGrpno', 'lblGrp', 'team', 'noa,comp', 'txtGrpno,txtGrpname', 'team_b.aspx']
-            							, ['txtUacc1', 'lblUacc1', 'acc', 'acc1,acc2', 'txtUacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            							/*, ['txtUacc1', 'lblUacc1', 'acc', 'acc1,acc2', 'txtUacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             							, ['txtUacc2', 'lblUacc2', 'acc', 'acc1,acc2', 'txtUacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            							, ['txtUacc3', 'lblUacc3', 'acc', 'acc1,acc2', 'txtUacc3', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            							, ['txtUacc3', 'lblUacc3', 'acc', 'acc1,acc2', 'txtUacc3', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]*/
             							, ['txtUacc4', 'lblUacc4', 'acc', 'acc1,acc2', 'txtUacc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             )
             $(document).ready(function() {
@@ -124,7 +124,7 @@
 		                input.selectionEnd =$(this).val().indexOf(n)+n.length+1;
 		            }
 				});
-                $('#lblConn').click(function() {
+                $('#btnConn').click(function() {
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
                 });
@@ -206,10 +206,10 @@
             		alert(q_getMsg('lblChkdate')+'錯誤。');  
             	if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
             		alert(q_getMsg('lblStartdate')+'錯誤。');
-            	var t_err = '';	
+            	/*var t_err = '';	
             	if (dec($('#txtCredit').val()) > 9999999999)
                     t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 
-                
+                */
                 $('#txtWorker' ).val(r_name);
                 if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
@@ -504,20 +504,11 @@
 					<tr>
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtMobile" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblConn" class="lbl btn" > </a></td>
-						<td><input id="txtConn" type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblConntel' class="lbl"> </a></td>
-						<td><input id="txtConntel" type="text" class="txt c1"/>	</td>
-						<td><span> </span><a id='lblConnfax' class="lbl"> </a></td>
-						<td><input id="txtConnfax" type="text" class="txt c1"/>	</td>
+						<td><input id="btnConn" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
 						<td><select id="cmbTypea"  class="txt c1"> </select></td>
-						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
-						<td><input id="txtTeam"   type="text"  class="txt c1"/>	</td>
 						<td><span> </span><a id="lblGrp"  class="lbl btn"> </a></td>
 						<td>
 							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
@@ -557,8 +548,6 @@
 						<td colspan="5"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
-						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>
 						<td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
 						<td colspan="2">
 							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
@@ -576,7 +565,7 @@
 						<td><input id="txtChkdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
 						<td><input id="txtStartdate" type="text" class="txt c1" />	</td>
-						<td><span> </span><a id='lblUacc1' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblUacc1' class="lbl"> </a></td>
 						<td><input id="txtUacc1"    type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -584,7 +573,7 @@
 						<td><input id="txtDueday" type="text" class="txt num c1"/>	</td>
 						<td><span> </span><a id='lblGetdate' class="lbl"> </a></td>
 						<td><input id="txtGetdate" type="text" class="txt c1"/>	</td>
-						<td><span> </span><a id='lblUacc2' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblUacc2' class="lbl"> </a></td>
 						<td><input id="txtUacc2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -594,7 +583,7 @@
 							<span> </span><a id='lblTrantype' class="lbl"> </a>
 						</td>
 						<td><select id="cmbTrantype" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblUacc3' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
 						<td><input id="txtUacc3"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>

@@ -18,7 +18,7 @@
 
             var q_name = "cust";
             var q_readonly = ['txtWorker'];
-            var bbmNum = [['txtDueday',10,0],['txtCredit',10,0]];
+            var bbmNum = [['txtDueday',10,0]];
             var bbmMask = [['txtChkdate','999/99/99'],['txtStartdate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -37,10 +37,10 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
-			$(document).click(function(){
+			/*$(document).click(function(){
 				if($('#CreditShow').css('display') != 'none')
 					$('#CreditShow').css('display','none');
-			});
+			});*/
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -121,7 +121,7 @@
                   	t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("invest_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invest', "95%", "650px", q_getMsg('btnInvest'));
                 });
-                $('#lblCredit').click(function(){
+               /* $('#lblCredit').click(function(){
 					var t_noa = $('#txtNoa').val();
 					var t_where = '';
 					if($('#CreditShow').css('display') != 'none')
@@ -130,7 +130,7 @@
 	                	t_where = "where=^^a.noa='" + t_noa + "' ^^";
 	                	q_gt('credit_sum', t_where, 1, 1, 0, '', r_accy);
                 	}
-                });
+                });*/
             }
             
             function q_boxClose(s2) {
@@ -162,7 +162,7 @@
                         }
                 		break;
 
-                	case 'credit_sum':
+                	/*case 'credit_sum':
                 		var creditMsg = '<table>';
                 		var credit,unorde = 0,ungqb = 0,umm_opay = 0,umm_unpay = 0,vcc_unpay = 0,total = 0,unpay = 0;
 	                		var as = _q_appendData('credit_sum', '', true);
@@ -183,7 +183,7 @@
                 				creditMsg += '<tr><td class="title">=額度餘額：</td><td class="val">' + total + '</td></tr>';
                 				$('#CreditShow').html(creditMsg).toggle();
                 			}
-                		break;
+                		break;*/
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -240,9 +240,9 @@
             		alert(q_getMsg('lblChkdate')+'錯誤。');  
             	if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
             		alert(q_getMsg('lblStartdate')+'錯誤。');
-            		var t_err = '';	
+            	/*	var t_err = '';	
             	if (dec($('#txtCredit').val()) > 9999999999)
-                    t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 
+                    t_err = t_err + q_getMsg('msgCreditErr') + '\r';*/ 
                  
                 $('#txtWorker' ).val(r_name);
                 if(q_cur==1){
@@ -477,7 +477,7 @@
             select {
                 font-size: medium;
             }
-            #CreditShow {
+            /*#CreditShow {
                 display: none;
                 padding:3px;
                 background-color: #cad3ff;
@@ -492,7 +492,7 @@
             #CreditShow .val {
 				width:60%;
 				text-align: right;
-            }
+            }*/
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -619,12 +619,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
+						<!--<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
 						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>
 						<td>
 							<div id="CreditShow">
 							</div>
-						</td>
+						</td>-->
+						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtChkstatus"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblChkdate' class="lbl"> </a></td>
 						<td><input id="txtChkdate" type="text" class="txt c1"/></td>
 						<td><input id="btnInvest" type="button"/></td>
@@ -639,18 +641,11 @@
 						</td>
 					</tr>-->
 					<tr>
-						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtChkstatus"  type="text" class="txt c1"/></td>
-						
-						<td><span> </span><a id='lblUacc4' class="lbl"> </a></td>
-						<td><input id="txtUacc4" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						
 						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
 						<td><input id="txtStartdate" type="text" class="txt c1" />	</td>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id='lblUacc4' class="lbl"> </a></td>
+						<td><input id="txtUacc4" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblUacc1' class="lbl"> </a></td>
 						<td><input id="txtUacc1"    type="text" class="txt c1"/></td>
 					</tr>
