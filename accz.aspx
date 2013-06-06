@@ -83,9 +83,20 @@
             $('#btnAcczt').click(function () {
             	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" +  r_accy , '', "95%", "650px", q_getMsg('popAcczt'));
             })
-            $('#btnAccza').click(function () {
-            	q_box("accza.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" +  r_accy , '', "95%", "650px", q_getMsg('popAccza'));
-            })
+			$('#btnTurncut').click(function(){
+                	$('#Changeaccno').toggle();
+                	
+             });
+             $('#btnChangeaccno').click(function(){
+                	q_func( 'accz.gen', mon+','+r_name)
+                });
+                $('#btnCloseaccno').click(function(){
+                	$('#Changeaccno').toggle();
+                });
+             $('#btnAccza').click(function() {
+                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                    q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'accza', "40%", "430px", q_getMsg('lblConn'));
+                });
             $('#btnAcczs').click(function () {
             	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popAcczs'));
             })
@@ -156,7 +167,16 @@
 				else
 					$('#txtScrapvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
 			});
+			
         }
+        
+        function OpenAccnoWindows(noaKey){
+        	if(!emp(noaKey.length)){
+        		b_window = false;
+        		q_box("accc.aspx?;;;accc3='" + noaKey + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+        	}
+        }
+        
 		function sum(){
 			var endvalue = 0;
 			var money = q_float('txtMoney');
@@ -203,7 +223,8 @@
 							MaxAcc1Noq = padL(MaxAcc1Noq,'0',4);//左方補0
 						}
 						$('#txtAcc1').val($.trim($('#txtAcc1').val()) + MaxAcc1Noq);
-						_btnOk(Public_key_value, bbmKey[0], '','',2);
+						key_value = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val($('#txtAcc1').val());
+						_btnOk(key_value, bbmKey[0], '','',2);
                     }
                  case q_name: 
                  	if (q_cur == 4)  
@@ -254,15 +275,16 @@
 				$('#txtAcc1').focus();
 				return;
 			};
+			wrServer( t_noa);
+			/*
             if ( t_noa.length == 0 || t_noa == "AUTO")  
                q_gtnoa(q_name, replaceAll('AZ'+ (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer( t_noa);
+            */
         }
 
-		var Public_key_value = '';
         function wrServer(key_value) {
-        	Public_key_value = key_value;
             var i;
             xmlSql = '';
             if (q_cur == 2)   /// popSave
@@ -443,6 +465,14 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
+            #Changeaccno{
+				display:none;
+            	width:20%;
+            	background-color: #cad3ff;
+            	border: 5px solid gray;
+            	position: absolute;
+            	z-index: 50;
+			}
     </style>
 </head>
 	<body ondragstart="return false" draggable="false"
@@ -548,7 +578,22 @@
                <td class="td1"><span> </span><a id='lblEndvalue' class="lbl"></a></td>
                <td class="td2"><input id="txtEndvalue"  type="text" class="txt num c1" /></td>
                <td class="td3"><input id="chkIsendmodi" type="checkbox" /><a id="lblIsendmodi"></a></td>
-               <td class="td4"><input id="btnTurncut" type="button"  /></td></td>
+               <td class="td4">
+               	<div id="Changeaccno">
+				<table>
+					<tr>
+						<td style="width:30%;"><span> </span>月份</td>
+						<td style="width:70%;"><input id="textMon" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+						<input id="btnChangeaccno" type="button" value="轉切傳票">
+						<input id="btnCloseaccno" type="button" value="關閉視窗">
+						</td>
+					</tr>
+				</table>
+				</div>
+               	<input id="btnTurncut" type="button"  /></td></td>
 	           <td class="td5"></td>
                <td class="td6"></td>
                
@@ -595,6 +640,7 @@
         </table>
         </div>
         </div>
+        
          <input id="q_sys" type="hidden" />    
 </body>
 </html>
