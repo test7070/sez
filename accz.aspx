@@ -78,7 +78,7 @@
 
         function mainPost() { 
 			q_getFormat();
-        	bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd],['txtDatea', r_picd]];
+        	bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd],['txtDatea', r_picd],['textMon', r_picm]];
             q_mask(bbmMask);
             $('#btnAcczt').click(function () {
             	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" +  r_accy , '', "95%", "650px", q_getMsg('popAcczt'));
@@ -88,7 +88,8 @@
                 	
              });
              $('#btnChangeaccno').click(function(){
-                	q_func( 'accz.gen', mon+','+r_name)
+             	var mon = $('#textMon').val()
+                q_func( 'accz.gen', mon+','+r_name)
                 });
                 $('#btnCloseaccno').click(function(){
                 	$('#Changeaccno').toggle();

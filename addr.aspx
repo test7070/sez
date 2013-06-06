@@ -452,11 +452,11 @@
 						<td><span> </span><a id='lblDriverprice2' class="lbl"> </a></td>
 						<td><input id="txtDriverprice2" type="text"  class="txt c1  num"/></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id='lblCommission' class="lbl"> </a></td>
 						<td><input id="txtCommission" type="text"  class="txt c1  num"/></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id='lblCommission2' class="lbl"> </a></td>
 						<td><input id="txtCommission2" type="text"  class="txt c1  num"/></td>
 					</tr>
@@ -481,8 +481,8 @@
 					<td align="center" style="width:80px;"><a id='lblCustprice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblDriverprice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblDriverprice2_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblCommission_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblCommission2_s'> </a></td>
+					<td align="center" style="width:80px;display: none;"><a id='lblCommission_s'> </a></td>
+					<td align="center" style="width:80px;display: none;"><a id='lblCommission2_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblSalesno_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblSales_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
@@ -504,10 +504,10 @@
 					<td >
 					<input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />
 					</td>
-					<td >
+					<td style="display: none;">
 					<input type="text" id="txtCommission.*" style="width:95%;text-align:right;" />
 					</td>
-					<td >
+					<td style="display: none;">
 					<input type="text" id="txtCommission2.*" style="width:95%;text-align:right;" />
 					</td>
 					<td >
