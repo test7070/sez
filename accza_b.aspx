@@ -33,6 +33,13 @@
     }
 
     function bbsAssign() { 
+    	 for (var j = 0; j < q_bbsCount; j++) {
+			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+				$('#txtAccno_' + j).click(function() {
+					window.parent.OpenAccnoWindows($(this).val());
+				});
+		   	}
+         }
         _bbsAssign();
     }
 
@@ -50,15 +57,15 @@
 		<div  id="dbbs"  >
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
-					<th align="center" ></th>
-					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
+					<th align="center" style="display: none;"></th>
+					<th align="center" style='color:Blue;display: none;' ><a id='lblNoa'></a></th>
 					<th align="center" style='color:Blue;' ><a id='lblAccno'></a></th>
 				</tr>
 				<tr>
-					<td style="width:2%;">
+					<td style="width:2%;display: none;">
 					<input name="sel"  id="radSel.*" type="radio" />
 					</td>
-					<td style="width:20%;">
+					<td style="width:20%;display: none;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 					<td style="width:75%;">
