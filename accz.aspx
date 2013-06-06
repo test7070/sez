@@ -169,6 +169,14 @@
 			});
 			
         }
+        
+        function OpenAccnoWindows(noaKey){
+        	if(!emp(noaKey.length)){
+        		b_window = false;
+        		q_box("accc.aspx?;;;accc3='" + noaKey + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+        	}
+        }
+        
 		function sum(){
 			var endvalue = 0;
 			var money = q_float('txtMoney');
@@ -215,7 +223,8 @@
 							MaxAcc1Noq = padL(MaxAcc1Noq,'0',4);//左方補0
 						}
 						$('#txtAcc1').val($.trim($('#txtAcc1').val()) + MaxAcc1Noq);
-						_btnOk(Public_key_value, bbmKey[0], '','',2);
+						key_value = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val($('#txtAcc1').val());
+						_btnOk(key_value, bbmKey[0], '','',2);
                     }
                  case q_name: 
                  	if (q_cur == 4)  
@@ -266,15 +275,16 @@
 				$('#txtAcc1').focus();
 				return;
 			};
+			wrServer( t_noa);
+			/*
             if ( t_noa.length == 0 || t_noa == "AUTO")  
                q_gtnoa(q_name, replaceAll('AZ'+ (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer( t_noa);
+            */
         }
 
-		var Public_key_value = '';
         function wrServer(key_value) {
-        	Public_key_value = key_value;
             var i;
             xmlSql = '';
             if (q_cur == 2)   /// popSave
