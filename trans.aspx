@@ -112,13 +112,20 @@
             		
             	},
             	calctypeChange : function(){
-            		if(!this.isTre)
-		        		for(var i in this.calctype){
+            		if(!this.isTre){
+            			for(var i in this.calctype){
 		            		if(this.calctype[i].noa == $('#cmbCalctype').val()){
-		            			$('#txtDiscount').val(FormatNumber(this.calctype[i].discount));	
-		            			sum();
+		            			$('#txtDiscount').val(FormatNumber(this.calctype[i].discount));		
+		            			this.isoutside = this.calctype[i].isoutside;	            			
 		            		}
 		        		}
+		        		this.priceChange_afterCalctypeChange();
+            		}
+            	},
+            	priceChange_afterCalctypeChange : function(){
+            		var t_addrno = $.trim($('#txtStraddrno').val());
+					var t_date = $.trim($('#txtTrandate').val());
+					q_gt('addrs', "where=^^ noa='"+t_addrno+"' and datea<='"+t_date+"' ^^", 0, 0, 0, 'getPrice2');
             	},
             	priceChange : function(){
             		var t_addrno = $.trim($('#txtStraddrno').val());
@@ -134,7 +141,6 @@
 	            			this.isoutside = this.calctype[i].isoutside;
 	            		}
 	        		}
-	        		
         			$('#txtDatea').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
         			$('#txtTrandate').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
         			
@@ -199,13 +205,18 @@
 				$("#cmbCalctype").focus(function() {
 					var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
 					$("#cmbCalctype").attr('size', len + "");
-					trans.refresh();
+					$(this).data('curValue',$(this).val());
 				}).blur(function() {
 					$("#cmbCalctype").attr('size', '1');
-					trans.refresh();
 				}).change(function(e){
 					trans.refresh();
 					trans.calctypeChange();
+				}).click(function(e){
+					if($(this).data('curValue')!=$(this).val()){
+						trans.refresh();
+						trans.calctypeChange();
+					}
+					$(this).data('curValue',$(this).val());
 				});
 				$("#cmbCarteamno").focus(function() {
 					var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
@@ -277,7 +288,7 @@
 				}
 				if(!trans.isTre){
 					var t_mount2 = q_float('txtOutmount').add(q_float('txtPton2'));
-					var t_total2 = t_mount2.mul(q_float('txtPrice2').add(q_float('txtPrice3'))).mul(q_float('txtDiscount')).round(0);
+					var t_total2 = t_mount2.mul(trans.isoutside?q_float('txtPrice3'):q_float('txtPrice2')).mul(q_float('txtDiscount')).round(0);
 					$('#txtMount2').val(FormatNumber(t_mount2));
 					$('#txtTotal2').val(FormatNumber(t_total2));
 				}
@@ -375,6 +386,25 @@
 						trans.checkData();
 						$('#txtDatea').focus();
                 		break; 
+                	case 'getPrice2':
+						var t_price = 0;
+						var t_price2 = 0;
+						var t_price3 = 0;
+						var as = _q_appendData("addrs", "", true);
+						if(as[0]!=undefined){
+							t_price = as[0].custprice;
+						 	t_price2 = as[0].driverprice;
+							t_price3 = as[0].driverprice2;
+						}
+						if(!trans.isTrd){
+							$('#txtPrice').val(t_price);
+						}
+						if(!trans.isTre){
+							$('#txtPrice2').val(t_price2);
+							$('#txtPrice3').val(t_price3);
+						}
+						sum();
+						break;
 					case 'getPrice':
 						var t_price = 0;
 						var t_price2 = 0;
