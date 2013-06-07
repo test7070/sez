@@ -19,7 +19,7 @@
             var q_name = "carplate";
             var q_readonly = [];
             var bbmNum = [];
-            var bbmMask = [];
+            var bbmMask = [["txtCaryear", "9999/99"]];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -379,44 +379,62 @@
 						<td class="td2">
 						<input id="txtNoa"  type="text"  class="txt c1"/>
 						</td>
+						<td class="td3"></td>
 						<td class="td4"></td>
 						<td class="td5"></td>
+						<td class="td6"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCarplate' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtCarplate"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td4"></td>
+						<td class="td2"><input id="txtCarplate"  type="text"  class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblCardno' class="lbl"></a></td>
+						<td class="td4"><input id="txtCardno"  type="text"  class="txt c1"/></td>
 						<td class="td5"></td>
+						<td class="td6"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"></a></td>
-						<td class="td2" colspan="2">
+						<td class="td2">
 						<input id="txtDriverno"  type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblCardno' class="lbl btn"></a></td>
-						<td><input id="txtCardno"  type="text"  class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblChassisnum' class="lbl"></a></td>
+						<td class="td4"><input id="txtChassisnum"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSize' class="lbl"></a></td>
 						<td><input id="txtSize"  type="text"  class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl btn"></a></td>
-						<td colspan="3"><input id="txtMemo"  type="text"  class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1"></select></td>
 					</tr>
-					<tr> </tr>
-					<tr> </tr>
-					<tr> </tr>
-					<tr> </tr>
+					<tr>
+						<td><span> </span><a id='lblCaryear' class="lbl"></a></td>
+						<td><input id="txtCaryear"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblCarbrand' class="lbl"></a></td>
+						<td><input id="txtCarbrand"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblCarstyle' class="lbl"></a></td>
+						<td><input id="txtCarstyle"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblLengthb' class="lbl"></a></td>
+						<td><input id="txtLengthb"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id='lblWidth' class="lbl"></a></td>
+						<td><input id="txtWidth"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id='lblHeight' class="lbl"></a></td>
+						<td><input id="txtHeight"  type="text"  class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWheelbase' class="lbl"></a></td>
+						<td><input id="txtWheelbase"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id='lblAxlenum' class="lbl"></a></td>
+						<td><input id="txtAxlenum"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id='lblWheelnum' class="lbl"></a></td>
+						<td><input id="txtWheelnum"  type="text"  class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"></a></td>
+						<td colspan="3"><input id="txtMemo"  type="text"  class="txt c1"/></td>
+					</tr>
 				</table>
 			</div>
 		</div>
