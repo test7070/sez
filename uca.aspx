@@ -108,11 +108,12 @@
         }
         
         function btnOk() {
+        	/*t_err = '';
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtProduct', q_getMsg('MsgProductEmp')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
-            }
+            }*/
 
             $('#txtWorker').val(r_name)
             sum();
@@ -231,21 +232,20 @@
         }
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
-            if (!as['productno'] && !as['product'] && !as['spec']) {  //不存檔條件
+            if (!as['productno'] && !as['product'] ) {  //不存檔條件
                 as[bbsKey[1]] = '';   /// no2 為空，不存檔
                 return;
             }
 
             q_nowf();
             
-            if (t_err) {
+            /*if (t_err) {
                 alert(t_err)
                 return false;
             }
             
-            return true;
+            return true;*/
         }
-
         function sum() {
 
         }
