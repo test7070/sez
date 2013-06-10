@@ -21,7 +21,7 @@
         q_tables = 's';
         var q_name = "uca";
         var decbbs = ['weight', 'uweight', 'price'];
-        var decbbm = ['weight', 'days', 'mount', 'wages', 'makes', 'mechs', 'trans', 'molds', 'packs', 'uweight', 'price'];
+        var decbbm = ['weight', 'hours' , 'pretime', 'mount', 'wages', 'makes', 'mechs', 'trans', 'molds', 'packs', 'uweight', 'price'];
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [];  // 允許 key 小數
@@ -34,7 +34,8 @@
         aPop = new Array(
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
-        	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
+        	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+        	['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx']
         	);
 
         $(document).ready(function () {
@@ -42,7 +43,7 @@
             bbsKey = ['noa', 'noq'];
 
             q_brwCount();  // 計算 合適  brwCount 
-			q_gt(q_name, q_content, q_sqlCount, 1)
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			
             /*if (!q_gt(q_name, q_content, q_sqlCount, 1))  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
                 return;*/
@@ -108,7 +109,7 @@
         }
         
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtProduct', q_getMsg('MsgProductEmp')]]);  // 檢查空白 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtProduct', q_getMsg('lblProduct')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -509,10 +510,19 @@
 		        	<input id="txtStationno" type="text"  class="txt" style="width: 45%;"/>
 		        	<input id="txtStation" type="text"  class="txt" style="width: 45%;"/>
 		        </td>
-		        <td class="td3"><span> </span><a id="lblDays" class="lbl"> </a></td>
-		        <td class="td4"><input id="txtDays" type="text"  class="txt"/></td>
-		        <td class="td5"><span> </span><a id="lblBadperc" class="lbl"> </a></td>
-		        <td class="td6"><input id="txtBadperc" type="text"  class="txt"/></td>
+		        <td class="td1"><span> </span><a id="lblStationg" class="lbl btn" style="font-size: 14px;"> </a></td>
+		        <td class="td2">
+		        	<input id="txtStationgno" type="text"  class="txt" style="width: 45%;"/>
+		        	<input id="txtStationg" type="text"  class="txt" style="width: 45%;"/>
+		        </td>
+			</tr>
+			<tr>
+		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
+		        <td class="td4"><input id="txtHours" type="text"  class="txt num"/></td>
+		        <td class="td5"><span> </span><a id="lblPretime" class="lbl"> </a></td>
+		        <td class="td6"><input id="txtPretime" type="text"  class="txt num"/></td>
+		        <td class="td1"><span> </span><a id="lblBadperc" class="lbl"> </a></td>
+		        <td class="td2"><input id="txtBadperc" type="text"  class="txt num"/></td>
 			</tr>
 			<tr class="tr7">
 		        <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -520,19 +530,19 @@
 			</tr>
 			<tr class="tr8">
 		        <td class="td1"><span> </span><a id="lblMechs" class="lbl" style="font-size: 14px;"> </a></td>
-		        <td class="td2"><input id="txtMechs" type="text"  class="txt"/></td>
+		        <td class="td2"><input id="txtMechs" type="text"  class="txt num"/></td>
 		        <td class="td3"><span> </span><a id="lblMakes" class="lbl" style="font-size: 14px;"></a></td>
-		        <td class="td4"><input id="txtMakes" type="text"  class="txt"/></td>
+		        <td class="td4"><input id="txtMakes" type="text"  class="txt num"/></td>
 				<td class="td5"><span> </span><a id="lblPacks" class="lbl"> </a></td>
-				<td class="td6"><input id="txtPacks" type="text"  class="txt"/></td> 
+				<td class="td6"><input id="txtPacks" type="text"  class="txt num"/></td> 
 			</tr>
 			<tr class="tr9">
 		        <td class="td1"><span> </span><a id="lblMolds" class="lbl" style="font-size: 14px;"> </a></td>
-		        <td class="td2"><input id="txtMolds" type="text"  class="txt"/></td>
+		        <td class="td2"><input id="txtMolds" type="text"  class="txt num"/></td>
 		        <td class="td3"><span> </span><a id="lblWages" class="lbl" style="font-size: 14px;"> </a></td>
-		        <td class="td4"><input id="txtWages" type="text"  class="txt"/></td>
+		        <td class="td4"><input id="txtWages" type="text"  class="txt num"/></td>
 				<td class="td5"><span> </span><a id="lblTrans" class="lbl"> </a></td>
-				<td class="td6"><input id="txtTrans" type="text"  class="txt"/></td> 
+				<td class="td6"><input id="txtTrans" type="text"  class="txt num"/></td> 
 			</tr>
 			<input id="text_Noq" type="hidden" />
         </table>
@@ -546,7 +556,7 @@
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount'></a></td>
                 <td align="center" style="width:8%;"><a id='lblWeights'></a></td>
-                <td align="center" style="width:6%;"><a id='lblHours'></a></td>
+                <td align="center" style="width:6%;"><a id='lblHours_s'></a></td>
                 <td align="center" style="width:15%;"><a id='lblTd'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
             </tr>

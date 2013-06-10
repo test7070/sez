@@ -428,13 +428,14 @@
 					</td>
 					<td align="center" style="width:2%;"><a id='lblNo2_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
-					<td colspan="2" align="center" style="width:15%;"><a id='lblProductno_s'></a></td>
+					<td colspan="2" align="center" style="width:18%;"><a id='lblProductno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
-					<td colspan="2" align="center" style="width:15%;"><a id='lblStationno_s'></a></td>
+					<td colspan="2" align="center" style="width:18%;"><a id='lblStationno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
+					<td align="center" style="width:8%;"><a id='lblOrdeno_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -458,6 +459,7 @@
 						<input id="btnStationno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
 					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtOrdeno.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
 		</div>

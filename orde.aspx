@@ -623,6 +623,7 @@
                 <td align="center"><a id='lblTotals'> </a></td>
                 <td align="center"><a id='lblGemounts'></a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
+                <td align="center"><a id='lblDateas'> </a></td>
                 <td align="center"><a id='lblEndas'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -664,6 +665,9 @@
 	                <input class="txt" id="txtQuatno.*" type="text" style="width: 70%;" />
 	                <input class="txt" id="txtNo3.*" type="text"  style="width: 20%;"/>
 	               <input id="recno.*" type="hidden" />
+                </td>
+                <td style="width:6%;">
+                	<input class="txt c7" id="txtDatea.*" type="text"  />
                 </td>
                 <td style="width:4%;" align="center">
 	                <input id="chkEnda.*" type="checkbox"/>
