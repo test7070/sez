@@ -51,6 +51,12 @@
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
                 $('#txtDatea').datepicker();
                 $('#txtIndate').datepicker();
+                
+                $('#txtMoney').focus(function() {
+                	$('#ui-datepicker-title').hide();
+                	$('.ui-datepicker').hide();
+                });
+                
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -167,6 +173,7 @@
                     			}
                     		}else{
                 				//檢查GQB
+                				var t_checkno = t_name.split('_')[1]; 
                 				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
             					q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_"+t_noa, r_accy);
                     		}
