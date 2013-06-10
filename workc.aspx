@@ -142,7 +142,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
- 
+			q_box('z_workc.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
         }
 
         function wrServer( key_value) {

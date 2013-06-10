@@ -18,11 +18,11 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_workd');
+                q_gf('', 'z_work');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_workd',
+                    fileName : 'z_work',
                     options : [{
 						type : '0',
 						name : 'accy',
@@ -49,9 +49,6 @@
                 $('#txtXdate1').val(q_date().substring(0,7)+'01');
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
-                var t_key = q_getHref();
-                if(t_key[1] != undefined)
-                	$('#txtXnoa').val(t_key[1]);
             }
 
             function q_boxClose(s2) {
