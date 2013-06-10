@@ -92,7 +92,7 @@
             	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
             	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
             	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
-		        q_gt('salarydc_import', t_where+t_where1+t_where2+t_where3+t_where4 , 0, 0, 0, "", r_accy);
+		        q_gt('salarydc_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "", r_accy);
             });
             
             $('#btnBank').click(function() {
