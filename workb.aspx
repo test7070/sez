@@ -35,7 +35,7 @@
         aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
+					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 		);
 
         $(document).ready(function () {
@@ -160,6 +160,7 @@
         }
 
         function btnOk() {
+        	t_err = '';
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
@@ -170,7 +171,7 @@
             
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('B' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll('WB' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
         }
