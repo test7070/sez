@@ -23,19 +23,20 @@
                 q_gf('', 'z_trip');
             });
             function q_gfPost() {
-               $('#q_report').q_report({
-	               		fileName : 'z_trip',
-	                    options : [{
+            	
+				$('#q_report').q_report({
+					fileName : 'z_trip',
+					options : [{
 						type : '1',
 						name : 'date'
 					},{
-                        type : '2',
-                        name : 'sssno',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
-                    }]
-                    });
+						type : '2',
+						name : 'sssno',
+						dbf : 'sss',
+						index : 'noa,namea',
+						src : 'sss_b.aspx'
+					}]
+				});
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
