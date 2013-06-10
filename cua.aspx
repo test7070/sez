@@ -22,7 +22,7 @@
             var bbmNum = [];
             var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1]];
             var bbmMask = [];
-            var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
+            var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd],['txtEdate',r_picd]];
             q_sqlCount = 6;
             brwCount = 6;
             brwCount2 = 5;
@@ -341,7 +341,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 120%;
             }
             .tbbs a {
                 font-size: medium;
@@ -428,13 +428,15 @@
 					</td>
 					<td align="center" style="width:2%;"><a id='lblNo2_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
-					<td colspan="2" align="center" style="width:18%;"><a id='lblProductno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
+					<td colspan="2" align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
-					<td colspan="2" align="center" style="width:18%;"><a id='lblStationno_s'></a></td>
+					<td colspan="2" align="center" style="width:12%;"><a id='lblStationno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblEdate_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblTotalhours_s'></a></td>
 					<td align="center" style="width:8%;"><a id='lblOrdeno_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -446,7 +448,7 @@
 					<td><input id="txtDatea.*" type="text" style="width: 95%;" /></td>
 					<td colspan="2">
 						<input id="txtProductno.*" type="text" style="width: 30%;"/>
-						<input id="txtProduct.*" type="text" style="width: 58%;"/>
+						<input id="txtProduct.*" type="text" style="width: 50%;"/>
 						<input id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
 					<td><input id="txtUnit.*" type="text" style="width: 95%;"/></td>
@@ -455,10 +457,12 @@
 					<td><input id="txtInmount.*" type="text" class="txt num c2"/></td>
 					<td colspan="2">
 						<input id="txtStationno.*" type="text" style="width: 30%;"/>
-						<input id="txtStation.*" type="text" style="width: 58%;"/>
+						<input id="txtStation.*" type="text" style="width: 50%;"/>
 						<input id="btnStationno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
 					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtEdate.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtTotalhours.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtOrdeno.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
