@@ -148,6 +148,8 @@
                     $('#txtXpaydate').mask('999/99/99');
                     $('#txtXpaydate').datepicker();
                     
+                    $('#chkYpart').children('input').attr('checked','checked');
+                    
                     $('#txtYmon1').mask('999/99');
                     $('#txtYmon2').mask('999/99');
                     $('#txtYdate1').mask('999/99/99');
