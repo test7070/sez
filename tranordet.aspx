@@ -22,7 +22,7 @@
             var bbmNum = [];
             var bbsNum = [['txtWeight2',12 , 3, 1],['txtTrannumber',12 , 0, 1]];
             var bbmMask = [];
-            var bbsMask = [['txtDatea', '999/99/99']];
+            var bbsMask = [['txtDatea', r_picd]];
 
             $(document).ready(function() {
                 if(!q_paraChk())

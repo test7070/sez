@@ -63,7 +63,7 @@
                 t_tsssno = $.trim($('#txtTsssno').val());
                 t_tsss = $.trim($('#txtTsss').val());
 
-                var t_where = " 1=1 " + q_sqlPara2("cno", t_cno); +q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("sssno", t_sssno) + q_sqlPara2("rdate", t_brdate, t_erdate) + q_sqlPara2("rsssno", t_rsssno) + q_sqlPara2("tdate", t_btdate, t_etdate) + q_sqlPara2("tsssno", t_tsssno);
+                var t_where = " 1=1 " + q_sqlPara2("cno", t_cno) +q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("sssno", t_sssno) + q_sqlPara2("rdate", t_brdate, t_erdate) + q_sqlPara2("rsssno", t_rsssno) + q_sqlPara2("tdate", t_btdate, t_etdate) + q_sqlPara2("tsssno", t_tsssno);
                 if (t_status.length > 0)
                     t_where += " and (len(rdate)=0 and len(tdate)=0)";
                 if (t_sss.length > 0)

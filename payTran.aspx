@@ -160,7 +160,32 @@
 		            q_gt('pay_tre', t_where + t_where1 + t_where2, 0, 0, 0, "", r_accy);
 		        }
 		    }
-
+			
+			function browTicketForm(obj) {
+            	//資料欄位名稱不可有'_'否則會有問題
+                if (($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0, 3) == 'lbl')) {
+                    if ($(obj).attr('id').substring(0, 3) == 'lbl')
+                        obj = $('#txt' + $(obj).attr('id').substring(3));
+                    var noa = $.trim($(obj).val());
+                    var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
+					var isBbs = false,isBbt = false,n = -1;
+					if($(obj).attr('id').indexOf('__')>0){
+						isBbt = true;
+						n = $(obj).attr('id').split('__')[1];
+					}else if($(obj).attr('id').indexOf('_')>0){
+						isBbs = true;
+						n = $(obj).attr('id').split('_')[1];
+					}
+                    if (noa.length > 0) {
+                        switch (openName) {
+                            case 'rc2no':
+                                q_box("payb.aspx?;;;noa='" + noa + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popUmmtran"));
+                                break;
+                        }
+                    }
+                }
+            }
+			
 		    function getOpay() {
 		    	Lock(1,{opacity:0});
 		        var t_tggno = $('#txtTggno').val();
@@ -1128,7 +1153,7 @@
 					</td>
 					<td>
 					<input type="text" id="txtMemo2.*" style="width:95%;"/>
-                    <input type="text" id="txtRc2no.*" style="width:95%;" />
+                    <input type="text" id="txtRc2no.*"  onclick="browTicketForm(this)" style="width:95%;" />
 					</td>
   					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>

@@ -29,7 +29,7 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
             							, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-            							, ['txtGrpno', 'lblGrp', 'team', 'noa,comp', 'txtGrpno,txtGrpname', 'team_b.aspx']
+            							, ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']
             							/*, ['txtUacc1', 'lblUacc1', 'acc', 'acc1,acc2', 'txtUacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             							, ['txtUacc2', 'lblUacc2', 'acc', 'acc1,acc2', 'txtUacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             							, ['txtUacc3', 'lblUacc3', 'acc', 'acc1,acc2', 'txtUacc3', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]*/
