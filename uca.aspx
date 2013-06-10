@@ -232,21 +232,21 @@
         }
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
-            if (!as['productno'] && !as['product'] && !as['spec']) {  //不存檔條件
+        	t_err = '';
+            if (!as['productno'] && !as['product'] ) {  //不存檔條件
                 as[bbsKey[1]] = '';   /// no2 為空，不存檔
                 return;
             }
 
             q_nowf();
-            
-            if (t_err) {
+             as['noa'] = abbm2['noa'];
+           if (t_err) {
                 alert(t_err)
                 return false;
             }
             
             return true;
         }
-
         function sum() {
 
         }
