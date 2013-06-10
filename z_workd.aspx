@@ -49,6 +49,9 @@
                 $('#txtXdate1').val(q_date().substring(0,7)+'01');
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
+                var t_key = q_getHref();
+                if(t_key[1] != undefined)
+                	$('#txtXnoa').val(t_key[1]);
             }
 
             function q_boxClose(s2) {
