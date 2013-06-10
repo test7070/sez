@@ -30,7 +30,7 @@
         aPop = new Array(
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         	['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-        	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
         );
 
         $(document).ready(function () {
@@ -99,6 +99,7 @@
         }
 
         function btnOk() {
+        	t_err = '';
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
@@ -113,7 +114,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('D' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll('WD' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -148,7 +149,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
- 
+			q_box('z_workd.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint")); 
         }
 
         function wrServer( key_value) {

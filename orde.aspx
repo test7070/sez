@@ -59,6 +59,7 @@
             q_getFormat();
             bbmMask = [['txtOdate', r_picd ]];  
             q_mask(bbmMask);            
+            bbsMask = [['txtDatea', r_picd ]];  
             q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
             q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
@@ -623,6 +624,7 @@
                 <td align="center"><a id='lblTotals'> </a></td>
                 <td align="center"><a id='lblGemounts'></a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
+                <td align="center"><a id='lblDateas'> </a></td>
                 <td align="center"><a id='lblEndas'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -664,6 +666,9 @@
 	                <input class="txt" id="txtQuatno.*" type="text" style="width: 70%;" />
 	                <input class="txt" id="txtNo3.*" type="text"  style="width: 20%;"/>
 	               <input id="recno.*" type="hidden" />
+                </td>
+                <td style="width:6%;">
+                	<input class="txt c7" id="txtDatea.*" type="text"  />
                 </td>
                 <td style="width:4%;" align="center">
 	                <input id="chkEnda.*" type="checkbox"/>

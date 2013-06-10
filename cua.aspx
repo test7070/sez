@@ -9,6 +9,8 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -22,7 +24,7 @@
             var bbmNum = [];
             var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1]];
             var bbmMask = [];
-            var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
+            var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd],['txtEdate',r_picd]];
             q_sqlCount = 6;
             brwCount = 6;
             brwCount2 = 5;
@@ -30,7 +32,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(
-            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+            	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
             	['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']
            	);
 
@@ -48,12 +50,13 @@
                 }
                 mainForm(1);
             }
-
+			var public_stationInfo = '';
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
             	bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
                 q_mask(bbsMask);
+                q_gt('station', '' , 0, 0, 0, "", r_accy);
                 $('#btnWork').click(function() {
                     q_func('cua.genwork', $('#txtNoa').val()+",");
                 });
@@ -84,9 +87,9 @@
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
 	                        var i, j = 0;
-	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount', b_ret.length, b_ret
-	                                                           , 'productno,product,unit,mount'
-	                                                           , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount,txtEdate,txtOrdeno,txtNo2', b_ret.length, b_ret
+	                                                           , 'productno,product,unit,mount,datea,noa,no2'
+	                                                           , 'txtProductno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
 	                        bbsAssign();
 	                        for (i = 0; i < ret.length; i++) {
 	                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
@@ -100,6 +103,7 @@
 	                            }
 	
 	                        }  /// for i
+	                        UcaCatch(0,ret);
 	                    }
 						break;
                     case q_name + '_s':
@@ -108,13 +112,86 @@
                 }
                 b_pop = '';
             }
-
+            var public_ret = "";
+            function UcaCatch(want_do,data,id){
+            	if(want_do == 0){		//Call GT for get data;
+            		public_ret = data;
+            		for(var i = 0;i < data.length;i++){
+            			t_noa = $.trim($('#txtProductno_' + data[i]).val());
+            			t_where = "where=^^ noa ='"+t_noa+"' ^^";           	
+	            		q_gt('uca', t_where , 0, 0, 0, "", r_accy);
+            		}
+            	}else if(want_do == 1){	//Input Data
+            		if(data[0]!=undefined){
+            			$('input[id *="txtProductno_"]').each(function(){
+            				if($(this).val() == data[0].noa){
+            					var bbs_id = $(this).attr('id').split('_')[1];
+            					$('#txtStationno_' + bbs_id).val(data[0].stationno);
+            					$('#txtStation_' + bbs_id).val(data[0].station);
+            					UcaCatch('CountDay',data[0].hours,bbs_id);
+            				}
+            			})
+            		}
+            	}else if(want_do == 'CountDay'){	//Get Date
+            		var thisStationno = '',thisEdate = '',thisOrdemount = '';
+            		thisStationno = $('#txtStationno_' + id).val();
+            		thisEdate = $('#txtEdate_' + id).val();
+            		thisOrdemount = dec($('#txtOrdemount_' + id).val());
+            		var days = 0,s_gen = 0,s_hours = 0;
+            		if(!emp(thisEdate)){
+	            		for(var i = 0;i<public_stationInfo.length;i++){
+	            			if(public_stationInfo[i].noa == thisStationno){
+	            				s_gen = dec(public_stationInfo[i].gen);
+	            				s_hours = dec(public_stationInfo[i].hours);
+	            				days = Math.ceil((data*thisOrdemount)/(s_gen*s_hours));
+	            				$('#txtDatea_' + id).val(DateDiff(thisEdate,days));
+	            			}
+	            		}
+            		}
+            	}
+            }
+            
+            function DateDiff(date,diff){ //date format 102/06/10
+            	var w_year = dec(date.split('/')[0]);
+            	var w_mon = dec(date.split('/')[1]);
+            	var w_day = dec(date.split('/')[2]);
+            	if((w_day-diff) <=0){
+            		if(w_mon == 1){
+            			w_year = w_year-1;
+            			w_mon = 12;
+            		}else{
+            			w_mon = w_mon-1;
+            		}
+            		w_day = $.datepicker._getDaysInMonth(w_year,w_mon-1)+(w_day-diff);
+            	}else{
+            		w_day = (w_day-diff);
+            	}
+            	w_year = (w_year<100 ? padL(w_year,'0',3):w_year);
+            	w_mon = (w_mon<10 ? padL(w_mon,'0',2):w_mon);
+            	w_day = (w_day<10 ? padL(w_day,'0',2):w_day);
+            	return w_year + '/' + w_mon + '/' + w_day;
+            }
+            
             function q_gtPost(t_name) {
                 switch (t_name) {
 					case 'orde':
 						var as = _q_appendData("ordes", "", true);
 						if(as[0]!=undefined){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount', 1, as, 'productno,product,unit,mount', 'txtProductno');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount,txtEdate,txtOrdeno,txtNo2',
+													 1, as, 'productno,product,unit,mount,datea,noa,no2', 'txtProductno');
+							UcaCatch(0,ret);
+		                }
+	                	break;
+					case 'uca':
+						var as = _q_appendData("uca", "", true);
+						if(as[0]!=undefined){
+							UcaCatch(1,as);
+		                }
+	                	break;
+					case 'station':
+						var as = _q_appendData("station", "", true);
+						if(as[0]!=undefined){
+							public_stationInfo = as;
 		                }
 	                	break;
                     case q_name:
@@ -253,7 +330,7 @@
             }
             .dview {
                 float: left;
-                width: 260px;
+                width: 300px;
                 border-width: 0px;
             }
             .tview {
@@ -273,7 +350,7 @@
             }
             .dbbm {
                 float: left;
-                width: 690px;
+                width: 700px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -341,7 +418,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 120%;
             }
             .tbbs a {
                 font-size: medium;
@@ -365,8 +442,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewOrdeno'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewOrdeno'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
@@ -377,7 +454,7 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr style="height:1px;">
+					<tr style="height:7px;">
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -428,13 +505,16 @@
 					</td>
 					<td align="center" style="width:2%;"><a id='lblNo2_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
-					<td colspan="2" align="center" style="width:15%;"><a id='lblProductno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
+					<td colspan="2" align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
-					<td colspan="2" align="center" style="width:15%;"><a id='lblStationno_s'></a></td>
+					<td colspan="2" align="center" style="width:12%;"><a id='lblStationno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblEdate_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblTotalhours_s'></a></td>
+					<td align="center" style="width:8%;"><a id='lblOrdeno_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -445,7 +525,7 @@
 					<td><input id="txtDatea.*" type="text" style="width: 95%;" /></td>
 					<td colspan="2">
 						<input id="txtProductno.*" type="text" style="width: 30%;"/>
-						<input id="txtProduct.*" type="text" style="width: 58%;"/>
+						<input id="txtProduct.*" type="text" style="width: 50%;"/>
 						<input id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
 					<td><input id="txtUnit.*" type="text" style="width: 95%;"/></td>
@@ -454,10 +534,13 @@
 					<td><input id="txtInmount.*" type="text" class="txt num c2"/></td>
 					<td colspan="2">
 						<input id="txtStationno.*" type="text" style="width: 30%;"/>
-						<input id="txtStation.*" type="text" style="width: 58%;"/>
+						<input id="txtStation.*" type="text" style="width: 50%;"/>
 						<input id="btnStationno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
 					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtEdate.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtTotalhours.*" type="text" class="txt num c1" style="width: 95%;"/></td>
+					<td><input id="txtOrdeno.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
 		</div>
