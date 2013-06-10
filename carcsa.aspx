@@ -147,7 +147,7 @@
                     		t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + t_tranno + "'";
                     }
                    	if(t_where.length>0)
-                   		q_pop('', "trans_ds.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
+                   		q_pop('', "trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
                		else
                			alert('無出車單號。');
                 });
@@ -155,7 +155,7 @@
 			function browTrans(obj){
 				var noa = $.trim($(obj).val());
             	if(noa.length>0)
-            		q_box("trans_ds.aspx?;;;noa='" + noa + "';"+r_accy, 'trans', "95%", "95%", q_getMsg("popTarans"));
+            		q_box("trans.aspx?;;;noa='" + noa + "';"+r_accy, 'trans', "95%", "95%", q_getMsg("popTarans"));
 			}
             function q_boxClose(s2) {
                 var ret;
@@ -569,7 +569,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['carno']) {
+                if (!as['carno'] && !as['tranno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }

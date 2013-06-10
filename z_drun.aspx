@@ -21,6 +21,7 @@
                 q_gf('', 'z_drun');
             });
             function q_gfPost() {
+            	var action_type = "insert@新增,delete@刪除,update@修改";
                 $('#q_report').q_report({
                     fileName : 'z_drun',
                     options : [{
@@ -29,6 +30,16 @@
                     },{
                         type : '6',
                         name : 'xnoa'
+					},{
+                        type : '2',
+                        name : 'sssno',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+					},{
+                        type : '5', //select
+                        name : 'xaction',
+                        value : [q_getPara('report.all')].concat(action_type.split(','))
                     }]
                 });
                 q_popAssign();
