@@ -59,6 +59,7 @@
             q_getFormat();
             bbmMask = [['txtOdate', r_picd ]];  
             q_mask(bbmMask);            
+            bbsMask = [['txtDatea', r_picd ]];  
             q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
             q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
