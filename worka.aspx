@@ -33,8 +33,8 @@
 					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtWorkno','lblWorkno','work','noa','txtWorkno','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
-					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
-					['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 					['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx','95%'],
 					['txtOrdeno','lblOrdeno','ordes','noa,no2,productno,product','txtOrdeno,txtNo2,txtProductno,txtProduct','ordes_b.aspx','95%']
 		);
@@ -166,6 +166,7 @@
 		}
 
 		function btnOk() {
+			t_err = '';
 			t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
 			if (t_err.length > 0) {
 				alert(t_err);
@@ -177,7 +178,7 @@
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-				q_gtnoa(q_name, replaceAll('A' + $('#txtDatea').val(), '/', ''));
+				q_gtnoa(q_name, replaceAll('WA' + $('#txtDatea').val(), '/', ''));
 			else
 				wrServer(s1);
 		}
