@@ -79,8 +79,9 @@
 		            	sss_sql+="or sssno='"+xsssno+"')";
 		            else
 		            	sss_sql+="and sssno='"+xsssno+"'"
-
-                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(a.checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and (a.enddate='' or a.enddate is null) and (a.outdate='' or a.outdate is null) and (a.wastedate='' or a.wastedate is null);"+r_accy,
+		            	
+					//婉容說不要顯示報停20130603
+                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(a.checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and (a.enddate='' or a.enddate is null) and (a.outdate='' or a.outdate is null) and (a.wastedate='' or a.wastedate is null) and (a.suspdate='' or a.suspdate is null);"+r_accy,
                 		 'car2', "90%", "600px", q_getMsg("popNotice"));
                 });
                 

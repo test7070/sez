@@ -91,6 +91,7 @@
             	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
             	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
             	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
+            	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
 		        q_gt('salarydc_import', t_where+t_where1+t_where2+t_where3+t_where4 , 0, 0, 0, "", r_accy);
             });
             
@@ -452,10 +453,10 @@
 		                    		as[i].bo_full=0;
 		                    		as[i].iswelfare='false';
 		                    		
-		                    		//勞保勞退變動
-		                    		as[i].ch_labor=round(dec(as[i].ch_labor)/30*inday,0)
+		                    		//勞保勞退變動(102/06/10勞健保抓立帳資料所以直接抓salinsures不須在計算)
+		                    		//as[i].ch_labor=round(dec(as[i].ch_labor)/30*inday,0)
 		                    		as[i].ch_labor_comp=round(dec(as[i].ch_labor_comp)/30*inday,0)
-		                    		as[i].ch_labor_self=round(dec(as[i].ch_labor_self)/30*inday,0)
+		                    		//as[i].ch_labor_self=round(dec(as[i].ch_labor_self)/30*inday,0)
 		                    	}
 		                    	
 			                    //請假扣薪
