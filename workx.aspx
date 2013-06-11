@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="workx";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa','txtWorker'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwCount2=20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -28,7 +28,14 @@
             q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
-
+		aPop = new Array(
+					['txtFactoryno', 'lblFactoryno', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx'],
+					['txtSipartno', 'lblSipart', 'part', 'noa,part', 'txtSipartno,txtSipart', 'part_b.aspx'],
+					['txtSopartno', 'lblSopart', 'part', 'noa,part', 'txtSopartno,txtSopart', 'part_b.aspx'],
+					['txtSoworkno', 'lblSowork', 'process', 'noa,process', 'txtSoworkno,txtSowork', 'process_b.aspx'],
+					['txtSiworkno', 'lblSiwork', 'process', 'noa,process', 'txtSiworkno,txtSiwork', 'process_b.aspx'],
+					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+		);
         //////////////////   end Ready
        function main() {
            if (dataErr)   
@@ -42,7 +49,8 @@
 
         function mainPost() { 
         	q_mask(bbmMask);
-        	
+        	bbmMask = [['txtDatea', r_picd], ['txtTrandatea', r_picd]];
+			q_mask(bbmMask);
         }
         
         function q_boxClose(s2) { 
@@ -59,22 +67,6 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-               case 'checkFactoryno_change':
-                		var as = _q_appendData("factory", "", true);
-                        if (as[0] != undefined){
-                        	alert('�w�s�b'+as[0].noa+' '+as[0].factory);
-                        }
-                		break;
-                case 'checkFactoryno_btnOk':
-                		var as = _q_appendData("factory", "", true);
-                        if (as[0] != undefined){
-                        	alert('�w�s�b'+as[0].noa+' '+as[0].factory);
-                            Unlock();
-                            return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
-                        }
-                		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -87,8 +79,9 @@
         }
         function btnIns() {
             _btnIns();
+            $('#txtNoa').val('AUTO');
             refreshBbm();
-            $('#txtNoa').focus();
+            $('#txtTypea').focus();
         }
 
         function btnModi() {
@@ -96,7 +89,7 @@
                 return;
             _btnModi();
             refreshBbm();
-            $('#txtFactory').focus();
+            $('#txtDatea').focus();
         }
 
         function btnPrint() {
@@ -109,19 +102,15 @@
         }
         function btnOk() {
            Lock(); 
-           $('#txtNoa').val($.trim($('#txtNoa').val()));   	
-           	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('�s���u���\ �^��(A-Z)�B�Ʀr(0-9)��dash(-)�C'+String.fromCharCode(13)+'EX: A01,BA01-001');
-				Unlock();
-			return;
-			} 
-			if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('factory', t_where, 0, 0, 0, "checkFactoryno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+           $('#txtWorker').val(r_name)
+
+			var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workx') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
+
 
          }
 
@@ -328,13 +317,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:30%"><a id='vewFactory'></a></td>
+                <td align="center" style="width:15%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:30%"><a id='vewNoa'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
+                   <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='factory'>~factory</td>
             </tr>
         </table>
         </div>
@@ -364,7 +353,7 @@
                <td class="td2"><input id="txtFactoryno"  type="text" class="txt c2"/>
                <input id="txtFactory"  type="text" class="txt c3"/></td>
                <td class="td1"><span> </span><a id='lblSign' class="lbl"></a></td>
-               <td class="td2"><input id="txtSign"  type="text" class="txt c2"/></td>
+               <td class="td2"><input id="txtSign"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblSotype' class="lbl"></a></td>
@@ -383,19 +372,19 @@
             <tr>
                <td class="td1"><span> </span><a id='lblWorktype' class="lbl"></a></td>
                <td class="td2"><input id="txtWorktype"  type="text" class="txt c1"/></td>
-               <td class="td1"><span> </span><a id='lblWorkno' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtWorkno"  type="text" class="txt c2"/></td>
+               <td class="td1"><span> </span><a id='lblWorkno' class="lbl"></a></td>
+               <td class="td2"><input id="txtWorkno"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblProductno' class="lbl"></a></td>
-               <td class="td2" colspan="3"><input id="txtProductno"  type="text" class="txt c2"/>
+               <td class="td1"><span> </span><a id='lblProductno' class="lbl btn"></a></td>
+               <td class="td2" colspan="2"><input id="txtProductno"  type="text" class="txt c2"/>
                <input id="txtProduct"  type="text" class="txt c3"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblSpec' class="lbl"></a></td>
                <td class="td2"><input id="txtSpec"  type="text" class="txt c1"/></td>
-               <td class="td1"><span> </span><a id='lblUnit' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtUnit"  type="text" class="txt c2"/></td>
+               <td class="td1"><span> </span><a id='lblUnit' class="lbl"></a></td>
+               <td class="td2"><input id="txtUnit"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblSoprocess' class="lbl"></a></td>
@@ -416,10 +405,10 @@
                <td class="td2" colspan="3"><input id="txtDescribe"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblDiscardmount' class="lbl"></a></td>
-               <td class="td2"><input id="txtDiscardmount"  type="text" class="txt num c1"/></td>
                <td class="td1"><span> </span><a id='lblCheckmount' class="lbl"></a></td>
                <td class="td2"><input id="txtCheckmount"  type="text" class="txt num c1"/></td>
+               <td class="td1"><span> </span><a id='lblDiscardmount' class="lbl"></a></td>
+               <td class="td2"><input id="txtDiscardmount"  type="text" class="txt num c1"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblWorker' class="lbl"></a></td>

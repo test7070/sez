@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -374,6 +373,7 @@
             COLOR: blue;
             TEXT-ALIGN: left;
             border-color: white; 
+            font-size: medium;
             width:100%; border-collapse: collapse; background:#cad3ff;
         } 
         
@@ -382,6 +382,7 @@
             FONT-SIZE: 12pt;
             COLOR: blue ;
             TEXT-ALIGN: left;
+            font-size: medium;
              BORDER:1PX LIGHTGREY SOLID;
              width:100% ; height:100% ;  
         } 
@@ -429,6 +430,25 @@
 		.tbbm tr td .lbl.btn:hover {
 			color: #FF8F19;
 		}
+		.tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size:medium;
+            }
+            .tbbm textarea {
+            	font-size: medium;
+            }
+            
+             input[type="text"],input[type="button"] {     
+                font-size: medium;
+            }
     </style>
 </head>
 <body>
@@ -473,7 +493,7 @@
                 <td align="right" class="style2" ><a id='lblFloata'></a></td>
                 <td class="column3" ><select id="cmbCoin" style='width:100%'> </select></td>                 
                 <td class="column4" ><input id="txtFloata"    type="text"  maxlength='10' style='width:100%' /></td>                 
-                <td align="right" class="style2"><a id='lblInvono' class="lbl btn"></a></td>
+                <td align="right" class="style2"><a id='lblInvono' class="lbl"></a></td>
                 <td class="column2"><input id="txtInvono"    type="text"  maxlength='10' style='width:94%;'/></td> 
             </tr>
 
@@ -555,15 +575,15 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblProductno'></a></td>
-                <td align="center"><a id='lblUno'></a></td>
-                <td align="center"><a id='lblSize'></a></td>
-                <td align="center"><a id='lblUnit'></a></td>
-                <td align="center"><a id='lblMount'></a></td>
-                <td align="center"><a id='lblWeights'></a></td>
-                <td align="center"><a id='lblPrices'></a></td>
-                <td align="center"><a id='lblNetweight'></a></td>
-                <td align="center"><a id='lblOrdenos'></a></td>
+                <td align="center"><a id='lblProductno_s'></a></td>
+                <td align="center"><a id='lblUno_s'></a></td>
+                <td align="center"><a id='lblSize_s'></a></td>
+                <td align="center"><a id='lblUnit_s'></a></td>
+                <td align="center"><a id='lblMount_s'></a></td>
+                <td align="center"><a id='lblWeight_s'></a></td>
+                <td align="center"><a id='lblPrice_s'></a></td>
+                <td align="center"><a id='lblNetweight_s'></a></td>
+                <td align="center"><a id='lblOrdeno_s'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
