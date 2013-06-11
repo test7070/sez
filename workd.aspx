@@ -383,8 +383,8 @@
                 <td style="width:10%;" align="center"><a id='lblMounts'></a></td>
                 <td style="width:10%;" align="center"><a id='lblPrice_s'></a></td>
                 <td style="width:10%;" align="center"><a id='lblTotal_s'></a></td>
-                <td style="width:10%;" align="center"><a id='lblErrmount'></a></td>
-                <td style="width:20%;" align="center"><a id='lblMemos'></a></td>
+                <td style="width:12%;" align="center"><a id='lblErrmount'></a></td>
+                <td style="width:15%;" align="center"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -398,7 +398,10 @@
                 <td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
                 <td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
                 <td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
-                <td><input class="txt c1 num" id="txtErrmount.*" type="text"/></td>
+                <td>
+                	<input class="txt c1 num" id="txtErrmount.*" type="text"/>
+                	<input class="txt c1" id="txtErrmemo.*" type="text"/>
+                </td>
                 <td>
                 	<input class="txt c1" id="txtMemo.*" type="text"/>
 	                <input class="txt" id="txtOrdeno.*" type="text" style="width:70%;"/>
