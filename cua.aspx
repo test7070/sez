@@ -58,23 +58,11 @@
                 q_mask(bbsMask);
                 q_gt('station', '' , 0, 0, 0, "", r_accy);
                 $('#btnWork').click(function() {
-                    q_func('cua.genwork', $('#txtNoa').val()+",");
+                    q_func('cua.genWork', r_accy+','+$('#txtNoa').val()+','+r_name);
                 });
                 $('#btnOrdewindow').click(function() {
                 	t_where = '';
-                	ordeno = $('#txtOrdeno').val();
-                	if(ordeno.length > 0)
-                		t_where = "noa='" + ordeno + "'";
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
-                });
-                $('#btnOrde').click(function() {
-                	var ordeno = $('#txtOrdeno').val();
-                	if(ordeno.length == 0){
-                		alert('請填寫' + q_getMsg('lblOrdeno') + '。');
-                		return;
-                	}
-			        t_where = "where=^^ noa ='"+ordeno+"' ^^";           	
-	            	q_gt('orde', t_where , 0, 0, 0, "", r_accy);
                 });
             }
 
@@ -174,14 +162,6 @@
             
             function q_gtPost(t_name) {
                 switch (t_name) {
-					case 'orde':
-						var as = _q_appendData("ordes", "", true);
-						if(as[0]!=undefined){
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount,txtEdate,txtOrdeno,txtNo2',
-													 1, as, 'productno,product,unit,mount,datea,noa,no2', 'txtProductno');
-							UcaCatch(0,ret);
-		                }
-	                	break;
 					case 'uca':
 						var as = _q_appendData("uca", "", true);
 						if(as[0]!=undefined){
@@ -470,8 +450,8 @@
 					<tr>
 						<td><span> </span><a id='lblEnddatea' class="lbl"> </a></td>
 						<td><input id="txtEnddatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
-						<td><input id="txtOrdeno" type="text" class="txt c1"/> </td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -488,7 +468,6 @@
 					<tr>
 						<td></td>
 						<td colspan="2">
-							<input id="btnOrde" type="button" />
 							<input id="btnOrdewindow" type="button" />
 							<input id="btnWork" type="button" />
 						</td>
@@ -503,6 +482,7 @@
 					<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:8%;"><a id='lblOrdeno_s'></a></td>
 					<td align="center" style="width:2%;"><a id='lblNo2_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
 					<td colspan="2" align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
@@ -514,13 +494,13 @@
 					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblEdate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblTotalhours_s'></a></td>
-					<td align="center" style="width:8%;"><a id='lblOrdeno_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><input id="txtOrdeno.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtNo2.*" type="text" style="width: 90%;" /></td>
 					<td><input id="txtDatea.*" type="text" style="width: 95%;" /></td>
 					<td colspan="2">
@@ -540,7 +520,6 @@
 					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtEdate.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtTotalhours.*" type="text" class="txt num c1" style="width: 95%;"/></td>
-					<td><input id="txtOrdeno.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
 		</div>

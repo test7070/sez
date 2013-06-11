@@ -53,7 +53,7 @@
         }
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
+            bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
             q_mask(bbmMask);
             $('#btnImportWorka').click(function(){
             	var t_workno = $.trim($('#txtWorkno').val());
@@ -350,8 +350,8 @@
             	<input id="txtTggno" type="text" class="txt c2"/>
             	<input id="txtTgg" type="text"  class="txt c2"/>
             </td>
-        	<td><span> </span><a id='lblCucdate' class="lbl"> </a></td>
-            <td><input id="txtCucdate" type="text" class="txt c1"/></td>
+        	<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
+            <td><input id="txtCuadate" type="text" class="txt c1"/></td>
         	<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
             <td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
 		<tr>
