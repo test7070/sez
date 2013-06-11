@@ -6,35 +6,80 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 		
 		<script type="text/javascript">
-
-            $(document).ready(function() {
-            	$('#txtA').change(function(){
-            		var t_paydate = $('#txtA').val();
-            		var t_year = parseFloat(t_paydate.substring(0,3))+1911;
-            		var t_mon = parseFloat(t_paydate.substring(4,6))-1;
-            		var t_day = 5;
-            		if(t_mon == 11){
-            			t_year += 1;
-            			t_mon = 0;
-            		}else{
-            			t_mon += 1;
-            		}   
-            		switch((new Date(t_year,t_mon,t_day)).getDay()){
-            			case 0:
-            				t_day += 1;
-            				break;
-            			case 6:
-            				t_day += 2;
-            				break;
-            		}
-            		$('#txtB').val((t_year-1911)+'/'+(t_mon+1)+'/'+t_day);
-            		//alert((/^([\w]+)$/g).test($(this).val()));
-            		//alert((/^(\w+|\w+\u002D\w+)$/g).test($(this).val()));
-            		//$('#txtB').val($(this).val().replace( /^([[a-z,A-Z,0-9,_]*\^]*)([a-z,A-Z,0-9,_]*)$/g, "$2"));
-            	});
 			
-				//alert(document.documentMode);
-				//Unlock(100);
+			
+			/*function openWindowWithPost(url, name, keys, values) {
+			    var newWindow = window.open(url, name);
+			    if (!newWindow){
+			        return false;
+			    }
+			    
+			    var html = "";
+			    html += "<html><head></head><body><form id='formid' method='post' action='"    + url + "'>";
+			    if (keys && values && (keys.length == values.length)){
+			        for ( var i = 0; i < keys.length; i++){
+			            html += "<input type='hidden' name='" + keys[i] + "' value='" + values[i] + "'/>";
+			        }
+			    }
+			    html += "</form><script type='text/javascript'>document.getElementById(\"formid\").submit()<"+"/script></body></html>";
+			    newWindow.document.write(html);
+			    return newWindow;
+			}*/
+			
+            $(document).ready(function() {
+            	/*var sampletext ="this is an example\nPretty boring aye?";
+				var a = document.body.appendChild(
+				        document.createElement("a")
+				    );
+				a.download = "export.txt";
+				a.href = "data:text/plain;base64," + btoa(sampletext);
+				a.innerHTML = "download example text";
+            	
+            	return;*/
+            	var t_data = {
+            		key : encodeURI("TEST")
+            	};
+				var json = JSON.stringify(t_data);
+				
+				//openWindowWithPost('test2.aspx','xxx','key',json);
+				//return;
+            	$.ajax({
+				    url: 'http://59.125.143.171/htm/obtdta.txt',
+				    type: 'GET',
+				   // data: '',
+				  //  dataType: 'text',
+				    success: function(data){
+				    	if($('#temp_download').length==0){
+				    		$('body').append('<a id="temp_download" style="">ssss</a>');
+				    	}
+				    	$('#temp_download').attr('download','obtdta.txt');
+
+				    	$('#temp_download').attr('href',"data," + data);
+				    	$('#temp_download').click();
+				    },
+			        complete: function(){
+			        	alert('complete');	         
+			        },
+				    error: function(jqXHR, exception) {
+				    	//alert('Error:'+this.carno);
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.\n Verify Network.');
+			            } else if (jqXHR.status == 404) {
+			                alert('Requested page not found. [404]');
+			            } else if (jqXHR.status == 500) {
+			                alert('Internal Server Error [500].');
+			            } else if (exception === 'parsererror') {
+			                alert('Requested JSON parse failed.');
+			            } else if (exception === 'timeout') {
+			                alert('Time out error.');
+			            } else if (exception === 'abort') {
+			                alert('Ajax request aborted.');
+			            } else {
+			                alert('Uncaught Error.\n' );
+			                document.write(jqXHR.responseText);
+			            }
+			        }
+				});
             });
         		
             function FormatNumber(n) {
