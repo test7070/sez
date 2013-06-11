@@ -445,8 +445,8 @@
 		        <td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 		        <td class="td2">
 		        	<input id="txtDatea" type="text"  class="txt" style="width: 50%"/>
+		            <input id="chkEnda" type="checkbox" style="float: left;" />
 		            <span> </span><a id="lblEnda" class="lbl" style="float: left;"> </a>
-		            <input id="txtEnda" type="text"  class="txt" style="width: 20%"/>
 		        </td>
 		        <td class="td3"><span> </span><a id="lblWorkdate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtWorkdate" type="text"  class="txt"/></td>
