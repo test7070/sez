@@ -450,24 +450,24 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblWorkdate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtWorkdate" type="text"  class="txt"/></td>
-		        <td class="td5"><span> </span><a id="lblInmount" class="lbl"> </a></td>
-		        <td class="td6"><input id="txtInmount" type="text"  class="txt num"/></td>
+				<td class="td5"><span> </span><a id="lblUnit" class="lbl"> </a></td>
+		        <td class="td6"><input id="txtUnit" type="text"  class="txt"/></td>
 	        </tr>
 	        <tr class="tr3">
 		        <td class="td1"><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
 		        <td class="td2"><input id="txtProductno" type="text"  class="txt"/></td>
 		        <td class="td3"><span> </span><a id="lblUindate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtUindate" type="text"  class="txt"/></td>
-				<td class="td5"><span> </span><a id="lblRmount" class="lbl"> </a></td>
-				<td class="td6"><input id="txtRmount" type="text"  class="txt num"/></td> 
+		        <td class="td5"><span> </span><a id="lblInmount" class="lbl"> </a></td>
+		        <td class="td6"><input id="txtInmount" type="text"  class="txt num"/></td>
 			</tr>
 			<tr class="tr4">
 		        <td class="td1"><span> </span><a id="lblProduct" class="lbl"> </a></td>
 		        <td class="td2"><input id="txtProduct" type="text"  class="txt"/></td>
 		        <td class="td3"><span> </span><a id="lblEnddate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtEnddate" type="text"  class="txt"/></td>
-				<td class="td5"><span> </span><a id="lblErrmount" class="lbl"> </a></td>
-				<td class="td6"><input id="txtErrmount" type="text"  class="txt num"/></td> 
+				<td class="td5"><span> </span><a id="lblRmount" class="lbl"> </a></td>
+				<td class="td6"><input id="txtRmount" type="text"  class="txt num"/></td> 
 			</tr>
 	        <tr class="tr5">
 		        <td class="td1"><span> </span><a id="lblStation" class="lbl btn"> </a></td>
@@ -477,11 +477,8 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblRank" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtRank" type="text"  class="txt"/></td>
-				<td class="td5"><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
-				<td class="td6">
-					<input id="txtOrdeno" type="text"  class="txt" style="width: 70%"/>
-					<input id="txtNo2" type="text"  class="txt" style="width: 20%"/>
-				</td> 
+				<td class="td5"><span> </span><a id="lblErrmount" class="lbl"> </a></td>
+				<td class="td6"><input id="txtErrmount" type="text"  class="txt num"/></td> 
 			</tr>
 			<tr class="tr6">
 		        <td class="td1"><span> </span><a id="lblComp" class="lbl btn"> </a></td>
@@ -491,8 +488,11 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtPrice" type="text"  class="txt num"/></td>
-				<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
-				<td class="td6"><input id="txtCuano" type="text"  class="txt"/></td> 
+				<td class="td5"><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+				<td class="td6">
+					<input id="txtOrdeno" type="text"  class="txt" style="width: 70%"/>
+					<input id="txtNo2" type="text"  class="txt" style="width: 20%"/>
+				</td> 
 			</tr>
 			<tr class="tr7">
 		        <td class="td1"><span> </span><a id="lblProcess" class="lbl"> </a></td>
@@ -502,8 +502,8 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtHours" type="text"  class="txt num"/></td>
-				<td class="td5"><span> </span><a id="lblUno" class="lbl"> </a></td>
-				<td class="td6"><input id="txtUno" type="text"  class="txt"/></td> 
+				<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
+				<td class="td6"><input id="txtCuano" type="text"  class="txt"/></td> 
 			</tr>
 	        <tr class="tr8">
 		        <td class="td1"><span> </span><a id="lblMold" class="lbl"> </a></td>
@@ -512,7 +512,9 @@
 		        	<input id="txtMold" type="text"  class="txt" style="width: 45%"/>
 		        </td>
 		        <td class="td3"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-		        <td class="td4" colspan='3'><input id="txtMemo" type="text"  class="txt" style="width: 98%";/></td>
+		        <td class="td4"><input id="txtMemo" type="text"  class="txt"/></td>
+				<td class="td5"><span> </span><a id="lblUno" class="lbl"> </a></td>
+				<td class="td6"><input id="txtUno" type="text"  class="txt"/></td> 
 			</tr>
         </table>
         </div>
@@ -523,7 +525,7 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id='lblProcesss'> </a></td>
                 <td align="center" style="width:17%;"><a id='lblProducts'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblCuadates'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblMounts'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblGmount'> </a></td>
