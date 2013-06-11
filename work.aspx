@@ -22,7 +22,7 @@
         var q_name = "work";
         var decbbs = ['weight', 'uweight', 'mount', 'gmount', 'emount', 'hours'];
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-        var q_readonly = ['txtComp','txtProduct','txtStation']; 
+        var q_readonly = ['txtNoa','txtComp','txtProduct','txtStation']; 
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtTproductno','txtTproduct']; 
         var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
@@ -44,8 +44,8 @@
             bbsKey = ['noa', 'noq'];
 
             q_brwCount();  // 計算 合適  brwCount 
-			q_gt(q_name, q_content, q_sqlCount, 1)
-			
+			//q_gt(q_name, q_content, q_sqlCount, 1)
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             /*if (!q_gt(q_name, q_content, q_sqlCount, 1))  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
                 return;*/
         });
@@ -71,7 +71,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtWorkdate', r_picd], ['txtUindate', r_picd], ['txtCuadate',r_picd] , ['txtEnddate', r_picd]];
             q_mask(bbmMask);
-            bbsMask = [['txtCucdate',r_picd]];
+            bbsMask = [['txtCuadate',r_picd]];
             q_mask(bbsMask);
             
             $('#txtProductno').change(function () {
@@ -179,7 +179,8 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtDatea').val(q_date());
+            $('#txtNoa').val('AUTO');
+            $('#txtDatea').val(q_date()).focus();
          }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -435,10 +436,10 @@
 	        <tr class="tr1">
 		        <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 		        <td class="td2"><input id="txtNoa" type="text"  class="txt"/></td>
-		        <td class="td3"><span> </span><a id="lblCucdate" class="lbl"> </a></td>
+		        <td class="td3"><span> </span><a id="lblCuadate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtCuadate" type="text"  class="txt"/></td>
 				<td class="td5"><span> </span><a id="lblMount" class="lbl"> </a></td>
-				<td class="td6"><input id="txtMount" type="text"  class="txt"/></td> 
+				<td class="td6"><input id="txtMount" type="text"  class="txt num"/></td> 
 			</tr>
 	        <tr class="tr2">
 		        <td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
@@ -450,7 +451,7 @@
 		        <td class="td3"><span> </span><a id="lblWorkdate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtWorkdate" type="text"  class="txt"/></td>
 		        <td class="td5"><span> </span><a id="lblInmount" class="lbl"> </a></td>
-		        <td class="td6"><input id="txtInmount" type="text"  class="txt"/></td>
+		        <td class="td6"><input id="txtInmount" type="text"  class="txt num"/></td>
 	        </tr>
 	        <tr class="tr3">
 		        <td class="td1"><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
@@ -458,7 +459,7 @@
 		        <td class="td3"><span> </span><a id="lblUindate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtUindate" type="text"  class="txt"/></td>
 				<td class="td5"><span> </span><a id="lblRmount" class="lbl"> </a></td>
-				<td class="td6"><input id="txtRmount" type="text"  class="txt"/></td> 
+				<td class="td6"><input id="txtRmount" type="text"  class="txt num"/></td> 
 			</tr>
 			<tr class="tr4">
 		        <td class="td1"><span> </span><a id="lblProduct" class="lbl"> </a></td>
@@ -466,7 +467,7 @@
 		        <td class="td3"><span> </span><a id="lblEnddate" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtEnddate" type="text"  class="txt"/></td>
 				<td class="td5"><span> </span><a id="lblErrmount" class="lbl"> </a></td>
-				<td class="td6"><input id="txtErrmount" type="text"  class="txt"/></td> 
+				<td class="td6"><input id="txtErrmount" type="text"  class="txt num"/></td> 
 			</tr>
 	        <tr class="tr5">
 		        <td class="td1"><span> </span><a id="lblStation" class="lbl btn"> </a></td>
@@ -490,8 +491,8 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtPrice" type="text"  class="txt num"/></td>
-				<td class="td5"><span> </span><a id="lblCucno" class="lbl"> </a></td>
-				<td class="td6"><input id="txtCucno" type="text"  class="txt"/></td> 
+				<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
+				<td class="td6"><input id="txtCuano" type="text"  class="txt"/></td> 
 			</tr>
 			<tr class="tr7">
 		        <td class="td1"><span> </span><a id="lblProcess" class="lbl"> </a></td>
@@ -523,7 +524,7 @@
                 <td align="center" style="width:10%;"><a id='lblProcesss'> </a></td>
                 <td align="center" style="width:17%;"><a id='lblProducts'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblCucdates'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblCuadates'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblMounts'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblGmount'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblEmount'> </a></td>
@@ -540,7 +541,7 @@
                 	<input id="txtProduct.*" type="text" class="txt c1"/>
                 </td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td><input id="txtCucdate.*" type="text" class="txt c1"/></td>
+                <td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtGmount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtEmount.*" type="text" class="txt c1 num"/></td>
