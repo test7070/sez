@@ -171,7 +171,7 @@
             
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('WB' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workb') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer(s1);
         }
@@ -493,8 +493,8 @@
 			<td><input type="button" id="btnCert"></td>
 		</tr>
 		 <tr>
-		 	<td><span> </span><a id='lblBno' class="lbl"> </a></td>
-			<td><input id="txtBno" type="text" class="txt c1"/></td>
+		 	<!--<td><span> </span><a id='lblBno' class="lbl"> </a></td>
+			<td><input id="txtBno" type="text" class="txt c1"/></td>-->
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text" class="txt c1"/></td>
 		</tr>
@@ -509,7 +509,6 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:8%;"><a id='lblUno_s'></a></td>
                 <td align="center" style="width:6%;"><a id='lblTimea_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
@@ -524,7 +523,6 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input id="txtUno.*" type="text" class="txt c1"/></td>
                 <td><input id="txtTimea.*" type="text" class="txt c1"/></td>
                 <td>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />

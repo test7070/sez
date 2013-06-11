@@ -129,7 +129,7 @@
 
             var s1 = $('#txt' + bbmKey[0][0].toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('W' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_work') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer(s1);
         }
@@ -524,14 +524,14 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id='lblProcesss'> </a></td>
-                <td align="center" style="width:17%;"><a id='lblProducts'> </a></td>
+                <td align="center" style="width:17%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblCuadates'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblMounts'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblGmount'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblEmount'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblTd'> </a></td>
-                <td align="center" style="width:17%;"><a id='lblTproduct'> </a></td>
+                <td align="center" style="width:17%;"><a id='lblTproduct_s'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>

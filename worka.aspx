@@ -178,7 +178,7 @@
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-				q_gtnoa(q_name, replaceAll('WA' + $('#txtDatea').val(), '/', ''));
+				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_worka') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 			else
 				wrServer(s1);
 		}
@@ -505,8 +505,8 @@
 		<tr>
 			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
-			<td><span> </span><a id='lblMold' class="lbl"> </a></td>
-			<td><input id="txtMoldno" type="text" class="txt c2"/><input id="txtMold" type="text" class="txt c3"/></td>
+			<td><span> </span><a id='lblModel' class="lbl"> </a></td>
+			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
 			<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
 			<td><input id="txtTimea" type="text"  class="txt c1"/></td></tr>
 		<tr>
@@ -537,7 +537,7 @@
 			<tr style='color:White; background:#003366;' >
 				<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
 				<td align="center"><a id='lblProductnos'></a></td>
-				<td align="center"><a id='lblProducts'></a></td>
+				<td align="center"><a id='lblProduct_s'></a></td>
 				<td align="center"><a id='lblUnit'></a></td>
 				<td align="center"><a id='lblMounts'></a></td>
 				<td align="center"><a id='lblWeights'></a></td>

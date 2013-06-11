@@ -576,34 +576,28 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center"><a id='lblProductno_s'></a></td>
-                <td align="center"><a id='lblUno_s'></a></td>
-                <td align="center"><a id='lblSize_s'></a></td>
+                <td align="center"><a id='lblProduct_s'></a></td>
                 <td align="center"><a id='lblUnit_s'></a></td>
                 <td align="center"><a id='lblMount_s'></a></td>
                 <td align="center"><a id='lblWeight_s'></a></td>
                 <td align="center"><a id='lblPrice_s'></a></td>
-                <td align="center"><a id='lblNetweight_s'></a></td>
-                <td align="center"><a id='lblOrdeno_s'></a></td>
+                <td align="center"><a id='lblTotal_s'></a></td>
+                <td align="center"><a id='lblMemo_s'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:10%; text-align:center"><input class="txt"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
-                                       <input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" /></td>
-                <td style="width:20%;"><input class="txt" id="txtProduct.*" type="text" maxlength='90' style="width:98%;" />
-                <input class="txt" id="txtUno.*" type="text"  maxlength='40' style="width:98%;" /></td>
-                <td style="width:18%;"><input class="txt" id="txtDime.*" type="text"  maxlength='10' style="width:25%;text-align:right;" />x
-                                    <input class="txt" id="txtWidth.*" type="text"  maxlength='10' style="width:25%;text-align:right;" />x
-                                    <input class="txt" id="txtLengthb.*" type="text"  maxlength='10' style="width:25%;text-align:right;" />
-                                    <input class="txt" id="txtSpec.*" type="text"  style="width:98%;" /> </td>
-                <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" maxlength='10' style="width:94%;"/></td>
-                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" maxlength='20' style="width:94%; text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" maxlength='20' style="width:96%; text-align:right;"/></td>
-                <td style="width:6%;"><input class="txt" id="txtPrice.*" type="text"  maxlength='20' style="width:96%; text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtTotal.*" type="text" maxlength='20' style="width:96%; text-align:right;"/>
-                                      <input class="txt" id="txtGweight.*" type="text" maxlength='20' style="width:96%; text-align:right;"/></td>
-                <td style="width:12%;"><input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:98%;"/>
-                <input class="txt" id="txtOrdeno.*" type="text" maxlength='30' style="width:65%;" />
-                <input class="txt" id="txtNo2.*" type="text" maxlength='5' style="width:20%;" />
+                <td style="width:10%; text-align:center"><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
+                	<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" /></td>
+                <td style="width:20%;"><input class="txt" id="txtProduct.*" type="text"  style="width:98%;" />
+                </td>
+                <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
+                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
+                <td style="width:6%;"><input class="txt" id="txtPrice.*" type="text"  style="width:96%; text-align:right;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtTotal.*" type="text" style="width:96%; text-align:right;"/></td>
+                <td style="width:12%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
+                <input class="txt" id="txtOrdeno.*" type="text" style="width:65%;" />
+                <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
