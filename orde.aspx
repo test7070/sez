@@ -631,13 +631,12 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center"><a id='lblProductno'> </a></td>
-                <td align="center"><a id='lblProduct'> </a></td>
-                <td align="center"><a id='lblSize'> </a></td>
+                <td align="center"><a id='lblProduct_s'> </a></td>
                 <td align="center"><a id='lblUnit'> </a></td>
                 <td align="center"><a id='lblMount'> </a></td>
                 <td align="center"><a id='lblWeights'> </a></td>
                 <td align="center"><a id='lblPrices'> </a></td>
-                <td align="center"><a id='lblTotals'> </a></td>
+                <td align="center"><a id='lblTotal_s'> </a></td>
                 <td align="center"><a id='lblGemounts'></a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
                 <td align="center"><a id='lblDateas'> </a></td>
@@ -655,8 +654,6 @@
                 <td style="width:12%;">
                 	<input class="txt c7" id="txtProduct.*" type="text" />
                 </td>
-                <td style="width:12%;">
-                    <input class="txt c7" id="txtSpec.*" type="text"  /></td>
                 <td style="width:4%;">
                 	<input class="txt c7" id="txtUnit.*" type="text"/>
                 </td>
@@ -671,7 +668,6 @@
                 </td>
                 <td style="width:8%;">
                 	<input class="txt num c7" id="txtTotal.*" type="text" />
-                    <input class="txt num c7" id="txtGweight.*" type="text"/>
                 </td>
                 <td style="width:8%;">
                 	<input class="txt num c1" id="txtC1.*" type="text" />
