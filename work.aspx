@@ -501,14 +501,14 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtHours" type="text"  class="txt num"/></td>
-				<td class="td5"><span> </span><a id="lblUno" class="lbl"> </a></td>
-				<td class="td6"><input id="txtUno" type="text"  class="txt"/></td> 
+				<td class="td5" style="display: none;"><span> </span><a id="lblUno" class="lbl"> </a></td>
+				<td class="td6" style="display: none;"><input id="txtUno" type="text"  class="txt"/></td> 
 			</tr>
 	        <tr class="tr8">
-		        <td class="td1"><span> </span><a id="lblMold" class="lbl"> </a></td>
+		        <td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
 		        <td class="td2">
-		        	<input id="txtMoldno" type="text"  class="txt" style="width: 45%"/>
-		        	<input id="txtMold" type="text"  class="txt" style="width: 45%"/>
+		        	<input id="txtModelno" type="text"  class="txt" style="width: 45%"/>
+		        	<input id="txtModel" type="text"  class="txt" style="width: 45%"/>
 		        </td>
 		        <td class="td3"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 		        <td class="td4" colspan='3'><input id="txtMemo" type="text"  class="txt" style="width: 98%";/></td>

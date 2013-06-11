@@ -35,7 +35,9 @@
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
         	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
-        	['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx']
+        	['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
+        	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
+        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
         	);
 
         $(document).ready(function () {
@@ -69,7 +71,8 @@
             q_getFormat();
             bbmMask = [['txtKdate', r_picd],['txtWdate', r_picd]];  
 			q_mask(bbmMask);
-			q_cmbParse("cmbTypea", q_getPara('uca.typea')); // 需在 main_form() 後執行，才會載入 系統參數  
+			q_cmbParse("cmbTypea", q_getPara('uca.typea')); // 需在 main_form() 後執行，才會載入 系統參數
+			q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');  
         }
         
 		var t_td='';
@@ -486,7 +489,7 @@
 		        <td class="td4" colspan='3'><input id="txtEngpro" type="text"  class="txt c1"/></td>
 			</tr>
 			<tr class="tr4">
-		        <td class="td1"><span> </span><a id="lblProcess" class="lbl"> </a></td>
+		        <td class="td1"><span> </span><a id="lblProcess" class="lbl btn"> </a></td>
 		        <td class="td2">
 		        	<input id="txtProcessno" type="text"  class="txt" style="width: 45%;"/>
 		        	<input id="txtProcess" type="text"  class="txt" style="width: 45%;"/>
@@ -495,10 +498,10 @@
 		        <td class="td4" colspan='3'><input id="txtSpec" type="text"  class="txt c1"/></td>
 			</tr>
 			<tr class="tr5">
-		        <td class="td1"><span> </span><a id="lblMold" class="lbl"> </a></td>
+		        <td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
 		        <td class="td2">
-		        	<input id="txtMoldno" type="text"  class="txt" style="width: 45%;"/>
-		        	<input id="txtMold" type="text"  class="txt" style="width: 45%;"/>
+		        	<input id="txtModelno" type="text"  class="txt" style="width: 45%;"/>
+		        	<input id="txtModel" type="text"  class="txt" style="width: 45%;"/>
 		        </td>
 		        <td class="td3"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 		        <td class="td4"><input id="txtTggno" type="text"  class="txt c1"/></td>
@@ -551,20 +554,24 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
            <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:8%;"><a id='lblProductno'></a></td>
+                
+                <td align="center" style="width:11%;"><a id='lblProductno'></a></td>
                 <td align="center" style="width:20%;"><a id='lblProducts'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount'></a></td>
                 <td align="center" style="width:8%;"><a id='lblWeights'></a></td>
-                <td align="center" style="width:6%;"><a id='lblHours_s'></a></td>
-                <td align="center" style="width:15%;"><a id='lblTd'></a></td>
+                <td align="center" style="width:8%;"><a id='lblMtype_s'></a></td>
+                <td align="center" style="width:12%;"><a id='lblProcessno_s'></a></td>
+                <td align="center" style="width:6%;"><a id='lblLoss_s'></a></td>
+                <!--<td align="center" style="width:15%;"><a id='lblTd'></a></td>-->
                 <td align="center"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td>	<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                
                 <td>
-                	<input id="txtProductno.*" type="text" class="txt"/>
-                	<input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
+                	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
+                	<input id="txtProductno.*" type="text" style="width: 75%;"/>
                 </td>
                 <td>
                 	<input id="txtProduct.*" type="text" class="txt c1"/>
@@ -573,11 +580,17 @@
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1"/></td>
                 <td><input id="txtWeight.*" type="text" class="txt num c1"/></td>
-                <td><input id="txtHours.*" type="text" class="txt num c1"/></td>
+                <td><select id="cmbMtype.*" class="txt c1"> </select></td>
                 <td>
-                	<input id="txtTd.*" type="text" class="txt c1"/>
-                	<input class="btn"  id="btnTproductno.*" type="button" value='...' style=" font-weight: bold;" />
+                	<input class="btn"  id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
+                	<input id="txtProcessno.*" type="text" style="width: 75%;"/>
+                	<input id="txtProcess.*" type="text" class="txt c1"/>
                 </td>
+                <td><input id="txtLoss.*" type="text" class="txt num c1"/></td>
+                <!--<td>
+                	<input class="btn"  id="btnTproductno.*" type="button" value='.' style=" font-weight: bold;" />
+                	<input id="txtTd.*" type="text" style="width: 80%;"/>
+                </td>-->
                 <td>
                 	<input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />

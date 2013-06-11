@@ -18,7 +18,7 @@
 
             var q_name = "process";
             var q_readonly = [];
-            var bbmNum = [['txtUweight', 15, 3, 1]];
+            var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -31,7 +31,8 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
-
+			aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
+							 ['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx']);
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -266,6 +267,14 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 25%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 74%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -316,12 +325,12 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewProcess'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
-						<td id='product' style="text-align: left;">~product</td>
+						<td id='process' style="text-align: left;">~process</td>
 					</tr>
 				</table>
 			</div>
@@ -339,12 +348,36 @@
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtProduct"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProcess' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtProcess"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblUweight' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtUweight" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblDescribe' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtDescribe" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td><input id="txtTypea"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
+						<td colspan="2"><input id="txtTggno"  type="text" class="txt c2" />
+										<input id="txtTgg"  type="text" class="txt c3" />
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStationgno' class="lbl btn"> </a></td>
+						<td colspan="2"><input id="txtStationgno"  type="text" class="txt c2" />
+										<input id="txtStationg"  type="text" class="txt c3" />
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblSales' class="lbl"> </a></td>
+						<td><input id="txtSales"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
