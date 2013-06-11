@@ -363,11 +363,71 @@
                <td class="td1"><span> </span><a id='lblFactoryno' class="lbl btn"></a></td>
                <td class="td2"><input id="txtFactoryno"  type="text" class="txt c2"/>
                <input id="txtFactory"  type="text" class="txt c3"/></td>
-               
+               <td class="td1"><span> </span><a id='lblSign' class="lbl"></a></td>
+               <td class="td2"><input id="txtSign"  type="text" class="txt c2"/></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblFactoryno' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtFactoryno"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblSotype' class="lbl"></a></td>
+               <td class="td2"><input id="txtSotype"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblSopart' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtSopartno"  type="text" class="txt c2"/>
+               				   <input id="txtSopart"  type="text" class="txt c3"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblSitype' class="lbl"></a></td>
+               <td class="td2"><input id="txtSitype"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblSipart' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtSipartno"  type="text" class="txt c2"/>
+               				   <input id="txtSipart"  type="text" class="txt c3"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblWorktype' class="lbl"></a></td>
+               <td class="td2"><input id="txtWorktype"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblWorkno' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtWorkno"  type="text" class="txt c2"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblProductno' class="lbl"></a></td>
+               <td class="td2" colspan="3"><input id="txtProductno"  type="text" class="txt c2"/>
+               <input id="txtProduct"  type="text" class="txt c3"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblSpec' class="lbl"></a></td>
+               <td class="td2"><input id="txtSpec"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblUnit' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtUnit"  type="text" class="txt c2"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblSoprocess' class="lbl"></a></td>
+               <td class="td2"><input id="txtSoprocess"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblSowork' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtSoworkno"  type="text" class="txt c2"/>
+               				   <input id="txtSowork"  type="text" class="txt c3"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblSiprocess' class="lbl"></a></td>
+               <td class="td2"><input id="txtSiprocess"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblSiwork' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtSiworkno"  type="text" class="txt c2"/>
+               				   <input id="txtSiwork"  type="text" class="txt c3"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblDescribe' class="lbl"></a></td>
+               <td class="td2" colspan="3"><input id="txtDescribe"  type="text" class="txt c1"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblDiscardmount' class="lbl"></a></td>
+               <td class="td2"><input id="txtDiscardmount"  type="text" class="txt num c1"/></td>
+               <td class="td1"><span> </span><a id='lblCheckmount' class="lbl"></a></td>
+               <td class="td2"><input id="txtCheckmount"  type="text" class="txt num c1"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblWorker' class="lbl"></a></td>
+               <td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+               <td class="td2" colspan="3"><input id="txtMemo"  type="text" class="txt c1"/></td>
             </tr>
         </table>
         </div>

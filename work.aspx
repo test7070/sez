@@ -501,14 +501,9 @@
 		        	<input id="txtProcess" type="text"  class="txt" style="width: 45%"/>
 		        </td>
 		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
-		        <td class="td4"><input id="txtHours" type="text"  class="txt num"/></td>
-<<<<<<< HEAD
-				<td class="td5" style="display: none;"><span> </span><a id="lblUno" class="lbl"> </a></td>
-				<td class="td6" style="display: none;"><input id="txtUno" type="text"  class="txt"/></td> 
-=======
+		        <td class="td4"><input id="txtHours" type="text"  class="txt num"/></td> 
 				<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
 				<td class="td6"><input id="txtCuano" type="text"  class="txt"/></td> 
->>>>>>> 577b88bb21b464665e8effe2157f9e1b06534ab6
 			</tr>
 	        <tr class="tr8">
 		        <td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
@@ -518,8 +513,8 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtMemo" type="text"  class="txt"/></td>
-				<td class="td5"><span> </span><a id="lblUno" class="lbl"> </a></td>
-				<td class="td6"><input id="txtUno" type="text"  class="txt"/></td> 
+				<td class="td5" style="display: none;"><span> </span><a id="lblUno" class="lbl"> </a></td>
+				<td class="td6" style="display: none;"><input id="txtUno" type="text"  class="txt"/></td>
 			</tr>
         </table>
         </div>
