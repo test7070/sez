@@ -13,6 +13,7 @@
             		var t_year = parseInt($('#txtYear').val());
 	        		var sqlStr="SET QUOTED_IDENTIFIER OFF" + String.fromCharCode(13);
 	        		sqlStr+= "declare @cmd nvarchar(max)"+ String.fromCharCode(13);
+	        		sqlStr+= accc(t_year);
 	        		sqlStr+= vcc(t_year-1);
 					sqlStr+= vcc(t_year);
 					sqlStr+= vcc(t_year+1);
@@ -21,7 +22,61 @@
             		$('#file').attr('href',"data:text/plain;base64," + btoa(sqlStr));
             	});
             });
-            
+            function accc(year){
+            	return "if not exists(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE UPPER(TABLE_NAME)='ACCC"+year+"_1' )"+ String.fromCharCode(13)
+        			+"begin"+ String.fromCharCode(13)	
+	        		+"	CREATE TABLE [dbo].[accc"+year+"_1]("+ String.fromCharCode(13)
+					+"		[accc1] [nvarchar](10) NULL,"+ String.fromCharCode(13)
+					+"		[accc2] [nvarchar](10) NULL,"+ String.fromCharCode(13)
+					+"		[accc3] [nvarchar](25) NOT NULL,"+ String.fromCharCode(13)
+					+"		[checker] [nvarchar](20) NULL,"+ String.fromCharCode(13)
+					+"		[worker] [nvarchar](20) NULL,"+ String.fromCharCode(13)
+					+"		[zno] [nvarchar](20) NULL,"+ String.fromCharCode(13)
+					+"		[ver] [int] NULL,"+ String.fromCharCode(13)
+					+"		[cmoney] [decimal](16, 2) NULL,"+ String.fromCharCode(13)
+					+"		[accno] [nvarchar](15) NULL,"+ String.fromCharCode(13)
+					+"		[lok] [bit] NULL,"+ String.fromCharCode(13)
+					+"		[cno] [nvarchar](25) NULL,"+ String.fromCharCode(13)
+					+"		[dmoney] [decimal](16, 2) NULL,"+ String.fromCharCode(13)
+					+"		[yeara] [nvarchar](12) NULL,"+ String.fromCharCode(13)
+					+"		[part] [nvarchar](12) NULL,"+ String.fromCharCode(13)
+					+"		CONSTRAINT [PK_accc"+year+"_1] PRIMARY KEY CLUSTERED "+ String.fromCharCode(13)
+					+"		("+ String.fromCharCode(13)
+					+"			[accc3] ASC"+ String.fromCharCode(13)
+					+"		)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]"+ String.fromCharCode(13)
+					+"		) ON [PRIMARY]"+ String.fromCharCode(13)
+        			+"end"+ String.fromCharCode(13)
+        			
+        			+"if not exists(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE UPPER(TABLE_NAME)='ACCCS"+year+"_1' )"+ String.fromCharCode(13)
+        			+"begin"+ String.fromCharCode(13)
+	        		+"	CREATE TABLE [dbo].[acccs"+year+"_1]("+ String.fromCharCode(13)	
+					+"		[accc1] [nvarchar](3) NULL,"+ String.fromCharCode(13)	
+					+"		[accc2] [nvarchar](10) NULL,"+ String.fromCharCode(13)
+					+"		[accc3] [nvarchar](15) NOT NULL,"+ String.fromCharCode(13)
+					+"		[accc4] [nvarchar](4) NULL,"+ String.fromCharCode(13)	
+					+"		[accc5] [nvarchar](20) NULL,"+ String.fromCharCode(13)
+					+"		[accc6] [nvarchar](46) NULL,"+ String.fromCharCode(13)
+					+"		[accc7] [nvarchar](100) NULL,"+ String.fromCharCode(13)	
+					+"		[accc8] [float] NULL,"+ String.fromCharCode(13)	
+					+"		[zno] [nvarchar](20) NULL,"+ String.fromCharCode(13)	
+					+"		[ver] [varchar](15) NULL,"+ String.fromCharCode(13)	
+					+"		[noq] [nvarchar](4) NOT NULL,"+ String.fromCharCode(13)	
+					+"		[part] [nvarchar](18) NULL,"+ String.fromCharCode(13)	
+					+"		[coin] [nvarchar](10) NULL,"+ String.fromCharCode(13)	
+					+"		[floata] [float] NULL,"+ String.fromCharCode(13)	
+					+"		[yeara] [nvarchar](6) NULL,"+ String.fromCharCode(13)	
+					+"		[dc] [varchar](10) NULL,"+ String.fromCharCode(13)
+					+"		[dmoney] [float] NULL,"+ String.fromCharCode(13)	
+					+"		[cmoney] [float] NULL,"+ String.fromCharCode(13)
+					+"		[bal] [nvarchar](50) NULL,"+ String.fromCharCode(13)	
+					+"		CONSTRAINT [PK_acccs"+year+"_1] PRIMARY KEY CLUSTERED "+ String.fromCharCode(13)	
+					+"		("+ String.fromCharCode(13)	
+					+"			[accc3] ASC,"+ String.fromCharCode(13)
+					+"			[noq] ASC"+ String.fromCharCode(13)	
+					+"		)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]"+ String.fromCharCode(13)	
+					+"	) ON [PRIMARY]"+ String.fromCharCode(13)	
+        			+"end"+ String.fromCharCode(13);	
+        	}
             function vcc(year){
             	return "if not exists(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE UPPER(TABLE_NAME)='VCC"+year+"' )"+ String.fromCharCode(13)
 					+"begin"+ String.fromCharCode(13)		
