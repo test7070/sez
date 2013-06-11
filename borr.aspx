@@ -165,7 +165,7 @@
                                         t_isExist = true;
                                         if(as[i]['tablea']=='umms' && as[i]['noa']==t_ummno){
                                         	//忽略
-                                        }else if (as[i]['noa'] != t_noa) {
+                                        }else if (as[i]['noa'] != t_noa && !(as[i]['tablea']=='umms' && as[i]['acc1'].substring(0,4)=='1121' && as[i]['money'].substring(0,1)=='-')) {
                                             t_msg += (t_msg.length == 0 ? '票據已存在:' : '') + String.fromCharCode(13) + '【' + as[i]['title'] + as[i]['noa'] + '】' + as[i]['checkno'];
                                         }
                                     }
@@ -213,7 +213,7 @@
                                         t_isExist = true;
                                         if(as[i]['tablea']=='umms' && as[i]['noa']==t_ummno){
                                         	//忽略
-                                        }else if (as[i]['noa'] != t_noa) {
+                                        }else if (as[i]['noa'] != t_noa && !(as[i]['tablea']=='umms' && as[i]['acc1'].substring(0,4)=='1121' && as[i]['money'].substring(0,1)=='-')) {
                                             t_msg += (t_msg.length == 0 ? '票據已存在:' : '') + String.fromCharCode(13) + '【' + as[i]['title'] + as[i]['noa'] + '】' + as[i]['checkno'];
                                         }
                                     }
