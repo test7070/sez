@@ -21,8 +21,10 @@
             var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price','totalus'];
             var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
+            			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtWeight', 15, 0, 1],
+            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -61,6 +63,12 @@
                 q_cmbParse("cmbPaytype", q_getPara('vcc.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
+                $('#txtFloata').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+				});
+				$('#txtTotal').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -93,7 +101,7 @@
                 }
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_quat') + $('#txtDatea').val(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -109,6 +117,58 @@
             }
 
             function bbsAssign() {
+            	for(var j = 0; j < q_bbsCount; j++) {
+					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtUnit_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                
+			                if($('#txtUnit_' + b_seq).val().toUpperCase()=='KG'){
+			                	q_tr('txtTotal_'+b_seq,q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }else{
+			                	q_tr('txtTotal_'+b_seq,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }
+			               sum();
+						});
+						$('#txtMount_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                
+			                if($('#txtUnit_' + b_seq).val().toUpperCase()=='KG'){
+			                	q_tr('txtTotal_'+b_seq,q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }else{
+			                	q_tr('txtTotal_'+b_seq,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }
+			               sum();
+						});
+						$('#txtWeight_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                
+			                if($('#txtUnit_' + b_seq).val().toUpperCase()=='KG'){
+			                	q_tr('txtTotal_'+b_seq,q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }else{
+			                	q_tr('txtTotal_'+b_seq,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }
+			               sum();
+						});
+						$('#txtPrice_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                
+			                if($('#txtUnit_' + b_seq).val().toUpperCase()=='KG'){
+			                	q_tr('txtTotal_'+b_seq,q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }else{
+			                	q_tr('txtTotal_'+b_seq,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq))
+			                }
+			               sum();
+						});
+					}
+				}
                 _bbsAssign();
             }
 
@@ -144,27 +204,21 @@
                 }
 
                 q_nowf();
-                as['date'] = abbm2['date'];
-
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
+                as['datea'] = abbm2['datea'];
                 return true;
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+					t_total+=q_float('txtTotal_'+j);
+					t_weight+=q_float('txtWeight_'+j);
                 }  // j
-
+				q_tr('txtMoney',t_total);
+				q_tr('txtWeight',t_weight);
+				q_tr('txtTotal',t_total);
+				calTax();
+				q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {

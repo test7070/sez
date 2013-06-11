@@ -91,6 +91,12 @@
 					q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
 				}
 			});
+			$('#txtFloata').change(function () {
+		        q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+			});
+			$('#txtTotal').change(function () {
+		       	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -102,10 +108,11 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtPrice,txtMount,txtWeight,txtQuatno,txtNo3', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,price,mount,weight,noa,no3'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtWeight,txtQuatno,txtNo3', b_ret.length, b_ret
+                                                           , 'productno,product,spec,unit,price,mount,weight,noa,no3'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
-                        bbsAssign();
+                                                           sum();
+                        /*bbsAssign();
 
                         for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
@@ -118,7 +125,7 @@
                                 $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv2'], b_ret[i]['weight']));
                             }
 
-                        }  /// for i
+                        }  /// for i*/
                     }
                     break;
                 
@@ -298,6 +305,7 @@
 
             $('#txtWeight').val(round(t_weight, 0));
             //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
+            q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 
             calTax();
         }
@@ -593,7 +601,7 @@
             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblTotalus' class="lbl"></a></td>
-                <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt c1"/></td> 
+                <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1"/></td>
                 <td class="td7"><span> </span><a id='lblEnda' class="lbl"></a></td>
