@@ -28,13 +28,14 @@
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1], ['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1]];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtTimea', '99:99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         
         aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtWorkno','lblWorknos','work','noa','txtWorkno','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 		);
 
@@ -80,6 +81,16 @@
 					t_where = "left(noa," +t_bno.length + ")='" + t_bno + "'";
 					q_box("cert_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cert', "95%", "95%", q_getMsg('popCert'));
 				}
+			});
+			
+			$('#txtWorkno').change(function(){
+				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+				q_gt('work', t_where , 0, 0, 0, "", r_accy);
+			});
+			
+			$('#lblWorkno').click(function(){
+				var t_where = emp($('#txtWorkno').val())?'':"charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
+				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
         }
 
@@ -134,7 +145,14 @@
                         }  /// for i
                     }
                     break;
-                
+               	case 'work':
+                	b_ret = getb_ret();
+                	if(b_ret){
+                		$('#txtWorkno').val(b_ret[0].noa);
+                		var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+						q_gt('work', t_where , 0, 0, 0, "", r_accy);
+                	}
+                break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -145,6 +163,27 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
+            	case 'work':
+            		//清空表身資料
+            		for(var i = 0; i < q_bbsCount; i++) {
+            			$('#btnMinus_'+i).click();
+            		}
+            		
+					var as = _q_appendData("work", "", true);
+					for (i = 0; i < as.length; i++) {
+							
+							if(as[i].unit.toUpperCase()=='KG'){
+								as[i].xmount=0;
+								as[i].xweight=as[i].inmount;
+							}else{
+								as[i].xmount=as[i].inmount;
+								as[i].xweight=0;
+							}
+						}
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo', as.length, as
+														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo'
+														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
+				 break;
                 case 'ucc': 
 					var as = _q_appendData("ucc", "", true);
 					if(as[0]!=undefined)
@@ -297,6 +336,15 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtWorkno':
+           				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+					    q_gt('work', t_where , 0, 0, 0, "", r_accy);
+			        break;
+		    	}
+			}
     </script>
     <style type="text/css">
         #dmain {
@@ -475,9 +523,9 @@
 				<input id="txtStationno" type="text" class="txt c2"/>
 				<input id="txtStation" type="text" class="txt c3"/>
 			</td>
-			<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 			<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-			<td><input type="button" id="btnImport"></td>
+			<td><!--<input type="button" id="btnImport">--></td>
 
 		</tr>
         <tr>
@@ -486,15 +534,13 @@
 				<input id="txtStoreno" type="text" class="txt c2"/>
 				<input id="txtStore" type="text" class="txt c3"/>
 			</td>
-			<td><span> </span><a id='lblCuano' class="lbl"> </a></td>
-			<td><input id="txtCuano" type="text" class="txt c1"/></td>
-			<td><input type="button" id="btnCert"></td>
-		</tr>
-		 <tr>
-		 	<!--<td><span> </span><a id='lblBno' class="lbl"> </a></td>
-			<td><input id="txtBno" type="text" class="txt c1"/></td>-->
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text" class="txt c1"/></td>
+			<!--<td><span> </span><a id='lblCuano' class="lbl"> </a></td>
+			<td><input id="txtCuano" type="text" class="txt c1"/></td>
+			<td><input type="button" id="btnCert"></td>-->
+			<!--<td><span> </span><a id='lblBno' class="lbl"> </a></td>
+			<td><input id="txtBno" type="text" class="txt c1"/></td>-->
 		</tr>
 		<tr>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
