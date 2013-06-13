@@ -444,8 +444,12 @@
                 </td>
                 <td><input class="txt c1" id="txtProduct.*" type="text"/></td>
                 <td><input class="txt c1" id="txtUnit.*" type="text"/></td>
-                <td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
-                <td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
+                <td><input class="txt c1 num" id="txtBorn.*" type="text"/>
+                	<input class="txt c1 num" id="txtBweight.*" type="text"/>
+                </td>
+                <td><input class="txt c1 num" id="txtMount.*" type="text"/>
+                	<input class="txt c1 num" id="txtWeight.*" type="text"/>
+                </td>
                 <td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
                 <td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
                 <td>
