@@ -28,7 +28,8 @@
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1], ['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1]];
         var bbmMask = [];
-        var bbsMask = [['txtTimea', '99:99']];
+        var bbsMask = [['txtTimea','99:99']];
+        
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         
@@ -36,6 +37,7 @@
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
 					['txtWorkno','lblWorknos','work','noa','txtWorkno','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
+					['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 		);
 
@@ -103,9 +105,10 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
-                                                           , 'productno,product,unit,ordeno,no2'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2,txtBorn,txtBweight', b_ret.length, b_ret
+                                                           , 'productno,product,unit,ordeno,no2,mount,weight'
                                                            , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+						
                         bbsAssign();
                        }
 					break;
@@ -209,6 +212,7 @@
             $('#txtWorker').val(r_name);
             
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+            var t_date = $('#txtDatea').val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
                 q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workb') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
@@ -534,6 +538,13 @@
 				<input id="txtStoreno" type="text" class="txt c2"/>
 				<input id="txtStore" type="text" class="txt c3"/>
 			</td>
+			<td><span> </span><a id='lblMechno' class="lbl btn"> </a></td>
+			<td>
+				<input id="txtMechno" type="text" class="txt c2"/>
+				<input id="txtMech" type="text" class="txt c3"/>
+			</td>
+		</tr>
+		 <tr>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text" class="txt c1"/></td>
 			<!--<td><span> </span><a id='lblCuano' class="lbl"> </a></td>
