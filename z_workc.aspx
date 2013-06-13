@@ -35,7 +35,7 @@
                         name : 'xdate'
                     }, {
                         type : '2',
-                        name : 'tgg',
+                        name : 'xtgg',
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'

@@ -39,7 +39,13 @@
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
-                    }]
+                    }, {
+                        type : '2', //[7] [8]
+                        name : 'xstation',
+                        dbf : 'station',
+                        index : 'noa,station',
+                        src : 'station_b.aspx'
+                     }]
                 });
                 q_popAssign();
                 q_getFormat();
