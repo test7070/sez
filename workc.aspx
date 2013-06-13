@@ -14,14 +14,15 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
+        q_desc=1;
         q_tables = 's';
         var q_name = "workc";
         var decbbs = ['weight', 'mount'];
         var decbbm = ['mount', 'price'];
         var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 4]];
+        var bbmNum = [['txtPrice', 10, 3,1]];  // 允許 key 小數
+        var bbsNum = [['txtMount', 15, 0,1],['txtWeight', 15, 2,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -72,8 +73,8 @@
 			});
 			$('#lblWorkno').click(function(){
 				var t_where="1=1"
-				t_where = emp($('#txtWorkno').val())?'':"and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
-				t_where = emp($('#txtTggno').val())?'':" and charindex ('"+$('#txtTggno').val()+"',noa)>0 ";
+				t_where += emp($('#txtWorkno').val())?'':" and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
+				t_where += emp($('#txtTggno').val())?'':" and charindex ('"+$('#txtTggno').val()+"',tggno)>0 ";
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
 		}
@@ -445,10 +446,11 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td style="width:15%;" align="center"><a id='lblProductnos'></a></td>
-                <td style="width:20%;" align="center"><a id='lblProducts'></a></td>
+                <td style="width:13%;" align="center"><a id='lblProductnos'></a></td>
+                <td style="width:15%;" align="center"><a id='lblProducts'></a></td>
                 <td style="width:4%;" align="center"><a id='lblUnit'></a></td>
-                <td style="width:12%;" align="center"><a id='lblMounts'></a></td>
+                <td style="width:10%;" align="center"><a id='lblMounts'></a></td>
+                <td style="width:10%;" align="center"><a id='lblWeights'></a></td>
                 <td style="width:15%;" align="center"><a id='lblProcesss'></a></td>
                 <td style="width:10%;" align="center"><a id='lblTypes'></a></td>
                 <td style="width:12%;" align="center"><a id='lblMemos'></a></td>
@@ -462,6 +464,7 @@
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+                <td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
                 <td>
                 	<input class="txt" id="txtProcessno.*" type="text" style="width:25%;" />
                 	<input class="txt" id="txtProcess.*" type="text" style="width:60%;" />
