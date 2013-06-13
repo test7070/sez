@@ -114,7 +114,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('WD' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer(s1);
         }
@@ -122,7 +122,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('workd_s.aspx', q_name + '_s', "510px", "330px", q_getMsg("popSeek"));
+            q_box('workd_s.aspx', q_name + '_s', "510px", "380px", q_getMsg("popSeek"));
         }
 
         function bbsAssign() {  /// 表身運算式
@@ -377,7 +377,7 @@
             <tr style='color:White; background:#003366;' >
                 <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td style="width:10%;" align="center"><a id='lblProductnos'></a></td>
-                <td style="width:15%;" align="center"><a id='lblProducts'></a></td>
+                <td style="width:15%;" align="center"><a id='lblProduct_s'></a></td>
                 <td style="width:5%;" align="center"><a id='lblUnit'></a></td>
                 <td style="width:10%;" align="center"><a id='lblBorn'></a></td>
                 <td style="width:10%;" align="center"><a id='lblMounts'></a></td>
