@@ -18,40 +18,34 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_workp');
+                q_gf('', 'z_workcp');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_workp',
+                    fileName : 'z_workcp',
                     options : [{
 						type : '0',
 						name : 'accy',
                         value : q_getId()[4] //[1]
                     },{
                         type : '6',
-                        name : 'xnoa' //[2]
+                        name : 'xnoa'
                     },{
                         type : '1',
-                        name : 'xdate' //[3] [4]
+                        name : 'xdate'
                     }, {
-                        type : '2', //[5] [6]
-                        name : 'ucaucc',
-                        dbf : 'ucaucc',
-                        index : 'noa,product',
-                        src : 'ucaucc_b.aspx'
-                    }, {
-                        type : '2', //[7] [8]
-                        name : 'xstation',
-                        dbf : 'station',
-                        index : 'noa,station',
-                        src : 'station_b.aspx'
+                        type : '2',
+                        name : 'xtgg',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtXdate1').datepicker().mask('999/99/99');
-                $('#txtXdate2').datepicker().mask('999/99/99');
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate1').val(q_date().substring(0,7)+'01');
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
