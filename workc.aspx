@@ -31,7 +31,8 @@
         	['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
         	['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx'],
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
-        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+        	['txtWorkno','lblWorknos','work','noa,stationno,station,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp','txtWorkno,txtStationno,txtStation,txtProcessno,txtProcess,txtModelno,txtModel,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
         );
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -64,11 +65,41 @@
             		alert('請輸入【' + q_getMsg('lblWorkno')+'】');
             	}
             });
+            
+            $('#txtWorkno').change(function(){
+				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+				q_gt('works', t_where , 0, 0, 0, "", r_accy);
+			});
+			$('#lblWorkno').click(function(){
+				var t_where="1=1"
+				t_where = emp($('#txtWorkno').val())?'':"and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
+				t_where = emp($('#txtTggno').val())?'':" and charindex ('"+$('#txtTggno').val()+"',noa)>0 ";
+				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
+			});
 		}
 
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop ) {
+            	case 'work':
+                	b_ret = getb_ret();
+                	if(b_ret){
+                		$('#txtWorkno').val(b_ret[0].noa);
+                		$('#txtStationno').val(b_ret[0].stationno);
+                		$('#txtStation').val(b_ret[0].station);
+                		$('#txtProcessno').val(b_ret[0].processno);
+                		$('#txtProcess').val(b_ret[0].process);
+                		$('#txtModelno').val(b_ret[0].modelno);
+                		$('#txtModel').val(b_ret[0].model);
+                		$('#txtOrdeno').val(b_ret[0].ordeno);
+                		$('#txtNo2').val(b_ret[0].no2);
+                		$('#txtTggno').val(b_ret[0].tggno);
+                		$('#txtTgg').val(b_ret[0].comp);
+
+                		var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+						q_gt('works', t_where , 0, 0, 0, "", r_accy);
+                	}
+                break;
 				case 'workas':
 					if (q_cur > 0 && q_cur < 4) {
 						b_ret = getb_ret();
@@ -91,7 +122,32 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
-                case q_name: if (q_cur == 4)
+            	case 'works':
+					//清空表身資料
+            		for(var i = 0; i < q_bbsCount; i++) {
+            			$('#btnMinus_'+i).click();
+            		}
+					var as = _q_appendData("works", "", true);
+					for (i = 0; i < as.length; i++) {
+							if(as[i].istd=='true'){
+								as[i].productno=as[i].tproductno
+								as[i].product=as[i].tproduct
+							}
+							
+							if(as[i].unit.toUpperCase()=='KG'){
+								as[i].xmount=0;
+								as[i].xweight=as[i].emount;
+							}else{
+								as[i].xmount=as[i].emount;
+								as[i].xweight=0;
+							}
+						}
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo', as.length, as
+														   , 'productno,product,unit,xmount,xweight,memo'
+														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
+				 break;
+                case q_name: 
+                	if (q_cur == 4)
                         q_Seek_gtPost();
                     break;
             }
@@ -159,7 +215,7 @@
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];
+            as['datea'] = abbm2['datea'];
             as['custno'] = abbm2['custno'];
             return true;
         }
@@ -229,6 +285,14 @@
         function btnCancel() {
             _btnCancel();
         }
+        function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtWorkno':
+           				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+					    q_gt('works', t_where , 0, 0, 0, "", r_accy);
+			        break;
+		    	}
+			}
     </script>
     <style type="text/css">
         .tview
@@ -309,7 +373,7 @@
                 <td align="center" style="width:25%"><a id='vewProduct'></a></td>
             </tr>
              <tr>
-                   <td ><input id="chkBrow.*" type="checkbox" style=' '/>.</td>
+                   <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='tggno tgg'>~tggno ~tgg</td>
                    <td align="center" id='productno product'>~productno ~product</td>
@@ -352,7 +416,7 @@
             </td>
         	<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
             <td><input id="txtCuadate" type="text" class="txt c1"/></td>
-        	<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+        	<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
             <td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
 		<tr>
         	<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
@@ -368,7 +432,7 @@
 		<tr>
         	<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
 			<td colspan='4'><input id="txtProduct" type="text" style="width: 98%;"/></td>
-			<td><input class="btn"  id="btnImportWorka" type="button"/></td>
+			<td><!--<input class="btn"  id="btnImportWorka" type="button"/>--></td>
 		</tr>
         <tr>
         	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
