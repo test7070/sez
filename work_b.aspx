@@ -50,12 +50,45 @@
             <tr>
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblCuadate'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblDatea'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblProductno'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblProduct'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblMount'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblWorkdate'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblUindate'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblStation'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblInmount'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblRmount'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblErrmount'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblOrdeno'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblProcess'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblHours'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblMemo'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td style="width:97%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
-                	<input class="txt" id="txtDatea.*" type="hidden"/>
+                <td style="width:7%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:6%;"><input class="txt" id="txtCuadate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:6%;"><input class="txt" id="txtDatea.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:6%;"><input class="txt" id="txtProductno.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:7%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:6%;"><input class="txt" id="txtWorkdate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:6%;"><input class="txt" id="txtUindate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:7%;"><input class="txt" id="txtStationno.*" type="text" style="width:30%;"  readonly="readonly" />
+                	<input class="txt" id="txtStation.*" type="text" style="width:60%;"  readonly="readonly" />
                 </td>
+                <td style="width:6%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:6%;"><input class="txt" id="txtRmount.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:6%;"><input class="txt" id="txtErrmount.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:7%;">
+                	<input class="txt" id="txtOrdeno.*" type="text" style="width:70%;"  readonly="readonly" />
+                	<input class="txt" id="txtNo2.*" type="text" style="width:20%;"  readonly="readonly" />
+                </td>
+                <td style="width:7%;"><input class="txt" id="txtProcess.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:5%;"><input class="txt" id="txtHours.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 
