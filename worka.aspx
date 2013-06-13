@@ -31,7 +31,7 @@
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
 					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
-					['txtWorkno','lblWorkno','work','noa,stationno,station,processno,process,modelno,model,ordeno,no2','txtWorkno,txtStationno,txtStation,txtProcessno,txtProcess,txtModelno,txtModel,txtOrdeno,txtNo2','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'95%'],
+					['txtWorkno','lblWorknos','work','noa,stationno,station,processno,process,modelno,model,ordeno,no2','txtWorkno,txtStationno,txtStation,txtProcessno,txtProcess,txtModelno,txtModel,txtOrdeno,txtNo2','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
@@ -76,11 +76,37 @@
                 	t_where = "noa='" + workno + "'";
                 q_box("works_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 			});
+			
+			$('#txtWorkno').change(function(){
+				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+				q_gt('works', t_where , 0, 0, 0, "", r_accy);
+			});
+			$('#lblWorkno').click(function(){
+				var t_where = emp($('#txtWorkno').val())?'':"charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
+				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
+			});
 		}
 
 		function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
 			var ret; 
 			switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
+				case 'work':
+                	b_ret = getb_ret();
+                	if(b_ret){
+                		$('#txtWorkno').val(b_ret[0].noa);
+                		$('#txtStationno').val(b_ret[0].stationno);
+                		$('#txtStation').val(b_ret[0].station);
+                		$('#txtProcessno').val(b_ret[0].processno);
+                		$('#txtProcess').val(b_ret[0].process);
+                		$('#txtModelno').val(b_ret[0].modelno);
+                		$('#txtModel').val(b_ret[0].model);
+                		$('#txtOrdeno').val(b_ret[0].ordeno);
+                		$('#txtNo2').val(b_ret[0].no2);
+
+                		var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+						q_gt('works', t_where , 0, 0, 0, "", r_accy);
+                	}
+                break;
 				case 'works':
 					if (q_cur > 0 && q_cur < 4) {
 						b_ret = getb_ret();
@@ -119,8 +145,32 @@
 
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
-				
-				case q_name: if (q_cur == 4)   // 查詢
+				case 'works':
+					//清空表身資料
+            		for(var i = 0; i < q_bbsCount; i++) {
+            			$('#btnMinus_'+i).click();
+            		}
+					var as = _q_appendData("works", "", true);
+					for (i = 0; i < as.length; i++) {
+							if(as[i].istd=='true'){
+								as[i].productno=as[i].tproductno
+								as[i].product=as[i].tproduct
+							}
+							
+							if(as[i].unit.toUpperCase()=='KG'){
+								as[i].xmount=0;
+								as[i].xweight=as[i].emount;
+							}else{
+								as[i].xmount=as[i].emount;
+								as[i].xweight=0;
+							}
+						}
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo', as.length, as
+														   , 'productno,product,unit,xmount,xweight,memo'
+														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
+				 break;
+				case q_name: 
+				if (q_cur == 4)   // 查詢
 					q_Seek_gtPost();
 					break;
 				}  /// end switch
@@ -263,6 +313,15 @@
 		function btnCancel() {
 			_btnCancel();
 		}
+		
+		function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtWorkno':
+           				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+					    q_gt('works', t_where , 0, 0, 0, "", r_accy);
+			        break;
+		    	}
+			}
 	</script>
 	<style type="text/css">
 			#dmain {
@@ -442,27 +501,28 @@
 		<tr>
 			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 			<td><input id="txtWorkno" type="text"  class="txt c1"/></td>
-			<td> </td>
-			<td><input type="button" id="btnWorkimport"></td>
+			
 			<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
 			<td>
 				<input id="txtStationno" type="text" class="txt c2"/>
 				<input id="txtStation" type="text" class="txt c3"/>
 			</td>
-		</tr>
-		<tr>		
 			<td><span> </span><a id='lblProcess' class="lbl btn"> </a></td>
 			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
+		</tr>
+		<tr>		
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 			<td><input id="txtStoreno"  type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/></td> 
 			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
-		</tr>
-		<tr>
 			<td><span> </span><a id='lblModel' class="lbl"> </a></td>
 			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
+		</tr>
+		<tr>
 			<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
 			<td><input id="txtTimea" type="text"  class="txt c1"/></td>
+			<td> </td>
+			<td><!--<input type="button" id="btnWorkimport">--></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		<tr>

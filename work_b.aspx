@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'work' , t_content = ' field=noa,datea', bbsKey = ['noa'], as, t_where = '';
+    var q_name = 'work' , t_content = ' field=noa,datea,workdate,uindate,cuadate,ordeno,no2,enddate,mount,rmount,inmount,errmount,memo,productno,product,process,station,processno,stationno,unit,modelno,model,hours,tggno,comp', bbsKey = ['noa'], as, t_where = '';
     var t_sqlname = 'work_load'; t_postname = q_name;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
@@ -62,6 +62,7 @@
                 <th align="center" style='color:Blue;' ><a id='lblRmount'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblErrmount'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblOrdeno'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblTgg'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblProcess'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblHours'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblMemo'></a></th>
@@ -85,6 +86,10 @@
                 <td style="width:7%;">
                 	<input class="txt" id="txtOrdeno.*" type="text" style="width:70%;"  readonly="readonly" />
                 	<input class="txt" id="txtNo2.*" type="text" style="width:20%;"  readonly="readonly" />
+                </td>
+                <td style="width:7%;">
+                	<input class="txt" id="txtTggno.*" type="text" style="width:70%;"  readonly="readonly" />
+                	<input class="txt" id="txtComp.*" type="text" style="width:20%;"  readonly="readonly" />
                 </td>
                 <td style="width:7%;"><input class="txt" id="txtProcess.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:5%;"><input class="txt" id="txtHours.*" type="text" style="width:98%;"  readonly="readonly" /></td>
