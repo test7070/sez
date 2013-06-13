@@ -31,7 +31,7 @@
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
 					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
-					['txtWorkno','lblWorkno','work','noa','txtWorkno','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
+					['txtWorkno','lblWorkno','work','noa,stationno,station,processno,process,modelno,model,ordeno,no2','txtWorkno,txtStationno,txtStation,txtProcessno,txtProcess,txtModelno,txtModel,txtOrdeno,txtNo2','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'95%'],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
@@ -59,60 +59,51 @@
 			$('#txtDatea').focus();
 			
 		} 
-		var issf=''; //判斷是匯入輔料f還是原料s
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
 			bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd],['txtTimea', '99:99']];
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('worka.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
-			/*$('#btnquat').click(function () { btnquat(); });*/
-			$('#btnCuaimport').click(function(){
-				var t_where = '';
-				var cuano = $('#txtCuano').val();
-				if(cuano && cuano.length >0){
-					t_where = "where=^^ a.noa='" + cuano + "' ^^";
-					q_gt('cua_cuas',t_where , 0, 0, 0, "", r_accy);
-					$('#txtProcessno').val('001')
-					$('#txtProcess').val('原料投入')
-				}else{
-					alert('請輸入' + q_getMsg('lblCuano'));
-				}
-			});
 			
-			$('#btnAMimport').click(function(){
-				var t_where = '';
-				var cuano = $('#txtCuano').val();
-				if(cuano && cuano.length >0){
-					t_where = "where=^^ noa='" + $('#txtCuano').val() + "' ^^";
-					q_gt('inbm',t_where , 0, 0, 0, "", r_accy);
-					issf='f';
-					$('#txtProcessno').val('002')
-					$('#txtProcess').val('輔料投入')
-				}else{
-					alert('請輸入' + q_getMsg('lblCuano'));
+			$('#btnWorkimport').click(function(){
+				if(emp($('#txtWorkno').val())){
+					alert('請輸入' + q_getMsg('lblWorkno'));
+					return;
 				}
-			});
-			
-			$('#btnOrde').click(function(){
-				t_where = '';
-                ordeno = $('#txtOrdeno').val();
-                if(ordeno.length > 0)
-                	t_where = "noa='" + ordeno + "'";
-                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+				var t_where = '';
+                var workno = $('#txtWorkno').val();
+                if(workno.length > 0)
+                	t_where = "noa='" + workno + "'";
+                q_box("works_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 			});
 		}
 
 		function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
 			var ret; 
 			switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-				case 'ordes':
+				case 'works':
 					if (q_cur > 0 && q_cur < 4) {
 						b_ret = getb_ret();
 						if (!b_ret || b_ret.length == 0)
 							return;
 						var i, j = 0;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMonunt,txtWeight', b_ret.length, b_ret
-														   , 'productno,product,unit,mount,weight'
+						for (i = 0; i < b_ret.length; i++) {
+							if(b_ret[i].istd=='true'){
+								b_ret[i].productno=b_ret[i].tproductno
+								b_ret[i].product=b_ret[i].tproduct
+							}
+							
+							if(b_ret[i].unit.toUpperCase()=='KG'){
+								b_ret[i].xmount=0;
+								b_ret[i].xweight=b_ret[i].emount;
+							}else{
+								b_ret[i].xmount=b_ret[i].emount;
+								b_ret[i].xweight=0;
+							}
+						}
+						
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo', b_ret.length, b_ret
+														   , 'productno,product,unit,xmount,xweight,memo'
 														   , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
 					}
@@ -128,37 +119,7 @@
 
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
-				case 'cua_cuas':
-					var as = _q_appendData("cua_cuas", "", true);
-					if(as[0]!=undefined){
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUnit,txtMount', 1, as,
-						 'product,productno,unit,cuamount', 'txtProductno');
-					}
-					t_where = "where=^^ noa='" + $('#txtCuano').val() + "' ^^";
-					q_gt('inbm',t_where , 0, 0, 0, "", r_accy);
-					issf='s';
-					break;
-				case 'inbm':
-					var as = _q_appendData("inbm", "", true);
-					if(issf=='f'){//輔料
-						//第一筆不匯入
-						as.splice(0, 1);
-					}
-					if(issf=='s'){//原料
-						//只匯入第一筆
-						for (var i = 0; i < as.length; i++) {
-							if(i>=1){
-								as.splice(i, 1);
-	                        	i--;
-	                       }
-						}
-					}
-					if(as[0]!=undefined && issf!=''){
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUnit,txtWeight', 1, as,
-						 'product,productno,unit,weight', 'txtProductno');
-					}
-					issf='';
-					break;
+				
 				case q_name: if (q_cur == 4)   // 查詢
 					q_Seek_gtPost();
 					break;
@@ -246,13 +207,9 @@
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
 			if (t_para) {
-				$('#btnCuaimport').attr('disabled', 'disabled');
-				$('#btnOrde').attr('disabled', 'disabled');
-				$('#btnAMimport').attr('disabled', 'disabled');
+				$('#btnWorkimport').attr('disabled', 'disabled');
 			}else {
-				$('#btnCuaimport').removeAttr('disabled');
-				$('#btnOrde').removeAttr('disabled');
-				$('#btnAMimport').removeAttr('disabled');
+				$('#btnWorkimport').removeAttr('disabled');
 			}
 		}
 
@@ -483,32 +440,31 @@
 			<td><input id="txtNoa"   type="text" class="txt c1"/></td>
 		</tr>
 		<tr>
+			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
+			<td><input id="txtWorkno" type="text"  class="txt c1"/></td>
+			<td> </td>
+			<td><input type="button" id="btnWorkimport"></td>
 			<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
 			<td>
 				<input id="txtStationno" type="text" class="txt c2"/>
 				<input id="txtStation" type="text" class="txt c3"/>
 			</td>
+		</tr>
+		<tr>		
 			<td><span> </span><a id='lblProcess' class="lbl btn"> </a></td>
 			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
-			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
-			<td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
-		<tr>		
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 			<td><input id="txtStoreno"  type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/></td> 
-			<td><span> </span><a id='lblCuano' class="lbl btn"> </a></td>
-			<td>
-				<input id="txtCuano" type="text"  class="txt c1"/>
-			</td>
-			<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
-			<td><input id="txtCuadate" type="text"  class="txt c1"/></td>
-		</tr>
-		<tr>
 			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
+		</tr>
+		<tr>
 			<td><span> </span><a id='lblModel' class="lbl"> </a></td>
 			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
 			<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
-			<td><input id="txtTimea" type="text"  class="txt c1"/></td></tr>
+			<td><input id="txtTimea" type="text"  class="txt c1"/></td>
+			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		<tr>
 			<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
@@ -518,16 +474,6 @@
 		<tr>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 			<td colspan='5'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
-		</tr>
-		<tr>
-			<td colspan="3" align="center">
-				<input type="button" id="btnCuaimport">
-				<input type="button" id="btnAMimport">
-				<input type="button" id="btnOrde"/>
-			</td>
-			<td> </td>
-			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
 		</table>
 		</div>

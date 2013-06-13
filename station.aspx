@@ -37,7 +37,7 @@
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
 			 aPop = new Array(['txtFactoryno', 'lblFactory', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx'],
-			 ['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']);
+			 ['txtMechno_', 'btnMechno_', 'mech', 'noa,mech,gen', 'txtMechno_,txtMech_,txtGen_', 'mech_b.aspx']);
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -157,16 +157,11 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['datea']) {
+                if (!as['mechno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
-                as['noa'] = abbm2['noa'];
-                if (t_err) {
-                    alert(t_err)
-                    return false;
-                }
                 return true;
             }
 
