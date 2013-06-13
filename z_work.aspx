@@ -45,6 +45,18 @@
                         dbf : 'station',
                         index : 'noa,station',
                         src : 'station_b.aspx'
+                    },{
+                        type : '2', //[9] [10]
+                        name : 'xstoreno',
+                        dbf : 'store',
+                        index : 'noa,store',
+                        src : 'store_b.aspx'
+                     }, {
+                        type : '2', //[11] [12]
+                        name : 'xproductno',
+                        dbf : 'ucaucc',
+                        index : 'noa,product',
+                        src : 'ucaucc_b.aspx'
                      }]
                 });
                 q_popAssign();

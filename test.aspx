@@ -27,6 +27,17 @@
 			}*/
 			
             $(document).ready(function() {
+            	$('#txtA').change(function(e){
+            		var t_days = 0;
+	                var t_date1 = $(this).val();
+	                var t_date2 = $('#txtEnddate').val();
+	                t_date1 = new Date(parseInt(t_date1.substr(0, 3)) + 1911, parseInt(t_date1.substring(4, 6)) - 1, parseInt(t_date1.substring(7, 9)));
+
+	                $('#txtB').val((t_date1.getTime() - 60*60/24*1000).toString());
+            	});
+            	
+            	
+            	return;
             	/*var sampletext ="this is an example\nPretty boring aye?";
 				var a = document.body.appendChild(
 				        document.createElement("a")
