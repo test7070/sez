@@ -33,7 +33,7 @@
         
         aPop = new Array(
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
-        	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
+        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
         	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
         	['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
         	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
@@ -112,6 +112,7 @@
         }
         
         function btnOk() {
+        	t_err = '';
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtProduct', q_getMsg('lblProduct')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
@@ -224,7 +225,7 @@
             $('#txtMdate').focus();
         }
         function btnPrint() {
- 
+ 			q_box('z_ucap.aspx', '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer( key_value) {

@@ -32,6 +32,7 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         
         aPop = new Array(
+        	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
         	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
         	['txtTggno', 'lblComp', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
@@ -138,11 +139,12 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('work_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('work_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
         }
+        
 
         function bbsAssign() {  /// 表身運算式
         	for(var j = 0; j < q_bbsCount; j++) {
@@ -419,13 +421,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewOrdeno'></a></td>
+                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:20%"><a id='vewComp'></a></td>
                 <td align="center" style="width:40%"><a id='vewProduct'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox"></td>
-                   <td align="center" id='ordeno'>~ordeno</td>
+                   <td align="center" id='noa'>~noa</td>
                    <td align="center" id='comp,4'>~comp,4</td>
                    <td align="center" id='productno product'>~productno ~product</td>
             </tr>
@@ -495,9 +497,9 @@
 				</td> 
 			</tr>
 			<tr class="tr7">
-		        <td class="td1"><span> </span><a id="lblProcess" class="lbl"> </a></td>
+		        <td class="td1"><span> </span><a id="lblProcess" class="lbl btn"> </a></td>
 		        <td class="td2">
-		        	<input id="txtProcessNo" type="text"  class="txt" style="width: 45%"/>
+		        	<input id="txtProcessno" type="text"  class="txt" style="width: 45%"/>
 		        	<input id="txtProcess" type="text"  class="txt" style="width: 45%"/>
 		        </td>
 		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>

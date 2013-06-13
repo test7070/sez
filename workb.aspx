@@ -455,13 +455,11 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:25%"><a id='vewStation'></a></td>
                 <td align="center" style="width:40%"><a id='vewNoa'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
-                   <td align="center" id='station'>~station</td>
                    <td align="center" id='noa'>~noa</td>
             </tr>
         </table>

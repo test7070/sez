@@ -110,7 +110,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('WC' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workc') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer(s1);
         }
@@ -305,13 +305,13 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:25%"><a id='vewOrdeno'></a></td>
-                <td align="center" style="width:40%"><a id='vewProduct'></a></td>
+                <td align="center" style="width:40%"><a id='vewTgg'></a></td>
+                <td align="center" style="width:25%"><a id='vewProduct'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/>.</td>
                    <td align="center" id='datea'>~datea</td>
-                   <td align="center" id='ordeno'>~ordeno</td>
+                   <td align="center" id='tggno tgg'>~tggno ~tgg</td>
                    <td align="center" id='productno product'>~productno ~product</td>
             </tr>
         	</table>
