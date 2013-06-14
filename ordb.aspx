@@ -245,7 +245,7 @@
             }
 
             function btnPrint() {
-				q_box('z_ordbp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_ordbp.aspx?;;;;'+ r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
