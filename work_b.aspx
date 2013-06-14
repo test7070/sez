@@ -62,7 +62,7 @@
                 <th align="center" style='color:Blue;' ><a id='lblRmount'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblErrmount'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblOrdeno'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblTgg'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblTggno'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblProcess'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblHours'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblMemo'></a></th>
