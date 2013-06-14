@@ -277,9 +277,11 @@
             	else
             		$('#txtWorker2').val(r_name);
             		
-            	if($('#chkEnda')[0].checked)
+            	if($('#chkEnda')[0].checked && emp($('#txtEndadate').val()))
             		$('#txtEndadate').val(q_getPara('sys.r_date'));
-                
+            	if(!$('#chkEnda')[0].checked)
+                	$('#txtEndadate').val('');
+                	
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -541,6 +543,11 @@
             }
 
             function btnDele() {
+            	//102/06/14 結案三天後不能再修改與刪除
+                if (checkenda){
+                	alert('此委託案件已關帳!!');
+                    return;
+                }
                 _btnDele();
             }
 
