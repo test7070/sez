@@ -51,6 +51,10 @@
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));  
           fbbm[fbbm.length] = 'txtMemo'; 
+          $('#btnUcctd').click(function() {
+                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                    q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
+                });
         }
 
 
@@ -299,7 +303,21 @@
         {
             width: 95%;
         }
-      
+       input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+       .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
     </style>
 </head>
 <body>
@@ -325,7 +343,10 @@
             <td class="label2"><a id='lblDatea'></a></td><td class='column2'><input  type="text" id="txtDatea" class="txt c2"/></td>
             <td class="label3"></td></tr>
 
-        <tr><td class="label1"><a id='lblProduct'></a></td><td colspan='3'><input  type="text" id="txtProduct" class="txt c1"/></td></tr>
+        <tr><td class="label1"><a id='lblProduct'></a></td>
+        	<td colspan='2'><input  type="text" id="txtProduct" class="txt c1"/></td>
+        	<td><input type="button" id="btnUcctd" style='width: auto; font-size: medium;' ></td>
+        	</tr>
         <tr><td class="label1"><a id='lblEngpro'></a></td><td colspan='3' ><input  type="text" id="txtEngpro" class="txt c1"/></td></tr>
         <tr><td class="label1"><a id='lblSpec'></a></td><td colspan='3'><input  type="text" id="txtSpec"  class="txt c1"/></td></tr>
         <tr><td class="label1"><a id='lblUnit'></a></td><td><input  type="text" id="txtUnit"  class="txt c1"/></td>
@@ -335,18 +356,18 @@
             <td class="label2"><a id='lblSaleprice'></a></td><td><input  type="text" id="txtSaleprice"  class="txt c2"/></td></tr>
             
         <tr><td class="label1"><a id='lblUweight'></a></td><td><input  type="text" id="txtUweight"  class="txt c1"/></td>
-            <td class="label2"><a id='lblCoin'></a></td><td><select id="cmbCoin" class="txt c2"/></td></tr>
+            <td class="label2"><a id='lblCoin'></a></td><td><select id="cmbCoin" class="txt c2"> </select></td></tr>
             
         <tr><td class="label1"><input id="btnTgg" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
             <td><input id="txtTggno" type="text" class="txt c1"/></td>
             <td colspan='2'><input id="txtTgg"  type="text" style="width: 97%;"/></td>
         </tr>                
-        <tr><td class="label1"><a id='lblType'></a></td><td><select id="cmbTypea" class="txt c1"/></td>
+        <tr><td class="label1"><a id='lblType'></a></td><td><select id="cmbTypea" class="txt c1"> </select></td>
             <td class="label2"><a id='lblDays'></a></td><td><input  type="text" id="txtDays" class="txt c2"/></td> 
         </tr>
         <tr>
             <td class="label1"><a id='lblArea'></a></td><td><input  type="text" id="txtArea"  class="txt c1"/></td>
-            <td class="label2"><a id='lblTrantype'></a></td><td><select id="cmbTrantype" class="txt c2" /></td> 
+            <td class="label2"><a id='lblTrantype'></a></td><td><select id="cmbTrantype" class="txt c2"> </select></td> 
         </tr>
         <tr>
             <td class="label1"><a id='lblRc2acc'></a></td><td><input  type="text" id="txtRc2acc" class="txt c1"/></td>
@@ -356,7 +377,7 @@
             <td class='label1'><a id='lblDate2'></a></td><td class='column3'><input  type="text" id="txtDate2" class="txt c1"/></td>
             <td class="label2"><a id='lblWorker'></a></td><td ><input id="txtWorker"  type="text" class="txt c2" style='text-align:center;'/></td> 
         </tr>
-        <tr><td class="label1"><a id='lblMemo'></a></td><td colspan='3'><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 127px;"></textarea></td></tr>
+        <tr><td class="label1"><a id='lblMemo'></a></td><td colspan='3'><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 127px;"> </textarea></td></tr>
         </table>
         </div>
         <input id="q_sys" type="hidden" />

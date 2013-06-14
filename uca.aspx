@@ -72,7 +72,11 @@
             bbmMask = [['txtKdate', r_picd],['txtWdate', r_picd]];  
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('uca.typea')); // 需在 main_form() 後執行，才會載入 系統參數
-			q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');  
+			q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
+			$('#btnUcctd').click(function() {
+                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                    q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
+                });  
         }
         
 		var t_td='';
@@ -425,6 +429,13 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
+            }
+            .tbbs select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
             }
             .tbbs a {
                 font-size: medium;
@@ -481,7 +492,8 @@
 		        <td class="td1"><span> </span><a id="lblType" class="lbl"> </a></td>
 		        <td class="td2"><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
 		        <td class="td3"><span> </span><a id="lblProduct" class="lbl"> </a></td>
-		        <td class="td4" colspan='3'><input id="txtProduct" type="text"  class="txt c1"/></td>
+		        <td class="td4" colspan='2'><input id="txtProduct" type="text"  class="txt c1"/></td>
+		        <td class="td5"><input id="btnUcctd" type="button"  /></td>
 			</tr>
         	<tr class="tr3">
 		        <td class="td1"><span> </span><a id="lblEngprono" class="lbl"> </a></td>

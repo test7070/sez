@@ -179,7 +179,7 @@
                     alert(q_getMsg('lblEdate') + '錯誤。');
                     return;
                 }
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')],['txtAcc1', q_getMsg('lblAcc')]]);
 
                 if (t_err.length > 0) {
                     alert(t_err);
