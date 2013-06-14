@@ -133,6 +133,14 @@
 		        //20130506 自動沖帳和支票列印隱藏
 		        $('#btnAuto').hide();
 		        $('#btnGqbPrint').hide();
+		        
+		        //20130614 加入全選
+		        $('#btnCheckall').click(function () {
+					for (var i = 0; i < q_bbsCount; i++) {
+						if(!emp($('#txtCustno_' +i).val()))
+		            		$('#chkIssel_' +i)[0].checked=true;
+					}
+		        });
 		    }
 
 		    function q_boxClose(s2) {
@@ -444,11 +452,11 @@
 		    function readonly(t_para, empty) {
 		        _readonly(t_para, empty);
 		         if(q_cur==1 || q_cur==2){
-		        	$("#btnAuto").removeAttr("disabled");
 		        	$("#btnLabpay").removeAttr("disabled");
+		        	$("#btnCheckall").removeAttr("disabled");
 		        }else{
-		        	$("#btnAuto").attr("disabled","disabled");
 		        	$("#btnLabpay").attr("disabled","disabled");
+		        	$("#btnCheckall").attr("disabled","disabled");
 		        }
 		    }
 
@@ -674,10 +682,13 @@
                         <input id="txtTggno" type="text" class="txt c4"/>
                         <input id="txtComp"  type="text" class="txt c5" />
 						</td>
-						<td class="5" align="center">
+						<td align="center">
 						<input type="button" id="btnLabpay" style="width: 70%;" />
 						<input type="button" id="btnAuto" style="width:80%;color:red;"/>
                     	<input type="button" id="btnGqbPrint" style="width:80%;"/>
+						</td>
+						<td align="center">
+							<input type="button" id="btnCheckall" value="付款全選" />
 						</td>
 					</tr>
 					<tr class="tr3">
