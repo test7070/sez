@@ -83,9 +83,9 @@
 					}
                 });
 				
-                txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-                txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-                txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
+                //txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
+                //txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
+                //txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
 
                 $('#txtUacc4').change(function() {
                     var s1 = trim($(this).val());
