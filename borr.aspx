@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtVccno', 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker', 'txtWorker2', 'txtAccno'];
             var q_readonlys = ['txtUmmno', 'txtVccno', 'txtAccno'];
             var q_readonlyt = ['txtVccno', 'txtAccno'];
-            var bbmNum = [['txtCash', 10, 0], ['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
+            var bbmNum = [['textMoney', 10, 0, 1],['txtCash', 10, 0], ['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtInterest', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99'], ['textMon_windows', '999/99']];
@@ -98,6 +98,83 @@
                         alert('請輸入' + q_getMsg('lblMon_windows'));
                     }
                 });
+                $('#btnSplit').click(function(e){
+                	if(!(q_cur==1 || q_cur==2))
+                		return;
+                	var t_money = q_float('txtMoney_0');
+                	var t_mm = q_float('textMoney');
+                	var strday = parseInt($('#txtVccday').val().length==0?'0':$('#txtVccday').val());
+                	if(t_money<=0){
+                		alert('請輸入借出金額。');
+                		return;
+                	}
+                	if(t_mm<=0){
+                		alert('請輸入每月還本金額。');
+                		return;
+                	}
+                	if(strday<=0 || strday>31){
+                		alert('請輸入起算日。');
+                		return;
+                	}
+                	var t_unpay = t_money;
+                	var t_rate = q_float('txtRate');
+                	var t_ratemon = q_float('txtRatemon');
+                	var t_fixmoney = q_float('txtFixmoney');
+                	
+                	var t_date1 = $('#txtDatea_0').val(),t_date2,t_days;
+                	
+                	for(var i=1;i<q_bbsCount;i++)
+                		$('#btnMinus_'+i).click();
+                	for(var i=0,n=1;t_unpay>0;i++,n++){
+                		if(i>120){
+                			break;
+                		}
+                		if(i==0){
+                			t_date1 = new Date(parseInt(t_date1.substr(0, 3)) + 1911, parseInt(t_date1.substring(4, 6)) - 1, parseInt(t_date1.substring(7, 9)));
+                		}else{
+                			t_date1 = new Date(t_date2.getTime() + 60*60*24*1000);
+                		}
+                		if(t_date1.getDate()>(strday-1)){
+                			t_date2 = getNextMonth(t_date1.getFullYear(),t_date1.getMonth());
+                			t_date2 = getLastDate(t_date2.getFullYear(),t_date2.getMonth());
+                		}else{
+                			t_date2 = getLastDate(t_date1.getFullYear(),t_date1.getMonth());
+                		}
+                		if(t_date2.getDate()>=(strday-1))
+                			t_date2.setDate(strday-1);	
+                			
+                		t_days = Math.abs(t_date2 - t_date1) / (1000 * 60 * 60 * 24) + 1;
+                		if(q_bbsCount<=n)
+                			$('#btnPlus').click(); 
+                		$('#cmbTypea_'+n).val(2);	        
+                		$('#txtMemo_'+n).val((t_date1.getFullYear()-1911)+'/'+(t_date1.getMonth()+1)+'/'+t_date1.getDate()+'~'+(t_date2.getFullYear()-1911)+'/'+(t_date2.getMonth()+1)+'/'+t_date2.getDate());
+                		$('#txtMoney_'+n).val(FormatNumber(t_unpay>=t_mm?t_mm:t_unpay));  
+                		if(t_rate!=0){
+                			$('#txtInterest_'+n).val(FormatNumber(t_unpay.mul(t_days).mul(t_rate).div(100).round(0))); 
+                			$('#txtMemo_'+n).val($('#txtMemo_'+n).val()+'  '+t_unpay+'*'+t_rate+'*'+t_days+'/100');
+                		} 
+                		else if(t_ratemon!=0){
+                			$('#txtInterest_'+n).val(FormatNumber(t_unpay.mul(t_days).mul(t_ratemon).div(30).div(100).round(0)));
+                			$('#txtMemo_'+n).val($('#txtMemo_'+n).val()+'  '+t_unpay+'*'+t_ratemon+'*'+t_days+'/30/100');
+                		}
+                		else
+                			$('#txtInterest_'+n).val(t_fixmoney);
+                		t_unpay-= t_mm;	
+                	}
+                	sum();
+                });
+            }
+            function getNextMonth(year,mon){
+            	t_date = new Date(year, mon, 25);
+            	t_date = new Date(t_date.getTime()+ 10*(1000 * 60 * 60 * 24));
+            	t_date.setDate(1);
+            	return t_date;     	
+            }
+            function getLastDate(year,mon){
+            	t_date = new Date(year, mon, 25);
+            	t_date = new Date(t_date.getTime()+ 10*(1000 * 60 * 60 * 24));
+            	t_date.setDate(1);
+            	return new Date(t_date.getTime()-(1000 * 60 * 60 * 24));     	
             }
 
             function q_funcPost(t_func, result) {
@@ -414,6 +491,9 @@
                         $('#txtMoney_' + i).change(function() {
                             sum();
                         });
+                        $('#txtInterest_' + i).change(function() {
+                            sum();
+                        });
                         $('#txtCheckno_' + i).change(function() {
                             sum();
                         });
@@ -461,19 +541,20 @@
                             t_checka += q_float('txtMoney_' + i);
                         else
                             t_cash += q_float('txtMoney_' + i);
-                    else
-                        t_pay += q_float('txtMoney_' + i);
+                    else{
+                    	t_pay += q_float('txtMoney_' + i);
+                    	t_interest += q_float('txtInterest_' + i)
+                    }
                 }
-
                 $('#txtCash').val(FormatNumber(t_cash));
                 $('#txtChecka').val(FormatNumber(t_checka));
                 t_money = t_cash + t_checka;
                 $('#txtMoney').val(FormatNumber(t_money));
-                t_interest = round(t_money * t_days / 30 * q_float('txtRate') / 100, 0);
+                
                 $('#txtInterest').val(FormatNumber(t_interest));
-                $('#txtTotal').val(FormatNumber(t_money + t_interest));
+                //$('#txtTotal').val(FormatNumber(t_money + t_interest));
                 $('#txtPay').val(FormatNumber(t_pay));
-                $('#txtUnpay').val(FormatNumber(t_money + t_interest - t_pay));
+                $('#txtUnpay').val(FormatNumber(t_money - t_pay));
             }
 
             function q_appendData(t_Table) {
@@ -530,20 +611,63 @@
                         break;
                 }
             }
-
-            function FormatNumber(n) {
-                var xx = "";
-                if (n < 0) {
-                    n = Math.abs(n);
-                    xx = "-";
-                }
+			function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
                 n += "";
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
-
-            
+			Number.prototype.round = function(arg) {
+			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
+			}
+			Number.prototype.div = function(arg) {
+			    return accDiv(this, arg);
+			}
+            function accDiv(arg1, arg2) {
+			    var t1 = 0, t2 = 0, r1, r2;
+			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    with (Math) {
+			        r1 = Number(arg1.toString().replace(".", ""))
+			        r2 = Number(arg2.toString().replace(".", ""))
+			        return (r1 / r2) * pow(10, t2 - t1);
+			    }
+			}
+			Number.prototype.mul = function(arg) {
+			    return accMul(arg, this);
+			}
+			function accMul(arg1, arg2) {
+			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+			    try { m += s1.split(".")[1].length } catch (e) { }
+			    try { m += s2.split(".")[1].length } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			}
+			Number.prototype.add = function(arg) {
+		   		return accAdd(arg, this);
+			}
+			function accAdd(arg1, arg2) {
+			    var r1, r2, m;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2))
+			    return (arg1 * m + arg2 * m) / m
+			}
+			Number.prototype.sub = function(arg) {
+			    return accSub(this,arg);
+			}
+			function accSub(arg1, arg2) {
+			    var r1, r2, m, n;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    n = (r1 >= r2) ? r1 : r2;
+			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -831,9 +955,9 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td><span> </span><a id="lblTotal" class="lbl" style="display:none;"> </a></td>
 						<td>
-						<input id="txtTotal" type="text" class="txt c1 num"/>
+						<input id="txtTotal" type="text" class="txt c1 num"  style="display:none;"/>
 						</td>
 					</tr>
 					<tr>
@@ -885,6 +1009,9 @@
 					<tr>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblSplitmoney" class="lbl">每月還本金額</a></td>
+						<td><input id="textMoney" type="text" class="txt c1"/></td>
+						<td><input id="btnSplit" type="button" value="自動產生還款利息" /> </td>
 					</tr>
 				</table>
 			</div>

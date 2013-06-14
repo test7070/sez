@@ -33,7 +33,8 @@
         	['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx'],
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-        	['txtWorkno','lblWorknos','work','noa,stationno,station,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp','txtWorkno,txtStationno,txtStation,txtProcessno,txtProcess,txtModelno,txtModel,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
+        	['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp',
+        	'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
         );
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -363,7 +364,11 @@
 			}
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 <!--#include file="../inc/toolbar.inc"-->
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
