@@ -276,11 +276,14 @@
 	            	$('#txtWorker').val(r_name);
             	else
             		$('#txtWorker2').val(r_name);
+            		
+            	if($('#chkEnda')[0].checked)
+            		$('#txtEndadate').val(q_getPara('sys.r_date'));
                 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll('F' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_assignwork') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -330,10 +333,15 @@
 	            }
             }
            
-            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
+                //102/06/14 結案三天後不能再修改與刪除
+                if (checkenda){
+                	alert('此委託案件已關帳!!');
+                    return;
+                }
+                
                 _btnModi();           
                 $('#txtNoa').attr('readonly','readonly');
                 $('#txtItemno').focus();
@@ -400,6 +408,7 @@
             
             function refresh(recno) {
                 _refresh(recno);
+                endacheck();
                 //清除勾選
 	            for (var j = 0; j < projectnumber; j++) {
 	            	$('#checkProjectno'+j)[0].checked=false;
@@ -444,6 +453,32 @@
                  	}
                  	if(abbm[q_recno])
                  		$("#cmbReason").val(abbm[q_recno].reason);
+                }
+            }
+            
+            var checkenda=false;
+            function endacheck() {
+            	//102/06/14 結案三天後不能再修改與刪除
+                //結案日期加三天
+                var t_date=$('#txtEndadate').val();
+				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				nextdate.setDate(nextdate.getDate() +3)
+				t_date=''+(nextdate.getFullYear()-1911)+'/';
+				//月份
+				if(nextdate.getMonth()+1<10)
+					t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+				else
+					t_date=t_date+(nextdate.getMonth()+1)+'/';
+				//日期
+				if(nextdate.getDate()<10)
+					t_date=t_date+'0'+(nextdate.getDate());
+				else
+					t_date=t_date+(nextdate.getDate());
+                
+                if ($('#chkEnda')[0].checked && t_date<=q_getPara('sys.r_date')){
+                	checkenda=true;
+                }else{
+                	checkenda=false;
                 }
             }
             
@@ -763,7 +798,7 @@
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtWorker" class="txt c1"/></td>	
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtWorker2" class="txt c1"/></td>
+						<td class="td4"><input type="text" id="txtWorker2" class="txt c1"/><input type="hidden" id="txtEndadate" /></td>
 					</tr>
 				</table>
 			</div>
