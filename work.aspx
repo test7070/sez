@@ -34,7 +34,7 @@
         aPop = new Array(
         	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
         	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
-        	['txtTggno', 'lblComp', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+        	['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
         	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
         	);
@@ -483,7 +483,7 @@
 				<td class="td6"><input id="txtErrmount" type="text"  class="txt num"/></td> 
 			</tr>
 			<tr class="tr6">
-		        <td class="td1"><span> </span><a id="lblComp" class="lbl btn"> </a></td>
+		        <td class="td1"><span> </span><a id="lblTggno" class="lbl btn"> </a></td>
 		        <td class="td2">
 		        	<input id="txtTggno" type="text"  class="txt" style="width: 45%"/>
 		        	<input id="txtComp" type="text"  class="txt" style="width: 45%"/>
