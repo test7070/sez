@@ -9,10 +9,6 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"></script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
 
@@ -42,7 +38,6 @@
                 bbsKey = ['noa', 'noq'];
                 bbtKey = ['noa', 'noq'];
                 q_brwCount();
-                //q_gt(q_name, q_content, q_sqlCount, 1);
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy );
             });
 
@@ -56,51 +51,10 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                $('#txtBegindate').datepicker();
-                $('#txtEnddate').datepicker();               
             }
 
             function q_funcPost(t_func, result) {
                 switch(t_func) {
-                    case 'dayborr.process':
-                        alert('Done!'+result);
-						Unlock();
-                        $('#btnProcessInterest').removeAttr('disabled', 'disabled');
-                        break;
-                }
-            }
-            
-            function browTicketForm(obj) {
-            	
-                if (($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0, 3) == 'lbl')) {
-                    if ($(obj).attr('id').substring(0, 3) == 'lbl')
-                        obj = $('#txt' + $(obj).attr('id').substring(3));
-                    var noa = $.trim($(obj).val());
-                    var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
-					var isBbs = false,isBbt = false,n = -1;
-					if($(obj).attr('id').indexOf('__')>0){
-						isBbt = true;
-						n = $(obj).attr('id').split('__')[1];
-					}else if($(obj).attr('id').indexOf('_')>0){
-						isBbs = true;
-						n = $(obj).attr('id').split('_')[1];
-					}
-                    if (noa.length > 0) {
-                        switch (openName) {
-                            case 'vccno':                        
-                                q_box("vcctran.aspx?;;;noa='" + noa + "';" + (isBbt?$('#txtMon__'+n).val().substring(0,3):(isBbs?$('#txtDatea_'+n).val().substring(0,3):$('#txtDatea').val().substring(0,3))), 'vcc', "95%", "95%", q_getMsg("popVcctran"));
-                                break;
-                            case 'accno':
-                                q_box("accc.aspx?;;;accc3='" + noa + "';" + (isBbt?$('#txtMon__'+n).val().substring(0,3):(isBbs?$('#txtDatea_'+n).val().substring(0,3):$('#txtDatea').val().substring(0,3))) + "_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
-                                break;
-                            case 'ummno':
-                                q_box("ummtran.aspx?;;;noa='" + noa + "';" + r_accy, 'umm', "95%", "95%", q_getMsg("popUmmtran"));
-                                break;
-                            case 'checkno':
-                                q_box("gqb.aspx?;;;gqbno='" + noa + "';" + r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
-                                break;
-                        }
-                    }
                 }
             }
 
@@ -111,7 +65,8 @@
                             q_Seek_gtPost();
                         break;
                                 }
-                }
+            }
+            
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
@@ -151,52 +106,19 @@
                 //q_box('z_borr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
-            function btnOk() {
-                Lock();
-                if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
-                    alert(q_getMsg('lblDatea') + '錯誤。');
-                    Unlock();
-                    return;
-                }
-                sum();
-                checkGqb_bbs(q_bbsCount - 1);
-
-            }
-
-            function checkGqb_bbs(n) {
-                if (n < 0) {
-                    
-                    var t_checkno = '';
-                    for (var i = 0; i < q_bbsCount; i++) {
-                        if ($.trim($('#txtCheckno_' + i).val()).length > 0 && t_checkno.indexOf($.trim($('#txtCheckno_' + i).val())) == -1)
-                            t_checkno += (t_checkno.length > 0 ? ',' : '') + $.trim($('#txtCheckno_' + i).val());
-                    }
-                    $('#txtCheckno').val(t_checkno);
-                    if (q_cur == 1) {
-                        $('#txtWorker').val(r_name);
-                    } else if (q_cur == 2) {
-                        $('#txtWorker2').val(r_name);
-                    } else {
-                        alert("error: btnok!");
-                    }
-                    var t_noa = trim($('#txtNoa').val());
-                    var t_date = trim($('#txtDatea').val());
-                    if (t_noa.length == 0 || t_noa == "AUTO")
-                        q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                    else
-                        wrServer(t_noa);
-                } else {
-                    if ($.trim($('#txtCheckno_' + n).val()).length > 0) {
-                        var t_noa = $('#txtNoa').val();
-                        var t_checkno = $('#txtCheckno_' + n).val();
-                        var t_ummno = $('#txtUmmno_'+n).val();
-                        var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-                        q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_btnOkbbs1_" + n + "_" + t_checkno + "_" + t_noa+ "_" + t_ummno, r_accy);
-                    } else {
-                        checkGqb_bbs(n - 1);
-                    }
-                }
-            }
+			function btnOk() {
+	            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
+	            if (t_err.length > 0) {
+	                alert(t_err);
+	                return;
+	            }
+	
+	            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+	            if (s1.length == 0 || s1 == "AUTO")   
+	                q_gtnoa(q_name, replaceAll('T' + q_date(), '/', ''));
+	            else
+	                wrServer(s1);
+			}
 
             function wrServer(key_value) {
                 var i;
@@ -226,6 +148,7 @@
 
             function btnMinus(id) {
                 _btnMinus(id);
+
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
@@ -253,45 +176,6 @@
                     }
                 }
                 _bbtAssign();
-            }
-
-            function calcDay() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return;
-                var t_days = 0;
-                var t_date1 = $('#txtBegindate').val();
-                var t_date2 = $('#txtEnddate').val();
-                t_date1 = new Date(dec(t_date1.substr(0, 3)) + 1911, dec(t_date1.substring(4, 6)) - 1, dec(t_date1.substring(7, 9)));
-                t_date2 = new Date(dec(t_date2.substr(0, 3)) + 1911, dec(t_date2.substring(4, 6)) - 1, dec(t_date2.substring(7, 9)));
-                t_days = Math.abs(t_date2 - t_date1) / (1000 * 60 * 60 * 24) + 1;
-                $('#txtDays').val(t_days);
-                sum();
-            }
-
-            function sum() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return;
-                var t_days = 0, t_money = 0, t_cash = 0, t_checka = 0, t_interest = 0, t_pay = 0;
-                t_days = q_float('txtDays');
-                for (var i = 0; i < q_bbsCount; i++) {
-                    if ($('#cmbTypea_' + i).val() == '1')
-                        if ($.trim($('#txtCheckno_' + i).val()).length > 0)
-                            t_checka += q_float('txtMoney_' + i);
-                        else
-                            t_cash += q_float('txtMoney_' + i);
-                    else
-                        t_pay += q_float('txtMoney_' + i);
-                }
-
-                $('#txtCash').val(FormatNumber(t_cash));
-                $('#txtChecka').val(FormatNumber(t_checka));
-                t_money = t_cash + t_checka;
-                $('#txtMoney').val(FormatNumber(t_money));
-                t_interest = round(t_money * t_days / 30 * q_float('txtRate') / 100, 0);
-                $('#txtInterest').val(FormatNumber(t_interest));
-                $('#txtTotal').val(FormatNumber(t_money + t_interest));
-                $('#txtPay').val(FormatNumber(t_pay));
-                $('#txtUnpay').val(FormatNumber(t_money + t_interest - t_pay));
             }
 
             function q_appendData(t_Table) {
@@ -348,19 +232,6 @@
                         break;
                 }
             }
-
-            function FormatNumber(n) {
-                var xx = "";
-                if (n < 0) {
-                    n = Math.abs(n);
-                    xx = "-";
-                }
-                n += "";
-                var arr = n.split(".");
-                var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
-            }
-
             
 		</script>
 		<style type="text/css">

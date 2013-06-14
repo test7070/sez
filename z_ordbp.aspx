@@ -23,6 +23,10 @@
                $('#q_report').q_report({
                         fileName : 'z_ordb',
                         options : [{/*1*/
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                   		},{
 							type : '1',
 							name : 'noa'
 						},{
