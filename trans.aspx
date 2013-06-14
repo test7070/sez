@@ -295,8 +295,7 @@
 				
 				var bmiles = q_float('txtBmiles');
 				var emiles = q_float('txtEmiles');
-				if (bmiles != 0 && emiles != 0)
-					$('#txtMiles').val(FormatNumber(emiles.sub(bmiles)));
+				$('#txtMiles').val(FormatNumber(emiles.sub(bmiles)));
 					
 				if(q_float('txtWeight2')==0)
 					$('#txtWeight3').val(0);
