@@ -23,7 +23,7 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_car2');
+                q_gf('', 'z_anacar2');
                 $('#cartax').hide();
                 $('#carnotice').hide();
                 
