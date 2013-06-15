@@ -58,6 +58,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
             q_mask(bbmMask);
+            q_cmbParse("cmbTypea", q_getPara('worka.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             $('#btnImportWorka').click(function(){
             	var t_workno = $.trim($('#txtWorkno').val());
             	if(!emp(t_workno)){
@@ -390,12 +391,12 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 
         <tr>
+			<td><span> </span><a id='lblType' class="lbl"> </a></td>
+			<td><select id="cmbTypea" class="txt c1"> </select></td>
         	<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
             <td><input id="txtDatea" type="text" class="txt c1"/></td>
         	<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
             <td><input id="txtNoa"   type="text"  class="txt c1"/></td> 
-        	<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-            <td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
         <tr>
         	<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
@@ -437,8 +438,9 @@
         </tr>
 		<tr>
         	<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-			<td colspan='4'><input id="txtProduct" type="text" style="width: 98%;"/></td>
-			<td><!--<input class="btn"  id="btnImportWorka" type="button"/>--></td>
+			<td colspan='3'><input id="txtProduct" type="text" style="width: 98%;"/></td>
+        	<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+            <td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
         <tr>
         	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
