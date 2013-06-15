@@ -77,6 +77,10 @@
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
                 });  
+            $('#btnUcap').click(function() {
+                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                    q_box("ucap_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucap', "980px", "650px", q_getMsg('btnUcap'));
+                });  
         }
         
 		var t_td='';
@@ -531,6 +535,7 @@
 		        	<input id="txtStationgno" type="text"  class="txt" style="width: 45%;"/>
 		        	<input id="txtStationg" type="text"  class="txt" style="width: 45%;"/>
 		        </td>
+		        <td class="td5"><input id="btnUcap" type="button"  /></td>
 			</tr>
 			<tr>
 		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
