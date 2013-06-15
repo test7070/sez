@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -17,14 +16,15 @@
             }
 
             var q_name = "caraccident";
-            var q_readonly = [];
-            var bbmNum = [['txtClaimmoney', 10, 0], ['txtConciliatorymoney', 10, 0]];
+            var q_readonly = ['txtNoa'];
+            var bbmNum = [['txtClaimmoney', 10, 0,1], ['txtConciliatorymoney', 10, 0,1]];
             var bbmMask = [['txtDatea','999/99/99'],['txtClaimdate','999/99/99'],['txtEnddate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'noa,noq';
+            brwKey = 'noa';
+            brwCount2 = 10;
             //ajaxPath = ""; //  execute in Root
             aPop = [['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'insurer_b.aspx'],
                     ['txtDriverno', 'lblDriver', 'driver',  'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
@@ -37,7 +37,7 @@
                 }
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
             //////////////////   end Ready
             function main() {
@@ -49,28 +49,8 @@
             }///  end Main()
 
             function mainPost() {
+            	q_getFormat();
             	q_mask(bbmMask);
-            }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for(var i = 0; i < adest.length; i++) { {
-                            if(t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if(t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
-                });
             }
 
             function q_boxClose(s2) {
@@ -103,17 +83,19 @@
 
             function btnIns() {
             	if(q_getId()[3].length>0){
-            		var t_noa = $.trim(q_getId()[3].replace(/[noa='*']/g,""));
+            		var t_carno = $.trim(q_getId()[3].replace(/[carno='*']/g,""));
             		_btnIns();
-            		if(t_noa.length>0){
-            			$('#txtNoa').val(t_noa);
+            		if(t_carno.length>0){
+            			$('#txtCarno').val(t_carno);
             			$('#txtDatea').focus(); 
         			}else{
-        				$('#txtNoa').focus(); 
+        				$('#txtCarno').focus(); 
         			}
+        			$('#txtNoa').val('AUTO');
             	}else{
             		_btnIns();
-               		$('#txtNoa').focus(); 	
+               		$('#txtCarno').focus(); 	
+               		$('#txtNoa').val('AUTO');
             	} 
             }
 
@@ -131,34 +113,38 @@
 
             function btnOk() {
  				$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if (!q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             	}
  				$('#txtClaimdate').val($.trim($('#txtClaimdate').val()));
-                if (checkId($('#txtClaimdate').val())==0){
+                if (!q_cd($('#txtClaimdate').val())){
                 	alert(q_getMsg('lblClaimdate')+'錯誤。');
                 	return;
             	}
  				$('#txtEnddate').val($.trim($('#txtEnddate').val()));
-                if (checkId($('#txtEnddate').val())==0){
+                if (!q_cd($('#txtEnddate').val())){
                 	alert(q_getMsg('lblEnddate')+'錯誤。');
                 	return;
             	}
+            	
             	var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 var t_noa = $('#txtNoa').val();
-                wrServer(t_noa);
+                var t_date = $('#txtDatea').val();
+                 if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_caraccident') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
             }
 
-            function wrServer(key_value) {
-                var i;
-                xmlSql = '';
-                if(q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
-            }
+             function wrServer(key_value) {
+		        var i;
+
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+		        _btnOk(key_value, bbmKey[0], '', '', 2);
+
+		    }
 
 
             function refresh(recno) {
@@ -221,145 +207,132 @@
             function btnCancel() {
                 _btnCancel();
             }
-			function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
-            }
+			
 
 		</script>
 		<style type="text/css">
+            #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 38%;
+            }
             .tview {
-                font-size: 16px;
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
                 color: blue;
-                background: #FFCC00;
-                padding: 3px;
+            }
+            .tview td {
+                padding: 2px;
                 text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 38%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
             }
             .tbbm {
-                font-size: 16px;
-                color: blue;
-                text-align: left;
-                border-color: white;
-                width: 100%;
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
                 border-collapse: collapse;
+                font-size: medium;
+                color: blue;
                 background: #cad3ff;
+                width: 100%;
             }
             .tbbm tr {
                 height: 35px;
             }
-            .td1, .td2, .td3, .td4, .td5, .td6 {
-                width: 85px;
+            .tbbm tr td {
+                width: 9%;
             }
-            .label {
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
                 float: right;
-            }
-            .lookup {
-                text-decoration: underline;
-            }
-            .lookup:hover {
-                color: red;
-                font-weight: bolder;
-                cursor: pointer;
-            }
-            .popDiv {
-                position: absolute;
-                z-index: 3;
-                background: #4297D7;
-                height: 400px;
-                width: 500px;
-                border: 2px #EEEEEE solid;
-                border-radius: 5px;
-                padding-top: 10px;
-            }
-            .popDiv .block {
-                border: 1px #CCD9F2 solid;
-                border-radius: 5px;
-            }
-            .popDiv .block .col {
                 display: block;
-                width: 600px;
-                height: 30px;
-                margin-top: 5px;
-                margin-left: 5px;
+                width: 5px;
+                height: 10px;
             }
-            .btnLbl {
-                background: #cad3ff;
-                border-radius: 5px;
-                display: block;
-                width: 80px;
-                height: 25px;
-                float: left;
-                /*border: 1px #EEEEEE solid;*/
-                cursor: default;
-            }
-            .btnLbl.tb {
+            .tbbm tr td .lbl {
                 float: right;
-            }
-            .btnLbl.button {
-                cursor: pointer;
-                background: #76A2FE;
-            }
-            .btnLbl.button.close {
-                background: #cad3ff;
-            }
-            .btnLbl.button:hover {
-                background: #FF8F19;
-            }
-            .btnLbl a {
                 color: blue;
-                font-size: 16px;
-                height: 25px;
-                line-height: 25px;
-                display: block;
-                text-align: center;
+                font-size: medium;
             }
-            .btnLbl.button a {
-                color: #000000;
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
             }
-            .btnLbl.close a {
-                color: red;
-                font-size: 16px;
-                height: 25px;
-                line-height: 25px;
-                display: block;
-                text-align: center;
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 38%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 60%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 99%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            
+             input[type="text"],input[type="button"] {     
+                font-size: medium;
             }
 		</style>
 	</head>
 	<body>
-		<form id="form1" style="height: 100%;" action="">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div id='dmain' style="overflow:hidden;">
-				<div class="dview" id="dview" style="float: left;  width:220px;"  >
+				<div class="dview" id="dview" style="float: left;  width:30%;"  >
 					<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 						<tr>
 							<td align="center" style="width:5%"><a id='vewChk'></a></td>
-							<td align="center" style="width:25%"><a id='vewNoa'></a></td>
+							<td align="center" style="width:25%"><a id='vewCarno'></a></td>
 							<td align="center" style="width:25%"><a id='vewDatea'></a></td>
 							<td align="center" style="width:25%"><a id='vewDriver'></a></td>
 						</tr>
@@ -367,134 +340,62 @@
 							<td >
 							<input id="chkBrow.*" type="checkbox" style=''/>
 							</td>
-							<td align="center" id='noa'>~noa</td>
+							<td align="center" id='carno'>~carno</td>
 							<td align="center" id='datea'>~datea</td>
 							<td align="center" id='driver'>~driver</td>
 						</tr>
 					</table>
 				</div>
-				<div class='dbbm' style="width: 500px;float: left;">
-					<div style="border: 1px solid #000000;border-radius: 5px;">
-						<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-							<tr class="tr1">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblNoa'></a>
-								</div></td>
-								<td class="td2" colspan='2'>
-								<input id="txtNoa" type="text"  style='width:60%; '/>
-								<input id="txtNoq" type="text"  style='width:30%; '/>
-								</td>
-								<td class="td4" >
-								<div class='btnLbl tb'>
-									<a id='lblDatea'></a>
-								</div></td>
-								<td class="td5">
-								<input id="txtDatea" type="text"  style='width:95%; '/>
-								</td>
-								<td class="td6"></td>
-							</tr>
-							<tr class="tr2">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblTimeplace'></a>
-								</div></td>
-								<td class="td2" colspan='3'>
-								<input id="txtTimeplace" type="text"  style='width:95%; '/></td>
-							</tr>
-							<tr class="tr3">
-								<td class="td1">
-								<div class='btnLbl tb button'>
-									<a id='lblDriver'></a>
-								</div></td>
-								<td class="td2" colspan='2'>
-								<input id="txtDriverno" type="text"  style='width:30%; float:left;'/>
-								<input id="txtDriver" type="text"  style='width:63%; float:left;'/>
-								</td>
-								<td class="td4" >
-								<div class='btnLbl tb'>
-									<a id='lblPolice'></a>
-								</div></td>
-								<td class="td5">
-								<input id="txtPolice" type="text"  style='width:95%; '/>
-								</td>
-							</tr>
-							<tr class="tr4">
-								<td class="td1">
-								<div class='btnLbl tb button'>
-									<a id='lblInsurer'></a>
-								</div></td>
-								<td class="td2" colspan='2'>
-								<input id="txtInsurerno" type="text"  style='width:30%; float:left;'/>
-								<input id="txtInsurer" type="text"  style='width:63%; float:left;'/>
-								</td>
-								<td class="td4" >
-								<div class='btnLbl tb'>
-									<a id='lblInsurertel'></a>
-								</div></td>
-								<td class="td5">
-								<input id="txtInsurertel" type="text"  style='width:95%; '/>
-								</td>
-							</tr>
-							<tr class="tr4">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblClaimno'></a>
-								</div></td>
-								<td class="td2">
-								<input id="txtClaimno" type="text"  style='width:95%; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblClaimdate'></a>
-								</div></td>
-								<td class="td4">
-								<input id="txtClaimdate" type="text"  style='width:95%; '/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblEnddate'></a>
-								</div></td>
-								<td class="td6">
-								<input id="txtEnddate" type="text"  style='width:95%; '/>
-								</td>
-							</tr>
-							<tr class="tr5">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblClaimmoney'></a>
-								</div></td>
-								<td class="td2">
-								<input id="txtClaimmoney" type="text"  style='width:95%; text-align: right;'/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblConciliatorymoney'></a>
-								</div></td>
-								<td class="td4">
-								<input id="txtConciliatorymoney" type="text"  style='width:95%; text-align: right;'/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblAdversary'></a>
-								</div></td>
-								<td class="td6">
-								<input id="txtAdversary" type="text"  style='width:95%; '/>
-								</td>
-							</tr>
-							<tr class="tr6">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblMemo'></a>
-								</div></td>
-								<td class="td2" colspan='5'><textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 50px;">
-									</textarea></td>
-							</tr>
-						</table>
-					</div>
+				<div class='dbbm' style="width: 70%;float:left">
+					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+						<tr class="tr1">
+							<td class="td1"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+							<td class="td2"><input id="txtCarno" type="text" class="txt c1"/></td>
+							<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>	
+							<td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
+							<td class="td5"><span> </span><a id="lblNoa" class="lbl"> </a></td>	
+							<td class="td6"><input id="txtNoa" type="text" class="txt c1"/></td>
+						</tr>
+						<tr class="tr2">
+							<td class="td1"><span> </span><a id="lblTimeplace" class="lbl"> </a></td>
+							<td class="td2" colspan="5"><input id="txtTimeplace" type="text" class="txt c1"/></td>
+						</tr>
+						<tr class="tr3">
+							<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+							<td class="td2" colspan="2"><input id="txtDriverno" type="text" class="txt c2"/><input id="txtDriver" type="text" class="txt c3"/></td>
+							<td class="td4"><span> </span><a id="lblInsurer" class="lbl btn"> </a></td>
+							<td class="td5" colspan="2"><input id="txtInsurerno" type="text" class="txt c2"/><input id="txtInsurer" type="text" class="txt c3"/></td>
+						</tr>
+						<tr class="tr4">
+							<td class="td1"><span> </span><a id="lblAdversary" class="lbl"> </a></td>	
+							<td class="td2"><input id="txtAdversary" type="text" class="txt c1"/></td>
+							<td class="td3"><span> </span><a id="lblInsurertel" class="lbl"> </a></td>	
+							<td class="td4"><input id="txtInsurertel" type="text" class="txt c1"/></td>	
+							<td class="td5"><span> </span><a id="lblPolice" class="lbl"> </a></td>	
+							<td class="td6" ><input id="txtPolice" type="text" class="txt c1"/></td>
+						</tr>
+						<tr class="tr5">
+							<td class="td1"><span> </span><a id="lblClaimno" class="lbl"> </a></td>
+							<td class="td2"><input id="txtClaimno" type="text" class="txt c1"/></td>
+							<td class="td3"><span> </span><a id="lblClaimdate" class="lbl"> </a></td>	
+							<td class="td4"><input id="txtClaimdate" type="text" class="txt c1"/></td>	
+							<td class="td5"><span> </span><a id="lblEnddate" class="lbl"> </a></td>	
+							<td class="td6"><input id="txtEnddate" type="text" class="txt c1"/></td>	
+						</tr>
+						<tr class="tr6">
+							<td class="td1"><span> </span><a id="lblClaimmoney" class="lbl"> </a></td>
+							<td class="td2"><input id="txtClaimmoney" type="text" class="txt num c1"/></td>
+							<td class="td3"><span> </span><a id="lblConciliatorymoney" class="lbl"> </a></td>	
+							<td class="td4"><input id="txtConciliatorymoney" type="text" class="txt num c1"/></td>	
+								
+						</tr>
+						<tr class="tr7">
+							<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+							<td class="td2" colspan="5"><textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 50px;"></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<input id="q_sys" type="hidden" />
-		</form>
 	</body>
 </html>

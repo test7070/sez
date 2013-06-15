@@ -120,7 +120,7 @@
 					q_box("carlender.aspx?;;;noa='" + $('#txtCarownerno').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
 				});
 				$('#btnCaraccident').click(function(e) {
-					q_box("caraccident.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'caraccident', "90%", "600px", q_getMsg("popCaraccident"));
+					q_box("caraccident.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'caraccident', "90%", "600px", q_getMsg("popCaraccident"));
 				});
 				$('#btnCarchange').click(function(e) {
 					q_box("carchange.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'carchange', "90%", "600px", q_getMsg("popCarchange"));
