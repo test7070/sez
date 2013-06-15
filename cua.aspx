@@ -31,6 +31,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
+			q_desc = 1;
             aPop = new Array(
             	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
             	['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']

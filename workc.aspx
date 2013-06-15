@@ -31,6 +31,7 @@
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         	['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
         	['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx'],
+        	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
         	['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp',
@@ -58,6 +59,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
             q_mask(bbmMask);
+            q_cmbParse("cmbTypea", q_getPara('worka.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             $('#btnImportWorka').click(function(){
             	var t_workno = $.trim($('#txtWorkno').val());
             	if(!emp(t_workno)){
@@ -390,12 +392,12 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 
         <tr>
+			<td><span> </span><a id='lblType' class="lbl"> </a></td>
+			<td><select id="cmbTypea" class="txt c1"> </select></td>
         	<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
             <td><input id="txtDatea" type="text" class="txt c1"/></td>
         	<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
             <td><input id="txtNoa"   type="text"  class="txt c1"/></td> 
-        	<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-            <td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
         <tr>
         	<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
@@ -425,7 +427,7 @@
         	<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
             <td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
 		<tr>
-        	<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
+        	<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text" class="txt c1"/></td>
         	<td><span> </span><a id='lblMold' class="lbl"> </a></td>
         	<td>
@@ -437,8 +439,9 @@
         </tr>
 		<tr>
         	<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-			<td colspan='4'><input id="txtProduct" type="text" style="width: 98%;"/></td>
-			<td><!--<input class="btn"  id="btnImportWorka" type="button"/>--></td>
+			<td colspan='3'><input id="txtProduct" type="text" style="width: 98%;"/></td>
+        	<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+            <td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
         <tr>
         	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
