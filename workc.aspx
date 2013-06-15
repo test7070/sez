@@ -31,6 +31,7 @@
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         	['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
         	['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx'],
+        	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
         	['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp',
@@ -426,7 +427,7 @@
         	<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
             <td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
 		<tr>
-        	<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
+        	<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text" class="txt c1"/></td>
         	<td><span> </span><a id='lblMold' class="lbl"> </a></td>
         	<td>
