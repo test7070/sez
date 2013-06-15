@@ -509,6 +509,11 @@
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
+                //102/06/14 次月15日不能再修改與刪除
+            	if (checkenda){
+                	alert('此單據已關帳!!');
+                    return;
+                }
                 _btnModi();
 				//禁止修改
 				$('#txtCarowner').attr('disabled', 'disabled');
@@ -612,6 +617,29 @@
             
             function refresh(recno) {
                 _refresh(recno);
+                endacheck();
+            }
+            
+            var checkenda=false;
+            function endacheck() {
+            	//102/06/14 次月15日不能再修改與刪除
+            	var t_date=$('#txtMon').val()+'/01';
+				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				nextdate.setDate(nextdate.getDate() +45)
+				t_date=''+(nextdate.getFullYear()-1911)+'/';
+				//月份
+				if(nextdate.getMonth()+1<10)
+					t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+				else
+					t_date=t_date+(nextdate.getMonth()+1)+'/';
+				//日期
+				t_date=t_date+'15';
+            	
+                if (t_date<q_date().substr(0,6) ){
+                	checkenda=true;
+                }else{
+                	checkenda=false;
+                }
             }
 
             function readonly(t_para, empty) {
@@ -678,6 +706,11 @@
             }
 
             function btnDele() {
+            	//102/06/14 次月15日不能再修改與刪除
+            	if (checkenda){
+                	alert('此單據已關帳!!');
+                    return;
+                }
                 _btnDele();
             }
 

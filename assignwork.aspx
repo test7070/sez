@@ -278,7 +278,7 @@
             		$('#txtWorker2').val(r_name);
             		
             	if($('#chkEnda')[0].checked && emp($('#txtEndadate').val()))
-            		$('#txtEndadate').val(q_getPara('sys.r_date'));
+            		$('#txtEndadate').val(q_date());
             	if(!$('#chkEnda')[0].checked)
                 	$('#txtEndadate').val('');
                 	
@@ -477,7 +477,7 @@
 				else
 					t_date=t_date+(nextdate.getDate());
                 
-                if ($('#chkEnda')[0].checked && t_date<=q_getPara('sys.r_date')){
+                if ($('#chkEnda')[0].checked && t_date<=q_date()){
                 	checkenda=true;
                 }else{
                 	checkenda=false;
