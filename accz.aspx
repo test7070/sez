@@ -100,7 +100,7 @@
                     q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'accza', "40%", "430px", q_getMsg('lblConn'));
                 });
             $('#btnAcczs').click(function () {
-            	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popAcczs'));
+            	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "95%", q_getMsg('popAcczs'));
             })
             $('#btnAccz').click(function () {
 				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popAccz"));
