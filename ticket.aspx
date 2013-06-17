@@ -436,7 +436,6 @@
 						</td>
 						<td>  </td>
 						<td>  </td>
-						<td>  </td>
 						<td  class="tdZ">  </td>
 					</tr>
 					<tr class="tr2">
@@ -444,7 +443,6 @@
 						<td class="td2"><input id="txtTicketno" type="text"  class="txt c1"/></td>
 						<td class="td3" ><span> </span><a id='lblTicketdate' class="lbl"> </a></td>
 						<td class="td4"><input id="txtTicketdate" type="text"  class="txt c1"/></td>
-						<td>  </td>
 						<td>  </td>
 						<td>  </td>
 						<td>  </td>
@@ -458,6 +456,8 @@
 							<input id="txtDriverno" type="text"  class="txt c2"/>
 							<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
+						<td class="td6" ><span> </span><a id='lblId' class="lbl"> </a></td>
+						<td class="td7" colspan="2"><input id="txtId" type="text"   class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1" ><span> </span><a id='lblAppeardate' class="lbl"> </a></td>

@@ -27,7 +27,7 @@
         var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtCuadate','999/99/99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea'; q_desc = 1;
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         
@@ -72,8 +72,8 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtWorkdate', r_picd], ['txtUindate', r_picd], ['txtCuadate',r_picd] , ['txtEnddate', r_picd]];
             q_mask(bbmMask);
-            bbsMask = [['txtCuadate',r_picd]];
-            q_mask(bbsMask);
+          /*  bbsMask = [['txtCuadate',r_picd]];
+            q_mask(bbsMask);*/
             
             $('#txtProductno').change(function () {
             	var t_where = "where=^^ noa ='"+$('#txtProductno').val()+"' ^^";

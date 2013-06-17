@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtProductno', '', 'uca', 'noa,product', 'txtProductno', 'ucaucc_b.aspx']
+		aPop = new Array(['txtXproductno', '', 'uca', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
 		);
             $(document).ready(function() {
                 _q_boxClose();
@@ -26,8 +26,18 @@
                 $('#q_report').q_report({
                     fileName : 'z_uca',
                     options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : r_accy
+                    },{
                         type : '6',
-                        name : 'productno'
+                        name : 'xproductno'
+                    }, {
+                        type : '2',
+                        name : 'spno',
+                        dbf : 'uca',
+                        index : 'noa,product',
+                        src : 'uca_b.aspx'
                     }]
                 });
                 q_popAssign();

@@ -59,7 +59,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['namea'] ) {
+                if (!as['datea'] ) {
                     as[bbsKey[0]] = '';
                     return;
                 }
