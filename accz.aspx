@@ -103,7 +103,7 @@
             	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popAcczs'));
             })
             $('#btnAccz').click(function () {
-				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popAccz"));
+				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popAccz"));
             })
             $('#txtAcc1').change(function(){
             	var s1 = trim($(this).val());
@@ -122,7 +122,6 @@
             $('#txtMoney').change(function(){
             	if(q_float('txtMoney') != 0 && q_float('txtFixmoney') > 0 )
             		alert(q_getMsg('lblMoney') + ' ' + q_getMsg('lblFixmoney') + '不可同時存在。');
-            		
             	sum();
             })
             $('#txtFixmoney').change(function(){
