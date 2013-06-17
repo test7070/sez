@@ -16,7 +16,7 @@
         }
         var q_name="accz";
         var q_readonly = ['txtYear_depl','txtTotal','txtNoa'];
-        var bbmNum = [['txtMount',10, 0, 1],['txtEcount',10, 0, 1],['txtRate',3, 2, 1],['txtScrapvalue',14, 0, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1]]; 
+        var bbmNum = [['txtMount',10, 0, 1],['txtEcount',10, 0, 1],['txtRate',3, 2, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1]]; 
         //var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'acc1';
         //ajaxPath = ""; //  execute in Root
@@ -81,7 +81,8 @@
         	bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd],['txtDatea', r_picd],['textMon', r_picm]];
             q_mask(bbmMask);
             $('#btnAcczt').click(function () {
-            	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" +  r_accy , '', "95%", "650px", q_getMsg('popAcczt'));
+            	var t_where = "noa='" + $('#txtAcc1').val() + "'";
+            	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where + ";" +  r_accy , '', "95%", "650px", q_getMsg('popAcczt'));
             })
 			$('#btnTurncut').click(function(){
                 	$('#Changeaccno').toggle();
@@ -154,7 +155,7 @@
             		$(this).val('1.00');
             	}
             })
-            $('#txtScrapvalue').blur(function() {
+            $('#txtEndvalue').blur(function() {
                     $('#txtMemo').focus();
                 }).keydown(function(e) {
 			 		if ( e.keyCode=='13' ){
@@ -164,9 +165,9 @@
 				});
 			$('#chkNscrapvalue').click(function(){
 				if($('#chkNscrapvalue').is(':checked'))
-					$('#txtScrapvalue').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtEndvalue').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
 				else
-					$('#txtScrapvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtEndvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
 			});
 			
         }
@@ -245,6 +246,11 @@
             curData.copy();
 				_btnIns();
 			curData.paste();
+			if($('#chkNscrapvalue').is(':checked'))
+				$('#txtEndvalue').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+			else
+				$('#txtEndvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+
             $('#txtNoa').focus();
             $('#txtDatea').val(q_date());
             $('#txtIndate').val(q_date());
@@ -257,14 +263,14 @@
             _btnModi();
             $('#txtNoa').attr('disabled', 'disabled');
 			if($('#chkNscrapvalue').is(':checked'))
-				$('#txtScrapvalue').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+				$('#txtEndvalue').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
 			else
-				$('#txtScrapvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+				$('#txtEndvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
 			$('#txtNamea').focus();
         }
 
         function btnPrint() {
-			q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
+			q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popPrint"));
         }
         function btnOk() {
             sum();
@@ -571,14 +577,6 @@
                <td class="td1"><span> </span><a id='lblAccumulat' class="lbl"></a></td>
                <td class="td2"><input id="txtAccumulat"  type="text" class="txt num c1" /></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-	           <td class="td5"></td>
-               <td class="td6"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblEndvalue' class="lbl"></a></td>
-               <td class="td2"><input id="txtEndvalue"  type="text" class="txt num c1" /></td>
-               <td class="td3"><input id="chkIsendmodi" type="checkbox" /><a id="lblIsendmodi"></a></td>
                <td class="td4">
                	<div id="Changeaccno">
 				<table>
@@ -597,13 +595,24 @@
                	<input id="btnTurncut" type="button"  /></td></td>
 	           <td class="td5"></td>
                <td class="td6"></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblEndvalue' class="lbl"></a></td>
+               <td class="td2"><input id="txtEndvalue"  type="text" class="txt num c1" /></td>
+               <td class="td3"><input id="chkIsendmodi" type="checkbox" /><a id="lblIsendmodi"></a></td>
+               <td class="td4"><input id="btnAcczt" type="button" /></td>
+	           <td class="td5"></td>
+               <td class="td6"></td>
                
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblYear_depl' class="lbl"></a></td>
                <td class="td2"><input id="txtYear_depl"  type="text" class="txt num c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"><input id="btnAcczt" type="button" /></td>
+				<td class="td3">
+               		<input id="chkNscrapvalue" type="checkbox" class="txt"/>
+               		<span> </span><a id="lblNscrapvalue" class="txt"></a>
+				</td>
+               <td class="td4"><input id="btnAccza" type="button"  /></td>
 	           <td class="td5" ></td>
                <td class="td6"></td>
             </tr>
@@ -611,21 +620,10 @@
                <td class="td1"><span> </span><a id='lblRate' class="lbl"></a></td>
                <td class="td2"><input id="txtRate" type="text" class="txt num c1" /></td>
 	           <td class="td3"></td>
-               <td class="td4"><input id="btnAccza" type="button"  /></td>
-               <td class="td5"></td>
-               <td class="td6"></td>
-            </tr> 
-            <tr>
-               <td class="td1"><span> </span><a id='lblScrapvalue' class="lbl"></a></td>
-               <td class="td2"><input id="txtScrapvalue"  type="text" class="txt num c1" /></td>
-				<td class="td3">
-               		<input id="chkNscrapvalue" type="checkbox" class="txt"/>
-               		<span> </span><a id="lblNscrapvalue" class="txt"></a>
-				</td>
                <td class="td4"><input id="btnAccz" type="button"  /></td>
                <td class="td5"></td>
                <td class="td6"></td>
-            </tr>
+            </tr> 
             <tr>   
                 <td class="td1"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td2"><input id="txtTotal"  type="text" class="txt num c1" /></td> 
