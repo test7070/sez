@@ -60,7 +60,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['namea'] ) {
+                if (!as['product'] ) {
                     as[bbsKey[0]] = '';
                     return;
                 }
@@ -134,7 +134,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:6%;"><a id='lblUccno'></a></td>
-					<td align="center" style="width:12%;"><a id='lblNamea'></a></td>
+					<td align="center" style="width:12%;"><a id='lblProduct'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;">
@@ -144,7 +144,7 @@
 					<input class="txt"  id="txtUccno.*" type="text" style="width:98%;"  />
 					</td>
 					<td>
-					<input class="txt" id="txtNamea.*" type="text" style="width:98%;"   />
+					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"   />
 					</td>
 				</tr>
 			</table>

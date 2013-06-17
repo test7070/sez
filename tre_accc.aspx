@@ -84,8 +84,11 @@
                 });
 		        
 				if ((/^.*(tre_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
-		        $('#btnAccc').click(function () {show_confirm()})
-		       };
+		        $('#btnAccc').click(function (){show_confirm()});}
+		        
+		        if ((/^.*(tre_accc,[0|1],[0|1],0,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
+		        $('#btnAccc').click(function (){alert("沒有修改權限")});}
+		        
 		        $('#btnGqb').click(function () {
 		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "支票列印");
 		        });
