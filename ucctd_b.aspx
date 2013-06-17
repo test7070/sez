@@ -60,7 +60,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['namea'] ) {
+                if (!as['product'] ) {
                     as[bbsKey[0]] = '';
                     return;
                 }
