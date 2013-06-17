@@ -186,7 +186,7 @@
 
 			$('#txtWorker').val(r_name)
 			sum();
-
+			var t_date = $('#txtDatea').val();
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
 				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_worka') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
