@@ -154,7 +154,7 @@
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
            				t_where = "CHARINDEX(noa,(select td from uca a left join ucas b on a.noa=b.noa where a.noa='"+$('#txtProductno').val()+"' and b.productno='"+$('#txtProductno_'+b_seq).val()+"'))>0";
-           				q_box("ucc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'td', "95%", "650px", q_getMsg('popTd'));
+           				q_box("ucctd_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'td', "95%", "650px", q_getMsg('popTd'));
            			});
            			$('#chkIstd_' + j).click(function () {
            				t_IdSeq = -1;
