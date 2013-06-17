@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ucctd', t_content = ' field=noa,uccno,namea', bbsKey = ['noa'], as;
+			var q_name = 'ucctd', t_content = ' field=noa,uccno,product', bbsKey = ['noa'], as;
 			var isBott = false;
 			/// 是否已按過 最後一頁
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
@@ -44,22 +44,18 @@
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
 					<th align="center" ></th>
-					<th align="center" style='color:blue;'><a id='lblNoa'> </a></th>
 					<th align="center" style='color:blue;'><a id='lblUccno'> </a></th>
-					<th align="center" style='color:blue;'><a id='lblNamea'> </a></th>
+					<th align="center" style='color:blue;'><a id='lblProduct'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
 					<input name="sel"  id="radSel.*" type="radio" />
 					</td>
 					<td style="width:20%;">
-					<input id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
-					</td>
-					<td style="width:63%;">
 					<input class="txt" id="txtUccno.*" type="text" style="width:99%;"  readonly="readonly" />
 					</td>
-					<td style="width:8%;">
-					<input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" />
+					<td style="width:60%;">
+					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 				</tr>
 			</table>

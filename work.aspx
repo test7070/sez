@@ -88,7 +88,7 @@
             	case 'td':
             		ret = getb_ret();
 	                if(ret[0]!=undefined){
-	                	$('#txtTproductno_'+b_seq).val(ret[0].noa)
+	                	$('#txtTproductno_'+b_seq).val(ret[0].uccno)
 	                	$('#txtTproduct_'+b_seq).val(ret[0].product)
 	                }
             		break;
@@ -153,7 +153,8 @@
            				t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-           				t_where = "CHARINDEX(noa,(select td from uca a left join ucas b on a.noa=b.noa where a.noa='"+$('#txtProductno').val()+"' and b.productno='"+$('#txtProductno_'+b_seq).val()+"'))>0";
+           				//t_where = "CHARINDEX(noa,(select td from uca a left join ucas b on a.noa=b.noa where a.noa='"+$('#txtProductno').val()+"' and b.productno='"+$('#txtProductno_'+b_seq).val()+"'))>0";
+           				t_where = "noa='" + $('#txtProductno_'+b_seq).val() + "'";
            				q_box("ucctd_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'td', "95%", "650px", q_getMsg('popTd'));
            			});
            			$('#chkIstd_' + j).click(function () {
