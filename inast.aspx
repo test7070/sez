@@ -760,9 +760,10 @@
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblMoney_s'> </a></td>
                 <!--<td align="center" style="width:6%;"><a id='lblGweight_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblEweight_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblPlace_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblSource_s'> </a></td>-->
                 <td align="center"><a id='lblMemo_st'> </a></td>
@@ -793,9 +794,10 @@
                 </td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtGweight.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMweight.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtPrice.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtPlace.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSource.*" type="text" /></td>-->
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />

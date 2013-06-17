@@ -491,6 +491,8 @@
                 <td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblMoney_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblType_s'> </a></td>
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
@@ -501,6 +503,8 @@
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtPrice.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtMoney.*" type="text"  /></td>
                 <td ><input class="txt c1" id="txtTypea.*" type="text"/></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
