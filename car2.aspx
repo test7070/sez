@@ -314,9 +314,9 @@
                 $('#txtCaryear').blur(function() {
                     //if(!emp($('#txtCaryear').val())&&(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtCaryear').val()))
                     if((dec($('#txtCaryear').val().substr(0,4))-1911)>99)
-                    	$('#txtCaryeartw').val((dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+$('#txtPassdate').val().substr(4,2));
+                    	$('#txtCaryeartw').val((dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+(replaceAll(replaceAll($('#txtCaryear').val().substr(5,2),' ',''),'_','')!=''?$('#txtCaryear').val().substr(5,2):$('#txtPassdate').val().substr(4,2)));
                     else
-                    	$('#txtCaryeartw').val('0'+(dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+$('#txtPassdate').val().substr(4,2));
+                    	$('#txtCaryeartw').val('0'+(dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+(replaceAll(replaceAll($('#txtCaryear').val().substr(5,2),' ',''),'_','')!=''?$('#txtCaryear').val().substr(5,2):$('#txtPassdate').val().substr(4,2)));
                 });
                 
                 //異動通知
