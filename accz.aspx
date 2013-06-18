@@ -96,8 +96,7 @@
                 	$('#Changeaccno').toggle();
                 });
              $('#btnAccza').click(function() {
-                    t_where = "noa='" + $('#txtNoa').val() + "'";
-                    q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'accza', "40%", "430px", q_getMsg('lblConn'));
+                    q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'accza', "40%", "430px", q_getMsg('popAccza'));
                 });
             $('#btnAcczs').click(function () {
             	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "95%", q_getMsg('popAcczs'));
