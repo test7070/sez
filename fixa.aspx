@@ -105,18 +105,12 @@
 		            sum();
 		        });
 		        $('#txtWacc1').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
-                    }
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt, "$1.$2"));
                 });
                 $('#txtCacc1').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
-                    }
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt, "$1.$2"));
                 });
 		    }
 
@@ -132,42 +126,89 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'btnDele':
+                		var as = _q_appendData("paybs", "", true);
+                        if (as[0] != undefined) {
+                        	var t_msg = "";
+                        	for(var i=0;i<as.length;i++){
+                    			t_msg += String.fromCharCode(13)+'立帳單號【'+as[i].noa+'】 ';
+                        	}
+                        	if(t_msg.length>0){
+                        		alert('已立帳:'+ t_msg);
+                        		Unlock(1);
+                        		return;
+                        	}
+                        }
+                    	_btnDele();
+                    	Unlock(1);
+                		break;
+                	case 'btnModi':
+                		var as = _q_appendData("paybs", "", true);
+                        if (as[0] != undefined) {
+                        	var t_msg = "";
+                        	for(var i=0;i<as.length;i++){
+                    			t_msg += String.fromCharCode(13)+'立帳單號【'+as[i].noa+'】 ';
+                        	}
+                        	if(t_msg.length>0){
+                        		alert('已立帳:'+ t_msg);
+                        		Unlock(1);
+                        		return;
+                        	}
+                        }
+	                	_btnModi();
+				        sum();
+	                	Unlock(1);
+                		$('#txtCarno').focus();
+                		break;
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
-
-		                if (q_cur == 1 || q_cur == 2)
-		                    q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 		                break;
+		            default:
+		            	if(t_name.substring(0,8)=='lasttime'){
+		            		var sel = parseInt(t_name.split('_')[1]);
+		            		var as = _q_appendData("fixa", "", true);
+                        	if (as[0] != undefined) {
+                        		$('#txtMemo2_'+sel).val(as[0].fixadate);
+                        	}else{
+                        		
+                        	}
+                        	sum();
+                        	Unlock(1);
+		            	}
+		            	break;
 		        }  /// end switch
 		    }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock(1);
+            }
 		    function btnOk() {
-	            $('#txtDatea').val($.trim($('#txtDatea').val()));
-	                if (checkId($('#txtDatea').val())==0){
-	                	alert(q_getMsg('lblDatea')+'錯誤。');
-	                	return;
-	            }
-				$('#txtMon').val($.trim($('#txtMon').val()));
-					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
-						alert(q_getMsg('lblMon')+'錯誤。');   
-						return;
+		    	Lock(1,{opacity:0});
+	            if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
+					alert(q_getMsg('lblDatea')+'錯誤。');
+            		Unlock(1);
+            		return;
 				}
-	            $('#txtFixadate').val($.trim($('#txtFixadate').val()));
-	                if (checkId($('#txtFixadate').val())==0){
-	                	alert(q_getMsg('lblFixadate')+'錯誤。');
-	                	return;
+				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+                    alert(q_getMsg('lblMon') + '錯誤。');
+                    Unlock(1);
+					return;
+				}
+	            if($('#txtFixadate').val().length == 0 || !q_cd($('#txtFixadate').val())){
+					alert(q_getMsg('lblFixadate')+'錯誤。');
+            		Unlock(1);
+            		return;
+				}
+ 		        sum();
+                if(q_cur ==1){
+	            	$('#txtWorker').val(r_name);
+	            }else if(q_cur ==2){
+	            	$('#txtWorker2').val(r_name);
+	            }else{
+	            	alert("error: btnok!")
 	            }
- 		        
-		        $('#txtWorker').val(r_name);
-		        t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-		        if (t_err.length > 0) {
-		            alert(t_err);
-		            return;
-		        }
-		        sum();
-		        if($('#txtMon').val().length==0)
-		        	$('#txtMon').val($('#txtDatea').val().substring(0,6));
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
@@ -229,10 +270,10 @@
 
 		    function btnModi() {
 		        if (emp($('#txtNoa').val()))
-		            return;
-		        _btnModi();
-		        $('#txtFixadate').focus();
-		        sum();
+                    return;
+                Lock(1,{opacity:0});
+                t_where=" where=^^ rc2no='"+$('#txtNoa').val()+"'^^";
+            	q_gt('paybs', t_where, 0, 0, 0, "btnModi", r_accy);
 		    }
 
 		    function btnPrint() {
@@ -255,10 +296,41 @@
 		        return true;
 		    }
 		    function q_popPost(t_id) {
-		    	if((q_cur==1  ||  q_cur==2) && t_id.substring(0,13).toUpperCase()=='TXTPRODUCTNO_'){
+		    	switch(t_id){
+		    		case 'txtProductno_':
+		    			Lock(1,{opacity:0});
+		    			var t_noa = $.trim($('#txtNoa').val());
+		    			var t_fixadate = $.trim($('#txtFixadate').val());
+		    			var t_carno = $.trim($('#txtCarno').val());
+		    			var t_productno = $.trim($('#txtProductno_'+b_seq).val());
+		    			$('#txtMemo2_'+b_seq).val('');
+		    			if(t_fixadate.length==0){
+		    				alert('請輸入'+q_getMsg('lblFixadate'));
+		    				Unlock(1);
+		    				return;
+		    			}
+		    			if(t_carno.length==0){
+		    				alert('請輸入'+q_getMsg('lblCarno'));
+		    				Unlock(1);
+		    				return;
+		    			}	
+		    			if(t_productno.length==0){
+		    				alert('請輸入'+q_getMsg('lblProduct_s'));
+		    				Unlock(1);
+		    				return;
+		    			}
+		    			
+		    			var t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and a.fixadate<'"+t_fixadate+"' ^^"
+                		q_gt('fixa_lasttime', t_where, 0, 0, 0,'lasttime_'+b_seq, r_accy);
+		    			break;
+		    		default:
+		    			break;
+		    	}
+		    	
+		    	/*if((q_cur==1  ||  q_cur==2) && t_id.substring(0,13).toUpperCase()=='TXTPRODUCTNO_'){
 		    		sum();
 		    		
-		    	}
+		    	}*/
             }
 
 		    function sum() {
@@ -269,7 +341,7 @@
 		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
 						t_mount = q_float('txtMount_' + j);
 						t_price = q_float('txtPrice_' + j);
-						t_money = Math.round(t_mount * t_price, 0);
+						t_money = t_mount.mul(t_price).round(0);
 		                $('#txtMoney_' + j).val(t_money);
 		            } else {
 		                t_money = q_float('txtMoney_' + j);
@@ -279,11 +351,10 @@
 		        }
 		        t_tax = q_float('txtTax');
 		        t_discount = q_float('txtDiscount');
-		        $('#txtWmoney').val(t_wmoney);
-		        $('#txtCmoney').val(t_cmoney);
-		        $('#txtMoney').val(t_wmoney + t_cmoney);
-		        $('#txtTax').val(t_tax);
-		        $('#txtTotal').val(Math.round(t_wmoney + t_cmoney + t_tax - t_discount, 0));
+		        $('#txtWmoney').val(FormatNumber(t_wmoney));
+		        $('#txtCmoney').val(FormatNumber(t_cmoney));
+		        $('#txtMoney').val(FormatNumber(t_wmoney + t_cmoney));
+		        $('#txtTotal').val(FormatNumber(t_wmoney + t_cmoney + t_tax - t_discount));
 		    }
 
 		    function refresh(recno) {
@@ -347,41 +418,71 @@
 		    }
 
 		    function btnDele() {
-		        _btnDele();
+		        Lock(1,{opacity:0});
+                t_where=" where=^^ rc2no='"+$('#txtNoa').val()+"'^^";
+            	q_gt('paybs', t_where, 0, 0, 0, "btnDele", r_accy);
 		    }
 
 		    function btnCancel() {
 		        _btnCancel();
 		    }
-			function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
+			function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
+			Number.prototype.round = function(arg) {
+			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
+			}
+			Number.prototype.div = function(arg) {
+			    return accDiv(this, arg);
+			}
+            function accDiv(arg1, arg2) {
+			    var t1 = 0, t2 = 0, r1, r2;
+			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    with (Math) {
+			        r1 = Number(arg1.toString().replace(".", ""))
+			        r2 = Number(arg2.toString().replace(".", ""))
+			        return (r1 / r2) * pow(10, t2 - t1);
+			    }
+			}
+			Number.prototype.mul = function(arg) {
+			    return accMul(arg, this);
+			}
+			function accMul(arg1, arg2) {
+			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+			    try { m += s1.split(".")[1].length } catch (e) { }
+			    try { m += s2.split(".")[1].length } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			}
+			Number.prototype.add = function(arg) {
+		   		return accAdd(arg, this);
+			}
+			function accAdd(arg1, arg2) {
+			    var r1, r2, m;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2))
+			    return (arg1 * m + arg2 * m) / m
+			}
+			Number.prototype.sub = function(arg) {
+			    return accSub(this,arg);
+			}
+			function accSub(arg1, arg2) {
+			    var r1, r2, m, n;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    n = (r1 >= r2) ? r1 : r2;
+			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			}
 
 
 		</script>
