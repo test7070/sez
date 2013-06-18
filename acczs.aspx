@@ -22,8 +22,11 @@
         var bbmMask =[];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtAcczno', 'lblAcczno', 'accz', 'noa,namea', 'txtAcczno,txtNamea', 'accz_b.aspx']);
-
+        aPop = new Array(['txtAcczno', 'lblAcczno', 'accz', 'noa,namea,mount,money,accumulat', 'txtAcczno,txtNamea,txtMount,txtBuy_money,txtAccumulat', 'accz_b.aspx']);
+		
+		canSaleMount = 0;
+		acczMoney = 0;
+		accumulat = 0;
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -46,7 +49,25 @@
         	q_getFormat();
 			bbmMask = [['txtSale_date', r_picd]];
             q_mask(bbmMask);
-            
+            $("input[id^='txt']").change(function(){
+            	if($(this).attr('id') == 'txtMount'){
+            		var Buy_money = 0;
+            		if(dec($(this).val()) > canSaleMount){
+            			if(emp($('#txtAcczno').val()))
+            				alert('請輸入' + q_getMsg('lblAcczno'));
+            			else
+            				alert('出售數量大於可出售數量!!');
+            			$(this).val(canSaleMount);
+            			$('#txtBuy_money').val(acczMoney);
+            		}else{
+            			Buy_money = Math.round((dec(acczMoney)/dec(canSaleMount))*dec($(this).val()));
+						$('#txtBuy_money').val(Buy_money);
+						var t_where = "where=^^ noa='" +$('#txtAcczno').val() + "' ^^";
+				        q_gt('acczt', t_where , 0, 1, 0, "", r_accy + '_' + r_cno);
+	           		}
+            	}
+            	sum();
+            });
         }
         
         function q_boxClose( s2) {
@@ -61,12 +82,41 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+				case 'acczt':
+                	var as = _q_appendData("acczt", "", true);
+                	Before_Depl = 0; //前期折舊
+                	This_Depl = 0; //本期折舊
+                	for(var i = 0;i < as.length;i++){
+                		if(as[i].mon != q_date().substring(0,6))
+                			Before_Depl += dec(as[i].depl);
+                		else
+                			This_Depl = dec(as[i].depl);
+                	}
+                	Before_Depl += accumulat;
+                	Before_Depl = Math.round((Before_Depl/canSaleMount)*dec($('#txtMount').val()));
+                	This_Depl = Math.round((This_Depl/canSaleMount)*dec($('#txtMount').val()));
+                	$('#txtDepl').val(dec(This_Depl));
+                	$('#txtAccumulat').val(dec(Before_Depl));
+                	sum();
+                	break;
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
-        
+		
+		function q_popPost(s1) {
+			switch (s1) {
+				case 'txtAcczno':
+					canSaleMount = dec($('#txtMount').val());
+					acczMoney = dec($('#txtBuy_money').val());
+					accumulat = dec($('#txtAccumulat').val());
+					var t_where = "where=^^ noa='" +$('#txtAcczno').val() + "' ^^";
+					q_gt('acczt', t_where , 0, 1, 0, "", r_accy + '_' + r_cno);
+				break;
+			}
+		}   
+		     
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
@@ -76,6 +126,9 @@
 
         function btnIns() {
             _btnIns();
+        	canSaleMount = 0;
+			acczMoney = 0;
+			accumulat = 0;
             $('#txtNoa').val('AUTO');
             $('#txtSale_date').val(q_date());
             $('#txtAcczno').focus();
@@ -86,12 +139,34 @@
                 return;
 
             _btnModi();
+        	canSaleMount = 0;
+			acczMoney = 0;
+			accumulat = 0;
             $('#txtComp').focus();
         }
 
         function btnPrint() {
- 
+			q_box('z_acczs.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popPrint"));
         }
+        
+        function sum(){
+        	//處分資產損益 = 沖銷成本 - 出售金額 - 提列折舊 - 沖銷累折
+        	//total = buy_money - sale_money - depl - accumulat
+        	var total = 0;
+        	var buy_money = dec($('#txtBuy_money').val());
+        	var sale_money = dec($('#txtSale_money').val());
+        	var depl = dec($('#txtDepl').val());
+        	var accumulat = dec($('#txtAccumulat').val());
+			total = buy_money - sale_money - depl - accumulat;
+			if(total < 0){
+				$('#txtC4').val(Math.abs(total));
+				$('#txtC5').val(0);
+			}else{
+				$('#txtC4').val(0);
+				$('#txtC5').val(Math.abs(total));
+			}
+        }
+        
         function btnOk() {
             var t_err = '';
 
@@ -125,6 +200,9 @@
         }
        
         function refresh(recno) {
+        	canSaleMount = 0;
+			acczMoney = 0;
+			accumulat = 0;
             _refresh(recno);
         }
 

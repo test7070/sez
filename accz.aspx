@@ -15,8 +15,8 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="accz";
-        var q_readonly = ['txtYear_depl','txtTotal','txtNoa'];
-        var bbmNum = [['txtMount',10, 0, 1],['txtEcount',10, 0, 1],['txtRate',3, 2, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1]]; 
+        var q_readonly = ['txtNoa'];
+        var bbmNum = [['txtMount',10, 0, 1],['txtEcount',10, 0, 1],['txtRate',3, 2, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtEndvalue',14, 0, 1]]; 
         //var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'acc1';
         //ajaxPath = ""; //  execute in Root
@@ -100,7 +100,7 @@
                     q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'accza', "40%", "430px", q_getMsg('popAccza'));
                 });
             $('#btnAcczs').click(function () {
-            	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "95%", q_getMsg('popAcczs'));
+            	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";acczno='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "95%", q_getMsg('popAcczs'));
             })
             $('#btnAccz').click(function () {
 				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popAccz"));
@@ -192,16 +192,11 @@
 			var money = q_float('txtMoney');
 			var fixmoney = q_float('txtFixmoney');
 			var year = q_float('txtYear');
-			var accumulat = q_float('txtAccumulat');
-			var year_depl = q_float('txtYear_depl');
-			var total = 0;
 			if(year > 0 && !($('#chkIsdepl')[0].checked==true)){
 				endvalue = (money + fixmoney)/(year+1);
 			}
 			if(year > 0 && !($('#chkIsendmodi')[0].checked==true)){
 			$('#txtEndvalue').val(endvalue.toFixed(0));}
-			total = money + fixmoney-accumulat-year_depl;
-			$('#txtTotal').val(parseFloat(total,10));
 		}
         function q_boxClose( s2) {
             var ret; 
@@ -614,8 +609,8 @@
                
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblYear_depl' class="lbl"></a></td>
-               <td class="td2"><input id="txtYear_depl"  type="text" class="txt num c1"/></td>
+               <td class="td1"><span> </span><a id='lblRate' class="lbl"></a></td>
+               <td class="td2"><input id="txtRate" type="text" class="txt num c1" /></td>
 				<td class="td3">
                		<input id="chkNscrapvalue" type="checkbox" class="txt"/>
                		<span> </span><a id="lblNscrapvalue" class="txt"></a>
@@ -625,16 +620,16 @@
                <td class="td6"></td>
             </tr>
 	       <tr>
-               <td class="td1"><span> </span><a id='lblRate' class="lbl"></a></td>
-               <td class="td2"><input id="txtRate" type="text" class="txt num c1" /></td>
+               <td class="td1"></td>
+               <td class="td2"></td>
 	           <td class="td3"></td>
                <td class="td4"><input id="btnAccz" type="button"  /></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr> 
             <tr>   
-                <td class="td1"><span> </span><a id='lblTotal' class="lbl"></a></td>
-                <td class="td2"><input id="txtTotal"  type="text" class="txt num c1" /></td> 
+                <td class="td1"></td>
+                <td class="td2"></td> 
                 <td class="td3"></td>
                 <td class="td4"><input id="btnAcczs" type="button" /></td> 
                 <td class="td5"></td>
