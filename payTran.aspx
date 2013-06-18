@@ -567,13 +567,14 @@
 		        }
 		        
 		        //20130201只要預付單號有預付，預付金額=SUM(BBS沖帳金額)
-		        if($('#txtRc2no').val().indexOf('預付')>-1){
+		        //1020618取消此功能
+		        /*if($('#txtRc2no').val().indexOf('預付')>-1){
 		        	var yufu_total=0;
 		        	for (var i = 0; i < q_bbsCount; i++) {
 		        		yufu_total+=q_float('txtPaysale_'+i);
 		        	}
 		        	q_tr('txtOpay',yufu_total);
-		        }
+		        }*/
 		        //先檢查BBS沒問題才存檔      
                 checkGqb_bbs(q_bbsCount-1);
 		    }

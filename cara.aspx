@@ -635,7 +635,7 @@
 				//日期
 				t_date=t_date+'15';
             	
-                if (t_date<q_date().substr(0,6) ){
+                if (t_date<q_date() ){
                 	checkenda=true;
                 }else{
                 	checkenda=false;

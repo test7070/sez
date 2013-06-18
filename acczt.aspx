@@ -23,7 +23,7 @@
         //ajaxPath = ""; //  execute in Root
 
         $(document).ready(function () {
-            bbmKey = ['noa'];
+            bbmKey = ['noa','mon'];
             q_brwCount();
           q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno )
             $('#txtNoa').focus

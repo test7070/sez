@@ -314,9 +314,9 @@
                 $('#txtCaryear').blur(function() {
                     //if(!emp($('#txtCaryear').val())&&(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtCaryear').val()))
                     if((dec($('#txtCaryear').val().substr(0,4))-1911)>99)
-                    	$('#txtCaryeartw').val((dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+$('#txtPassdate').val().substr(4,2));
+                    	$('#txtCaryeartw').val((dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+(replaceAll(replaceAll($('#txtCaryear').val().substr(5,2),' ',''),'_','')!=''?$('#txtCaryear').val().substr(5,2):$('#txtPassdate').val().substr(4,2)));
                     else
-                    	$('#txtCaryeartw').val('0'+(dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+$('#txtPassdate').val().substr(4,2));
+                    	$('#txtCaryeartw').val('0'+(dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+(replaceAll(replaceAll($('#txtCaryear').val().substr(5,2),' ',''),'_','')!=''?$('#txtCaryear').val().substr(5,2):$('#txtPassdate').val().substr(4,2)));
                 });
                 
                 //異動通知
@@ -1027,19 +1027,19 @@
 						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblOutdate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOutdate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtOutdate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblOutmoney" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOutmoney" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtOutmoney" type="text" class="txt c1 num"/> </td>
-						<td><span> </span><a id="lblOutplace" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOutplace" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtOutplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblEnddate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblWastedate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblWastedate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblSuspdate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblSuspdate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtSuspdate" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
