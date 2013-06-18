@@ -89,12 +89,13 @@
                 	
              });
              $('#btnChangeaccno').click(function(){
-             	var mon = $('#textMon').val()
-                q_func( 'accz.gen', mon+','+r_name)
-                });
-                $('#btnCloseaccno').click(function(){
-                	$('#Changeaccno').toggle();
-                });
+             	var mon = $('#textMon').val();
+                q_func( 'accz.gen', mon+','+r_name);
+                $('#btnChangeaccno').attr('disabled','disabled');
+             });
+             $('#btnCloseaccno').click(function(){
+				$('#Changeaccno').toggle();
+             });
              $('#btnAccza').click(function() {
                     q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'accza', "40%", "430px", q_getMsg('popAccza'));
                 });
@@ -169,7 +170,16 @@
 			});
 			
         }
-        
+		function q_funcPost(t_func, result) {
+			switch(t_func) {
+				case 'accz.gen':
+					alert(result);
+					$('#btnChangeaccno').removeAttr('disabled', 'disabled');
+					$('#btnCloseaccno').click();
+					
+				break;
+			}
+		}
         function OpenAccnoWindows(noaKey){
         	if(!emp(noaKey.length)){
         		b_window = false;
