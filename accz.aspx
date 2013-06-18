@@ -194,9 +194,12 @@
 			var year = q_float('txtYear');
 			if(year > 0 && !($('#chkIsdepl')[0].checked==true)){
 				endvalue = (money + fixmoney)/(year+1);
+			}else if(year > 0 && !($('#chkIsendmodi')[0].checked==true)){
+				endvalue = 0;
+			}else if($('#chkIsendmodi')[0].checked==true){
+				endvalue = $('#txtEndvalue').val();
 			}
-			if(year > 0 && !($('#chkIsendmodi')[0].checked==true)){
-			$('#txtEndvalue').val(endvalue.toFixed(0));}
+			$('#txtEndvalue').val(dec(endvalue));
 		}
         function q_boxClose( s2) {
             var ret; 
