@@ -1027,19 +1027,19 @@
 						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblOutdate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOutdate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtOutdate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblOutmoney" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOutmoney" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtOutmoney" type="text" class="txt c1 num"/> </td>
-						<td><span> </span><a id="lblOutplace" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOutplace" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtOutplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblEnddate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblWastedate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblWastedate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblSuspdate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblSuspdate" class="lbl" style="color: red;"> </a></td>
 						<td><input id="txtSuspdate" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
