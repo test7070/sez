@@ -20,16 +20,16 @@
         var bbmNum = [['txtDepl',14,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_desc = 1;
         //ajaxPath = ""; //  execute in Root
-
         $(document).ready(function () {
             bbmKey = ['noa','mon'];
             q_brwCount();
-          q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno )
-            $('#txtNoa').focus
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno )
+			$('#txtNoa').focus
         });
 
-        //////////////////   end Ready
+       //////////////////   end Ready
        function main() {
            if (dataErr)   
            {
