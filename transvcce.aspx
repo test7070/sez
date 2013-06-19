@@ -40,8 +40,8 @@
             brwCount2 = 10;
             
             aPop = new Array(['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
-            , ['txtDriverno_', 'btnDriverno_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
-            , ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx']
+            , ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
+            , ['txtAddrno_', '', 'addr', 'noa,addr', 'txtAddrno_,txtAddr_', 'addr_b.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'] 
             );
 			//---------------------------------------------------------------------
@@ -53,6 +53,7 @@
                 curPage : -1,
                 totPage : 0,
                 curIndex : '',
+                curCaddr : null,
                 lock : function(){
                 	for(var i=0;i<this.tbCount;i++){
                 		if($('#tranorde_chk' + i).attr('disabled')!='disabled'){
@@ -257,8 +258,6 @@
                             $('#txtCustno').val(this.data[n+i]['custno']);
                             $('#txtComp').val(this.data[n+i]['comp']);
                             $('#txtNick').val(this.data[n+i]['nick']);
-                            $('#txtAddrno').val(this.data[n+i]['addrno']);
-                            $('#txtAddr').val(this.data[n+i]['addr']);
                             $('#txtMemo').val(this.data[n+i]['memo']);   
                         }
                     }
@@ -269,6 +268,15 @@
                 		return;
                 	var t_where = "where=^^ noa='"+ordeno+"'^^"
                 	q_gt('view_tranorde', t_where, 0, 0, 0,'ddd_'+ordeno+'_'+sel, r_accy);
+                },
+                loadcaddr : function(ordeno){
+                	this.curCaddr = new Array();
+                	for(var i=0;i<q_bbsCount;i++)
+		                $('#combCaddr_'+i).html('');
+                	if(ordeno.length == 0)
+                		return;
+                	var t_where = "where=^^ noa='"+ordeno+"'^^"
+                	q_gt('view_tranorde', t_where, 0, 0, 0,'loadcaddr', r_accy);
                 }
             }
             tranorde = new tranorde();
@@ -348,6 +356,35 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'loadcaddr':
+                		var as = _q_appendData("view_tranorde", "", true);
+                        if (as[0] != undefined){
+                        	tranorde.curCaddr.push({addrno:'',addr:''});
+                        	var t_caddr = as[0].caddr.split(',');
+                        	var a_caddr = new Array(),t_item,t_str,t_addrno='';
+                        	for(var i=0;i<t_caddr.length;i++){
+		                		t_item = t_caddr[i].split(' ');
+		                		t_str='';
+		                		for(var j=0;t_caddr[i].length>0 && j<t_item.length;j++){
+		                			t_str+=String.fromCharCode(parseInt(t_item[j]));
+		                		}
+		                		if(i%2==0)
+		                			t_addrno = t_str;
+		                		else{
+		                			tranorde.curCaddr.push({addrno:t_addrno,addr:t_str});
+		                		}
+		                	}
+		                	for(var i=0;i<tranorde.curCaddr.length;i++)
+		                		t_str += '<option value="'+i+'">'+(tranorde.curCaddr[i].addrno+' '+tranorde.curCaddr[i].addr).replace('</','')+'</option>';
+		                	for(var i=0;i<q_bbsCount;i++){
+		                		$('#combCaddr_'+i).html(t_str).change(function(e){
+		                			var n= parseInt($(this).attr('id').replace('combCaddr_',''));
+	                				$('#txtAddrno_'+n).val(tranorde.curCaddr[parseInt($(this).val())].addrno);
+	                				$('#txtAddr_'+n).val(tranorde.curCaddr[parseInt($(this).val())].addr);
+		                		});	                		
+		                	}
+                        }
+                		break;
                     case 'aaa':
                         var as = _q_appendData("view_tranorde", "", true);
                         if (as[0] != undefined)
@@ -589,7 +626,7 @@
             	tranorde.lock();
                 _btnIns();
                 tranorde.paste(); 
-                        
+                tranorde.loadcaddr($('#txtOrdeno').val());        
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
                 
@@ -605,6 +642,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 tranorde.lock();
+                tranorde.loadcaddr($('#txtOrdeno').val());
                 _btnModi();           
                 $('#txtDatea').focus();
             }
@@ -617,7 +655,15 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
             function bbsAssign() {
+            	var t_str='';
+                for(var i=0;tranorde.curCaddr!=undefined && i<tranorde.curCaddr.length;i++)
+            		t_str += '<option value="'+i+'">'+(tranorde.curCaddr[i].addrno+' '+tranorde.curCaddr[i].addr).replace('</','')+'</option>';
                 for(var i = 0; i < q_bbsCount; i++) {
+                	$('#combCaddr_'+i).html(t_str).change(function(e){
+            			var n= parseInt($(this).attr('id').replace('combCaddr_',''));
+        				$('#txtAddrno_'+n).val(tranorde.curCaddr[parseInt($(this).val())].addrno);
+        				$('#txtAddr_'+n).val(tranorde.curCaddr[parseInt($(this).val())].addr);
+            		});	 
                 	$('#lblNo_'+i).text(i+1);	
                 	$('#chkSendcommandresult_'+i).attr('disabled','disabled');
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
@@ -654,6 +700,10 @@
                 _readonly(t_para, empty);
                 for(var i = 0; i < q_bbsCount; i++) {
                 	$('#chkSendcommandresult_'+i).attr('disabled','disabled');
+                	if(q_cur==1 || q_cur==2)
+                		$('#combCaddr_'+i).removeAttr('disabled');
+                	else
+                		$('#combCaddr_'+i).attr('disabled','disabled');
                 }
             }
             function btnMinus(id) {
@@ -817,7 +867,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 1200px;
+                width: 100%;
             }
             .tbbs a {
                 font-size: medium;
@@ -863,7 +913,6 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
-						<td align="center" style="width:200px; color:black;"><a id='vewAddr'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
 						<td align="center" style="width:250px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMemo2'> </a></td>
@@ -874,7 +923,6 @@
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='addr' style="text-align: center;">~addr</td>
 						<td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
 						<td id='carno' style="text-align: left;">~carno</td>
 						<td id='memo2' style="text-align: left;">~memo2</td>
@@ -902,11 +950,6 @@
 						<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
 						<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
 						<input id="txtNick"  type="text"  style="display:none;"/>
-						</td>
-						<td><span> </span><a id="lblAddr" class="lbl"> </a></td>
-						<td colspan="2">
-						<input id="txtAddrno"  type="text"  style="float:left; width:50%;"/>
-						<input id="txtAddr"  type="text"  style="float:left; width:50%;"/>
 						</td>
 					</tr>
 					<tr>
@@ -949,6 +992,7 @@
 					<td align="center" style="width:70px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblDriver_s'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblAddr_s'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblCaseno_s'> </a></td>
 					<td align="center" style="width:280px;"><a id='lblMsg_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo2_s'> </a></td>
@@ -965,14 +1009,18 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtCarno.*" type="text" style="width: 95%;"/></td>
 					<td>
-						<input id="btnDriverno.*" type="button" style="float:left;width:15px;"/>
 						<input id="txtDriverno.*"type="text" style="float:left;width: 80px;"/>	
 						<input id="txtDriver.*" type="text" style="float:left;width:100px;"/>		
 					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td>
+						<input id="txtAddrno.*" type="text" style="width: 35%;"/>
+						<input id="txtAddr.*" type="text" style="width: 40%;"/>
+						<select id="combCaddr.*" style="width: 10%;"> </select>
+					</td>
+					<td>
 						<input id="txtCaseno.*" type="text" style="width: 95%;"/>
-						<input id="txtMemo.*" type="text" style="display: none;" title="暫存資料用"。/>
+						<input id="txtMemo.*" type="text" style="display: none;" title="暫存資料用。"/>
 					</td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMemo2.*" type="text" style="width: 95%;"/></td>
