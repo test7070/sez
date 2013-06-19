@@ -282,6 +282,8 @@
 				$('#txtAcc1').focus();
 				return;
 			};
+			if(q_cur == 1 && (dec($('#txtEcount').val()) == 0))
+				$('#txtEcount').val($('#txtMount').val());
 			wrServer( t_noa);
 		}
 

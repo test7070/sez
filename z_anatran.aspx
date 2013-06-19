@@ -22,13 +22,6 @@
             var t_carkind = null;
             var t_carno = null;
             q_name = 'z_anatran';
-            Array.prototype.indexOfField = function(propertyName, value) {
-                for (var z = 0; z < this.length; z++)
-                    if (this[z][propertyName] === value)
-                        return z;
-                return -1;
-            }
-
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -105,7 +98,10 @@
                             t_carno = new Array();
                             for (var i in as) {
                                 if (as[i].carno != undefined) {
-                                    n = t_carno.indexOfField("carno", as[i].carno);
+                                	n=-1;
+                                	for (var z = 0; z < this.length; z++)
+					                    if (this[z]["carno"] === as[i].carno)
+					                        n=z;
                                     t_outmoney = parseFloat(as[i].outmoney.length == 0 ? '0' : as[i].outmoney) + parseFloat(as[i].oilmoney.length == 0 ? '0' : as[i].oilmoney) + parseFloat(as[i].tolls.length == 0 ? '0' : as[i].tolls) + parseFloat(as[i].ticket.length == 0 ? '0' : as[i].ticket) + parseFloat(as[i].reserve.length == 0 ? '0' : as[i].reserve);
                                     if (t_maxMoney < parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney))
                                         t_maxMoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
@@ -184,7 +180,10 @@
                             t_carno = new Array();
                             for (var i in as) {
                                 if (as[i].carno != undefined) {
-                                    n = t_carno.indexOfField("carno", as[i].carno);
+                                    n=-1;
+                                	for (var z = 0; z < this.length; z++)
+					                    if (this[z]["carno"] === as[i].carno)
+					                        n=z;
                                     t_inmoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
                                     t_outmoney = parseFloat(as[i].oilmoney.length == 0 ? '0' : as[i].oilmoney) + parseFloat(as[i].fixa1.length == 0 ? '0' : as[i].fixa1) + parseFloat(as[i].fixa2.length == 0 ? '0' : as[i].fixa2) + parseFloat(as[i].tire1.length == 0 ? '0' : as[i].tire1) + parseFloat(as[i].tire2.length == 0 ? '0' : as[i].tire2) + parseFloat(as[i].tolls.length == 0 ? '0' : as[i].tolls) + parseFloat(as[i].ticket.length == 0 ? '0' : as[i].ticket) + parseFloat(as[i].reserve.length == 0 ? '0' : as[i].reserve) + parseFloat(as[i].carsal.length == 0 ? '0' : as[i].carsal) + parseFloat(as[i].tax.length == 0 ? '0' : as[i].tax) + parseFloat(as[i].depreciation.length == 0 ? '0' : as[i].depreciation) - parseFloat(as[i].driverpay.length == 0 ? '0' : as[i].driverpay);
                                     if (n == -1) {
