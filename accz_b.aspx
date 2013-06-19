@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'accz', t_content = ' field=noa,namea', bbsKey = ['noa'], as;
+            var q_name = 'accz', t_content = ' field=noa,namea,mount,money,accumulat', bbsKey = ['noa'], as;
             var t_sqlname = q_name; t_postname = q_name;
             var isBott = false;
             /// 是否已按過 最後一頁
