@@ -38,10 +38,12 @@
 	                    }, {
 	                        type : '6',
 	                        name : 'edate'
-	                    }, {
-	                        type : '8', //checkbox
-	                        name : 'xcounttype',
-	                        value : (('').concat(new Array("單月"))).split(',')
+						}, {
+	                        type : '2',
+	                        name : 'xpartno',
+	                        dbf : 'part',
+	                        index : 'noa,part',
+	                        src : 'part_b.aspx'
 	                    }]
                     });
                 q_popAssign();
