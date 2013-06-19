@@ -44,7 +44,12 @@
             ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx'],
             ['txtCasepackaddr', 'lblCasepackaddr', 'addrcase', 'addr,noa', 'txtCasepackaddr', 'addrcase_b.aspx'],
             ['txtCaseopenaddr', 'lblCaseopenaddr', 'addrcase', 'addr,noa', 'txtCaseopenaddr', 'addrcase_b.aspx'], 
-            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+            ['textAddrno1', '', 'addr', 'noa,addr', 'textAddrno1,textAddr1', 'addr_b.aspx'],
+            ['textAddrno2', '', 'addr', 'noa,addr', 'textAddrno2,textAddr2', 'addr_b.aspx'],
+            ['textAddrno3', '', 'addr', 'noa,addr', 'textAddrno3,textAddr3', 'addr_b.aspx'],
+            ['textAddrno4', '', 'addr', 'noa,addr', 'textAddrno4,textAddr4', 'addr_b.aspx'],
+            ['textAddrno5', '', 'addr', 'noa,addr', 'textAddrno5,textAddr5', 'addr_b.aspx']);
 
             var t_casetype = ["20''", "40''", "超重櫃", "HQ", "OT"];
             var t_casetype2 = ["20''", "40''","OT","太空包"];
@@ -267,7 +272,24 @@
                         $('#txtCasetype2').val(string);
                     }
                 });
-                
+
+                $('#divAddr').mousedown(function(e) {
+                	if(e.button==1){               		
+	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+                	}
+                }).mousemove(function(e) {
+                	if(e.button==1){             	
+                		$(this).css('top',$(this).data('xtop')+e.clientY);
+                		$(this).css('left',$(this).data('xleft')+e.clientX);
+                	}
+                });
+                $('#btnDivaddr').click(function(e){
+                	$('#divAddr').hide();
+                });
+                $('#btnAddr').click(function(e){
+                	$('#divAddr').toggle();
+                });
             }
 
             function display() {
@@ -435,21 +457,42 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if (q_cur != 1 && q_cur != 2) {
-                    $('#btnTranquat').attr('disabled', 'disabled');
-                    $('#btnDeliveryno').attr('disabled', 'disabled');
-                    $('#btnTweight2').attr('disabled', 'disabled');
-                } else {
-                    $('#btnTranquat').removeAttr('disabled');
-                    $('#btnDeliveryno').removeAttr('disabled');
-                    $('#btnTweight2').removeAttr('disabled');
-                }
                 if (q_cur == 1 || q_cur == 2) {
                     $('.x_chk').removeAttr('disabled');
                     $('.y_chk').removeAttr('disabled');
+                    
+                    $('#btnTranquat').removeAttr('disabled');
+                    $('#btnDeliveryno').removeAttr('disabled');
+                    $('#btnTweight2').removeAttr('disabled');
+                    
+                    $('#textAddrno1').css('color','black').css('background','white').removeAttr('readonly');
+                    $('#textAddr1').css('color','black').css('background','white').removeAttr('readonly');
+                	$('#textAddrno2').css('color','black').css('background','white').removeAttr('readonly');
+                    $('#textAddr2').css('color','black').css('background','white').removeAttr('readonly');
+                	$('#textAddrno3').css('color','black').css('background','white').removeAttr('readonly');
+                    $('#textAddr3').css('color','black').css('background','white').removeAttr('readonly');
+               		$('#textAddrno4').css('color','black').css('background','white').removeAttr('readonly');
+                    $('#textAddr4').css('color','black').css('background','white').removeAttr('readonly');
+                	$('#textAddrno5').css('color','black').css('background','white').removeAttr('readonly');
+                    $('#textAddr5').css('color','black').css('background','white').removeAttr('readonly');
                 } else {
                     $('.x_chk').attr('disabled', 'disabled');
                     $('.y_chk').attr('disabled', 'disabled');
+                    
+                    $('#btnTranquat').attr('disabled', 'disabled');
+                    $('#btnDeliveryno').attr('disabled', 'disabled');
+                    $('#btnTweight2').attr('disabled', 'disabled');
+                    
+                    $('#textAddrno1').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                    $('#textAddr1').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                    $('#textAddrno2').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                    $('#textAddr2').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                	$('#textAddrno3').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                    $('#textAddr3').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                	$('#textAddrno4').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                    $('#textAddr4').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                	$('#textAddrno5').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
+                    $('#textAddr5').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
                 }
             }
 
@@ -677,11 +720,49 @@
             }
 		</style>
 	</head>
-	<body ondragstart="return false" draggable="false"
+	<body 
+	ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="divAddr" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:250px;background:RGB(237,237,237);"> 
+			<table style="border:4px solid gray; width:100%; height: 100%;">
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"> </td>
+					<td style="width:40%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>起迄編號</a></td>
+					<td style="width:45%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>名稱</a></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;"><a>1</a></td>
+					<td style="width:40%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddrno1"/></td>
+					<td style="width:45%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddr1"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;"><a>2</a></td>
+					<td style="width:40%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddrno2"/></td>
+					<td style="width:45%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddr2"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;"><a>3</a></td>
+					<td style="width:40%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddrno3"/></td>
+					<td style="width:45%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddr3"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;"><a>4</a></td>
+					<td style="width:40%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddrno4"/></td>
+					<td style="width:45%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddr4"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;"><a>5</a></td>
+					<td style="width:40%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddrno5"/></td>
+					<td style="width:45%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textAddr5"/></td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center" style="width:100%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="button" id="btnDivaddr" value="關閉"/>	</td>
+				</tr>
+			</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
@@ -721,7 +802,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td></td>
+						<td><input type=""></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -803,6 +884,9 @@
 						<td> </td>
 						<td>
 						<input type="button" id="btnTweight2" style="width:100px;"/>
+						</td>
+						<td>
+						<input type="button" id="btnAddr" style="width:100px;" value="起迄地點"/>
 						</td>
 					</tr>
 					<tr>
