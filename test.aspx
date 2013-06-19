@@ -27,14 +27,45 @@
 			}*/
 			
             $(document).ready(function() {
-            	$('#txtA').change(function(e){
+            	
+        		var t_caddr = (',49 49 55 20489 45 32879 37941,,,,,,,,').split(',');
+            	var t_item,t_str;
+            	for(var i=0;i<t_caddr.length;i++){
+            		t_item = t_caddr[i].split(' ');
+            		t_str='';
+            		for(var j=0;t_caddr[i].length>0 && j<t_item.length;j++){
+            			if(i==1)
+            				alert(String.fromCharCode(parseInt(t_item[j])));
+            			t_str+=String.fromCharCode(parseInt(t_item[j]));
+            		}
+            		if(Math.floor(i/2) == 0){
+            			//alert('xx:'+(i%2)+'_'+t_str);
+            			if(i%2==0){
+            				alert('xx:'+t_str);
+            				$('#txtA').val(t_str);
+            			}
+	            		else{
+	            			alert('xx:'+t_str);
+            				$('#txtB').val(t_str);
+	            		}
+            		}
+
+            		/*if(i%2==0)
+            			$('#textAddrno'+(Math.floor(i/2)+1)).val(t_str);
+            		else
+            			$('#textAddr'+(Math.floor(i/2)+1)).val(t_str);*/
+            	}
+                	
+            	/*$('#txtA').change(function(e){
+            		
+            		$('#txtB').val($('#txtA').val().charCodeAt(0));
             		var t_days = 0;
 	                var t_date1 = $(this).val();
 	                var t_date2 = $('#txtEnddate').val();
 	                t_date1 = new Date(parseInt(t_date1.substr(0, 3)) + 1911, parseInt(t_date1.substring(4, 6)) - 1, parseInt(t_date1.substring(7, 9)));
 
 	                $('#txtB').val((t_date1.getTime() - 60*60/24*1000).toString());
-            	});
+            	});*/
             	
             	
             	return;
