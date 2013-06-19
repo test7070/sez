@@ -126,8 +126,27 @@
                     this.data = new Array();
                     if (obj[0] != undefined) {
                         for (var i in obj)
-                        if (obj[i]['noa'] != undefined)
-                            this.data.push(obj[i]);
+	                        if (obj[i]['noa'] != undefined && obj[i]['caddr'] != undefined){
+	                        	var t_caddr = obj[i]['caddr'].split(',');
+	                        	var t_item,t_str,t_addr='';
+	                        	for(var j=0;j<t_caddr.length;j++){
+	                        		t_str ='';
+	                        		t_item = t_caddr[j].split(' ');
+	                        		for(var k=0;k<t_item.length;k++){
+	                        			if(t_item[k].length>0)
+	                        				t_str+=String.fromCharCode(parseInt(t_item[k]));
+	                        		}
+	                        		if(j%2==0){
+	                        			//addrno
+	                        		}else{
+	                        			//addr
+	                        			if(t_str.length>0)
+	                        				t_addr += (t_addr.length>0?'<br>':'')+t_str;
+	                        		}
+	                        	}
+	                        	obj[i]['addr']=t_addr;
+	                        	this.data.push(obj[i]);
+	                        }
                     }
                     this.totPage = Math.ceil(this.data.length / this.tbCount);
                     $('#textTotPage').val(this.totPage);
