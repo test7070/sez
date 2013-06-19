@@ -37,10 +37,7 @@
             q_xchg = 1;
             brwCount2 = 15;
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
-            ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], 
-            ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
-            /*['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],*/
-             /*['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],*/ 
+            ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],    
             ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx'],
             ['txtCasepackaddr', 'lblCasepackaddr', 'addrcase', 'addr,noa', 'txtCasepackaddr', 'addrcase_b.aspx'],
             ['txtCaseopenaddr', 'lblCaseopenaddr', 'addrcase', 'addr,noa', 'txtCaseopenaddr', 'addrcase_b.aspx'], 
@@ -112,19 +109,6 @@
                 }).blur(function() {
                     $("#cmbUnit").attr('size', '1');
                 });
-                $("#txtCustno").change(function() {
-					if ($("#txtCustno").val().length > 0) {
-						$("#txtAddrno").val($("#txtCustno").val()+'-');
-						$("#txtAddr").val("");
-					}
-				});
-				$("#txtAddrno").focus(function() {
-		            var input = document.getElementById ("txtAddrno");
-		            if (typeof(input.selectionStart) != 'undefined' ) {	  
-		                input.selectionStart =  $(input).val().replace(/^(\w+\u002D).*$/g,'$1').length;
-		                input.selectionEnd = $(input).val().length;
-		            }
-				});
 				$('#btnUnpresent').click(function() {
 					q_pop('', "carpresent.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy + '_' + r_cno, '', '', '', "92%", "1054px", q_getMsg('popCarpresent'), true);
 
@@ -398,6 +382,10 @@
 
             function btnIns() {
                 _btnIns();
+                for(var i=1;i<=5;i++){
+                	$('#textAddrno'+i).val('');
+                	$('#textAddr'+i).val('');
+                }
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#chkEnda').prop('checked',false);
@@ -429,6 +417,25 @@
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
+                $('#txtCaddr').val();
+                var t_caddr = '',t_item,t_str;
+                for(var i=1;i<=5;i++){
+                	t_str = $.trim($('#textAddrno'+i).val());
+                	t_item = '';
+                	for(var j=0;j<t_str.length;j++){
+                		t_item += (t_item.length==0?'':' ') + t_str.substring(j,j+1).charCodeAt(0);
+                	}
+                	t_caddr += (i==1?'':',')+t_item;
+
+                	t_str = $.trim($('#textAddr'+i).val());
+                	t_item = '';
+                	for(var j=0;j<t_str.length;j++){
+                		t_item += (t_item.length==0?'':' ') + t_str.substring(j,j+1).charCodeAt(0);
+                	}
+                	t_caddr += ','+t_item;
+                }
+                $('#txtCaddr').val(t_caddr);
+                
                 if(q_cur ==1){
 	            	$('#txtWorker').val(r_name);
 	            }else if(q_cur ==2){
@@ -453,6 +460,27 @@
             function refresh(recno) {
                 _refresh(recno);
                 display();
+                if(q_cur!=1){
+                	for(var i=0;i<q_bbsCount;i++){
+                		$('#textAddrno'+i).val('');
+                		$('#textAddr'+i).val('');
+                	}
+                	//var t_caddr = $('#txtCaddr').val().split(',');
+                	var t_caddr = abbm[recno].caddr.split(',');
+                	var t_item,t_str;
+                	for(var i=0;i<t_caddr.length;i++){
+                		t_item = t_caddr[i].split(' ');
+                		t_str='';
+                		for(var j=0;t_caddr[i].length>0 && j<t_item.length;j++){
+                			t_str+=String.fromCharCode(parseInt(t_item[j]));
+                		}
+                		if(i%2==0)
+                			$('#textAddrno'+(Math.floor(i/2)+1)).val(t_str);
+                		else
+                			$('#textAddr'+(Math.floor(i/2)+1)).val(t_str);
+                	}
+                }
+                
             }
 
             function readonly(t_para, empty) {
@@ -515,26 +543,32 @@
 
             function btnTop() {
                 _btnTop();
+                refresh(q_recno);
             }
 
             function btnPrev() {
                 _btnPrev();
+                refresh(q_recno);
             }
 
             function btnPrevPage() {
                 _btnPrevPage();
+                refresh(q_recno);
             }
 
             function btnNext() {
                 _btnNext();
+                refresh(q_recno);
             }
 
             function btnNextPage() {
                 _btnNextPage();
+                refresh(q_recno);
             }
 
             function btnBott() {
                 _btnBott();
+                refresh(q_recno);
             }
 
             function q_brwAssign(s1) {
@@ -550,16 +584,6 @@
             }
 
             function q_popPost(id) {
-                switch(id) {
-                    case 'txtCustno':
-                        if(q_cur==1 || q_cur==2){
-							if ($("#txtCustno").val().length > 0) {
-								$("#txtAddrno").val($("#txtCustno").val()+'-');
-								$("#txtAddr").val("");
-							}
-						}
-                        break;
-                }
             }
 
             function checkId(str) {
@@ -779,7 +803,6 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'></a></td>
 						<td align="center" style="width:50px; color:black;"><a id='vewUnit'></a></td>
-						<td align="center" style="width:150px; color:black;"><a id='vewAddr'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -795,14 +818,13 @@
 						<td id='product' style="text-align: left;">~product</td>
 						<td id='mount' style="text-align: right;">~mount</td>
 						<td id='unit' style="text-align: center;">~unit</td>
-						<td id='addr' style="text-align: left;">~addr</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td><input type=""></td>
+						<td><input type="text" id="txtCaddr" style="display:none;"></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -852,11 +874,6 @@
 						<td colspan="3">
 						<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
 						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
-						</td>
-						<td><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
-						<td colspan="3">
-						<input type="text" id="txtAddrno" class="txt c2"/>
-						<input type="text" id="txtAddr" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>

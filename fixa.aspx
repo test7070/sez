@@ -302,6 +302,7 @@
 		    			var t_noa = $.trim($('#txtNoa').val());
 		    			var t_fixadate = $.trim($('#txtFixadate').val());
 		    			var t_carno = $.trim($('#txtCarno').val());
+		    			var t_carplateno = $.trim($('#txtCarplateno').val());
 		    			var t_productno = $.trim($('#txtProductno_'+b_seq).val());
 		    			$('#txtMemo2_'+b_seq).val('');
 		    			if(t_fixadate.length==0){
@@ -309,8 +310,8 @@
 		    				Unlock(1);
 		    				return;
 		    			}
-		    			if(t_carno.length==0){
-		    				alert('請輸入'+q_getMsg('lblCarno'));
+		    			if(t_carno.length==0 && t_carplateno.length==0){
+		    				alert('請輸入'+q_getMsg('lblCarno')+'或'+q_getMsg('lblCarplateno'));
 		    				Unlock(1);
 		    				return;
 		    			}	
@@ -319,18 +320,16 @@
 		    				Unlock(1);
 		    				return;
 		    			}
-		    			
-		    			var t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and a.fixadate<'"+t_fixadate+"' ^^"
+		    			var t_where ="";
+		    			if(t_carplateno.length==0)
+		    				t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and len(isnull(a.carplateno,''))=0 and a.fixadate<'"+t_fixadate+"' ^^"
+                		else
+                			t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carplateno='"+t_carplateno+"' and a.fixadate<'"+t_fixadate+"' ^^"
                 		q_gt('fixa_lasttime', t_where, 0, 0, 0,'lasttime_'+b_seq, r_accy);
 		    			break;
 		    		default:
 		    			break;
 		    	}
-		    	
-		    	/*if((q_cur==1  ||  q_cur==2) && t_id.substring(0,13).toUpperCase()=='TXTPRODUCTNO_'){
-		    		sum();
-		    		
-		    	}*/
             }
 
 		    function sum() {
@@ -359,9 +358,7 @@
 
 		    function refresh(recno) {
 		        _refresh(recno);
-
 		    }
-
 		    function readonly(t_para, empty) {
 		        _readonly(t_para, empty);
 		        for (var i = 0; i < q_bbsCount; i++) {
