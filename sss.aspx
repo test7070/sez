@@ -253,6 +253,7 @@
             }
 
             function btnPrint() {
+            	q_box('z_sssp.aspx', '', "90%", "600px", q_getMsg("popPrint"));
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))

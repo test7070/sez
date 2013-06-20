@@ -52,6 +52,9 @@
         q_getFormat();
         bbsMask = [['txtDatea', r_picd]];
         q_mask(bbsMask);
+        
+        if(r_rank<8)
+        	$('#btnModi').hide();
     }
 
     function bbsAssign() {  /// 表身運算式
