@@ -467,7 +467,7 @@
 	                    	var as = _q_appendData("view_tranorde", "", true);
 	                    	if (as[0] != undefined){
 	                            $('#txtMount_'+sel).val('1.0');
-	                            t_msg = as[0]['addr'];
+	                            t_msg = '';
 	                            //出口
 	                            t_msg += (as[0]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+as[0]['docketno1']:'');
 	                            t_msg += (as[0]['empdock'].length>0?(t_msg.length>0?',':'')+as[0]['empdock']+'領':'');
@@ -581,9 +581,10 @@
             	}else{        		
             		var t_isSend = $('#chkIssend_'+n).prop('checked');
             		var t_carno = $.trim($('#txtCarno_'+n).val());
-					var t_msg = $.trim($('#txtMemo').val())
-						+(($('#txtTrandate').val()+$('#txtTrantime').val()).length > 0?',出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'')
-						+$.trim($('#txtMsg_'+n).val());
+					var t_msg = $.trim($('#txtMemo').val());
+					t_msg += (t_msg.length>0?',':'')+'出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val();
+					t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtAddr_'+n).val());
+					t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtMsg_'+n).val());			
 					var t_commandid = $('#txtCommandid_'+n).val();
 					var t_Sendcommandresult = $('#chkSendcommandresult_'+n).prop('checked');
 					if(t_isSend && t_carno.length>0 && t_msg.length>0 && !t_Sendcommandresult && t_commandid.length==0){
