@@ -398,6 +398,15 @@
                 		$('#txtAcc1_' + j).change(function(e) {
 		                    var patt = /^(\d{4})([^\.,.]*)$/g;
                     		$(this).val($(this).val().replace(patt,"$1.$2"));
+                    		
+                    		t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							if(!emp($('#txtAcc1_'+b_seq).val())&&$('#txtAcc1_'+b_seq).val().substr(0,4)>='1400' && $('#txtAcc1_'+b_seq).val().substr(0,4)<='1491'){
+								q_box("accz.aspx", 'ticket', "95%", "95%", q_getMsg("popAccz"));
+							}
+							
                 		});
                 		$('#txtMount_' + j).change(function(e) {
                 			//var n = $(this).attr('id').replace('txtMount_','');
@@ -616,6 +625,16 @@
 			    m = Math.pow(10, Math.max(r1, r2));
 			    n = (r1 >= r2) ? r1 : r2;
 			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			}
+			
+			function q_popPost(s1) {
+		    	switch (s1) {
+		    		case 'txtAcc1_':
+		    			if(!emp($('#txtAcc1_'+b_seq).val())&&$('#txtAcc1_'+b_seq).val().substr(0,4)>='1400' && $('#txtAcc1_'+b_seq).val().substr(0,4)<='1491'){
+							q_box("accz.aspx", 'ticket', "95%", "95%", q_getMsg("popAccz"));
+						}
+			        break;
+		    	}
 			}
 		</script>
 		<style type="text/css">
