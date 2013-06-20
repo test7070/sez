@@ -107,20 +107,32 @@
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
 						}else{
+							//將不同日期做分頁
 							var bar=new Array();
-							for (i = 0; i < as.length; i++) {      
-								bar.push({
-									custno:as[i].custno,
-									comp:as[i].comp,
-									datea:as[i].datea,
-									mount:as[i].mount,
-									total:as[i].total
-								});
+							var AddData = new Array();
+							var oldDatea = '',rec = 0;
+							bar[rec] = new Array();
+							for (i = 0; i < as.length; i++) {    
+								if(emp(oldDatea) || as[i].datea ==oldDatea){
+									oldDatea = as[i].datea;
+								}else{
+									oldDatea = as[i].datea;
+									rec++;
+									bar[rec] = new Array();
+								}
+								bar[rec].push(
+									{
+										custno:as[i].custno,
+										comp:as[i].comp,
+										mount:as[i].mount,
+										total:as[i].total
+									}
+								);
 							}
 							$('#barChart2').barChart2({
 								data : bar
 							});
-							$('#txtCurPage').val(1).change(function(e) {
+							$('#txtCurPage').change(function(e) {
 	                            $(this).val(parseInt($(this).val()));
 	                        	$('#barChart2').data('info').page($('#barChart2'), $(this).val());
 	                        });
@@ -135,18 +147,20 @@
                     $(this).data('info', {
                         curIndex : -1,
                         custData : value.data,
-                        maxPage : 1,
+                        maxPage : value.data.length,
                         init : function(obj) {
                             if (value.length == 0) {
                                 alert('無資料。');
                                 return;
                             }
                             obj.data('info').curIndex = 0;
-                            obj.data('info').refresh(obj);
+                            obj.data('info').refresh(obj,1);
                         },
                         page : function(obj, n) {
+                        	console.log(value);
                             if (n > 0 && n <= obj.data('info').maxPage) {
                                 obj.data('info').curIndex = n - 1;
+                                
                                 obj.data('info').refresh(obj);
                             } else
                                 alert('頁數錯誤。');
@@ -157,7 +171,7 @@
                             else {
                                 obj.data('info').curIndex++;
                                 $('#txtCurPage').val(obj.data('info').curIndex + 1);
-                                obj.data('info').refresh(obj);
+                                obj.data('info').refresh(obj,$('#txtCurPage').val());
                             }
                         },
                         previous : function(obj) {
@@ -166,12 +180,13 @@
                             else {
                                 obj.data('info').curIndex--;
                                 $('#txtCurPage').val(obj.data('info').curIndex + 1);
-                                obj.data('info').refresh(obj);
+                                obj.data('info').refresh(obj,$('#txtCurPage').val());
                             }
                         },
-                        refresh : function(obj) {
+                        refresh : function(obj,n) {
+                        	console.log(obj.data('info').custData[n].length);
                             var objWidth = 950;
-                            var objHeight = obj.data('info').custData.length * 40 + 100;
+                            var objHeight = obj.data('info').custData[n].length * 40 + 100;
                             //背景
                             var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
                             //圖表背景顏色
@@ -180,78 +195,88 @@
                             var bkN = 10;
                             var strX = 100, strY = 50;                      
                             var t_width = 700;
-                            var t_height = obj.data('info').custData.length * 40;
-
+                            var t_height = obj.data('info').custData[n].length * 40;
                             for (var i = 0; i < bkN; i++) {
                                 x = Math.round(t_width / bkN, 0) * i;
                                 y = 0;
                                 tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
                             }
-							
-							var t_maxMoney = 99999;
-                            var t_minMoney = 0;
+							var t_detail = obj.data('info').custData[n];
+                            var t_minMoney = 0; //Y軸最小值
+							var t_maxMoney = (dec(t_detail[0].total)/10000); //X軸最大值
                             var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
-							
-							var t_detail = obj.data('info').custData;
-							tmpPath += '<defs>' + '<linearGradient id="chart2_color3" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-                            tmpPath += '<defs>' + '<linearGradient id="chart2_color2" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';					
-                            tmpPath += '<defs>' + '<linearGradient id="chart2_color4" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,255,206);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,255,147);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-                            tmpPath += '<defs>' + '<linearGradient id="chart2_color1" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,185,220);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,96,175);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+							var linearGradientColor = [
+													   ['rgb(206,206,255)','rgb(147,147,255)'],['rgb(255,220,185)','rgb(225,175,96)'],
+													   ['rgb(206,255,206)','rgb(147,255,147)'],['rgb(255,185,220)','rgb(225,96,175)']
+													  ];//漸層色組
+							for(var i = 0;i < linearGradientColor.length;i++){
+	                            tmpPath += '<defs>' +
+	                            				'<linearGradient id="chart2_color' + (i+1) + '" x1="0%" y1="0%" x2="0%" y2="100%">' + 
+	                            					'<stop offset="0%" style="stop-color:'+linearGradientColor[i][0]+';stop-opacity:1" />' +
+													'<stop offset="100%" style="stop-color:'+linearGradientColor[i][1]+';stop-opacity:1" />' +
+												'</linearGradient>' +
+											'</defs>';
+							}
 							for (var i = 0; i < t_detail.length; i++) {    
 								tmpPath +='<g id="chart2_item'+i+'">';
 								//客戶名稱      
                                 x = strX - 5;
- 								y = strY + i*40 + 24;
+ 								y = strY + i*40 + 30;
                                 tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+t_detail[i].comp+'</text>';	
                             	//收入
-                            	t_output = dec(t_detail[i].total);
-                                W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
-                                if(t_output>0){
-                                	x = t_X;
-                                }else{
-                                	x = t_X - W;
-                                } 
- 								y = strY + i*40 + 5;
-                                tmpPath += '<rect class="chart2_item" id="chart2_inmoney' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart2_color1)"/>';
-                            	tmpPath += '<text class="chart2_item" id="chart2_cinmoney'+i+'" x="'+(x+W+5)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
+                            	t_total = (dec(t_detail[i].total)/10000);
+                            	t_mount = dec(t_detail[i].mount);
+                                W_total = Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0));
+                                W_mount = Math.abs(round(t_mount / (t_maxMoney - t_minMoney) * t_width, 0));
+                                (t_total>0?x_total = t_X:x_total = (t_X - W_total));
+                                (t_mount>0?x_mount = t_X:x_mount = (t_X - W_mount));
+ 								y = strY + i*40 +25;
+ 								//數值線產生
+ 								tmpPath += ValueLineCreate('chart2_item','chart2_total' + i,x_total,(y-15),W_total,15,'url(#chart2_color1)','chart2_ctotal',FormatNumber(t_total),'#000000');
+ 								tmpPath += ValueLineCreate('chart2_item','chart2_mount' + i,x_mount,(y),W_mount,15,'url(#chart2_color3)','chart2_cmount',FormatNumber(t_mount),'#000000');
+                            	tmpPath += '</g>'
                             }
                             //X軸
                             tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 							tmpPath += '<text x="'+strX+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';
 							tmpPath += '<text text-anchor="end"  x="'+(strX+t_width)+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
 							//Y軸
-                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData.length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                            
+                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData[n].length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             //符號說明
-                            tmpPath += '<rect x="'+(strX+t_width+50)+'" y="5" width="20" height="20" fill="url(#chart2_color1)"/>';
-                            tmpPath += '<text x="'+(strX+t_width+70)+'" y="20" fill="black">收入</text>';
-							
+                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-70),'url(#chart2_color1)','收入(萬元)','black');
+                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-70)+30,'url(#chart2_color3)','數量','black');
                             obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-                        	
                         	//事件
                         	obj.children('svg').find('.chart2_item').hover(function(e) {
                         		var n = $(this).parent().attr('id').replace('chart2_item','');
-                        		
                                 $('#chart2_nick'+n).attr('fill', 'rgb(255,0,0)');
-                                $('#chart2_inmoney'+n).attr('fill', 'url(#chart2_color2)');
-                                $('#chart2_cinmoney'+n).attr('fill', 'rgb(255,0,0)');
-                                $('#chart2_profit'+n).attr('fill', 'url(#chart2_color4)');
-                                $('#chart2_cprofit'+n).attr('fill', 'rgb(255,0,0)');
-                               
+                                $('#chart2_total'+n).attr('fill', 'url(#chart2_color2)');
+                                $('#chart2_mount'+n).attr('fill', 'url(#chart2_color4)');
                             }, function(e) {
                                 var n = $(this).parent().attr('id').replace('chart2_item','');
-                        		
                                 $('#chart2_nick'+n).attr('fill', 'rgb(0,0,0)');
-                                $('#chart2_inmoney'+n).attr('fill', 'url(#chart2_color1)');
-                                $('#chart2_cinmoney'+n).attr('fill', 'rgb(0,0,0)');
-                                $('#chart2_profit'+n).attr('fill', 'url(#chart2_color3)');
-                                $('#chart2_cprofit'+n).attr('fill', 'rgb(0,0,0)');
+                                $('#chart2_total'+n).attr('fill', 'url(#chart2_color1)');
+                                $('#chart2_mount'+n).attr('fill', 'url(#chart2_color3)');
                             });
                         }
                     });
                     $(this).data('info').init($(this));
                 }
             })($);
+            function MarkHelp(MarkXpos,MarkYpos,MarkColor,Title,TitleColor){
+            	var str = '';
+            	str = '<rect x="'+MarkXpos+'" y="'+MarkYpos+'" width="20" height="20" fill="'+MarkColor+'"/>';
+            	str += '<text x="'+(MarkXpos+25)+'" y="'+(MarkYpos+15)+'" fill="'+TitleColor+'">'+Title+'</text>';
+            	return str;
+            }
+            function ValueLineCreate(Class,rectId,rectX,rectY,rectWidth,rectHeight,rectColor,textId,textTitle,textColor){
+				var str = '';
+				str = '<rect class="'+Class+'" id="'+rectId +'" x="' + rectX + '" y="' + rectY + '" width="' + rectWidth +
+					  '" height="' + rectHeight + '" fill="'+rectColor+'"/>';
+				str += '<text class="'+Class+'" id="'+textId +'" x="'+ (rectX+rectWidth+5) +'" y="'+(rectY+13)+
+					  '" fill="'+textColor+'" >'+textTitle+'</text>';	
+            	return str;
+            }
             function FormatNumber(n) {
                 n += "";
                 var arr = n.split(".");
