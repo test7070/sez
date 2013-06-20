@@ -165,7 +165,7 @@
 		                    q_Seek_gtPost();
 		                break;
 		            default:
-		            	if(t_name.substring(0,8)=='lasttime'){
+		            	if(t_name.substring(0,12)=='fixalasttime'){
 		            		var sel = parseInt(t_name.split('_')[1]);
 		            		var as = _q_appendData("fixa", "", true);
                         	if (as[0] != undefined) {
@@ -174,6 +174,14 @@
                         		
                         	}
                         	sum();
+                        	Unlock(1);
+		            	}else if(t_name.substring(0,11)=='oillasttime'){
+		            		var as = _q_appendData("oil", "", true);
+                        	if (as[0] != undefined) {
+                        		$('#txtMiles').val(FormatNumber(as[0].emiles));
+                        	}else{
+                        		$('#txtMiles').val('0');
+                        	}
                         	Unlock(1);
 		            	}
 		            	break;
@@ -297,6 +305,23 @@
 		    }
 		    function q_popPost(t_id) {
 		    	switch(t_id){
+		    		case 'txtCarno':
+		    			Lock(1,{opacity:0});
+		    			var t_fixadate = $.trim($('#txtFixadate').val());
+		    			var t_carno = $.trim($('#txtCarno').val());
+		    			if(t_fixadate.length==0){
+		    				alert('請輸入'+q_getMsg('lblFixadate'));
+		    				Unlock(1);
+		    				return;
+		    			}
+		    			if(t_carno.length==0){
+		    				alert('請輸入'+q_getMsg('lblCarno'));
+		    				Unlock(1);
+		    				return;
+		    			}	
+		    			var t_where = "where=^^ carno='"+t_carno+"' and oildate<'"+t_fixadate+"' ^^";
+		    			q_gt('oil_lasttime', t_where, 0, 0, 0,'oillasttime', r_accy);
+		    			break;
 		    		case 'txtProductno_':
 		    			Lock(1,{opacity:0});
 		    			var t_noa = $.trim($('#txtNoa').val());
@@ -325,7 +350,7 @@
 		    				t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and len(isnull(a.carplateno,''))=0 and a.fixadate<'"+t_fixadate+"' ^^"
                 		else
                 			t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carplateno='"+t_carplateno+"' and a.fixadate<'"+t_fixadate+"' ^^"
-                		q_gt('fixa_lasttime', t_where, 0, 0, 0,'lasttime_'+b_seq, r_accy);
+                		q_gt('fixa_lasttime', t_where, 0, 0, 0,'fixalasttime_'+b_seq, r_accy);
 		    			break;
 		    		default:
 		    			break;
