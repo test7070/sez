@@ -57,6 +57,9 @@
                 $('#lblAccno2').click(function() {
                     q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "1054px", q_getMsg('btnAccc'), true);
                 });
+                $('#btnLcv').click(function() {
+				q_box("lcv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'lcv', "1100px", "600px", q_getMsg('popLcv'));
+			});
             }
 
             function q_boxClose(s2) {
@@ -390,6 +393,8 @@
 					<tr>
 						<td><span> </span><a id="lblDate2" class="lbl"> </a></td>
 						<td><input id="txtDate2" type="text" class="txt c1"/></td>
+						<td> </td>
+						<td><input id="btnLcv" type="button" class="txt c1"/> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
