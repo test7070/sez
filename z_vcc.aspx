@@ -122,6 +122,7 @@
 								}
 								bar[rec].push(
 									{
+										datea:as[i].datea,
 										custno:as[i].custno,
 										comp:as[i].comp,
 										mount:as[i].mount,
@@ -154,6 +155,7 @@
                                 return;
                             }
                             obj.data('info').curIndex = 0;
+                            $('#txtCurPage').val(1);
                             obj.data('info').refresh(obj,1);
                         },
                         page : function(obj, n) {
@@ -161,7 +163,7 @@
                             if (n > 0 && n <= obj.data('info').maxPage) {
                                 obj.data('info').curIndex = n - 1;
                                 
-                                obj.data('info').refresh(obj);
+                                obj.data('info').refresh(obj,n);
                             } else
                                 alert('頁數錯誤。');
                         },
@@ -184,26 +186,28 @@
                             }
                         },
                         refresh : function(obj,n) {
-                        	console.log(obj.data('info').custData[n].length);
+                        	n=dec(n)-1;
+                        	var objCustData = obj.data('info').custData[n];
                             var objWidth = 950;
-                            var objHeight = obj.data('info').custData[n].length * 40 + 100;
+                            var objHeight = objCustData.length * 40 + 120;
                             //背景
                             var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+                            //標題
+                            tmpPath += '<text x="50" y="30" fill="#000000">日期：'+ objCustData[0].datea +'</text>'
                             //圖表背景顏色
                             var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
                             //圖表分幾個區塊
                             var bkN = 10;
-                            var strX = 100, strY = 50;                      
+                            var strX = 100, strY = 70;                      
                             var t_width = 700;
-                            var t_height = obj.data('info').custData[n].length * 40;
+                            var t_height = objCustData.length * 40;
                             for (var i = 0; i < bkN; i++) {
                                 x = Math.round(t_width / bkN, 0) * i;
                                 y = 0;
                                 tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
                             }
-							var t_detail = obj.data('info').custData[n];
                             var t_minMoney = 0; //Y軸最小值
-							var t_maxMoney = (dec(t_detail[0].total)/10000); //X軸最大值
+							var t_maxMoney = (dec(objCustData[0].total)/10000); //X軸最大值
                             var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
 							var linearGradientColor = [
 													   ['rgb(206,206,255)','rgb(147,147,255)'],['rgb(255,220,185)','rgb(225,175,96)'],
@@ -217,15 +221,15 @@
 												'</linearGradient>' +
 											'</defs>';
 							}
-							for (var i = 0; i < t_detail.length; i++) {    
+							for (var i = 0; i < objCustData.length; i++) {    
 								tmpPath +='<g id="chart2_item'+i+'">';
 								//客戶名稱      
                                 x = strX - 5;
  								y = strY + i*40 + 30;
-                                tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+t_detail[i].comp+'</text>';	
+                                tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objCustData[i].comp+'</text>';	
                             	//收入
-                            	t_total = (dec(t_detail[i].total)/10000);
-                            	t_mount = dec(t_detail[i].mount);
+                            	t_total = (dec(objCustData[i].total)/10000);
+                            	t_mount = dec(objCustData[i].mount);
                                 W_total = Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0));
                                 W_mount = Math.abs(round(t_mount / (t_maxMoney - t_minMoney) * t_width, 0));
                                 (t_total>0?x_total = t_X:x_total = (t_X - W_total));
@@ -243,8 +247,8 @@
 							//Y軸
                             tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData[n].length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             //符號說明
-                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-70),'url(#chart2_color1)','收入(萬元)','black');
-                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-70)+30,'url(#chart2_color3)','數量','black');
+                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60),'url(#chart2_color1)','收入(萬元)','black');
+                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60)+30,'url(#chart2_color3)','數量','black');
                             obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                         	//事件
                         	obj.children('svg').find('.chart2_item').hover(function(e) {
