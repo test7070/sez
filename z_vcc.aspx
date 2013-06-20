@@ -27,29 +27,71 @@
 					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
 						var rePortData = $('#q_report').data().info.reportData[i];
 						if($('.radio.select').next().text()==rePortData.reportName){
-							txtreport=rePortData.report;
-							if(txtreport=='z_vcc5'){
-								txtreport='z_vcc1';
-								$('#btnSvg').val(rePortData.reportName+'長條圖顯示');
+							var UseRepo = ['z_vcc5'];
+							if($.inArray(rePortData.report,UseRepo) != -1){
+								$('#ChartCtrl').show();
 								$('#btnSvg').show();
 							}else{
+								$('#ChartCtrl').hide();
 								$('#btnSvg').hide();
-								$('#dataSearch').show();
 							}
+							$('#dataSearch').show();
+							$('#barChart2').html('').hide();
 						}
 					}
+					namePos();
                 });
                 $('#btnSvg').click(function(){
                 	$('#dataSearch').hide();
-                	var t_bdate='#non',t_edate='#non';
+                	var t_bdate='#non',t_edate='#non',t_bmon='#non',t_emon='#non',t_bcustno='#non',t_ecustno='#non';
+                	var t_bsalesno='#non',t_esalesno='#non',t_bproductno='#non',t_eproductno='#non';
 					if(!emp($('#txtDate1').val()))
-						t_bdate=$('#txtDate1').val();
+						t_bdate=encodeURI($('#txtDate1').val());
 					if(!emp($('#txtDate2').val()))
-						t_edate=$('#txtDate2').val();
-					txtreport='z_vcc1';
-					q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI(t_bdate) + ';' + encodeURI(t_edate));
+						t_edate=encodeURI($('#txtDate2').val());
+					if(!emp($('#txtMon1').val()))
+						t_bmon=encodeURI($('#txtMon1').val());
+					if(!emp($('#txtMon2').val()))
+						t_emon=encodeURI($('#txtMon2').val());
+					if(!emp($('#txtCust1a').val()))
+						t_bcustno=encodeURI($('#txtCust1a').val());
+					if(!emp($('#txtCust2a').val()))
+						t_ecustno=encodeURI($('#txtCust2a').val());
+					if(!emp($('#txtSales1a').val()))
+						t_bsalesno=encodeURI($('#txtSales1a').val());
+					if(!emp($('#txtSales2a').val()))
+						t_esalesno=encodeURI($('#txtSales2a').val());
+					if(!emp($('#txtProduct1a').val()))
+						t_bproductno=encodeURI($('#txtProduct1a').val());
+					if(!emp($('#txtProduct2a').val()))
+						t_eproductno=encodeURI($('#txtProduct2a').val());
+					txtreport = namePos();
+					q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
+					t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
+					t_bproductno + ';' + t_eproductno + ';'
+					);
                 });
             });
+            
+            function namePos(){
+				for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
+					var rePortData = $('#q_report').data().info.reportData[i];
+					var reProtName = rePortData.reportName;
+					if($('.radio.select').next().text()==rePortData.reportName){
+						switch(rePortData.report){
+							case 'z_vcc5':
+								txtreport='z_anavcc1';
+							break;
+							case 'z_vcc6':
+								txtreport='z_anavcc2';
+							break;
+						}
+					}
+				}
+				$('#btnSvg').val(reProtName+'長條圖顯示');
+				return txtreport;
+            }
+            
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_vcc',
@@ -107,16 +149,14 @@
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
 						}else{
-							//將不同日期做分頁
 							var bar=new Array();
-							var AddData = new Array();
-							var oldDatea = '',rec = 0;
+							var oldGno = '',rec = 0;
 							bar[rec] = new Array();
-							for (i = 0; i < as.length; i++) {    
-								if(emp(oldDatea) || as[i].datea ==oldDatea){
-									oldDatea = as[i].datea;
+							for (i = 0; i < as.length; i++) {   
+								if(emp(oldGno) || as[i].gno == oldGno){
+									oldGno = as[i].gno;
 								}else{
-									oldDatea = as[i].datea;
+									oldGno = as[i].gno;
 									rec++;
 									bar[rec] = new Array();
 								}
@@ -133,7 +173,14 @@
 							$('#barChart2').barChart2({
 								data : bar
 							});
-							$('#txtCurPage').change(function(e) {
+							$('#btnXPrevious').unbind('click').click(function(){
+								$('#barChart2').data('info').previous($('#barChart2'));
+							});
+							$('#btnXNext').unbind('click').click(function(){
+								$('#barChart2').data('info').next($('#barChart2'));
+							});
+							
+							$('#txtCurPage').unbind('change').change(function(e) {
 	                            $(this).val(parseInt($(this).val()));
 	                        	$('#barChart2').data('info').page($('#barChart2'), $(this).val());
 	                        });
@@ -192,8 +239,6 @@
                             var objHeight = objCustData.length * 40 + 120;
                             //背景
                             var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
-                            //標題
-                            tmpPath += '<text x="50" y="30" fill="#000000">日期：'+ objCustData[0].datea +'</text>'
                             //圖表背景顏色
                             var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
                             //圖表分幾個區塊
@@ -301,11 +346,13 @@
 			<div id="svgbet">
 				<input id="btnSvg" type="button" />
 			</div>
-			<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
-				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
+			<div id="ChartCtrl">
+				<input type="button" id="btnXPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
+				<input type="button" id="btnXNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
 				<input type="text" id="txtCurPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;"/>
 				<span style="display:block; float:left; width:20px;"><label class="control" style="vertical-align: middle;font-size: medium;">／</label></span>
 				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
+			</div>
 			<div id='barChart2'></div>
 			<div id="dataSearch" class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
