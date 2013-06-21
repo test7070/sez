@@ -531,6 +531,39 @@
 						$('#txtInmoney_'+j).attr('disabled', 'disabled');
 						$('#txtUdate_'+j).attr('disabled', 'disabled');
 					}
+					//1020621 7月份開始資料3日後不能在處理
+					var t_date=$('#txtDatea_'+j).val();
+					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+					nextdate.setDate(nextdate.getDate() +3)
+					t_date=''+(nextdate.getFullYear()-1911)+'/';
+					//月份
+					if(nextdate.getMonth()+1<10)
+						t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+					else
+						t_date=t_date+(nextdate.getMonth()+1)+'/';
+					//日期
+					if(nextdate.getDate()<10)
+						t_date=t_date+'0'+(nextdate.getDate());
+					else
+						t_date=t_date+(nextdate.getDate());
+						
+					if(t_date<=q_date()){
+						$('#btnMinus_'+j).attr('disabled', 'disabled');
+						$('#txtNoq_'+j).attr('disabled', 'disabled');
+						$('#txtDatea_'+j).attr('disabled', 'disabled');
+						$('#txtCaritemno_'+j).attr('disabled', 'disabled');
+						$('#btnCaritem_'+j).attr('disabled', 'disabled');
+						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
+						$('#txtInmoney_'+j).attr('disabled', 'disabled');
+						$('#txtMemo_'+j).attr('disabled', 'disabled');
+						$('#txtPaydate_'+j).attr('disabled', 'disabled');
+						$('#txtFareyn_'+j).attr('disabled', 'disabled');
+						$('#txtCost_'+j).attr('disabled', 'disabled');
+						$('#txtAcc1_'+j).attr('disabled', 'disabled');
+						$('#btnAcc_'+j).attr('disabled', 'disabled');
+						$('#txtAcc2_'+j).attr('disabled', 'disabled');
+						$('#txtPdate_'+j).attr('disabled', 'disabled');
+					}
 				}
             }
 
