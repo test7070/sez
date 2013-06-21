@@ -16,7 +16,8 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var txtreport='';
-            var UseReport = [['長條圖依客戶','1'],['長條圖依產品','2'],['長條圖依客戶、產品','3']];
+            var UseReport1 = [['長條圖依客戶','z_anavcc1'],['長條圖依產品','z_anavcc2'],['長條圖依客戶、產品','z_anavcc3']];
+            var UseReport2 = [['客戶比較圖','z_anavccCompare1'],['產品比較圖','z_anavccCompare2']];
             if(location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;100";
             }
@@ -24,38 +25,48 @@
             	q_getId();
                 q_gf('', 'z_vcc');
                 $('input[id="btnSvg"]').hide();
-                CreatButton();
                 $('#q_report').click(function(){
+                	CreatButton();
 					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
 						var rePortData = $('#q_report').data().info.reportData[i];
 						if($('.radio.select').next().text()==rePortData.reportName){
-							var UseRepo = ['z_anavcc'];
-							if(rePortData.report == 'z_anavcc'){
+							if(rePortData.report == 'z_anavcc' || rePortData.report == 'z_anavccCompare'){
                 				$('#dataSearch').hide();
 								$('#ChartCtrl').show();
-								$('input[id="btnSvg"]').show();
+								$('#svgbet').show();
 							}else{
                 				$('#dataSearch').show();
 								$('#ChartCtrl').hide();
-								$('input[id="btnSvg"]').hide();
+								$('#svgbet').hide();
 							}
 							$('#barChart2').html('').hide();
 						}
 					}
                 });
-                $('input[id="btnSvg"]').click(function(){
-                	txtreport = 'z_anavcc' + $(this).attr('use');
+            });
+			
+			function CreatButton(){
+				$('#svgbet').html('');
+				var ButtonStr = '';
+				if($('.radio.select').next().text() == '統計圖表'){
+					for(var i = 0;i < UseReport1.length;i++){
+						ButtonStr += '<input id="btnSvg" type="button" use="'+UseReport1[i][1]+'" value="'+UseReport1[i][0]+'" />';
+						if(i%2 == 1)
+							ButtonStr += '<br>';
+					}
+				}else if($('.radio.select').next().text() == '比較圖表'){
+					for(var i = 0;i < UseReport2.length;i++){
+						ButtonStr += '<input id="btnSvg" type="button" use="'+UseReport2[i][1]+'" value="'+UseReport2[i][0]+'" />';
+						if(i%2 == 1)
+							ButtonStr += '<br>';
+					}
+				}
+				$(ButtonStr).appendTo($('#svgbet')).click(function(){
+                	txtreport = $(this).attr('use');
                 	$('#dataSearch').hide();
                 	var t_bdate='#non',t_edate='#non',t_bmon='#non',t_emon='#non',t_bcustno='#non',t_ecustno='#non';
                 	var t_bsalesno='#non',t_esalesno='#non',t_bproductno='#non',t_eproductno='#non';
-					if(!emp($('#txtDate1').val()))
-						t_bdate=encodeURI($('#txtDate1').val());
-					if(!emp($('#txtDate2').val()))
-						t_edate=encodeURI($('#txtDate2').val());
-					if(!emp($('#txtMon1').val()))
-						t_bmon=encodeURI($('#txtMon1').val());
-					if(!emp($('#txtMon2').val()))
-						t_emon=encodeURI($('#txtMon2').val());
+                	var t_xbbmon='#non',t_xbemon='#non',t_xebmon='#non',t_xeemon='#non';
 					if(!emp($('#txtCust1a').val()))
 						t_bcustno=encodeURI($('#txtCust1a').val());
 					if(!emp($('#txtCust2a').val()))
@@ -68,21 +79,34 @@
 						t_bproductno=encodeURI($('#txtProduct1a').val());
 					if(!emp($('#txtProduct2a').val()))
 						t_eproductno=encodeURI($('#txtProduct2a').val());
-					q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
-					t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
-					t_bproductno + ';' + t_eproductno + ';'
-					);
-                });
-            });
-			
-			function CreatButton(){
-				$('#svgbet').html('');
-				for(var i = 0;i < UseReport.length;i++){
-					ButtonStr = '<input id="btnSvg" type="button" use="'+UseReport[i][1]+'" value="'+UseReport[i][0]+'" />';
-					if(i%2 == 1)
-						ButtonStr += '<br>';
-					$(ButtonStr).appendTo($('#svgbet'));
-				}
+                	if($('.radio.select').next().text() == '統計圖表'){
+						if(!emp($('#txtDate1').val()))
+							t_bdate=encodeURI($('#txtDate1').val());
+						if(!emp($('#txtDate2').val()))
+							t_edate=encodeURI($('#txtDate2').val());
+						if(!emp($('#txtMon1').val()))
+							t_bmon=encodeURI($('#txtMon1').val());
+						if(!emp($('#txtMon2').val()))
+							t_emon=encodeURI($('#txtMon2').val());
+						q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
+						t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
+						t_bproductno + ';' + t_eproductno + ';'
+						);
+					}else{
+						if(!emp($('#txtXbmon1').val()))
+							t_xbbmon=encodeURI($('#txtXbmon1').val());
+						if(!emp($('#txtXbmon2').val()))
+							t_xbemon=encodeURI($('#txtXbmon2').val());
+						if(!emp($('#txtXemon1').val()))
+							t_xebmon=encodeURI($('#txtXemon1').val());
+						if(!emp($('#txtXemon2').val()))
+							t_xeemon=encodeURI($('#txtXemon2').val());
+						q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbbmon + ';' + t_xbemon + ';' +
+						t_xebmon + ';' + t_xeemon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
+						t_bproductno + ';' + t_eproductno + ';'
+						);
+					}
+				});
 			}
 			
             function q_gfPost() {
@@ -116,6 +140,12 @@
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
+                    }, {
+                        type : '1',
+                        name : 'xbmon'
+                    }, {
+                        type : '1',
+                        name : 'xemon'
                     }]
                 });
                 q_popAssign();
@@ -127,6 +157,10 @@
                 $('#txtDate2').datepicker();
                 $('#txtMon1').mask('999/99');
                 $('#txtMon2').mask('999/99');
+				$('#txtXbmon1').mask('999/99');
+                $('#txtXbmon2').mask('999/99');
+                $('#txtXemon1').mask('999/99');
+                $('#txtXemon2').mask('999/99');
             }
 
             function q_boxClose(s2) {
@@ -342,7 +376,7 @@
 	                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60),'url(#chart2_color1)','收入(萬元)','black');
 	                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60)+30,'url(#chart2_color3)','數量','black');
 							}
-							obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+							obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph" width="100%" height="100%">' + tmpPath + '</svg> ');
 	                        //事件
 							obj.children('svg').find('.chart2_item').hover(function(e) {
 	                        	var n = $(this).parent().attr('id').replace('chart2_item','');
