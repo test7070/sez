@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "labpay";
-            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtBvccno','txtEvccno'];
+            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtBvccno','txtEvccno','txtDatea'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtMoney', 14, 0, 1], ['txtPlusmoney', 14, 0, 1], ['txtMinusmoney', 14, 0, 1]];
@@ -293,6 +293,10 @@
 					alert('禁止修改!!');
 					return;
 				}
+				if (checkenda){
+	                alert('已關帳!!');
+	                return;
+				}
                 _btnModi();
                 $('#txtDatea').focus();
                 
@@ -354,7 +358,7 @@
 			var t_payaccs,t_vcc;
             function refresh(recno) {
                 _refresh(recno);
-                
+                endacheck();
                 if(q_cur==0||q_cur==4){
                 	var t_where = "where=^^ rc2no ='"+$('#txtNoa').val()+"' ^^";
                 	q_gt('payaccs', t_where , 0, 0, 0, "", r_accy);
@@ -418,11 +422,41 @@
             		return;
             	}
             	
+	            if (checkenda){
+	                alert('已關帳!!');
+	                return;
+				}
                 _btnDele();
             }
 
             function btnCancel() {
                 _btnCancel();
+            }
+            
+            var checkenda=false;
+            function endacheck() {
+            	//102/06/21 7月份開始資料3日後不能在處理
+                //日期加三天
+                var t_date=$('#txtDatea').val();
+				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				nextdate.setDate(nextdate.getDate() +3)
+				t_date=''+(nextdate.getFullYear()-1911)+'/';
+				//月份
+				if(nextdate.getMonth()+1<10)
+					t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+				else
+					t_date=t_date+(nextdate.getMonth()+1)+'/';
+				//日期
+				if(nextdate.getDate()<10)
+					t_date=t_date+'0'+(nextdate.getDate());
+				else
+					t_date=t_date+(nextdate.getDate());
+                
+                if (t_date<=q_date()){
+                	checkenda=true;
+                }else{
+                	checkenda=false;
+                }
             }
 		</script>
 		<style type="text/css">

@@ -6,65 +6,44 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 		
 		<script type="text/javascript">
-			
-			
-			/*function openWindowWithPost(url, name, keys, values) {
-			    var newWindow = window.open(url, name);
-			    if (!newWindow){
-			        return false;
-			    }
-			    
-			    var html = "";
-			    html += "<html><head></head><body><form id='formid' method='post' action='"    + url + "'>";
-			    if (keys && values && (keys.length == values.length)){
-			        for ( var i = 0; i < keys.length; i++){
-			            html += "<input type='hidden' name='" + keys[i] + "' value='" + values[i] + "'/>";
-			        }
-			    }
-			    html += "</form><script type='text/javascript'>document.getElementById(\"formid\").submit()<"+"/script></body></html>";
-			    newWindow.document.write(html);
-			    return newWindow;
-			}*/
-			
+	
             $(document).ready(function() {
             	
-        		var t_caddr = (',49 49 55 20489 45 32879 37941,,,,,,,,').split(',');
-            	var t_item,t_str;
-            	for(var i=0;i<t_caddr.length;i++){
-            		t_item = t_caddr[i].split(' ');
-            		t_str='';
-            		for(var j=0;t_caddr[i].length>0 && j<t_item.length;j++){
-            			if(i==1)
-            				alert(String.fromCharCode(parseInt(t_item[j])));
-            			t_str+=String.fromCharCode(parseInt(t_item[j]));
-            		}
-            		if(Math.floor(i/2) == 0){
-            			//alert('xx:'+(i%2)+'_'+t_str);
-            			if(i%2==0){
-            				alert('xx:'+t_str);
-            				$('#txtA').val(t_str);
-            			}
-	            		else{
-	            			alert('xx:'+t_str);
-            				$('#txtB').val(t_str);
-	            		}
-            		}
-
-            		/*if(i%2==0)
-            			$('#textAddrno'+(Math.floor(i/2)+1)).val(t_str);
-            		else
-            			$('#textAddr'+(Math.floor(i/2)+1)).val(t_str);*/
-            	}
+ 				/*$('body').click(function(e){
+ 					alert($(e.target).attr('id'));
+ 				});*/
+ 				$('#txtA').keydown(function(e){
+ 					if(e.which==229){
+ 						$('#txtA').data('handle',true);
+ 					}else{
+ 						$('#txtA').data('handle',false);
+ 						var str = $('#txtA').val()+String.fromCharCode(e.which);
+ 						if(!(/^(\w+|\w+\u002D\w+)$/g).test(str)){
+ 							$('#txtA').data('curdata',$('#txtA').val());
+	                		event.preventDefault();
+	                	}else{
+	                		$('#txtA').data('curdata',str);
+	                		$('#txtB').val(e.which);
+	                	}
+ 					}
+ 				});
+                $('#txtA').keyup(function(e) {
+                	if($('#txtA').data('handle')){
+                		$('#txtC').val(e.which);
+                	}else{
+                		$('#txtA').val($('#txtA').data('curdata'));
+                		event.preventDefault();
+                	}
+                });
+                $('#txtA').mousedown(function(e) {
+                	if(e.button=='2')
+                  		event.preventDefault();
+                	//event.stopPropagation();
+                })	;
                 	
-            	/*$('#txtA').change(function(e){
-            		
-            		$('#txtB').val($('#txtA').val().charCodeAt(0));
-            		var t_days = 0;
-	                var t_date1 = $(this).val();
-	                var t_date2 = $('#txtEnddate').val();
-	                t_date1 = new Date(parseInt(t_date1.substr(0, 3)) + 1911, parseInt(t_date1.substring(4, 6)) - 1, parseInt(t_date1.substring(7, 9)));
-
-	                $('#txtB').val((t_date1.getTime() - 60*60/24*1000).toString());
+            	/*$('#txtA').keypress(function(e){
+            		$('#txtB').val((event.charCode == undefined ? event.keyCode : event.charCode));
+            	
             	});*/
             	
             	
@@ -246,5 +225,6 @@
 	<body>
 		<input id="txtA" style="width:200px;"/>
 		<input id="txtB" style="width:200px;"/>
+		<input id="txtC" style="width:200px;"/>
 	</body>
 </html>
