@@ -45,8 +45,9 @@
         }
         function mainPost() {  
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
             q_mask(bbmMask);
+            q_cmbParse("cmbTypea", q_getPara('inchg.typea'));
             /* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
@@ -383,13 +384,15 @@
             <td class="td2"><input id="txtCustno"  type="text" class="txt c2"/><input  id="txtComp"  type="text"  class="txt c3"/></td>
             <td class='td3'><span> </span><a id="lblPay" class="lbl "></a></td>
             <td class="td4"><input id="txtPay"  type="text"  class="txt c1"/></td>
-            <td class="td5"><input id="btnIndata" type="button"/></td>
+            <td class='td3'><span> </span><a id="lblTypea" class="lbl"> </a></td>
+            <td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>
         </tr>        
         <tr>            
             <td class='td1'><span> </span><a id="lblBcomp" class="lbl" ></a></td>
             <td class="td2"><input id="txtBcomp" type="text"  class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblBoat" class="lbl btn"></a></td>
             <td class="td4"><input id="txtBoatno" type="text" class="txt c2"/><input id="txtBoat" type="text" class="txt c3"/></td>
+            <td class="td5"><input id="btnIndata" type="button"/></td>
             <td class="td5"><input id="btnDelet" type="button"/></td>
          </tr>   
          <tr>

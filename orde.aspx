@@ -14,9 +14,10 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
+        q_desc = 1;
         q_tables = 's';
         var q_name = "orde";
-        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales','txtOrdbno','txtOrdcno'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [['txtTotal', 0,0,10],['txtMoney', 0, 0,10]];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
@@ -135,8 +136,34 @@
             }   /// end Switch
             b_pop = '';
         }
-
-
+		function browTicketForm(obj) {
+            	//資料欄位名稱不可有'_'否則會有問題
+                if (($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0, 3) == 'lbl')) {
+                    if ($(obj).attr('id').substring(0, 3) == 'lbl')
+                        obj = $('#txt' + $(obj).attr('id').substring(3));
+                    var noa = $.trim($(obj).val());
+                    var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
+					var isBbs = false,isBbt = false,n = -1;
+					if($(obj).attr('id').indexOf('__')>0){
+						isBbt = true;
+						n = $(obj).attr('id').split('__')[1];
+					}else if($(obj).attr('id').indexOf('_')>0){
+						isBbs = true;
+						n = $(obj).attr('id').split('_')[1];
+					}
+                    if (noa.length > 0) {
+                        switch (openName) {
+                            case 'ordbno':
+                                q_box("ordb.aspx?;;;noa='" + noa + "';" + r_accy, 'ordb', "95%", "95%", q_getMsg("popOrdb"));
+                                break;
+                            case 'ordcno':
+                                q_box("ordc.aspx?;;;noa='" + noa + "';" + r_accy, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
+                                break;
+                        }
+                    }
+                }
+            }
+		
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
                 case q_name: if (q_cur == 4)   // 查詢
@@ -573,24 +600,31 @@
                 <input id="txtSales" type="text" class="txt c5"/></td> 
                 <td class="td4"><span> </span><a id='lblTel' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtTel" type="text" class="txt c1"/></td>
-                <td class="td7"><span> </span><a id='lblFax' class="lbl"></a></td>
-                <td class="td8"><input id="txtFax" type="text" class="txt c1" /></td>
+                <td class="td7"><span> </span><a id='lblOrdbno' class="lbl"></a></td>
+                <td class="td8"><input id="txtOrdbno" onclick="browTicketForm(this)"  type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr5">
+            	<td class="td1"><span> </span><a id='lblFax' class="lbl"></a></td>
+                <td class="td2" colspan="2"><input id="txtFax" type="text" class="txt c1" /></td>
+                <td class="td4"><span> </span><a id='lblTrantype' class="lbl"></a></td>
+                <td class="td5" colspan="2"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td>
+                <td class="td7"><span> </span><a id='lblOrdcno' class="lbl"></a></td>
+                <td class="td8"><input id="txtOrdcno" onclick="browTicketForm(this)" type="text" class="txt c1"/></td>
+            </tr>
+            <tr class="tr6">
                 <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
                 <td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
                 <td class="td3"colspan='4' ><input id="txtAddr"  type="text"  class="txt c1"/></td>
-                <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
-                <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
+                 
             </tr>
-            <tr class="tr6">
+            <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblAddr2' class="lbl"></a></td>
                 <td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
                 <td class="td7"></td>
                 <td class="td8"><input id="btnOrdet" type="button"/></td>
             </tr>
-            <tr class="tr7">
+            <tr class="tr8">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
                 <td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1"/></td> 
                 <td class="td4"><span> </span><a id='lblTax' class="lbl"></a></td>
@@ -599,7 +633,7 @@
                 <td class="td7"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td> 
             </tr>
-            <tr class="tr7">
+            <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblTotalus' class="lbl"></a></td>
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
@@ -607,7 +641,7 @@
                 <td class="td7"><span> </span><a id='lblEnda' class="lbl"></a></td>
                 <td class="td8"><input id="chkEnda" type="checkbox"/></td> 
            </tr>
-            <tr>
+            <tr class="tr10">
             	<td class="td1"><span> </span><a id="lblApv" class="lbl"></a></td>
             	<td class="td2"><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
             	<td> </td>
@@ -618,7 +652,7 @@
                 <td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td> 
                 
             </tr>
-            <tr class="tr9">
+            <tr class="tr11">
                 <td class="td1"><span> </span><a id='lblMemo' class='lbl'></a></td>
                 <td class="td2" colspan='7'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td> 
             </tr>
