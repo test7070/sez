@@ -955,9 +955,8 @@
 						<td align="center" style="width:60px; color:black;"><a id='vewMount'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTimes'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewInmoney'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewIntotal'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewOuttotal'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewOutmoney'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
@@ -970,9 +969,8 @@
 						<td id="mount" style="text-align: right;">~mount</td>
 						<td id="times" style="text-align: right;">~times</td>
 						<td id="inmoney,0,1" style="text-align: right;">~inmoney,0,1</td>
-						<td id="intotal,0,1" style="text-align: right;">~intotal,0,1</td>
 						<td id="carno" style="text-align: left;">~carno</td>
-						<td id="outtotal,0,1" style="text-align: right;">~outtotal,0,1</td>
+						<td id="outmoney,0,1" style="text-align: right;">~outmoney,0,1</td>
 					</tr>
 				</table>
 			</div>
