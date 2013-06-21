@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -70,6 +69,7 @@
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
+                scroll("tbbs","box",1);
 			}
 
 			function q_boxClose(s2) {
@@ -134,6 +134,21 @@
 			}
 
 			function bbsAssign() {
+				for(var j = 0; j < q_bbsCount; j++) {
+	           		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+	           			$('#checkSel_' + j).click(function () {
+		                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+							 if($('#checkSel_' +b_seq)[0].checked){	//判斷是否被選取
+			                	$('#trSel_'+ b_seq).addClass('chksel');//變色
+			                }else{
+			                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
+			                }
+		                });
+	           		}
+           		}
+				
 				_bbsAssign();
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_'+i).text(i+1);
@@ -339,6 +354,37 @@
                 abbm[q_recno]['accno'] = xmlString;
                 $('#txtAccno').val(xmlString);
             }
+            
+            var scrollcount=1;
+	        function scroll(viewid,scrollid,size){
+	        	if(scrollcount>1)
+	        	$('#box_'+(scrollcount-1)).remove();
+				var scroll = document.getElementById(scrollid);
+				var tb2 = document.getElementById(viewid).cloneNode(true);
+				var len = tb2.rows.length;
+				for(var i=tb2.rows.length;i>size;i--){
+			                tb2.deleteRow(size);
+				}
+				//tb2.rows[0].deleteCell(0);
+				tb2.rows[0].cells[0].children[0].id="scrollplus"
+				var bak = document.createElement("div");
+				bak.id="box_"+scrollcount
+				scrollcount++;
+				scroll.appendChild(bak);
+				bak.appendChild(tb2);
+				bak.style.position = "absolute";
+				bak.style.backgroundColor = "#fff";
+			    bak.style.display = "block";
+				bak.style.left = 0;
+				bak.style.top = "0px";
+				scroll.onscroll = function(){
+					bak.style.top = this.scrollTop+"px";
+				}
+				$('#scrollplus').click(function () {
+		            	$('#btnPlus').click();
+		       		});
+			}
+			
 			function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
@@ -470,7 +516,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1400px;
+				width: 1340px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -484,7 +530,15 @@
 			select {
 				font-size: medium;
 			}
-
+			
+			.tbbs tr.chksel { background:#FA0300;} 
+			
+			#box{
+				height:500px;
+				width: 100%;
+				overflow-y:auto;
+				position:relative;
+			}
 		</style>
 	</head>
 	<body>
@@ -599,12 +653,14 @@
 				</table>
 			</div>
 		</div>
+		<div id="box">
 		<div class='dbbs'>
-			<table id="tbbs" class='tbbs'>
+			<table id="tbbs" class='tbbs' style="width: 1340px;background:#cad3ff;">
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:30px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width: 26px;"><a id='vewChks'></a></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:120px;"><a id='lblDriver_s'></a></td>
 					<td align="center" style="width:30px;"><a id='lblDay_s'></a></td>
@@ -624,11 +680,12 @@
 					<td align="center" style="width:150px;"><a id='lblMemo_s'></a></td>
 					
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr  id="trSel.*">
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td ><input id="checkSel.*" type="checkbox"/></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%; float:left;" />
 						<input type="text" id="txtDriver.*" style="width:50%; float:left;" />
@@ -650,6 +707,7 @@
 					<td ><input type="text" id="txtMemo.*" style="width:95%; text-align: right;" /></td>
 				</tr>
 			</table>
+		</div>
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>

@@ -78,7 +78,7 @@
 			bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd],['txtDatea', r_picd],['textMon', r_picm]];
 			q_mask(bbmMask);
 			$('#btnAcczt').click(function () {
-				var t_where = "noa='" + $('#txtAcc1').val() + "'";
+				var t_where = "acc1='" + $('#txtAcc1').val() + "'";
 				q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where + ";" +  r_accy , '', "95%", "650px", q_getMsg('popAcczt'));
 			})
 			$('#btnTurncut').click(function(){

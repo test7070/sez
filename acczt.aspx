@@ -20,7 +20,6 @@
         var bbmNum = [['txtDepl',14,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
-        q_desc = 1;
         //ajaxPath = ""; //  execute in Root
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -96,8 +95,8 @@
                 alert(t_err);
                 return;
             }
-            var t_acc1 = trim($('#txtAcc1').val()).replace('.','');
-            var t_mon = trim($('#txtMon').val()).replace('/','');
+            var t_acc1 = trim($('#txtAcc1').val());
+            var t_mon = trim($('#txtMon').val());
  			$('#txtMon').val($.trim($('#txtMon').val()));
 			if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 				alert(q_getMsg('lblMon')+'錯誤。');
