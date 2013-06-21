@@ -15,62 +15,66 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
-            }
-            $(document).ready(function() {
-            	q_getId();
-                q_gf('', 'z_accz');
-            });
-            function q_gfPost() {
-               $('#q_report').q_report({
-                        fileName : 'z_accz',
-                        options : [{
-	                        type : '0',
-	                        name : 'accy',
-	                        value : r_accy
-	                    },  {
-	                        type : '2',
-	                        name : 'xnoa',
-	                        dbf : 'accz',
-	                        index : 'noa,namea',
-	                        src : 'accz_b.aspx'
-	                    }, {
-	                        type : '6',
-	                        name : 'edate'
-						}, {
-	                        type : '2',
-	                        name : 'xpartno',
-	                        dbf : 'part',
-	                        index : 'noa,part',
-	                        src : 'part_b.aspx'
-	                    }]
-                    });
-                q_popAssign();
-                	
-	                $('#txtEdate').mask('999/99/99');
-	                $('#txtEdate').datepicker();
-	                
-	            var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
-                t_noa  =  t_noa.replace('noa=','');
-                $('#txtXnoa1').val(t_noa);
-                $('#txtXnoa2').val(t_noa);
-	                var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtEdate').val(t_year+'/'+t_month+'/'+t_day);
-            }
+			if (location.href.indexOf('?') < 0) {
+				location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
+			}
+			$(document).ready(function() {
+				q_getId();
+				q_gf('', 'z_accz');
+			});
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_accz',
+					options : [{
+						type : '0',
+						name : 'accy',
+						value : r_accy
+					},{
+						type : '2',
+						name : 'xnoa',
+						dbf : 'accz',
+						index : 'noa,namea',
+						src : 'accz_b.aspx'
+					},{
+						type : '1',
+						name : 'xdate'
+					},{
+						type : '2',
+						name : 'xpartno',
+						dbf : 'part',
+						index : 'noa,part',
+						src : 'part_b.aspx'
+					}]
+				});
+				q_popAssign();
+				$('#txtXdate1').mask('999/99/99');
+				$('#txtXdate1').datepicker();
+				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate2').datepicker();
+				var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+				t_noa  =  t_noa.replace('noa=','');
+				$('#txtXnoa1').val(t_noa);
+				$('#txtXnoa2').val(t_noa);
+				var t_date,t_year,t_month,t_day;
+				t_date = new Date();
+				t_date.setDate(1);
+				t_year = t_date.getUTCFullYear()-1911;
+				t_year = t_year>99?t_year+'':'0'+t_year;
+				t_month = t_date.getUTCMonth()+1;
+				t_month = t_month>9?t_month+'':'0'+t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day>9?t_day+'':'0'+t_day;
+				$('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
+                var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
+                $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
 
-            function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
-            }
+			}
+			
+			function q_boxClose(s2) {
+			}
+			
+			function q_gtPost(s2) {
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"

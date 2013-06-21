@@ -16,17 +16,17 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="acczt";
-        var q_readonly = ['txtNoa','txtMon','txtAccno','txtDepl'];
+        var q_readonly = ['txtNoa','txtAcc1','txtMon','txtAccno','txtDepl'];
         var bbmNum = [['txtDepl',14,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         q_desc = 1;
         //ajaxPath = ""; //  execute in Root
         $(document).ready(function () {
-            bbmKey = ['noa','mon'];
+            bbmKey = ['noa'];
             q_brwCount();
-			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno )
-			$('#txtNoa').focus
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno );
+			$('#txtNoa').focus();
         });
 
        //////////////////   end Ready
@@ -70,16 +70,19 @@
         }
 
         function btnIns() {
-            _btnIns();
-            $('#txtNoa').focus();
+        	return ;
+            //_btnIns();
         }
 
         function btnModi() {
+        	return;
+            /*
             if (emp($('#txtNoa').val()))
                 return;
 
             _btnModi();
             $('#txtMon').focus();
+            */
         }
 
         function btnPrint() {
@@ -93,17 +96,15 @@
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
-           
+            var t_acc1 = trim($('#txtAcc1').val()).replace('.','');
+            var t_mon = trim($('#txtMon').val()).replace('/','');
  			$('#txtMon').val($.trim($('#txtMon').val()));
 			if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 				alert(q_getMsg('lblMon')+'錯誤。');
 				return;
 			}
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+			var t_noa = t_acc1 + t_mon;
+			wrServer(  t_noa);
         }
 
         function wrServer( key_value) {
@@ -293,14 +294,14 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:25%"><a id='vewAcc1'></a></td>
                 <td align="center" style="width:10%"><a id='vewMon'></a></td>
                 <td align="center" style="width:30%"><a id='vewDepl'></a></td>
                 <td align="center" style="width:30%"><a id='vewAccno'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='acc1'>~acc1</td>
                    <td align="center" id='mon'>~mon</td>
                    <td align="right" id='depl,0,1'>~depl,0,1</td>
                    <td align="center" id='accno'>~accno</td>
@@ -312,6 +313,11 @@
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+               <td class="td3"></td>            
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblAcc1' class="lbl"></a></td>
+               <td class="td2"><input id="txtAcc1"  type="text"  class="txt c1"/></td>
                <td class="td3"></td>            
             </tr>
             <tr>
