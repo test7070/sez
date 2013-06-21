@@ -33,7 +33,9 @@
             brwKey = 'noa';
             
             q_desc = 1;
-            aPop = new Array();
+            aPop = new Array(['textCustno', '', 'cust', 'noa,comp', 'textCustno,', 'cust_b.aspx'], 
+            ['textBaddrno', '', 'addr', 'noa,addr', 'textBaddrno', 'addr_b.aspx'],
+            ['textEaddrno', '', 'addr', 'noa,addr', 'textEaddrno', 'addr_b.aspx']);
 
             $(document).ready(function() {
                 q_bbsShow = -1;
@@ -51,8 +53,67 @@
             }
 
             function mainPost() {
-                q_getFormat();
                 q_mask(bbmMask);
+                $('#textBdate').datepicker();
+                $('#textEdate').datepicker();
+                
+                $('#divImport').mousedown(function(e) {
+                	if(e.button==1){               		
+	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+                	}
+                }).mousemove(function(e) {
+                	if(e.button==1){             	
+                		$(this).css('top',$(this).data('xtop')+e.clientY);
+                		$(this).css('left',$(this).data('xleft')+e.clientX);
+                	}
+                });
+                $('#btn1').click(function(e){
+                	$('#divImport').toggle();
+                	$('#textBdate').focus();	
+                });
+                $('#btnDivimport').click(function(e){
+                	$('#divImport').hide();
+                });
+                $('#textBdate').keydown(function(e){
+                	if(e.which==13)
+                		$('#textEdate').focus();		
+                });
+                $('#textEdate').keydown(function(e){
+                	if(e.which==13)
+                		$('#textCustno').focus();		
+                });
+                $('#textCustno').keydown(function(e){
+                	if(e.which==13)
+                		$('#textBaddrno').focus();		
+                });
+                $('#textBaddrno').keydown(function(e){
+                	if(e.which==13)
+                		$('#textEaddrno').focus();		
+                });
+                $('#textEaddrno').keydown(function(e){
+                	if(e.which==13)
+                		$('#btnDivimport').focus();		
+                });
+                $('#btnImport').click(function(e){
+                	var t_noa = $.trim($('#textNoa').val());
+                	var t_bdate = $.trim($('#textBdate').val());
+                	var t_edate = $.trim($('#textEdate').val());
+                	var t_custno = $.trim($('#textCustno').val());
+                	var t_baddrno = $.trim($('#textBaddrno').val());
+                	var t_eaddrno = $.trim($('#textEaddrno').val());
+                	
+                	var t_where = "where=^^ (c.noa='"+t_noa+"' or c.noa is null)^^";
+                	q_gt('transvcce_tran', t_where, 0, 0, 0,'', r_accy);
+                });
+                
+                
+                $('#btn2').click(function(e){
+                	$('#divExport').toggle();
+                });
+                $('#btnDivexport').click(function(e){
+                	$('#divExport').hide();
+                });
             }
 
             function q_gtPost(t_name) {
@@ -388,6 +449,46 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="divImport" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:250px;background:RGB(237,237,237);"> 
+			<table style="border:4px solid gray; width:100%; height: 100%;">
+				<tr style="height:1px;background-color: #cad3ff;">
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+				</tr>
+				<tr>		
+					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>派車日期</a></td>
+					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="text" id="textBdate" style="float:left;width:40%;"/>
+						<span style="float:left;width:5%;">~</span>
+						<input type="text" id="textEdate" style="float:left;width:40%;"/>
+					</td>
+				</tr>
+				<tr>		
+					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>客戶編號</a></td>
+					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="text" id="textCustno" style="float:left;width:95%;"/>
+					</td>
+				</tr>
+				<tr>		
+					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>起迄地點</a></td>
+					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="text" id="textBaddrno" style="float:left;width:40%;"/>
+						<span style="float:left;width:5%;">~</span>
+						<input type="text" id="textEaddrno" style="float:left;width:40%;"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center" style="background-color: #cad3ff;">
+						<input type="button" id="btnImport" value="匯入"/>	
+					</td>
+					<td colspan="2" align="center" style=" background-color: #cad3ff;">
+						<input type="button" id="btnDivimport" value="關閉"/>	
+					</td>
+				</tr>
+			</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="dmain">
 			<div class="dview" id="dview">
@@ -440,6 +541,8 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text"  class="txt c1"/></td>
+						<td><input type="button" id="btn1" value="匯入" style="float:left;"/></td>
+						<td><input type="button" id="btn2" value="匯出" style="float:left;"/></td>
 					</tr>
 				</table>
 			</div>
