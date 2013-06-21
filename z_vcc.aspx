@@ -62,6 +62,14 @@
 					}
 				}
 				$(ButtonStr).appendTo($('#svgbet')).click(function(){
+					if(emp($('#txtXbmon1').val()))
+						$('#txtXbmon1').val(r_accy+'/01');
+					if(emp($('#txtXbmon2').val()))
+						$('#txtXbmon2').val(r_accy+'/12');
+					if(emp($('#txtXemon1').val()))
+						$('#txtXemon1').val(r_accy+'/01');
+					if(emp($('#txtXemon2').val()))
+						$('#txtXemon2').val(r_accy+'/12');
                 	txtreport = $(this).attr('use');
                 	$('#dataSearch').hide();
                 	var t_bdate='#non',t_edate='#non',t_bmon='#non',t_emon='#non',t_bcustno='#non',t_ecustno='#non';
@@ -157,10 +165,11 @@
                 $('#txtDate2').datepicker();
                 $('#txtMon1').mask('999/99');
                 $('#txtMon2').mask('999/99');
-				$('#txtXbmon1').mask('999/99');
-                $('#txtXbmon2').mask('999/99');
-                $('#txtXemon1').mask('999/99');
-                $('#txtXemon2').mask('999/99');
+				$('#txtXbmon1').val(r_accy+'/01').mask('999/99');
+                $('#txtXbmon2').val(r_accy+'/12').mask('999/99');
+                $('#txtXemon1').val(r_accy+'/01').mask('999/99');
+                $('#txtXemon2').val(r_accy+'/12').mask('999/99');
+                
             }
 
             function q_boxClose(s2) {
@@ -215,6 +224,70 @@
 											total:as[i].total
 										}
 									);
+								}else if(txtreport == 'z_anavccCompare1'){
+									if((i>1 && as[i].mon=='E' && as[i-1].mon != 'B') || (i==0 && as[i].mon=='E')){
+										bar[rec].push(
+											{
+												mon:'B',
+												custno:as[i].custno,
+												comp:as[i].comp,
+												mount:0,
+												total:0
+											}
+										);
+									}
+									bar[rec].push(
+										{
+											mon:as[i].mon,
+											custno:as[i].custno,
+											comp:as[i].comp,
+											mount:as[i].mount,
+											total:as[i].total
+										}
+									);
+									if(as[i].mon=='B' && as[i+1].mon != 'E'){
+										bar[rec].push(
+											{
+												mon:'E',
+												custno:as[i].custno,
+												comp:as[i].comp,
+												mount:0,
+												total:0
+											}
+										);
+									}
+								}else if(txtreport == 'z_anavccCompare2'){
+									if((i>1 && as[i].mon=='E' && as[i-1].mon != 'B') || (i==0 && as[i].mon=='E')){
+										bar[rec].push(
+											{
+												mon:'B',
+												productno:as[i].productno,
+												product:as[i].product,
+												mount:0,
+												total:0
+											}
+										);
+									}
+									bar[rec].push(
+										{
+											mon:as[i].mon,
+											productno:as[i].productno,
+											product:as[i].product,
+											mount:as[i].mount,
+											total:as[i].total
+										}
+									);
+									if(as[i].mon=='B' && as[i+1].mon != 'E'){
+										bar[rec].push(
+											{
+												mon:'E',
+												productno:as[i].productno,
+												product:as[i].product,
+												mount:0,
+												total:0
+											}
+										);
+									}
 								}
 							}
 							$('#barChart2').barChart2({
@@ -253,10 +326,8 @@
                             obj.data('info').refresh(obj,1);
                         },
                         page : function(obj, n) {
-                        	console.log(value);
                             if (n > 0 && n <= obj.data('info').maxPage) {
                                 obj.data('info').curIndex = n - 1;
-                                
                                 obj.data('info').refresh(obj,n);
                             } else
                                 alert('頁數錯誤。');
@@ -299,7 +370,8 @@
                                 tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
                             }
                             var t_minMoney = 0; //Y軸最小值
-							var t_maxMoney = (dec(objpostData[0].total)/10000); //X軸最大值
+							var t_maxMoney = GetBigInteger((Math.max(dec(objpostData[0].total),dec(objpostData[1].total))/10000)); //X軸最大值
+							
                             var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
 							var linearGradientColor = [
 													   ['rgb(206,206,255)','rgb(147,147,255)'],['rgb(255,220,185)','rgb(225,175,96)'],
@@ -365,6 +437,42 @@
 	 								tmpPath += ValueLineCreate('chart2_item','chart2_total' + i,x_total,(y-15),W_total,15,'url(#chart2_color1)','chart2_ctotal',FormatNumber(t_total),'#000000');
 	 								tmpPath += ValueLineCreate('chart2_item','chart2_mount' + i,x_mount,(y),W_mount,15,'url(#chart2_color3)','chart2_cmount',FormatNumber(t_mount),'#000000');
 	                            	tmpPath += '</g>'
+	                            //X軸
+	                            tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+								tmpPath += '<text x="'+strX+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';
+								tmpPath += '<text text-anchor="end"  x="'+(strX+t_width)+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
+								//Y軸
+	                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+	                            //符號說明
+	                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60),'url(#chart2_color1)','收入(萬元)','black');
+	                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60)+30,'url(#chart2_color3)','數量','black');
+	                            }
+							}else if(txtreport == 'z_anavccCompare1' || txtreport == 'z_anavccCompare2'){
+								//客戶名稱(標題)
+								if(txtreport == 'z_anavccCompare1')
+									tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].comp+'</text>';
+								else if(txtreport == 'z_anavccCompare2')
+									tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].product+'</text>';
+								for (var i = 0; i < objpostData.length; i++) {    
+									tmpPath +='<g id="chart2_item'+i+'">';
+	                                x = strX - 5;
+	 								y = strY + i*40 + 30;
+	 								if(objpostData[i].mon =='B')
+		                            	tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >起始月份</text>';	
+	 								else if(objpostData[i].mon =='E')
+		                            	tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >終止月份</text>';	
+	                            	//收入
+	                            	t_total = (dec(objpostData[i].total)/10000);
+	                            	t_mount = dec(objpostData[i].mount);
+	                                W_total = Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0));
+	                                W_mount = Math.abs(round(t_mount / (t_maxMoney - t_minMoney) * t_width, 0));
+	                                (t_total>0?x_total = t_X:x_total = (t_X - W_total));
+	                                (t_mount>0?x_mount = t_X:x_mount = (t_X - W_mount));
+	 								y = strY + i*40 +25;
+	 								//數值線產生
+	 								tmpPath += ValueLineCreate('chart2_item','chart2_total' + i,x_total,(y-15),W_total,15,'url(#chart2_color1)','chart2_ctotal',FormatNumber(t_total),'#000000');
+	 								tmpPath += ValueLineCreate('chart2_item','chart2_mount' + i,x_mount,(y),W_mount,15,'url(#chart2_color3)','chart2_cmount',FormatNumber(t_mount),'#000000');
+	                            	tmpPath += '</g>'
 	                            }
 	                            //X軸
 	                            tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
@@ -383,11 +491,15 @@
 								$('#chart2_nick'+n).attr('fill', 'rgb(255,0,0)');
 								$('#chart2_total'+n).attr('fill', 'url(#chart2_color2)');
 								$('#chart2_mount'+n).attr('fill', 'url(#chart2_color4)');
+								$('rect[fill="url(#chart2_color1)"][id="Mark"]').attr('fill', 'url(#chart2_color2)');
+								$('rect[fill="url(#chart2_color3)"][id="Mark"]').attr('fill', 'url(#chart2_color4)');
 							}, function(e) {
 								var n = $(this).parent().attr('id').replace('chart2_item','');
 								$('#chart2_nick'+n).attr('fill', 'rgb(0,0,0)');
 								$('#chart2_total'+n).attr('fill', 'url(#chart2_color1)');
 								$('#chart2_mount'+n).attr('fill', 'url(#chart2_color3)');
+								$('rect[fill="url(#chart2_color2)"][id="Mark"]').attr('fill', 'url(#chart2_color1)');
+								$('rect[fill="url(#chart2_color4)"][id="Mark"]').attr('fill', 'url(#chart2_color3)');
 							});
                         }
                     });
@@ -396,7 +508,7 @@
             })($);
             function MarkHelp(MarkXpos,MarkYpos,MarkColor,Title,TitleColor){
             	var str = '';
-            	str = '<rect x="'+MarkXpos+'" y="'+MarkYpos+'" width="20" height="20" fill="'+MarkColor+'"/>';
+            	str = '<rect id="Mark" x="'+MarkXpos+'" y="'+MarkYpos+'" width="20" height="20" fill="'+MarkColor+'"/>';
             	str += '<text x="'+(MarkXpos+25)+'" y="'+(MarkYpos+15)+'" fill="'+TitleColor+'">'+Title+'</text>';
             	return str;
             }
@@ -413,6 +525,11 @@
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
+            function GetBigInteger(value){
+            	var n = dec('1' + padL('','0',(value.toString().split('.')[0].length-1)));
+            	n = Math.ceil(value/n)*n;
+            	return n;
             }
 		</script>
 	</head>
