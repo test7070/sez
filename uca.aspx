@@ -18,16 +18,20 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        q_tables = 's';
+        q_tables = 't';
         var q_name = "uca";
         var decbbs = ['weight', 'uweight', 'price'];
         var decbbm = ['weight', 'hours' , 'pretime', 'mount', 'wages', 'makes', 'mechs', 'trans', 'molds', 'packs', 'uweight', 'price'];
+        var decbbt = [];
         var q_readonly = [];
         var q_readonlys = [];
+        var q_readonlyt = [];
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 12, 3], ['txtWeight', 11, 2], ['txtHours', 9, 2]];
+        var bbtNum = [['txtMount_', 12, 0 ,1],['txtWeight_', 12, 2 ,1],['txtPrice_', 12, 2 ,1],['txtEndmount_', 12, 0 ,1],['txtEndweight_', 12, 2 ,1]]; 
         var bbmMask = [];
         var bbsMask = [];
+        var bbtMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         
@@ -37,12 +41,14 @@
         	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
         	['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
         	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
-        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
+        	['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx']
         	);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
+            bbtKey = ['noa', 'noq'];
 
             q_brwCount();  // 計算 合適  brwCount 
 			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
@@ -199,6 +205,15 @@
            		}
             _bbsAssign();
         }
+        
+        function bbtAssign() {
+			for (var i = 0; i < q_bbtCount; i++) {
+				$('#lblNo__' + i).text(i + 1);
+				if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+				}
+			}
+			_bbtAssign();
+		}
         
         function q_funcPost(t_func, result) {
                 switch(t_func) {
@@ -464,6 +479,25 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            
+            #tbbt {
+                margin: 0;
+                padding: 2px;
+                border: 2px pink double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: pink;
+                width: 100%;
+            }
+            #tbbt tr {
+                height: 35px;
+            }
+            #tbbt tr td {
+                text-align: center;
+                border: 2px pink double;
+            }
     </style>
 </head>
 <body>
@@ -616,6 +650,49 @@
             </tr>
         </table>
         </div>
+        <div id="dbbt" >
+			<table id="tbbt">
+				<tbody>
+					<tr class="head" style="color:white; background:#003366;">
+						<td style="width:20px;">
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+						</td>
+						<td style="width:20px;"> </td>
+						<td align="center" style="width:15%;"><a id='lblProcess_t'></a></td>
+						<td align="center" style="width:20%;"><a id='lblTgg_t'></a></td>
+						<td align="center" style="width:10%;"><a id='lblMount_t'></a></td>
+						<td align="center" style="width:10%;"><a id='lblPrice_t'></a></td>
+		                <td align="center" style="width:10%;"><a id='lblEndmount_t'></a></td>
+		                <td align="center" style="width:10%;"><a id='lblProductno2_t'></a></td>
+		                <td align="center" style="width:25%;"><a id='lblAssm_t'></a></td>
+					</tr>
+					<tr>
+						<td>
+							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+						</td>
+						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+						<td><input id="txtProcess..*" type="text" style="width:95%;"/></td>
+						<td>
+							<input id="txtTggno..*" type="text" class="txt c5"/>
+							<input id="btnTggno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+							<input id="txtNick..*" type="text" class="txt c1"/>
+						</td>
+						<td>
+							<input id="txtMount..*" type="text" class="txt c1 num"/>
+							<input id="txtWeight..*" type="text" class="txt c1 num"/>
+						</td>
+						<td><input id="txtPrice..*" type="text" class="txt c1 num"/></td>
+						<td>
+							<input id="txtEndmount..*" type="text" class="txt c1 num"/>
+							<input id="txtEndweight..*" type="text" class="txt c1 num"/>
+						</td>
+						<td><input id="txtProductno2..*" type="text" class="txt c1"/></td>
+						<td><input id="txtAssm..*" type="text" class="txt c1"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	<input id="q_sys" type="hidden" />
 </body>
 </html>
