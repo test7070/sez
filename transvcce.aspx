@@ -590,7 +590,6 @@
 					if(t_isSend && t_carno.length>0 && t_msg.length>0 && !t_Sendcommandresult && t_commandid.length==0){
 	            		//GPS訊息
 	            		var t_data = {
-		            		GroupName : encodeURI("CHITC195"),
 		            		CarId : encodeURI(t_carno),
 		            		Message : encodeURI(t_msg),
 		            		StatusCode : 1

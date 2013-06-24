@@ -2,11 +2,9 @@
     <script language="c#" runat="server">
         public class SendCommand
         {
-            public string GroupName;
             public string CarId;
             public string Message;
             public string CommandId;
-
         }   
         public void Page_Load()
         {
@@ -19,12 +17,6 @@
             //string test = "{\"GroupName\":\"CHITC195\",\"CarId\":\"001-M9\",\"Message\":\"測試 2013/04/08\",\"CommandId\":\"0\"}";
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             var item = serializer.Deserialize<SendCommand>(System.Text.Encoding.Default.GetString(formData));
-           // var item = serializer.Deserialize<SendCommand>(test);
-           /* Response.Write("<p>" + item.GroupName + "</p>");
-            Response.Write("<p>" + item.CarId + "</p>");
-            Response.Write("<p>" + item.Message + "</p>");
-            Response.Write("<p>" + item.CommandId + "</p>");   */ 
-			item.GroupName = System.Web.HttpUtility.UrlDecode(item.GroupName);
 			item.CarId = System.Web.HttpUtility.UrlDecode(item.CarId);
 			item.Message = System.Web.HttpUtility.UrlDecode(item.Message);
 			
@@ -32,7 +24,7 @@
             string parame = "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
                         " <soap:Body>" +
                         "   <SendCommand xmlns=\"http://tempuri.org/\">" +
-                        "     <GroupName>"+item.GroupName+"</GroupName>" +
+                        "     <GroupName>CHITC195</GroupName>" +
                         "     <CarId>"+item.CarId+"</CarId>" +
                         "     <Message>"+item.Message+"</Message>" +
                         "     <CommandId>"+item.CommandId+"</CommandId>" +

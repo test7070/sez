@@ -15,9 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		 function z_contp() {
+		 function z_contdc() {
             }
-            z_contp.prototype = {
+            z_contdc.prototype = {
                 isInit : false,
                 data : {
                     conttype : null
@@ -30,11 +30,11 @@
                     return isLoad;
                 }
             };
-            t_data = new z_contp();
+            t_data = new z_contdc();
             
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_contp');
+                q_gf('', 'z_contdc');
             });
             function q_gfPost() {
                 q_gt('conttype', '', 0, 0, 0);
@@ -53,44 +53,51 @@
 	                if (t_data.isLoad() && !t_data.isInit) {
 	                    t_data.isInit = true;
 	                $('#q_report').q_report({
-	                    fileName : 'z_contp',
-	                    options : [{
+	                    fileName : 'z_contdc',
+	                    options : [{/*1-1*/
 	                        type : '6',
 	                        name : 'xnoa'//[1]
-	                    }, {
+	                    }, {/*1-2*/
 	                        type : '6',
 	                        name : 'xcustno'//[2]
-	                    }, {
+	                    }, {/*1-4*/
 	                        type : '2',
 	                        name : 'addrno',//[3][4]
 	                        dbf : 'addr',
 	                        index : 'noa,addr',
 	                        src : 'addr_b2.aspx'
-	                    }, {
+	                    }, {/*1-8*/
 	                        type : '6',
 	                        name : 'xcno'//[5]
-	                    },{
+	                    },{/*2-1*/
 	                        type : '1',
 	                        name : 'date'//[6][7]
-	                    },{
+	                    },{/*2-2*/
 							type : '8',
 							name : 'xstype',//[8]
 							value : t_data.data['conttype'].split(',')
-	                    },{
+	                    },{/*2-4*/
 							type : '5',
 							name : 'xetype',//[9]
 							value : [q_getPara('report.all')].concat(new Array("存入","存出"))
-	                    },{
+	                    },{/*2-8*/
 	                        type : '6',
 	                        name : 'xpaydate'//[10]
-	                    }, {/*28*/
+	                    }, {/*3-1*/
 							type : '5',
 							name : 'xsort1',//[11]
 							value : q_getMsg('tsort1').split('&')
-	                    },{
+	                    },{/*3-2*/
 							type : '5',
 							name : 'xbeend',//[12]
 							value : [q_getPara('report.all')].concat(new Array("已繳回","未繳回"))
+						},{/*3-4*/
+	                        type : '6',
+	                        name : 'xenddate'//[13]
+	                    },{/*3-8*/
+							type : '5',
+							name : 'xenda',//[14]
+							value : [q_getPara('report.all')].concat(new Array("已結案","未結案"))
 						}]
 	                });
 	                q_popAssign();
@@ -102,6 +109,8 @@
 	                $('#txtDate2').datepicker();
 	                $('#txtXpaydate').mask('999/99/99');
 	                $('#txtXpaydate').datepicker();
+	                $('#txtXenddate').mask('999/99/99');
+	                $('#txtXenddate').datepicker();
 	                
 	                $('#txtMon1').mask('999/99');
 	                $('#txtMon2').mask('999/99');
