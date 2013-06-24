@@ -113,8 +113,9 @@
                 	if(t_baddrno.length>0 || t_eaddrno.length>0){
                 		t_edate = (t_eaddrno.length>0?"char(255)":"'"+t_eaddrno+"'");
                 		t_where += " and (isnull(a.addrno,'') between '"+t_baddrno+"' and "+t_eaddrno+")";
-                	}
+                	}             	
                 	t_where = "where=^^"+t_where+"^^";
+                	Lock();
                 	q_gt('transvcce_tran', t_where, 0, 0, 0,'', r_accy);
                 });
                 
@@ -130,10 +131,64 @@
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case "transvcce_tran":
-                		var as = _q_appendData("view_transvcces", "", true);
+                		var as = _q_appendData("transvcce_tran", "", true);
                         if (as[0] != undefined){
-                        	alert(as.length);
+                        	//alert(as.length);
+                        	
+                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtOutmount,txtTransvcceno,txtTransvccenoq,txtCommandid', as.length, as
+                        	, 'carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,mount,mount,transvcceno,transvccenoq,commandid', '', '');
+                       		
+                       		var t_data,json,t_commandid,t_carno;
+                       		for(var i=0;i<q_bbsCount;i++){
+                       			t_carno = $.trim($('#txtCarno_'+i).val());
+                       			t_commandid = $.trim($('#txtCommandid_'+i).val());
+                       			if(t_carno.length>0 && t_commandid.length>0){
+                       				t_data = {
+					            		GroupName : encodeURI("CHITC195"),
+					            		CarId : encodeURI(t_carno),
+					            		CommandId : encodeURI(t_commandid),
+					            	};
+									json = JSON.stringify(t_data);
+					            	//INPUT及OUTPUT參數,參照QueryCommandTaskContent.aspx
+					            	$.ajax({
+					            		sel:i,
+					            		carno: t_carno,
+									    url: 'QueryCommandTaskContent.aspx',
+									    type: 'POST',
+									    data: json,
+									    dataType: 'json',
+									    success: function(data){
+											$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
+											var t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+											if(t_caseno.length>0){
+												$('#txtCaseno_'+this.sel).val(t_caseno);
+											}
+									    },
+								        complete: function(){		         
+								        },
+									    error: function(jqXHR, exception) {
+									    	alert('Error at '+this.sel+':'+this.carno);
+								            if (jqXHR.status === 0) {
+								                alert('Not connect.\n Verify Network.');
+								            } else if (jqXHR.status == 404) {
+								                alert('Requested page not found. [404]');
+								            } else if (jqXHR.status == 500) {
+								                alert('Internal Server Error [500].');
+								            } else if (exception === 'parsererror') {
+								                alert('Requested JSON parse failed.');
+								            } else if (exception === 'timeout') {
+								                alert('Time out error.');
+								            } else if (exception === 'abort') {
+								                alert('Ajax request aborted.');
+								            } else {
+								                alert('Uncaught Error.\n' + jqXHR.responseText);
+								            }
+								        }
+									});
+                       			}
+                       		}
                         }
+                        Unlock();
                 		break;
                     case q_name:
                         if (q_cur == 4)
