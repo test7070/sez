@@ -57,6 +57,9 @@
                 $('#textBdate').datepicker();
                 $('#textEdate').datepicker();
                 
+                Lock(1,{opacity:0});
+        		q_gt('carteam', '', 0, 0, 0, 'init_1');
+            		
                 $('#divImport').mousedown(function(e) {
                 	if(e.button==1){               		
 	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
@@ -127,73 +130,127 @@
                 	$('#divExport').hide();
                 });
             }
+            function getAddrInfo(n){
+            	if(n<0){
+            		sum();
+            		Unlock();
+            	}else{
+            		var t_addrno = $.trim($('#txtStraddrno_'+n).val());
+            		var t_trandate = $.trim($('#txtTrandate_'+n).val());
+            		if(t_addrno.length>0 && t_trandate.length>0){
+            			t_where = "where=^^noa='"+t_addrno+"' and datea<='"+t_trandate+"'^^";
+                		q_gt('addrs_lasttime', t_where, 0, 0, 0,'getAddrInfo_'+n, r_accy);
+            		}else{
+            			$('#txtPrice_'+n).val('0');
+            			$('#txtPrice2_'+n).val('0');
+            			$('#txtPrice3_'+n).val('0');
+            			getAddrInfo(n-1);
+            		}
+            	}
+            }
+            function getTaskContent(n){
+            	if(n<0){
+            		getAddrInfo(q_bbsCount-1);
+            	}else{
+           			var t_carno = $.trim($('#txtCarno_'+n).val());
+           			var t_commandid = $.trim($('#txtCommandid_'+n).val());
+           			if(t_carno.length>0 && t_commandid.length>0){
+           				var t_data = {
+		            		GroupName : encodeURI("CHITC195"),
+		            		CarId : encodeURI(t_carno),
+		            		CommandId : encodeURI(t_commandid),
+		            	};
+						var json = JSON.stringify(t_data);
+		            	//INPUT及OUTPUT參數,參照QueryCommandTaskContent.aspx
+		            	$.ajax({
+		            		sel:n,
+		            		carno: t_carno,
+						    url: 'QueryCommandTaskContent.aspx',
+						    type: 'POST',
+						    data: json,
+						    dataType: 'json',
+						    success: function(data){
+								$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
+								var t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+								if(t_caseno.length>0){
+									$('#txtCaseno_'+this.sel).val(t_caseno);
+								}
+						    },
+						    error: function(jqXHR, exception) {
+						    	alert('Error at '+this.sel+':'+this.carno);
+					            if (jqXHR.status === 0) {
+					                alert('Not connect.\n Verify Network.');
+					            } else if (jqXHR.status == 404) {
+					                alert('Requested page not found. [404]');
+					            } else if (jqXHR.status == 500) {
+					                alert('Internal Server Error [500].');
+					            } else if (exception === 'parsererror') {
+					                alert('Requested JSON parse failed.');
+					            } else if (exception === 'timeout') {
+					                alert('Time out error.');
+					            } else if (exception === 'abort') {
+					                alert('Ajax request aborted.');
+					            } else {
+					                alert('Uncaught Error.\n' + jqXHR.responseText);
+					            }
+					        },
+					        complete: function(){
+				        		getTaskContent(this.sel-1);	         
+					        }
+						});
+           			}
+            	}
+            }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'init_1':
+						var as = _q_appendData("carteam", "", true);
+						var t_item = "@";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+						}
+						q_cmbParse("cmbCarteamno", t_item,'s');
+						q_gt('calctype2', '', 0, 0, 0, 'init_2');
+						break;
+					case 'init_2':
+						var as = _q_appendData("calctypes", "", true);
+						var t_item = "@";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
+						}
+						q_cmbParse("cmbCalctype", t_item,'s');
+						Unlock(1);
+						break;
                 	case "transvcce_tran":
                 		var as = _q_appendData("transvcce_tran", "", true);
                         if (as[0] != undefined){
                         	//alert(as.length);
                         	
-                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtOutmount,txtTransvcceno,txtTransvccenoq,txtCommandid', as.length, as
-                        	, 'carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,mount,mount,transvcceno,transvccenoq,commandid', '', '');
-                       		
-                       		var t_data,json,t_commandid,t_carno;
-                       		for(var i=0;i<q_bbsCount;i++){
-                       			t_carno = $.trim($('#txtCarno_'+i).val());
-                       			t_commandid = $.trim($('#txtCommandid_'+i).val());
-                       			if(t_carno.length>0 && t_commandid.length>0){
-                       				t_data = {
-					            		GroupName : encodeURI("CHITC195"),
-					            		CarId : encodeURI(t_carno),
-					            		CommandId : encodeURI(t_commandid),
-					            	};
-									json = JSON.stringify(t_data);
-					            	//INPUT及OUTPUT參數,參照QueryCommandTaskContent.aspx
-					            	$.ajax({
-					            		sel:i,
-					            		carno: t_carno,
-									    url: 'QueryCommandTaskContent.aspx',
-									    type: 'POST',
-									    data: json,
-									    dataType: 'json',
-									    success: function(data){
-											$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
-											var t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
-											if(t_caseno.length>0){
-												$('#txtCaseno_'+this.sel).val(t_caseno);
-											}
-									    },
-								        complete: function(){		         
-								        },
-									    error: function(jqXHR, exception) {
-									    	alert('Error at '+this.sel+':'+this.carno);
-								            if (jqXHR.status === 0) {
-								                alert('Not connect.\n Verify Network.');
-								            } else if (jqXHR.status == 404) {
-								                alert('Requested page not found. [404]');
-								            } else if (jqXHR.status == 500) {
-								                alert('Internal Server Error [500].');
-								            } else if (exception === 'parsererror') {
-								                alert('Requested JSON parse failed.');
-								            } else if (exception === 'timeout') {
-								                alert('Time out error.');
-								            } else if (exception === 'abort') {
-								                alert('Ajax request aborted.');
-								            } else {
-								                alert('Uncaught Error.\n' + jqXHR.responseText);
-								            }
-								        }
-									});
-                       			}
-                       		}
+                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtTrandate,cmbCalctype,cmbCarteamno,txtDiscount,txtPo,txtSalesno,txtSales,txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtOutmount,txtTransvcceno,txtTransvccenoq,txtCommandid', as.length, as
+                        	, 'datea,datea,calctype,carteamno,discount,po,salesno,sales,carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,mount,mount,transvcceno,transvccenoq,commandid', '', '');
+                       		getAddrInfo(q_bbsCount-1);
                         }
-                        Unlock();
                 		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
+                    default:
+                    	if(t_name.substring(0,11)=='getAddrInfo'){
+                    		var as = _q_appendData("addrs", "", true);
+                    		if (as[0] != undefined){
+                    			$('#txtPrice_'+n).val(FormatNumber(as[0].custprice));
+		            			$('#txtPrice2_'+n).val(FormatNumber(as[0].driverprice));
+		            			$('#txtPrice3_'+n).val(FormatNumber(as[0].driverprice2));
+                    		}else{
+                    			$('#txtPrice_'+n).val('0');
+		            			$('#txtPrice2_'+n).val('0');
+		            			$('#txtPrice3_'+n).val('0');
+                    		}
+            				getTaskContent(n-1);
+                    	}
+                    	break;
                 }
             }
 
