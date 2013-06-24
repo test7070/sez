@@ -37,7 +37,8 @@
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtComp_', 'btnComp_', 'cust', 'comp,noa,nick', 'txtComp_,txtCustno2_,txtNick_', 'cust_b.aspx'],
             ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,namea,job,comp,custno,nick', 'txtCustno_,txtNamea_,txtReceiver_,txtJob_,txtComp_,txtCustno2_,txtNick_,txtMount_', 'giftcust_b.aspx'],
-            ['txtGiftno', 'lblGiftno', 'bcc', 'noa,product,price', 'txtGiftno,txtGift,txtPrice', 'bcc_b.aspx']);
+            ['txtGiftno', 'lblGiftno', 'bcc', 'noa,product,price', 'txtGiftno,txtGift,txtPrice', 'bcc_b.aspx'],
+            ['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtComp,txtNick', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -55,14 +56,14 @@
             }
 
             function mainPost() {
-                q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
+				q_getFormat();
+				bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 q_gt('store', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_cmbParse("cmbSendtype", ('').concat(new Array( '','宅配','邱董親送','同仁親送','自取')),'s');
-               q_cmbParse('cmbAddr', ('').concat(new Array( '','公司','住宅','其他')),'s');
+				q_cmbParse('cmbAddr', ('').concat(new Array( '','公司','住宅','其他')),'s');
                
                 $('#txtPrice').blur(function () {
 	            	for(var j = 0; j < q_bbsCount; j++) {
@@ -70,11 +71,12 @@
 	            	}
 	            	sum();
 	       		});
-	       		if ((/^.*(giftcust,1,[0|1],[0|1],[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
-		       $('#btnGiftcust').click(function () {
-		            q_box('giftcust.aspx', '', "92%", "92%", "禮品客戶主檔");
-		        })
-		       };
+	       		
+				if ((/^.*(giftcust,1,[0|1],[0|1],[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
+					$('#btnGiftcust').click(function () {
+						q_box('giftcust.aspx', '', "92%", "92%", "禮品客戶主檔");
+					})
+				};
 	       		
             }
 
@@ -502,7 +504,7 @@
 						<td class="td4"><span> </span><a id='lblSendmemo' class="lbl"> </a></td>
 						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select>
 							<input type="text" id="txtSendmemot" style="display: none;"/>
-							</td>	
+						</td>	
 						
 					</tr>
 					<tr>
@@ -511,7 +513,11 @@
 							<select id="cmbCno" class="txt c1"> </select>
 							<!--<input type="text" id="txtCno" class="txt c2"/>-->
 							<input type="hidden" id="txtAcomp" class="txt c3"/>
-						</td>	
+						</td>
+						<td class="td4"><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td class="td5" colspan="2"><input type="text" id="txtTggno" class="txt c2"/>
+							<input type="text" id="txtComp" class="txt c3"/><input type="hidden" id="txtNick"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno2' class="lbl"> </a></td>

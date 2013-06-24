@@ -96,6 +96,13 @@
 		            }
 		            q_box('ordbs_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
 			     });
+			     
+			     $('#txtFloata').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+				});
+				$('#txtTotal').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -164,11 +171,11 @@
                     return;
                 }
                 sum();
-                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+                if($('#cmbKind').val()=='1'){
                 	for (var j = 0; j < q_bbsCount; j++) {
                 		$('#txtProductno_'+j).val($('#txtProductno1_'+j).val());
 			         }
-              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+              	}else if($('#cmbKind').val()=='2'){
               		for (var j = 0; j < q_bbsCount; j++) {
 						$('#txtProductno_'+j).val($('#txtProductno2_'+j).val());
 			         }
@@ -348,7 +355,7 @@
             }
             
             function product_change() {
-                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+                if($('#cmbKind').val()=='1'){
                 	for (var j = 0; j < q_bbsCount; j++) {
                 		$('#btnProduct1_'+j).show();
 			           	$('#btnProduct2_'+j).hide();
@@ -358,7 +365,7 @@
 			           	$('#txtProductno3_'+j).hide();
 			           	$('#txtProductno1_'+j).val($('#txtProductno_'+j).val());
 			         }
-              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+              	}else if($('#cmbKind').val()=='2'){
               		for (var j = 0; j < q_bbsCount; j++) {
               			$('#btnProduct1_'+j).hide();
 			           	$('#btnProduct2_'+j).show();

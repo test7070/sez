@@ -66,6 +66,7 @@
                 $('#cmbPaytype').change(function () {
 	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
 			     });
+			     
 			     //變動按鈕
                 $('#cmbKind').change(function () {
                 	for (var j = 0; j < q_bbsCount; j++) {
@@ -73,7 +74,13 @@
 			         }
 	            	product_change();
 			     });
-                
+			     
+                $('#txtFloata').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+				});
+				$('#txtTotal').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -122,11 +129,11 @@
                     return;
                 }
                 
-                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+                if($('#cmbKind').val()=='1'){
                 	for (var j = 0; j < q_bbsCount; j++) {
                 		$('#txtProductno_'+j).val($('#txtProductno1_'+j).val());
 			         }
-              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+              	}else if($('#cmbKind').val()=='2'){
               		for (var j = 0; j < q_bbsCount; j++) {
 						$('#txtProductno_'+j).val($('#txtProductno2_'+j).val());
 			         }
@@ -176,9 +183,9 @@
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
-				                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+				                if($('#cmbKind').val()=='1'){
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno1_'+b_seq).val());
-				              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+				              	}else if($('#cmbKind').val()=='2'){
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno2_'+b_seq).val());
 				              	}else{
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
@@ -188,9 +195,9 @@
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
-				                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+				                if($('#cmbKind').val()=='1'){
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno1_'+b_seq).val());
-				              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+				              	}else if($('#cmbKind').val()=='2'){
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno2_'+b_seq).val());
 				              	}else{
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
@@ -200,9 +207,9 @@
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
-				                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+				                if($('#cmbKind').val()=='1'){
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno1_'+b_seq).val());
-				              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+				              	}else if($('#cmbKind').val()=='2'){
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno2_'+b_seq).val());
 				              	}else{
 							           	$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
@@ -378,7 +385,7 @@
                	return 0;//錯誤
             }
             function product_change() {
-                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+                if($('#cmbKind').val()=='1'){
                 	for (var j = 0; j < q_bbsCount; j++) {
                 		$('#btnProduct1_'+j).removeAttr('hidden');
 			           	$('#btnProduct2_'+j).attr('hidden', 'true');
@@ -388,7 +395,7 @@
 			           	$('#txtProductno3_'+j).attr('hidden', 'true');
 			           	$('#txtProductno1_'+j).val($('#txtProductno_'+j).val());
 			         }
-              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+              	}else if($('#cmbKind').val()=='2'){
               		for (var j = 0; j < q_bbsCount; j++) {
               			$('#btnProduct1_'+j).attr('hidden', 'true');
 			           	$('#btnProduct2_'+j).removeAttr('hidden');
