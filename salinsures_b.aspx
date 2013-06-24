@@ -94,7 +94,16 @@
 					if(emp($('#txtNoq_'+b_seq).val()) && !emp($('#txtMon_'+b_seq).val())&&!emp($('#txtCno_'+b_seq).val()))
 						$('#txtNoq_'+b_seq).val(replaceAll($('#txtMon_'+b_seq).val(),'/','')+$('#txtCno_'+b_seq).val());
 				});
-			
+				
+				//合計
+				$('#txtHe_person_'+j).blur(function() { 	t_IdSeq = -1;	q_bodyId($(this).attr('id'));	b_seq = t_IdSeq;	sumperson(b_seq); });
+				$('#txtLa_person_'+j).blur(function() { 	t_IdSeq = -1;	q_bodyId($(this).attr('id'));	b_seq = t_IdSeq;	sumperson(b_seq); });
+				$('#txtRe_person_'+j).blur(function() { 	t_IdSeq = -1;	q_bodyId($(this).attr('id'));	b_seq = t_IdSeq;	sumperson(b_seq); });
+				
+				$('#txtHe_comp_'+j).blur(function() { 	t_IdSeq = -1;	q_bodyId($(this).attr('id'));	b_seq = t_IdSeq;	sumcomp(b_seq); });
+				$('#txtLa_comp_'+j).blur(function() { 	t_IdSeq = -1;	q_bodyId($(this).attr('id'));	b_seq = t_IdSeq;	sumcomp(b_seq); });
+				$('#txtRe_comp_'+j).blur(function() { 	t_IdSeq = -1;	q_bodyId($(this).attr('id'));	b_seq = t_IdSeq;	sumcomp(b_seq); });
+				
 			}
 			_bbsAssign();
 		}
@@ -135,6 +144,15 @@
         function refresh() {
             _refresh();
         }
+        
+        function sumperson(xseq) {
+            q_tr('txtTotal1_'+xseq,q_float('txtHe_person_'+xseq)+q_float('txtLa_person_'+xseq)+q_float('txtRe_person_'+xseq));
+        }
+        
+        function sumcomp(xseq) {
+            q_tr('txtTotal2_'+xseq,q_float('txtHe_comp_'+xseq)+q_float('txtLa_comp_'+xseq)+q_float('txtRe_comp_'+xseq));
+        }
+        
     </script>
     <style type="text/css">
         .tbbs
