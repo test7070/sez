@@ -64,7 +64,6 @@
 	                        for ( i = 0; i < as.length; i++) {
 	                            t_carkind += (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
 	                        }
-	                        t_carkind += (t_carkind.length > 0 ? ',' : '') +  'all@全部';
                         }
                         break;
                     case 'carteam':
