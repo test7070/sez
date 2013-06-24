@@ -64,6 +64,7 @@
 				t_edate = $('#txtEdate').val();
 				t_custno = $.trim($('#txtCustno').val());
 				t_cust = $.trim($('#txtCust').val());
+				t_accno = $('#txtAccno').val();
 
 				var t_where = " 1=1 "
 				+ q_sqlPara2("cno", t_cno)
@@ -72,6 +73,7 @@
 				+ q_sqlPara2("noa", t_noa)
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("datea", t_bdate, t_edate)
+				+ q_sqlPara2("accno", t_accno)
 				+ q_sqlPara2("custno", t_custno);
 				if (t_cust.length > 0)
                     t_where += " and patindex('%" + t_cust + "%',comp)>0";
@@ -146,6 +148,10 @@
 				<tr class='seek_tr'>
 					<td><a id='lblCust'> </a></td>
 					<td><input id="txtCust" type="text"/></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblAccno'> </a></td>
+					<td><input id="txtAccno" type="text"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

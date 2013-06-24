@@ -490,6 +490,9 @@
 						<td><input id="txtOilbase" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id='lblOildate' class="lbl"> </a></td>
 						<td><input id="txtOildate" type="text"  class="txt c1"/></td>
+						<td class="td3"></td>
+                		<td class="td4"><input id="chkEnda"  type="checkbox" />
+                						<span> </span><a id='lblEnda'> </a></td>
 					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblStype" class="lbl btn"> </a>
