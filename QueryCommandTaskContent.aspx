@@ -2,7 +2,6 @@
     <script language="c#" runat="server">
         public class QueryCommandTaskContent
         {
-            public string GroupName;
             public string CarId;           
             public string CommandId;
         }   
@@ -16,7 +15,6 @@
 
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             var item = serializer.Deserialize<QueryCommandTaskContent>(System.Text.Encoding.Default.GetString(formData)); 
-			item.GroupName = System.Web.HttpUtility.UrlDecode(item.GroupName);
 			item.CarId = System.Web.HttpUtility.UrlDecode(item.CarId);
 			item.CommandId = System.Web.HttpUtility.UrlDecode(item.CommandId);
 
@@ -24,7 +22,7 @@
             string parame = "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
                         " <soap:Body>" +
                         "   <QueryCommandTaskContent xmlns=\"http://tempuri.org/\">" +
-                        "     <GroupName>"+item.GroupName+"</GroupName>" +
+                        "     <GroupName>CHITC195</GroupName>" +
                         "     <CarId>"+item.CarId+"</CarId>" +
                         "     <CommandId>"+item.CommandId+"</CommandId>" +
                         "     <TaskContent> </TaskContent>" +
