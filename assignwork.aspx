@@ -333,6 +333,8 @@
 	            for (var j = 0; j < projectnumber; j++) {
 	            	$('#checkProjectno'+j)[0].checked=false;
 	            }
+	            $('#chkEnda')[0].checked=false;
+	            $('#chkIscombine')[0].checked=false;
             }
            
             function btnModi() {
