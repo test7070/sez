@@ -20,9 +20,8 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-		
-		['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+		aPop = new Array(['txtInspection_compno', 'lblInspection_comp', 'tgg', 'noa,comp', 'txtInspection_compno,txtInspection_comp', 'tgg_b.aspx'],
+		['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -40,7 +39,7 @@
         }  
 
         function mainPost() { 
-            bbmMask = [['txtDate1', r_picd],['txtDate2', r_picd],['txtLcdate', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtEta', r_picd],['txtEtd', r_picd],['txtOnboarddate', r_picd],['txtShippingdate', r_picd],['txtCldate', r_picd]];
         	q_mask(bbmMask);
         	 
         }        
@@ -355,11 +354,13 @@
                <td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr4">
-               <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtInspection_compno" type="text" class="txt c2"/>
+               <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"></a></td>
+               <td class="td2" colspan="3"><input id="txtInspection_compno" type="text" class="txt c2"/>
                							   <input id="txtInspection_comp" type="text" class="txt c3"/></td>
-               <td class="td4"><span> </span><a id="lblBcomp" class="lbl"></a></td>
-               <td class="td5" colspan="2"><input id="txtBcompno" type="text" class="txt c2"/>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id="lblBcomp" class="lbl btn"></a></td>
+               <td class="td2" colspan="3"><input id="txtBcompno" type="text" class="txt c2"/>
                							   <input id="txtBcomp" type="text" class="txt c3"/></td> 
             </tr>
             <tr class="tr5">
