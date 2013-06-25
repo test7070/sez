@@ -204,8 +204,14 @@
 						    success: function(data){
 								$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
 								var t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+								var t_caseno2 = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
 								if(t_caseno.length>0){
-									$('#txtCaseno_'+this.sel).val(t_caseno);
+									if(t_caseno2.length>0){
+										$('#txtCaseno2_'+this.sel).val(t_caseno);
+										$('#txtCaseno_'+this.sel).val(t_caseno2);
+									}else{
+										$('#txtCaseno_'+this.sel).val(t_caseno);
+									}
 								}
 						    },
 						    error: function(jqXHR, exception) {
