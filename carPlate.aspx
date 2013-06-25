@@ -389,7 +389,8 @@
 						<td class="td2"><input id="txtCarplate"  type="text"  class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblCardno' class="lbl"></a></td>
 						<td class="td4"><input id="txtCardno"  type="text"  class="txt c1"/></td>
-						<td class="td5"></td>
+						<td class="td5"><input id="chkEnda"  type="checkbox" />
+                						<span> </span><a id='lblEnda'> </a></td>
 						<td class="td6"></td>
 					</tr>
 					<tr>
@@ -400,6 +401,7 @@
 						</td>
 						<td class="td3"><span> </span><a id='lblChassisnum' class="lbl"></a></td>
 						<td class="td4"><input id="txtChassisnum"  type="text"  class="txt c1"/></td>
+						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSize' class="lbl"></a></td>
