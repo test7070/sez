@@ -36,7 +36,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype', 'txtCustno,txtComp,txtPaytype', 'cust_b.aspx'],
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_fact,addr_fact',
+            	 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
             $(document).ready(function() {
@@ -86,7 +87,48 @@
 				$('#txtTotal').change(function () {
 		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 				});
+				$('#lblContract').click(function(){
+					var t_contract = $.trim($('#txtContract').val());
+					q_box("contst.aspx?;;;contract='" + t_contract + "';"+r_accy, 'cont', "95%", "95%", q_getMsg("popContst"));
+				})
+				$('#btnQuatst2Contst').click(function(){
+					//動作執行順序 : 確認系統參數 > 確認欄位是否留空 > 產生對話框詢問是否執行 > 如選市則執行func否則跳出
+					if((q_cur == 0 || q_cur == 4) && !emp($.trim($('#txtNoa').val()))){
+						var t_quatstnoa = encodeURI($.trim($('#txtNoa').val()));
+						var t_datea = encodeURI($.trim($('#txtDatea').val()));
+						var t_contno = encodeURI($.trim($('#txtContract').val()));
+						var t_contPreFix = encodeURI(q_getPara('sys.key_contst'));
+						if(emp(r_accy) || emp(r_name) || emp(t_contPreFix)){
+							alert('系統參數錯誤!!');
+							return ;
+						}else if(emp(t_quatstnoa) || t_quatstnoa == 'AUTO'){
+							alert('請先產生' + q_getMsg('lblNoa'));
+							return;
+						}else if(emp(t_datea)){
+							alert(q_getMsg('lblDatea') + '禁止為空!!');
+							return;
+						}else if(emp(t_contno)){
+							alert('請先輸入' + q_getMsg('lblContract'));
+							return;
+						}
+						var todo=confirm('你確定要執行嗎?');
+						if(todo == true){
+							q_func('qtxt.query.quatst2contst','quatst2contst.txt,quatst2contst,'+encodeURI(r_accy)+';'+t_quatstnoa+';'+
+									t_datea+';'+t_contno+';' + t_contPreFix + ';' + encodeURI(r_name));
+						}
+					}else{
+						alert('請點選確定後存檔才能執行!!');
+					}
+				});
             }
+
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.quatst2contst':
+						alert('執行成功!!');
+					break;
+				}
+			}
 
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var
@@ -296,9 +338,9 @@
 
             function wrServer(key_value) {
                 var i;
-
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+				console.log(q_cur);
             }
 
             function bbsSave(as) {
@@ -404,60 +446,60 @@
                 _btnCancel();
             }
             
-		function size_change () {
-		  if($('#cmbKind').val().substr(0,1)=='A'){
-            $('#lblSize_help').html("厚度x寬度x長度");
-	        	for (var j = 0; j < q_bbsCount; j++) {
-	            	$('#textSize1_'+j).show();
-	            	$('#textSize2_'+j).show();
-	            	$('#textSize3_'+j).show();
-			        $('#textSize4_'+j).hide();
-			        $('#x1_'+j).show();
-			        $('#x2_'+j).show();
-			        $('#x3_'+j).hide();
-			        $('#Size').css('width','222px');
-			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
+		function size_change() {
+			if($('#cmbKind').val().substr(0,1)=='A'){
+	            $('#lblSize_help').html("厚度x寬度x長度");
+		        	for (var j = 0; j < q_bbsCount; j++) {
+		            	$('#textSize1_'+j).show();
+		            	$('#textSize2_'+j).show();
+		            	$('#textSize3_'+j).show();
+				        $('#textSize4_'+j).hide();
+				        $('#x1_'+j).show();
+				        $('#x2_'+j).show();
+				        $('#x3_'+j).hide();
+				        $('#Size').css('width','222px');
+				        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
+				        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+				        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+				        $('#textSize4_'+j).val(0);
+				        $('#txtRadius_'+j).val(0)
+					}
+				}else if($('#cmbKind').val().substr(0,1)=='B'){
+					$('#lblSize_help').html("短徑x長徑x厚度x長度");
+				    for (var j = 0; j < q_bbsCount; j++) {
+				    	$('#textSize1_'+j).show();
+		            	$('#textSize2_'+j).show();
+		            	$('#textSize3_'+j).show();
+				        $('#textSize4_'+j).show();
+				        $('#x1_'+j).show();
+				        $('#x2_'+j).show();
+				        $('#x3_'+j).show();
+				        $('#Size').css('width','297px');
+				        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
+				        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+				        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
+				        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+					}
+				}else{//鋼筋和鋼胚
+					$('#lblSize_help').text("長度");
+		            for (var j = 0; j < q_bbsCount; j++) {
+		            	$('#textSize1_'+j).hide();
+		            	$('#textSize2_'+j).hide();
+		            	$('#textSize3_'+j).show();
+				        $('#textSize4_'+j).hide();
+				        $('#x1_'+j).hide();
+				        $('#x2_'+j).hide();
+				        $('#x3_'+j).hide();
+				        $('#Size').css('width','70px');
+				        $('#textSize1_'+j).val(0);
+				        $('#txtDime_'+j).val(0)
+				        $('#textSize2_'+j).val(0);
+				        $('#txtWidth_'+j).val(0)
+				        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+				        $('#textSize4_'+j).val(0);
+				        $('#txtRadius_'+j).val(0)
+					}
 				}
-			}else if($('#cmbKind').val().substr(0,1)=='B'){
-				$('#lblSize_help').html("短徑x長徑x厚度x長度");
-			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#textSize1_'+j).show();
-	            	$('#textSize2_'+j).show();
-	            	$('#textSize3_'+j).show();
-			        $('#textSize4_'+j).show();
-			        $('#x1_'+j).show();
-			        $('#x2_'+j).show();
-			        $('#x3_'+j).show();
-			        $('#Size').css('width','297px');
-			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
-				}
-			}else{//鋼筋和鋼胚
-				$('#lblSize_help').text("長度");
-	            for (var j = 0; j < q_bbsCount; j++) {
-	            	$('#textSize1_'+j).hide();
-	            	$('#textSize2_'+j).hide();
-	            	$('#textSize3_'+j).show();
-			        $('#textSize4_'+j).hide();
-			        $('#x1_'+j).hide();
-			        $('#x2_'+j).hide();
-			        $('#x3_'+j).hide();
-			        $('#Size').css('width','70px');
-			        $('#textSize1_'+j).val(0);
-			        $('#txtDime_'+j).val(0)
-			        $('#textSize2_'+j).val(0);
-			        $('#txtWidth_'+j).val(0)
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
-				}
-			}
 		}
 		function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
 			var calc="";
@@ -669,7 +711,11 @@
       
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain'>
         <div class="dview" id="dview">
@@ -707,7 +753,7 @@
                <td class="td4"><span> </span><a id='lblFloata' class="lbl"></a></td>
                <td class="td5"><select id="cmbCoin" class="txt c1" ></select></td>                 
                <td class="td6"><input id="txtFloata"  type="text"  class="txt num c1" /></td>                 
-               <td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
+               <td class="td7"><span> </span><a id='lblContract' class="lbl btn"></a></td>
                <td class="td8"><input id="txtContract"  type="text"  class="txt c1"/></td> 
             </tr>
            <tr class="tr3">
@@ -717,8 +763,8 @@
                 <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
                 <td class="td5"><input id="txtPaytype" type="text" class="txt c1" /></td> 
                 <td class="td6"><select id="combPaytype" class="txt c1"  onchange='combPaytype_chg()'></select></td> 
-                <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
-                <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
+                <td class="td7"></td> 
+                <td class="td8"><input id="btnQuatst2Contst" type="button"/></td> 
             </tr>
             <tr class="tr4">
                 <td class="td1"><span> </span><a id="lblSales" class="lbl btn"></a></td>
@@ -733,16 +779,16 @@
                 <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
                 <td class="td2"><input id="txtPost" type="text"  class="txt c1"></td>
                 <td class="td3" colspan='4' ><input id="txtAddr" type="text"  class="txt c1" /></td>
-                 <td class='td7'><span> </span><a id="lblKind" class="lbl"> </a></td>
-            	<td class="td8"><select id="cmbKind" class="txt c1"> </select></td>
-            </tr>
+                <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
+                <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
+           </tr>
             <tr class="tr6">
                 <td class="td1"><span> </span><a id='lblAddr2' class="lbl"></a></td>
                 <td class="td2"><input id="txtPost2"  type="text"  class="txt c1"/></td>
                 <td class="td3" colspan='4'><input id="txtAddr2"  type="text"  class="txt c1"/></td>
-                <td class="td7"><span> </span><a id='lblApv' class="lbl"></a></td>
-                <td class="td8"><input id="txtApv"  type="text"  class="txt c1" disabled="disabled"/></td> 
-            </tr>
+                <td class='td7'><span> </span><a id="lblKind" class="lbl"> </a></td>
+            	<td class="td8"><select id="cmbKind" class="txt c1"> </select></td>
+             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
                 <td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1" /></td> 
@@ -758,35 +804,39 @@
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text"  class="txt num c1" /></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2' ><input id="txtWeight"  type="text"  class="txt num c1" /></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
-                <td class="td8"><input id="txtWorker"  type="text" class="txt c1" /></td> 
+                <td class="td7"><span> </span><a id='lblApv' class="lbl"></a></td>
+                <td class="td8"><input id="txtApv"  type="text"  class="txt c1" disabled="disabled"/></td> 
             </tr>
-					<tr style="display: none;">
-						<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight_st' class="trTitle"> </a></td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr style="display: none;">
-						<td class="trX"><span> </span><a id='lblGweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtGweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblEweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtEweight" type="text" class="txt c1 num" /></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblOrdgweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtOrdgweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblOrdeweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtOrdeweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblCtrlweight' class="lbl"> </a></td>
-						<td class="trX"><input id="chkCtrlweight" type="checkbox"/></td>
-						<td class="trX"><span> </span><a id='lblEnda' class="lbl"> </a></td>
-						<td class="trX"><input id="chkEnda" type="checkbox"/></td>
-						<td class="tdZ trX"> </td>
-					</tr>
+			<tr style="display: none;">
+				<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight_st' class="trTitle"> </a></td>
+				<td class="tdZ trX"> </td>
+			</tr>
+			<tr style="display: none;">
+				<td class="trX"><span> </span><a id='lblGweight' class="lbl"> </a></td>
+				<td class="trX"><input id="txtGweight" type="text" class="txt c1 num" /></td>
+				<td class="trX"><span> </span><a id='lblEweight' class="lbl"> </a></td>
+				<td class="trX"><input id="txtEweight" type="text" class="txt c1 num" /></td>
+				<td class="tdZ trX"> </td>
+				<td class="tdZ trX"> </td>
+				<td class="tdZ trX"> </td>
+				<td class="tdZ trX"> </td>
+				<td class="tdZ trX"> </td>
+			</tr>
+			<tr>
+				<td class="trX"><span> </span><a id='lblOrdgweight' class="lbl"> </a></td>
+				<td class="trX"><input id="txtOrdgweight" type="text" class="txt c1 num" /></td>
+				<td class="trX"><span> </span><a id='lblOrdeweight' class="lbl"> </a></td>
+				<td class="trX"><input id="txtOrdeweight" type="text" class="txt c1 num" /></td>
+				<td class="trX" colspan="2" align="center">
+					<span> </span><a id='lblCtrlweight'> </a>
+					<input id="chkCtrlweight" type="checkbox"/>
+					<span> </span><a id='lblEnda'> </a>
+					<input id="chkEnda" type="checkbox"/>
+				</td>
+                <td class="trX"><span> </span><a id='lblWorker' class="lbl"></a></td>
+                <td class="trX"><input id="txtWorker"  type="text" class="txt c1" /></td> 
+				<td class="tdZ trX"> </td>
+			</tr>
             <tr class="tr9">
             	<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                 <td class="td2" colspan='7' ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>

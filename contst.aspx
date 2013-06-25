@@ -57,10 +57,7 @@
             }
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
-                q_mask(bbmMask);
                 q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
-                q_getFormat();
                 bbmMask = [['txtEnddate', r_picd],['txtDatea', r_picd], ['txtPledgedate', r_picd], ['txtPaydate', r_picd], ['txtBcontdate', r_picd], ['txtEcontdate', r_picd], ['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array('', '定存單質押', '不可撤銷保證', '銀行本票質押', '商業本票質押', '現金質押')));
@@ -97,42 +94,12 @@
                 }
                 b_pop = '';
             }
-            var xstype = '';
-            var stypenumber = 0;
-
+            
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'ucc_style':
             			theory_st(q_name,b_seq,'txtTheory');
             		break;
-                    case 'conttype':
-                        var as = _q_appendData("conttype", "", true);
-                        stypenumber = as.length;
-                        xstype += "<table style='width:100%;'>"
-                        for (var i = 0; i < as.length; i++) {
-                            if (i % 4 == 0)
-                                xstype += "<tr style='height: 20px;'>";
-                            xstype += "<td><input id='checkStype" + i + "' type='checkbox' style='float: left;' value='" + as[i].noa + "' disabled='disabled'/><a class='lbl'  id='stypeno" + i + "' style='float: left;'>" + as[i].typea + "</a></td>"
-                            if (i % 4 == 3)
-                                xstype += "</tr>";
-                        }
-                        xstype += "</table>"
-                        $('#stype').append(xstype);
-                        if (abbm[q_recno]) {
-                            //更新勾選
-                            var xstypeno = abbm[q_recno].stype.split(',');
-                            for (var j = 0; j < stypenumber; j++) {
-                                for (var i = 0; i < xstypeno.length; i++) {
-                                    if ($('#checkStype' + j).val() == xstypeno[i]) {
-                                        $('#checkStype'+j)[0].checked = true;
-                                        break;
-                                    } else {
-                                        $('#checkStype'+j)[0].checked = false;
-                                    }
-                                }
-                            }
-                        }
-                        break;
                     case 'acomp':
                     var as = _q_appendData("acomp", "", true);
                     	var t_item = " @ ";
@@ -163,16 +130,6 @@
                     alert(t_err);
                     return;
                 }
-                var stypeno = '';
-                for (var i = 0; i < stypenumber; i++) {
-                    if ($('#checkStype'+i)[0].checked) {
-                        stypeno += "," + $('#checkStype' + i).val();
-                    }
-                }
-                stypeno = stypeno.substr(1, stypeno.length);
-
-                $('#txtStype').val(stypeno);
-                
                 $('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#cmbCnonick').val($('#cmbCno').val());
                 $('#txtAcompnick').val($('#cmbCnonick').find(":selected").text());
@@ -185,7 +142,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll('C' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_contst') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -293,12 +250,6 @@
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 $('#txtTotal').val('0');
-
-                //清除勾選
-                for (var j = 0; j < stypenumber; j++) {
-                    $('#checkStype'+j)[0].checked = false;
-                }
-
             }
 
             function btnModi() {
@@ -334,16 +285,19 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+					
                 }  // j
 
             }
 
             function refresh(recno) {
                 _refresh(recno);
-                size_change();
             }
-
+			
+			function q_refreshf(){
+				size_change();
+			}
+			
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
@@ -353,9 +307,6 @@
 				        $('#textSize3_'+j).attr('disabled', 'disabled');
 				        $('#textSize4_'+j).attr('disabled', 'disabled');
 					}
-                    for (var i = 0; i < stypenumber; i++) {
-                        $('#checkStype' + i).attr('disabled', 'disabled');
-                    }
 				}else {
 					for (var j = 0; j < q_bbsCount; j++) {
 				    	$('#textSize1_'+j).removeAttr('disabled');
@@ -363,9 +314,6 @@
 				        $('#textSize3_'+j).removeAttr('disabled');
 				        $('#textSize4_'+j).removeAttr('disabled');
 					}
-                    for (var i = 0; i < stypenumber; i++) {
-                        $('#checkStype' + i).removeAttr('disabled');
-                    }
 
 				}
             }

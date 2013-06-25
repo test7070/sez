@@ -137,8 +137,10 @@
 		        //20130614 加入全選
 		        $('#btnCheckall').click(function () {
 					for (var i = 0; i < q_bbsCount; i++) {
-						if(!emp($('#txtCustno_' +i).val()))
+						if(!emp($('#txtCustno_' +i).val())){
 		            		$('#chkIssel_' +i)[0].checked=true;
+		            		$('#trSel_'+ i).addClass('chkIssel');//變色
+		            	}
 					}
 		        });
 		    }
@@ -247,7 +249,7 @@
 		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay);
-		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
+		        q_tr('txtUnpay', q_float('txtPaysale')-q_float('txtTotal'));
 		    }
 
 		    function btnOk() {
@@ -265,27 +267,12 @@
             	$('#txtPart2').val(t_part);
             	$('#txtCheckno').val(t_checkno);
             	
-		        var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
+		        var t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')],['txtDatea', q_getMsg('lblDatea')]]);  // 檢查空白 
 		        if (t_err.length > 0) {
 		            alert(t_err);
 		            return;
 		        }
-		        
-		        var t_money=0;
-		        for (var j = 0; j < q_bbsCount; j++) {
-		        	t_money+=q_float('txtMoney_' + j);
-		        }
-		        
-		        if ($.trim($('#txtTggno').val()) == 0) {
-		            alert(m_empty + q_getMsg('lblTgg'));
-		            return false;
-		        }
-
-                if(q_cur ==1){
-                	$('#txtWorker').val(r_name);
-                }else if(q_cur ==2){
-                	$('#txtWorker2').val(r_name);
-                }
+		             
 		        var t_money = 0, t_chgs = 0, t_paysale,t_mon='';
 		        for (var i = 0; i < q_bbsCount; i++) {
 		            t_money = q_float('txtMoney_' + i);
@@ -295,18 +282,27 @@
 		                    t_err = true;
 		                    break;
 		            }
-
-		           if (t_money != 0 || i == 0)
-		                t_mon = $('#txtRc2no_' + i).val();
 		        }
 
-		        sum();
-		        if (t_err) {
+				if (t_err) {
 		            alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
 		            return false;
 		        }
+				
+		        sum();
 		        
-		        $('#txtWorker').val(r_name);
+		        //1020625炳圳：付款金額!=本次沖帳不要存檔--會計傳票會有問題
+		        if($('#txtPaysale').val()!=$('#txtTotal').val()){
+		        	alert("『本次沖帳金額』 不等於 『付款金額』");
+		        	return false;
+		        }
+		        
+		        
+		        if(q_cur ==1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                	$('#txtWorker2').val(r_name);
+                }
 		        
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
