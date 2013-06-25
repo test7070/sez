@@ -639,11 +639,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 30%;
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 70%;
                 float: left;
             }
             .txt.c6 {
