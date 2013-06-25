@@ -27,7 +27,7 @@
         var q_readonlys = [];
         var q_readonlyt = [];
         var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtMount', 12, 3], ['txtWeight', 11, 2], ['txtHours', 9, 2]];
+        var bbsNum = [['txtMount', 12, 0], ['txtWeight', 11, 2], ['txtHours', 9, 2]];
         var bbtNum = [['txtMount_', 12, 0 ,1],['txtWeight_', 12, 2 ,1],['txtPrice_', 12, 2 ,1],['txtEndmount_', 12, 0 ,1],['txtEndweight_', 12, 2 ,1]]; 
         var bbmMask = [];
         var bbsMask = [];
@@ -132,6 +132,38 @@
                 alert(t_err);
                 return;
             }
+            
+            //判斷bbt是否有值並判斷其一托工流程是否有填寫製成品編號(最後一個托工流程的製成品會是物品編號)
+            var tcount=false,endnoa=false;
+            for (var i = 0; i < q_bbtCount; i++) {
+            	if(!tcount&&!emp($('#txtProcess__'+i).val()))
+            		tcount=true;
+            	if($('#txtProductno2__'+i).val()==$('#txtNoa').val())
+            		endnoa=true;
+            }
+            if(tcount && !endnoa){//有托工，但沒指定最後一個托工流程
+            	alert('請指定一個托工流程為最後流程(在『在製編號』內填寫『物品編號』)');
+            	return;
+            }
+            
+            //產生bbt的在製編號
+            var noqt=0;
+            for (var i = 0; i < q_bbtCount; i++) {
+            	noqt+=1;
+            	//檢查是否重複編號
+            	for (var j = 0; j < q_bbtCount&&emp($('#txtProductno2__'+i).val()); j++) {
+            		if(!emp($('#txtProductno2__'+j).val())&&$('#txtProductno2__'+j).val()==($('#txtNoa').val()+'-'+$('#txtTggno__'+i).val()+'-'+('000'+noqt).substr(-3)))
+            		{
+            			i--;
+            			break;
+            		}
+            	}
+            	
+            	if(!emp($('#txtProcess__'+i).val())&&!emp($('#txtTggno__'+i).val())&&emp($('#txtProductno2__'+i).val())){
+            		$('#txtProductno2__'+i).val($('#txtNoa').val()+'-'+$('#txtTggno__'+i).val()+'-'+('000'+noqt).substr(-3));
+            	}
+            }
+            
 
             $('#txtWorker').val(r_name)
             sum();
