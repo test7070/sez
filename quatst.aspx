@@ -36,7 +36,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_fact,addr_fact', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx'],
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_fact,addr_fact',
+            	 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
             $(document).ready(function() {
@@ -86,6 +87,10 @@
 				$('#txtTotal').change(function () {
 		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 				});
+				$('#lblContract').click(function(){
+					var t_contract = $.trim($('#txtContract').val());
+					q_box("contst.aspx?;;;contract='" + t_contract + "';"+r_accy, 'cont', "95%", "95%", q_getMsg("popContst"));
+				})
 				$('#btnQuatst2Contst').click(function(){
 					//動作執行順序 : 確認系統參數 > 確認欄位是否留空 > 產生對話框詢問是否執行 > 如選市則執行func否則跳出
 					if((q_cur == 0 || q_cur == 4) && !emp($.trim($('#txtNoa').val()))){
@@ -748,7 +753,7 @@
                <td class="td4"><span> </span><a id='lblFloata' class="lbl"></a></td>
                <td class="td5"><select id="cmbCoin" class="txt c1" ></select></td>                 
                <td class="td6"><input id="txtFloata"  type="text"  class="txt num c1" /></td>                 
-               <td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
+               <td class="td7"><span> </span><a id='lblContract' class="lbl btn"></a></td>
                <td class="td8"><input id="txtContract"  type="text"  class="txt c1"/></td> 
             </tr>
            <tr class="tr3">
