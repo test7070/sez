@@ -27,49 +27,53 @@
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_tranorde',
-                    options : [{
+                    options : [{/*[1]-年度*/
                         type : '0',
                         name : 'accy',
                         value : q_getId()[4]
-                    }, {
+                    }, {/*[2]*/
                         type : '0',
                         name : 'namea',
                         value : r_name
-                    }, {/*1*/
+                    }, {/*[3][4] 1-1*/
                         type : '1',
                         name : 'strdate'
-                    }, {/*2*/
+                    }, {/*[5][6] 1-2*/
                         type : '1',
                         name : 'dldate'
-                    }, {/*3*/
+                    }, {/*[7][8] 1-4*/
                         type : '2',
                         name : 'cust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    },{
+                    },{/*[9][10] 1-8*/
                         type : '1',
                         name : 'odate'
-                    }, {
+                    }, {/*[11][12] 2-1*/
                         type : '2',
                         name : 'sales',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
-                    }, {
+                    }, {/*[13][14] 2-2*/
                         type : '2',
                         name : 'addrno',
                         dbf : 'addr',
                         index : 'noa,namea',
                         src : 'addr_b.aspx'
-                    }, {/*7*/
+                    }, {/*[15] 2-4*/
                          	type : '8',
                             name : 'xdetail',
                             value : q_getMsg('tdetail').split('&')
-                        },{
+                    },{/*[16] 2-8*/
                         type : '8',
                         name : 'xctype',
                         value : (('').concat(new Array("貨櫃","平板","散裝"))).split(',')
+                    }, {/*[17] 3-1*/
+                        type : '5',
+                        name : 'xsort1',//[11]
+                        value : q_getMsg('tsort1').split('&')
                     }]
                 });
                 q_popAssign();
