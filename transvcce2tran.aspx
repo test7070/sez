@@ -279,6 +279,7 @@
                         	
                         	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtTrandate,cmbCalctype,cmbCarteamno,txtDiscount,txtPo,txtSalesno,txtSales,txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtOutmount,txtTransvcceno,txtTransvccenoq,txtCommandid', as.length, as
                         	, 'datea,datea,calctype,carteamno,discount,po,salesno,sales,carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,mount,mount,transvcceno,transvccenoq,commandid', '', '');
+                       		Lock();//畫面大小變動了
                        		for(var i=0;i<q_bbsCount;i++){
                        			$('#txtPton_'+i).val('0');
                        			$('#txtPton2_'+i).val('0');
