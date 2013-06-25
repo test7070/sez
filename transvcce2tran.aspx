@@ -767,12 +767,6 @@
             .tbbm tr td {
                 width: 10%;
             }
-            .tbbm .trX{
-                background-color: #FFEC8B;
-            }
-            .tbbm .trY{
-                background-color: #DAA520;
-            }
             .tbbm .tdZ {
                 width: 1%;
             }
