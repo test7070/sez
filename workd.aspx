@@ -31,7 +31,7 @@
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         	['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-        	['txtWorkno','lblWorknos','work','noa,stationno,station,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp','txtWorkno,txtStationno,txtStation,txtProcessno,txtProcess,txtModelno,txtModel,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
+        	['txtWorkno','lblWorknos','work','noa,productno,product,tggno,comp','txtWorkno,txtProductno,txtProduct,txtTggno,txtTgg,','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
         );
 
         $(document).ready(function () {
@@ -75,7 +75,7 @@
 			});
 			
 			$('#lblWorkno').click(function(){
-				var t_where="1=1"
+				var t_where="enda!=1 "
 				t_where += emp($('#txtWorkno').val())?'':" and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
 				t_where += emp($('#txtTggno').val())?'':" and charindex ('"+$('#txtTggno').val()+"',tggno)>0 ";
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
@@ -114,15 +114,16 @@
 							
 							if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
-								as[i].xweight=as[i].inmount;
+								as[i].xweight=as[i].mount;
 							}else{
-								as[i].xmount=as[i].inmount;
+								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
 							}
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo', as.length, as
-														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo,txtPrice', as.length, as
+														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo,price'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
+					sum();
 				 break;
 				case 'view_workcs':
 					var as = _q_appendData("view_workcs", "", true);
@@ -208,8 +209,7 @@
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];
-            as['custno'] = abbm2['custno'];
+            as['datea'] = abbm2['datea'];
             return true;
         }
 
@@ -217,9 +217,12 @@
             var t_mount = 0;t_price = 0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_mount = dec($('#txtMount_' + j).val());
+				t_weight = dec($('#txtWeight_' + j).val());
 				t_price = dec($('#txtPrice_' + j).val());
-				if(!emp(t_mount) || !emp(t_price))
-					$('#txtTotal_' + j).val(t_mount*t_price);
+				if($('#txtUnit_' + j).val().toUpperCase()!='KG') 
+					$('#txtTotal_' + j).val(round(t_mount*t_price,2));
+				else
+					$('#txtTotal_' + j).val(round(t_weight*t_price,2));
             }  // j
             
         }

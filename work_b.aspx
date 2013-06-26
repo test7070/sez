@@ -15,7 +15,8 @@
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
     var i, s1;
-        
+        brwCount2 = 0;
+        brwCount = -1;
         $(document).ready(function () {
             main();
         });         /// end ready

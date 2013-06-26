@@ -397,6 +397,8 @@
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
                <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id="lblVccno" class="lbl"></a></td>
+               <td class="td6"><input id="txtVccno" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblBilloflading" class="lbl"></a></td>

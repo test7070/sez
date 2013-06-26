@@ -70,14 +70,11 @@
 		
 		    function bbsSave(as) {
 		        if (!as['uno']) {  // Dont Save Condition
-		            as[bbsKey[0]] = '';   /// noa  empty --> dont save
-		            return;
-		        }
-		
-		        q_getId2('', as);  // write keys to as
-		
-		        return true;
-		
+		           as[bbsKey[0]] = '';   /// noa  empty --> dont save
+            	return;
+        		}
+        		q_getId2('', as);  // write keys to as
+        		return true;
 		    }
 		
 		    function btnModi() {
@@ -148,6 +145,7 @@
 					<td class="td9" align="center" style="width:8%;"><a id='lblMount_s'></a></td>
 					<td class="td10" align="center" style="width:8%;"><a id='lblGweight_s'></a></td>
 					<td class="td11" align="center" style="width:8%;"><a id='lblPrice_s'></a></td>
+					<td class="td11" align="center" style="width:8%;"><a id='lblVccno_s'></a></td>
 					<td class="td12" align="center" style="width:20%;"><a id='lblMemo_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -185,6 +183,9 @@
 						<input class="txt num" id="txtPrice.*" type="text" />
 					</td>
 					<td class="td12">
+						<input class="txt" id="txtVccno.*" type="text" />
+					</td>
+					<td class="td13">
 						<input class="txt" id="txtMemo.*" type="text" />
 					</td>
 				</tr>

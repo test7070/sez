@@ -34,8 +34,8 @@
         	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-        	['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp',
-        	'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
+        	['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp,price',
+        	'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,txtPrice','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
         );
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -75,7 +75,7 @@
 				q_gt('works', t_where , 0, 0, 0, "", r_accy);
 			});
 			$('#lblWorkno').click(function(){
-				var t_where="1=1"
+				var t_where="enda!=1 "
 				t_where += emp($('#txtWorkno').val())?'':" and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
 				t_where += emp($('#txtTggno').val())?'':" and charindex ('"+$('#txtTggno').val()+"',tggno)>0 ";
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
@@ -146,8 +146,8 @@
 								as[i].xweight=0;
 							}
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo,txtProcess', as.length, as
-														   , 'productno,product,unit,xmount,xweight,memo,process'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo,txtProcessno,txtProcess', as.length, as
+														   , 'productno,product,unit,xmount,xweight,memo,processno,process'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
 				 break;
                 case q_name: 
@@ -373,13 +373,13 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 <!--#include file="../inc/toolbar.inc"-->
-        <div class="dview" id="dview" style="float: left;  width:32%;"  >
+        <div class="dview" id="dview" style="float: left;  width:100%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:40%"><a id='vewTgg'></a></td>
-                <td align="center" style="width:25%"><a id='vewProduct'></a></td>
+                <td align="center" style="width:4%"><a id='vewChk'></a></td>
+                <td align="center" style="width:10%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:30%"><a id='vewTgg'></a></td>
+                <td align="center" style="width:55%"><a id='vewProduct'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -389,7 +389,7 @@
             </tr>
         	</table>
         </div>
-        <div class='dbbm' style="width: 68%;float:left">
+        <div class='dbbm' style="width: 100%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 
         <tr>

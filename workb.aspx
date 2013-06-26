@@ -91,7 +91,8 @@
 			});
 			
 			$('#lblWorkno').click(function(){
-				var t_where = emp($('#txtWorkno').val())?'':"charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
+				var t_where="enda!=1 "
+				t_where += emp($('#txtWorkno').val())?'':"and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
         }
@@ -177,9 +178,9 @@
 							
 							if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
-								as[i].xweight=as[i].inmount;
+								as[i].xweight=as[i].mount;
 							}else{
-								as[i].xmount=as[i].inmount;
+								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
 							}
 						}
