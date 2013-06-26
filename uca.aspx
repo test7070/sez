@@ -42,7 +42,8 @@
         	['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
         	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
         	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
-        	['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx']
+        	['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx'],
+        	['txtProcessno__', 'btnProcessno__', 'process', 'noa,process', 'txtProcessno__,txtProcess__', 'process_b.aspx']
         	);
 
         $(document).ready(function () {
@@ -138,7 +139,7 @@
             for (var i = 0; i < q_bbtCount; i++) {
             	if(!tcount&&!emp($('#txtProcess__'+i).val()))
             		tcount=true;
-            	if($('#txtProductno2__'+i).val()==$('#txtNoa').val())
+            	if($('#txtProductno__'+i).val()==$('#txtNoa').val())
             		endnoa=true;
             }
             if(tcount && !endnoa){//有托工，但沒指定最後一個托工流程
@@ -151,16 +152,16 @@
             for (var i = 0; i < q_bbtCount; i++) {
             	noqt+=1;
             	//檢查是否重複編號
-            	for (var j = 0; j < q_bbtCount&&emp($('#txtProductno2__'+i).val()); j++) {
-            		if(!emp($('#txtProductno2__'+j).val())&&$('#txtProductno2__'+j).val()==($('#txtNoa').val()+'-'+$('#txtTggno__'+i).val()+'-'+('000'+noqt).substr(-3)))
+            	for (var j = 0; j < q_bbtCount&&emp($('#txtProductno__'+i).val()); j++) {
+            		if(!emp($('#txtProductno__'+j).val())&&$('#txtProductno__'+j).val()==($('#txtNoa').val()+'-'+$('#txtTggno__'+i).val()+'-'+('000'+noqt).substr(-3)))
             		{
             			i--;
             			break;
             		}
             	}
             	
-            	if(!emp($('#txtProcess__'+i).val())&&!emp($('#txtTggno__'+i).val())&&emp($('#txtProductno2__'+i).val())){
-            		$('#txtProductno2__'+i).val($('#txtNoa').val()+'-'+$('#txtTggno__'+i).val()+'-'+('000'+noqt).substr(-3));
+            	if(!emp($('#txtProcess__'+i).val())&&!emp($('#txtTggno__'+i).val())&&emp($('#txtProductno__'+i).val())){
+            		$('#txtProductno__'+i).val($('#txtNoa').val()+'-'+$('#txtTggno__'+i).val()+'-'+('000'+noqt).substr(-3));
             	}
             }
             
@@ -690,13 +691,14 @@
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td align="center" style="width:15%;"><a id='lblProcess_t'></a></td>
-						<td align="center" style="width:20%;"><a id='lblTgg_t'></a></td>
+						<td align="center" style="width:14%;"><a id='lblProcess_t'></a></td>
+						<td align="center" style="width:18%;"><a id='lblTgg_t'></a></td>
 						<td align="center" style="width:10%;"><a id='lblMount_t'></a></td>
-						<td align="center" style="width:10%;"><a id='lblPrice_t'></a></td>
+						<td align="center" style="width:8%;"><a id='lblPrice_t'></a></td>
 		                <td align="center" style="width:10%;"><a id='lblEndmount_t'></a></td>
-		                <td align="center" style="width:10%;"><a id='lblProductno2_t'></a></td>
-		                <td align="center" style="width:25%;"><a id='lblAssm_t'></a></td>
+		                <td align="center" style="width:6%;"><a id='lblHours_t'></a></td>
+		                <td align="center" style="width:10%;"><a id='lblProductno_t'></a></td>
+		                <td align="center" style="width:20%;"><a id='lblAssm_t'></a></td>
 					</tr>
 					<tr>
 						<td>
@@ -704,7 +706,11 @@
 							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input id="txtProcess..*" type="text" style="width:95%;"/></td>
+						<td>
+							<input id="txtProcessno..*" type="text" class="txt c5"/>
+							<input id="btnProcessno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+							<input id="txtProcess..*" type="text" class="txt c1"/>
+						</td>
 						<td>
 							<input id="txtTggno..*" type="text" class="txt c5"/>
 							<input id="btnTggno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
@@ -719,7 +725,10 @@
 							<input id="txtEndmount..*" type="text" class="txt c1 num"/>
 							<input id="txtEndweight..*" type="text" class="txt c1 num"/>
 						</td>
-						<td><input id="txtProductno2..*" type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtHours..*" type="text" class="txt c1 num"/>
+						</td>
+						<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 						<td><input id="txtAssm..*" type="text" class="txt c1"/></td>
 					</tr>
 				</tbody>

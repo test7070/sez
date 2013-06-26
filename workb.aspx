@@ -177,9 +177,9 @@
 							
 							if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
-								as[i].xweight=as[i].inmount;
+								as[i].xweight=as[i].mount;
 							}else{
-								as[i].xmount=as[i].inmount;
+								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
 							}
 						}
