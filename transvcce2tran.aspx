@@ -116,13 +116,13 @@
                 	
                 	var t_where = "(c.noa='"+t_noa+"' or c.noa is null)";
                 	if(t_bdate.length>0 || t_edate.length>0){
-                		t_edate = (t_edate.length>0?"char(255)":"'"+t_eadte+"'");
+                		t_edate = (t_edate.length==0?"char(255)":"'"+t_edate+"'");
                 		t_where += " and (isnull(b.datea,'') between '"+t_bdate+"' and "+t_edate+")";
                 	}
                 	if(t_custno.length>0)
                 		t_where += " and (isnull(b.custno,'')='"+t_custno+"')";
                 	if(t_baddrno.length>0 || t_eaddrno.length>0){
-                		t_edate = (t_eaddrno.length>0?"char(255)":"'"+t_eaddrno+"'");
+                		t_edate = (t_eaddrno.length==0?"char(255)":"'"+t_eaddrno+"'");
                 		t_where += " and (isnull(a.addrno,'') between '"+t_baddrno+"' and "+t_eaddrno+")";
                 	}             	
                 	t_where = "where=^^"+t_where+"^^";
@@ -203,8 +203,11 @@
 						    dataType: 'json',
 						    success: function(data){
 								$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
-								var t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
-								var t_caseno2 = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+								var t_caseno = '',t_caseno2 = '';
+								if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(data['TaskContent']))
+									t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+								if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(data['TaskContent']))
+            						t_caseno2 = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
 								if(t_caseno.length>0){
 									if(t_caseno2.length>0){
 										$('#txtCaseno2_'+this.sel).val(t_caseno);
