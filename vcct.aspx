@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="vcct";
-        var q_readonly = [];
+        var q_readonly = ['txtWorker','txtWorker2'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -41,7 +41,19 @@
         function mainPost() { 
             bbmMask = [['txtDatea', r_picd],['txtEta', r_picd],['txtEtd', r_picd],['txtOnboarddate', r_picd],['txtShippingdate', r_picd],['txtCldate', r_picd]];
         	q_mask(bbmMask);
-        	 
+        	  $('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
         }        
         function q_boxClose( s2) {
             var ret; 
@@ -55,7 +67,24 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)  
+            	case 'checkVcctno_change':
+                		var as = _q_appendData("vcct", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa);
+                        }
+                		break;
+                	case 'checkVcctno_btnOk':
+                		var as = _q_appendData("vcct", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
+                case q_name: 
+                		if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -64,12 +93,14 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('vcct_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
+            q_box('vcct_s.aspx', q_name + '_s', "500px", "400px", q_getMsg( "popSeek"));
         }
 
 
         function btnIns() {
             _btnIns();
+            refreshBbm();
+            $('#txtDatea').val(q_date());
             $('#txtNoa').focus();
         }
 
@@ -78,17 +109,38 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            refreshBbm();
+            $('#txtDatea').focus();
         }
 
         function btnPrint() {
  
         }
-        function btnOk() {        	
-           if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+        function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
+        function btnOk() {
+        	if(q_cur==1)
+				$('#txtWorker').val(r_name);
+			else
+				$('#txtWorker2').val(r_name);
+				        	
+          Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+        	if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
         }
 
         function wrServer( key_value) {
@@ -104,8 +156,15 @@
        
         function refresh(recno) {
             _refresh(recno);
+            refreshBbm();
         }
-
+		function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
         }
@@ -414,6 +473,12 @@
                <td class="td2"><input id="txtCldate" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblPallet" class="lbl"></a></td>
                <td class="td4"><input id="txtPallet" type="text" class="txt c1"/></td>
+            </tr>
+            <tr class="tr12">
+               <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
+               <td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblWorker2" class="lbl"></a></td>
+               <td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
             </tr>
         </table>
         </div>
