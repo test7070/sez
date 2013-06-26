@@ -24,25 +24,37 @@
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_vccest',
-                    options : [ {
+                    options : [{/*[1]*/
+	                    type : '0',
+	                    name : 'r_tel',
+	                    value : q_getPara('sys.tel')
+	                },{/*[2]*/
+	                    type : '0',
+	                    name : 'r_addr',
+	                    value : q_getPara('sys.addr')
+	                },{/*[3]*/
+	                    type : '0',
+	                    name : 'accy',
+	                    value :r_accy
+	                },{/*[4]1-1*/
                         type : '6',
                         name : 'xnoa'
-                    },{
+                    },{/*[5][6]1-2*/
                         type : '1',
                         name : 'date'
-                    }, {
+                    }, {/*[7][8]1-4*/
                         type : '2',
                         name : 'cust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }, {
+                    }, {/*[9][10]1-8*/
                         type : '2',
                         name : 'productno',
                         dbf : 'uccc',
                         index : 'noa,product',
                         src : 'uccc_b.aspx'
-                    }, {
+                    }, {/*[11]2-1*/
                         type : '5', 
                         name : 'xtype',
                         value : [q_getPara('report.all')].concat(q_getPara('uccc.itype').split(','))
