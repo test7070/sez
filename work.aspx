@@ -36,7 +36,8 @@
         	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
         	['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-        	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
+        	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx']
         	);
 
 
@@ -539,7 +540,11 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td>	<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input id="txtProcess.*" type="text" class="txt c1"/></td>
+                <td>
+                	<input id="txtProcessno.*" type="text" class="txt c5"/>
+                	<input class="btn"  id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
+                	<input id="txtProcess.*" type="text" class="txt c1"/>
+                </td>
                 <td>
                 	<input id="txtProductno.*" type="text" class="txt" style="width: 80%;"/>
                 	<input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />

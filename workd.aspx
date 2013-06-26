@@ -120,19 +120,10 @@
 								as[i].xweight=0;
 							}
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo', as.length, as
-														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo,txtPrice', as.length, as
+														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo,price'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
-					//取得ucat的單價
-					for(var i = 0; i < as.length; i++) {
-						var tggindex=0;
-						if($('#txtProductno_'+i).val().indexOf($('#txtTggno').val())>-1)
-							tggindex=$('#txtProductno_'+i).val().indexOf($('#txtTggno').val())-1;
-						else
-							tggindex=$('#txtProductno_'+i).val().length;
-						var t_where = "where=^^ noa ='"+$('#txtProductno_'+i).val().substr(0,tggindex)+"' ^^";
-						q_gt('uca', t_where , 0, 0, 0, "ucat_"+$('#txtProductno_'+i).val(), r_accy);
-					}
+					sum();
 				 break;
 				case 'view_workcs':
 					var as = _q_appendData("view_workcs", "", true);
@@ -148,22 +139,6 @@
                         q_Seek_gtPost();
                     break;
             }  /// end switch
-            
-            if(t_name.substr(0,5)=='ucat_'){
-            	var as = _q_appendData("ucat", "", true);
-				for(var i = 0; i < as.length; i++) {
-					if(t_name.substr(5)==as[i].productno){
-						for(var j = 0; j < q_bbsCount; j++) {
-							if(t_name.substr(5)==$('#txtProductno_'+j).val()){
-								$('#txtPrice_'+j).val(as[i].price);
-								sum();
-							}
-						}
-						break;
-					}
-				}
-            }
-            
         }
 
         function btnOk() {
