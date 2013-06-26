@@ -95,7 +95,7 @@
 		<div  id="dbbs"  >
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
-					<td class="td1" align="center" style="width:25px;">&nbsp;</td>
+					<td class="td1" align="center" style="width:25px;"></td>
 					<td class="td2" align="center" style="width:120px;"><a id='lblNoa'></a></td>
 					<td class="td3" align="center" style="width:80px;"><a id='lblDatea'></a></td>
 					<td class="td2" align="center" style="width:120px;"><a id='lblPlusitem'></a></td>
@@ -104,7 +104,7 @@
 					<td class="td6" align="center" style="width:100px;"><a id='lblMinusmoney'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td>
+					<td align="center">
 						<input type="checkbox" id="chkSel.*"/>
 						<input type="text" id="txtTreno.*" style="display:none;"/>
 					</td>

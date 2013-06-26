@@ -26,7 +26,10 @@
             brwKey = 'noa';
             brwCount2 = 20;
              
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
+            ['txtIssuingbankno', 'lblIssuingbank', 'bank', 'noa,bank', 'txtIssuingbankno,txtIssuingbank', 'bank_b.aspx'],
+            ['txtAdvisingbankno', 'lblAdvisingbank', 'bank', 'noa,bank', 'txtAdvisingbankno,txtAdvisingbank', 'bank_b.aspx'],
+            ['txtNegotiatingbankno', 'lblNegotiatingbank', 'bank', 'noa,bank', 'txtNegotiatingbankno,txtNegotiatingbank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -42,6 +45,7 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtIssuedate', r_picd],['txtReceivedate', r_picd],['txtOnboarddate', r_picd],['txtNegotiatingdate', r_picd],['txtEnddate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('lcu.typea'));
                 $('#cmbTypea').focus(function() {
@@ -50,7 +54,12 @@
 				}).blur(function() {
 					$(this).attr('size', '1');
 				});
-				
+				$('#btnIssuing').click(function(){
+					$('#ChangeIssuing').toggle();
+				});
+				$('#btnCloseissuing').click(function(){
+				$('#ChangeIssuing').toggle();
+				});
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "1054px", q_getMsg('btnAccc'), true);
                 });
@@ -77,9 +86,6 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                         break;
                 }  
@@ -278,6 +284,14 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 30%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 68%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -314,6 +328,18 @@
             select {
                 font-size: medium;
             }
+            #ChangeIssuing{
+			display:none;
+			width:750px;
+			background-color: #cad3ff;
+			border: 5px solid gray;
+			position: absolute;
+			left: 20px;
+			z-index: 50;
+		}
+			 #ChangeIssuing .tdY{
+				width: 9%;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -389,6 +415,65 @@
 					<tr>
 						<td><span> </span><a id="lblLcdate" class="lbl"> </a></td>
 						<td><input id="txtLcdate" type="text" class="txt c1"/></td>
+						<td> </td>
+						<td class="td4">
+						<div id="ChangeIssuing">
+							<table>
+								<tr>
+									<td class="tdy"><span> </span><a id="lblPassnum" class="lbl"> </a></td>
+									<td class="tdy" colspan="2"><input id="txtPassnum" type="text" class="txt c1"/></td>
+									<td class="tdy"><span> </span><a id="lblIssuedate" class="lbl"> </a></td>
+									<td class="tdy"><input id="txtIssuedate" type="text" class="txt c1"/></td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td class="tdy"><span> </span><a id="lblIssuingbank" class="lbl"> </a></td>
+									<td class="tdy" colspan="2"><input id="txtIssuingbankno" type="text" class="txt c2"/>
+													<input id="txtIssuingbank" type="text" class="txt c3"/>
+									</td>
+									<td class="tdy"><span> </span><a id="lblReceivedate" class="lbl"> </a></td>
+									<td class="tdy"><input id="txtReceivedate" type="text" class="txt c1"/></td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td class="tdy"><span> </span><a id="lblAdvisingbank" class="lbl"> </a></td>
+									<td class="tdy" colspan="2"><input id="txtAdvisingbankno" type="text" class="txt c2"/>
+													<input id="txtAdvisingbank" type="text" class="txt c3"/>
+									</td>
+									<td class="tdy"><span> </span><a id="lblOnboarddate" class="lbl"> </a></td>
+									<td class="tdy"><input id="txtOnboarddate" type="text" class="txt c1"/></td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td class="tdy"><span> </span><a id="lblNegotiatingbank" class="lbl"> </a></td>
+									<td class="tdy" colspan="2"><input id="txtNegotiatingbankno" type="text" class="txt c2"/>
+													<input id="txtNegotiatingbank" type="text" class="txt c3"/>
+									</td>
+									<td class="tdy"><span> </span><a id="lblNegotiatingdate" class="lbl"> </a></td>
+									<td class="tdy"><input id="txtNegotiatingdate" type="text" class="txt c1"/></td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td class="tdy"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+									<td class="tdy" colspan="2"><input id="txtMemo" type="text" class="txt c1"/></td>
+									<td class="tdy"><span> </span><a id="lblEnddate" class="lbl"> </a></td>
+									<td class="tdy"><input id="txtEnddate" type="text" class="txt c1"/></td>
+									<td> </td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td> </td>
+									<td align="center">
+									<input id="btnCloseissuing" type="button" value="關閉視窗">
+									</td>
+									<td> </td>
+								</tr>
+							</table>
+						</div>
+						<input id="btnIssuing" type="button"  />
+					</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDate2" class="lbl"> </a></td>
