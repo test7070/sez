@@ -57,19 +57,8 @@
                 q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
-                /* 若非本會計年度則無法存檔 */
-				$('#txtDatea').focusout(function () {
-					if($(this).val().substr( 0,3)!= r_accy){
-				        	$('#btnOk').attr('disabled','disabled');
-				        	alert(q_getMsg('lblDatea') + '非本會計年度。');
-					}else{
-				       		$('#btnOk').removeAttr('disabled');
-					}
-				});
-               /* $('#cmbPaytype').change(function () {
-	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
-			     });*/
-                
+                $('#txtFloata').change(function () {sum();});
+				$('#txtTotal').change(function () {sum();});
                 //變動尺寸欄位
 	            $('#cmbKind').change(function () {
 	            	size_change();
@@ -335,11 +324,13 @@
                 for(var j = 0; j < q_bbsCount; j++) {
                 	t_money+=q_float('txtTotal_'+j);
 					t_weight+=q_float('txtWeight_'+j);
+                	q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
 					q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
                 }  // j
                 q_tr('txtMoney' ,t_money);
 				q_tr('txtWeight' ,t_weight);
 				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {

@@ -67,15 +67,7 @@
             q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
-			/* 若非本會計年度則無法存檔 */
-			$('#txtOdate').focusout(function () {
-				if($(this).val().substr( 0,3)!= r_accy){
-			        	$('#btnOk').attr('disabled','disabled');
-			        	alert(q_getMsg('lblOdate') + '非本會計年度。');
-				}else{
-			       		$('#btnOk').removeAttr('disabled');
-				}
-			});
+			
             $('#btnOrdem').click(function () {
             	q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";ordem.noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem'),true); 
             });
@@ -93,12 +85,8 @@
 					q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
 				}
 			});
-			$('#txtFloata').change(function () {
-		        q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
-			});
-			$('#txtTotal').change(function () {
-		       	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
-			});
+			$('#txtFloata').change(function () {sum();});
+			$('#txtTotal').change(function () {sum();});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -114,20 +102,7 @@
                                                            , 'productno,product,spec,unit,price,mount,weight,noa,no3'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                                                            sum();
-                        /*bbsAssign();
-
-                        for (i = 0; i < ret.length; i++) {
-                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
-                            if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-                                $('#txtMount_' + k).val(b_ret[i]['notv']);
-                                $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-                            }
-                            else {
-                                $('#txtWeight_' + k).val(b_ret[i]['notv2']);
-                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv2'], b_ret[i]['weight']));
-                            }
-
-                        }  /// for i*/
+                        bbsAssign();
                     }
                     break;
                 
@@ -245,6 +220,7 @@
                 $('#txtWeight_' + j).focusout(function () { sum(); });
                 $('#txtPrice_' + j).focusout(function () { sum(); });
                 $('#txtMount_' + j).focusout(function () { sum(); });
+                $('#txtTotal_' + j).focusout(function () { sum(); });
 
             } //j
         }
@@ -316,13 +292,11 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
-            var t_float = dec($('#txtFloata').val());
-            t_float = (emp(t_float) ? 1 : t_float);
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
-                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount) * t_float, 0));
+                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
 				q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
@@ -332,7 +306,7 @@
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
             $('#txtWeight').val(round(t_weight, 0));
-            //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
+            $('#txtTotal').val(t1 + dec($('#txtTax').val()));
             q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 
             calTax();

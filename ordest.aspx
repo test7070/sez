@@ -69,18 +69,7 @@
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
             q_gt('spec', '', 0, 0, 0, "", r_accy);
-			/* 若非本會計年度則無法存檔 */
-			$('#txtDatea').focusout(function () {
-				if($(this).val().substr( 0,3)!= r_accy){
-			        	$('#btnOk').attr('disabled','disabled');
-			        	alert(q_getMsg('lblDatea') + '非本會計年度。');
-				}else{
-			       		$('#btnOk').removeAttr('disabled');
-				}
-			});
             $('#lblQuat').click(function () { btnQuat(); });
-
-
             $('#btnOrdem').click(function () { q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); });
 			$('#cmbKind').change(function () {
 				size_change();
@@ -93,6 +82,8 @@
 					q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
 				}
 			});
+			$('#txtFloata').change(function () {sum();});
+			$('#txtTotal').change(function () {sum();});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -404,13 +395,11 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
-            var t_float = dec($('#txtFloata').val());
-            t_float = (emp(t_float) ? 1 : t_float);
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
-                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount) * t_float, 0));
+                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
                 q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
@@ -420,9 +409,9 @@
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
             $('#txtWeight').val(round(t_weight, 0));
-            //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
-
+            $('#txtTotal').val(t1 + dec($('#txtTax').val()));
             calTax();
+			q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {

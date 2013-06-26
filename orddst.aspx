@@ -54,7 +54,8 @@
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
                 q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
-                
+                $('#txtFloata').change(function () {sum();});
+				$('#txtTotal').change(function () {sum();});
                 //變動尺寸欄位
 				$('#cmbKind').change(function () {
 		        	size_change();
@@ -111,6 +112,11 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtUnit_' + j).change(function () {sum();});
+            		  	$('#txtMount_' + j).change(function () {sum();});
+				        $('#txtWeight_' + j).change(function () {sum();});
+				        $('#txtPrice_' + j).change(function () {sum();});
+				        $('#txtTotal_' + j).change(function () {sum();});
 						//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 			            $('#textSize1_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -228,10 +234,18 @@
 
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+                	if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
+                		q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
+                	}else{
+                		q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
+                	}
+					t_money+=q_float('txtTotal_'+j);
                 }  // j
-
+				q_tr('txtMoney' ,t_money);
+				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {
@@ -546,6 +560,7 @@
             }
             .dbbs {
                 width: 100%;
+                float:left;
             }
             .tbbs a {
                 font-size: medium;
@@ -664,7 +679,7 @@
               <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblUno_st'></a></td>
-                <td align="center" style="width:9%;"><a id='lblProductnos_st'></a></td>
+                <td align="center" style="width:9%;"><a id='lblProductno_st'></a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_st'></a></td>
                 <td align="center" style="width:18%;" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_st'></a></td>
