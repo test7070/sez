@@ -31,12 +31,13 @@
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
 					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
-					['txtWorkno','lblWorknos','work','noa,stationno,station,processno,process,modelno,model,ordeno,no2','txtWorkno,txtStationno,txtStation,txtProcessno,txtProcess,txtModelno,txtModel,txtOrdeno,txtNo2','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 					['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx','95%'],
-					['txtOrdeno','lblOrdeno','ordes','noa,no2,productno,product','txtOrdeno,txtNo2,txtProductno,txtProduct','ordes_b.aspx','95%']
+					['txtOrdeno','lblOrdeno','ordes','noa,no2,productno,product','txtOrdeno,txtNo2,txtProductno,txtProduct','ordes_b.aspx','95%'],
+					['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product',
+        			'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
 		);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -121,9 +122,9 @@
 							
 							if(b_ret[i].unit.toUpperCase()=='KG'){
 								b_ret[i].xmount=0;
-								b_ret[i].xweight=b_ret[i].emount;
+								b_ret[i].xweight=b_ret[i].mount;
 							}else{
-								b_ret[i].xmount=b_ret[i].emount;
+								b_ret[i].xmount=b_ret[i].mount;
 								b_ret[i].xweight=0;
 							}
 						}
@@ -159,9 +160,9 @@
 							
 							if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
-								as[i].xweight=as[i].emount;
+								as[i].xweight=as[i].mount;
 							}else{
-								as[i].xmount=as[i].emount;
+								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
 							}
 						}

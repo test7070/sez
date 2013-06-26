@@ -30,6 +30,13 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+		$('#checkAllCheckbox').click(function(){
+			$('input[type=checkbox][id^=chkSel]').each(function(){
+				var t_id = $(this).attr('id').split('_')[1];
+				if(!emp($('#txtProductno_' + t_id).val()))
+					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+			});
+		});
     }
 
     function bbsAssign() { 
@@ -53,7 +60,9 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center">&nbsp;</td>
+                <td align="center">
+					<input type="checkbox" id="checkAllCheckbox"/>
+				</td>
                 <td align="center"><a id='lblProductno'></a></td>
                 <td align="center"><a id='lblProduct'></a></td>
                 <td align="center"><a id='lblSpec'></a></td>
@@ -66,7 +75,7 @@
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="chk"  id="chkSel.*" type="checkbox"/></td>
+                <td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
                 <td style="width:10%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
                 <td style="width:15%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
                 <td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
