@@ -101,7 +101,8 @@
 	                }
             	}
 			});
-
+			$('#txtFloata').change(function () {sum();});
+			$('#txtTotal').change(function () {sum();});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 
@@ -318,6 +319,7 @@
                 $('#txtWeight_' + j).focusout(function () { sum(); });
                 $('#txtPrice_' + j).focusout(function () { sum(); });
                 $('#txtMount_' + j).focusout(function () { sum(); });
+                $('#txtTotal_' + j).focusout(function () { sum(); });
 
             } //j
             _bbsAssign();
@@ -401,9 +403,8 @@
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
             $('#txtWeight').val(round(t_weight, 0));
-            //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
             calTax();
-
+			q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
         }
 
         function refresh(recno) {
