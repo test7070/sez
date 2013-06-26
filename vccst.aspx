@@ -149,7 +149,7 @@
 	            		t_spec= _q_appendData("spec", "", true);
 	            	break;
 				case 'ucc_style':
-            			theory_st(q_name,b_seq,'txtWeight');
+            			theory_st(q_name,b_seq,'txtTheory');
             		break;
 				case 'vcce':
 					var as = _q_appendData("vcces", "", true);

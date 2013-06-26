@@ -132,7 +132,7 @@
 	            		t_spec= _q_appendData("spec", "", true);
 	            	break;
 				case 'ucc_style':
-            			theory_st(q_name,b_seq,'txtGweight');
+            			theory_st(q_name,b_seq,'txtTheory');
             			break;
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();

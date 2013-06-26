@@ -77,7 +77,7 @@
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'ucc_style':
-            			theory_st(q_name,b_seq,'txtWeight');
+            			theory_st(q_name,b_seq,'txtTheory');
             			break;
                     case q_name:
                         if(q_cur == 4)
