@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
@@ -18,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "ordc";
-            var q_readonly = ['txtTgg', 'txtAcomp','txtSales'];
+            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
@@ -55,16 +54,10 @@
                 q_cmbParse("cmbPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
+                $('#txtFloata').change(function () {sum();});
+				$('#txtTotal').change(function () {sum();});
             }
-			/* 若非本會計年度則無法存檔 */
-				$('#txtDatea').focusout(function () {
-					if($(this).val().substr( 0,3)!= r_accy){
-				        	$('#btnOk').attr('disabled','disabled');
-				        	alert(q_getMsg('lblDatea') + '非本會計年度。');
-					}else{
-				       		$('#btnOk').removeAttr('disabled');
-					}
-				});
+            
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var
                 ret;
@@ -107,9 +100,24 @@
             }
 
             function combPay_chg() {
+            	 var cmb = document.getElementById("combPaytype")
+            if (!q_cur) 
+                cmb.value = '';
+            else
+                $('#txtPaytype').val(cmb.value);
+            cmb.value = '';
             }
 
             function bbsAssign() {
+            	for(var j = 0; j < q_bbsCount; j++) {
+            		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		  		$('#txtUnit_' + j).change(function () {sum();});
+            		  		$('#txtMount_' + j).change(function () {sum();});
+				            $('#txtWeight_' + j).change(function () {sum();});
+				            $('#txtPrice_' + j).change(function () {sum();});
+				            $('#txtTotal_' + j).change(function () {sum();});
+            		  }
+            	}
                 _bbsAssign();
             }
 
@@ -146,26 +154,23 @@
 
                 q_nowf();
                 as['date'] = abbm2['date'];
-
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
 
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+                	if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
+                		q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
+                	}else{
+                		q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
+                	}
+					t_money+=q_float('txtTotal_'+j);
                 }  // j
-
+				q_tr('txtMoney' ,t_money);
+				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {
@@ -411,9 +416,9 @@
                 <td class="td1"><span> </span><a id="lblTgg" class="lbl btn" ></a></td>
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtTgg"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
                 <td class="td5"><input id="txtPay" type="text" class="txt c1"/></td> 
-                <td class="td6"><select id="cmbPaytype" class="txt c1"></select></td> 
+                <td class="td6"><select id="cmbPaytype" class="txt c1" onchange='combPaytype_chg()'></select></td> 
                 <td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
                 <td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td> 
             </tr>
@@ -424,7 +429,7 @@
                 <td class="td4"><span> </span><a id='lblTel' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtTel"    type="text"  class="txt c1"/></td>
                 <td class="td6"><span> </span><a id='lblFax' class="lbl"></a></td>
-                <td class="td7"><input id="txtFax" type="text"  class="txt c2"/></td>
+                <td class="td7"><input id="txtFax" type="text"  class="txt c1"/></td>
             </tr>
             <tr>
                 <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
@@ -459,7 +464,7 @@
         </div>
         </div>
 
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
@@ -467,7 +472,7 @@
                 <td align="center"><a id='lblUno'></a></td>
                 <td align="center"><a id='lblSize'></a></td>
                 <td align="center"><a id='lblUnit'></a></td>
-                <td align="center"><a id='lblMount'></a></td>
+                <td align="center"><a id='lblMount_bcc'></a></td>
                 <td align="center"><a id='lblWeights'></a></td>
                 <td align="center"><a id='lblPrices'></a></td>
                 <td align="center"><a id='lblTotals'></a></td>

@@ -91,7 +91,8 @@
                 	q_box("lcs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'lcs', "95%", "95%", q_getMsg('popLcs'));
                 }
             });
-
+			$('#txtFloata').change(function () {sum();});
+			$('#txtTotal').change(function () {sum();});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
@@ -159,10 +160,12 @@
         }
 		
 		function q_stPost() {
+			//t_accno + ";" + t_payed + ";" + (t_total - t_payed);
 		        if (!(q_cur == 1 || q_cur == 2))
 		            return false;
-		        abbm[q_recno]['accno'] = xmlString;
-		        $('#txtAccno').val(xmlString);
+				var s1 = xmlString.split(';');
+		        abbm[q_recno]['accno'] = s1[0];
+		        $('#txtAccno').val(s1[0]);
 		    }
 		
         function btnOk() {
@@ -210,36 +213,10 @@
             _bbsAssign();
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('ucc', '_'+t_IdSeq);
-                 });
-                 $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product');  /// 接 q_gtPost()
-                 });
-
-                 /*$('#btnStore_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('store', '_'+t_IdSeq);
-                 });
-                 $('#txtStoreno_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'store', 'noa', 'noa,store');  /// 接 q_gtPost()
-                 });*/
-                
                 $('#txtUnit_' + j).focusout(function () { sum(); });
-                $('#txtWeight_' + j).focusout(function () { sum(); });
+                $('#txtGweight_' + j).focusout(function () { sum(); });
                 $('#txtPrice_' + j).focusout(function () { sum(); });
-                $('#txtMount_' + j).focusout(function () { sum(); });
+                $('#txtTotal_' + j).focusout(function () { sum(); });
 
             } //j
         }
@@ -270,7 +247,7 @@
             var i;
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-            _btnOk( null, bbmKey[0], bbsKey[1], '', 2);  // key_value
+            _btnOk( key_value, bbmKey[0], bbsKey[1], '', 2);  // key_value
         }
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
@@ -328,9 +305,8 @@
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
             $('#txtWeight').val(round(t_weight, 0));
-            //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
             calTax();
-
+			q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
