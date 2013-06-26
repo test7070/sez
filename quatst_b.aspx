@@ -1,17 +1,14 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
-<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
-		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript">
+	<script src="../script/jquery.min.js" type="text/javascript"></script>
+	<script src='../script/qj2.js' type="text/javascript"></script>
+	<script src='qset.js' type="text/javascript"></script>
+	<script src='../script/qj_mess.js' type="text/javascript"></script>
+	<script src="../script/qbox.js" type="text/javascript"></script>
+	<script src='../script/mask.js' type="text/javascript"></script>
+	<link href="../qbox.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
     var q_name = 'view_quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,unit,mount,weight,notv,noa,no3,price,spec,class,theory  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
     var t_sqlname = 'view_quats';
     t_postname = q_name;
@@ -31,12 +28,19 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
+		$('#checkAllCheckbox').click(function(){
+			$('input[type=checkbox][id^=chkSel]').each(function(){
+				var t_id = $(this).attr('id').split('_')[1];
+				if(!emp($('#txtNoa_' + t_id).val()))
+					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+			});
+		});
     }
 
     function bbsAssign() {  /// checked 
         _bbsAssign();
     }
-    function q_gtPost(q_name) { 
+    function q_gtPost() { 
 
     }
     function refresh() {
@@ -52,7 +56,9 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center">&nbsp;</td>
+                <td align="center">
+                	<input type="checkbox" id="checkAllCheckbox"/>
+                </td>
                 <td align="center"><a id='lblProductno'></a></td>
                 <td align="center"><a id='lblProduct'></a></td>
                 <td align="center"><a id='lblSpec'></a></td>
@@ -65,7 +71,7 @@
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="chkSel.*" type="checkbox"  /></td>
+                <td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"  /></td>
                 <td style="width:10%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
                 <td style="width:15%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
                 <td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />

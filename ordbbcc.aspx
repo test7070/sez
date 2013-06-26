@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
@@ -54,7 +53,13 @@
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
                 q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
+                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+                $('#txtFloata').change(function () {
+		        	sum();
+				});
+				$('#txtTotal').change(function () {
+		        	sum();
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -108,6 +113,15 @@
             }
 
             function bbsAssign() {
+            	for(var j = 0; j < q_bbsCount; j++) {
+            		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		  		$('#txtUnit_' + j).change(function () {sum();});
+            		  		$('#txtMount_' + j).change(function () {sum();});
+				            $('#txtWeight_' + j).change(function () {sum();});
+				            $('#txtPrice_' + j).change(function () {sum();});
+				            $('#txtTotal_' + j).change(function () {sum();});
+            		  }
+            	}
                 _bbsAssign();
             }
 
@@ -144,26 +158,23 @@
 
                 q_nowf();
                 as['date'] = abbm2['date'];
-
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
 
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+                	if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
+                		q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
+                	}else{
+                		q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
+                	}
+					t_money+=q_float('txtTotal_'+j);
                 }  // j
-
+				q_tr('txtMoney' ,t_money);
+				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {
@@ -456,7 +467,7 @@
         </div>
 
 
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
@@ -464,7 +475,7 @@
                 <td align="center"><a id='lblUno'> </a></td>
                 <td align="center"><a id='lblSize'> </a></td>
                 <td align="center"><a id='lblUnit'> </a></td>
-                <td align="center"><a id='lblMount'> </a></td>
+                <td align="center"><a id='lblMount_bcc'> </a></td>
                 <td align="center"><a id='lblWeights'> </a></td>
                 <td align="center"><a id='lblPrices'> </a></td>
                 <td align="center"><a id='lblTotals'> </a></td>

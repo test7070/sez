@@ -28,6 +28,13 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+        $('#checkAllCheckbox').click(function(){
+			$('input[type=checkbox][id^=chkSel]').each(function(){
+				var t_id = $(this).attr('id').split('_')[1];
+				if(!emp($('#txtProductno_' + t_id).val()))
+					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+			});
+		});
     }
 
     function bbsAssign() { 
@@ -51,7 +58,9 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center" style="width:1%;">&nbsp;</td>
+                <td align="center" style="width:1%;">
+                	<input type="checkbox" id="checkAllCheckbox"/>
+                </td>
                 <td align="center" style="width:20%;"><a id='lblProductno'></a></td>
                 <td align="center" style="width:40%;"><a id='lblProduct'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>

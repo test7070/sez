@@ -76,10 +76,10 @@
 			     });
 			     
                 $('#txtFloata').change(function () {
-		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+		        	sum();
 				});
 				$('#txtTotal').change(function () {
-		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+		        	sum();
 				});
             }
 
@@ -173,12 +173,11 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		  		$('#txtMount_' + j).change(function () {
-								sum();
-				            });
-				            $('#txtPrice_' + j).change(function () {
-				                sum();
-				            });
+            		  		$('#txtUnit_' + j).change(function () {sum();});
+            		  		$('#txtMount_' + j).change(function () {sum();});
+				            $('#txtWeight_' + j).change(function () {sum();});
+				            $('#txtPrice_' + j).change(function () {sum();});
+				            $('#txtTotal_' + j).change(function () {sum();});
 				            $('#txtProductno1_' + j).change(function () {
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));
@@ -290,6 +289,7 @@
                 }  // j
 				q_tr('txtMoney' ,t_money);
 				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {
