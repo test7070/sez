@@ -22,7 +22,7 @@
         var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtPrice', 10, 3,1]];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 0,1],['txtWeight', 15, 2,1]];
+        var bbsNum = [['txtMount', 15, 2,1],['txtWeight', 15, 2,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -35,7 +35,7 @@
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
         	['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp',
-        	'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
+        	'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
         );
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -110,7 +110,7 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						var i, j = 0;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMonunt,txtTypea', b_ret.length, b_ret
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtTypea', b_ret.length, b_ret
 														   , 'productno,product,unit,mount,typea'
 														   , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
@@ -140,14 +140,14 @@
 							
 							if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
-								as[i].xweight=as[i].emount;
+								as[i].xweight=as[i].mount;
 							}else{
-								as[i].xmount=as[i].emount;
+								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
 							}
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo', as.length, as
-														   , 'productno,product,unit,xmount,xweight,memo'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo,txtProcess', as.length, as
+														   , 'productno,product,unit,xmount,xweight,memo,process'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
 				 break;
                 case q_name: 
