@@ -8,46 +8,28 @@
 		<script type="text/javascript">
 	
             $(document).ready(function() {
-            	
- 				/*$('body').click(function(e){
- 					alert($(e.target).attr('id'));
- 				});*/
- 				$('#txtA').keydown(function(e){
- 					if(e.which==229){
- 						$('#txtA').data('handle',true);
- 					}else{
- 						$('#txtA').data('handle',false);
- 						var str = $('#txtA').val()+String.fromCharCode(e.which);
- 						if(!(/^(\w+|\w+\u002D\w+)$/g).test(str)){
- 							$('#txtA').data('curdata',$('#txtA').val());
-	                		event.preventDefault();
-	                	}else{
-	                		$('#txtA').data('curdata',str);
-	                		$('#txtB').val(e.which);
-	                	}
- 					}
- 				});
-                $('#txtA').keyup(function(e) {
-                	if($('#txtA').data('handle')){
-                		$('#txtC').val(e.which);
-                	}else{
-                		$('#txtA').val($('#txtA').data('curdata'));
-                		event.preventDefault();
-                	}
-                });
-                $('#txtA').mousedown(function(e) {
-                	if(e.button=='2')
-                  		event.preventDefault();
-                	//event.stopPropagation();
-                })	;
-                	
-            	/*$('#txtA').keypress(function(e){
-            		$('#txtB').val((event.charCode == undefined ? event.keyCode : event.charCode));
-            	
-            	});*/
+            	var string = '貨櫃號碼：BSIU2333950';
+ 				var t_caseno = (string ).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+ 				
+            	var t_caseno2 = (string).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+            	var t_caseno3 = (string).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$2');
+            	if(!(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(string))
+            		t_caseno2 = '';
+            	$('#txtA').val(t_caseno);
+            	$('#txtB').val(t_caseno2);
+            	$('#txtC').val(t_caseno3);
             	
             	
-            	return;
+            	/*alert(t_caseno + '\n' + t_caseno2);
+            	if(t_caseno.length>0){
+						if(t_caseno2.length>0){
+							$('#txtB').val(t_caseno);
+							$('#txtA').val(t_caseno2);
+						}else{
+							$('#txtA').val(t_caseno);
+						}
+					}*/
+				return;
             	/*var sampletext ="this is an example\nPretty boring aye?";
 				var a = document.body.appendChild(
 				        document.createElement("a")
