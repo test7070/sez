@@ -194,8 +194,12 @@
             }
 			
 			var sssno='';
+			var holiday;//存放holiday的資料
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'holiday':
+	            		holiday = _q_appendData("holiday", "", true);
+	            	break;
                 	case 'vcc':
                 		var as = _q_appendData("vcc", "", true);
                 		var unpay=0;
@@ -238,23 +242,7 @@
 	                    				as[0].caritem='行費';//管理費
 	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,manage', 'txtCaritemno');
 	                    			}
-	                    			//12月之後沒有公會費，與行費算在一起
-	                    			/*if(dec(as[0].guile)>0){
-	                    				as[0].caritemno='402';
-	                    				as[0].caritem='公會費'
-	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,guile', 'txtCaritemno');
-	                    			}*/
-	                    			/*if(dec(as[0].reserve)>0){
-	                    				as[0].caritemno='000';//未定
-	                    				as[0].caritem='準備金'
-	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,reserve', 'txtCaritemno');
-	                    			}
-	                    			if(dec(as[0].help)>0){
-	                    				as[0].caritemno='000';//未定
-	                    				as[0].caritem='互助金'
-	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,help', 'txtCaritemno');
-	                    			}*/
-	                    			
+	                    				                    			
 	                    			//上牌照稅
 	                    			if(as[0].ulicensemon==$('#txtMon').val().substr(4,2)&&dec(as[0].ulicense)>0){
 	                    				as[0].caritemno='501';
@@ -532,22 +520,38 @@
 						$('#txtUdate_'+j).attr('disabled', 'disabled');
 					}
 					//1020621 7月份開始資料3日後不能在處理
+					var x_day=3,t_day=1;
 					var t_date=$('#txtDatea_'+j).val();
-					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-					nextdate.setDate(nextdate.getDate() +3)
-					t_date=''+(nextdate.getFullYear()-1911)+'/';
-					//月份
-					if(nextdate.getMonth()+1<10)
-						t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
-					else
-						t_date=t_date+(nextdate.getMonth()+1)+'/';
-					//日期
-					if(nextdate.getDate()<10)
-						t_date=t_date+'0'+(nextdate.getDate());
-					else
-						t_date=t_date+(nextdate.getDate());
+					
+					while(t_day<x_day){
+						var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+						nextdate.setDate(nextdate.getDate() +1)
+						t_date=''+(nextdate.getFullYear()-1911)+'/';
+						//月份
+						t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+						//日期
+						t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
 						
-					if(t_date<=q_date()){
+						//六日跳過
+						if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+						||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+						){continue;}
+			                	
+						//假日跳過
+						if(holiday){
+							var isholiday=false;
+							for(var i=0;i<holiday.length;i++){
+								if(holiday[i].noa==t_date){
+									isholiday=true;
+									break;
+								}
+							}
+							if(isholiday) continue;
+						}
+						t_day++;
+					}
+						
+					if(r_rank<=8&&t_date<q_date()){
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
@@ -651,24 +655,28 @@
             function refresh(recno) {
                 _refresh(recno);
                 endacheck();
+                if(r_rank<=8)
+            		q_gt('holiday', "where=^^ noa>='"+$('#txtMon').val()+"/01"+"'^^" , 0, 0, 0, "", r_accy);
             }
             
             var checkenda=false;
             function endacheck() {
+            	if(r_rank>8){
+            		checkenda=false;
+            		return;
+            	}
+            	
             	//102/06/14 次月15日不能再修改與刪除
             	var t_date=$('#txtMon').val()+'/01';
 				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
 				nextdate.setDate(nextdate.getDate() +45)
 				t_date=''+(nextdate.getFullYear()-1911)+'/';
 				//月份
-				if(nextdate.getMonth()+1<10)
-					t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
-				else
-					t_date=t_date+(nextdate.getMonth()+1)+'/';
+				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
 				//日期
 				t_date=t_date+'15';
             	
-                if (t_date<q_date() ){
+                if (t_date<q_date()){
                 	checkenda=true;
                 }else{
                 	checkenda=false;
