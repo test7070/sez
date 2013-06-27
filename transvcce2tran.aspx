@@ -82,7 +82,7 @@
                 }).bind('contextmenu', function(e) {
 	            	if(e.target.nodeName!='INPUT')
                 		e.preventDefault();
-		        }, false);
+		        });
                 $('#btn1').click(function(e){
                 	$('#divImport').toggle();
                 	$('#textBdate').focus();	
@@ -147,7 +147,7 @@
                 }).bind('contextmenu', function(e) {
 	            	if(e.target.nodeName!='INPUT')
                 		e.preventDefault();
-		        }, false);
+		        });
                 
                 $('#btn2').click(function(e){
                 	$('#divExport').toggle();
