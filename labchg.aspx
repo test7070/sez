@@ -49,7 +49,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [];
+                bbmMask = [['txtDatea',r_picd]];
                 bbsMask = [['txtMon',r_picm]];
                 q_mask(bbmMask);
                 q_mask(bbsMask);

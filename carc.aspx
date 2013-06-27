@@ -53,7 +53,7 @@
             q_mask(bbmMask);
             bbsMask = [['txtCaradate', r_picd]];
             
-            q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);	
+            q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);
 
             $('#btnImport').click(function () {
             		if(emp($('#txtMon').val()))
@@ -111,24 +111,6 @@
 		            if(sssno_count>0)
 		            	t_where+=") ";
 		            
-		            /*if($('#chkSssno1')[0].checked==true){
-		            	t_where+="and (b.sssno='"+q_getMsg('lblSssno1')+"' "
-		            	sssno_count++;
-		            }
-		            if($('#chkSssno2')[0].checked==true){
-		            	if(sssno_count==0)
-		            		t_where+="and (b.sssno='"+q_getMsg('lblSssno2')+"' "
-		            	else
-		            		t_where+="or b.sssno='"+q_getMsg('lblSssno2')+"' "
-		            	sssno_count++;
-		            }
-		            if($('#chkSssno3')[0].checked==true){
-		            	if(sssno_count==0)
-		            		t_where+="and (b.sssno='"+q_getMsg('lblSssno3')+"' "
-		            	else
-		            		t_where+="or b.sssno='"+q_getMsg('lblSssno3')+"' "
-		            	sssno_count++;
-		            }*/
 		           //金額=0的不顯示
 		           	t_where+=" and a.outmoney!=0";
 		            t_where+=" ^^";
@@ -145,9 +127,7 @@
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
             		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
              });
-             /*$('#txtAcdate').focusout(function() {
-	             $('#txtMon').val($(this).val().substr(0,6));
-             });*/
+
              $('#txtAcc1').change(function () {
 			 	var s1 = trim($(this).val());
 			    if (s1.length > 4 && s1.indexOf('.') < 0)
@@ -172,6 +152,10 @@
 		var sssnumber=0;
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'holiday':
+            		holiday = _q_appendData("holiday", "", true);
+            		endacheck($('#txtDatea').val(),3);
+            	break;
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		sssnumber=as.length;
@@ -290,11 +274,6 @@
             $('#txtAcdate').val(q_date());
             $('#txtAcc1').val('2195.16');
             $('#txtAcc2').val('代付款項-監理部');
-            
-            /*$('#chkInsure')[0].checked=true;
-            $('#chkFuel')[0].checked=true;
-            $('#chkLicense')[0].checked=true;
-            $('#chkOther')[0].checked=true;*/
             $('#txtAcdate').focus();
         }
         function btnModi() {
@@ -341,12 +320,13 @@
             q_tr('txtTotal',t_total);
         }
         
-       
-
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-            endacheck();
+            if(r_rank<=8)
+            	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);
+            else
+            	checkenda=false;
        }
 
         function readonly(t_para, empty) {
@@ -481,31 +461,48 @@
 				bak.style.top = this.scrollTop+"px";
 			}
 		}
+		
 		var checkenda=false;
-		function endacheck() {
-            	//102/06/21 7月份開始資料3日後不能在處理
-                //結案日期加三天
-                var t_date=$('#txtDatea').val();
+		var holiday;//存放holiday的資料
+		function endacheck(x_datea,x_day) {
+			//102/06/21 7月份開始資料3日後不能在處理    
+			var t_date=x_datea,t_day=1;
+                
+			while(t_day<x_day){
 				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() +3)
+				nextdate.setDate(nextdate.getDate() +1)
 				t_date=''+(nextdate.getFullYear()-1911)+'/';
 				//月份
-				if(nextdate.getMonth()+1<10)
-					t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
-				else
-					t_date=t_date+(nextdate.getMonth()+1)+'/';
+				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
 				//日期
-				if(nextdate.getDate()<10)
-					t_date=t_date+'0'+(nextdate.getDate());
-				else
-					t_date=t_date+(nextdate.getDate());
+				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+	                	
+				//六日跳過
+				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+				){continue;}
+	                	
+				//假日跳過
+				if(holiday){
+					var isholiday=false;
+					for(var i=0;i<holiday.length;i++){
+						if(holiday[i].noa==t_date){
+							isholiday=true;
+							break;
+						}
+					}
+					if(isholiday) continue;
+				}
+	                	
+				t_day++;
+			}
                 
-                if (t_date<=q_date()){
-                	checkenda=true;
-                }else{
-                	checkenda=false;
-                }
-            }
+			if (t_date<q_date()){
+				checkenda=true;
+			}else{
+				checkenda=false;
+			}
+		}
 
     </script>
     <style type="text/css">
