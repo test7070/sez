@@ -38,6 +38,7 @@
                 t_worker = $('#txtWorker').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
+                t_accno = $('#txtAccno').val();
                 t_money = parseFloat($('#txtMoney').val().length==0?'0':$('#txtMoney').val());
 
                 t_checkno = $.trim($('#txtCheckno').val());
@@ -45,7 +46,8 @@
                 var t_where = " 1=1 " 
                 + q_sqlPara2("noa", t_noa) 
                 + q_sqlPara2("bankno", t_bankno) 
-                + q_sqlPara2("worker", t_worker) 
+                + q_sqlPara2("worker", t_worker)
+                + q_sqlPara2("accno", t_accno) 
                 + q_sqlPara2("datea", t_bdate, t_edate);
 				if(t_checkno.length>0)
 					t_where += " and exists(select noa from ufs where ufs.noa=uf.noa and patindex('%" + t_checkno + "%',ufs.checkno)>0)";
@@ -103,6 +105,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblMoney'></a></td>
 					<td>
 					<input class="txt" id="txtMoney" type="text" style="width:215px; font-size:medium;text-align: right;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblAccno'></a></td>
+					<td>
+					<input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;text-align: right;" />
 					</td>
 				</tr>
 			</table>

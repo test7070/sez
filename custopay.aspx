@@ -55,10 +55,10 @@
                 q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
             });
             $('#lblUmmfromto').click(function() {
-			    t_bummno = $('#txtBummno').val();
-			    t_eummno = $('#txtEummno').val();
-        		var t_where = " 1=1 " + q_sqlPara2("noa", t_bummno,t_eummno);
-				q_pop('txtBummno', "ummtran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'umm', 'noa', 'datea', "95%", "95%", q_getMsg('popUmm'), true);
+			    t_bummno = trim($('#txtBummno').val());
+			    t_eummno = trim($('#txtEummno').val());
+        		var t_where = " noa between '" + t_bummno + "' and '" + t_eummno + "'";
+        		q_box("ummtran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'umm', "95%", "95%", q_getMsg("popUmm"));
             });
         }
         function q_boxClose( s2) {
