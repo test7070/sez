@@ -293,14 +293,22 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-				if($('#txtDatea').val().substring(0,6) < '102/04'){
-					alert('禁止修改!!');
-					return;
-				}
+				
 				if (checkenda){
 	                alert('已關帳!!');
 	                return;
 				}
+				
+				if(t_payaccs[0]!= undefined || t_vcc[0]!=undefined){
+            		alert('該單據內已收款或代付，無法修改!!');
+            		return;
+            	}
+            	
+            	if($('#txtDatea').val().substring(0,6) < '102/04'){
+					alert('禁止修改!!');
+					return;
+				}
+				
                 _btnModi();
                 $('#txtDatea').focus();
                 
