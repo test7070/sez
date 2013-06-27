@@ -95,7 +95,8 @@
                 	q_box("lcs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'lcs', "95%", "95%", q_getMsg('popLcs'));
                 }
             });
-            
+            $('#txtFloata').change(function () {sum();});
+			$('#txtTotal').change(function () {sum();});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
@@ -190,10 +191,12 @@
         }
 		
 		function q_stPost() {
+			//t_accno + ";" + t_payed + ";" + (t_total - t_payed);
 		        if (!(q_cur == 1 || q_cur == 2))
 		            return false;
-		        abbm[q_recno]['accno'] = xmlString;
-		        $('#txtAccno').val(xmlString);
+				var s1 = xmlString.split(';');
+		        abbm[q_recno]['accno'] = s1[0];
+		        $('#txtAccno').val(s1[0]);
 		    }
 		
         function _btnSeek() {
@@ -298,6 +301,7 @@
                 $('#txtWeight_' + j).focusout(function () { sum(); });
                 $('#txtPrice_' + j).focusout(function () { sum(); });
                 $('#txtMount_' + j).focusout(function () { sum(); });
+                $('#txtTotal_' + j).focusout(function () { sum(); });
 
             } //j
         }
@@ -328,7 +332,7 @@
             var i;
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-            _btnOk( null, bbmKey[0], bbsKey[1], '', 2);  // key_value
+            _btnOk( key_value, bbmKey[0], bbsKey[1], '', 2);  // key_value
         }
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
@@ -370,7 +374,7 @@
                 t_unit = $('#txtUnit_' + j).val();
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec($('#txtWeight_' + j).val()); // 重量合計
-                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount)*t_float, 0));
+                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
 
@@ -379,9 +383,8 @@
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
             $('#txtWeight').val(round(t_weight, 0));
-            //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
             calTax();
-
+			q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改

@@ -97,12 +97,8 @@
 		            q_box('ordbs_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
 			     });
 			     
-			     $('#txtFloata').change(function () {
-		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
-				});
-				$('#txtTotal').change(function () {
-		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
-				});
+				$('#txtFloata').change(function () {sum();});
+				$('#txtTotal').change(function () {sum();});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -214,20 +210,11 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		  		$('#txtMount_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
-								q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq));
-								sum();
-				            });
-				            $('#txtPrice_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
-				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq));
-				                sum();
-				            });
+            		  		$('#txtUnit_' + j).change(function () {sum();});
+            		  		$('#txtMount_' + j).change(function () {sum();});
+				            $('#txtWeight_' + j).change(function () {sum();});
+				            $('#txtPrice_' + j).change(function () {sum();});
+				            $('#txtTotal_' + j).change(function () {sum();});
             		  }
             	}
                 _bbsAssign();
@@ -277,11 +264,17 @@
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
+                	if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
+                		q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
+                	}else{
+                		q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
+                	}
                 	q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
 					t_money+=q_float('txtTotal_'+j);
                 }  // j
 				q_tr('txtMoney' ,t_money);
 				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {

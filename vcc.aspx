@@ -17,7 +17,7 @@
         }
         q_tables = 's';   /// 定義為 Master-detail  架構 ， master= vcc   detail = vccs  使用資料表=vcc,vccs
         var q_name = "vcc";
-        var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight', 'txtOrdeno']; // master 唯讀物件
+        var q_readonly = ['txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight', 'txtOrdeno','txtWorker']; // master 唯讀物件
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; // detail 唯讀物件
         var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2], ['txtMoney', , , 1], ['txtTax', , , 1], ['txtTotal', , , 1], ['txtTotalus', , , 1], ['txtWeight', , , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2, 1], ['txtMount', 9, 2, 1], ['txtTotal', , , 1]]; // detail 允許 key 小數  [物件,整數位數,小數位數, comma Display]
@@ -65,16 +65,6 @@
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm[]，  fbbm=記錄所有 master txt???? ,cmb???? ,chk???
             q_cmbParse("combPay", q_getPara('vcc.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran')); // q_cmbParse( object , values , 's'=detail);
-			/* 若非本會計年度則無法存檔 */
-			$('#txtDatea').focusout(function () {
-				if($(this).val().substr( 0,3)!= r_accy){
-			        	$('#btnOk').attr('disabled','disabled');
-			        	alert(q_getMsg('lblDatea') + '非本會計年度。');
-			        	
-				}else{
-			       		$('#btnOk').removeAttr('disabled');
-				}
-			});
             $('#btnOrdes').click(function () {
                 btnOrdes();
             });
@@ -103,6 +93,7 @@
                 	q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
                 }
             });
+            $('#txtFloata').change(function () {sum();});
         }
 
         ///   q_funcPost( server_function name , result) 
@@ -280,13 +271,11 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
-            var t_float = dec($('#txtFloata').val());
-            t_float = (emp(t_float) ? 1 : t_float);
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
                 t_mount = (!t_unit || emp(t_unit) || trim(t_unit).toLowerCase() == 'kg' ? q_float('txtWeight_' + j) : q_float('txtMount_' + j));  // 計價量
                 t_weight = t_weight + dec(q_float('txtWeight_' + j)); // 重量合計
-                $('#txtTotal_' + j).val(round(q_float('txtPrice_' + j) * dec(t_mount) * t_float, 0));
+                $('#txtTotal_' + j).val(round(q_float('txtPrice_' + j) * dec(t_mount), 0));
                 t1 = t1 + dec(q_float('txtTotal_' + j));
             }  // j
 
@@ -295,9 +284,8 @@
                 $('#txtTranmoney').val(round(t_weight * dec(q_float('txtPrice')), 0));
 
             $('#txtWeight').val(round(t_weight, 0));
-            //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
-
             calTax();
+            q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
         }
 
         function q_stPost() {
@@ -498,7 +486,7 @@
                <td class="column2" ><input id="txtAcomp"    type="text"  style='width:100%;'/></td>
                 <td align="right" class="style2" ><a id='lblFloata'></a></td>
                 <td class="column3" ><select id="cmbCoin" style='width:100%'> </select></td>                 
-                <td class="column4" ><input id="txtFloata"    type="text" style='width:100%' /></td>                 
+                <td class="column4" ><input id="txtFloata" type="text" style='width:100%' /></td>                 
                 <td align="right" class="style2"><a id='lblInvono' class="lbl"></a></td>
                 <td class="column2"><input id="txtInvono"    type="text"  style='width:94%;'/></td> 
             </tr>

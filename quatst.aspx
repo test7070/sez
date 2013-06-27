@@ -81,12 +81,8 @@
 				$('#cmbKind').change(function () {
 		        	size_change();
 				});
-				$('#txtFloata').change(function () {
-		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
-				});
-				$('#txtTotal').change(function () {
-		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
-				});
+				$('#txtFloata').change(function () {sum();});
+				$('#txtTotal').change(function () {sum();});
 				$('#lblContract').click(function(){
 					var t_contract = $.trim($('#txtContract').val());
 					q_box("contst.aspx?;;;contract='" + t_contract + "';"+r_accy, 'cont', "95%", "95%", q_getMsg("popContst"));
@@ -293,21 +289,8 @@
 						    }
 						});
 						
-						$('#txtWeight_' + j).change(function () {
-			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							q_tr('txtTotal_'+b_seq,round(q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq),0));
-							sum();
-						});
-						$('#txtPrice_' + j).change(function () {
-			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							q_tr('txtTotal_'+b_seq,round(q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq),0));
-							sum();
-						});
-						
+						$('#txtWeight_' + j).change(function () {sum();});
+						$('#txtPrice_' + j).change(function () {sum();});
 						$('#txtTotal_' + j).change(function () {sum();});
 						$('#txtWeight_' + j).change(function () {sum();});
 					}
@@ -358,6 +341,7 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
                 for(var j = 0; j < q_bbsCount; j++) {
+                	q_tr('txtTotal_'+j,round(q_float('txtWeight_'+j)*q_float('txtPrice_'+j),0));
 					t_total+=q_float('txtTotal_'+j);
 					t_weight+=q_float('txtWeight_'+j);
                 }  // j

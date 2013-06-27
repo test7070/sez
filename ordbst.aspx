@@ -64,7 +64,12 @@
                 $('#cmbPaytype').change(function () {
 	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
 			     });
-                
+                $('#txtFloata').change(function () {
+		        	sum();
+				});
+				$('#txtTotal').change(function () {
+		        	sum();
+				});
 	            //變動尺寸欄位
 	            $('#cmbKind').change(function () {
 	            	size_change();
@@ -144,6 +149,10 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		  	$('#txtMount_' + j).change(function () {sum();});
+				        $('#txtWeight_' + j).change(function () {sum();});
+				        $('#txtPrice_' + j).change(function () {sum();});
+				        $('#txtTotal_' + j).change(function () {sum();});
             		  	//計算理論重
 					     $('#textSize1_' + j).change(function () {
 				         		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -292,6 +301,7 @@
                 q_tr('txtMoney' ,t_money);
 				q_tr('txtWeight' ,t_weight);
 				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {
