@@ -68,7 +68,7 @@
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd], ['txtDatea', r_picd]];
+            bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
             $('#btnImport').click(function(){
             	//20130513改為用inbs匯入

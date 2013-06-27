@@ -75,8 +75,10 @@
                 q_cmbParse("cmbKind", q_getPara('payb.kind'), 's');
                 q_cmbParse("cmbXpayc", q_getMsg('payc').split('&').join());
                 $("#cmbXpayc").change(function(e) {
-                	if(q_cur==1 || q_cur==2)
-					$('#txtPayc').val($(this).find(":selected").text()); 
+                	if(q_cur==1 || q_cur==2){
+                		$('#txtPayc').val($(this).find(":selected").text()); 
+                		getIndate($('#txtDatea').val());
+                	}
 				});
                 //.........................
                 //........................單據匯入
@@ -113,6 +115,63 @@
                     q_box('ucc.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "600px", "電子檔製作");
 
                 });
+                //--------------------------------------------
+                $('#txtDatea').blur(function(e){
+                	getPaydate($(this).val());
+                	getIndate($(this).val());
+                });
+                //-----------------------
+                $('#txtPayc').change(function(e){
+                	getIndate($('#txtDatea').val());
+                });
+            }
+            function getNextMonth(date){
+            	t_date = new Date(date.getFullYear(), date.getMonth(), 25);
+            	t_date = new Date(t_date.getTime()+ 10*(1000 * 60 * 60 * 24));
+            	t_date.setDate(1);
+            	return t_date;     	
+            }
+            function getPaydate(date){
+            	//付款日(立帳日次月第4個星期5)
+            	if(q_cur==1 && date.length>0 && q_cd(date)){
+		        	var t_year = parseInt(date.substring(0,3))+1911;
+		    		var t_mon = parseInt(date.substring(4,6)) - 1;
+		    		var t_date = parseInt(date.substring(7,9));
+					var curdate = new Date(t_year,t_mon,t_date);           			
+					var nextMon = nextMon = getNextMonth(curdate);	
+		    		nextMon.setDate(27 - nextMon.getDay());
+		    		t_year = nextMon.getFullYear()-1911;
+		    		t_year = '000'+t_year;
+		    		t_year = t_year.substring(t_year.length-3,t_year.length);
+		    		t_mon = nextMon.getMonth()+1;
+		    		t_mon = '00'+t_mon;
+		    		t_mon = t_mon.substring(t_mon.length-2,t_mon.length);
+		    		t_date = nextMon.getDate();
+		    		t_date = '00'+t_date;
+		    		t_date = t_date.substring(t_date.length-2,t_date.length);
+		    		$('#txtPaydate').val(t_year+'/'+t_mon+'/'+t_date);
+        		}
+            }
+            function getIndate(date){
+            	//到期日(立帳日期(月) + 3個月又25天)
+            	if(q_cur==1 && $('#txtPayc').val().indexOf('支票')>=0 && date.length>0 && q_cd(date)){
+		        	var t_year = parseInt(date.substring(0,3))+1911;
+		    		var t_mon = parseInt(date.substring(4,6)) - 1;
+		    		var t_date = parseInt(date.substring(7,9));
+					var curdate = new Date(t_year,t_mon,t_date); 
+	            	var nextMon = getNextMonth(getNextMonth(getNextMonth(getNextMonth(curdate))));
+	    			nextMon.setDate(25);
+	    			t_year = nextMon.getFullYear()-1911;
+	        		t_year = '000'+t_year;
+	        		t_year = t_year.substring(t_year.length-3,t_year.length);
+	        		t_mon = nextMon.getMonth()+1;
+	        		t_mon = '00'+t_mon;
+	        		t_mon = t_mon.substring(t_mon.length-2,t_mon.length);
+	        		t_date = nextMon.getDate();
+	        		t_date = '00'+t_date;
+	        		t_date = t_date.substring(t_date.length-2,t_date.length);
+	        		$('#txtIndate').val(t_year+'/'+t_mon+'/'+t_date);
+        		}
             }
 
             function q_boxClose(s2) {
@@ -450,6 +509,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                getPaydate(q_date());
                 $('#txtMon').val(q_date().substr(0, 6));
                 $('#txtDatea').focus();
             }

@@ -15,6 +15,10 @@
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
     brwCount2 = 6;
+	aPop = new Array(
+		['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'],
+		['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
+	);
         $(document).ready(function () {
             main();
         });         /// end ready
@@ -29,8 +33,22 @@
             $('#btnToSeek').click(function(){
             	SeekStr();
             });
-         }
-
+        }
+		
+		function mainPost(){
+			q_getFormat();
+			$('#textProductno').focus(function(){
+				q_cur=1;
+			}).blur(function(){
+				q_cur=0;
+			});
+			$('#textStoreno').focus(function(){
+				q_cur=1;
+			}).blur(function(){
+				q_cur=0;
+			});
+		}
+		
         function q_gtPost() {  
         }
         
@@ -47,8 +65,28 @@
         }
 		
 		function SeekStr(){
-			t_productno = $('#textProductno').val();
-			var t_where = " 1=1 " + q_sqlPara2("productno", t_productno);
+			t_ordeno = trim($('#textOrdeno').val());
+			t_productno = trim($('#textProductno').val());
+			t_product = trim($('#textProduct').val());
+			t_storeno = trim($('#textStoreno').val());
+			t_store = trim($('#textStore').val());
+			t_class = trim($('#textClass').val());
+			t_radius = trim($('#textRadius').val());
+			t_dime = trim($('#textDime').val());
+			t_width = trim($('#textWidth').val());
+			t_lengthb = trim($('#textLengthb').val());
+			t_weight = trim($('#textWeight').val());
+			var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno)
+								  + q_sqlPara2("productno", t_productno)
+								  + q_sqlPara2("product", t_product)
+								  + q_sqlPara2("storeno", t_storeno)
+								  + q_sqlPara2("store", t_store)
+								  + q_sqlPara2("class", t_class)
+								  + q_sqlPara2("radius", t_radius)
+								  + q_sqlPara2("dime", t_dime)
+								  + q_sqlPara2("width", t_width)
+								  + q_sqlPara2("lengthb", t_lengthb)
+								  + q_sqlPara2("weight", t_weight);
 			seekData(t_where);
 		}
 
@@ -57,9 +95,45 @@
         }
     </script>
     <style type="text/css">
-    	input[type="text"], input[type="button"]{
-    		font-size: medium;
+    	#seekForm{
+    		margin-left: auto;
+			margin-right: auto;
+    		width:950px;
     	}
+    	#seekTable{
+			padding: 0px;
+			border: 1px white double;
+			border-spacing: 0;
+			border-collapse: collapse;
+			font-size: medium;
+			color: blue;
+			background: #cad3ff;
+			width: 100%;
+    	}
+    	#seekTable tr {
+			height: 35px;
+		}
+		.txt.c1{
+			width:98%;
+		}
+		.txt.c2{
+			width:99%;
+		}
+		.lbl{
+			float:right;
+		}
+		span{
+			margin-right: 5px;
+		}
+		td{
+			width:4%;
+		}
+		.num{
+			text-align:right;
+		}
+		input[type="button"] {	 
+			font-size: medium;
+		}
     </style>
 </head>
 
@@ -103,17 +177,42 @@
                 
             </tr>
         </table>
-  <!--#include file="../inc/brow_ctrl.inc"--> 
-	<table id="seekForm"  border="0">
+</div>
+  <!--#include file="../inc/brow_ctrl.inc"-->
+<div id="seekForm">
+	<table id="seekTable"  border="0" cellpadding='0' cellspacing='0'>
 		<tr>
-			<td align="center"><span>品名編號</span></td>
-			<td><input id="textProductno" type="text"/></td>
-			<td align="center"><span>品名</span></td>
-			<td><input id="textProduct" type="text"/></td>
+			<td><span class="lbl">訂單編號</span></td>
+			<td colspan="3"><input id="textOrdeno" type="text" class="txt c2"/></td>
+			<td><span class="lbl">品名編號</span></td>
+			<td colspan="3">
+				<input id="textProductno" type="text" style="width:25%"/>
+				<input id="textProduct" type="text" style="width:73%"/>
+			</td>
+			<td><span class="lbl">倉庫</span></td>
+			<td colspan="3">
+				<input id="textStoreno" type="text" style="width:25%"/>
+				<input id="textStore" type="text" style="width:73%"/>
+			</td>
 		</tr>
 		<tr>
-			<td><input type="button" id="btnToSeek" value="查詢"></td>
-			<td></td>
+			<td><span class="lbl">等級</span></td>
+			<td><input id="textClass" type="text" class="txt c1 num"/></td>
+			<td><span class="lbl">短徑</span></td>
+			<td><input id="textRadius" type="text" class="txt c1 num"/></td>
+			<td><span class="lbl">厚度</span></td>
+			<td><input id="textDime" type="text" class="txt c1 num"/></td>
+			<td><span class="lbl">寬度</span></td>
+			<td><input id="textWidth" type="text" class="txt c1 num"/></td>
+			<td><span class="lbl">長度</span></td>
+			<td><input id="textLengthb" type="text" class="txt c1 num"/></td>
+			<td><span class="lbl">重量</span></td>
+			<td><input id="textWeight" type="text" class="txt c1 num"/></td>
+		</tr>
+		<tr>
+			<td colspan="12" align="center">
+				<input type="button" id="btnToSeek" value="查詢">
+			</td>
 		</tr>
 	</table>
 </div>

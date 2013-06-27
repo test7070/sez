@@ -22,6 +22,7 @@
 		    var bbmMask = [];
 		    var bbsMask = [];
 		    var aPop = new Array(
+		    				['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
 		    				['txtProductno_', 'btnProductno_', 'assignproduct', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
 		    				);
 		    $(document).ready(function () {
@@ -144,7 +145,8 @@
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 					</td>
 					<td class="td2">
-						<input class="txt" id="txtUno.*" type="text" style="width:95%;"  />
+						<input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
+                		<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/>
 					</td>
 					<td class="td3">
 						<input class="txt" id="txtProduct.*" type="text" style="width:85%;"  />

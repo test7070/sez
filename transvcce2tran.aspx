@@ -67,18 +67,22 @@
                 
                 Lock(1,{opacity:0});
         		q_gt('carteam', '', 0, 0, 0, 'init_1');
+
             	//Import	
                 $('#divImport').mousedown(function(e) {
-                	if(e.button==1){               		
+                	if(e.button==2){               		
 	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
 	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
                 	}
                 }).mousemove(function(e) {
-                	if(e.button==1){             	
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
                 		$(this).css('top',$(this).data('xtop')+e.clientY);
                 		$(this).css('left',$(this).data('xleft')+e.clientX);
                 	}
-                });
+                }).bind('contextmenu', function(e) {
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
+		        });
                 $('#btn1').click(function(e){
                 	$('#divImport').toggle();
                 	$('#textBdate').focus();	
@@ -131,16 +135,19 @@
                 });
                 //export
                 $('#divExport').mousedown(function(e) {
-                	if(e.button==1){               		
+                	if(e.button==2){               		
 	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
 	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
                 	}
                 }).mousemove(function(e) {
-                	if(e.button==1){             	
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
                 		$(this).css('top',$(this).data('xtop')+e.clientY);
                 		$(this).css('left',$(this).data('xleft')+e.clientX);
                 	}
-                });
+                }).bind('contextmenu', function(e) {
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
+		        });
                 
                 $('#btn2').click(function(e){
                 	$('#divExport').toggle();
@@ -203,6 +210,7 @@
 						    dataType: 'json',
 						    success: function(data){
 								$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
+								$('#txtMemo_'+this.sel).val(data['TaskContent']);
 								var t_caseno = '',t_caseno2 = '';
 								if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(data['TaskContent']))
 									t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
