@@ -36,7 +36,7 @@
             System.Net.HttpWebRequest request = System.Net.HttpWebRequest.Create(targetUrl) as System.Net.HttpWebRequest;
             request.Method = "POST";
             request.ContentType = "text/xml; charset=\"utf-8\"";
-            request.Timeout = 30000;
+            request.Timeout = 10000;
             request.ContentLength = postData.Length;
             // 寫入 Post Body Message 資料流
             using (System.IO.Stream st = request.GetRequestStream())

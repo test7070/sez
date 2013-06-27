@@ -210,6 +210,7 @@
 						    dataType: 'json',
 						    success: function(data){
 								$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
+								$('#txtMemo_'+this.sel).val(data['TaskContent']);
 								var t_caseno = '',t_caseno2 = '';
 								if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(data['TaskContent']))
 									t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
