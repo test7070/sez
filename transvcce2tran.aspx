@@ -67,18 +67,21 @@
                 
                 Lock(1,{opacity:0});
         		q_gt('carteam', '', 0, 0, 0, 'init_1');
+
             	//Import	
                 $('#divImport').mousedown(function(e) {
-                	if(e.button==1){               		
+                	if(e.button==2){               		
 	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
 	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
                 	}
                 }).mousemove(function(e) {
-                	if(e.button==1){             	
+                	if(e.button==2){             	
                 		$(this).css('top',$(this).data('xtop')+e.clientY);
                 		$(this).css('left',$(this).data('xleft')+e.clientX);
                 	}
-                });
+                }).bind('contextmenu', function(e) {
+	            	e.preventDefault();
+		        }, false);
                 $('#btn1').click(function(e){
                 	$('#divImport').toggle();
                 	$('#textBdate').focus();	
@@ -131,16 +134,18 @@
                 });
                 //export
                 $('#divExport').mousedown(function(e) {
-                	if(e.button==1){               		
+                	if(e.button==2){               		
 	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
 	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
                 	}
                 }).mousemove(function(e) {
-                	if(e.button==1){             	
+                	if(e.button==2){             	
                 		$(this).css('top',$(this).data('xtop')+e.clientY);
                 		$(this).css('left',$(this).data('xleft')+e.clientX);
                 	}
-                });
+                }).bind('contextmenu', function(e) {
+	            	e.preventDefault();
+		        }, false);
                 
                 $('#btn2').click(function(e){
                 	$('#divExport').toggle();
