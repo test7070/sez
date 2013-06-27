@@ -75,12 +75,13 @@
 	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
                 	}
                 }).mousemove(function(e) {
-                	if(e.button==2){             	
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
                 		$(this).css('top',$(this).data('xtop')+e.clientY);
                 		$(this).css('left',$(this).data('xleft')+e.clientX);
                 	}
                 }).bind('contextmenu', function(e) {
-	            	e.preventDefault();
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
 		        }, false);
                 $('#btn1').click(function(e){
                 	$('#divImport').toggle();
@@ -139,12 +140,13 @@
 	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
                 	}
                 }).mousemove(function(e) {
-                	if(e.button==2){             	
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
                 		$(this).css('top',$(this).data('xtop')+e.clientY);
                 		$(this).css('left',$(this).data('xleft')+e.clientX);
                 	}
                 }).bind('contextmenu', function(e) {
-	            	e.preventDefault();
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
 		        }, false);
                 
                 $('#btn2').click(function(e){

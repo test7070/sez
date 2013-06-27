@@ -263,13 +263,14 @@
 	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
                 	}
                 }).mousemove(function(e) {
-                	if(e.button==2){             	
+                	if(e.button==2 && e.target.nodeName!='INPUT'){ 
                 		$(this).css('top',$(this).data('xtop')+e.clientY);
                 		$(this).css('left',$(this).data('xleft')+e.clientX);
                 	}
                 }).bind('contextmenu', function(e) {
-                	e.preventDefault();
-		        }, false);
+                	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
+		        });
                 $('#btnDivaddr').click(function(e){
                 	$('#divAddr').hide();
                 });
