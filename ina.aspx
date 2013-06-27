@@ -32,6 +32,7 @@
             aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
             ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
             ['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtComp','tgg_b.aspx'],
+            ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']);
             $(document).ready(function() {
@@ -498,7 +499,8 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><input  id="txtUno.*" type="text" class="txt c1"/></td>
+                <td ><input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
+                	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
                 <td ><input  id="txtProductno.*" type="text" style="width:70%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>

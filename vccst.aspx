@@ -30,13 +30,13 @@
 		 aPop = new Array( ['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype', 'cust_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+		 ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
 		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();  
             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-
         });
 
         //////////////////   end Ready
@@ -214,7 +214,7 @@
             q_box('vcc_s.aspx', q_name + '_s', "500px", "530px", q_getMsg("popSeek"));
         }
 
-        function combPaytype_chg() {   /// �u�� comb �}�Y�A�~�ݭn�g onChange()   �A��l cmb �s����Ʈw
+        function combPaytype_chg() {
             var cmb = document.getElementById("combPaytype")
             if (!q_cur) 
                 cmb.value = '';
@@ -865,7 +865,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
            <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
+                <td align="center" style="width:12%;"><a id="lblUno_st" > </a></td>
                 <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>-->
@@ -878,7 +878,10 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><input  id="txtUno.*" type="text" class="txt c1"/></td>
+                <td >
+                	<input id="txtUno.*" type="text" class="txt c1" style="width:80%;"/>
+                	<input class="btn" id="btnUno.*" type="button" value='.'/>
+                </td>
                 <td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" /><input  id="txtProductno.*" type="text" style="width:83%;" />
                 	<input id="txtClass.*" type="text" style='width: 83%;'/>
                 </td>

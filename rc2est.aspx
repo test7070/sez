@@ -26,6 +26,7 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
          aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
+        ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
         $(document).ready(function () {
@@ -691,7 +692,8 @@
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtStoreno.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
+                	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
                	<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                     <input type="text" id="txtProductno.*"  style="width:75%; float:left;"/>
                     <input id="txtClass.*" type="text" style="width: 75%;"/>

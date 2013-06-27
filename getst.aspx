@@ -27,7 +27,8 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
         ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-        ['txtUno_', 'btnUno_', 'uccc', 'noa,productno,product,spec,radius,width,dime,lengthb,emount,gweight,mweight,memo', 'txtUno_,txtProductno_,txtProduct_,txtSpec_,txtRadius_,txtWidth_,txtDime_,txtLengthb_,txtMount_,txtGweight_,txtWeight_,txtMemo_', 'uccc_b.aspx'],
+        //['txtUno_', 'btnUno_', 'uccc', 'noa,productno,product,spec,radius,width,dime,lengthb,emount,gweight,mweight,memo', 'txtUno_,txtProductno_,txtProduct_,txtSpec_,txtRadius_,txtWidth_,txtDime_,txtLengthb_,txtMount_,txtGweight_,txtWeight_,txtMemo_', 'uccc_b.aspx'],
+        ['txtUno_', 'btnUno_', 'uccc', 'noa,productno,product,spec,radius,width,dime,lengthb,emount,gweight,mweight,memo', 'txtUno_,txtProductno_,txtProduct_,txtSpec_,txtRadius_,txtWidth_,txtDime_,txtLengthb_,txtMount_,txtGweight_,txtWeight_,txtMemo_', 'uccc_seek_b.aspx','95%','60%'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
