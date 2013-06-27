@@ -166,6 +166,10 @@
 			
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+					case 'holiday':
+	            		holiday = _q_appendData("holiday", "", true);
+	            		endacheck($('#txtDatea').val(),3);//單據日期,幾天後關帳
+	            	break;
 		        	case 'payacc_labpay':
 		        		//清除現有資料
 		        		for (var i = 0; i < q_bbsCount; i++) {
@@ -433,7 +437,10 @@
 
 		    function refresh(recno) {
 		        _refresh(recno);
-		        endacheck();
+		        if(r_rank<=8)
+	            	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
+	            else
+	            	checkenda=false;
 		        if(q_cur==1 || q_cur==2){
 		        	$("#btnAuto").removeAttr("disabled");
 		        }else{
@@ -518,31 +525,48 @@
 		    function btnCancel() {
 		        _btnCancel();
 		    }
-		    var checkenda=false;
-		    function endacheck() {
-            	//102/06/21 7月份開始資料3日後不能在處理
-                //日期加三天
-                var t_date=$('#txtDatea').val();
+		    
+		var checkenda=false;
+		var holiday;//存放holiday的資料
+		function endacheck(x_datea,x_day) {
+			//102/06/21 7月份開始資料3日後不能在處理
+			var t_date=x_datea,t_day=1;
+                
+			while(t_day<x_day){
 				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() +3)
+				nextdate.setDate(nextdate.getDate() +1)
 				t_date=''+(nextdate.getFullYear()-1911)+'/';
 				//月份
-				if(nextdate.getMonth()+1<10)
-					t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
-				else
-					t_date=t_date+(nextdate.getMonth()+1)+'/';
+				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
 				//日期
-				if(nextdate.getDate()<10)
-					t_date=t_date+'0'+(nextdate.getDate());
-				else
-					t_date=t_date+(nextdate.getDate());
+				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+	                	
+				//六日跳過
+				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+				){continue;}
+	                	
+				//假日跳過
+				if(holiday){
+					var isholiday=false;
+					for(var i=0;i<holiday.length;i++){
+						if(holiday[i].noa==t_date){
+							isholiday=true;
+							break;
+						}
+					}
+					if(isholiday) continue;
+				}
+	                	
+				t_day++;
+			}
                 
-                if (t_date<=q_date()){
-                	checkenda=true;
-                }else{
-                	checkenda=false;
-                }
-            }
+			if (t_date<q_date()){
+				checkenda=true;
+			}else{
+				checkenda=false;
+			}
+		}
 		</script>
 		<style type="text/css">
             #dmain {
