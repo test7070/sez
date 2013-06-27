@@ -15,25 +15,31 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_desc = 1;
-        q_tables = 's';
+        q_tables = 't';
         var q_name = "orde";
         var q_readonly = ['txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
+        var q_readonlyt = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [['txtMoney', 10, 2, 1],['txtTax', 10, 2, 1],['txtTotal', 10, 2, 1],['txtTotalus', 10, 2, 1],['txtWeight', 10, 2, 1]];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3],['txtTotal', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
+		var bbtNum = [['txtDime', 10, 0, 1],['txtWidth', 10, 0, 1],['txtLengthb', 10, 0, 1],['txtMount', 10, 0, 1],['txtWeight', 10, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-		 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
-		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-		 ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
-		 ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_fact,addr_fact',
-            	 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx']);
-        $(document).ready(function () {
+		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+		['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
+		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+		['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+		['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_fact,addr_fact',
+           	 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx'],
+        ['txtUno__', 'btnUno__', 'uccc', 'noa', 'txtUno__', 'uccc_seek_b.aspx','95%','60%'],
+		['txtProductno__', 'btnProductno__', 'assignproduct', 'noa,product', 'txtProductno__,txtProduct__', 'ucc_b.aspx']
+        );
+		$(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'no2'];
+            bbtKey = ['noa', 'no2'];
 
             //xmlTable = 'ordem,ordems';
             //xmlKey = [['noa'],['noa', 'noq'], ['noa', 'noq']];
@@ -42,10 +48,12 @@
 
             q_brwCount();  // 計算 合適  brwCount 
 
-           q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
-                
-
-            $('#txtOdate').focus
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+			$('#dbbt').hide();
+			$('#btnBBTShow').click(function(){
+				$('#dbbt').toggle();
+			});
+			$('#txtOdate').focus();
         });
 
         //////////////////   end Ready
@@ -191,6 +199,10 @@
                 $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
+
+		function bbtAssign(){
+			_bbtAssign();
+		}
 
         function bbsAssign() {  /// 表身運算式
         	for(var j = 0; j < q_bbsCount; j++) {
@@ -448,6 +460,10 @@
             _btnPlus(org_htm, dest_tag, afield);
             
         }
+        
+		function btnPlut(org_htm, dest_tag, afield) {
+			_btnPlus(org_htm, dest_tag, afield);
+		}
 
         function q_appendData(t_Table) {
             return _q_appendData(t_Table);
@@ -750,7 +766,6 @@
     </style>
 </head>
 <body>
-    <!--<form id="form1" runat="server" style="height: 100%">-->
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
@@ -821,7 +836,7 @@
                 <td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
                 <td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
-                <td class="td7" >&nbsp;</td>
+                <td class="td7" ><input id="btnBBTShow" type="button" value='' /></td>
                 <td class="td8" style="display: none;"><input id="btnOrdem" type="button" value='' /></td> 
             </tr>
             <tr class="tr7">
@@ -872,11 +887,13 @@
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblMount'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblWeights'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblWeights'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblGemounts'></a></td>
+                <td align="center" style="width:6%;"><a id='lblTotals'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblGemounts'></a></td>
                 <td align="center" style="width:15%;"><a id='lblMemos'> </a></td>
+                <td align="center" style="width:2%;"><a id='lblssale_st'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblscut_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -912,14 +929,72 @@
                 	<input class="txt num c1" id="txtC1.*" type="text" />
                 	<input class="txt num c1" id="txtNotv.*" type="text" />
                 </td>
-                <td ><input class="txt c7" id="txtMemo.*" type="text" />
-                <input class="txt c2" id="txtQuatno.*" type="text"  />
-                <input class="txt c2" id="txtNo3.*" type="text"  />
-                <!--<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>-->
+                <td >
+                	<input class="txt c7" id="txtMemo.*" type="text" />
+	                <input class="txt c2" id="txtQuatno.*" type="text"  />
+	                <input class="txt c2" id="txtNo3.*" type="text"  />
+                <!--<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />-->
+                </td>
+				<td align="center"><input id="chkIssale.*" type="checkbox"/></td>
+				<td align="center"><input id="chkIscut.*" type="checkbox"/></td>
             </tr>
         </table>
         </div>
+		<div id="dbbt">
+			<table id="tbbt" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+				<tr style='color:white; background:#003366;' >
+					<input class="txt c1"  id="txtNoa..*" type="hidden"  />
+                    <input id="txtNoq..*" type="hidden" />
+					<td class="td1" align="center" style="width:1%; max-width:20px;">
+					<input class="btn"  id="btnPlut" type="button" value='+' style="font-weight: bold;"  />
+					</td>
+					<td class="td2" align="center" style="width:15%;"><a id='lblUno_t'></a></td>
+					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_t'></a></td>
+					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_t'></a></td>
+					<td class="td5" align="center" style="width:10%;"><a id='lblDime_t'></a></td>
+					<td class="td6" align="center" style="width:10%;"><a id='lblWidth_t'></a></td>
+					<td class="td7" align="center" style="width:10%;"><a id='lblLengthb_t'></a></td>
+					<td class="td8" align="center" style="width:10%;"><a id='lblMount_t'></a></td>
+					<td class="td9" align="center" style="width:10%;"><a id='lblWeight_t'></a></td>
+					<td class="td10" align="center" style="width:10%;"><a id='lblSource_t'></a></td>
+				</tr>
+				<tr  style='background:#cad3ff;'>
+					<td class="td1" align="center">
+						<input class="btn"  id="btnMinut..*" type="button" value='-' style="font-weight: bold; "  />
+					</td>
+					<td class="td2">
+						<input class="txt c1" id="txtUno..*" type="text" style="width:80%;" />
+                		<input class="btn" id="btnUno..*" type="button" value='.' style="width:1%;"/>
+					</td>
+					<td class="td3">
+						<input class="txt" id="txtProduct..*" type="text" style="width:85%;"  />
+						<input type="button" id="btnProductno..*" value="." style="width:10%;">
+					</td>
+					<td class="td4">
+						<input class="txt" id="txtProductno..*" type="text" style="width:95%;"  />
+					</td>
+					<td class="td5">
+						<input class="txt" id="txtDime..*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td6">
+						<input class="txt" id="txtWidth..*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td7">
+						<input class="txt" id="txtLengthb..*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td8">
+						<input class="txt" id="txtMount..*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td9">
+						<input class="txt" id="txtWeight..*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td10">
+						<input class="txt" id="txtSource..*" type="text" style="width:95%;"  />
+					</td>
+				</tr>
+			</table>
+		</div>
+
         <input id="q_sys" type="hidden" />
-    <!--</form>-->
 </body>
 </html>

@@ -27,7 +27,7 @@
 		    				);
 		    $(document).ready(function () {
 		        bbmKey = [];
-		        bbsKey = ['noa', 'noq'];
+		        bbsKey = ['noa', 'no2'];
 		        if (location.href.indexOf('?') < 0)   // debug
 		        {
 		            location.href = location.href + "?;;;noa='0015'";

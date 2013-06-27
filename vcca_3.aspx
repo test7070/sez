@@ -106,8 +106,12 @@
 					sum();
 				});	
 				$('#btnVcc').click(function(e){
-					$('#btnVcc').val('請稍後。').attr('disabled','disabled');
-					q_func('vcca.genvcc',$('#txtNoa').val());
+					if(trim($('#txtCustno').val()).toUpperCase() == 'H249')
+						return;
+					else{
+						$('#btnVcc').val('請稍後。').attr('disabled','disabled');
+						q_func('vcca.genvcc',$('#txtNoa').val());
+					}
 				});	
 				$('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
