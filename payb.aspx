@@ -509,8 +509,9 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                getPaydate(q_date());
                 $('#txtMon').val(q_date().substr(0, 6));
-                $('#txtDatea').focus();//一定要FOCUS這個
+                $('#txtDatea').focus();
             }
 
             function btnModi() {
