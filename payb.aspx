@@ -133,7 +133,7 @@
             }
             function getPaydate(date){
             	//付款日(立帳日次月第4個星期5)
-            	if(date.length>0 && q_cd(date)){
+            	if(q_cur==1 && date.length>0 && q_cd(date)){
 		        	var t_year = parseInt(date.substring(0,3))+1911;
 		    		var t_mon = parseInt(date.substring(4,6)) - 1;
 		    		var t_date = parseInt(date.substring(7,9));
@@ -154,7 +154,7 @@
             }
             function getIndate(date){
             	//到期日(立帳日期(月) + 3個月又25天)
-            	if($('#txtPayc').val().indexOf('支票')>=0 && date.length>0 && q_cd(date)){
+            	if(q_cur==1 && $('#txtPayc').val().indexOf('支票')>=0 && date.length>0 && q_cd(date)){
 		        	var t_year = parseInt(date.substring(0,3))+1911;
 		    		var t_mon = parseInt(date.substring(4,6)) - 1;
 		    		var t_date = parseInt(date.substring(7,9));
