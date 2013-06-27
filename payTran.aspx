@@ -1079,7 +1079,7 @@
 					<tr>
 						<td class="td1"> <a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan='3' ><textarea id="txtMemo"  class="txt c1" style="height: 50px;" > </textarea></td>
-						<td align="right"><span> </span><a id='lblRc2no' class="lbl btn" style="width: 80%;"> </a>
+						<td align="right"><span> </span><a id='lblRc2no' class="lbl" style="width: 80%;"> </a>
 								<input type="button" id="btnAuto" style="width:80%;color:red;"/>
 						</td>
 						
@@ -1088,8 +1088,8 @@
 						<input type="button" id="btnGqbPrint" style="width:80%;"/>
                         
 						</td>
-						<td align="right"><a id='lblWorker' class="lbl btn" style="width:80%;"> </a>
-							<a id='lblWorker2' class="lbl btn"style="width:80%;" ></a>
+						<td align="right"><a id='lblWorker' class="lbl " style="width:80%;"> </a>
+							<a id='lblWorker2' class="lbl "style="width:80%;" ></a>
 						</td>
 						<td>
 							<input id="txtWorker"  type="text" class="txt c1" />
