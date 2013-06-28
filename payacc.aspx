@@ -144,7 +144,47 @@
 					}
 		        });
 		    }
-
+			var checkenda=false;
+		var holiday;//存放holiday的資料
+		function endacheck(x_datea,x_day) {
+			//102/06/21 7月份開始資料3日後不能在處理
+			var t_date=x_datea,t_day=1;
+                
+			while(t_day<x_day){
+				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				nextdate.setDate(nextdate.getDate() +1)
+				t_date=''+(nextdate.getFullYear()-1911)+'/';
+				//月份
+				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+				//日期
+				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+	                	
+				//六日跳過
+				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+				){continue;}
+	                	
+				//假日跳過
+				if(holiday){
+					var isholiday=false;
+					for(var i=0;i<holiday.length;i++){
+						if(holiday[i].noa==t_date){
+							isholiday=true;
+							break;
+						}
+					}
+					if(isholiday) continue;
+				}
+	                	
+				t_day++;
+			}
+                
+			if (t_date<q_date()){
+				checkenda=true;
+			}else{
+				checkenda=false;
+			}
+		}
 		    function q_boxClose(s2) {
 		        var ret;
 		        switch (b_pop) {
@@ -404,6 +444,10 @@
 		        if (emp($('#txtNoa').val()))
 		            return;
 		        if (checkenda){
+                alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
+                return;
+	    		}
+		        if (checkenda){
 	                alert('超過'+q_getPara('sys.modiday')+'天已關帳!!');
 	                return;
 				}
@@ -514,6 +558,10 @@
 		    }
 
 		    function btnDele() {
+		    	 if (checkenda){
+                alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
+                return;
+	    		}
 		    	if (checkenda){
 	                alert('超過'+q_getPara('sys.modiday')+'天已關帳!!');
 	                return;
