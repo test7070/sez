@@ -18,7 +18,7 @@
 
             q_tables = 't';
             var q_name = "cub";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var q_readonlyt = [];
             var bbmNum = [];
@@ -56,13 +56,28 @@
 				bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd]];
 				bbsMask = [['txtDate2',r_picd],['txtDatea',r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('cub.typea'));  
+                q_cmbParse("cmbTypea", q_getPara('cub.typea'));
+                $('#btnOrdeImport').click(function() {
+                	var t_bdate = trim($('#txtBdate').val());
+                	var t_edate = trim($('#txtEdate').val());
+                	var t_bdime = dec($('#txtBdime').val());
+                	var t_edime = dec($('#txtEdime').val());
+                	var t_where = ' 1=1 ';
+                	t_bdate = (emp(t_bdate)?'':t_bdate);
+                	t_edate = (emp(t_edate)?'char(255)':t_edate);
+                	t_where += " and ((select datea from orde"+r_accy+" where noa=ordes" + r_accy+".noa) between '" + t_bdate + "' and '" + t_edate + "') ";
+                	t_bdime = (emp(t_bdime)?0:t_bdime);
+                	t_edime = (t_edime==0?Number.MAX_VALUE:t_edime);
+                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ")";
+                	t_where += ' and (iscut=1)';
+                    q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+                });
             }
 
             function q_gtPost(t_name) {
-                switch (t_name) {
-                    case q_name:
-                        if (q_cur == 4)
+				switch (t_name) {
+				case q_name:
+					if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }
@@ -75,6 +90,14 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+					case 'ordes':
+	                    if (q_cur > 0 && q_cur < 4) {
+	                        if (!b_ret || b_ret.length == 0)
+	                            return;
+                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight,txtMount,txtTheory', b_ret.length, b_ret, 'productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+							sum()
+	                    }
+						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -126,7 +149,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['money']) {
+                if (!as['ordeno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -314,7 +337,7 @@
                 float: left;
             }
 
-            .txt.num {
+            .num {
                 text-align: right;
             }
             .tbbm td {
@@ -439,19 +462,20 @@
 		                </td>
 		                <td><span> </span><a id="lblBdime" class="lbl" ></a></td>
 		                <td colspan="2">
-		                	<input id="txtBdime" type="text" style="width:45%;"/>
+		                	<input id="txtBdime" type="text" style="width:45%;" class="num"/>
 		                	<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
-		                	<input id="txtEdime" type="text" style="width:45%;"/>
+		                	<input id="txtEdime" type="text" style="width:45%;" class="num"/>
 		                </td>
+						<td><input type="button" id="btnOrdeImport" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblIdime" class="lbl" ></a></td>
 						<td>
-							<input id="txtIdime"  type="text" class="txt c1"/>
+							<input id="txtIdime"  type="text" class="txt c1 num"/>
 						</td>
 						<td><span> </span><a id="lblOdime" class="lbl" ></a></td>
 						<td>
-							<input id="txtOdime"  type="text" class="txt c1"/>
+							<input id="txtOdime"  type="text" class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr>
@@ -593,7 +617,6 @@
 		<input id="q_sys" type="hidden" />
 		<div id="dbbt" >
 			<table id="tbbt">
-				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
 						<td style="width:20px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
@@ -657,7 +680,6 @@
 						<td><input id="txtMweight2..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMprice..*" type="text" style="width:95%;"/></td>
 					</tr>
-				</tbody>
 			</table>
 		</div>
 	</body>

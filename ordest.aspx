@@ -17,7 +17,7 @@
         q_desc = 1;
         q_tables = 't';
         var q_name = "orde";
-        var q_readonly = ['txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var q_readonlyt = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [['txtMoney', 10, 2, 1],['txtTax', 10, 2, 1],['txtTotal', 10, 2, 1],['txtTotalus', 10, 2, 1],['txtWeight', 10, 2, 1]];  // 允許 key 小數
@@ -324,6 +324,7 @@
 					    q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 					    sum();
 					});
+					$('#txtC1_' + j).change(function(){sum();});
 				}
             }
             _bbsAssign();
@@ -413,7 +414,7 @@
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
                 $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
-                q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
+                q_tr('txtNotv_'+j ,q_float('txtWeight_'+j)-q_float('txtC1_'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
 
@@ -737,10 +738,6 @@
                 margin: -1px;
                 float: left;
             }
-            .tbbm td input[type="button"] {
-                float: left;
-                width: auto;
-            }
             .tbbm select {
                 border-width: 1px;
                 padding: 0px;
@@ -836,7 +833,7 @@
                 <td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
                 <td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
-                <td class="td7" ><input id="btnBBTShow" type="button" value='' /></td>
+                <td class="td7" align="center" colspan="2"><input id="btnBBTShow" type="button" value='' /></td>
                 <td class="td8" style="display: none;"><input id="btnOrdem" type="button" value='' /></td> 
             </tr>
             <tr class="tr7">
