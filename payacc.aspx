@@ -168,7 +168,7 @@
 		        switch (t_name) {
 					case 'holiday':
 	            		holiday = _q_appendData("holiday", "", true);
-	            		endacheck($('#txtDatea').val(),3);//單據日期,幾天後關帳
+	            		endacheck($('#txtDatea').val(),q_getPara('sys.modiday'));//單據日期,幾天後關帳
 	            	break;
 		        	case 'payacc_labpay':
 		        		//清除現有資料

@@ -520,7 +520,7 @@
 						$('#txtUdate_'+j).attr('disabled', 'disabled');
 					}
 					//1020621 7月份開始資料3日後不能在處理
-					var x_day=3,t_day=1;
+					var x_day=q_getPara('sys.modiday'),t_day=1;
 					var t_date=$('#txtDatea_'+j).val();
 					
 					while(t_day<x_day){
