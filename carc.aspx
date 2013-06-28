@@ -154,7 +154,7 @@
             switch (t_name) {
             	case 'holiday':
             		holiday = _q_appendData("holiday", "", true);
-            		endacheck($('#txtDatea').val(),3);
+            		endacheck($('#txtDatea').val(),q_getPara('sys.modiday'));
             	break;
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
