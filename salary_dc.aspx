@@ -372,7 +372,47 @@
 				}
             });
         }
-		
+		var checkenda=false;
+		var holiday;//存放holiday的資料
+		function endacheck(x_datea,x_day) {
+			//102/06/21 7月份開始資料3日後不能在處理
+			var t_date=x_datea,t_day=1;
+                
+			while(t_day<x_day){
+				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				nextdate.setDate(nextdate.getDate() +1)
+				t_date=''+(nextdate.getFullYear()-1911)+'/';
+				//月份
+				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+				//日期
+				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+	                	
+				//六日跳過
+				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+				){continue;}
+	                	
+				//假日跳過
+				if(holiday){
+					var isholiday=false;
+					for(var i=0;i<holiday.length;i++){
+						if(holiday[i].noa==t_date){
+							isholiday=true;
+							break;
+						}
+					}
+					if(isholiday) continue;
+				}
+	                	
+				t_day++;
+			}
+                
+			if (t_date<q_date()){
+				checkenda=true;
+			}else{
+				checkenda=false;
+			}
+		}
 		function q_funcPost(t_func, result) {
 		        
 		        var s1 = location.href;
@@ -435,6 +475,10 @@
 		var imports=false;
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'holiday':
+            		holiday = _q_appendData("holiday", "", true);
+            		endacheck($('#txtDatea').val(),q_getPara('sys.modiday'));//單據日期,幾天後關帳
+            	break;
                 case 'salarydc_import':  
 						var as = _q_appendData("salpresents", "", true);
 						imports=true;
@@ -739,6 +783,10 @@
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
+             if (checkenda){
+                alert('已關帳!!');
+                return;
+	    		}
             _btnModi();
             $('#txtMon').focus();
             $('#txtMon').attr('disabled', 'disabled');
@@ -912,6 +960,10 @@
         
         function refresh(recno) {
             _refresh(recno);
+             if(r_rank<=8)
+            	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
+            else
+            	checkenda=false;
             table_change();
             $('#txtNoa').focus();
         }
@@ -968,6 +1020,10 @@
         }
 
         function btnDele() {
+        	 if (checkenda){
+                alert('已關帳!!');
+                return;
+	    }
             _btnDele();
         }
 
