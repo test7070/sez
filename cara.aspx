@@ -551,7 +551,7 @@
 						t_day++;
 					}
 						
-					if(r_rank<=8&&t_date<q_date()){
+					if(r_rank<=7&&t_date<q_date()){
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
@@ -655,13 +655,13 @@
             function refresh(recno) {
                 _refresh(recno);
                 endacheck();
-                if(r_rank<=8)
+                if(r_rank<=7)
             		q_gt('holiday', "where=^^ noa>='"+$('#txtMon').val()+"/01"+"'^^" , 0, 0, 0, "", r_accy);
             }
             
             var checkenda=false;
             function endacheck() {
-            	if(r_rank>8){
+            	if(r_rank>7){
             		checkenda=false;
             		return;
             	}

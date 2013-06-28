@@ -346,7 +346,7 @@
                     return;
                 //102/06/14 結案三天後不能再修改與刪除
                 if (checkenda){
-                	alert('此委託案件已關帳!!');
+                	alert('此結案超過'+q_getPara('sys.modiday')+'天已關帳!!');
                     return;
                 }
                 
@@ -416,7 +416,7 @@
             
             function refresh(recno) {
                 _refresh(recno);
-                if(r_rank<=8 && $('#chkEnda')[0].checked)
+                if(r_rank<=7 && $('#chkEnda')[0].checked)
 	            	q_gt('holiday', "where=^^ noa>='"+$('#txtEndadate').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
 	            else
 	            	checkenda=false;
@@ -528,7 +528,7 @@
             function btnDele() {
             	//102/06/14 結案三天後不能再修改與刪除
                 if (checkenda){
-                	alert('此委託案件已關帳!!');
+                	alert('此結案超過'+q_getPara('sys.modiday')+'天已關帳!!');
                     return;
                 }
                 _btnDele();
