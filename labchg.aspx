@@ -203,7 +203,7 @@
                  if (emp($('#txtNoa').val()))
                     return;
                  if (checkenda){
-                	alert('已關帳!!');
+                	alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 	return;
 	    		}
                 
@@ -329,7 +329,7 @@
 
             function btnDele() {
             	if (checkenda){
-                	alert('已關帳!!');
+                	alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 	return;
 	    		}
                 _btnDele();
