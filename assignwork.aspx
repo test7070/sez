@@ -149,7 +149,7 @@
             	switch (t_name) {
             		case 'holiday':
 	            		holiday = _q_appendData("holiday", "", true);
-	            		endacheck($('#txtEndadate').val(),3);//單據日期,幾天後關帳
+	            		endacheck($('#txtEndadate').val(),q_getPara('sys.modiday'));//單據日期,幾天後關帳
 	            	break;
             		case 'assignproject':
                         var as = _q_appendData("assignproject", "", true);
