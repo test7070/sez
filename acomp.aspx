@@ -586,6 +586,12 @@
 							<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
 						</tr>
 						<tr>
+							<td><span> </span><a id='lblHealthno' class="lbl"> </a></td>
+							<td><input id="txtHealthno"  type="text" class="txt c1" />	</td>
+							<td><span> </span><a id='lblLaborno' class="lbl"> </a></td>
+							<td><input id="txtLaborno"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
 							<td><span> </span><a id='lblInsur_disaster' class="lbl"> </a></td>
 							<td><input id="txtInsur_disaster"  type="text" class="txt c1" /></td>
 						</tr>
