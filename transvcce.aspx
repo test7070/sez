@@ -660,9 +660,9 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
+                _btnModi();       
                 tranorde.lock();
                 tranorde.loadcaddr($('#txtOrdeno').val());
-                _btnModi();           
                 $('#txtDatea').focus();
             }
             function btnPrint() {
