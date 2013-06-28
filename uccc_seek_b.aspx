@@ -67,9 +67,7 @@
 		function SeekStr(){
 			t_ordeno = trim($('#textOrdeno').val());
 			t_productno = trim($('#textProductno').val());
-			t_product = trim($('#textProduct').val());
 			t_storeno = trim($('#textStoreno').val());
-			t_store = trim($('#textStore').val());
 			t_class = trim($('#textClass').val());
 			t_radius = trim($('#textRadius').val());
 			t_dime = trim($('#textDime').val());
@@ -78,9 +76,7 @@
 			t_weight = trim($('#textWeight').val());
 			var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno)
 								  + q_sqlPara2("productno", t_productno)
-								  + q_sqlPara2("product", t_product)
 								  + q_sqlPara2("storeno", t_storeno)
-								  + q_sqlPara2("store", t_store)
 								  + q_sqlPara2("class", t_class)
 								  + q_sqlPara2("radius", t_radius)
 								  + q_sqlPara2("dime", t_dime)
