@@ -324,6 +324,7 @@
 					    q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 					    sum();
 					});
+					$('#txtC1_' + j).change(function(){sum();});
 				}
             }
             _bbsAssign();
@@ -413,7 +414,7 @@
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
                 $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
-                q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
+                q_tr('txtNotv_'+j ,q_float('txtWeight_'+j)-q_float('txtC1_'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
 

@@ -269,6 +269,7 @@
 				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 				                sum();
 				            });
+				            $('#txtC1_' + j).change(function(){sum();});
             		  }
             	}
                 _bbsAssign();
@@ -326,11 +327,11 @@
                 	t_money+=q_float('txtTotal_'+j);
 					t_weight+=q_float('txtWeight_'+j);
                 	q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-					q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
+					q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1_'+j));
                 }  // j
                 q_tr('txtMoney' ,t_money);
 				q_tr('txtWeight' ,t_weight);
-				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
+				q_tr('txtTotal' ,q_float('txtWeight')+q_float('txtTax'));
 				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
             }
 

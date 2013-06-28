@@ -30,7 +30,7 @@
             brwKey = 'noa';
             brwCount2 = 4;
             q_desc = 1;
-            aPop = new Array(['txtSssno_', 'btnSssno_', 'sssall', 'noa,namea,partno,part', 'txtSssno_,txtNamea_', 'sssall_b.aspx']);
+            aPop = new Array(['txtSssno_', 'btnSssno_', 'sssall', 'noa,namea,partno,part,namea', 'txtSssno_,txtNamea_,,,txtMemo_', 'sssall_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -267,7 +267,7 @@
             }
 
             function refresh(recno) {
-            	 if(r_rank<=8)
+            	 if(r_rank<=7)
             	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
             else
             	checkenda=false;
@@ -560,7 +560,7 @@
 						<input id="txtVccno.*" class="txt c1" type="text" style="float:left;width: 85%;"/>
 						<input id="btnVccno.*" type="button" value="." style="float:left;width: 5%;"/>			
 					</td>
-					<td><input id="txtMemo.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td><input id="txtMemo.*" class="txt c1" type="text" style="float:left;width: 95%;"/></td>
 				</tr>
 			</table>
 		</div>
