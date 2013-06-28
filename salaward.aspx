@@ -497,7 +497,7 @@
             if (emp($('#txtNoa').val()))
                 return;
             if (checkenda){
-                alert('已關帳!!');
+                alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 return;
 	    		}
             _btnModi();
@@ -775,7 +775,7 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-            if(r_rank<=8)
+            if(r_rank<=7)
             	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
             else
             	checkenda=false;
@@ -837,7 +837,7 @@
 
         function btnDele() {
         	 if (checkenda){
-                alert('已關帳!!');
+                alert('超過'+q_getPara('sys.modiday')+'天'+'已關帳!!');
                 return;
 	    }
             _btnDele();
