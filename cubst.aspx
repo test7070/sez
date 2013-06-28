@@ -58,7 +58,18 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('cub.typea'));
                 $('#btnOrdeImport').click(function() {
-                	t_where = 'iscut=0';
+                	var t_bdate = trim($('#txtBdate').val());
+                	var t_edate = trim($('#txtEdate').val());
+                	var t_bdime = dec($('#txtBdime').val());
+                	var t_edime = dec($('#txtEdime').val());
+                	var t_where = ' 1=1 ';
+                	t_bdate = (emp(t_bdate)?'':t_bdate);
+                	t_edate = (emp(t_edate)?'char(255)':t_edate);
+                	t_where += " and ((select datea from orde"+r_accy+" where noa=ordes" + r_accy+".noa) between '" + t_bdate + "' and '" + t_edate + "') ";
+                	t_bdime = (emp(t_bdime)?0:t_bdime);
+                	t_edime = (t_edime==0?Number.MAX_VALUE:t_edime);
+                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ")";
+                	t_where += ' and (iscut=1)';
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
             }
@@ -606,7 +617,6 @@
 		<input id="q_sys" type="hidden" />
 		<div id="dbbt" >
 			<table id="tbbt">
-				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
 						<td style="width:20px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
@@ -670,7 +680,6 @@
 						<td><input id="txtMweight2..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMprice..*" type="text" style="width:95%;"/></td>
 					</tr>
-				</tbody>
 			</table>
 		</div>
 	</body>
