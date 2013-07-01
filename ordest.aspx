@@ -643,7 +643,7 @@
     </script>
     <style type="text/css">
          #dmain {
-                overflow: hidden;
+                /*overflow: hidden;*/
             }
             .dview {
                 float: left;
