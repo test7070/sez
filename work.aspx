@@ -89,8 +89,9 @@
             	case 'td':
             		ret = getb_ret();
 	                if(ret[0]!=undefined){
-	                	$('#txtTproductno_'+b_seq).val(ret[0].uccno)
-	                	$('#txtTproduct_'+b_seq).val(ret[0].product)
+	                	//1020629將替代品直接取代品名欄位不需要在寫入下面欄位
+	                	$('#txtProductno_'+b_seq).val(ret[0].uccno)
+	                	$('#txtProduct_'+b_seq).val(ret[0].product)
 	                }
             		break;
                 case q_name + '_s':
@@ -560,10 +561,10 @@
                 	<input id="chkIstd.*" type="checkbox" style="float: left;"/>
                     <input class="btn"  id="btnTproductno.*" type="button" value='...' style=" font-weight: bold;" />
                 </td>
-                <td>
+                <!--<td>//1020629將替代品直接取代品名欄位不需要在寫入下面欄位
                 	<input id="txtTproductno.*" type="text" class="txt c1"/>
                 	<input id="txtTproduct.*" type="text" class="txt c1"/>
-                </td>
+                </td>-->
                 <td>
                 	<input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />

@@ -52,6 +52,8 @@
 				t_enda = $.trim($('#cmbEnda').val());
 				t_accno = $.trim($('#txtAccno').val());
 				t_accno2 = $.trim($('#txtAccno2').val());
+				t_vccno = $.trim($('#txtVccno').val());
+				t_paybno = $.trim($('#txtPaybno').val());
 			    t_bodate = t_bodate.length > 0 && t_bodate.indexOf("_") > -1 ? t_bodate.substr(0, t_bodate.indexOf("_")) : t_bodate;  /// 100.  .
         		t_eodate = t_eodate.length > 0 && t_eodate.indexOf("_") > -1 ? t_eodate.substr(0, t_eodate.indexOf("_")) : t_eodate;  /// 100.  .
 				t_benddate = t_benddate.length > 0 && t_benddate.indexOf("_") > -1 ? t_benddate.substr(0, t_benddate.indexOf("_")) : t_benddate;  /// 100.  .
@@ -67,7 +69,9 @@
 					+q_sqlPara2("enda", t_enda)
 					+q_sqlPara2("item", t_item)
 					+q_sqlPara2("accno", t_accno)
-					+q_sqlPara2("accno2", t_accno2);
+					+q_sqlPara2("accno2", t_accno2)
+					+q_sqlPara2("vccno", t_vccno)
+					+q_sqlPara2("paybno", t_paybno);
 					
 				if($('#cmbKind').val()=='全部')
 					t_where = " where=^^" + t_where + "^^";
@@ -146,6 +150,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblAccno2'> </a></td>
 					<td>
 					<input class="txt" id="txtAccno2" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblVccno'> </a></td>
+					<td>
+					<input class="txt" id="txtVccno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblPaybno'> </a></td>
+					<td>
+					<input class="txt" id="txtPaybno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

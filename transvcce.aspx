@@ -584,7 +584,8 @@
 					var t_msg = $.trim($('#txtMemo').val());
 					t_msg += (t_msg.length>0?',':'')+(($('#txtTrandate').val()+$('#txtTrantime').val()).length>0?'出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'');
 					t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtAddr_'+n).val());
-					t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtMsg_'+n).val());		
+					t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtMsg_'+n).val());	
+					t_msg = t_msg.replace(/\u002c/g,'.');	
 					var t_commandid = $('#txtCommandid_'+n).val();
 					var t_Sendcommandresult = $('#chkSendcommandresult_'+n).prop('checked');
 					if(t_isSend && t_carno.length>0 && t_msg.length>0 && !t_Sendcommandresult && t_commandid.length==0){
@@ -666,7 +667,7 @@
                 $('#txtDatea').focus();
             }
             function btnPrint() {
-            	q_box('z_transvcce.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "95%", "95%", m_print);
+            	//q_box('z_transvcce.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "95%", "95%", m_print);
             }
             function wrServer(key_value) {
                 var i;

@@ -53,7 +53,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
-                //q_cmbParse("cmbTypea", q_getPara('lab_accc.typea')); //20130601
+                q_cmbParse("cmbTypea", q_getPara('lab_accc.typea')); //20130601
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtMon').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
                 });
@@ -527,8 +527,8 @@
 						<td>
 						<input id="txtMon"  type="text" class="txt c1"/>
 						</td>
-						<!--<td><span> </span><a id='lblTypea' class="lbl"> </a></td>-->
-						<!--<td><select id="cmbTypea" class="txt c1" ></select></td>-->
+						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td><select id="cmbTypea" class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSalesno' class="lbl btn"> </a></td>
