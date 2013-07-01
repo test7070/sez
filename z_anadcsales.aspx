@@ -90,7 +90,7 @@
                         options : [{/*[1]-會計年度*/
                             type : '0',
                             name : 'accy',
-                            value : q_getId()[4]
+                            value : r_accy
                         }, {/*1-[2],[3]-交運日期*///1-1
                             type : '1',
                             name : 'trandate'
@@ -120,52 +120,55 @@
                             type : '5',
                             name : 'xsort02',
                             value : q_getMsg('tsort02').split('&')
-                        }, {/*1-[11][12]登錄日期*///*3-1
+                        }, {/*9-[11][12]登錄日期*///*3-1
                             type : '1',
                             name : 'ydate'
-                        }, {/*2-[13][14]交運日期*///*3-2
+                        }, {/*10-[13][14]交運日期*///*3-2
                             type : '1',
                             name : 'ytrandate'
-                        }, {/*3-[15][16]客戶*///*3-4
+                        }, {/*11-[15][16]客戶*///*3-4
                             type : '2',
                             name : 'ycust',
                             dbf : 'cust',
                             index : 'noa,comp',
                             src : 'cust_b.aspx'
-                        }, {/*4-[17][18]司機*///*3-8
+                        }, {/*12-[17][18]司機*///*3-8
                             type : '2',
                             name : 'ydriver',
                             dbf : 'driver',
                             index : 'noa,namea',
                             src : 'driver_b.aspx'
-                        }, {/*5-[19]車牌*///*4-1
+                        }, {/*13-[19]車牌*///*4-1
                             type : '6',
                             name : 'ycarno'
-                        }, {/*6-[20]PO*///*4-2
+                        }, {/*14-[20]PO*///*4-2
                             type : '6',
                             name : 'ypo'
-                        }, {/*7-[21][22]起迄地點*///*4-4
+                        }, {/*15-[21][22]起迄地點*///*4-4
                             type : '2',
                             name : 'yaddr',
                             dbf : 'addr',
                             index : 'noa,addr',
                             src : 'addr_b.aspx'
-                        }, {/*10-[23]其他選項-(含折扣)*///4-8
+                        }, {/*16-[23]其他選項-(含折扣)*///4-8
                             type : '8',
                             name : 'yoption2',
                             value : q_getMsg('toption2').split('&')
-                        }, {/*12-[24]車隊*///5-1
+                        }, {/*17-[24]車隊*///5-1
                             type : '8',
                             name : 'ycarteam',
                             value : t_data.data['carteam'].split(',')
-                        }, {/*14-[25]計算類別*///5-2
+                        }, {/*18-[25]計算類別*///5-2
                             type : '8',
                             name : 'ycalctypes',
                             value : t_data.data['calctypes'].split(',')
-                        }, {/*23-[26]排序(電腦編號、登錄日期、交運日期、車牌、客戶編號、司機編號、起迄地點)*///*5-4
+                        }, {/*19-[26]排序(電腦編號、登錄日期、交運日期、車牌、客戶編號、司機編號、起迄地點)*///*5-4
                             type : '5',
                             name : 'ysort03',
                             value : q_getMsg('tsort03').split('&')
+                        }, {/*20-[27]-櫃號*///5-8
+                            type : '6',
+                            name : 'xcaseno'
                         }]
                     });
                     q_popAssign();

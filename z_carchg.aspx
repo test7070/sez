@@ -45,27 +45,27 @@
 				if (t_carteam.length > 0) {
 					$('#q_report').q_report({
 						fileName : 'z_carchg',
-						options : [{
+						options : [{/*[1]-年度*/
 							type : '0',
 							name : 'accy',
-							value : q_getId()[4]
-						}, {/*1*/
+							value : r_accy
+						}, {/*[2][3]-日期 1-1*/
 							type : '1',
 							name : 'date'
-						}, {/*2*/
+						}, {/*[4][5]-司機 1-2*/
 							type : '2',
 							name : 'driver',
 							dbf : 'driver',
 							index : 'noa,namea',
 							src : 'driver_b.aspx'
-						}, {/*3*/
+						}, {/*[6]-付款單號 1-4*/
 							type : '6',
 							name : 'zrc2no'
-						},{/*4*/
+						},{/*[7]-車隊 1-8*/
 							type : '8',
 							name : 'xcarteam',
 							value : t_carteam.split(',')
-						}, {/*5*/
+						}, {/*[8][9]-會計科目 2-1*/
 							type : '2',
 							name : 'acc',
 							dbf : 'acc',
