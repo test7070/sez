@@ -24,19 +24,23 @@
                 $('#q_report').q_report({
                     fileName : 'z_ucc',
                     options : [{
-                        type : '1',
-                        name : 'date'
-                    }, {
-                        type : '2',
-                        name : 'product',
-                        dbf : 'ucc',
-                        index : 'noa,product',
-                        src : 'ucc_b.aspx'
-                    }, {
-						type : '0',
-						name : 'accy',
-						value : q_getId()[4]
-                    }]
+	                        type : '1',
+	                        name : 'date'
+	                    }, {
+	                        type : '2',
+	                        name : 'product',
+	                        dbf : 'ucc',
+	                        index : 'noa,product',
+	                        src : 'ucc_b.aspx'
+	                    }, {
+							type : '0',
+							name : 'accy',
+							value : q_getId()[4]
+	                    },{
+	                        type : '6',
+	                        name : 'edate'
+	                    }
+                    ]
                 });
                 q_popAssign();
                 q_getFormat();
@@ -46,6 +50,9 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+                
+                $('#txtEdate').mask('999/99/99');
+                $('#txtEdate').val(q_date());
             }
 
             function q_boxClose(s2) {

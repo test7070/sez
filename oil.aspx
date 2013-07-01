@@ -178,7 +178,7 @@
                 switch (t_name) {
                 	case 'holiday':
             				holiday = _q_appendData("holiday", "", true);
-            				endacheck($('#txtDatea').val(),q_getPara('sys.modiday2'));//單據日期,幾天後關帳
+            				endacheck(abbm[q_recno].datea,q_getPara('sys.modiday2'));//單據日期,幾天後關帳
             			break;
                     case 'oil_top':
                         var as = _q_appendData("oil", "", true);
@@ -332,7 +332,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 if(r_rank<=7)
-            		q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
+            		q_gt('holiday', "where=^^ noa>='"+abbm[q_recno].datea+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
             	else
             		checkenda=false;
                 $("#txtCurmount").removeClass('finish');

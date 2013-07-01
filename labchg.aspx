@@ -163,6 +163,13 @@
 	                    b_seq = t_IdSeq;
                     	q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popVcc'));
                       });
+                      
+                      $('#txtMon_' + j).change(function(){
+	                    t_IdSeq = -1; 
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+                    	$('#txtMemo_' + b_seq).val($('#txtMon_' + b_seq).val()+$('#txtMemo_' + b_seq).val())
+                      });
                       /*
                       $('#txtMemo_' + j).change(function() {
                       	t_IdSeq = -1; 
