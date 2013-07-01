@@ -19,7 +19,7 @@
             q_tables = 't';
             var q_name = "cub";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = [];
+            var q_readonlys = ['date2','ordeno','no2'];
             var q_readonlyt = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -72,6 +72,13 @@
                 	t_where += ' and (iscut=1)';
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
+                $('#btnUccc').click(function(){
+                	var t_where = ' 1=1 ';
+					var t_bdime = dec($('#txtBdime').val());
+                	var t_edime = dec($('#txtEdime').val());
+                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ")";
+                    q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
+                });
             }
 
             function q_gtPost(t_name) {
@@ -95,13 +102,25 @@
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
                         	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight,txtMount,txtTheory', b_ret.length, b_ret, 'productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
-							sum()
+							sum();
+	                    }
+						break;
+					case 'uccc':
+	                    if (q_cur > 0 && q_cur < 4) {
+	                        if (!b_ret || b_ret.length == 0)
+	                            return;
+                        	ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtGmount,txtGweight,txtWidth,txtLengthb',
+                        					   b_ret.length, b_ret, 
+                        					   'noa,mount,gweight,width,lengthb',
+                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+							sum();
 	                    }
 						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
                 }
+                b_pop = '';
             }
 
             function _btnSeek() {
@@ -477,15 +496,19 @@
 						<td>
 							<input id="txtOdime"  type="text" class="txt c1 num"/>
 						</td>
+						<td></td>
+						<td>
+							<td><input type="button" id="btnUccc" /></td>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWaste" class="lbl" ></a></td>
 						<td>
-							<input id="txtWaste"  type="text" class="txt c1"/>
+							<input id="txtWaste"  type="text" class="txt c1 num"/>
 						</td>
 						<td><span> </span><a id="lblMo" class="lbl" ></a></td>
 						<td>
-							<input id="txtMo"  type="text" class="txt c1"/>
+							<input id="txtMo"  type="text" class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr>
@@ -615,8 +638,8 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" >
-			<table id="tbbt">
+		<div id="dbbt" class='dbbt'>
+			<table id="tbbt" class="tbbt">
 					<tr class="head" style="color:white; background:#003366;">
 						<td style="width:20px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
@@ -658,7 +681,7 @@
 						<td><input id="txtGmount..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtGweight..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtWidth..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtLength..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtLengthb..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtSize..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtStyle..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMount..*" type="text" style="width:95%;"/></td>
