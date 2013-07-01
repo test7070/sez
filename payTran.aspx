@@ -168,11 +168,16 @@
             			q_box("payb.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));
             		}
             		else{
-            			if(t_tablea=="payb")
-            				q_box("payb.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));	
-            			else if(t_tablea=="tre"){
-            				//日光
-            				q_box("tre_ds.aspx?;;;noa='" + t_rc2no + "';" + t_accy, 'tre', "95%", "95%", q_getMsg("popTre"));	
+            			if(q_getPara('sys.comp').substring(0,2)=='大昌'){
+            				if(t_tablea=="payb")
+            					q_box("payb.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));	
+	            			else if(t_tablea=="tre")
+	            				q_box("tre.aspx?;;;noa='" + t_rc2no + "';" + t_accy, 'tre', "95%", "95%", q_getMsg("popTre"));	
+            			}else if(q_getPara('sys.comp').substring(0,2)=='日光'){
+            				if(t_tablea=="payb")
+            					q_box("payb_ds.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));	
+	            			else if(t_tablea=="tre")
+	            				q_box("tre_ds.aspx?;;;noa='" + t_rc2no + "';" + t_accy, 'tre', "95%", "95%", q_getMsg("popTre"));	
             			}
             		}
             	}
