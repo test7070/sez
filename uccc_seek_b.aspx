@@ -8,32 +8,31 @@
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src="../script/qj_mess.js" type="text/javascript"> </script>
 		<script src="../script/qbox.js" type="text/javascript"> </script>
-    	<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'uccc', t_content = ' ', bbsKey = [''], as; 
-    var isBott = false;  
-    var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
-    var i,s1;
-    brwCount2 = 6;
+	var q_name = 'uccc', t_content = ' ', bbsKey = [''], as; 
+	var isBott = false;
+	var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
+	var i,s1;
+	brwCount2 = 6;
 	aPop = new Array(
 		['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'],
 		['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
 	);
-        $(document).ready(function () {
-            main();
-        });         /// end ready
+		$(document).ready(function () {
+			main();
+		});		 /// end ready
 
-        function main() {
-            if (dataErr)  
-            {
-                dataErr = false;
-                return;
-            }
-            mainBrow(0,t_content);
-            $('#btnToSeek').click(function(){
-            	SeekStr();
-            });
-        }
+		function main() {
+			if (dataErr){
+				dataErr = false;
+				return;
+			}
+			mainBrow(0,t_content);
+			$('#btnToSeek').click(function(){
+				SeekStr();
+			});
+		}
 		
 		function mainPost(){
 			q_getFormat();
@@ -49,27 +48,25 @@
 			});
 		}
 		
-        function q_gtPost() {  
-        }
-        
-        function seekData(seekStr){
-        	var newUrl = location.href.split(';');
-        	var newUrlStr = '';
-        	newUrl[3] = seekStr;
-        	for(var i = 0;i<newUrl.length;i++){
-        		newUrlStr += newUrl[i];
-        		if(i < newUrl.length-1)
-        			newUrlStr += ';';
-        	}
-        	location.href = newUrlStr;
-        }
+		function q_gtPost() {
+		}
+		
+		function seekData(seekStr){
+			var newUrl = location.href.split(';');
+			var newUrlStr = '';
+			newUrl[3] = seekStr;
+			for(var i = 0;i<newUrl.length;i++){
+				newUrlStr += newUrl[i];
+				if(i < newUrl.length-1)
+					newUrlStr += ';';
+			}
+			location.href = newUrlStr;
+		}
 		
 		function SeekStr(){
 			t_ordeno = trim($('#textOrdeno').val());
 			t_productno = trim($('#textProductno').val());
-			t_product = trim($('#textProduct').val());
 			t_storeno = trim($('#textStoreno').val());
-			t_store = trim($('#textStore').val());
 			t_class = trim($('#textClass').val());
 			t_radius = trim($('#textRadius').val());
 			t_dime = trim($('#textDime').val());
@@ -77,30 +74,28 @@
 			t_lengthb = trim($('#textLengthb').val());
 			t_weight = trim($('#textWeight').val());
 			var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno)
-								  + q_sqlPara2("productno", t_productno)
-								  + q_sqlPara2("product", t_product)
-								  + q_sqlPara2("storeno", t_storeno)
-								  + q_sqlPara2("store", t_store)
-								  + q_sqlPara2("class", t_class)
-								  + q_sqlPara2("radius", t_radius)
-								  + q_sqlPara2("dime", t_dime)
-								  + q_sqlPara2("width", t_width)
-								  + q_sqlPara2("lengthb", t_lengthb)
-								  + q_sqlPara2("weight", t_weight);
+								 + q_sqlPara2("productno", t_productno)
+								 + q_sqlPara2("storeno", t_storeno)
+								 + q_sqlPara2("class", t_class)
+								 + q_sqlPara2("radius", t_radius)
+								 + q_sqlPara2("dime", t_dime)
+								 + q_sqlPara2("width", t_width)
+								 + q_sqlPara2("lengthb", t_lengthb)
+								 + q_sqlPara2("weight", t_weight);
 			seekData(t_where);
 		}
 
-        function refresh() {
-            _refresh();
-        }
-    </script>
-    <style type="text/css">
-    	#seekForm{
-    		margin-left: auto;
+		function refresh() {
+			_refresh();
+		}
+	</script>
+	<style type="text/css">
+		#seekForm{
+			margin-left: auto;
 			margin-right: auto;
-    		width:950px;
-    	}
-    	#seekTable{
+			width:950px;
+		}
+		#seekTable{
 			padding: 0px;
 			border: 1px white double;
 			border-spacing: 0;
@@ -109,8 +104,8 @@
 			color: blue;
 			background: #cad3ff;
 			width: 100%;
-    	}
-    	#seekTable tr {
+		}
+		#seekTable tr {
 			height: 35px;
 		}
 		.txt.c1{
@@ -134,53 +129,50 @@
 		input[type="button"] {	 
 			font-size: medium;
 		}
-    </style>
+	</style>
 </head>
-
 <body> 
-<div  id="dbbs"  >
-       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
-            <tr>
-                <th align="center" > </th>
-                <td align="center" style="width:8%;"><a id='lblUno_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblSpec_st'> </a></td>
-                <td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblInvono_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
-                
-            </tr>
-            <tr>
-                <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td ><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-                	 <input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-                	 <input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-                	 <input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-                </td>
-                <td ><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-                <td ><input id="txtGweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-                <td ><input id="txtInvono.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtNo2.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtEweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-                <td ><input id="txtMweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-                <td ><input id="txtMemo.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                
-            </tr>
-        </table>
+<div id="dbbs">
+	<table id="tbbs" border="2" cellpadding='0' cellspacing='0' style='width:98%' >
+		<tr>
+			<th align="center" > </th>
+			<td align="center" style="width:8%;"><a id='lblUno_st'> </a></td>
+			<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
+			<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
+			<td align="center" style="width:8%;"><a id='lblSpec_st'> </a></td>
+			<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
+			<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
+			<td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
+			<td align="center" style="width:4%;"><a id='lblInvono_st'> </a></td>
+			<td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>
+			<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
+			<td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
+			<td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
+		</tr>
+		<tr>
+			<td style="width:2%;"><input name="sel" id="radSel.*" type="radio" /></td>
+			<td ><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
+				<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
+				<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
+				<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+			</td>
+			<td ><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+				<td ><input id="txtGweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+			<td ><input id="txtInvono.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtNo2.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtEweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+			<td ><input id="txtMweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+			<td ><input id="txtMemo.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+		</tr>
+	</table>
 </div>
-  <!--#include file="../inc/brow_ctrl.inc"-->
+<!--#include file="../inc/brow_ctrl.inc"-->
 <div id="seekForm">
-	<table id="seekTable"  border="0" cellpadding='0' cellspacing='0'>
+	<table id="seekTable" border="0" cellpadding='0' cellspacing='0'>
 		<tr>
 			<td><span class="lbl">訂單編號</span></td>
 			<td colspan="3"><input id="textOrdeno" type="text" class="txt c2"/></td>
@@ -216,7 +208,6 @@
 		</tr>
 	</table>
 </div>
-
 </body>
-</html> 
+</html>
 

@@ -119,14 +119,6 @@
                         obj = $('#txt' + $(obj).attr('id').substring(3));
                     var noa = $.trim($(obj).val());
                     var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
-					var isBbs = false,isBbt = false,n = -1;
-					if($(obj).attr('id').indexOf('__')>0){
-						isBbt = true;
-						n = $(obj).attr('id').split('__')[1];
-					}else if($(obj).attr('id').indexOf('_')>0){
-						isBbs = true;
-						n = $(obj).attr('id').split('_')[1];
-					}
                     if (noa.length > 0) {
                         switch (openName) {
                             case 'ordbno':
@@ -134,6 +126,9 @@
                                 break;
                             case 'ordcno':
                                 q_box("ordc.aspx?;;;noa='" + noa + "';" + r_accy, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
+                                break;
+                            case 'quatno':
+                                q_box("quat.aspx?;;;noa='" + noa + "';" + r_accy, 'quat', "95%", "95%", q_getMsg("popQuat"));
                                 break;
                         }
                     }
@@ -314,7 +309,9 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-
+			$('input[id*="txt"]').click(function(){
+				browTicketForm($(this).get(0));
+			});
         }
 
         function readonly(t_para, empty) {
@@ -576,7 +573,7 @@
                 <td class="td4"><span> </span><a id='lblTel' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtTel" type="text" class="txt c1"/></td>
                 <td class="td7"><span> </span><a id='lblOrdbno' class="lbl"></a></td>
-                <td class="td8"><input id="txtOrdbno" onclick="browTicketForm(this)"  type="text" class="txt c1"/></td> 
+                <td class="td8"><input id="txtOrdbno" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr5">
             	<td class="td1"><span> </span><a id='lblFax' class="lbl"></a></td>
@@ -584,7 +581,7 @@
                 <td class="td4"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td5" colspan="2"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td>
                 <td class="td7"><span> </span><a id='lblOrdcno' class="lbl"></a></td>
-                <td class="td8"><input id="txtOrdcno" onclick="browTicketForm(this)" type="text" class="txt c1"/></td>
+                <td class="td8"><input id="txtOrdcno" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr6">
                 <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>

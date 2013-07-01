@@ -222,6 +222,7 @@
             q_nowf();
             as['datea'] = abbm2['datea'];
             as['custno'] = abbm2['custno'];
+            as['workno'] = abbm2['workno'];
             return true;
         }
 
