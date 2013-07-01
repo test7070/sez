@@ -551,6 +551,8 @@
                 }
                 var t_money = 0, t_chgs = 0, t_paysale, t_mon = '';
                 for (var i = 0; i < q_bbsCount; i++) {
+                	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
+                	
                     t_money = q_float('txtMoney_' + i);
                     t_chgs = q_float('txtChgs_' + i);
                     if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money + t_chgs > 0) {

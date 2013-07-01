@@ -186,7 +186,8 @@
             }
             function getTaskContent(n){
             	if(n<0){
-            		getAddrInfo(q_bbsCount-1);
+            		sum();
+            		Unlock();
             	}else{
            			var t_carno = $.trim($('#txtCarno_'+n).val());
            			var t_commandid = $.trim($('#txtCommandid_'+n).val());
@@ -250,24 +251,6 @@
            			}
             	}
             }
-			function getAddrInfo(n){
-            	if(n<0){
-            		sum();
-            		Unlock();
-            	}else{
-            		var t_addrno = $.trim($('#txtStraddrno_'+n).val());
-            		var t_trandate = $.trim($('#txtTrandate_'+n).val());
-            		if(t_addrno.length>0 && t_trandate.length>0){
-            			t_where = "where=^^noa='"+t_addrno+"' and datea<='"+t_trandate+"'^^";
-                		q_gt('addrs_lasttime', t_where, 0, 0, 0,'getAddrInfo_'+n, r_accy);
-            		}else{
-            			$('#txtPrice_'+n).val('0');
-            			$('#txtPrice2_'+n).val('0');
-            			$('#txtPrice3_'+n).val('0');
-            			getAddrInfo(n-1);
-            		}
-            	}
-            }
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'init_1':
@@ -293,16 +276,12 @@
                 		var as = _q_appendData("transvcce_tran", "", true);
                         if (as[0] != undefined){
                         	//alert(as.length);
-                        	
-                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtTrandate,cmbCalctype,cmbCarteamno,txtDiscount,txtPo,txtSalesno,txtSales,txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtOutmount,txtTransvcceno,txtTransvccenoq,txtCommandid', as.length, as
-                        	, 'datea,datea,calctype,carteamno,discount,po,salesno,sales,carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,mount,mount,transvcceno,transvccenoq,commandid', '', '');
+                        	for(var i=0;i<q_bbsCount;i++)
+                        		$('#btnMinus_'+i).click();
+                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtTrandate,cmbCalctype,cmbCarteamno,txtDiscount,txtPo,txtSalesno,txtSales,txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtPton,txtMount,txtPrice,txtTotal,txtOutmount,txtPton2,txtMount2,txtPrice2,txtPrice3,txtDiscount,txtTotal2,txtTransvcceno,txtTransvccenoq,txtCommandid'
+                        	, as.length, as
+                        	, 'datea,datea,calctype,carteamno,discount,po,salesno,sales,carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,inmount,pton,mount,price,total,outmount,pton2,mount2,price2,price3,discount,total2,transvcceno,transvccenoq,commandid', '', '');
                        		Lock();//畫面大小變動了
-                       		for(var i=0;i<q_bbsCount;i++){
-                       			$('#txtPton_'+i).val('0');
-                       			$('#txtPton2_'+i).val('0');
-               					$('#txtMount_'+i).val($('#txtInmount_'+i).val());
-               					$('#txtMount2_'+i).val($('#txtOutmount_'+i).val());
-                       		}
                        		getTaskContent(q_bbsCount-1);
                         }else{
                         	alert('無資料。');
@@ -314,32 +293,7 @@
                             q_Seek_gtPost();
                         break;
                     default:
-                    	if(t_name.substring(0,11)=='getAddrInfo'){
-                    		var t_sel = parseInt(t_name.split('_')[1]);
-                    		var as = _q_appendData("addrs", "", true);
-                    		if (as[0] != undefined){
-                    			$('#txtPrice_'+t_sel).val(FormatNumber(as[0].custprice));
-		            			$('#txtPrice2_'+t_sel).val(FormatNumber(as[0].driverprice));
-		            			$('#txtPrice3_'+t_sel).val(FormatNumber(as[0].driverprice2));
-		            			t_where = "where=^^carno='"+$.trim($('#txtCarno_'+t_sel).val())+"'^^";
-                				q_gt('car2', t_where, 0, 0, 0,'getCarInfo_'+t_sel, r_accy);
-                    		}else{
-                    			$('#txtPrice_'+t_sel).val('0');
-		            			$('#txtPrice2_'+t_sel).val('0');
-		            			$('#txtPrice3_'+t_sel).val('0');
-		            			getAddrInfo(t_sel-1);
-                    		}
-                    	}else if(t_name.substring(0,10)=='getCarInfo'){
-                    		var t_sel = parseInt(t_name.split('_')[1]);
-                    		var as = _q_appendData("car2", "", true);
-                    		if (as[0] != undefined && as[0].cartype=='2'){
-                    			//公司車
-                    			$('#txtPrice3_'+t_sel).val(0);
-                    		}else{
-                    			$('#txtPrice2_'+t_sel).val(0);
-                    		}
-                    		getAddrInfo(t_sel-1);
-                    	}else if(t_name.substring(0,11)=='addrchange1'){
+                    	if(t_name.substring(0,11)=='addrchange1'){
                     		var t_sel = parseInt(t_name.split('_')[1]);
                     		var as = _q_appendData("addrs", "", true);
                     		if (as[0] != undefined){
