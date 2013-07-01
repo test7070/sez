@@ -101,7 +101,7 @@
 	                    if (q_cur > 0 && q_cur < 4) {
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight,txtMount,txtTheory', b_ret.length, b_ret, 'productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight,txtMount,txtTheory', b_ret.length, b_ret, 'custno,productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 							sum();
 	                    }
 						break;
@@ -371,7 +371,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 200%;
+                width: 3000px;
             }
             .dbbs .tbbs {
                 margin: 0;
@@ -399,7 +399,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 230%;
+                width: 3000px;
             }
             #tbbt {
                 margin: 0;
