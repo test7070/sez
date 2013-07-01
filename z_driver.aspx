@@ -22,19 +22,40 @@
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_driver',
-					options : [{
+					options : [{/*[1]*/
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {/*1*/
+					}, {/*[2][3]*/
 						type : '2',
 						name : 'driver',
 						dbf : 'driver',
 						index : 'noa,namea',
 						src : 'driver_b.aspx'
-					}]
+					}, {/*[4][5]*/
+                        type : '1',
+                        name : 'xmon'
+                    }]
 				});
 				q_popAssign();
+				 $('#txtXmon1').mask('999/99');
+                $('#txtXmon2').mask('999/99');
+                
+                var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                $('#txtXmon1').val(t_year+'/'+t_month);
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                $('#txtXmon2').val(t_year+'/'+t_month);
 			}
 
 			function q_boxClose(s2) {

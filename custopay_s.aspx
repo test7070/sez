@@ -24,22 +24,24 @@
         q_getFormat();
         q_langShow();
 
-       /* bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
 
-        $('#txtBdate').focus();*/
+        $('#txtBdate').focus();
     }
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-      /*  t_bdate = $('#txtBdate').val();
-        t_edate = $('#txtEdate').val();*/
-       
-        t_addr = $('#txtAddr').val();
-       /* t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
-        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
+        t_bdate = $('#txtBdate').val();
+        t_edate = $('#txtEdate').val();
+        t_accno = $('#txtAccno').val();
+        t_ummfromto = $('#txtUmmfromto').val();
+        
+        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
+        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("addr", t_addr);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("accno", t_accno)
+        + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara_or(["bummno", "eummno"], t_ummfromto);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -53,13 +55,25 @@
 <body>
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >            
+            <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblDatea'></a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+            </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblAddr'></a></td>
-                <td><input class="txt" id="txtAddr" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblAccno'> </a></td>
+                <td><input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblUmmfromto'> </a></td>
+                <td><input class="txt" id="txtUmmfromto" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

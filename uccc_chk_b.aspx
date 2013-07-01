@@ -25,6 +25,13 @@
                 return;
             }
             mainBrow(0,t_content);
+			$('#checkAllCheckbox').click(function(){
+				$('input[type=checkbox][id^=chkSel]').each(function(){
+					var t_id = $(this).attr('id').split('_')[1];
+					if(!emp($('#txtNoa_' + t_id).val()))
+						$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+				});
+			});
          }
 
         function q_gtPost() {  
@@ -42,7 +49,9 @@
 <div  id="dbbs"  >
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
             <tr>
-                <th align="center" > </th>
+                <th align="center" >
+					<input type="checkbox" id="checkAllCheckbox"/>
+				</th>
                 <td align="center" style="width:8%;"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
@@ -59,7 +68,7 @@
             </tr>
             <tr>
             	
-                <td style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
+                <td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
                 <td ><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>

@@ -634,8 +634,8 @@
 	           	var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
-                var t_noa = $('#txtNoa').val();
-                $('#txtCarno').val(t_noa);
+                var t_noa = replaceAll($('#txtNoa').val(),' ','');
+                replaceAll($('#txtCarno').val(t_noa),' ','')
                 wrServer(t_noa);
                 if(q_cur=='1'&& q_getPara('sys.project').toUpperCase()=="DC")
                 	$("#btnCarinsurance").click();
