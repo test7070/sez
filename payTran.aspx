@@ -168,15 +168,7 @@
                         obj = $('#txt' + $(obj).attr('id').substring(3));
                     var noa = $.trim($(obj).val());
                     var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
-					var isBbs = false,isBbt = false,n = -1;
-					if($(obj).attr('id').indexOf('__')>0){
-						isBbt = true;
-						n = $(obj).attr('id').split('__')[1];
-					}else if($(obj).attr('id').indexOf('_')>0){
-						isBbs = true;
-						n = $(obj).attr('id').split('_')[1];
-					}
-                    if (noa.length > 0) {
+                   if (noa.length > 0) {
                         switch (openName) {
                             case 'rc2no':
                                 q_box("payb.aspx?;;;noa='" + noa + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popUmmtran"));

@@ -12,7 +12,7 @@
 		<script type="text/javascript">
     
     var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
-    var t_sqlname = 'ordes_load'; t_postname = q_name; brwCount2 = 30;
+    var t_sqlname = 'ordes_load'; t_postname = q_name; brwCount2 = 5;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
     var i, s1;

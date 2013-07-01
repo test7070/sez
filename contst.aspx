@@ -62,11 +62,10 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array('', '定存單質押', '不可撤銷保證', '銀行本票質押', '商業本票質押', '現金質押')));
                 q_cmbParse("cmbEtype", ('').concat(new Array('','存入', '存出')));
-                q_gt('conttype', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0, "");
 
                 $('#btnConn_cust').click(function() {
-                    t_where = "noa='" + $('#txtCustno').val() + "'";
+                    t_where = "noa='" + $('#txtTggno').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Conn_cust', "95%", "650px", q_getMsg('lblConn'));
                 });
                 $('#lblStype').click(function(e) {
@@ -105,8 +104,8 @@
                     	var t_item = " @ ";
                     	var t_item2 = " @ ";
                          for ( i = 0; i < as.length; i++) {
-                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
                          	t_item2 = t_item2 + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
                          }
                          q_cmbParse("cmbCno", t_item);
                          q_cmbParse("cmbCnonick", t_item2);
