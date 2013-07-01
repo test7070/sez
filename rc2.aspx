@@ -28,7 +28,7 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-		 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+		 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 		 ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
 		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
         $(document).ready(function () {
@@ -214,9 +214,33 @@
             _bbsAssign();
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#txtUnit_' + j).focusout(function () { sum(); });
-                $('#txtGweight_' + j).focusout(function () { sum(); });
-                $('#txtPrice_' + j).focusout(function () { sum(); });
+                $('#txtUnit_' + j).change(function () { 
+                	t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+                	var t_unit = $('#txtUnit_' + b_seq).val();
+	                var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
+                });
+                $('#txtGweight_' + j).change(function () {
+                	t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+                	var t_unit = $('#txtUnit_' + b_seq).val();
+	                var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
+               	});
+                $('#txtPrice_' + j).change(function () {
+                	t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+                	var t_unit = $('#txtUnit_' + b_seq).val();
+	                var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
+                });
                 $('#txtTotal_' + j).focusout(function () { sum(); });
 
             } //j
@@ -287,10 +311,6 @@
             var t_float = dec($('#txtFloata').val());
             t_float = (emp(t_float) ? 1 : t_float);
             for (var j = 0; j < q_bbsCount; j++) {
-                t_unit = $('#txtUnit_' + j).val();
-                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
-                t_weight = t_weight + dec($('#txtWeight_' + j).val()); // 重量合計
-               $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount)*t_float, 0));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }
             // j
@@ -628,7 +648,7 @@
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1" />
-                	<input id="txtWeight.*" type="hidden" class="txt num c1" />
+                	<input id="txtWeight.*" type="text" class="txt num c1" />
                 </td>
                 <td><input id="txtPrice.*" type="text"  class="txt num c1" /></td>
                 <td><input id="txtTotal.*" type="text" class="txt num c1" />
