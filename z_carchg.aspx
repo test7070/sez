@@ -48,7 +48,7 @@
 						options : [{/*[1]-年度*/
 							type : '0',
 							name : 'accy',
-							value : r_accy
+							value : q_getId()[4]
 						}, {/*[2][3]-日期 1-1*/
 							type : '1',
 							name : 'date'
@@ -71,7 +71,18 @@
 							dbf : 'acc',
 							index : 'acc1,acc2',
 							src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-						}]
+						}, {/*[10]-姓名*/
+                        	type : '0',
+                        	name : 'xname',
+                        	value : r_name 
+                    	}, {/*[11]-車牌 2-2*/
+                        	type : '6',
+                        	name : 'xcarno'
+                    	}, {/*[12]-設定 2-4*/
+                        	type : '8',
+                        	name : 'xoption01',
+                        	value : q_getMsg('toption01').split('&')
+                    	}]
 					});
 					q_popAssign();
 					q_langShow();
