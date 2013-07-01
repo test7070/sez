@@ -179,8 +179,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                //if (q_cur > 0 && q_cur < 4)
-                //    sum();
             }
 
             function readonly(t_para, empty) {
