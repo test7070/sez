@@ -78,6 +78,11 @@
                 q_box("works_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 			});
 			
+			$('#btnOrde').click(function(){
+				var t_where = "enda!=1";
+                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
+			});
+			
 			$('#txtWorkno').change(function(){
 				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
 				q_gt('works', t_where , 0, 0, 0, "", r_accy);
@@ -92,6 +97,19 @@
 		function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
 			var ret; 
 			switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
+				case 'ordes':
+                	if (q_cur > 0 && q_cur < 4) {
+						b_ret = getb_ret();
+						
+						if (!b_ret || b_ret.length == 0)
+							return;
+						for (var i = 0; i < b_ret.length; i++) {
+							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno=''^^";
+							q_gt('works', t_where , 0, 0, 0, "", r_accy);
+						}
+					}
+                break;
+				
 				case 'work':
                 	b_ret = getb_ret();
                 	if(b_ret){
@@ -243,7 +261,7 @@
 			q_nowf();
 			as['datea'] = abbm2['datea'];
 			as['cuano'] = abbm2['cuano'];
-			as['workno'] = abbm2['workno'];
+			
 			return true;
 		}
 
@@ -502,9 +520,8 @@
 			<td><input id="txtNoa"   type="text" class="txt c1"/></td>
 		</tr>
 		<tr>
-			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
-			<td><input id="txtWorkno" type="text"  class="txt c1"/></td>
-			
+			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
+			<td><input id="txtStoreno"  type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/></td> 
 			<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
 			<td>
 				<input id="txtStationno" type="text" class="txt c2"/>
@@ -513,27 +530,30 @@
 			<td><span> </span><a id='lblProcess' class="lbl btn"> </a></td>
 			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
 		</tr>
-		<tr>		
-			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
-			<td><input id="txtStoreno"  type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/></td> 
-			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
-			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
-			<td><span> </span><a id='lblModel' class="lbl"> </a></td>
-			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
-		</tr>
 		<tr>
 			<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
 			<td><input id="txtTimea" type="text"  class="txt c1"/></td>
-			<td> </td>
-			<td><!--<input type="button" id="btnWorkimport">--></td>
+			<td><span> </span><a id='lblModel' class="lbl"> </a></td>
+			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		<tr>
+			<td><input type="button" id="btnOrde"></td>
+			
+			<!--<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
+			<td><input id="txtWorkno" type="text"  class="txt c1"/></td>
+			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
+			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>-->
+			<!--<td><input type="button" id="btnWorkimport"></td>-->
+			<!--<td><span> </span><a id='lblModel' class="lbl"> </a></td>
+			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>-->
+		</tr>
+		<!--<tr>
 			<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
 			<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
 			<td colspan='3'><input id="txtProduct" type="text"  style="width: 99%;"/></td>
-		</tr>
+		</tr>-->
 		<tr>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 			<td colspan='5'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
@@ -554,6 +574,7 @@
 				<td align="center"><a id='lblMechno'></a></td>
 				<td align="center"><a id='lblMech'></a></td>
 				<td align="center"><a id='lblMemos'></a></td>
+				<td align="center"><a id='lblWorknos'></a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -586,6 +607,9 @@
 				<td style="width:12%;">
 					<input id="txtMemo.*" type="text" class="txt c1"/>
 					<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+				</td>
+				<td style="width:12%;">
+					<input id="txtWorkno.*" type="text" class="txt c1"/>
 				</td>
 			</tr>
 		</table>

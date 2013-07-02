@@ -210,7 +210,11 @@
                 return;
             }
 
-            q_nowf();      
+            q_nowf();
+			as['ordeno'] = abbm2['ordeno'];
+			as['no2'] = abbm2['no2'];
+			as['tggno'] = abbm2['tggno'];
+
             return true;
         }
 
