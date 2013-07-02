@@ -87,10 +87,6 @@
 		        $('#btnAccc').click(function (){
 		        	show_confirm()
 		        	});}
-		        
-		        if ((/^.*(tre_accc,[0|1],[0|1],0,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
-		        $('#btnAccc').click(function (){alert("沒有修改權限")});}
-		        
 		        $('#btnGqb').click(function () {
 		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "支票列印");
 		        });
@@ -273,9 +269,9 @@
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
 		        	case 'holiday':
-            			holiday = _q_appendData("holiday", "", true);
-            			endacheck($('#txtDatea').val(),q_getPara('sys.modiday2'));//單據日期,幾天後關帳
-            		break;
+            				holiday = _q_appendData("holiday", "", true);
+            				endacheck(abbm[q_recno].datea,q_getPara('sys.modiday2'));//單據日期,幾天後關帳
+            			break;
 		            case 'carteam':
 		                var as = _q_appendData("carteam", "", true);
 		                var t_item = "";
@@ -365,7 +361,7 @@
 		    function refresh(recno) {
 		        _refresh(recno);
 		         if(r_rank<=7)
-            		q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
+            		q_gt('holiday', "where=^^ noa>='"+abbm[q_recno].datea+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
             	else
             		checkenda=false;
 		    }

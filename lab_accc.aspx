@@ -82,11 +82,13 @@
                     	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
                     }
                 });
-                
-                if ((/^.*(lab_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
-		       $('#btnGen').click(function() {
-		        	show_confirm()
-		        	});}
+		      if(r_rank <= 8)
+		      	{if ((/^.*(lab_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
+		       	$('#btnGen').click(function() {show_confirm()});}}
+            else
+            	{$('#btnGen').click(function() {show_confirm()});}
+            
+            	
 		      
 		      
 				/*
@@ -607,7 +609,7 @@
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td><input id="btnGen" type="button" /></td>
-						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a> </td>
+						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size:medium;"> </a></td>
 					</tr>
 				</table>
 			</div>
