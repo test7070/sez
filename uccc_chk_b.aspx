@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'uccc', t_content = ' ', bbsKey = [''], as; 
+    var q_name = 'uccc', t_content = ' ', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -25,13 +25,6 @@
                 return;
             }
             mainBrow(0,t_content);
-			$('#checkAllCheckbox').click(function(){
-				$('input[type=checkbox][id^=chkSel]').each(function(){
-					var t_id = $(this).attr('id').split('_')[1];
-					if(!emp($('#txtNoa_' + t_id).val()))
-						$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
-				});
-			});
          }
 
         function q_gtPost() {  
@@ -39,6 +32,14 @@
 
         function refresh() {
             _refresh();
+			$('#checkAllCheckbox').click(function(){
+				$('input[type=checkbox][id^=chkSel]').each(function(){
+					var t_id = $(this).attr('id').split('_')[1];
+					if(!emp($('#txtNoa_' + t_id).val()))
+						$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+				});
+			});
+            _readonly(true);
         }
     </script>
     <style type="text/css">
