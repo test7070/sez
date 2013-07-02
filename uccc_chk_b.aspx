@@ -43,7 +43,7 @@
 			if(Parent.getElementById('cmbKind')){
 				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
 				if(t_cmbKind=='A'){
-					$('#lblSize_st').text('厚度x寬度x長度');
+					$('#lblSize_st').text('寬度x厚度x長度');
 					$('input[id*="txtLengthb_"]').css('width','29%');
 					$('input[id*="txtWidth_"]').css('width','29%');
 					$('input[id*="txtDime_"]').css('width','29%');
@@ -74,8 +74,8 @@
 
 <body> 
 <div  id="dbbs"  >
-       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
-            <tr>
+       <table id="tbbs"  border="2"  cellpadding='2' cellspacing='1' style='width:98%' >
+            <tr style='color:White; background:#003366;' >
                 <th align="center" >
 					<input type="checkbox" id="checkAllCheckbox"/>
 				</th>
@@ -91,7 +91,7 @@
                 <td align="center" style="width:6%;"><a id='lblOrdeno_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>                
             </tr>
-            <tr>
+            <tr  style='background:#cad3ff;'>
                 <td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
                 <td ><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>

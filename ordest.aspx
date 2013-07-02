@@ -929,7 +929,7 @@
                 <td align="center"><a id='lblProduct'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblClasss'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
-                <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblMount'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeights'> </a></td>
