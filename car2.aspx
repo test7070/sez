@@ -286,6 +286,38 @@
                     $('#txtManage').focus();
                 });
                 
+                //1020702 宛蓉只有KEY金額時才跑出月份，避免結轉時結轉出單據
+                $('#txtUlicense').change(function() {
+                    if(dec($('#txtUlicense').val())>0)
+                    	$('#txtUlicensemon').val('04');
+                });
+                
+                $('#txtDlicense').change(function() {
+                    if(dec($('#txtDlicense').val())>0)
+                    	$('#txtDlicensemon').val('10');
+                });
+                
+                $('#txtSpring').change(function() {
+                    if(dec($('#txtSpring').val())>0)
+                    	$('#txtSpringmon').val('03');
+                });
+                
+                $('#txtSummer').change(function() {
+                    if(dec($('#txtSummer').val())>0)
+                    	$('#txtSummermon').val('06');
+                });
+                
+                $('#txtFalla').change(function() {
+                    if(dec($('#txtFalla').val())>0)
+                    	$('#txtFallamon').val('09');
+                });
+                
+                $('#txtWinter').change(function() {
+                    if(dec($('#txtWinter').val())>0)
+                    	$('#txtWintermon').val('12');
+                });
+                
+                
                 $('#txtUlicensemon').blur(function() {
                     if(!emp($('#txtUlicensemon').val())&&$('#txtUlicensemon').val()!='04')
                     	alert(q_getMsg('lblUlicense')+'月份錯誤，請檢查!!');
@@ -497,12 +529,6 @@
                 _btnIns();
                  if(q_getPara('sys.project').toUpperCase()=="DC"){
 	                $(".carexpense").show();
-	                $('#txtUlicensemon').val('04');
-	                $('#txtDlicensemon').val('10');
-	                $('#txtSpringmon').val('03');
-	                $('#txtSummermon').val('06');
-	                $('#txtFallamon').val('09');
-	                $('#txtWintermon').val('12');
 				}
                 
                 //暫存資料
