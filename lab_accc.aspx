@@ -29,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(['txtSalesno', 'lblSalesno', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
-            , ['txtBcustno', 'lblBcustno', 'cust', 'noa,comp', 'txtBcustno,txtBcust', 'cust_b.aspx']
+            , ['txtBcustno', '', 'cust', 'noa,comp', 'txtBcustno,txtBcust', 'cust_b.aspx']
             , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             brwCount2 = 8;
@@ -82,10 +82,13 @@
                     	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
                     }
                 });
-                $('#btnGen').click(function(e) {//按下立帳
-                	if(!emp($('#txtNoa').val()))
-						q_func('lab_accc.gen', $('#txtNoa').val());
-				});
+                
+                if ((/^.*(lab_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
+		       $('#btnGen').click(function() {
+		        	show_confirm()
+		        	});}
+		      
+		      
 				/*
 				$('#lblPaybno').click(function(){
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
@@ -97,6 +100,16 @@
 					hiddenField();
 				});
             }
+            function show_confirm()
+				{
+					var r=confirm("你確定要執行嗎?");
+					if (r==true)
+  					{alert("確定執行");
+  					if(!emp($('#txtNoa').val()))
+						q_func('lab_accc.gen', $('#txtNoa').val());}
+					else
+  					{alert("取消執行");}
+				}
             var checkenda=false;
 		var holiday;//存放holiday的資料
 		function endacheck(x_datea,x_day) {
@@ -239,6 +252,8 @@
                  
                 _btnModi(1);
                 hiddenField();
+                $('#txtBcustno').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+                $('#txtBcust').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
                 $('#txtDatea').focus();
             }
 
@@ -300,7 +315,7 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if (q_cur != 2) {
+                if ((q_cur == 1 || q_cur == 2)) {
 					$('#btnGen').attr('disabled', 'disabled');
 					
 		        }
@@ -538,7 +553,7 @@
 						</td>
 					</tr>
 					<tr id="hiddenCust">
-						<td><span> </span><a id='lblBcustno' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblBcustno' class="lbl"> </a></td>
 						<td colspan="2">
 							<input id="txtBcustno"  type="text" style="float:left; width:40%;"/>
 							<input id="txtBcust"  type="text" style="float:left; width:60%;"/>

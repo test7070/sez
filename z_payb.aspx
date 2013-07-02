@@ -41,25 +41,26 @@
                 	t_isinit = true;
                $('#q_report').q_report({
                         fileName : 'z_payb',
-                        options : [{
+                        options : [{/*[1][2]-日期 1-1*/
                         	type : '1',
                         	name : 'date'
-                    	},{
+                    	},{/*[3][4]-廠商 1-2*/
 	                        type : '2',
 	                        name : 'tggno',
 	                        dbf : 'tgg',
 	                        index : 'noa,comp',
 	                        src : 'tgg_b.aspx'
-                        },{
+                        },{/*[5]-簽核 1-4*/
                         	type : '5',
                         	name : 'xsignend',
 	                        value : ('全部,簽核,未簽核').split(',')
-                    	}, {/*6*/
+                    	}, {/*[6]-部門 1-8*/
                             type : '5',
                             name : 'tpart',
                             value : [q_getPara('report.all')].concat(t_part.split(','))
 						}]
                     });
+                    q_langShow();
                 q_popAssign();
                 $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
@@ -89,10 +90,9 @@
             	}
             }
 
-            function q_boxClose(s2) {
+          function q_boxClose(s2) {
             }
-            function q_gtPost(s2) {
-            }
+           
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
