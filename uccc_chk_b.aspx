@@ -39,10 +39,36 @@
 						$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 				});
 			});
+			var Parent = window.parent.document;
+			if(Parent.getElementById('cmbKind')){
+				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
+				if(t_cmbKind=='A'){
+					$('#lblSize_st').text('厚度x寬度x長度');
+					$('input[id*="txtLengthb_"]').css('width','29%');
+					$('input[id*="txtWidth_"]').css('width','29%');
+					$('input[id*="txtDime_"]').css('width','29%');
+					$('input[id*="txtRadius_"]').remove();
+					$('span[id*="StrX1"]').remove();
+				}else if((t_cmbKind !='A') && (t_cmbKind !='B')){
+					$('#lblSize_st').text('長度');
+					$('#lblSize_st').parent().css('width','6%');
+					$('input[id*="txtLengthb_"]').css('width','95%');
+					$('input[id*="txtRadius_"]').remove();
+					$('input[id*="txtWidth_"]').remove();
+					$('input[id*="txtDime_"]').remove();
+					$('span[id*="StrX1"]').remove();
+					$('span[id*="StrX2"]').remove();
+					$('span[id*="StrX3"]').remove();
+				}
+			}
             _readonly(true);
         }
     </script>
     <style type="text/css">
+    	.StrX{
+    		margin-right:-2px;
+    		margin-left:-2px;
+    	}
     </style>
 </head>
 
@@ -57,12 +83,12 @@
                 <td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblSpec_st'> </a></td>
-                <td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
+                <td align="center" style="width:20%;"><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblEordmount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblEordweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblOrdeno_st'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblOrdeno_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>                
             </tr>
             <tr>
@@ -71,10 +97,14 @@
                 <td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-                	 <input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-                	 <input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-                	 <input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+                <td >
+                	<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+                	<span id="StrX1" class="StrX">x</span>
+					<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+					<span id="StrX2" class="StrX">x</span>
+					<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+					<span id="StrX3" class="StrX">x</span>
+					<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
                 </td>
                 <td ><input id="txtEordmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
                 <td ><input id="txtEordweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>

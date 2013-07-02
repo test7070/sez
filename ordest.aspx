@@ -344,7 +344,7 @@
 											  + (t_radius > 0?q_sqlPara2("radius", t_radius):'')
 											  + q_sqlPara2("unit", t_unit);
 						qBoxNo3id = b_seq;
-						q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popOrdet'));
+						q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "80%", q_getMsg('popOrdet'));
 					});
 				}
             }
@@ -367,7 +367,6 @@
             $('#txtOdate').focus();
             $('#cmbKind').val(q_getPara('vcc.kind'));
             size_change();
-            $('#dbbt').show();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -375,7 +374,6 @@
             _btnModi();
             $('#txtOdate').focus();
             size_change();
-            $('#dbbt').show();
         }
         function btnPrint() {
 			t_where = "noa='" + $('#txtNoa').val() + "'";
