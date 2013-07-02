@@ -85,10 +85,7 @@
 		        
 				if ((/^.*(tre_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
 		        $('#btnAccc').click(function (){
-		        	if ($('#txtDatea').val() == q_date())
 		        	show_confirm()
-		        	else 
-		        	alert("傳票日期與今日日期不符!")
 		        	});}
 		        
 		        if ((/^.*(tre_accc,[0|1],[0|1],0,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
