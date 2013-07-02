@@ -56,19 +56,16 @@
                 <td align="center" style="width:8%;"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblSpec_st'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblSpec_st'> </a></td>
                 <td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblInvono_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblEordmount_st'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblEordweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
-                
+                <td align="center" style="width:8%;"><a id='lblOrdeno_st'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>                
             </tr>
             <tr>
-            	
                 <td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
                 <td ><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
@@ -79,14 +76,12 @@
                 	 <input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
                 	 <input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
                 </td>
-                <td ><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-                <td ><input id="txtGweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-                <td ><input id="txtInvono.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtNo2.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                <td ><input id="txtEweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+                <td ><input id="txtEordmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+                <td ><input id="txtEordweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
                 <td ><input id="txtMweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
                 <td ><input id="txtMemo.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-                
+                <td ><input id="txtOrdeno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+                <td ><input id="txtNo2.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 

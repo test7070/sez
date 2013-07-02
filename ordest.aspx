@@ -14,7 +14,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        qBoxNo2id = -1;
+        qBoxNo3id = -1;
         q_desc = 1;
         q_tables = 't';
         var q_name = "orde";
@@ -116,12 +116,12 @@
                         ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtProduct,txtProductno,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtSource', b_ret.length, b_ret
                                                            , 'noa,product,productno,dime,width,lengthb,mount,weight,source'
 															, 'txtUno,txtProduct,txtProductno','__');   /// 最後 aEmpField 不可以有【數字欄位】
-                        if(qBoxNo2id != -1){
+                        if(qBoxNo3id != -1){
 	                        for(var i=0;i<ret.length;i++){
-	                        	$('#txtNo2__' + ret[i]).val(padL($('#lblNo_' + qBoxNo2id).text(),'0',3));
+	                        	$('#txtNo3__' + ret[i]).val(padL($('#lblNo_' + qBoxNo3id).text(),'0',3));
 	                        }
                         }
-						qBoxNo2id = -1;
+						qBoxNo3id = -1;
                         bbsAssign();
                         sum();
                     }
@@ -343,7 +343,7 @@
 											  + (t_width > 0?q_sqlPara2("width", t_width):'')
 											  + (t_radius > 0?q_sqlPara2("radius", t_radius):'')
 											  + q_sqlPara2("unit", t_unit);
-						qBoxNo2id = b_seq;
+						qBoxNo3id = b_seq;
 						q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popOrdet'));
 					});
 				}
@@ -394,6 +394,14 @@
 
             _btnOk(key_value, bbmKey[0],bbsKey[1],'',2);
         }
+		function bbtSave(as) {
+			if (!as['uno']) {
+				as[bbtKey[1]] = '';
+				return;
+			}
+			q_nowf();
+			return true;
+		}
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
             if (!as['productno'] && !as['product'] && !as['spec'] && !dec(as['total'])) {  //不存檔條件
@@ -1035,7 +1043,7 @@
 						<input class="txt" id="txtSource..*" type="text" style="width:95%;"  />
 					</td>
 					<td class="td11">
-						<input class="txt" id="txtNo2..*" type="text" style="width:95%;"  />
+						<input class="txt" id="txtNo3..*" type="text" style="width:95%;"  />
 					</td>
 				</tr>
 			</table>
