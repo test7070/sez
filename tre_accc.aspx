@@ -84,7 +84,9 @@
                 });
 		        
 				if ((/^.*(tre_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
-		        $('#btnAccc').click(function (){show_confirm()});}
+		        $('#btnAccc').click(function (){
+		        	show_confirm()
+		        	});}
 		        
 		        if ((/^.*(tre_accc,[0|1],[0|1],0,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
 		        $('#btnAccc').click(function (){alert("沒有修改權限")});}

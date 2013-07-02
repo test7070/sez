@@ -536,7 +536,7 @@
                 <td align="center" style="width:8%;"><a id='lblGmount'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblEmount'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblTd'> </a></td>
-                <td align="center" style="width:17%;"><a id='lblTproduct_s'> </a></td>
+                <!--<td align="center" style="width:17%;"><a id='lblTproduct_s'> </a></td>-->
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
