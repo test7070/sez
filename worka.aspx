@@ -20,7 +20,7 @@
 		var decbbs = ['mount','weight'];
 		var decbbm = ['mount'];
 		var q_readonly = ['txtWorker'];
-		var q_readonlys = [];
+		var q_readonlys = ['txtWorkno'];
 		var bbmNum = [];  // 允許 key 小數
 		var bbsNum = [['txtMount', 12, 0 , 1],['txtWeight', 15, 2 , 1]];
 		var bbmMask = [['txtTimea', '99:99']];
@@ -36,7 +36,7 @@
 					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 					['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx','95%'],
 					['txtOrdeno','lblOrdeno','ordes','noa,no2,productno,product','txtOrdeno,txtNo2,txtProductno,txtProduct','ordes_b.aspx','95%'],
-					['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product',
+					['txtWorkno','lblWorkno','work','noa,processno,process,modelno,model,ordeno,no2,productno,product',
         			'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
 		);
 		$(document).ready(function () {
@@ -78,7 +78,7 @@
                 q_box("works_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 			});
 			
-			$('#btnOrde').click(function(){
+			$('#btnOrdes').click(function(){
 				var t_where = "enda!=1";
                 q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 			});
@@ -172,10 +172,10 @@
             		}
 					var as = _q_appendData("works", "", true);
 					for (i = 0; i < as.length; i++) {
-							if(as[i].istd=='true'){
+							/*if(as[i].istd=='true'){
 								as[i].productno=as[i].tproductno
 								as[i].product=as[i].tproduct
-							}
+							}*/
 							
 							if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
@@ -185,8 +185,8 @@
 								as[i].xweight=0;
 							}
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo', as.length, as
-														   , 'productno,product,unit,xmount,xweight,memo'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo,txtWorkno', as.length, as
+														   , 'productno,product,unit,xmount,xweight,memo,noa'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
 				 break;
 				case q_name: 
@@ -499,13 +499,13 @@
 				<td align="center" style="width:5%"><a id='vewChk'></a></td>
 				<td align="center" style="width:20%"><a id='vewDatea'></a></td>
 				<td align="center" style="width:25%"><a id='vewNoa'></a></td>
-				<td align="center" style="width:40%"><a id='vewProduct'></a></td>
+				<!--<td align="center" style="width:40%"><a id='vewProduct'></a></td>-->
 			</tr>
 			 <tr>
 				   <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 				   <td align="center" id='datea'>~datea</td>
 				   <td align="center" id='noa'>~noa</td>
-				   <td align="center" id='productno product'>~productno ~product</td>
+				   <!--<td align="center" id='productno product'>~productno ~product</td>-->
 			</tr>
 		</table>
 		</div>
@@ -537,17 +537,15 @@
 			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
-		<tr>
-			<td><input type="button" id="btnOrde"></td>
-			
-			<!--<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
+		<!--<tr>
+			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 			<td><input id="txtWorkno" type="text"  class="txt c1"/></td>
 			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>-->
 			<!--<td><input type="button" id="btnWorkimport"></td>-->
 			<!--<td><span> </span><a id='lblModel' class="lbl"> </a></td>
-			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>-->
-		</tr>
+			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
+		</tr>-->
 		<!--<tr>
 			<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
@@ -555,8 +553,10 @@
 			<td colspan='3'><input id="txtProduct" type="text"  style="width: 99%;"/></td>
 		</tr>-->
 		<tr>
+			<td></td>
+			<td><input type="button" id="btnOrdes"></td>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-			<td colspan='5'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
+			<td colspan='3'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
 		</tr>
 		</table>
 		</div>

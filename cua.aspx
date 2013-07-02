@@ -22,7 +22,7 @@
             var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1]];
+            var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1],['txtWmount', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd],['txtEdate',r_picd]];
             q_sqlCount = 6;
@@ -491,6 +491,7 @@
 					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblWmount_s'></a></td>
 					<td colspan="2" align="center" style="width:12%;"><a id='lblStationno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblEdate_s'></a></td>
@@ -513,6 +514,7 @@
 					<td><input id="txtOrdemount.*" type="text" class="txt num c2"/></td>
 					<td><input id="txtCuamount.*" type="text" class="txt num c2"/></td>
 					<td><input id="txtInmount.*" type="text" class="txt num c2"/></td>
+					<td><input id="txtWmount.*" type="text" class="txt num c2"/></td>
 					<td colspan="2">
 						<input id="txtStationno.*" type="text" style="width: 30%;"/>
 						<input id="txtStation.*" type="text" style="width: 50%;"/>

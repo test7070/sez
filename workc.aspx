@@ -20,8 +20,8 @@
         var decbbs = ['weight', 'mount'];
         var decbbm = ['mount', 'price'];
         var q_readonly = ['txtNoa','txtWorker'];
-        var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3,1]];  // 允許 key 小數
+        var q_readonlys = ['txtWorkno'];
+        var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 2,1],['txtWeight', 15, 2,1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -34,7 +34,7 @@
         	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-        	['txtWorkno','lblWorknos','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp,price',
+        	['txtWorkno','lblWorkno','work','noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp,price',
         	'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,txtPrice','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
         );
         $(document).ready(function () {
@@ -80,11 +80,27 @@
 				t_where += emp($('#txtTggno').val())?'':" and charindex ('"+$('#txtTggno').val()+"',tggno)>0 ";
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
+			$('#btnOrdes').click(function(){
+				var t_where = "enda!=1";
+                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
+			});
 		}
 
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop ) {
+            	case 'ordes':
+                	if (q_cur > 0 && q_cur < 4) {
+						b_ret = getb_ret();
+						
+						if (!b_ret || b_ret.length == 0)
+							return;
+						for (var i = 0; i < b_ret.length; i++) {
+							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!=''^^";
+							q_gt('works', t_where , 0, 0, 0, "", r_accy);
+						}
+					}
+                break;
             	case 'work':
                 	b_ret = getb_ret();
                 	if(b_ret){
@@ -133,10 +149,10 @@
             		}
 					var as = _q_appendData("works", "", true);
 					for (i = 0; i < as.length; i++) {
-							if(as[i].istd=='true'){
+							/*if(as[i].istd=='true'){
 								as[i].productno=as[i].tproductno
 								as[i].product=as[i].tproduct
-							}
+							}*/
 							
 							if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
@@ -146,8 +162,8 @@
 								as[i].xweight=0;
 							}
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo,txtProcessno,txtProcess', as.length, as
-														   , 'productno,product,unit,xmount,xweight,memo,processno,process'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo,txtProcessno,txtProcess,txtWorkno', as.length, as
+														   , 'productno,product,unit,xmount,xweight,memo,processno,process,noa'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
 				 break;
                 case q_name: 
@@ -222,7 +238,6 @@
             q_nowf();
             as['datea'] = abbm2['datea'];
             as['custno'] = abbm2['custno'];
-            as['workno'] = abbm2['workno'];
             return true;
         }
 
@@ -374,23 +389,24 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 <!--#include file="../inc/toolbar.inc"-->
-        <div class="dview" id="dview" style="float: left;  width:100%;"  >
+        <div class="dview" id="dview" style="float: left;  width:30%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:4%"><a id='vewChk'></a></td>
                 <td align="center" style="width:10%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:30%"><a id='vewTgg'></a></td>
-                <td align="center" style="width:55%"><a id='vewProduct'></a></td>
+                <td align="center" style="width:30%"><a id='vewNoa'></a></td>
+                <!--<td align="center" style="width:55%"><a id='vewProduct'></a></td>-->
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
-                   <td align="center" id='tggno tgg'>~tggno ~tgg</td>
-                   <td align="center" id='productno product'>~productno ~product</td>
+                   <td align="center" id='noa'>~noa</td>
+                   <!--<td align="center" id='tggno tgg'>~tggno ~tgg</td>-->
+                   <!--<td align="center" id='productno product'>~productno ~product</td>-->
             </tr>
         	</table>
         </div>
-        <div class='dbbm' style="width: 100%;float:left">
+        <div class='dbbm' style="width: 70%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 
         <tr>
@@ -407,6 +423,15 @@
             	<input id="txtStoreno" type="text" class="txt c2"/>
             	<input id="txtStore" type="text" class="txt c2"/>
             </td> 
+        	<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
+            <td><input id="txtCuadate" type="text" class="txt c1"/></td>
+            <td><span> </span><a id='lblMold' class="lbl"> </a></td>
+        	<td>
+        		<input id="txtMoldno" type="text" class="txt c2"/>
+        		<input id="txtMold" type="text" class="txt c2"/>
+        	</td>
+		</tr>
+        <!--<tr>
         	<td><span> </span><a id='lblProcess' class="lbl btn"> </a></td>
             <td>
             	<input id="txtProcessno" type="text"  class="txt c2"/>
@@ -417,31 +442,25 @@
             	<input id="txtOrdeno" type="text" class="txt" style='width:70%;'/>
             	<input id="txtNo2" type="text" class="txt" style='width:20%;'/>
             </td>
-		</tr>
-        <tr>
         	<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
             <td>
             	<input id="txtTggno" type="text" class="txt c2"/>
             	<input id="txtTgg" type="text"  class="txt c2"/>
             </td>
-        	<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
-            <td><input id="txtCuadate" type="text" class="txt c1"/></td>
-        	<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
-            <td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
-		<tr>
-        	<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+		</tr>-->
+		<!--<tr>
+			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
+            <td><input id="txtWorkno" type="text"  class="txt c1"/></td>
+            <!--<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text" class="txt c1"/></td>
-        	<td><span> </span><a id='lblMold' class="lbl"> </a></td>
-        	<td>
-        		<input id="txtMoldno" type="text" class="txt c2"/>
-        		<input id="txtMold" type="text" class="txt c2"/>
-        	</td>
-        	<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
+			<!--<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
         	<td><input id="txtPrice" type="text" class="txt c1 num"/></td>
-        </tr>
+        </tr>-->
 		<tr>
-        	<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-			<td colspan='3'><input id="txtProduct" type="text" style="width: 98%;"/></td>
+			<td></td>
+			<td><input type="button" id="btnOrdes"></td>
+        	<!--<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
+			<td colspan='3'><input id="txtProduct" type="text" style="width: 98%;"/></td>-->
         	<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
             <td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
@@ -464,6 +483,7 @@
                 <td style="width:15%;" align="center"><a id='lblProcesss'></a></td>
                 <td style="width:10%;" align="center"><a id='lblTypes'></a></td>
                 <td style="width:12%;" align="center"><a id='lblMemos'></a></td>
+                <td style="width:10%;" align="center"><a id='lblWorknos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -483,6 +503,7 @@
                 <td><input id="txtTypea.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
             </tr>
         </table>
         </div>
