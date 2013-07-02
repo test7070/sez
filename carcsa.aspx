@@ -381,7 +381,7 @@
                     			alert('出車單【'+t_tranno+'】已立帳，請款立帳單號【'+as[0].noa+'】。');
 								return '出車單【'+t_tranno+'】已立帳，請款立帳單號【'+as[0].noa+'】。';
                     		}else{
-                    			checkDele(n-1);
+                    			checkDele(t_sel-1);
                     		}
                     	}
                     	break;
@@ -541,7 +541,7 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
-                $('#combType').val(0);
+                $('#combType').val('');
                 if($('#txtTrandate').val().length==0)
                		$('#txtTrandate').val(q_date());
                	if(q_cur==1 || q_cur==2)

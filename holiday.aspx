@@ -41,6 +41,7 @@
 
 
         function mainPost() { 
+        	bbmMask = [['txtNoa',r_picd]];
         	q_mask(bbmMask);
         }
         
@@ -95,7 +96,7 @@
            Lock(); 
            var t_err = '';
 
-            t_err = q_chkEmpField([['txtSssno', q_getMsg('lblSss')], ['txtSalexpono', q_getMsg('lblSalexpo')] ]);
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')] ]);
 
 
             if( t_err.length > 0) {
