@@ -41,6 +41,7 @@
 
 
         function mainPost() { 
+        	bbmMask = [['txtNoa',r_picd]];
         	q_mask(bbmMask);
         }
         
