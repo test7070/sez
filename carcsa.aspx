@@ -381,7 +381,7 @@
                     			alert('出車單【'+t_tranno+'】已立帳，請款立帳單號【'+as[0].noa+'】。');
 								return '出車單【'+t_tranno+'】已立帳，請款立帳單號【'+as[0].noa+'】。';
                     		}else{
-                    			checkDele(n-1);
+                    			checkDele(t_sel-1);
                     		}
                     	}
                     	break;
