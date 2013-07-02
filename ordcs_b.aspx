@@ -27,13 +27,6 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
-		$('#checkAllCheckbox').click(function(){
-			$('input[type=checkbox][id^=chkSel]').each(function(){
-				var t_id = $(this).attr('id').split('_')[1];
-				if(!emp($('#txtProductno_' + t_id).val()))
-					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
-			});
-		});
     }
     function bbsAssign() {  /// checked 
         _bbsAssign();
@@ -44,6 +37,13 @@
     }
     function refresh() {
         _refresh();
+		$('#checkAllCheckbox').click(function(){
+			$('input[type=checkbox][id^=chkSel]').each(function(){
+				var t_id = $(this).attr('id').split('_')[1];
+				if(!emp($('#txtProductno_' + t_id).val()))
+					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+			});
+		});
     }
 </script>
 <style type="text/css">

@@ -44,13 +44,6 @@
 		            return;
 		        }
 		        mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
-				$('#checkAllCheckbox').click(function(){
-					$('input[type=checkbox][id^=chkSel]').each(function(){
-						var t_id = $(this).attr('id').split('_')[1];
-						if(!emp($('#txtUno_' + t_id).val()))
-							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
-					});
-				});
 		    }
 		    
 		    function mainPost() {
@@ -68,6 +61,13 @@
             }
 		    function refresh() {
 		        _refresh();
+				$('#checkAllCheckbox').click(function(){
+					$('input[type=checkbox][id^=chkSel]').each(function(){
+						var t_id = $(this).attr('id').split('_')[1];
+						if(!emp($('#txtUno_' + t_id).val()))
+							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+					});
+				});
 		    }
 		
 		    function readonly(t_para, empty) {
