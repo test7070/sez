@@ -541,7 +541,7 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
-                $('#combType').val(0);
+                $('#combType').val('');
                 if($('#txtTrandate').val().length==0)
                		$('#txtTrandate').val(q_date());
                	if(q_cur==1 || q_cur==2)
