@@ -36,6 +36,9 @@
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
+                    },{
+                        type : '1',
+                        name : 'ordeno'
                     }]
                     });
                 q_popAssign();
