@@ -57,6 +57,9 @@
                         	type : '5',
                         	name : 'xpay',
 	                        value : ('全部,已付,未付').split(',')
+                    	},{
+                        	type : '1',
+                        	name : 'paydate'
                     	}]
                     });
                 q_popAssign();
@@ -64,6 +67,11 @@
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
+	             $('#txtPaydate1').mask('999/99/99');
+	             $('#txtPaydate1').datepicker();
+	             $('#txtPaydate2').mask('999/99/99');
+	             $('#txtPaydate2').datepicker(); 
+	             
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -74,6 +82,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtPaydate1').val(t_year+'/'+t_month+'/'+t_day);
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
@@ -84,6 +93,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtPaydate2').val(t_year+'/'+t_month+'/'+t_day);
               		var wParent = window.parent.document;
 					$('#txtXnoa').val(wParent.getElementById("txtNoa").value);
             }

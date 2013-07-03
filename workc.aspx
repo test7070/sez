@@ -479,7 +479,7 @@
                 <td style="width:15%;" align="center"><a id='lblProducts'></a></td>
                 <td style="width:4%;" align="center"><a id='lblUnit'></a></td>
                 <td style="width:10%;" align="center"><a id='lblMounts'></a></td>
-                <td style="width:10%;" align="center"><a id='lblWeights'></a></td>
+                <!--<td style="width:10%;" align="center"><a id='lblWeights'></a></td>-->
                 <td style="width:15%;" align="center"><a id='lblProcesss'></a></td>
                 <td style="width:10%;" align="center"><a id='lblTypes'></a></td>
                 <td style="width:12%;" align="center"><a id='lblMemos'></a></td>
@@ -494,7 +494,7 @@
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
-                <td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
+                <!--<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>-->
                 <td>
                 	<input class="txt" id="txtProcessno.*" type="text" style="width:25%;" />
                 	<input class="txt" id="txtProcess.*" type="text" style="width:60%;" />
