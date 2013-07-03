@@ -18,7 +18,7 @@
             q_desc=1;
 			q_tables = 's';
             var q_name = "assignwork";
-            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno2','txtAccno','txtMoney','txtCost','txtWorker2'];
+            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno2','txtAccno','txtMoney','txtCost','txtWorker2','txtDatea'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
             var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1],['txtRealcost',14, 0, 1]];
