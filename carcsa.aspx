@@ -511,8 +511,9 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                if (q_chkClose())
-             		    return;
+                if (q_chkClose()){
+                	 q_modiDate = abbm[q_recno]['trandate'];  /// 若未指定， d4=  abbm[q_recno]['datea'];
+             		    return;}
                 Lock(1,{opacity:0});
                 if(q_cur==1 || q_cur==2)
                 	$('#combType').removeAttr('disabled');
@@ -764,8 +765,9 @@
             	}
             }
             function btnDele() {
-            	if (q_chkClose())
-             		    return;
+            	if (q_chkClose()){
+                	 q_modiDate = abbm[q_recno]['trandate'];  /// 若未指定， d4=  abbm[q_recno]['datea'];
+             		    return;}
             	_btnDele();
             }
             function btnCancel() {
