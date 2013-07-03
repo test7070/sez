@@ -26,7 +26,7 @@
         var q_readonly = ['txtWorker','txtNoa'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtWorkno'];
         var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1], ['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1]];
+        var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1],['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1],['txtWmount', 15, 2, 1]];
         var bbmMask = [];
         var bbsMask = [['txtTimea','99:99']];
         
@@ -618,13 +618,14 @@
                 <!--<td align="center" style="width:8%;"><a id='lblLength'></a></td>-->
                 <td align="center" style="width:8%;"><a id='lblMounts'></a></td>
                 <td align="center" style="width:8%;"><a id='lblTheory'></a></td>
-                <td align="center" style="width:8%;"><a id='lblBorn'></a></td>
+                <!--<td align="center" style="width:8%;"><a id='lblBorn'></a></td>-->
+                <td align="center" style="width:8%;"><a id='lblWmount'></a></td>
                 <td align="center" style="width:8%;"><a id='lblErrmount'></a></td>
                 <td align="center" style="width:10%;"><a id='lblMemos'></a></td>
                 <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblWorknos'></a></td>
             </tr>
-            <tr  style='background:#cad3ff;'>
+            <tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td><input id="txtTimea.*" type="text" class="txt c1"/></td>
                 <td>
@@ -638,15 +639,16 @@
                 </td>
                 <td>
                 	<input id="txtMount.*" type="text" class="txt c1 num"/>
-                	<input id="txtWeight.*" type="text" class="txt c1 num"/>
+                	<!--<input id="txtWeight.*" type="text" class="txt c1 num"/>-->
                 </td>
                 <td>
                 	<input id="txtTheory.*" type="text" class="txt c1 num"/>
                 </td>
-                <td>
+               <!-- <td>
                 	<input id="txtBorn.*" type="text" class="txt c1 num"/>
                 	<input id="txtBweight.*" type="text" class="txt c1 num"/>
-                </td>
+                </td>-->
+                <td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtOrdeno.*" type="text" style="width:70%;"/>

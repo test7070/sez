@@ -24,8 +24,8 @@
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
         var q_readonly = ['txtNoa','txtComp','txtProduct','txtStation']; 
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtTproductno','txtTproduct']; 
-        var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+        var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 2,1]];  // 允許 key 小數
+        var bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1]];
         var bbmMask = [];
         var bbsMask = [['txtCuadate','999/99/99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea'; q_desc = 1;
@@ -486,8 +486,10 @@
 		        </td>
 		        <td class="td3"><span> </span><a id="lblRank" class="lbl"> </a></td>
 		        <td class="td4"><input id="txtRank" type="text"  class="txt"/></td>
-				<td class="td5"><span> </span><a id="lblErrmount" class="lbl"> </a></td>
-				<td class="td6"><input id="txtErrmount" type="text"  class="txt num"/></td> 
+		        <td class="td5"><span> </span><a id="lblWmount" class="lbl"> </a></td>
+				<td class="td6"><input id="txtWmount" type="text"  class="txt num"/></td>
+				<!--<td class="td5"><span> </span><a id="lblErrmount" class="lbl"> </a></td>
+				<td class="td6"><input id="txtErrmount" type="text"  class="txt num"/></td>--> 
 			</tr>
 			<tr class="tr6">
 		        <td class="td1"><span> </span><a id="lblTggno" class="lbl btn"> </a></td>

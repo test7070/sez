@@ -569,14 +569,14 @@
 				<td align="center"><a id='lblProduct_s'></a></td>
 				<td align="center"><a id='lblUnit'></a></td>
 				<td align="center"><a id='lblMounts'></a></td>
-				<td align="center"><a id='lblWeights'></a></td>
+				<!--<td align="center"><a id='lblWeights'></a></td>-->
 				<td align="center"><a id='lblTypes'></a></td>
 				<td align="center"><a id='lblMechno'></a></td>
 				<td align="center"><a id='lblMech'></a></td>
 				<td align="center"><a id='lblMemos'></a></td>
 				<td align="center"><a id='lblWorknos'></a></td>
 			</tr>
-			<tr  style='background:#cad3ff;'>
+			<tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏-->
 				<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 				<td style="width:10%;">
 					<input class="txt"  id="txtProductno.*" type="text" style="width:80%;" />
@@ -591,9 +591,9 @@
 				<td style="width:8%;">
 					<input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/>
 				</td>
-				<td style="width:8%;">
+				<!--<td style="width:8%;">
 					<input id="txtWeight.*" type="text" class="txt c1" style="text-align:right"/>
-				</td>
+				</td>-->
 				<td style="width:10%;">
 					<input id="txtTypea.*" type="text" class="txt c1"/>
 				</td>
