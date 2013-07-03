@@ -42,6 +42,7 @@
             }
 
             function mainPost() {
+            	q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
 				q_cmbParse("cmbCode",q_getPara('banktran.code'));
@@ -58,47 +59,6 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
             }
-            var checkenda=false;
-		var holiday;//存放holiday的資料
-		function endacheck(x_datea,x_day) {
-			//102/06/21 7月份開始資料3日後不能在處理
-			var t_date=x_datea,t_day=1;
-                
-			while(t_day<x_day){
-				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() +1)
-				t_date=''+(nextdate.getFullYear()-1911)+'/';
-				//月份
-				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
-				//日期
-				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
-	                	
-				//六日跳過
-				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
-				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
-				){continue;}
-	                	
-				//假日跳過
-				if(holiday){
-					var isholiday=false;
-					for(var i=0;i<holiday.length;i++){
-						if(holiday[i].noa==t_date){
-							isholiday=true;
-							break;
-						}
-					}
-					if(isholiday) continue;
-				}
-	                	
-				t_day++;
-			}
-                
-			if (t_date<q_date()){
-				checkenda=true;
-			}else{
-				checkenda=false;
-			}
-		}
 			function show_confirm()
 				{
 					var r=confirm("你確定要執行嗎?");
@@ -133,10 +93,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-					case 'holiday':
-            		holiday = _q_appendData("holiday", "", true);
-            		endacheck(abbm[q_recno].datea,q_getPara('sys.modiday2'));//單據日期,幾天後關帳
-            	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -162,10 +118,8 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-               if (checkenda){
-         	       alert('超過'+q_getPara('sys.modiday2')+'天'+'已關帳!!');
-            	    return;
-	    		}
+                if (q_chkClose())
+             		    return;
                 _btnModi();
                 $('#txtDatea').focus();
             }
@@ -249,10 +203,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                if(r_rank<=7)
-            		q_gt('holiday', "where=^^ noa>='"+abbm[q_recno].datea+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
-            	else
-            		checkenda=false;
             }
 
             function readonly(t_para, empty) {
@@ -312,10 +262,8 @@
             }
 
             function btnDele() {
-            	if (checkenda){
-         	       alert('超過'+q_getPara('sys.modiday2')+'天'+'已關帳!!');
-            	    return;
-	    		}
+            	if (q_chkClose())
+             		    return;
                 _btnDele();
             }
 
