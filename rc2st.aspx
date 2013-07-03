@@ -31,7 +31,7 @@
 			          ['txtTotal', 10, 0, 1],['txtGweight', 10, 1, 1]
         			 ];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtStyle','A']];
         q_desc = 1;
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
@@ -227,7 +227,7 @@
             $('.btnCert').val($('#lblCert_st').text());
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#txtStyle_' + j).change(function(){ProductAddStyle();});
+                $('#txtStyle_' + j).blur(function(){ProductAddStyle();});
                 	$('#btnCert_' + j).click(function(){
 		                t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                q_bodyId($(this).attr('id'));
@@ -706,7 +706,7 @@
             }
             .txt.c7 {
             	float:left;
-                width: 22%;
+                width: 90%;
                 
             }
             .txt.c8 {
@@ -841,7 +841,7 @@
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                <td class="td2" colspan='5' ><input id="txtMemo"  type="text" class="txt c6"/></td> 
+                <td class="td2" colspan='5' ><input id="txtMemo"  type="text" class="txt c7"/></td> 
                 <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
                 <td class="td8"><input id="txtWorker"  type="text" class="txt c1"/></td> 
             </tr>
@@ -854,7 +854,7 @@
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
                 <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblStyle_st'> </a></td>
+                <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblSizea_st'></a></td>
@@ -872,7 +872,7 @@
                 <td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" /><input  id="txtProductno.*" type="text" style="width:83%;" />
                 	<input id="txtClass.*" type="text"  style="width: 83%;"/>
                 </td>
-                <td ><input class="txt c1" id="txtStyle.*" type="text" /></td>
+                <td ><input class="txt c6" id="txtStyle.*" style="text-align:center;" type="text" /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtSpec.*" type="text"/></td>-->
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>

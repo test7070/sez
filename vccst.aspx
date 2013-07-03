@@ -24,7 +24,7 @@
         var bbmNum = [['txtTotalus', 10, 4, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtWeight', 10, 0, 1]];  // ���\ key �p��
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtGweight', 10, 1, 1]];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtStyle','A']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
         //ajaxPath = ""; 
 		 aPop = new Array( ['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype', 'cust_b.aspx'],
@@ -233,7 +233,7 @@
         function bbsAssign() {  /// 表身運算式
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });    
-                	$('#txtStyle_' + j).change(function(){ProductAddStyle();});             
+                	$('#txtStyle_' + j).blur(function(){ProductAddStyle();});             
                  //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 		                 $('#textSize1_' + j).change(function () {
 		                     t_IdSeq = -1;  
@@ -739,7 +739,7 @@
             }
             .txt.c7 {
             	float:left;
-                width: 22%;
+                width: 90%;
                 
             }
             .txt.c8 {
@@ -906,7 +906,7 @@
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
                 <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblStyle_st'> </a></td>
+                <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
@@ -926,7 +926,7 @@
                 <td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" /><input  id="txtProductno.*" type="text" style="width:83%;" />
                 	<input id="txtClass.*" type="text" style='width: 83%;'/>
                 </td>
-                <td ><input class="txt c1" id="txtStyle.*" type="text" /></td>
+                <td ><input class="txt c7" id="txtStyle.*" style="text-align:center;" type="text" /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtSpec.*" type="text"/></td>-->
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>

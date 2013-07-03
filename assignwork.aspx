@@ -52,7 +52,6 @@
             }
 
             function mainPost() {
-            	q_modiDate = abbm[q_recno]['endadate']; 
             	q_getFormat();
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
@@ -148,6 +147,10 @@
 			var projectnumber=0;
             function q_gtPost(t_name) {
             	switch (t_name) {
+            		case 'holiday':
+	            		holiday = _q_appendData("holiday", "", true);
+	            		endacheck($('#txtEndadate').val(),q_getPara('sys.modiday'));//單據日期,幾天後關帳
+	            	break;
             		case 'assignproject':
                         var as = _q_appendData("assignproject", "", true);
 	                    projectnumber=as.length;
@@ -341,8 +344,12 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                if (q_chkClose())
-             		    return;
+                //102/06/14 結案三天後不能再修改與刪除
+                if (checkenda){
+                	alert('此結案超過'+q_getPara('sys.modiday')+'天已關帳!!');
+                    return;
+                }
+                
                 _btnModi();           
                 $('#txtNoa').attr('readonly','readonly');
                 $('#txtItemno').focus();
@@ -409,6 +416,10 @@
             
             function refresh(recno) {
                 _refresh(recno);
+                if(r_rank<=7 && $('#chkEnda')[0].checked)
+	            	q_gt('holiday', "where=^^ noa>='"+$('#txtEndadate').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
+	            else
+	            	checkenda=false;
 	            	
                 //清除勾選
 	            for (var j = 0; j < projectnumber; j++) {
@@ -515,14 +526,60 @@
             }
 
             function btnDele() {
-            	if (q_chkClose())
-             		    return;
+            	//102/06/14 結案三天後不能再修改與刪除
+                if (checkenda){
+                	alert('此結案超過'+q_getPara('sys.modiday')+'天已關帳!!');
+                    return;
+                }
                 _btnDele();
             }
 
             function btnCancel() {
                 _btnCancel();
-            }   
+            }
+            
+            		var checkenda=false;
+		var holiday;//存放holiday的資料
+		function endacheck(x_datea,x_day) {
+			//102/06/21 7月份開始資料3日後不能在處理
+			var t_date=x_datea,t_day=1;
+                
+			while(t_day<x_day){
+				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				nextdate.setDate(nextdate.getDate() +1)
+				t_date=''+(nextdate.getFullYear()-1911)+'/';
+				//月份
+				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+				//日期
+				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+	                	
+				//六日跳過
+				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+				){continue;}
+	                	
+				//假日跳過
+				if(holiday){
+					var isholiday=false;
+					for(var i=0;i<holiday.length;i++){
+						if(holiday[i].noa==t_date){
+							isholiday=true;
+							break;
+						}
+					}
+					if(isholiday) continue;
+				}
+	                	
+				t_day++;
+			}
+                
+			if (t_date<q_date()){
+				checkenda=true;
+			}else{
+				checkenda=false;
+			}
+		}
+            
 		</script>
 		<style type="text/css">
             #dmain {

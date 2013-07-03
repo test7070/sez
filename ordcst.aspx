@@ -21,7 +21,7 @@
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1],['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtTheory', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtStyle','A']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -188,7 +188,7 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		  	$('#txtStyle_' + j).change(function(){ProductAddStyle();});
+            		  	$('#txtStyle_' + j).blur(function(){ProductAddStyle();});
             		  	//計算理論重
 					     $('#textSize1_' + j).change(function () {
 				         		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -688,7 +688,7 @@
                 float: left;
             }
             .txt.c6 {
-                width: 25%;
+                width: 90%;
                 
             }
             .txt.c7 {
@@ -853,7 +853,7 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width:10%"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:4%"><a id='lblStyle_st'> </a></td>
+                <td align="center" style="width:30px"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:10%"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
@@ -876,7 +876,7 @@
                     <input type="text" id="txtProductno.*"  style="width:80%;"/>
                     <input id="txtClass.*" type="text" style="width:80%;"/>
 				</td>
-                <td><input id="txtStyle.*" type="text" class="txt c1"/></td>
+                <td><input id="txtStyle.*" style="text-align:center;" type="text" class="txt c6"/></td>
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 		
                 <!--<td><input  id="txtSpec.*" type="text"  class="txt c1"/></td>-->

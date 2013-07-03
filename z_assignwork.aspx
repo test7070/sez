@@ -23,55 +23,68 @@
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_assignwork',
-                        options : [{
+                        options : [{/*[1][2]-接單日期 1-1*/
                         	type : '1',
                         	name : 'date'
-                    	}, {
+                    	}, {/*[3] 委託種類 1-2*/
 	                        type : '8',
 	                        name : 'xkind',
 	                        value : ('工商,土地').split(',')
-	                    },{
+	                    },{/*[4][5] 客戶編號 1-4*/
 	                        type : '2',
 	                        name : 'cust',
 	                        dbf : 'cust',
 	                        index : 'noa,comp',
 	                        src : 'cust_b.aspx'
-                        },{
+                        },{/*[6][7] 業務編號 1-8*/
 	                        type : '2',
 	                        name : 'sss',
 	                        dbf : 'sss',
 	                        index : 'noa,namea',
 	                        src : 'sss_b.aspx'
-                        },{
+                        },{/*[8] 單據編號 2-1 */
                         	type : '6',
                         	name : 'xnoa'
-                    	},{
+                    	},{/*[9] 結案 2-2*/
                         	type : '5',
                         	name : 'xenda',
 	                        value : ('全部,結案,未結案').split(',')
-                    	}, {/*28*/
+                    	}, {/*[10] 排序 2-4*/
                             type : '5',
                             name : 'xsort1',//[11]
                             value : q_getMsg('tsort1').split('&')
-                        },{
+                        },{/*[11] 付款 2-8*/
                         	type : '5',
                         	name : 'xpay',
 	                        value : ('全部,已付,未付').split(',')
+<<<<<<< HEAD
+                    	},{/*[12][13] 付款日 3-1*/
+=======
                     	},{
+>>>>>>> fa78cc90884ea1ae83a97c6ce51bf58c77117ae6
                         	type : '1',
                         	name : 'paydate'
                     	}]
                     });
                 q_popAssign();
-                $('#txtDate1').mask('999/99/99');
+                 $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
+<<<<<<< HEAD
+                 $('#txtPaydate1').mask('999/99/99');
+	             $('#txtPaydate1').datepicker();
+	             $('#txtPaydate2').mask('999/99/99');
+	             $('#txtPaydate2').datepicker(); 
+
+
+=======
 	             $('#txtPaydate1').mask('999/99/99');
 	             $('#txtPaydate1').datepicker();
 	             $('#txtPaydate2').mask('999/99/99');
 	             $('#txtPaydate2').datepicker(); 
 	             
+>>>>>>> fa78cc90884ea1ae83a97c6ce51bf58c77117ae6
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);

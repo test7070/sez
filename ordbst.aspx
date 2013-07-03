@@ -21,7 +21,7 @@
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1],['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtTheory', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtStyle','A']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -177,7 +177,7 @@
 				        $('#txtWeight_' + j).change(function () {sum();});
 				        $('#txtPrice_' + j).change(function () {sum();});
 				        $('#txtTotal_' + j).change(function () {sum();});
-				        $('#txtStyle_' + j).change(function(){ProductAddStyle();});
+				        $('#txtStyle_' + j).blur(function(){ProductAddStyle();});
             		  	//計算理論重
 					     $('#textSize1_' + j).change(function () {
 				         		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -668,6 +668,11 @@
                 width: 65px;
                 
             }
+            .txt.c9 {
+            	float:left;
+                width: 90%;
+                text-align:center;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -742,7 +747,7 @@
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
                <td class="td2" colspan="2"><input id="txtCno"  type="text" class="txt c4"/>
-               <input id="txtAcomp"    type="text" class="txt c5"/></td>
+               <input id="txtAcomp" type="text" class="txt c5"/></td>
                <td class="td4"><span> </span><a id='lblFloata' class="lbl"></a></td>
                 <td class="td5"><select id="cmbCoin" class="txt c1"></select></td>                 
                 <td class="td6"><input id="txtFloata"  type="text"  class="txt num c1" /></td>                 
@@ -815,7 +820,7 @@
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%"><a id='lblUno_st'></a></td>
                 <td align="center" style="width:8%"><a id='lblProductno_st'></a></td>
-                <td align="center" style="width:4%"><a id='lblStyle_st'></a></td>
+                <td align="center" style="width:30px"><a id='lblStyle_st'></a></td>
                 <td align="center" style="width:10%"><a id='lblProduct_st'></a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'></a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'></a></td>
@@ -838,7 +843,7 @@
                     <input type="text" id="txtProductno.*"  style="width:80%;"/>
                     <input id="txtClass.*" style="width: 80%;" type="text" />
 				</td>
-                <td><input class="txt c1" id="txtStyle.*" type="text" /></td>
+                <td><input class="txt c9" id="txtStyle.*" type="text" /></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" /></td>
               			
                 <!--<td><input class="txt c1" id="txtSpec.*" type="text"  /></td>-->
