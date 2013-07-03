@@ -29,7 +29,7 @@
             			  ['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],['txtOrdeweight', 15, 3, 1]
             			 ];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtStyle','A']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -193,7 +193,7 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-						$('#txtStyle_' + j).change(function(){ProductAddStyle();});
+						$('#txtStyle_' + j).blur(function(){ProductAddStyle();});
 						//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 			            $('#textSize1_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -667,7 +667,7 @@
                 float: left;
             }
             .txt.c6 {
-                width: 25%;
+                width: 90%;
                 
             }
             .txt.c7 {
@@ -868,7 +868,7 @@
               <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
-                <td align="center" style="width:4%;"><a id='lblStyle_st'></a></td>
+                <td align="center" style="width:30px;"><a id='lblStyle_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
                 <td align="center" style="width:3%;"><a id='lblClass_st'></a></td>
                 <td align="center" id='Size'><a id='lblSize_help'> </a></br><a id='lblSize_st'> </a></td>
@@ -895,7 +895,7 @@
                     <span style="display:block; width:1%;float:left;"> </span>
 					<input type="text" id="txtNo3.*"  style="width:76%; float:left;"/>
 				</td> 
-                <td ><input id="txtStyle.*" type="text" class="txt c7"/></td>
+                <td ><input id="txtStyle.*" style="text-align:center;" type="text" class="txt c6"/></td>
                 <td ><input id="txtProduct.*" type="text" class="txt c7"/></td>
                 <td ><input id="txtClass.*" type="text" class="txt c7" /></td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>

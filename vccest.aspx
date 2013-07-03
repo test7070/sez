@@ -22,7 +22,7 @@
         var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 10, 2, 1]];  
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtEweight', 15, 3, 1],['txtEcount', 10, 0, 1],['txtAdjweight', 15, 3, 1],['txtAdjcount', 10, 0, 1]];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtStyle','A']];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx'],
         ['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
@@ -171,7 +171,7 @@
         function bbsAssign() { 
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		$('#txtStyle_' + j).change(function(){ProductAddStyle();});
+            		$('#txtStyle_' + j).blur(function(){ProductAddStyle();});
             		//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 		                 $('#textSize1_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -613,7 +613,7 @@
                 float: left;
             }
             .txt.c6 {
-                width: 25%;
+                width: 90%;
                 
             }
             .txt.c7 {
@@ -779,7 +779,7 @@
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblUno_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblStyle_st'> </a></td>
+                <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
@@ -804,7 +804,7 @@
                     <span style="display:block; width:1%;float:left;"> </span>
 					<input type="text" id="txtClass.*"  style="width:76%; float:left;"/>
 				</td> 
-				<td><input type="text" id="txtStyle.*" class="txt c1"/></td> 
+				<td><input type="text" id="txtStyle.*" style="text-align:center;" class="txt c6"/></td> 
 				<td><input type="text" id="txtProduct.*" class="txt c1"/></td> 
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
