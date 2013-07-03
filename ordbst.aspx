@@ -58,7 +58,8 @@
                 q_cmbParse("cmbPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
-                
+                var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
+                q_gt('style',Style_where,0,0,0,'');
                 $('#btnOrde').click(function() {
                      q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
@@ -101,11 +102,33 @@
                 b_pop = '';
             }
 
+			function ProductAddStyle(){
+				for(var i = 0;i <q_bbsCount;i++){
+					var Styleno = $('#txtStyle_' + i).val();
+					var StyleName = '';
+					var ProductVal = $('#txtProduct_' + i).attr('OldValue');
+					ProductVal = (emp(ProductVal)?'':ProductVal);
+					if(!emp(Styleno)){
+						for(j = 0;j<StyleList.length;j++){
+							if(StyleList[j].noa == Styleno){
+								StyleName = StyleList[j].product;
+								break;
+							}
+						}
+						$('#txtProduct_' + i).val(ProductVal + StyleName);
+					}
+				}
+			}
+			var StyleList = '';
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'ucc_style':
             			theory_st(q_name,b_seq,'txtTheory');
             			break;
+            		case 'style' :
+            			var as = _q_appendData("style", "", true);
+            			StyleList = new Array();
+            			StyleList = as;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -154,6 +177,7 @@
 				        $('#txtWeight_' + j).change(function () {sum();});
 				        $('#txtPrice_' + j).change(function () {sum();});
 				        $('#txtTotal_' + j).change(function () {sum();});
+				        $('#txtStyle_' + j).change(function(){ProductAddStyle();});
             		  	//計算理論重
 					     $('#textSize1_' + j).change(function () {
 				         		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -309,6 +333,20 @@
             function refresh(recno) {
                 _refresh(recno);
                 size_change();
+				$('input[id*="txtProduct_"]').each(function(){
+                	$(this).attr('OldValue',$(this).val());
+                });
+            }
+
+			function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtProductno_':
+						$('input[id*="txtProduct_"]').each(function(){
+		                	$(this).attr('OldValue',$(this).val());
+		                });
+		                ProductAddStyle();
+		                break;
+                }
             }
 
             function readonly(t_para, empty) {
@@ -777,14 +815,16 @@
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%"><a id='lblUno_st'></a></td>
                 <td align="center" style="width:8%"><a id='lblProductno_st'></a></td>
+                <td align="center" style="width:4%"><a id='lblStyle_st'></a></td>
                 <td align="center" style="width:10%"><a id='lblProduct_st'></a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'></a></td>-->
-                <td align="center" id='Size'><a id='lblSize_st'></a><BR><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:8%"><a id='lblMount_st'></a></td>
-                <td align="center" style="width:8%"><a id='lblWeights_st'></a></td>
-                <td align="center" style="width:8%"><a id='lblPrices_st'></a></td>
-                <td align="center" style="width:10%"><a id='lblTotals_st'></a></td>
-				<td align="center" style="width:10%;"><a id='lblGemounts'></a></td>
+                <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'></a></td>
+                <td align="center" style="width:12%"><a id='lblSizea_st'></a></td>
+                <td align="center" style="width:86"><a id='lblMount_st'></a></td>
+                <td align="center" style="width:6%"><a id='lblWeights_st'></a></td>
+                <td align="center" style="width:6%"><a id='lblPrices_st'></a></td>
+                <td align="center" style="width:8%"><a id='lblTotals_st'></a></td>
+				<td align="center" style="width:6%;"><a id='lblGemounts'></a></td>
                 <td align="center"><a id='lblMemos_st'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -798,6 +838,7 @@
                     <input type="text" id="txtProductno.*"  style="width:80%;"/>
                     <input id="txtClass.*" style="width: 80%;" type="text" />
 				</td>
+                <td><input class="txt c1" id="txtStyle.*" type="text" /></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" /></td>
               			
                 <!--<td><input class="txt c1" id="txtSpec.*" type="text"  /></td>-->
@@ -813,6 +854,7 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
+                <td><input class="txt c1" id="txtSize.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtPrice.*" type="text" /></td>

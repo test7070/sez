@@ -69,6 +69,8 @@
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
                 q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
                 q_gt('spec', '', 0, 0, 0, "", r_accy);
+                var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
+				q_gt('style',Style_where,0,0,0,'');
                 /* 若非本會計年度則無法存檔 */
 				$('#txtDatea').focusout(function () {
 					if($(this).val().substr( 0,3)!= r_accy){
@@ -137,7 +139,7 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			var StyleList = '';
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'spec': 
@@ -145,6 +147,11 @@
 	            	break;
                 	case 'ucc_style':
             			theory_st(q_name,b_seq,'txtTheory');
+            		break;
+            		case 'style' :
+            			var as = _q_appendData("style", "", true);
+            			StyleList = new Array();
+            			StyleList = as;
             		break;
                     case q_name:
                         if(q_cur == 4)
@@ -186,6 +193,7 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtStyle_' + j).change(function(){ProductAddStyle();});
 						//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 			            $('#textSize1_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -354,8 +362,37 @@
             function refresh(recno) {
                 _refresh(recno);
                 size_change();
+                $('input[id*="txtProduct_"]').each(function(){
+                	$(this).attr('OldValue',$(this).val());
+                });
             }
-
+			function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtProductno_':
+						$('input[id*="txtProduct_"]').each(function(){
+		                	$(this).attr('OldValue',$(this).val());
+		                });
+		                ProductAddStyle();
+		                break;
+                }
+            }
+            function ProductAddStyle(){
+				for(var i = 0;i <q_bbsCount;i++){
+					var Styleno = $('#txtStyle_' + i).val();
+					var StyleName = '';
+					var ProductVal = $('#txtProduct_' + i).attr('OldValue');
+					ProductVal = (emp(ProductVal)?'':ProductVal);
+					if(!emp(Styleno)){
+						for(j = 0;j<StyleList.length;j++){
+							if(StyleList[j].noa == Styleno){
+								StyleName = StyleList[j].product;
+								break;
+							}
+						}
+						$('#txtProduct_' + i).val(ProductVal + StyleName);
+					}
+				}
+			}
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
@@ -831,9 +868,11 @@
               <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
+                <td align="center" style="width:4%;"><a id='lblStyle_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
                 <td align="center" style="width:3%;"><a id='lblClass_st'></a></td>
-                <td align="center" id='Size'><a id='lblSize_st'> </a></br><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_help'> </a></br><a id='lblSize_st'> </a></td>
+                <td align="center" style="width:12%;"><a id='lblSizea_st'></a></td>
                 <td align="center" style="width:3%;"><a id='lblUnit_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
                 <td align="center" style="width:7%;"><a id='lblWeight_st'></a></td>
@@ -842,8 +881,10 @@
                 <td align="center" ><a id='lblMemo_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblGweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblEweight_st'></a></td>
+                <!--
                 <td align="center" style="width:5%;"><a id='lblOrdgweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblOrdeweight_st'></a></td>
+                -->
                 <td align="center" style="width:2%;"><a id='lblEnda_st'></a></td>
                 
             </tr>
@@ -854,6 +895,7 @@
                     <span style="display:block; width:1%;float:left;"> </span>
 					<input type="text" id="txtNo3.*"  style="width:76%; float:left;"/>
 				</td> 
+                <td ><input id="txtStyle.*" type="text" class="txt c7"/></td>
                 <td ><input id="txtProduct.*" type="text" class="txt c7"/></td>
                 <td ><input id="txtClass.*" type="text" class="txt c7" /></td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
@@ -867,6 +909,7 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
+                <td ><input id="txtSize.*" type="text" class="txt c7"/></td>
                 <td ><input id="txtUnit.*" type="text" class="txt c7"/></td>
                 <td ><input id="txtMount.*" type="text"  class="txt num c7"/></td>
                 <td ><input id="txtWeight.*" type="text"  class="txt num c7" /></td>
@@ -879,8 +922,10 @@
                 </td>
                 <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
                 <td ><input id="txtEweight.*" type="text" class="txt num c7" /></td>
+                <!--
                 <td ><input id="txtOrdgweight.*" type="text" class="txt num c7" /></td>
                 <td ><input id="txtOrdeweight.*" type="text" class="txt num c7" /></td>
+                -->
                 <td align="center"><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
