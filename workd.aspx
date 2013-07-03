@@ -22,7 +22,7 @@
         var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtWorkno'];
         var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,2,1],['txtErrmount', 15,2,1]];
+        var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,2,1],['txtErrmount', 15,2,1],['txtWmount', 15, 2, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
@@ -448,17 +448,18 @@
             <tr style='color:White; background:#003366;' >
                 <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td style="width:10%;" align="center"><a id='lblProductnos'></a></td>
-                <td style="width:15%;" align="center"><a id='lblProduct_s'></a></td>
+                <td style="width:13%;" align="center"><a id='lblProduct_s'></a></td>
                 <td style="width:5%;" align="center"><a id='lblUnit'></a></td>
-                <td style="width:8%;" align="center"><a id='lblBorn'></a></td>
-                <td style="width:8%;" align="center"><a id='lblMounts'></a></td>
-                <td style="width:8%;" align="center"><a id='lblPrice_s'></a></td>
+                <!--<td style="width:7%;" align="center"><a id='lblBorn'></a></td>-->
+                <td style="width:7%;" align="center"><a id='lblMounts'></a></td>
+                <td style="width:7%;" align="center"><a id='lblWmounts'></a></td>
+                <td style="width:7%;" align="center"><a id='lblPrice_s'></a></td>
                 <td style="width:8%;" align="center"><a id='lblTotal_s'></a></td>
                 <td style="width:10%;" align="center"><a id='lblErrmount'></a></td>
-                <td style="width:15%;" align="center"><a id='lblMemos'></a></td>
+                <td style="width:13%;" align="center"><a id='lblMemos'></a></td>
                 <td style="width:10%;" align="center"><a id='lblWorknos'></a></td>
             </tr>
-            <tr  style='background:#cad3ff;'>
+            <tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
                 <td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td>
                 	<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
@@ -466,11 +467,13 @@
                 </td>
                 <td><input class="txt c1" id="txtProduct.*" type="text"/></td>
                 <td><input class="txt c1" id="txtUnit.*" type="text"/></td>
-                <td><input class="txt c1 num" id="txtBorn.*" type="text"/>
+                <!--<td><input class="txt c1 num" id="txtBorn.*" type="text"/>
                 	<input class="txt c1 num" id="txtBweight.*" type="text"/>
-                </td>
+                </td>-->
                 <td><input class="txt c1 num" id="txtMount.*" type="text"/>
-                	<input class="txt c1 num" id="txtWeight.*" type="text"/>
+                	<!--<input class="txt c1 num" id="txtWeight.*" type="text"/>-->
+                </td>
+                <td><input class="txt c1 num" id="txtWmount.*" type="text"/>
                 </td>
                 <td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
                 <td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>

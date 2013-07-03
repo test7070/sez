@@ -559,7 +559,7 @@
 						$('#btnCaritem_'+j).attr('disabled', 'disabled');
 						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 						$('#txtInmoney_'+j).attr('disabled', 'disabled');
-						$('#txtMemo_'+j).attr('disabled', 'disabled');
+						//$('#txtMemo_'+j).attr('disabled', 'disabled');//1020703摘要要開放讓人員修改
 						$('#txtPaydate_'+j).attr('disabled', 'disabled');
 						$('#txtFareyn_'+j).attr('disabled', 'disabled');
 						$('#txtCost_'+j).attr('disabled', 'disabled');
