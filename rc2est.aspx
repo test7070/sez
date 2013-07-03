@@ -54,7 +54,8 @@
             q_mask(bbmMask);
             
             q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
-            
+            var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
+			q_gt('style',Style_where,0,0,0,'');
             /* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
@@ -81,12 +82,16 @@
             b_pop = '';
         }
 
-
+		var StyleList = '';
         function q_gtPost(t_name) {  
             switch (t_name) {
                 case 'ucc_style':
             			theory_st(q_name,b_seq,'txtWeight');
             		break;
+            	case 'style' :
+            			var as = _q_appendData("style", "", true);
+            			StyleList = new Array();
+            			StyleList = as;
                 case q_name: 
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -124,6 +129,7 @@
         function bbsAssign() {  
 			for(var j = 0; j < q_bbsCount; j++) {
 				if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+					$('#txtStyle_' + j).change(function(){ProductAddStyle();});
 					//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 		            $('#textSize1_' + j).change(function () {
 		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -260,17 +266,48 @@
         function refresh(recno) {
             _refresh(recno);
             size_change();
-       }
-
-        function readonly(t_para, empty) {
-            _readonly(t_para, empty);
-            if (t_para) {
-				for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#textSize1_'+j).attr('disabled', 'disabled');
-			        $('#textSize2_'+j).attr('disabled', 'disabled');
-			        $('#textSize3_'+j).attr('disabled', 'disabled');
-			        $('#textSize4_'+j).attr('disabled', 'disabled');
+            $('input[id*="txtProduct_"]').each(function(){
+                	$(this).attr('OldValue',$(this).val());
+            });
+		}
+		
+		function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtProductno_':
+						$('input[id*="txtProduct_"]').each(function(){
+		                	$(this).attr('OldValue',$(this).val());
+		                });
+		                ProductAddStyle();
+		                break;
+                }
+            }
+						
+		function ProductAddStyle(){
+			for(var i = 0;i <q_bbsCount;i++){
+				var Styleno = $('#txtStyle_' + i).val();
+				var StyleName = '';
+				var ProductVal = $('#txtProduct_' + i).attr('OldValue');
+				ProductVal = (emp(ProductVal)?'':ProductVal);
+				if(!emp(Styleno)){
+					for(j = 0;j<StyleList.length;j++){
+						if(StyleList[j].noa == Styleno){
+							StyleName = StyleList[j].product;
+							break;
+						}
+					}
+					$('#txtProduct_' + i).val(ProductVal + StyleName);
 				}
+			}
+		}
+        function readonly(t_para, empty) {
+           _readonly(t_para, empty);
+           if (t_para) {
+			for (var j = 0; j < q_bbsCount; j++) {
+		    	$('#textSize1_'+j).attr('disabled', 'disabled');
+		        $('#textSize2_'+j).attr('disabled', 'disabled');
+		        $('#textSize3_'+j).attr('disabled', 'disabled');
+		        $('#textSize4_'+j).attr('disabled', 'disabled');
+			}
 			}else {
 				for (var j = 0; j < q_bbsCount; j++) {
 			    	$('#textSize1_'+j).removeAttr('disabled');
@@ -279,7 +316,7 @@
 			        $('#textSize4_'+j).removeAttr('disabled');
 				}
 			}
-        }
+       	}
 
         function btnMinus(id) {
             _btnMinus(id);
@@ -444,7 +481,6 @@
     </script>
     <style type="text/css">
                 #dmain {
-                overflow: hidden;
             }
             .dview {
                 float: left;
@@ -511,7 +547,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
@@ -565,7 +601,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 1500px;
             }
             .tbbs a {
                 font-size: medium;
@@ -586,7 +622,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:100% ; height:98% ;  
+             width:100% ;  
         }  
       
        .tbbs .td1
@@ -676,11 +712,13 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width: 7%;"><a id='lblStoreno_st'> </a></td>
-                <td align="center" style="width: 7%;"><a id='lblUno_st'> </a></td>
+                <td align="center" style="width: 10%;"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width: 8%;"><a id='lblProductno_st'> </a></td>
+                <td align="center" style="width: 4%;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width: 9%;"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" class="td1"><a id='lblSpec_st'> </a></td>-->
-                <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
+                <td align="center" style="width: 12%;"><a id='lblSizea_st'> </a></td>
                 <td align="center" style="width: 6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width: 6%;"><a id='lblWeight_st'> </a></td>
                 <td align="center" style="width: 6%;"><a id='lblPrice_st'> </a></td>
@@ -698,6 +736,7 @@
                     <input type="text" id="txtProductno.*"  style="width:75%; float:left;"/>
                     <input id="txtClass.*" type="text" style="width: 75%;"/>
 				</td>
+				<td><input type="text" id="txtStyle.*" class="txt c1"/></td>
 				<td><input type="text" id="txtProduct.*" class="txt c1"/></td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
@@ -710,6 +749,7 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
+                <td ><input class="txt c1" id="txtSize.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>

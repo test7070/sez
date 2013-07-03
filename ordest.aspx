@@ -74,6 +74,8 @@
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
             q_gt('spec', '', 0, 0, 0, "", r_accy);
+            var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
+			q_gt('style',Style_where,0,0,0,'');
             $('#lblQuat').click(function () { btnQuat(); });
             $('#btnOrdem').click(function () { q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); });
 			$('#cmbKind').change(function () {
@@ -133,12 +135,17 @@
             b_pop = '';
         }
 
-
+		var StyleList = '';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
             	case 'spec': 
 	            		t_spec= _q_appendData("spec", "", true);
 	            	break;
+	            case 'style' :
+            			var as = _q_appendData("style", "", true);
+            			StyleList = new Array();
+            			StyleList = as;
+            		break;
 				case 'ucc_style':
             			theory_st(q_name,b_seq,'txtTheory');
             			break;
@@ -207,6 +214,7 @@
         	for(var j = 0; j < q_bbsCount; j++) {
         		$('#lblNo_' + j).text(j + 1);
 				if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+					$('#txtStyle_' + j).change(function(){ProductAddStyle();});
             		//計算理論重
 					$('#textSize1_' + j).change(function () {
 					    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -460,8 +468,38 @@
         function refresh(recno) {
             _refresh(recno);
 			size_change();
+			$('input[id*="txtProduct_"]').each(function(){
+                	$(this).attr('OldValue',$(this).val());
+			});
         }
-
+		function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtProductno_':
+						$('input[id*="txtProduct_"]').each(function(){
+		                	$(this).attr('OldValue',$(this).val());
+		                });
+		                ProductAddStyle();
+		                break;
+                }
+            }
+						
+		function ProductAddStyle(){
+			for(var i = 0;i <q_bbsCount;i++){
+				var Styleno = $('#txtStyle_' + i).val();
+				var StyleName = '';
+				var ProductVal = $('#txtProduct_' + i).attr('OldValue');
+				ProductVal = (emp(ProductVal)?'':ProductVal);
+				if(!emp(Styleno)){
+					for(j = 0;j<StyleList.length;j++){
+						if(StyleList[j].noa == Styleno){
+							StyleName = StyleList[j].product;
+							break;
+						}
+					}
+					$('#txtProduct_' + i).val(ProductVal + StyleName);
+				}
+			}
+		}
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
             if (t_para) {
@@ -732,7 +770,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 72%;
+                width: 65%;
                 float: left;
             }
             .txt.c6 {
@@ -773,13 +811,13 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1500px;
+                width: 1600px;
             }
             .tbbs a {
                 font-size: medium;
             }
             .dbbt {
-                width: 950px;
+                width: 1200px;
             }
             .num {
                 text-align: right;
@@ -926,17 +964,19 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno'> </a></td>
-                <td align="center"><a id='lblProduct'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblStyle_st'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblProduct'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblClasss'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblMount'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeights'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblTotals'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGemounts'></a></td>
-                <td align="center" style="width:15%;"><a id='lblMemos'> </a></td>
+                <td align="center" style="width:12%;"><a id='lblMemos'> </a></td>
                 <td align="center" style="width:2%;"><a id='lblssale_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblscut_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblOrdet_st'> </a></td>
@@ -949,6 +989,7 @@
                     <span style="display:block; width:1%;float:left;"> </span>
 					<input type="text" id="txtNo2.*"  style="width:76%; float:left;"/>
 				</td>                   
+                <td ><input class="txt c7" id="txtStyle.*" type="text" />
                 <td ><input class="txt c7" id="txtProduct.*" type="text" />
                 <input class="txt c7" id="txtUno.*" type="text" style="width:80%;" />
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
@@ -966,6 +1007,7 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c7" id="txtSpec.*" type="text" />
                 </td>
+                <td ><input class="txt c7" id="txtSize.*" type="text"/></td>
                 <td ><input class="txt c7" id="txtUnit.*" type="text"/></td>
                 <td ><input class="txt num c7" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c7" id="txtWeight.*" type="text" /></td>
@@ -978,8 +1020,8 @@
                 </td>
                 <td >
                 	<input class="txt c7" id="txtMemo.*" type="text" />
-	                <input class="txt c2" id="txtQuatno.*" type="text"  />
-	                <input class="txt c2" id="txtNo3.*" type="text"  />
+	                <input class="txt c5" id="txtQuatno.*" type="text"  />
+	                <input class="txt c4" id="txtNo3.*" type="text"  />
                 <!--<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />-->
                 </td>
 				<td align="center"><input id="chkIssale.*" type="checkbox"/></td>

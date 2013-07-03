@@ -14,7 +14,6 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
             q_tables = 's';
             var q_name = "ordc";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
@@ -58,6 +57,8 @@
                 q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
+                var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
+				q_gt('style',Style_where,0,0,0,'');
                 $('#txtFloata').change(function () {sum();});
 				$('#txtTotal').change(function () {sum();});
                 //變動尺寸欄位
@@ -108,7 +109,7 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			var StyleList = '';
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'ordb':
@@ -129,6 +130,10 @@
                 	case 'ucc_style':
             			theory_st(q_name,b_seq,'txtTheory');
             			break;
+            		case 'style' :
+            			var as = _q_appendData("style", "", true);
+            			StyleList = new Array();
+            			StyleList = as;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -183,6 +188,7 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		  	$('#txtStyle_' + j).change(function(){ProductAddStyle();});
             		  	//計算理論重
 					     $('#textSize1_' + j).change(function () {
 				         		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -338,7 +344,39 @@
             function refresh(recno) {
                 _refresh(recno);
                 size_change();
+                $('input[id*="txtProduct_"]').each(function(){
+                	$(this).attr('OldValue',$(this).val());
+                });
             }
+            
+            function q_popPost(s1) {
+                switch (s1) {
+                    case 'txtProductno_':
+						$('input[id*="txtProduct_"]').each(function(){
+		                	$(this).attr('OldValue',$(this).val());
+		                });
+		                ProductAddStyle();
+		                break;
+                }
+            }
+            
+            function ProductAddStyle(){
+				for(var i = 0;i <q_bbsCount;i++){
+					var Styleno = $('#txtStyle_' + i).val();
+					var StyleName = '';
+					var ProductVal = $('#txtProduct_' + i).attr('OldValue');
+					ProductVal = (emp(ProductVal)?'':ProductVal);
+					if(!emp(Styleno)){
+						for(j = 0;j<StyleList.length;j++){
+							if(StyleList[j].noa == Styleno){
+								StyleName = StyleList[j].product;
+								break;
+							}
+						}
+						$('#txtProduct_' + i).val(ProductVal + StyleName);
+					}
+				}
+			}
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -815,14 +853,16 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width:10%"><a id='lblProductno_st'> </a></td>
+                <td align="center" style="width:4%"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:10%"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
-                <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:8%"><a id='lblMount_st'> </a></td>
-                <td align="center" style="width:8%"><a id='lblWeights_st'> </a></td>
-                <td align="center" style="width:8%"><a id='lblPrices_st'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
+                <td align="center" style="width:12%"><a id='lblSizea_st'> </a></td>
+                <td align="center" style="width:6%"><a id='lblMount_st'> </a></td>
+                <td align="center" style="width:6%"><a id='lblWeights_st'> </a></td>
+                <td align="center" style="width:6%"><a id='lblPrices_st'> </a></td>
                 <td align="center" style="width:8%"><a id='lblTotals_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblGemounts'></a></td>
+                <td align="center" style="width:6%;"><a id='lblGemounts'></a></td>
                 <td align="center"><a id='lblMemos_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -836,6 +876,7 @@
                     <input type="text" id="txtProductno.*"  style="width:80%;"/>
                     <input id="txtClass.*" type="text" style="width:80%;"/>
 				</td>
+                <td><input id="txtStyle.*" type="text" class="txt c1"/></td>
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 		
                 <!--<td><input  id="txtSpec.*" type="text"  class="txt c1"/></td>-->
@@ -851,6 +892,7 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input  id="txtSpec.*" type="text"  class="txt c1"/>
                 </td>
+                <td><input id="txtSize.*" type="text" class="txt c1" /></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
                 <td><input id="txtWeight.*" type="text" class="txt num c1" /></td>
                 <td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
