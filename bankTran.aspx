@@ -203,6 +203,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+               q_modiDate = abbm[q_recno]['datea'];  /// 若未指定， d4=  abbm[q_recno]['datea']; 
             }
 
             function readonly(t_para, empty) {

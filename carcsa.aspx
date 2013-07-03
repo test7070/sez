@@ -109,7 +109,7 @@
 
             function mainPost() {
             q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
-			q_modiDate = abbm[q_recno]['trandate'];  /// 若未指定， d4=  abbm[q_recno]['datea']; 
+			 
                 q_mask(bbmMask);
                 carcsa.init();
 				q_cmbParse("cmbOntime", ',Y');
@@ -610,6 +610,7 @@
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
             function refresh(recno) {
                 _refresh(recno);
+                q_modiDate = abbm[q_recno]['trandate'];  /// 若未指定， d4=  abbm[q_recno]['datea'];
             		checkenda=false;
                 if(q_cur==1 || q_cur==2)
                 	$('#combType').removeAttr('disabled');
