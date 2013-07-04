@@ -92,6 +92,9 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'holiday':
+            				holiday = _q_appendData("holiday", "", true);
+            			break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -126,6 +129,58 @@
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+				var x_day=q_getPara('sys.modiday'),t_day=1;
+				var t_date=q_date();
+						
+				while(r_rank<=7 && t_day<x_day){
+					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+					nextdate.setDate(nextdate.getDate() -1)
+					t_date=''+(nextdate.getFullYear()-1911)+'/';
+					//月份
+					t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+					//日期
+					t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+					
+					//六日跳過
+					if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+					||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+					){continue;}
+					               	
+					//假日跳過
+					if(holiday){
+						var isholiday=false;
+						for(var i=0;i<holiday.length;i++){
+							if(holiday[i].noa==t_date){
+								isholiday=true;
+								break;
+							}
+						}
+						if(isholiday) continue;
+					}
+					t_day++;
+				}
+				for(var j = 0; j < q_bbsCount; j++) {
+					if(r_rank<=7&&t_date>$('#txtDatea_'+j).val()){
+						$('#btnPlus').attr('disabled', 'disabled');
+						$('#btnMinus_'+j).attr('disabled', 'disabled');
+						$('#cmbTypea_'+j).attr('disabled', 'disabled');
+						$('#txtCarowner_'+j).attr('disabled', 'disabled');
+						$('#txtCarno_'+j).attr('disabled', 'disabled');
+						$('#txtMemo_'+j).attr('disabled', 'disabled');
+						$('#txtInvono_'+j).attr('disabled', 'disabled');
+						$('#txtSalesvolume_'+j).attr('disabled', 'disabled');
+						$('#txtTax_'+j).attr('disabled', 'disabled');
+						$('#txtCheckno_'+j).attr('disabled', 'disabled');
+						$('#txtBankno_'+j).attr('disabled', 'disabled');
+						$('#txtAccount_'+j).attr('disabled', 'disabled');
+						$('#txtBank_'+j).attr('disabled', 'disabled');
+						$('#txtMoney_'+j).attr('disabled', 'disabled');
+						$('#txtIndate_'+j).attr('disabled', 'disabled');
+						$('#txtAcc1_'+j).attr('disabled', 'disabled');
+						$('#txtAcc2_'+j).attr('disabled', 'disabled');
+						$('#btnAcc_'+j).attr('disabled', 'disabled');
+					}
+				}
             }
 
             function btnPrint() {
@@ -170,6 +225,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if(r_rank<=7)
+            		q_gt('holiday', '' , 0, 0, 0, "", r_accy);
                 if(q_cur > 0 && q_cur < 4)
                     sum();
             }

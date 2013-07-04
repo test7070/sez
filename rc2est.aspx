@@ -54,8 +54,7 @@
             q_mask(bbmMask);
             
             q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
-            var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
-			q_gt('style',Style_where,0,0,0,'');
+			q_gt('style','',0,0,0,'');
             /* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){

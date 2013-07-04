@@ -52,8 +52,7 @@
             q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
-			q_gt('style',Style_where,0,0,0,'');
+			q_gt('style','',0,0,0,'');
              $('#cmbKind').change(function () {
 	            	size_change();
 			     });
