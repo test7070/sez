@@ -515,7 +515,7 @@
 				var x_day=q_getPara('sys.modiday'),t_day=1;
 				var t_date=q_date();
 				
-				while(t_day<x_day){
+				while(r_rank<=7 && t_day<x_day){
 					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
 					nextdate.setDate(nextdate.getDate() -1)
 					t_date=''+(nextdate.getFullYear()-1911)+'/';

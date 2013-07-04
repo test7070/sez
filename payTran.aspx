@@ -13,7 +13,7 @@
 		    q_desc = 1
 		    q_tables = 's';
 		    var q_name = "pay";
-		    var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2'];
+		    var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2','txtRc2no'];
 		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2'];
 		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
@@ -559,14 +559,14 @@
 		        }
 		        
 		        //20130201只要預付單號有預付，預付金額=SUM(BBS沖帳金額)
-		        //1020618取消此功能
-		        /*if($('#txtRc2no').val().indexOf('預付')>-1){
+		        //1020618取消此功能//102/07/04恢復此功能
+		        if($('#txtRc2no').val().indexOf('預付')>-1){
 		        	var yufu_total=0;
 		        	for (var i = 0; i < q_bbsCount; i++) {
 		        		yufu_total+=q_float('txtPaysale_'+i);
 		        	}
 		        	q_tr('txtOpay',yufu_total);
-		        }*/
+		        }
 		        //先檢查BBS沒問題才存檔      
                 checkGqb_bbs(q_bbsCount-1);
 		    }
