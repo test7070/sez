@@ -775,7 +775,7 @@
             }
             .txt.c6 {
                 width: 90%;
-                
+                text-align:center;
             }
             .txt.c7 {
                 width: 95%;
@@ -966,7 +966,7 @@
                 <td align="center" style="width:8%;"><a id='lblProductno'> </a></td>
                 <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProduct'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblClasss'> </a></td>
+                <td align="center" style="width:30px;"><a id='lblClasss'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
@@ -989,11 +989,11 @@
                     <span style="display:block; width:1%;float:left;"> </span>
 					<input type="text" id="txtNo2.*"  style="width:76%; float:left;"/>
 				</td>                   
-                <td ><input class="txt c6" id="txtStyle.*" style="text-align:center;" type="text" />
+                <td ><input class="txt c6" id="txtStyle.*" type="text" />
                 <td ><input class="txt c7" id="txtProduct.*" type="text" />
                 <input class="txt c7" id="txtUno.*" type="text" style="width:80%;" />
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
-                <td ><input class="txt c7" id="txtClass.*" type="text"  /></td>
+                <td ><input class="txt c6" id="txtClass.*" type="text"  /></td>
                 <!--<td><input class="txt c7" id="txtSpec.*" type="text" /></td>-->
                 <td>
                 	<input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>

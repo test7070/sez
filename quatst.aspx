@@ -668,7 +668,7 @@
             }
             .txt.c6 {
                 width: 90%;
-                
+                text-align:center;
             }
             .txt.c7 {
                 width: 95%;
@@ -702,7 +702,7 @@
             }
             .dbbs {
             	float:left;
-                width: 1500px;
+                width: 1800px;
             }
             .tbbs a {
                 font-size: medium;
@@ -870,15 +870,15 @@
                 <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
                 <td align="center" style="width:30px;"><a id='lblStyle_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
-                <td align="center" style="width:3%;"><a id='lblClass_st'></a></td>
+                <td align="center" style="width:60px;"><a id='lblClass_st'></a></td>
                 <td align="center" id='Size'><a id='lblSize_help'> </a></br><a id='lblSize_st'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblSizea_st'></a></td>
+                <td align="center" style="width:10%;"><a id='lblSizea_st'></a></td>
                 <td align="center" style="width:3%;"><a id='lblUnit_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
                 <td align="center" style="width:7%;"><a id='lblWeight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblPrice_st'></a></td>
                 <td align="center" style="width:8%;"><a id='lblTotal_st'></a></td>
-                <td align="center" ><a id='lblMemo_st'></a></td>
+                <td align="center"><a id='lblMemo_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblGweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblEweight_st'></a></td>
                 <!--
@@ -895,9 +895,9 @@
                     <span style="display:block; width:1%;float:left;"> </span>
 					<input type="text" id="txtNo3.*"  style="width:76%; float:left;"/>
 				</td> 
-                <td ><input id="txtStyle.*" style="text-align:center;" type="text" class="txt c6"/></td>
+                <td ><input id="txtStyle.*" type="text" class="txt c6"/></td>
                 <td ><input id="txtProduct.*" type="text" class="txt c7"/></td>
-                <td ><input id="txtClass.*" type="text" class="txt c7" /></td>
+                <td ><input id="txtClass.*" type="text" class="txt c6" /></td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
