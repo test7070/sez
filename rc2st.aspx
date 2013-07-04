@@ -71,8 +71,7 @@
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
-            var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
-			q_gt('style',Style_where,0,0,0,'');
+			q_gt('style','',0,0,0,'');
              $('#lblAccc').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
 		        });
