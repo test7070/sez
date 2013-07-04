@@ -18,7 +18,7 @@
         q_tables = 's';
         var q_name = "orde";
         var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales','txtOrdbno','txtOrdcno'];
-        var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3']; 
+        var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3','txtC1','txtNotv']; 
         var bbmNum = [['txtTotal', 0,0,10],['txtMoney', 0, 0,10]];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
         var bbmMask = [];

@@ -45,24 +45,25 @@
             }
 
             function mainPost() {
-                bbmMask = [['txtAcc1', '9999.********']];
+                //bbmMask = [['txtAcc1', '9999.********']];
                 q_mask(bbmMask);
 
-                $('#txtAcc1').change(function() {
-                	//用MASK後會失效
-                    /*$('#txtAcc1').val($('#txtAcc1').val().replace('_', ''));
-                    $('#txtAcc1').val($('#txtAcc1').val().replace(' ', ''));
-                    var s1 = trim($(this).val());
-                    if (s1.length > 4 && s1.indexOf('.') < 0)
-                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-                    if (s1.length == 4)
-                        $(this).val(s1 + '.');
-                    if (emp($('#txtAcc1').val())) {
-                        $('#txtAcc1').focus();
-                    } else {
-                        var t_where = "where=^^ acc1='" + $('#txtAcc1').val() + "' ^^";
-                        q_gt(q_name, t_where, 0, 1, 0, "", r_accy + '_' + r_cno);
-                    }*/
+                $('#txtAcc1').keyup(function() {
+                	if((/^(\d{4})$/g).test($(this).val())){
+                		$(this).val($(this).val().replace(/^(\d{4})$/g,"$1."));
+                	}else if((/^(\d{4})(\.+)([^\.,.]*)$/g).test($(this).val())){
+                		$(this).val($(this).val().replace(/^(\d{4})(\.+)([^\.,.]*)$/g,"$1.$3"));
+                	}else{
+                		$(this).val($(this).val().replace(/^(\d{4})([^\.,.]*)$/g,"$1.$2"));
+                	}
+                }).change(function(){
+                	if((/^(\d{4})$/g).test($(this).val())){
+                		$(this).val($(this).val().replace(/^(\d{4})$/g,"$1."));
+                	}else if((/^(\d{4})(\.+)([^\.,.]*)$/g).test($(this).val())){
+                		$(this).val($(this).val().replace(/^(\d{4})(\.+)([^\.,.]*)$/g,"$1.$3"));
+                	}else{
+                		$(this).val($(this).val().replace(/^(\d{4})([^\.,.]*)$/g,"$1.$2"));
+                	}
                 });
             }
 
@@ -126,9 +127,7 @@
             function btnModi() {
                 if (emp($('#txtAcc1').val()))
                     return;
-
                 _btnModi();
-                $('#txtAcc1').attr('disabled', 'disabled');
                 $('#txtAcc2').focus();
             }
 
@@ -138,9 +137,6 @@
 
             var acc1 = [];
             function btnOk() {
-            	$('#txtAcc1').val($('#txtAcc1').val().replace(/_/g,''));         
-            	$('#txtAcc1').val($('#txtAcc1').val().replace(/ /g,''));
-            	
                 var t_err = '';
                 t_err = q_chkEmpField(['txtAcc1', q_getMsg('lblAcc1')]);
 
@@ -170,6 +166,11 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if(q_cur==1){
+                	$('#txtAcc1').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');           
+                }else{
+                	$('#txtAcc1').removeAttr('readonly').css('color','black').css('background','white');  
+                }
             }
 
             function readonly(t_para, empty) {
@@ -231,13 +232,13 @@
             }
 		</script>
 		<style type="text/css">
-			#dmain {
+            #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 500px; 
-                border-width: 0px; 
+                width: 500px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -257,8 +258,8 @@
             .dbbm {
                 float: left;
                 width: 450px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -354,7 +355,9 @@
 						<td align="center" style="width:300px; color:black;"><a id='vewAcc2'></a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=' '/>
+						</td>
 						<td id='acc1' style="text-align: center;">~acc1</td>
 						<td id='acc2' style="text-align: left;">~acc2</td>
 					</tr>
@@ -363,31 +366,41 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcc1" class="lbl"> </a></td>
-						<td><input id="txtAcc1" type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtAcc1" type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcc2" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtAcc2" type="text" class="txt c1"/></td>
+						<td colspan="2">
+						<input id="txtAcc2" type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblBeginmoney" class="lbl"> </a></td>
-						<td><input id="txtBeginmoney" type="text" class="txt num c1"/></td>
+						<td>
+						<input id="txtBeginmoney" type="text" class="txt num c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblOacc" class="lbl"> </a></td>
-						<td><input id="txtOacc" type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtOacc" type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblLok" class="lbl"> </a></td>
-						<td><input id="txtLok" type="text" class="txt c1"/>	</td>
+						<td>
+						<input id="txtLok" type="text" class="txt c1"/>
+						</td>
 					</tr>
 				</table>
 			</div>
