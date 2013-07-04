@@ -299,22 +299,6 @@
 			
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if (t_para) {
-					for (var j = 0; j < q_bbsCount; j++) {
-				    	$('#textSize1_'+j).attr('disabled', 'disabled');
-				        $('#textSize2_'+j).attr('disabled', 'disabled');
-				        $('#textSize3_'+j).attr('disabled', 'disabled');
-				        $('#textSize4_'+j).attr('disabled', 'disabled');
-					}
-				}else {
-					for (var j = 0; j < q_bbsCount; j++) {
-				    	$('#textSize1_'+j).removeAttr('disabled');
-				        $('#textSize2_'+j).removeAttr('disabled');
-				        $('#textSize3_'+j).removeAttr('disabled');
-				        $('#textSize4_'+j).removeAttr('disabled');
-					}
-
-				}
             }
 
             function btnMinus(id) {
@@ -324,7 +308,7 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                
+            	size_change();
             }
 
             function q_appendData(t_Table) {
@@ -372,6 +356,11 @@
             }
             
 		function size_change () {
+			if(q_cur==1 || q_cur==2){
+				$('input[id*="textSize"]').removeAttr('disabled');
+			}else{
+				$('input[id*="textSize"]').attr('disabled', 'disabled');
+			}
 		  if($('#cmbKind').val().substr(0,1)=='A'){
             $('#lblSize_help').html("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {

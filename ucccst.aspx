@@ -185,17 +185,6 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-            if (t_para) {
-				$('#textSize1').attr('disabled', 'disabled');
-				$('#textSize2').attr('disabled', 'disabled');
-				$('#textSize3').attr('disabled', 'disabled');
-				$('#textSize4').attr('disabled', 'disabled');
-			}else {
-				$('#textSize1').removeAttr('disabled');
-				$('#textSize2').removeAttr('disabled');
-				$('#textSize3').removeAttr('disabled');
-				$('#textSize4').removeAttr('disabled');
-			}
         }
 
         function btnMinus(id) {
@@ -204,6 +193,7 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield); 
+            size_change();
         }
 
         function q_appendData(t_Table) {
@@ -249,7 +239,11 @@
         	var vcckind='';
         	if($('#txtProduct').val()=='')
         		vcckind=q_getPara('vcc.kind');
-        		
+        	if(q_cur==1 || q_cur==2){
+				$('input[id*="textSize"]').removeAttr('disabled');
+			}else{
+				$('input[id*="textSize"]').attr('disabled', 'disabled');
+			}
         	if( $('#txtProduct').val().indexOf('板')>-1 || $('#txtProduct').val().indexOf('捲')>-1 || vcckind=='1'){
             	$('#lblSize1').text("厚度：");
             	$('#lblSize2').text("寬度：");

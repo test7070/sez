@@ -155,21 +155,6 @@
                     break;
             }  /// end switch
         }
-        
-//        function btnquat() {
-//            var t_custno = trim($('#txtCustno').val());
-//            var t_where='';
-//            if (t_custno.length > 0) {
-//                t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
-//                t_where =  t_where ;
-//            }
-//            else {
-//                alert(q_getMsg('msgCustEmp'));
-//                return;
-//            }
-
-//            q_box('ordes_b.aspx', 'ordes;' + t_where , "95%", "650px", "報價視窗");
-//        }
 
         function btnOk() {
 			$('#txtDatea').val($.trim($('#txtDatea').val()));
@@ -354,21 +339,6 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-            if (t_para) {
-            	for (var j = 0; j < q_bbsCount; j++) {
-		            $('#textSize1_'+j).attr('disabled', 'disabled');
-		            $('#textSize2_'+j).attr('disabled', 'disabled');
-		            $('#textSize3_'+j).attr('disabled', 'disabled');
-		            $('#textSize4_'+j).attr('disabled', 'disabled');
-		    	}
-		    }else {
-		    	for (var j = 0; j < q_bbsCount; j++) {
-		        	$('#textSize1_'+j).removeAttr('disabled');
-		        	$('#textSize2_'+j).removeAttr('disabled');
-		        	$('#textSize3_'+j).removeAttr('disabled');
-		        	$('#textSize4_'+j).removeAttr('disabled');
-		        }
-			}
         }
 
         function btnMinus(id) {
@@ -378,6 +348,7 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
+            size_change();
         }
 
         function q_appendData(t_Table) {
@@ -421,6 +392,11 @@
         }
         
         function size_change () {
+			if(q_cur==1 || q_cur==2){
+				$('input[id*="textSize"]').removeAttr('disabled');
+			}else{
+				$('input[id*="textSize"]').attr('disabled', 'disabled');
+			}
 		  if( $('#cmbKind').val().substr(0,1)=='A'){
             $('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {

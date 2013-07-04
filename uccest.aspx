@@ -238,21 +238,6 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-            if (t_para) {
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).attr('disabled', 'disabled');
-			        $('#textSize2_'+j).attr('disabled', 'disabled');
-			        $('#textSize3_'+j).attr('disabled', 'disabled');
-			        $('#textSize4_'+j).attr('disabled', 'disabled');
-			    }
-			}else {
-				for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#textSize1_'+j).removeAttr('disabled');
-			        $('#textSize2_'+j).removeAttr('disabled');
-			        $('#textSize3_'+j).removeAttr('disabled');
-			        $('#textSize4_'+j).removeAttr('disabled');
-				}
-			}
         }
 
         function btnMinus(id) {
@@ -262,6 +247,7 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
+            size_change();
         }
 
         function q_appendData(t_Table) {
@@ -304,6 +290,11 @@
             _btnCancel();
         }
         function size_change () {
+			if(q_cur==1 || q_cur==2){
+				$('input[id*="textSize"]').removeAttr('disabled');
+			}else{
+				$('input[id*="textSize"]').attr('disabled', 'disabled');
+			}
 		  if($('#cmbKind').val().substr(0,1)=='A'){
             $('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
@@ -570,7 +561,7 @@
                     <input type="text" id="txtProductno.*"  style="width:75%;"/>
                     <input id="txtClass.*" type="text" style="width: 75%;"/>
 				</td>
-				<td><input type="text" id="txtProduct.*"  class="txtc1"/></td>
+				<td><input type="text" id="txtProduct.*"  class="txt c1"/></td>
 				 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>

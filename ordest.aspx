@@ -19,7 +19,7 @@
         q_tables = 't';
         var q_name = "orde";
         var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
-        var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
+        var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory','txtC1','txtNotv']; 
         var q_readonlyt = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [['txtMoney', 10, 2, 1],['txtTax', 10, 2, 1],['txtTotal', 10, 2, 1],['txtTotalus', 10, 2, 1],['txtWeight', 10, 2, 1]];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3],['txtTotal', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
@@ -345,10 +345,10 @@
 						var t_where = ' 1=1 ' + q_sqlPara2("productno", t_productno)
 											  + q_sqlPara2("noa", t_uno)
 											  + q_sqlPara2("class", t_class)
-											  + (t_lengthb > 0?q_sqlPara2("lengthb", t_lengthb):'')
-											  + (t_dime > 0?q_sqlPara2("dime", t_dime):'')
-											  + (t_width > 0?q_sqlPara2("width", t_width):'')
-											  + (t_radius > 0?q_sqlPara2("radius", t_radius):'')
+											  + (t_lengthb > 0?' and lengthb > ' + (t_lengthb-0.00001):'')
+											  + (t_dime > 0?' and dime > ' + (t_dime-0.00001):'')
+											  + (t_width > 0?' and width > ' + (t_width-0.00001):'')
+											  + (t_radius > 0?' and radius > ' + (t_radius-0.00001):'')
 											  + q_sqlPara2("unit", t_unit);
 						qBoxNo3id = b_seq;
 						q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "80%", q_getMsg('popOrdet'));
@@ -501,21 +501,6 @@
 		}
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-            if (t_para) {
-            	for (var j = 0; j < q_bbsCount; j++) {
-		            $('#textSize1_'+j).attr('disabled', 'disabled');
-		            $('#textSize2_'+j).attr('disabled', 'disabled');
-		            $('#textSize3_'+j).attr('disabled', 'disabled');
-		            $('#textSize4_'+j).attr('disabled', 'disabled');
-		    	}
-		    }else {
-		    	for (var j = 0; j < q_bbsCount; j++) {
-		        	$('#textSize1_'+j).removeAttr('disabled');
-		        	$('#textSize2_'+j).removeAttr('disabled');
-		        	$('#textSize3_'+j).removeAttr('disabled');
-		        	$('#textSize4_'+j).removeAttr('disabled');
-		        }
-			}
         }
 
         function btnMinus(id) {
@@ -525,7 +510,7 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            
+            size_change();
         }
         
 		function btnPlut(org_htm, dest_tag, afield) {
@@ -571,10 +556,15 @@
         function btnCancel() {
             _btnCancel();
         }
-        function size_change () {
-		  if( $('#cmbKind').val().substr(0,1)=='A'){
-            $('#lblSize_help').text("厚度x寬度x長度");
-	        	for (var j = 0; j < q_bbsCount; j++) {
+		function size_change () { 
+			if(q_cur==1 || q_cur==2){
+				$('input[id*="textSize"]').removeAttr('disabled');
+			}else{
+				$('input[id*="textSize"]').attr('disabled', 'disabled');
+			}
+			if( $('#cmbKind').val().substr(0,1)=='A'){
+				$('#lblSize_help').text("厚度x寬度x長度");
+				for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
 	            	$('#textSize3_'+j).show();
@@ -974,11 +964,11 @@
                 <td align="center" style="width:6%;"><a id='lblWeights'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblTotals'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblOrdet_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGemounts'></a></td>
                 <td align="center" style="width:10%;"><a id='lblMemos'> </a></td>
                 <td align="center" style="width:2%;"><a id='lblssale_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblscut_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblOrdet_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -1012,7 +1002,9 @@
                 <td ><input class="txt num c7" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt num c7" id="txtPrice.*" type="text"  /></td>
                 <td ><input class="txt num c7" id="txtTotal.*" type="text" />
-                     <input class="txt num c7" id="txtTheory.*" type="text"/></td>
+                     <input class="txt num c7" id="txtTheory.*" type="text"/>
+                </td>
+                <td align="center"><input id="btnOrdet.*" type="button" value="選料"/></td>
                 <td>
                 	<input class="txt num c1" id="txtC1.*" type="text" />
                 	<input class="txt num c1" id="txtNotv.*" type="text" />
@@ -1025,7 +1017,6 @@
                 </td>
 				<td align="center"><input id="chkIssale.*" type="checkbox"/></td>
 				<td align="center"><input id="chkIscut.*" type="checkbox"/></td>
-				<td align="center"><input id="btnOrdet.*" type="button" value="選料"/></td>
             </tr>
         </table>
         </div>

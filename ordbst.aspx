@@ -17,7 +17,7 @@
             q_tables = 's';
             var q_name = "ordb";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtC1','txtNotv'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1],['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtTheory', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
@@ -350,21 +350,6 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if (t_para) {
-	            	for (var j = 0; j < q_bbsCount; j++) {
-			            $('#textSize1_'+j).attr('disabled', 'disabled');
-			            $('#textSize2_'+j).attr('disabled', 'disabled');
-			            $('#textSize3_'+j).attr('disabled', 'disabled');
-			            $('#textSize4_'+j).attr('disabled', 'disabled');
-			    	}
-			    }else {
-			    	for (var j = 0; j < q_bbsCount; j++) {
-			        	$('#textSize1_'+j).removeAttr('disabled');
-			        	$('#textSize2_'+j).removeAttr('disabled');
-			        	$('#textSize3_'+j).removeAttr('disabled');
-			        	$('#textSize4_'+j).removeAttr('disabled');
-			        }
-				}
             }
 
             function btnMinus(id) {
@@ -374,6 +359,7 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
+            	size_change();
                 if(q_tables == 's')
                     bbsAssign();
             }
@@ -423,6 +409,11 @@
             }
             
 		function size_change () {
+			if(q_cur==1 || q_cur==2){
+				$('input[id*="textSize"]').removeAttr('disabled');
+			}else{
+				$('input[id*="textSize"]').attr('disabled', 'disabled');
+			}
 		  if( $('#cmbKind').val().substr(0,1)=='A'){
             $('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
