@@ -57,11 +57,7 @@
                         	type : '5',
                         	name : 'xpay',
 	                        value : ('全部,已付,未付').split(',')
-<<<<<<< HEAD
                     	},{/*[12][13] 付款日 3-1*/
-=======
-                    	},{
->>>>>>> fa78cc90884ea1ae83a97c6ce51bf58c77117ae6
                         	type : '1',
                         	name : 'paydate'
                     	}]
@@ -71,20 +67,12 @@
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
-<<<<<<< HEAD
-                 $('#txtPaydate1').mask('999/99/99');
-	             $('#txtPaydate1').datepicker();
-	             $('#txtPaydate2').mask('999/99/99');
-	             $('#txtPaydate2').datepicker(); 
 
-
-=======
 	             $('#txtPaydate1').mask('999/99/99');
 	             $('#txtPaydate1').datepicker();
 	             $('#txtPaydate2').mask('999/99/99');
 	             $('#txtPaydate2').datepicker(); 
 	             
->>>>>>> fa78cc90884ea1ae83a97c6ce51bf58c77117ae6
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
