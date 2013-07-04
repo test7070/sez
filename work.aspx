@@ -24,7 +24,7 @@
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
         var q_readonly = ['txtNoa','txtComp','txtProduct','txtStation']; 
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtTproductno','txtTproduct']; 
-        var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 2,1]];  // 允許 key 小數
+        var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 0,1]];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1]];
         var bbmMask = [];
         var bbsMask = [['txtCuadate','999/99/99']];
