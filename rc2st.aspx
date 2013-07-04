@@ -44,6 +44,7 @@
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();  
+			q_gt('style','',0,0,0,'');
             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 
         });
@@ -71,7 +72,6 @@
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
-			q_gt('style','',0,0,0,'');
              $('#lblAccc').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
 		        });
@@ -226,7 +226,12 @@
             $('.btnCert').val($('#lblCert_st').text());
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#txtStyle_' + j).blur(function(){ProductAddStyle();});
+				$('#txtStyle_' + j).blur(function(){
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				    q_bodyId($(this).attr('id'));
+				    b_seq = t_IdSeq;
+					ProductAddStyle(b_seq);
+				});
                 	$('#btnCert_' + j).click(function(){
 		                t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                q_bodyId($(this).attr('id'));
@@ -398,36 +403,50 @@
         function refresh(recno) {
             _refresh(recno);
             size_change();
-            $('input[id*="txtProduct_"]').each(function(){
-                	$(this).attr('OldValue',$(this).val());
-                });
+			$('input[id*="txtProduct_"]').each(function(){
+				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				q_bodyId($(this).attr('id'));
+				b_seq = t_IdSeq;
+				OldValue = $(this).val();
+				nowStyle = $('#txtStyle_'+b_seq).val();
+				if(!emp(nowStyle) && (StyleList[0] != undefined)){
+					for(var i = 0;i < StyleList.length;i++){
+	               		if(StyleList[i].noa.toUpperCase() == nowStyle){
+	              			styleProduct = StyleList[i].product;
+							if(OldValue.substr(OldValue.length-styleProduct.length) == styleProduct){
+								OldValue = OldValue.substr(0,OldValue.length-styleProduct.length);
+							}
+	               		}
+	               	}
+	            }
+				$(this).attr('OldValue',OldValue);
+			});
         }
 		function q_popPost(s1) {
                 switch (s1) {
                     case 'txtProductno_':
 						$('input[id*="txtProduct_"]').each(function(){
-		                	$(this).attr('OldValue',$(this).val());
+		                	$(this).attr('OldValue',OldValue);
 		                });
-		                ProductAddStyle();
+		                ProductAddStyle(b_seq);
+		                $('#txtStyle_' + b_seq).focus();
 		                break;
                 }
             }
 						
-		function ProductAddStyle(){
-			for(var i = 0;i <q_bbsCount;i++){
-				var Styleno = $('#txtStyle_' + i).val();
-				var StyleName = '';
-				var ProductVal = $('#txtProduct_' + i).attr('OldValue');
-				ProductVal = (emp(ProductVal)?'':ProductVal);
-				if(!emp(Styleno)){
-					for(j = 0;j<StyleList.length;j++){
-						if(StyleList[j].noa == Styleno){
-							StyleName = StyleList[j].product;
-							break;
-						}
+		function ProductAddStyle(id){
+			var Styleno = $('#txtStyle_' + id).val();
+			var StyleName = '';
+			var ProductVal = $('#txtProduct_' + id).attr('OldValue');
+			ProductVal = (emp(ProductVal)?(emp($('#txtProductno_' + id).val())?'':$('#txtProduct_' + id).val()):ProductVal);
+			if(!emp(Styleno)){
+				for(j = 0;j<StyleList.length;j++){
+					if(StyleList[j].noa == Styleno){
+						StyleName = StyleList[j].product;
+						break;
 					}
-					$('#txtProduct_' + i).val(ProductVal + StyleName);
 				}
+				$('#txtProduct_' + id).val(ProductVal + StyleName);
 			}
 		}
 
