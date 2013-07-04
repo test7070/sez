@@ -198,8 +198,6 @@
             function btnModi() {
                  if (emp($('#txtNoa').val()))
                     return;
-                 if (q_chkClose())
-             		    return;
                  if($('#txtDatea').val()<='102/05/31'){
                 	alert('已關帳!!');
                 	return;
@@ -321,8 +319,7 @@
             }
 
             function btnDele() {
-            	if (q_chkClose())
-             		return;
+            	
              		    
                 _btnDele();
             }

@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "ordc";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtNo2'];
+            var q_readonlys = ['txtNo2','txtC1','txtNotv'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
