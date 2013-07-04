@@ -57,8 +57,7 @@
                 q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
-                var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
-				q_gt('style',Style_where,0,0,0,'');
+				q_gt('style','',0,0,0,'');
                 $('#txtFloata').change(function () {sum();});
 				$('#txtTotal').change(function () {sum();});
                 //變動尺寸欄位

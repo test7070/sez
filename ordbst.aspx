@@ -58,8 +58,7 @@
                 q_cmbParse("cmbPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
-                var Style_where = "where=^^ (ascii(Upper(noa)) between 65 and 90) ^^";
-                q_gt('style',Style_where,0,0,0,'');
+                q_gt('style','',0,0,0,'');
                 $('#btnOrde').click(function() {
                      q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
