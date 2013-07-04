@@ -53,13 +53,69 @@
         bbsMask = [['txtDatea', r_picd]];
         q_mask(bbsMask);
         
-        if(r_rank<8)
+        var no_auth=true;
+        
+        for(var i = 0; i < q_auth.length; i++) {
+        	var t_modi= (q_auth[i].substr(q_auth[i].indexOf(',')+1,5)).substr(4,1);
+        	
+        	if(q_auth[i].substr(0,q_auth[i].indexOf(','))=='saladjust'&&t_modi=='1'){
+        		no_auth=false;
+        		break;
+        	}
+        }
+        
+        if(r_rank<8 && no_auth)
         	$('#btnModi').hide();
     }
 
     function bbsAssign() {  /// 表身運算式
     	for(var j = 0; j < q_bbsCount; j++) {
            		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           			$('#txtDatea_'+j).blur(function () {
+		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+	                    if(b_seq>=0&&!emp($('#txtDatea_'+b_seq).val())){
+	                    	if(!emp($('#txtDatea_'+(b_seq-1)).val())){
+		                    	if(emp($('#txtJobno_'+b_seq).val())){
+		                    		$('#txtJobno_'+b_seq).val($('#txtJobno_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtJob_'+b_seq).val())){
+		                    		$('#txtJob_'+b_seq).val($('#txtJob_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtLevel1_'+b_seq).val())){
+		                    		$('#txtLevel1_'+b_seq).val($('#txtLevel1_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtLevel2_'+b_seq).val())){
+		                    		$('#txtLevel2_'+b_seq).val($('#txtLevel2_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtMoney_'+b_seq).val())){
+		                    		$('#txtMoney_'+b_seq).val($('#txtMoney_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtBo_admin_'+b_seq).val())){
+		                    		$('#txtBo_admin_'+b_seq).val($('#txtBo_admin_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtBo_traffic_'+b_seq).val())){
+		                    		$('#txtBo_traffic_'+b_seq).val($('#txtBo_traffic_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtBo_special_'+b_seq).val())){
+		                    		$('#txtBo_special_'+b_seq).val($('#txtBo_special_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtBo_oth_'+b_seq).val())){
+		                    		$('#txtBo_oth_'+b_seq).val($('#txtBo_oth_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtBo_full_'+b_seq).val())){
+		                    		$('#txtBo_full_'+b_seq).val($('#txtBo_full_'+(b_seq-1)).val());
+		                    	}
+		                    	if(emp($('#txtSalary_'+b_seq).val())){
+		                    		$('#txtSalary_'+b_seq).val($('#txtSalary_'+(b_seq-1)).val());
+		                    	}
+	                    	}
+	                    }
+		            });
+           			
+           			
+           			
 		            $('#txtLevel2_'+j).change(function () {
 		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
@@ -138,9 +194,9 @@
         /*for (i = 0; i < abbsDele.length; i++) {
             abbsDele[i][bbsKey[0]] = t_key[1];
         }*/
-        if(emp($('#txtDatea_0').val()))
+        /*if(emp($('#txtDatea_0').val()))
         	$('#txtDatea_0').val(q_date());
-        $('#txtJobno_0').focus();
+        $('#txtJobno_0').focus();*/
     }
 
     function boxStore() {
