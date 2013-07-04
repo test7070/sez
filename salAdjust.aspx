@@ -127,37 +127,37 @@
 		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq)+q_float('txtBo_full_'+b_seq));
+	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq));
 		            });
 		            $('#txtBo_admin_'+j).change(function () {
 		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq)+q_float('txtBo_full_'+b_seq));
+	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq));
 		            });
 		            $('#txtBo_traffic_'+j).change(function () {
 		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq)+q_float('txtBo_full_'+b_seq));
+	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq));
 		            });
 		            $('#txtBo_special_'+j).change(function () {
 		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq)+q_float('txtBo_full_'+b_seq));
+	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq));
 		            });
 		            $('#txtBo_oth_'+j).change(function () {
 		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq)+q_float('txtBo_full_'+b_seq));
+	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq));
 		            });
 		            $('#txtBo_full_'+j).change(function () {
 		            	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq)+q_float('txtBo_full_'+b_seq));
+	                    q_tr('txtSalary_'+b_seq,q_float('txtMoney_'+b_seq)+q_float('txtBo_admin_'+b_seq)+q_float('txtBo_traffic_'+b_seq)+q_float('txtBo_special_'+b_seq)+q_float('txtBo_oth_'+b_seq));
 		            });
             	}
             }

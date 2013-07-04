@@ -128,6 +128,12 @@
 		       $('#btnCust').click(function() {
 					q_box("custtran.aspx", 'cust', "95%", "95%", q_getMsg("popCust"));  
                 });
+                
+                $('#chkEnda').click(function() {
+					if(emp($('#txtEnddate').val())&&$('#chkEnda')[0].checked) {
+						$('#txtEnddate').val(q_date());
+					}
+                });
             }
 			function cmbpaybno(id){
 					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
