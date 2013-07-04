@@ -22,17 +22,13 @@
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_driver',
-					options : [{/*[1]*/
-						type : '0',
-						name : 'accy',
-						value : q_getId()[4]
-					}, {/*[2][3]*/
+					options : [{/*[1][2]*/
 						type : '2',
 						name : 'driver',
 						dbf : 'driver',
 						index : 'noa,namea',
 						src : 'driver_b.aspx'
-					}, {/*[4][5]*/
+					}, {/*[3][4]*/
                         type : '1',
                         name : 'xmon'
                     }]
