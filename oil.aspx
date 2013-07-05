@@ -86,7 +86,7 @@
             }///  end Main()
 
             function mainPost() {
-            	q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday');
+            	q_modiDay= 30;  /// 若未指定， d4=  q_getPara('sys.modiday');
                 q_mask(bbmMask);
                 q_cmbParse("cmbProduct", q_getPara('oil.product'));
                 $('#cmbProduct').focus(function() {
