@@ -33,6 +33,10 @@
                     },{
                         type : '6',
                         name : 'xnoa'
+                    }, {
+                        type : '8', //checkbox
+                        name : 'merger',
+                        value : '合併原料'.split(',')
                     }]
                 });
                 q_popAssign();
