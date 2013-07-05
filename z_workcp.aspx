@@ -39,6 +39,10 @@
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
+                    }, {
+                        type : '8', //checkbox
+                        name : 'merger',
+                        value : '合併原料'.split(',')
                     }]
                 });
                 q_popAssign();

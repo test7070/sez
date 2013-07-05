@@ -184,6 +184,7 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+			size_change();
         }
 
         function btnMinus(id) {
@@ -244,7 +245,6 @@
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-        		
         	if( $('#txtProduct').val().indexOf('板')>-1 || $('#txtProduct').val().indexOf('捲')>-1 || vcckind=='1'){
             	$('#lblSize1').text("厚度：");
             	$('#lblSize2').text("寬度：");

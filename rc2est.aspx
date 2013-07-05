@@ -17,7 +17,6 @@
         q_desc = 1;
         q_tables = 's';
         var q_name = "rc2e";
-        var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 15, 0, 1]];  
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1]];
@@ -118,8 +117,15 @@
             q_box('rc2e_s.aspx', q_name + '_s', "500px", "360px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   
-        }
+		function getTheory(b_seq){
+			t_Radius = $('#txtRadius_'+b_seq).val();
+			t_Width = $('#txtWidth_'+b_seq).val();
+			t_Dime = $('#txtDime_'+b_seq).val();
+			t_Lengthb = $('#txtLengthb_'+b_seq).val();
+			t_Mount = $('#txtMount_'+b_seq).val();
+			t_Style = $('#txtStyle_'+b_seq).val();
+			return theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style);
+		}
 
         function bbsAssign() {  
 			for(var j = 0; j < q_bbsCount; j++) {
@@ -140,13 +146,7 @@
 						}else if( $('#cmbKind').val().substr(0,1)=='B'){
 		            		q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize2_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -157,13 +157,7 @@
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
 		            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize3_' + j).change(function () {
 		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -176,13 +170,7 @@
 						}else{//鋼筋、胚
 		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 		            $('#textSize4_' + j).change(function () {
 		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -193,25 +181,13 @@
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
 		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 		            $('#txtMount_' + j).change(function () {
 		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					//-------------------------------------------------------------------------------------
 				}
@@ -221,7 +197,6 @@
 
         function btnIns() {
             _btnIns();
-            $('#cmbKind').val(q_getPara('vcc.kind'));
             size_change();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
@@ -246,33 +221,28 @@
         }
 
         function bbsSave(as) {
-            if (!as['product'] ) {  
+            if (!as['productno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
-
             q_nowf();
             as['date'] = abbm2['date'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+        	var tot_Weight = 0;
+        	var tot_Money = 0;
+        	var t_Weight,t_Mount,t_Price;
             for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
-
+            	t_Weight = dec($('#txtWeight_' + j).val());
+            	t_Mount = dec($('#txtMount_' + j).val());
+            	t_Price = dec($('#txtPrice_' + j).val());
+				tot_Weight += dec($('#txtWeight_' + j).val());
+				tot_Money += round((t_Weight*t_Mount*t_Price),0);
+            }
+			$('#txtWeight').val(tot_Weight);
+			$('#txtTotal').val(tot_Money);
         }
 
         ///////////////////////////////////////////////////  
@@ -326,8 +296,9 @@
 				$('#txtProduct_' + id).val(ProductVal + StyleName);
 			}
 		}
-        function readonly(t_para, empty) {
-           _readonly(t_para, empty);
+		function readonly(t_para, empty) {
+			_readonly(t_para, empty);
+			size_change();
        	}
 
         function btnMinus(id) {
@@ -563,7 +534,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1500px;
+                width: 1800px;
             }
             .tbbs a {
                 font-size: medium;
@@ -601,7 +572,10 @@
         }
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
   <div id='dmain' >
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
@@ -648,8 +622,8 @@
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
             <td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
-            <td class='td6'><span> </span><a id="lblEnds" class="lbl"> </a> </td>
-            <td class="td7"><input id="txtEnds"  type="text" class="txt c1"/> </td>
+            <td class='td6'><span> </span><a id="lblEnda" class="lbl"> </a> </td>
+            <td class="td7"><input id="chkEnda" type="checkbox"/> </td>
         </tr>
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
@@ -662,6 +636,8 @@
             <td class="td2"><input id="txtWeight"  type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id="lblTotal" class="lbl"> </a></td>
             <td class="td4"><input id="txtTotal"  type="text" class="txt c1"/> </td>
+            <td class="td5"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+            <td class="td6"><input id="txtWorker"  type="text" class="txt c1"/> </td>
         </tr> 
         <tr class="tr8">
         	<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>

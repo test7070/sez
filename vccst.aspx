@@ -225,6 +225,20 @@
             cmb.value = '';
         }
 
+		function getTheory(b_seq){
+			t_Radius = dec($('#txtRadius_'+b_seq).val());
+			t_Width = dec($('#txtWidth_'+b_seq).val());
+			t_Dime = dec($('#txtDime_'+b_seq).val());
+			t_Lengthb = dec($('#txtLengthb_'+b_seq).val());
+			t_Mount = dec($('#txtMount_'+b_seq).val());
+			t_Style = $('#txtStyle_'+b_seq).val();
+			if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+				q_tr('txtTheory_'+b_seq,round(t_Mount*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),t_Dime,t_Width,t_Lengthb),0));
+			}else{
+				q_tr('txtTheory_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+			}
+		}
+
         function bbsAssign() {  /// 表身運算式
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });    
@@ -244,17 +258,7 @@
 					}else if($('#cmbKind').val().substr(0,1)=='B'){
 						q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));
 					}
-					t_Radius = dec($('#txtRadius_'+b_seq).val());
-					t_Width = dec($('#txtWidth_'+b_seq).val());
-					t_Dime = dec($('#txtDime_'+b_seq).val());
-					t_Lengthb = dec($('#txtLengthb_'+b_seq).val());
-					t_Mount = dec($('#txtMount_'+b_seq).val());
-					t_Style = $('#txtStyle_'+b_seq).val();
-					if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						q_tr('txtTheory_'+b_seq,round(t_Mount*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),t_Dime,t_Width,t_Lengthb),0));
-					}else{
-						q_tr('txtTheory_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
-					}
+					getTheory(b_seq);
 				});
 				$('#textSize2_' + j).change(function () {
 					t_IdSeq = -1;  
@@ -265,17 +269,7 @@
 					}else if($('#cmbKind').val().substr(0,1)=='B'){
 						q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));	
 					}
-					t_Radius = dec($('#txtRadius_'+b_seq).val());
-					t_Width = dec($('#txtWidth_'+b_seq).val());
-					t_Dime = dec($('#txtDime_'+b_seq).val());
-					t_Lengthb = dec($('#txtLengthb_'+b_seq).val());
-					t_Mount = dec($('#txtMount_'+b_seq).val());
-					t_Style = $('#txtStyle_'+b_seq).val();
-					if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						q_tr('txtTheory_'+b_seq,round(t_Mount*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),t_Dime,t_Width,t_Lengthb),0));
-					}else{
-						q_tr('txtTheory_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
-					}
+					getTheory(b_seq);
 				});
 				$('#textSize3_' + j).change(function () {
 					t_IdSeq = -1;  
@@ -288,17 +282,7 @@
 					}else{//鋼筋、胚
 						q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
 					}
-					t_Radius = dec($('#txtRadius_'+b_seq).val());
-					t_Width = dec($('#txtWidth_'+b_seq).val());
-					t_Dime = dec($('#txtDime_'+b_seq).val());
-					t_Lengthb = dec($('#txtLengthb_'+b_seq).val());
-					t_Mount = dec($('#txtMount_'+b_seq).val());
-					t_Style = $('#txtStyle_'+b_seq).val();
-					if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						q_tr('txtTheory_'+b_seq,round(t_Mount*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),t_Dime,t_Width,t_Lengthb),0));
-					}else{
-						q_tr('txtTheory_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
-					}
+					getTheory(b_seq);
 				});
 				$('#textSize4_' + j).change(function () {
 					t_IdSeq = -1;  
@@ -309,33 +293,13 @@
 					}else if($('#cmbKind').val().substr(0,1)=='B'){
 						q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 					}
-					t_Radius = dec($('#txtRadius_'+b_seq).val());
-					t_Width = dec($('#txtWidth_'+b_seq).val());
-					t_Dime = dec($('#txtDime_'+b_seq).val());
-					t_Lengthb = dec($('#txtLengthb_'+b_seq).val());
-					t_Mount = dec($('#txtMount_'+b_seq).val());
-					t_Style = $('#txtStyle_'+b_seq).val();
-					if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						q_tr('txtTheory_'+b_seq,round(t_Mount*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),t_Dime,t_Width,t_Lengthb),0));
-					}else{
-						q_tr('txtTheory_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
-					}
+					getTheory(b_seq);
 				});
 				$('#txtMount_' + j).change(function () {
 					t_IdSeq = -1;  
 					q_bodyId($(this).attr('id'));
 					b_seq = t_IdSeq;
-					t_Radius = dec($('#txtRadius_'+b_seq).val());
-					t_Width = dec($('#txtWidth_'+b_seq).val());
-					t_Dime = dec($('#txtDime_'+b_seq).val());
-					t_Lengthb = dec($('#txtLengthb_'+b_seq).val());
-					t_Mount = dec($('#txtMount_'+b_seq).val());
-					t_Style = $('#txtStyle_'+b_seq).val();
-					if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						q_tr('txtTheory_'+b_seq,round(t_Mount*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),t_Dime,t_Width,t_Lengthb),0));
-					}else{
-						q_tr('txtTheory_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
-					}
+					getTheory(b_seq);
 				});
                 //-------------------------------------------------
                 $('#txtSpec_' + j).change(function () {
@@ -491,6 +455,7 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            size_change();
         }
 
         function btnMinus(id) {
@@ -550,8 +515,8 @@
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-		  if($('#cmbKind').val().substr(0,1)=='A'){
-            $('#lblSize_help').text("厚度x寬度x長度");
+		  	if($('#cmbKind').val().substr(0,1)=='A'){
+            	$('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -737,7 +702,10 @@
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:32%;"  >

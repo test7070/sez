@@ -238,6 +238,7 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+			size_change();
         }
 
         function btnMinus(id) {
@@ -295,8 +296,8 @@
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-		  if($('#cmbKind').val().substr(0,1)=='A'){
-            $('#lblSize_help').text("厚度x寬度x長度");
+		  	if($('#cmbKind').val().substr(0,1)=='A'){
+            	$('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
