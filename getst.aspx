@@ -157,9 +157,16 @@
 
             q_box('get_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
-
-        function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-        }
+        
+		function getTheory(b_seq){
+			t_Radius = $('#txtRadius_'+b_seq).val();
+			t_Width = $('#txtWidth_'+b_seq).val();
+			t_Dime = $('#txtDime_'+b_seq).val();
+			t_Lengthb = $('#txtLengthb_'+b_seq).val();
+			t_Mount = $('#txtMount_'+b_seq).val();
+			t_Style = $('#txtStyle_'+b_seq).val();
+			return theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style);
+		}
 
         function bbsAssign() {  /// 表身運算式
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
@@ -181,13 +188,7 @@
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
 							q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize2_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -198,13 +199,7 @@
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
 							q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize3_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -217,13 +212,7 @@
 		            	}else{//鋼筋、胚
 		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
 		            	}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize4_' + j).change(function () {
 	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -235,25 +224,13 @@
 		            	}else if( $('#cmbKind').val().substr(0,1)=='B'){
 		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 		            	}
-	                     t_Radius = $('#txtRadius_'+b_seq).val();
-	                     t_Width = $('#txtWidth_'+b_seq).val();
-	                     t_Dime = $('#txtDime_'+b_seq).val();
-	                     t_Lengthb = $('#txtLengthb_'+b_seq).val();
-	                     t_Mount = $('#txtMount_'+b_seq).val();
-	                     t_Style = $('#txtStyle_'+b_seq).val();
-	                     q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+	                     q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#txtMount_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					//-------------------------------------------------------------------------------------
 				}

@@ -162,8 +162,15 @@
             q_box('vcce_s.aspx', q_name + '_s', "500px", "360px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   
-        }
+		function getTheory(b_seq){
+			t_Radius = $('#txtRadius_'+b_seq).val();
+			t_Width = $('#txtWidth_'+b_seq).val();
+			t_Dime = $('#txtDime_'+b_seq).val();
+			t_Lengthb = $('#txtLengthb_'+b_seq).val();
+			t_Mount = $('#txtMount_'+b_seq).val();
+			t_Style = $('#txtStyle_'+b_seq).val();
+			return theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style);
+		}
 
         function bbsAssign() { 
         	for(var j = 0; j < q_bbsCount; j++) {
@@ -184,13 +191,7 @@
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
 							q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize2_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -201,13 +202,7 @@
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
 							q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize3_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -220,13 +215,7 @@
 						}else{//鋼筋、胚
 							q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#textSize4_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -237,25 +226,13 @@
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
 							q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 						}
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#txtMount_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						t_Radius = $('#txtRadius_'+b_seq).val();
-						t_Width = $('#txtWidth_'+b_seq).val();
-						t_Dime = $('#txtDime_'+b_seq).val();
-						t_Lengthb = $('#txtLengthb_'+b_seq).val();
-						t_Mount = $('#txtMount_'+b_seq).val();
-						t_Style = $('#txtStyle_'+b_seq).val();
-						q_tr('txtWeight_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+						q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
 					});
 					$('#txtWeight_' + j).change(function () {
 						sum()
@@ -458,7 +435,7 @@
 			        $('#x1_'+j).show();
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).show();
-			        $('#Size').css('width','297px');
+			        $('#Size').css('width','450px');
 			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
 			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
 			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
@@ -488,7 +465,6 @@
     </script>
     <style type="text/css">
                 #dmain {
-                overflow: hidden;
             }
             .dview {
                 float: left;
@@ -584,7 +560,7 @@
             }
             .txt.c8 {
             	float:left;
-                width: 65px;
+                width: 63px;
                 
             }
             .txt.num {
@@ -610,13 +586,6 @@
                 margin: -1px;
                 font-size: medium;
             }
-            .dbbs {
-                width: 1500px;
-            }
-            .tbbs a {
-                font-size: medium;
-            }
-
             .num {
                 text-align: right;
             }
@@ -636,7 +605,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 1500px;
+         	width: 2000px;
          }
        .tbbs .td1
         {
@@ -740,20 +709,20 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblUno_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblMount_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblWeight_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblWeight_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblEweight_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblEcount_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblAdjweight_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblAdjcount_s'> </a></td>
-                <td align="center"><a id='lblMemo_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblEweight_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblEcount_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblAdjweight_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblAdjcount_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
