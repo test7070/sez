@@ -702,7 +702,10 @@
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:32%;"  >

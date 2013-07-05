@@ -161,7 +161,6 @@
                 return;
             }
             q_box("quatst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy, 'quats', "95%", "95%", q_getMsg('popQuats'));
-            //q_box('quatst_b.aspx', 'quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
         }
 
         function btnOk() {
@@ -187,7 +186,6 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-
             q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
@@ -235,9 +233,9 @@
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
 					    if ($('#cmbKind').val().substr(0,1)=='A'){	
-					    	q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
+					    	q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
-							q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
+							q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));	
 						}
 						getTheory(b_seq);
 					});
@@ -247,9 +245,9 @@
 						b_seq = t_IdSeq;
 						if ($('#cmbKind').val().substr(0,1)=='A')
 						{	
-							q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+							q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));	
 						}else if( $('#cmbKind').val().substr(0,1)=='B'){
-							q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+							q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));	
 						}
 						getTheory(b_seq);
 					});
@@ -258,9 +256,9 @@
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
 						if ($('#cmbKind').val().substr(0,1)=='A'){	
-							q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
+							q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));	
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
-							q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
+							q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));		
 						}else{//鋼筋、胚
 							q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
 						}
@@ -271,9 +269,9 @@
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
 					    if ($('#cmbKind').val().substr(0,1)=='A'){	
-					    	q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
+					    	q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));	
 						}else if($('#cmbKind').val().substr(0,1)=='B'){
-					    	q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
+					    	q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));	
 						}
 						getTheory(b_seq);
 					});
@@ -282,7 +280,7 @@
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
 						getTheory(b_seq);
-						q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
+						q_tr('txtTotal_'+b_seq ,q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 						sum();
 					});
 					
@@ -301,14 +299,14 @@
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
-					    q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
+					    q_tr('txtTotal_'+b_seq ,q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 					    sum();
 					});
 					$('#txtWeight_' + j).change(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
-					    q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
+					    q_tr('txtTotal_'+b_seq ,q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 					    sum();
 					});
 					$('#txtC1_' + j).change(function(){sum();});
@@ -363,7 +361,6 @@
         function btnPrint() {
 			t_where = "noa='" + $('#txtNoa').val() + "'";
             q_box("z_ordestp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
-			//q_box('z_ordestp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
         }
         
         function wrServer( key_value) {
@@ -391,33 +388,25 @@
                 as[bbsKey[1]] = '';   /// no2 為空，不存檔
                 return;
             }
-
             q_nowf();
             as['type'] = abbm2['type'];
             as['mon'] = abbm2['mon'];
             as['noa'] = abbm2['noa'];
             as['odate'] = abbm2['odate'];
-            
             if (!emp(abbm2['datea']))  /// 預交日
                 as['datea'] = abbm2['datea'];
-
             as['custno'] = abbm2['custno'];
-
             if (!as['enda'])
                 as['enda'] = '0';
             t_err ='';
             if (as['price'] != null && (dec(as['price']) > 99999999 || dec(as['price']) < -99999999))
                 t_err = q_getMsg('msgPriceErr') + as['price'] + '\n';
-
             if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
                 t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            
             if (t_err) {
                 alert(t_err)
                 return false;
             }
-            
             return true;
         }
 
@@ -431,11 +420,9 @@
                 q_tr('txtNotv_'+j ,q_float('txtWeight_'+j)-q_float('txtC1_'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
-
             $('#txtMoney').val(round(t1, 0));
             if( !emp( $('#txtPrice' ).val()))
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
-
             $('#txtWeight').val(round(t_weight, 0));
             $('#txtTotal').val(t1 + dec($('#txtTax').val()));
             calTax();
@@ -773,7 +760,10 @@
             }
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
