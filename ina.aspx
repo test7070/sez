@@ -92,9 +92,6 @@
                 			$('#txtUno_' +b_seq).val('');
                 		}
                 	break;
-                	case 'ucc_style':
-            			theory_st(q_name,b_seq,'txtWeight');
-            		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -145,16 +142,6 @@
 				        	q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
 		                 });
 	                	//-------------------------------------------
-	                	
-						
-		                 $('#txtMount_' + j).change(function () {
-		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
-		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-		                 });
-						//-------------------------------------------------------------------------------------
 						}
                 }
                 _bbsAssign();
@@ -196,16 +183,6 @@
                 q_nowf();
                 as['date'] = abbm2['date'];
 
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
 

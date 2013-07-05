@@ -92,9 +92,6 @@
                 			$('#txtUno_' +b_seq).val('');
                 		}
                 	break;
-                	case 'ucc_style':
-            			theory_st(q_name,b_seq,'txtWeight');
-            		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -145,16 +142,6 @@
 				        	q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
 		                 });
 	                	//-------------------------------------------
-	                	
-						
-		                 $('#txtMount_' + j).change(function () {
-		                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
-		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-		                 });
-						//-------------------------------------------------------------------------------------
 						}
                 }
                 _bbsAssign();

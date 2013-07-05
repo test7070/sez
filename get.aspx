@@ -20,7 +20,7 @@
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [['txtTotal', 10, 1]];  // 允許 key 小數
-        var bbsNum = [['txtSize1', 10, 3],['txtSize2', 10, 2],['txtSize3', 10, 3],['txtSize4', 10, 2],['txtRadius', 10, 3],['txtWidth', 10, 2],['txtDime', 10, 3],['txtLengthb', 10, 2],['txtMount', 10, 0],['txtGweight', 10, 2],['txtWeight', 10, 1]];
+        var bbsNum = [['txtSize1', 10, 3],['txtSize2', 10, 2],['txtSize3', 10, 3],['txtSize4', 10, 2],['txtRadius', 10, 3],['txtWidth', 10, 2],['txtDime', 10, 3],['txtLengthb', 10, 2],['txtMount', 10, 0],['txtWeight', 10, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -133,9 +133,6 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-            	case 'ucc_style':
-            		theory_st(q_name,b_seq,'txtGweight');
-            		break;
                 case 'ucc':  ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
@@ -217,18 +214,6 @@
 	                     b_seq = t_IdSeq;
 	                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
 	                 });
-	                 
-	                
-	               
-	                
-	                 $('#txtMount_' + j).change(function () {
-	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                     q_bodyId($(this).attr('id'));
-	                     b_seq = t_IdSeq;
-	                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-						q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-	                 });
-					//-------------------------------------------------------------------------------------
 				}
             } //j
             _bbsAssign();
