@@ -25,7 +25,7 @@
             q_tables = 's';
             var q_name = "transvcce";
             var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
-            var q_readonlys = ['txtCommandid'];
+            var q_readonlys = ['txtCommandid','txtSendid','txtSenddate'];
             var bbmNum = [['txtMount',10,1,1]];
             var bbsNum = [['txtMount',10,1,1],['txtSel',10,0,1]];
             var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtTrantime', '99:99']];
@@ -425,7 +425,89 @@
                             q_Seek_gtPost();
                         break;
                     default:
-                    	if(t_name.substring(0,3)=='bbb'){ 
+                    	if(t_name.substring(0,19)=='transvcces_lasttime'){
+                    		var t_senddate = t_name.split('_')[2];
+                    		var n = parseInt(t_name.split('_')[3]);
+                    		var t_sendid = "";
+                    		var as = _q_appendData("view_transvcces", "", true);
+			               	if (as[0] != undefined){
+			               		t_sendid = as[0].sendid;
+			               	}else{
+			               		t_sendid = "";
+			               	}
+                    		var t_isSend = $('#chkIssend_'+n).prop('checked');
+		            		var t_carno = $.trim($('#txtCarno_'+n).val());
+							var t_msg = $.trim($('#txtMemo').val());
+							t_msg += (t_msg.length>0?',':'')+(($('#txtTrandate').val()+$('#txtTrantime').val()).length>0?'出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'');
+							t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtAddr_'+n).val());
+							t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtMsg_'+n).val());	
+							t_msg = t_msg.replace(/\u002c/g,'.');	
+							var t_commandid = $('#txtCommandid_'+n).val();
+							var t_Sendcommandresult = $('#chkSendcommandresult_'+n).prop('checked');
+							if(t_isSend && t_carno.length>0 && t_msg.length>0 && !t_Sendcommandresult && t_commandid.length==0 && $.trim($('#txtSendid_'+n).val()).length==0 && $.trim($('#txtSenddate_'+n).val()).length==0){
+			               		for(var i=0;i<q_bbsCount;i++){
+			               			if(t_carno==$.trim($('#txtCarno_'+i).val())&& t_senddate==$.trim($('#txtSenddate_'+i).val())){
+			               				if($.trim($('#txtSendid_'+i).val())>t_sendid)
+			               					t_sendid = $.trim($('#txtSendid_'+i).val());
+			               			}
+			               		}
+			               		if(t_sendid.length==0){
+			               			t_sendid = "NB01";
+			               		}else{
+			               			t_sendid = (parseInt(t_sendid.substring(2,4)) + 1)%100;
+			               			t_sendid = 'NB'+(t_sendid>=10?t_sendid:'0'+t_sendid);
+			               		}
+			            		//GPS訊息
+				        		var t_data = {
+				            		CarId : encodeURI(t_carno),
+				            		Message : encodeURI('回傳代碼:'+t_sendid+'.'+t_msg),
+				            		StatusCode : 1
+				            	};
+								var json = JSON.stringify(t_data);
+				            	//INPUT及OUTPUT參數,參照SendCommand.aspx
+				            	$.ajax({
+				            		carno : t_carno,
+				            		sendid : t_sendid,
+				            		senddate : t_senddate,
+				            		sel: n,
+								    url: 'SendCommand.aspx',
+								    type: 'POST',
+								    data: json,
+								    dataType: 'json',
+								    success: function(data){
+								    	if(data['SendCommandResult']="true")
+								    		$('#chkSendcommandresult_'+this.sel).prop('checked',true);	
+										$('#txtCommandid_'+this.sel).val(data['CommandId']);
+										$('#txtSendid_'+this.sel).val(this.sendid);
+										$('#txtSenddate_'+this.sel).val(this.senddate);
+								    },
+							        complete: function(){
+							        	SendCommand(this.sel-1); 			         
+							        },
+								    error: function(jqXHR, exception) {
+								    	var errmsg = this.carno+'資料傳送異常。\n'
+							            if (jqXHR.status === 0) {
+							                alert(errmsg+'Not connect.\n Verify Network.');
+							            } else if (jqXHR.status == 404) {
+							                alert(errmsg+'Requested page not found. [404]');
+							            } else if (jqXHR.status == 500) {
+							                alert(errmsg+'Internal Server Error [500].');
+							            } else if (exception === 'parsererror') {
+							                alert(errmsg+'Requested JSON parse failed.');
+							            } else if (exception === 'timeout') {
+							                alert(errmsg+'Time out error.');
+							            } else if (exception === 'abort') {
+							                alert(errmsg+'Ajax request aborted.');
+							            } else {
+							                alert(errmsg+'Uncaught Error.\n' + jqXHR.responseText);
+							            }
+							        }
+								});
+			            		
+			            	}else{
+		            		    SendCommand(n-1);     		
+			            	}
+                    	}else if(t_name.substring(0,3)=='bbb'){ 
                     		//計算已派數量,並更新頁面顯示資料
                     		var t_noa = t_name.split('_')[1];
                     		var t_ordeno = t_name.split('_')[2];
@@ -578,60 +660,14 @@
             		t_where = "noa='"+t_ordeno+"'"
             		t_where="where=^^"+t_where+"^^";
                     q_gt('view_tranorde', t_where, 0, 0, 0, "bbb_"+t_noa+"_"+t_ordeno+"_"+t_mount, r_accy);
-            	}else{        		
-            		var t_isSend = $('#chkIssend_'+n).prop('checked');
+            	}else{ 
             		var t_carno = $.trim($('#txtCarno_'+n).val());
-					var t_msg = $.trim($('#txtMemo').val());
-					t_msg += (t_msg.length>0?',':'')+(($('#txtTrandate').val()+$('#txtTrantime').val()).length>0?'出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'');
-					t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtAddr_'+n).val());
-					t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtMsg_'+n).val());	
-					t_msg = t_msg.replace(/\u002c/g,'.');	
-					var t_commandid = $('#txtCommandid_'+n).val();
-					var t_Sendcommandresult = $('#chkSendcommandresult_'+n).prop('checked');
-					if(t_isSend && t_carno.length>0 && t_msg.length>0 && !t_Sendcommandresult && t_commandid.length==0){
-	            		//GPS訊息
-	            		var t_data = {
-		            		CarId : encodeURI(t_carno),
-		            		Message : encodeURI(t_msg),
-		            		StatusCode : 1
-		            	};
-						var json = JSON.stringify(t_data);
-		            	//INPUT及OUTPUT參數,參照SendCommand.aspx
-		            	$.ajax({
-		            		carno : t_carno,
-		            		sel: n,
-						    url: 'SendCommand.aspx',
-						    type: 'POST',
-						    data: json,
-						    dataType: 'json',
-						    success: function(data){
-						    	if(data['SendCommandResult']="true")
-						    		$('#chkSendcommandresult_'+this.sel).prop('checked',true);	
-								$('#txtCommandid_'+this.sel).val(data['CommandId']);
-						    },
-					        complete: function(){
-					        	SendCommand(this.sel-1); 			         
-					        },
-						    error: function(jqXHR, exception) {
-						    	alert('Error:'+this.carno);
-					            if (jqXHR.status === 0) {
-					                alert('Not connect.\n Verify Network.');
-					            } else if (jqXHR.status == 404) {
-					                alert('Requested page not found. [404]');
-					            } else if (jqXHR.status == 500) {
-					                alert('Internal Server Error [500].');
-					            } else if (exception === 'parsererror') {
-					                alert('Requested JSON parse failed.');
-					            } else if (exception === 'timeout') {
-					                alert('Time out error.');
-					            } else if (exception === 'abort') {
-					                alert('Ajax request aborted.');
-					            } else {
-					                alert('Uncaught Error.\n' + jqXHR.responseText);
-					            }
-					        }
-						});
-	            	}else{
+            		var t_senddate = q_date();
+            		if(t_carno.length>0){
+            			t_where="where=^^ carno='"+t_carno+"' and senddate='"+t_senddate+"' and len(isnull(sendid,''))>0^^";
+            			t_order="order=^^ sendid desc^^";
+                    	q_gt('transvcces_lasttime', t_where+t_order, 0, 0, 0, "transvcces_lasttime_"+t_senddate+"_"+n, r_accy);            			
+            		}else{
             		    SendCommand(n-1);     		
 	            	}
             	}
@@ -1018,7 +1054,7 @@
 					<td align="center" style="width:100px;"><a id='lblMemo2_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblIssend_s' title="若要發送訊息給司機，請打勾。"> </a></td>
 					<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
-					<td align="center" style="width:70px;"><a id='lblCommandid_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblCommandid_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -1046,7 +1082,11 @@
 					<td><input id="txtMemo2.*" type="text" style="width: 95%;"/></td>
 					<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
 					<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
-					<td><input id="txtCommandid.*" type="text" style="width: 95%;"/></td>
+					<td>
+						<input id="txtCommandid.*" type="text" style="width: 95%;"/>
+						<input id="txtSendid.*" type="text" style="width: 30%;float:left;"/>
+						<input id="txtSenddate.*" type="text" style="width: 60%;float:left;"/>
+					</td>
 				</tr>
 			</table>
 		</div>
