@@ -245,7 +245,6 @@
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-        		
         	if( $('#txtProduct').val().indexOf('板')>-1 || $('#txtProduct').val().indexOf('捲')>-1 || vcckind=='1'){
             	$('#lblSize1').text("厚度：");
             	$('#lblSize2').text("寬度：");
