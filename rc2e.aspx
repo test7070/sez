@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -145,17 +144,6 @@
 
             q_nowf();
             as['date'] = abbm2['date'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
@@ -227,7 +215,6 @@
     </script>
     <style type="text/css">
                 #dmain {
-                overflow: hidden;
             }
             .dview {
                 float: left;
@@ -310,7 +297,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 65%;
+                width: 60%;
                 float: left;
             }
             .txt.c6 {
@@ -344,7 +331,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 1500px;
             }
             .tbbs a {
                 font-size: medium;
@@ -365,7 +352,8 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:100% ; height:98% ;  
+             width:100% ;
+             height:98% ;  
         }  
       
        .tbbs .td1
@@ -429,8 +417,8 @@
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
             <td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
-            <td class='td6'><span> </span><a id="lblEnds" class="lbl"> </a> </td>
-            <td class="td7"><input id="txtEnds"  type="text" class="txt c1"/> </td>
+            <td class='td6'><span> </span><a id="lblEnda" class="lbl"> </a> </td>
+            <td class="td7"><input id="txtEnda" type="checkbox"/> </td>
         </tr>
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
@@ -440,9 +428,9 @@
         </tr>   
         <tr class="tr7">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
-            <td class="td2"><input id="txtWeight"  type="text" class="txt c1"/></td>
+            <td class="td2"><input id="txtWeight"  type="text" class="txt c1 num"/></td>
             <td class="td3"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-            <td class="td4"><input id="txtTotal"  type="text" class="txt c1"/> </td>
+            <td class="td4"><input id="txtTotal"  type="text" class="txt c1 num"/> </td>
         </tr> 
         <tr class="tr8">
         	<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -471,10 +459,10 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtStoreno.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
+                <td style="width:10%;"><input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
-                <td style="width:10%;"><input class="txt c4" id="txtProductno.*" type="text" />
-                	 <input class="txt c5" id="txtProduct.*" type="text" /><input id="btnProduct.*" type="button" value="..." /></td>
+                <td style="width:15%;"><input class="txt c4" id="txtProductno.*" type="text" />
+                	 <input class="txt c5" id="txtProduct.*" type="text" /><input id="btnProduct.*" type="button" value="." /></td>
                 <td style="width:15%;"><input class="txt num c6" id="txtDime.*" type="text"/>x
                                     <input class="txt num c6" id="txtWidth.*" type="text"  />x
                                     <input class="txt num c6" id="txtLengthb.*" type="text" />
