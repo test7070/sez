@@ -273,8 +273,6 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
-				if (q_chkClose())
-             		    return;
 				_btnModi();
 				$('#txtDatea').focus();
 				$('#txtNoa').attr('readonly', true);
@@ -437,9 +435,6 @@
 			}
 
 			function btnDele() {
-			
-          		if (q_chkClose())
-             		    return;
 				_btnDele();
 			}
 

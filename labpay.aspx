@@ -115,47 +115,6 @@
 		     	});
 
             }
-			var checkenda=false;
-		var holiday;//存放holiday的資料
-		function endacheck(x_datea,x_day) {
-			//102/06/21 7月份開始資料3日後不能在處理
-			var t_date=x_datea,t_day=1;
-                
-			while(t_day<x_day){
-				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() +1)
-				t_date=''+(nextdate.getFullYear()-1911)+'/';
-				//月份
-				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
-				//日期
-				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
-	                	
-				//六日跳過
-				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
-				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
-				){continue;}
-	                	
-				//假日跳過
-				if(holiday){
-					var isholiday=false;
-					for(var i=0;i<holiday.length;i++){
-						if(holiday[i].noa==t_date){
-							isholiday=true;
-							break;
-						}
-					}
-					if(isholiday) continue;
-				}
-	                	
-				t_day++;
-			}
-                
-			if (t_date<q_date()){
-				checkenda=true;
-			}else{
-				checkenda=false;
-			}
-		}
             function q_popPost(s1) {
                 switch (s1) {
                     case 'txtProductno':
@@ -183,10 +142,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'holiday':
-	            		holiday = _q_appendData("holiday", "", true);
-	            		endacheck($('#txtDatea').val(),q_getPara('sys.modiday'));//單據日期,幾天後關帳
-	            	break;
                 	case 'payaccs':
                 		t_payaccs = _q_appendData("payaccs", "", true);
                 	break;
@@ -333,12 +288,8 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-				
-				if (checkenda){
-	                alert('超過'+q_getPara('sys.modiday')+'天已關帳!!');
-	                return;
-				}
-				
+				if (q_chkClose())
+             		    return;
 				if(t_payaccs[0]!= undefined || t_vcc[0]!=undefined){
             		alert('該單據內已收款或代付，無法修改!!');
             		return;
@@ -410,11 +361,6 @@
 			var t_payaccs,t_vcc;
             function refresh(recno) {
                 _refresh(recno);
-                if(r_rank<=7)
-	            	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
-	            else
-	            	checkenda=false;
-	            	
                 if(q_cur==0||q_cur==4){
                 	var t_where = "where=^^ rc2no ='"+$('#txtNoa').val()+"' ^^";
                 	q_gt('payaccs', t_where , 0, 0, 0, "", r_accy);
@@ -473,15 +419,12 @@
             }
 
             function btnDele() {
+            	if (q_chkClose())
+             		    return;
             	if(t_payaccs[0]!= undefined || t_vcc[0]!=undefined){
             		alert('該單據內已收款或代付，無法刪除!!');
             		return;
             	}
-            	
-	            if (checkenda){
-	                alert('超過'+q_getPara('sys.modiday')+'天已關帳!!');
-	                return;
-				}
                 _btnDele();
             }
 
@@ -489,47 +432,7 @@
                 _btnCancel();
             }
             
-		var checkenda=false;
-		var holiday;//存放holiday的資料
-		function endacheck(x_datea,x_day) {
-			//102/06/21 7月份開始資料3日後不能在處理
-			var t_date=x_datea,t_day=1;
-                
-			while(t_day<x_day){
-				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() +1)
-				t_date=''+(nextdate.getFullYear()-1911)+'/';
-				//月份
-				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
-				//日期
-				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
-	                	
-				//六日跳過
-				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
-				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
-				){continue;}
-	                	
-				//假日跳過
-				if(holiday){
-					var isholiday=false;
-					for(var i=0;i<holiday.length;i++){
-						if(holiday[i].noa==t_date){
-							isholiday=true;
-							break;
-						}
-					}
-					if(isholiday) continue;
-				}
-	                	
-				t_day++;
-			}
-                
-			if (t_date<q_date()){
-				checkenda=true;
-			}else{
-				checkenda=false;
-			}
-		}
+		
 		</script>
 		<style type="text/css">
             #dmain {
