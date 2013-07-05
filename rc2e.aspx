@@ -27,7 +27,7 @@
          aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
-        ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
+        ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
