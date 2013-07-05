@@ -149,9 +149,6 @@
             	case 'spec': 
 	            		t_spec= _q_appendData("spec", "", true);
 	            	break;
-				case 'ucc_style':
-            			theory_st(q_name,b_seq,'txtTheory');
-            		break;
             	case 'style' :
             			var as = _q_appendData("style", "", true);
             			StyleList = new Array();
@@ -164,7 +161,6 @@
 								, as.length, as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price', 'txtUno');
 					}
 					sum();
-					theory_refresh();
 					break;
                case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
@@ -196,7 +192,7 @@
                 alert(t_err);
                 return;
             }
-            $('#txtWorker' ).val(  r_name)
+            $('#txtWorker' ).val(r_name)
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -229,6 +225,20 @@
             cmb.value = '';
         }
 
+		function getTheory(b_seq){
+			t_Radius = dec($('#txtRadius_'+b_seq).val());
+			t_Width = dec($('#txtWidth_'+b_seq).val());
+			t_Dime = dec($('#txtDime_'+b_seq).val());
+			t_Lengthb = dec($('#txtLengthb_'+b_seq).val());
+			t_Mount = dec($('#txtMount_'+b_seq).val());
+			t_Style = $('#txtStyle_'+b_seq).val();
+			if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+				q_tr('txtTheory_'+b_seq,round(t_Mount*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),t_Dime,t_Width,t_Lengthb),0));
+			}else{
+				q_tr('txtTheory_'+b_seq ,theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+			}
+		}
+
         function bbsAssign() {  /// 表身運算式
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });    
@@ -238,85 +248,59 @@
 				    b_seq = t_IdSeq;
 					ProductAddStyle(b_seq);
 				});
-                 //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
-		                 $('#textSize1_' + j).change(function () {
-		                     t_IdSeq = -1;  
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
-		                     
-		                    if ($('#cmbKind').val().substr(0,1)=='A')
-		            		{	
-		            			q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//�p��$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
-		            		}else if($('#cmbKind').val().substr(0,1)=='B'){
-		            			q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//�u�|$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
-		            		}
-		            		
-		                    if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-						    }else{
-						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-							}
-		                 });
-		                 $('#textSize2_' + j).change(function () {
-		                     t_IdSeq = -1;  
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
-		                     
-		                    if ($('#cmbKind').val().substr(0,1)=='A')
-		            		{	
-		            			q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//�e��$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
-		            		}else if($('#cmbKind').val().substr(0,1)=='B'){
-		            			q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//��|$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
-		            		}
-		                     
-		                     if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-						    }else{
-						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-							}
-		                 });
-		                 $('#textSize3_' + j).change(function () {
-		                     t_IdSeq = -1;  
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
-					         	
-		                     if ($('#cmbKind').val().substr(0,1)=='A')
-		            		{	
-		            			q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
-		            		}else if($('#cmbKind').val().substr(0,1)=='B'){
-		            			q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
-		            		}else{//鋼筋、胚
-								q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
-							}
-		                     
-		                    if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-						    }else{
-						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-							}
-		                 });
-		                 $('#textSize4_' + j).change(function () {
-		                     t_IdSeq = -1;  
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
-		                     
-		                     if ($('#cmbKind').val().substr(0,1)=='A')
-		            		{	
-		            			q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));// $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
-		            		}else if($('#cmbKind').val().substr(0,1)=='B'){
-		            			q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
-		            		}
-		            		
-		                     if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-						    }else{
-						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-							}
-		                 });
+				//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
+				$('#textSize1_' + j).change(function () {
+					t_IdSeq = -1;  
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					if ($('#cmbKind').val().substr(0,1)=='A'){	
+						q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));
+					}else if($('#cmbKind').val().substr(0,1)=='B'){
+						q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));
+					}
+					getTheory(b_seq);
+				});
+				$('#textSize2_' + j).change(function () {
+					t_IdSeq = -1;  
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					if ($('#cmbKind').val().substr(0,1)=='A'){	
+						q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));	
+					}else if($('#cmbKind').val().substr(0,1)=='B'){
+						q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));	
+					}
+					getTheory(b_seq);
+				});
+				$('#textSize3_' + j).change(function () {
+					t_IdSeq = -1;  
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					if ($('#cmbKind').val().substr(0,1)=='A'){	
+						q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
+					}else if($('#cmbKind').val().substr(0,1)=='B'){
+						q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
+					}else{//鋼筋、胚
+						q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
+					}
+					getTheory(b_seq);
+				});
+				$('#textSize4_' + j).change(function () {
+					t_IdSeq = -1;  
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					if ($('#cmbKind').val().substr(0,1)=='A'){
+						q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));// $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
+					}else if($('#cmbKind').val().substr(0,1)=='B'){
+						q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
+					}
+					getTheory(b_seq);
+				});
+				$('#txtMount_' + j).change(function () {
+					t_IdSeq = -1;  
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					getTheory(b_seq);
+				});
                 //-------------------------------------------------
                 $('#txtSpec_' + j).change(function () {
 					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -524,17 +508,6 @@
             _btnCancel();
         }
         
-        function theory_refresh() {
-            for (var j = 0; j < q_bbsCount; j++) {
-            	if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-					q_tr('txtTheory_'+j,theory_bi(t_spec,$('#txtSpec_'+j).val(),dec($('#txtDime_'+j).val()),dec($('#txtWidth_'+j).val()),dec($('#txtLengthb_'+j).val())));
-				}else{
-					var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+j).val()+"' ^^"; 
-					q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-				}
-            }
-        }
-        
         function size_change () {
 			if(q_cur==1 || q_cur==2){
 				$('input[id*="textSize"]').removeAttr('disabled');
@@ -595,65 +568,6 @@
 				}
 			}
 		}
-		
-		function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
-			var calc="";
-			//var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+id).val()+"' ^^"; 
-			//q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-			var as = _q_appendData("ucc", "", true);
-			if(as[0]==undefined)
-			{
-				//alert('請輸入正確材質');
-				return;
-			}else{
-				if(as[0].styleno=='')
-				{
-					//alert('該品號尚未輸入樣式');
-					return;
-				}
-			}
-			//判斷表身參考theory:40
-			if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
-				q_name=='ina'||q_name=='cut'||q_name=='cnn'||q_name=='cng'||q_name=='vcc'||
-				q_name=='rc2'||q_name=='ordc'||q_name=='ordb'||q_name=='get') 
-			{
-		        calc=as[0].calc3;//庫存
-			}else{//內外銷與其他
-				var cmb = document.getElementById("cmbStype");
-				if (!cmb) {
-					alert('cmbStype 不存在');
-					return;
-				}
-				//qsys....orde.stype
-				if($('#cmbStype').val()==3)
-				    calc=as[0].calc2;	//外銷
-				else
-					calc=as[0].calc;	//內銷與其他
-		
-			}
-			//空值判斷
-			if(emp($('#txtDime_'+id).val()))
-				$('#txtDime_'+id).val(0);
-			if(emp($('#txtWidth_'+id).val()))
-				$('#txtWidth_'+id).val(0);
-			if(emp($('#txtLengthb_'+id).val()))
-				$('#txtLengthb_'+id).val(0);
-			if(emp($('#txtRadius_'+id).val()))
-				$('#txtRadius_'+id).val(0);
-			if(emp($('#txtMount_'+id).val()))
-				$('#txtMount_'+id).val(0);
-
-			eval('var result=' +calc.replace(/DIME/g,$('#txtDime_'+id).val()).replace(/WIDTH/g,$('#txtWidth_'+id).val()).replace(/LENGTH/g,$('#txtLengthb_'+id).val()).replace(/RADIUS/g,$('#txtRadius_'+id).val()));
-		    //厚度=DIME 寬度=WIDTH 長度=LENGTH 外徑 =RADIUS
-			q_tr(txtweight+'_'+id ,result*q_float('txtMount_'+id));//$('#'+txtweight+'_'+id).val(result*dec($('#txtMount_'+id).val()));
-			
-			var weight_total=0;
-			for (var j = 0; j < q_bbsCount; j++) {
-				weight_total+=dec($('#'+txtweight+'_'+j).val());
-            }
-			q_tr('txtWeight',weight_total);//$('#txtTotal').val(weight_total);
-		}
-        
     </script>
     <style type="text/css">
 		#dmain {
@@ -782,7 +696,7 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
-         .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width: 1500px;}
+         .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width: 1800px;}
 		 .dbbs .tbbs tr{height:35px;}
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
     </style>
