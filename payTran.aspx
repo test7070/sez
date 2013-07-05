@@ -51,7 +51,27 @@
 		        q_gt('acomp', '', 0, 0, 0, "");
 		        
 		        q_cmbParse("cmbPayc2", q_getMsg('payc').split('&').join(),"s");
-		 
+		        
+		        $('#btnExplain').click(function(){
+					$('#ChangeExplain').toggle();
+				});
+				$('#btnCloseexplain').click(function(){
+				$('#ChangeExplain').toggle();
+				});
+		 		$('#ChangeExplain').mousedown(function(e) {
+                	if(e.button==2){               		
+	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+                	}
+                }).mousemove(function(e) {
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
+                		$(this).css('top',$(this).data('xtop')+e.clientY);
+                		$(this).css('left',$(this).data('xleft')+e.clientX);
+                	}
+                }).bind('contextmenu', function(e) {
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
+		        });
 		        $('#btnGqbPrint').click(function (e) {
 		            var t_noa = '', t_max, t_min;
 		            for (var i = 0; i < q_bbsCount; i++) {
@@ -946,6 +966,18 @@
             .num {
                 text-align: right;
             }
+            #ChangeExplain{
+			display:none;
+			width:750px;
+			background-color: #cad3ff;
+			border: 5px solid gray;
+			position: absolute;
+			left: 20px;
+			z-index: 50;
+			}
+			 #ChangeExplain .tdY{
+				width: 98%;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -953,6 +985,28 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+	<div id="ChangeExplain" style="position:absolute; top:300px; left:500px; display:none; width:750px; height:250px; background-color: #cad3ff; border: 5px solid gray;">
+			<table style="width:100%;">
+						
+								<tr>
+									<td>預付流程</td>
+								</tr>
+								<tr>
+								<td>步驟一：到 F4 應付立帳作業，輸入 " 基本資料 "，再到 " #類別 " 點選 " 預付 " ,輸入 " 數量 " 及 " 金額 " ，即有預付立帳單(PS 會計傳票為Z，預付不產生會計傳票)。</td>
+								</tr>
+								<tr>
+								<td>步驟二：到 F5 付款登錄作業，輸入 " 廠商名稱 " ，點選 " 立帳單匯入 " 。如有預付立帳單，會在 " 立帳單 " 及 " 預付單號 " 顯示 " 預付 " 2字。輸入 " 會計科目 " 及 " 付款金額 " ，再點選 " 自動沖帳 " ， " 預付 " 顯示金額。(第一張單子，讓該廠商有預付金額的值。)</td>
+								</tr>
+								<tr>
+								<td>步驟三：到 F5  付款登錄作業，輸入 " 廠商名稱 " ，點選 " 立帳單匯入 " ， " 預付餘額 " 有值，輸入 " 預付沖帳 " 要沖的金額，再點選 " 自動沖帳 " ，會自動與 " 付款金額 " 相加然後顯示 " 沖帳金額 "。(第二張單子,可用預付金額去沖帳。)</td>	
+								</tr>
+								<tr>
+									<td align="center">
+									<input id="btnCloseexplain" type="button" value="關閉視窗">
+									</td>
+								</tr>
+							</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
@@ -1022,7 +1076,7 @@
 						<input id="txtMon"  type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr2">
+					<tr class="tr3">
                         <td class="td1" ><span> </span><a id='lblTgg2' class="lbl"></a></td>
 						<td class="td2" colspan='3'>
                         <input id="txtTggno2" type="text" class="txt c1"/>
@@ -1032,9 +1086,10 @@
 							<input id="txtPart"  type="text" style="width: 63%;"/>
 						</td>
 						<td> </td>
+						<td><input id="btnExplain" type="button"  /></td>
                         	
 					</tr>
-					<tr class="tr3">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtSale"  type="text" class="txt num c1"/>
@@ -1052,7 +1107,7 @@
 						<input id="txtUnpay"  type="text" class="txt num c1"/>
 						</td>
 					</tr>  
-					<tr class="tr4">
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblOpay' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtOpay"  type="text" class="txt num c1"/>
@@ -1069,7 +1124,7 @@
 						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr class="tr6">
 						<td class="td1"> <a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan='3' ><textarea id="txtMemo"  class="txt c1" style="height: 50px;" > </textarea></td>
 						<td align="right"><span> </span><a id='lblRc2no' class="lbl" style="width: 80%;"> </a>
