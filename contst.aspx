@@ -284,14 +284,6 @@
                 return true;
             }
 
-            function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
-                for(var j = 0; j < q_bbsCount; j++) {
-					
-                }  // j
-
-            }
-
             function refresh(recno) {
                 _refresh(recno);
 				size_change();
@@ -344,11 +336,11 @@
 			
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+				size_change();
             }
 
             function btnMinus(id) {
                 _btnMinus(id);
-                sum();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {

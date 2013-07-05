@@ -452,6 +452,7 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+			size_change();
         }
 
         function btnMinus(id) {

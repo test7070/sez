@@ -171,6 +171,7 @@
                     alert(t_err);
                     return;
                 }
+                sum();
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
                     q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
@@ -331,11 +332,10 @@
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_weight = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
 					t_weight+=dec($('#txtWeight_' + j).val()); // 重量合計
                 }  // j
-                
                 $('#txtTotal').val(round(t_weight, 0));
 				if( !emp( $('#txtPrice' ).val()))
                 	$('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
@@ -392,11 +392,11 @@
 			}
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+				size_change();
             }
 
             function btnMinus(id) {
                 _btnMinus(id);
-                sum();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {

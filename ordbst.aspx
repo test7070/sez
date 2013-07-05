@@ -178,6 +178,7 @@
 				        $('#txtWeight_' + j).change(function () {sum();});
 				        $('#txtPrice_' + j).change(function () {sum();});
 				        $('#txtTotal_' + j).change(function () {sum();});
+						$('#txtC1_' + j).change(function(){sum();});
 						$('#txtStyle_' + j).blur(function(){
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 						    q_bodyId($(this).attr('id'));
@@ -231,29 +232,6 @@
 				            	}
 								q_tr('txtTheory_'+b_seq ,getTheory(b_seq));
 				           	});
-				            $('#txtMount_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
-								q_tr('txtTheory_'+b_seq ,getTheory(b_seq));
-								q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
-								sum();
-				            });
-				            $('#txtPrice_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
-				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
-				                sum();
-				            });
-				            $('#txtWeight_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
-				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
-				                sum();
-				            });
-				            $('#txtC1_' + j).change(function(){sum();});
             		  }
             	}
             		 
@@ -309,6 +287,7 @@
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
+					q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j)*q_float('txtWeight_'+j));
                 	t_money+=q_float('txtTotal_'+j);
 					t_weight+=q_float('txtWeight_'+j);
 					q_tr('txtNotv_'+j ,q_float('txtWeight_'+j)-q_float('txtC1_'+j));
@@ -356,6 +335,7 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+				size_change();
             }
 
             function btnMinus(id) {
@@ -634,7 +614,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 120%;
+                width: 1600px;
             }
             .tbbs a {
                 font-size: medium;
@@ -762,7 +742,7 @@
                 <td align="center" style="width:10%"><a id='lblProduct_st'></a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'></a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'></a></td>
-                <td align="center" style="width:12%"><a id='lblSizea_st'></a></td>
+                <td align="center" style="width:10%"><a id='lblSizea_st'></a></td>
                 <td align="center" style="width:86"><a id='lblMount_st'></a></td>
                 <td align="center" style="width:6%"><a id='lblWeights_st'></a></td>
                 <td align="center" style="width:6%"><a id='lblPrices_st'></a></td>

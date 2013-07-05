@@ -17,7 +17,6 @@
         q_desc = 1;
         q_tables = 's';
         var q_name = "rc2e";
-        var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 15, 0, 1]];  
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1]];
@@ -198,7 +197,6 @@
 
         function btnIns() {
             _btnIns();
-            $('#cmbKind').val(q_getPara('vcc.kind'));
             size_change();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
@@ -223,33 +221,28 @@
         }
 
         function bbsSave(as) {
-            if (!as['product'] ) {  
+            if (!as['productno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
-
             q_nowf();
             as['date'] = abbm2['date'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+        	var tot_Weight = 0;
+        	var tot_Money = 0;
+        	var t_Weight,t_Mount,t_Price;
             for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
-
+            	t_Weight = dec($('#txtWeight_' + j).val());
+            	t_Mount = dec($('#txtMount_' + j).val());
+            	t_Price = dec($('#txtPrice_' + j).val());
+				tot_Weight += dec($('#txtWeight_' + j).val());
+				tot_Money += round((t_Weight*t_Mount*t_Price),0);
+            }
+			$('#txtWeight').val(tot_Weight);
+			$('#txtTotal').val(tot_Money);
         }
 
         ///////////////////////////////////////////////////  
@@ -303,8 +296,9 @@
 				$('#txtProduct_' + id).val(ProductVal + StyleName);
 			}
 		}
-        function readonly(t_para, empty) {
-           _readonly(t_para, empty);
+		function readonly(t_para, empty) {
+			_readonly(t_para, empty);
+			size_change();
        	}
 
         function btnMinus(id) {
@@ -625,8 +619,8 @@
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
             <td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
-            <td class='td6'><span> </span><a id="lblEnds" class="lbl"> </a> </td>
-            <td class="td7"><input id="txtEnds"  type="text" class="txt c1"/> </td>
+            <td class='td6'><span> </span><a id="lblEnda" class="lbl"> </a> </td>
+            <td class="td7"><input id="chkEnda" type="checkbox"/> </td>
         </tr>
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
@@ -639,6 +633,8 @@
             <td class="td2"><input id="txtWeight"  type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id="lblTotal" class="lbl"> </a></td>
             <td class="td4"><input id="txtTotal"  type="text" class="txt c1"/> </td>
+            <td class="td5"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+            <td class="td6"><input id="txtWorker"  type="text" class="txt c1"/> </td>
         </tr> 
         <tr class="tr8">
         	<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>

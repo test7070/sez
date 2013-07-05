@@ -132,7 +132,6 @@
             }   /// end Switch
             b_pop = '';
         }
-
 		var StyleList = '';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
@@ -494,6 +493,7 @@
 		}
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+			size_change();
         }
 
         function btnMinus(id) {
