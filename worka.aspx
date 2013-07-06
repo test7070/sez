@@ -535,8 +535,9 @@
 			<td><input id="txtTimea" type="text"  class="txt c1"/></td>
 			<td><span> </span><a id='lblModel' class="lbl"> </a></td>
 			<td><input id="txtModelno" type="text" class="txt c2"/><input id="txtModel" type="text" class="txt c3"/></td>
-			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
+			<td><span> </span><a id='lblMechno' class="lbl btn"> </a></td>
+			<td ><input id="txtMechno" type="text" class="txt c2"/><input id="txtMech" type="text" class="txt c3"/></td>
+		</tr>
 		<!--<tr>
 			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 			<td><input id="txtWorkno" type="text"  class="txt c1"/></td>
@@ -555,8 +556,14 @@
 		<tr>
 			<td></td>
 			<td><input type="button" id="btnOrdes"></td>
+			<td></td>
+			<td></td>
+			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
+		</tr>
+		<tr>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-			<td colspan='3'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
+			<td colspan='5'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
 		</tr>
 		</table>
 		</div>
@@ -571,8 +578,8 @@
 				<td align="center"><a id='lblMounts'></a></td>
 				<!--<td align="center"><a id='lblWeights'></a></td>-->
 				<td align="center"><a id='lblTypes'></a></td>
-				<td align="center"><a id='lblMechno'></a></td>
-				<td align="center"><a id='lblMech'></a></td>
+				<!--<td align="center"><a id='lblMechno'></a></td>
+				<td align="center"><a id='lblMech'></a></td>-->
 				<td align="center"><a id='lblMemos'></a></td>
 				<td align="center"><a id='lblWorknos'></a></td>
 			</tr>
@@ -597,13 +604,13 @@
 				<td style="width:10%;">
 					<input id="txtTypea.*" type="text" class="txt c1"/>
 				</td>
-				<td style="width:10%;">
+				<!--<td style="width:10%;">
 					<input class="txt" id="txtMechno.*" type="text" style="width:80%;" />
 					<input class="btn"  id="btnMechno.*" type="button" value='.' style="width:10%;"  />
 				</td>
 				<td style="width:10%;">
 					<input id="txtMech.*" type="text" class="txt c1"/>
-				</td>
+				</td>-->
 				<td style="width:12%;">
 					<input id="txtMemo.*" type="text" class="txt c1"/>
 					<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
