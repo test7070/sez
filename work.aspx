@@ -24,8 +24,8 @@
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
         var q_readonly = ['txtNoa','txtComp','txtProduct','txtStation']; 
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtTproductno','txtTproduct']; 
-        var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 0,1]];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1]];
+        var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 0,1], ['txtWages', 15, 0, 1], ['txtMakes', 15, 0, 1]];  // 允許 key 小數
+        var bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtCost', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [['txtCuadate','999/99/99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea'; q_desc = 1;
@@ -522,10 +522,17 @@
 		        	<input id="txtModelno" type="text"  class="txt" style="width: 45%"/>
 		        	<input id="txtModel" type="text"  class="txt" style="width: 45%"/>
 		        </td>
-		        <td class="td3"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-		        <td class="td4"><input id="txtMemo" type="text"  class="txt"/></td>
-				<td class="td5" style="display: none;"><span> </span><a id="lblUno" class="lbl"> </a></td>
-				<td class="td6" style="display: none;"><input id="txtUno" type="text"  class="txt"/></td>
+		        <td class="td3"><span> </span><a id="lblWages" class="lbl"> </a></td>
+		        <td class="td4"><input id="txtWages" type="text"  class="txt num"/></td>
+		        <td class="td5"><span> </span><a id="lblMakes" class="lbl"> </a></td>
+		        <td class="td6"><input id="txtMakes" type="text"  class="txt num"/></td>
+			</tr>
+			<tr class="tr9">
+		        <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+		        <td class="td2" colspan='5'>
+		        	<input id="txtMemo" type="text"  class="txt c1 "/>
+		        	<input id="txtUno" type="text"  class="txt" style="display: none;"/>
+		        </td>
 			</tr>
         </table>
         </div>
@@ -543,6 +550,7 @@
                 <td align="center" style="width:8%;"><a id='lblEmount'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblTd'> </a></td>
                 <!--<td align="center" style="width:17%;"><a id='lblTproduct_s'> </a></td>-->
+                <td align="center" style="width:10%;"><a id='lblCosts'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -571,6 +579,7 @@
                 	<input id="txtTproductno.*" type="text" class="txt c1"/>
                 	<input id="txtTproduct.*" type="text" class="txt c1"/>
                 </td>-->
+                <td><input id="txtCost.*" type="text" class="txt c1 num"/></td>
                 <td>
                 	<input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
