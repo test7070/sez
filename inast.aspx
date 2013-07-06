@@ -171,6 +171,7 @@
                     alert(t_err);
                     return;
                 }
+                sum();
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
                     q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
@@ -331,11 +332,10 @@
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_weight = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
 					t_weight+=dec($('#txtWeight_' + j).val()); // 重量合計
                 }  // j
-                
                 $('#txtTotal').val(round(t_weight, 0));
 				if( !emp( $('#txtPrice' ).val()))
                 	$('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
@@ -367,7 +367,7 @@
 	                switch (s1) {
 	                    case 'txtProductno_':
 							$('input[id*="txtProduct_"]').each(function(){
-			                	$(this).attr('OldValue',OldValue);
+			                	$(this).attr('OldValue',$(this).val());
 			                });
 			                ProductAddStyle(b_seq);
 			                $('#txtStyle_' + b_seq).focus();
@@ -380,23 +380,26 @@
 				var StyleName = '';
 				var ProductVal = $('#txtProduct_' + id).attr('OldValue');
 				ProductVal = (emp(ProductVal)?(emp($('#txtProductno_' + id).val())?'':$('#txtProduct_' + id).val()):ProductVal);
-				if(!emp(Styleno)){
-					for(j = 0;j<StyleList.length;j++){
-						if(StyleList[j].noa == Styleno){
-							StyleName = StyleList[j].product;
-							break;
-						}
+				if(!emp(Styleno) && (StyleList[0] != undefined)){
+					for(var i = 0;i < StyleList.length;i++){
+		              		if(StyleList[i].noa.toUpperCase() == Styleno){
+		             			styleProduct = StyleList[i].product;
+								if(ProductVal.substr(ProductVal.length-styleProduct.length) == styleProduct){
+									ProductVal = ProductVal.substr(0,ProductVal.length-styleProduct.length);
+								}
+								ProductVal = ProductVal+styleProduct;
+							}
 					}
-					$('#txtProduct_' + id).val(ProductVal + StyleName);
-				}
+		        }
+				$('#txtProduct_' + id).val(ProductVal);
 			}
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+				size_change();
             }
 
             function btnMinus(id) {
                 _btnMinus(id);
-                sum();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
@@ -462,8 +465,8 @@
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-		  if( $('#cmbKind').val().substr(0,1)=='A'){
-            $('#lblSize_help').text("厚度x寬度x長度");
+		  	if( $('#cmbKind').val().substr(0,1)=='A'){
+            	$('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -648,7 +651,10 @@
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">

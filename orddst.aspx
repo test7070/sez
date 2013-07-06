@@ -16,7 +16,7 @@
             }
             q_tables = 's';
             var q_name = "quat";
-            var q_readonly = ['txtComp', 'txtAcomp','txtSales'];
+            var q_readonly = ['txtComp', 'txtAcomp','txtSales','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],['txtWeight', 15, 2, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtTheory', 15, 3, 1],['txtTotal', 15, 2, 1]];
@@ -55,7 +55,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('orde.stype')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));     
-                q_cmbParse("cmbPaytype", q_getPara('vcc.paytype'));  
+                q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
                 q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
@@ -111,6 +111,14 @@
                     return;
 
                 q_box('quatst_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+            }
+            function combPaytype_chg() {
+            	 var cmb = document.getElementById("combPaytype")
+	            if (!q_cur) 
+	                cmb.value = '';
+	            else
+	                $('#txtPaytype').val(cmb.value);
+	            cmb.value = '';
             }
 
 			function getTheory(b_seq){
@@ -199,7 +207,6 @@
 
             function btnIns() {
                 _btnIns();
-                $('#cmbKind').val(q_getPara('vcc.kind'));
             	size_change();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtDatea').val(q_date());
@@ -278,7 +285,7 @@
 				switch (s1) {
 					case 'txtProductno_':
 						$('input[id*="txtProduct_"]').each(function(){
-							$(this).attr('OldValue',OldValue);
+							$(this).attr('OldValue',$(this).val());
 						});
 						ProductAddStyle(b_seq);
 						$('#txtStyle_' + b_seq).focus();
@@ -291,19 +298,23 @@
 				var StyleName = '';
 				var ProductVal = $('#txtProduct_' + id).attr('OldValue');
 				ProductVal = (emp(ProductVal)?(emp($('#txtProductno_' + id).val())?'':$('#txtProduct_' + id).val()):ProductVal);
-				if(!emp(Styleno)){
-					for(j = 0;j<StyleList.length;j++){
-						if(StyleList[j].noa == Styleno){
-							StyleName = StyleList[j].product;
-							break;
-						}
+				if(!emp(Styleno) && (StyleList[0] != undefined)){
+					for(var i = 0;i < StyleList.length;i++){
+		              		if(StyleList[i].noa.toUpperCase() == Styleno){
+		             			styleProduct = StyleList[i].product;
+								if(ProductVal.substr(ProductVal.length-styleProduct.length) == styleProduct){
+									ProductVal = ProductVal.substr(0,ProductVal.length-styleProduct.length);
+								}
+								ProductVal = ProductVal+styleProduct;
+							}
 					}
-					$('#txtProduct_' + id).val(ProductVal + StyleName);
-				}
+		        }
+				$('#txtProduct_' + id).val(ProductVal);
 			}
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+				size_change();
             }
 
             function btnMinus(id) {
@@ -365,8 +376,8 @@
 				}else{
 					$('input[id*="textSize"]').attr('disabled', 'disabled');
 				}
-		  if( $('#cmbKind').val().substr(0,1)=='A'){
-            $('#lblSize_help').text("厚度x寬度x長度");
+		  	if( $('#cmbKind').val().substr(0,1)=='A'){
+            	$('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -560,7 +571,10 @@
             }
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview">
@@ -605,9 +619,9 @@
                 <td class="td1"><span> </span><a id="lblCust" class="lbl btn"></a></td>
                 <td class="td2" colspan="2"><input id="txtCustno" type="text" class="txt c4"/>
                 <input id="txtComp"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5"><input id="txtPay" type="text" class="txt c1" /></td> 
-                <td class="td6"><select id="cmbPaytype" class="txt c1"></select></td> 
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+                <td class="td5"><input id="txtPaytype" type="text" class="txt c1" /></td> 
+                <td class="td6"><select id="combPaytype" class="txt c1" onchange="combPaytype_chg();"></select></td> 
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
             </tr>
