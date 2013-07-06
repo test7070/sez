@@ -346,17 +346,19 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtOdate').val(q_date());
-            $('#txtOdate').focus();
             $('#cmbKind').val(q_getPara('vcc.kind'));
             size_change();
+            $('#dbbt').hide();
+            $('#txtOdate').val(q_date());
+            $('#txtOdate').focus();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtOdate').focus();
             size_change();
+            $('#dbbt').hide();
+            $('#txtOdate').focus();
         }
         function btnPrint() {
 			t_where = "noa='" + $('#txtNoa').val() + "'";
@@ -455,7 +457,7 @@
 			switch (s1) {
 				case 'txtProductno_':
 					$('input[id*="txtProduct_"]').each(function(){
-						$(this).attr('OldValue',OldValue);
+						$(this).attr('OldValue',$(this).val());
 					});
 					ProductAddStyle(b_seq);
 					$('#txtStyle_' + b_seq).focus();
@@ -468,15 +470,18 @@
 			var StyleName = '';
 			var ProductVal = $('#txtProduct_' + id).attr('OldValue');
 			ProductVal = (emp(ProductVal)?(emp($('#txtProductno_' + id).val())?'':$('#txtProduct_' + id).val()):ProductVal);
-			if(!emp(Styleno)){
-				for(j = 0;j<StyleList.length;j++){
-					if(StyleList[j].noa == Styleno){
-						StyleName = StyleList[j].product;
-						break;
-					}
+			if(!emp(Styleno) && (StyleList[0] != undefined)){
+				for(var i = 0;i < StyleList.length;i++){
+	              		if(StyleList[i].noa.toUpperCase() == Styleno){
+	             			styleProduct = StyleList[i].product;
+							if(ProductVal.substr(ProductVal.length-styleProduct.length) == styleProduct){
+								ProductVal = ProductVal.substr(0,ProductVal.length-styleProduct.length);
+							}
+							ProductVal = ProductVal+styleProduct;
+						}
 				}
-				$('#txtProduct_' + id).val(ProductVal + StyleName);
-			}
+	        }
+			$('#txtProduct_' + id).val(ProductVal);
 		}
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
