@@ -39,6 +39,9 @@
 	                    },{
 	                        type : '6',
 	                        name : 'edate'
+	                    },{
+	                        type : '1',
+	                        name : 'ordeno'
 	                    }
                     ]
                 });
