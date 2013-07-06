@@ -17,6 +17,7 @@
         q_desc = 1;
         q_tables = 's';
         var q_name = "rc2e";
+        var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 15, 0, 1]];  
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1]];
@@ -637,9 +638,9 @@
         </tr>   
         <tr class="tr7">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
-            <td class="td2"><input id="txtWeight"  type="text" class="txt c1"/></td>
+            <td class="td2"><input id="txtWeight"  type="text" class="txt num c1"/></td>
             <td class="td3"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-            <td class="td4"><input id="txtTotal"  type="text" class="txt c1"/> </td>
+            <td class="td4"><input id="txtTotal"  type="text" class="txt num c1"/> </td>
             <td class="td5"><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td6"><input id="txtWorker"  type="text" class="txt c1"/> </td>
         </tr> 
