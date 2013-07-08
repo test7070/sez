@@ -571,9 +571,9 @@
                 <td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtGmount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtEmount.*" type="text" class="txt c1 num"/></td>
-                <td>
+                <td align="center">
                 	<!--<input id="txtTd.*" type="text" class="txt c1"/>-->
-                	<input id="chkIstd.*" type="checkbox" style="float: left;"/>
+                	<input id="chkIstd.*" type="checkbox"/>
                     <input class="btn"  id="btnTproductno.*" type="button" value='...' style=" font-weight: bold;" />
                 </td>
                 <!--<td>//1020629將替代品直接取代品名欄位不需要在寫入下面欄位
