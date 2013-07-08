@@ -55,7 +55,7 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
-            	bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
+            	bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd],['txtWorkdate', r_picd],['txtEdate', r_picd],['txtIndate', r_picd]];
                 q_mask(bbsMask);
                 q_gt('station', '' , 0, 0, 0, "", r_accy);
                 $('#btnWork').click(function() {
@@ -485,15 +485,17 @@
 					</td>
 					<td align="center" style="width:8%;"><a id='lblOrdeno_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblNo2_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
+					<td align="center" style="width:6%;"><a id='lblDatea_s'></a></td>
+					<td align="center" style="width:6%;"><a id='lblWorkdate_s'></a></td>
 					<td colspan="2" align="center" style="width:15%;"><a id='lblProductno_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
+					<td align="center" style="width:6%;"><a id='lblIndate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblWmount_s'></a></td>
 					<td colspan="2" align="center" style="width:12%;"><a id='lblStationno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
+					<td align="center" style="width:6%;"><a id='lblUindate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblEdate_s'></a></td>
 					<td align="center" style="width:6%;"><a id='lblTotalhours_s'></a></td>
 				</tr>
@@ -505,20 +507,24 @@
 					<td><input id="txtOrdeno.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtNo2.*" type="text" style="width: 90%;" /></td>
 					<td><input id="txtDatea.*" type="text" style="width: 95%;" /></td>
+					<td><input id="txtWorkdate.*" type="text" style="width: 95%;"/></td>
 					<td colspan="2">
-						<input id="txtProductno.*" type="text" style="width: 30%;"/>
-						<input id="txtProduct.*" type="text" style="width: 50%;"/>
 						<input id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+						<input id="txtProductno.*" type="text" style="width: 25%;"/>
+						<input id="txtProduct.*" type="text" style="width: 50%;"/>
+						
 					</td>
 					<td><input id="txtUnit.*" type="text" style="width: 95%;text-align: center;"/></td>
 					<td><input id="txtOrdemount.*" type="text" class="txt num c2"/></td>
 					<td><input id="txtCuamount.*" type="text" class="txt num c2"/></td>
 					<td><input id="txtInmount.*" type="text" class="txt num c2"/></td>
+					<td><input id="txtIndate.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtWmount.*" type="text" class="txt num c2"/></td>
 					<td colspan="2">
-						<input id="txtStationno.*" type="text" style="width: 30%;"/>
-						<input id="txtStation.*" type="text" style="width: 50%;"/>
 						<input id="btnStationno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+						<input id="txtStationno.*" type="text" style="width: 25%;"/>
+						<input id="txtStation.*" type="text" style="width: 50%;"/>
+						
 					</td>
 					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtEdate.*" type="text" style="width: 95%;"/></td>
