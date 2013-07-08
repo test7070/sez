@@ -42,7 +42,7 @@
 	
 			function mainPost() {
                 q_getFormat();
-                bbmMask = [];
+                bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd]];
                 q_mask(bbmMask);
 			}
 
@@ -238,9 +238,11 @@
 		.tbbm tr td .lbl.btn:hover{
 			color:#FF8F19;
 		}
+		.txt {
+			float:left;
+		}
 		.txt.c1{
 			width:95%;
-			float:left;
 		}
 		.num{
 			text-align:right;
@@ -283,10 +285,17 @@
 					<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 					<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 					<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-					<td><input id="txtDatea" type="text" class="txt c1" /></td>
+					<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
 					<td></td>
 					<td></td>
-					<td></td>
+				</tr>
+				<tr>
+					<td><span> </span><a id="lblBdate" class="lbl"> </a></td>
+					<td colspan="2">
+						<input id="txtBdate" class="txt" type="text" style="width:45%;"/>
+						<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
+						<input id="txtEdate" class="txt" type="text" style="width:45%;"/>
+					</td>
 				</tr>
 				<tr>
 					<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
