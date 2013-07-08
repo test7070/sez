@@ -28,7 +28,7 @@
 			$(document).ready(function () {
 				bbmKey = ['noa'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
+				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
 	
 			//////////////////   end Ready
@@ -44,8 +44,32 @@
                 q_getFormat();
                 bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd]];
                 q_mask(bbmMask);
+                $('#btnCostchg').click(function(){
+                	//t_where = "1=1 and (datea between '' and char(255)) and noa = '製令單號' and ordeno='訂單編號' and no2 = '定序'"
+                	var t_productno = trim($('#txtProductno').val());
+                	var t_bdate = encodeURI(trim($('#txtBdate').val()));
+                	var t_edate = encodeURI((emp(trim($('#txtEdate').val()))?'999/99/99':trim($('#txtEdate').val())));
+					var t_price = encodeURI(dec($('#txtPrice').val()));
+					var t_wages = encodeURI(dec($('#txtWages').val()));
+					var t_makes = encodeURI(dec($('#txtMakes').val()));
+					var UseUrl = '';
+					var t_where = ' 1=1 '
+					t_where += "and (datea between '" + t_bdate + "' and '" + t_edate + "') ";
+					t_where += (emp(trim($('#txtWorkno').val()))?'':"and noa='" + trim($('#txtWorkno').val()) + "' ");
+					t_where += (emp(trim($('#txtOrdeno').val()))?'':"and ordeno='" + trim($('#txtOrdeno').val()) + "' ");
+					t_where += (emp(trim($('#txtNo2').val()))?'':"and no2='" + trim($('#txtNo2').val()) + "' ");
+					btnOk();
+					q_func('qtxt.query.costchg','costchg.txt,costchg,'+r_accy + ';' + t_productno + ';' + t_price + ';' + t_wages + ';' + t_makes + ';' + t_where + ';' + r_name);
+                });
 			}
-
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.costchg':
+						alert('作業完畢');
+					break;
+				}
+			}
+			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {   
