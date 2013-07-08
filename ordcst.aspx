@@ -17,7 +17,7 @@
             q_tables = 's';
             var q_name = "ordc";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtC1','txtNotv'];
+            var q_readonlys = ['txtC1','txtNotv','no2'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1],['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtTheory', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
@@ -466,6 +466,7 @@
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).hide();
 			        $('#Size').css('width','222px');
+			        console.log($('#textSize1_'+ j)[0]);
 			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
 			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
 			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));

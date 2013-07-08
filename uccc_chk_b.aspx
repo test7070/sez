@@ -15,6 +15,15 @@
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
         $(document).ready(function () {
+			var Parent = window.parent.document;
+			if(Parent.getElementById('cmbKind')){
+				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
+				if(t_cmbKind=='A'){
+					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
+					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
+					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
+				}
+			}
             main();
         });         /// end ready
 
@@ -43,7 +52,7 @@
 			if(Parent.getElementById('cmbKind')){
 				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
 				if(t_cmbKind=='A'){
-					$('#lblSize_st').text('寬度x厚度x長度');
+					$('#lblSize_st').text('厚度x寬度x長度');
 					$('input[id*="txtLengthb_"]').css('width','29%');
 					$('input[id*="txtWidth_"]').css('width','29%');
 					$('input[id*="txtDime_"]').css('width','29%');

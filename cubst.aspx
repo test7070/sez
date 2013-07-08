@@ -19,7 +19,7 @@
             q_tables = 't';
             var q_name = "cub";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = ['date2','ordeno','no2'];
+            var q_readonlys = ['txtDate2','txtOrdeno','txtNo2'];
             var q_readonlyt = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -94,7 +94,7 @@
 	                    if (q_cur > 0 && q_cur < 4) {
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight,txtMount,txtTheory', b_ret.length, b_ret, 'custno,productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtClass,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtWeight,txtMount,txtTheory,txtSize,txtUno,txtMemo', b_ret.length, b_ret, 'custno,class,productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory,size,uno,memo','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 							sum();
 	                    }
 						break;
@@ -529,28 +529,28 @@
 						<td style="width:20px;"> </td>
 						<td style="width:200px;"><a id='lbl_custno'> </a></td>
 						<td style="width:200px;"><a id='lbl_productno'> </a></td>
-						<td style="width:100px;"><a id='lbl_class'> </a></td>
+						<td style="width:60px;"><a id='lbl_class'> </a></td>
 						<td style="width:200px;"><a id='lbl_spec'> </a></td>
-						<td style="width:200px;"><a id='lbl_dime'> </a></td>
-						<td style="width:200px;"><a id='lbl_width'> </a></td>
- 						<td style="width:200px;"><a id='lbl_length'> </a></td>
-						<td style="width:200px;"><a id='lbl_bdime'> </a></td>
-						<td style="width:200px;"><a id='lbl_edime'> </a></td>
+						<td style="width:150px;"><a id='lbl_dime'> </a></td>
+						<td style="width:150px;"><a id='lbl_width'> </a></td>
+ 						<td style="width:150px;"><a id='lbl_length'> </a></td>
+						<td style="width:150px;"><a id='lbl_bdime'> </a></td>
+						<td style="width:150px;"><a id='lbl_edime'> </a></td>
 						<td style="width:60px;"><a id='lblOrdet_st'> </a></td>
-						<td style="width:200px;"><a id='lbl_mount'> </a></td>
-						<td style="width:200px;"><a id='lbl_weight'> </a></td>
-						<td style="width:200px;"><a id='lbl_hweight'> </a></td>
+						<td style="width:150px;"><a id='lbl_mount'> </a></td>
+						<td style="width:150px;"><a id='lbl_weight'> </a></td>
+						<td style="width:150px;"><a id='lbl_hweight'> </a></td>
 						<td style="width:200px;"><a id='lbl_size'> </a></td>
 						<td style="width:200px;"><a id='lbl_uno'> </a></td>
 						<td style="width:200px;"><a id='lbl_need'> </a></td>
 						<td style="width:200px;"><a id='lbl_memo'> </a></td>
-						<td style="width:200px;"><a id='lbl_date2'> </a></td>
+						<td style="width:150px;"><a id='lbl_date2'> </a></td>
 						<td style="width:30px;"><a id='lbl_enda'> </a></td>
 						<td style="width:200px;"><a id='lbl_ordeno'> </a></td>
-						<td style="width:200px;"><a id='lbl_no2'> </a></td>
-						<td style="width:200px;"><a id='lbl_price'> </a></td>
-						<td style="width:200px;"><a id='lbl_datea'> </a></td>
-						<td style="width:200px;"><a id='lbl_product'> </a></td>
+						<td style="width:60px;"><a id='lbl_no2'> </a></td>
+						<td style="width:150px;"><a id='lbl_price'> </a></td>
+						<td style="width:150px;"><a id='lbl_datea'> </a></td>
+						<td style="width:250px;"><a id='lbl_product'> </a></td>
 						<td style="width:30px;"><a id='lbl_prt'> </a></td>
 						<td style="width:60px;"><a id='lbl_hend'> </a></td>
 					</tr>
@@ -566,7 +566,7 @@
 						<td><input id="txtSpec.*" type="text" class="txt c1"/></td>
 						<td><input id="txtDime.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWidth.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtLength.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtLengthb.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBdime.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtEdime.*" type="text" class="txt c1 num"/></td>
 						<td align="center"><input id="btnUccc.*" type="button" value="選料"/></td>
@@ -604,7 +604,7 @@
 						<td style="width:120px; text-align: center;">餘料寬</td>
 						<td style="width:120px; text-align: center;">餘料長</td>
 						<td style="width:120px; text-align: center;">尺寸</td>
-						<td style="width:120px; text-align: center;">型</td>
+						<td style="width:30px; text-align: center;">型</td>
 						<td style="width:120px; text-align: center;">數量</td>
 						<td style="width:120px; text-align: center;">入庫重</td>
 						<td style="width:120px; text-align: center;">餘料編號</td>
