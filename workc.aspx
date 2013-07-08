@@ -98,7 +98,7 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						for (var i = 0; i < b_ret.length; i++) {
-							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!=''";
+							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!='' and left(tggno,1)!='Z' ";
 							if(!emp($('#txtTggno').val()))
 								t_where+=" and tggno='"+$('#txtTggno').val()+"'";
 							
