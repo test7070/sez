@@ -104,10 +104,15 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						for (var i = 0; i < b_ret.length; i++) {
-							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and len(tggno)=0^^";
-							q_gt('work', t_where , 0, 0, 0, "", r_accy);//用來寫入工作中心,只有Z開頭
-							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and len(tggno)=0^^";
-							q_gt('works', t_where , 0, 0, 0, "", r_accy);
+							//Z開頭的廠商為自己公司要算在內
+							if(!emp($('#txtStationno').val())){
+								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno='"+$('#txtStationno').val()+"' ^^";
+								q_gt('work', t_where , 0, 0, 0, "", r_accy);
+							}else{
+								//102/07/06寫入工作中心,只有Z開頭
+								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or left(tggno,1)='Z' )^^";
+								q_gt('work', t_where , 0, 0, 0, "", r_accy);
+							}
 						}
 					}
                 break;
@@ -183,8 +188,6 @@
 							$('#txtStation').val(t_station);
 						}
 					}
-				 break;
-				case 'works':
 					//清空表身資料
             		for(var i = 0; i < q_bbsCount; i++) {
             			$('#btnMinus_'+i).click();

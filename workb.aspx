@@ -112,8 +112,14 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						for (var i = 0; i < b_ret.length; i++) {
-							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno=''^^";
-							q_gt('work', t_where , 0, 0, 0, "", r_accy);
+							//Z開頭的廠商為自己公司要算在內
+							if(!emp($('#txtStationno').val())){
+								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno='"+$('#txtStationno').val()+"' ^^";
+								q_gt('work', t_where , 0, 0, 0, "", r_accy);
+							}else{
+								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or left(tggno,1)='Z') ^^";
+								q_gt('work', t_where , 0, 0, 0, "", r_accy);
+							}
 						}
 					}
                 break;
@@ -190,6 +196,7 @@
             			$('#btnMinus_'+i).click();
             		}
 					var as = _q_appendData("work", "", true);
+					var t_stationno='',t_station='';
 					for (i = 0; i < as.length; i++) {
 							/*if(as[i].istd=='true'){
 								as[i].productno=as[i].tproductno
@@ -203,10 +210,19 @@
 								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
 							}
+							
+							if(t_stationno='' && as[i].tggno.substr(0,1).toUpperCase()=='Z'){
+								t_stationno=as[i].tggno;
+								t_station=as[i].comp;
+							}
 						}
 					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtMemo,txtWorkno,txtOrdeno,txtNo2', as.length, as
 														   , 'productno,product,unit,xmount,xweight,xmount,xweight,memo,noa,ordeno,no2'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
+					if(t_stationno.length!=0 || t_station.length!=0){
+							$('#txtStationno').val(t_stationno);
+							$('#txtStation').val(t_station);
+					}
 				 break;
             	case 'work':
             		//清空表身資料
