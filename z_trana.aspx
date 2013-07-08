@@ -195,7 +195,7 @@
 							name : 'xsort06',
 							value : q_getMsg('tsort06').split('&')
 						}, {/*29-[39]-排序方式*//*08*/
-							type : '5',
+							type : '8',
 							name : 'xoption08',
 							value : q_getMsg('toption08').split('&')
 						}]
