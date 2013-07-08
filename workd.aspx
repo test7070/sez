@@ -81,8 +81,10 @@
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
 			$('#btnOrdes').click(function(){
-				var t_where = "enda!=1";
-                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
+				if(q_cur==1 || q_cur==2){
+					var t_where = "enda!=1";
+	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
+               }
 			});
         }
 
@@ -96,7 +98,11 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						for (var i = 0; i < b_ret.length; i++) {
-							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!=''^^";
+							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!=''";
+							if(!emp($('#txtTggno').val()))
+								t_where+=" and tggno='"+$('#txtTggno').val()+"'";
+							
+							t_where+="^^";
 							q_gt('work', t_where , 0, 0, 0, "", r_accy);
 						}
 					}
@@ -407,16 +413,17 @@
 	        	<td><input id="txtDatea" type="text" class="txt c1"/></td>
 	        	<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 	            <td><input id="txtNoa" type="text" class="txt c1"/></td>
-	            <td></td>
+	            <td> </td>
 			</tr>
 	        <tr>
-	        	<td></td>
-				<td><input type="button" id="btnOrdes"></td>
-	        	<!--<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+	        	<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
 	            <td>
 	            	<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
 	            	<input id="txtTgg" type="text" class="txt"  style='width:48%;'/>
 	            </td>
+	        	<td> </td>
+				<td><input type="button" id="btnOrdes"></td>
+	        	<!--
 	        	<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 	            <td><input id="txtWorkno" type="text" class="txt c1"/></td>-->
 			</tr>
