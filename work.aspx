@@ -25,7 +25,7 @@
         var q_readonly = ['txtNoa','txtComp','txtProduct','txtStation']; 
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtTproductno','txtTproduct']; 
         var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 0,1], ['txtWages', 15, 0, 1], ['txtMakes', 15, 0, 1]];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtCost', 15, 0, 1]];
+        var bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtCost', 15, 0, 1], ['txtPrice', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [['txtCuadate','999/99/99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea'; q_desc = 1;
@@ -542,7 +542,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id='lblProcesss'> </a></td>
-                <td align="center" style="width:17%;"><a id='lblProduct_s'> </a></td>
+                <td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblCuadates'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblMounts'> </a></td>
@@ -550,6 +550,7 @@
                 <td align="center" style="width:8%;"><a id='lblEmount'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblTd'> </a></td>
                 <!--<td align="center" style="width:17%;"><a id='lblTproduct_s'> </a></td>-->
+                <td align="center" style="width:10%;"><a id='lblPrice'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblCosts'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
@@ -561,7 +562,7 @@
                 	<input id="txtProcess.*" type="text" class="txt c1"/>
                 </td>
                 <td>
-                	<input id="txtProductno.*" type="text" class="txt" style="width: 80%;"/>
+                	<input id="txtProductno.*" type="text" class="txt" style="width: 75%;"/>
                 	<input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
                 	<input id="txtProduct.*" type="text" class="txt c1"/>
                 </td>
@@ -579,6 +580,7 @@
                 	<input id="txtTproductno.*" type="text" class="txt c1"/>
                 	<input id="txtTproduct.*" type="text" class="txt c1"/>
                 </td>-->
+                <td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtCost.*" type="text" class="txt c1 num"/></td>
                 <td>
                 	<input id="txtMemo.*" type="text" class="txt c1"/>
