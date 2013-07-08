@@ -58,7 +58,6 @@
 					t_where += (emp(trim($('#txtWorkno').val()))?'':"and noa='" + trim($('#txtWorkno').val()) + "' ");
 					t_where += (emp(trim($('#txtOrdeno').val()))?'':"and ordeno='" + trim($('#txtOrdeno').val()) + "' ");
 					t_where += (emp(trim($('#txtNo2').val()))?'':"and no2='" + trim($('#txtNo2').val()) + "' ");
-					btnOk();
 					q_func('qtxt.query.costchg','costchg.txt,costchg,'+r_accy + ';' + t_productno + ';' + t_price + ';' + t_wages + ';' + t_makes + ';' + t_where + ';' + r_name);
                 });
 			}
@@ -141,7 +140,7 @@
 	
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if(q_cur == 2)
+				if(q_cur == 0 && !emp($('#txtNoa').val()))
 					$('#btnCostchg').removeAttr('disabled');
 				else
 					$('#btnCostchg').attr('disabled','disabled');
