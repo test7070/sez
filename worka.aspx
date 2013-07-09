@@ -75,7 +75,7 @@
                 var workno = $('#txtWorkno').val();
                 if(workno.length > 0)
                 	t_where = "noa='" + workno + "'";
-                q_box("works_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
+                q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 			});
 			
 			$('#btnOrdes').click(function(){
