@@ -34,9 +34,9 @@
                         options : [{
                         type : '2',
                         name : 'xsssno',
-                        dbf : 'sss',
+                        dbf : 'sssall',
                         index : 'noa,namea',
-                        src : 'sss_b.aspx'
+                        src : 'sssall_b.aspx'
                         },{
                         type : '2',
                         name : 'xcno',
