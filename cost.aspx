@@ -531,7 +531,7 @@
                 <td align="center" style="width:3%;"><a id='lblOthermoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblLastmount_s'> </a></br> / <a id='lblLastweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblLastmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblLastprice_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSampmount_s'> </a></br> / <a id='lblSampweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSampmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblUccemount_s'> </a></br> / <a id='lblUcceweight_s'> </a></td>
@@ -592,7 +592,7 @@
                 	<input  id="txtLastweight.*" type="text" class="txt c1 num"/>
                 </td>
                 <td ><input  id="txtLastmoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtLastprice.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtPrice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtSampmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtSampweight.*" type="text" class="txt c1 num"/>
                 </td>
