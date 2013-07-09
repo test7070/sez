@@ -104,7 +104,7 @@
 							
 							t_where+="^^";
 							
-							q_gt('works', t_where , 0, 0, 0, "", r_accy);
+							q_gt('work', t_where , 0, 0, 0, "", r_accy);
 						}
 					}
                 break;
@@ -149,7 +149,7 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
-            	case 'works':
+            	case 'work':
 					//清空表身資料
             		for(var i = 0; i < q_bbsCount; i++) {
             			$('#btnMinus_'+i).click();
