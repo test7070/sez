@@ -32,7 +32,7 @@
             			,['txtOutsmount', 15, 0, 1],['txtOutsweight', 15, 3, 1],['txtOutsmoney', 15, 0, 1]
             			,['txtBackmount', 15, 0, 1],['txtBackweight', 15, 3, 1],['txtBackmoney', 15, 0, 1]
             			,['txtOthermount', 15, 0, 1],['txtOtherweight', 15, 3, 1],['txtOthermoney', 15, 0, 1]
-            			,['txtLastmount', 15, 0, 1],['txtLastweight', 15, 3, 1],['txtLastmoney', 15, 0, 1],['txtLastprice', 15, 2, 1]
+            			,['txtLastmount', 15, 0, 1],['txtLastweight', 15, 3, 1],['txtLastmoney', 15, 0, 1],['txtPrice', 15, 2, 1]
             			,['txtSampmount', 15, 0, 1],['txtSampweight', 15, 3, 1],['txtSampmoney', 15, 0, 1]
             			,['txtUccemount', 15, 0, 1],['txtUcceweight', 15, 3, 1],['txtUccemoney', 15, 0, 1]];
             var bbmMask = [];
@@ -247,15 +247,15 @@
 					//單價
 					if(costunit=='m'){
 						if(q_float('txtLastmount_'+j)>0)
-							q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastmount_'+j),2));
+							q_tr('txtPrice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastmount_'+j),2));
 						else
-							q_tr('txtLastprice_'+j,0);
+							q_tr('txtPrice_'+j,0);
 					}
 					if(costunit=='w'){
 						if(q_float('txtLastweight_'+j)>0)
-							q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastweight_'+j),2));
+							q_tr('txtPrice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastweight_'+j),2));
 						else
-							q_tr('txtLastprice_'+j,0);
+							q_tr('txtPrice_'+j,0);
 					}
                 } // j
             }
