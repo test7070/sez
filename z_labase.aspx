@@ -95,6 +95,10 @@
 	                    }, {
 	                        type : '1',
                        		name : 'salary'
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xorder',
+	                        value : ('員工編號,投保公司').split(',')
 	                    }]
                     });
                 q_popAssign();
