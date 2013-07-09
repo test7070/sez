@@ -251,49 +251,8 @@
 							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.8,2));
 							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.2,2));
 						}
-						if(dec($('#txtWages__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtWages__'+b_seq)/100),2));
-						}
-						if(dec($('#txtMakes__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtMakes__'+b_seq)/100),2));
-						}
 					});
 					
-					$('#txtWages__'+i).change(function() {
-						t_IdSeq = -1;
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						q_tr('txtMakes__'+b_seq,100-q_float('txtWages__'+b_seq));
-						
-						if(dec($('#txtWages__'+b_seq).val())==0&&dec($('#txtMakes__'+b_seq).val())==0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.8,2));
-							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.2,2));
-						}
-						if(dec($('#txtWages__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtWages__'+b_seq)/100),2));
-						}
-						if(dec($('#txtMakes__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtMakes__'+b_seq)/100),2));
-						}
-					});
-					
-					$('#txtMakes__'+i).change(function() {
-						t_IdSeq = -1;
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						q_tr('txtWages__'+b_seq,100-q_float('txtMakes__'+b_seq));
-						
-						if(dec($('#txtWages__'+b_seq).val())==0&&dec($('#txtMakes__'+b_seq).val())==0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.8,2));
-							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.2,2));
-						}
-						if(dec($('#txtWages__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtWages__'+b_seq)/100),2));
-						}
-						if(dec($('#txtMakes__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
-							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtMakes__'+b_seq)/100),2));
-						}
-					});
 				}
 			}
 			_bbtAssign();
