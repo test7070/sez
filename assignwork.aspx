@@ -132,6 +132,32 @@
                 $('#chkEnda').click(function() {
 					if(emp($('#txtEnddate').val())&&$('#chkEnda')[0].checked) {
 						$('#txtEnddate').val(q_date());
+						
+						//102/07/08 欣芸&&千嘉
+						//如果10日之前結案則當月10日，否則下個月10日,遇六日則順延<Begin>
+						if(dec(q_date().substr(7,2))>=10){
+			                var t_year = q_date().substring(0,3);
+			                var t_mon = q_date().substring(4,6);
+			                var t_day = '10';
+			                if((dec(t_mon)+1) > 12){
+			                	t_year = dec(t_year)+1;
+			                	t_mon = '01';
+			                }else{
+			                	t_mon = (dec(t_mon)+1).toString();
+			                	t_mon = padL(t_mon,'0',2);
+			                }
+			                var DateNew = new Date((dec(t_year)+1911) + '/' + t_mon + '/' + t_day);
+			                if(DateNew.getDay() == 0){
+			                	t_day = padL((dec(t_day)+1),'0',2);
+			                }else if(DateNew.getDay() == 6){
+			                	t_day = padL((dec(t_day)+2),'0',2);
+			                }
+			                //下個月5日遇六日則順延<End> t_year,t_mon,t_day
+			                $('#txtPaydate').val(t_year + '/' + t_mon + '/' + t_day);
+						}else{
+							$('#txtPaydate').val(q_date().substr(0,6) + '/10');
+						}
+						
 					}
                 });
             }
@@ -314,7 +340,7 @@
                 $('#txtOdate').val(q_date());
                 $('#txtWdate').val(q_date());
                 //下個月5日遇六日則順延<Begin>
-                var t_year = q_date().substring(0,3);
+               /* var t_year = q_date().substring(0,3);
                 var t_mon = q_date().substring(4,6);
                 var t_day = '05';
                 if((dec(t_mon)+1) > 12){
@@ -331,7 +357,7 @@
                 	t_day = padL((dec(t_day)+2),'0',2);
                 }
                 //下個月5日遇六日則順延<End> t_year,t_mon,t_day
-                $('#txtPaydate').val(t_year + '/' + t_mon + '/' + t_day);
+                $('#txtPaydate').val(t_year + '/' + t_mon + '/' + t_day);*/
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
 	            
