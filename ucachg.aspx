@@ -59,8 +59,18 @@
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('uca.typea'));
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
+				$('#btnUcachgDo').click(function(){
+                	var t_noa = trim($('#txtNoa').val());
+					q_func('qtxt.query.ucachg','ucachg.txt,ucachg,'+r_accy + ';' + t_noa + ';'+ r_name);
+				});
 			}
-
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.ucachg':
+						alert('作業完畢');
+					break;
+				}
+			}
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {   
@@ -149,6 +159,10 @@
 	
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(q_cur == 0 && !emp($('#txtNoa').val()))
+					$('#btnUcachgDo').removeAttr('disabled');
+				else
+					$('#btnUcachgDo').attr('disabled','disabled');
 			}
 	
 			function btnMinus(id) {
@@ -340,7 +354,8 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtMemo"  type="text" class="txt c1" /></td>
+						<td><input id="btnUcachgDo"  type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
