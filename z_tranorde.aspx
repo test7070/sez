@@ -74,6 +74,9 @@
                         type : '5',
                         name : 'xsort1',//[11]
                         value : q_getMsg('tsort1').split('&')
+                    },{/*[18] 3-2*/
+                    	type : '6',
+                    	name : 'xnoa'
                     }]
                 });
                 q_popAssign();
@@ -84,6 +87,10 @@
                 $('#txtDldate2').mask('999/99/99');
 				$('#txtOdate1').mask('999/99/99');
                 $('#txtOdate2').mask('999/99/99');
+                
+                var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtXnoa').val(t_noa);
                 
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();

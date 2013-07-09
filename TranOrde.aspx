@@ -131,7 +131,7 @@
                     q_gt('trando3', t_where, 0, 0, 0, "", r_accy);
                 });
                 $("#btnPrintorde").click(function(e) {
-                    q_box('z_tranorde.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+                    q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
                 });
                 $("#btnPrinttrand").click(function(e) {
                     q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
@@ -440,7 +440,7 @@
             }
 
             function btnPrint() {
-                q_box('z_tranorde.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
