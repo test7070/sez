@@ -243,6 +243,57 @@
 			for (var i = 0; i < q_bbtCount; i++) {
 				$('#lblNo__' + i).text(i + 1);
 				if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+					$('#txtPrice__'+i).change(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(dec($('#txtWages__'+b_seq).val())==0&&dec($('#txtMakes__'+b_seq).val())==0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.8,2));
+							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.2,2));
+						}
+						if(dec($('#txtWages__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtWages__'+b_seq)/100),2));
+						}
+						if(dec($('#txtMakes__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtMakes__'+b_seq)/100),2));
+						}
+					});
+					
+					$('#txtWages__'+i).change(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						q_tr('txtMakes__'+b_seq,100-q_float('txtWages__'+b_seq));
+						
+						if(dec($('#txtWages__'+b_seq).val())==0&&dec($('#txtMakes__'+b_seq).val())==0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.8,2));
+							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.2,2));
+						}
+						if(dec($('#txtWages__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtWages__'+b_seq)/100),2));
+						}
+						if(dec($('#txtMakes__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtMakes__'+b_seq)/100),2));
+						}
+					});
+					
+					$('#txtMakes__'+i).change(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						q_tr('txtWages__'+b_seq,100-q_float('txtMakes__'+b_seq));
+						
+						if(dec($('#txtWages__'+b_seq).val())==0&&dec($('#txtMakes__'+b_seq).val())==0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.8,2));
+							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.2,2));
+						}
+						if(dec($('#txtWages__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtWages_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtWages__'+b_seq)/100),2));
+						}
+						if(dec($('#txtMakes__'+b_seq).val())!=0&&!emp($('#txtPrice__'+b_seq).val())){
+							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*(q_float('txtMakes__'+b_seq)/100),2));
+						}
+					});
 				}
 			}
 			_bbtAssign();
@@ -687,18 +738,22 @@
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:20px;">
+						<td style="width:1%;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:20px;"> </td>
-						<td align="center" style="width:14%;"><a id='lblProcess_t'></a></td>
-						<td align="center" style="width:18%;"><a id='lblTgg_t'></a></td>
-						<td align="center" style="width:10%;"><a id='lblMount_t'></a></td>
-						<td align="center" style="width:8%;"><a id='lblPrice_t'></a></td>
-		                <td align="center" style="width:10%;"><a id='lblEndmount_t'></a></td>
-		                <td align="center" style="width:6%;"><a id='lblHours_t'></a></td>
-		                <td align="center" style="width:10%;"><a id='lblProductno_t'></a></td>
-		                <td align="center" style="width:20%;"><a id='lblAssm_t'></a></td>
+						<td style="width:1%;"> </td>
+						<td align="center" style="width:10%;"><a id='lblProcess_t'></a></td>
+						<td align="center" style="width:10%;"><a id='lblTgg_t'></a></td>
+						<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>
+						<td align="center" style="width:5%;"><a id='lblPrice_t'></a></td>
+		                <td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>
+		                <td align="center" style="width:5%;"><a id='lblHours_t'></a></td>
+		                <td align="center" style="width:8%;"><a id='lblProductno_t'></a></td>
+		                <td align="center" style="width:13%;"><a id='lblAssm_t'></a></td>
+		                <td align="center" style="width:6%;"><a id='lblWages_t'></a></td>
+		                <td align="center" style="width:6%;"><a id='lblMakes_t'></a></td>
+		                <td align="center" style="width:8%;"><a id='lblWages_fee_t'></a></td>
+		                <td align="center" style="width:8%;"><a id='lblMakes_fee_t'></a></td>
 					</tr>
 					<tr>
 						<td>
@@ -730,6 +785,10 @@
 						</td>
 						<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 						<td><input id="txtAssm..*" type="text" class="txt c1"/></td>
+						<td><input id="txtWages..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtMakes..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtWages_fee..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtMakes_fee..*" type="text" class="txt c1 num"/></td>
 					</tr>
 				</tbody>
 			</table>

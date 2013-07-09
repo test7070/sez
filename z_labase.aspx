@@ -34,9 +34,9 @@
                         options : [{
                         type : '2',
                         name : 'xsssno',
-                        dbf : 'sss',
+                        dbf : 'sssall',
                         index : 'noa,namea',
-                        src : 'sss_b.aspx'
+                        src : 'sssall_b.aspx'
                         },{
                         type : '2',
                         name : 'xcno',
@@ -95,6 +95,10 @@
 	                    }, {
 	                        type : '1',
                        		name : 'salary'
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xorder',
+	                        value : ('員工編號,投保公司').split(',')
 	                    }]
                     });
                 q_popAssign();
