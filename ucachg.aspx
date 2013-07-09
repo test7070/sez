@@ -28,8 +28,11 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			q_desc = 1;
-			aPop = new Array(['txtOrgproductno_', 'btnOrgproductno_', 'works', 'productno,product,processno,process,unit,cuadate,mount,gmount,emount', 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtCuadate_,txtMount_,txtGmount_,txtEmount_', 'works_b.aspx'],
+			aPop = new Array(
+	        	['txtProductno', 'lblProductno', 'uca', 'noa,product,spec,typea', 'txtProductno,txtProduct,txtSpec,cmbTypea', 'uca_b.aspx'],
+	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucaucc', 'noa,product', 'txtOrgproductno_,txtOrgproduct_', 'ucaucc_b.aspx'],
 	        	['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
+	        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 			);
 			
@@ -50,10 +53,12 @@
 			}  ///  end Main()
 	
 			function mainPost() {
-					q_getFormat();
-					bbmMask = [['txtDatea',r_picd]];
-					bbsMask = [['txtCuadate',r_picd]];
-					q_mask(bbmMask);
+				q_getFormat();
+				bbmMask = [['txtDatea',r_picd]];
+				bbsMask = [['txtCuadate',r_picd]];
+				q_mask(bbmMask);
+				q_cmbParse("cmbTypea", q_getPara('uca.typea'));
+				q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
 			}
 
 			function q_boxClose(s2) {
@@ -322,9 +327,17 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-						<td><input id="txtWorkno"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+						<td><input id="txtProductno"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
+						<td><input id="txtProduct"  type="text" class="txt c1" /></td>
 					</tr>  
+					<tr>
+						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
+						<td><input id="txtSpec"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
@@ -343,19 +356,21 @@
 						<td align="center" style="width:1%;">
 							<input class="txt btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 						</td>
-						<td align="center" style="width:15%;"><a id='lblOrgproductno_s'></a></td>
-						<td align="center" style="width:15%;"><a id='lblOrgprocessno_s'></a></td>
-						<td align="center" style="width:15%;"><a id='lblProductno_s'></a></td>
+						<td align="center" style="width:12%;"><a id='lblOrgproductno_s'></a></td>
+						<td align="center" style="width:12%;"><a id='lblOrgprocessno_s'></a></td>
+						<td align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
 						<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
-						<td align="center" style="width:8%;"><a id='lblCuadate_s'></a></td>
-						<td align="center" style="width:8%;"><a id='lblMount_s'></a></td>
-						<td align="center" style="width:8%;"><a id='lblGmount_s'></a></td>
-						<td align="center" style="width:8%;"><a id='lblEmount_s'></a></td>
+						<td align="center" style="width:6%;"><a id='lblMount_s'></a></td>
+						<td align="center" style="width:6%;"><a id='lblWeight_s'></a></td>
+						<td align="center" style="width:8%;"><a id='lblMtype_s'></a></td>
+						<td align="center" style="width:12%;"><a id='lblProcessno_s'></a></td>
+						<td align="center" style="width:6%;"><a id='lblLoss_s'></a></td>
 						<td align="center" style="width:15%;"><a id='lblMemo_s'></a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
 						<td>
 							<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
+							<input id="txtUcanoq.*" type="hidden"/>
 						</td>
 						<td>
 							<input id="txtOrgproductno.*" type="text" class="txt" style="width: 75%;"/>
@@ -373,10 +388,15 @@
 							<input id="txtProduct.*" type="text" class="txt c1"/>
 						</td>
 						<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
-						<td><input id="txtGmount.*" type="text" class="txt num c1" /></td>
-						<td><input id="txtEmount.*" type="text" class="txt num c1" /></td>
+						<td><input id="txtWeight.*" type="text" class="txt num c1" /></td>
+						<td><select id="cmbMtype.*" class="txt c1"> </select></td>
+						<td>
+							<input id="txtProcessno.*" type="text" class="txt" style="width: 75%;"/>
+							<input class="btn" id="btnProcessno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input id="txtProcess.*" type="text" class="txt c1"/>
+						</td>
+						<td><input id="txtLoss.*" type="text" class="txt num c1" /></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
