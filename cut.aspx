@@ -50,7 +50,8 @@
             q_mask(bbmMask); 
              q_cmbParse("cmbTypea", q_getPara('cut.typea'));
              q_cmbParse("cmbType2", q_getPara('cut.type2'));
-             q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
+              q_cmbParse("cmbKind", q_getPara('cut.kind'));
+
              //重新計算理論重 
             $('#cmbTypea').change(function () {
 				for(var j = 0; j < q_bbsCount; j++) {
@@ -192,7 +193,7 @@
                 return;
             }
             
-            if(dec($('#txtTheyout').val())!=0&&dec($('#txtMount').val())==0)
+            if(dec($('#txtTheyout').val())!=0&&dec($('#txtGmount').val())==0)
             {
             	alert("領料數為零");
                 return;
@@ -932,8 +933,8 @@
             <td class="td2"><input id="txtGweight" type="text" class="txt num c1" /></td> 
             <td class='td3'><span> </span><a id="lblGtime" class="lbl"></a></td>
             <td class="td4"><input id="txtGtime" type="text" class="txt c1"/></td>
-            <td class='td5'><span> </span><a id="lblMount" class="lbl"></a></td>
-            <td class="td6"><input id="txtMount" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblGmount" class="lbl"></a></td>
+            <td class="td6"><input id="txtGmount" type="text" class="txt num c1" /></td>
         </tr>
          <tr>
             <td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
