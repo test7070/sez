@@ -87,7 +87,21 @@
             $('#btnUcap').click(function() {
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("ucap_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucap', "980px", "650px", q_getMsg('btnUcap'));
-                });  
+             });  
+             $('#btnClose_div_assm').click(function() {
+                    //寫入到對應的assm
+                    var bbt_b_seq=$('#bbt_b_seq').val();
+                    var tmpassm='';
+                    for (var i = 0; i < assm_row; i++) {
+                    	if(dec($('#assm_txtMount_'+i).val())>0)
+                    		tmpassm+=($('#assm_txtProductno_'+i).val()+','+$('#assm_txtMount_'+i).val()+';');
+                    }
+                    if(tmpassm.length>0){
+                     	tmpassm=tmpassm.substr(0,tmpassm.length-1)
+						$('#txtAssm__'+bbt_b_seq).val(tmpassm)
+					}
+                    $('#div_assm').toggle();
+             });
         }
         
 		var t_td='';
@@ -234,11 +248,16 @@
 		                		q_func('qtxt.query','bom.txt,bom,'+ encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
 	                		}
                 		});
+                		
+                		$('#btnMinus_'+i).mousedown(function(e) {
+                			
+                		});
            			}
            		}
             _bbsAssign();
         }
         
+        var assm_row=0;
         function bbtAssign() {
 			for (var i = 0; i < q_bbtCount; i++) {
 				$('#lblNo__' + i).text(i + 1);
@@ -252,7 +271,54 @@
 							q_tr('txtMakes_fee__'+b_seq,round(q_float('txtPrice__'+b_seq)*0.2,2));
 						}
 					});
-					
+
+					$('#btnAssm__'+i).mousedown(function(e) {
+						if(q_cur<1 || q_cur>2)
+							return;
+						if(!$("#div_assm").is(":hidden"))
+							return;
+						////////////控制顯示位置
+						$('#div_assm').css('top',e.pageY-parseInt($('#div_assm').css('height')));
+						$('#div_assm').css('left',e.pageX-parseInt($('#div_assm').css('width')));
+						///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						$('#div_assm').toggle();
+						$('#bbt_b_seq').val(b_seq);
+						//清除之前插入的內容
+						//document.getElementById("table_assm").deleteRow();
+						var rowslength=document.getElementById("table_assm").rows.length-1
+						for (var j = 1; j < rowslength; j++) {
+							document.getElementById("table_assm").deleteRow(1);
+						}
+						assm_row=0;
+						//插入bbs&bbt
+						for (var j = 0; j < q_bbsCount; j++) {
+							if(!emp($('#txtProductno_'+j).val())){
+								var tr = document.createElement("tr");
+								tr.id = "bbs_"+j;
+								tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno_'+j).val()+"' disabled='disabled'/></td>";
+								tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProduct_'+j).val()+"' disabled='disabled' /></td>";
+								tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='"+$('#txtMount_'+j).val()+"' onkeyup='return ValidateFloat($(this),value)'/></td>";
+								var tmp = document.getElementById("assm_close");
+								tmp.parentNode.insertBefore(tr,tmp);
+								assm_row++;
+							}
+						}
+						for (var j = 0; j < q_bbtCount; j++) {
+							if(!emp($('#txtProductno__'+j).val())){
+								var tr = document.createElement("tr");
+								tr.id = "bbt_"+j;
+								tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"' disabled='disabled'/></td>";
+								tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"-半成品' disabled='disabled' /></td>";
+								tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='0'/></td>";
+								var tmp = document.getElementById("assm_close");
+								tmp.parentNode.insertBefore(tr,tmp);
+								assm_row++;
+							}
+						}
+	               });
 				}
 			}
 			_bbtAssign();
@@ -329,6 +395,10 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if(t_para){
+            	$('#div_assm').hide();
+            }
+            
         }
 
         function btnMinus(id) {
@@ -381,6 +451,14 @@
         function btnCancel() {
             _btnCancel();
         }
+		function ValidateFloat(e, pnumber)
+		{
+		    if (!/^\d+[.]?\d*$/.test(pnumber))
+		    {
+		        $(e).val(/^\d+[.]?\d*/.exec($(e).val()));
+		    }
+		    return false;
+		}
     </script>
     <style type="text/css">
         #dmain {
@@ -467,7 +545,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 71%;
+                width: 75%;
                 float: left;
             }
             .txt.num {
@@ -541,9 +619,36 @@
                 text-align: center;
                 border: 2px pink double;
             }
+            #div_assm{
+			display:none;
+			width:750px;
+			background-color: #cad3ff;
+			border: 5px solid gray;
+			position: absolute;
+			left: 20px;
+			z-index: 50;
+			}
+			#div_assm .tdY{
+				width: 98%;
+			}
     </style>
 </head>
 <body>
+	<div id="div_assm" style="position:absolute; top:300px; left:500px; display:none; width:500px; background-color: #FF9D37; border: 5px solid gray;">
+		<table id="table_assm" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+			<tr id='assm_top'>
+				<td align="center" style="width: 40%;">品號	</td>
+				<td align="center" style="width: 45%;">品名</td>
+				<td align="center" style="width: 15%;">數量</td>
+			</tr>
+			<tr id='assm_close'>
+				<td align="center" colspan='3'>
+					<input id="btnClose_div_assm" type="button" value="關閉視窗">
+					<input id="bbt_b_seq" type="hidden"/>
+				</td>
+			</tr>
+			</table>
+		</div>
 	<!--#include file="../inc/toolbar.inc"-->
     <div class="dview" id="dview" style="float: left;  width:32%;"  >
 		<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -743,7 +848,10 @@
 							<input id="txtHours..*" type="text" class="txt c1 num"/>
 						</td>
 						<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
-						<td><input id="txtAssm..*" type="text" class="txt c1"/></td>
+						<td>
+							<input id="btnAssm..*" type="button" value='.' style=" font-weight: bold;width:1%; float: left;" />
+							<input id="txtAssm..*" type="text" class="txt c5"/>
+						</td>
 						<td><input id="txtWages..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMakes..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWages_fee..*" type="text" class="txt c1 num"/></td>
