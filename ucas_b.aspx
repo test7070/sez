@@ -1,7 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="Content-Language" content="en-us" />
 		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"> </script>
 		<script src="../script/qj2.js" type="text/javascript"> </script>
@@ -14,6 +12,7 @@
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i, s1;
+			
 			$(document).ready(function() {
 				main();
 			});
@@ -31,11 +30,11 @@
 			}
 
 			function q_gtPost() {
-
+				
 			}
-
 			function refresh() {
 				_refresh();
+				_readonlys(true);
 			}
 		</script>
 		<style type="text/css">
@@ -55,16 +54,16 @@
 
 	<body>
 		<div id="dbbs" >
-			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
+			<table id="tbbs" class="tbbs" border="2"  cellpadding='0' cellspacing='0' style='width:98%'>
 				<tr>
 					<th align="center" style="width:2%;"></th>
 					<th align="center" style="width:11%;"><a id='lblProductno'></a></th>
-					<th align="center" style="width:20%;"><a id='lblProducts'></a></th>
+					<th align="center" style="width:15%;"><a id='lblProducts'></a></th>
 					<th align="center" style="width:4%;"><a id='lblUnit'></a></th>
 					<th align="center" style="width:5%;"><a id='lblMount'></a></th>
 					<th align="center" style="width:8%;"><a id='lblWeights'></a></th>
 					<th align="center" style="width:8%;"><a id='lblMtype_s'></a></th>
-					<th align="center" style="width:12%;"><a id='lblProcessno_s'></a></th>
+					<th align="center" style="width:15%;"><a id='lblProcessno_s'></a></th>
 					<th align="center" style="width:6%;"><a id='lblLoss_s'></a></th>
 					<th align="center"><a id='lblMemos'></a></th>
 				</tr>
@@ -72,8 +71,7 @@
 					<td><input name="sel" id="radSel.*" type="radio" /></td>
 	                <td>
 	                	<input id="txtNoa.*" type="hidden"/>
-	                	<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
-	                	<input id="txtProductno.*" type="text" style="width: 75%;"/>
+	                	<input id="txtProductno.*" type="text" class="txt c1"/>
 	                </td>
 	                <td>
 	                	<input id="txtProduct.*" type="text" class="txt c1"/>
@@ -84,20 +82,18 @@
 	                <td><input id="txtWeight.*" type="text" class="txt num c1"/></td>
 	                <td><select id="cmbMtype.*" class="txt c1"> </select></td>
 	                <td>
-	                	<input class="btn"  id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
-	                	<input id="txtProcessno.*" type="text" style="width: 75%;"/>
-	                	<input id="txtProcess.*" type="text" class="txt c1"/>
+	                	<input id="txtProcessno.*" type="text" style="width: 30%;"/>
+	                	<input id="txtProcess.*" type="text" style="width: 65%;"/>
 	                </td>
 	                <td><input id="txtLoss.*" type="text" class="txt num c1"/></td>
 	                <td>
 	                	<input id="txtMemo.*" type="text" class="txt c1"/>
-	                	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+	                	<input id="txtNoq.*" type="hidden" />
 	                </td>
 				</tr>
 			</table>
-			<!--#include file="../inc/brow_ctrl.inc"-->
+			<!--#include file="../inc/pop_ctrl.inc"-->
 		</div>
-
 	</body>
 </html>
 

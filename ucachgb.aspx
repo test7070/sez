@@ -29,9 +29,9 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			aPop = new Array(
-	        	['txtProductno', 'lblProductno', 'uca', 'noa,product,spec,typea', 'txtProductno,txtProduct,txtSpec,cmbTypea', 'uca_b.aspx'],
-	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,weight,mtype,processno,process,loss,memo,noq',
-	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,txtWeight_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_,txtUcanoq_', 'ucas_b.aspx'],
+	        	['txtProductno', 'lblProductno', 'uca', 'noa,product,typea', 'txtProductno,txtProduct,cmbTypea', 'uca_b.aspx'],
+	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,weight,mtype,processno,process,loss,memo',
+	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,txtWeight_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_', 'ucas_b.aspx'],
 	        	['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
 	        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
@@ -50,6 +50,7 @@
 					return;
 				}	
 				mainForm(0); // 1=Last  0=Top
+				document.title = '整批變更';
 			}  ///  end Main()
 	
 			function mainPost() {
@@ -61,12 +62,15 @@
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
 				$('#btnUcachgDo').click(function(){
                 	var t_noa = trim($('#txtNoa').val());
-					q_func('qtxt.query.ucachg','ucachg.txt,ucachg,'+r_accy + ';' + t_noa + ';'+ r_name);
+					q_func('qtxt.query.ucachgb','ucachg.txt,ucachgb,'+r_accy + ';' + t_noa + ';'+ r_name);
 				});
 			}
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.ucachg':
+						alert('作業完畢');
+					break;
+					case 'qtxt.query.ucachgb':
 						alert('作業完畢');
 					break;
 				}
@@ -354,15 +358,14 @@
 						<td><input id="txtProduct"  type="text" class="txt c1" /></td>
 					</tr>  
 					<tr>
-						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
-						<td><input id="txtSpec"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
+						<td></td>
+						<td><input id="btnUcachgDo"  type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtMemo"  type="text" class="txt c1" /></td>
-						<td><input id="btnUcachgDo"  type="button"/></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -392,7 +395,6 @@
 					<tr style='background:#cad3ff;'>
 						<td>
 							<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
-							<input id="txtUcanoq.*" type="hidden"/>
 						</td>
 						<td>
 							<input id="txtOrgproductno.*" type="text" class="txt" style="width: 75%;"/>

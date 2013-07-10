@@ -388,9 +388,10 @@
             t_float = (emp(t_float) ? 1 : t_float);
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();
-                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());
+                //t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());
+                t_mount = dec($('#txtMount_' + j).val());
                 t_weight = t_weight + dec($('#txtWeight_' + j).val());
-                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount)*t_float, 0));
+                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
 
