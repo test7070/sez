@@ -308,7 +308,6 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-
          }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -636,7 +635,7 @@
                 <td align="center" style="width:8%;"><a id='lblTheory'></a></td>
                 <!--<td align="center" style="width:8%;"><a id='lblBorn'></a></td>-->
                 <td align="center" style="width:8%;"><a id='lblWmount'></a></td>
-                <td align="center" style="width:8%;"><a id='lblErrmount'></a></td>
+                <!--<td align="center" style="width:8%;"><a id='lblErrmount'></a></td>-->
                 <td align="center" style="width:10%;"><a id='lblMemos'></a></td>
                 <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblWorknos'></a></td>
@@ -665,7 +664,7 @@
                 	<input id="txtBweight.*" type="text" class="txt c1 num"/>
                 </td>-->
                 <td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
-                <td><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>
+                <!--<td><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>-->
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtOrdeno.*" type="text" style="width:70%;"/>
                 	<input id="txtNo2.*" type="text" style="width:20%;"/>

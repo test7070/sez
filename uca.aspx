@@ -248,6 +248,10 @@
 		                		q_func('qtxt.query','bom.txt,bom,'+ encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
 	                		}
                 		});
+                		
+                		$('#btnMinus_'+i).mousedown(function(e) {
+                			
+                		});
            			}
            		}
             _bbsAssign();
