@@ -26,7 +26,7 @@
             			,['txtInmount', 15, 0, 1],['txtInweight', 15, 3, 1],['txtInmoney', 15, 0, 1]
             			,['txtBornmount', 15, 0, 1],['txtBornweight', 15, 3, 1],['txtBornmoney', 15, 0, 1]
             			,['txtOutvmount', 15, 0, 1],['txtOutvweight', 15, 3, 1],['txtOutvmoney', 15, 0, 1]
-            			,['txtMount', 15, 0, 1],['txtWeight', 15, 3, 1],['txtMoney', 15, 0, 1]
+            			,['txtOutmount', 15, 0, 1],['txtOutweight', 15, 3, 1],['txtOutmoney', 15, 0, 1]
             			,['txtSalemount', 15, 0, 1],['txtSaleweight', 15, 3, 1],['txtSalemoney', 15, 0, 1]
             			,['txtOutsmount', 15, 0, 1],['txtOutsweight', 15, 3, 1],['txtOutsmoney', 15, 0, 1]
             			,['txtBackmount', 15, 0, 1],['txtBackweight', 15, 3, 1],['txtBackmoney', 15, 0, 1]
@@ -222,7 +222,7 @@
 						else
 							q_tr('txtInprice_'+j,0);*/
 						//q_tr('txtMount_'+j,q_float('txtBeginmount_'+j)+q_float('txtInmount_'+j)+q_float('txtBornmount_'+j)+q_float('txtOutvmount_'+j));
-						q_tr('txtLastmount_'+j,q_float('txtBeginmount_'+j)+q_float('txtInmount_'+j)+q_float('txtBornmount_'+j)+q_float('txtOutvmount_'+j)-q_float('txtSalemount_'+j)-q_float('txtMount_'+j)-q_float('txtOutsmount_'+j)+q_float('txtBackmount_'+j)+q_float('txtOthermount_'+j));
+						q_tr('txtLastmount_'+j,q_float('txtBeginmount_'+j)+q_float('txtInmount_'+j)+q_float('txtBornmount_'+j)+q_float('txtOutvmount_'+j)-q_float('txtSalemount_'+j)-q_float('txtOutmount_'+j)-q_float('txtOutsmount_'+j)+q_float('txtBackmount_'+j)+q_float('txtOthermount_'+j));
 					}
 					
 					//重量
@@ -236,7 +236,7 @@
 						else
 							q_tr('txtInprice_'+j,0);*/
 						//q_tr('txtWeight_'+j,q_float('txtBeginweight_'+j)+q_float('txtInweight_'+j)+q_float('txtBornweight_'+j)+q_float('txtOutvweight_'+j));
-						q_tr('txtLastweight_'+j,q_float('txtBeginweight_'+j)+q_float('txtInweight_'+j)+q_float('txtBornweight_'+j)+q_float('txtOutvweight_'+j)-q_float('txtSaleweight_'+j)-q_float('txtWeight_'+j)-q_float('txtOutsweight_'+j)+q_float('txtBackweight_'+j)+q_float('txtOtherweight_'+j))
+						q_tr('txtLastweight_'+j,q_float('txtBeginweight_'+j)+q_float('txtInweight_'+j)+q_float('txtBornweight_'+j)+q_float('txtOutvweight_'+j)-q_float('txtSaleweight_'+j)-q_float('txtOutweight_'+j)-q_float('txtOutsweight_'+j)+q_float('txtBackweight_'+j)+q_float('txtOtherweight_'+j))
 					}
 					
 					//金額
@@ -516,8 +516,8 @@
                 <td align="center" style="width:3%;"><a id='lblBornmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutvmount_s'> </a></br> / <a id='lblOutvweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutvmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMount_s'> </a></br> / <a id='lblWeight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMoney_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblOutmount_s'> </a></br> / <a id='lblOutweight_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblOutmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSalemount_s'> </a></br> / <a id='lblSaleweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSalemoney_s'> </a></td>
                 <!--<td align="center" style="width:3%;"><a id='lblGetmount_s'> </a></br> / <a id='lblGetweight_s'> </a></td>
@@ -541,7 +541,7 @@
                 <td >
                 	<input  id="txtProductno.*" type="text" style="width:80%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
-                	<input  id="txtProduct.*" type="text" style="width:80%;"/>
+                	<!--<input  id="txtProduct.*" type="text" style="width:80%;"/>-->
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
                 <td ><input  id="txtBeginmount.*" type="text" class="txt c1 num"/>
@@ -563,10 +563,10 @@
                 </td>
                 <td ><input  id="txtOutvmoney.*" type="text" class="txt c1 num"/></td>
                 
-                <td ><input  id="txtMount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtWeight.*" type="text" class="txt c1 num"/>
+                <td ><input  id="txtOutmount.*" type="text" class="txt c1 num"/>
+                	<input  id="txtOutweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtMoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtOutmoney.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtSalemount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtSaleweight.*" type="text" class="txt c1 num"/>
                 </td>
