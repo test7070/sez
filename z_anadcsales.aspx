@@ -169,7 +169,11 @@
                         }, {/*20-[27]-櫃號*///5-8
                             type : '6',
                             name : 'xcaseno'
-                        }]
+                        }, {/*21-[28]-排序方式*//*08*/
+							type : '8',
+							name : 'xoption08',
+							value : q_getMsg('toption08').split('&')
+						}]
                     });
                     q_popAssign();
                     q_langShow();
