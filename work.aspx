@@ -24,7 +24,7 @@
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
         var q_readonly = ['txtNoa','txtComp','txtProduct','txtStation']; 
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtTproductno','txtTproduct']; 
-        var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 0,1], ['txtWages', 15, 0, 1], ['txtMakes', 15, 0, 1]];  // 允許 key 小數
+        var bbmNum = [['txtPrice', 10, 2, 1],['txtWmount', 10, 0,1], ['txtWages_fee', 15, 2, 1], ['txtMakes_fee', 15, 2, 1]];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1], ['txtCost', 15, 0, 1], ['txtPrice', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [['txtCuadate','999/99/99']];
@@ -522,10 +522,10 @@
 		        	<input id="txtModelno" type="text"  class="txt" style="width: 45%"/>
 		        	<input id="txtModel" type="text"  class="txt" style="width: 45%"/>
 		        </td>
-		        <td class="td3"><span> </span><a id="lblWages" class="lbl"> </a></td>
-		        <td class="td4"><input id="txtWages" type="text"  class="txt num"/></td>
-		        <td class="td5"><span> </span><a id="lblMakes" class="lbl"> </a></td>
-		        <td class="td6"><input id="txtMakes" type="text"  class="txt num"/></td>
+		        <td class="td3"><span> </span><a id="lblWages_fee" class="lbl"> </a></td>
+		        <td class="td4"><input id="txtWages_fee" type="text"  class="txt num"/></td>
+		        <td class="td5"><span> </span><a id="lblMakes_fee" class="lbl"> </a></td>
+		        <td class="td6"><input id="txtMakes_fee" type="text"  class="txt num"/></td>
 			</tr>
 			<tr class="tr9">
 		        <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>

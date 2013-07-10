@@ -30,12 +30,12 @@
 			q_desc = 1;
 			aPop = new Array(
 	        	['txtProductno', 'lblProductno', 'uca', 'noa,product,spec,typea', 'txtProductno,txtProduct,txtSpec,cmbTypea', 'uca_b.aspx'],
-	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucaucc', 'noa,product', 'txtOrgproductno_,txtOrgproduct_', 'ucaucc_b.aspx'],
+	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,weight,mtype,processno,process,loss,memo,noq',
+	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,txtWeight_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_,txtUcanoq_', 'ucas_b.aspx'],
 	        	['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
 	        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 			);
-			
 			$(document).ready(function () {
 				bbmKey = ['noa'];
 				bbsKey = ['noa','noq'];
@@ -138,8 +138,15 @@
 			
 			function bbsAssign() {  /// 表身運算式
 				for(var j = 0; j < q_bbsCount; j++) {
-					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-					}
+					$('#btnOrgproductno_' + j).click(function(){
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						var t_where = ' 1=1 ';
+						var t_productno = trim($('#txtOrgproductno_' + j).val());
+						t_where += q_sqlPara2('productno',t_productno);
+						q_box("ucas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "80%", q_getMsg('popUcas'));
+					});
 				}
 				_bbsAssign();
 			}
