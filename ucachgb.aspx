@@ -42,13 +42,13 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
-	
+
 			//////////////////   end Ready
 			function main() {
 				if (dataErr) {
 					dataErr = false;
 					return;
-				}	
+				}
 				mainForm(0); // 1=Last  0=Top
 				document.title = '整批變更';
 			}  ///  end Main()
@@ -365,7 +365,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt" style="width: 98%;" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
