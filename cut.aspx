@@ -672,7 +672,7 @@
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-			if( $('#cmbKind').val().substr(0,1)=='A'){
+			 if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
             	$('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
