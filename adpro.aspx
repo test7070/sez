@@ -363,21 +363,28 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblJob' class="lbl"> </a></td>
-						<td><select id='cmbJob' > </select></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td><input id="txtPrice"  type="text" class="txt c1" /></td>
-					</tr>
-					<td><span> </span><a id="lblAgent" class="lbl" > </a></td>
+						<td><span> </span><a id="lblTggno" class="lbl btn" > </a></td>
 						<td colspan="3">
-						<input id="txtAgentno" type="text" style="float:left; width:25%;"/>
-						<input id="txtAgeent"  type="text" style="float:left; width:73%;"/>
-						</td>
+						<input id="txtTggno" type="text" style="float:left; width:25%;"/>
+						<input id="txtTgg"  type="text" style="float:left; width:73%;"/>
+						</td>	
+					</tr>
 					<tr>
-						<td><span> </span><a id='lblPasswd' class="lbl"> </a></td>
-						<td><input id="txtPasswd" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblExreprice' class="lbl"> </a></td>
+						<td><input id="txtExreprice"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblExprice' class="lbl"> </a></td>
+						<td><input id="txtExprice"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblDiffprice' class="lbl"> </a></td>
+						<td><input id="txtDiffprice"  type="text" class="txt c1" /></td>
+					</tr>
+					
+					<tr>
+						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
+						<td><input id="txtWeight" type="text" class="txt c1" /></td>
 					</tr>
 					
 				</table>
