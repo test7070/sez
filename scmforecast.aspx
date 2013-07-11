@@ -142,6 +142,7 @@
                 }
 
                 q_nowf();
+                as['custno'] = abbm2['custno'];
                 as['mon'] = abbm2['mon'];
                 return true;
             }
