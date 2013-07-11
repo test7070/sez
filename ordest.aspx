@@ -31,7 +31,7 @@
 		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 		['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
 		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-		['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+		['txtUno_', 'btnUno_', 'uccc', 'noa,class,spec,unit', 'txtUno_,txtClass_,txtSpec_,txtUnit_', 'uccc_seek_b.aspx','95%','60%'],
 		['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_fact,addr_fact',
            	 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx'],
         ['txtUno__', 'btnUno__', 'uccc', 'noa', 'txtUno__', 'uccc_seek_b.aspx','95%','60%'],
@@ -313,14 +313,14 @@
 					$('#btnOrdet_'+j).click(function(){
 						var b_seq = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 						var t_productno = trim($('#txtProductno_' + b_seq).val());
-						var t_uno = trim($('#txtUno_' + b_seq).val());
+						//var t_uno = trim($('#txtUno_' + b_seq).val());
 						var t_lengthb = dec(trim($('#txtLengthb_' + b_seq).val()));
 						var t_dime = dec(trim($('#txtDime_' + b_seq).val()));
 						var t_width = dec(trim($('#txtWidth_' + b_seq).val()));
 						var t_radius = dec(trim($('#txtRadius_' + b_seq).val()));
 						var t_unit  = trim($('#txtUnit_' + b_seq).val());
 						var t_where = ' 1=1 ' + q_sqlPara2("productno", t_productno)
-											  + q_sqlPara2("noa", t_uno)
+											  //+ q_sqlPara2("noa", t_uno)
 											  + (t_lengthb > 0?' and lengthb > ' + (t_lengthb-0.00001):'')
 											  + (t_dime > 0?' and dime > ' + (t_dime-0.00001):'')
 											  + (t_width > 0?' and width > ' + (t_width-0.00001):'')
@@ -455,6 +455,21 @@
         }
 		function q_popPost(s1) {
 			switch (s1) {
+				case 'txtUno_':
+					var ret = getb_ret();
+					if(ret[0] != undefined){
+						if(emp($('#txtRadius_' + b_seq).val()) || $('#txtRadius_' + b_seq).val() == 0)
+							$('#txtRadius_' + b_seq).val(ret[0].radius);
+						if(emp($('#txtWidth_' + b_seq).val()) || $('#txtWidth_' + b_seq).val() == 0)
+							$('#txtWidth_' + b_seq).val(ret[0].width);
+						if(emp($('#txtLengthb_' + b_seq).val()) || $('#txtLengthb_' + b_seq).val() == 0)
+							$('#txtLengthb_' + b_seq).val(ret[0].lengthb);
+						if(emp($('#txtDime_' + b_seq).val()) || $('#txtDime_' + b_seq).val() == 0)
+							$('#txtDime_' + b_seq).val(ret[0].dime);
+						size_change();
+						$('#textSize1_' + b_seq).change();
+					} 
+					break;
 				case 'txtProductno_':
 					$('input[id*="txtProduct_"]').each(function(){
 						$(this).attr('OldValue',$(this).val());
@@ -541,7 +556,7 @@
         function btnCancel() {
             _btnCancel();
         }
-		function size_change () { 
+		function size_change() { 
 			if(q_cur==1 || q_cur==2){
 				$('input[id*="textSize"]').removeAttr('disabled');
 			}else{
@@ -889,7 +904,6 @@
                 <td align="center" style="width:60px;"><a id='lblClasss'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblMount'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeights'> </a></td>
@@ -900,6 +914,7 @@
                 <td align="center" style="width:10%;"><a id='lblMemos'> </a></td>
                 <td align="center" style="width:2%;"><a id='lblssale_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblscut_st'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -927,7 +942,6 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c7" id="txtSpec.*" type="text" />
                 </td>
-                <td ><input class="txt c7" id="txtSize.*" type="text"/></td>
                 <td ><input class="txt c7" id="txtUnit.*" type="text"/></td>
                 <td ><input class="txt num c7" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c7" id="txtWeight.*" type="text" /></td>
@@ -948,6 +962,7 @@
                 </td>
 				<td align="center"><input id="chkIssale.*" type="checkbox"/></td>
 				<td align="center"><input id="chkIscut.*" type="checkbox"/></td>
+                <td ><input class="txt c7" id="txtSize.*" type="text"/></td>
             </tr>
         </table>
         </div>

@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-	var q_name = 'uccc', t_content = ' ', bbsKey = [''], as; 
+	var q_name = 'uccc', t_content = ' ', bbsKey = ['noa'], as; 
 	var isBott = false;
 	var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 	var i,s1;
@@ -20,6 +20,15 @@
 		['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
 	);
 		$(document).ready(function () {
+			var Parent = window.parent.document;
+			if(Parent.getElementById('cmbKind')){
+				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
+				if(t_cmbKind=='A'){
+					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
+					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
+					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
+				}
+			}
 			main();
 		});		 /// end ready
 
@@ -87,6 +96,29 @@
 
 		function refresh() {
 			_refresh();
+			var Parent = window.parent.document;
+			if(Parent.getElementById('cmbKind')){
+				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
+				if(t_cmbKind=='A'){
+					$('#lblSize_st').text('厚度x寬度x長度');
+					$('input[id*="txtLengthb_"]').css('width','29%');
+					$('input[id*="txtWidth_"]').css('width','29%');
+					$('input[id*="txtDime_"]').css('width','29%');
+					$('input[id*="txtRadius_"]').remove();
+					$('span[id*="StrX1"]').remove();
+				}else if((t_cmbKind !='A') && (t_cmbKind !='B')){
+					$('#lblSize_st').text('長度');
+					$('#lblSize_st').parent().css('width','6%');
+					$('input[id*="txtLengthb_"]').css('width','95%');
+					$('input[id*="txtRadius_"]').remove();
+					$('input[id*="txtWidth_"]').remove();
+					$('input[id*="txtDime_"]').remove();
+					$('span[id*="StrX1"]').remove();
+					$('span[id*="StrX2"]').remove();
+					$('span[id*="StrX3"]').remove();
+				}
+			}
+            _readonly(true);
 		}
 	</script>
 	<style type="text/css">
@@ -129,6 +161,10 @@
 		input[type="button"] {	 
 			font-size: medium;
 		}
+    	.StrX{
+    		margin-right:-2px;
+    		margin-left:-2px;
+    	}
 	</style>
 </head>
 <body> 
@@ -143,7 +179,7 @@
 			<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
 			<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 			<td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
-			<td align="center" style="width:4%;"><a id='lblInvono_st'> </a></td>
+			<td align="center" style="width:4%;"><a id='lblOrdeno_st'> </a></td>
 			<td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>
 			<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
 			<td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
@@ -155,11 +191,15 @@
 			<td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 			<td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 			<td ><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-			<td ><input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-				<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
-				<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
+			<td >
+				<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+                <span id="StrX1" class="StrX">x</span>
+				<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+				<span id="StrX2" class="StrX">x</span>
+				<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+				<span id="StrX3" class="StrX">x</span>
 				<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-			</td>
+            </td>
 			<td ><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
 				<td ><input id="txtGweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
 			<td ><input id="txtInvono.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
