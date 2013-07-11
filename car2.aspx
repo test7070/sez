@@ -1106,6 +1106,12 @@
 					<tr class="other">
 						<td><span> </span><a id="lblWheelbase" class="lbl"> </a></td>
 						<td><input id="txtWheelbase" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblAxlenum" class="lbl"> </a></td>
+						<td><input id="txtAxlenum" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblWheelnum" class="lbl"> </a></td>
+						<td><input id="txtWheelnum" type="text" class="txt c1"/> </td>
+					</tr>
+					<tr class="other">
 						<td><span> </span><a id="lblWeight1" class="lbl"> </a></td>
 						<td><input id="txtWeight1" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblWeight2" class="lbl"> </a></td>
