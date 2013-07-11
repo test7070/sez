@@ -34,6 +34,7 @@
             brwKey = 'noa';
             q_desc = 1;
             brwCount2 = 5;
+			aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -202,6 +203,9 @@
 							var t_productno = trim($('#txtProductno_' + b_seq).val());
 							var t_bdime = dec($('#txtBdime_' + b_seq).val());
 		                	var t_edime = dec($('#txtEdime_' + b_seq).val());
+		                	if(t_bdime == 0 && t_edime == 0){
+		                		t_edime = Number.MAX_VALUE;
+		                	}
 		                	t_where += q_sqlPara2('productno',t_productno);
 		                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
 		                    q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
