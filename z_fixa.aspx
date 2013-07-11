@@ -26,52 +26,77 @@
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_fixa',
-					options : [{
+					options : [{//[1]
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					},{
+					},{//[2]
 						type : '0',
 						name : 'namea',
 						value : r_name
-					}, {/*1*/
+					}, {/*1 [3],[4]*/
 						type : '1',
 						name : 'mon'
-					}, {/*2*/
+					}, {/*2 [5]*/
 						type : '6',
 						name : 'xcarno'
-					}, {/*3*/
+					}, {/*3 [6]*/
 						type : '6',
 						name : 'xcarplateno'
-					}, {/*4*/
+					}, {/*4 [7],[8]*/
 						type : '2',
 						name : 'driver',
 						dbf : 'driver',
 						index : 'noa,namea',
 						src : 'driver_b.aspx'
-					}, {/*5*/
+					}, {/*5 [9]*/
 						type : '6',
 						name : 'xmoney'
-					}, {/*6*/
+					}, {/*6 [10],[11]*/
 						type : '2',
 						name : 'tgg',
 						dbf : 'tgg',
 						index : 'noa,nick',
 						src : 'tgg_b.aspx'
-					}, {/*7*/
+					}, {/*7 [12],[13]*/
 						type : '2',
 						name : 'xproduct',
 						dbf : 'fixucc',
 						index : 'noa,namea',
 						src : 'fixucc_b.aspx'
-                    }, {/*8*/
+                    }, {/*8 [14]*/
 	                    type : '5', //select
 	                    name : 'xorder',
 	                    value : ('車號,司機,維修日期,料名編號').split(',')
- 					}, {/*9*/
+ 					}, {/*9 [15],[16]*/
 						type : '1',
 						name : 'date'
-					}]
+					}, {/*10 [17],[18]*/
+						type : '1',
+						name : 'ydate'
+					}, {/*11 [19],[20]*/
+						type : '1',
+						name : 'yfixadate'
+					}, {/*12 [21],[22]*/
+						type : '2',
+						name : 'ytgg',
+						dbf : 'tgg',
+						index : 'noa,nick',
+						src : 'tgg_b.aspx'
+					}, {/*13 [23]*/
+						type : '6',
+						name : 'ycarno'
+					}, {/*14 [24]*/
+						type : '6',
+						name : 'ycarplateno'
+					}, {/*15 [25]*/
+						type : '6',
+						name : 'ymoney'
+					}, {/*16 [26]*/
+                        type : '8',
+                        name : 'xoption01',
+                        value : q_getMsg('toption01').split('&')
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -83,7 +108,16 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
-
+                
+                $('#txtYdate1').mask('999/99/99');
+                $('#txtYdate1').datepicker();
+                $('#txtYdate2').mask('999/99/99');
+                $('#txtYdate2').datepicker();
+				$('#txtYfixadate1').mask('999/99/99');
+                $('#txtYfixadate1').datepicker();
+                $('#txtYfixadate2').mask('999/99/99');
+                $('#txtYfixadate2').datepicker();
+                
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
