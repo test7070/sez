@@ -100,13 +100,23 @@
 	                    }
 						break;
 					case 'uccc':
+	                    if (!b_ret || b_ret.length == 0)
+	                   		return;
 	                    if (q_cur > 0 && q_cur < 4) {
-	                        if (!b_ret || b_ret.length == 0)
-	                            return;
-                        	ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtGmount,txtGweight,txtWidth,txtLengthb',
-                        					   b_ret.length, b_ret, 
-                        					   'noa,eordmount,eordweight,width,lengthb',
-                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+							for(var j = 0;j < b_ret.length;j++){
+								for(var i = 0;i<q_bbtCount;i++){
+									var t_uno = $('#txtUno__' + i).val();
+									if(b_ret[j] && b_ret[j].noa == t_uno){
+										b_ret.splice(j,1);
+									}
+								}
+							}
+							if(b_ret[0] != undefined){
+	                        	ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtGmount,txtGweight,txtWidth,txtLengthb',
+	                        					   b_ret.length, b_ret, 
+	                        					   'noa,eordmount,eordweight,width,lengthb',
+	                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	}
 							sum();
 	                    }
 						break;
@@ -226,6 +236,11 @@
             }
 
             function sum() {
+            	for(var j = 0;j < q_bbsCount;j++){
+            		var t_dime = dec($('#txtDime_' + j).val());
+           			$('#txtBdime_'+j).val(t_dime*0.93);
+            		$('#txtEdime_'+j).val(t_dime*1.07);
+            	}
             }
 
             function q_appendData(t_Table) {

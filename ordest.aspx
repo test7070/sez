@@ -113,9 +113,19 @@
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
-                        ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtProduct,txtProductno,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtSource', b_ret.length, b_ret
-                                                           , 'noa,product,productno,dime,width,lengthb,mount,weight,source'
-															, 'txtUno,txtProduct,txtProductno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+                        for(var j = 0;j < b_ret.length;j++){
+								for(var i = 0;i<q_bbtCount;i++){
+									var t_uno = $('#txtUno__' + i).val();
+									if(b_ret[j] && b_ret[j].noa == t_uno){
+										b_ret.splice(j,1);
+									}
+								}
+						}
+						if(b_ret[0] != undefined){    
+	                        ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtProduct,txtProductno,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtSource', b_ret.length, b_ret
+	                                                           , 'noa,product,productno,dime,width,lengthb,mount,weight,source'
+																, 'txtUno,txtProduct,txtProductno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+                        }
                         if(qBoxNo3id != -1){
 	                        for(var i=0;i<ret.length;i++){
 	                        	$('#txtNo3__' + ret[i]).val(padL($('#lblNo_' + qBoxNo3id).text(),'0',3));
@@ -321,11 +331,14 @@
 						var t_unit  = trim($('#txtUnit_' + b_seq).val());
 						var t_where = ' 1=1 ' + q_sqlPara2("productno", t_productno)
 											  //+ q_sqlPara2("noa", t_uno)
-											  + (t_lengthb > 0?' and lengthb > ' + (t_lengthb-0.00001):'')
-											  + (t_dime > 0?' and dime > ' + (t_dime-0.00001):'')
-											  + (t_width > 0?' and width > ' + (t_width-0.00001):'')
-											  + (t_radius > 0?' and radius > ' + (t_radius-0.00001):'')
+											  + (t_lengthb > 0?' and lengthb >= ' + t_lengthb:'')
+											  + (t_width > 0?' and width >= ' + t_width:'')
+											  + (t_radius > 0?' and radius >= ' + t_radius:'')
 											  + q_sqlPara2("unit", t_unit);
+						if($('#cmbKind').val().substr(0,1)=='B')
+							t_where += q_sqlPara2('dime',(t_dime-0.1),(t_dime+0.1));
+						else
+							t_where += q_sqlPara2('dime',(t_dime*0.93),(t_dime*1.07));
 						qBoxNo3id = b_seq;
 						q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "80%", q_getMsg('popOrdet'));
 					});
@@ -375,6 +388,7 @@
                 xmlSql = q_preXml();
 
             _btnOk(key_value, bbmKey[0],bbsKey[1],'',2);
+            $('#dbbt').hide();
         }
 		function bbtSave(as) {
 			if (!as['uno']) {
@@ -555,6 +569,7 @@
 
         function btnCancel() {
             _btnCancel();
+            $('#dbbt').hide();
         }
 		function size_change() { 
 			if(q_cur==1 || q_cur==2){
