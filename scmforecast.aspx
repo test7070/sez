@@ -32,7 +32,7 @@
             brwKey = 'Noa';
             aPop = new Array(
             	['txtSaleno', 'lblSale', 'sss', 'noa,namea', 'txtSaleno,txtSale', 'sss_b.aspx'],
-            	['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'sss_b.aspx'],
+            	['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'sss_b.aspx'],
             	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 			);
 
@@ -98,7 +98,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-               q_box('gene_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
+               q_box('scmforecast_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -125,6 +125,7 @@
             }
 
             function btnPrint() {
+            	q_box('z_scmforecast.aspx','', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -375,7 +376,7 @@
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='mon'>~mon</td>
-                   <td align="center" id='cust'>~cust</td>
+                   <td align="center" id='nick'>~nick</td>
             </tr>
         </table>
 	</div>
@@ -393,7 +394,10 @@
 	        	<td class="td1"><span> </span><a id="lblSale" class="lbl btn"> </a></td>
 	            <td class="td2"><input id="txtSaleno" type="text" class="txt c2"/><input id="txtSale" type="text" class="txt c3"/></td>
 	        	<td class="td3"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
-	            <td class="td4" colspan='2'><input id="txtCustno" type="text" class="txt c2"/><input id="txtCust" type="text" class="txt c3"/></td>
+	            <td class="td4" colspan='2'><input id="txtCustno" type="text" class="txt c2"/>
+	            	<input id="txtComp" type="text" class="txt c3"/>
+	            	<input id="txtNick" type="hidden"/>
+	            </td>
 	        </tr>
 	        <tr class="tr3">
 	        	<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
