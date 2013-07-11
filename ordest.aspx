@@ -572,10 +572,15 @@
 			        $('#x1_'+j).show();
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).hide();
-			        $('#Size').css('width','222px');
+			        $('#Size').css('width','12%');
+			        $('#textSize1_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
+			        /*
 			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
 			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
 			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        */
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
@@ -589,11 +594,17 @@
 			        $('#x1_'+j).show();
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).show();
-			        $('#Size').css('width','400px');
+			        $('#Size').css('width','17%');
+			        $('#textSize1_' + j).val($('#txtRadius_'+j).val());
+			        $('#textSize2_' + j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_' + j).val($('#txtDime_'+j).val());
+			        $('#textSize4_' + j).val($('#txtLengthb_'+j).val());
+			        /*
 			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
 			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
 			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
 			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+			        */
 				}
 			}else{//鋼筋和鋼胚
 				$('#lblSize_help').text("長度");
@@ -610,7 +621,8 @@
 			        $('#txtDime_'+j).val(0)
 			        $('#textSize2_'+j).val(0);
 			        $('#txtWidth_'+j).val(0)
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
+			        //q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
@@ -899,9 +911,9 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno'> </a></td>
-                <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
+                <td align="center" style="width:2%;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProduct'> </a></td>
-                <td align="center" style="width:60px;"><a id='lblClasss'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblClasss'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
