@@ -316,22 +316,29 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewProductno'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewJob'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewPrice'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewAgent'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewExreprice'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewExprice'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewDiffprice'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewWeight'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='mon' style="text-align: left;">~mon</td>
+						<td id='noa' style="text-align: center;">~noa</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='style' style="text-align: left;">~style</td>
-						<td id='productno' style="text-align: left;">~productno</td>
-						<td id='job' style="text-align: left;">~job</td>
-						<td id='price' style="text-align: left;">~price</td>
+						<td id='product' style="text-align: left;">~product</td>
+						<td id='comp' style="text-align: left;">~comp</td>
+						<td id='exreprice' style="text-align: left;">~Exreprice</td>
+						<td id='exprice' style="text-align: left;">~Exprice</td>
+						<td id='diffprice' style="text-align: left;">~diffprice</td>
+						<td id='weight' style="text-align: left;">~weight</td>
 					</tr>
 				</table>
 			</div>
