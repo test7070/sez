@@ -27,6 +27,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Odate';
+            q_desc = 1;
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
             ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
              ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
@@ -466,10 +467,9 @@
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).hide();
 			        $('#Size').css('width','222px');
-			        console.log($('#textSize1_'+ j)[0]);
-			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize1_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
@@ -484,10 +484,10 @@
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).show();
 			        $('#Size').css('width','297px');
-			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize1_'+j).val($('#txtRadius_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize4_'+j).val($('#txtLengthb_'+j).val());
 				}
 			}else{//鋼筋和鋼胚
 				$('#lblSize_help').text("長度");
@@ -503,10 +503,10 @@
 			        $('#textSize1_'+j).val(0);
 			        $('#txtDime_'+j).val(0)
 			        $('#textSize2_'+j).val(0);
-			        $('#txtWidth_'+j).val(0)
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#txtWidth_'+j).val(0);
+			        $('#textSize3_' + j).val($('#txtLengthb_'+j).val());
 			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
+			        $('#txtRadius_'+j).val(0);
 				}
 			}
 		}
