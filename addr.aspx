@@ -178,7 +178,107 @@
             }
 
             function btnPrint() {
+<<<<<<< HEAD
                 q_box('z_addr.aspx' + "?;;;;" + r_accy, '', "1000px", "800px", q_getMsg("popPrint"));
+=======
+            	var flag = false;
+            	for(var i = 0;i<q_auth.length;i++){
+            		if(q_auth[i].split(',')[0]=='addr' && (/^(addr)\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[0,1]\u002c[0,1]$/g).test(q_auth[i])){
+            			flag = true;
+            			break;
+            		}
+            	}
+            	var isShow1=false,isShow2=false,zindex1=10,zindex2=10;
+            	if(flag){
+            		isShow1 = true;
+                	if(r_rank>=8){
+                		isShow2 = true;
+                		zindex2=9;
+                	}
+            	}else{
+            		isShow2 = true;
+            	}
+            	if(isShow1){
+            		$('#childForm1').show()
+            			.css('z-index',zindex1)
+            			.css('top','100px')
+            			.css('left','100px')
+            			.width($('body').width()-200)
+            			.height($('body').height()-200)
+            			.mousedown(function(e) {
+		                	if(e.button==2){               		
+			                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+			                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+		                	}
+		                	var z1 = parseFloat($('#childForm1').css('z-index'));
+		                	var z2 = parseFloat($('#childForm2').css('z-index'));
+		                	if(z2>z1){
+		                		$('#childForm1').css('z-index',z2);
+				        		$('#childForm2').css('z-index',z1);
+		                	}
+		                }).mousemove(function(e) {
+		                	if(e.button==2 && e.target.nodeName!='INPUT'){ 
+		                		$(this).css('top',$(this).data('xtop')+e.clientY);
+		                		$(this).css('left',$(this).data('xleft')+e.clientX);
+		                	}
+		                }).bind('contextmenu', function(e) {
+		                	if(e.target.nodeName!='INPUT')
+		                		e.preventDefault();
+				        });
+            		$('#childForm1>iframe')
+            			.attr('src',location.href.replace('addr','z_addr'))
+            			.width($('#childForm1').width()-50)
+						.height($('#childForm1').height()-50)
+						.css('top','25px')
+						.css('left','25px');
+					$('#childForm1>input[type="button"]')
+					.css('top','5px')
+					.css('left',($('#childForm1').width()-50)+'px')
+					.click(function(e){
+						$('#childForm1').hide();
+					});
+            	}
+            	if(isShow2){
+            		$('#childForm2').show()
+            			.css('z-index',zindex2)
+            			.css('top','100px')
+            			.css('left','100px')
+            			.width($('body').width()-200)
+            			.height($('body').height()-200)
+            			.mousedown(function(e) {
+		                	if(e.button==2){               		
+			                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+			                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+		                	}
+		                	var z1 = parseFloat($('#childForm1').css('z-index'));
+		                	var z2 = parseFloat($('#childForm2').css('z-index'));
+		                	if(z1>z2){
+		                		$('#childForm1').css('z-index',z2);
+				        		$('#childForm2').css('z-index',z1);
+		                	}
+		                }).mousemove(function(e) {
+		                	if(e.button==2 && e.target.nodeName!='INPUT'){ 
+		                		$(this).css('top',$(this).data('xtop')+e.clientY);
+		                		$(this).css('left',$(this).data('xleft')+e.clientX);
+		                	}
+		                }).bind('contextmenu', function(e) {
+		                	if(e.target.nodeName!='INPUT')
+		                		e.preventDefault();
+				        });
+            		$('#childForm2>iframe')
+            			.attr('src',location.href.replace('addr','z_addr2'))
+            			.width($('#childForm2').width()-50)
+						.height($('#childForm2').height()-50)
+						.css('top','25px')
+						.css('left','25px');
+					$('#childForm2>input[type="button"]')
+					.css('top','5px')
+					.css('left',($('#childForm2').width()-50)+'px')
+					.click(function(e){
+						$('#childForm2').hide();
+					});
+            	}
+>>>>>>> edf003b0ae5aad65677acf3c816a819460f9a69c
             }
 
             function wrServer(key_value) {
@@ -383,7 +483,15 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	>
+	>	
+		<div id="childForm1" style="display:none;position:absolute;background:pink;"> 
+			<input type="button" style="position:absolute;width:40px;height:20px;font-size: 10px;" value="關閉"/>
+			<iframe style="background:white;position:absolute;"> </iframe>
+		</div>
+		<div id="childForm2" style="display:none;position:absolute;background:gray;"> 
+			<input type="button" style="position:absolute;width:40px;height:20px;font-size: 10px;" value="關閉"/>
+			<iframe style="background:white;position:absolute;"> </iframe>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<div class="dview" id="dview" >

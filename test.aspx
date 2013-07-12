@@ -8,16 +8,31 @@
 		<script type="text/javascript">
 	
             $(document).ready(function() {
-            	var string = '貨櫃號碼：BSIU2333950';
- 				var t_caseno = (string ).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+            	$('#txtA').change(function(e){
+            		var string = $.trim($(this).val());
+            		var xx = (/(?! ^z_addr[^\,]*$)/g).test(string);
+            		var yy = (/(?= ^addr$)/g).test(string);
+         
+            		
+            	//	alert((/^.*(?! z\u005faddr.*\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[0,1]\u002c[0,1]).*$/g).test(string));
+            		
+            		
+            		$('#txtB').val(xx);
+            		$('#txtC').val(yy);
+      
+            	});
+            	
+            	
+            	//var string = '貨櫃號碼：BSIU2333950';
+ 				//var t_caseno = (string ).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
  				
-            	var t_caseno2 = (string).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
-            	var t_caseno3 = (string).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$2');
-            	if(!(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(string))
-            		t_caseno2 = '';
-            	$('#txtA').val(t_caseno);
-            	$('#txtB').val(t_caseno2);
-            	$('#txtC').val(t_caseno3);
+            	//var t_caseno2 = (string).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+            	//var t_caseno3 = (string).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$2');
+            	//if(!(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(string))
+            	//	t_caseno2 = '';
+            	//$('#txtA').val(t_caseno);
+            	//$('#txtB').val(t_caseno2);
+            	//$('#txtC').val(t_caseno3);
             	
             	
             	/*alert(t_caseno + '\n' + t_caseno2);
@@ -208,5 +223,6 @@
 		<input id="txtA" style="width:200px;"/>
 		<input id="txtB" style="width:200px;"/>
 		<input id="txtC" style="width:200px;"/>
+		<input id="txtD" style="width:200px;"/>
 	</body>
 </html>
