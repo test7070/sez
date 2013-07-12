@@ -410,7 +410,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:16%;" colspan='2'><a id="lblBdate_s" > </a></td>
+                <!--<td align="center" style="width:16%;" colspan='2'><a id="lblBdate_s" > </a></td>-->
                 <td align="center" style="width:12%;"><a id='lblProductno_s'> </a></td>
                 <td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
@@ -419,8 +419,8 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><input  id="txtBdate.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtEdate.*" type="text" class="txt c1"/></td>
+                <!--<td ><input  id="txtBdate.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtEdate.*" type="text" class="txt c1"/></td>-->
                 <td >
                 	<input  id="txtProductno.*" type="text" style="width:80%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
