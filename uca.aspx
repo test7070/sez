@@ -25,7 +25,7 @@
         var decbbt = [];
         var q_readonly = [];
         var q_readonlys = [];
-        var q_readonlyt = [];
+        var q_readonlyt = ['txtAssm'];
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 12, 0], ['txtWeight', 11, 2], ['txtHours', 9, 2]];
         var bbtNum = [['txtMount_', 12, 0 ,1],['txtWeight_', 12, 2 ,1],['txtPrice_', 12, 2 ,1],['txtEndmount_', 12, 0 ,1],['txtEndweight_', 12, 2 ,1]]; 
@@ -95,7 +95,7 @@
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("ucap_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucap', "980px", "650px", q_getMsg('btnUcap'));
              });  
-             $('#btnClose_div_assm').click(function() {
+             $('#btnCheck_div_assm').click(function() {
                     //寫入到對應的assm
                     var bbt_b_seq=$('#bbt_b_seq').val();
                     var tmpassm='';
@@ -103,11 +103,14 @@
                     	if(dec($('#assm_txtMount_'+i).val())>0)
                     		tmpassm+=($('#assm_txtProductno_'+i).val()+','+$('#assm_txtMount_'+i).val()+';');
                     }
-                    if(tmpassm.length>0){
+                    //if(tmpassm.length>0){
                      	tmpassm=tmpassm.substr(0,tmpassm.length-1)
 						$('#txtAssm__'+bbt_b_seq).val(tmpassm)
-					}
+					//}
                     $('#div_assm').toggle();
+             });
+             $('#btnClose_div_assm').click(function() {
+             	$('#div_assm').toggle();
              });
              //上方插入空白行
              $('#lblTop_row').mousedown(function(e) {
@@ -317,48 +320,129 @@
 							return;
 						if(!$("#div_assm").is(":hidden"))
 							return;
-						////////////控制顯示位置
-						$('#div_assm').css('top',e.pageY-parseInt($('#div_assm').css('height')));
-						$('#div_assm').css('left',e.pageX-parseInt($('#div_assm').css('width')));
-						//////////////
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						$('#div_assm').toggle();
-						$('#bbt_b_seq').val(b_seq);
-						//清除之前插入的內容
-						//document.getElementById("table_assm").deleteRow();
-						var rowslength=document.getElementById("table_assm").rows.length-1
-						for (var j = 1; j < rowslength; j++) {
-							document.getElementById("table_assm").deleteRow(1);
-						}
-						assm_row=0;
-						//插入bbs&bbt
-						for (var j = 0; j < q_bbsCount; j++) {
-							if(!emp($('#txtProductno_'+j).val())){
-								var tr = document.createElement("tr");
-								tr.id = "bbs_"+j;
-								tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno_'+j).val()+"' disabled='disabled'/></td>";
-								tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProduct_'+j).val()+"' disabled='disabled' /></td>";
-								tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='"+$('#txtMount_'+j).val()+"' onkeyup='return ValidateFloat($(this),value)'/></td>";
-								var tmp = document.getElementById("assm_close");
-								tmp.parentNode.insertBefore(tr,tmp);
-								assm_row++;
+						if(e.button==0){
+							$('#btnCheck_div_assm').show();
+							$('#div_assm').toggle();
+							$('#bbt_b_seq').val(b_seq);
+							//清除之前插入的內容
+							//document.getElementById("table_assm").deleteRow();
+							var rowslength=document.getElementById("table_assm").rows.length-1
+							for (var j = 1; j < rowslength; j++) {
+								document.getElementById("table_assm").deleteRow(1);
 							}
-						}
-						for (var j = 0; j < q_bbtCount; j++) {
-							if(!emp($('#txtProductno__'+j).val())){
-								var tr = document.createElement("tr");
-								tr.id = "bbt_"+j;
-								tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"' disabled='disabled'/></td>";
-								tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"-半成品' disabled='disabled' /></td>";
-								tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='0'/></td>";
-								var tmp = document.getElementById("assm_close");
-								tmp.parentNode.insertBefore(tr,tmp);
-								assm_row++;
+							assm_row=0;
+							//插入bbs&bbt
+							for (var j = 0; j < q_bbsCount; j++) {
+								if(!emp($('#txtProductno_'+j).val())){
+									var tr = document.createElement("tr");
+									tr.id = "bbs_"+j;
+									tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno_'+j).val()+"' disabled='disabled'/></td>";
+									tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProduct_'+j).val()+"' disabled='disabled' /></td>";
+									tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='"+$('#txtMount_'+j).val()+"' onkeyup='return ValidateFloat($(this),value)'/></td>";
+									var tmp = document.getElementById("assm_close");
+									tmp.parentNode.insertBefore(tr,tmp);
+									assm_row++;
+								}
 							}
+							for (var j = 0; j < q_bbtCount; j++) {
+								if(!emp($('#txtProductno__'+j).val())&&$('#txtProductno__'+j).val()!=$('#txtNoa').val()){
+									var tr = document.createElement("tr");
+									tr.id = "bbt_"+j;
+									tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"' disabled='disabled'/></td>";
+									tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"-半成品' disabled='disabled' /></td>";
+									tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='0' onkeyup='return ValidateFloat($(this),value)'/></td>";
+									var tmp = document.getElementById("assm_close");
+									tmp.parentNode.insertBefore(tr,tmp);
+									assm_row++;
+								}
+							}
+							
+							//顯示資料的數量
+							var assmtmp=$('#txtAssm__'+b_seq).val().split(';')
+							for(var x=0;x<assmtmp.length;x++){
+								var 	assmmount=assmtmp[x].split(',')
+								for(var y=0;y<assm_row;y++){
+									if($('#assm_txtProductno_'+y).val()==assmmount[0]){
+										$('#assm_txtMount_'+y).val(assmmount[1])
+										break;	
+									}
+								}
+							}
+							////////////控制顯示位置
+							$('#div_assm').css('top',e.pageY-parseInt($('#div_assm').css('height')));
+							$('#div_assm').css('left',e.pageX-parseInt($('#div_assm').css('width')));
+							//////////////
 						}
 	               });
+	               
+	               //只顯示使用的原物料
+	               $('#txtAssm__'+i).mousedown(function(e) {
+	               		t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(emp($('#txtAssm__'+b_seq).val()))
+							return;
+						if(!$("#div_assm").is(":hidden"))
+							return;
+						if(e.button==0){
+							$('#btnCheck_div_assm').hide();
+							$('#div_assm').toggle();
+							$('#bbt_b_seq').val(b_seq);
+							//清除之前插入的內容
+							//document.getElementById("table_assm").deleteRow();
+							var rowslength=document.getElementById("table_assm").rows.length-1
+							for (var j = 1; j < rowslength; j++) {
+								document.getElementById("table_assm").deleteRow(1);
+							}
+							assm_row=0;
+							//插入bbs&bbt
+							for (var j = 0; j < q_bbsCount; j++) {
+								if(!emp($('#txtProductno_'+j).val()) && $('#txtAssm__'+b_seq).val().indexOf($('#txtProductno_'+j).val())>-1){
+									var tr = document.createElement("tr");
+									tr.id = "bbs_"+j;
+									tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno_'+j).val()+"' disabled='disabled'/></td>";
+									tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProduct_'+j).val()+"' disabled='disabled' /></td>";
+									tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='"+$('#txtMount_'+j).val()+"' onkeyup='return ValidateFloat($(this),value)' disabled='disabled'/></td>";
+									var tmp = document.getElementById("assm_close");
+									tmp.parentNode.insertBefore(tr,tmp);
+									assm_row++;
+								}
+							}
+							for (var j = 0; j < q_bbtCount; j++) {
+								if(!emp($('#txtProductno__'+j).val())&&$('#txtProductno__'+j).val()!=$('#txtNoa').val() && $('#txtAssm__'+b_seq).val().indexOf($('#txtProductno__'+j).val())>-1) {
+									var tr = document.createElement("tr");
+									tr.id = "bbt_"+j;
+									tr.innerHTML = "<td id='assm_tdProductno_"+assm_row+"'><input id='assm_txtProductno_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"' disabled='disabled'/></td>";
+									tr.innerHTML+="<td id='assm_tdProduct_"+assm_row+"'><input id='assm_txtProduct_"+assm_row+"' type='text' class='txt c1' value='"+$('#txtProductno__'+j).val()+"-半成品' disabled='disabled' /></td>";
+									tr.innerHTML+="<td id='assm_tdMount_"+assm_row+"'><input id='assm_txtMount_"+assm_row+"' type='text' class='txt c1 num' value='0' onkeyup='return ValidateFloat($(this),value)' disabled='disabled'/></td>";
+									var tmp = document.getElementById("assm_close");
+									tmp.parentNode.insertBefore(tr,tmp);
+									assm_row++;
+								}
+							}
+							
+							//顯示資料的數量
+							var assmtmp=$('#txtAssm__'+b_seq).val().split(';')
+							for(var x=0;x<assmtmp.length;x++){
+								var 	assmmount=assmtmp[x].split(',')
+								for(var y=0;y<assm_row;y++){
+									if($('#assm_txtProductno_'+y).val()==assmmount[0]){
+										$('#assm_txtMount_'+y).val(assmmount[1])
+										break;	
+									}
+								}
+							}
+							
+							////////////控制顯示位置
+							$('#div_assm').css('top',e.pageY-parseInt($('#div_assm').css('height')));
+							$('#div_assm').css('left',e.pageX-parseInt($('#div_assm').css('width')));
+							//////////////
+						}
+	               });
+	               
 	               
 	               $('#btnMinut__' + i).mousedown(function(e) {
 						if(e.button==2){
@@ -719,7 +803,7 @@
             #div_assm{
 			display:none;
 			width:750px;
-			background-color: #cad3ff;
+			background-color: #FFAC55;
 			border: 5px solid gray;
 			position: absolute;
 			left: 20px;
@@ -758,7 +842,7 @@
 			</tr>
 		</table>
 	</div>
-	<div id="div_assm" style="position:absolute; top:300px; left:500px; display:none; width:500px; background-color: #FF9D37; border: 5px solid gray;">
+	<div id="div_assm" style="position:absolute; top:300px; left:500px; display:none; width:500px; background-color: #FFAC55; border: 5px solid gray;">
 		<table id="table_assm" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
 			<tr id='assm_top'>
 				<td align="center" style="width: 40%;">品號	</td>
@@ -767,6 +851,7 @@
 			</tr>
 			<tr id='assm_close'>
 				<td align="center" colspan='3'>
+					<input id="btnCheck_div_assm" type="button" value="確認">
 					<input id="btnClose_div_assm" type="button" value="關閉視窗">
 					<input id="bbt_b_seq" type="hidden"/>
 				</td>
@@ -932,9 +1017,9 @@
 						<td style="width:1%;"> </td>
 						<td align="center" style="width:10%;"><a id='lblProcess_t'></a></td>
 						<td align="center" style="width:10%;"><a id='lblTgg_t'></a></td>
-						<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>
-						<td align="center" style="width:5%;"><a id='lblPrice_t'></a></td>
-		                <td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>
+						<!--<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>-->
+						<td align="center" style="width:8%;"><a id='lblPrice_t'></a></td>
+		                <!--<td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>-->
 		                <td align="center" style="width:5%;"><a id='lblHours_t'></a></td>
 		                <td align="center" style="width:8%;"><a id='lblProductno_t'></a></td>
 		                <td align="center" style="width:13%;"><a id='lblAssm_t'></a></td>
@@ -959,15 +1044,15 @@
 							<input id="btnTggno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 							<input id="txtNick..*" type="text" class="txt c1"/>
 						</td>
-						<td>
+						<!--<td>
 							<input id="txtMount..*" type="text" class="txt c1 num"/>
 							<input id="txtWeight..*" type="text" class="txt c1 num"/>
-						</td>
+						</td>-->
 						<td><input id="txtPrice..*" type="text" class="txt c1 num"/></td>
-						<td>
+						<!--<td>
 							<input id="txtEndmount..*" type="text" class="txt c1 num"/>
 							<input id="txtEndweight..*" type="text" class="txt c1 num"/>
-						</td>
+						</td>-->
 						<td>
 							<input id="txtHours..*" type="text" class="txt c1 num"/>
 						</td>
