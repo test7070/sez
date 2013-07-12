@@ -18,11 +18,11 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_addr');
+                q_gf('', 'z_addr2');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_addr',
+                    fileName : 'z_addr2',
                     options : [{//[1]
                         type : '0',
                         name : 'accy',
@@ -40,10 +40,6 @@
                     }, {/*2 [5]*/
                             type : '6',
                             name : 'xaddr'
-                    }, {/*3 [6]*/
-                        type : '8',
-                        name : 'xoption01',
-                        value : q_getMsg('toption01').split('&')
                     }]
                 });
                 q_popAssign();
@@ -62,9 +58,6 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="container">
-			<div style="width:100%;">
-				<a style="text-align: center;">(含單價)</a>
-			</div>
 			<div id="q_report"></div>
 		</div>
 		<div class="prt" >

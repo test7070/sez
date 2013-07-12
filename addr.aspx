@@ -178,9 +178,6 @@
             }
 
             function btnPrint() {
-<<<<<<< HEAD
-                q_box('z_addr.aspx' + "?;;;;" + r_accy, '', "1000px", "800px", q_getMsg("popPrint"));
-=======
             	var flag = false;
             	for(var i = 0;i<q_auth.length;i++){
             		if(q_auth[i].split(',')[0]=='addr' && (/^(addr)\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[0,1]\u002c[0,1]$/g).test(q_auth[i])){
@@ -205,19 +202,20 @@
             			.css('left','100px')
             			.width($('body').width()-200)
             			.height($('body').height()-200)
-            			.mousedown(function(e) {
-		                	if(e.button==2){               		
-			                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
-			                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
-		                	}
+            			.mousedown(function(e) {  
+            				$(this).data('dd',true);             		
+		                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+		                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
 		                	var z1 = parseFloat($('#childForm1').css('z-index'));
 		                	var z2 = parseFloat($('#childForm2').css('z-index'));
 		                	if(z2>z1){
 		                		$('#childForm1').css('z-index',z2);
 				        		$('#childForm2').css('z-index',z1);
 		                	}
+		                }).mouseup(function(e){
+		                	$(this).data('dd',false);  
 		                }).mousemove(function(e) {
-		                	if(e.button==2 && e.target.nodeName!='INPUT'){ 
+		                	if($(this).data('dd') && e.target.nodeName!='INPUT'){ 
 		                		$(this).css('top',$(this).data('xtop')+e.clientY);
 		                		$(this).css('left',$(this).data('xleft')+e.clientX);
 		                	}
@@ -246,21 +244,22 @@
             			.width($('body').width()-200)
             			.height($('body').height()-200)
             			.mousedown(function(e) {
-		                	if(e.button==2){               		
-			                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
-			                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
-		                	}
+            				$(this).data('dd',true);             		
+		                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+		                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
 		                	var z1 = parseFloat($('#childForm1').css('z-index'));
 		                	var z2 = parseFloat($('#childForm2').css('z-index'));
 		                	if(z1>z2){
 		                		$('#childForm1').css('z-index',z2);
 				        		$('#childForm2').css('z-index',z1);
 		                	}
+		                }).mouseup(function(e){
+		                	$(this).data('dd',false);  
 		                }).mousemove(function(e) {
-		                	if(e.button==2 && e.target.nodeName!='INPUT'){ 
+		                	if($(this).data('dd') && e.target.nodeName!='INPUT'){ 
 		                		$(this).css('top',$(this).data('xtop')+e.clientY);
 		                		$(this).css('left',$(this).data('xleft')+e.clientX);
-		                	}
+		                	}		                
 		                }).bind('contextmenu', function(e) {
 		                	if(e.target.nodeName!='INPUT')
 		                		e.preventDefault();
@@ -278,7 +277,6 @@
 						$('#childForm2').hide();
 					});
             	}
->>>>>>> edf003b0ae5aad65677acf3c816a819460f9a69c
             }
 
             function wrServer(key_value) {
