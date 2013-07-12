@@ -1008,65 +1008,63 @@
         </table>
         </div>
         <div id="dbbt" >
-			<table id="tbbt">
-				<tbody>
-					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:1%;">
-						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
-						</td>
-						<td style="width:1%;"> </td>
-						<td align="center" style="width:10%;"><a id='lblProcess_t'></a></td>
-						<td align="center" style="width:10%;"><a id='lblTgg_t'></a></td>
-						<!--<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>-->
-						<td align="center" style="width:8%;"><a id='lblPrice_t'></a></td>
-		                <!--<td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>-->
-		                <td align="center" style="width:5%;"><a id='lblHours_t'></a></td>
-		                <td align="center" style="width:8%;"><a id='lblProductno_t'></a></td>
-		                <td align="center" style="width:13%;"><a id='lblAssm_t'></a></td>
-		                <td align="center" style="width:6%;"><a id='lblWages_t'></a></td>
-		                <td align="center" style="width:6%;"><a id='lblMakes_t'></a></td>
-		                <td align="center" style="width:8%;"><a id='lblWages_fee_t'></a></td>
-		                <td align="center" style="width:8%;"><a id='lblMakes_fee_t'></a></td>
-					</tr>
-					<tr>
-						<td>
-							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
-						</td>
-						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td>
-							<input id="txtProcessno..*" type="text" class="txt c5"/>
-							<input id="btnProcessno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-							<input id="txtProcess..*" type="text" class="txt c1"/>
-						</td>
-						<td>
-							<input id="txtTggno..*" type="text" class="txt c5"/>
-							<input id="btnTggno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-							<input id="txtNick..*" type="text" class="txt c1"/>
-						</td>
-						<!--<td>
-							<input id="txtMount..*" type="text" class="txt c1 num"/>
-							<input id="txtWeight..*" type="text" class="txt c1 num"/>
-						</td>-->
-						<td><input id="txtPrice..*" type="text" class="txt c1 num"/></td>
-						<!--<td>
-							<input id="txtEndmount..*" type="text" class="txt c1 num"/>
-							<input id="txtEndweight..*" type="text" class="txt c1 num"/>
-						</td>-->
-						<td>
-							<input id="txtHours..*" type="text" class="txt c1 num"/>
-						</td>
-						<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
-						<td>
-							<input id="btnAssm..*" type="button" value='.' style=" font-weight: bold;width:1%; float: left;" />
-							<input id="txtAssm..*" type="text" class="txt c5"/>
-						</td>
-						<td><input id="txtWages..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtMakes..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtWages_fee..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtMakes_fee..*" type="text" class="txt c1 num"/></td>
-					</tr>
-				</tbody>
+			<table id="tbbt" class='tbbt'  border="1"  cellpadding='2' cellspacing='1'>
+				<tr class="head" style="color:white; background:#003366;">
+					<td style="width:1%;">
+					<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+					</td>
+					<td style="width:1%;"> </td>
+					<td align="center" style="width:10%;"><a id='lblProcess_t'></a></td>
+					<td align="center" style="width:10%;"><a id='lblTgg_t'></a></td>
+					<!--<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>-->
+					<td align="center" style="width:8%;"><a id='lblPrice_t'></a></td>
+		            <!--<td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>-->
+		            <td align="center" style="width:5%;"><a id='lblHours_t'></a></td>
+		            <td align="center" style="width:8%;"><a id='lblProductno_t'></a></td>
+		            <td align="center" style="width:13%;"><a id='lblAssm_t'></a></td>
+		            <td align="center" style="width:6%;"><a id='lblWages_t'></a></td>
+		            <td align="center" style="width:6%;"><a id='lblMakes_t'></a></td>
+		            <td align="center" style="width:8%;"><a id='lblWages_fee_t'></a></td>
+		            <td align="center" style="width:8%;"><a id='lblMakes_fee_t'></a></td>
+				</tr>
+				<tr>
+					<td>
+						<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+					</td>
+					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td>
+						<input id="txtProcessno..*" type="text" class="txt c5"/>
+						<input id="btnProcessno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+						<input id="txtProcess..*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtTggno..*" type="text" class="txt c5"/>
+						<input id="btnTggno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+						<input id="txtNick..*" type="text" class="txt c1"/>
+					</td>
+					<!--<td>
+						<input id="txtMount..*" type="text" class="txt c1 num"/>
+						<input id="txtWeight..*" type="text" class="txt c1 num"/>
+					</td>-->
+					<td><input id="txtPrice..*" type="text" class="txt c1 num"/></td>
+					<!--<td>
+						<input id="txtEndmount..*" type="text" class="txt c1 num"/>
+						<input id="txtEndweight..*" type="text" class="txt c1 num"/>
+					</td>-->
+					<td>
+						<input id="txtHours..*" type="text" class="txt c1 num"/>
+					</td>
+					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="btnAssm..*" type="button" value='.' style=" font-weight: bold;width:1%; float: left;" />
+						<input id="txtAssm..*" type="text" class="txt c5"/>
+					</td>
+					<td><input id="txtWages..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMakes..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWages_fee..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMakes_fee..*" type="text" class="txt c1 num"/></td>
+				</tr>
 			</table>
 		</div>
 	<input id="q_sys" type="hidden" />
