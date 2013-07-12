@@ -168,6 +168,7 @@
                         }
                     }
 		            t_where1 = "(isnull(a.total,0)-ISNULL(b.paysale,0)!=0) and ("+t_where1+")";
+		            //1020712炳圳如果帳款月份有打payb也要判斷月份
 		            t_where2 = "where[2]=^^"+t_where1+(emp($('#txtMon').val())?'':" and  mon='"+$('#txtMon').val()+"'")+"^^";
 		            if(q_getPara('sys.comp').substring(0,2)=='大昌')
 		            	t_where1 = "where[1]=^^ 1=0 ^^";
