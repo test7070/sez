@@ -715,7 +715,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 1270px;
             }
             .tbbs a {
                 font-size: medium;
@@ -871,20 +871,20 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:2%;">
+					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblDays_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblCost_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblRealcost_s'> </a></td>
-					<td align="center" style="width:3%;"><a id='lblIsprepay_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblTggno_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblSenddate_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblApprdate_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblRepdate_s'> </a></td>
-					<td align="center" ><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:205px;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:45px;"><a id='lblDays_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblRealcost_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblIsprepay_s'> </a></td>
+					<td align="center" style="width:245px;"><a id='lblTggno_s'> </a></td>
+					<td align="center" style="width:85px;"><a id='lblSenddate_s'> </a></td>
+					<td align="center" style="width:85px;"><a id='lblApprdate_s'> </a></td>
+					<td align="center" style="width:85px;"><a id='lblRepdate_s'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblMemo_s'> </a>/</br><a id='lblMemo2_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -903,14 +903,16 @@
 					<td><input id="txtRealcost.*" type="text" class="txt num c1"/></td>
 					<td align="center"><input id="chkIsprepay.*" type="checkbox"/></td>
 					<td><input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtTggno.*"  style="width:30%; float:left;"/>
+                        <input type="text" id="txtTggno.*"  style="width:28%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtComp.*"  style="width:60%; float:left;"/>
 					</td>
 					<td><input id="txtSenddate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtApprdate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtRepdate.*" type="text" class="txt c1"/></td>
-					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
+					<td><input id="txtMemo.*" type="text" class="txt c1"/>
+							<input id="txtMemo2.*" type="text" class="txt c1"/>
+					</td>
 				</tr>
 			</table>
 		</div>
