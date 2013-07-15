@@ -19,7 +19,7 @@
         var q_name = "workd";
         var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-        var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtTotal'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtWorkno'];
         var bbmNum = [['txtMoney', 15,0,1],['txtTax', 15,0,1],['txtTotal', 15,0,1]];  // 允許 key 小數
         var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,0,1],['txtErrmount', 15,2,1],['txtWmount', 15, 2, 1]];
@@ -86,6 +86,8 @@
 	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
                }
 			});
+			$('#txtMoney').change(function(){sum();});
+			$('#txtTax').change(function(){sum();});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -246,7 +248,10 @@
 				else
 					$('#txtTotal_' + j).val(round(t_weight*t_price,0));
             }  // j
-            
+            var m_Money = dec($('#txtMoney').val());
+			var m_Tax = dec($('#txtTax').val());
+			$('#txtTotal').val(m_Money + m_Tax);
+			$('#txtTotal').focusout();
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
@@ -308,13 +313,13 @@
             _btnCancel();
         }
         function q_popPost(s1) {
-		    	switch (s1) {
-			        case 'txtWorkno':
-           				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
-					    q_gt('work', t_where , 0, 0, 0, "", r_accy);
-			        break;
-		    	}
+			switch (s1) {
+				case 'txtWorkno':
+					var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+					q_gt('work', t_where , 0, 0, 0, "", r_accy);
+				break;
 			}
+		}
     </script>
     <style type="text/css">
         .tview
