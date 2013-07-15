@@ -468,10 +468,13 @@
 			});
         }
 		function q_popPost(s1) {
+			var ret;
 			switch (s1) {
 				case 'txtUno_':
-					var ret = getb_ret();
-					if(ret[0] != undefined){
+					ret = getb_ret();
+					if (!ret || ret.length == 0)
+                            return;
+					if(ret.length > 0 && ret[0] != undefined){
 						if(emp($('#txtRadius_' + b_seq).val()) || $('#txtRadius_' + b_seq).val() == 0)
 							$('#txtRadius_' + b_seq).val(ret[0].radius);
 						if(emp($('#txtWidth_' + b_seq).val()) || $('#txtWidth_' + b_seq).val() == 0)
