@@ -39,11 +39,22 @@
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
-                    }]
+					}, {
+						type : '2',
+						name : 'product',
+						dbf : 'ucc',
+						index : 'noa,product',
+						src : 'ucc_b.aspx'
+                    },{
+                        type : '1',
+                        name : 'date'
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate2').mask('999/99/99');
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate1').val(q_date().substring(0,7)+'01');

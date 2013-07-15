@@ -77,6 +77,23 @@
 
             function q_gtPost(t_name) {
 				switch (t_name) {
+				case 'ordet':
+					var as = _q_appendData("ordet", "", true);
+					for(var j = 0;j < as.length;j++){
+						for(var i = 0;i<q_bbtCount;i++){
+							var t_uno = $('#txtUno__' + i).val();
+							if(as[j] && as[j].noa == t_uno){
+								b_ret.splice(j,1);
+							}
+						}
+					}
+					if(as[0] != undefined){
+					q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtMount,txtWeight',
+	                        					   as.length, as, 
+	                        					   'uno,mount,weight',
+	                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+					}				
+					break;
 				case q_name:
 					if (q_cur == 4)
                             q_Seek_gtPost();
@@ -87,7 +104,6 @@
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
             }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -106,6 +122,12 @@
 							}
 							if(b_ret[0] != undefined){
 	                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtClass,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtWeight,txtMount,txtTheory,txtSize,txtUno,txtMemo', b_ret.length, b_ret, 'custno,class,productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory,size,uno,memo','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+								var t_where = 'where=^^ 1=0 ';
+								for(var i = 0;i < ret.length;i++){
+									t_where += " or (noa='" + $('#txtOrdeno_' + ret[i]).val()+"' and no3='" + $('#txtNo2_' + ret[i]).val() + "')";
+								}
+								t_where += ' ^^';
+								q_gt('ordet', t_where, 0, 0, 0, '',r_accy);
 							}
 							sum();
 							b_ret = '';
@@ -218,19 +240,33 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-						$('#btnUccc_' + i).click(function(){
-							bt_IdSeq = -1; 
+                    	$('#txtDime_' +i).change(function(){
+							t_IdSeq = -1; 
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
-		                	var t_where = ' 1=1 ';
+            				var t_dime = dec($('#txtDime_' + b_seq).val());
+		           			$('#txtBdime_'+b_seq).val(round(t_dime*0.93,2));
+		            		$('#txtEdime_'+b_seq).val(round(t_dime*1.07,2));
+                    	});
+						$('#btnUccc_' + i).click(function(){
+							t_IdSeq = -1; 
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                	var t_where = ' 1=1 and radius=0 ';
 							var t_productno = trim($('#txtProductno_' + b_seq).val());
 							var t_bdime = dec($('#txtBdime_' + b_seq).val());
 		                	var t_edime = dec($('#txtEdime_' + b_seq).val());
+		                	var t_width = dec($('#txtWidth_' + b_seq).val());
+		                	var t_blengthb = round(dec($('#txtLengthb_' + b_seq).val()) * 0.88,2);
+		                	var t_elengthb = round(dec($('#txtLengthb_' + b_seq).val()) * 1.12,2);
 		                	if(t_bdime == 0 && t_edime == 0){
 		                		t_edime = Number.MAX_VALUE;
 		                	}
+		                	t_where += " and width >=" + t_width;
 		                	t_where += q_sqlPara2('productno',t_productno);
 		                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
+		                	if(dec($('#txtLengthb_' + b_seq).val()) > 0)
+		                		t_where += " and (lengthb between " + t_blengthb + " and " + t_elengthb + ") ";
 		                    q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
                 		});
 
@@ -306,6 +342,9 @@
 
             function q_popPost(id) {
                 switch (id) {
+                	case 'txtProductno_':
+						$('#txtClass_' + b_seq).focus();
+                	break;
                     default:
                         break;
                 }
@@ -409,7 +448,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 3000px;
+                width: 2500px;
             }
             .dbbs .tbbs {
                 margin: 0;
@@ -437,7 +476,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 3000px;
+                width: 2500px;
             }
             #tbbt {
                 margin: 0;
@@ -556,20 +595,20 @@
 				<table id="tbbs" class='tbbs'>
 					<tr style='color:white; background:#003366;' >
 						<td style="width:20px;">
-						<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
 						<td style="width:200px;"><a id='lbl_custno'> </a></td>
-						<td style="width:200px;"><a id='lbl_productno'> </a></td>
+						<td style="width:120px;"><a id='lbl_productno'> </a></td>
 						<td style="width:60px;"><a id='lbl_class'> </a></td>
 						<td style="width:200px;"><a id='lbl_spec'> </a></td>
-						<td style="width:150px;"><a id='lbl_dime'> </a></td>
-						<td style="width:150px;"><a id='lbl_width'> </a></td>
- 						<td style="width:150px;"><a id='lbl_length'> </a></td>
-						<td style="width:150px;"><a id='lbl_bdime'> </a></td>
-						<td style="width:150px;"><a id='lbl_edime'> </a></td>
+						<td style="width:120px;"><a id='lbl_dime'> </a></td>
+						<td style="width:120px;"><a id='lbl_width'> </a></td>
+ 						<td style="width:120px;"><a id='lbl_length'> </a></td>
+						<td style="width:120px;"><a id='lbl_bdime'> </a></td>
+						<td style="width:120px;"><a id='lbl_edime'> </a></td>
 						<td style="width:60px;"><a id='lblOrdet_st'> </a></td>
-						<td style="width:150px;"><a id='lbl_mount'> </a></td>
+						<td style="width:80px;"><a id='lbl_mount'> </a></td>
 						<td style="width:150px;"><a id='lbl_weight'> </a></td>
 						<td style="width:150px;"><a id='lbl_hweight'> </a></td>
 						<td style="width:200px;"><a id='lbl_size'> </a></td>
@@ -630,14 +669,13 @@
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td style="width:120px; text-align: center;">原鋼捲編號</td>
-						<td style="width:120px; text-align: center;">原鋼捲領料數</td>
+						<td style="width:120px; text-align: center;">原批號</td>
+						<td style="width:120px; text-align: center;">原批號領料數</td>
 						<td style="width:120px; text-align: center;">領料重</td>
 						<td style="width:120px; text-align: center;">餘料寬</td>
 						<td style="width:120px; text-align: center;">餘料長</td>
-						<td style="width:120px; text-align: center;">尺寸</td>
 						<td style="width:30px; text-align: center;">型</td>
-						<td style="width:120px; text-align: center;">數量</td>
+						<td style="width:80px; text-align: center;">數量</td>
 						<td style="width:120px; text-align: center;">入庫重</td>
 						<td style="width:120px; text-align: center;">餘料編號</td>
 						<td style="width:120px; text-align: center;">餘料客戶</td>
@@ -651,10 +689,11 @@
 						<td style="width:120px; text-align: center;">餘料硬度</td>
 						<td style="width:120px; text-align: center;">裁剪單號</td>
 						<td style="width:20px; text-align: center;">印</td>
-						<td style="width:120px; text-align: center;">原鋼捲儲位異動</td>
+						<td style="width:120px; text-align: center;">原批號<br>儲位異動</td>
 						<td style="width:120px; text-align: center;">外加成本</td>
-						<td style="width:120px; text-align: center;">原鋼捲餘毛重</td>
-						<td style="width:120px; text-align: center;">成本單價</td>
+						<td style="width:120px; text-align: center;">原批號餘毛重</td>
+						<td style="width:80px; text-align: center;">成本單價</td>
+						<td style="width:120px; text-align: center;">尺寸</td>
 					</tr>
 					<tr>
 						<td>
@@ -667,7 +706,6 @@
 						<td><input id="txtGweight..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWidth..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtLengthb..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtSize..*" type="text" class="txt c1"/></td>
 						<td><input id="txtStyle..*" type="text" class="txt c1"/></td>
 						<td><input id="txtMount..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWeight..*" type="text" class="txt c1 num"/></td>
@@ -687,6 +725,7 @@
 						<td><input id="txtPrice2..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMweight2..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMprice..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtSize..*" type="text" class="txt c1"/></td>
 					</tr>
 			</table>
 		</div>
