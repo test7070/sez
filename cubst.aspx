@@ -95,8 +95,20 @@
 	                    if (q_cur > 0 && q_cur < 4) {
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtClass,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtWeight,txtMount,txtTheory,txtSize,txtUno,txtMemo', b_ret.length, b_ret, 'custno,class,productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory,size,uno,memo','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+							for(var j = 0;j < b_ret.length;j++){
+								for(var i = 0;i<q_bbtCount;i++){
+									var t_ordeno = $('#txtOrdeno_' + i).val();
+									var t_no2 = $('#txtNo2_' + i).val();
+									if(b_ret[j] && b_ret[j].noa == t_ordeno && b_ret[j].no2 == t_no2){
+										b_ret.splice(j,1);
+									}
+								}
+							}
+							if(b_ret[0] != undefined){
+	                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtClass,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtWeight,txtMount,txtTheory,txtSize,txtUno,txtMemo', b_ret.length, b_ret, 'custno,class,productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory,size,uno,memo','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+							}
 							sum();
+							b_ret = '';
 	                    }
 						break;
 					case 'uccc':
@@ -118,6 +130,7 @@
 	                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
                         	}
 							sum();
+							b_ret = '';
 	                    }
 						break;
                     case q_name + '_s':
@@ -238,8 +251,8 @@
             function sum() {
             	for(var j = 0;j < q_bbsCount;j++){
             		var t_dime = dec($('#txtDime_' + j).val());
-           			$('#txtBdime_'+j).val(t_dime*0.93);
-            		$('#txtEdime_'+j).val(t_dime*1.07);
+           			$('#txtBdime_'+j).val(round(t_dime*0.93,2));
+            		$('#txtEdime_'+j).val(round(t_dime*1.07,2));
             	}
             }
 
