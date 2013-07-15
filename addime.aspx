@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "adpro";
+            var q_name = "addime";
             var q_readonly = [];
             var bbmNum = [];
             var bbmMask = [];
@@ -46,7 +46,7 @@
             function mainPost() {
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", ('').concat(new Array( '捲板','管類')));
-                         
+                q_cmbParse("cmbUsetype", ('').concat(new Array( '盤商','貿易商','下游廠商','其他')));         
             }
             function q_boxClose(s2) {
                 var ret;
@@ -70,7 +70,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('adpro_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('addime_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -312,27 +312,33 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewUsetype'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewKind'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewPstyle'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewComp'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewExreprice'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewExprice'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewDiffprice'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewWeight'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewDime1'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewDime2'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewWidth1'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewWidth2'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewSpec'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewPrice'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='mon' style="text-align: left;">~mon</td>
 						<td id='noa' style="text-align: center;">~noa</td>
-						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='style' style="text-align: left;">~style</td>
+						<td id='usetype' style="text-align: left;">~usetype</td>
+						<td id='kind' style="text-align: left;">~kind</td>
+						<td id='pstyle' style="text-align: left;">~pstyle</td>
 						<td id='product' style="text-align: left;">~product</td>
-						<td id='comp' style="text-align: left;">~comp</td>
-						<td id='exreprice' style="text-align: left;">~Exreprice</td>
-						<td id='exprice' style="text-align: left;">~Exprice</td>
-						<td id='diffprice' style="text-align: left;">~diffprice</td>
-						<td id='weight' style="text-align: left;">~weight</td>
+						<td id='dime1' style="text-align: left;">~dime1</td>
+						<td id='dime2' style="text-align: left;">~dime2</td>
+						<td id='width1' style="text-align: left;">~width1</td>
+						<td id='width2' style="text-align: left;">~width2</td>
+						<td id='spec' style="text-align: left;">~spec</td>
+						<td id='price' style="text-align: left;">~price</td>
 					</tr>
 				</table>
 			</div>
@@ -354,12 +360,20 @@
 						<td><input id="txtMon"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
 						<td><select id='cmbStyle' > </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblUsetype' class="lbl"> </a></td>
+						<td><select id='cmbUsetype' > </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
+						<td><select id='cmbkind' > </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblPstyle' class="lbl"> </a></td>
+						<td><input id="txtPstyle"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
@@ -368,30 +382,23 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblTggno" class="lbl btn" > </a></td>
-						<td colspan="3">
-						<input id="txtTggno" type="text" style="float:left; width:25%;"/>
-						<input id="txtComp"  type="text" style="float:left; width:73%;"/>
-						</td>	
+						<td><span> </span><a id='lblDime1' class="lbl"> </a></td>
+						<td><input id="txtDime1"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblDime2' class="lbl"> </a></td>
+						<td><input id="txtDime2"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblExreprice' class="lbl"> </a></td>
-						<td><input id="txtExreprice"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWidth1' class="lbl"> </a></td>
+						<td><input id="txtWidth1"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWidth2' class="lbl"> </a></td>
+						<td><input id="txtWidth2"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblExprice' class="lbl"> </a></td>
-						<td><input id="txtExprice"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td><input id="txtPrice" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
+						<td><input id="txtSpec" type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
-						<td><span> </span><a id='lblDiffprice' class="lbl"> </a></td>
-						<td><input id="txtDiffprice"  type="text" class="txt c1" /></td>
-					</tr>
-					
-					<tr>
-						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
-						<td><input id="txtWeight" type="text" class="txt c1" /></td>
-					</tr>
-					
 				</table>
 			</div>
 		</div>
