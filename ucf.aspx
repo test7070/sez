@@ -25,20 +25,20 @@
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                        fileName : 'vccatxt',
+                        fileName : 'ucf',
                         options : []
                     });
                     q_popAssign();
 					
-                    $('#textBmon').mask('999/99');
-                    $('#textEmon').mask('999/99');
+                    $('#textBdate').mask('999/99/99');
+                    $('#textEdate').mask('999/99/99');
                     
-                    $('#textBmon').val(q_date().substr(0,3)+'/01');
-                    $('#textEmon').val(q_date().substr(0,6));
+                    $('#textBdate').val(q_date().substr(0,3)+'/01/01');
+                    $('#textEdate').val(q_date());
                     
                     $('#btnCost').click(function(e) {
-                    	if(!emp($('#textBmon').val()) &&!emp($('#textEmon').val())){
-                    		q_func('cost.genUccCost',encodeURI($('#textBmon').val()) + ',' + encodeURI($('#textEmon').val()));
+                    	if(!emp($('#textBdate').val()) &&!emp($('#textEdate').val())){
+                    		q_func('cost.genUccCost',$('#textBdate').val() + ',' + $('#textEdate').val());
                     		//cost.genUccCost(string t_bdate,string t_edate)
                     	}
                 	});
@@ -78,10 +78,10 @@
 			<div id="ucf">
 				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 					<tr>
-						<td align="center" style="width:35%"><a id="lblMon" class="lbl"></a></td>
+						<td align="center" style="width:35%"><a id="lblDatea" class="lbl"></a></td>
 						<td align="left" style="width:65%">
-							<input id="textBmon"  type="text"  class="txt" style="width: 40%;"/>~
-							<input id="textEmon"  type="text"  class="txt" style="width: 40%;"/>
+							<input id="textBdate"  type="text"  class="txt" style="width: 40%;"/>~
+							<input id="textEdate"  type="text"  class="txt" style="width: 40%;"/>
 						</td>
 					</tr>
 					<tr>

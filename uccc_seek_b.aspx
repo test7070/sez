@@ -10,15 +10,15 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-	var q_name = 'uccc', t_content = ' ', bbsKey = ['noa'], as; 
-	var isBott = false;
-	var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
-	var i,s1;
-	brwCount2 = 6;
-	aPop = new Array(
-		['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'],
-		['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
-	);
+		var q_name = 'uccc', t_content = ' ', bbsKey = ['noa'], as; 
+		var isBott = false;
+		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
+		var i,s1;
+		brwCount2 = 6;
+		aPop = new Array(
+			['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'],
+			['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
+		);
 		$(document).ready(function () {
 			var Parent = window.parent.document;
 			if(Parent.getElementById('cmbKind')){

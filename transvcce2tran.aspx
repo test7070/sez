@@ -183,74 +183,7 @@
                     	location.reload();
                     break;
                 }
-            }
-            function getTaskContent(n){
-            	if(n<0){
-            		sum();
-            		Unlock();
-            	}else{
-           			var t_carno = $.trim($('#txtCarno_'+n).val());
-           			var t_commandid = $.trim($('#txtCommandid_'+n).val());
-           			var t_taskcontent = $.trim($('#txtTaskcontent_'+n).val());
-        			
-           			if(t_carno.length==0 || t_commandid.length==0 || t_taskcontent.length>0){
-           				getTaskContent(n-1);
-           			}else{
-           				var t_data = {
-		            		CarId : encodeURI(t_carno),
-		            		CommandId : encodeURI(t_commandid)
-		            	};
-						var json = JSON.stringify(t_data);
-		            	//INPUT及OUTPUT參數,參照QueryCommandTaskContent.aspx
-		            	$.ajax({
-		            		sel:n,
-		            		carno: t_carno,
-						    url: 'QueryCommandTaskContent.aspx',
-						    type: 'POST',
-						    data: json,
-						    dataType: 'json',
-						    success: function(data){
-								$('#txtTaskcontent_'+this.sel).val(data['TaskContent']);
-								$('#txtMemo_'+this.sel).val(data['TaskContent']);
-								var t_caseno = '',t_caseno2 = '';
-								if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(data['TaskContent']))
-									t_caseno = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
-								if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(data['TaskContent']))
-            						t_caseno2 = (data['TaskContent']).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
-								if(t_caseno.length>0){
-									if(t_caseno2.length>0){
-										$('#txtCaseno2_'+this.sel).val(t_caseno);
-										$('#txtCaseno_'+this.sel).val(t_caseno2);
-									}else{
-										$('#txtCaseno_'+this.sel).val(t_caseno);
-									}
-								}
-						    },
-						    error: function(jqXHR, exception) {
-						    	alert('Error at '+this.sel+':'+this.carno);
-					            if (jqXHR.status === 0) {
-					                alert('Not connect.\n Verify Network.');
-					            } else if (jqXHR.status == 404) {
-					                alert('Requested page not found. [404]');
-					            } else if (jqXHR.status == 500) {
-					                alert('Internal Server Error [500].');
-					            } else if (exception === 'parsererror') {
-					                alert('Requested JSON parse failed.');
-					            } else if (exception === 'timeout') {
-					                alert('Time out error.');
-					            } else if (exception === 'abort') {
-					                alert('Ajax request aborted.');
-					            } else {
-					                alert('Uncaught Error.\n' + jqXHR.responseText);
-					            }
-					        },
-					        complete: function(){
-				        		getTaskContent(this.sel-1);	         
-					        }
-						});
-           			}
-            	}
-            }
+            }       
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'init_1':
@@ -278,11 +211,30 @@
                         	//alert(as.length);
                         	for(var i=0;i<q_bbsCount;i++)
                         		$('#btnMinus_'+i).click();
-                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtTrandate,cmbCalctype,cmbCarteamno,txtDiscount,txtPo,txtSalesno,txtSales,txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtPton,txtMount,txtPrice,txtTotal,txtOutmount,txtPton2,txtMount2,txtPrice2,txtPrice3,txtDiscount,txtTotal2,txtTransvcceno,txtTransvccenoq,txtCommandid'
+                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtTrandate,cmbCalctype,cmbCarteamno,txtDiscount,txtPo,txtSalesno,txtSales,txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtPton,txtMount,txtPrice,txtTotal,txtOutmount,txtPton2,txtMount2,txtPrice2,txtPrice3,txtDiscount,txtTotal2,txtTransvcceno,txtTransvccenoq,txtCommandid,txtTaskcontent,txtMemo'
                         	, as.length, as
-                        	, 'datea,datea,calctype,carteamno,discount,po,salesno,sales,carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,inmount,pton,mount,price,total,outmount,pton2,mount2,price2,price3,discount,total2,transvcceno,transvccenoq,commandid', '', '');
+                        	, 'datea,datea,calctype,carteamno,discount,po,salesno,sales,carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,inmount,pton,mount,price,total,outmount,pton2,mount2,price2,price3,discount,total2,transvcceno,transvccenoq,commandid,taskcontent,taskcontent', '', '');
                        		Lock();//畫面大小變動了
-                       		getTaskContent(q_bbsCount-1);
+                       		for(var i=0;i<q_bbsCount;i++){     
+                       			var t_taskcontent=$.trim($('#txtTaskcontent_'+i).val());
+                       			if(t_taskcontent.length>0) {
+                       				var t_caseno = '',t_caseno2 = '';
+									if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(t_taskcontent))
+										t_caseno = (t_taskcontent).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+									if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(t_taskcontent))
+	            						t_caseno2 = (t_taskcontent).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
+									if(t_caseno.length>0){
+										if(t_caseno2.length>0){
+											$('#txtCaseno2_'+i).val(t_caseno);
+											$('#txtCaseno_'+i).val(t_caseno2);
+										}else{
+											$('#txtCaseno_'+i).val(t_caseno);
+										}
+									}
+                       			}			
+                       		}
+                       		sum();
+            				Unlock();
                         }else{
                         	alert('無資料。');
                         	Unlock();

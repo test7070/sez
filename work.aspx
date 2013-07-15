@@ -515,23 +515,29 @@
 		        	<input id="txtProcessno" type="text"  class="txt" style="width: 45%"/>
 		        	<input id="txtProcess" type="text"  class="txt" style="width: 45%"/>
 		        </td>
-		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
-		        <td class="td4"><input id="txtHours" type="text"  class="txt num"/></td> 
-				<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
-				<td class="td6"><input id="txtCuano" type="text"  class="txt"/></td> 
-			</tr>
-	        <tr class="tr8">
-		        <td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
-		        <td class="td2">
+		        <td class="td3"><span> </span><a id="lblModel" class="lbl"> </a></td>
+		        <td class="td4">
 		        	<input id="txtModelno" type="text"  class="txt" style="width: 45%"/>
 		        	<input id="txtModel" type="text"  class="txt" style="width: 45%"/>
 		        </td>
-		        <td class="td3"><span> </span><a id="lblWages_fee" class="lbl"> </a></td>
-		        <td class="td4"><input id="txtWages_fee" type="text"  class="txt num"/></td>
-		        <td class="td5"><span> </span><a id="lblMakes_fee" class="lbl"> </a></td>
-		        <td class="td6"><input id="txtMakes_fee" type="text"  class="txt num"/></td>
+				<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
+				<td class="td6"><input id="txtCuano" type="text"  class="txt"/></td> 
 			</tr>
-			<tr class="tr9">
+	        <tr class="tr9">
+		        <td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>
+		        <td class="td2"><input id="txtWages" type="text"  class="txt num"/></td>
+		        <td class="td3"><span> </span><a id="lblMakes" class="lbl"> </a></td>
+		        <td class="td4"><input id="txtMakes" type="text"  class="txt num"/></td>
+		        <td class="td5"><span> </span><a id="lblHours" class="lbl"> </a></td>
+		        <td class="td6"><input id="txtHours" type="text"  class="txt num"/></td> 
+			</tr>
+			<tr class="tr8">
+		        <td class="td1"><span> </span><a id="lblWages_fee" class="lbl"> </a></td>
+		        <td class="td2"><input id="txtWages_fee" type="text"  class="txt num"/></td>
+		        <td class="td3"><span> </span><a id="lblMakes_fee" class="lbl"> </a></td>
+		        <td class="td4"><input id="txtMakes_fee" type="text"  class="txt num"/></td>
+			</tr>
+			<tr class="tr10">
 		        <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 		        <td class="td2" colspan='5'>
 		        	<input id="txtMemo" type="text"  class="txt c1 "/>
