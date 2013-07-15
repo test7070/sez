@@ -1020,12 +1020,12 @@
 					<td align="center" style="width:8%;"><a id='lblPrice_t'></a></td>
 		            <!--<td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>-->
 		            <td align="center" style="width:5%;"><a id='lblHours_t'></a></td>
-		            <td align="center" style="width:8%;"><a id='lblProductno_t'></a></td>
+		            <td align="center" style="width:12%;"><a id='lblProductno_t'></a></td>
 		            <td align="center" style="width:13%;"><a id='lblAssm_t'></a></td>
 		            <td align="center" style="width:6%;"><a id='lblWages_t'></a></td>
 		            <td align="center" style="width:6%;"><a id='lblMakes_t'></a></td>
-		            <td align="center" style="width:8%;"><a id='lblWages_fee_t'></a></td>
-		            <td align="center" style="width:8%;"><a id='lblMakes_fee_t'></a></td>
+		            <td align="center" style="width:6%;"><a id='lblWages_fee_t'></a></td>
+		            <td align="center" style="width:6%;"><a id='lblMakes_fee_t'></a></td>
 				</tr>
 				<tr>
 					<td>
@@ -1058,7 +1058,7 @@
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 					<td>
 						<input id="btnAssm..*" type="button" value='.' style=" font-weight: bold;width:1%; float: left;" />
-						<input id="txtAssm..*" type="text" class="txt c5"/>
+						<input id="txtAssm..*" type="text" class="txt" style="width: 80%"/>
 					</td>
 					<td><input id="txtWages..*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtMakes..*" type="text" class="txt c1 num"/></td>
