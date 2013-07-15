@@ -18,54 +18,36 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_workc');
+                q_gf('', 'z_workb');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_workc',
+                    fileName : 'z_workb',
                     options : [{
 						type : '0',
 						name : 'accy',
                         value : q_getId()[4] //[1]
                     },{
+                        type : '1',
+                        name : 'date'
+                    },{
                         type : '6',
                         name : 'xnoa'
-                    },{
-                        type : '1',
-                        name : 'xdate'
-                    }, {
-                        type : '2',
-                        name : 'xtgg',
-                        dbf : 'tgg',
-                        index : 'noa,comp',
-                        src : 'tgg_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'xucaucc',
-                        dbf : 'ucaucc',
-                        index : 'noa,product',
-                        src : 'ucaucc_b.aspx'
 					}, {
 						type : '2',
-						name : 'xproduct',
+						name : 'product',
 						dbf : 'ucc',
 						index : 'noa,product',
 						src : 'ucc_b.aspx'
-                    },{
-                        type : '1',
-                        name : 'date'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
                 $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate1').val(q_date().substring(0,7)+'01');
-                var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
-                $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
+                $('#txtDate2').datepicker();
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
                 	$('#txtXnoa').val(t_key[1]);
@@ -78,7 +60,7 @@
             }
 		</script>
 	</head>
-	<body ondragstart="return false" draggable="false"
+	<body id="z_accc" ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
