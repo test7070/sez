@@ -22,7 +22,7 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtPrice',15,2,1],['txtWages_fee',15,2,1],['txtMakes_fee',15,2,1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea','999/99/99'],['txtMon','999/99']];
 
@@ -136,27 +136,19 @@
 					<td align="center" style="width:6%;"><a id='lblMon'></a></td>
 					<td align="center" style="width:12%;"><a id='lblOrdeno'></a></td>
 					<td align="center" style="width:6%;"><a id='lblPrice'></a></td>
+					<td align="center" style="width:6%;"><a id='lblWages_fee'></a></td>
+					<td align="center" style="width:6%;"><a id='lblMakes_fee'></a></td>
 					<td align="center" style="width:20%;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
-					<td style="width:1%;">
-					<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  />
-					</td>
-					<td>
-					<input class="txt"  id="txtDatea.*" type="text" style="width:98%;"  />
-					</td>
-					<td>
-					<input class="txt" id="txtMon.*" type="text" style="width:98%;"   />
-					</td>
-					<td>
-					<input class="txt"  id="txtOrdeno.*" type="text" style="width:98%;"  />
-					</td>
-					<td>
-					<input class="txt"  id="txtPrice.*" type="text" style="width:98%;text-align: right;"  />
-					</td>
-					<td>
-					<input class="txt"  id="txtMemo.*" type="text" style="width:98%;"  />
-					</td>
+					<td style="width:1%;">	<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  /></td>
+					<td><input class="txt"  id="txtDatea.*" type="text" style="width:98%;"  /></td>
+					<td><input class="txt" id="txtMon.*" type="text" style="width:98%;"   /></td>
+					<td><input class="txt"  id="txtOrdeno.*" type="text" style="width:98%;"  /></td>
+					<td><input class="txt"  id="txtPrice.*" type="text" style="width:98%;text-align: right;"  /></td>
+					<td><input class="txt"  id="txtWages_fee.*" type="text" style="width:98%;text-align: right;"  /></td>
+					<td><input class="txt"  id="txtMakes_fee.*" type="text" style="width:98%;text-align: right;"  /></td>
+					<td><input class="txt"  id="txtMemo.*" type="text" style="width:98%;"  /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->

@@ -22,7 +22,7 @@
         var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = ['txtWorkno'];
         var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 2,1],['txtWeight', 15, 2,1]];
+        var bbsNum = [['txtMount', 15, 3,1],['txtWeight', 15, 3,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';

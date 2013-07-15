@@ -106,11 +106,11 @@
 						for (var i = 0; i < b_ret.length; i++) {
 							//Z開頭的廠商為自己公司要算在內
 							if(!emp($('#txtStationno').val())){
-								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno='"+$('#txtStationno').val()+"' ^^";
+								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and stationno='"+$('#txtStationno').val()+"' ^^";
 								q_gt('work', t_where , 0, 0, 0, "", r_accy);
 							}else{
 								//102/07/06寫入工作中心,只有Z開頭
-								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or left(tggno,1)='Z' )^^";
+								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or len(stationno)>0 )^^";
 								q_gt('work', t_where , 0, 0, 0, "", r_accy);
 							}
 						}
@@ -177,9 +177,9 @@
 						var as = _q_appendData("work", "", true);
 						var t_stationno='',t_station='';
 						for (i = 0; i < as.length; i++) {
-							if(as[i].tggno.substr(0,1).toUpperCase()=='Z'){
-								t_stationno=as[i].tggno;
-								t_station=as[i].comp;
+							if(as[i].stationno!=''){
+								t_stationno=as[i].stationno;
+								t_station=as[i].station;
 								break;
 							}
 						}
