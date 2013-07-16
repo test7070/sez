@@ -169,7 +169,7 @@
             }
 		    function btnOk() {
 		    	 Lock();
-                if (!q_cd($('#txtBirthday').val())){
+                /*if (!q_cd($('#txtBirthday').val())){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
                 	Unlock();
                 	return;
@@ -188,7 +188,7 @@
                 	alert(q_getMsg('lblOutdate')+'錯誤。');
                 	Unlock();
                 	return;
-                }
+                }*/
                 /*if (!q_cd($('#txtHealth_bdate').val())){
                 	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
                 	return;
@@ -214,7 +214,11 @@
                 	return;
                 }*/
                
-               
+               $('#txtId').val($.trim($('#txtId').val()));
+                if (checkId($('#txtId').val())==0){
+                	alert(q_getMsg('lblId')+'錯誤。');
+                	return;
+            	}
 				var t_noa = $.trim($('#txtNoa').val());
 				
 				if(!emp($('#txtId').val()))
