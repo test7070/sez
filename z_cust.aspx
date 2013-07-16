@@ -16,56 +16,61 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
-            	q_getId();
+                _q_boxClose();
+                q_getId();
                 q_gf('', 'z_cust');
             });
             function q_gfPost() {
-               $('#qReport').q_report({
+                $('#q_report').q_report({
                     fileName : 'z_cust',
-                    options : [{
-                        type : '1',
-                        name : 'date'
-                    },{
-                        type : '1',
-                        name : 'mon'
-                    },{
+                    options : [{//[1]
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                    }, {//[2]
+                        type : '0',
+                        name : 'namea',
+                        value : r_name
+                    }, {/*1 [3],[4]*/
                         type : '2',
-                        name : 'cust',
+                        name : 'custno',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                        },{
+                    }, {/*2 [5],[6]*/
                         type : '2',
-                        name : 'tgg',
+                        name : 'tggno',
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
-                        },{
+                    }, {/*3 [7],[8]*/
                         type : '2',
-                        name : 'sss',
+                        name : 'sssno',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
-                        },{
+                    }, {/*4-[9]*/
                         type : '5',
-                        name : 'qtype',
-                        value : [q_getPara('report.all')].concat(q_getPara('cust.qtype').split(','))
+                        name : 'xsort01',
+                        value : q_getMsg('tsort01').split('&')
+                    }, {/*5-[10]*/
+                        type : '5',
+                        name : 'xsort02',
+                        value : q_getMsg('tsort02').split('&')
+                    }, {/*6-[11]*/
+                        type : '5',
+                        name : 'xsort03',
+                        value : q_getMsg('tsort03').split('&')
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');
             }
 
-           function q_boxClose(s2) {
+            function q_boxClose(s2) {
             }
+
             function q_gtPost(s2) {
             }
 		</script>
@@ -73,7 +78,8 @@
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
@@ -84,5 +90,4 @@
 			</div>
 		</div>
 	</body>
-</html> 
-          
+</html>
