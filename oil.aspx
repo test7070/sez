@@ -628,6 +628,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewOildate'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewOilstation'> </a></td>
@@ -644,6 +645,7 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='oildate' style="text-align: center;">~oildate</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
 						<td id='oilstation' style="text-align: center;">~oilstation</td>

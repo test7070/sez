@@ -111,8 +111,8 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
 						$('#txtOrdbno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
-                                                           , 'productno,product,noa,no3,price,mount,weight,total,memo,unit'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
+                                                           , 'productno,product,noa,no3,price,mount,total,memo,unit'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 						}
@@ -138,7 +138,7 @@
                 			var ordbs = _q_appendData("ordbs", "", true);
 	                		if(ordbs[0]!=undefined)
 	                		{
-	                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtTotal,txtMemo,txtOrdbno,txtNo3', as.length, as, 'productno,product,unit,mount,weight,price,total,memo,noa,no3', '');
+	                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtTotal,txtMemo,txtOrdbno,txtNo3', as.length, as, 'productno,product,unit,mount,price,total,memo,noa,no3', '');
 	                		}
                 		}
                 		break;
@@ -212,7 +212,7 @@
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		  		$('#txtUnit_' + j).change(function () {sum();});
             		  		$('#txtMount_' + j).change(function () {sum();});
-				            $('#txtWeight_' + j).change(function () {sum();});
+				          //  $('#txtWeight_' + j).change(function () {sum();});
 				            $('#txtPrice_' + j).change(function () {sum();});
 				            $('#txtTotal_' + j).change(function () {sum();});
             		  }
@@ -264,11 +264,12 @@
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-                	if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
+                	/*if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
                 		q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
                 	}else{
                 		q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-                	}
+                	}*/
+                	q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
                 	q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
 					t_money+=q_float('txtTotal_'+j);
                 }  // j
@@ -677,7 +678,7 @@
                 <td align="center" style="width:15%;"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center"><a id='lblSize'> </a></td>-->
                 <td align="center" style="width:5%;"><a id='lblUnit'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblMount'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblMount_st'> </a></td>
                 <!--<td align="center"><a id='lblWeights'> </a></td>-->
                 <td align="center" style="width:8%;"><a id='lblPrices'> </a></td>
                 <!--<td align="center"><a id='lblRadius'> </a></td>-->
@@ -702,7 +703,7 @@
                         <input id="txtSpec.*" type="text"  class="txt c7"/></td>-->
                 <td><input  id="txtUnit.*" type="text"  class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1" />
-                	<input class="txt num c1" id="txtWeight.*" type="text" />
+                	<!--<input class="txt num c1" id="txtWeight.*" type="text" />-->
                 </td>
                 <!--<td><input id="txtWeight.*" type="text" class="txt num c7" /></td>-->
                 <td><input id="txtPrice.*" type="text" class="txt num c1" /></td>

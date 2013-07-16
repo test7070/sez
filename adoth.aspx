@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "adsize";
+            var q_name = "adoth";
             var q_readonly = [];
             var bbmNum = [];
             var bbmMask = [];
@@ -45,7 +45,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", ('').concat(new Array('���O','����')));
+                q_cmbParse("cmbStype", ('').concat(new Array('???O','????')));
                          
             }
             function q_boxClose(s2) {
@@ -70,7 +70,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('adsize_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('adoth_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -312,25 +312,23 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewPstyle'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewWidth1'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewWidth2'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewLengthb1'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewLengthb2'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewFloat'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewBackc'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewNcut'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewScrape'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewInstore'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='mon' style="text-align: left;">~mon</td>
-						<td id='pstyle' style="text-align: left;">~pstyle</td>
-						<td id='product' style="text-align: left;">~product</td>
-						<td id='width1' style="text-align: left;">~width1</td>
-						<td id='width2' style="text-align: left;">~width2</td>
-						<td id='lengthb1' style="text-align: left;">~lengthb1</td>
-						<td id='lengthb2' style="text-align: left;">~lengthb2</td>
-						<td id='price' style="text-align: left;">~price</td>
+						<td id='style' style="text-align: left;">~style</td>
+						<td id='float' style="text-align: left;">~float</td>
+						<td id='backc' style="text-align: left;">~backc</td>
+						<td id='ncut' style="text-align: left;">~ncut</td>
+						<td id='scrape' style="text-align: left;">~scrape</td>
+						<td id='instore' style="text-align: left;">~instore</td>
 					</tr>
 				</table>
 			</div>
@@ -352,30 +350,36 @@
 						<td><input id="txtMon"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPstyle' class="lbl"> </a></td>
-						<td><input id="txtPstyle" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
+						<td><select id="cmbStyle" class="txt c1" > </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtProductno" type="text" class="txt c2" />
-										<input id="txtProduct" type="text" class="txt c3" />									
-						</td>
+						<td><span> </span><a id='lblFloat' class="lbl"> </a></td>
+						<td><input id="txtFloat" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWidth1' class="lbl"> </a></td>
-						<td><input id="txtWidth1" type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblWidth2' class="lbl"> </a></td>
-						<td><input id="txtWidth2" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblBackc' class="lbl"> </a></td>
+						<td><input id="txtBackc" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblLengthb1' class="lbl"> </a></td>
-						<td><input id="txtLengthb1" type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblLengthb2' class="lbl"> </a></td>
-						<td><input id="txtLengthb2" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblNcut' class="lbl"> </a></td>
+						<td><input id="txtNcut" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td><input id="txtPrice" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblScrape' class="lbl"> </a></td>
+						<td><input id="txtScrape" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblInstore' class="lbl"> </a></td>
+						<td><input id="txtInstore" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblLweight' class="lbl"> </a></td>
+						<td><input id="txtLweight" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblLmoney' class="lbl"> </a></td>
+						<td><input id="txtLmoney" type="text" class="txt num c1" /></td>
 					</tr>
 				</table>
 			</div>

@@ -54,6 +54,12 @@
                     },{
                         type : '1',
                         name : 'date'
+                    },{
+                        type : '6',
+                        name : 'xordeno'
+                    },{
+                        type : '6',
+                        name : 'xno2'
                     }]
                 });
                 q_popAssign();

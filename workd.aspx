@@ -109,6 +109,10 @@
 						
 						if (!b_ret || b_ret.length == 0)
 							return;
+	            		//清空表身資料
+	            		for(var i = 0; i < q_bbsCount; i++) {
+	            			$('#btnMinus_'+i).click();
+	            		}
 						for (var i = 0; i < b_ret.length; i++) {
 							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!='' and left(tggno,1)!='Z' ";
 							if(!emp($('#txtTggno').val()))
@@ -139,12 +143,7 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-            	case 'work':
-            		//清空表身資料
-            		for(var i = 0; i < q_bbsCount; i++) {
-            			$('#btnMinus_'+i).click();
-            		}
-            		
+            	case 'work':      		
 					var as = _q_appendData("work", "", true);
 					for (i = 0; i < as.length; i++) {
 							
