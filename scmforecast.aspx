@@ -32,8 +32,8 @@
             brwKey = 'Noa';
             aPop = new Array(
             	['txtSaleno', 'lblSale', 'sss', 'noa,namea', 'txtSaleno,txtSale', 'sss_b.aspx'],
-            	['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'sss_b.aspx'],
-            	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+            	['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
+            	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
 			);
 
             $(document).ready(function() {
