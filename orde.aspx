@@ -17,10 +17,10 @@
         q_desc = 1;
         q_tables = 's';
         var q_name = "orde";
-        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales','txtOrdbno','txtOrdcno'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales','txtOrdbno','txtOrdcno'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3','txtC1','txtNotv']; 
         var bbmNum = [['txtTotal', 0,0,10],['txtMoney', 0, 0,10]];  // 允許 key 小數
-        var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
+        var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';
@@ -98,8 +98,8 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtWeight,txtQuatno,txtNo3', b_ret.length, b_ret
-                                                           , 'productno,product,spec,unit,price,mount,weight,noa,no3'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtPrice,txtMount,txtQuatno,txtNo3', b_ret.length, b_ret
+                                                           , 'productno,product,spec,unit,price,mount,noa,no3'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                                                            sum();
                         bbsAssign();
@@ -212,7 +212,7 @@
                  });
                 
                 $('#txtUnit_' + j).focusout(function () { sum(); });
-                $('#txtWeight_' + j).focusout(function () { sum(); });
+               // $('#txtWeight_' + j).focusout(function () { sum(); });
                 $('#txtPrice_' + j).focusout(function () { sum(); });
                 $('#txtMount_' + j).focusout(function () { sum(); });
                 $('#txtTotal_' + j).focusout(function () { sum(); });
@@ -289,8 +289,9 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();
-                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
-                t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
+                //t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
+                t_mount = $('#txtMount_' + j).val();  // 計價量
+                //t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
                 $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
 				q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
@@ -300,7 +301,7 @@
             if( !emp( $('#txtPrice' ).val()))
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
-            $('#txtWeight').val(round(t_weight, 0));
+           // $('#txtWeight').val(round(t_weight, 0));
             $('#txtTotal').val(t1 + dec($('#txtTax').val()));
             q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 
@@ -608,8 +609,8 @@
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblTotalus' class="lbl"></a></td>
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td> 
-                <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1"/></td>
+                <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1"/></td>-->
                 <td class="td7"><span> </span><a id='lblEnda' class="lbl"></a></td>
                 <td class="td8"><input id="chkEnda" type="checkbox"/></td> 
            </tr>
@@ -640,10 +641,10 @@
                 <td align="center"><a id='lblProduct_s'> </a></td>
                 <td align="center"><a id='lblUnit'> </a></td>
                 <td align="center"><a id='lblMount'> </a></td>
-                <td align="center"><a id='lblWeights'> </a></td>
+                <!--<td align="center"><a id='lblWeights'> </a></td>-->
                 <td align="center"><a id='lblPrices'> </a></td>
                 <td align="center"><a id='lblTotal_s'> </a></td>
-                <td align="center"><a id='lblGemounts'></a></td>
+                <td align="center"><a id='lblGemounts'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
                 <td align="center"><a id='lblDateas'> </a></td>
                 <td align="center"><a id='lblEndas'> </a></td>
@@ -666,9 +667,9 @@
                 <td style="width:6%;">
                 	<input class="txt num c7" id="txtMount.*" type="text" />
                 </td>
-                <td style="width:8%;">
+              <!--  <td style="width:8%;">
                 	<input class="txt num c7" id="txtWeight.*" type="text" />
-                </td>
+              </td>-->
                 <td style="width:6%;">
                 	<input class="txt num c7" id="txtPrice.*" type="text"  />
                 </td>

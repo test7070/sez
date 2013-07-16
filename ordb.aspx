@@ -20,7 +20,7 @@
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = ['txtNo3','txtC1','txtNotv'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
-            var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtWeight', 10, 3, 1],['txtTotal', 10, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [['txtOdate', '999/99/99']];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -93,8 +93,8 @@
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
 	                        var i, j = 0;
-	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2,txtWeight', b_ret.length, b_ret
-	                                                           , 'productno,product,unit,mount,price,noa,no2,weight'
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret
+	                                                           , 'productno,product,unit,mount,price,noa,no2'
 	                                                           , 'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
 	                        sum();
 	                    }
@@ -175,7 +175,7 @@
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		  		$('#txtUnit_' + j).change(function () {sum();});
             		  		$('#txtMount_' + j).change(function () {sum();});
-				            $('#txtWeight_' + j).change(function () {sum();});
+				           // $('#txtWeight_' + j).change(function () {sum();});
 				            $('#txtPrice_' + j).change(function () {sum();});
 				            $('#txtTotal_' + j).change(function () {sum();});
 				            $('#txtProductno1_' + j).change(function () {
@@ -278,12 +278,13 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 var t_money=0;
-                for(var j = 0; j < q_bbsCount; j++) {
-                	if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
+              for(var j = 0; j < q_bbsCount; j++) {
+             /*   	if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
                 		q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
                 	}else{
                 		q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-                	}
+                	}*/
+                	q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
                 	q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
 					t_money+=q_float('txtTotal_'+j);
                 }  // j
@@ -686,7 +687,7 @@
                 <td align="center" style="width:15%;"><a id='lblProduct_st'></a></td>
                 <!--<td align="center"><a id='lblSize'></a></td>-->
                 <td align="center" style="width:5%;"><a id='lblUnit'></a></td>
-                <td align="center" style="width:8%;"><a id='lblMount'></a></td>
+                <td align="center" style="width:8%;"><a id='lblMount_st'></a></td>
                 <!--<td align="center"><a id='lblWeights'></a></td>-->
                 <td align="center" style="width:8%;"><a id='lblPrices'></a></td>
                 <td align="center" style="width:10%;"><a id='lblTotals'></a></td>
@@ -710,7 +711,7 @@
                        <input class="txt c1" id="txtSpec.*" type="text"  /></td>-->
                 <td><input class="txt c1" id="txtUnit.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtMount.*" type="text" />
-                	<input class="txt num c1" id="txtWeight.*" type="text" />
+                	<!--<input class="txt num c1" id="txtWeight.*" type="text" />-->
                 </td>
                 <!--<td><input class="txt num c1" id="txtWeight.*" type="text"/></td>-->
                 <td><input class="txt num c1" id="txtPrice.*" type="text" /></td>

@@ -22,8 +22,8 @@
             var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
-            			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 0, 1]];
-            var bbsNum = [['txtMount', 10, 0, 1],['txtWeight', 15, 0, 1],
+            			  ['txtFloata', 15, 3, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],
             			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -117,7 +117,7 @@
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 						$('#txtUnit_' + j).change(function () {sum();});
 						$('#txtMount_' + j).change(function () {sum();});
-						$('#txtWeight_' + j).change(function () {sum();});
+						//$('#txtWeight_' + j).change(function () {sum();});
 						$('#txtPrice_' + j).change(function () {sum();});
 					}
 				}
@@ -163,16 +163,17 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-					if($('#txtUnit_' + j).val().toUpperCase()=='KG'){
+					/*if($('#txtUnit_' + j).val().toUpperCase()=='KG'){
 						q_tr('txtTotal_'+j,q_float('txtWeight_'+j)*q_float('txtPrice_'+j))
 					}else{
 						q_tr('txtTotal_'+j,q_float('txtMount_'+j)*q_float('txtPrice_'+j))
-					}
+					}*/
+					q_tr('txtTotal_'+j,q_float('txtMount_'+j)*q_float('txtPrice_'+j))
 					t_total+=q_float('txtTotal_'+j);
-					t_weight+=q_float('txtWeight_'+j);
+					//t_weight+=q_float('txtWeight_'+j);
                 }  // j
 				q_tr('txtMoney',t_total);
-				q_tr('txtWeight',t_weight);
+				//q_tr('txtWeight',t_weight);
 				q_tr('txtTotal',t_total);
 				calTax();
 				q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
@@ -430,8 +431,8 @@
             <tr class="tr8">
                 <td class="label1"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
                 <td colspan='2'><input id="txtTotalus"    type="text"  class="txt c1" style="text-align: right;" /></td> 
-                <td class="label2"><span> </span><a id='lblWeight' class="lbl"> </a></td>
-                <td colspan='2' ><input id="txtWeight"  type="text"  class="txt c1" style="text-align: right;" /></td>
+                <!--<td class="label2"><span> </span><a id='lblWeight' class="lbl"> </a></td>
+                <td colspan='2' ><input id="txtWeight"  type="text"  class="txt c1" style="text-align: right;" /></td>-->
                 <td class="label3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
                 <td ><input id="txtWorker"  type="text" class="txt c2" /></td> 
             </tr>
@@ -449,7 +450,7 @@
                 <!--<td align="center"><a id='lblSize'></a></td>-->
                 <td align="center"><a id='lblUnit'></a></td>
                 <td align="center"><a id='lblMount'></a></td>
-                <td align="center"><a id='lblWeights'></a></td>
+                <!--<td align="center"><a id='lblWeights'></a></td>-->
                 <td align="center"><a id='lblPrices'></a></td>
                 <td align="center"><a id='lblTotals'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
@@ -466,7 +467,7 @@
                                     <input id="txtSpec.*" type="text" class="txt c2" /></td>-->
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c2"/></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text"  class="txt c2" style="text-align:right;"/></td>
-                <td style="width:8%;"><input id="txtWeight.*" type="text"  class="txt c2" style="text-align:right;"/></td>
+                <!--<td style="width:8%;"><input id="txtWeight.*" type="text"  class="txt c2" style="text-align:right;"/></td>-->
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt c2" style="text-align:right;"/></td>
                 <td style="width:8%;"><input id="txtTotal.*" type="text" class="txt c2" style="text-align:right;"/>
                                      </td>
