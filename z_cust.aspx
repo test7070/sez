@@ -58,6 +58,10 @@
                         name : 'xsort02',
                         value : q_getMsg('tsort02').split('&')
                     }, {/*6-[11]*/
+                            type : '8',
+                            name : 'xoption03',
+                        value : q_getMsg('toption03').split('&')
+                    }, {/*7-[12]*/
                         type : '5',
                         name : 'xsort03',
                         value : q_getMsg('tsort03').split('&')
@@ -66,6 +70,7 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                $('#chkXoption03').children('input').attr('checked', 'checked');
             }
 
             function q_boxClose(s2) {
