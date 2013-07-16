@@ -76,6 +76,7 @@
                 	string+='<td id="tranorde_noa" onclick="tranorde.sort(\'noa\',false)" title="訂單編號" align="center" style="width:120px; color:black;">訂單編號</td>';
                 	string+='<td id="tranorde_ctype" onclick="tranorde.sort(\'ctype\',false)" title="類型" align="center" style="width:50px; color:black;">類型</td>';
                 	string+='<td id="tranorde_strdate" onclick="tranorde.sort(\'strdate\',false)" title="開工日期" align="center" style="width:100px; color:black;">開工日</td>';
+                	string+='<td id="tranorde_strdate" onclick="tranorde.sort(\'dldate\',false)" title="完工日期" align="center" style="width:100px; color:black;">完工日</td>';
                 	string+='<td id="tranorde_nick" onclick="tranorde.sort(\'custno\',false)" title="客戶" align="center" style="width:100px; color:black;">客戶</td>'
                 	string+='<td id="tranorde_addr" onclick="tranorde.sort(\'addrno\',false)" title="起迄地點" align="center" style="width:200px; color:black;">起迄地點</td>'
                 	string+='<td id="tranorde_product" onclick="tranorde.sort(\'productno\',false)" title="品名" align="center" style="width:100px; color:black;">品名</td>'
@@ -93,6 +94,7 @@
 						string+='<td id="tranorde_noa'+i+'" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>';
 						string+='<td id="tranorde_ctype'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_strdate'+i+'" style="text-align: center;"></td>';
+						string+='<td id="tranorde_dldate'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_nick'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_addr'+i+'" style="text-align: left;"></td>';
 						string+='<td id="tranorde_product'+i+'" style="text-align: left;"></td>';
@@ -229,6 +231,7 @@
                             $('#tranorde_noa' + i).html(this.data[n+i]['noa']);
                             $('#tranorde_ctype' + i).html(this.data[n+i]['ctype']);
                             $('#tranorde_strdate' + i).html(this.data[n+i]['strdate']);
+                            $('#tranorde_dldate' + i).html(this.data[n+i]['dldate']);
                             $('#tranorde_nick' + i).html(this.data[n+i]['nick']);
                             $('#tranorde_addr' + i).html(this.data[n+i]['addr']);
                             $('#tranorde_product' + i).html(this.data[n+i]['product']);  
@@ -248,6 +251,7 @@
                             $('#tranorde_noa' + i).html('');
                             $('#tranorde_ctype' + i).html('');
                             $('#tranorde_strdate' + i).html('');
+                            $('#tranorde_dldate' + i).html('');
                             $('#tranorde_nick' + i).html('');
                             $('#tranorde_addr' + i).html('');
                             $('#tranorde_product' + i).html('');
@@ -331,6 +335,75 @@
 						$('#txtMemo').val($('#combMemo>option:selected').text()+$('#txtMemo').val());
 						$('#combMemo').val(0);
 					}                	
+                });
+                //--------------------------------------------------
+                $('#textDate').datepicker();
+                $('#divImport').mousedown(function(e) {
+                	if(e.button==2){               		
+	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+                	}
+                }).mousemove(function(e) {
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
+                		$(this).css('top',$(this).data('xtop')+e.clientY);
+                		$(this).css('left',$(this).data('xleft')+e.clientX);
+                	}
+                }).bind('contextmenu', function(e) {
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
+		        });
+		        $('#btn1').click(function(e){
+                	$('#divImport').toggle();
+                	$('#textDate').focus();	
+                });
+                $('#btnDivimport').click(function(e){
+                	$('#divImport').hide();
+                });
+                $('#btnImport').click(function(e){
+                	Lock();	
+                	var t_senddate = $.trim($('#textDate').val());
+                	if(t_senddate.length==0){
+                		alert('請輸入日期。');
+                		Unlock();
+                		return false;
+                	}
+                	$.ajax({
+	            		accy : r_accy,
+	            		senddate : t_senddate,
+					    url: 'QueryCommandTaskByNBXX.aspx?accy='+r_accy+'&senddate='+t_senddate,
+					    type: 'GET',
+					    dataType: 'json',
+					    success: function(data){
+					    	var n = parseInt(data.n);
+					    	var msg = data.msg;
+					    	alert(msg);
+					    	if(n>0){
+					    		location.reload();
+					    	}
+					    },
+				        complete: function(){
+				        	//nothing 			         
+				        },
+					    error: function(jqXHR, exception) {
+					    	var errmsg = '資料傳送異常。\n'+('accy:'+this.accy+' senddate:'+this.senddate)+'\n\n'
+				            if (jqXHR.status === 0) {
+				                alert(errmsg+'Not connect.\n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert(errmsg+'Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert(errmsg+'Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert(errmsg+'Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert(errmsg+'Time out error.');
+				            } else if (exception === 'abort') {
+				                alert(errmsg+'Ajax request aborted.');
+				            } else {
+				                alert(errmsg+'Uncaught Error.\n' + jqXHR.responseText);
+				            }
+				        }
+					});
+					Unlock();
                 });
 				//--------------------------------------------------
                 $('#btnTranorde_refresh').click(function(e) {
@@ -468,6 +541,7 @@
 				            		sendno : t_sendno,
 				            		sendid : t_sendid,
 				            		senddate : t_senddate,
+				            		msg: t_msg,
 				            		sel: n,
 								    url: 'SendCommand.aspx',
 								    type: 'POST',
@@ -486,7 +560,7 @@
 							        },
 								    error: function(jqXHR, exception) {
 								    	var errmsg = this.carno+'資料傳送異常。\n'
-								    	+'\n message: \n'+('回傳代碼:'+t_sendid+'.'+t_msg)+'\n\n'
+								    	+'\n message: \n'+('回傳代碼:'+this.sendid+'.'+this.msg)+'\n\n'
 							            if (jqXHR.status === 0) {
 							                alert(errmsg+'Not connect.\n Verify Network.');
 							            } else if (jqXHR.status == 404) {
@@ -962,6 +1036,31 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
+		<input type="button" id="btn1" style="width:100px;" value="司機回傳">
+		<div id="divImport" style="display:none;position:absolute;top:100px;left:700px;width:400px;height:150px;background:RGB(237,237,237);"> 
+			<table style="border:4px solid gray; width:100%; height: 100%;">
+				<tr style="height:1px;background-color: #cad3ff;">
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+				</tr>
+				<tr>		
+					<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>發送訊息日期</a></td>
+					<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="text" id="textDate" style="float:left;width:95%;"/>
+					</td>
+				</tr>				
+				<tr>
+					<td colspan="2" align="center" style="background-color: #cad3ff;">
+						<input type="button" id="btnImport" value="匯入"/>	
+					</td>
+					<td colspan="2" align="center" style=" background-color: #cad3ff;">
+						<input type="button" id="btnDivimport" value="關閉"/>	
+					</td>
+				</tr>
+			</table>
+		</div>
 		<div id='dmain' >
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">

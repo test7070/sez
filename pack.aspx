@@ -242,7 +242,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 350px;
             }
             .tview {
                 margin: 0;
@@ -260,7 +260,7 @@
             }
             .dbbm {
                 float: left;
-                width: 73%;
+                width: 600px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -358,7 +358,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
@@ -374,7 +374,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 73%;float: left;">
+        <div class='dbbm'>
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
@@ -391,6 +391,18 @@
             <tr>
                <td class="td1"><span> </span><a id='lblPrice' class="lbl"></a></td>
                <td class="td2"><input id="txtPrice"  type="text" class="txt num c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+            </tr>      
+            <tr>
+               <td class="td1"><span> </span><a id='lblGen' class="lbl"></a></td>
+               <td class="td2"><input id="txtGen"  type="text" class="txt c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+            </tr>  
+            <tr>
+               <td class="td1"><span> </span><a id='lblSpec' class="lbl"></a></td>
+               <td class="td2"><input id="txtSpec"  type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td>
             </tr>      

@@ -19,10 +19,10 @@
         var q_name = "workd";
         var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-        var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtTotal'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtWorkno'];
-        var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,2,1],['txtErrmount', 15,2,1],['txtWmount', 15, 2, 1]];
+        var bbmNum = [['txtMoney', 15,0,1],['txtTax', 15,0,1],['txtTotal', 15,0,1]];  // 允許 key 小數
+        var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,0,1],['txtErrmount', 15,2,1],['txtWmount', 15, 2, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
@@ -55,6 +55,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             $('#btnImportWorkc').click(function(){
             	var t_tggno = $.trim($('#txtTggno').val());
             	var t_workcno = $.trim($('#txtWorkcno').val());
@@ -86,6 +87,8 @@
 	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
                }
 			});
+			$('#txtMoney').change(function(){sum();});
+			$('#txtTax').change(function(){sum();});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -242,11 +245,14 @@
 				t_weight = dec($('#txtWeight_' + j).val());
 				t_price = dec($('#txtPrice_' + j).val());
 				if($('#txtUnit_' + j).val().toUpperCase()!='KG') 
-					$('#txtTotal_' + j).val(round(t_mount*t_price,2));
+					$('#txtTotal_' + j).val(round(t_mount*t_price,0));
 				else
-					$('#txtTotal_' + j).val(round(t_weight*t_price,2));
+					$('#txtTotal_' + j).val(round(t_weight*t_price,0));
             }  // j
-            
+            var m_Money = dec($('#txtMoney').val());
+			var m_Tax = dec($('#txtTax').val());
+			$('#txtTotal').val(m_Money + m_Tax);
+			$('#txtTotal').focusout();
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
@@ -308,13 +314,13 @@
             _btnCancel();
         }
         function q_popPost(s1) {
-		    	switch (s1) {
-			        case 'txtWorkno':
-           				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
-					    q_gt('work', t_where , 0, 0, 0, "", r_accy);
-			        break;
-		    	}
+			switch (s1) {
+				case 'txtWorkno':
+					var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+					q_gt('work', t_where , 0, 0, 0, "", r_accy);
+				break;
 			}
+		}
     </script>
     <style type="text/css">
         .tview
@@ -374,12 +380,12 @@
                 width: 95%;
             }
             .txt.c2 {
-                width: 46%;
+                width: 50%;
             }
 			.num{
 				text-align: right;
 			}      
-			input[type="text"],input[type="button"] {     
+			input[type="text"],input[type="button"],select {     
 				font-size: medium;
 			}
 </style>
@@ -421,21 +427,32 @@
 	            	<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
 	            	<input id="txtTgg" type="text" class="txt"  style='width:48%;'/>
 	            </td>
-	        	<td> </td>
-				<td><input type="button" id="btnOrdes"></td>
-	        	<!--
-	        	<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
-	            <td><input id="txtWorkno" type="text" class="txt c1"/></td>-->
-			</tr>
-	        <tr>        
 	        	<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 	            <td>
 	            	<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
 	            	<input id="txtStore" type="text" class="txt" style='width:48%;'/>
 	            </td> 
+			</tr>
+	        <tr>        
 				<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
 	            <td><input id="txtWorkcno" type="text" class="txt c1"/></td>
-	        	<td><!--<input class="btn"  id="btnImportWorkc" type="button"/>--></td>
+				<td><span> </span><a id='lblInvono' class="lbl"> </a></td>
+	            <td><input id="txtInvono" type="text" class="txt c1"/></td>
+			</tr>
+	        <tr>        
+				<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+	            <td><input id="txtMoney" type="text" class="txt c1 num"/></td>
+				<td><span> </span><a id='lblTax' class="lbl"> </a></td>
+	            <td>
+	            	<select id="cmbTaxtype" class="txt" onchange="calTax()"></select>
+	            	<input id="txtTax" type="text" class="txt c2 num"/>
+	            </td>
+			</tr>
+	        <tr>        
+				<td></td>
+	            <td></td>
+				<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
+	            <td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 			</tr>
 			<tr>
 				<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -445,7 +462,8 @@
 			</tr>
 	        <tr>
 	        	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-	        	<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
+	        	<td colspan='2'><input id="txtMemo" type="text" class="txt c1"/></td>
+				<td><input type="button" id="btnOrdes"></td>
 	        </tr>
         </table>
         </div>
