@@ -76,6 +76,7 @@
                 	string+='<td id="tranorde_noa" onclick="tranorde.sort(\'noa\',false)" title="訂單編號" align="center" style="width:120px; color:black;">訂單編號</td>';
                 	string+='<td id="tranorde_ctype" onclick="tranorde.sort(\'ctype\',false)" title="類型" align="center" style="width:50px; color:black;">類型</td>';
                 	string+='<td id="tranorde_strdate" onclick="tranorde.sort(\'strdate\',false)" title="開工日期" align="center" style="width:100px; color:black;">開工日</td>';
+                	string+='<td id="tranorde_strdate" onclick="tranorde.sort(\'dldate\',false)" title="完工日期" align="center" style="width:100px; color:black;">完工日</td>';
                 	string+='<td id="tranorde_nick" onclick="tranorde.sort(\'custno\',false)" title="客戶" align="center" style="width:100px; color:black;">客戶</td>'
                 	string+='<td id="tranorde_addr" onclick="tranorde.sort(\'addrno\',false)" title="起迄地點" align="center" style="width:200px; color:black;">起迄地點</td>'
                 	string+='<td id="tranorde_product" onclick="tranorde.sort(\'productno\',false)" title="品名" align="center" style="width:100px; color:black;">品名</td>'
@@ -93,6 +94,7 @@
 						string+='<td id="tranorde_noa'+i+'" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>';
 						string+='<td id="tranorde_ctype'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_strdate'+i+'" style="text-align: center;"></td>';
+						string+='<td id="tranorde_dldate'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_nick'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_addr'+i+'" style="text-align: left;"></td>';
 						string+='<td id="tranorde_product'+i+'" style="text-align: left;"></td>';
@@ -229,6 +231,7 @@
                             $('#tranorde_noa' + i).html(this.data[n+i]['noa']);
                             $('#tranorde_ctype' + i).html(this.data[n+i]['ctype']);
                             $('#tranorde_strdate' + i).html(this.data[n+i]['strdate']);
+                            $('#tranorde_dldate' + i).html(this.data[n+i]['dldate']);
                             $('#tranorde_nick' + i).html(this.data[n+i]['nick']);
                             $('#tranorde_addr' + i).html(this.data[n+i]['addr']);
                             $('#tranorde_product' + i).html(this.data[n+i]['product']);  
@@ -248,6 +251,7 @@
                             $('#tranorde_noa' + i).html('');
                             $('#tranorde_ctype' + i).html('');
                             $('#tranorde_strdate' + i).html('');
+                            $('#tranorde_dldate' + i).html('');
                             $('#tranorde_nick' + i).html('');
                             $('#tranorde_addr' + i).html('');
                             $('#tranorde_product' + i).html('');
