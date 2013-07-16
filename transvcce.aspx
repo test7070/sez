@@ -336,6 +336,75 @@
 						$('#combMemo').val(0);
 					}                	
                 });
+                //--------------------------------------------------
+                $('#textDate').datepicker();
+                $('#divImport').mousedown(function(e) {
+                	if(e.button==2){               		
+	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+                	}
+                }).mousemove(function(e) {
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
+                		$(this).css('top',$(this).data('xtop')+e.clientY);
+                		$(this).css('left',$(this).data('xleft')+e.clientX);
+                	}
+                }).bind('contextmenu', function(e) {
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
+		        });
+		        $('#btn1').click(function(e){
+                	$('#divImport').toggle();
+                	$('#textDate').focus();	
+                });
+                $('#btnDivimport').click(function(e){
+                	$('#divImport').hide();
+                });
+                $('#btnImport').click(function(e){
+                	Lock();	
+                	var t_senddate = $.trim($('#textDate').val());
+                	if(t_senddate.length==0){
+                		alert('請輸入日期。');
+                		Unlock();
+                		return false;
+                	}
+                	$.ajax({
+	            		accy : r_accy,
+	            		senddate : t_senddate,
+					    url: 'QueryCommandTaskByNBXX.aspx?accy='+r_accy+'&senddate='+t_senddate,
+					    type: 'GET',
+					    dataType: 'json',
+					    success: function(data){
+					    	var n = parseInt(data.n);
+					    	var msg = data.msg;
+					    	alert(msg);
+					    	if(n>0){
+					    		location.reload();
+					    	}
+					    },
+				        complete: function(){
+				        	//nothing 			         
+				        },
+					    error: function(jqXHR, exception) {
+					    	var errmsg = '資料傳送異常。\n'+('accy:'+this.accy+' senddate:'+this.senddate)+'\n\n'
+				            if (jqXHR.status === 0) {
+				                alert(errmsg+'Not connect.\n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert(errmsg+'Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert(errmsg+'Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert(errmsg+'Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert(errmsg+'Time out error.');
+				            } else if (exception === 'abort') {
+				                alert(errmsg+'Ajax request aborted.');
+				            } else {
+				                alert(errmsg+'Uncaught Error.\n' + jqXHR.responseText);
+				            }
+				        }
+					});
+					Unlock();
+                });
 				//--------------------------------------------------
                 $('#btnTranorde_refresh').click(function(e) {
                     t_where = " (isnull(mount,0)>isnull(vccecount,0)) and enda!=1 ";
@@ -472,6 +541,7 @@
 				            		sendno : t_sendno,
 				            		sendid : t_sendid,
 				            		senddate : t_senddate,
+				            		msg: t_msg,
 				            		sel: n,
 								    url: 'SendCommand.aspx',
 								    type: 'POST',
@@ -490,7 +560,7 @@
 							        },
 								    error: function(jqXHR, exception) {
 								    	var errmsg = this.carno+'資料傳送異常。\n'
-								    	+'\n message: \n'+('回傳代碼:'+t_sendid+'.'+t_msg)+'\n\n'
+								    	+'\n message: \n'+('回傳代碼:'+this.sendid+'.'+this.msg)+'\n\n'
 							            if (jqXHR.status === 0) {
 							                alert(errmsg+'Not connect.\n Verify Network.');
 							            } else if (jqXHR.status == 404) {
@@ -966,6 +1036,31 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
+		<input type="button" id="btn1" style="width:100px;" value="司機回傳">
+		<div id="divImport" style="display:none;position:absolute;top:100px;left:700px;width:400px;height:150px;background:RGB(237,237,237);"> 
+			<table style="border:4px solid gray; width:100%; height: 100%;">
+				<tr style="height:1px;background-color: #cad3ff;">
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+				</tr>
+				<tr>		
+					<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>發送訊息日期</a></td>
+					<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="text" id="textDate" style="float:left;width:95%;"/>
+					</td>
+				</tr>				
+				<tr>
+					<td colspan="2" align="center" style="background-color: #cad3ff;">
+						<input type="button" id="btnImport" value="匯入"/>	
+					</td>
+					<td colspan="2" align="center" style=" background-color: #cad3ff;">
+						<input type="button" id="btnDivimport" value="關閉"/>	
+					</td>
+				</tr>
+			</table>
+		</div>
 		<div id='dmain' >
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
