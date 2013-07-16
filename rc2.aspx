@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "rc2";
-        var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
+        var decbbs = [ 'money','total',  'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
         var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
         var q_readonly = ['txtNoa','txtWorker']; 
         var q_readonlys= [];
@@ -106,8 +106,8 @@
                             return;
                         var i, j = 0;
                         $('#txtOrdeno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
-                                                           , 'uno,productno,product,unit,mount,weight,noa,no2,price,total,memo'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
+                                                           , 'uno,productno,product,unit,mount,noa,no2,price,total,memo'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 
@@ -220,7 +220,8 @@
 					b_seq = t_IdSeq;
 					
                 	var t_unit = $('#txtUnit_' + b_seq).val();
-	                var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	                //var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	                var t_mount = $('#txtMount_' + b_seq).val();
 	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
                 });
                 $('#txtGweight_' + j).change(function () {
@@ -229,7 +230,8 @@
 					b_seq = t_IdSeq;
 					
                 	var t_unit = $('#txtUnit_' + b_seq).val();
-	                var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	                //var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	               var t_mount = $('#txtMount_' + b_seq).val();
 	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
                	});
                 $('#txtPrice_' + j).change(function () {
@@ -238,7 +240,8 @@
 					b_seq = t_IdSeq;
 					
                 	var t_unit = $('#txtUnit_' + b_seq).val();
-	                var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	                //var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	               var t_mount = $('#txtMount_' + b_seq).val();
 	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
                 });
                 $('#txtTotal_' + j).focusout(function () { sum(); });
@@ -325,7 +328,7 @@
             if( !emp( $('#txtPrice' ).val()))
                 $('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
-            $('#txtWeight').val(round(t_weight, 0));
+            //$('#txtWeight').val(round(t_weight, 0));
             calTax();
 			q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
         }
@@ -608,8 +611,8 @@
             <tr class="tr8">
                 <td class="td1"><span> </span><a id='lblTotalus' class="lbl"></a></td>
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1" /></td> 
-                <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
-                <td class="td5" colspan='2' ><input id="txtWeight" type="text" class="txt num c1" /></td>
+                <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
+                <td class="td5" colspan='2' ><input id="txtWeight" type="text" class="txt num c1" /></td>-->
                 <td class="td7"><span> </span><a id='lblAccc' class="lbl btn"></a></td>
                 <td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
             </tr>
@@ -643,12 +646,15 @@
                 <td><input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold; width: 16%;" />
                 	<input  id="txtProductno.*" type="text" style="width: 75%;"/></td>
                                        
-                <td><input  id="txtProduct.*" type="text" class="txt c1" />
-                <input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
-                	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
+                <td>
+                	<input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtUno.*"  style="width:85%; float:left;"/>
+					</td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1" />
-                	<input id="txtWeight.*" type="text" class="txt num c1" />
+                	<!--<input id="txtWeight.*" type="text" class="txt num c1" />-->
                 </td>
                 <td><input id="txtPrice.*" type="text"  class="txt num c1" /></td>
                 <td><input id="txtTotal.*" type="text" class="txt num c1" />

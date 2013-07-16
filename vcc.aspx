@@ -17,10 +17,10 @@
         }
         q_tables = 's';   /// 定義為 Master-detail  架構 ， master= vcc   detail = vccs  使用資料表=vcc,vccs
         var q_name = "vcc";
-        var q_readonly = ['txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight', 'txtOrdeno','txtWorker']; // master 唯讀物件
+        var q_readonly = ['txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtOrdeno','txtWorker']; // master 唯讀物件
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; // detail 唯讀物件
-        var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2], ['txtMoney', , , 1], ['txtTax', , , 1], ['txtTotal', , , 1], ['txtTotalus', , , 1], ['txtWeight', , , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
-        var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2, 1], ['txtMount', 9, 2, 1], ['txtTotal', , , 1]]; // detail 允許 key 小數  [物件,整數位數,小數位數, comma Display]
+        var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2], ['txtMoney', , , 1], ['txtTax', , , 1], ['txtTotal', , , 1], ['txtTotalus', , , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
+        var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal', , , 1]]; // detail 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; // post 後給值  master Mask
         var bbsMask = []; // post 後給值  detail Mask
         q_sqlCount = 6; 
@@ -120,7 +120,7 @@
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice', b_ret.length, b_ret
                                                            , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
-                        for (i = 0; i < ret.length; i++) {
+                       /* for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
                                 $('#txtMount_' + k).val(b_ret[i]['notv']);
@@ -130,7 +130,7 @@
                                 $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv2'], b_ret[i]['weight']));
                             }
 
-                        }  /// for i
+                        }  /// for i*/
                     }
                     break;
                 case q_name + '_s':  // 查詢視窗  關閉後  vcc_s.aspx
@@ -203,7 +203,7 @@
             for (var i = 0; i < q_bbsCount ; i++) {   // q_bbsCount 表身總列數
                 if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                     $('#txtUnit_' + i).focusout(function () { sum(); });    //  $('#txtUnit_' + j)  每列物件 id
-                    $('#txtWeight_' + i).focusout(function () { sum(); });
+                    //$('#txtWeight_' + i).focusout(function () { sum(); });
                     $('#txtPrice_' + i).focusout(function () { sum(); });
                     $('#txtMount_' + i).focusout(function () { sum(); });
                 }
@@ -273,8 +273,9 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
-                t_mount = (!t_unit || emp(t_unit) || trim(t_unit).toLowerCase() == 'kg' ? q_float('txtWeight_' + j) : q_float('txtMount_' + j));  // 計價量
-                t_weight = t_weight + dec(q_float('txtWeight_' + j)); // 重量合計
+                //t_mount = (!t_unit || emp(t_unit) || trim(t_unit).toLowerCase() == 'kg' ? q_float('txtWeight_' + j) : q_float('txtMount_' + j));  // 計價量
+                t_mount = q_float('txtMount_' + j);
+                //t_weight = t_weight + dec(q_float('txtWeight_' + j)); // 重量合計
                 $('#txtTotal_' + j).val(round(q_float('txtPrice_' + j) * dec(t_mount), 0));
                 t1 = t1 + dec(q_float('txtTotal_' + j));
             }  // j
@@ -283,7 +284,7 @@
             if (!emp($('#txtPrice').val()))
                 $('#txtTranmoney').val(round(t_weight * dec(q_float('txtPrice')), 0));
 
-            $('#txtWeight').val(round(t_weight, 0));
+            //$('#txtWeight').val(round(t_weight, 0));
             calTax();
             q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
         }
@@ -553,8 +554,8 @@
             <tr>
                 <td align="right"><a id='lblTotalus'></a></td>
                 <td colspan='2'><input id="txtTotalus"  type="text" style='width:100%; text-align:center;'/></td> 
-                <td align="right" ><a id='lblWeight'></a></td>
-                <td ><input id="txtWeight"  type="text" style='width:100%; text-align:center;'/></td>
+                <!--<td align="right" ><a id='lblWeight'></a></td>
+                <td ><input id="txtWeight"  type="text" style='width:100%; text-align:center;'/></td>-->
                 <td class="column4" ><input id="btnPacking" type="button" style='width: auto; font-size:  medium;'  /></td>
                 <td align="right"><a id='lblWorker'></a></td>
                 <td ><input id="txtWorker"  type="text" style='width:94%; text-align:center;'/></td> 
@@ -575,7 +576,7 @@
                 <td align="center"><a id='lblProduct_s'></a></td>
                 <td align="center"><a id='lblUnit_s'></a></td>
                 <td align="center"><a id='lblMount_s'></a></td>
-                <td align="center"><a id='lblWeight_s'></a></td>
+                <!--<td align="center"><a id='lblWeight_s'></a></td>-->
                 <td align="center"><a id='lblPrice_s'></a></td>
                 <td align="center"><a id='lblTotal_s'></a></td>
                 <td align="center"><a id='lblMemo_s'></a></td>
@@ -588,7 +589,7 @@
                 </td>
                 <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
                 <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
+                <!--<td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>-->
                 <td style="width:6%;"><input class="txt" id="txtPrice.*" type="text"  style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtTotal.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:12%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
