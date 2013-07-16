@@ -55,6 +55,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             $('#btnImportWorkc').click(function(){
             	var t_tggno = $.trim($('#txtTggno').val());
             	var t_workcno = $.trim($('#txtWorkcno').val());
@@ -379,12 +380,12 @@
                 width: 95%;
             }
             .txt.c2 {
-                width: 46%;
+                width: 50%;
             }
 			.num{
 				text-align: right;
 			}      
-			input[type="text"],input[type="button"] {     
+			input[type="text"],input[type="button"],select {     
 				font-size: medium;
 			}
 </style>
@@ -442,7 +443,10 @@
 				<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 	            <td><input id="txtMoney" type="text" class="txt c1 num"/></td>
 				<td><span> </span><a id='lblTax' class="lbl"> </a></td>
-	            <td><input id="txtTax" type="text" class="txt c1 num"/></td>
+	            <td>
+	            	<select id="cmbTaxtype" class="txt" onchange="calTax()"></select>
+	            	<input id="txtTax" type="text" class="txt c2 num"/>
+	            </td>
 			</tr>
 	        <tr>        
 				<td></td>
