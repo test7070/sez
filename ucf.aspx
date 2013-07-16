@@ -55,7 +55,7 @@
             }
             
             function q_funcPost(t_func, result) {
-              
+				alert('結轉功能執行完畢!!');
             }
             
                         
@@ -78,10 +78,10 @@
 			<div id="ucf">
 				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 					<tr>
-						<td align="center" style="width:35%"><a id="lblDatea" class="lbl"></a></td>
+						<td align="center" style="width:35%"><a id="lblDatea" class="lbl" style="font-size: medium;"></a></td>
 						<td align="left" style="width:65%">
-							<input id="textBdate"  type="text"  class="txt" style="width: 40%;"/>~
-							<input id="textEdate"  type="text"  class="txt" style="width: 40%;"/>
+							<input id="textBdate"  type="text"  class="txt" style="width: 40%; font-size: medium;"/>~
+							<input id="textEdate"  type="text"  class="txt" style="width: 40%; font-size: medium;"/>
 						</td>
 					</tr>
 					<tr>

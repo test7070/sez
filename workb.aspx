@@ -100,6 +100,15 @@
 				var t_where = "enda!=1";
                 q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 			});
+			
+			$('#btnWork').click(function(){
+				if(!emp($('#txtStationno').val())){
+					var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"'";
+				}else{
+					var t_where = "enda!=1 and (tggno is null or tggno='')";
+				}
+                q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -175,8 +184,9 @@
                	case 'work':
                 	b_ret = getb_ret();
                 	if(b_ret){
-                		$('#txtWorkno').val(b_ret[0].noa);
-                		var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+                		$('#txtStationno').val(b_ret[0].stationno);
+                		$('#txtStation').val(b_ret[0].station);
+						var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
 						q_gt('work', t_where , 0, 0, 0, "", r_accy);
                 	}
                 break;
@@ -590,8 +600,8 @@
 			</td>
 			<!--<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 			<td><input id="txtWorkno" type="text" class="txt c1"/></td>-->
-			<td></td>
 			<td><input type="button" id="btnOrdes"></td>
+			<td><input type="button" id="btnWork"></td>
 		</tr>
         <tr>
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>

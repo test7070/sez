@@ -86,6 +86,15 @@
 	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
                }
 			});
+			
+			$('#btnWork').click(function(){
+				if(!emp($('#txtTggno').val())){
+					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"'";
+				}else{
+					var t_where = "enda!=1 and tggno!=''";
+				}
+                q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+			});
 		}
 
         function q_boxClose( s2) {
@@ -111,20 +120,13 @@
             	case 'work':
                 	b_ret = getb_ret();
                 	if(b_ret){
-                		$('#txtWorkno').val(b_ret[0].noa);
-                		$('#txtStationno').val(b_ret[0].stationno);
-                		$('#txtStation').val(b_ret[0].station);
-                		$('#txtProcessno').val(b_ret[0].processno);
-                		$('#txtProcess').val(b_ret[0].process);
                 		$('#txtModelno').val(b_ret[0].modelno);
                 		$('#txtModel').val(b_ret[0].model);
-                		$('#txtOrdeno').val(b_ret[0].ordeno);
-                		$('#txtNo2').val(b_ret[0].no2);
                 		$('#txtTggno').val(b_ret[0].tggno);
                 		$('#txtTgg').val(b_ret[0].comp);
 
-                		var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
-						q_gt('works', t_where , 0, 0, 0, "", r_accy);
+                		var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
+						q_gt('work', t_where , 0, 0, 0, "", r_accy);
                 	}
                 break;
 				case 'workas':
@@ -466,8 +468,8 @@
 	            <input id="txtTggno" type="text" class="txt c2"/>
 	            <input id="txtTgg" type="text"  class="txt c2"/>
             </td>
-			<td> </td>
-			<td><input type="button" id="btnOrdes"></td>
+			<td><input type="button" id="btnOrdes"> </td>
+			<td><input type="button" id="btnWork"></td>
         	
         	<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
             <td><input id="txtWorker" type="text"  class="txt c1"/></td>

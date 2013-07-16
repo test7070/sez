@@ -89,6 +89,15 @@
 			});
 			$('#txtMoney').change(function(){sum();});
 			$('#txtTax').change(function(){sum();});
+			
+			$('#btnWork').click(function(){
+				if(!emp($('#txtTggno').val())){
+					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"'";
+				}else{
+					var t_where = "enda!=1 and tggno!=''";
+				}
+                q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -113,8 +122,10 @@
             	case 'work':
                 	b_ret = getb_ret();
                 	if(b_ret){
-                		$('#txtWorkno').val(b_ret[0].noa);
-                		var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+                		$('#txtTggno').val(b_ret[0].tggno);
+                		$('#txtTgg').val(b_ret[0].comp);
+
+                		var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
 						q_gt('work', t_where , 0, 0, 0, "", r_accy);
                 	}
                 break;
@@ -419,7 +430,6 @@
 	        	<td><input id="txtDatea" type="text" class="txt c1"/></td>
 	        	<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 	            <td><input id="txtNoa" type="text" class="txt c1"/></td>
-	            <td> </td>
 			</tr>
 	        <tr>
 	        	<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
@@ -463,7 +473,7 @@
 	        <tr>
 	        	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 	        	<td colspan='2'><input id="txtMemo" type="text" class="txt c1"/></td>
-				<td><input type="button" id="btnOrdes"></td>
+				<td><input type="button" id="btnOrdes"><input type="button" id="btnWork"></td>
 	        </tr>
         </table>
         </div>

@@ -33,9 +33,9 @@
                     },{
                         type : '2',
                         name : 'ucc',
-                        dbf : 'ucc',
+                        dbf : 'ucaucc',
                         index : 'noa,product',
-                        src : 'ucc_b.aspx'
+                        src : 'ucaucc_b.aspx'
                     },{
                         type : '1',
                         name : 'ordeno'

@@ -82,6 +82,14 @@
 				var t_where = "enda!=1";
                 q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 			});
+			$('#btnWork').click(function(){
+				if(!emp($('#txtStationno').val())){
+					var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"'";
+				}else{
+					var t_where = "enda!=1 and (tggno is null or tggno='')";
+				}
+                q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+			});
 			
 			$('#txtWorkno').change(function(){
 				var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
@@ -120,18 +128,20 @@
 				case 'work':
                 	b_ret = getb_ret();
                 	if(b_ret){
-                		$('#txtWorkno').val(b_ret[0].noa);
+                		//$('#txtWorkno').val(b_ret[0].noa);
                 		$('#txtStationno').val(b_ret[0].stationno);
                 		$('#txtStation').val(b_ret[0].station);
                 		$('#txtProcessno').val(b_ret[0].processno);
                 		$('#txtProcess').val(b_ret[0].process);
                 		$('#txtModelno').val(b_ret[0].modelno);
                 		$('#txtModel').val(b_ret[0].model);
-                		$('#txtOrdeno').val(b_ret[0].ordeno);
-                		$('#txtNo2').val(b_ret[0].no2);
-
-                		var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
-						q_gt('works', t_where , 0, 0, 0, "", r_accy);
+                		//$('#txtOrdeno').val(b_ret[0].ordeno);
+                		//$('#txtNo2').val(b_ret[0].no2);
+						
+						var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
+						q_gt('work', t_where , 0, 0, 0, "", r_accy);
+                		//var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
+						//q_gt('works', t_where , 0, 0, 0, "", r_accy);
                 	}
                 break;
 				case 'works':
@@ -579,7 +589,7 @@
 			<td></td>
 			<td><input type="button" id="btnOrdes"></td>
 			<td></td>
-			<td></td>
+			<td><input type="button" id="btnWork"></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
