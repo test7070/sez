@@ -455,21 +455,21 @@
 	        <tr>        
 				<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
 	            <td><input id="txtWorkcno" type="text" class="txt c1"/></td>
-				<td><span> </span><a id='lblInvono' class="lbl"> </a></td>
-	            <td><input id="txtInvono" type="text" class="txt c1"/></td>
+	            <td></td>
+	            <td><input type="button" id="btnOrdes"><input type="button" id="btnWork"></td>
 			</tr>
-	        <tr>        
+	        <tr>
+	        	<td><span> </span><a id='lblInvono' class="lbl"> </a></td>
+	            <td><input id="txtInvono" type="text" class="txt c1"/></td>        
 				<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 	            <td><input id="txtMoney" type="text" class="txt c1 num"/></td>
-				<td><span> </span><a id='lblTax' class="lbl"> </a></td>
+			</tr>
+	        <tr>
+	        	<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 	            <td>
 	            	<select id="cmbTaxtype" class="txt" onchange="calTax()"></select>
 	            	<input id="txtTax" type="text" class="txt c2 num"/>
-	            </td>
-			</tr>
-	        <tr>        
-				<td></td>
-	            <td></td>
+	            </td>        
 				<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 	            <td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 			</tr>
@@ -481,8 +481,7 @@
 			</tr>
 	        <tr>
 	        	<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-	        	<td colspan='2'><input id="txtMemo" type="text" class="txt c1"/></td>
-				<td><input type="button" id="btnOrdes"><input type="button" id="btnWork"></td>
+	        	<td colspan='4'><input id="txtMemo" type="text" class="txt c1"/></td>
 	        </tr>
         </table>
         </div>
