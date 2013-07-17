@@ -161,9 +161,9 @@
                        t_where6 += "^^";
                        t_where1 += "^^";
                     } else {
-                        t_where = "^^1=0^^";
-                        t_where6 = "^^1=0^^";
-                        t_where1 = " where[1]=^^1=0^^";
+                        t_where = "1=0^^";
+                        t_where6 = " where[6]=^^ 1=0 ^^";
+                        t_where1 = " where[1]=^^ 1=0 ^^";
                         t_where2 = " where[2]=^^ 1=1 ^^";
                         t_where3 = " where[3]=^^ 1=0 ^^";
                         t_where5 = " where[5]=^^ 1=0 order by noa ^^";
