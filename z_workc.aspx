@@ -75,6 +75,11 @@
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
                 	$('#txtXnoa').val(t_key[1]);
+                $('#txtXno2').change(function(){
+                	var t_no2 = trim($(this).val());
+                	if(t_no2.length > 0)
+                		$(this).val(padL(t_no2,'0',3));
+                })
             }
 
             function q_boxClose(s2) {
