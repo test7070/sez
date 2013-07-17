@@ -37,7 +37,71 @@
                     dataErr = false;
                     return;
                 }
+                var Parent = window.parent.document;
+                var x_custno=Parent.getElementById('txtCustno').value;
+                var x_datea=Parent.getElementById('txtDatea').value;
+                var x_custno2=Parent.getElementById('txtCustno2').value;
+                var x_noa=Parent.getElementById('txtNoa').value;
+                var x_custno=Parent.getElementById('txtCustno').value;
+                
+                var t_where='',t_where1='',t_where2='',t_where3='',t_where4='',t_where5='',t_where6='',t_where7='';
+				if (!emp(x_custno)) {
+                      //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+						t_where = "swhere=^^(a.custno='" + $.trim(x_custno) + "'";
+						t_where6= " where[6]=^^ (a.custno='" + $.trim(x_custno) + "'";
+						t_where3 = " where[3]=^^ (c.noa='" + x_custno + "' ";
+						t_where5 = " where[5]=^^(((a.custno='" + x_custno + "' ";
+						
+						if(!emp(x_datea))
+							t_where4 = " where[4]=^^ mon='"+x_datea.substr(0,6)+"' ^^";
+						else
+							t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+						
+                        if (!emp(x_custno2)) {
+                            var t_custno2 = (x_custno2).split(",");
+                            for (var i = 0; i < t_custno2.length; i++) {
+                                t_where += " or a.custno ='" + t_custno2[i] + "'"
+                                t_where6+=" or a.custno ='" + t_custno2[i] + "'"
+                                t_where3 += " or c.noa ='" + t_custno2[i] + "'"
+                                t_where5 += " or a.custno ='" + t_custno2[i] + "'"
+                            }
+                        }
+                        t_where+=") and (a.unpay+isnull(b.paysale,0))!=0 ";
+                        t_where6+=") and (a.unpay+isnull(b.paysale,0))!=0 and (CHARINDEX('會計',kind)=0 or a.datea<'102/04/01')";//1020410會計部從102/04/01開始用明細匯入
+                        t_where1 = " where[1]=^^ a.noa='" + x_noa + "' and a.paysale!=0 ";
+						
+						if(!emp($('#txtDatea').val()))
+							t_where2 = " where[2]=^^ left(a.datea,6)='" + x_noa.substr(0, 6) + "' ^^";
+						else
+							t_where2 = " where[2]=^^ 1=1 ^^";
+						
+						t_where3 +=") ^^"
+						
+						//1020410會計部從102/04/01開始用明細匯入
+						//1020509要不包含單據的立帳單
+						t_where5 += " ) and (CHARINDEX('會計',kind)>0) and a.unpay!=0) or ((a.noa+isnull(b.product,'')+b.noq in (select vccno+memo2 from umms where noa='"+x_noa+"')))) and a.datea>='102/04/01' order by noa^^";
+						t_where7 = " where[7]=^^ noa!='"+x_noa+"' ^^";
+                        	
+                       // 最後一個t_whereX 加 order by noa^^";
+
+                       t_where += "^^";
+                       t_where6 += "^^";
+                       t_where1 += "^^";
+                    } else {
+                        t_where = "swhere=^^1=0^^";
+                        t_where6 = " where[6]=^^ 1=0 ^^";
+                        t_where1 = " where[1]=^^ 1=0 ^^";
+                        t_where2 = " where[2]=^^ 1=1 ^^";
+                        t_where3 = " where[3]=^^ 1=0 ^^";
+                        t_where5 = " where[5]=^^ 1=0 order by noa ^^";
+                        t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+                        t_where7 = " where[7]=^^ 1=1 ^^";
+                    }
+                
+                t_content=t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6+t_where7
+                
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+                
                 $('#chkAll').click(function() {
                     for (var j = 0; j < q_bbsCount; j++) {
                         if (!emp($('#txtNoa_' + j).val()))

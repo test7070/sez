@@ -117,8 +117,9 @@
                 //0926改為開啟視窗
                 $('#btnVcc').click(function(e) {
                     //umm_trd();
-                    var t_where2='',t_where3='',t_where4='',t_where5='',t_where6='',t_where7='';
-                    if (!emp($('#txtCustno').val())) {
+                    //201307/16因客戶2會輸入很多，所以將判斷條件移到開起qbox才查詢
+                    var t_where='',t_where1='',t_where2='',t_where3='',t_where4='',t_where5='',t_where6='',t_where7='';
+                    /*if (!emp($('#txtCustno').val())) {
                       //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 						t_where = "(a.custno='" + $.trim($('#txtCustno').val()) + "'";
 						t_where6= " where[6]=^^ (a.custno='" + $.trim($('#txtCustno').val()) + "'";
@@ -169,7 +170,7 @@
                         t_where5 = " where[5]=^^ 1=0 order by noa ^^";
                         t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
                         t_where7 = " where[7]=^^ 1=1 ^^";
-                    }
+                    }*/
                     q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4+ t_where5+ t_where6+t_where7, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
                 });
             }
