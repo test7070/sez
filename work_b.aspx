@@ -15,9 +15,12 @@
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
     var i, s1;
-        brwCount2 = 0;
-        brwCount = -1;
+        brwCount2 = 10;
+        
         $(document).ready(function () {
+        	 if (!q_paraChk())
+            	return;
+            
             main();
         });         /// end ready
 
@@ -42,32 +45,34 @@
         }
     </script>
     <style type="text/css">
+    .seek_tr
+    {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
     </style>
 </head>
 
 <body> 
 <div  id="dbbs"  >
-       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
-            <tr>
-                <th align="center" > </th>
-                <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblCuadate'></a></th>
-                <!--<th align="center" style='color:Blue;' ><a id='lblDatea'></a></th>-->
-                <th align="center" style='color:Blue;' ><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblMount'></a></th>
-                <!--<th align="center" style='color:Blue;' ><a id='lblWorkdate'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblUindate'></a></th>-->
-                <th align="center" style='color:Blue;' ><a id='lblStation'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblInmount'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblRmount'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblWmount'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblOrdeno'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblTggno'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblProcess'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblHours'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblMemo'></a></th>
+       <table id="tbbs"  class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+            <tr style='color:White; background:#003366;'>
+                <th align="center"> </th>
+                <th align="center"><a id='lblNoa'></a></th>
+                <th align="center"><a id='lblCuadate'></a></th>
+                <!--<th align="center"  ><a id='lblDatea'></a></th>-->
+                <th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
+                <th align="center"><a id='lblMount'></a></th>
+                <!--<th align="center"  ><a id='lblWorkdate'></a></th>
+                <th align="center"  ><a id='lblUindate'></a></th>-->
+                <th align="center"><a id='lblStation'></a></th>
+                <th align="center"><a id='lblInmount'></a></th>
+                <th align="center"><a id='lblRmount'></a></th>
+                <th align="center"><a id='lblWmount'></a></th>
+                <th align="center"><a id='lblOrdeno'></a></th>
+                <th align="center"><a id='lblTggno'></a></th>
+                <th align="center"><a id='lblProcess'></a></th>
+                <th align="center"><a id='lblHours'></a></th>
+                <th align="center"><a id='lblMemo'></a></th>
             </tr>
-            <tr>
+            <tr style='background:#cad3ff;'>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" />
                 	<input id="txtDatea.*" type="hidden" />
                 	<input id="txtWorkdate.*" type="hidden" />
@@ -102,9 +107,8 @@
                 <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
         </table>
-  <!--#include file="../inc/brow_ctrl.inc"--> 
-</div>
-
+  	<!--#include file="../inc/pop_ctrl.inc"--> 
+	</div>
 </body>
 </html> 
 
