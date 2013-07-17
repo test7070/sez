@@ -108,18 +108,25 @@
 				case 'ordes':
                 	if (q_cur > 0 && q_cur < 4) {
 						b_ret = getb_ret();
-						
+
 						if (!b_ret || b_ret.length == 0)
 							return;
-						for (var i = 0; i < b_ret.length; i++) {
-							//Z開頭的廠商為自己公司要算在內
-							if(!emp($('#txtStationno').val())){
-								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and stationno='"+$('#txtStationno').val()+"' ^^";
-								q_gt('work', t_where , 0, 0, 0, "", r_accy);
-							}else{
-								//102/07/06寫入工作中心,只有Z開頭
-								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or len(stationno)>0 )^^";
-								q_gt('work', t_where , 0, 0, 0, "", r_accy);
+							
+						if(q_cur==1 || q_cur==2){
+							//清空表身資料
+		            		for(var i = 0; i < q_bbsCount; i++) {
+		            			$('#btnMinus_'+i).click();
+		            		}
+							for (var i = 0; i < b_ret.length; i++) {
+								//Z開頭的廠商為自己公司要算在內
+								if(!emp($('#txtStationno').val())){
+									var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and stationno='"+$('#txtStationno').val()+"' ^^";
+									q_gt('work', t_where , 0, 0, 0, "", r_accy);
+								}else{
+									//102/07/06寫入工作中心,只有Z開頭
+									var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or len(stationno)>0 )^^";
+									q_gt('work', t_where , 0, 0, 0, "", r_accy);
+								}
 							}
 						}
 					}
@@ -127,7 +134,7 @@
 				
 				case 'work':
                 	b_ret = getb_ret();
-                	if(b_ret){
+                	if(b_ret&&(q_cur==1 || q_cur==2)){
                 		//$('#txtWorkno').val(b_ret[0].noa);
                 		$('#txtStationno').val(b_ret[0].stationno);
                 		$('#txtStation').val(b_ret[0].station);
@@ -198,10 +205,7 @@
 							$('#txtStation').val(t_station);
 						}
 					}
-					//清空表身資料
-            		for(var i = 0; i < q_bbsCount; i++) {
-            			$('#btnMinus_'+i).click();
-            		}
+					
 					var as = _q_appendData("works", "", true);
 					for (i = 0; i < as.length; i++) {
 							/*if(as[i].istd=='true'){
@@ -209,16 +213,16 @@
 								as[i].product=as[i].tproduct
 							}*/
 							
-							if(as[i].unit.toUpperCase()=='KG'){
+							/*if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
 								as[i].xweight=as[i].mount;
 							}else{
 								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
-							}
+							}*/
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtMemo,txtWorkno', as.length, as
-														   , 'productno,product,unit,xmount,xweight,memo,noa'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno', as.length, as
+														   , 'productno,product,unit,mount,memo,noa'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
 				 break;
 				case q_name: 

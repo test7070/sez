@@ -120,14 +120,20 @@
 						
 						if (!b_ret || b_ret.length == 0)
 							return;
-						for (var i = 0; i < b_ret.length; i++) {
-							//Z開頭的廠商為自己公司要算在內
-							if(!emp($('#txtStationno').val())){
-								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and stationno='"+$('#txtStationno').val()+"' ^^";
-								q_gt('work', t_where , 0, 0, 0, "", r_accy);
-							}else{
-								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or len(stationno)>0 ) ^^";
-								q_gt('work', t_where , 0, 0, 0, "", r_accy);
+						if(q_cur==1 || q_cur==2){
+							//清空表身資料
+		            		for(var i = 0; i < q_bbsCount; i++) {
+		            			$('#btnMinus_'+i).click();
+		            		}
+							for (var i = 0; i < b_ret.length; i++) {
+								//Z開頭的廠商為自己公司要算在內
+								if(!emp($('#txtStationno').val())){
+									var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and stationno='"+$('#txtStationno').val()+"' ^^";
+									q_gt('work', t_where , 0, 0, 0, "", r_accy);
+								}else{
+									var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and (len(tggno)=0 or len(stationno)>0 ) ^^";
+									q_gt('work', t_where , 0, 0, 0, "", r_accy);
+								}
 							}
 						}
 					}
@@ -183,7 +189,7 @@
                     break;*/
                	case 'work':
                 	b_ret = getb_ret();
-                	if(b_ret){
+                	if(b_ret&&(q_cur==1 || q_cur==2)){
                 		$('#txtStationno').val(b_ret[0].stationno);
                 		$('#txtStation').val(b_ret[0].station);
 						var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
@@ -201,10 +207,6 @@
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
             	case 'work':
-					//清空表身資料
-            		for(var i = 0; i < q_bbsCount; i++) {
-            			$('#btnMinus_'+i).click();
-            		}
 					var as = _q_appendData("work", "", true);
 					var t_stationno='',t_station='';
 					for (i = 0; i < as.length; i++) {
@@ -213,28 +215,28 @@
 								as[i].product=as[i].tproduct
 							}*/
 							
-							if(as[i].unit.toUpperCase()=='KG'){
+							/*if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
 								as[i].xweight=as[i].mount;
 							}else{
 								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
-							}
+							}*/
 							
 							if(as[i].stationno!=''){
 								t_stationno=as[i].stationno;
 								t_station=as[i].station;
 							}
 						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtMemo,txtWorkno,txtOrdeno,txtNo2', as.length, as
-														   , 'productno,product,unit,xmount,xweight,xmount,xweight,memo,noa,ordeno,no2'
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2', as.length, as
+														   , 'productno,product,unit,mount,memo,noa,ordeno,no2'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
 					if(t_stationno.length!=0 || t_station.length!=0){
 							$('#txtStationno').val(t_stationno);
 							$('#txtStation').val(t_station);
 					}
 				 break;
-            	case 'work':
+            	/*case 'work':
             		//清空表身資料
             		for(var i = 0; i < q_bbsCount; i++) {
             			$('#btnMinus_'+i).click();
@@ -254,7 +256,7 @@
 					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo', as.length, as
 														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
-				 break;
+				 break;*/
                 case 'ucc': 
 					var as = _q_appendData("ucc", "", true);
 					if(as[0]!=undefined)

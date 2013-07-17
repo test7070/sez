@@ -109,23 +109,25 @@
 						
 						if (!b_ret || b_ret.length == 0)
 							return;
-	            		//清空表身資料
-	            		for(var i = 0; i < q_bbsCount; i++) {
-	            			$('#btnMinus_'+i).click();
-	            		}
-						for (var i = 0; i < b_ret.length; i++) {
-							var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!='' and left(tggno,1)!='Z' ";
-							if(!emp($('#txtTggno').val()))
-								t_where+=" and tggno='"+$('#txtTggno').val()+"'";
-							
-							t_where+="^^";
-							q_gt('work', t_where , 0, 0, 0, "", r_accy);
+						if(q_cur==1 || q_cur==2){
+		            		//清空表身資料
+		            		for(var i = 0; i < q_bbsCount; i++) {
+		            			$('#btnMinus_'+i).click();
+		            		}
+							for (var i = 0; i < b_ret.length; i++) {
+								var t_where = "where=^^ ordeno ='"+b_ret[i].noa+"' and no2='"+b_ret[i].no2+"' and tggno!='' and left(tggno,1)!='Z' ";
+								if(!emp($('#txtTggno').val()))
+									t_where+=" and tggno='"+$('#txtTggno').val()+"'";
+								
+								t_where+="^^";
+								q_gt('work', t_where , 0, 0, 0, "", r_accy);
+							}
 						}
 					}
 				 break;
             	case 'work':
                 	b_ret = getb_ret();
-                	if(b_ret){
+                	if(b_ret&&(q_cur==1 || q_cur==2)){
                 		$('#txtTggno').val(b_ret[0].tggno);
                 		$('#txtTgg').val(b_ret[0].comp);
 
@@ -145,19 +147,27 @@
             switch (t_name) {
             	case 'work':      		
 					var as = _q_appendData("work", "", true);
+					var t_tggno='',t_tgg='';
 					for (i = 0; i < as.length; i++) {
-							
-							if(as[i].unit.toUpperCase()=='KG'){
+							if(as[i].tggno!=''){
+								t_tggno=as[i].tggno;
+								t_tgg=as[i].comp;
+							}
+							/*if(as[i].unit.toUpperCase()=='KG'){
 								as[i].xmount=0;
 								as[i].xweight=as[i].mount;
 							}else{
 								as[i].xmount=as[i].mount;
 								as[i].xweight=0;
-							}
-						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as
-														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo,price,noa'
+							}*/
+					}
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as
+														   , 'productno,product,unit,mount,ordeno,no2,memo,price,noa'
 														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
+					if(t_tggno.length!=0 || t_tgg.length!=0){
+						$('#txtTggno').val(t_tggno);
+						$('#txtTgg').val(t_tgg);
+					}
 					sum();
 				 break;
 				case 'view_workcs':
