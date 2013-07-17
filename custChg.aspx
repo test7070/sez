@@ -477,8 +477,14 @@
 						<input id="txtAcc1"  type="text" class="txt c2"/>
 						<input id="txtAcc2"  type="text"  class="txt c3"/>
 						</td>
+						<td class="td3"><span> </span><a id="lblCost" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtCost"  type="text" class="txt num c1" />
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-						<td colspan="2">
+						<td colspan="3">
 							<input id="txtTggno"  type="text" class="txt c2"/>
 							<input id="txtTgg"  type="text"  class="txt c3"/>
 						</td>
