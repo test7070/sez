@@ -36,7 +36,7 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
-			 aPop = new Array(['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']);
+			 aPop = new Array();
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -47,20 +47,7 @@
             }
 
             function mainPost() {
-                q_getFormat(); 
-                $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_change", r_accy);
-						}else{
-							Lock();
-							alert('�s���u���\ �^��(A-Z)�B�Ʀr(0-9)��dash(-)�C'+String.fromCharCode(13)+'EX: A01�BA01-001');
-							Unlock();
-						}
-					}
-                });
+                q_getFormat();
             }
 
             function q_boxClose(s2) {
@@ -75,22 +62,7 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-            		case 'checkStationgno_change':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('�w�s�b '+as[0].noa+' '+as[0].namea);
-                        }
-                		break;
-                case 'checkStationgno_btnOk':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('�w�s�b '+as[0].noa+' '+as[0].namea);
-                            Unlock();
-                            return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
-                        }
-                		break;
+            		
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -105,19 +77,7 @@
             }
             function btnOk() {
             	Lock();	
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-           	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('�s���u���\ �^��(A-Z)�B�Ʀr(0-9)��dash(-)�C'+String.fromCharCode(13)+'EX: A01�BA01-001');
-				Unlock();
-			return;
-			} 
-			if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }		
+            			
             }
 
             function _btnSeek() {
@@ -133,8 +93,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();      
-                 _btnModi();
+                _btnModi();
             refreshBbm();
             $('#txtNamea').focus();
             }
