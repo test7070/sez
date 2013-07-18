@@ -234,6 +234,17 @@
 	               var t_mount = $('#txtMount_' + b_seq).val();
 	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
                	});
+                $('#txtMount_' + j).change(function () {
+                	t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+                	var t_unit = $('#txtUnit_' + b_seq).val();
+	                //var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
+	               var t_mount = $('#txtMount_' + b_seq).val();
+	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
+	               sum();
+                });
                 $('#txtPrice_' + j).change(function () {
                 	t_IdSeq = -1;
 					q_bodyId($(this).attr('id'));
@@ -243,6 +254,7 @@
 	                //var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
 	               var t_mount = $('#txtMount_' + b_seq).val();
 	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
+	               sum();
                 });
                 $('#txtTotal_' + j).focusout(function () { sum(); });
 
