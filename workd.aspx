@@ -260,15 +260,18 @@
 
         function sum() {
             var t_mount = 0;t_price = 0;
+            var t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_mount = dec($('#txtMount_' + j).val());
 				t_weight = dec($('#txtWeight_' + j).val());
 				t_price = dec($('#txtPrice_' + j).val());
-				if($('#txtUnit_' + j).val().toUpperCase()!='KG') 
+				//if($('#txtUnit_' + j).val().toUpperCase()!='KG') 
 					$('#txtTotal_' + j).val(round(t_mount*t_price,0));
-				else
-					$('#txtTotal_' + j).val(round(t_weight*t_price,0));
+					t_total+=dec($('#txtTotal_' + j).val())
+				//else
+					//$('#txtTotal_' + j).val(round(t_weight*t_price,0));
             }  // j
+            q_tr('txtMoney',t_total);
             var m_Money = dec($('#txtMoney').val());
 			var m_Tax = dec($('#txtTax').val());
 			$('#txtTotal').val(m_Money + m_Tax);
