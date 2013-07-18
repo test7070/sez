@@ -18,7 +18,7 @@
 			q_tables = 's';
 			//q_desc=1;
             var q_name = "adly";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -48,6 +48,9 @@
 
             function mainPost() {
                 q_getFormat();
+                bbmMask = [['txtMon', r_picm]];
+                q_mask(bbmMask);
+                
             }
 
             function q_boxClose(s2) {
@@ -77,7 +80,12 @@
             }
             function btnOk() {
             	Lock();	
-            			
+            	var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);		
             }
 
             function _btnSeek() {
@@ -88,7 +96,8 @@
             function btnIns() {
                 _btnIns();
                refreshBbm();
-            $('#txtNoa').focus();
+            $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
