@@ -54,6 +54,9 @@
 <style type="text/css">
     .seek_tr
     {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
+    input[type="text"], input[type="button"] {
+		font-size: medium;
+    }
 </style>
 </head>
 <body>
@@ -63,8 +66,7 @@
                 <td align="center">
 					<input type="checkbox" id="checkAllCheckbox"/>
 				</td>
-                <td align="center"><a id='lblProductno'></a></td>
-                <td align="center"><a id='lblProduct'></a></td>
+                <td align="center"><a id='lblProductno'></a>/<a id='lblProduct'></a></td>
                 <td align="center"><a id='lblSpec'></a></td>
                 <td align="center"><a id='lblUnit'></a></td>
                 <td align="center"><a id='lblMount'></a></td>
@@ -76,19 +78,21 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
-                <td style="width:10%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
-                <td style="width:15%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
+                <td style="width:15%;">
+                	<input class="txt"  id="txtProductno.*" type="text" style="width:98%;" />
+                	<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
+                </td>
                 <td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
                                     <input class="txt" id="txtDime.*" type="text"  style="width:25%;text-align:right;" />x
                                     <input class="txt" id="txtWidth.*" type="text"  style="width:25%;text-align:right;" />x
                                     <input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" /></td>
                 <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
-                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/></td>
-                <td style="width:10%;"><input class="txt" id="txtNoa.*" type="text" style="width:70%;"/><input class="txt" id="txtNo2.*" type="text"  style="width:20%;"/></td>
-                <td style="width:5%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /></td>
+                <td style="width:11%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"/><input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/></td>
+                <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 

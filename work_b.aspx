@@ -47,6 +47,9 @@
     <style type="text/css">
     .seek_tr
     {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
+    input[type="text"], input[type="button"] {
+		font-size: medium;
+    }
     </style>
 </head>
 
@@ -64,8 +67,8 @@
                 <th align="center"  ><a id='lblUindate'></a></th>-->
                 <th align="center"><a id='lblStation'></a></th>
                 <th align="center"><a id='lblInmount'></a></th>
-                <th align="center"><a id='lblRmount'></a></th>
-                <th align="center"><a id='lblWmount'></a></th>
+                <!--<th align="center"><a id='lblRmount'></a></th>
+                <th align="center"><a id='lblWmount'></a></th>-->
                 <th align="center"><a id='lblOrdeno'></a></th>
                 <th align="center"><a id='lblTggno'></a></th>
                 <th align="center"><a id='lblProcess'></a></th>
@@ -77,24 +80,26 @@
                 	<input id="txtDatea.*" type="hidden" />
                 	<input id="txtWorkdate.*" type="hidden" />
                 	<input id="txtUindate.*" type="hidden" />
+                	<input id="txtRmount.*" type="hidden" />
+                	<input id="txtWmount.*" type="hidden" />
                 </td>
-                <td style="width:12%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:6%;"><input class="txt" id="txtCuadate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:15%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:8%;"><input class="txt" id="txtCuadate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <!--<td style="width:6%;"><input class="txt" id="txtDatea.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
                 <td style="width:14%;">
                 	<input class="txt" id="txtProductno.*" type="text" style="width:98%;"  readonly="readonly" />
                 	<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
                 </td>
-                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
                 <!--<td style="width:6%;"><input class="txt" id="txtWorkdate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:6%;"><input class="txt" id="txtUindate.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
                 <td style="width:9%;"><input class="txt" id="txtStationno.*" type="text" style="width:98%;"  readonly="readonly" />
                 	<input class="txt" id="txtStation.*" type="text" style="width:98%;"  readonly="readonly" />
                 </td>
                 <td style="width:5%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
-                <td style="width:5%;"><input class="txt" id="txtRmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
-                <td style="width:5%;"><input class="txt" id="txtWmount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
-                <td style="width:9%;">
+                <!--<td style="width:5%;"><input class="txt" id="txtRmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
+                <td style="width:5%;"><input class="txt" id="txtWmount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>-->
+                <td style="width:11%;">
                 	<input class="txt" id="txtOrdeno.*" type="text" style="width:98%;"  readonly="readonly" />
                 	<input class="txt" id="txtNo2.*" type="text" style="width:98%;"  readonly="readonly" />
                 </td>
@@ -103,7 +108,7 @@
                 	<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
                 </td>
                 <td style="width:7%;"><input class="txt" id="txtProcess.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:5%;"><input class="txt" id="txtHours.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:5%;"><input class="txt" id="txtHours.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
                 <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
         </table>
