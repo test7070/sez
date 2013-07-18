@@ -99,7 +99,13 @@
 	                        type : '5', //select
 	                        name : 'xorder',
 	                        value : ('員工編號,投保公司').split(',')
-	                    }]
+	                    },{
+	                        type : '2',
+	                        name : 'partno',
+	                        dbf : 'part',
+	                        index : 'noa,part',
+	                        src : 'part_b.aspx'
+                        }]
                     });
                 q_popAssign();
                 

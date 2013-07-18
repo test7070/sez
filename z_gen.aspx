@@ -15,7 +15,11 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		aPop = new Array(['txtCustno', '', 'cust', 'noa,comp', 'txtCustno', "cust_b.aspx"]);
+		aPop = new Array(['txtOrdeno1', '', 'orde', 'noa,custno,comp', 'txtOrdeno1', "orde_b.aspx"]
+									,['txtOrdeno2', '', 'orde', 'noa,custno,comp', 'txtOrdeno1', "orde_b.aspx"]
+									,['txtCuano1', '', 'cua', 'noa,datea', 'txtCuano1', "cua_b.aspx"]
+									,['txtCuano2', '', 'cua', 'noa,datea', 'txtCuano2', "cua_b.aspx"]
+									);
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_gen');
@@ -39,6 +43,15 @@
                     },{
                         type : '1',
                         name : 'ordeno'
+                    },{
+                        type : '1',
+                        name : 'cuano'
+                    },{
+                        type : '2',
+                        name : 'workno',
+                        dbf : 'work',
+                        index : 'noa,product',
+                        src : 'work_b.aspx'
                     }]
                     });
                 q_popAssign();
@@ -46,6 +59,18 @@
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
+	             $('#txtOrdeno1').css('width','100px'); 
+	             $('#txtOrdeno2').css('width','100px'); 
+	             $('#txtCuano1').css('width','100px'); 
+	             $('#txtCuano2').css('width','100px'); 
+	             
+	             for(var i = 0;i < aPop.length;i++){
+					if(aPop[i][1].substr(0,9) == 'btnWorkno'){
+						aPop[i].push('95%');
+						aPop[i].push('95%');
+					}
+				}
+	             
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
