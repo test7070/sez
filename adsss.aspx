@@ -17,7 +17,7 @@
             }
 
             var q_name = "adsss";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -26,7 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtProductno', 'lblProduct', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -44,9 +44,11 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", ('').concat(new Array( '捲板','管類')));
-             $("#cmbJobno").focus(function() {
+                q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
+                q_gt('salm', '', 0, 0, 0, "");
+             $("#cmbJob").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
                 }).blur(function() {
@@ -66,6 +68,18 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	 case 'salm':
+                        var as = _q_appendData("salm", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].job;
+                            }
+                            q_cmbParse("cmbJob", t_item);
+                            if(abbm[q_recno]!=undefined)
+                            	$("#cmbJob").val(abbm[q_recno].jobno);
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -81,7 +95,7 @@
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -103,18 +117,18 @@
             }
             function btnOk() {
                 Lock();
-                var t_err = '';
+              /*  var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
-                }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+                }*/
+                var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -267,6 +281,14 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 25%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 73%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -316,8 +338,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewMon'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewProductno'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewJob'> </a></td>
@@ -332,6 +354,7 @@
 						<td id='productno' style="text-align: left;">~productno</td>
 						<td id='job' style="text-align: left;">~job</td>
 						<td id='price' style="text-align: left;">~price</td>
+						<td id='agent' style="text-align: left;">~agent</td>
 					</tr>
 				</table>
 			</div>
