@@ -42,6 +42,10 @@
 	                    },{
 	                        type : '1',
 	                        name : 'ordeno'
+						}, {
+							type : '5',
+							name : 'ucctype',
+							value : [q_getPara('report.all')].concat(q_getPara('uccst.typea').split(','))
 	                    }
                     ]
                 });
