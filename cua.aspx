@@ -226,7 +226,7 @@
             }
 
 			function btnPrint() {
-				q_box('z_cua.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_cuap.aspx', '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
             function wrServer(key_value) {
@@ -374,7 +374,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 100%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
@@ -399,7 +399,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 1500px;
             }
             .tbbs a {
                 font-size: medium;
@@ -510,8 +510,8 @@
 					<td><input id="txtWorkdate.*" type="text" style="width: 95%;"/></td>
 					<td colspan="2">
 						<input id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-						<input id="txtProductno.*" type="text" style="width: 25%;"/>
-						<input id="txtProduct.*" type="text" style="width: 50%;"/>
+						<input id="txtProductno.*" type="text" class="txt" style="width:85%;"/>
+						<input id="txtProduct.*" type="text" class="txt c2"/>
 						
 					</td>
 					<td><input id="txtUnit.*" type="text" style="width: 95%;text-align: center;"/></td>

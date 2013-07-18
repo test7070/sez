@@ -17,7 +17,7 @@
             }
 
             var q_name = "adpro";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -26,7 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
+            ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -44,8 +45,9 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtMon', r_picm],['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", ('').concat(new Array( '捲板','管類')));
+                q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
                          
             }
             function q_boxClose(s2) {
@@ -70,20 +72,22 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('adpro_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('adpro_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+                $('#txtDatea').val(t_date);
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
                 refreshBbm();
-                $('#txtNoa').attr('disabled','disabled')
-                $('#txtComp').focus();
+               // $('#txtNoa').attr('disabled','disabled')
+                $('#txtDatea').focus();
             }
 
             function btnPrint() {
@@ -97,18 +101,18 @@
             }
             function btnOk() {
                 Lock();
-                var t_err = '';
+               /*var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
-                }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+                }*/
+                var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -195,13 +199,14 @@
             }
             .dview {
                 float: left;
-                width: 500px; 
+                width: 600px; 
                 border-width: 0px; 
             }
             .tview {
                 border: 5px solid gray;
                 font-size: medium;
                 background-color: black;
+                width: 100%;
             }
             .tview tr {
                 height: 30px;
@@ -261,6 +266,14 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 25%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 73%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -310,8 +323,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
@@ -329,8 +342,8 @@
 						<td id='style' style="text-align: left;">~style</td>
 						<td id='product' style="text-align: left;">~product</td>
 						<td id='comp' style="text-align: left;">~comp</td>
-						<td id='exreprice' style="text-align: left;">~Exreprice</td>
-						<td id='exprice' style="text-align: left;">~Exprice</td>
+						<td id='exreprice' style="text-align: left;">~exreprice</td>
+						<td id='exprice' style="text-align: left;">~exprice</td>
 						<td id='diffprice' style="text-align: left;">~diffprice</td>
 						<td id='weight' style="text-align: left;">~weight</td>
 					</tr>
@@ -362,34 +375,34 @@
 						<td><select id='cmbStyle' > </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
-						<td colspan="2"><input id="txtProductno" type="text" class="txt c2" />
+						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+						<td colspan="3"><input id="txtProductno" type="text" class="txt c2" />
 										<input id="txtProduct" type="text" class="txt c3" />
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTggno" class="lbl btn" > </a></td>
 						<td colspan="3">
-						<input id="txtTggno" type="text" style="float:left; width:25%;"/>
-						<input id="txtComp"  type="text" style="float:left; width:73%;"/>
+						<input id="txtTggno" type="text" class="txt c2"/>
+						<input id="txtComp"  type="text" class="txt c3"/>
 						</td>	
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblExreprice' class="lbl"> </a></td>
-						<td><input id="txtExreprice"  type="text" class="txt c1" /></td>
+						<td><input id="txtExreprice"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblExprice' class="lbl"> </a></td>
-						<td><input id="txtExprice"  type="text" class="txt c1" /></td>
+						<td><input id="txtExprice"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDiffprice' class="lbl"> </a></td>
-						<td><input id="txtDiffprice"  type="text" class="txt c1" /></td>
+						<td><input id="txtDiffprice"  type="text" class="txt num c1" /></td>
 					</tr>
 					
 					<tr>
 						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
-						<td><input id="txtWeight" type="text" class="txt c1" /></td>
+						<td><input id="txtWeight" type="text" class="txt num c1" /></td>
 					</tr>
 					
 				</table>

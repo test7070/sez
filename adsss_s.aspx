@@ -10,7 +10,7 @@
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
     var q_name = "adsss_s";
-
+	aPop = new Array(['txtProductno', '', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
