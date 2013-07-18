@@ -10,8 +10,8 @@
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
     var q_name = "adpro_s";
-	 aPop = [['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno', "ucaucc_b.aspx"],
-	 		 ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno', "tgg_b.aspx"]];
+	 aPop = new Array(['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno', "ucaucc_b.aspx"],
+	 		 ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno', "tgg_b.aspx"]);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -59,7 +59,7 @@
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' > 
        		<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDatea'></a></td>
+					<td style="width:35%;" ><a id='lblDatea'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
@@ -81,7 +81,7 @@
              </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblProduct'></a></td>
-                <input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" />
+                <td><input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblTggno'></a></td>
@@ -90,7 +90,7 @@
              </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
-                <input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
+                <td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

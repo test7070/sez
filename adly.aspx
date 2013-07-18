@@ -18,7 +18,7 @@
 			q_tables = 's';
 			//q_desc=1;
             var q_name = "adly";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -36,7 +36,7 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
-			 aPop = new Array(['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']);
+			 aPop = new Array();
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -47,20 +47,10 @@
             }
 
             function mainPost() {
-                q_getFormat(); 
-                $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_change", r_accy);
-						}else{
-							Lock();
-							alert('�s���u���\ �^��(A-Z)�B�Ʀr(0-9)��dash(-)�C'+String.fromCharCode(13)+'EX: A01�BA01-001');
-							Unlock();
-						}
-					}
-                });
+                q_getFormat();
+                bbmMask = [['txtMon', r_picm]];
+                q_mask(bbmMask);
+                
             }
 
             function q_boxClose(s2) {
@@ -75,22 +65,7 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-            		case 'checkStationgno_change':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('�w�s�b '+as[0].noa+' '+as[0].namea);
-                        }
-                		break;
-                case 'checkStationgno_btnOk':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('�w�s�b '+as[0].noa+' '+as[0].namea);
-                            Unlock();
-                            return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
-                        }
-                		break;
+            		
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -105,19 +80,12 @@
             }
             function btnOk() {
             	Lock();	
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-           	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('�s���u���\ �^��(A-Z)�B�Ʀr(0-9)��dash(-)�C'+String.fromCharCode(13)+'EX: A01�BA01-001');
-				Unlock();
-			return;
-			} 
-			if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }		
+            	var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);		
             }
 
             function _btnSeek() {
@@ -128,13 +96,13 @@
             function btnIns() {
                 _btnIns();
                refreshBbm();
-            $('#txtNoa').focus();
+            $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();      
-                 _btnModi();
+                _btnModi();
             refreshBbm();
             $('#txtNamea').focus();
             }
@@ -350,7 +318,7 @@
                 width: 100%;
             }
             .dbbs {
-                width: 950px;
+                width: 1050px;
             }
             .tbbs a {
                 font-size: medium;
@@ -415,16 +383,16 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblSpec_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblTeamno_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblHweight_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblWeight_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblInprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblFixedprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblNoprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblSecondprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMixprice_s'> </a></td>
+					<td align="center" style="width:13%;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblSpec_s'> </a></td>
+					<td align="center" style="width:13%;"><a id='lblTeamno_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblHweight_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblInprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblFixedprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblNoprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblSecondprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblMixprice_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
