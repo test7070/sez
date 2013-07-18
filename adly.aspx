@@ -309,7 +309,7 @@
                 width: 100%;
             }
             .dbbs {
-                width: 950px;
+                width: 1050px;
             }
             .tbbs a {
                 font-size: medium;
@@ -374,16 +374,16 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblSpec_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblTeamno_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblHweight_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblWeight_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblInprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblFixedprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblNoprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblSecondprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMixprice_s'> </a></td>
+					<td align="center" style="width:13%;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblSpec_s'> </a></td>
+					<td align="center" style="width:13%;"><a id='lblTeamno_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblHweight_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblInprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblFixedprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblNoprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblSecondprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblMixprice_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
