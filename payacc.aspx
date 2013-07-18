@@ -140,8 +140,10 @@
 						if(!emp($('#txtCustno_' +i).val())){
 		            		$('#chkIssel_' +i)[0].checked=true;
 		            		$('#trSel_'+ i).addClass('chkIssel');//變色
+		            		$('#txtPaysale_'+ i).val($('#txtUnpayorg_'+ i).val());
 		            	}
 					}
+					sum();
 		        });
 		    }
 		    function q_boxClose(s2) {
