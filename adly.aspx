@@ -26,17 +26,18 @@
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
-            brwCount2 = 10;
+            brwCount2 = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            aPop = new Array(['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
-			 aPop = new Array();
+			 
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -50,6 +51,7 @@
                 q_getFormat();
                 bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
+                
                 
             }
 
@@ -125,7 +127,7 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['datea']) {
+                if (!as['productno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -141,7 +143,6 @@
             function sum() {
             	if(!(q_cur==1 || q_cur==2))
 					return;
-					
             }
             function refresh(recno) {
                 _refresh(recno);

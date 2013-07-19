@@ -25,7 +25,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-				q_cmbParse("cmbCtype", '貨櫃,平板,散裝');
+				q_cmbParse("cmbCtype", '全部,貨櫃,平板,散裝');
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBdldate', r_picd], ['txtEdldate', r_picd], ['txtBstrdate', r_picd], ['txtEstrdate', r_picd]];
 
                 q_mask(bbmMask);
@@ -52,8 +52,9 @@
                 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
                 /// 100.  .
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("strdate", t_bstrdate, t_estrdate) + q_sqlPara2("dldate", t_bdldate, t_edldate) + q_sqlPara2("custno", t_custno) + q_sqlPara2("deliveryno", t_deliveryno) + q_sqlPara2("po", t_po) + q_sqlPara2("productno", t_productno) + q_sqlPara2("addrno", t_addrno)
-                + q_sqlPara2("ctype", t_ctype);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("strdate", t_bstrdate, t_estrdate) + q_sqlPara2("dldate", t_bdldate, t_edldate) + q_sqlPara2("custno", t_custno) + q_sqlPara2("deliveryno", t_deliveryno) + q_sqlPara2("po", t_po) + q_sqlPara2("productno", t_productno) + q_sqlPara2("addrno", t_addrno);
+                if(t_ctype != '全部')
+                t_where+= q_sqlPara2("ctype", t_ctype);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
