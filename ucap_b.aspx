@@ -22,7 +22,7 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtPrice',15,2,1],['txtWages_fee',15,2,1],['txtMakes_fee',15,2,1]];
+            var bbsNum = [['txtPrice',15,0,1],['txtWages_fee',15,0,1],['txtMakes_fee',15,0,1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea','999/99/99'],['txtMon','999/99']];
            aPop = new Array(
@@ -127,6 +127,9 @@
                 font-weight: bold;
                 BACKGROUND-COLOR: #76a2fe
             }
+             input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
 		</style>
 	</head>
 	<body>
@@ -136,14 +139,14 @@
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:6%;"><a id='lblDatea'></a></td>
+					<td align="center" style="width:11%;"><a id='lblDatea'></a></td>
 					<!--<td align="center" style="width:6%;"><a id='lblMon'></a></td>-->
-					<td align="center" style="width:15%;"><a id='lblOrdeno'></a></td>
-					<td align="center" style="width:15%;"><a id='lblProductno'></a></td>
+					<td align="center" style="width:17%;"><a id='lblOrdeno'></a></td>
+					<td align="center" style="width:25%;"><a id='lblProductno'></a></td>
 					<!--<td align="center" style="width:6%;"><a id='lblPrice'></a></td>-->
-					<td align="center" style="width:8%;"><a id='lblWages_fee'></a></td>
-					<td align="center" style="width:8%;"><a id='lblMakes_fee'></a></td>
-					<td align="center" style="width:20%;"><a id='lblMemo'></a></td>
+					<td align="center" style="width:13%;"><a id='lblWages_fee'></a></td>
+					<td align="center" style="width:13%;"><a id='lblMakes_fee' style="font-size: 15px;"></a></td>
+					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;">	<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  /></td>

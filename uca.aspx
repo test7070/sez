@@ -93,7 +93,7 @@
                 });  
             $('#btnUcap').click(function() {
                     t_where = "noa='" + $('#txtNoa').val() + "'";
-                    q_box("ucap_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucap', "95%", "95%", q_getMsg('btnUcap'));
+                    q_box("ucap_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucap', "860px", "706px", q_getMsg('btnUcap'));
              });  
              $('#btnCheck_div_assm').click(function() {
                     //寫入到對應的assm
