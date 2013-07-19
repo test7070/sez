@@ -505,7 +505,6 @@
 				</table>
 			</div>
 		</div>
-		<input id="q_sys" type="hidden" />
 		<div id="dbbt" >
 			<table id="tbbt">
 				<tbody>
@@ -542,5 +541,6 @@
 				</tbody>
 			</table>
 		</div>
+		<input id="q_sys" type="hidden" />
 	</body>
 </html>
