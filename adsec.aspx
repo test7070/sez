@@ -322,6 +322,7 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewClass'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewPrice'> </a></td>
 					</tr>
+					
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='mon' style="text-align: left;">~mon</td>
