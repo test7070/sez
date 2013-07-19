@@ -339,7 +339,7 @@
 						<td id='mon' style="text-align: left;">~mon</td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='style' style="text-align: left;">~style</td>
+						<td id='style=adsss.stype' style="text-align: left;">~style=adsss.stype</td>
 						<td id='product' style="text-align: left;">~product</td>
 						<td id='comp' style="text-align: left;">~comp</td>
 						<td id='exreprice' style="text-align: left;">~exreprice</td>
