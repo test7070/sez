@@ -15,7 +15,7 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			q_tables = 's';
-			var q_name = "ucachg";
+			var q_name = "workchg";
 			var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [];
@@ -29,10 +29,10 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			aPop = new Array(
-	        	['txtBproductno', 'lblBproductno', 'uca', 'noa,product', 'txtBproductno,txtBproduct', 'uca_b.aspx'],
-	        	['txtEproductno', 'lblEproductno', 'uca', 'noa,product', 'txtEproductno,txtEproduct', 'uca_b.aspx'],
-	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,mtype,processno,process,loss,memo',
-	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_', 'ucas_b.aspx'],
+	        	['txtBproductno', 'lblBproductno', 'ucaucc', 'noa,product', 'txtBproductno,txtBproduct', 'ucaucc_b.aspx'],
+	        	['txtEproductno', 'lblEproductno', 'ucaucc', 'noa,product', 'txtEproductno,txtEproduct', 'ucaucc_b.aspx'],
+	        	['txtOrgproductno_', 'btnOrgproductno_', 'works', 'productno,product,processno,process,unit,cuadate,mount,processno,process,memo',
+	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,txtCuadate_,txtProcessno_,txtProcess_,txtMemo_', 'works_b.aspx','95%','95%'],
 	        	['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
 	        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
@@ -59,14 +59,14 @@
 				bbsMask = [['txtCuadate',r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
-				$('#btnUcachgDo').click(function(){
+				$('#btnWorkchgDo').click(function(){
                 	var t_noa = trim($('#txtNoa').val());
-					//q_func('qtxt.query.ucachg','ucachg.txt,ucachg,'+r_accy + ';' + t_noa + ';'+ r_name);
+					//q_func('qtxt.query.workchg','workchg.txt,workchg,'+r_accy + ';' + t_noa + ';'+ r_name);
 				});
 			}
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query.ucachg':
+					case 'qtxt.query.workchg':
 						alert('作業完畢');
 					break;
 				}
@@ -125,7 +125,7 @@
 				var t_noa = trim($('#txtNoa').val());
 				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")   
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ucachg') + $('#txtDatea').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workchg') + $('#txtDatea').val(), '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -137,17 +137,6 @@
 			}
 			
 			function bbsAssign() {  /// 表身運算式
-				for(var j = 0; j < q_bbsCount; j++) {
-					$('#btnOrgproductno_' + j).click(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						var t_where = ' 1=1 ';
-						var t_productno = trim($('#txtOrgproductno_' + j).val());
-						t_where += q_sqlPara2('productno',t_productno);
-						q_box("ucas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "80%", q_getMsg('popUcas'));
-					});
-				}
 				_bbsAssign();
 			}
 
@@ -167,9 +156,9 @@
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if(q_cur == 0 && !emp($('#txtNoa').val()))
-					$('#btnUcachgDo').removeAttr('disabled');
+					$('#btnWorkchgDo').removeAttr('disabled');
 				else
-					$('#btnUcachgDo').attr('disabled','disabled');
+					$('#btnWorkchgDo').attr('disabled','disabled');
 			}
 	
 			function btnMinus(id) {
@@ -293,6 +282,10 @@
 			.txt.c1{
 				width:95%;
 			}
+			.txt.c5 {
+				width: 71%;
+				float: left;
+			}
 			.num{
 				text-align:right;
 			}
@@ -364,7 +357,7 @@
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtMemo"  type="text" class="txt" style="width: 98%;" /></td>
-						<td><input id="btnUcachgDo"  type="button"/></td>
+						<td><input id="btnWorkchgDo"  type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -380,45 +373,44 @@
 						<td align="center" style="width:1%;">
 							<input class="txt btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 						</td>
-						<td align="center" style="width:12%;"><a id='lblOrgproductno_s'></a></td>
-						<td align="center" style="width:12%;"><a id='lblOrgprocessno_s'></a></td>
-						<td align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
-						<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
-						<td align="center" style="width:6%;"><a id='lblMount_s'></a></td>
-						<td align="center" style="width:8%;"><a id='lblMtype_s'></a></td>
-						<td align="center" style="width:12%;"><a id='lblProcessno_s'></a></td>
-						<td align="center" style="width:6%;"><a id='lblLoss_s'></a></td>
-						<td align="center" style="width:15%;"><a id='lblMemo_s'></a></td>
+						<td align="center" style="width:15%;"><a id='lblOrgproduct_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblOrgprocesss'> </a></td>
+						<td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblProcesss'> </a></td>
+						<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
+						<td align="center" style="width:8%;"><a id='lblCuadates'> </a></td>
+						<td align="center" style="width:8%;"><a id='lblMounts'> </a></td>
+						<td align="center"><a id='lblMemos'> </a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
-						<td>
-							<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
-						</td>
+						<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 						<td>
 							<input id="txtOrgproductno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnOrgproductno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input class="btn"  id="btnOrgproductno.*" type="button" value='...' style=" font-weight: bold;" />
 							<input id="txtOrgproduct.*" type="text" class="txt c1"/>
 						</td>
 						<td>
-							<input id="txtOrgprocessno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnOrgprocessno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input id="txtOrgprocessno.*" type="text" class="txt c5"/>
+							<input class="btn"  id="btnOrgprocessno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtOrgprocess.*" type="text" class="txt c1"/>
 						</td>
 						<td>
 							<input id="txtProductno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
 							<input id="txtProduct.*" type="text" class="txt c1"/>
 						</td>
-						<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-						<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
-						<td><select id="cmbMtype.*" class="txt c1"> </select></td>
 						<td>
-							<input id="txtProcessno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnProcessno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input id="txtProcessno.*" type="text" class="txt c5"/>
+							<input class="btn"  id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtProcess.*" type="text" class="txt c1"/>
 						</td>
-						<td><input id="txtLoss.*" type="text" class="txt num c1" /></td>
-						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
+						<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
+						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+						<td>
+							<input id="txtMemo.*" type="text" class="txt c1"/>
+							<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+						</td>
 					</tr>
 				</table>
 			</div>

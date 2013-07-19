@@ -409,7 +409,7 @@
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id="lblGen" class="lbl"></a></td>
-                            <td class="td2"><input id="txtGen"  type="text"  class="txt c1"/></td>
+                            <td class="td2"><input id="txtGen"  type="text"  class="txt c1 num"/></td>
                             <td align="left">M/Hr</td>
                             <td class="td4"></td>
                             <td class="td5"></td>
