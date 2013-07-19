@@ -31,7 +31,11 @@
             q_desc = 1;
             brwCount2 = 10;
 
-            aPop = new Array(['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']);
+            aPop = new Array(
+            	['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
+            	['txtSalesno__', 'btnSalesno__', 'sss', 'noa,namea', 'txtSalesno__,txtSales__', 'sss_b.aspx'],
+            	['txtMechno__', 'btnMechno__', 'mech', 'noa,mech', 'txtMechno__,txtMech__', 'mech_b.aspx']
+            );
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -362,7 +366,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 950Px;
+                width: 750px;
             }
             #tbbt {
                 margin: 0;
@@ -505,7 +509,6 @@
 				</table>
 			</div>
 		</div>
-		<input id="q_sys" type="hidden" />
 		<div id="dbbt" >
 			<table id="tbbt">
 				<tbody>
@@ -525,12 +528,14 @@
 						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td>
-						<input id="txtMechno..*" type="text" class="txt c3"/>
-						<input id="txtMech..*" type="text" class="txt c3"/>	
+							<input id="btnMechno..*" type="button" value="." style="font-size: medium; font-weight: bold;" />
+							<input id="txtMechno..*" type="text" style="width: 75%;"/>
+							<input class="txt c3" id="txtMech..*" type="text" />
 						</td>
 						<td>
-						<input id="txtSalesno..*"  type="text" class="txt c3"/>
-						<input id="txtSales..*"  type="text" class="txt c3"/>
+							<input id="btnSalesno..*" type="button" value="." style="font-size: medium; font-weight: bold;" />
+							<input id="txtSalesno..*" type="text" style="width: 75%;"/>
+							<input class="txt c3" id="txtSales..*" type="text" />
 						</td>
 						<td>
 						<input id="txtHours..*"  type="text" class="txt num c3"/>
@@ -542,5 +547,6 @@
 				</tbody>
 			</table>
 		</div>
+		<input id="q_sys" type="hidden" />
 	</body>
 </html>

@@ -195,7 +195,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
-			q_box('z_work.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint")); 
+			q_box('z_workp.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint")); 
         }
 
         function wrServer( key_value) {
@@ -521,7 +521,10 @@
 		        	<input id="txtModel" type="text"  class="txt" style="width: 45%"/>
 		        </td>
 				<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
-				<td class="td6"><input id="txtCuano" type="text"  class="txt"/></td> 
+				<td class="td6">
+					<input id="txtCuano" type="text"  class="txt" style="width: 70%"/>
+					<input id="txtCuanoq" type="text"  class="txt" style="width: 20%"/>
+				</td> 
 			</tr>
 	        <tr class="tr9">
 		        <td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>

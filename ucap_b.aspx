@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'ucap', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+            var q_name = 'ucap', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
             var t_sqlname = 'ucap_load';
             t_postname = q_name;
             var isBott = false;
@@ -22,9 +22,13 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtPrice',15,2,1],['txtWages_fee',15,2,1],['txtMakes_fee',15,2,1]];
+            var bbsNum = [['txtPrice',15,0,1],['txtWages_fee',15,0,1],['txtMakes_fee',15,0,1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea','999/99/99'],['txtMon','999/99']];
+           aPop = new Array(
+        	['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+        	['txtOrdeno_', '', 'ordes', 'noa,productno,product', 'txtOrdeno_,txtProductno_,txtProduct_', 'ordes_b.aspx']
+        	);
 
             $(document).ready(function() {
                 bbmKey = [];
@@ -123,29 +127,36 @@
                 font-weight: bold;
                 BACKGROUND-COLOR: #76a2fe
             }
+             input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
 		</style>
 	</head>
 	<body>
-		<div id="dbbs" style="width: 880px;">
+		<div id="dbbs" style="width: 100%;">
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: medium;'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:6%;"><a id='lblDatea'></a></td>
-					<td align="center" style="width:6%;"><a id='lblMon'></a></td>
-					<td align="center" style="width:12%;"><a id='lblOrdeno'></a></td>
-					<td align="center" style="width:6%;"><a id='lblPrice'></a></td>
-					<td align="center" style="width:6%;"><a id='lblWages_fee'></a></td>
-					<td align="center" style="width:6%;"><a id='lblMakes_fee'></a></td>
-					<td align="center" style="width:20%;"><a id='lblMemo'></a></td>
+					<td align="center" style="width:11%;"><a id='lblDatea'></a></td>
+					<!--<td align="center" style="width:6%;"><a id='lblMon'></a></td>-->
+					<td align="center" style="width:17%;"><a id='lblOrdeno'></a></td>
+					<td align="center" style="width:25%;"><a id='lblProductno'></a></td>
+					<!--<td align="center" style="width:6%;"><a id='lblPrice'></a></td>-->
+					<td align="center" style="width:13%;"><a id='lblWages_fee'></a></td>
+					<td align="center" style="width:13%;"><a id='lblMakes_fee' style="font-size: 15px;"></a></td>
+					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;">	<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  /></td>
 					<td><input class="txt"  id="txtDatea.*" type="text" style="width:98%;"  /></td>
-					<td><input class="txt" id="txtMon.*" type="text" style="width:98%;"   /></td>
+					<!--<td><input class="txt" id="txtMon.*" type="text" style="width:98%;"   /></td>-->
 					<td><input class="txt"  id="txtOrdeno.*" type="text" style="width:98%;"  /></td>
-					<td><input class="txt"  id="txtPrice.*" type="text" style="width:98%;text-align: right;"  /></td>
+					<td><input class="txt"  id="txtProductno.*" type="text" style="width:98%;"  />
+						<input class="txt"  id="txtProduct.*" type="text" style="width:98%;"  />
+					</td>
+					<!--<td><input class="txt"  id="txtPrice.*" type="text" style="width:98%;text-align: right;"  /></td>-->
 					<td><input class="txt"  id="txtWages_fee.*" type="text" style="width:98%;text-align: right;"  /></td>
 					<td><input class="txt"  id="txtMakes_fee.*" type="text" style="width:98%;text-align: right;"  /></td>
 					<td><input class="txt"  id="txtMemo.*" type="text" style="width:98%;"  /></td>
