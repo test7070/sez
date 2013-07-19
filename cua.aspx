@@ -65,6 +65,12 @@
                 	t_where = '';
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
+                $('#btnCuap').click(function(){
+                	q_box('z_cuap.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                });
+                $('#btnWorkPrint').click(function(){
+                	q_box('z_workp.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                });
             }
 
             function q_boxClose(s2) {
@@ -226,7 +232,7 @@
             }
 
 			function btnPrint() {
-				q_box('z_cuap.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_cuap.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
             function wrServer(key_value) {
@@ -468,9 +474,11 @@
 					</tr>	
 					<tr>
 						<td></td>
-						<td colspan="2">
+						<td colspan="4">
 							<input id="btnOrdewindow" type="button" />
 							<input id="btnWork" type="button" />
+							<input id="btnCuap" type="button" />
+							<input id="btnWorkPrint" type="button" />
 						</td>
 						<td></td>
 					</tr>	

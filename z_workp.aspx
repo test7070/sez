@@ -33,18 +33,9 @@
                     },{
                         type : '1',
                         name : 'xdate' //[3] [4]
-                    }, {
-                        type : '2', //[5] [6]
-                        name : 'ucaucc',
-                        dbf : 'ucaucc',
-                        index : 'noa,product',
-                        src : 'ucaucc_b.aspx'
-                    }, {
-                        type : '2', //[7] [8]
-                        name : 'xstation',
-                        dbf : 'station',
-                        index : 'noa,station',
-                        src : 'station_b.aspx'
+                    },{
+                        type : '6',
+                        name : 'xcuano' //[2]
                     }]
                 });
                 q_popAssign();
