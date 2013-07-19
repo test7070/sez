@@ -44,8 +44,9 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", ('').concat(new Array( '捲板','管類')));
+                q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
                          
             }
             function q_boxClose(s2) {
@@ -75,15 +76,16 @@
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                refreshBbm();
+				refreshBbm();
                 $('#txtNoa').attr('disabled','disabled')
-                $('#txtComp').focus();
+                $('#txtProductno').focus();
             }
 
             function btnPrint() {
@@ -97,18 +99,12 @@
             }
             function btnOk() {
                 Lock();
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+               var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -261,6 +257,14 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 25%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 73%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -310,34 +314,22 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewUsetype'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewKind'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewPstyle'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewDime1'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewDime2'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewWidth1'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewWidth2'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewSpec'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewStyle'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewProduct'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewClass'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewPrice'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='mon' style="text-align: left;">~mon</td>
 						<td id='noa' style="text-align: center;">~noa</td>
-						<td id='style' style="text-align: left;">~style</td>
-						<td id='usetype' style="text-align: left;">~usetype</td>
-						<td id='kind' style="text-align: left;">~kind</td>
-						<td id='pstyle' style="text-align: left;">~pstyle</td>
+						<td id='style=adsss.stype' style="text-align: left;">~style=adsss.stype</td>
+						<td id='comp' style="text-align: left;">~comp</td>
 						<td id='product' style="text-align: left;">~product</td>
-						<td id='dime1' style="text-align: left;">~dime1</td>
-						<td id='dime2' style="text-align: left;">~dime2</td>
-						<td id='width1' style="text-align: left;">~width1</td>
-						<td id='width2' style="text-align: left;">~width2</td>
-						<td id='spec' style="text-align: left;">~spec</td>
+						<td id='class' style="text-align: left;">~class</td>
 						<td id='price' style="text-align: left;">~price</td>
 					</tr>
 				</table>
@@ -361,7 +353,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
-						<td><select id='cmbStyle' > </select></td>
+						<td><select id='cmbStyle' class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
