@@ -43,7 +43,7 @@
                 q_langShow();
                 $('#txtXdate1').datepicker().mask('999/99/99');
                 $('#txtXdate2').datepicker().mask('999/99/99');
-                $('#txtXdate1').val(q_date().substring(0,7)+'01');
+                $('#txtXdate1').val(q_date().substring(0,4)+'06/01');
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
                 var t_key = q_getHref();

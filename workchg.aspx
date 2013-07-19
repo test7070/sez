@@ -32,7 +32,7 @@
 	        	['txtBproductno', 'lblBproductno', 'ucaucc', 'noa,product', 'txtBproductno,txtBproduct', 'ucaucc_b.aspx'],
 	        	['txtEproductno', 'lblEproductno', 'ucaucc', 'noa,product', 'txtEproductno,txtEproduct', 'ucaucc_b.aspx'],
 	        	['txtOrgproductno_', 'btnOrgproductno_', 'works', 'productno,product,processno,process,unit,cuadate,mount,processno,process,memo',
-	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,txtCuadate_,txtProcessno_,txtProcess_,txtMemo_', 'works_b.aspx','95%','95%'],
+	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtCuadate_,txtMount_,txtProcessno_,txtProcess_,txtMemo_', 'works_b.aspx','95%','95%'],
 	        	['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
 	        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
@@ -141,7 +141,7 @@
 			}
 
 			function bbsSave(as) {
-				if(!as['productno']) {
+				if(!as['orgproductno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -374,13 +374,13 @@
 							<input class="txt btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 						</td>
 						<td align="center" style="width:15%;"><a id='lblOrgproduct_s'> </a></td>
-						<td align="center" style="width:10%;"><a id='lblOrgprocesss'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblOrgprocess_s'> </a></td>
 						<td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
-						<td align="center" style="width:10%;"><a id='lblProcesss'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblProcess_s'> </a></td>
 						<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-						<td align="center" style="width:8%;"><a id='lblCuadates'> </a></td>
-						<td align="center" style="width:8%;"><a id='lblMounts'> </a></td>
-						<td align="center"><a id='lblMemos'> </a></td>
+						<td align="center" style="width:8%;"><a id='lblCuadate_s'> </a></td>
+						<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
+						<td align="center"><a id='lblMemo_s'> </a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
 						<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>

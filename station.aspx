@@ -409,6 +409,12 @@
                			<td class="td4"> </td>
             		</tr>
             		<tr>
+               			<td class="td1"><span> </span><a id='lblHours' class="lbl"> </a></td>
+               			<td class="td2"><input id="txtHours"  type="text" class="txt c1 num"/></td>
+               			<td class="td3"> </td>
+               			<td class="td4"> </td>
+            		</tr>
+            		<tr>
                			<td class="td1"><span> </span><a id='lblWages' class="lbl"> </a></td>
                			<td class="td2"><input id="txtWages"  type="text" class="txt c1 num"/></td>
                			<td class="td3">人時</td>
