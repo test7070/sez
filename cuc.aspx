@@ -24,7 +24,12 @@
         			 ];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
+        q_sqlCount = 6;
+		brwCount = 6;
+		brwList = [];
+		brwNowPage = 0;
+		brwKey = 'Noa';
+		brwCount2= 6;
 		aPop = new Array(
 			['txtMechno', 'lblMechno', 'mech', 'noa,mech,gen', 'txtMechno,txtMech,txtGen', 'mech_b.aspx'],
 			['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
@@ -34,7 +39,6 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            brwCount2=5
             q_brwCount();   
             q_gt(q_name, q_content, q_sqlCount, 1);
         });
