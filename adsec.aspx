@@ -17,7 +17,7 @@
             }
 
             var q_name = "adsec";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -26,7 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtProductno', 'lblProduct', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
+            ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -71,7 +72,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('adsec_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('adsec_s.aspx', q_name + '_s', "520px", "530px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();

@@ -15,7 +15,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="addr";
+        var q_name="add2";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -47,7 +47,7 @@
 					if($(this).val().length>0){
 						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
 							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('addr2', t_where, 0, 0, 0, "checkAddr2_change", r_accy);
+                    		q_gt('add2', t_where, 0, 0, 0, "checkAdd2_change", r_accy);
 						}else{
 							Lock();
 							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
@@ -71,14 +71,14 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-               case 'checkAddr2_change':
-                		var as = _q_appendData("addr2", "", true);
+                case 'checkAdd2_change':
+                		var as = _q_appendData("add2", "", true);
                         if (as[0] != undefined){
                         	alert('已存在 '+as[0].noa+' '+as[0].post);
                         }
                 		break;
-                case 'checkAddr2_btnOk':
-                		var as = _q_appendData("addr2", "", true);
+                case 'checkAdd2_btnOk':
+                		var as = _q_appendData("add2", "", true);
                         if (as[0] != undefined){
                         	alert('已存在 '+as[0].noa+' '+as[0].post);
                             Unlock();
@@ -96,7 +96,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('addr2_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
+            q_box('add2_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
         }
         function btnIns() {
             _btnIns();
@@ -131,7 +131,7 @@
 			} 
 			if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('part', t_where, 0, 0, 0, "checkAddr2_btnOk", r_accy);
+                    q_gt('add2', t_where, 0, 0, 0, "checkAdd2_btnOk", r_accy);
                 }else{
                 	wrServer($('#txtNoa').val());
                 }
@@ -221,7 +221,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 450px;
             }
             .tview {
                 margin: 0;
@@ -239,7 +239,7 @@
             }
             .dbbm {
                 float: left;
-                width: 73%;
+                width: 500px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -337,7 +337,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:35%;"  >
+        <div class="dview" id="dview" style="float: left;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
            <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>                
@@ -353,13 +353,13 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 63%;float: left;">
+        <div class='dbbm' >
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
  			<tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
+               
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblPost' class="lbl"></a></td>
