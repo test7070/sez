@@ -18,8 +18,11 @@
         var q_name = "cud";
         var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtRadius',10,3,1],['txtWidth',10,3,1],['txtBdime',10,3,1],['txtEdime',10,3,1]];  
+        var bbsNum = [['txtRadius',10,3,1],['txtWidth',10,3,1],['txtDime',10,3,1],['txtLengthb',10,3,1],
+        			  ['txtOrdemount',10,3,1],['txtTdmount',10,3,1],['txtHmount',10,3,1],['txtMount',10,3,1],
+        			  ['txtWeight',10,3,1],['txtHweight',10,3,1],['txtTimes',10,3,1]        			 
+        			 ];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
@@ -78,7 +81,10 @@
 				return;
             }
 
-            $('#txtWorker').val(r_name)
+			if(q_cur==1)
+				$('#txtWorker').val(r_name);
+			else
+				$('#txtWorker2').val(r_name);
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
 				q_gtnoa(q_name, replaceAll( $('#txtNoa').val(), '/', ''));
@@ -119,7 +125,6 @@
 
         function wrServer(key_value) {
             var i;
-
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
@@ -129,15 +134,13 @@
 				as[bbsKey[1]] = '';   
 				return;
             }
-
             q_nowf();
-
             return true;
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-       }
+		}
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
