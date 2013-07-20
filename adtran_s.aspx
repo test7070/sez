@@ -22,12 +22,27 @@
     function q_gfPost() {
         q_getFormat();
         q_langShow();
-		q_cmbParse("cmbStype", ('').concat(new Array( ' ','捲板','管類')));
+        q_gt('add2','', 0, 0, 0, "");
+		q_cmbParse("cmbStyle",('全部'+',').concat(q_getPara('adsss.stype').split(',')));
+		q_cmbParse("cmbTrantype", ('全部'+',').concat(new Array('送達','自取','貨運','FOB','FOR','CIF','C&F','TO DOOR' )));
         bbmMask = [['txtMon', r_picm]];
         q_mask(bbmMask);
 
         $('#txtMon').focus();
     }
+    function q_gtPost(t_name) {
+                switch (t_name) {
+                case 'add2':
+                        var as = _q_appendData("add2", "", true);
+                        var t_item = "@全部";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item +(t_item.length > 0 ? ',' : '') + as[i].post;
+                        }
+                        q_cmbParse("cmbPost", t_item);
+                        break;
+                }
+           }
+
 
     function q_seekStr() {   
         t_mon = $('#txtMon').val();
@@ -41,9 +56,13 @@
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("mon", t_mon)
-        + q_sqlPara2("style", t_style)+ q_sqlPara2("post", t_post)
-        + q_sqlPara2("trantype", t_trantype);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("mon", t_mon);
+        if(t_style != '全部')
+                t_where+= q_sqlPara2("style", t_style);
+        if(t_post != '全部')
+        t_where+= q_sqlPara2("post", t_post);
+        if(t_trantype != '全部')
+        t_where+= q_sqlPara2("trantype", t_trantype);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;

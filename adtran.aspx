@@ -44,9 +44,11 @@
             }
 
             function mainPost() {
+                bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", ('').concat(new Array('捲板','管類')));
-                         
+                q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
+                q_cmbParse("cmbTrantype", ('').concat(new Array( '','送達','自取','貨運','FOB','FOR','CIF','C&F','TO DOOR' )));
+				q_gt('add2', '', 0, 0, 0, "");              
             }
             function q_boxClose(s2) {
                 var ret;
@@ -60,6 +62,17 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'add2':
+		            	var as = _q_appendData("add2", "", true);
+                    	var t_item = " @ ";
+                         for ( i = 0; i < as.length; i++) {
+                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].post;
+                         }
+                         q_cmbParse("cmbPost", t_item);
+                        if(abbm[q_recno]){
+                        	$("#cmbPost").val(abbm[q_recno].post);
+                        }
+		            	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -75,7 +88,8 @@
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -83,7 +97,7 @@
                 _btnModi();
                 refreshBbm();
                 $('#txtNoa').attr('disabled','disabled')
-                $('#txtComp').focus();
+                $('#txtPrice').focus();
             }
 
             function btnPrint() {
@@ -97,18 +111,12 @@
             }
             function btnOk() {
                 Lock();
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+                var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -322,7 +330,7 @@
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='mon' style="text-align: left;">~mon</td>
-						<td id='style' style="text-align: left;">~style</td>
+						<td id='style=adsss.stype' style="text-align: left;">~style=adsss.stype</td>
 						<td id='post' style="text-align: left;">~post</td>
 						<td id='trantype' style="text-align: left;">~trantype</td>
 						<td id='price' style="text-align: left;">~price</td>
@@ -332,7 +340,6 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -348,15 +355,15 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
-						<td><select id='cmbStyle' > </select></td>
+						<td><select id='cmbStyle' class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPost' class="lbl"> </a></td>
-						<td><select id='cmbPost' > </select></td>
+						<td><select id='cmbPost' class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTrantype' class="lbl"> </a></td>
-						<td><select id='cmbTrantype' > </select></td>
+						<td><select id='cmbTrantype' class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
