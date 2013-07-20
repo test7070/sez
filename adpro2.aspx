@@ -26,7 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -44,9 +44,8 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", ('').concat(new Array('捲板','管類')));
-                         
             }
             function q_boxClose(s2) {
                 var ret;
@@ -75,7 +74,8 @@
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -97,18 +97,12 @@
             }
             function btnOk() {
                 Lock();
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+                 var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -195,7 +189,7 @@
             }
             .dview {
                 float: left;
-                width: 500px; 
+                width: 450px; 
                 border-width: 0px; 
             }
             .tview {
@@ -215,7 +209,7 @@
             }
             .dbbm {
                 float: left;
-                width: 450px;
+                width: 550px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -259,6 +253,14 @@
             }
             .txt.c1 {
                 width: 100%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 25%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 73%;
                 float: left;
             }
             .txt.num {
@@ -310,16 +312,16 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewPstyle'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewPstyle'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewProduct'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewPrice'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='mon' style="text-align: left;">~mon</td>
+						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='pstyle' style="text-align: left;">~pstyle</td>
 						<td id='product' style="text-align: left;">~product</td>
 						<td id='price' style="text-align: left;">~price</td>
@@ -329,7 +331,6 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>

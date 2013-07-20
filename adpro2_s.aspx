@@ -13,7 +13,7 @@
     $(document).ready(function () {
         main();
     });         /// end ready
-
+	aPop = new Array(['txtProductno', '', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']);
     function main() {
         mainSeek();
         q_gf('', q_name);
