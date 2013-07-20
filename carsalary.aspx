@@ -28,8 +28,8 @@
             //var bbsNum_comma = ['txtMoney'];
             var bbmMask = [];
             var bbsMask = [['txtYear', '999']];
-            aPop = [['txtNamea_', '', 'carowner', 'namea,idno,addr_home', 'txtNamea_,txtId_,txtAddr_', 'carowner_b.aspx'],
-            ['txtId_', '', 'carsalary', 'id,namea', 'txtId_', '']];
+            aPop = [['txtNamea_', '', 'carowner_carsalary', 'namea,idno,addr_home', '0txtNamea_,txtId_,txtAddr_', ''],
+            ['txtId_', '', 'carowner_carsalary', 'idno,namea,addr_home', '0txtId_,txtNamea_,txtAddr_', '']];
 
             $(document).ready(function() {
                 bbmKey = [];
