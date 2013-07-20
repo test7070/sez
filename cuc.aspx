@@ -18,8 +18,10 @@
         var q_name = "cuc";
         var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtGen',10,3,1]];  
+        var bbsNum = [['txtRadius',10,3,1],['txtWidth',10,3,1],['txtDime',10,3,1],['txtLengthb',10,3,1],
+        			  ['txtHours',10,3,1],['txtMount',10,3,1],['txtWeight',10,3,1]
+        			 ];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
@@ -35,7 +37,6 @@
             brwCount2=5
             q_brwCount();   
             q_gt(q_name, q_content, q_sqlCount, 1);
-
         });
 
         //////////////////   end Ready
