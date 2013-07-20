@@ -27,7 +27,7 @@
         var q_readonlys = [];
         var q_readonlyt = ['txtAssm'];
         var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtMount', 12, 0], ['txtWeight', 11, 2], ['txtHours', 9, 2]];
+        var bbsNum = [['txtMount', 12, 2], ['txtWeight', 11, 2], ['txtHours', 9, 2]];
         var bbtNum = [['txtMount_', 12, 2 ,1],['txtWeight_', 12, 2 ,1],['txtPrice_', 12, 2 ,1],['txtEndmount_', 12, 0 ,1],['txtEndweight_', 12, 2 ,1]]; 
         var bbmMask = [];
         var bbsMask = [];
