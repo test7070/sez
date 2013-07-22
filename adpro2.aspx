@@ -356,7 +356,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td><input id="txtPrice" type="text" class="txt c1" /></td>
+						<td><input id="txtPrice" type="text" class="txt num c1" /></td>
 					</tr>
 				</table>
 			</div>

@@ -26,6 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
+            q_xchg = 1;
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             
             $(document).ready(function() {
@@ -44,9 +45,8 @@
             }
 
             function mainPost() {
-                q_mask(bbmMask);
-                
-                         
+                bbmMask = [['txtMon', r_picm]];
+                q_mask(bbmMask);         
             }
             function q_boxClose(s2) {
                 var ret;
@@ -70,12 +70,13 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('adpro2_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('adpipe_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -83,7 +84,7 @@
                 _btnModi();
                 refreshBbm();
                 $('#txtNoa').attr('disabled','disabled')
-                $('#txtComp').focus();
+                $('#txtProductno').focus();
             }
 
             function btnPrint() {
@@ -97,18 +98,12 @@
             }
             function btnOk() {
                 Lock();
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+                var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -195,7 +190,7 @@
             }
             .dview {
                 float: left;
-                width: 500px; 
+                width: 950px; 
                 border-width: 0px; 
             }
             .tview {
@@ -215,7 +210,7 @@
             }
             .dbbm {
                 float: left;
-                width: 450px;
+                width: 950px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -346,40 +341,30 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
 						<td><input id="txtStyle" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-						<td><input id="txtProduct" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
-						<td><input id="txtProductno" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
 						<td><input id="txtSpec" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblRadius' class="lbl"> </a></td>
-						<td><input id="txtRadius" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
+						<td><input id="txtProduct" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
+						<td><input id="txtProductno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblRadius' class="lbl"> </a></td>
+						<td><input id="txtRadius" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWidth' class="lbl"> </a></td>
 						<td><input id="txtWidth" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDime1' class="lbl"> </a></td>
 						<td><input id="txtDime1" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblDime2' class="lbl"> </a></td>
 						<td><input id="txtDime2" type="text" class="txt c1" /></td>
 					</tr>
