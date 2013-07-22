@@ -64,6 +64,9 @@
                         type : '0',
                         name : 'r_xname',
                         value : r_name
+                    },{
+                        type : '6',
+                        name : 'xcarno',
                     }]
                 });
                 q_popAssign();
