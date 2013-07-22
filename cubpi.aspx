@@ -34,7 +34,7 @@
             brwKey = 'noa';
             q_desc = 1;
             brwCount2 = 5;
-			aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']);
+			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -72,22 +72,32 @@
                 	var t_productno = trim($('#txtProductno').val());
                 	var t_mechno = trim($('#txtMechno').val());
                 	t_edate = (t_edate==''?'char(255)':t_edate);
+                	t_edime = (t_edime==0?9999:t_edime);
                 	t_eradius = (t_eradius==0?9999:t_eradius*1.07);
                 	t_ewidth = (t_ewidth==0?9999:t_ewidth*1.07);
                 	var t_where = 'where=^^ 1=1 ';
                 	t_where += q_sqlPara2('odate',t_bdate,t_edate) + q_sqlPara2('dime',t_bdime,t_edime) + 
                 		q_sqlPara2('radius',t_bradius,t_eradius) + q_sqlPara2('width',t_bwidth,t_ewidth) + 
-						q_sqlPara2('style',t_style) + q_sqlPara2('productno',t_productno);
+						q_sqlPara2('style',t_style) + q_sqlPara2('productno',t_productno) + q_sqlPara2('mechno',t_mechno);
+					t_where += ' ^^';
                 	q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
                 });
             }
 
             function q_gtPost(t_name) {
 				switch (t_name) {
-				case q_name:
-					if (q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
+	        		case 'view_ordes':
+	        			var wret = '';
+	        			var as = _q_appendData("view_ordes", "", true);
+	        			if(as[0]!=undefined){
+	        				q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2'
+									, as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate', '');
+	        			}
+	        		break;
+					case q_name:
+						if (q_cur == 4)
+	                            q_Seek_gtPost();
+	                        break;
                 }
             }
             function q_stPost() {
@@ -445,7 +455,7 @@
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMechno" class="lbl" ></a></td>
+						<td><span> </span><a id="lblMechno" class="lbl btn" ></a></td>
 		                <td colspan="2">
 		                	<input id="txtMechno" type="text" style="width:30%;"/>
 		                	<input id="txtMech" type="text" style="width:65%;"/>
@@ -514,11 +524,11 @@
 						<td style="width:150px;"><a id='lbl_uno'> </a></td>
 						<td style="width:80px;"><a id='lbl_bdime'> </a></td>
 						<td style="width:80px;"><a id='lbl_edime'> </a></td>
-						<td style="width:80px;"><a id='lbl_date2'> </a></td>
-						<td style="width:80px;"><a id='lbl_datea'> </a></td>
+						<td style="width:120px;"><a id='lbl_date2'> </a></td>
+						<td style="width:120px;"><a id='lbl_datea'> </a></td>
 						<td style="width:60px;"><a id='lbl_enda'> </a></td>
 						<td style="width:60px;"><a id='lbl_hend'> </a></td>
-						<td style="width:80px;"><a id='lbl_hdate_pi'> </a></td>
+						<td style="width:120px;"><a id='lbl_hdate_pi'> </a></td>
 						<td style="width:80px;"><a id='lbl_bmount_pi'> </a></td>
 						<td style="width:80px;"><a id='lbl_bweight_pi'> </a></td>
 						<td style="width:80px;"><a id='lbl_bstkmount_pi'> </a></td>
@@ -574,8 +584,8 @@
 						<td><input id="txtBsecmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBsecweight.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBpack.*" type="text" class="txt c1"/></td>
-						<td><input id="txtBtry.*" type="text" class="txt c1"/></td>
-						<td><input id="txtBconn.*" type="text" class="txt c1"/></td>
+						<td><input id="txtBtry.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtBconn.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBsafe.*" type="text" class="txt c1"/></td>
 						<td><input id="txtBspec.*" type="text" class="txt c1"/></td>
 					</tr>
