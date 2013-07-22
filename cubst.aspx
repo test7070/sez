@@ -195,7 +195,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cub') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -604,7 +604,7 @@
 						<td style="width:200px;"><a id='lbl_spec'> </a></td>
 						<td style="width:120px;"><a id='lbl_dime'> </a></td>
 						<td style="width:120px;"><a id='lbl_width'> </a></td>
- 						<td style="width:120px;"><a id='lbl_length'> </a></td>
+ 						<td style="width:120px;"><a id='lbl_lengthb'> </a></td>
 						<td style="width:120px;"><a id='lbl_bdime'> </a></td>
 						<td style="width:120px;"><a id='lbl_edime'> </a></td>
 						<td style="width:60px;"><a id='lblOrdet_st'> </a></td>

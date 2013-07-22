@@ -49,15 +49,16 @@
 					                    },{
 					                        type : '6',
 					                        name : 'xyear'
-					                    }, {
-					                        type : '5', //select
-					                        name : 'xselect',
-					                        value : ('月份,年度').split(',')
-	                    				}]
+					                    },{
+					                        type : '1',
+					                        name : 'rmon'
+					                    }]
 				});
                 q_popAssign();
                 $('#txtXyear').mask('999');
                 $('#txtXmon').mask('999/99');
+                $('#txtRmon1').mask('999/99');
+                $('#txtRmon2').mask('999/99');
 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -68,6 +69,8 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                $('#txtXmon').val(t_year+'/'+t_month);
 	                $('#txtXyear').val(t_year);
+	                $('#txtRmon1').val(t_year+'/01');
+	                $('#txtRmon2').val(t_year+'/'+t_month);
 	                
             }
 
