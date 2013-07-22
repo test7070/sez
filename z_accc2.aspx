@@ -63,13 +63,19 @@
                     }, {/*1 [3],[4]*/
                         type : '1',
                         name : 'date'
-                    }, {/*2 [5][6]*/
+                    }, {/*2 [5][6] 含子科目*/
                         type : '2',
-                        name : 'acc',
+                        name : 'xacc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*3 [7]*/
+                    }, {/*3 [7][8] 不含子科目*/
+                        type : '2',
+                        name : 'yacc',
+                        dbf : 'view_acc',
+                        index : 'acc1,acc2',
+                        src : "view_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
+                    }, {/*4 [9]*/
                         type : '8',
                         name : 'xpart',
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
@@ -83,20 +89,34 @@
                 $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				
-				$('#txtAcc1a').change(function(e) {
+				$('#txtXacc1a').change(function(e) {
                     if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
                     	$(this).val($(this).val()+'.');	
                     }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
                     	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
                     }
         		});
-        		$('#txtAcc2a').change(function(e) {
+        		$('#txtXacc2a').change(function(e) {
                     if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
                     	$(this).val($(this).val()+'.');	
                     }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
                     	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
                     }
-        		});			
+        		});	
+        		$('#txtYacc1a').change(function(e) {
+                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val()+'.');	
+                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+                    }
+        		});
+        		$('#txtYacc2a').change(function(e) {
+                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val()+'.');	
+                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+                    }
+        		});		
             }
             function q_boxClose(t_name) {
             }
