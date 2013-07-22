@@ -604,7 +604,7 @@
 						<td style="width:200px;"><a id='lbl_spec'> </a></td>
 						<td style="width:120px;"><a id='lbl_dime'> </a></td>
 						<td style="width:120px;"><a id='lbl_width'> </a></td>
- 						<td style="width:120px;"><a id='lbl_length'> </a></td>
+ 						<td style="width:120px;"><a id='lbl_lengthb'> </a></td>
 						<td style="width:120px;"><a id='lbl_bdime'> </a></td>
 						<td style="width:120px;"><a id='lbl_edime'> </a></td>
 						<td style="width:60px;"><a id='lblOrdet_st'> </a></td>

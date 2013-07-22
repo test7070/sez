@@ -15,10 +15,10 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
-
+			//sea
             q_tables = 't';
             var q_name = "cub";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var q_readonlyt = [];
             var bbmNum = [];
@@ -300,7 +300,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 100%;
+                width: 95%;
                 float: left;
             }
             .txt.c2 {
@@ -433,12 +433,12 @@
 						<td style="width:80px;"><a id='lbl_spec'> </a></td>
 						<td style="width:80px;"><a id='lbl_dime'> </a></td>
 						<td style="width:80px;"><a id='lbl_width'> </a></td>
- 						<td style="width:80px;"><a id='lbl_length'> </a></td>
+ 						<td style="width:80px;"><a id='lbl_lengthb'> </a></td>
 						<td style="width:80px;"><a id='lbl_weight'> </a></td>
-						<td style="width:80px;"><a id='lbl_sale'> </a></td>
-						<td style="width:80px;"><a id='lbl_ordc'> </a></td>
-						<td style="width:80px;"><a id='lbl_lget'> </a></td>
-						<td style="width:80px;"><a id='lbl_jget'> </a></td>
+						<td style="width:30px;"><a id='lbl_sale'> </a></td>
+						<td style="width:30px;"><a id='lbl_ordc'> </a></td>
+						<td style="width:30px;"><a id='lbl_lget'> </a></td>
+						<td style="width:30px;"><a id='lbl_jget'> </a></td>
 						<td style="width:80px;"><a id='lbl_oth'> </a></td>
 						<td style="width:80px;"><a id='lbl_source'> </a></td>
 						<td style="width:80px;"><a id='lbl_ordcno'> </a></td>
@@ -451,54 +451,22 @@
 							<input id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td>
-							<input class="txt" id="txtUno.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtProductno.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtSpec.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtDime.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtWidth.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtLength.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtWeight.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtSale.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtOrdc.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtLget.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtJget.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtOth.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtSource.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtOrdcno.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtStoreno.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
-						<td>
-							<input class="txt" id="txtStore.*" type="text" style="width:95%; text-align: center;"/>
-						</td>
+						<td><input class="txt c1" id="txtUno.*" type="text"/></td>
+						<td><input class="txt c1" id="txtProductno.*" type="text"/></td>
+						<td><input class="txt c1" id="txtSpec.*" type="text"/></td>
+						<td><input class="txt c1 num" id="txtDime.*" type="text"/></td>
+						<td><input class="txt c1 num" id="txtWidth.*" type="text"/></td>
+						<td><input class="txt c1 num" id="txtLengthb.*" type="text"/></td>
+						<td><input class="txt c1 num" id="txtWeight.*" type="text"/></td>
+						<td><input id="chkSale.*" type="checkbox"/></td>
+						<td><input id="chkOrdc.*" type="checkbox"/></td>
+						<td><input id="chkLget.*" type="checkbox"/></td>
+						<td><input id="chkJget.*" type="checkbox"/></td>
+						<td><input class="txt c1" id="txtOth.*" type="text"/></td>
+						<td><input class="txt c1" id="txtSource.*" type="text"/></td>
+						<td><input class="txt c1" id="txtOrdcno.*" type="text"/></td>
+						<td><input class="txt c1" id="txtStoreno.*" type="text"/></td>
+						<td><input class="txt c1" id="txtStore.*" type="text"/></td>
 					</tr>
 				</table>
 			</div>
@@ -520,15 +488,15 @@
 						<td style="width:120px; text-align: center;">品名</td>
 						<td style="width:120px; text-align: center;">規格</td>
 						<td style="width:120px; text-align: center;">預定出貨日期</td>
-						<td style="width:120px; text-align: center;">厚度</td>
-						<td style="width:120px; text-align: center;">寬度</td>
-						<td style="width:120px; text-align: center;">長度</td>
-						<td style="width:120px; text-align: center;">重量</td>
-						<td style="width:120px; text-align: center;">數量</td>
-						<td style="width:120px; text-align: center;">單價</td>
-						<td style="width:120px; text-align: center;">等級</td>
-						<td style="width:120px; text-align: center;">小計</td>
-						<td style="width:120px; text-align: center;">硬度</td>
+						<td style="width:80px; text-align: center;">厚度</td>
+						<td style="width:80px; text-align: center;">寬度</td>
+						<td style="width:80px; text-align: center;">長度</td>
+						<td style="width:80px; text-align: center;">重量</td>
+						<td style="width:80px; text-align: center;">數量</td>
+						<td style="width:80px; text-align: center;">單價</td>
+						<td style="width:60px; text-align: center;">等級</td>
+						<td style="width:80px; text-align: center;">小計</td>
+						<td style="width:80px; text-align: center;">硬度</td>
 						<td style="width:120px; text-align: center;">表色</td>
 						<td style="width:120px; text-align: center;">底色</td>
 						<td style="width:120px; text-align: center;">結案</td>
@@ -540,27 +508,27 @@
 							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input id="txtOrdeno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtDate2..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtCustno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtComp..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtProductno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtProduct..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtSpec..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtDate3..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtDime..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtWidth..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtLength..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtWeight..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtMount..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtPrice..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtClass..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtTotal..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtHard..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtScolor..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtUcolor..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtEnda..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtCancel..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtOrdeno..*" type="text" class="txt c1"/></td>
+						<td><input id="txtDate2..*" type="text" class="txt c1"/></td>
+						<td><input id="txtCustno..*" type="text" class="txt c1"/></td>
+						<td><input id="txtComp..*" type="text" class="txt c1"/></td>
+						<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
+						<td><input id="txtProduct..*" type="text" class="txt c1"/></td>
+						<td><input id="txtSpec..*" type="text" class="txt c1"/></td>
+						<td><input id="txtDate3..*" type="text" class="txt c1"/></td>
+						<td><input id="txtDime..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtWidth..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtLength..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtWeight..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtMount..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtPrice..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtClass..*" type="text" class="txt c1"/></td>
+						<td><input id="txtTotal..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtHard..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtScolor..*" type="text" class="txt c1"/></td>
+						<td><input id="txtUcolor..*" type="text" class="txt c1"/></td>
+						<td><input id="txtEnda..*" type="text" class="txt c1"/></td>
+						<td><input id="txtCancel..*" type="text" class="txt c1"/></td>
 					</tr>
 				</tbody>
 			</table>
