@@ -18,8 +18,8 @@
         q_tables = 's';
         var q_name = "get";
         var q_readonly = ['txtNoa','txtWorker'];
-        var q_readonlys = [];
-        var bbmNum = [['txtTotal', 10, 1, 1]];  // 允許 key 小數
+        var q_readonlys = ['txtOrdeno','txtNo2'];
+        var bbmNum = [['txtTotal', 10, 3, 1]];  // 允許 key 小數
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 0, 1],['txtGweight', 10, 2, 1],['txtWeight', 10, 1, 1]];
         var bbmMask = [];
         var bbsMask = [['txtStyle','A']];
@@ -679,13 +679,13 @@
         	<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
         	<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
         	<td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
-        	<td class="td4"><input id="txtPrice" type="text" class="txt c1" /></td>
+        	<td class="td4"><input id="txtPrice" type="text" class="txt c1 num" /></td>
         	<td class="td5"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
-        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1" /></td>
+        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1 num" /></td>
         </tr>
         <tr class="tr7"> 
         	<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-        	<td class="td2"><input id="txtTotal" type="text" class="txt c1" /></td>
+        	<td class="td2"><input id="txtTotal" type="text" class="txt c1 num" /></td>
         	<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
@@ -702,7 +702,7 @@
                 <td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
+                <td align="center" style="width:15%;"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>-->
                 <!--<td align="center"><a id='lblRadius_s'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
@@ -743,8 +743,13 @@
                 <td><input class="txt num c1" id="txtGweight.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtTypea.*" type="text" /></td>-->
-                <td><input class="txt c1" id="txtMemo.*" type="text" />
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <td>
+					<input class="txt c1" id="txtMemo.*" type="text" />
+					<input class="txt" id="txtOrdeno.*" style="width:72%;">
+					<input class="txt" id="txtNo2.*" style="width:20%;">
+					<input id="txtNoq.*" type="hidden" />
+					<input id="recno.*" type="hidden" />
+				</td>
             </tr>
         </table>
         </div>
