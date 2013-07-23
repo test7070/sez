@@ -58,8 +58,8 @@
                         value : r_accy + "_" + r_cno
                     },{/*  [2]*/
                         type : '0',
-                        name : 'namea',
-                        value : r_name
+                        name : 'xrank',
+                        value : r_rank
                     }, {/*1 [3],[4]*/
                         type : '1',
                         name : 'date'
@@ -79,6 +79,10 @@
                         type : '8',
                         name : 'xpart',
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
+                    }, {/*5 [10]*/
+                        type : '8',
+                        name : 'xoption03',
+                        value : q_getMsg('toption03').split('&')
                     }]
                 });
                 q_popAssign();
