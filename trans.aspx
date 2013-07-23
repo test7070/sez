@@ -34,7 +34,7 @@
             q_xchg = 1;
             brwCount2 = 15;
             //不能彈出瀏覽視窗
-            aPop = new Array(['txtCarno', '', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
+            aPop = new Array(['txtCarno', '', 'car2', 'a.noa,driver,driverno', 'txtCarno,txtDriver,txtDriverno', 'car2_b.aspx']
 			,['txtCustno', '', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
 			,['txtDriverno', '', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
 			,['txtUccno', '', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx']
@@ -534,11 +534,11 @@
 			}
 			function q_popPost(id) {
 				switch(id) {
-					case 'txtCarno':
+					/*case 'txtCarno':
 						if(q_cur==1 || q_cur==2){
 							$('#txtDriverno').focus();
 						}
-						break;
+						break;*/
 					case 'txtCustno':
 						if(q_cur==1 || q_cur==2){
 							if(!trans.isTrd){
