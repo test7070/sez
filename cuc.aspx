@@ -18,7 +18,7 @@
         var q_name = "cuc";
         var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
         var q_readonlys = [];
-        var bbmNum = [['txtGen',10,3,1]];  
+        var bbmNum = [];  
         var bbsNum = [['txtRadius',10,3,1],['txtWidth',10,3,1],['txtDime',10,3,1],['txtLengthb',10,3,1],
         			  ['txtHours',10,3,1],['txtMount',10,3,1],['txtWeight',10,3,1]
         			 ];
@@ -31,9 +31,9 @@
 		brwKey = 'Noa';
 		brwCount2= 6;
 		aPop = new Array(
-			['txtMechno', 'lblMechno', 'mech', 'noa,mech,gen', 'txtMechno,txtMech,txtGen', 'mech_b.aspx'],
+			['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
 			['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
-			['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],
+			['tx1tCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],
 			['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 		);
         $(document).ready(function () {
@@ -45,7 +45,7 @@
 
         //////////////////   end Ready
         function main() {
-            if (dataErr)  
+            if (dataErr)
             {
 				dataErr = false;
 				return;
@@ -57,8 +57,20 @@
             q_getFormat();
             bbmMask = [['txtDatea',r_picd]];
             bbsMask = [['txtDatea',r_picd],['txtUdate',r_picd],['txtDate2',r_picd]];
-            q_mask(bbmMask);   
+            q_mask(bbmMask);
         }
+
+		function q_popPost(s1){
+			switch(s1){
+				case 'txtMechno':
+					var t_mechno = trim($('#txtMechno').val());
+					if(t_mechno.length > 0){
+						var t_where = "where=^^ enda=0 and mechno='" + t_mechno + "' ^^";
+                		q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
+					}
+				break
+			}			
+		}
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
@@ -71,10 +83,33 @@
         }
 
 
-        function q_gtPost(t_name) {  
-        }
+        function q_gtPost(t_name) {
+			switch (t_name) {
+        		case 'view_ordes':
+        			for(var i=0;i<q_bbsCount;i++){
+        				$('#btnMinus_' + i).click();
+        			};
+        			var wret = '';
+        			var as = _q_appendData("view_ordes", "", true);
+        			if(as[0]!=undefined){
+        				wret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUdate,txtOrdeno,txtNo2,txtCustno,txtCust,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtUno'
+								, as.length, as, 'datea,noa,no2,custno,cust,productno,product,radius,width,dime,lengthb,mount,uno', '');
+        			}
+        			for(var j=0;j<wret.length;j++){
+        				$('#txtDatea_'+j).val(q_date());
+        				var t_uno = trim($('#txtUno_'+j).val());
+        				if(emp(t_uno))
+        					$('#txtUno_'+j).val('9999');
+        			}
+				break;
+				case q_name:
+					if (q_cur == 4)
+						q_Seek_gtPost();
+					break;
+               }
+       }
 
-        function btnOk() {
+       function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
             if (t_err.length > 0) {
 				alert(t_err);
@@ -372,8 +407,8 @@
 	            <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
 	            <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
 	            <td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
-	            <td class='td5'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
-	            <td class="td6"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+	            <td class='td5'></td>
+	            <td class="td6"></td>
 				<td class="td7"></td>
 			</tr>
 	        <tr>
@@ -385,9 +420,9 @@
 			</tr>
 	        <tr>
 	            <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
-	            <td class="td2"><input id="txtWorker" type="text" class="txt c1 num"/></td>
+	            <td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
 	            <td class='td3'><span> </span><a id="lblWorker2" class="lbl"></a></td>
-	            <td class="td4"><input id="txtWorker2" type="text" class="txt c1 num"/></td>
+	            <td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
 			</tr>
         </table>
         </div>
@@ -402,7 +437,7 @@
 				<td align="center" style="width: 6%;"><a id='lblUno_s'></a></td>
 				<td align="center" style="width: 5%;"><a id='lblUdate_s'></a></td>
 				<td align="center" style="width: 5%;"><a id='lblDate2_s'></a></td>
-				<td align="center" style="width: 9%;"><a id='lblOrdeno_s'></a></td>
+				<td align="center" style="width: 10%;"><a id='lblOrdeno_s'></a></td>
 				<td align="center" style="width: 9%;"><a id='lblMechno_s'></a></td>
 				<td align="center" style="width: 9%;"><a id='lblCustno_s'></a></td>
 				<td align="center" style="width: 9%;"><a id='lblProductno_s'></a></td>
@@ -452,6 +487,6 @@
         </table>
         </div>
         </div>
-        <input id="q_sys" type="hidden" />
+	<input id="q_sys" type="hidden" />
 </body>
 </html>

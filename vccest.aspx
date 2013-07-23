@@ -68,12 +68,12 @@
 			
 			$('#btnOrdeimport').click(function(){
 				var ordeno = $('#txtOrdeno').val();
-				var t_where = '';
+				var t_where = 'enda = 0 ';
 				if(ordeno.length > 0){
-					t_where = "where = ^^ noa='" + ordeno + "' ^^";
+					t_where = " and noa='" + ordeno + "'";
             	   	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 				}else{
-					alert('請輸入【' + q_getMsg('lblOrdeno') + '】');
+            	   	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 				}
 			});
 			$('#btnWorkbimport').click(function(){
@@ -651,7 +651,7 @@
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblDatea" class="lbl"> </a></td>
             <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class='td3'colspan="2"><select id="cmbKind" class="txt c1"> </select></td>
+            <td class='td3'><select id="cmbKind" class="txt"> </select></td>
             <td class="td4"> </td>
             <td class="td5"><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td6"><input id="txtNoa"  type="text" class="txt c1"/> </td>
