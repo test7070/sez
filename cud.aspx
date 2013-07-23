@@ -75,7 +75,7 @@
             	t_width = (t_width == 0?'':t_width);
             	var t_style = trim($('#txtStyle').val());
 				var t_where = 'where=^^ 1=1 ';
-				t_where += q_sqlPara2('odate',t_datea) + q_sqlPara2('noa',t_ordeno) + q_sqlPara2('custno',t_custno) + 
+				t_where += q_sqlPara2('noa',t_ordeno) + q_sqlPara2('custno',t_custno) + 
 					q_sqlPara2('radius',t_bradius,t_eradius) + q_sqlPara2('width',t_width) + q_sqlPara2('dime',t_bdime,t_edime) + 
 					q_sqlPara2('style',t_style);
 				t_where += ' ^^';
@@ -118,8 +118,9 @@
 			else
 				$('#txtWorker2').val(r_name);
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+			var t_date = trim($('#txtDatea').val());
             if (s1.length == 0 || s1 == "AUTO")   
-				q_gtnoa(q_name, replaceAll( $('#txtNoa').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cud') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
 				wrServer(s1);
         }

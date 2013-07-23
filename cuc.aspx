@@ -55,7 +55,7 @@
         
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd]];
+            bbmMask = [['txtDatea',r_picd]];
             bbsMask = [['txtDatea',r_picd],['txtUdate',r_picd],['txtDate2',r_picd]];
             q_mask(bbmMask);   
         }
@@ -86,8 +86,9 @@
 			else
 				$('#txtWorker2').val(r_name);
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+			var t_date = trim($('#txtDatea').val());
             if (s1.length == 0 || s1 == "AUTO")   
-				q_gtnoa(q_name, replaceAll( $('#txtNoa').val(), '/', ''));
+				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cuc') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
 				wrServer(s1);
         }
@@ -381,20 +382,6 @@
 	            	<input id="txtMechno"  type="text" class="txt" style="width:30%;"/>
 	            	<input id="txtMech"  type="text" class="txt" style="width:65%;"/>
 	            </td>
-			</tr>
-	        <tr>
-	            <td class="td1"><span> </span><a id="lblBdate" class="lbl"></a></td>
-	            <td class="td2" colspan="2">
-	            	<input id="txtBdate" type="text" class="txt" style="width:45%;"/>
-	            	<span style="float:left; display:block; width:20px;"><a>～</a></span>
-	            	<input id="txtEdate" type="text" class="txt" style="width:45%;"/>
-	            </td>
-			</tr>
-	        <tr>
-	            <td class="td1"><span> </span><a id="lblGen" class="lbl"></a></td>
-	            <td class="td2"><input id="txtGen" type="text" class="txt c1 num"/></td>
-                <td class="td3" align="left">M/Hr</td>
-	            <td class="td4"></td>
 			</tr>
 	        <tr>
 	            <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>

@@ -32,7 +32,7 @@
             aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
             ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
             ['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtComp','tgg_b.aspx'],
-            ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+            //['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']);
             $(document).ready(function() {
@@ -85,6 +85,7 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	/*
                 	case'uccb':
                 		var as = _q_appendData("uccb", "", true);
                 		if(as[0] != undefined){
@@ -92,6 +93,7 @@
                 			$('#txtUno_' +b_seq).val('');
                 		}
                 	break;
+                	*/
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -126,6 +128,7 @@
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 		                 //判斷是否重複或已存過入庫----------------------------------------
+		                 /*
 		                 $('#txtUno_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
@@ -142,6 +145,7 @@
 				        	q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
 		                 });
 	                	//-------------------------------------------
+	                	*/
 						}
                 }
                 _bbsAssign();
@@ -464,8 +468,8 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
-                <td align="center" style="width:8%;"><a id='lblProductno_s'> </a></td>
+                <!--<td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>-->
+                <td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
@@ -476,8 +480,10 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <!--
                 <td ><input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
+                -->
                 <td ><input  id="txtProductno.*" type="text" style="width:70%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
