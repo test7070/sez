@@ -104,7 +104,7 @@
 						t_bproductno=encodeURI($('#txtProduct1a').val());
 					if(!emp($('#txtProduct2a').val()))
 						t_eproductno=encodeURI($('#txtProduct2a').val());
-                	if($('.radio.select').next().text().indexOf('比較圖') != -1){
+                	if($('.radio.select').next().text().indexOf('比較圖') == -1){
 						if(!emp($('#txtDate1').val()))
 							t_bdate=encodeURI($('#txtDate1').val());
 						if(!emp($('#txtDate2').val()))
@@ -333,8 +333,12 @@
                                 tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
                             }
                             var t_minMoney = 0; //Y軸最小值
-							var t_maxMoney = GetBigInteger((Math.max(dec(objpostData[0].total),dec(objpostData[0].total))/10000)); //X軸最大值
-							
+							//var t_maxMoney = GetBigInteger((Math.max(dec(objpostData[0].total),dec(objpostData[0].total))/10000)); //X軸最大值
+							var t_maxMoney = 0; //X軸最大值
+							if(dec(objpostData[0].total)/10000 > dec(objpostData[0].mount))
+								t_maxMoney = GetBigInteger(dec(objpostData[0].total)/10000); //X軸最大值
+							else
+								t_maxMoney = GetBigInteger(dec(objpostData[0].mount)); //X軸最大值
                             var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
 							var linearGradientColor = [
 													   ['rgb(206,206,255)','rgb(147,147,255)'],['rgb(255,220,185)','rgb(225,175,96)'],
