@@ -60,27 +60,54 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('cubpi.typea'));
                 $('#btnOrdeImport').click(function(){
-                	var t_bdate = trim($('#txtBdate').val());
-                	var t_edate = trim($('#txtEdate').val());
-                	var t_bdime = dec($('#txtBdime').val());
-                	var t_edime = dec($('#txtEdime').val());
-                	var t_bradius = dec($('#txtRadius').val())*0.93;
-                	var t_eradius = dec($('#txtRadius').val());
-                	var t_bwidth = dec($('#txtWidth').val())*0.93;
-                	var t_ewidth = dec($('#txtWidth').val());
-                	var t_style = trim($('#txtStyle').val());
-                	var t_productno = trim($('#txtProductno').val());
-                	var t_mechno = trim($('#txtMechno').val());
-                	t_edate = (t_edate==''?'char(255)':t_edate);
-                	t_edime = (t_edime==0?9999:t_edime);
-                	t_eradius = (t_eradius==0?9999:t_eradius*1.07);
-                	t_ewidth = (t_ewidth==0?9999:t_ewidth*1.07);
-                	var t_where = 'where=^^ 1=1 ';
-                	t_where += q_sqlPara2('odate',t_bdate,t_edate) + q_sqlPara2('dime',t_bdime,t_edime) + 
-                		q_sqlPara2('radius',t_bradius,t_eradius) + q_sqlPara2('width',t_bwidth,t_ewidth) + 
-						q_sqlPara2('style',t_style) + q_sqlPara2('productno',t_productno) + q_sqlPara2('mechno',t_mechno);
-					t_where += ' ^^';
-                	q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
+                	if(q_cur == 1 || q_cur == 2){
+	                	var t_bdate = trim($('#txtBdate').val());
+	                	var t_edate = trim($('#txtEdate').val());
+	                	var t_bdime = dec($('#txtBdime').val());
+	                	var t_edime = dec($('#txtEdime').val());
+	                	var t_bradius = dec($('#txtRadius').val())*0.93;
+	                	var t_eradius = dec($('#txtRadius').val());
+	                	var t_bwidth = dec($('#txtWidth').val())*0.93;
+	                	var t_ewidth = dec($('#txtWidth').val());
+	                	var t_style = trim($('#txtStyle').val());
+	                	var t_productno = trim($('#txtProductno').val());
+	                	var t_mechno = trim($('#txtMechno').val());
+	                	t_edate = (t_edate==''?'char(255)':t_edate);
+	                	t_edime = (t_edime==0?9999:t_edime);
+	                	t_eradius = (t_eradius==0?9999:t_eradius*1.07);
+	                	t_ewidth = (t_ewidth==0?9999:t_ewidth*1.07);
+	                	var t_where = 'where=^^ 1=1 ';
+	                	t_where += q_sqlPara2('odate',t_bdate,t_edate) + q_sqlPara2('dime',t_bdime,t_edime) + 
+	                		q_sqlPara2('radius',t_bradius,t_eradius) + q_sqlPara2('width',t_bwidth,t_ewidth) + 
+							q_sqlPara2('style',t_style) + q_sqlPara2('productno',t_productno) + q_sqlPara2('mechno',t_mechno);
+						t_where += ' ^^';
+	                	q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
+                	}
+                });
+                $('#btnCucImport').click(function(){
+                	if(q_cur ==1 || q_cur == 2){
+	                	var t_bdate = trim($('#txtBdate').val());
+	                	var t_edate = trim($('#txtEdate').val());
+	                	var t_bdime = dec($('#txtBdime').val());
+	                	var t_edime = dec($('#txtEdime').val());
+	                	var t_bradius = dec($('#txtRadius').val())*0.93;
+	                	var t_eradius = dec($('#txtRadius').val());
+	                	var t_bwidth = dec($('#txtWidth').val())*0.93;
+	                	var t_ewidth = dec($('#txtWidth').val());
+	                	var t_style = trim($('#txtStyle').val());
+	                	var t_productno = trim($('#txtProductno').val());
+	                	var t_mechno = trim($('#txtMechno').val());
+	                	t_edate = (t_edate==''?'char(255)':t_edate);
+	                	t_edime = (t_edime==0?9999:t_edime);
+	                	t_eradius = (t_eradius==0?9999:t_eradius*1.07);
+	                	t_ewidth = (t_ewidth==0?9999:t_ewidth*1.07);
+	                	var t_where = 'where=^^ 1=1 ';
+	                	t_where += q_sqlPara2('udate',t_bdate,t_edate) + q_sqlPara2('dime',t_bdime,t_edime) + 
+	                		q_sqlPara2('radius',t_bradius,t_eradius) + q_sqlPara2('width',t_bwidth,t_ewidth) + 
+							q_sqlPara2('productno',t_productno) + q_sqlPara2('mechno',t_mechno);
+						t_where += ' ^^';
+	                	q_gt('cucs', t_where, 0, 0, 0, "", r_accy);
+                	}
                 });
             }
 
@@ -92,6 +119,15 @@
 	        			if(as[0]!=undefined){
 	        				q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2'
 									, as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate', '');
+	        			}
+	        		break;
+	        		case 'cucs':
+	        			var wret = '';
+	        			var as = _q_appendData("cucs", "", true);
+	        			console.log(as);
+	        			if(as[0]!=undefined){
+	        				q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2'
+									, as.length, as, 'ordeno,no2,custno,productno,product,radius,width,dime,lengthb,mount,udate', '');
 	        			}
 	        		break;
 					case q_name:
@@ -481,6 +517,7 @@
 		                	<input id="txtEdime" type="text" style="width:45%;" class="num"/>
 		                </td>
 		                <td><input type="button" id="btnOrdeImport"></td>
+		                <td><input type="button" id="btnCucImport"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" ></a></td>

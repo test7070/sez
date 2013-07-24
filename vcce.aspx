@@ -63,11 +63,13 @@
 
 			});
 			$('#btnOrdeimport').click(function(){
-				var ordeno = $('#txtOrdeno').val();
-				var t_where = '';
-				if(ordeno.length > 0)
-					t_where = "noa='" + ordeno + "'";
-            	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
+				if(q_cur==1 || q_cur==2){
+					var t_ordeno = $('#txtOrdeno').val();
+					var t_custno = $('#txtCustno').val();
+					var t_where = ' 1=1 ';
+					t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno);
+					q_gt('vcce_import', t_where, 0, 0, 0, "", r_accy);
+				}
 			});
         }
 
@@ -120,6 +122,12 @@
             			$('#txtAddr_post').val(orde[0].addr2);
             			$('#txtOrdeno').val(orde[0].noa);
             		break;
+            	case 'vcce_import':
+					var as =_q_appendData("vcce_import", "", true);
+					if(as[0]!=undefined){
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice'
+							, as.length, as, 'uno,productno,product,radius,width,dime,lengthb,spec,weight,mount,price', '');
+					}
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
