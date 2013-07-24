@@ -22,7 +22,7 @@
         var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtTotal'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtWorkno'];
         var bbmNum = [['txtMoney', 15,0,1],['txtTax', 15,0,1],['txtTotal', 15,0,1]];  // 允許 key 小數
-        var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,0,1],['txtErrmount', 15,2,1],['txtWmount', 15, 2, 1]];
+        var bbsNum = [['txtBorn', 15,2,1],['txtMount', 15,2,1],['txtPrice', 15,2,1],['txtTotal', 15,0,1],['txtErrmount', 15,2,1],['txtWmount', 15, 2, 1],['txtOutmount', 15, 2, 1],['txtInmount', 15, 2, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
@@ -501,6 +501,8 @@
                 <td style="width:7%;" align="center"><a id='lblWmounts'></a></td>
                 <td style="width:7%;" align="center"><a id='lblPrice_s'></a></td>
                 <td style="width:8%;" align="center"><a id='lblTotal_s'></a></td>
+                <td style="width:7%;" align="center"><a id='lblInmount_s'></a></td>
+                <td style="width:8%;" align="center"><a id='lblOutmount_s'></a></td>
                 <td style="width:10%;" align="center"><a id='lblErrmount'></a></td>
                 <td style="width:13%;" align="center"><a id='lblMemos'></a></td>
                 <td style="width:10%;" align="center"><a id='lblWorknos'></a></td>
@@ -523,6 +525,8 @@
                 </td>
                 <td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
                 <td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
+                <td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
+                <td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
                 <td>
                 	<input class="txt c1 num" id="txtErrmount.*" type="text"/>
                 	<input class="txt c1" id="txtErrmemo.*" type="text"/>
