@@ -225,13 +225,13 @@
 	            						t_caseno2 = (t_taskcontent).replace(/.*貨櫃號碼：([0-9,A-Z,a-z,\.,\-]+).*貨櫃號碼：([0-9,A-Z,a-z,\.,\-]+).*/g,'$1');
 									if(t_caseno.length>0){
 										if(t_caseno2.length>0){
-											$('#txtCaseno2_'+i).val(t_caseno);
+										//	$('#txtCaseno2_'+i).val(t_caseno);
 											$('#txtCaseno_'+i).val(t_caseno2);
 										}else{
 											//alert(t_caseno+'\n'+t_caseno.substring(0,11)+'\n'+t_caseno.substring(11,23));
 											if(t_caseno.length>11){
 												$('#txtCaseno_'+i).val(t_caseno.substring(0,11));
-												$('#txtCaseno2_'+i).val(t_caseno.substring(11,t_caseno.length));
+											//	$('#txtCaseno2_'+i).val(t_caseno.substring(11,t_caseno.length));
 											}else{
 												$('#txtCaseno_'+i).val(t_caseno);
 											}
@@ -900,7 +900,8 @@
 					<td align="center" style="width:100px;"><a> 計算類別<br>車隊 </a></td>
 					<td align="center" style="width:120px;"><a> 起迄地點</a></td>
 					<td align="center" style="width:100px;"><a> 產品</a></td>
-					<td align="center" style="width:100px;"><a> 櫃號</a></td>
+					<td align="center" style="width:200px;"><a> 櫃號</a></td>
+					<td align="center" style="width:100px;"><a> 里程數</a></td>
 					<td align="center" style="width:100px;"><a> 收數量</a></td>
 					<td align="center" style="width:120px;"><a> 客戶單價</a></td>
 					<td align="center" style="width:100px;"><a> 收金額</a></td>
@@ -913,7 +914,6 @@
 					<td align="center" style="width:100px;"><a> 通行費<br>寄櫃費 </a></td>
 					<td align="center" style="width:100px;"><a> 總重<br>淨重 </a></td>
 					<td align="center" style="width:100px;"><a> PO<br>憑單</a></td>
-					<td align="center" style="width:100px;display:none;"><a> 里程數</a></td>
 					<td align="center" style="width:100px;"><a> 外務</a></td>
 					<td align="center" style="width:200px;"><a> 備註</a></td>
 					<td align="center" style="width:200px;"><a> 派車單</a></td>
@@ -955,7 +955,13 @@
 					</td>
 					<td>
 						<input type="text" id="txtCaseno.*" style="width:95%;float:left;" />
-						<input type="text" id="txtCaseno2.*" style="width:95%;float:left;" />
+						<input type="text" id="txtCaseno2.*" style="width:95%;float:left;display:none;" />
+					</td>
+					<td>
+						<input type="text" id="txtBmiles.*" style="width:20%;float:left;text-align: right;display:none;" />
+						<input type="text" id="txtEmiles.*" style="width:20%;float:left;text-align: right;display:none;" />
+						<input type="text" id="txtMiles.*" style="width:95%;float:left;text-align: right;" />
+						<input type="text" id="txtGps.*" style="width:20%;float:left;text-align: right;display:none;" />
 					</td>
 					<td>
 						<input type="text" id="txtInmount.*" style="width:95%;text-align: right;" />
@@ -984,12 +990,6 @@
 					<td>
 						<input type="text" id="txtPo.*" style="width:95%;float:left;" />
 						<input type="text" id="txtCustorde.*" style="width:95%;float:left;" />
-					</td>
-					<td style="display:none;">
-						<input type="text" id="txtBmiles.*" style="width:20%;float:left;text-align: right;" />
-						<input type="text" id="txtEmiles.*" style="width:20%;float:left;text-align: right;" />
-						<input type="text" id="txtMiles.*" style="width:20%;float:left;text-align: right;" />
-						<input type="text" id="txtGps.*" style="width:20%;float:left;text-align: right;" />
 					</td>
 					<td>
 						<input type="text" id="txtSalesno.*" style="width:95%;float:left;" />
