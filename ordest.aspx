@@ -1012,6 +1012,7 @@
 					<td class="td7" align="center" style="width:8%;"><a id='lblLengthb_t'></a></td>
 					<td class="td8" align="center" style="width:8%;"><a id='lblMount_t'></a></td>
 					<td class="td9" align="center" style="width:8%;"><a id='lblWeight_t'></a></td>
+					<td class="td9" align="center" style="width:2%;"><a id='lblIssale_t'></a></td>
 					<td class="td10" align="center" style="width:10%;"><a id='lblSource_t'></a></td>
 					<td class="td11" align="center" style="width:8%;"><a id='lblNo2_t'></a></td>
 				</tr>
@@ -1044,6 +1045,9 @@
 					</td>
 					<td class="td9">
 						<input class="txt" id="txtWeight..*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td align="center">
+						<input id="chkIssale..*" type="checkbox"/>
 					</td>
 					<td class="td10">
 						<input class="txt" id="txtSource..*" type="text" style="width:95%;"  />

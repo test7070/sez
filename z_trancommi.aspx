@@ -64,6 +64,13 @@
                         type : '0',
                         name : 'r_xname',
                         value : r_name
+                    },{
+                        type : '6',
+                        name : 'xcarno',
+                    },{
+                        type : '5',
+                        name : 'xcartypea',
+                        value : [q_getPara('report.all')].concat(new Array("公司車","外車"))
                     }]
                 });
                 q_popAssign();

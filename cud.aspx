@@ -17,7 +17,7 @@
         q_tables = 's';
         var q_name = "cud";
         var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
-        var q_readonlys = [];
+        var q_readonlys = ['txtOrdeno','txtNo2'];
         var bbmNum = [['txtRadius',10,3,1],['txtWidth',10,3,1],['txtBdime',10,3,1],['txtEdime',10,3,1]];  
         var bbsNum = [['txtRadius',10,3,1],['txtWidth',10,3,1],['txtDime',10,3,1],['txtLengthb',10,3,1],
         			  ['txtOrdemount',10,3,1],['txtTdmount',10,3,1],['txtHmount',10,3,1],['txtMount',10,3,1],
@@ -60,7 +60,27 @@
             q_getFormat();
             bbmMask = [['txtDatea',r_picd]];
             bbsMask = [['txtDatea',r_picd]];
-            q_mask(bbmMask);   
+            q_mask(bbmMask);
+            $('#btnOrdeImport').click(function(){
+            	var t_datea = trim($('#txtDatea').val());
+            	var t_ordeno = trim($('#txtOrdeno').val());
+            	var t_custno = trim($('#txtCustno').val());
+            	var t_bradius = (dec($('#txtRadius').val())*0.93);
+            	var t_eradius = (dec($('#txtRadius').val())*1.07);
+            	var t_width = dec($('#txtWidth').val());
+            	var t_bdime = dec($('#txtBdime').val());
+            	var t_edime = dec($('#txtEdime').val());
+            	t_eradius = (emp(t_eradius)?9999:t_eradius);
+            	t_edime = (emp(t_edime)?9999:t_edime);
+            	t_width = (t_width == 0?'':t_width);
+            	var t_style = trim($('#txtStyle').val());
+				var t_where = 'where=^^ 1=1 ';
+				t_where += q_sqlPara2('noa',t_ordeno) + q_sqlPara2('custno',t_custno) + 
+					q_sqlPara2('radius',t_bradius,t_eradius) + q_sqlPara2('width',t_width) + q_sqlPara2('dime',t_bdime,t_edime) + 
+					q_sqlPara2('style',t_style);
+				t_where += ' ^^';
+				q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
+            });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -73,8 +93,17 @@
             b_pop = '';
         }
 
-
-        function q_gtPost(t_name) {  
+        function q_gtPost(t_name) {
+        	switch(t_name){
+        		case 'view_ordes':
+        			var wret = '';
+        			var as = _q_appendData("view_ordes", "", true);
+        			if(as[0]!=undefined){
+        				wret = q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCustno,txtCust,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtOrdemount,txtOrdeno,txtNo2,txtClass'
+								, as.length, as, 'odate,custno,cust,productno,product,radius,width,dime,lengthb,mount,noa,no2,class', '');
+        			}
+        		break;
+        	}
         }
 
         function btnOk() {
@@ -89,8 +118,9 @@
 			else
 				$('#txtWorker2').val(r_name);
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+			var t_date = trim($('#txtDatea').val());
             if (s1.length == 0 || s1 == "AUTO")   
-				q_gtnoa(q_name, replaceAll( $('#txtNoa').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cud') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
 				wrServer(s1);
         }
@@ -397,6 +427,7 @@
 	            </td>
 	            <td class='td3'><span> </span><a id="lblStyle" class="lbl"></a></td>
 	            <td class="td4"><input id="txtStyle"  type="text" class="txt c6"/></td>
+				<td class="td5"><input type="button" id="btnOrdeImport"></td>
 			</tr>
 	        <tr>
 	            <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>

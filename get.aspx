@@ -17,7 +17,7 @@
         }
         q_tables = 's';
         var q_name = "get";
-        var q_readonly = [];
+        var q_readonly = ['txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtTotal', 10, 1]];  // 允許 key 小數
         var bbsNum = [['txtSize1', 10, 3],['txtSize2', 10, 2],['txtSize3', 10, 3],['txtSize4', 10, 2],['txtRadius', 10, 3],['txtWidth', 10, 2],['txtDime', 10, 3],['txtLengthb', 10, 2],['txtMount', 10, 0],['txtWeight', 10, 1]];
@@ -78,25 +78,6 @@
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'tgg':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtProductno_' + b_seq + ',txtProduct_' + b_seq, ret, 'noa,product');
-                    break;
-
-                case 'store':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtStoreno,txtStore', ret, 'noa,store');
-                    break;
-
-                case 'station':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtStationno,txtStation', ret, 'noa,station');
-                    break;
-
                 case 'ordes':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
@@ -133,18 +114,6 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'ucc':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
-                    break;
-
-                case 'store':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
-                    break;
-
-                case 'station':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtStationno,txtStation', 'noa,station');
-                    break;
-
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -202,18 +171,6 @@
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 	                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-	                $('#btnProductno_' + j).click(function () {
-	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                    q_bodyId($(this).attr('id'));
-	                    b_seq = t_IdSeq;
-	                    pop('ucc');
-	                 });
-	                 $('#txtProductno_' + j).change(function () {
-	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                     q_bodyId($(this).attr('id'));
-	                     b_seq = t_IdSeq;
-	                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
-	                 });
 				}
             } //j
             _bbsAssign();
@@ -236,7 +193,7 @@
             
         }
         function btnPrint() {
- 			q_box('z_getp.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "900px", "700px", q_getMsg("popPrint"));
+ 			q_box('z_getp.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer( key_value) {
@@ -543,13 +500,13 @@
         	<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
         	<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
         	<td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
-        	<td class="td4"><input id="txtPrice" type="text" class="txt c1" /></td>
+        	<td class="td4"><input id="txtPrice" type="text" class="txt c1 num" /></td>
         	<td class="td5"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
-        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1" /></td>
+        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1 num" /></td>
         </tr>
         <tr class="tr7"> 
         	<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-        	<td class="td2"><input id="txtTotal" type="text" class="txt c1" /></td>
+        	<td class="td2"><input id="txtTotal" type="text" class="txt c1 num" /></td>
         	<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
@@ -559,7 +516,7 @@
         </table>
         </div>
 		</div>
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll;" --%>
+        <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>

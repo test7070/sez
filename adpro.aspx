@@ -86,7 +86,7 @@
                     return;
                 _btnModi();
                 refreshBbm();
-               // $('#txtNoa').attr('disabled','disabled')
+                $('#txtNoa').attr('disabled','disabled')
                 $('#txtDatea').focus();
             }
 
@@ -101,12 +101,6 @@
             }
             function btnOk() {
                 Lock();
-               /*var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }*/
                 var t_date = $('#txtMon').val();
 				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號

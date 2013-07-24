@@ -88,10 +88,7 @@
 						}
 					}
 					if(as[0] != undefined){
-					q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtMount,txtWeight',
-	                        					   as.length, as, 
-	                        					   'uno,mount,weight',
-	                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+						q_gridAddRow(bbtHtm, 'tbbt', 'txtUno',as.length, as,'uno','txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
 					}				
 					break;
 				case q_name:
@@ -195,7 +192,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cub') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -604,12 +601,12 @@
 						<td style="width:200px;"><a id='lbl_spec'> </a></td>
 						<td style="width:120px;"><a id='lbl_dime'> </a></td>
 						<td style="width:120px;"><a id='lbl_width'> </a></td>
- 						<td style="width:120px;"><a id='lbl_length'> </a></td>
+ 						<td style="width:120px;"><a id='lbl_lengthb'> </a></td>
+						<td style="width:80px;"><a id='lbl_mount'> </a></td>
+						<td style="width:150px;"><a id='lbl_weight'> </a></td>
 						<td style="width:120px;"><a id='lbl_bdime'> </a></td>
 						<td style="width:120px;"><a id='lbl_edime'> </a></td>
 						<td style="width:60px;"><a id='lblOrdet_st'> </a></td>
-						<td style="width:80px;"><a id='lbl_mount'> </a></td>
-						<td style="width:150px;"><a id='lbl_weight'> </a></td>
 						<td style="width:150px;"><a id='lbl_hweight'> </a></td>
 						<td style="width:200px;"><a id='lbl_size'> </a></td>
 						<td style="width:200px;"><a id='lbl_uno'> </a></td>
@@ -638,11 +635,11 @@
 						<td><input id="txtDime.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWidth.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtLengthb.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBdime.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtEdime.*" type="text" class="txt c1 num"/></td>
 						<td align="center"><input id="btnUccc.*" type="button" value="選料"/></td>
-						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtHweight.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtSize.*" type="text" class="txt c1"/></td>
 						<td><input id="txtUno.*" type="text" class="txt c1"/></td>
