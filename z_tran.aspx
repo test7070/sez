@@ -233,6 +233,10 @@
                          	type : '5',
                             name : 'yoption27',
                             value : q_getMsg('toption27').split('&')
+                        }, {/*34-[42]排序(司機、車牌、淨利)*///*9-2
+                            type : '5',
+                            name : 'ysort22',
+                            value : q_getMsg('tsort22').split('&')
                         }]
                     });
                     q_popAssign();
@@ -243,8 +247,8 @@
                     $('#txtDate2').mask('999/99/99');
                     $('#txtDate2').datepicker();
                     $('#txtTrandate1').mask('999/99/99');
-                    $('#txtTrandate1').datepicker();
                     $('#txtTrandate2').mask('999/99/99');
+                    $('#txtTrandate1').datepicker();
                     $('#txtTrandate2').datepicker();
 
                     $('#chkXoption2').children('input').attr('checked', 'checked');

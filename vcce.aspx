@@ -63,15 +63,11 @@
 
 			});
 			$('#btnOrdeimport').click(function(){
-				if(q_cur==1 || q_cur==2){
-					var t_ordeno = $('#txtOrdeno').val();
-					var t_custno = $('#txtCustno').val();
-					var t_where = 'where=^^ 1=1 ';
-					t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno);
-					t_where += " and (isnull(ordeno,'') != '')";
-					t_where += ' ^^';
-					q_gt('vcce_import', t_where, 0, 0, 0, "", r_accy);
-				}
+				var ordeno = $('#txtOrdeno').val();
+				var t_where = '';
+				if(ordeno.length > 0)
+					t_where = "noa='" + ordeno + "'";
+            	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 			});
         }
 
@@ -95,15 +91,15 @@
 					if (q_cur > 0 && q_cur < 4) {
 						if (!b_ret || b_ret.length == 0)
 							return;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtPrice,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret,
-												 'productno,product,weight,mount,price,dime,width,lengthb,spec','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtWeight,txtMount,txtPrice,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret,
+												 'noa,no2,productno,product,weight,mount,price,dime,width,lengthb,spec','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						size_change();
 						if(b_ret[0].noa != undefined){
 							var t_where = "noa='" + b_ret[0].noa + "'";
 		                    q_gt('orde', t_where , 0, 0, 0, "", r_accy);
 	                   	}
 					}
-					break;
+						break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -124,12 +120,6 @@
             			$('#txtAddr_post').val(orde[0].addr2);
             			$('#txtOrdeno').val(orde[0].noa);
             		break;
-            	case 'vcce_import':
-					var as =_q_appendData("vcce_import", "", true);
-					if(as[0]!=undefined){
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtUno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice'
-							, as.length, as, 'ordeno,no2,uno,productno,product,radius,width,dime,lengthb,spec,weight,mount,price', '');
-					}
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -252,7 +242,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['ordeno'] ) {  
+            if (!as['product'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
@@ -515,7 +505,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1800px;
+                width: 2000px;
             }
             .tbbs a {
                 font-size: medium;
@@ -610,12 +600,12 @@
             <td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
             <td class='td3'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
             <td class="td4"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
-            <td class="td5"><input id="btnWorkbimport" type="button"/> </td>
+            <!--<td class="td5"><input id="btnWorkbimport" type="button"/> </td>-->
             <td class="td6"><input id="btnOrdeimport" type="button"/> </td>
         </tr>   
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
-            <td class="td2"><input id="txtWeight"  type="text" class="txt c1"/></td>
+            <td class="td2"><input id="txtWeight"  type="text" class="txt c1 num"/></td>
             <td class='td3'> </td>
             <td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
             <td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
