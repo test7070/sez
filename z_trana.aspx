@@ -207,9 +207,9 @@
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
                 $('#txtTrandate1').mask('999/99/99');
-                $('#txtTrandate1').datepicker();
                 $('#txtTrandate2').mask('999/99/99');
-                $('#txtTrandate2').datepicker();
+                /*$('#txtTrandate1').datepicker();
+                $('#txtTrandate2').datepicker();*/
                 $('#txtMon1').mask('999/99');
 				$('#txtMon2').mask('999/99');
 				$('#txtUmmdate1').mask('999/99/99');
