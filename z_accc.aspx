@@ -23,7 +23,8 @@
             z_accc.prototype = {
                 data : {
                     part : null
-                }
+                },
+                a1 : null
             };
             t_data = new z_accc();
 
@@ -93,6 +94,8 @@
                 $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				
+				//t_data.a1 = $('#txtXacc1a').keyup;
+				/*alert(t_data.a1);*/
 				$('#txtXacc1a').keyup(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                 	if(patt.test($(this).val()))
@@ -100,6 +103,7 @@
                     else if((/^(\d{4})$/).test($(this).val())){
                     	$(this).val($(this).val()+'.');
                     }
+                   // t_data.a1();
         		});
         		$('#txtXacc2a').keyup(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
