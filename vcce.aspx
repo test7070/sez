@@ -111,7 +111,6 @@
             b_pop = '';
         }
 
-
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'orde':
@@ -130,6 +129,7 @@
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtUno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice'
 							, as.length, as, 'ordeno,no2,uno,productno,product,radius,width,dime,lengthb,spec,weight,mount,price', '');
 					}
+					size_change();
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
