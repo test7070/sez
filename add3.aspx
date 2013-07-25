@@ -126,7 +126,7 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['datea']) {
+                if (!as['post']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
