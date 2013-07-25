@@ -93,34 +93,38 @@
                 $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				
-				$('#txtXacc1a').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+				$('#txtXacc1a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
                     }
         		});
-        		$('#txtXacc2a').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
-                    }
-        		});	
-        		$('#txtYacc1a').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+        		$('#txtXacc2a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
                     }
         		});
-        		$('#txtYacc2a').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+        		$('#txtYacc1a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
                     }
-        		});		
+        		});
+        		$('#txtYacc2a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
+                    }
+        		});
             }
             function q_boxClose(t_name) {
             }
