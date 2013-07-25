@@ -66,8 +66,9 @@
 				if(q_cur==1 || q_cur==2){
 					var t_ordeno = $('#txtOrdeno').val();
 					var t_custno = $('#txtCustno').val();
-					var t_where = ' 1=1 ';
+					var t_where = 'where=^^ 1=1 ';
 					t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno);
+					t_where += ' ^^';
 					q_gt('vcce_import', t_where, 0, 0, 0, "", r_accy);
 				}
 			});
@@ -620,7 +621,7 @@
             <td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
             <td class="td7"><input id="txtCarno"  type="text" class="txt c1"/></td>
             <td class='td8'><span> </span><a id="lblTotal" class="lbl"> </a></td>
-            <td class="td9"><input id="txtTotal"  type="text" class="txt c1"/></td>
+            <td class="td9"><input id="txtTotal"  type="text" class="txt c1 num"/></td>
         </tr> 
         <tr class="tr7">
         	<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
