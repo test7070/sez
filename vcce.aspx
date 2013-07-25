@@ -68,7 +68,7 @@
 					var t_custno = $('#txtCustno').val();
 					var t_where = ' 1=1 ';
 					t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno);
-					q_gt('vcce_import', t_where, 0, 0, 0, "", r_accy);
+					q_gt('view_vcce_import', t_where, 0, 0, 0, "", r_accy);
 				}
 			});
         }
@@ -122,8 +122,8 @@
             			$('#txtAddr_post').val(orde[0].addr2);
             			$('#txtOrdeno').val(orde[0].noa);
             		break;
-            	case 'vcce_import':
-					var as =_q_appendData("vcce_import", "", true);
+            	case 'view_vcce_import':
+					var as =_q_appendData("view_vcce_import", "", true);
 					if(as[0]!=undefined){
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice'
 							, as.length, as, 'uno,productno,product,radius,width,dime,lengthb,spec,weight,mount,price', '');
