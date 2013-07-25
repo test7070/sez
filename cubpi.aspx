@@ -109,6 +109,9 @@
 						q_gt('cucs', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
+				$('#btnCubu').click(function(){
+					q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'cubu', "95%", "95%", q_getMsg('popCubu'));
+				});
 			}
 
 			function q_gtPost(t_name) {
@@ -517,6 +520,7 @@
 						</td>
 						<td><input type="button" id="btnOrdeImport"></td>
 						<td><input type="button" id="btnCucImport"></td>
+						<td><input type="button" id="btnCubu"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" ></a></td>
