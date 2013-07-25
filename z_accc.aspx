@@ -23,7 +23,8 @@
             z_accc.prototype = {
                 data : {
                     part : null
-                }
+                },
+                a1 : null
             };
             t_data = new z_accc();
 
