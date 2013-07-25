@@ -369,7 +369,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:98% ; height:98% ;  
+             width:110% ; height:98% ;  
         } 
             .tbbm tr {
                 height: 35px;
@@ -495,16 +495,16 @@
                 <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td style="width:10%;" align="center"><a id='lblProductnos'></a></td>
                 <td style="width:13%;" align="center"><a id='lblProduct_s'></a></td>
-                <td style="width:5%;" align="center"><a id='lblUnit'></a></td>
+                <td style="width:4%;" align="center"><a id='lblUnit'></a></td>
                 <!--<td style="width:7%;" align="center"><a id='lblBorn'></a></td>-->
-                <td style="width:7%;" align="center"><a id='lblMounts'></a></td>
-                <td style="width:7%;" align="center"><a id='lblWmounts'></a></td>
-                <td style="width:7%;" align="center"><a id='lblPrice_s'></a></td>
-                <td style="width:8%;" align="center"><a id='lblTotal_s'></a></td>
-                <td style="width:7%;" align="center"><a id='lblInmount_s'></a></td>
-                <td style="width:8%;" align="center"><a id='lblOutmount_s'></a></td>
-                <td style="width:10%;" align="center"><a id='lblErrmount'></a></td>
-                <td style="width:13%;" align="center"><a id='lblMemos'></a></td>
+                <td style="width:6%;" align="center"><a id='lblMounts'></a></td>
+                <td style="width:6%;" align="center"><a id='lblWmounts'></a></td>
+                <td style="width:6%;" align="center"><a id='lblPrice_s'></a></td>
+                <td style="width:7%;" align="center"><a id='lblTotal_s'></a></td>
+                <td style="width:6%;" align="center"><a id='lblInmount_s'></a></td>
+                <td style="width:6%;" align="center"><a id='lblOutmount_s'></a></td>
+                <td style="width:9%;" align="center"><a id='lblErrmount'></a></td>
+                <td align="center"><a id='lblMemos'></a></td>
                 <td style="width:10%;" align="center"><a id='lblWorknos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
