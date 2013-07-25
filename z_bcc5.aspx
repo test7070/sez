@@ -67,6 +67,10 @@
 							type : '8',
 							name : 'xpart',
 							value : t_part.split(',')
+						},{/*4*/
+							type : '5',
+							name : 'xall',
+							value : ('全部,剩餘量,無存量').split(',')
 						}]
                     });
                     q_popAssign();
