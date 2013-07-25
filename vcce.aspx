@@ -66,8 +66,10 @@
 				if(q_cur==1 || q_cur==2){
 					var t_ordeno = $('#txtOrdeno').val();
 					var t_custno = $('#txtCustno').val();
-					var t_where = ' 1=1 ';
+					var t_where = 'where=^^ 1=1 ';
 					t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno);
+					t_where += " and (isnull(ordeno,'') != '')";
+					t_where += ' ^^';
 					q_gt('vcce_import', t_where, 0, 0, 0, "", r_accy);
 				}
 			});
@@ -101,14 +103,13 @@
 		                    q_gt('orde', t_where , 0, 0, 0, "", r_accy);
 	                   	}
 					}
-						break;
+					break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
             }   /// end Switch
             b_pop = '';
         }
-
 
         function q_gtPost(t_name) {  
             switch (t_name) {
@@ -125,9 +126,10 @@
             	case 'vcce_import':
 					var as =_q_appendData("vcce_import", "", true);
 					if(as[0]!=undefined){
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice'
-							, as.length, as, 'uno,productno,product,radius,width,dime,lengthb,spec,weight,mount,price', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtUno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice'
+							, as.length, as, 'ordeno,no2,uno,productno,product,radius,width,dime,lengthb,spec,weight,mount,price', '');
 					}
+					size_change();
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -250,7 +252,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['product'] ) {  
+            if (!as['ordeno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
@@ -513,7 +515,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 120%;
+                width: 1800px;
             }
             .tbbs a {
                 font-size: medium;
@@ -620,7 +622,7 @@
             <td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
             <td class="td7"><input id="txtCarno"  type="text" class="txt c1"/></td>
             <td class='td8'><span> </span><a id="lblTotal" class="lbl"> </a></td>
-            <td class="td9"><input id="txtTotal"  type="text" class="txt c1"/></td>
+            <td class="td9"><input id="txtTotal"  type="text" class="txt c1 num"/></td>
         </tr> 
         <tr class="tr7">
         	<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -632,7 +634,8 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:5%;"><a id='lblNoq_s'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblOrdeno_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblNo2_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblUno_s'> </a></td>
                 <td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
@@ -648,7 +651,8 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtOrdeno.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtNo2.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
                 <td><input class="txt c4" id="txtProductno.*" type="text" />

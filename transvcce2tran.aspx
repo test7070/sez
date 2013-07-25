@@ -898,7 +898,7 @@
 					<td align="center" style="width:100px;"><a> 司機</a></td>
 					<td align="center" style="width:100px;"><a> 客戶</a></td>
 					<td align="center" style="width:100px;"><a> 計算類別<br>車隊 </a></td>
-					<td align="center" style="width:120px;"><a> 起迄地點</a></td>
+					<td align="center" style="width:150px;"><a> 起迄地點</a></td>
 					<td align="center" style="width:100px;"><a> 產品</a></td>
 					<td align="center" style="width:200px;"><a> 櫃號</a></td>
 					<td align="center" style="width:100px;"><a> 里程數</a></td>
