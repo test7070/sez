@@ -88,7 +88,7 @@
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
             	case 'td':
             		ret = getb_ret();
-	                if(ret[0]!=undefined){
+	                if(ret!=undefined){
 	                	//1020629將替代品直接取代品名欄位不需要在寫入下面欄位
 	                	$('#txtProductno_'+b_seq).val(ret[0].uccno)
 	                	$('#txtProduct_'+b_seq).val(ret[0].product)
@@ -192,6 +192,13 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            for(var j = 0; j < q_bbsCount; j++) {
+            	if($('#chkIstd_'+j)[0].checked==true && (q_cur>0 &&q_cur<3)){
+            		$('#btnTproductno_'+j).show();
+            	}else{
+            		$('#btnTproductno_'+j).hide();
+            	}
+            }
             $('#txtProduct').focus();
         }
         function btnPrint() {

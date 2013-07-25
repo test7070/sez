@@ -26,17 +26,18 @@
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
-            brwCount2 = 10;
+            brwCount2 = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            aPop = new Array(['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+            ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
-			 aPop = new Array(['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']);
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -47,20 +48,10 @@
             }
 
             function mainPost() {
-                q_getFormat(); 
-                $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_change", r_accy);
-						}else{
-							Lock();
-							alert('?s???u???\ ?^??(A-Z)?B??r(0-9)??dash(-)?C'+String.fromCharCode(13)+'EX: A01?BA01-001');
-							Unlock();
-						}
-					}
-                });
+                q_getFormat();
+                bbmMask = [['txtMon', r_picm]];
+                q_mask(bbmMask);
+                q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
             }
 
             function q_boxClose(s2) {
@@ -75,22 +66,6 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-            		case 'checkStationgno_change':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('?w?s?b '+as[0].noa+' '+as[0].namea);
-                        }
-                		break;
-                case 'checkStationgno_btnOk':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('?w?s?b '+as[0].noa+' '+as[0].namea);
-                            Unlock();
-                            return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
-                        }
-                		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -105,38 +80,31 @@
             }
             function btnOk() {
             	Lock();	
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-           	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('?s???u???\ ?^??(A-Z)?B??r(0-9)??dash(-)?C'+String.fromCharCode(13)+'EX: A01?BA01-001');
-				Unlock();
-			return;
-			} 
-			if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }		
+            	var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);	
             }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('ordu_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('ordu_s.aspx', q_name + '_s', "550px", "450px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
                refreshBbm();
-            $('#txtNoa').focus();
+            $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();      
-                 _btnModi();
+                _btnModi();
             refreshBbm();
-            $('#txtNamea').focus();
+            $('#txtTeam').focus();
             }
             function btnPrint() {
             	
@@ -157,7 +125,7 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['datea']) {
+                if (!as['productno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -375,8 +343,8 @@
 				<table class="tview" id="tview">
 					 <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:30%"><a id='vewMon'></a></td>
+                <td align="center" style="width:30%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:15%"><a id='vewMon'></a></td>
                 <td align="center" style="width:30%"><a id='vewComp'></a></td>
                 <td align="center" style="width:15%"><a id='vewAdprono'></a></td>
             </tr>
