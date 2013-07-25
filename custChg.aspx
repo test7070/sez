@@ -90,7 +90,7 @@
                         break;
                 }  /// end switch
             }
-            function q_popPost(id) {
+         /*   function q_popPost(id) {
 				switch(id) {
 					case 'txtMinusitemno':
 						if(q_cur==1 || q_cur==2){
@@ -103,7 +103,7 @@
 						}
 						break;
 				}
-			}
+			}*/
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
