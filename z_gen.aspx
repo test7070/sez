@@ -52,6 +52,17 @@
                         dbf : 'work',
                         index : 'noa,product',
                         src : 'work_b.aspx'
+                    },{
+                        type : '5',
+						name : 'xall',
+						value : ('全部,原物料,製成品,商品').split(',')
+                    },{
+						type : '8',
+						name : 'aberrant',
+						value : ('異常').split(',')
+					},{
+                        type : '6',
+                        name : 'xdate'
                     }]
                     });
                 q_popAssign();
@@ -59,6 +70,8 @@
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
+	             $('#txtXdate').mask('999/99/99');
+	             $('#txtXdate').datepicker();
 	             $('#txtOrdeno1').css('width','100px'); 
 	             $('#txtOrdeno2').css('width','100px'); 
 	             $('#txtCuano1').css('width','100px'); 
@@ -91,6 +104,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXdate').val(q_date());
               
             }
 
