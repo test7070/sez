@@ -76,33 +76,24 @@
             	   	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 				}
 			});
-			$('#btnWorkbimport').click(function(){
-				var ordeno = $('#txtOrdeno').val();
-				var custno = $('#txtCustno').val();
-				var t_where = '';
-				if(ordeno.length > 0 || custno.length>0){
-					t_where = " 1=1";
-					if(ordeno.length > 0)
-						t_where += " and ordeno='" + ordeno + "'";
-					if(custno.length > 0)
-						t_where += " and ordeno in (select noa from orde"+r_accy+" where custno='"+custno+"')";
-					
-            	   	q_box("workb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+ r_accy, 'workb', "95%", "95%", q_getMsg('popWorkb'));
-				}else{
-					alert('請輸入【' + q_getMsg('lblOrdeno') + '】或【' + q_getMsg('lblCustno') + '】');
-				}
+			$('#btnVcceImport').click(function(){
+				var t_ordeno = $('#txtOrdeno').val();
+				var t_custno = $('#txtCustno').val();
+				var t_where = '1=1 ';
+				t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno);
+				q_box("vcce_import_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+ r_accy, 'view_vcce_import', "95%", "95%", q_getMsg('popVcceImport'));
 			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
             switch (b_pop) {   
-            	case 'workb':
+            	case 'view_vcce_import':
 					if (q_cur > 0 && q_cur < 4) {
 						if (!b_ret || b_ret.length == 0)
 							return;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtDime,txtWidth,txtLengthb,txtSpec,txtWeight,txtMount,txtMemo,txtUno', b_ret.length, b_ret, 
-											'productno,product,dime,width,lengthb,spec,bweight,born,memo,uno','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtOrdeno,txtNo2,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtMount,txtWeight,txtPrice', b_ret.length, b_ret, 
+											'uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price','');   /// 最後 aEmpField 不可以有【數字欄位】
 							size_change();
 	                    }
 	                    sum();
@@ -415,14 +406,14 @@
 		  	if($('#cmbKind').val().substr(0,1)=='A'){
             	$('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
-	            	$('#textSize1_'+j).show();
-	            	$('#textSize2_'+j).show();
-	            	$('#textSize3_'+j).show();
+	            	$('#textSize1_'+j).show().css('width','30%');
+	            	$('#textSize2_'+j).show().css('width','30%');
+	            	$('#textSize3_'+j).show().css('width','30%');
 			        $('#textSize4_'+j).hide();
 			        $('#x1_'+j).show();
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).hide();
-			        $('#Size').css('width','222px');
+			        $('#Size').css('width','300px');
 			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
 			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
 			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
@@ -432,14 +423,14 @@
 			}else if($('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#textSize1_'+j).show();
-	            	$('#textSize2_'+j).show();
-	            	$('#textSize3_'+j).show();
-			        $('#textSize4_'+j).show();
+			    	$('#textSize1_'+j).show().css('width','21%');
+	            	$('#textSize2_'+j).show().css('width','21%');
+	            	$('#textSize3_'+j).show().css('width','21%');
+			        $('#textSize4_'+j).show().css('width','21%');
 			        $('#x1_'+j).show();
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).show();
-			        $('#Size').css('width','450px');
+			        $('#Size').css('width','300px');
 			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
 			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
 			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
@@ -450,12 +441,12 @@
 	            for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).hide();
 	            	$('#textSize2_'+j).hide();
-	            	$('#textSize3_'+j).show();
+	            	$('#textSize3_'+j).show().css('width','95%');;
 			        $('#textSize4_'+j).hide();
 			        $('#x1_'+j).hide();
 			        $('#x2_'+j).hide();
 			        $('#x3_'+j).hide();
-			        $('#Size').css('width','70px');
+			        $('#Size').css('width','60px');
 			        $('#textSize1_'+j).val(0);
 			        $('#txtDime_'+j).val(0)
 			        $('#textSize2_'+j).val(0);
@@ -687,7 +678,7 @@
             <td class='td6'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
             <td class="td7"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
             <td class="td8"><input id="btnOrdeimport" type="button" /></td>
-            <td class="td8"><input id="btnWorkbimport" type="button"/></td>
+            <td class="td8"><input id="btnVcceImport" type="button"/></td>
         </tr>   
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
@@ -712,28 +703,32 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width:6%;"><a id='lblOrdeno_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblNo2_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblUno_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
-                <td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblMount_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblWeight_s'> </a></td>
-                <td align="center" style="width:5%;"><a id='lblPrice_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblEweight_s'> </a></td>
-                <td align="center" style="width:5%;"><a id='lblEcount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblEcount_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblAdjweight_s'> </a></td>
-                <td align="center" style="width:5%;"><a id='lblAdjcount_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblMemo_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblAdjcount_s'> </a></td>
+                <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+				<td><input type="text" id="txtOrdeno.*" class="txt c1"/></td> 
+				<td><input type="text" id="txtNo2.*" class="txt c1"/></td> 
                 <td >
                 	<input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/>
-                	<input class="txt c1" id="txtNoq.*" type="text" /></td>
+				</td>
 				<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                     <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
                     <span style="display:block; width:1%;float:left;"> </span>
