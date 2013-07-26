@@ -24,7 +24,7 @@
                 data : {
                     part : null
                 },
-                a1 : null
+                keyup : null
             };
             t_data = new z_accc();
 
@@ -86,15 +86,14 @@
                         value : q_getMsg('toption03').split('&')
                     }]
                 });
-                q_popAssign();
-                q_langShow();
+                
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				
-				$('#txtXacc1a').keyup(function(e) {
+				$('#txtXacc1a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                 	if(patt.test($(this).val()))
                     	$(this).val($(this).val().replace(patt,"$1.$2"));
@@ -102,7 +101,7 @@
                     	$(this).val($(this).val()+'.');
                     }
         		});
-        		$('#txtXacc2a').keyup(function(e) {
+        		$('#txtXacc2a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                 	if(patt.test($(this).val()))
                     	$(this).val($(this).val().replace(patt,"$1.$2"));
@@ -110,7 +109,7 @@
                     	$(this).val($(this).val()+'.');
                     }
         		});
-        		$('#txtYacc1a').keyup(function(e) {
+        		$('#txtYacc1a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                 	if(patt.test($(this).val()))
                     	$(this).val($(this).val().replace(patt,"$1.$2"));
@@ -118,7 +117,7 @@
                     	$(this).val($(this).val()+'.');
                     }
         		});
-        		$('#txtYacc2a').keyup(function(e) {
+        		$('#txtYacc2a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                 	if(patt.test($(this).val()))
                     	$(this).val($(this).val().replace(patt,"$1.$2"));
@@ -126,10 +125,20 @@
                     	$(this).val($(this).val()+'.');
                     }
         		});
+        		q_popAssign();
+        		q_langShow();
             }
             function q_boxClose(t_name) {
             }
-
+			function aa(){
+				t_data.keyup();
+				/*var patt = /^(\d{4})([^\.,.]*)$/g;
+            	if(patt.test($(this).val()))
+                	$(this).val($(this).val().replace(patt,"$1.$2"));
+                else if((/^(\d{4})$/).test($(this).val())){
+                	$(this).val($(this).val()+'.');
+                }*/
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
