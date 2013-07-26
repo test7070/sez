@@ -56,6 +56,17 @@
 				q_mask(bbmMask);
 			}
 
+			function getTheory(b_seq){
+				t_Radius = $('#txtRadius_'+b_seq).val();
+				t_Width = $('#txtWidth_'+b_seq).val();
+				t_Dime = $('#txtDime_'+b_seq).val();
+				t_Lengthb = $('#txtLengthb_'+b_seq).val();
+				t_Mount = $('#txtMount_'+b_seq).val();
+				t_Style = $('#txtStyle_'+b_seq).val();
+				var TheoryVal = theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style,2);
+				$('#txtWeight_'+b_seq).val(TheoryVal);
+			}
+
 			function bbsAssign() {
 				_bbsAssign();
 				for(var j = 0;j<q_bbsCount;j++){
@@ -93,6 +104,7 @@
 								$('#txtDime_' + b_seq).val(temp_bbs.dime);
 								$('#txtLengthb_' + b_seq).val(temp_bbs.lengthb);
 								$('#txtMount_' + b_seq).val(temp_bbs.mount);
+								getTheory(b_seq);
 							}
 						});
 						$('#txtIndate_' + j).focusout(function(){
@@ -118,6 +130,37 @@
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
 						ProductAddStyle(b_seq);
+						getTheory(b_seq);
+					});
+					$('#txtRadius_' + j).change(function(){
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					    q_bodyId($(this).attr('id'));
+					    b_seq = t_IdSeq;
+						getTheory(b_seq);
+					});
+					$('#txtWidth_' + j).change(function(){
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					    q_bodyId($(this).attr('id'));
+					    b_seq = t_IdSeq;
+						getTheory(b_seq);
+					});
+					$('#txtDime_' + j).change(function(){
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					    q_bodyId($(this).attr('id'));
+					    b_seq = t_IdSeq;
+						getTheory(b_seq);
+					});
+					$('#txtLengthb_' + j).change(function(){
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					    q_bodyId($(this).attr('id'));
+					    b_seq = t_IdSeq;
+						getTheory(b_seq);
+					});
+					$('#txtMount_' + j).change(function(){
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					    q_bodyId($(this).attr('id'));
+					    b_seq = t_IdSeq;
+						getTheory(b_seq);
 					});
 				}
 			}
@@ -193,7 +236,6 @@
 		                	$(this).attr('OldValue',$(this).val());
 		                });
 		                ProductAddStyle(b_seq);
-		                $('#txtStyle_' + b_seq).focus();
 		                break;
                 }
             }
@@ -248,6 +290,9 @@
 			.c2{
 				width:85%;
 			}
+			.c3{
+				width:80%;
+			}
 			.num{
 				text-align: right;
 			}
@@ -273,7 +318,7 @@
 					<td align="center" style="width:8%;"><a id='lblOrdeno'></a></td>
 					<td align="center" style="width:8%;"><a id='lblCustno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
-					<td align="center" style="width:8%;"><a id='lblStoreno'></a></td>
+					<td align="center" style="width:5%;"><a id='lblStoreno'></a></td>
 					<td align="center" style="width:3%;"><a id='lblClass'></a></td>
 					<td align="center" style="width:8%;"><a id='lblProductno'></a></td>
 					<td align="center" style="width:14%;"><a id='lblSizea'></a></td>
@@ -301,7 +346,7 @@
 					<td><input type="text" id="txtIndate.*" class="txt c1"/></td>
 					<td>
 						<input id="btnStoreno.*" type="button" value="." class="txt btn" style="width:1%;"/>
-						<input type="text" id="txtStoreno.*" class="txt c2"/>
+						<input type="text" id="txtStoreno.*" class="txt c3"/>
 						<input type="text" id="txtStore.*" class="txt c1"/>
 					</td>
 					<td><input type="text" id="txtClass.*" class="txt c1"/></td>
