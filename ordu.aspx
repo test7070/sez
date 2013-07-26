@@ -18,7 +18,7 @@
 			q_tables = 's';
 			//q_desc=1;
             var q_name = "ordu";
-            var q_readonly = [];
+            var q_readonly = ['txtGweight','txtOweight','txtWeight'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -116,8 +116,16 @@
             }
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
-                
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                		   $('#txtOweight_' + i).change(function (e) {
+		                    sum();
+		                });
+		                	$('#txtWeight_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtGweight_' + i).change(function (e) {
+		                    sum();
+		                });
                     }
                 }
                 _bbsAssign();
@@ -141,7 +149,15 @@
             function sum() {
             	if(!(q_cur==1 || q_cur==2))
 					return;
-					
+				var t_oweight = 0,t_weight = 0,t_gweight = 0;
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            t_oweight += q_float('txtOweight_' + i);
+		            t_weight += q_float('txtWeight_' + i);
+		            t_gweight += q_float('txtGweight_' + i);
+		        }
+		        $('#txtOweight').val(t_oweight);
+		        $('#txtWeight').val(t_weight);
+		        $('#txtGweight').val(t_gweight);
             }
             function refresh(recno) {
                 _refresh(recno);

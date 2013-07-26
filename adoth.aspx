@@ -26,6 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
+            q_xchg = 1;
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             
             $(document).ready(function() {
@@ -44,8 +45,9 @@
             }
 
             function mainPost() {
+                bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", ('').concat(new Array('???O','????')));
+               q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
                          
             }
             function q_boxClose(s2) {
@@ -75,7 +77,8 @@
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+                $('#txtMon').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -83,7 +86,7 @@
                 _btnModi();
                 refreshBbm();
                 $('#txtNoa').attr('disabled','disabled')
-                $('#txtComp').focus();
+                $('#txtMon').focus();
             }
 
             function btnPrint() {
@@ -97,18 +100,12 @@
             }
             function btnOk() {
                 Lock();
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+                var t_date = $('#txtMon').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -195,7 +192,7 @@
             }
             .dview {
                 float: left;
-                width: 500px; 
+                width: 950px; 
                 border-width: 0px; 
             }
             .tview {
@@ -215,7 +212,7 @@
             }
             .dbbm {
                 float: left;
-                width: 450px;
+                width: 950px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -310,19 +307,19 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewFloat'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewBackc'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewNcut'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewScrape'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewInstore'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:160px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewStyle'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewFloat'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewBackc'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNcut'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewScrape'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewInstore'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='mon' style="text-align: left;">~mon</td>
+						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='style' style="text-align: left;">~style</td>
 						<td id='float' style="text-align: left;">~float</td>
 						<td id='backc' style="text-align: left;">~backc</td>
@@ -344,40 +341,30 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
 						<td><select id="cmbStyle" class="txt c1" > </select></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblFloat' class="lbl"> </a></td>
 						<td><input id="txtFloat" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBackc' class="lbl"> </a></td>
 						<td><input id="txtBackc" type="text" class="txt num c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblNcut' class="lbl"> </a></td>
 						<td><input id="txtNcut" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblScrape' class="lbl"> </a></td>
 						<td><input id="txtScrape" type="text" class="txt num c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblInstore' class="lbl"> </a></td>
 						<td><input id="txtInstore" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblLweight' class="lbl"> </a></td>
 						<td><input id="txtLweight" type="text" class="txt num c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblLmoney' class="lbl"> </a></td>
 						<td><input id="txtLmoney" type="text" class="txt num c1" /></td>
 					</tr>

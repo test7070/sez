@@ -34,8 +34,19 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			brwCount2 = 5;
-			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
-
+			aPop = new Array(
+				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
+				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+			);
+			function distinct(arr1) {
+				for(var i = 0;i<arr1.length;i++){
+					if((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == ''){
+						arr1.splice(i, 1);
+						i--;
+					}
+				}
+				return arr1;
+			}
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -116,7 +127,19 @@
 					}
 				});
 			}
-
+			
+			function getProductWhere(){
+				var tempArray = new Array();
+				tempArray.push($('#txtProductno').val());
+				for(var j = 0; j < q_bbsCount;j++){
+					tempArray.push($('#txtProductno_'+j).val());
+					tempArray.push($('#txtProductno2_'+j).val());
+				}
+				var TmpStr = distinct(tempArray).sort();
+				TmpStr = TmpStr.toString().replace(/,/g,"','").replace(/^/,"'").replace(/$/,"'");
+				return TmpStr;
+			}
+			
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'view_ordes':
@@ -126,6 +149,7 @@
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2'
 									, as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate', '');
 						}
+						sum();
 					break;
 					case 'cucs':
 						var wret = '';
@@ -134,6 +158,7 @@
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2'
 									, as.length, as, 'ordeno,no2,custno,productno,product,radius,width,dime,lengthb,mount,udate', '');
 						}
+						sum();
 					break;
 					case q_name:
 						if (q_cur == 4)
@@ -148,12 +173,42 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'uccc':
+	                    if (!b_ret || b_ret.length == 0)
+	                   		return;
+	                    if (q_cur > 0 && q_cur < 4) {
+							for(var j = 0;j < b_ret.length;j++){
+								for(var i = 0;i<q_bbtCount;i++){
+									var t_uno = $('#txtUno__' + i).val();
+									if(b_ret[j] && b_ret[j].noa == t_uno){
+										b_ret.splice(j,1);
+									}
+								}
+							}
+							if(b_ret[0] != undefined){
+	                        	ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtGmount,txtGweight,txtRadius,txtDime,txtWidth,txtLengthb',
+	                        					   b_ret.length, b_ret, 
+	                        					   'productno,noa,eordmount,eordweight,radius,dime,width,lengthb',
+	                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	}
+							sum();
+							b_ret = '';
+	                    }
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
 				}
 				b_pop = '';
 			}
+			
+            function sum() {
+            	for(var j = 0;j < q_bbsCount;j++){
+            		var t_dime = dec($('#txtDime_' + j).val());
+           			$('#txtBdime_'+j).val(round(t_dime*0.93,2));
+            		$('#txtEdime_'+j).val(round(t_dime*1.07,2));
+            	}
+            }
 
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
@@ -236,6 +291,30 @@
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+						$('#btnUccc_' + i).click(function(){
+							t_IdSeq = -1; 
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                	var t_where = ' 1=1 and radius=0 ';
+							var t_productno = trim($('#txtProductno_' + b_seq).val());
+							var t_bdime = dec($('#txtBdime_' + b_seq).val());
+		                	var t_edime = dec($('#txtEdime_' + b_seq).val());
+		                	var t_width = dec($('#txtWidth_' + b_seq).val());
+		                	var t_blengthb = round(dec($('#txtLengthb_' + b_seq).val()) * 0.88,2);
+		                	var t_elengthb = round(dec($('#txtLengthb_' + b_seq).val()) * 1.12,2);
+		                	if(t_bdime == 0 && t_edime == 0){
+		                		t_edime = Number.MAX_VALUE;
+		                	}
+		                	t_where += " and width >=" + t_width;
+		                	t_where += " and productno in(" + getProductWhere() + ") ";
+		                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
+		                	if(dec($('#txtLengthb_' + b_seq).val()) > 0)
+		                		t_where += " and (lengthb between " + t_blengthb + " and " + t_elengthb + ") ";
+		                    q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
+                		});
+                		$('#txtDime_'+i).change(function(){
+                			sum();
+                		});
 					}
 				}
 				_bbsAssign();
@@ -525,17 +604,19 @@
 							<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
 							<input id="txtEdime" type="text" style="width:45%;" class="num"/>
 						</td>
-						<td><input type="button" id="btnOrdeImport"></td>
+						<td></td>
+						<td></td>
 						<td><input type="button" id="btnCucImport"></td>
-						<td><input type="button" id="btnCubu"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" ></a></td>
 						<td colspan="4"><input id="txtMemo2"  type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnCubu"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo_pi" class="lbl" ></a></td>
 						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>  
+						<td><input type="button" id="btnOrdeImport"></td>
 					</tr>
 				</table>
 			</div>
@@ -557,6 +638,7 @@
  						<td style="width:100px;"><a id='lbl_lengthb'> </a></td>
 						<td style="width:100px;"><a id='lbl_mount'> </a></td>
 						<td style="width:100px;"><a id='lbl_weight_pi'> </a></td>
+						<td style="width:60px;"><a id='lblOrdet_st'> </a></td>
 						<td style="width:60px;"><a id='lbl_cut_pi'> </a></td>
 						<td style="width:60px;"><a id='lbl_slit_pi'> </a></td>
 						<td style="width:60px;"><a id='lbl_sale_pi'> </a></td>
@@ -605,6 +687,7 @@
 						<td><input id="txtLengthb.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
+						<td align="center"><input id="btnUccc.*" type="button" value="2選料"/></td>
 						<td><input id="chkCut.*" type="checkbox"></td>
 						<td><input id="chkSlit.*" type="checkbox"></td>
 						<td><input id="chkSale.*" type="checkbox"></td>

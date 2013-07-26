@@ -26,7 +26,7 @@
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
-            brwCount2 = 10;
+            brwCount2 = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
@@ -36,7 +36,8 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
-			 aPop = new Array(['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']);
+			 aPop = new Array(['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+			 ['txtPost_', 'btnPost_', 'add2', 'noa,post', 'txtPostno_,txtPost_,txtCartype_', 'add2_b.aspx']);
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -47,20 +48,10 @@
             }
 
             function mainPost() {
-                q_getFormat(); 
-                $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_change", r_accy);
-						}else{
-							Lock();
-							alert('?s???u???\ ?^??(A-Z)?B??r(0-9)??dash(-)?C'+String.fromCharCode(13)+'EX: A01?BA01-001');
-							Unlock();
-						}
-					}
-                });
+              q_getFormat(); 
+              bbmMask = [['txtDatea', r_picd]];
+              q_mask(bbmMask);
+              q_cmbParse("cmbTypea", ('').concat(new Array( '內銷','外銷')));
             }
 
             function q_boxClose(s2) {
@@ -75,22 +66,7 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-            		case 'checkStationgno_change':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('?w?s?b '+as[0].noa+' '+as[0].namea);
-                        }
-                		break;
-                case 'checkStationgno_btnOk':
-                		var as = _q_appendData("stationg", "", true);
-                        if (as[0] != undefined){
-                        	alert('?w?s?b '+as[0].noa+' '+as[0].namea);
-                            Unlock();
-                            return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
-                        }
-                		break;
+            	
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -105,19 +81,12 @@
             }
             function btnOk() {
             	Lock();	
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-           	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('?s???u???\ ?^??(A-Z)?B??r(0-9)??dash(-)?C'+String.fromCharCode(13)+'EX: A01?BA01-001');
-				Unlock();
-			return;
-			} 
-			if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('stationg', t_where, 0, 0, 0, "checkStationgno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }		
+            	var t_date = $('#txtDatea').val();
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
             }
 
             function _btnSeek() {
@@ -128,15 +97,16 @@
             function btnIns() {
                 _btnIns();
                refreshBbm();
-            $('#txtNoa').focus();
+            	$('#txtNoa').val('AUTO');
+            	$('#txtDatea').val(q_date);
+                $('#txtDatea').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();      
-                 _btnModi();
+                _btnModi();
             refreshBbm();
-            $('#txtNamea').focus();
+            $('#txtCardealno').focus();
             }
             function btnPrint() {
             	
@@ -157,7 +127,7 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['datea']) {
+                if (!as['post']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -412,12 +382,12 @@
                							   <input id="txtCardeal"  type="text" class="txt c3"/>
                </td>
                <td class="td5"><span> </span><a id='lblThirdprice' class="lbl"></a></td>
-               <td class="td6"><input id="txtThirdprice"  type="text" class="txt c1" /></td>
+               <td class="td6"><input id="txtThirdprice"  type="text" class="txt num c1" /></td>
             </tr>
             <tr>
 			   <td class="td1"><span> </span><a id='lblBoil' class="lbl"></a></td>
                <td class="td2"><input id="txtBoil"  type="text" class="txt num c1"/></td>
-               <td class="td3"><a id='lblEoil'></a></td>
+               <td class="td3" align="center"><a id='lblEoil'></a></td>
                <td class="td4"><input id="txtEoil"  type="text" class="txt num c1"/></td>
             </tr>
 				</table>
@@ -429,21 +399,22 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:10%;"><a id='lblPost_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblCartype_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblPost_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblCartype_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:30%;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" /></td>
 					<td><input class="btn"  id="btnPost.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtPost.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtPost.*"  style="width:80%; float:left;"/>
+                        <input type="text" id="txtPostno.*"  style="display: none;"/>
 					</td>
 					<td><input id="txtCartype.*" type="text" class="txt c1"/> </td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1"/> </td>
-					<td><input id="txtMemo.*" type="text" class="txt num c1"/> </td>
+					<td><input id="txtMemo.*" type="text" class="txt c1"/> </td>
 				</tr>
 			</table>
 		</div>

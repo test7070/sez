@@ -8,6 +8,7 @@
     <script src='qset.js' type="text/javascript"> </script>
     <script src='../script/qj_mess.js' type="text/javascript"> </script>
     <script src='../script/mask.js' type="text/javascript"> </script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "adoth_s";
     $(document).ready(function () {
@@ -22,6 +23,7 @@
     function q_gfPost() {
         q_getFormat();
         q_langShow();
+        q_cmbParse("cmbStyle",('全部'+',').concat(q_getPara('adsss.stype').split(',')));
         bbmMask = [['txtMon', r_picm]];
         q_mask(bbmMask);
 
@@ -31,7 +33,7 @@
     function q_seekStr() {
         t_noa = $('#txtNoa').val();
         t_style = $('#cmbStyle').val();
-        t_mon = $('#txtmon').val();
+        t_mon = $('#txtMon').val();
         
         
         /*t_bdate = $('#txtBdate').val();
@@ -39,9 +41,9 @@
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("style", t_style)
-        + q_sqlPara2("mon", t_mon);
-
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("mon", t_mon);
+        if(t_style != '全部')
+                t_where+= q_sqlPara2("style", t_style);
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
