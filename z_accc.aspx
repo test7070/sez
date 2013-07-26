@@ -130,15 +130,6 @@
             }
             function q_boxClose(t_name) {
             }
-			function aa(){
-				t_data.keyup();
-				/*var patt = /^(\d{4})([^\.,.]*)$/g;
-            	if(patt.test($(this).val()))
-                	$(this).val($(this).val().replace(patt,"$1.$2"));
-                else if((/^(\d{4})$/).test($(this).val())){
-                	$(this).val($(this).val()+'.');
-                }*/
-			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
