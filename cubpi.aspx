@@ -34,7 +34,10 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			brwCount2 = 5;
-			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
+			aPop = new Array(
+				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
+				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+			);
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -288,6 +291,9 @@
 		                	if(dec($('#txtLengthb_' + b_seq).val()) > 0)
 		                		t_where += " and (lengthb between " + t_blengthb + " and " + t_elengthb + ") ";
 		                    q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
+                		});
+                		$('#txtDime_'+i).change(function(){
+                			sum();
                 		});
 					}
 				}
@@ -578,17 +584,19 @@
 							<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
 							<input id="txtEdime" type="text" style="width:45%;" class="num"/>
 						</td>
-						<td><input type="button" id="btnOrdeImport"></td>
+						<td></td>
+						<td></td>
 						<td><input type="button" id="btnCucImport"></td>
-						<td><input type="button" id="btnCubu"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" ></a></td>
 						<td colspan="4"><input id="txtMemo2"  type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnCubu"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo_pi" class="lbl" ></a></td>
 						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>  
+						<td><input type="button" id="btnOrdeImport"></td>
 					</tr>
 				</table>
 			</div>
@@ -659,7 +667,7 @@
 						<td><input id="txtLengthb.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
-						<td align="center"><input id="btnUccc.*" type="button" value="選料"/></td>
+						<td align="center"><input id="btnUccc.*" type="button" value="2選料"/></td>
 						<td><input id="chkCut.*" type="checkbox"></td>
 						<td><input id="chkSlit.*" type="checkbox"></td>
 						<td><input id="chkSale.*" type="checkbox"></td>
