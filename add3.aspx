@@ -36,7 +36,8 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
-			 aPop = new Array(['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+			 aPop = new Array(['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+			 ['txtPost_', 'btnPost_', 'add2', 'noa,post', 'txtPostno_,txtPost_,txtPrice2_', 'add2_b.aspx']);
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -50,7 +51,7 @@
                 q_getFormat(); 
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-               q_cmbParse("cmbTypea", ('').concat(new Array( '內銷','外銷')));
+                q_cmbParse("cmbTypea", ('').concat(new Array( '內銷','外銷')));
             }
 
             function q_boxClose(s2) {
@@ -399,11 +400,11 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:10%;"><a id='lblPost_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblPrice2_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblPrice2_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblCount1_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblCount2_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:30%;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -411,12 +412,13 @@
 					<input id="txtNoq.*" type="text" style="display: none;" /></td>
 					<td><input class="btn"  id="btnPost.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtPost.*"  style="width:80%; float:left;"/>
+                        <input type="text" id="txtPostno.*"  style="display: none;"/>
 					</td>
 					<td><input id="txtPrice2.*" type="text" class="txt num c1"/> </td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1"/> </td>
 					<td><input id="txtCount1.*" type="text" class="txt num c1"/> </td>
 					<td><input id="txtCount2.*" type="text" class="txt num c1"/> </td>
-					<td><input id="txtMemo.*" type="text" class="txt num c1"/> </td>
+					<td><input id="txtMemo.*" type="text" class="txt c1"/> </td>
 				</tr>
 			</table>
 		</div>

@@ -11,6 +11,7 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "add3_s";
+    aPop = new Array(['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno', 'cardeal_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -23,10 +24,11 @@
     function q_gfPost() {
         q_getFormat();
         q_langShow();
-        bbmMask = [['txtMon', r_picm]];
+        q_cmbParse("cmbTypea",('全部'+',').concat(new Array( '內銷','外銷')));
+        bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
         q_mask(bbmMask);
 
-        $('#txtMon').focus();
+        $('#txtBdate').focus();
     }
 
     function q_seekStr() {
@@ -40,9 +42,10 @@
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("mon", t_mon)
-        + q_sqlPara2("pstyle", t_pstyle)+ q_sqlPara2("productno", t_productno)
-        + q_sqlPara2("product", t_product);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate,t_edate)
+        + q_sqlPara2("cardealno", t_cardealno)+ q_sqlPara2("cardeal", t_cardeal);
+        if(t_typea != '全部')
+                t_where+= q_sqlPara2("typea", t_typea);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
