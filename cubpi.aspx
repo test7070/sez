@@ -38,7 +38,15 @@
 				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
 				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 			);
-
+			function distinct(arr1) {
+				for(var i = 0;i<arr1.length;i++){
+					if((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == ''){
+						arr1.splice(i, 1);
+						i--;
+					}
+				}
+				return arr1;
+			}
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -119,7 +127,19 @@
 					}
 				});
 			}
-
+			
+			function getProductWhere(){
+				var tempArray = new Array();
+				tempArray.push($('#txtProductno').val());
+				for(var j = 0; j < q_bbsCount;j++){
+					tempArray.push($('#txtProductno_'+j).val());
+					tempArray.push($('#txtProductno2_'+j).val());
+				}
+				var TmpStr = distinct(tempArray).sort();
+				TmpStr = TmpStr.toString().replace(/,/g,"','").replace(/^/,"'").replace(/$/,"'");
+				return TmpStr;
+			}
+			
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'view_ordes':
@@ -286,7 +306,7 @@
 		                		t_edime = Number.MAX_VALUE;
 		                	}
 		                	t_where += " and width >=" + t_width;
-		                	t_where += q_sqlPara2('productno',t_productno);
+		                	t_where += " and productno in(" + getProductWhere() + ") ";
 		                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
 		                	if(dec($('#txtLengthb_' + b_seq).val()) > 0)
 		                		t_where += " and (lengthb between " + t_blengthb + " and " + t_elengthb + ") ";
