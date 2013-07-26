@@ -457,8 +457,8 @@
 					<tr>
 						<td><span> </span><a id='lblEnddatea' class="lbl"> </a></td>
 						<td><input id="txtEnddatea" type="text" class="txt c1"/></td>
-						<td></td>
-						<td></td>
+						<td><span> </span><a id='lblOrdbno' class="lbl"> </a></td>
+						<td><input id="txtOrdbno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
