@@ -110,7 +110,10 @@
 					}
 				});
 				$('#btnCubu').click(function(){
-					q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'cubu', "95%", "95%", q_getMsg('popCubu'));
+					if(q_cur == 0){
+						var t_where = "noa='" + trim($('#txtNoa').val()) + "'";
+						q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cubu', "95%", "95%", q_getMsg('popCubu'));
+					}
 				});
 			}
 
@@ -211,6 +214,10 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(q_cur == 0 && trim($('#txtNoa').val()) != '')
+					$('#btnCubu').removeAttr('disabled');
+				else
+					$('#btnCubu').attr('disabled','disabled');
 			}
 
 			function btnMinus(id) {
