@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             q_tables = 's';
-            var q_name = "transvcce2tran";
+            var q_name = "weichih2tran";
             var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtMount','txtMount2','txtWorker','txtWorker2'];
             var q_readonlys = ['txtTotal','txtTotal2','txtTransvcceno','txtTranno','txtTaskcontent'];
             var bbmNum = [['txtMount',10,3,1],['txtTotal',10,0,1],['txtMount2',10,3,1],['txtTotal2',10,0,1]];
@@ -284,7 +284,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce2tran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_weichih2tran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -292,41 +292,14 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('transvcce2tran_s.aspx', q_name + '_s', "600px", "450px", q_getMsg("popSeek"));
+                q_box('weichih2tran_s.aspx', q_name + '_s', "600px", "450px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                		$('#txtInmount_'+i).change(function(){
-                			sum();
-                		});
-                		$('#txtPrice_'+i).change(function(){
-                			sum();
-                		});
-                		$('#txtOutmount_'+i).change(function(){
-                			sum();
-                		});
-                		$('#txtPrice2_'+i).change(function(){
-                			sum();
-                		});
-                		$('#txtPrice3_'+i).change(function(){
-                			sum();
-                		});
-                		$('#txtDiscount_'+i).change(function(){
-                			sum();
-                		});
-                		$('#txtTranno_'+i).click(function(e){
-                			var t_noa = $.trim($(this).val());
-                			if(t_noa.length>0)
-                				q_pop('', "trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
-                		});
-                		$('#txtTransvcceno_'+i).click(function(e){
-                			var t_noa = $.trim($(this).val());
-                			if(t_noa.length>0)
-                				q_pop('', "transvcce.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTransvcce'), true);
-                		});
+                		
                     }
                 }
                 _bbsAssign();
