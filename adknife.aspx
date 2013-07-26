@@ -46,7 +46,6 @@
             }
 
             function mainPost() {
-                q_mask(bbmMask);
                 bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStyle", q_getPara('adsss.stype'));

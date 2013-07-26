@@ -27,7 +27,7 @@
             brwKey = 'noa';
             brwCount2 = 20;
             q_xchg = 1;
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -70,7 +70,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('adpipe_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('adpipe_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -307,9 +307,9 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewProductno'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewProduct'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewStyle'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewSpec'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewRadius'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewWidth'> </a></td>
@@ -319,9 +319,9 @@
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='mon' style="text-align: left;">~mon</td>
-						<td id='style' style="text-align: left;">~style</td>
-						<td id='product' style="text-align: left;">~product</td>
 						<td id='productno' style="text-align: left;">~productno</td>
+						<td id='product' style="text-align: left;">~product</td>
+						<td id='style' style="text-align: left;">~style</td>
 						<td id='spec' style="text-align: left;">~spec</td>
 						<td id='radius' style="text-align: left;">~radius</td>
 						<td id='width' style="text-align: left;">~width</td>
@@ -345,28 +345,28 @@
 						<td><input id="txtMon"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
+						<td><input id="txtProductno" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
+						<td><input id="txtProduct" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
 						<td><input id="txtStyle" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
 						<td><input id="txtSpec" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-						<td><input id="txtProduct" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
-						<td><input id="txtProductno" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblRadius' class="lbl"> </a></td>
-						<td><input id="txtRadius" type="text" class="txt c1" /></td>
+						<td><input id="txtRadius" type="text" class="txt num c1" /></td>
 						<td><span> </span><a id='lblWidth' class="lbl"> </a></td>
-						<td><input id="txtWidth" type="text" class="txt c1" /></td>
+						<td><input id="txtWidth" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDime1' class="lbl"> </a></td>
-						<td><input id="txtDime1" type="text" class="txt c1" /></td>
+						<td><input id="txtDime1" type="text" class="txt num c1" /></td>
 						<td><span> </span><a id='lblDime2' class="lbl"> </a></td>
-						<td><input id="txtDime2" type="text" class="txt c1" /></td>
+						<td><input id="txtDime2" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>

@@ -20,13 +20,11 @@
             }
             function z_accc() {
             }
-
-
             z_accc.prototype = {
                 data : {
-                    balacc1 : null,
                     part : null
-                }
+                },
+                a1 : null
             };
             t_data = new z_accc();
 
@@ -37,21 +35,12 @@
             });
 
             function q_gfPost() {
-                q_gt('balacc1', '', 0, 0, 0, "init1");
+                q_gt('part', '', 0, 0, 0, "init1");
             }
 
             function q_gtPost(t_name) {
-
                 switch (t_name) {
                     case 'init1':
-                        t_data.data['balacc1'] = '';
-                        var as = _q_appendData("balacc1", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_data.data['balacc1'] += (t_data.data['balacc1'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].balacc1;
-                        }
-    					q_gt('part', '', 0, 0, 0, "init2");
-                        break;
-                    case 'init2':
                         t_data.data['part'] = '';
                         var as = _q_appendData("part", "", true);
                         for ( i = 0; i < as.length; i++) {
@@ -68,101 +57,75 @@
                         type : '0',
                         name : 'accy',
                         value : r_accy + "_" + r_cno
-                    }, {/*1 [2][3]*/
+                    },{/*  [2]*/
+                        type : '0',
+                        name : 'xrank',
+                        value : r_rank
+                    }, {/*1 [3],[4]*/
                         type : '1',
                         name : 'date'
-                    }, {/*2 [4][5]*/
+                    }, {/*2 [5][6] 含子科目*/
                         type : '2',
-                        name : 'acc',
+                        name : 'xacc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*3 [6][7]*/
-                        type : '2',
-                        name : 'part',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                    }, {/*4 [8][9]*/
-                        type : '1',
-                        name : 'xaccc3'
-                    }, {/*5 [10]*/
-                        type : '6',
-                        name : 'xbal'
-                    }, {/*6 [11]*/
-                        type : '8', //checkbox
-                        name : 'xaccc5',
-                        value : t_data.data['balacc1'].split(',')
-                    }, {/*7 [12]*/
-                        type : '8', //checkbox
-                        name : 'balance',
-                        value : (('').concat(new Array("餘額"))).split(',')
-                    },{/*[13]*/
-                        type : '0',
-                        name : 'accty',
-                        value : r_accy 
-                    }, {/*8-[14],[15]*/
-                        type : '1',
-                        name : 'ydate'
-                    }, {/*9 [16][17]*/
+                    }, {/*3 [7][8] 不含子科目*/
                         type : '2',
                         name : 'yacc',
-                        dbf : 'acc',
+                        dbf : 'view_acc',
                         index : 'acc1,acc2',
-                        src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*10-[18]*/
+                        src : "view_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
+                    }, {/*4 [9]*/
                         type : '8',
-                        name : 'ypart',
-                        value : t_data.data['part'].split(',')
+                        name : 'xpart',
+                        value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
+                    }, {/*5 [10]*/
+                        type : '8',
+                        name : 'xoption03',
+                        value : q_getMsg('toption03').split('&')
                     }]
                 });
                 q_popAssign();
                 q_langShow();
-                $('#txtDate1').mask('99/99');
-                $('#txtDate2').mask('99/99');
-                $('#txtYdate1').mask('999/99/99');
-                $('#txtYdate1').datepicker();
-                $('#txtYdate2').mask('999/99/99');
-                $('#txtYdate2').datepicker();
-				$('#chkYpart').children('input').attr('checked', 'checked');
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
+				$('#chkXpart').children('input').attr('checked', 'checked');
 				
-				$('#txtAcc1a').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+				$('#txtXacc1a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
                     }
         		});
-        		$('#txtAcc2a').change(function(e) {
-                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val()+'.');	
-                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+        		$('#txtXacc2a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
                     }
         		});
-
-                $('#chkXbalacc1').children('input').attr('checked', 'checked');
-                var t_date, t_year, t_month, t_day;
-                t_date = new Date();
-                t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate1').val(t_month + '/' + t_day);
-
-                t_date = new Date();
-                t_date.setDate(35);
-                t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate2').val(t_month + '/' + t_day);
+        		$('#txtYacc1a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
+                    }
+        		});
+        		$('#txtYacc2a').keyup(function(e) {
+                	var patt = /^(\d{4})([^\.,.]*)$/g;
+                	if(patt.test($(this).val()))
+                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+                    else if((/^(\d{4})$/).test($(this).val())){
+                    	$(this).val($(this).val()+'.');
+                    }
+        		});
             }
             function q_boxClose(t_name) {
             }
@@ -177,7 +140,7 @@
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->

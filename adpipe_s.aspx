@@ -8,8 +8,10 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "adpipe_s";
+    aPop = new Array(['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno', "ucaucc_b.aspx"]);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -66,16 +68,16 @@
                 <td><input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblStyle'> </a></td>
-                <td><input class="txt" id="txtStyle" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblProductno'> </a></td>
+                <td><input class="txt" id="txtProductno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblProduct'> </a></td>
                 <td><input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblProductno'> </a></td>
-                <td><input class="txt" id="txtProductno" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblStyle'> </a></td>
+                <td><input class="txt" id="txtStyle" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblSpec'> </a></td>
