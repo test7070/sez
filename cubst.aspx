@@ -419,14 +419,6 @@
                 width: 95%;
                 float: left;
             }
-            .txt.c2 {
-                width: 130%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 120px;
-                float: left;
-            }
 
             .num {
                 text-align: right;
@@ -661,70 +653,70 @@
 		<input id="q_sys" type="hidden" />
 		<div id="dbbt" class='dbbt'>
 			<table id="tbbt" class="tbbt">
-					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:20px;">
-						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
-						</td>
-						<td style="width:20px;"> </td>
-						<td style="width:120px; text-align: center;">原批號</td>
-						<td style="width:120px; text-align: center;">原批號領料數</td>
-						<td style="width:120px; text-align: center;">領料重</td>
-						<td style="width:120px; text-align: center;">餘料寬</td>
-						<td style="width:120px; text-align: center;">餘料長</td>
-						<td style="width:30px; text-align: center;">型</td>
-						<td style="width:80px; text-align: center;">數量</td>
-						<td style="width:120px; text-align: center;">入庫重</td>
-						<td style="width:120px; text-align: center;">餘料編號</td>
-						<td style="width:120px; text-align: center;">餘料客戶</td>
-						<td style="width:120px; text-align: center;">廢料</td>
-						<td style="width:120px; text-align: center;">倉庫</td>
-						<td style="width:120px; text-align: center;">儲位</td>
-						<td style="width:120px; text-align: center;">餘料備註</td>
-						<td style="width:120px; text-align: center;">餘料毛重</td>
-						<td style="width:120px; text-align: center;">餘料品名</td>
-						<td style="width:120px; text-align: center;">餘料板面</td>
-						<td style="width:120px; text-align: center;">餘料硬度</td>
-						<td style="width:120px; text-align: center;">裁剪單號</td>
-						<td style="width:20px; text-align: center;">印</td>
-						<td style="width:120px; text-align: center;">原批號<br>儲位異動</td>
-						<td style="width:120px; text-align: center;">外加成本</td>
-						<td style="width:120px; text-align: center;">原批號餘毛重</td>
-						<td style="width:80px; text-align: center;">成本單價</td>
-						<td style="width:120px; text-align: center;">尺寸</td>
-					</tr>
-					<tr>
-						<td>
-							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
-						</td>
-						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input id="txtUno..*" type="text" class="txt c1"/></td>
-						<td><input id="txtGmount..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtGweight..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtWidth..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtLengthb..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtStyle..*" type="text" class="txt c1"/></td>
-						<td><input id="txtMount..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtWeight..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtBno..*" type="text" class="txt c1"/></td>
-						<td><input id="txtCustno..*" type="text" class="txt c1"/></td>
-						<td><input id="txtXbutt..*" type="text" class="txt c1"/></td>
-						<td><input id="txtStoreno..*" type="text" class="txt c1"/></td>
-						<td><input id="txtPlace..*" type="text" class="txt c1"/></td>
-						<td><input id="txtMemo..*" type="text" class="txt c1"/></td>
-						<td><input id="txtMweight..*" type="text" class="txt c1"/></td>
-						<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
-						<td><input id="txtSpec..*" type="text" class="txt c1"/></td>
-						<td><input id="txtHard..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtCutno..*" type="text" class="txt c1"/></td>
-						<td><input id="chkPrt..*" type="checkbox"/></td>
-						<td><input id="txtPlace2..*" type="text" class="txt c1"/></td>
-						<td><input id="txtPrice2..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtMweight2..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtMprice..*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtSize..*" type="text" class="txt c1"/></td>
-					</tr>
-			</table>
-		</div>
-	</body>
+				<tr class="head" style="color:white; background:#003366;">
+					<td style="width:20px;">
+					<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+					</td>
+					<td style="width:20px;"> </td>
+					<td style="width:120px; text-align: center;">原批號</td>
+					<td style="width:120px; text-align: center;">原批號領料數</td>
+					<td style="width:120px; text-align: center;">領料重</td>
+					<td style="width:120px; text-align: center;">餘料寬</td>
+					<td style="width:120px; text-align: center;">餘料長</td>
+					<td style="width:30px; text-align: center;">型</td>
+					<td style="width:80px; text-align: center;">數量</td>
+					<td style="width:120px; text-align: center;">入庫重</td>
+					<td style="width:120px; text-align: center;">餘料編號</td>
+					<td style="width:120px; text-align: center;">餘料客戶</td>
+					<td style="width:120px; text-align: center;">廢料</td>
+					<td style="width:120px; text-align: center;">倉庫</td>
+					<td style="width:120px; text-align: center;">儲位</td>
+					<td style="width:120px; text-align: center;">餘料備註</td>
+					<td style="width:120px; text-align: center;">餘料毛重</td>
+					<td style="width:120px; text-align: center;">餘料品名</td>
+					<td style="width:120px; text-align: center;">餘料板面</td>
+					<td style="width:120px; text-align: center;">餘料硬度</td>
+					<td style="width:120px; text-align: center;">裁剪單號</td>
+					<td style="width:20px; text-align: center;">印</td>
+					<td style="width:120px; text-align: center;">原批號<br>儲位異動</td>
+					<td style="width:120px; text-align: center;">外加成本</td>
+					<td style="width:120px; text-align: center;">原批號餘毛重</td>
+					<td style="width:80px; text-align: center;">成本單價</td>
+					<td style="width:120px; text-align: center;">尺寸</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+					</td>
+					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input id="txtUno..*" type="text" class="txt c1"/></td>
+					<td><input id="txtGmount..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtGweight..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWidth..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtLengthb..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtStyle..*" type="text" class="txt c1"/></td>
+					<td><input id="txtMount..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWeight..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtBno..*" type="text" class="txt c1"/></td>
+					<td><input id="txtCustno..*" type="text" class="txt c1"/></td>
+					<td><input id="txtXbutt..*" type="text" class="txt c1"/></td>
+					<td><input id="txtStoreno..*" type="text" class="txt c1"/></td>
+					<td><input id="txtPlace..*" type="text" class="txt c1"/></td>
+					<td><input id="txtMemo..*" type="text" class="txt c1"/></td>
+					<td><input id="txtMweight..*" type="text" class="txt c1"/></td>
+					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
+					<td><input id="txtSpec..*" type="text" class="txt c1"/></td>
+					<td><input id="txtHard..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtCutno..*" type="text" class="txt c1"/></td>
+					<td><input id="chkPrt..*" type="checkbox"/></td>
+					<td><input id="txtPlace2..*" type="text" class="txt c1"/></td>
+					<td><input id="txtPrice2..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMweight2..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMprice..*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtSize..*" type="text" class="txt c1"/></td>
+				</tr>
+		</table>
+	</div>
+</body>
 </html>

@@ -431,9 +431,9 @@
 			</tr>
 	        <tr>
 	            <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
-	            <td class="td2"><input id="txtWorker"  type="text" class="txt c1 num"/></td>
+	            <td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
 	            <td class='td3'><span> </span><a id="lblWorker2" class="lbl"></a></td>
-	            <td class="td4"><input id="txtWorker2"  type="text" class="txt c1 num"/></td>
+	            <td class="td4"><input id="txtWorker2"  type="text" class="txt c1"/></td>
 			</tr>
         </table>
         </div>

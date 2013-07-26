@@ -210,18 +210,6 @@
 					var as = _q_appendData("work", "", true);
 					var t_stationno='',t_station='';
 					for (i = 0; i < as.length; i++) {
-							/*if(as[i].istd=='true'){
-								as[i].productno=as[i].tproductno
-								as[i].product=as[i].tproduct
-							}*/
-							
-							/*if(as[i].unit.toUpperCase()=='KG'){
-								as[i].xmount=0;
-								as[i].xweight=as[i].mount;
-							}else{
-								as[i].xmount=as[i].mount;
-								as[i].xweight=0;
-							}*/
 							
 							if(as[i].stationno!=''){
 								t_stationno=as[i].stationno;
@@ -236,27 +224,7 @@
 							$('#txtStation').val(t_station);
 					}
 				 break;
-            	/*case 'work':
-            		//清空表身資料
-            		for(var i = 0; i < q_bbsCount; i++) {
-            			$('#btnMinus_'+i).click();
-            		}
-            		
-					var as = _q_appendData("work", "", true);
-					for (i = 0; i < as.length; i++) {
-							
-							if(as[i].unit.toUpperCase()=='KG'){
-								as[i].xmount=0;
-								as[i].xweight=as[i].mount;
-							}else{
-								as[i].xmount=as[i].mount;
-								as[i].xweight=0;
-							}
-						}
-					q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtBorn,txtBweight,txtOrdeno,txtNo2,txtMemo', as.length, as
-														   , 'productno,product,unit,xmount,xweight,xmount,xweight,ordeno,no2,memo'
-														   , '');   /// 最後 aEmpField 不可以有【數字欄位】
-				 break;*/
+            	
                 case 'ucc': 
 					var as = _q_appendData("ucc", "", true);
 					if(as[0]!=undefined)
@@ -264,13 +232,46 @@
 					else
 						$('#txtTheory_'+b_seq).val(0);
                     break;
+				
+				case 'work_pick':
+					var pickerror='';
+                    var as = _q_appendData("workbs", "", true);
+                    //檢查每一筆入庫是否合領料比例
+                    for(var i = 0; i < q_bbsCount; i++) {
+                    	if(!emp($('#txtWorkno_'+i).val())){
+                    		for (var j = 0; j < as.length; j++) {
+                    			if($('#txtWorkno_'+i).val()==as[j].noa){
+                    				var work_mount=dec(as[j].mount)//work需求數量
+                    				var work_inmount=dec(as[j].inmount)+dec($('#txtMount_'+i).val())//work已入庫數量+要入庫的數量
+                    				var works_mounts=dec(as[j].mounts)//works領料需求數量
+                    				var works_gmounts=dec(as[j].gmounts)//works已領料數量
+                    				var work_rate=work_inmount/work_mount; //入庫比率
+                    				var works_rate=works_gmounts/works_mounts; //領料比率
+                    				if(work_rate-works_rate>0.01){//誤差相差0.01
+                    					pickerror=$('#txtProduct_'+i).val();
+                    				}
+                    			}
+                    			if(pickerror.length>0){break;}
+                    		}
+                    	}
+                    	if(pickerror.length>0){break;}
+                    }
+                    if(pickerror.length==0){
+                    	checkok=true;
+                    	btnOk();
+                    }else{
+                    	alert(pickerror+' 入庫與領料比例不符!!');
+                    }
+                    break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
-
+        
+		//檢查領料是否等比例
+		var checkok=false;
         function btnOk() {
         	t_err = '';
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
@@ -278,15 +279,30 @@
                 alert(t_err);
                 return;
             }
-
-            $('#txtWorker').val(r_name);
             
-            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            var t_date = $('#txtDatea').val();
-            if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workb') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-            else
-                wrServer(s1);
+            if(!checkok){
+            	var word_where='';
+            	for(var i = 0; i < q_bbsCount; i++) {
+            		if(!emp($('#txtWorkno_'+i).val()))
+            			word_where+="a.noa='"+$('#txtWorkno_'+i).val()+"' or "
+            	}
+            	if(word_where.length>0)
+            		word_where="and ("+word_where.substr(0,word_where.length-3)+")";
+            		
+            	var t_where = "where=^^ 1=1 "+word_where+"^^";
+            	var t_where1 = "where[1]=^^ noa='"+$('#txtNoa').val()+"' and productno=a.productno and workno=a.noa ^^";
+                q_gt('work_pick', t_where+t_where1, 0, 0, 0, "", r_accy);
+            }else{
+				checkok=false;
+				$('#txtWorker').val(r_name);
+		            
+				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+				var t_date = $('#txtDatea').val();
+				if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workb') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+		        	wrServer(s1);
+			}
         }
 
         function _btnSeek() {
