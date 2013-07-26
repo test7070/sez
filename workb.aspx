@@ -287,9 +287,9 @@
             			word_where+="a.noa='"+$('#txtWorkno_'+i).val()+"' or "
             	}
             	if(word_where.length>0)
-            		word_where=word_where.substr(0,word_where.length-3);
+            		word_where="and ("+word_where.substr(0,word_where.length-3)+")";
             		
-            	var t_where = "where=^^ "+word_where+"^^";
+            	var t_where = "where=^^ 1=1 "+word_where+"^^";
             	var t_where1 = "where[1]=^^ noa='"+$('#txtNoa').val()+"' and productno=a.productno and workno=a.noa ^^";
                 q_gt('work_pick', t_where+t_where1, 0, 0, 0, "", r_accy);
             }else{
