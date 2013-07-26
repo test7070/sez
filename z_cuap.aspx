@@ -29,29 +29,20 @@
                         value : q_getId()[4] //[1]
                     },{
                         type : '6',
-                        name : 'xnoa'
+                        name : 'cuano'
                     },{
-                        type : '1',
-                        name : 'xdate'
-                    }, {
-                        type : '2',
-                        name : 'tgg',
-                        dbf : 'tgg',
-                        index : 'noa,comp',
-                        src : 'tgg_b.aspx'
+                        type : '6',
+                        name : 'stkdate'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate1').val(q_date().substring(0,7)+'01');
-                var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
-                $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
-                var t_key = q_getHref();
-                if(t_key[1] != undefined)
-                	$('#txtXnoa').val(t_key[1]);
+                $('#txtStkdate').mask('999/99/99');
+                $('#txtStkdate').val(q_date());
+                
+                var Parent = window.parent.document;
+                	$('#txtCuano').val(Parent.getElementById('txtNoa').value);
             }
 
             function q_boxClose(s2) {
