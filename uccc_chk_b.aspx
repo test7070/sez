@@ -23,7 +23,7 @@
 						$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
 						$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
 					}
-				}else{
+				}else if(window.parent.q_name != 'cub'){
 					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
@@ -75,7 +75,7 @@
 						$('span[id*="StrX2"]').remove();
 						$('span[id*="StrX3"]').remove();
 					}
-				}else{
+				}else if(window.parent.q_name != 'cub'){
 					$('#lblSize_st').text('厚度x寬度x長度');
 					$('input[id*="txtLengthb_"]').css('width','29%');
 					$('input[id*="txtWidth_"]').css('width','29%');
