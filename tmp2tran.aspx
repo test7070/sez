@@ -33,7 +33,7 @@
             brwKey = 'noa';
             
             q_desc = 1;
-            aPop = new Array(['textCustno', '', 'cust', 'noa,comp', 'textCustno,', 'cust_b.aspx'], 
+            aPop = new Array(['textCustno', '', 'cust', 'noa,comp', 'textCustno', 'cust_b.aspx'], 
             ['textBaddrno', '', 'addr', 'noa,addr', 'textBaddrno', 'addr_b.aspx'],
             ['textEaddrno', '', 'addr', 'noa,addr', 'textEaddrno', 'addr_b.aspx'],
             ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],
@@ -48,7 +48,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0);
             });
             function main() {
                 if (dataErr) {
@@ -258,7 +258,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('weichih2tran_s.aspx', q_name + '_s', "600px", "450px", q_getMsg("popSeek"));
+                q_box('tmp2tran_s.aspx', q_name + '_s', "600px", "450px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -766,12 +766,6 @@
 						<input type="text" id="txtSales.*" style="width:95%;float:left;" />
 					</td>
 					<td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
-					<td>
-						<input type="text" id="txtTransvcceno.*" style="width:95%;" />
-						<input type="text" id="txtTransvccenoq.*" style="display:none;" />
-						<input type="text" id="txtCommandid.*" style="display:none;" />
-						<input type="text" id="txtTaskcontent.*" style="width:95%;" />
-					</td>
 					<td>
 						<input type="text" id="txtTranno.*" style="width:95%;" />
 						<input type="text" id="txtTrannoq.*" style="display:none;" />
