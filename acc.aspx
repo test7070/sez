@@ -19,7 +19,7 @@
         var decbbm = [];
         var q_name="acc";
         var q_readonly = [];
-        var bbmNum = new Array(['txtBeginmoney', 16, 2, 1]); 
+        var bbmNum = []; 
         var bbmMask = []; 
         
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'acc1';
@@ -106,7 +106,7 @@
 						}else{
 							var as =_q_appendData(t_name, "", true);
 							$('#txtAcc2').val(as[0].acc2);
-							$('#txtBeginmoney').val(as[0].beginmoney);
+							//$('#txtBeginmoney').val(as[0].beginmoney);
 							$('#txtOacc').val(as[0].oacc);
 							$('#txtLok').val(as[0].lok);
 							accdb=true;
@@ -145,7 +145,7 @@
         }
 
         function btnPrint() {
- 			q_box("z_acc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtAccc3').val() + ";" + r_accy + "_" + r_cno, 'z_accc1', "95%", "90%", q_getMsg('popZ_accc1'));
+ 			q_box("z_accp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy + "_" + r_cno, 'z_accc1', "95%", "90%", q_getMsg('popZ_accc1'));
         }
         var acc1=[];
         function btnOk() {

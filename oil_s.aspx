@@ -31,7 +31,7 @@
                 q_getFormat();
                 q_langShow();
 
-                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBoildate', r_picd], ['txtEoildate', r_picd]];
                 q_mask(bbmMask);
 
                 $('#txtBdate').focus();
@@ -41,6 +41,8 @@
                 t_noa = $('#txtNoa').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
+                t_boildate = $('#txtBoildate').val();
+                t_eoildate = $('#txtEoildate').val();
                 t_carno = $('#txtCarno').val();
                 t_driverno = $('#txtDriverno').val();
                 t_driver = $('#txtDriver').val();
@@ -50,7 +52,8 @@
                 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
 
                 var t_where = " 1=1 " + q_sqlPara2("oilstationno", t_oilstationno) +q_sqlPara2("oilstation", t_oilstation) +
-                q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver);
+                q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver)
+                 + q_sqlPara2("oildate", t_boildate, t_eoildate);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -74,6 +77,14 @@
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td style="width:35%;" ><a id='lblOildate'></a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtBoildate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEoildate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
