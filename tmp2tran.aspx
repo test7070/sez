@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             q_tables = 's';
-            var q_name = "weichih2tran";
+            var q_name = "tmp2tran";
             var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtMount','txtMount2','txtWorker','txtWorker2'];
             var q_readonlys = ['txtTotal','txtTotal2','txtTransvcceno','txtTranno','txtTaskcontent'];
             var bbmNum = [['txtMount',10,3,1],['txtTotal',10,0,1],['txtMount2',10,3,1],['txtTotal2',10,0,1]];
@@ -63,7 +63,7 @@
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
-                    case 'qtxt.query.weichih2tran':
+                    case 'qtxt.query.tmp2tran':
                     	location.reload();
                     break;
                 }
@@ -89,41 +89,7 @@
 						refresh(q_recno);
 						Unlock(1);
 						break;
-                	case "transvcce_tran":
-                		var as = _q_appendData("transvcce_tran", "", true);
-                        if (as[0] != undefined){
-                        	//alert(as.length);
-                        	for(var i=0;i<q_bbsCount;i++)
-                        		$('#btnMinus_'+i).click();
-                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtTrandate,cmbCalctype,cmbCarteamno,txtDiscount,txtPo,txtSalesno,txtSales,txtCarno,txtDriverno,txtDriver,txtCustno,txtComp,txtNick,txtStraddrno,txtStraddr,txtUccno,txtProduct,txtInmount,txtPton,txtMount,txtPrice,txtTotal,txtOutmount,txtPton2,txtMount2,txtPrice2,txtPrice3,txtDiscount,txtTotal2,txtTransvcceno,txtTransvccenoq,txtCommandid,txtTaskcontent,txtMemo'
-                        	, as.length, as
-                        	, 'datea,datea,calctype,carteamno,discount,po,salesno,sales,carno,driverno,driver,custno,comp,nick,addrno,addr,productno,product,inmount,pton,mount,price,total,outmount,pton2,mount2,price2,price3,discount,total2,transvcceno,transvccenoq,commandid,taskcontent,taskcontent', '', '');
-                       		Lock();//畫面大小變動了
-                       		for(var i=0;i<q_bbsCount;i++){     
-                       			var t_taskcontent=$.trim($('#txtTaskcontent_'+i).val());
-                       			if(t_taskcontent.length>0) {
-                       				var t_caseno = '',t_caseno2 = '';
-									if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(t_taskcontent))
-										t_caseno = (t_taskcontent).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
-									if((/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g).test(t_taskcontent))
-	            						t_caseno2 = (t_taskcontent).replace(/.*貨櫃號碼：([0-9,A-Z,a-z]+).*貨櫃號碼：([0-9,A-Z,a-z]+).*/g,'$1');
-									if(t_caseno.length>0){
-										if(t_caseno2.length>0){
-											$('#txtCaseno2_'+i).val(t_caseno);
-											$('#txtCaseno_'+i).val(t_caseno2);
-										}else{
-											$('#txtCaseno_'+i).val(t_caseno);
-										}
-									}
-                       			}			
-                       		}
-                       		sum();
-            				Unlock();
-                        }else{
-                        	alert('無資料。');
-                        	Unlock();
-                        }
-                		break;
+                	
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -333,7 +299,7 @@
 				}
             }
             function btnPrint() {
-                q_box('z_transvcce2tran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                q_box('z_tmp2tran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -377,13 +343,6 @@
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                $('#btnPlus').attr('disabled','disabled');
-                if(q_cur==1){
-                	$('#btn1').removeAttr('disabled');
-                }else{
-                	$('#btn1').attr('disabled','disabled');
-                	$('#divImport').hide();
-                }
                 if(q_cur==1 || q_cur==2){
                 	$('#btn2').attr('disabled','disabled');
                 	$('#divExport').hide();
@@ -613,46 +572,6 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="divImport" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:250px;background:RGB(237,237,237);"> 
-			<table style="border:4px solid gray; width:100%; height: 100%;">
-				<tr style="height:1px;background-color: #cad3ff;">
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-				</tr>
-				<tr>		
-					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>派車日期</a></td>
-					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
-						<input type="text" id="textBdate" style="float:left;width:40%;"/>
-						<span style="float:left;width:5%;">~</span>
-						<input type="text" id="textEdate" style="float:left;width:40%;"/>
-					</td>
-				</tr>
-				<tr>		
-					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>客戶編號</a></td>
-					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
-						<input type="text" id="textCustno" style="float:left;width:95%;"/>
-					</td>
-				</tr>
-				<tr>		
-					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>起迄地點</a></td>
-					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
-						<input type="text" id="textBaddrno" style="float:left;width:40%;"/>
-						<span style="float:left;width:5%;">~</span>
-						<input type="text" id="textEaddrno" style="float:left;width:40%;"/>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center" style="background-color: #cad3ff;">
-						<input type="button" id="btnImport" value="匯入"/>	
-					</td>
-					<td colspan="2" align="center" style=" background-color: #cad3ff;">
-						<input type="button" id="btnDivimport" value="關閉"/>	
-					</td>
-				</tr>
-			</table>
-		</div>
 		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:120px;background:RGB(237,237,237);"> 
 			<table style="border:4px solid gray; width:100%; height: 100%;">
 				<tr style="height:1px;background-color: pink;">
