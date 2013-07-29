@@ -125,6 +125,42 @@
                     	$(this).val($(this).val()+'.');
                     }
         		});
+        		$('#btnOk').hide();
+        		$('#btnOk2').click(function(e){
+        			var patt = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+        			var t_date1 = $.trim($('#txtDate1').val());
+        			var t_date2 = $.trim($('#txtDate2').val());
+        			
+        			string = (parseInt(t_date1.substring(0,3))+1911)+t_date1.substring(3);
+               		if(t_date1.length==0){
+               			alert('請輸入起始日期。');
+               			return;
+               		}
+               		else if(!patt.test(string)){
+               			alert(t_date1+' 日期異常。');
+               			return;
+               		}
+               		string = (parseInt(t_date2.substring(0,3))+1911)+t_date2.substring(3);
+               		if(t_date2.length==0){
+               			alert('請輸入終止日期。');
+               			return;
+               		}
+               		else if(!patt.test(string)){
+               			alert(t_date2+' 日期異常。');
+               			return;
+               		}
+               		var d1 = new Date(parseInt(t_date1.substr(0, 3)) + 1911, parseInt(t_date1.substring(4, 6)) - 1, parseInt(t_date1.substring(7, 9)));
+               		var d2 = new Date(parseInt(t_date2.substr(0, 3)) + 1911, parseInt(t_date2.substring(4, 6)) - 1, parseInt(t_date2.substring(7, 9)));
+               		if(d2 < d1){
+               			alert('日期異常：終止日期<起始日期。');
+               			return;
+               		}
+               		if((Math.abs(d2 - d1) / (1000 * 60 * 60 * 24) + 1)>366){
+               			alert('查詢日數不得大於３６６天。');
+               			return;
+               		}	
+        			$('#btnOk').click();
+        		});
         		q_popAssign();
         		q_langShow();
             }
@@ -143,6 +179,7 @@
 				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
+				<input type="button" id="btnOk2" style="float:left;font-size:16px;font-weight: bold;color: blue;cursor: pointer;width:50px;height:30px;" value="查詢"/>
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
