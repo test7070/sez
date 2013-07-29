@@ -82,16 +82,16 @@
 			});
 			$('#btnOrdes').click(function(){
 				if(q_cur==1 || q_cur==2){
-					var t_where = "enda!=1";
+					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount group by a.ordeno,a.no2) ";
 	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
                }
 			});
 			
 			$('#btnWork').click(function(){
 				if(!emp($('#txtTggno').val())){
-					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"'";
+					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount)";
 				}else{
-					var t_where = "enda!=1 and tggno!=''";
+					var t_where = "enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount)";
 				}
                 q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
