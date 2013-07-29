@@ -36,6 +36,7 @@
 			brwCount2 = 5;
 			aPop = new Array(
 				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
+				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'],
 				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx']
 			);
@@ -715,7 +716,7 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblProductno_pi" class="lbl" ></a></td>
+						<td><span> </span><a id="lblProductno_pi" class="lbl btn" ></a></td>
 						<td><input id="txtProductno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblRadius_pi" class="lbl" ></a></td>
 						<td><input id="txtRadius" type="text" class="txt c1 num"/></td>
