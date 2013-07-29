@@ -41,8 +41,28 @@
                 $('#txtStkdate').mask('999/99/99');
                 $('#txtStkdate').val(q_date());
                 
+                var btn = document.getElementById('btnOk');
+                btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='轉至請購單'>");
+                
                 var Parent = window.parent.document;
+                if(window.parent.q_name=='cua')
                 	$('#txtCuano').val(Parent.getElementById('txtNoa').value);
+                
+                var cuano=!emp($('#txtCuano').val())?$('#txtCuano').val():'#non';
+				var t_where = r_accy+ ';' + cuano;
+				var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
+                q_gtx("z_cuap1", t_where + ";;" + t_para + ";;z_cuap;;" + q_getMsg('qTitle'));
+                
+                
+                $('#btnOrdb').click(function(){
+                	if(confirm("確定要轉至請款單?"))
+					{
+						var cuano=!emp($('#txtCuano').val())?$('#txtCuano').val():'#non';
+						var t_where = r_accy+ ';' + cuano+';'+r_userno+';'+q_getPara('sys.key_ordb');
+						var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
+		                q_gtx("z_cuap2", t_where + ";;" + t_para + ";;z_cuap;;" + q_getMsg('qTitle'));
+					}
+	            });
             }
 
             function q_boxClose(s2) {
