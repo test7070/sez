@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "ordb";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtNo3','txtC1','txtNotv'];
+            var q_readonlys = ['txtNo3','txtC2','txtNotv2'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [['txtOdate', '999/99/99']];
@@ -149,7 +149,7 @@
                 
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtOdate').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ordb') + $('#txtOdate').val(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -718,8 +718,8 @@
                 <td><input class="txt num c1" id="txtTotal.*" type="text" />
                         <!--<input class="txt num c1" id="txtTheory.*" type="text" />--></td>
                 <td>
-                	<input class="txt num c1" id="txtC1.*" type="text" />
-                	<input class="txt num c1" id="txtNotv.*" type="text" />
+                	<input class="txt num c1" id="txtC2.*" type="text" />
+                	<input class="txt num c1" id="txtNotv2.*" type="text" />
                 </td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 	<input class="txt" id="txtOrdeno.*" type="text" style="width:73%;" />
