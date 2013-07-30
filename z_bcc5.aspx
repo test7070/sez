@@ -71,6 +71,10 @@
 							type : '5',
 							name : 'xall',
 							value : ('全部,剩餘量,無存量').split(',')
+						},{/*4*/
+							type : '5',
+							name : 'typea',
+							value : ('全部,'+q_getPara('bcc.type')).split(',')
 						}]
                     });
                     q_popAssign();

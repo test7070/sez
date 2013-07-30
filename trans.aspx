@@ -430,7 +430,8 @@
 							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
 						}
 						q_cmbParse("cmbCarteamno", t_item);
-						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
+						if(abbm[q_recno]!=undefined)
+							$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						q_gt('calctype2', '', 0, 0, 0, 'transInit_2');
 						break;
 					case 'transInit_2':
@@ -447,7 +448,8 @@
 							});
 						}
 						q_cmbParse("cmbCalctype", t_item);
-						$("#cmbCalctype").val(abbm[q_recno].calctype);
+						if(abbm[q_recno]!=undefined)
+							$("#cmbCalctype").val(abbm[q_recno].calctype);
 						trans.isInit = true;
 						trans.refresh();
 						Unlock(1);
