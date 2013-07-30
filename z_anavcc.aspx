@@ -76,6 +76,8 @@
                 $('#txtMon2').mask('999/99');
                 $('#txtXyear1').mask('999');
                 $('#txtXyear2').mask('999');
+                $('#txtXyear1').val('101');
+                $('#txtXyear2').val('102');
 				$('#txtXbmon1').val(r_accy+'/01').mask('999/99');
                 $('#txtXbmon2').val(r_accy+'/12').mask('999/99');
                 $('#txtXemon1').val(r_accy+'/01').mask('999/99');
@@ -136,7 +138,7 @@
 						t_xebmon + ';' + t_xeemon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
 						t_bproductno + ';' + t_eproductno + ';'
 						);
-					}else if(txtreport=='z_anavccCustyear'){
+					}else if(txtreport=='z_anavccCustyear'||txtreport=='z_anavccProductyear'){
 						if(!emp($('#txtXyear1').val()))
 							t_xbyear=encodeURI($('#txtXyear1').val());
 						if(!emp($('#txtXyear2').val()))
@@ -263,120 +265,131 @@
 											}
 										);
 									}
-								}else if(txtreport == 'z_anavccCustyear'){
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'01',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='01'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'02',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='02'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'03',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='03'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'04',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='04'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'05',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='05'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'06',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='06'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'07',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='07'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'08',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='08'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'09',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='09'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'10',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='10'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'11',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='11'?as[i].total:0)
-										}
-									);
-									bar[rec].push(
-										{
-											tyear:as[i].mon.substring(0,3),
-											mon:'12',
-											custno:as[i].custno,
-											comp:as[i].comp,
-											total:(as[i].mon.substr(-2)=='12'?as[i].total:0)
-										}
-									);
+								}else if(txtreport == 'z_anavccCustyear'||txtreport == 'z_anavccProductyear'){
+									if($('#txtXyear1').val() == $('#txtXyear2').val()){
+										alert('年度相同無法比較!!');
+										return;
+									}else{
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'01',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m01
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'02',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m02
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'03',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m03
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'04',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m04
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'05',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m05
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'06',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m06
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'07',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m07
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'08',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m08
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'09',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m09
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'10',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m10
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'11',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m11
+											}
+										);
+										bar[rec].push(
+											{
+												tyear:as[i].tyear,
+												mon:'12',
+												custno:(as[i].custno?as[i].custno:as[i].productno),
+												comp:(as[i].comp?as[i].comp:as[i].product),
+												total:as[i].m12
+											}
+										);
+									}
 								}
 							}
-							$('#barChart2').barChart2({
-								data : bar
-							});
+							if(txtreport=='z_anavccCustyear'||txtreport=='z_anavccProductyear'){
+								$('#barChart2').barChart({
+									data : bar
+								});
+							}else{
+								$('#barChart2').barChart2({
+									data : bar
+								});
+							}
 							$('#btnPrevious').unbind('click').click(function(){
 								$('#barChart2').data('info').previous($('#barChart2'));
 							});
@@ -444,7 +457,7 @@
                             //圖表背景顏色
                             var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
                             //圖表分幾個區塊
-                            var bkN = 10;
+                            var bkN = 12;
                             var strX = 100, strY = 70;                      
                             var t_width = 700;
                             var t_height = objpostData.length * 40;
@@ -599,6 +612,164 @@
                     });
                     $(this).data('info').init($(this));
                 }
+            	$.fn.barChart = function(value) {
+                    $(this).data('info', {
+                        curIndex : -1,
+                        postData : value.data,
+                        maxPage : value.data.length,
+                        init : function(obj) {
+                            if (value.length == 0) {
+                                alert('無資料。');
+                                return;
+                            }
+                            obj.data('info').curIndex = 0;
+                            $('#txtCurPage').val(1);
+                            obj.data('info').refresh(obj,1);
+                        },
+                        page : function(obj, n) {
+                            if (n > 0 && n <= obj.data('info').maxPage) {
+                                obj.data('info').curIndex = n - 1;
+                                obj.data('info').refresh(obj,n);
+                            } else
+                                alert('頁數錯誤。');
+                        },
+                        next : function(obj) {
+                            if (obj.data('info').curIndex == obj.data('info').maxPage - 1)
+                                return;
+                            else {
+                                obj.data('info').curIndex++;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj,$('#txtCurPage').val());
+                            }
+                        },
+                        previous : function(obj) {
+                            if (obj.data('info').curIndex == 0)
+                                return;
+                            else {
+                                obj.data('info').curIndex--;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj,$('#txtCurPage').val());
+                            }
+                        },
+                        refresh : function(obj,n) {
+                        	n=dec(n)-1;
+                        	var objpostData = obj.data('info').postData[n];
+                            var t_byear = objpostData[0].tyear;
+                            var t_eyear = objpostData[13].tyear;
+                            var objWidth = 950;
+                            var objHeight = 450;
+                            //背景
+                            var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+                            //圖表背景顏色
+                            var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
+                            //圖表分幾個區塊
+                            var bkN = 10;
+                            var strX = 100, strY = 70;                      
+                            var t_width = 720;
+                            var t_height = 330;
+                            for (var i = 0; i < bkN; i++) {
+                                x = Math.round(t_width / bkN, 0) * i;
+                                y = 0;
+                               	tmpPath += '<rect x="' + strX + '" y="' + (strY+(Math.round(t_height / bkN, 0)*i)) + '" width="' + t_width + '" height="'+Math.round(t_height / bkN, 0)+'" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
+                            }
+                            var t_minMoney = 0; //Y軸最小值
+							var t_maxMoney = 0; //X軸最大值
+							for(var i=0;i < objpostData.length;i++){
+								if(dec(objpostData[i].total) > dec(t_maxMoney)){
+									t_maxMoney = dec(objpostData[i].total);
+								}
+							}
+ 							var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
+							var t_Y = strY + t_height - round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_height, 0);
+							var linearGradientColor = [
+													   ['rgb(206,206,255)','rgb(147,147,255)'],['rgb(255,220,185)','rgb(225,175,96)'],
+													   ['rgb(206,255,206)','rgb(147,255,147)'],['rgb(255,185,220)','rgb(225,96,175)']
+													  ];//漸層色組
+							for(var i = 0;i < linearGradientColor.length;i++){
+	                            tmpPath += '<defs>' +
+	                            				'<linearGradient id="chart2_color' + (i+1) + '" x1="0%" y1="0%" x2="0%" y2="100%">' + 
+	                            					'<stop offset="0%" style="stop-color:'+linearGradientColor[i][0]+';stop-opacity:1" />' +
+													'<stop offset="100%" style="stop-color:'+linearGradientColor[i][1]+';stop-opacity:1" />' +
+												'</linearGradient>' +
+											'</defs>';
+							}
+							if(txtreport == 'z_anavccCustyear' || txtreport == 'z_anavccProductyear'){
+								wStrX = strX;
+	                            var t_range = round((t_maxMoney - t_minMoney)/5,0);
+	                            var i = Math.pow(10,(t_range+'').length-1);
+	                            var t_range = Math.floor(t_range/i)*i;
+	                            t_money = t_range;
+	                            while (t_money < t_maxMoney) {
+	                            	if((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
+		                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+		                                tmpPath += '<line x1="'+(strX-5)+'" y1="' + y + '" x2="'+strX+'" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+		                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money)+ '</text>';
+	                            	}
+	                            	t_money += t_range;
+	                            }
+								for (var i = 0; i < (objpostData.length/2); i++) {    
+									tmpPath +='<g id="chart2_item'+i+'">';
+	                                x = strX - 5;
+	 								y = strY + i*40 + 30;
+	 								t_m01A = dec(objpostData[i].total);
+									w_m01A = Math.abs(round(t_m01A / (t_maxMoney - t_minMoney) * t_height, 0));
+									x_m01A = 70+(t_height-w_m01A);
+	 								t_m01B = dec(objpostData[i+12].total);
+									w_m01B = Math.abs(round(t_m01B / (t_maxMoney - t_minMoney) * t_height, 0));
+									x_m01B = 70+(t_height-w_m01B);
+
+	 								//數值線產生
+	 								tmpPath += ValueLineCreate('chart2_item','chart2_btotal' + i,wStrX,x_m01A,30,w_m01A,'url(#chart2_color1)','chart2_cbtotal','','#000000');
+									wStrX += 30;
+	 								tmpPath += ValueLineCreate('chart2_item','chart2_etotal' + i,wStrX,x_m01B,30,w_m01B,'url(#chart2_color3)','chart2_cetotal','','#000000');
+									wStrX += 30;
+	                            	tmpPath += '</g>'
+									tmpPath += '<text id="mon'+i+'" x="'+(wStrX-45)+'" y="420" fill="#000000" >'+dec(objpostData[i].mon)+'月'+'</text>';
+	                            }
+	                            //X軸
+	                            tmpPath += '<line x1="'+strX+'" y1="400" x2="'+(strX+t_width)+'" y2="400" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+								//tmpPath += '<text text-anchor="end"  x="'+(strX+t_width)+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
+	                            tmpPath += '<line x1="'+(strX-5)+'" y1="70" x2="'+strX+'" y2="70" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+								tmpPath += '<text text-anchor="end"  x="'+(strX-10)+'" y="75" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
+
+	                            tmpPath += '<line x1="'+(strX-5)+'" y1="400" x2="'+strX+'" y2="400" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+								tmpPath += '<text text-anchor="end"  x="'+(strX-10)+'" y="405" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';						
+								
+								//Y軸
+	                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+t_height)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+	                            //符號說明
+	                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60),'url(#chart2_color1)',t_byear+'年度','black');
+	                            tmpPath += MarkHelp((strX+t_width+40),(objHeight-60)+30,'url(#chart2_color3)',t_eyear+'年度','black');
+								
+							}
+							obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph" width="100%" height="100%">' + tmpPath + '</svg> ');
+                        	$('g[id*="chart2_item"]').click(function(){
+                        		var thisId = $(this).attr('id').replace('chart2_item','');
+								var alertStr = '';
+								alertStr += t_byear+'年度 '+dec(dec(thisId)+1)+' 月 : ' + FormatNumber(objpostData[thisId].total) + '\n';
+								alertStr += t_eyear+'年度 '+dec(dec(thisId)+1)+' 月 : ' + FormatNumber(objpostData[(dec(thisId)+12)].total) + '\n';
+								alert(alertStr);
+                        	}).hover(function(){
+                        		var thisId = $(this).attr('id').replace('chart2_item','');
+                        		$('#mon'+thisId).attr('fill', '#FF0000');
+                        	},function(){
+                        		var thisId = $(this).attr('id').replace('chart2_item','');
+                        		$('#mon'+thisId).attr('fill', '#000000');
+                        	});
+                        	$('[id*="mon"]').click(function(){
+                        		var thisId = $(this).attr('id').replace('mon','');
+								$('#chart2_item'+thisId).click();
+                        	}).hover(function(){
+                        		var thisId = $(this).attr('id').replace('mon','');
+                        		$('#mon'+thisId).attr('fill', '#FF0000');
+                        	},function(){
+                        		var thisId = $(this).attr('id').replace('mon','');
+                        		$('#mon'+thisId).attr('fill', '#000000');
+                        	});
+                        }
+                    });
+                    $(this).data('info').init($(this));
+				}
             })($);
             function MarkHelp(MarkXpos,MarkYpos,MarkColor,Title,TitleColor){
             	var str = '';
