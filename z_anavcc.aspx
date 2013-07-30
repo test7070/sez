@@ -60,6 +60,9 @@
                     }, {
                         type : '1',
                         name : 'xemon'
+                    }, {
+                        type : '1',
+                        name : 'xyear'
                     }]
                 });
                 q_popAssign();
@@ -71,6 +74,8 @@
                 $('#txtDate2').datepicker();
                 $('#txtMon1').mask('999/99');
                 $('#txtMon2').mask('999/99');
+                $('#txtXyear1').mask('999');
+                $('#txtXyear2').mask('999');
 				$('#txtXbmon1').val(r_accy+'/01').mask('999/99');
                 $('#txtXbmon2').val(r_accy+'/12').mask('999/99');
                 $('#txtXemon1').val(r_accy+'/01').mask('999/99');
@@ -92,6 +97,7 @@
                 	var t_bdate='#non',t_edate='#non',t_bmon='#non',t_emon='#non',t_bcustno='#non',t_ecustno='#non';
                 	var t_bsalesno='#non',t_esalesno='#non',t_bproductno='#non',t_eproductno='#non';
                 	var t_xbbmon='#non',t_xbemon='#non',t_xebmon='#non',t_xeemon='#non';
+                	var t_xbyear='#non',t_xeyear='#non';
 					if(!emp($('#txtCust1a').val()))
 						t_bcustno=encodeURI($('#txtCust1a').val());
 					if(!emp($('#txtCust2a').val()))
@@ -104,7 +110,7 @@
 						t_bproductno=encodeURI($('#txtProduct1a').val());
 					if(!emp($('#txtProduct2a').val()))
 						t_eproductno=encodeURI($('#txtProduct2a').val());
-                	if($('.radio.select').next().text().indexOf('比較圖') == -1){
+                	if(txtreport=='z_anavcc1' ||txtreport=='z_anavcc2' ||txtreport=='z_anavcc3'){
 						if(!emp($('#txtDate1').val()))
 							t_bdate=encodeURI($('#txtDate1').val());
 						if(!emp($('#txtDate2').val()))
@@ -117,7 +123,7 @@
 						t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
 						t_bproductno + ';' + t_eproductno + ';'
 						);
-					}else{
+					}else if(txtreport=='z_anavccCompare1' ||txtreport=='z_anavccCompare2'){
 						if(!emp($('#txtXbmon1').val()))
 							t_xbbmon=encodeURI($('#txtXbmon1').val());
 						if(!emp($('#txtXbmon2').val()))
@@ -130,6 +136,12 @@
 						t_xebmon + ';' + t_xeemon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
 						t_bproductno + ';' + t_eproductno + ';'
 						);
+					}else if(txtreport=='z_anavccCustyear'){
+						if(!emp($('#txtXyear1').val()))
+							t_xbyear=encodeURI($('#txtXyear1').val());
+						if(!emp($('#txtXyear2').val()))
+							t_xeyear=encodeURI($('#txtXyear2').val());
+						q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';');
 					}
 				});
 
@@ -251,6 +263,115 @@
 											}
 										);
 									}
+								}else if(txtreport == 'z_anavccCustyear'){
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'01',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='01'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'02',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='02'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'03',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='03'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'04',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='04'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'05',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='05'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'06',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='06'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'07',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='07'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'08',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='08'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'09',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='09'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'10',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='10'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'11',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='11'?as[i].total:0)
+										}
+									);
+									bar[rec].push(
+										{
+											tyear:as[i].mon.substring(0,3),
+											mon:'12',
+											custno:as[i].custno,
+											comp:as[i].comp,
+											total:(as[i].mon.substr(-2)=='12'?as[i].total:0)
+										}
+									);
 								}
 							}
 							$('#barChart2').barChart2({
