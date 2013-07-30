@@ -60,6 +60,9 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                
+                Lock(1,{opacity:0});
+        		q_gt('carteam', '', 0, 0, 0, 'init_1');
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
@@ -309,7 +312,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['transvcceno'] || !as['transvccenoq'] ) {
+                if (!as['datea']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -324,13 +327,13 @@
                	for(var i=0;i<q_bbsCount;i++){
                		$('#txtMount_'+i).val(FormatNumber(q_float('txtInmount_'+i).add(q_float('txtPton_'+i))));
                		t_val = q_float('txtPrice_'+i).mul(q_float('txtMount_'+i)).round(0);
-               		t_mount+=q_float('txtMount_'+i);
-               		t_total+=t_val;
+               		t_mount=t_mount.add(q_float('txtMount_'+i));
+               		t_total=t_total.add(t_val);
                		$('#txtTotal_'+i).val(FormatNumber(t_val));
                		$('#txtMount2_'+i).val(FormatNumber(q_float('txtOutmount_'+i).add(q_float('txtPton2_'+i))));
                		t_val = (q_float('txtPrice2_'+i).add(q_float('txtPrice3_'+i))).mul(q_float('txtMount2_'+i)).mul(q_float('txtDiscount_'+i)).round(0);
-               		t_mount2+=q_float('txtMount2_'+i);
-               		t_total2+=t_val;
+               		t_mount2=t_mount2.add(q_float('txtMount2_'+i));
+               		t_total2=t_total2.add(t_val);
                		$('#txtTotal2_'+i).val(FormatNumber(t_val));
                	}
                	$('#txtMount').val(FormatNumber(t_mount)); 
