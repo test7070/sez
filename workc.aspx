@@ -80,13 +80,14 @@
 				t_where += emp($('#txtTggno').val())?'':" and charindex ('"+$('#txtTggno').val()+"',tggno)>0 ";
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
+			//1020729 顯示未完全入庫&&未完全領料
 			$('#btnOrdes').click(function(){
 				if(q_cur==1 || q_cur==2){
 					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount group by a.ordeno,a.no2) ";
 	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
                }
 			});
-			
+			//1020729 顯示未完全入庫&&未完全領料
 			$('#btnWork').click(function(){
 				if(!emp($('#txtTggno').val())){
 					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount)";
