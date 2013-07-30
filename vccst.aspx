@@ -21,7 +21,7 @@
         var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
         var q_readonly = ['txtNoa','txtAccno','txtWorker','txtWorker2']; 
         var q_readonlys= [];
-        var bbmNum = [['txtTotalus', 10, 4, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtWeight', 10, 0, 1]];  // ���\ key �p��
+        var bbmNum = [['txtTotalus', 10, 4, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtWeight', 10, 0, 1],['txtBenifit', 10, 0, 1]];  
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtGweight', 10, 1, 1]];
         var bbmMask = [];
         var bbsMask = [['txtStyle','A']];
@@ -675,6 +675,11 @@
                 width: 65px;
                 
             }
+            .txt.c9 {
+            	float:left;
+                width: 49%;
+                
+            }
             .txt.num {
                 text-align: right;
             }
@@ -805,11 +810,13 @@
             <tr class="tr8">
             	<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"></a></td>
                 <td class="td2"><input id="txtTranmoney" type="text" class="txt num c1" /></td> 
-                <td class="td3"><span> </span><a id='lblMoney' class="lbl"></a></td>
-                <td class="td4"><input id="txtMoney" type="text" class="txt num c1" /></td> 
+                <td class="td3"><span> </span><a id='lblBenifit' class="lbl"></a></td>
+                <td class="td4"><input id="txtBenifit" type="text" class="txt num c1" /></td> 
+                <td class="td5"><span> </span><a id='lblMoney' class="lbl"></a></td>
+                <td class="td6"><input id="txtMoney" type="text" class="txt num c1" /></td> 
                 <td class="td5" ><span> </span><a id='lblTax' class="lbl"></a></td>
-                <td class="td6" ><input id="txtTax" type="text" class="txt num c1" /></td>
-                <td class="td7"><select id="cmbTaxtype" class="txt c1" onchange="calTax()"></select></td>
+                <td class="td6" ><input id="txtTax" type="text" class="txt num c9" />
+                <select id="cmbTaxtype" class="txt c9" onchange="calTax()"></select></td>
                 
             </tr>
             <tr class="tr9">
