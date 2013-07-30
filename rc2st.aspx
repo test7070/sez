@@ -39,7 +39,7 @@
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 		 ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
-		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
+		 ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -774,10 +774,10 @@
                 <td class="td8"><input id="txtPrice"  type="text" class="txt num c1" /></td> 
             </tr>
             <tr class="tr6">
-                <td class="td1"><span> </span><a id='lblCar' class="lbl btn"></td>
-                <td class="td2" colspan='2'><input id="txtCarno" type="text"  class="txt c2"/><input id="txtCar"  type="text" class="txt c3"/></td>
-                <td class="td4"><span> </span><a id='lblCarno2' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtCarno2"    type="text" class="txt c2"/></td> 
+                <td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"></td>
+                <td class="td2" colspan='2'><input id="txtCardealno" type="text"  class="txt c2"/><input id="txtCar"  type="text" class="txt c3"/></td>
+                <td class="td4"><span> </span><a id='lblCarno' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtCarno"    type="text" class="txt c2"/></td> 
                 <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"></a></td>
                 <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td> 
             </tr>
