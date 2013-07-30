@@ -22,20 +22,20 @@
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_adtran',
-					options : [{
+					options : [{/*[1]*/
 						type : '0',
 						name : 'accy',
 						value : r_accy
-					}, {
+					}, {/*[2][3]-1-1*/
 						type : '1',
 						name : 'xdate'
-					}, {
+					}, {/*[4][5]-1-2*/
 						type : '2',
 						name : 'xcardeal',
 						dbf : 'cardeal',
 						index : 'noa,comp',
 						src : 'cardeal_b.aspx'
-					}, {
+					}, {/*[6][7]-1-4*/
 						type : '6',
 						name : 'xcarno'
 					}]
