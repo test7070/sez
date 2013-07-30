@@ -46,10 +46,20 @@
                         dbf : 'part',
                         index : 'noa,part',
                         src : 'part_b.aspx'
+                    }, {/*1-1 [8],[9]*/
+                        type : '1',
+                        name : 'xbmon'
+                    }, {/*1-1 [10],[11]*/
+                        type : '1',
+                        name : 'xemon'
                     }]
                 });
                 $('#txtDate1').mask('99/99');
                 $('#txtDate2').mask('99/99');
+                $('#txtXbmon1').mask('999/99');
+                $('#txtXbmon2').mask('999/99');
+                $('#txtXemon1').mask('999/99');
+                $('#txtXemon2').mask('999/99');
                 /*$('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
