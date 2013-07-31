@@ -489,8 +489,15 @@
                 			sum();
                 		});
                 	}
-                }     
+                }           
                 _bbsAssign();   
+                if(q_cur==1 || q_cur==2)
+	                for(var i=0;i<q_bbsCount;i++){      
+	                	if($('#btnMinus_'+i).attr('disabled')=='disabled')
+	                		$('#cmbCalctype_'+i).attr('disabled','disabled');
+	                	else
+	                		$('#cmbCalctype_'+i).removeAttr('disabled');
+	                }
             }
 
             function btnIns() {

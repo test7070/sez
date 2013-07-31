@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Content-Language" content="en-us" />
@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = 'ordem', t_bbsTag = 'tbbs', t_bbtTag = 'tbbt', t_content = " ", afilter = [], t_count = 0, as, brwCount2=15;
-			var t_sqlname = 'ordem'; t_postname = q_name ; 
+			var t_sqlname = ''; t_postname = q_name ; 
 			var isBott = false;  /// 是否已按過 最後一頁
 			var afield, t_htm;
 			var i, s1;
@@ -39,7 +39,8 @@
 				{
 					dataErr = false;
 					return;
-				}
+	}
+	q_getId();
 				mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
 			}
 
@@ -201,3 +202,4 @@
 <input id="q_sys" type="hidden" />
 </body>
 </html>
+
