@@ -344,35 +344,13 @@
 	            						q_tr('txtSa_retire',labretires[i].pmoney);//勞退提繳金額
 	            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){//寄保
 	            							if(labor2_edate!=''){//退保
-	            								if(labor2_bdate.substr(0,6)==labor2_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-		            								var t_date1 = new Date(dec(labor2_bdate.substr(0,3))+1911, dec(labor2_bdate.substr(4,2))-1, dec(labor2_bdate.substr(7,2)));
-	            									var t_date2 = new Date(dec(labor2_edate.substr(0,3))+1911, dec(labor2_edate.substr(4,2))-1, dec(labor2_edate.substr(7,2)));
-	            									var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-	            									q_tr('txtRe_person',Math.round(dec(labretires[i].pcomp)/30*(t_days+1)));//個人提繳
-            									}else if(q_date().substr(0,6)<=labor2_edate.substr(0,6)){
-            										q_tr('txtRe_person',Math.round(dec(labretires[i].pcomp)/30*dec(labor2_edate.substr(7,2))));//個人提繳
-            									}else{//已退保沒有金額
-            										q_tr('txtRe_person',0);//個人提繳
-            									}
-            								}else if(q_date().substr(0,6)==labor2_bdate.substr(0,6)){//當月到職
-            									q_tr('txtRe_person',Math.round(dec(labretires[i].pcomp)/30*(30-dec(labor2_bdate.substr(7,2))+1)));//個人提繳
-	            							}else{
+            									_tr('txtRe_person',0);//個人提繳
+            								}else{
 	            								q_tr('txtRe_person',labretires[i].pcomp);//個人提繳
 	            							}
 	            						}else{//一般員工
 	            							if(labor2_edate!=''){//退保
-	            								if(labor2_bdate.substr(0,6)==labor2_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-	            									var t_date1 = new Date(dec(labor2_bdate.substr(0,3))+1911, dec(labor2_bdate.substr(4,2))-1, dec(labor2_bdate.substr(7,2)));
-	            									var t_date2 = new Date(dec(labor2_edate.substr(0,3))+1911, dec(labor2_edate.substr(4,2))-1, dec(labor2_edate.substr(7,2)));
-	            									var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-	            									q_tr('txtRe_comp',Math.round(dec(labretires[i].pcomp)/30*(t_days+1)));//勞保公司提繳
-	            								}else if(q_date().substr(0,6)<=labor2_edate.substr(0,6)){
-	            									q_tr('txtRe_comp',Math.round(dec(labretires[i].pcomp)/30*dec(labor2_edate.substr(7,2))));//勞保公司提繳
-	            								}else{//已退保沒有金額
-	            									q_tr('txtRe_comp',0);//勞保公司提繳
-	            								}
-	            							}else if(q_date().substr(0,6)==labor2_bdate.substr(0,6)){//當月到職
-	            								q_tr('txtRe_comp',Math.round(dec(labretires[i].pcomp)/30*(30-dec(labor2_bdate.substr(7,2))+1)));//勞保公司提繳
+	            								q_tr('txtRe_comp',0);//勞保公司提繳
 	            							}else{
 	            								q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
 	            							}
@@ -386,35 +364,13 @@
 	            						//q_tr('txtSa_retire',labretires[i].pmoney);//勞退提繳金額
 	            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){//寄保
 	            							if(labor2_edate!=''){//退保
-	            								if(labor2_bdate.substr(0,6)==labor2_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-		            								var t_date1 = new Date(dec(labor2_bdate.substr(0,3))+1911, dec(labor2_bdate.substr(4,2))-1, dec(labor2_bdate.substr(7,2)));
-	            									var t_date2 = new Date(dec(labor2_edate.substr(0,3))+1911, dec(labor2_edate.substr(4,2))-1, dec(labor2_edate.substr(7,2)));
-	            									var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-	            									q_tr('txtRe_person',Math.round(dec(labretires[i].pcomp)/30*(t_days+1)));//個人提繳
-            									}else if(q_date().substr(0,6)<=labor2_edate.substr(0,6)){
-            										q_tr('txtRe_person',Math.round(dec(labretires[i].pcomp)/30*dec(labor2_edate.substr(7,2))));//個人提繳
-            									}else{//已退保沒有金額
-            										q_tr('txtRe_person',0);//個人提繳
-            									}
-            								}else if(q_date().substr(0,6)==labor2_bdate.substr(0,6)){//當月到職
-            									q_tr('txtRe_person',Math.round(dec(labretires[i].pcomp)/30*(30-dec(labor2_bdate.substr(7,2))+1)));//個人提繳
-	            							}else{
+            									q_tr('txtRe_person',0);//個人提繳
+            								}else{
 	            								q_tr('txtRe_person',labretires[i].pcomp);//個人提繳
 	            							}
 	            						}else{//一般員工
 	            							if(labor2_edate!=''){//退保
-	            								if(labor2_bdate.substr(0,6)==labor2_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-	            									var t_date1 = new Date(dec(labor2_bdate.substr(0,3))+1911, dec(labor2_bdate.substr(4,2))-1, dec(labor2_bdate.substr(7,2)));
-	            									var t_date2 = new Date(dec(labor2_edate.substr(0,3))+1911, dec(labor2_edate.substr(4,2))-1, dec(labor2_edate.substr(7,2)));
-	            									var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-	            									q_tr('txtRe_comp',Math.round(dec(labretires[i].pcomp)/30*(t_days+1)));//勞保公司提繳
-	            								}else if(q_date().substr(0,6)<=labor2_edate.substr(0,6)){
-	            									q_tr('txtRe_comp',Math.round(dec(labretires[i].pcomp)/30*dec(labor2_edate.substr(7,2))));//勞保公司提繳
-	            								}else{//已退保沒有金額
-	            									q_tr('txtRe_comp',0);//勞保公司提繳
-	            								}
-	            							}else if(q_date().substr(0,6)==labor2_bdate.substr(0,6)){//當月到職
-	            								q_tr('txtRe_comp',Math.round(dec(labretires[i].pcomp)/30*(30-dec(labor2_bdate.substr(7,2))+1)));//勞保公司提繳
+	            								q_tr('txtRe_comp',0);//勞保公司提繳
 	            							}else{
 	            								q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
 	            							}
@@ -441,18 +397,7 @@
 		            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
 		            							if($('#chkIssssp')[0].checked){//寄保人員
 		            								if(labor1_edate!=''){//退保
-		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
-            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
-            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-            												q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
-		            									}else if(q_date().substr(0,6)<=labor1_edate.substr(0,6)){
-		            										q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*dec(labor1_edate.substr(7,2))));
-		            									}else{//已退保沒有金額
-		            										q_tr('txtLa_person',0);
-		            									}
-		            								}else if(q_date().substr(0,6)==labor1_bdate.substr(0,6)){//當月到職
-	            										q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(30-dec(dec(labor1_bdate.substr(7,2)))+1)));
+		            									q_tr('txtLa_person',0);
 		            								}else{//還在加保
 		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
 		            								}
@@ -460,26 +405,9 @@
 		            								q_tr('txtLa_comp',0);
 		            							}else{//一般員工
 		            								if(labor1_edate!=''){//退保
-		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
-            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
-            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-            												q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(t_days+1)));
-			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(t_days+1));
-			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
-		            									}else if(q_date().substr(0,6)<=labor1_edate.substr(0,6)){
-		            										q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*dec(labor1_edate.substr(7,2))));
-			            									t_la_person=Math.round(dec(labsals[i].lself)/30*dec(labor1_edate.substr(7,2)));
-			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*dec(labor1_edate.substr(7,2))));
-		            									}else{
-		            										q_tr('txtLa_person',0);
-			            									t_la_person=0;
-			            									q_tr('txtLa_comp',0);
-		            									}
-		            								}else if(q_date().substr(0,6)==labor1_bdate.substr(0,6)){//當月到職
-		            									q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(30-dec(labor1_bdate.substr(7,2))+1)));
-			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(30-dec(labor1_bdate.substr(7,2))+1));
-			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(30-dec(labor1_bdate.substr(7,2))+1)));
+		            									q_tr('txtLa_person',0);
+			            								t_la_person=0;
+			            								q_tr('txtLa_comp',0);
 		            								}else{//還在加保
 			            								q_tr('txtLa_person',labsals[i].lself);
 			            								t_la_person=dec(labsals[i].lself);
@@ -502,18 +430,7 @@
 		            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
 		            							if($('#chkIssssp')[0].checked){//寄保人員
 		            								if(labor1_edate!=''){//退保
-		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
-            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
-            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-            												q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
-		            									}else if(q_date().substr(0,6)<=labor1_edate.substr(0,6)){
-		            										q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*dec(labor1_edate.substr(7,2))));
-		            									}else{
-		            										q_tr('txtLa_person',0);
-		            									}
-		            								}else if(q_date().substr(0,6)==labor1_bdate.substr(0,6)){//當月到職
-	            										q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(30-dec(dec(labor1_bdate.substr(7,2)))+1)));
+		            									q_tr('txtLa_person',0);
 		            								}else{//還在加保
 		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
 		            								}
@@ -522,26 +439,9 @@
 		            								
 		            							}else{//一般員工
 		            								if(labor1_edate!=''){//退保
-		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)&&q_date().substr(0,6)<=labor2_edate.substr(0,6)){//退保與到職在當月
-		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
-            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
-            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
-            												q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(t_days+1)));
-			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(t_days+1));
-			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
-		            									}else if(q_date().substr(0,6)<=labor1_edate.substr(0,6)){
-		            										q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*dec(labor1_edate.substr(7,2))));
-			            									t_la_person=Math.round(dec(labsals[i].lself)/30*dec(labor1_edate.substr(7,2)));
-			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*dec(labor1_edate.substr(7,2))));
-		            									}else{
 		            										q_tr('txtLa_person',0);
 			            									t_la_person=0;
 			            									q_tr('txtLa_comp',0);
-		            									}
-		            								}else if(q_date().substr(0,6)==labor1_bdate.substr(0,6)){//當月到職
-		            									q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(30-dec(labor1_bdate.substr(7,2))+1)));
-			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(30-dec(labor1_bdate.substr(7,2))+1));
-			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(30-dec(labor1_bdate.substr(7,2))+1)));
 		            								}else{//還在加保
 			            								q_tr('txtLa_person',labsals[i].lself);
 			            								t_la_person=dec(labsals[i].lself);
