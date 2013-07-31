@@ -63,7 +63,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['datea']) {// Dont Save Condition
+                if(!as['carno']) {// Dont Save Condition
                     as[bbsKey[0]] = '';
                     return;
                 }

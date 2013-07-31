@@ -67,21 +67,21 @@
                         name : 'xtrandate'
                     }, {/*3 [6]*/
                         type : '6',
-                        name : 'xcarno'
+                        name : 'xcustno'
                     }, {/*4 [7]*/
                         type : '6',
-                        name : 'xtggno'
-                    }, {/*5 [8]*/
-                        type : '6',
-                        name : 'xcardealno'
-                    }, {/*6-[9]-車隊*/
+                        name : 'xcarno'
+                    }, {/*5-[8]-車隊*/
                         type : '8',
                         name : 'xcarteam',
                         value : t_carteam.split(',')
-                    }, {/*7-[10]-計算類別*/
+                    }, {/*6-[9]-計算類別*/
                         type : '8',
                         name : 'xcalctype',
                         value : t_calctypes.split(',')
+                    }, {/*7 [10]*/
+                        type : '6',
+                        name : 'xnoa'
                     }]
                 });
                 $('#txtXdate1').mask('999/99/99');
@@ -95,6 +95,8 @@
                 
                 $('#chkXcarteam').children('input').attr('checked', 'checked');
                 $('#chkXcalctype').children('input').attr('checked', 'checked');
+                if(q_getId()[5]!=undefined)
+                	$('#txtXnoa').val(q_getId()[5].replace('noa=',''));
                 q_popAssign();
                 q_langShow();
             }
