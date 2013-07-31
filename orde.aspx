@@ -69,7 +69,7 @@
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
 			
             $('#btnOrdem').click(function () {
-            	q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";ordem.noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem'),true); 
+            	q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem'),true); 
             });
             $('#btnQuat').click(function(){
             	btnQuat();
@@ -701,3 +701,4 @@
     </form>
 </body>
 </html>
+

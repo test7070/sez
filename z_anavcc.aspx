@@ -268,6 +268,7 @@
 								}else if(txtreport == 'z_anavccCustyear'||txtreport == 'z_anavccProductyear'){
 									if($('#txtXyear1').val() == $('#txtXyear2').val()){
 										alert('年度相同無法比較!!');
+										$('#txtXyear1').focus();
 										return;
 									}else{
 										bar[rec].push(
@@ -694,6 +695,7 @@
 											'</defs>';
 							}
 							if(txtreport == 'z_anavccCustyear' || txtreport == 'z_anavccProductyear'){
+								tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].comp+'</text>';
 								wStrX = strX;
 	                            var t_range = round((t_maxMoney - t_minMoney)/5,0);
 	                            var i = Math.pow(10,(t_range+'').length-1);
