@@ -1112,7 +1112,7 @@
 							<input id="txtNoq"  type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
-						<td><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
