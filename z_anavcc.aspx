@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title> </title>
-		<script src="/../script/jquery.min.js" type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
 		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src='../script/qj_mess.js' type="text/javascript"> </script>
@@ -65,9 +65,10 @@
                         name : 'xyear'
                     }]
                 });
+                q_langShow();
                 q_popAssign();
                 q_getFormat();
-                q_langShow();
+
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
@@ -143,7 +144,10 @@
 							t_xbyear=encodeURI($('#txtXyear1').val());
 						if(!emp($('#txtXyear2').val()))
 							t_xeyear=encodeURI($('#txtXyear2').val());
-						q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';');
+							if(txtreport=='z_anavccCustyear')
+								q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bcustno + ';' + t_ecustno + ';');
+							else
+								q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bproductno + ';' + t_eproductno + ';');
 					}
 				});
 
@@ -822,6 +826,8 @@
 				<div id='barChart2'> </div>
 			</div>
 		</div>
+		<div id="q_acDiv" style="display: none;"><div></div></div>
+
 		<div class="prt" style="display:none;">
 			<!--#include file="../inc/print_ctrl.inc"-->
 		</div>

@@ -39,9 +39,13 @@
 				{
 					dataErr = false;
 					return;
-	}
-	q_getId();
+				}
+				q_getId();
 				mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
+			}
+
+			function mainPost(){
+				q_cmbParse("combUsage", q_getPara('ordem.usage'));
 			}
 
 			function bbsAssign() {  /// 表身運算式
