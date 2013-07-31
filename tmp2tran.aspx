@@ -351,6 +351,9 @@
                     return;
                 Lock(1,{opacity:0});
                 _btnModi();
+                for(var i=0;i<q_bbsCount;i++){
+                	$('#btnMinus_'+i).removeAttr('disabled');
+                }
                 check_btnModi(q_bbsCount-1);
             }
 			function check_btnModi(n){
@@ -378,7 +381,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['datea']) {
+                if (!as['datea'] && !as['tranno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
