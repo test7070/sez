@@ -25,7 +25,8 @@
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
 		['txtUno', 'lblUno', 'uccc', 'noa,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'uccc_seek_b.aspx','95%','60%'],
-		['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
+		['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
+		 ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
 		//['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -956,20 +957,19 @@
 		<td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea></td>
 		</tr>
 		<tr>
-			<td class='td1'><span> </span><a id="lblComp" class="lbl"></a></td>
-			<td class="td2"><input id="txtComp" type="text" class="txt c1"/></td>
+			<td class='td1'><span> </span><a id="lblCardeal" class="lbl"></a></td>
+			<td class="td2" colspan="3"><input id="txtCardealno" type="text" class="txt c3"/>
+			<input id="txtCardeal" type="text" class="txt c4"/></td>
 			<td class='td3'><span> </span><a id="lblCarno"  class="lbl"></a></td>
 			<td class="td4"><input id="txtCarno" type="text" class="txt c1"/></td>
-			<td class='td5'><span> </span><a id="lblPrice" class="lbl" ></a></td>
-			<td class="td6"><input id="txtPrice" type="text" class="txt num c1" /></td> 
 			<td class='td7'><span> </span><a id="lblTranmoney" class="lbl" ></a></td>
 			<td class="td8"><input id="txtTranmoney" type="text" class="txt num c2" /></td>
 		</tr>
 		<tr>
 			<td class='td1'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
 			<td class="td2"><input id="txtOrdeno" type="text" class="txt c2"/></td>
-			<td class="td3"></td>
-			<td class="td4"></td>
+			<td class='td3'><span> </span><a id="lblPrice" class="lbl" ></a></td>
+			<td class="td4"><input id="txtPrice" type="text" class="txt num c1" /></td>
 			<td class="td5"></td>
 			<td class="td6"></td>
 			<td class='td7'><span> </span><a id="lblWorker" class="lbl" ></a></td>

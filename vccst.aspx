@@ -31,7 +31,7 @@
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 		 ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
-		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
+		 ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -93,9 +93,9 @@
             });
 			$('#btnImportVcce').click(function(){
 				if(q_cur == 1 || q_cur == 2){
-					var t_carno = $('#txtCarno2').val();
+					var t_carno = $('#txtCarno').val();
 					if(emp(t_carno)){
-						alert('請輸入 : 【' + q_getMsg('lblCarno2') + '】');
+						alert('請輸入 : 【' + q_getMsg('lblCarno') + '】');
 					}else{
 						t_where = "where=^^ carno='" + t_carno + "' ^^";
 						q_gt('vcce', t_where , 0, 0, 0, "",r_accy);
@@ -800,10 +800,10 @@
                 <td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr7">
-                <td class="td1"><span> </span><a id='lblCar' class="lbl btn"></td>
-                <td class="td2" colspan="3"><input id="txtCarno" type="text"  class="txt c4"/><input id="txtCar"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblCarno2' class="lbl"></a></td>
-                <td class="td5"colspan="2"><input id="txtCarno2"    type="text" class="txt c1"/></td> 
+                <td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"></td>
+                <td class="td2" colspan="3"><input id="txtCardealno" type="text"  class="txt c4"/><input id="txtCardeal"  type="text" class="txt c5"/></td>
+                <td class="td4"><span> </span><a id='lblCarno' class="lbl"></a></td>
+                <td class="td5"colspan="2"><input id="txtCarno"    type="text" class="txt c1"/></td> 
                 <td class="td6"><input id="btnImportVcce" type="button" /></td> 
                
             </tr>
