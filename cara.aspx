@@ -451,6 +451,11 @@
 		                    		q_box("lab_accc.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'labaccc', "95%", "95%", q_getMsg("popLabaccc"));
 		                    }
                 		});
+                		
+                		$('#txtMemo_'+j).click(function () {
+                			if(q_cur==0 || q_cur==4)
+           						q_msg( $(this), $(this).val());
+						});
            			}
            		}
 
