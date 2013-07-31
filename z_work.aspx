@@ -19,6 +19,21 @@
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_work');
+                
+                var txtreport='';
+                
+                $('#q_report').click(function(e) {
+                	for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
+                		if($('.radio.select').next().text()==$('#q_report').data().info.reportData[i].reportName){
+                			txtreport=$('#q_report').data().info.reportData[i].report;
+                			if(txtreport=='z_work1')
+                				$('#lblXdate').val('生產日期');
+                			if(txtreport=='z_work2')
+                				$('#lblXdate').val('排程日期');
+                		}
+                	}
+                });
+                
             });
             function q_gfPost() {
                 $('#q_report').q_report({
@@ -57,7 +72,11 @@
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
-                     }]
+                     },{
+						type : '8',
+						name : 'aberrant',
+						value : ('異常分析').split(',')
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
