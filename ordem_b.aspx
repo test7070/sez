@@ -50,14 +50,14 @@
 
 			function bbsAssign() {  /// 表身運算式
 				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-					$('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
+                    
 				}
 				_bbsAssign();
 			}
 			
 			function bbtAssign() {
 				for (var j = 0; j < (q_bbtCount == 0 ? 1 : q_bbtCount); j++) {
-					$('#btnMinus__' + j).click(function () { btnMinus($(this).attr('id'), '__'); });
+					
 				} //j
 
 				_bbtAssign();
@@ -73,19 +73,19 @@
 				var t_noa = $('#txtNoa').val();
 				switch (table) {
 					case 'ordemt':
-						if (!as['pack']) {  // Dont Save Condition
-							as[t_key] = '';   /// noa  empty --> dont save
-							return false;
-							break;
-						}
+//						if (!as['pack']) {  // Dont Save Condition
+//							as[t_key] = '';   /// noa  empty --> dont save
+//							return false;
+//							break;
+//						}
 						as[t_key] = t_noa;
 						break;
 					default:
-						if (!as['manu']) {  // Dont Save Condition
-							as[t_key] = '';   /// noa  empty --> dont save
-							return false;
-							break;
-						}
+//						if (!as['manu']) {  // Dont Save Condition
+//							as[t_key] = '';   /// noa  empty --> dont save
+//							return false;
+//							break;
+//						}
 						as[t_key] = t_noa;
 				}
 				return true;
@@ -225,4 +225,5 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
+
 
