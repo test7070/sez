@@ -69,6 +69,22 @@
 					t_where = "noa='" + ordeno + "'";
             	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 			});
+			$('#txtAddr_post').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
+			$('#txtDeivery_addr').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -107,7 +123,7 @@
             b_pop = '';
         }
 
-
+		var focus_addr='';
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'orde':
@@ -119,6 +135,13 @@
             			$('#txtTrantype').val(orde[0].trantype);
             			$('#txtAddr_post').val(orde[0].addr2);
             			$('#txtOrdeno').val(orde[0].noa);
+            		break;
+            	case 'cust':
+            		var as = _q_appendData("cust", "", true);
+            		if(as[0]!=undefined && focus_addr !=''){
+            			$('#'+focus_addr).val(as[0].addr_fact);
+            			focus_addr = '';
+            		}
             		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -505,7 +528,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 2000px;
+                width: 1600px;
             }
             .tbbs a {
                 font-size: medium;
@@ -637,7 +660,7 @@
                 <td align="center" style="width:5%;"><a id='lblEcount_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblAdjweight_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblAdjcount_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblMemo_s'> </a></td>
+                <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>

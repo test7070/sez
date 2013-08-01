@@ -83,6 +83,22 @@
 				t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno);
 				q_box("vcce_import_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+ r_accy, 'view_vcce_import', "95%", "95%", q_getMsg('popVcceImport'));
 			});
+			$('#txtAddr_post').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
+			$('#txtDeivery_addr').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -114,6 +130,7 @@
             b_pop = '';
         }
 
+		var focus_addr='';
 		var StyleList = '';
         function q_gtPost(t_name) {  
             switch (t_name) {
@@ -122,7 +139,13 @@
             			StyleList = new Array();
             			StyleList = as;
 					break;
-
+            	case 'cust':
+            		var as = _q_appendData("cust", "", true);
+            		if(as[0]!=undefined && focus_addr !=''){
+            			$('#'+focus_addr).val(as[0].addr_fact);
+            			focus_addr = '';
+            		}
+            		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
