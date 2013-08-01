@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title></title>
@@ -285,13 +286,13 @@
 				float:left;
 			}
 			.c1{
-				width:98%;
+				width:95%;
 			}
 			.c2{
 				width:85%;
 			}
 			.c3{
-				width:80%;
+				width:75%;
 			}
 			.num{
 				text-align: right;
@@ -316,10 +317,10 @@
 					<td align="center" style="width:2%;"><a id='lblStyle'></a></td>
 					<td align="center" style="width:8%;"><a id='lblUno'></a></td>
 					<td align="center" style="width:8%;"><a id='lblOrdeno'></a></td>
-					<td align="center" style="width:8%;"><a id='lblCustno'></a></td>
+					<td align="center" style="width:5%;"><a id='lblCustno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStoreno'></a></td>
-					<td align="center" style="width:3%;"><a id='lblClass'></a></td>
+					<td align="center" style="width:5%;"><a id='lblClass'></a></td>
 					<td align="center" style="width:8%;"><a id='lblProductno'></a></td>
 					<td align="center" style="width:14%;"><a id='lblSizea'></a></td>
 					<td align="center" style="width:4%;"><a id='lblMount'></a></td>
@@ -335,12 +336,12 @@
 					<td><input type="text" id="txtStyle.*" class="txt c1" style="text-align: center;"/></td>
 					<td><input type="text" id="txtUno.*" class="txt c1"/></td>
 					<td>
-						<input type="text" id="txtOrdeno.*" class="txt" style="width:70%;"/>
-						<input type="text" id="txtNo2.*" class="txt" style="width:28%;"/>
+						<input type="text" id="txtOrdeno.*" class="txt" style="width:65%;"/>
+						<input type="text" id="txtNo2.*" class="txt" style="width:25%;"/>
 					</td>
 					<td>
 						<input id="btnCustno.*" type="button" value="." class="txt btn" style="width:1%;"/>
-						<input type="text" id="txtCustno.*" class="txt c2"/>
+						<input type="text" id="txtCustno.*" class="txt c3"/>
 						<input type="text" id="txtComp.*" class="txt c1"/>
 					</td>
 					<td><input type="text" id="txtIndate.*" class="txt c1"/></td>
@@ -349,18 +350,20 @@
 						<input type="text" id="txtStoreno.*" class="txt c3"/>
 						<input type="text" id="txtStore.*" class="txt c1"/>
 					</td>
-					<td><input type="text" id="txtClass.*" class="txt c1"/></td>
+					<td>
+						<input type="text" id="txtClass.*" class="txt c1"/>
+						<input type="text" id="txtSpec.*" class="txt c1"/>
+					</td>
 					<td>
 						<input id="btnProductno.*" type="button" value="." class="txt btn" style="width:1%;"/>
 						<input type="text" id="txtProductno.*" class="txt c2"/>
 						<input type="text" id="txtProduct.*" class="txt c1"/>
 					</td>
 					<td>
-						<input type="text" id="txtSpec.*" class="txt c1"/>
-						<input type="text" id="txtRadius.*" class="num" style="width:21%;"/>x
-						<input type="text" id="txtWidth.*" class="num" style="width:21%;"/>x
-						<input type="text" id="txtDime.*" class="num" style="width:21%;"/>x
-						<input type="text" id="txtLengthb.*" class="num" style="width:21%;"/>
+						<input type="text" id="txtRadius.*" class="num" style="width:19%;"/>x
+						<input type="text" id="txtWidth.*" class="num" style="width:19%;"/>x
+						<input type="text" id="txtDime.*" class="num" style="width:19%;"/>x
+						<input type="text" id="txtLengthb.*" class="num" style="width:19%;"/>
 					</td>
 					<td><input type="text" id="txtMount.*" class="txt c1 num"/></td>
 					<td><input type="text" id="txtWeight.*" class="txt c1 num"/></td>

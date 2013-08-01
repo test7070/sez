@@ -196,7 +196,7 @@
 						<td align="center"><a id='lblManu'></a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
-						<td style="width:1%;"><input class="btn" id="btnMinus.*" type="button" value='－' style="font-weight: bold;" /></td>
+						<td style="width:1%;" align="center"><input class="btn" id="btnMinus.*" type="button" value='－' style="font-weight: bold;" /></td>
 						<td style="width:6%;"><input class="txt" id="txtManuno.*" type="text" style="width:98%;" /></td>
 						<td style="width:6%;"><input class="txt" id="txtManu.*" type="text" style="width:98%;" />
 						<input id="txtNoa.*" type="hidden" /><input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
@@ -211,7 +211,7 @@
 						<td align="center"><a id='lblPack'></a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
-						<td style="width:1%;"><input class="btn"  id="btnMinut..*" type="button" value='－' style="font-weight: bold; "  /></td>
+						<td style="width:1%;" align="center"><input class="btn"  id="btnMinut..*" type="button" value='－' style="font-weight: bold; "  /></td>
 						<td style="width:6%;"><input class="txt"  id="txtPackno..*" type="text" style="width:98%;"  /></td>
 						<td style="width:6%;"><input class="txt" id="txtPack..*" type="text" style="width:98%;" />
 						<input id="txtNoa..*" type="hidden" /><input id="txtNoq..*" type="hidden" /><input id="recno..*" type="hidden" /></td>

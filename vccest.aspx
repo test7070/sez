@@ -713,12 +713,11 @@
                 <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblMount_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblWeight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblEweight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblEcount_s'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblEcount_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblAdjweight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblAdjcount_s'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblAdjcount_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -750,7 +749,6 @@
                 <td ><input class="txt c1" id="txtSize.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
                 <td align="center" ><input id="chkEnda.*" type="checkbox"/></td>
                 <td ><input class="txt num c1" id="txtEweight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtEcount.*" type="text" /></td>
