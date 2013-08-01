@@ -39,9 +39,13 @@
 				{
 					dataErr = false;
 					return;
-	}
-	q_getId();
+				}
+				q_getId();
 				mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
+			}
+
+			function mainPost(){
+				q_cmbParse("combUsage", q_getPara('ordem.usage'));
 			}
 
 			function bbsAssign() {  /// 表身運算式
@@ -86,11 +90,11 @@
 				}
 				return true;
 			}
-/*
+
 			function btnModi() {
 				_btnModi();
 			}
-*/
+
 			function q_gtPost(t_postname) {
 			}
 
@@ -125,81 +129,100 @@
 			function q_appendData(t_Table) {
 				return _q_appendData(t_Table);
 			}
-
-</script>
-<style type="text/css">
-	.seek_tr
-	{color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
-			.column1
-		{		   width: 18%;		}
-		.column2
-		{			width: 15%;		}	  
-		.column3
-		{			width: 33%;		}   
-		.label1
-		{			width: 10%;text-align:right;		}	   
-		.label2
-		{			width: 10%;text-align:right;		}
-		.label3
-		{			width: 10%;text-align:right;		}
-</style>
-</head>
-<body>
-<div class='dbbm' style="width: 68%;float: left;">
-<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-	<tr>
-		<td class="lable1"  align="right"><a id='lblUsage'></a></td>
-		<td class="column1" ><input id="txtUsage" maxlength='30' type="text"  style='width:50%;'/><select id="combUsage" style='width:45%;'  onchange='combUsage_chg()' /></td>
-		<td class="label2" align="right" ><a id='lblProductno'></a></td>
-		<td class="column2"><input id="txtProductno" maxlength='30' type="text"  style='width:100%;'/></td>
-		<td class="label3" align="right"><a id='lblOrdcno'></a></td>
-		<td class="column3" ><input id="txtOrdcno"   type="text"  maxlength='30'   style='width:85%;'/></td> 
-	</tr>
-	<tr>
-		<td class="label1"  align="right"><a id='lblModel'></a></td>
-		<td class="column1" ><input id="txtModel" maxlength='30' type="text"  style='width:100%;'/></td>
-		<td class="label2" align="right" ><a id='lblRdate'></a></td>
-		<td class="column2"><input id="txtRdate" maxlength='30' type="text"  style='width:100%;'/></td>
-		<td class="label3" align="right"><a id='lblPacks'></a></td>
-		<td class="column3" ><input id="txtPacks"   type="text"  maxlength='30'   style='width:85%;'/>
-		 <input id="txtNoa" type="text"  style='visibility: hidden;width:5%;'/></td>
-	</tr>
-</table>
-</div>
-<div  id="dbbs"  style="float: left;  width:45%;"  >
-		<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100% '  >
-			<tr style='color:White; background:#003366;' >
-				<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;" /> </td>
-				<td align="center"><a id='lblManuno'></a></td>
-				<td align="center"><a id='lblManu'></a></td>
-			</tr>
-			<tr  style='background:#cad3ff;'>
-				<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold; "  /></td>
-				<td style="width:6%;"><input class="txt"  id="txtManuno.*" maxlength='30'type="text" style="width:98%;"   /></td>
-				<td style="width:6%;"><input class="txt" id="txtManu.*" type="text" maxlength='90' style="width:98%;"   />
-				<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
-			</tr>
-		</table>
-</div>
-<div  id="dbbt"  style="float: left;  width:45%;"  >
-		<table id="tbbt" class='tbbt'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
-			<tr  style='color:White; background:#009999;' >
-				<td align="center"><input class="btn"  id="btnPlut" type="button" value='＋' style="font-weight: bold;"  /> </td>
-				<td align="center"><a id='lblPackno'></a></td>
-				<td align="center"><a id='lblPack'></a></td>
-			</tr>
-			<tr  style='background:#cad3ff;'>
-				<td style="width:1%;"><input class="btn"  id="btnMinut..*" type="button" value='－' style="font-weight: bold; "  /></td>
-				<td style="width:6%;"><input class="txt"  id="txtPackno..*" maxlength='30'type="text" style="width:98%;"  /></td>
-				<td style="width:6%;"><input class="txt" id="txtPack..*" type="text" maxlength='90' style="width:98%;" />
-				<input id="txtNoq..*" type="hidden" /><input id="recno..*" type="hidden" /></td>
-			</tr>
-		</table>
-</div>
-
-<!--#include file="../inc/pop_modi.inc"--> 
-
-<input id="q_sys" type="hidden" />
-</body>
+		</script>
+		<style type="text/css">
+			.seek_tr {
+				color:white;
+				text-align:center;
+				font-weight:bold;
+				BACKGROUND-COLOR: #76a2fe
+			}
+			.column1 {
+				width: 18%;
+			}
+			.column2 {
+				width: 15%;
+			}
+			.column3 {
+				width: 33%;
+			}
+			.label1 {
+				width: 10%;
+				text-align:right;
+			}
+			.label2 {
+				width: 10%;
+				text-align:right;
+			}
+			.label3 {
+				width: 10%;
+				text-align:right;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="float:left;width:100%;margin-bottom: 10px;">
+			<div class='dbbm' style="width: 68%;float: left;">
+				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
+					<tr>
+						<td class="lable1" align="right"><a id='lblUsage'></a></td>
+						<td class="column1">
+							<input id="txtUsage" maxlength='30' type="text"  style='width:50%;'/>
+							<select id="combUsage" style="width:40%;" onchange="combUsage_chg();"> </select>
+						</td>
+						<td class="label2" align="right" ><a id='lblProductno'></a></td>
+						<td class="column2"><input id="txtProductno" type="text" style='width:100%;'/></td>
+						<td class="label3" align="right"><a id='lblOrdcno'></a></td>
+						<td class="column3" ><input id="txtOrdcno" type="text" style='width:85%;'/></td> 
+					</tr>
+					<tr>
+						<td class="label1" align="right"><a id='lblModel'></a></td>
+						<td class="column1"><input id="txtModel" type="text" style='width:100%;'/></td>
+						<td class="label2" align="right" ><a id='lblRdate'></a></td>
+						<td class="column2"><input id="txtRdate" type="text" style='width:100%;'/></td>
+						<td class="label3" align="right"><a id='lblPacks'></a></td>
+						<td class="column3" >
+							<input id="txtPacks" type="text" style='width:85%;'/>
+							<input id="txtNoa" type="text" style='display: none;'/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="dbbs" style="float: left; width:45%;"  >
+				<table id="tbbs" class='tbbs'  border="2" cellpadding='2' cellspacing='1' style='width:100%'>
+					<tr style='color:White; background:#003366;' >
+						<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;" /> </td>
+						<td align="center"><a id='lblManuno'></a></td>
+						<td align="center"><a id='lblManu'></a></td>
+					</tr>
+					<tr style='background:#cad3ff;'>
+						<td style="width:1%;"><input class="btn" id="btnMinus.*" type="button" value='－' style="font-weight: bold;" /></td>
+						<td style="width:6%;"><input class="txt" id="txtManuno.*" type="text" style="width:98%;" /></td>
+						<td style="width:6%;"><input class="txt" id="txtManu.*" type="text" style="width:98%;" />
+						<input id="txtNoa.*" type="hidden" /><input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+					</tr>
+				</table>
+			</div>
+			<div id="dbbt" style="float: left; width:45%;" >
+				<table id="tbbt" class='tbbt'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+					<tr style='color:White; background:#009999;' >
+						<td align="center"><input class="btn"  id="btnPlut" type="button" value='＋' style="font-weight: bold;"  /> </td>
+						<td align="center"><a id='lblPackno'></a></td>
+						<td align="center"><a id='lblPack'></a></td>
+					</tr>
+					<tr style='background:#cad3ff;'>
+						<td style="width:1%;"><input class="btn"  id="btnMinut..*" type="button" value='－' style="font-weight: bold; "  /></td>
+						<td style="width:6%;"><input class="txt"  id="txtPackno..*" type="text" style="width:98%;"  /></td>
+						<td style="width:6%;"><input class="txt" id="txtPack..*" type="text" style="width:98%;" />
+						<input id="txtNoa..*" type="hidden" /><input id="txtNoq..*" type="hidden" /><input id="recno..*" type="hidden" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div>
+			<!--#include file="../inc/pop_modi.inc"-->
+		</div>
+		<input id="q_sys" type="hidden" />
+	</body>
 </html>
 
