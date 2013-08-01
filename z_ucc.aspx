@@ -46,6 +46,10 @@
 							type : '5',
 							name : 'ucctype',
 							value : [q_getPara('report.all')].concat(q_getPara('uccst.typea').split(','))
+	                    }, {
+							type : '5',
+							name : 'outtypea',
+							value : ('all@全部,out@委外,notout@非委外').split(',')
 	                    }
                     ]
                 });
