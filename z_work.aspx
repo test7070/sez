@@ -29,7 +29,7 @@
                 			if(txtreport=='z_work1'||txtreport=='z_work5')
                 				$('#lblXdate').text('生產日期');
                 			else
-                				$('#lblXdate').text('排程日期');
+                				$('#lblXdate').text('應開工日');
                 		}
                 	}
                 });
