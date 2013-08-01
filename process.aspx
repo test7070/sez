@@ -18,7 +18,7 @@
 
             var q_name = "process";
             var q_readonly = [];
-            var bbmNum = [];
+            var bbmNum = [['txtHours',10,1,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -358,6 +358,8 @@
 					<tr>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td><input id="txtTypea"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblHours' class="lbl"> </a></td>
+						<td><input id="txtHours"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
