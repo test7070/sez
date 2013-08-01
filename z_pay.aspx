@@ -17,121 +17,130 @@
 		<script type="text/javascript">
 		aPop = new Array(['txtXcno', '', 'acomp', 'noa,acomp,nick', 'txtXcno', "acomp_b.aspx"],
 						 ['txtXpart', '', 'part', 'part,noa', 'txtXpart', "part_b.aspx"]);
-           if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
-            }
-            $(document).ready(function() {
-            	q_getId();
-                q_gf('', 'z_pay');
-            });
-            function q_gfPost() {
-               $('#q_report').q_report({
-                        fileName : 'z_pay',
-                        options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : r_accy+"_"+r_cno
-                    },{
-                        type : '6',
-                        name : 'xcno'
-                    },{
-                        type : '6',
-                        name : 'xpart'
-                    }, {
-                        type : '1',
-                        name : 'date'
-                    }, {
-                        type : '2',
-                        name : 'xtgg',
-                        dbf : 'tgg',
-                        index : 'noa,comp',
-                        src : 'tgg_b.aspx'
-                    },{
-                        type : '1',
-                        name : 'xdate'
-                    },{
-                        type : '6',
-                        name : 'xmon'
-                    },{
-                        type : '6',
-                        name : 'partno'
-                    }, {
-                        type : '2',
-                        name : 'xpartno',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                    },{
-						type : '0',
+		if (location.href.indexOf('?') < 0) {
+			location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
+		}
+		$(document).ready(function() {
+			q_getId();
+			q_gf('', 'z_pay');
+		});
+		function q_gfPost() {
+		   $('#q_report').q_report({
+				fileName : 'z_pay',
+				options : [{
+					type : '0', //[1]
+					name : 'accy',
+					value : r_accy+"_"+r_cno
+					}, {
+						type : '6',//[2]
+						name : 'xcno'
+					}, {
+						type : '6',//[3]
+						name : 'xpart'
+					}, {
+						type : '1',//[4][5]
+						name : 'date'
+					}, {
+						type : '2',//[6][7]
+						name : 'xtgg',
+						dbf : 'tgg',
+						index : 'noa,comp',
+						src : 'tgg_b.aspx'
+					}, {
+						type : '1',//[8][9]
+						name : 'xdate'
+					}, {
+						type : '6', //[10]
+						name : 'xmon'
+					}, {
+						type : '6', //[11]
+						name : 'partno'
+					}, {
+						type : '2', //[12][13]
+						name : 'xpartno',
+						dbf : 'part',
+						index : 'noa,part',
+						src : 'part_b.aspx'
+					}, {
+						type : '0', //[14]
 						name : 'xaccy',
 						value : r_accy
 					}, {
-                        type : '1',
-                        name : 'smon'
-                    }]
-                    });
-                q_popAssign();
-                 $('#txtDate1').mask('999/99/99');
-	             $('#txtDate1').datepicker();
-	             $('#txtDate2').mask('999/99/99');
-	             $('#txtDate2').datepicker();  
-                 $('#txtXdate1').mask('99/99');
-	             $('#txtXdate2').mask('99/99');
-	             $('#txtXmon').mask('999/99'); 
-	             $('#txtSmon1').mask('999/99');
-	             $('#txtSmon2').mask('999/99');   
-                
-                
-                 var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                $('#txtXmon').val(t_year+'/'+t_month);
-	                $('#txtSmon1').val(t_year+'/'+t_month);
-	                $('#txtSmon2').val(t_year+'/'+t_month);
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXdate1').val(t_month+'/'+t_day);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXdate2').val(t_month+'/'+t_day);
-	                }
-
-            function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
-            }
+						type : '1', //[15][16]
+						name : 'smon'
+					}, {
+						type : '2', //[17][18]
+						name : 'sales',
+						dbf : 'sss',
+						index : 'noa,namea',
+						src : 'sss_b.aspx'
+					}, {
+						type : '2', //[19][20]
+						name : 'product',
+						dbf : 'ucc',
+						index : 'noa,product',
+						src : 'ucc_b.aspx'
+				}]
+			});
+			q_popAssign();
+			$('#txtDate1').mask('999/99/99');
+			$('#txtDate1').datepicker();
+			$('#txtDate2').mask('999/99/99');
+			$('#txtDate2').datepicker();  
+			$('#txtXdate1').mask('99/99');
+			$('#txtXdate2').mask('99/99');
+			$('#txtXmon').mask('999/99'); 
+			$('#txtSmon1').mask('999/99');
+			$('#txtSmon2').mask('999/99');   
+			var t_date,t_year,t_month,t_day;
+				t_date = new Date();
+				t_date.setDate(1);
+				t_year = t_date.getUTCFullYear()-1911;
+				t_year = t_year>99?t_year+'':'0'+t_year;
+				t_month = t_date.getUTCMonth()+1;
+				t_month = t_month>9?t_month+'':'0'+t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day>9?t_day+'':'0'+t_day;
+				$('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+				$('#txtXmon').val(t_year+'/'+t_month);
+				$('#txtSmon1').val(t_year+'/'+t_month);
+				$('#txtSmon2').val(t_year+'/'+t_month);
+				t_date = new Date();
+				t_date.setDate(35);
+				t_date.setDate(0);
+				t_year = t_date.getUTCFullYear()-1911;
+				t_year = t_year>99?t_year+'':'0'+t_year;
+				t_month = t_date.getUTCMonth()+1;
+				t_month = t_month>9?t_month+'':'0'+t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day>9?t_day+'':'0'+t_day;
+				$('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+			var t_date,t_year,t_month,t_day;
+				t_date = new Date();
+				t_date.setDate(1);
+				t_year = t_date.getUTCFullYear()-1911;
+				t_year = t_year>99?t_year+'':'0'+t_year;
+				t_month = t_date.getUTCMonth()+1;
+				t_month = t_month>9?t_month+'':'0'+t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day>9?t_day+'':'0'+t_day;
+				$('#txtXdate1').val(t_month+'/'+t_day);
+				
+				t_date = new Date();
+				t_date.setDate(35);
+				t_date.setDate(0);
+				t_year = t_date.getUTCFullYear()-1911;
+				t_year = t_year>99?t_year+'':'0'+t_year;
+				t_month = t_date.getUTCMonth()+1;
+				t_month = t_month>9?t_month+'':'0'+t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day>9?t_day+'':'0'+t_day;
+				$('#txtXdate2').val(t_month+'/'+t_day);
+				}
+			function q_boxClose(s2) {
+			}
+			function q_gtPost(s2) {
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -148,6 +157,4 @@
 			</div>
 		</div>
 	</body>
-</html>
-           
-          
+</html>  
