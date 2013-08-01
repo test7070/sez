@@ -29,7 +29,7 @@
                 			if(txtreport=='z_work1'||txtreport=='z_work5')
                 				$('#lblXdate').text('生產日期');
                 			else
-                				$('#lblXdate').text('排程日期');
+                				$('#lblXdate').text('應開工日');
                 		}
                 	}
                 });
@@ -73,19 +73,26 @@
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
                      },{
-						type : '8',
+						type : '8',//[13]
 						name : 'aberrant',
 						value : ('異常').split(',')
-					}]
+					},{
+                        type : '2', //[14] [15]
+                        name : 'xprocess',
+                        dbf : 'process',
+                        index : 'noa,process',
+                        src : 'process_b.aspx'
+                    }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate1').val(q_date().substring(0,4)+'06/01');
+                $('#txtXdate1').val(q_date().substring(0,7)+'01');
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
+                
             }
 
             function q_boxClose(s2) {
@@ -94,6 +101,26 @@
             function q_gtPost(s2) {
             }
 		</script>
+		<style type="text/css">
+			.q_report .report {
+			    position: relative;
+			    width: 440px;
+			    margin-right: 2px;
+			    border: 1px solid #76a2fe;
+			    background: #EEEEEE;
+			    float: left;
+			    border-radius: 5px;
+			}
+			.q_report .report div {
+			    display: block;
+			    float: left;
+			    width: 220px;
+			    height: 30px;
+			    font-size: 14px;
+			    font-weight: normal;
+			    cursor: pointer;
+			}
+		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"

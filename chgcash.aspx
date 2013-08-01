@@ -36,7 +36,7 @@
 		    q_desc = 1;
 		    aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
             , ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMemo_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            , ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
+            , ['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx']
             , ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx']
             , ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
             , ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
@@ -220,6 +220,12 @@
 		        		return;
 		        	}
 		        }
+		        
+		        if(emp($('#txtPartno').val()) || $('#txtPartno').val()=='0'){
+		        	$('#txtPartno').val($('#cmbPartno_0').val());
+		        	$('#txtPart').val($('#cmbPartno_0').find(":selected").text());
+		        }
+		        
 		        sum();
 		        if(q_cur ==1){
 	            	$('#txtWorker').val(r_name);
@@ -622,6 +628,8 @@
 						<td>
 						<input id="txtSssno"  type="text"  class="txt c4"/>
 						<input id="txtNamea" type="text"  class="txt c4"/>
+						<input id="txtPartno"  type="hidden"/>
+						<input id="txtPart" type="hidden"/>
 						</td>
 					</tr>
 					<tr>
