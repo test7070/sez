@@ -46,27 +46,22 @@
             }///  end Main()
 
             function mainPost() {
-                bbmMask = new Array(['txtDatea', r_picd], ['txtMon', r_picm]);
+                bbmMask = new Array(['txtDatea', r_picd], ['txtMon', r_picm],['txtBdate', r_picd], ['txtEdate', r_picd]);
                 q_mask(bbmMask);
-                bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
-                q_mask(bbmMask2);
-                //q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
-                //q_gt('carteam', '', 0, 0, 0, "");
-                $('#btnChoutprice').click(function() {
-                    q_func("traneprice.eprice", $('#txtNoa').val());
-                });
-
-                /*$("#cmbCarteamno").focus(function() {
-                    var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
-                    $("#cmbCarteamno").attr('size', len + "");
-                }).blur(function() {
-                    $("#cmbCarteamno").attr('size', '1');
-                });*/
+ 
+                if(q_getPara('sys.comp').substring(0,2)=='大昌'){
+                	q_cmbParse("cmbCalctype", "0@全部,1@公司車,2@外車");
+                }else{
+                	q_gt('calctype2', '', 0, 0, 0, "calctype");
+                }
                 $("#cmbCalctype").focus(function() {
                     var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
                     $("#cmbCalctype").attr('size', len + "");
                 }).blur(function() {
                     $("#cmbCalctype").attr('size', '1');
+                });
+                $('#btnChoutprice').click(function() {
+                    q_func("traneprice.eprice", $('#txtNoa').val());
                 });
             }
 
@@ -91,23 +86,19 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'carteam':
-                        var as = _q_appendData("carteam", "", true);
-                        var t_item = "";
+                    case 'calctype':
+                    	t_calctypes = '';
+                        var as = _q_appendData("calctypes", "", true);
                         for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+                            t_calctypes += (t_calctypes.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
                         }
-                        q_cmbParse("cmbCarteamno", t_item);
+                        q_cmbParse("cmbCalctype", t_calctypes);
                         if (abbm.length > 0)
-                            $("#cmbCarteamno").val(abbm[q_recno].carteamno);
+                            $("#cmbCalctype").val(abbm[q_recno].calctype);
                         break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }
@@ -479,11 +470,7 @@
 						</td>
 						<td class="td3"><span> </span><a id="lblCalctype" class="lbl"> </a></td>
 						<td class="td4" >
-						<select id="cmbCalctype" class="txt c1">
-							<option value="0">全部</option>
-							<option value="1">公司車</option>
-							<option value="2">外車</option>
-						</select></td>
+						<select id="cmbCalctype" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
