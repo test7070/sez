@@ -2,13 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 		    this.errorHandler = null;
 		    function onPageError(error) {
@@ -16,10 +20,10 @@
 		    }
 
 		    q_tables = 's';
-		    var q_name = "fixa";
+		    var q_name = "fixa4tgg";
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal','txtWorker'];
 		    var q_readonlys = ['txtMemo2'];
-		    var bbmNum = new Array(['txtMiles', 10, 0],['txtDiscount', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
+		    var bbmNum = new Array(['txtMoney', 10, 0]);
 		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -34,52 +38,20 @@
 		    	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
 		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
 		    	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-		    	['txtWacc1', 'lblWacc1', 'acc', 'acc1,acc2', 'txtWacc1,txtWacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
-		    	['txtCacc1', 'lblCacc1', 'acc', 'acc1,acc2', 'txtCacc1,txtCacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
+		  
 		    	['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], 
-		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
+		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx',0,0,'txtTggno','noa']);
 		    q_desc = 1;
 		    
-		    function currentData() {}
-			currentData.prototype = {
-				data : [],
-				/*新增時複製的欄位*/
-				include : ['txtDatea','txtFixadate','txtTggno','txtTgg','txtNick'],
-				/*記錄當前的資料*/
-				copy : function() {
-					curData.data = new Array();
-					for (var i in fbbm) {
-						var isInclude = false;
-						for (var j in curData.include) {
-							if (fbbm[i] == curData.include[j]) {
-								isInclude = true;
-								break;
-							}
-						}
-						if (isInclude) {
-							curData.data.push({
-								field : fbbm[i],
-								value : $('#' + fbbm[i]).val()
-							});
-						}
-					}
-				},
-				/*貼上資料*/
-				paste : function() {
-					for (var i in curData.data) {
-						$('#' + curData.data[i].field).val(curData.data[i].value);
-					}
-				}
-			};
-			var curData = new currentData();
-			
+		    			
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
 		        q_brwCount();
-		        q_getId();
-		        //alert(r_userno);
-		        q_gt(q_name, "where=^^ tggno='"+r_userno+"'^^", q_sqlCount, 1);
+		        //alert(q_content);
+		        q_content="where=^^ tggno='A01'^^";
+		        //q_gt(q_name,"where=^^ tggno='"+r_userno+"'^^", q_sqlCount, 1);
+		        q_gt(q_name,q_content, q_sqlCount, 1);
 		    });
 		    //////////////////   end Ready
 		    function main() {
@@ -97,23 +69,8 @@
 
 		    function mainPost() {
 		        q_getFormat();
-		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtFixadate', r_picd]];
+		        bbmMask = [['txtDatea', r_picd]];
 		        q_mask(bbmMask);
-		        q_cmbParse("cmbWtype", q_getPara('fixa.wtype'),'s');
-		        $('#txtTax').change(function () {
-		            sum();
-		        });
-		        $('#txtDiscount').change(function () {
-		            sum();
-		        });
-		        $('#txtWacc1').change(function(e) {
-                    var patt = /^(\d{4})([^\.,.]*)$/g;
-                    $(this).val($(this).val().replace(patt, "$1.$2"));
-                });
-                $('#txtCacc1').change(function(e) {
-                    var patt = /^(\d{4})([^\.,.]*)$/g;
-                    $(this).val($(this).val().replace(patt, "$1.$2"));
-                });
 		    }
 
 		    function q_boxClose(s2) {
@@ -128,40 +85,6 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
-		        	case 'btnDele':
-                		var as = _q_appendData("paybs", "", true);
-                        if (as[0] != undefined) {
-                        	var t_msg = "";
-                        	for(var i=0;i<as.length;i++){
-                    			t_msg += String.fromCharCode(13)+'立帳單號【'+as[i].noa+'】 ';
-                        	}
-                        	if(t_msg.length>0){
-                        		alert('已立帳:'+ t_msg);
-                        		Unlock(1);
-                        		return;
-                        	}
-                        }
-                    	_btnDele();
-                    	Unlock(1);
-                		break;
-                	case 'btnModi':
-                		var as = _q_appendData("paybs", "", true);
-                        if (as[0] != undefined) {
-                        	var t_msg = "";
-                        	for(var i=0;i<as.length;i++){
-                    			t_msg += String.fromCharCode(13)+'立帳單號【'+as[i].noa+'】 ';
-                        	}
-                        	if(t_msg.length>0){
-                        		alert('已立帳:'+ t_msg);
-                        		Unlock(1);
-                        		return;
-                        	}
-                        }
-	                	_btnModi();
-				        sum();
-	                	Unlock(1);
-                		$('#txtCarno').focus();
-                		break;
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
@@ -201,16 +124,7 @@
             		Unlock(1);
             		return;
 				}
-				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
-                    alert(q_getMsg('lblMon') + '錯誤。');
-                    Unlock(1);
-					return;
-				}
-	            if($('#txtFixadate').val().length == 0 || !q_cd($('#txtFixadate').val())){
-					alert(q_getMsg('lblFixadate')+'錯誤。');
-            		Unlock(1);
-            		return;
-				}
+		
  		        sum();
                 if(q_cur ==1){
 	            	$('#txtWorker').val(r_name);
@@ -231,7 +145,7 @@
 		        if (q_cur > 0 && q_cur < 4)// 1-3
 		            return;
 
-		        q_box('fixa_s.aspx', q_name + '_s', "500px", "550px", q_getMsg("popSeek"));
+		        q_box('fixa4tgg_s.aspx', q_name + '_s', "500px", "550px", q_getMsg("popSeek"));
 		    }
 
 		    function bbsAssign() {
@@ -265,9 +179,7 @@
 		    }
 
 		    function btnIns() {
-		        curData.copy();
                 _btnIns();
-                curData.paste();
                 $('#txtNoa').val('AUTO');
                 if($('#txtDatea').val().length==0)
                		$('#txtDatea').val(q_date());
@@ -766,46 +678,30 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:50px;"><a id='lblWtype_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
 					
 					<td align="center" style="width:80px;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblMemo2_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><select id="cmbWtype.*" class="txt c1"> </select></td>
+					<td><input class="txt num c1" id="txtCarno.*" type="text" /></td>
 					<td>
-					<input class="txt" id="txtProductno.*" type="text" style="width:25%;"/>
-					<input class="txt" id="txtProduct.*"type="text" style="width:55%;"/>
-					<input id="btnProductno.*" type="button" value="..." style="width: 10%;" />
+						<input class="txt" id="txtProductno.*" type="text" style="width:25%;"/>
+						<input class="txt" id="txtProduct.*"type="text" style="width:55%;"/>
+						<input id="btnProductno.*" type="button" value="..." style="width: 10%;" />
 					</td>
-					<td>
-					<input class="txt c1" id="txtUnit.*" type="text" style="text-align: center;"/>
-					</td>
-					<td>
-					<input class="txt num c1" id="txtPrice.*" type="text" />
-					</td>
-					<td>
-					<input class="txt num c1" id="txtMount.*" type="text" />
-					</td>
-					<td>
-					<input class="txt num c1" id="txtMoney.*" type="text" />
-					</td>
-					<td>
-					<input class="txt c1" id="txtMemo.*" type="text" />
-					<input id="txtNoq.*" type="hidden" />
-					</td>
-					<td>
-					<input class="txt c1" id="txtMemo2.*" type="text" />
-					</td>
+					<td><input class="txt num c1" id="txtPrice.*" type="text" /></td>
+					<td><input class="txt num c1" id="txtMount.*" type="text" /></td>
+					<td><input class="txt num c1" id="txtMoney.*" type="text" /></td>
+					<td><input class="txt c1" id="txtMemo.*" type="text" /></td>
 				</tr>
 				
 			</table>
