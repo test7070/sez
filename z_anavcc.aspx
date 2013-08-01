@@ -68,7 +68,14 @@
 				q_langShow();
 				q_popAssign();
 				q_getFormat();
-
+				var lastClick = -1;
+				$('.report').click(function(){
+					var t_index = $('#q_report').data('info').radioIndex;
+					if(t_index != lastClick){
+						$('#barChart2').html('').removeAttr('style')
+						lastClick=t_index;
+					}
+				});
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
