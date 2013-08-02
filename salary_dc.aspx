@@ -489,9 +489,12 @@
 		                        i--;
 		                    }else{
 		                    	//新進員工薪資(不滿一個月)=本俸+主管津貼+交通津貼+工作津貼+其他津貼/30*工作天數(且福利金=0全勤=0) 5/3含六日
-		                    	if(as[i].indate>date_1){//計算工作天數
+		                    	if(as[i].indate>=date_1){//計算工作天數
 		                    		var t_date=as[i].indate,inday=0;
-		                    		inday=dec(date_2.substr(7,2))-dec(t_date.substr(7,2))+1
+		                    		if(!emp(as[i].outdate))//當月離職
+		                    			inday=dec(as[i].outdate.substr(7,2))-dec(t_date.substr(7,2))+1
+		                    		else
+		                    			inday=dec(date_2.substr(7,2))-dec(t_date.substr(7,2))+1
 		                    				                    		
 		                    		as[i].memo="新進員工(工作日:"+inday+")";
 		                    		as[i].bo_full=0;
@@ -499,8 +502,20 @@
 		                    		
 		                    		//勞保勞退變動(102/06/10勞健保抓立帳資料所以直接抓salinsures不須在計算)
 		                    		//as[i].ch_labor=round(dec(as[i].ch_labor)/30*inday,0)
-		                    		as[i].ch_labor_comp=round(dec(as[i].ch_labor_comp)/30*inday,0)
+		                    		//as[i].ch_labor_comp=round(dec(as[i].ch_labor_comp)/30*inday,0)
 		                    		//as[i].ch_labor_self=round(dec(as[i].ch_labor_self)/30*inday,0)
+		                    	}
+		                    	
+		                    	//離職員工
+		                    	if(as[i].indate<date_1&&!emp(as[i].outdate)){
+		                    		var t_date=as[i].outdate,inday=0;
+		                    		inday=dec(t_date.substr(7,2))-dec(date_1.substr(7,2))+1
+		                    		as[i].memo="離職員工(工作日:"+inday+")";
+		                    		as[i].iswelfare='false';
+		                    		
+		                    		//滿一個月才有全勤
+		                    		if(t_date!=date_2)
+		                    			as[i].bo_full=0;
 		                    	}
 		                    	
 			                    //請假扣薪
@@ -833,7 +848,7 @@
         	for (var j = 0; j < q_bbsCount; j++) {
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼+其他加項
         		//5/3本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼直接換算
-        		if($('#txtMemo_'+j).val().indexOf('新進員工')>-1&&imports){
+        		if(($('#txtMemo_'+j).val().indexOf('新進員工')>-1 || $('#txtMemo_'+j).val().indexOf('離職員工')>-1 )&&imports){
         			var inday=0;
         			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
         			q_tr('txtMoney_'+j,round((dec($('#txtMoney_'+j).val()))/30*inday,0));

@@ -116,83 +116,20 @@
                 });
                 //0926改為開啟視窗
                 $('#btnVcc').click(function(e) {
-                    //umm_trd();
-                    //201307/16因客戶2會輸入很多，所以將判斷條件移到開起qbox才查詢
-                    var t_where='',t_where1='',t_where2='',t_where3='',t_where4='',t_where5='',t_where6='',t_where7='';
-                    /*if (!emp($('#txtCustno').val())) {
-                      //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-						t_where = "(a.custno='" + $.trim($('#txtCustno').val()) + "'";
-						t_where6= " where[6]=^^ (a.custno='" + $.trim($('#txtCustno').val()) + "'";
-						t_where3 = " where[3]=^^ (c.noa='" + $('#txtCustno').val() + "' ";
-						t_where5 = " where[5]=^^(((a.custno='" + $('#txtCustno').val() + "' ";
-						
-						if(!emp($('#txtDatea').val()))
-							t_where4 = " where[4]=^^ mon='"+$('#txtDatea').val().substr(0,6)+"' ^^";
-						else
-							t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
-						
-                        if (!emp($('#txtCustno2').val())) {
-                            var t_custno2 = ($('#txtCustno2').val()).split(",");
-                            for (var i = 0; i < t_custno2.length; i++) {
-                                t_where += " or a.custno ='" + t_custno2[i] + "'"
-                                t_where6+=" or a.custno ='" + t_custno2[i] + "'"
-                                t_where3 += " or c.noa ='" + t_custno2[i] + "'"
-                                t_where5 += " or a.custno ='" + t_custno2[i] + "'"
-                            }
-                        }
-                        t_where+=") and (a.unpay+isnull(b.paysale,0))!=0 ";
-                        t_where6+=") and (a.unpay+isnull(b.paysale,0))!=0 and (CHARINDEX('會計',kind)=0 or a.datea<'102/04/01')";//1020410會計部從102/04/01開始用明細匯入
-                        t_where1 = " where[1]=^^ a.noa='" + $('#txtNoa').val() + "' and a.paysale!=0 ";
-						
-						if(!emp($('#txtDatea').val()))
-							t_where2 = " where[2]=^^ left(a.datea,6)='" + $('#txtDatea').val().substr(0, 6) + "' ^^";
-						else
-							t_where2 = " where[2]=^^ 1=1 ^^";
-						
-						t_where3 +=") ^^"
-						
-						//1020410會計部從102/04/01開始用明細匯入
-						//1020509要不包含單據的立帳單
-						t_where5 += " ) and (CHARINDEX('會計',kind)>0) and a.unpay!=0) or ((a.noa+isnull(b.product,'')+b.noq in (select vccno+memo2 from umms where noa='"+$('#txtNoa').val()+"')))) and a.datea>='102/04/01' order by noa^^";
-						t_where7 = " where[7]=^^ noa!='"+$('#txtNoa').val()+"' ^^";
-                        	
-                       // 最後一個t_whereX 加 order by noa^^";
-
-                       t_where += "^^";
-                       t_where6 += "^^";
-                       t_where1 += "^^";
-                    } else {
-                        t_where = "1=0^^";
-                        t_where6 = " where[6]=^^ 1=0 ^^";
-                        t_where1 = " where[1]=^^ 1=0 ^^";
-                        t_where2 = " where[2]=^^ 1=1 ^^";
-                        t_where3 = " where[3]=^^ 1=0 ^^";
-                        t_where5 = " where[5]=^^ 1=0 order by noa ^^";
-                        t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
-                        t_where7 = " where[7]=^^ 1=1 ^^";
-                    }*/
-                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4+ t_where5+ t_where6+t_where7, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
+                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa ^^";
+                    var t_where1 = "where[1]=^^ a.custno='"+$('#txtCustno').val()+"' ^^";
+                    var t_where2 = "where[2]=^^ 1=0 ^^";
+            		q_gt('umm_mon', t_where+t_where1+t_where2, 0, 0, 0, "", r_accy);
+                });
+                
+                $('#btnMon').click(function(e) {
+                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa ^^";
+                    var t_where1 = "where[1]=^^ 1=0 ^^";
+                    var t_where2 = "where[2]=^^ custno='"+$('#txtCustno').val()+"' and mon<='"+$('#txtMon').val()+"' ^^";
+            		q_gt('umm_mon', t_where+t_where1+t_where2, 0, 0, 0, "", r_accy);
                 });
             }
 			
-			function umm_trd() {
-                    var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-                    t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
-                    t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
-
-                    var j = 0, s2 = '', s1 = '';
-                    for (var i = 0; i < q_bbsCount; i++) {
-                        if ($.trim($('#txtVccno_' + i).val()).length > 0) {
-                            s2 = s2 + (j == 0 ? "" : " or ") + " noa='" + $('#txtVccno_' + i).val() + "'";
-                            s1 = s1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
-                            j++;
-                        }
-                    }
-
-                    t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-                    t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-                    q_gt('umm_trd', t_where + t_where1, 0, 0, 0, "", r_accy);
-            }
 			
             function getOpay() {
             	Lock(1,{opacity:0});
@@ -360,6 +297,29 @@
                             }
                         }
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno', '');
+                        sum();
+                        break;
+					case 'umm_mon':
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            if ($('#txtVccno_' + i).val().length > 0) {
+                                $('#txtVccno_' + i).val('');
+                                $('#txtPaysale_' + i).val('');
+                                $('#txtUnpay_' + i).val('');
+                                $('#txtPart2_' + i).val('');
+                                $('#txtUnpayorg_' + i).val('');
+                            }
+                        }
+                        var as = _q_appendData("umms", "", true);
+                        /*for (var i = 0; i < as.length; i++) {
+                            if (as[i].total - as[i].paysale == 0) {
+                                as.splice(i, 1);
+                                i--;
+                            } else {
+                                as[i]._unpay = (as[i].total - as[i].paysale).toString();
+                                as[i].paysale = 0;
+                            }
+                        }*/
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtVccno', '');
                         sum();
                         break;
                     case q_name:
@@ -664,13 +624,7 @@
                         /// 要先給  才能使用 q_bodyId()
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-
-                        /* if(q_float('txtPaysale_'+b_seq)>q_float('txtUnpayorg_'+b_seq))
-                         {
-                         alert('請輸入正確沖帳金額!!');
-                         $('#txtPaysale_'+b_seq).val(0);
-                         $('#txtPaysale_'+b_seq).focus();
-                         }*/
+                        
                         var t_unpay = dec($('#txtUnpayorg_' + b_seq).val()) - dec($('#txtPaysale_' + b_seq).val());
                         q_tr('txtUnpay_' + b_seq, t_unpay);
                         sum();
@@ -747,9 +701,11 @@
                 _refresh(recno);
                  if(q_cur==1 || q_cur==2){
 		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnMon").removeAttr("disabled");
 		        	$("#btnAuto").removeAttr("disabled");
 		        }else{
 		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnMon").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
 		        }
                 getOpay();
@@ -1008,10 +964,13 @@
 						<td class="6">
 						<input type="button" id="btnVcc" class="txt c1 " />
 						</td>
-						<td class="td7"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
+						<td class="7">
+						<input type="button" id="btnMon" class="txt c1 " />
+						</td>
+						<!--<td class="td7"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 						<td class="td8">
 						<input id="txtCustno2" type="text" class="txt c1"/>
-						</td>
+						</td>-->
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
