@@ -161,24 +161,28 @@
 					$("#hid_ch_labor1").hide();
 					$("#hid_ch_labor2").hide();
 					$("#hid_health_insures").hide();
+					$("#hid_ch_labor_comp").hide();
 					for (var j = 0; j < q_bbsCount; j++) {
 	            	 	 $('#hid_ch_labor1_'+j).hide();
 		            	 $('#hid_ch_labor2_'+j).hide();
 		            	 $('#hid_health_insures_'+j).hide();
+		            	 $('#hid_ch_labor_comp_'+j).hide();
 	            	 }
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-300)+"px");
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-400)+"px");
 	            	scroll("tbbs","box",1);
 					$("#btnHidesalaryinsure").val("投保薪資顯示");
 				}else{
 					$("#hid_ch_labor1").show();
 					$("#hid_ch_labor2").show();
 					$("#hid_health_insures").show();
+					$("#hid_ch_labor_comp").show();
 					for (var j = 0; j < q_bbsCount; j++) {
 	            	 	 $('#hid_ch_labor1_'+j).show();
 		            	 $('#hid_ch_labor2_'+j).show();
 		            	 $('#hid_health_insures_'+j).show();
+		            	 $('#hid_ch_labor_comp_'+j).show();
 	            	 }
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+300)+"px");
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+400)+"px");
 	            	 scroll("tbbs","box",1);
 					$("#btnHidesalaryinsure").val("投保薪資隱藏");
 				}
@@ -188,7 +192,6 @@
             	if($('#btnHidetotal4').val().indexOf("隱藏")>-1){
 					$("#hid_borrow").hide();
 					$("#hid_ch_labor").hide();
-					$("#hid_ch_labor_comp").hide();
 					$("#hid_ch_labor_self").hide();
 					$("#hid_ch_health").hide();
 					$("#hid_tax").hide();
@@ -200,7 +203,6 @@
 					for (var j = 0; j < q_bbsCount; j++) {
 	            	 	 $('#hid_borrow_'+j).hide();
 		            	 $('#hid_ch_labor_'+j).hide();
-		            	 $('#hid_ch_labor_comp_'+j).hide();
 		            	 $('#hid_ch_labor_self_'+j).hide();
 		            	 $('#hid_ch_health_'+j).hide();
 		            	 $('#hid_tax_'+j).hide();
@@ -210,13 +212,12 @@
 		            	 $('#hid_raise_num_'+j).hide();
 		            	 $('#hid_minus_'+j).hide();
 	            	 }
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-1026)+"px");
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-926)+"px");
 	            	scroll("tbbs","box",1);
 					$("#btnHidetotal4").val("應扣詳細顯示");
 				}else{
 					$("#hid_borrow").show();
 					$("#hid_ch_labor").show();
-					$("#hid_ch_labor_comp").show();
 					$("#hid_ch_labor_self").show();
 					$("#hid_ch_health").show();
 					$("#hid_tax").show();
@@ -228,7 +229,6 @@
 					for (var j = 0; j < q_bbsCount; j++) {
 	            	 	 $('#hid_borrow_'+j).show();
 		            	 $('#hid_ch_labor_'+j).show();
-		            	 $('#hid_ch_labor_comp_'+j).show();
 		            	 $('#hid_ch_labor_self_'+j).show();
 		            	 $('#hid_ch_health_'+j).show();
 		            	 $('#hid_tax_'+j).show();
@@ -238,7 +238,7 @@
 		            	 $('#hid_raise_num_'+j).show();
 		            	 $('#hid_minus_'+j).show();
 	            	 }
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+1026)+"px");
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+926)+"px");
 	            	 scroll("tbbs","box",1);
 					$("#btnHidetotal4").val("應扣詳細隱藏");
 				}
@@ -1670,7 +1670,6 @@
                 <td align="center" class="td2" id='hid_stay_tax' style="width: 100px;"><a id='lblStay_taxs'></a></td>
                 <td align="center" class="td2" id='hid_tax12' style="width: 100px;"><a id='lblTax12s'></a></td>
                 <td align="center" class="td2" id='hid_tax18' style="width: 100px;"><a id='lblTax18s'></a></td>
-                <td align="center" class="td2" id='hid_ch_labor_comp' style="width: 100px;"><a id='lblCh_labor_comps'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor_self' style="width: 100px;"><a id='lblCh_labor_selfs'></a></td>
                 <td align="center" class="td2" id='hid_ch_health' style="width: 100px;"><a id='lblCh_healths'></a></td>
                 <td align="center" class="td2" id='hid_lodging_power_fee' style="width: 100px;"><a id='lblLodging_power_fees'></a></td>
@@ -1683,6 +1682,7 @@
                 <td align="center" class="td2" id='hid_minus' style="width: 100px;"><a id='lblMinuss'></a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblTotal4s'></a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblTotal5s'></a></td>
+                <td align="center" class="td2" id='hid_ch_labor_comp' style="width: 100px;"><a id='lblCh_labor_comps'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor1' style="width: 100px;"><a id='lblCh_labor1s'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor2' style="width: 100px;"><a id='lblCh_labor2s'></a></td>
                 <td align="center" class="td2" id='hid_health_insures' style="width: 100px;"><a id='lblCh_health_insures'></a></td>
@@ -1737,7 +1737,6 @@
                 <td id='hid_stay_tax.*'><input class="txt num c1" id="txtStay_tax.*" type="text" /></td>
                 <td id='hid_tax12.*'><input class="txt num c1" id="txtTax12.*" type="text" /></td>
                 <td id='hid_tax18.*'><input class="txt num c1" id="txtTax18.*" type="text" /></td>
-                <td id='hid_ch_labor_comp.*'><input class="txt num c1" id="txtCh_labor_comp.*" type="text" /></td>
                 <td id='hid_ch_labor_self.*'><input class="txt num c1" id="txtCh_labor_self.*" type="text" /></td>
                 <td id='hid_ch_health.*'><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
                 <td id='hid_lodging_power_fee.*'><input class="txt num c1" id="txtLodging_power_fee.*" type="text" /></td>
@@ -1750,6 +1749,7 @@
                 <td id='hid_minus.*'><input class="txt num c1" id="txtMinus.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal4.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal5.*" type="text" /></td>
+                <td id='hid_ch_labor_comp.*'><input class="txt num c1" id="txtCh_labor_comp.*" type="text" /></td>
                 <td id='hid_ch_labor1.*'><input class="txt num c1" id="txtCh_labor1.*" type="text" /></td>
                 <td id='hid_ch_labor2.*'><input class="txt num c1" id="txtCh_labor2.*" type="text" /></td>
                 <td id='hid_health_insures.*'><input class="txt num c1" id="txtCh_health_insure.*" type="text" /></td>
