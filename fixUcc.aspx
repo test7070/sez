@@ -21,7 +21,7 @@
 
             var q_name = "fixucc";
             var q_readonly = [];
-            var bbmNum = [['txtInprice',10,2],['txtOutprice',10,2],['txtBeginmount',10,0]];
+            var bbmNum = [['txtInprice',10,2],['txtOutprice',10,2]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -44,7 +44,7 @@
                 mainForm(0);
             }
             function mainPost() {
-            	bbmMask = [['txtBegindatea', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
+            	bbmMask = [['txtIndate', r_picd]];
                 q_mask(bbmMask);
                 $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
@@ -65,11 +65,9 @@
                 switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
-                        ///   q_boxClose 3/4
                         break;
-                }   /// end Switch
+                }
             }
-
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'checkFixuccno_change':
@@ -92,22 +90,18 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
 						 break;
-                }  /// end switch
+                }
             }
-
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-
                 q_box('fixucc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
-
             function btnIns() {
                 _btnIns();
                 refreshBbm();
                 $('#txtNoa').focus();
             }
-
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
@@ -118,7 +112,7 @@
             }
 
             function btnPrint() {
-				
+				q_box("z_fixucc.aspx?;;;;"+r_accy, 'z_fixucc', "95%", "95%", q_getMsg("popFixa4tgg"));
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -402,8 +396,6 @@
 						<td><input id="txtUnit"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCarbrand' class="lbl"> </a></td>
-						<td><input id="txtCarbrand"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblBrand' class="lbl"> </a></td>
 						<td><input id="txtBrand"  type="text"  class="txt c1"/></td>
 					</tr>
@@ -421,20 +413,6 @@
 						<td><input id="txtInprice"  type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
 						<td><input id="txtOutprice" type="text" class="txt num c1"/></td>
-					</tr>
-					<tr style="display:none;">
-						<td><span> </span><a id='lblBegindate' class="lbl"> </a></td>
-						<td><input id="txtBegindate"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblBeginmount' class="lbl"> </a></td>
-						<td><input id="txtBeginmount"  type="text"  class="txt num c1" /></td>
-						<td><span> </span><a id='lblBeginmoney' class="lbl"> </a></td>
-						<td><input id="txtBeginmoney"  type="text"  class="txt num c1" /></td>
-					</tr>
-					<tr style="display:none;">
-						<td><span> </span><a id='lblOutdate' class="lbl"> </a></td>
-						<td><input id="txtOutdate"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblStkmount' class="lbl"> </a></td>
-						<td><input id="txtStkmount"  type="text"  class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td ><span> </span><a id='lblMemo' class="lbl"> </a></td>
