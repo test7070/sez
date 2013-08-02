@@ -172,7 +172,7 @@
             var t_custno = trim($('#txtCustno').val());
             var t_where = '';
             if (t_custno.length > 0) {
-                t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
+                t_where = "enda='0' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
                 t_where = t_where;
             }
             else {
