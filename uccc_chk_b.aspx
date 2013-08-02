@@ -50,7 +50,7 @@
 				$('#checkAllCheckbox').click(function(){
 					$('input[type=checkbox][id^=chkSel]').each(function(){
 						var t_id = $(this).attr('id').split('_')[1];
-						if(!emp($('#txtNoa_' + t_id).val()))
+						if(!emp($('#txtUno_' + t_id).val()))
 							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 					});
 				});
