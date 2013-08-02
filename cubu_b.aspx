@@ -272,21 +272,17 @@
 				_btnPlus(org_htm, dest_tag, afield);
 				if (q_tables == 's')
 					bbsAssign();
-				
 			}
 		</script>
 		<style type="text/css">
-			.seek_tr {
-				color: white;
-				text-align: center;
-				font-weight: bold;
-				BACKGROUND-COLOR: #76a2fe
+			input[type="text"], input[type="button"] {
+				font-size: medium;
 			}
 			.txt{
 				float:left;
 			}
 			.c1{
-				width:95%;
+				width:90%;
 			}
 			.c2{
 				width:85%;
@@ -313,15 +309,15 @@
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: medium;'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /></td>
-					<td align="center" style="width:3%;"><a id='lblPrt'></a></td>
-					<td align="center" style="width:2%;"><a id='lblStyle'></a></td>
+					<td align="center" style="width:1%;"><a id='lblPrt'></a></td>
+					<td align="center" style="width:1%;"><a id='lblStyle'></a></td>
 					<td align="center" style="width:8%;"><a id='lblUno'></a></td>
 					<td align="center" style="width:8%;"><a id='lblOrdeno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCustno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStoreno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblClass'></a></td>
-					<td align="center" style="width:8%;"><a id='lblProductno'></a></td>
+					<td align="center" style="width:5%;"><a id='lblProductno'></a></td>
 					<td align="center" style="width:14%;"><a id='lblSizea'></a></td>
 					<td align="center" style="width:4%;"><a id='lblMount'></a></td>
 					<td align="center" style="width:4%;"><a id='lblWeight'></a></td>
@@ -356,7 +352,7 @@
 					</td>
 					<td>
 						<input id="btnProductno.*" type="button" value="." class="txt btn" style="width:1%;"/>
-						<input type="text" id="txtProductno.*" class="txt c2"/>
+						<input type="text" id="txtProductno.*" class="txt c3"/>
 						<input type="text" id="txtProduct.*" class="txt c1"/>
 					</td>
 					<td>

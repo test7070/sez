@@ -47,7 +47,7 @@
 		}
 		function mainPost() { 
 			q_getFormat();
-			bbmMask = [['txtDatea', r_picd]];
+			bbmMask = [['txtDatea', r_picd],['txtMon',r_picm]];
 			q_mask(bbmMask); 
 			q_cmbParse("cmbTypea", q_getPara('cut.typea'));
 			q_cmbParse("cmbType2", q_getPara('cut.type2'));
@@ -957,7 +957,7 @@
 		<td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea></td>
 		</tr>
 		<tr>
-			<td class='td1'><span> </span><a id="lblCardeal" class="lbl"></a></td>
+			<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
 			<td class="td2" colspan="3"><input id="txtCardealno" type="text" class="txt c3"/>
 			<input id="txtCardeal" type="text" class="txt c4"/></td>
 			<td class='td3'><span> </span><a id="lblCarno"  class="lbl"></a></td>
