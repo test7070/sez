@@ -599,7 +599,7 @@
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width: 9%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width: 9%;"><a id='lblWeight_st'> </a></td>
-                <td align="center" style="width: 6%;"><a id='lblStoreno_st'> </a></td>
+                <!--<td align="center" style="width: 6%;"><a id='lblStoreno_st'> </a></td>-->
                 <td align="center" ><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -624,7 +624,7 @@
                 </td>
                 <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
-                <td><input class="txt c1" id="txtStoreno.*" type="text" /></td>
+                <!--<td><input class="txt c1" id="txtStoreno.*" type="text" /></td>-->
                 
                 <td><input class="txt c1" id="txtMemo.*" type="text"/>
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
