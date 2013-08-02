@@ -145,7 +145,7 @@
 							if(b_ret[0] != undefined){
 	                        	ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtGmount,txtGweight,txtWidth,txtLengthb',
 	                        					   b_ret.length, b_ret, 
-	                        					   'noa,eordmount,eordweight,width,lengthb',
+	                        					   'uno,eordmount,eordweight,width,lengthb',
 	                        					   'txtUno','__');   /// 最後 aEmpField 不可以有【數字欄位】
                         	}
 							sum();

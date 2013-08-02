@@ -22,7 +22,7 @@
 		    var bbmMask = [];
 		    var bbsMask = [];
 		    var aPop = new Array(
-		    				['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+		    				['txtUno_', 'btnUno_', 'uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
 		    				['txtProductno_', 'btnProductno_', 'assignproduct', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
 		    				);
 		    $(document).ready(function () {

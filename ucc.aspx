@@ -20,14 +20,14 @@
         var q_readonly = [];
         var bbmNum = [];  
         var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
         $(document).ready(function () {
-            bbmKey = ['noa'];
+            bbmKey = ['uno'];
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+            $('#txtUno').focus();
         });
 
         //////////////////   end Ready
@@ -41,7 +41,7 @@
 
             mainForm(0); // 1=Last  0=Top
 
-            $('#txtNoa').focus();
+            $('#txtUno').focus();
 
         }  ///  end Main()
 
@@ -80,20 +80,6 @@
         function q_boxClose(s2) { 
             var ret;
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -103,16 +89,8 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -135,11 +113,11 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtUno').focus();
         }
 
         function btnModi() {
-            if (emp($('#txtNoa').val()))
+            if (emp($('#txtUno').val()))
                 return;
 
             _btnModi();
@@ -152,7 +130,7 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+            t_err = q_chkEmpField([['txtUno', q_getMsg('lblUno')], ['txtComp', q_getMsg('lblComp')]]);
 
             if (dec($('#txtCredit').val()) > 9999999999)
                 t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
@@ -166,19 +144,20 @@
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
+            var t_uno = trim($('#txtUno').val());
+            $('#txtNoa').val(t_uno);
             if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
+                $('#txtUacc1').val('1123.' + t_uno);
             if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
+                $('#txtUacc2').val('1121.' + t_uno);
             if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val('2131.' + t_noa);
+                $('#txtUacc3').val('2131.' + t_uno);
 
 
-            if (t_noa.length == 0)  
-                q_gtnoa(q_name, t_noa);
+            if (t_uno.length == 0)  
+                q_gtnoa(q_name, t_uno);
             else
-                wrServer(t_noa);
+                wrServer(t_uno);
         }
 
         function wrServer(key_value) {
@@ -327,7 +306,7 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:2%"><a id='vewChk'></a></td>
-                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:15%"><a id='vewUno'></a></td>
                 <td align="center" style="width:25%"><a id='vewProduct'></a></td>
             </tr>
              <tr>
@@ -339,7 +318,11 @@
         </div>
         <div class='dbbm' style="width: 68%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr><td class="label1"><a id='lblNoa'></a></td> <td class='column1'><input  type="text" id="txtNoa" class="txt c1"/></td>
+        <tr><td class="label1"><a id='lblUno'></a></td>
+			<td class='column1'>
+				<input  type="text" id="txtUno" class="txt c1"/>
+				<input  type="text" id="txtNoa" style="display:none;"/>
+			</td>
             <td class="label2"><a id='lblDatea'></a></td><td class='column2'><input  type="text" id="txtDatea" class="txt c2"/></td>
             <td class="label3"></td></tr>
 

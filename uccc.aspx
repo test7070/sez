@@ -18,16 +18,16 @@
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'uno';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
         ['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
         ['txtUseno', 'lblUseno', 'cust', 'noa,comp', 'txtUseno,txtUsea', 'cust_b.aspx']);
         $(document).ready(function () {
-            bbmKey = ['noa'];
+            bbmKey = ['uno'];
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+            $('#txtUno').focus();
         });
 
         //////////////////   end Ready
@@ -92,13 +92,13 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
-            $('#txtNoa').val('AUTO');
+            $('#txtUno').focus();
+            $('#txtUno').val('AUTO');
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
         }
 
         function btnModi() {
-            if (emp($('#txtNoa').val()))
+            if (emp($('#txtUno').val()))
                 return;
 
             _btnModi();
@@ -107,24 +107,24 @@
         function btnPrint() {
 	 		q_box('z_stk.aspx', '', "800px", "600px", q_getMsg("popPrint"));
         }
+        
         function btnOk() {
-        	$('#txtSdate').val($.trim($('#txtSdate').val()));
-                if (checkId($('#txtSdate').val())==0){
-                	alert(q_getMsg('lblSdate')+'錯誤。');
-                	return;
-           	}
-            var t_err = '';
-
-            t_err = q_chkEmpField(['txtNoa', q_getMsg('lblNoa')]);
-           
-			 var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll( (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(t_noa);
-			
-        }
+			$('#txtSdate').val($.trim($('#txtSdate').val()));
+			if (checkId($('#txtSdate').val())==0){
+				alert(q_getMsg('lblSdate')+'錯誤。');
+				return;
+			}
+			var t_err = '';
+            t_err = q_chkEmpField(['txtUno', q_getMsg('lblUno')]);
+			$('#txtNoa').val()
+			var t_uno = trim($('#txtUno').val());
+			$('#txtNoa').val(t_uno);
+			var t_date = trim($('#txtDatea').val());
+			if (t_uno.length == 0 || t_uno == "AUTO")
+				q_gtnoa(q_name, replaceAll( (t_date.length == 0 ? q_date() : t_date), '/', ''));
+			else
+				wrServer(t_uno);
+		}
 
         function wrServer( key_value) {
             var i;
@@ -355,13 +355,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
              <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
-                <td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:20%"><a id='vewUno'> </a></td>
                 <td align="center" style="width:25%"><a id='vewProduct'> </a></td>
                 
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                   <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='uno'>~uno</td>
                    <td align="center" id='product,4'>~product,4</td>
                   
             </tr>
@@ -370,8 +370,12 @@
         <div class='dbbm' style="width: 65%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
             <tr class="tr1">
-            <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
-            <td class="td2" colspan="3"><input id="txtNoa"  type="text" class="txt c7"/></td>
+            <td class='td1'><span> </span><a id="lblUno" class="lbl"> </a></td>
+            <td class="td2" colspan="3">
+            	<input id="txtUno"  type="text" class="txt c7"/>
+            	<input id="txtNoa"  type="text" style="display:none;"/>
+            	
+            </td>
             <td class='td5'><span> </span><a id="lblItypea" class="lbl"> </a></td>
             <td class="td6"><select id="cmbItype"  class="txt c1"> </select></td>
             <td class='td7'><span> </span><a id="lblPrice" class="lbl"> </a></td>

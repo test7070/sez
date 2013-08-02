@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		var q_name = 'uccc', t_content = ' field=noa,productno,product,spec,price,dime,width,lengthb,weight,uweight,gweight,eweight,storeno,store,mount', bbsKey = ['noa'], as; 
+		var q_name = 'uccc', t_content = ' field=uno,productno,product,spec,price,dime,width,lengthb,weight,uweight,gweight,eweight,storeno,store,mount', bbsKey = ['uno'], as; 
 		var isBott = false;
 		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 		var i,s1;
@@ -187,7 +187,7 @@
 		</tr>
 		<tr>
 			<td style="width:2%;"><input name="sel" id="radSel.*" type="radio" /></td>
-			<td ><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtUno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 			<td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 			<td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 			<td ><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>

@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'uccc', t_content = ' ', bbsKey = ['noa'],afilter = [], as; 
+			var q_name = 'uccc', t_content = ' ', bbsKey = ['uno'],afilter = [], as; 
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i,s1;
@@ -114,7 +114,7 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
-					<td><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+					<td><input id="txtUno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
