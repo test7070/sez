@@ -701,9 +701,11 @@
                 _refresh(recno);
                  if(q_cur==1 || q_cur==2){
 		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnMon").removeAttr("disabled");
 		        	$("#btnAuto").removeAttr("disabled");
 		        }else{
 		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnMon").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
 		        }
                 getOpay();
