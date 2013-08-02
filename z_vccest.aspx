@@ -52,7 +52,7 @@
                         type : '2',
                         name : 'productno',
                         dbf : 'uccc',
-                        index : 'noa,product',
+                        index : 'uno,product',
                         src : 'uccc_b.aspx'
                     }, {/*[11]2-1*/
                         type : '5', 

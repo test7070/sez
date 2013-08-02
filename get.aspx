@@ -27,7 +27,7 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
         ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-        //['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_b.aspx'],
+        //['txtUno_', 'btnUno_', 'uccc', 'uno', 'txtUno_', 'uccc_b.aspx'],
         ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
         ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
