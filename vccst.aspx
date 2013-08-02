@@ -104,6 +104,14 @@
 			});
 			$('#txtFloata').change(function () {sum();});
 			$('#txtTotal').change(function () {sum();});
+			$('#txtAddr').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 
@@ -143,6 +151,7 @@
             b_pop = '';
         }
 
+		var focus_addr='';
 		var StyleList = '';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
@@ -153,6 +162,13 @@
             			var as = _q_appendData("style", "", true);
             			StyleList = new Array();
             			StyleList = as;
+            		break;
+            	case 'cust':
+            		var as = _q_appendData("cust", "", true);
+            		if(as[0]!=undefined && focus_addr !=''){
+            			$('#'+focus_addr).val(as[0].addr_fact);
+            			focus_addr = '';
+            		}
             		break;
 				case 'vcce':
 					var as = _q_appendData("vcces", "", true);

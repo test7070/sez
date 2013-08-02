@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -9,7 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -25,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            //ajaxPath = ""; //  execute in Root
+            brwCount2 = 10;
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -33,17 +36,13 @@
                 q_gt(q_name, q_content, q_sqlCount, 1)
                 $('#txtNoa').focus
             });
-
-            //////////////////   end Ready
             function main() {
                 if (dataErr) {
                     dataErr = false;
                     return;
                 }
                 mainForm(0);
-                // 1=Last  0=Top
-            }///  end Main()
-
+            }
             function mainPost() {
             	bbmMask = [['txtBegindatea', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
                 q_mask(bbmMask);
@@ -61,9 +60,6 @@
 					}
                 });
             }
-
-            
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -122,7 +118,7 @@
             }
 
             function btnPrint() {
-
+				
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -130,7 +126,7 @@
                 Unlock();
             }
             function btnOk() {   	
-               Lock(); 
+                Lock(); 
             	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
             	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
 				}else{
@@ -250,32 +246,34 @@
 
 		</script>
 		<style type="text/css">
-            #dmain {
+			#dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 350px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 98%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 600px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -311,29 +309,12 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
-                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 38%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 60%;
-                float: left;
-            }
-            .txt.c4 {
-                width: 18%;
-                float: left;
-            }
-            .txt.c5 {
-                width: 80%;
+                width: 100%;
                 float: left;
             }
             .txt.num {
@@ -354,17 +335,35 @@
                 padding: 0px;
                 margin: -1px;
             }
-
+            .tbbs input[type="text"] {
+                width: 98%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+            .num {
+                text-align: right;
+            }
+            .bbs {
+                float: left;
+            }
             input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+            select {
                 font-size: medium;
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:25%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		<div id="dmain">
+			<div class="dview" id="dview">
+				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewNoa'></a></td>
@@ -372,101 +371,74 @@
 						<td align="center" style="width:15%"><a id='vewInprice'></a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='noa'>~noa</td>
 						<td id='namea' style="text-align: left;">~namea</td>
 						<td id='inprice' style="text-align: right;">~inprice</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 73%;float: left;">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtNoa"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+			<div class="dbbm">
+				<table class="tbbm"  id="tbbm">
+					<tr style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNamea' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtNamea"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblUnit' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtUnit"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td><span> </span><a id='lblNamea' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtNamea"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCarbrand' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtCarbrand"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblBrand' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtBrand"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>
+						<td><input id="txtUnit"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
-						<td class="td2" colspan="3">
-						<input id="txtTggno" type="text"  class="txt c2">
-						<input id="txtTgg" type="text"  class="txt c3"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td><span> </span><a id='lblCarbrand' class="lbl"> </a></td>
+						<td><input id="txtCarbrand"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblBrand' class="lbl"> </a></td>
+						<td><input id="txtBrand"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtIndate"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblInprice' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtInprice"  type="text" class="txt num c1"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblOutprice" class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtOutprice" type="text" class="txt num c1"/>
+						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtTggno" type="text" style="float:left;width:40%;">
+							<input id="txtTgg" type="text" style="float:left;width:60%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblBegindate' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtBegindate"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblBeginmount' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtBeginmount"  type="text"  class="txt num c1" />
-						</td>
-						<td class="td5"><span> </span><a id='lblBeginmoney' class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtBeginmoney"  type="text"  class="txt num c1" />
-						</td>
+						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
+						<td><input id="txtIndate"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblInprice' class="lbl"> </a></td>
+						<td><input id="txtInprice"  type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
+						<td><input id="txtOutprice" type="text" class="txt num c1"/></td>
+					</tr>
+					<tr style="display:none;">
+						<td><span> </span><a id='lblBegindate' class="lbl"> </a></td>
+						<td><input id="txtBegindate"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblBeginmount' class="lbl"> </a></td>
+						<td><input id="txtBeginmount"  type="text"  class="txt num c1" /></td>
+						<td><span> </span><a id='lblBeginmoney' class="lbl"> </a></td>
+						<td><input id="txtBeginmoney"  type="text"  class="txt num c1" /></td>
+					</tr>
+					<tr style="display:none;">
+						<td><span> </span><a id='lblOutdate' class="lbl"> </a></td>
+						<td><input id="txtOutdate"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblStkmount' class="lbl"> </a></td>
+						<td><input id="txtStkmount"  type="text"  class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblOutdate' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtOutdate"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblStkmount' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtStkmount"  type="text"  class="txt num c1" />
-						</td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan="5">						<textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea></td>
+						<td ><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="5"><input id="txtMemo"  type="text"  class="txt num c1" /></td>
 					</tr>
 
 				</table>

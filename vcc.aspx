@@ -49,7 +49,7 @@
         /// aPop[]用法 [ (1)textBox , (2)button, (3)table, (4)table field , (5)form textbox , (6).aspx ]);
         aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,paytype,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype', 'cust_b.aspx'],
                 ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-                ['txtCarno', 'lblCar', 'car', 'noa,car', 'txtCarno,txtCar', 'car_b.aspx'],
+                ['txtCarno', 'lblCardeal', 'car', 'noa,car', 'txtCarno,txtCar', 'car_b.aspx'],
                 ['txtAcomp', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
                 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
                 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
@@ -94,6 +94,14 @@
                 }
             });
             $('#txtFloata').change(function () {sum();});
+			$('#txtAddr').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
         }
 
         ///   q_funcPost( server_function name , result) 
@@ -141,9 +149,17 @@
         }
 
 
+		var focus_addr='';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             var as;
             switch (t_name) {
+            	case 'cust':
+            		var as = _q_appendData("cust", "", true);
+            		if(as[0]!=undefined && focus_addr !=''){
+            			$('#'+focus_addr).val(as[0].addr_fact);
+            			focus_addr = '';
+            		}
+            		break;
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -522,7 +538,7 @@
             </tr>
 
             <tr>
-                 <td align="right"><a id="lblCar" class="lbl btn"></a></td>
+                 <td align="right"><a id="lblCardeal" class="lbl btn"></a></td>
                 <td  ><input id="txtCarno"    type="text"  style="width:100%"/></td>
                 <td  ><input id="txtCar"    type="text" style="width:100%"/></td>
                 <td align="right"><a id='lblCarno2'></a></td>
