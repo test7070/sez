@@ -80,10 +80,12 @@
 								q_bodyId($(this).attr('id'));
 								b_seq = t_IdSeq;
 								$(this).val(getNewUno(temp_bbt.uno));
-								$('#txtProductno_' + b_seq).val(temp_bbt.productno);
-								if(trim(temp_bbt.productno) != '')
-									q_popsChange($('#txtProductno_' + b_seq));
-								$('#txtDime_' + b_seq).val(temp_bbt.dime);
+								if(trim($(this).val()) != ''){
+									$('#txtProductno_' + b_seq).val(temp_bbt.productno);
+									if(trim(temp_bbt.productno) != '')
+										q_popsChange($('#txtProductno_' + b_seq));
+									$('#txtDime_' + b_seq).val(temp_bbt.dime);
+								}
 							}
 						});
 						$('#txtOrdeno_'+j).change(function(){
@@ -161,6 +163,18 @@
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
+					    var t_ordeno = $('#txtOrdeno_'+b_seq).val();
+					    var t_no2 = $('#txtNo2_'+b_seq).val();
+						for(var i = 0;i<cubBBsArray.length;i++){
+							if(cubBBsArray[i].ordeno==t_ordeno && cubBBsArray[i].no2==t_no2){
+								var t_mount = dec($('#txtMount_'+b_seq).val());
+								if(t_mount > dec(cubBBsArray[i].mount)){
+									alert('數量不可大於訂單數量!!');
+									$('#txtMount_'+b_seq).val(dec(cubBBsArray[i].mount));
+									break;
+								}
+							}
+						}
 						getTheory(b_seq);
 					});
 				}
@@ -173,6 +187,10 @@
 					if(refUno.substring(0,o_Uno.length)==o_Uno){
 						idno +=1;
 					}
+				}
+				if(idno > 99){
+					alert('無法產生新批號\n批號不足使用!!');
+					return;
 				}
 				var newUno = o_Uno + padL(idno,'0',2) + 'A';
 				return newUno;
