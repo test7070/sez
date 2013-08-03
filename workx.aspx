@@ -82,7 +82,6 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').val('AUTO');
-            refreshBbm();
             $('#txtTypea').focus();
         }
 
@@ -90,7 +89,6 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            refreshBbm();
             $('#txtDatea').focus();
         }
 
@@ -131,15 +129,7 @@
         
         function refresh(recno) {
             _refresh(recno);
-             refreshBbm();
         }
-		function refreshBbm(){
-            	if(q_cur==1){
-            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
-            	}else{
-            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-            	}
-            }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
