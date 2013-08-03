@@ -144,8 +144,8 @@
                 	if(getProductWhere().length > 2)
                 		t_where += " and (productno in(" + getProductWhere() + ")) ";
                 	t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
-                    q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
-          		});
+					q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
+				});
 			}
 			
 			function getProductWhere(){
