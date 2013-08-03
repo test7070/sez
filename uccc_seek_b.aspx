@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		var q_name = 'uccc', t_content = ' field=uno,productno,product,spec,price,radius,dime,width,lengthb,weight,uweight,gweight,eweight,storeno,store,mount', bbsKey = ['uno'], as; 
+		var q_name = 'uccc', t_content = ' field=uno,productno,product,spec,price,radius,dime,width,lengthb,weight,uweight,gweight,eweight,storeno,store,mount,class', bbsKey = ['uno'], as; 
 		var isBott = false;
 		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 		var i,s1;
