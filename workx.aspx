@@ -25,7 +25,7 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1)
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy) 
             $('#txtNoa').focus
         });
 		aPop = new Array(
