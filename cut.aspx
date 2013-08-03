@@ -1013,7 +1013,7 @@
 			<tr  style='background:#cad3ff;'>
 				<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
 				<td ><input id="txtCustno.*" type="text" style="width: 80%;"/><input id="btnCust.*" type="button" value="..." style="width: 14%;"/></td>
-				<td ><input class="txt num c1" id="txtCust.*" type="text" /></td>
+				<td ><input class="txt c1" id="txtCust.*" type="text" /></td>
 				<td style="width: 2%;"><input class="txt c1" id="txtStyle.*" type="text" /></td>
 				<!--<td ><input class="txt num c1" id="txtDime.*" type="text" /></td>
 				<td ><input class="txt num c1" id="txtWidth.*" type="text" /></td>
