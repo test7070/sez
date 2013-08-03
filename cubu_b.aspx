@@ -70,7 +70,6 @@
 
 			function bbsAssign() {
 				_bbsAssign();
-				console.log('Run!');
 				for(var j = 0;j<q_bbsCount;j++){
 					if(Parent.q_name && Parent.q_name== 'cub'){
 						$('#txtUno_'+j).change(function(){
