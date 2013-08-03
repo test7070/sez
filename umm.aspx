@@ -41,7 +41,8 @@
             function main() {
                 mainForm(1);
             }
-
+			
+			var clickmon=false;
             function mainPost() {
                 q_getFormat();
 
@@ -114,19 +115,38 @@
                         q_tr('txtOpay', t_money);
                     sum();
                 });
-                //0926改為開啟視窗
+                
                 $('#btnVcc').click(function(e) {
+                	if(emp($('#txtDatea').val())){
+                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
+                		return;
+                	}
+                	clickmon=false;
                     var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa ^^";
-                    var t_where1 = "where[1]=^^ a.custno='"+$('#txtCustno').val()+"' ^^";
+                    var t_cust=emp($('#txtCustno').val())?"":(" and a.custno ='"+$('#txtCustno').val()+"'");
+                    var t_where1 = "where[1]=^^ 1=1 "+t_cust+" ^^";
                     var t_where2 = "where[2]=^^ 1=0 ^^";
-            		q_gt('umm_mon', t_where+t_where1+t_where2, 0, 0, 0, "", r_accy);
+                    var t_where3 = "where[3]=^^ 1=0 ^^";                    
+            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
                 });
                 
                 $('#btnMon').click(function(e) {
-                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa ^^";
+                	if(emp($('#txtDatea').val())){
+                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
+                		return;
+                	}
+                	if(emp($('#txtMon').val())){
+                		alert('請先輸入'+q_getMsg('lblMon')+'!!')
+                		return;
+                	}
+                	
+                	clickmon=true;
+                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and left(datea,6)<='"+$('#txtMon').val()+"' and vccno=a.noa ^^";
                     var t_where1 = "where[1]=^^ 1=0 ^^";
-                    var t_where2 = "where[2]=^^ custno='"+$('#txtCustno').val()+"' and mon<='"+$('#txtMon').val()+"' ^^";
-            		q_gt('umm_mon', t_where+t_where1+t_where2, 0, 0, 0, "", r_accy);
+                    var t_cust=emp($('#txtCustno').val())?"":(" and custno ='"+$('#txtCustno').val()+"'");
+                    var t_where2 = "where[2]=^^ 1=1 "+t_cust+"and mon<='"+$('#txtMon').val()+"' and datea<='"+$('#txtDatea').val()+"' ^^";
+                    var t_where3 = "where[3]=^^ CHARINDEX('月結',memo2)>0   and left(right(memo2,9),6)<='"+$('#txtMon').val()+"' and vccno=vcc.custno ^^";
+            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
                 });
             }
 			
@@ -148,11 +168,6 @@
                 switch (s1) {
                     case 'txtAcc1_':
                         sum();
-                        break;
-                    case 'txtCustno':
-                    	getOpay();
-                    	if($('#txtCustno').val().substr(0,1)>='0'&&$('#txtCustno').val().substr(0,1)<='z')
-                        	$('#btnVcc').click();
                         break;
                 }
             }
@@ -303,22 +318,22 @@
                         for (var i = 0; i < q_bbsCount; i++) {
                             if ($('#txtVccno_' + i).val().length > 0) {
                                 $('#txtVccno_' + i).val('');
-                                $('#txtPaysale_' + i).val('');
+                                $('#txtPaysale_' + i).val(0);
                                 $('#txtUnpay_' + i).val('');
                                 $('#txtPart2_' + i).val('');
                                 $('#txtUnpayorg_' + i).val('');
+                                $('#txtMemo2_' + i).val('');
                             }
                         }
                         var as = _q_appendData("umms", "", true);
-                        /*for (var i = 0; i < as.length; i++) {
-                            if (as[i].total - as[i].paysale == 0) {
+                        for (var i = 0; i < as.length; i++) {
+                            if (as[i].total - as[i].payed == 0) {
                                 as.splice(i, 1);
                                 i--;
-                            } else {
-                                as[i]._unpay = (as[i].total - as[i].paysale).toString();
-                                as[i].paysale = 0;
-                            }
-                        }*/
+                            } 
+                            if(clickmon)
+                            	as[i].memo+=' '+$('#txtMon').val()+' 月結';
+                        }
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtVccno', '');
                         sum();
                         break;
