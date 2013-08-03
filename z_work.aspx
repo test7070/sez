@@ -28,6 +28,8 @@
                 			txtreport=$('#q_report').data().info.reportData[i].report;
                 			if(txtreport=='z_work1'||txtreport=='z_work5')
                 				$('#lblXdate').text('生產日期');
+                			else if(txtreport=='z_work12'||txtreport=='z_work13')
+                				$('#lblXdate').text('重工日期');
                 			else
                 				$('#lblXdate').text('應開工日');
                 		}
