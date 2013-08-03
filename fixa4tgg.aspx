@@ -21,7 +21,7 @@
 
 		    q_tables = 's';
 		    var q_name = "fixa4tgg";
-		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal','txtWorker'];
+		    var q_readonly = ['txtNoa','txtMoney','txtWorker','txtWorker2'];
 		    var q_readonlys = ['txtMemo2'];
 		    var bbmNum = new Array(['txtMoney', 10, 0]);
 		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]);
@@ -34,12 +34,57 @@
 		    brwKey = 'noa';
 		    //ajaxPath = "";
 		    aPop = new Array(
-		    	['txtCarno', '', 'car2', 'a.noa', 'txtCarno', 'car2_b.aspx'],	    
-		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
-		    	['txtCarplateno', '', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'], 
-		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,inprice', 'txtProductno_,txtProduct_,txtPrice_', 'fixucc_b.aspx',0,0,'txtTggno','noa']);
+		    	['txtCarno_', '', 'car2', 'a.noa', 'txtCarno_', 'car2_b.aspx']
+		    	,['txtCarplateno_', '', 'carplate', 'noa,carplate', 'txtCarplateno_', 'carplate_b.aspx']
+		    	,['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'] 
+		    	//,['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,inprice', 'txtProductno_,txtProduct_,txtPrice_', 'fixucc_b.aspx',0,0,'txtTggno','noa']
+		    	//,['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,inprice', 'txtProductno_,txtProduct_,txtPrice_', 'fixucc_b.aspx']
+		    	);
 		    q_desc = 1;
-	
+			
+			function fixa4tgg() {
+            }
+            fixa4tgg.prototype = {
+            	_count : 10,
+                productList : new Array(),
+                listShow : function(obj,key){
+                	t_option = '';
+                	if(key.length==0){
+                		for(var i=0;i<this.productList.length && i<this._count;i++)
+                			t_option += '<div tag="'+i+'" style="background:yellow; width:400px; height:25px;"><a style="float:left;display:block; width:20px;height:25px;"></a><a style="float:left;display:block; width:100px;height:25px;">'+this.productList[i].noa+'</a>'
+                				+'<a style="float:left;display:block; width:280px;height:25px;">'+this.productList[i].namea+'</a></div>';
+                	}else{
+                		for(var i=0;i<this.productList.length;i++){
+                			if(key == this.productList[i].noa.substring(0,key.length)){
+                				var n = Math.floor(i/this._count);
+                				t_option='';
+                				for(var j=n*this._count,k=0;j<this.productList.length && k<this._count ;j++,k++){
+                					t_option += '<div tag="'+j+'" style="background:yellow; width:400px; height:25px;"><a style="float:left;display:block; width:20px;height:25px;"></a><a style="float:left;display:block; width:100px;height:25px;">'+this.productList[j].noa+'</a>'
+                				+'<a style="float:left;display:block; width:280px;height:25px;">'+this.productList[j].namea+'</a></div>';
+                				}
+                				i=this.productList.length;
+                				break;
+                			}
+                		}
+                	}	
+                	$('#tmpList').attr('tag',obj.attr('id').replace('txtProductno_','')).show().html(t_option).css('top',obj.offset().top+obj.height()).css('left',obj.offset().left);
+               		$('#tmpList').children().children().hover(function(e){
+               			$(this).parent().css('background','orange');
+               		},function(e){
+               			$(this).parent().css('background','yellow');
+               		}).click(function(e){
+               			var n = $(this).parent().attr('tag');
+               			var m = $(this).parent().parent().attr('tag');
+               			$('#txtProductno_'+m).val(t_data.productList[n].noa);
+               			$('#txtProduct_'+m).val(t_data.productList[n].namea);
+               		})
+                },  
+                listHide : function(){
+                	$('#tmpList').hide();
+                },
+            };
+            t_data = new fixa4tgg();
+            
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
@@ -65,6 +110,7 @@
 		        bbmMask = [['txtDatea', r_picd]];
 		        q_mask(bbmMask);
 		        $('#txtDatea').datepicker();
+		        q_gt("fixucc", "where=^^ left(noa,"+(r_userno.length+1)+")='"+r_userno+"-' ^^", 0, 0, 0, "getProduct");
 		    }
 
 		    function q_boxClose(s2) {
@@ -78,32 +124,19 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'getProduct':
+                        var as = _q_appendData("fixucc", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                        	t_data.productList.push({noa : as[i].noa,namea : as[i].namea});
+                        }
+                        break;
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
 		                break;
 		            default:
-		            	if(t_name.substring(0,12)=='fixalasttime'){
-		            		var sel = parseInt(t_name.split('_')[1]);
-		            		var as = _q_appendData("fixa", "", true);
-                        	if (as[0] != undefined) {
-                        		$('#txtMemo2_'+sel).val(as[0].fixadate);
-                        	}else{
-                        		
-                        	}
-                        	sum();
-                        	Unlock(1);
-		            	}else if(t_name.substring(0,11)=='oillasttime'){
-		            		var as = _q_appendData("oil", "", true);
-                        	if (as[0] != undefined) {
-                        		$('#txtMiles').val(FormatNumber(as[0].emiles));
-                        	}else{
-                        		$('#txtMiles').val('0');
-                        	}
-                        	Unlock(1);
-		            	}
 		            	break;
-		        }  /// end switch
+		        }
 		    }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -145,8 +178,12 @@
 		        for (var i = 0; i < q_bbsCount; i++) {
 		        	$('#lblNo_'+i).text(i+1);
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-		                $('#cmbWtype_' + i).change(function (e) {
-		                    sum();
+		                $('#txtProductno_' + i).focus(function(e){
+		                	t_data.listShow($(this),$(this).val());
+		                }).keyup(function(e){
+		                	t_data.listShow($(this),$(this).val());
+		                }).blur(function(e){
+		                	t_data.listHide();
 		                });
 		                $('#txtMount_' + i).change(function (e) {
 		                    sum();
@@ -157,15 +194,6 @@
 		                $('#txtMoney_' + i).change(function (e) {
 		                    sum();
 		                });
-		                //$('#txtMemo_' + i).data('info', { index: i });
-		                $('#txtMemo_' + i).change(function (e) {
-		                    if ($.trim($(this).val()).substring(0, 1) == '.')
-		                        $('#txtMoney_' + i).removeAttr('readonly');
-		                    else
-		                        $('#txtMoney_' + i).attr('readonly', 'readonly');
-		                    sum();
-		                });
-		                $('#txtMemo_' + i).change();
 		            }
 		        }
 		        _bbsAssign();
@@ -207,53 +235,6 @@
 		    }
 		    function q_popPost(t_id) {
 		    	switch(t_id){
-		    		case 'txtCarno':
-		    			Lock(1,{opacity:0});
-		    			var t_fixadate = $.trim($('#txtFixadate').val());
-		    			var t_carno = $.trim($('#txtCarno').val());
-		    			if(t_fixadate.length==0){
-		    				alert('請輸入'+q_getMsg('lblFixadate'));
-		    				Unlock(1);
-		    				return;
-		    			}
-		    			if(t_carno.length==0){
-		    				alert('請輸入'+q_getMsg('lblCarno'));
-		    				Unlock(1);
-		    				return;
-		    			}	
-		    			var t_where = "where=^^ carno='"+t_carno+"' and oildate<'"+t_fixadate+"' ^^";
-		    			q_gt('oil_lasttime', t_where, 0, 0, 0,'oillasttime', r_accy);
-		    			break;
-		    		case 'txtProductno_':
-		    			Lock(1,{opacity:0});
-		    			var t_noa = $.trim($('#txtNoa').val());
-		    			var t_fixadate = $.trim($('#txtFixadate').val());
-		    			var t_carno = $.trim($('#txtCarno').val());
-		    			var t_carplateno = $.trim($('#txtCarplateno').val());
-		    			var t_productno = $.trim($('#txtProductno_'+b_seq).val());
-		    			$('#txtMemo2_'+b_seq).val('');
-		    			if(t_fixadate.length==0){
-		    				alert('請輸入'+q_getMsg('lblFixadate'));
-		    				Unlock(1);
-		    				return;
-		    			}
-		    			if(t_carno.length==0 && t_carplateno.length==0){
-		    				alert('請輸入'+q_getMsg('lblCarno')+'或'+q_getMsg('lblCarplateno'));
-		    				Unlock(1);
-		    				return;
-		    			}	
-		    			if(t_productno.length==0){
-		    				alert('請輸入'+q_getMsg('lblProduct_s'));
-		    				Unlock(1);
-		    				return;
-		    			}
-		    			var t_where ="";
-		    			if(t_carplateno.length==0)
-		    				t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and len(isnull(a.carplateno,''))=0 and a.fixadate<'"+t_fixadate+"' ^^"
-                		else
-                			t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carplateno='"+t_carplateno+"' and a.fixadate<'"+t_fixadate+"' ^^"
-                		q_gt('fixa_lasttime', t_where, 0, 0, 0,'fixalasttime_'+b_seq, r_accy);
-		    			break;
 		    		default:
 		    			break;
 		    	}
@@ -262,25 +243,13 @@
 		    function sum() {
 		    	if(!(q_cur==1 || q_cur==2))
 		    		return;
-		        var t_mount, t_price, t_money = 0, t_wmoney = 0, t_cmoney = 0, t_tax,t_discount;
+		        var t_money = 0,t_moneys;
 		        for (var j = 0; j < q_bbsCount; j++) {
-		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
-						t_mount = q_float('txtMount_' + j);
-						t_price = q_float('txtPrice_' + j);
-						t_money = t_mount.mul(t_price).round(0);
-		                $('#txtMoney_' + j).val(t_money);
-		            } else {
-		                t_money = q_float('txtMoney_' + j);
-		            }
-		            t_wmoney = t_wmoney + ($('#cmbWtype_' + j).val() == 'A' ? t_money : 0);
-		            t_cmoney = t_cmoney + ($('#cmbWtype_' + j).val() == 'B' ? t_money : 0);
+		        	t_moneys = q_float('txtMount_' + j).mul(q_float('txtPrice_' + j)).round(0);
+		        	$('#txtMoney_'+j).val(FormatNumber(t_moneys));
+		        	t_money += t_moneys;
 		        }
-		        t_tax = q_float('txtTax');
-		        t_discount = q_float('txtDiscount');
-		        $('#txtWmoney').val(FormatNumber(t_wmoney));
-		        $('#txtCmoney').val(FormatNumber(t_cmoney));
-		        $('#txtMoney').val(FormatNumber(t_wmoney + t_cmoney));
-		        $('#txtTotal').val(FormatNumber(t_wmoney + t_cmoney + t_tax - t_discount));
+		        $('#txtMoney').val(FormatNumber(t_money));
 		    }
 
 		    function refresh(recno) {
@@ -288,12 +257,6 @@
 		    }
 		    function readonly(t_para, empty) {
 		        _readonly(t_para, empty);
-		        for (var i = 0; i < q_bbsCount; i++) {
-		            if ($.trim($('#txtMemo_' + i).val()).substring(0, 1) == '.')
-		                $('#txtMoney_' + i).removeAttr('readonly');
-		            else
-		                $('#txtMoney_' + i).attr('readonly', 'readonly');
-		        }
 		    }
 
 		    function btnMinus(id) {
@@ -526,6 +489,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
+		<div id="tmpList" style="position: absolute;"> </div>
 		<div id='dmain' >
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
@@ -604,12 +568,12 @@
 						<input id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input class="txt num c1" id="txtCarno.*" type="text" /></td>
-					<td><input class="txt num c1" id="txtCarplateno.*" type="text" /></td>
+					<td><input class="txt c1" id="txtCarno.*" type="text" /></td>
+					<td><input class="txt c1" id="txtCarplateno.*" type="text" /></td>
 					<td>
-						<input id="btnProductno.*" type="button" value="..." style="width: 10%;" />
-						<input class="txt" id="txtProductno.*" type="text" style="width:25%;"/>
-						<input class="txt" id="txtProduct.*"type="text" style="width:55%;"/>
+						<input id="btnProductno.*" type="button" value="..." style="width: 5%;" />
+						<input class="txt" id="txtProductno.*" type="text" list="productList" style="width:30%;"/>
+						<input class="txt" id="txtProduct.*"type="text" style="width:60%;"/>
 					</td>
 					<td><input class="txt num c1" id="txtPrice.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtMount.*" type="text" /></td>
