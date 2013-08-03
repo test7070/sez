@@ -212,6 +212,14 @@
                 as['noa'] = abbm2['noa'];
                 return true;
             }
+            function bbtSave(as) {
+                if (!as['uno']) {
+                    as[bbtKey[1]] = '';
+                    return;
+                }
+                q_nowf();
+                return true;
+            }
 
             function refresh(recno) {
                 _refresh(recno);
