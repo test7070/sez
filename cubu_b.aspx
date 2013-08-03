@@ -311,14 +311,14 @@
 					<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:1%;"><a id='lblPrt'></a></td>
 					<td align="center" style="width:1%;"><a id='lblStyle'></a></td>
-					<td align="center" style="width:8%;"><a id='lblUno'></a></td>
-					<td align="center" style="width:8%;"><a id='lblOrdeno'></a></td>
+					<td align="center" style="width:7%;"><a id='lblUno'></a></td>
+					<td align="center" style="width:7%;"><a id='lblOrdeno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCustno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStoreno'></a></td>
-					<td align="center" style="width:5%;"><a id='lblClass'></a></td>
+					<td align="center" style="width:3%;"><a id='lblClass'></a></td>
 					<td align="center" style="width:5%;"><a id='lblProductno'></a></td>
-					<td align="center" style="width:14%;"><a id='lblSizea'></a></td>
+					<td align="center" style="width:12%;"><a id='lblSizea'></a></td>
 					<td align="center" style="width:4%;"><a id='lblMount'></a></td>
 					<td align="center" style="width:4%;"><a id='lblWeight'></a></td>
 					<td align="center" style="width:4%;"><a id='lblInweight'></a></td>
