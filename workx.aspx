@@ -33,8 +33,8 @@
 					//['txtFactoryno', 'lblFactoryno', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx'],
 					['txtSimechno', 'lblSimech', 'mech', 'noa,mech', 'txtSimechno,txtSimech', 'mech_b.aspx'],
 					['txtSomechno', 'lblSomech', 'mech', 'noa,mech', 'txtSomechno,txtSomech', 'mech_b.aspx'],
-					['txtSoworkno', 'lblSowork', 'process', 'noa,process', 'txtSoworkno,txtSowork', 'process_b.aspx'],
-					['txtSiworkno', 'lblSiwork', 'process', 'noa,process', 'txtSiworkno,txtSiwork', 'process_b.aspx'],
+					['txtSoworkno', 'lblSoprocess', 'process', 'noa,process', 'txtSoprocessno,txtSoprocess', 'process_b.aspx'],
+					['txtSiworkno', 'lblSiprocess', 'process', 'noa,process', 'txtSiprocessno,txtSiprocess', 'process_b.aspx'],
 					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
 		);
         //////////////////   end Ready
@@ -389,18 +389,18 @@
                <td class="td2"><input id="txtUnit"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblSoprocess' class="lbl"></a></td>
-               <td class="td2"><input id="txtSoprocess"  type="text" class="txt c1"/></td>
-               <td class="td1"><span> </span><a id='lblSowork' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtSoworkno"  type="text" class="txt c2"/>
-               				   <input id="txtSowork"  type="text" class="txt c3"/></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblSiprocess' class="lbl"></a></td>
-               <td class="td2"><input id="txtSiprocess"  type="text" class="txt c1"/></td>
-               <td class="td1"><span> </span><a id='lblSiwork' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtSiworkno"  type="text" class="txt c2"/>
-               				   <input id="txtSiwork"  type="text" class="txt c3"/></td>
+               <!--<td class="td1"><span> </span><a id='lblSoprocess' class="lbl"></a></td>
+               <td class="td2"><input id="txtSoprocess"  type="text" class="txt c1"/></td>-->
+               <!--<td class="td1"><span> </span><a id='lblSiprocess' class="lbl"></a></td>
+               <td class="td2"><input id="txtSiprocess"  type="text" class="txt c1"/></td>-->
+               <td class="td1"><span> </span><a id='lblSoprocess' class="lbl btn"> </a></td>
+               <td class="td2"><input id="txtSoprocessno"  type="text" class="txt c2"/>
+               				   <input id="txtSoprocess"  type="text" class="txt c3"/>
+				</td>
+				<td class="td3"><span> </span><a id='lblSiprocess' class="lbl btn"> </a></td>
+               <td class="td4"><input id="txtSiprocessno"  type="text" class="txt c2"/>
+               				   <input id="txtSiprocess"  type="text" class="txt c3"/>
+				</td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblDescribe' class="lbl"></a></td>
