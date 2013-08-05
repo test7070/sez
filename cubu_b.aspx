@@ -310,8 +310,8 @@
 					<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:1%;"><a id='lblPrt'></a></td>
 					<td align="center" style="width:1%;"><a id='lblStyle'></a></td>
-					<td align="center" style="width:7%;"><a id='lblUno'></a></td>
-					<td align="center" style="width:7%;"><a id='lblOrdeno'></a></td>
+					<td align="center" style="width:9%;"><a id='lblUno'></a></td>
+					<td align="center" style="width:10%;"><a id='lblOrdeno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCustno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblDatea'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStoreno'></a></td>

@@ -219,9 +219,9 @@
 			if($('#cmbTypea').find("option:selected").text().indexOf('委')==-1)
 			{
 				for(var j = 0; j < q_bbsCount; j++) {
-					if(emp($('#txtBno_'+j).val())&&$('#txtXbutt_'+j).val()>='X')
+					if(emp($('#txtBno_'+j).val())&&$('#txtWaste_'+j).val()>='X')
 					{
-						$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
+						$('#txtBno_'+j).val($('#txtWaste_'+j).val()+'001');
 					}
 					if(emp($('#txtStyle_'+j).val())&&!emp($('#txtBno_'+j).val()))
 					{
@@ -252,9 +252,9 @@
 					alert("表身重量或寬度小於零");
 					return;
 				}
-				if($('#cmbTypea').find("option:selected").text().indexOf('委')>-1&&$('#txtXbutt_'+j).val()>='X')
+				if($('#cmbTypea').find("option:selected").text().indexOf('委')>-1&&$('#txtWaste_'+j).val()>='X')
 				{
-					$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
+					$('#txtBno_'+j).val($('#txtWaste_'+j).val()+'001');
 				}
 				if(dec($('#txtDime_'+j).val())==dec($('#txtWidth_'+j).val())&&dec($('#txtWidth_'+j).val())>0)
 				{
@@ -300,7 +300,7 @@
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO")   
-				q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cut') + $('#txtDatea').val(), '/', ''));
 			else
 				wrServer(s1);
 		}
@@ -639,63 +639,63 @@
 			}
 			return 0;//錯誤
 	}
-	function size_change () {
+		function size_change() {
 			if(q_cur==1 || q_cur==2){
 				$('input[id*="textSize"]').removeAttr('disabled');
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-			if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
-				$('#lblSize_help').text("厚度x寬度x長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).show();
-					$('#textSize2_'+j).show();
-					$('#textSize3_'+j).show();
-					$('#textSize4_'+j).hide();
-					$('#x1_'+j).show();
-					$('#x2_'+j).show();
-					$('#x3_'+j).hide();
-					$('#Size').css('width','222px');
-					q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
-					q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-					q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-					$('#textSize4_'+j).val(0);
-					$('#txtRadius_'+j).val(0)
+		  	if( $('#cmbKind').val().substr(0,1)=='A'){
+            	$('#lblSize_help').text("厚度x寬度x長度");
+	        	for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','222px');
+			        $('#textSize1_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
 				}
 			}else if( $('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).show();
-					$('#textSize2_'+j).show();
-					$('#textSize3_'+j).show();
-					$('#textSize4_'+j).show();
-					$('#x1_'+j).show();
-					$('#x2_'+j).show();
-					$('#x3_'+j).show();
-					$('#Size').css('width','297px');
-					q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
-					q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-					q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
-					q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).show();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).show();
+			        $('#Size').css('width','297px');
+			        $('#textSize1_'+j).val($('#txtRadius_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize4_'+j).val($('#txtLengthb_'+j).val());
 				}
 			}else{//鋼筋和鋼胚
 				$('#lblSize_help').text("長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).hide();
-					$('#textSize2_'+j).hide();
-					$('#textSize3_'+j).show();
-					$('#textSize4_'+j).hide();
-					$('#x1_'+j).hide();
-					$('#x2_'+j).hide();
-					$('#x3_'+j).hide();
-					$('#Size').css('width','70px');
-					$('#textSize1_'+j).val(0);
-					$('#txtDime_'+j).val(0)
-					$('#textSize2_'+j).val(0);
-					$('#txtWidth_'+j).val(0)
-					q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-					$('#textSize4_'+j).val(0);
-					$('#txtRadius_'+j).val(0)
+	            for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).hide();
+	            	$('#textSize2_'+j).hide();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).hide();
+			        $('#x2_'+j).hide();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','70px');
+			        $('#textSize1_'+j).val(0);
+			        $('#txtDime_'+j).val(0)
+			        $('#textSize2_'+j).val(0);
+			        $('#txtWidth_'+j).val(0);
+			        $('#textSize3_' + j).val($('#txtLengthb_'+j).val());
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0);
 				}
 			}
 		}
@@ -963,7 +963,7 @@
 				<td style="width:4%;" align="center"><a id='lblTheory'></a></td>
 				<td style="width:4%;" align="center"><a id='lblHweight'></a></td>
 				<td style="width:4%;" align="center"><a id='lblWeight'></a></td>
-				<td style="width:3%;" align="center"><a id='lblXbutt'></a></td>
+				<td style="width:3%;" align="center"><a id='lblWaste'></a></td>
 				<td style="width:4%;" align="center"><a id='lblBno'></a></td>
 				<td style="width:4%;" align="center"><a id='lblStoreno'></a></td>
 				<td align="center"><a id='lblMemos'></a></td>
@@ -998,7 +998,7 @@
 				<td><input class="txt num c1" id="txtTheory.*" type="text" /></td>
 				<td><input class="txt num c1" id="txtHweight.*" type="text" /></td>
 				<td><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
-				<td><input class="txt c1" id="txtXbutt.*" type="text" /></td>
+				<td><input class="txt c1" id="txtWaste.*" type="text" /></td>
 				<td><input class="txt c1" id="txtBno.*" type="text" /></td>
 				<td><input class="txt c1" id="txtStoreno.*" type="text" /></td>
 				<td><input class="txt c1" id="txtMemo.*" type="text" /></td>
