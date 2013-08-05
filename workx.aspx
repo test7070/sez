@@ -17,7 +17,7 @@
         }
         var q_name="workx";
         var q_readonly = ['txtNoa','txtWorker'];
-        var bbmNum = []; 
+        var bbmNum = [['txtCheckmount', 12, 2 , 1],['txtDiscardmount', 12, 2 , 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwCount2=20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -33,9 +33,9 @@
 					//['txtFactoryno', 'lblFactoryno', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx'],
 					['txtSimechno', 'lblSimech', 'mech', 'noa,mech', 'txtSimechno,txtSimech', 'mech_b.aspx'],
 					['txtSomechno', 'lblSomech', 'mech', 'noa,mech', 'txtSomechno,txtSomech', 'mech_b.aspx'],
-					['txtSoworkno', 'lblSoprocess', 'process', 'noa,process', 'txtSoprocessno,txtSoprocess', 'process_b.aspx'],
-					['txtSiworkno', 'lblSiprocess', 'process', 'noa,process', 'txtSiprocessno,txtSiprocess', 'process_b.aspx'],
-					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+					['txtSoprocessno', 'lblSoprocess', 'process', 'noa,process', 'txtSoprocessno,txtSoprocess', 'process_b.aspx'],
+					['txtSiprocessno', 'lblSiprocess', 'process', 'noa,process', 'txtSiprocessno,txtSiprocess', 'process_b.aspx'],
+					['txtProductno', 'lblProductno', 'ucaucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucaucc_b.aspx']
 		);
         //////////////////   end Ready
        function main() {
@@ -82,6 +82,8 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').val('AUTO');
+            $('#txtDatea').val(q_date());
+            $('#txtTrandatea').val(q_date());
             $('#txtTypea').focus();
         }
 
