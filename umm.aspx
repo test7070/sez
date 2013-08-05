@@ -331,9 +331,13 @@
                                 as.splice(i, 1);
                                 i--;
                             } 
-                            if(clickmon)
-                            	as[i].memo+=' '+$('#txtMon').val()+' 月結';
                         }
+                        if(clickmon){
+	                        for (var i = 0; i < as.length; i++) {
+	                            	as[i].memo+=' '+$('#txtMon').val()+' 月結';
+	                        }
+                        }
+                        
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtVccno', '');
                         sum();
                         break;
