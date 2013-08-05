@@ -219,9 +219,9 @@
 			if($('#cmbTypea').find("option:selected").text().indexOf('委')==-1)
 			{
 				for(var j = 0; j < q_bbsCount; j++) {
-					if(emp($('#txtBno_'+j).val())&&$('#txtXbutt_'+j).val()>='X')
+					if(emp($('#txtBno_'+j).val())&&$('#txtWaste_'+j).val()>='X')
 					{
-						$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
+						$('#txtBno_'+j).val($('#txtWaste_'+j).val()+'001');
 					}
 					if(emp($('#txtStyle_'+j).val())&&!emp($('#txtBno_'+j).val()))
 					{
@@ -252,9 +252,9 @@
 					alert("表身重量或寬度小於零");
 					return;
 				}
-				if($('#cmbTypea').find("option:selected").text().indexOf('委')>-1&&$('#txtXbutt_'+j).val()>='X')
+				if($('#cmbTypea').find("option:selected").text().indexOf('委')>-1&&$('#txtWaste_'+j).val()>='X')
 				{
-					$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
+					$('#txtBno_'+j).val($('#txtWaste_'+j).val()+'001');
 				}
 				if(dec($('#txtDime_'+j).val())==dec($('#txtWidth_'+j).val())&&dec($('#txtWidth_'+j).val())>0)
 				{
@@ -300,7 +300,7 @@
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO")   
-				q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cut') + $('#txtDatea').val(), '/', ''));
 			else
 				wrServer(s1);
 		}
@@ -963,7 +963,7 @@
 				<td style="width:4%;" align="center"><a id='lblTheory'></a></td>
 				<td style="width:4%;" align="center"><a id='lblHweight'></a></td>
 				<td style="width:4%;" align="center"><a id='lblWeight'></a></td>
-				<td style="width:3%;" align="center"><a id='lblXbutt'></a></td>
+				<td style="width:3%;" align="center"><a id='lblWaste'></a></td>
 				<td style="width:4%;" align="center"><a id='lblBno'></a></td>
 				<td style="width:4%;" align="center"><a id='lblStoreno'></a></td>
 				<td align="center"><a id='lblMemos'></a></td>
@@ -998,7 +998,7 @@
 				<td><input class="txt num c1" id="txtTheory.*" type="text" /></td>
 				<td><input class="txt num c1" id="txtHweight.*" type="text" /></td>
 				<td><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
-				<td><input class="txt c1" id="txtXbutt.*" type="text" /></td>
+				<td><input class="txt c1" id="txtWaste.*" type="text" /></td>
 				<td><input class="txt c1" id="txtBno.*" type="text" /></td>
 				<td><input class="txt c1" id="txtStoreno.*" type="text" /></td>
 				<td><input class="txt c1" id="txtMemo.*" type="text" /></td>

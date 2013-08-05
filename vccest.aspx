@@ -17,7 +17,7 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "vcce";
-		var q_readonly = ['txtNoa'];
+		var q_readonly = ['txtNoa','txtWorker'];
 		var q_readonlys = [];
 		var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 10, 2, 1]];  
 		var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtEweight', 15, 3, 1],['txtEcount', 10, 0, 1],['txtAdjweight', 15, 3, 1],['txtAdjcount', 10, 0, 1]];
@@ -35,7 +35,7 @@
 		  
 			q_brwCount();   
 			q_gt('style','',0,0,0,'');
-			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 		});
 
 		//////////////////   end Ready
@@ -80,7 +80,7 @@
 				var t_ordeno = $('#txtOrdeno').val();
 				var t_custno = $('#txtCustno').val();
 				var t_where = '1=1 ';
-				t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno) + " and ((len(gmemo)=0) or gmemo='cubs')";
+				t_where += q_sqlPara2('ordeno',t_ordeno) + q_sqlPara2('custno',t_custno) + " and ((len(gmemo)=0) or gmemo='cubu')";
 				q_box("vcce_import_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+ r_accy, 'view_vcce_import', "95%", "95%", q_getMsg('popVcceImport'));
 			});
 			$('#txtAddr_post').change(function(){
@@ -410,57 +410,57 @@
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-		  	if($('#cmbKind').val().substr(0,1)=='A'){
-				$('#lblSize_help').text("厚度x寬度x長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).show().css('width','30%');
-					$('#textSize2_'+j).show().css('width','30%');
-					$('#textSize3_'+j).show().css('width','30%');
-					$('#textSize4_'+j).hide();
-					$('#x1_'+j).show();
-					$('#x2_'+j).show();
-					$('#x3_'+j).hide();
-					$('#Size').css('width','300px');
-					q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
-					q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-					q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-					$('#textSize4_'+j).val(0);
-					$('#txtRadius_'+j).val(0)
+		  	if( $('#cmbKind').val().substr(0,1)=='A'){
+            	$('#lblSize_help').text("厚度x寬度x長度");
+	        	for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','222px');
+			        $('#textSize1_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
 				}
-			}else if($('#cmbKind').val().substr(0,1)=='B'){
+			}else if( $('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).show().css('width','21%');
-					$('#textSize2_'+j).show().css('width','21%');
-					$('#textSize3_'+j).show().css('width','21%');
-					$('#textSize4_'+j).show().css('width','21%');
-					$('#x1_'+j).show();
-					$('#x2_'+j).show();
-					$('#x3_'+j).show();
-					$('#Size').css('width','300px');
-					q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
-					q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-					q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
-					q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).show();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).show();
+			        $('#Size').css('width','297px');
+			        $('#textSize1_'+j).val($('#txtRadius_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize4_'+j).val($('#txtLengthb_'+j).val());
 				}
 			}else{//鋼筋和鋼胚
 				$('#lblSize_help').text("長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).hide();
-					$('#textSize2_'+j).hide();
-					$('#textSize3_'+j).show().css('width','95%');;
-					$('#textSize4_'+j).hide();
-					$('#x1_'+j).hide();
-					$('#x2_'+j).hide();
-					$('#x3_'+j).hide();
-					$('#Size').css('width','60px');
-					$('#textSize1_'+j).val(0);
-					$('#txtDime_'+j).val(0)
-					$('#textSize2_'+j).val(0);
-					$('#txtWidth_'+j).val(0)
-					q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-					$('#textSize4_'+j).val(0);
-					$('#txtRadius_'+j).val(0)
+	            for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).hide();
+	            	$('#textSize2_'+j).hide();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).hide();
+			        $('#x2_'+j).hide();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','70px');
+			        $('#textSize1_'+j).val(0);
+			        $('#txtDime_'+j).val(0)
+			        $('#textSize2_'+j).val(0);
+			        $('#txtWidth_'+j).val(0);
+			        $('#textSize3_' + j).val($('#txtLengthb_'+j).val());
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0);
 				}
 			}
 		}
@@ -470,7 +470,7 @@
 			}
 			.dview {
 				float: left;
-				width: 28%;
+				width: 25%;
 			}
 			.tview {
 				margin: 0;
@@ -630,7 +630,7 @@
 	 >
 <!--#include file="../inc/toolbar.inc"-->
 	
-		<div class="dview" id="dview" style="float: left;  width:32%;"  >
+		<div class="dview" id="dview" style="float: left;  width:28%;"  >
 		   <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'> </a></td>
@@ -644,13 +644,12 @@
 			</tr>
 		</table>
 		</div>
-		<div class='dbbm' style="width: 68%;float:left">
+		<div class='dbbm' style="width: 72%;float:left">
 		<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 		<tr class="tr1">
 			<td class='td1'><span> </span><a id="lblDatea" class="lbl"> </a></td>
 			<td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
 			<td class='td3'><select id="cmbKind" class="txt"> </select></td>
-			<td class="td4"> </td>
 			<td class="td5"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 			<td class="td6"><input id="txtNoa"  type="text" class="txt c1"/> </td>
 			<td class='td7'><span> </span><a id="lblCldate" class="lbl"> </a></td>
@@ -659,21 +658,25 @@
 		<tr class="tr2">
 			<td class='td1'><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
 			<td class="td2"><input id="txtCustno"  type="text" class="txt c1"/></td>
-			<td class='td3' colspan="3"><input id="txtComp"  type="text" class="txt c7"/></td>
+			<td class='td3' colspan="2"><input id="txtComp"  type="text" class="txt c7"/></td>
 			<td class="td6"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
 			<td class="td7"><input id="txtCaseno"  type="text" class="txt c1"/> </td>
 			<td class="td8"><input id="txtCaseno2"  type="text" class="txt c1"/> </td>
 		</tr>
 		<tr class="tr3">
 			<td class='td1'><span> </span><a id="lblTel" class="lbl"> </a></td>
-			<td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c7"/></td>
+			<td class="td2"1><input id="txtTel"  type="text" class="txt c7"/></td>
 			<td class="td6"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
 			<td class="td7"><input id="txtTrantype"  type="text" class="txt c1"/> </td>
+			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
+			<td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
+			<td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
+			<td class="td7"><input id="txtCarno"  type="text" class="txt c1"/></td>
 			<!--<td class="td8"><input id="btnOrde" type="button" /></td>-->
 		</tr>
 		<tr class="tr4">
 			<td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
-			<td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
+			<td class="td2" colspan="3"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
 			<td class='td6'><span> </span><a id="lblStype" class="lbl"> </a> </td>
 			<td class="td7"><input id="txtStype"  type="text" class="txt c1"/> </td>
 			<td class="td9"><input id="btnSearchuno" type="button" /></td>
@@ -681,7 +684,7 @@
 		</tr>
 		<tr class="tr5">
 			<td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
-			<td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
+			<td class="td2" colspan="3"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
 			<td class='td6'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
 			<td class="td7"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
 			<td class="td8"><input id="btnOrdeimport" type="button" /></td>
@@ -690,19 +693,14 @@
 		<tr class="tr6">
 			<td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
 			<td class="td2"><input id="txtWeight"  type="text" class="txt num c1"/></td>
-			<td class='td3'> </td>
-			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
-			<td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
-			<td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
-			<td class="td7"><input id="txtCarno"  type="text" class="txt c1"/></td>
 			<td class='td8'><span> </span><a id="lblTotal" class="lbl"> </a></td>
 			<td class="td9"><input id="txtTotal"  type="text" class="txt num c1"/></td>
+			<td class='td8'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+			<td class="td9"><input id="txtWorker"  type="text" class="txt c1"/></td>
 		</tr> 
 		<tr class="tr7">
 			<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 			<td class="td2" colspan="6"><textarea id="txtMemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
-			<td class='td8'><span> </span><a id="lblWorker" class="lbl"> </a></td>
-			<td class="td9"><input id="txtWorker"  type="text" class="txt c1"/></td>
 		</tr>						  
 		</table>
 		</div>
