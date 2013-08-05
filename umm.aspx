@@ -145,7 +145,7 @@
                     var t_where1 = "where[1]=^^ 1=0 ^^";
                     var t_cust=emp($('#txtCustno').val())?"":(" and custno ='"+$('#txtCustno').val()+"'");
                     var t_where2 = "where[2]=^^ 1=1 "+t_cust+"and mon<='"+$('#txtMon').val()+"' and datea<='"+$('#txtDatea').val()+"' ^^";
-                    var t_where3 = "where[3]=^^ CHARINDEX('月結',memo2)>0   and left(right(memo2,9),6)<='"+$('#txtMon').val()+"' and vccno=vcc.custno ^^";
+                    var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and CHARINDEX('月結',memo2)>0   and left(right(memo2,9),6)<='"+$('#txtMon').val()+"' and vccno=vcc.custno ^^";
             		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
                 });
             }
