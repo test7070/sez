@@ -51,7 +51,7 @@
 		function mainPost() { 
 			q_getFormat();
 			q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
-			bbmMask = [['txtDatea', r_picd]];
+			bbmMask = [['txtDatea', r_picd],['txtCldate',r_picd]];
 			q_mask(bbmMask);
 			 $('#cmbKind').change(function () {
 					size_change();
