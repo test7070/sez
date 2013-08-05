@@ -64,9 +64,10 @@
 			});
 			$('#btnOrdeimport').click(function(){
 				var ordeno = $('#txtOrdeno').val();
-				var t_where = '';
+				var t_where = ' 1=1 ';
 				if(ordeno.length > 0)
-					t_where = "noa='" + ordeno + "'";
+					t_where = " and noa='" + ordeno + "'";
+				t_where += q_sqlPara2('custno',$('#txtCustno').val());
 				q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 			});
 			$('#txtAddr_post').change(function(){
