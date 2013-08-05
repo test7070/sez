@@ -21,8 +21,8 @@
 
 		    q_tables = 's';
 		    var q_name = "fixa4tgg";
-		    var q_readonly = ['txtNoa','txtMoney','txtWorker','txtWorker2'];
-		    var q_readonlys = ['txtMemo2'];
+		    var q_readonly = ['txtNoa','txtTggno','txtTgg','txtMoney','txtWorker','txtWorker2'];
+		    var q_readonlys = ['txtMoney'];
 		    var bbmNum = new Array(['txtMoney', 10, 0]);
 		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
@@ -33,59 +33,127 @@
 		    brwNowPage = 0;
 		    brwKey = 'noa';
 		    //ajaxPath = "";
-		    aPop = new Array(
-		    	['txtCarno_', '', 'car2', 'a.noa', 'txtCarno_', 'car2_b.aspx']
-		    	,['txtCarplateno_', '', 'carplate', 'noa,carplate', 'txtCarplateno_', 'carplate_b.aspx']
-		    	,['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'] 
-		    	//,['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,inprice', 'txtProductno_,txtProduct_,txtPrice_', 'fixucc_b.aspx',0,0,'txtTggno','noa']
-		    	//,['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,inprice', 'txtProductno_,txtProduct_,txtPrice_', 'fixucc_b.aspx']
-		    	);
+		    aPop = new Array();
 		    q_desc = 1;
 			
+			t_data = null;
 			function fixa4tgg() {
             }
             fixa4tgg.prototype = {
+            	tggno : '',
+            	tgg : '',
+            	nick : '',
             	_count : 10,
+            	carList : new Array(),
+            	carplateList : new Array(),
                 productList : new Array(),
-                listShow : function(obj,key){
+                tmpArray : new Array(),
+                tmpField : new Array(),
+                curIndex : -1,
+                curObj : null,
+                init : function(){
+            		t_option = '';
+                	t_option += '<div class="tmpList" style="background:yellow; width:400px; height:25px;">'
+	                	+'<input class="tmpList" type="button" id="tmpList_btnPrevious" value="◄" style="float:left;width:30px;height:25px;"/>'
+				    	+'<a class="tmpList" id="tmpList_curIndex" style="float:left;display:block; width:165px;height:25px;text-align: right;"> </a>'
+					    +'<a class="tmpList" style="float:left;display:block; width:10px;height:25px;">/</a>'
+					    +'<a class="tmpList" id="tmpList_totPage" style="float:left;display:block; width:165px;height:25px;"> </a>'
+					    +'<input class="tmpList" type="button" id="tmpList_btnNext" value="►" style="float:left;width:30px;height:25px;"/>'
+					+'</div>';
+					for(var i=0;i<this._count;i++){
+						t_option +='<div class="tmpList" style="background:yellow; width:400px; height:25px;">'
+							+'<a class="tmpList" style="float:left;display:block; width:20px;height:25px;"> </a>'
+							+'<a class="tmpList" id="tmpList_noa_'+i+'" style="float:left;display:block; width:100px;height:25px;"> </a>'
+			                +'<a class="tmpList" id="tmpList_namea_'+i+'" style="float:left;display:block; width:280px;height:25px;"> </a>'
+			            +'</div>';
+					}
+					$('#tmpList').hide().html(t_option);
+					$('#tmpList_btnPrevious').click(function(e){
+               			if(t_data.curIndex > 0)
+               				t_data.listShow(t_data.curObj,'',t_data.curIndex-1,t_data.tmpArray,t_data.tmpField);
+               		});
+               		$('#tmpList_btnNext').click(function(e){
+               			if(t_data.curIndex < Math.ceil(t_data.tmpArray.length/t_data._count)-1)
+               				t_data.listShow(t_data.curObj,'',t_data.curIndex+1,t_data.tmpArray,t_data.tmpField);
+               		});
+               		
+               		$('body').focus(function(e){
+			   			if($(this).data('curFocus')==undefined)
+			   				$(this).data('bFocus',null);
+			   			else
+			   				$(this).data('bFocus',$(this).data('curFocus'));
+			   			$(this).data('curFocus',$(e.target));
+			   		}).click(function(e){
+			   			if(!($(e.target).hasClass('tmpList') || ($(e.target).attr('id')!=undefined && $(e.target).attr('id').split('_')[0]==$('#tmpList').data('target')))){
+			   				t_data.listHide();
+			   			}
+			   		});
+                },
+                listShow : function(obj,key,nn,tArray,tField){
+                	if(!(q_cur==1 || q_cur==2))
+                		return;
+                	this.tmpArray = tArray;
+                	this.tmpField = tField;
+                	this.curObj = obj;
                 	t_option = '';
-                	if(key.length==0){
-                		for(var i=0;i<this.productList.length && i<this._count;i++)
-                			t_option += '<div tag="'+i+'" style="background:yellow; width:400px; height:25px;"><a style="float:left;display:block; width:20px;height:25px;"></a><a style="float:left;display:block; width:100px;height:25px;">'+this.productList[i].noa+'</a>'
-                				+'<a style="float:left;display:block; width:280px;height:25px;">'+this.productList[i].namea+'</a></div>';
+                	if(nn>=0){
+                		this.curIndex = nn;
+                	}else if(key.length==0){
+                		this.curIndex = 0;
                 	}else{
-                		for(var i=0;i<this.productList.length;i++){
-                			if(key == this.productList[i].noa.substring(0,key.length)){
+                		for(var i=0;i<this.tmpArray.length;i++)
+                			if(key == this.tmpArray[i].noa.substring(0,key.length)){
                 				var n = Math.floor(i/this._count);
-                				t_option='';
-                				for(var j=n*this._count,k=0;j<this.productList.length && k<this._count ;j++,k++){
-                					t_option += '<div tag="'+j+'" style="background:yellow; width:400px; height:25px;"><a style="float:left;display:block; width:20px;height:25px;"></a><a style="float:left;display:block; width:100px;height:25px;">'+this.productList[j].noa+'</a>'
-                				+'<a style="float:left;display:block; width:280px;height:25px;">'+this.productList[j].namea+'</a></div>';
-                				}
-                				i=this.productList.length;
+                				this.curIndex = n;
                 				break;
                 			}
-                		}
-                	}	
-                	$('#tmpList').attr('tag',obj.attr('id').replace('txtProductno_','')).show().html(t_option).css('top',obj.offset().top+obj.height()).css('left',obj.offset().left);
+                	}
+                	for(var i=0;i<this._count;i++){
+            			n = this.curIndex*this._count + i;
+            			if(n<this.tmpArray.length){
+            				$('#tmpList_noa_'+i).parent().attr('tag',n).show();
+        					$('#tmpList_noa_'+i).html(this.tmpArray[n].noa);
+        					$('#tmpList_namea_'+i).html(this.tmpArray[n].namea);
+            			}else{
+            				$('#tmpList_noa_'+i).parent().removeAttr('tag').hide();
+        					$('#tmpList_noa_'+i).html('');
+        					$('#tmpList_namea_'+i).html('');
+            			}
+            		}
+                	$('#tmpList_curIndex').html(this.curIndex+1);
+                	$('#tmpList_totPage').html(Math.ceil(this.tmpArray.length/this._count));
+                	
+                	$('#tmpList').attr('tag',obj.attr('id').split('_')[1]).show().css('top',obj.offset().top+obj.height()).css('left',obj.offset().left);
+               		$('#tmpList').data('target',obj.attr('id').split('_')[0]);
                		$('#tmpList').children().children().hover(function(e){
-               			$(this).parent().css('background','orange');
+               			if($(this).parent().attr('tag')!=undefined)
+               				$(this).parent().css('background','orange');
                		},function(e){
-               			$(this).parent().css('background','yellow');
+               			if($(this).parent().attr('tag')!=undefined)
+               				$(this).parent().css('background','yellow');
                		}).click(function(e){
                			var n = $(this).parent().attr('tag');
                			var m = $(this).parent().parent().attr('tag');
-               			$('#txtProductno_'+m).val(t_data.productList[n].noa);
-               			$('#txtProduct_'+m).val(t_data.productList[n].namea);
-               		})
+               			if(n!=undefined && m!=undefined){
+               				if(t_data.tmpField.length>0)
+               					$('#'+t_data.tmpField[0]+'_'+m).val(t_data.tmpArray[n].noa);
+               				if(t_data.tmpField.length>1 && t_data.tmpField[1].length>0)
+	               				$('#'+t_data.tmpField[1]+'_'+m).val(t_data.tmpArray[n].namea);
+	               			$('#tmpList').hide();
+               			}
+               		});
+               		
                 },  
                 listHide : function(){
                 	$('#tmpList').hide();
                 },
             };
-            t_data = new fixa4tgg();
+            
             
 		    $(document).ready(function () {
+		    	t_data = new fixa4tgg();
+            	t_data.init();
+		   		
 		        bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
 		        q_brwCount();
@@ -112,7 +180,6 @@
 		        $('#txtDatea').datepicker();
 		        q_gt("fixucc", "where=^^ left(noa,"+(r_userno.length+1)+")='"+r_userno+"-' ^^", 0, 0, 0, "getProduct");
 		    }
-
 		    function q_boxClose(s2) {
 		        var ret;
 		        switch (b_pop) {
@@ -121,7 +188,6 @@
 		                break;
 		        }  
 		    }
-
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
 		        	case 'getProduct':
@@ -129,7 +195,30 @@
                         for ( i = 0; i < as.length; i++) {
                         	t_data.productList.push({noa : as[i].noa,namea : as[i].namea});
                         }
+                        q_gt("car2", "where=^^ a.cartype='2' ^^", 0, 0, 0, "getCar");
                         break;
+                    case 'getCar':
+                    	var as = _q_appendData("car2", "", true);
+                    	for ( i = 0; i < as.length; i++) {
+                        	t_data.carList.push({noa : as[i].carno,namea:''});
+                        }
+                        q_gt("carplate", '', 0, 0, 0, "getCarplate");
+                    	break;
+                   	case 'getCarplate':
+                    	var as = _q_appendData("carplate", "", true);
+                    	for ( i = 0; i < as.length; i++) {
+                        	t_data.carplateList.push({noa : as[i].noa,namea:as[i].carplate});
+                        }
+                    	q_gt("tgg", "where=^^ noa='"+r_userno+"' ^^", 0, 0, 0, "getTgg");
+                    	break;
+                    case 'getTgg':
+                    	var as = _q_appendData("tgg", "", true);
+                    	if(as[0]!=undefined){
+                    		t_data.tggno=as[0].noa;
+                    		t_data.tgg=as[0].comp;
+                    		t_data.nick=as[0].nick;
+                    	}
+                    	break;
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
@@ -150,7 +239,6 @@
             		Unlock(1);
             		return;
 				}
-		
  		        sum();
                 if(q_cur ==1){
 	            	$('#txtWorker').val(r_name);
@@ -162,7 +250,7 @@
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_fixa') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_fixa4tgg') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
 		    }
@@ -170,8 +258,7 @@
 		    function _btnSeek() {
 		        if (q_cur > 0 && q_cur < 4)// 1-3
 		            return;
-
-		        q_box('fixa4tgg_s.aspx', q_name + '_s', "500px", "550px", q_getMsg("popSeek"));
+		        q_box('fixa4tgg_s.aspx', q_name + '_s', "550px", "350px", q_getMsg("popSeek"));
 		    }
 
 		    function bbsAssign() {
@@ -179,11 +266,28 @@
 		        	$('#lblNo_'+i).text(i+1);
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 		                $('#txtProductno_' + i).focus(function(e){
-		                	t_data.listShow($(this),$(this).val());
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.productList,['txtProductno','txtProduct']);
 		                }).keyup(function(e){
-		                	t_data.listShow($(this),$(this).val());
-		                }).blur(function(e){
-		                	t_data.listHide();
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.productList,['txtProductno','txtProduct']);
+		                }).keydown(function(e){
+		                	if(e.which==13 || e.which==9)
+		                		t_data.listHide();
+		                });
+		                $('#txtCarno_' + i).focus(function(e){
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.carList,['txtCarno']);
+		                }).keyup(function(e){
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.carList,['txtCarno']);
+		                }).keydown(function(e){
+		                	if(e.which==13 || e.which==9)
+		                		t_data.listHide();
+		                });
+		                $('#txtCarplateno_' + i).focus(function(e){
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.carplateList,['txtCarplateno','']);
+		                }).keyup(function(e){
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.carplateList,['txtCarplateno','']);
+		                }).keydown(function(e){
+		                	if(e.which==13 || e.which==9)
+		                		t_data.listHide();
 		                });
 		                $('#txtMount_' + i).change(function (e) {
 		                    sum();
@@ -204,15 +308,17 @@
                 $('#txtNoa').val('AUTO');
                 if($('#txtDatea').val().length==0)
                		$('#txtDatea').val(q_date());
+               	$('#txtTggno').val(t_data.tggno);
+               	$('#txtTgg').val(t_data.tgg);
+               	$('#txtNick').val(t_data.nick);
 		        $('#txtDatea').focus();
 		    }
 
 		    function btnModi() {
 		        if (emp($('#txtNoa').val()))
                     return;
-                Lock(1,{opacity:0});
-                t_where=" where=^^ rc2no='"+$('#txtNoa').val()+"'^^";
-            	q_gt('paybs', t_where, 0, 0, 0, "btnModi", r_accy);
+                _btnModi();       
+                $('#txtDatea').focus();
 		    }
 
 		    function btnPrint() {
@@ -305,9 +411,7 @@
 		    }
 
 		    function btnDele() {
-		        Lock(1,{opacity:0});
-                t_where=" where=^^ rc2no='"+$('#txtNoa').val()+"'^^";
-            	q_gt('paybs', t_where, 0, 0, 0, "btnDele", r_accy);
+		        _btnDele();
 		    }
 
 		    function btnCancel() {
@@ -489,7 +593,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id="tmpList" style="position: absolute;"> </div>
+		<div id="tmpList" class="productList" style="position: absolute;"> </div>
 		<div id='dmain' >
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
@@ -571,9 +675,8 @@
 					<td><input class="txt c1" id="txtCarno.*" type="text" /></td>
 					<td><input class="txt c1" id="txtCarplateno.*" type="text" /></td>
 					<td>
-						<input id="btnProductno.*" type="button" value="..." style="width: 5%;" />
-						<input class="txt" id="txtProductno.*" type="text" list="productList" style="width:30%;"/>
-						<input class="txt" id="txtProduct.*"type="text" style="width:60%;"/>
+						<input class="txt" id="txtProductno.*" type="text" style="float:left;width:35%;"/>
+						<input class="txt" id="txtProduct.*"type="text" style="float:left;width:60%;"/>
 					</td>
 					<td><input class="txt num c1" id="txtPrice.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtMount.*" type="text" /></td>
