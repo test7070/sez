@@ -42,6 +42,7 @@
 		    function main() {
 		        mainForm(1);
 		    }
+		    var clickmon=false;
 		    function mainPost() {
 		        q_getFormat();
 		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
@@ -88,14 +89,42 @@
 		        });
 		        $('#txtOpay').change(function () { sum(); });
 		        $('#txtUnopay').change(function () { sum(); });
-				//1003暫時不先開啟視窗選擇要匯入的立帳單
+				
 		        $('#btnVcc').click(function (e) {
-		            pay_tre();
+		            if(emp($('#txtDatea').val())){
+                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
+                		return;
+                	}
+                	clickmon=false;
+                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and rc2no=a.noa ^^";
+                    var t_tgg=emp($('#txtTggno').val())?"":(" and a.tggno ='"+$('#txtTggno').val()+"'");
+                    var t_where1 = "where[1]=^^ 1=1 "+t_tgg+" ^^";
+                    var t_where2 = "where[2]=^^ 1=0 ^^";
+                    var t_where3 = "where[3]=^^ 1=0 ^^";                    
+            		q_gt('pay_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+
 		        });
-		        $('#btnRc2no').click(function (e) {
-		            var t_where = "where=^^ unpay>0 ^^"; 
-		            q_gt('payb', t_where, 0, 0, 0, "", r_accy);
+		        $('#btnMon').click(function (e) {
+		            if(emp($('#txtDatea').val())){
+                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
+                		return;
+                	}
+                	if(emp($('#txtMon').val())){
+                		alert('請先輸入'+q_getMsg('lblMon')+'!!')
+                		return;
+                	}
+                	
+                	clickmon=true;
+                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and left(datea,6)<='"+$('#txtMon').val()+"' and rc2no=a.noa ^^";
+                    var t_where1 = "where[1]=^^ 1=0 ^^";
+                    var t_tgg=emp($('#txtTggno').val())?"":(" and tggno ='"+$('#txtTggno').val()+"'");
+                    var t_where2 = "where[2]=^^ 1=1 "+t_tgg+"and mon<='"+$('#txtMon').val()+"' and datea<='"+$('#txtDatea').val()+"' ^^";
+                    var t_where3 = "where[3]=^^ CHARINDEX('月結',memo2)>0   and left(right(memo2,9),6)<='"+$('#txtMon').val()+"' and rc2no=rc.tggno ^^";
+            		q_gt('pay_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+		            
+		            
 		        });
+		        
 		         $('#btnAuto').click(function (e) {
 		        		/// 自動沖帳
 		               //$('#txtOpay').val(0);
@@ -135,49 +164,8 @@
 		                    q_tr('txtOpay', t_money);
 		                sum();
 		         });
-		         
-		       /*  $('#btnPayvcc').click(function (e) {
-		            var t_where ='';
-		            t_where+="CHARINDEX('代收',product)>0 and CHARINDEX('會計',kind)>0";
-		            //不含已存在的資料(且不包含本身的vccsno)
-		            t_where+=" and CHARINDEX(a.noa+b.noq , (select ','+vccsno from pay where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')))=0";
-		            q_box("pay_vcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy , 'pay_vcc', "95%", "95%", q_getMsg('popPay_vcc'));
-		        });*/
 		    }
 
-		    function pay_tre() {
-		        if (q_cur == 1 || q_cur == 2) {
-		        	var t_noa = $.trim($('#txtNoa').val());
-		        	var t_tggno = $.trim($('#txtTggno').val());
-		        	var t_tggno2 = $.trim($('#txtTggno2').val());
-		        	if (t_tggno.length==0) {  
-		                alert('請輸入' + q_getMsg('lblTgg'));
-		                return false;
-		            }
-		        	Lock(1,{opacity:0});   
-		            
-		            var t_order = "order=^^ rc2no ^^";
-		            var t_where = "where=^^ pays.rc2no=a.noa and pays.noa!='"+t_noa+"' ^^";
-		           
-		            //廠商, where[1] tre, where[2] payb
-		            var t_where1 = "a.tggno ='" + t_tggno + "'",t_where2;
-		            if (t_tggno2.length>0) {
-                        var t_tggno2 = t_tggno2.split(",");
-                        for (var i = 0; i < t_tggno2.length; i++) {
-                            t_where1 += " or a.tggno ='" + t_tggno2[i] + "'";
-                        }
-                    }
-		            t_where1 = "(isnull(a.total,0)-ISNULL(b.paysale,0)!=0) and ("+t_where1+")";
-		            //1020712炳圳如果帳款月份有打payb也要判斷月份
-		            t_where2 = "where[2]=^^"+t_where1+(emp($('#txtMon').val())?'':" and  mon='"+$('#txtMon').val()+"'")+"^^";
-		            if(q_getPara('sys.comp').substring(0,2)=='大昌')
-		            	t_where1 = "where[1]=^^ 1=0 ^^";
-		            else
-		            	t_where1 = "where[1]=^^"+t_where1+"^^";
-		            q_gt('pay_tre', t_where + t_where1 + t_where2, 0, 0, 0, "", r_accy);
-		        }
-		    }
-			
 			function browRc2no(obj) {
             	var t_rc2no = $.trim($(obj).val());
             	if(t_rc2no.length>0){
@@ -254,7 +242,33 @@
 			
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
-		        	
+		        	case 'pay_mon':
+		        		for (var i = 0; i < q_bbsCount; i++) {
+                            if ($('#txtRc2no_' + i).val().length > 0) {
+                                $('#txtRc2no_' + i).val('');
+                                $('#txtPaysale_' + i).val(0);
+                                $('#txtUnpay_' + i).val('');
+                                $('#txtPart2_' + i).val('');
+                                $('#txtUnpayorg_' + i).val('');
+                                $('#txtMemo2_' + i).val('');
+                            }
+                        }
+                        var as = _q_appendData("pays", "", true);
+                        for (var i = 0; i < as.length; i++) {
+                            if (as[i].total - as[i].payed == 0) {
+                                as.splice(i, 1);
+                                i--;
+                            } 
+                        }
+                        if(clickmon){
+	                        for (var i = 0; i < as.length; i++) {
+	                            	as[i].memo+=' '+$('#txtMon').val()+' 月結';
+	                        }
+                        }
+                        
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtRc2no', '');
+                        sum();
+		        		break;
 		        	case 'part':
 		                var as = _q_appendData("part", "", true);
 		                if (as[0] != undefined) {
@@ -287,57 +301,6 @@
 
 		                $('#textOpay').val(s1);
 		                $('#textOpayOrg').val(s1);
-						Unlock(1);
-		                break;
-		            case 'pay_tre':
-		                for (var i = 0; i < q_bbsCount; i++) {
-		                    if ($('#txtRc2no_' + i).val().length > 0) {
-		                        $('#txtRc2no_' + i).val('');
-		                        $('#txtPaysale_' + i).val('');
-		                        $('#txtUnpay_' + i).val('');
-		                        $('#txtPart2_' + i).val('');
-		                        $('#txtUnpayorg_' + i).val('');
-		                        $('#txtIndate_' + i).val('');
-		                    }
-		                }	               
-		                var as = _q_appendData("pay_tre", "", true);
-		               	if (as[0] == undefined){
-		               		alert('無資料。');
-		               		Unlock(1);
-		               		return;
-		               	} 
-		               	var yufu=false;
-		                for (var i = 0; i < as.length; i++) {
-		                    //判斷匯入資料是否有預付
-			                if(as[i].payc.indexOf('預付')>-1){
-			                    yufu=true;
-			                }	               
-		                }
-		                //有預付存在每個備註插入預付，並在BBM預付單號上加上預付
-		                if(yufu){
-		                	if($('#txtRc2no').val().indexOf('預付')==-1)
-		                		$('#txtRc2no').val('預付'+$('#txtRc2no').val());
-		                }
-						//--------------------------------------------------------
-						//重新排列有到期日的
-						var tmp = new Array();
-						for(var i in as){
-							if(as[i].indate!=undefined && as[i].indate.length>0){
-								tmp.push({noa: as[i].noa,payc: as[i].payc, indate:as[i].indate});
-							}
-							as[i].payc = '';
-							as[i].indate = '';
-						}
-						for(var i in tmp){
-							as[i].memo = tmp[i].noa;
-							as[i].payc = tmp[i].payc;
-							as[i].indate = tmp[i].indate;
-						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtTablea,txtAccy,txtRc2no,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo2,txtPayc,txtIndate', as.length, as, 'tablea,accy,rc2no,unpay,part,partno,part,memo,payc,indate', 'txtRc2no', '');
-						for(var i in tmp){
-							$('#txtMemo').val( tmp[i].noa);
-						}
-		                sum();
 						Unlock(1);
 		                break;
 		            case q_name:
@@ -772,9 +735,11 @@
 		        
 		        if(q_cur==1 || q_cur==2){
 		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnMon").removeAttr("disabled");
 		        	$("#btnAuto").removeAttr("disabled");
 		        }else{
 		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnMon").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
 		        }
 		        getOpay();
@@ -784,12 +749,13 @@
 		        _readonly(t_para, empty);
 		         if(q_cur==1 || q_cur==2){
 		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnMon").removeAttr("disabled");
 		        	$("#btnAuto").removeAttr("disabled");
 		        	
 		        }else{
 		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnMon").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
-		        	
 		        }
 		    }
 
@@ -986,28 +952,6 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-	<div id="ChangeExplain" style="position:absolute; top:300px; left:500px; display:none; width:750px; height:250px; background-color: #cad3ff; border: 5px solid gray;">
-			<table style="width:100%;">
-						
-								<tr>
-									<td>預付流程</td>
-								</tr>
-								<tr>
-								<td>步驟一：到 F4 應付立帳作業，輸入 " 基本資料 "，再到 " #類別 " 點選 " 預付 " ,輸入 " 數量 " 及 " 金額 " ，即有預付立帳單(PS 會計傳票為Z，預付不產生會計傳票)。</td>
-								</tr>
-								<tr>
-								<td>步驟二：到 F5 付款登錄作業，輸入 " 廠商名稱 " ，點選 " 立帳單匯入 " 。如有預付立帳單，會在 " 立帳單 " 及 " 預付單號 " 顯示 " 預付 " 2字。輸入 " 會計科目 " 及 " 付款金額 " ，再點選 " 自動沖帳 " ， " 預付 " 顯示金額。(第一張單子，讓該廠商有預付金額的值。)</td>
-								</tr>
-								<tr>
-								<td>步驟三：到 F5  付款登錄作業，輸入 " 廠商名稱 " ，點選 " 立帳單匯入 " ， " 預付餘額 " 有值，輸入 " 預付沖帳 " 要沖的金額，再點選 " 自動沖帳 " ，會自動與 " 付款金額 " 相加然後顯示 " 沖帳金額 "。(第二張單子,可用預付金額去沖帳。)</td>	
-								</tr>
-								<tr>
-									<td align="center">
-									<input id="btnCloseexplain" type="button" value="關閉視窗">
-									</td>
-								</tr>
-							</table>
-		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
@@ -1066,18 +1010,18 @@
                         <input id="txtTggno" type="text" class="txt c4"/>
                         <input id="txtComp"  type="text" class="txt c5" />
 						</td>
-						<td class="td4">
-							<!--<input type="button" id="btnRc2no" class="txt c1 " />-->
-						</td>
-						<td class="5">
-						<input type="button" id="btnVcc" class="txt c1 " />
-						</td>
-						<td class="td6"><span> </span><a id='lblMon' class="lbl"></a></td>
-						<td class="td7" >
+						<td class="td5"><span> </span><a id='lblMon' class="lbl"></a></td>
+						<td class="td6" >
 						<input id="txtMon"  type="text" class="txt c1"/>
 						</td>
+						<td class="7">
+						<input type="button" id="btnVcc" class="txt c1 " />
+						</td>
+						<td class="8">
+						<input type="button" id="btnMon" class="txt c1 " />
+						</td>
 					</tr>
-					<tr class="tr3">
+					<!--<tr class="tr3">
                         <td class="td1" ><span> </span><a id='lblTgg2' class="lbl"></a></td>
 						<td class="td2" colspan='3'>
                         <input id="txtTggno2" type="text" class="txt c1"/>
@@ -1087,9 +1031,7 @@
 							<input id="txtPart"  type="text" style="width: 63%;"/>
 						</td>
 						<td> </td>
-						<td><input id="btnExplain" type="button"  /></td>
-                        	
-					</tr>
+					</tr>-->
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
 						<td class="td2">
