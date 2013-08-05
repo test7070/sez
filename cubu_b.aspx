@@ -53,7 +53,7 @@
 
 			function mainPost() {
 				bbmMask = [];
-				bbsMask = [['txtIndate',r_picd],['txtStyle','A']];
+				bbsMask = [['txtDatea',r_picd],['txtStyle','A']];
 				q_mask(bbmMask);
 			}
 
@@ -110,7 +110,7 @@
 								getTheory(b_seq);
 							}
 						});
-						$('#txtIndate_' + j).focusout(function(){
+						$('#txtDatea_' + j).focusout(function(){
 							if($(this).val() == '')
 								$(this).val(q_date());
 						});
@@ -332,7 +332,7 @@
 					<td align="center" style="width:7%;"><a id='lblUno'></a></td>
 					<td align="center" style="width:7%;"><a id='lblOrdeno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCustno'></a></td>
-					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
+					<td align="center" style="width:5%;"><a id='lblDatea'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStoreno'></a></td>
 					<td align="center" style="width:3%;"><a id='lblClass'></a></td>
 					<td align="center" style="width:5%;"><a id='lblProductno'></a></td>
@@ -358,7 +358,7 @@
 						<input type="text" id="txtCustno.*" class="txt c3"/>
 						<input type="text" id="txtComp.*" class="txt c1"/>
 					</td>
-					<td><input type="text" id="txtIndate.*" class="txt c1"/></td>
+					<td><input type="text" id="txtDatea.*" class="txt c1"/></td>
 					<td>
 						<input id="btnStoreno.*" type="button" value="." class="txt btn" style="width:1%;"/>
 						<input type="text" id="txtStoreno.*" class="txt c3"/>
