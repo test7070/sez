@@ -102,24 +102,6 @@
                 b_pop = '';
             }
 
-			function ProductAddStyle(id){
-				var Styleno = $('#txtStyle_' + id).val();
-				var StyleName = '';
-				var ProductVal = $('#txtProduct_' + id).attr('OldValue');
-				ProductVal = (emp(ProductVal)?(emp($('#txtProductno_' + id).val())?'':$('#txtProduct_' + id).val()):ProductVal);
-				if(!emp(Styleno) && (StyleList[0] != undefined)){
-					for(var i = 0;i < StyleList.length;i++){
-		              		if(StyleList[i].noa.toUpperCase() == Styleno){
-		             			styleProduct = StyleList[i].product;
-								if(ProductVal.substr(ProductVal.length-styleProduct.length) == styleProduct){
-									ProductVal = ProductVal.substr(0,ProductVal.length-styleProduct.length);
-								}
-								ProductVal = ProductVal+styleProduct;
-							}
-					}
-		        }
-				$('#txtProduct_' + id).val(ProductVal);
-			}
 			var StyleList = '';
             function q_gtPost(t_name) {
                 switch (t_name) {
