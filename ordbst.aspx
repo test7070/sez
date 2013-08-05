@@ -386,7 +386,7 @@
                 _btnCancel();
             }
             
-		function size_change () {
+		function size_change() {
 			if(q_cur==1 || q_cur==2){
 				$('input[id*="textSize"]').removeAttr('disabled');
 			}else{
@@ -403,9 +403,9 @@
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).hide();
 			        $('#Size').css('width','222px');
-			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize1_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
@@ -420,10 +420,10 @@
 			        $('#x2_'+j).show();
 			        $('#x3_'+j).show();
 			        $('#Size').css('width','297px');
-			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize1_'+j).val($('#txtRadius_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize4_'+j).val($('#txtLengthb_'+j).val());
 				}
 			}else{//鋼筋和鋼胚
 				$('#lblSize_help').text("長度");
@@ -439,10 +439,10 @@
 			        $('#textSize1_'+j).val(0);
 			        $('#txtDime_'+j).val(0)
 			        $('#textSize2_'+j).val(0);
-			        $('#txtWidth_'+j).val(0)
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#txtWidth_'+j).val(0);
+			        $('#textSize3_' + j).val($('#txtLengthb_'+j).val());
 			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
+			        $('#txtRadius_'+j).val(0);
 				}
 			}
 		}

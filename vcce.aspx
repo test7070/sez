@@ -48,7 +48,7 @@
 		}  
 		function mainPost() { 
 			q_getFormat();
-			bbmMask = [['txtDatea', r_picd]];
+			bbmMask = [['txtDatea', r_picd],['txtCldate',r_picd]];
 			q_mask(bbmMask);
 			q_cmbParse("cmbKind", q_getPara('sys.stktype'));  
 			 $('#cmbKind').change(function () {
@@ -66,7 +66,7 @@
 				var ordeno = $('#txtOrdeno').val();
 				var t_where = ' 1=1 ';
 				if(ordeno.length > 0)
-					t_where = " and noa='" + ordeno + "'";
+					t_where += " and noa='" + ordeno + "'";
 				t_where += q_sqlPara2('custno',$('#txtCustno').val());
 				q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 			});
@@ -352,63 +352,63 @@
 		function btnCancel() {
 			_btnCancel();
 		}
-		function size_change () {
+		function size_change() {
 			if(q_cur==1 || q_cur==2){
 				$('input[id*="textSize"]').removeAttr('disabled');
 			}else{
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
-		  	if($('#cmbKind').val().substr(0,1)=='A'){
-				$('#lblSize_help').text("厚度x寬度x長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).show();
-					$('#textSize2_'+j).show();
-					$('#textSize3_'+j).show();
-					$('#textSize4_'+j).hide();
-					$('#x1_'+j).show();
-					$('#x2_'+j).show();
-					$('#x3_'+j).hide();
-					$('#Size').css('width','222px');
-					q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
-					q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-					q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-					$('#textSize4_'+j).val(0);
-					$('#txtRadius_'+j).val(0)
+		  	if( $('#cmbKind').val().substr(0,1)=='A'){
+            	$('#lblSize_help').text("厚度x寬度x長度");
+	        	for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','222px');
+			        $('#textSize1_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
 				}
-			}else if($('#cmbKind').val().substr(0,1)=='B'){
+			}else if( $('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).show();
-					$('#textSize2_'+j).show();
-					$('#textSize3_'+j).show();
-					$('#textSize4_'+j).show();
-					$('#x1_'+j).show();
-					$('#x2_'+j).show();
-					$('#x3_'+j).show();
-					$('#Size').css('width','297px');
-					q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
-					q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-					q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
-					q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).show();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).show();
+			        $('#Size').css('width','297px');
+			        $('#textSize1_'+j).val($('#txtRadius_'+j).val());
+			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
+			        $('#textSize3_'+j).val($('#txtDime_'+j).val());
+			        $('#textSize4_'+j).val($('#txtLengthb_'+j).val());
 				}
 			}else{//鋼筋和鋼胚
 				$('#lblSize_help').text("長度");
-				for (var j = 0; j < q_bbsCount; j++) {
-					$('#textSize1_'+j).hide();
-					$('#textSize2_'+j).hide();
-					$('#textSize3_'+j).show();
-					$('#textSize4_'+j).hide();
-					$('#x1_'+j).hide();
-					$('#x2_'+j).hide();
-					$('#x3_'+j).hide();
-					$('#Size').css('width','70px');
-					$('#textSize1_'+j).val(0);
-					$('#txtDime_'+j).val(0)
-					$('#textSize2_'+j).val(0);
-					$('#txtWidth_'+j).val(0)
-					q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-					$('#textSize4_'+j).val(0);
-					$('#txtRadius_'+j).val(0)
+	            for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).hide();
+	            	$('#textSize2_'+j).hide();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).hide();
+			        $('#x2_'+j).hide();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','70px');
+			        $('#textSize1_'+j).val(0);
+			        $('#txtDime_'+j).val(0)
+			        $('#textSize2_'+j).val(0);
+			        $('#txtWidth_'+j).val(0);
+			        $('#textSize3_' + j).val($('#txtLengthb_'+j).val());
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0);
 				}
 			}
 		}
@@ -578,7 +578,10 @@
 		}
 	</style>
 </head>
-<body>
+<body ondragstart="return false" draggable="false"
+		ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"  
+		ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"  
+		ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
 	<div id='dmain' >
 		<div class="dview" id="dview" style="float: left;  width:32%;"  >
@@ -637,7 +640,6 @@
 		<tr class="tr6">
 			<td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
 			<td class="td2"><input id="txtWeight"  type="text" class="txt c1 num"/></td>
-			<td class='td3'> </td>
 			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
 			<td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
 			<td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
