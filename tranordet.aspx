@@ -22,9 +22,10 @@
             var bbmNum = [];
             var bbsNum = [['txtWeight2',12 , 3, 1],['txtTrannumber',12 , 0, 1]];
             var bbmMask = [];
-            var bbsMask = [['txtDatea', r_picd]];
+            var bbsMask = [['txtDatea', '999/99/99']];
 
             $(document).ready(function() {
+            	console.log(r_picd);
                 if(!q_paraChk())
                     return;
                 main();
@@ -36,6 +37,7 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
             }
+            
             function q_gtPost(t_name) {
 
             }

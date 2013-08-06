@@ -529,13 +529,18 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur == 2 || q_cur == 0){
+                    $('#btnTweight2').removeAttr('disabled');
+                }else{
+                    $('#btnTweight2').attr('disabled', 'disabled');
+                	
+                }
                 if (q_cur == 1 || q_cur == 2) {
                     $('.x_chk').removeAttr('disabled');
                     $('.y_chk').removeAttr('disabled');
                     
                     $('#btnTranquat').removeAttr('disabled');
                     $('#btnDeliveryno').removeAttr('disabled');
-                    $('#btnTweight2').removeAttr('disabled');
                     
                     $('#textAddrno1').css('color','black').css('background','white').removeAttr('readonly');
                     $('#textAddr1').css('color','black').css('background','white').removeAttr('readonly');
@@ -553,7 +558,6 @@
                     
                     $('#btnTranquat').attr('disabled', 'disabled');
                     $('#btnDeliveryno').attr('disabled', 'disabled');
-                    $('#btnTweight2').attr('disabled', 'disabled');
                     
                     $('#textAddrno1').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
                     $('#textAddr1').css('color','green').css('background','rgb(237,237,237)').attr('readonly','readonly');
