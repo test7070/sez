@@ -23,8 +23,8 @@
 		    var q_name = "fixa4tgg";
 		    var q_readonly = ['txtNoa','txtTggno','txtTgg','txtMoney','txtWorker','txtWorker2'];
 		    var q_readonlys = ['txtMoney'];
-		    var bbmNum = new Array(['txtMoney', 10, 0]);
-		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]);
+		    var bbmNum = new Array(['txtMoney', 10, 0, 1]);
+		    var bbsNum = new Array(['txtPrice', 10, 1,1], ['txtMount', 10, 1,1], ['txtMoney', 10, 0,1], ['txtMile', 10, 0,1]);
 		    var bbmMask = [];
 		    var bbsMask = [];
 		    q_sqlCount = 6;
@@ -659,6 +659,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblCarplateno_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMile_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
@@ -674,6 +675,7 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input class="txt c1" id="txtCarno.*" type="text" /></td>
 					<td><input class="txt c1" id="txtCarplateno.*" type="text" /></td>
+					<td><input class="txt num c1" id="txtMile.*" type="text" /></td>
 					<td>
 						<input class="txt" id="txtProductno.*" type="text" style="float:left;width:35%;"/>
 						<input class="txt" id="txtProduct.*"type="text" style="float:left;width:60%;"/>
