@@ -172,6 +172,7 @@
 				});
             }
             _bbsAssign();
+            size_change();
         }
         
         function q_popPost(s1) {

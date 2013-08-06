@@ -233,7 +233,6 @@
         
 		var btnCert_Seq = -1; ///用來給q_box開啟cert時判斷位置
 		function bbsAssign() {  /// 表身運算式
-            _bbsAssign();
             $('.btnCert').val($('#lblCert_st').text());
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
@@ -316,6 +315,8 @@
                 $('#txtTotal_' + j).focusout(function () { sum(); });
 
             } //j
+            _bbsAssign();
+            size_change();
         }
 
         function btnIns() {
