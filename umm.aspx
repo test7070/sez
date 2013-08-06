@@ -124,7 +124,7 @@
                 	clickmon=false;
                     var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa ^^";
                     var t_cust=emp($('#txtCustno').val())?"":(" and a.custno ='"+$('#txtCustno').val()+"'");
-                    var t_where1 = "where[1]=^^ 1=1 "+t_cust+" ^^";
+                    var t_where1 = "where[1]=^^ 1=1 "+t_cust+" and datea<='"+$('#txtDatea').val()+"'^^";
                     var t_where2 = "where[2]=^^ 1=0 ^^";
                     var t_where3 = "where[3]=^^ 1=0 ^^";                    
             		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);

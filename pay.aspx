@@ -98,7 +98,7 @@
                 	clickmon=false;
                     var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and rc2no=a.noa ^^";
                     var t_tgg=emp($('#txtTggno').val())?"":(" and a.tggno ='"+$('#txtTggno').val()+"'");
-                    var t_where1 = "where[1]=^^ 1=1 "+t_tgg+" ^^";
+                    var t_where1 = "where[1]=^^ 1=1 "+t_tgg+" and datea<='"+$('#txtDatea').val()+"'^^";
                     var t_where2 = "where[2]=^^ 1=0 ^^";
                     var t_where3 = "where[3]=^^ 1=0 ^^";                    
             		q_gt('pay_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
@@ -119,7 +119,7 @@
                     var t_where1 = "where[1]=^^ 1=0 ^^";
                     var t_tgg=emp($('#txtTggno').val())?"":(" and tggno ='"+$('#txtTggno').val()+"'");
                     var t_where2 = "where[2]=^^ 1=1 "+t_tgg+"and mon<='"+$('#txtMon').val()+"' and datea<='"+$('#txtDatea').val()+"' ^^";
-                    var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and CHARINDEX('月結',memo2)>0   and left(right(memo2,9),6)<='"+$('#txtMon').val()+"' and rc2no=rc.tggno ^^";
+                    var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and CHARINDEX('月結',memo2)>0   and left(right(memo2,9),6)<='"+$('#txtMon').val()+"' and rc2no=tmp.tggno ^^";
             		q_gt('pay_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
 		            
 		            
@@ -174,7 +174,13 @@
             		var t_accy = $.trim($('#txtAccy_'+n).val());
             		if(t_tablea.length==0){
             			//相容早期
-            			q_box("payb.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));
+            			if(t_rc2no.substr(0,2)=='FC' ||t_rc2no.substr(0,2)=='FG')
+            				q_box("payb.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'payb', "95%", "95%", q_getMsg("popPayb"));
+            			
+            			if(t_rc2no.substr(0,2)=='WD')
+            				q_box("workd.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'workd', "95%", "95%", q_getMsg("popWorkd"));
+            			if(t_rc2no.substr(0,1)=='I')
+            				q_box("rc2.aspx?;;;noa='" + t_rc2no + "';" + r_accy, 'rc2', "95%", "95%", q_getMsg("popRc2"));
             		}
             		else{
             			if(q_getPara('sys.comp').substring(0,2)=='大昌'){
