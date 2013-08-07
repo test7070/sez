@@ -44,7 +44,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea','txtFixadate','txtMon','txtTggno','txtTgg','txtNick'],
+				include : ['txtDatea','txtFixadate','txtTggno','txtTgg','txtNick'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -199,6 +199,8 @@
             		Unlock(1);
             		return;
 				}
+				if($('#txtMon').val().length==0)
+					$('#txtMon').val($('#txtFixadate').val().substring(0,6));
 				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
                     alert(q_getMsg('lblMon') + '錯誤。');
                     Unlock(1);

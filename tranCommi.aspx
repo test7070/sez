@@ -34,7 +34,8 @@
 			aPop = new Array(
 								['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
 								['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
-								['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+								['txtSalesno', 'lblSales', 'cust', 'noa,comp', 'txtSalesno,txtSales', 'cust_b.aspx']
+								/*['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']*/
 							);
 
             $(document).ready(function() {

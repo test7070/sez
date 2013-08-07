@@ -22,7 +22,7 @@
             var bbmNum = [];
             var bbsNum = [['txtWeight2',12 , 3, 1],['txtTrannumber',12 , 0, 1]];
             var bbmMask = [];
-            var bbsMask = [['txtDatea', r_picd]];
+            var bbsMask = [['txtDatea', '999/99/99']];
 
             $(document).ready(function() {
                 if(!q_paraChk())
@@ -36,6 +36,7 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
             }
+            
             function q_gtPost(t_name) {
 
             }
@@ -79,14 +80,27 @@
                 if(q_tables == 's')
                     bbsAssign();
             }
+            
+            function btnModi(){
+            	if(window.parent.q_cur==0){
+            		$('#btnOk')[0].style.visibility='hidden';
+            		return;
+            	}else{
+            		_btnModi()
+            	}
+            }
+            
             function returnparent() {
-            	if(window.parent.q_name=='tranorde'){
+            	if(window.parent.q_name=='tranorde' && window.parent.q_cur!=0){
 				 	var wParent = window.parent.document;
 				 	var total_weight = 0;
+				 	var total_trannumber = 0;
 				 	for(var i = 0;i < q_bbsCount;i++){
 				 		total_weight += dec($('#txtWeight2_' + i).val());
+				 		total_trannumber += dec($('#txtTrannumber_' + i).val());
 				 	}
 				 	wParent.getElementById("txtTweight2").value=total_weight;
+				 	wParent.getElementById("txtTtrannumber").value=total_trannumber;
 				 }
 			}
 		</script>
