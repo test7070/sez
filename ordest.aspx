@@ -73,12 +73,26 @@
             q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
+            $('#btnOrdei').hide();//外銷訂單按鈕隱藏
+            
             q_gt('spec', '', 0, 0, 0, "", r_accy);
             $('#lblQuat').click(function () { btnQuat(); });
             $('#btnOrdem').click(function () { q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); });
 			$('#cmbKind').change(function () {
 				size_change();
 			});
+			
+			$('#cmbStype').change(function () {
+				if($('#cmbStype').find("option:selected").text() == '外銷')
+            		$('#btnOrdei').show();
+            	else
+            		$('#btnOrdei').hide();
+            });
+			
+			$('#btnOrdei').click(function () {
+				q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordei', "900px", "650px", q_getMsg('popOrdei'));
+            });
+			
 			$('#btnOrdet').click(function(){
 				var noa = $('#txtNoa').val();
 				if(!emp(noa) && noa !='AUTO'){
@@ -471,6 +485,10 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            if($('#cmbStype').find("option:selected").text() == '外銷')
+            	$('#btnOrdei').show();
+            else
+            	$('#btnOrdei').hide();
 			size_change();
 			$('input[id*="txtProduct_"]').each(function(){
 				t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -524,6 +542,11 @@
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
 			size_change();
+			
+			 if(t_para)
+            	$('#btnOrdei').removeAttr('disabled');
+            else
+            	$('#btnOrdei').attr('disabled','disabled');
         }
 
         function btnMinus(id) {
@@ -846,7 +869,7 @@
                <td class="td3"> <select id="cmbStype" class="txt c1"> </select></td>
                <td class="td4"><span> </span><a id='lblKind' class="lbl"> </a></td>
                <td class="td5"><select id="cmbKind" class="txt c1"> </select></td>
-               <td class="td6"> </td>
+               <td class="td6"><input id="btnOrdei" type="button" /></td>
                <td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
                <td class="td8"><input id="txtNoa"   type="text" class="txt c1"/></td> 
             </tr>

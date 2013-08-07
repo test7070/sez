@@ -66,7 +66,20 @@
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
             q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
-            q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
+            q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+              
+			$('#btnOrdei').hide();//外銷訂單按鈕隱藏
+			
+			$('#cmbStype').change(function () {
+				if($('#cmbStype').find("option:selected").text() == '外銷')
+            		$('#btnOrdei').show();
+            	else
+            		$('#btnOrdei').hide();
+            });
+			
+			$('#btnOrdei').click(function () {
+				q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordei', "900px", "650px", q_getMsg('popOrdei'));
+            });
 			
             $('#btnOrdem').click(function () {
             	//q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem'),true); 
@@ -338,10 +351,18 @@
 			$('input[id*="txt"]').click(function(){
 				browTicketForm($(this).get(0));
 			});
+			if($('#cmbStype').find("option:selected").text() == '外銷')
+            	$('#btnOrdei').show();
+            else
+            	$('#btnOrdei').hide();
         }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if(t_para)
+            	$('#btnOrdei').removeAttr('disabled');
+            else
+            	$('#btnOrdei').attr('disabled','disabled');
         }
 
         function btnMinus(id) {
@@ -561,7 +582,7 @@
             <tr class="tr1">
                <td class="td1"><span> </span><a id='lblStype' class="lbl"></a></td>
                <td class="td2"><select id="cmbStype" class="txt c1"></select></td>
-               <td class="td3"></td>
+               <td class="td3"><input id="btnOrdei" type="button" /></td>
                <td class="td4"><span> </span><a id='lblOdate' class="lbl"></a></td>
                <td class="td5"><input id="txtOdate"  type="text"  class="txt c1"/></td>
                <td class="td6"></td>

@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="ordei";
-        var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtDatea'];
         var bbmNum = [['txtFloata', 6, 2],['txtCommissionpercent', 6, 2]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -25,7 +25,19 @@
             bbmKey = ['noa'];
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy) 
-            $('#txtNoa').focus
+            $('#txtNoa').focus();
+            
+            //一個訂單只有一個ordei
+            $('#dview').hide();
+            //不用新增、查詢、列印、翻頁
+            $('#btnIns').hide();
+            $('#btnSeek').hide();
+            $('#btnPrint').hide();
+            $('#btnPrevPage').hide();
+            $('#btnPrev').hide();
+            $('#btnNext').hide();
+            $('#btnNextPage').hide();
+            $('#q_menu').hide();
         });
  
        function main() {
@@ -71,9 +83,8 @@
         }
         function btnIns() {
             _btnIns();
-            $('#txtNoa').val('AUTO');
             $('#txtDatea').val(q_date());
-            $('#txtDatea').focus();
+            $('#txtLcno').focus();
         }
 
         function btnModi() {
@@ -92,13 +103,11 @@
 			else
 				$('#txtWorker2').val(r_name);
 				
-             
+				var t_key = q_getHref();
+                if(t_key[1] != undefined)
+                $('#txtNoa').val(t_key[1]);
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll('EI' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
+                wrServer(t_noa);
         }
 
         function wrServer( key_value) {
@@ -115,9 +124,12 @@
         function refresh(recno) {
             _refresh(recno);
         }
-
+		
+		var isins=true;
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if(abbm[0]==undefined && t_para)
+				btnIns();
         }
 
         function btnMinus(id) {
@@ -174,7 +186,7 @@
             }
             .dview {
                 float: left;
-                width: 38%;
+                width: 0px;
             }
             .tview {
                 margin: 0;
@@ -192,7 +204,7 @@
             }
             .dbbm {
                 float: left;
-                width: 60%;
+                width: 800px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -205,7 +217,7 @@
                 font-size: medium;
                 color: blue;
                 background: #cad3ff;
-                width: 100%;
+                width: 800px;
             }
             .tbbm tr {
                 height: 35px;
@@ -296,7 +308,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" style="float: left;" >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -312,7 +324,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr style="height:1px;">
 				<td> </td>
@@ -321,13 +333,13 @@
 				<td> </td>
 				<td> </td>
 				<td> </td>
-				<td class="tdZ"> </td>
 		  </tr>
 		  <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td4"><span> </span><a id="lblDatea" class="lbl"></a></td>
-               <td class="td5" colspan="2"><input id="txtDatea" type="text" class="txt c1"/></td> 
+               <td class="td5" colspan="2">
+               		<input id="txtDatea" type="text" class="txt c1"/>
+               		<input id="txtNoa" type="hidden" class="txt c1"/>
+               </td> 
             </tr>
           	<tr class="tr2">
                <td class="td1"><span> </span><a id="lblLcno" class="lbl"></a></td>
@@ -359,14 +371,12 @@
                <td class="td2" colspan="2"><input id="txtInspection_comp" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblTrancomp" class="lbl"></a></td>
                <td class="td4" colspan="2"><input id="txtTrancomp" type="text" class="txt c1"/></td>
-               <td> </td> 
             </tr>
             <tr class="trX">
                <td class="td1"><span> </span><a id="lblBank" class="lbl"></a></td>
                <td class="td2" colspan="2"><input id="txtBank" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblTbank" class="lbl"></a></td>
                <td class="td4" colspan="2"><input id="txtTbank" type="text" class="txt c1"/></td>
-               <td> </td> 
             </tr>
             <tr class="trX">
                <td class="td1"><span> </span><a id="lblCommissionpercent" class="lbl"></a></td>
@@ -374,31 +384,26 @@
                <td>%</td>
                <td class="td3"><span> </span><a id="lblAccount" class="lbl"></a></td>
                <td class="td4" colspan="2"><input id="txtAccount" type="text" class="txt c1"/></td>
-               <td> </td>  
             </tr>
             <tr class="trX">
                <td class="td1"><span> </span><a id="lblConsignee" class="lbl"></a></td>
                <td class="td2" colspan="2"><input id="txtConsignee" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblNotify" class="lbl"></a></td>
                <td class="td4" colspan="2"><input id="txtNotify" type="text" class="txt c1"/></td>
-               <td> </td>  
             </tr>
             <tr class="trY">
                <td class="td1"><span> </span><a id="lblInvoicememo" class="lbl"></a></td>
                <td class="td2" colspan="5"><input id="txtInvoicememo" type="text" class="txt c1"/></td>
-               <td> </td> 
             </tr>
             <tr class="trY">
                <td class="td1"><span> </span><a id="lblPackinglistmemo" class="lbl"></a></td>
-               <td class="td2" colspan="5"><input id="txtPackinglistmemo" type="text" class="txt c1"/></td>
-               <td> </td> 
+               <td class="td2" colspan="5"><input id="txtPackinglistmemo" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="trZ">
                <td class="td1"><span> </span><a id="lblTggno" class="lbl"></a></td>
                <td class="td2" colspan="2"><input id="txtTgg" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblBusinesstype" class="lbl"></a></td>
                <td class="td4" colspan="2"><input id="txtBusinesstype" type="text" class="txt c1"/></td>
-               <td> </td>  
             </tr>
             <tr class="trZ">
                <td class="td1"><span> </span><a id="lblCointype" class="lbl"></a></td>
@@ -406,14 +411,12 @@
                <td class="td3" ><input id="txtFloata" type="text" class="txt num c1"/></td>
                <td class="td4"><span> </span><a id="lblPaymentterms" class="lbl"></a></td>
                <td class="td5" colspan="2"><input id="txtPaymentterms" type="text" class="txt c1"/></td>
-               <td> </td>  
             </tr>
             <tr class="tr6">
                <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
                <td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblWorker2" class="lbl"></a></td>
                <td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
-               
             </tr>
         </table>
         </div>
