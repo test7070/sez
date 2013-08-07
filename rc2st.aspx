@@ -227,7 +227,9 @@
 			t_Lengthb = $('#txtLengthb_'+b_seq).val();
 			t_Mount = $('#txtMount_'+b_seq).val();
 			t_Style = $('#txtStyle_'+b_seq).val();
-			return theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style);
+			t_theory = theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style);
+			t_theory = (dec(t_theory)==0?$('#txtWeight_'+b_seq).val():t_theory);
+			return t_theory;
 		}
         
 		var btnCert_Seq = -1; ///用來給q_box開啟cert時判斷位置
@@ -756,9 +758,12 @@
             </tr>
             <tr class="tr6">
                 <td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"></td>
-                <td class="td2" colspan='2'><input id="txtCardealno" type="text"  class="txt c2"/><input id="txtCar"  type="text" class="txt c3"/></td>
+                <td class="td2" colspan='2'>
+                	<input id="txtCardealno" type="text"  class="txt c2"/>
+                	<input id="txtCardeal"  type="text" class="txt c3"/>
+                </td>
                 <td class="td4"><span> </span><a id='lblCarno' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtCarno"    type="text" class="txt c2"/></td> 
+                <td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c2"/></td> 
                 <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"></a></td>
                 <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td> 
             </tr>
