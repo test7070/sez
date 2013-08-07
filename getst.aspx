@@ -282,6 +282,9 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_weight+=dec($('#txtGweight_' + j).val()); // 重量合計
+                t_unit = $('#txtUnit_' + j).val();
+                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
+                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
             }  // j
             
             $('#txtTotal').val(round(t_weight, 0));

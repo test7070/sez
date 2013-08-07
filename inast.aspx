@@ -268,13 +268,19 @@
 								q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 							}
 							q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
+							sum();
 						});
 						$('#txtMount_' + j).change(function () {
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							q_tr('txtWeight_'+b_seq ,getTheory(b_seq));
+							sum();
 						});
+						$('#txtPrice_' + j).change(function () {
+							sum();
+						});
+
 						//-------------------------------------------------------------------------------------
 						}
                 }
@@ -334,6 +340,9 @@
                 var t_weight = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
 					t_weight+=dec($('#txtWeight_' + j).val()); // 重量合計
+	                t_unit = $('#txtUnit_' + j).val();
+	                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
+	                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
                 }  // j
                 $('#txtTotal').val(round(t_weight, 0));
 				if( !emp( $('#txtPrice' ).val()))
@@ -369,7 +378,7 @@
 			                	$(this).attr('OldValue',$(this).val());
 			                });
 			                ProductAddStyle(b_seq);
-			                $('#txtStyle_' + b_seq).focus();
+			                $('#txtClass_'+b_seq).focus();
 			                break;
 	                }
 	            }
@@ -717,11 +726,12 @@
                 <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
-                <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblMoney_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblTotal_s'> </a></td>
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -744,12 +754,13 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
+                <td ><input class="txt num c1" id="txtUnit.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
-                		<input class="txt c1" id="txtRc2no.*" type="text" />
+                		<input class="txt c1" id="txtSize.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>

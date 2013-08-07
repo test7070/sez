@@ -49,7 +49,7 @@
         t_elength = $('#txtElength').val();
         t_bwidth = t_blength.length > 0 && t_blength.indexOf("_") > -1 ? t_blength.substr(0, t_blength.indexOf("_")) : t_blength;  /// 100.  .
         t_ewidth = t_elength.length > 0 && t_elength.indexOf("_") > -1 ? t_elength.substr(0, t_elength.indexOf("_")) : t_elength;  /// 100.  .
-        t_coilno = $('#txtCoilno').val();
+        t_uno = $('#txtUno').val();
         t_useno = $('#txtUseno').val();
         t_use = $('#txtUse').val();
         
@@ -57,7 +57,7 @@
 
         var t_where = " 1=1 " + q_sqlPara2("storeno", t_storeno) + q_sqlPara2("store", t_store) + q_sqlPara2("productno", t_productno)
         + q_sqlPara2("product", t_product)+ q_sqlPara2("spec", t_spec)+ q_sqlPara2("dime", t_bdime, t_edime)
-        + q_sqlPara2("width", t_bwidth, t_ewidth)+ q_sqlPara2("lengthb", t_blength, t_elength)+ q_sqlPara2("coilno", t_coilno)
+        + q_sqlPara2("width", t_bwidth, t_ewidth)+ q_sqlPara2("lengthb", t_blength, t_elength)+ q_sqlPara2("uno", t_uno)
         + q_sqlPara2("useno", t_useno)+ q_sqlPara2("usea", t_use);
         
 
@@ -106,8 +106,8 @@
                 <input class="txt" id="txtElength" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
        		<tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblColino'> </a></td>
-                <td><input class="txt" id="txtColino" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblUno'> </a></td>
+                <td><input class="txt" id="txtUno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblUseno'> </a></td>
