@@ -378,6 +378,7 @@
 			                	$(this).attr('OldValue',$(this).val());
 			                });
 			                ProductAddStyle(b_seq);
+			                $('#txtClass_'+b_seq).focus();
 			                break;
 	                }
 	            }
@@ -725,7 +726,8 @@
                 <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
-                <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
@@ -752,12 +754,13 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
+                <td ><input class="txt num c1" id="txtUnit.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
-                		<input class="txt c1" id="txtRc2no.*" type="text" />
+                		<input class="txt c1" id="txtSize.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
