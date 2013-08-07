@@ -75,6 +75,10 @@
 				q_gt('work', t_where , 0, 0, 0, "", r_accy);
 			});
 			
+			 $('#lblAccno').click(function() {
+				q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
+             });
+			
 			$('#lblWorkno').click(function(){
 				var t_where="enda!=1 "
 				t_where += emp($('#txtWorkno').val())?'':" and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
@@ -395,6 +399,11 @@
 				break;
 			}
 		}
+		function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString.split(";")[0];
+            }
     </script>
     <style type="text/css">
         .tview
@@ -526,6 +535,10 @@
 	            </td>        
 				<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 	            <td><input id="txtTotal" type="text" class="txt c1 num"/></td>
+			</tr>
+			<tr>
+	        	<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+				<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 			</tr>
 			<tr>
 				<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
