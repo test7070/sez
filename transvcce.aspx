@@ -713,10 +713,13 @@
             			t_string += (t_string.length>0?',':'')+$.trim($('#txtCarno_'+i).val());
             	}
             	$('#txtCarno').val(t_string);
+            	$('#txtMemo3').val('');
             	t_string = "";
             	for(var i = 0; i < q_bbsCount; i++) {
             		if($.trim($('#txtMemo2_'+i).val()).length>0)
             			t_string += (t_string.length>0?',':'')+$.trim($('#txtMemo2_'+i).val());
+            		if(i==0)
+            			$('#txtMemo3').val($.trim($('#txtAddr_'+i).val()));	
             	}
             	$('#txtMemo2').val(t_string);
             	var t_noa = trim($('#txtNoa').val());
@@ -1073,6 +1076,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
 						<td align="center" style="width:250px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMemo2'> </a></td>
+						<td align="center" style="width:200px; color:black;"><a id='vewMemo3'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -1083,6 +1087,7 @@
 						<td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
 						<td id='carno' style="text-align: left;">~carno</td>
 						<td id='memo2' style="text-align: left;">~memo2</td>
+						<td id='memo3' style="text-align: left;">~memo3</td>
 					</tr>
 				</table>
 			</div>
@@ -1093,7 +1098,7 @@
 					<tr style="height: 1px;">
 						<td><input type="text" id="txtCarno" style="display:none;"> </td>
 						<td><input type="text" id="txtMemo2" style="display:none;"> </td>
-						<td> </td>
+						<td><input type="text" id="txtMemo3" style="display:none;"> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
