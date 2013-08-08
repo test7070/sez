@@ -64,6 +64,16 @@
                         type : '8',
                         name : 'xpart',
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
+                    }, {/*3 [6][7]*/
+                        type : '2',
+                        name : 'cust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                    }, {/*4 [8]*/
+                        type : '8', //select
+                        name : 'xoption02',
+                        value : q_getMsg('toption02').split('&')
                     }]
                 });
                 $('#txtDate1').mask('999/99/99');
@@ -71,6 +81,7 @@
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
+				$('#chkXoption02').children('input').attr('checked', 'checked');
 				
                 q_popAssign();
         		q_langShow();
