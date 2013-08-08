@@ -648,7 +648,7 @@
            <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno'></a></td>
-                <td align="center" style="width:12%;"><a id='lblUno'></a></td>
+                <td align="center" style="width:8%;"><a id='lblUno'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
                 <td align="center" style="width:7%;"><a id='lblMount'></a></td>                
                 <td align="center" style="width:7%;"><a id='lblPrices'></a></td>
@@ -661,11 +661,11 @@
                 	<input  id="txtProductno.*" type="text" style="width: 75%;"/></td>
                                        
                 <td>
-                	<input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtUno.*"  style="width:85%; float:left;"/>
-					</td>
+					<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
+					<span style="display:block; width:1%;float:left;"> </span>
+					<input type="text" id="txtUno.*"  style="width:85%; float:left;"/>
+					<input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+				</td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1" />
                 	<!--<input id="txtWeight.*" type="text" class="txt num c1" />-->
