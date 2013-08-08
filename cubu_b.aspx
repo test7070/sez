@@ -227,17 +227,10 @@
 
 			function btnOk() {
 				t_key = q_getHref();
-				if(t_key[1] != undefined){
-					q_func('cubu_post' , r_accy+','+ t_key[1]+','+ 0);
-					_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
-				}
+				//q_func('cubu_post' , r_accy+','+ t_noa+','+ 0);
+				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
-			function q_stPost() {
-				t_key = q_getHref();
-				if(t_key[1] != undefined){
-					q_func('cubu_post' , r_accy+','+ t_key[1]+','+ 1);
-				}
-			}
+
 			function bbsSave(as) {
 				if (!as['uno'] ) {
 					as[bbsKey[0]] = '';
