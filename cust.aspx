@@ -60,6 +60,12 @@
                 q_cmbParse("cmbTypea", q_getPara('cust.typea'));
                 q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
+                
+                $('#btnUcam').click(function() {
+                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                    q_box("ucam_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucam', "95%", "95%", q_getMsg('btnUcam'));
+             	});
+                
 				 $('#btnConn').click(function() {
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
@@ -573,6 +579,7 @@
 						<input id="txtSalesno" type="text" class="txt c6"/>
 						<input id="txtSales"    type="text" class="txt c6"/>
 						</td>
+						<td class="td5"><input id="btnUcam" type="button"  /></td>
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>
