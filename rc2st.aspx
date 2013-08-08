@@ -342,13 +342,18 @@
 								}
 							}
 							if(err_str.length == 0){
-								var t_where = "where=^^ 1=1 and uno='"+t_uno+"' ^^";
+								var t_where = "where=^^ 1=1 and uno='"+t_uno+"' ";
+								var t_noa = trim($('#txtNoa').val()).toUpperCase();
+								if(t_noa != 'AUTO'){
+									t_where += " and inoa not like '%" + t_noa + "%'";
+								}
+								t_where += ' ^^ ';
 								q_gt('uccy', t_where , 0, 0, 0, "uccy^^"+t_uno, r_accy);
 							}else{
 								alert(err_str);
 							}
 						}
-					})
+					});
 				}
 			} //j
 			_bbsAssign();

@@ -177,6 +177,35 @@
 						}
 						getTheory(b_seq);
 					});
+					$('#txtUno_' + j).focusout(function(){
+						var t_uno = trim($(this).val()).toUpperCase();
+						if(t_uno.length > 0){
+							var err_str = '';
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							for(var i = 0;i < q_bbsCount;i++){
+								var x_uno = trim($('#txtUno_'+i).val()).toUpperCase();
+								if(t_uno == x_uno && i != b_seq){
+									err_str = t_uno + ' 此批號已存在!!';
+									$(this).focus();
+									break;
+								}
+							}
+							if(err_str.length == 0){
+								var t_where = "where=^^ 1=1 and uno='"+t_uno+"' ";
+								var t_key = q_getHref();
+								var t_noa = (t_key[1]== undefined?'':t_key[1].toUpperCase());
+								if(t_noa != 'AUTO'){
+									t_where += " and inoa not like '%" + t_noa + "%'";
+								}
+								t_where += ' ^^ ';
+								q_gt('uccy', t_where , 0, 0, 0, "uccy^^"+t_uno, r_accy);
+							}else{
+								alert(err_str);
+							}
+						}
+					});
 				}
 			}
 
@@ -246,6 +275,16 @@
 						StyleList = new Array();
 						StyleList = as;
 					break;
+					default:
+						if(t_postname.split('^^')[0] == 'uccy'){
+							var as = _q_appendData("uccy", "", true);
+							if (as[0] != undefined){
+								var t_uno = t_postname.substr(t_postname.indexOf('^^')+2);
+								alert(t_uno + ' 此批號已存在!!');
+								$('#txtUno_'+b_seq).focus();
+							}
+						}
+						break;
 				}  /// end switch
 			}
 			function q_popPost(s1) {

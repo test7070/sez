@@ -161,6 +161,16 @@
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
+					default:
+						if(t_name.split('^^')[0] == 'uccy'){
+							var as = _q_appendData("uccy", "", true);
+							if (as[0] != undefined){
+								var t_uno = t_name.substr(t_name.indexOf('^^')+2);
+								alert(t_uno + ' 此批號已存在!!');
+								$('#txtUno_'+b_seq).focus();
+							}
+						}
+						break;
                 }  /// end switch
             }
 
@@ -204,6 +214,7 @@
 						    b_seq = t_IdSeq;
 							ProductAddStyle(b_seq);
 						});
+						/*
 						//判斷是否重複或已存過入庫----------------------------------------
 						$('#txtUno_' + j).change(function () {
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -221,6 +232,36 @@
 							var t_where = "where=^^ noa='"+$('#txtUno_' +b_seq).val()+"' ^^"; 
 							q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
 						});
+						*/
+						$('#txtUno_' + j).focusout(function(){
+							var t_uno = trim($(this).val()).toUpperCase();
+							if(t_uno.length > 0){
+								var err_str = '';
+								t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+								q_bodyId($(this).attr('id'));
+								b_seq = t_IdSeq;
+								for(var i = 0;i < q_bbsCount;i++){
+									var x_uno = trim($('#txtUno_'+i).val()).toUpperCase();
+									if(t_uno == x_uno && i != b_seq){
+										err_str = t_uno + ' 此批號已存在!!';
+										$(this).focus();
+										break;
+									}
+								}
+								if(err_str.length == 0){
+									var t_where = "where=^^ 1=1 and uno='"+t_uno+"' ";
+									var t_noa = trim($('#txtNoa').val()).toUpperCase();
+									if(t_noa != 'AUTO'){
+										t_where += " and inoa not like '%" + t_noa + "%'";
+									}
+									t_where += ' ^^ ';
+									q_gt('uccy', t_where , 0, 0, 0, "uccy^^"+t_uno, r_accy);
+								}else{
+									alert(err_str);
+								}
+							}
+						});
+
 	                	//-------------------------------------------
 						//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 						$('#textSize1_' + j).change(function () {
