@@ -79,6 +79,7 @@
         }
         function btnIns() {
             _btnIns();
+            refreshBbm();
             $('#txtMarkno').focus();
         }
 
@@ -86,6 +87,7 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            refreshBbm();
             $('#txtDaeta').focus();
         }
 
@@ -134,12 +136,20 @@
             $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
             $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
             $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
+            refreshBbm();
         }
 		
-		var isins=true;
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
         }
+        
+		function refreshBbm(){
+			if(q_cur==1){
+            	$('#txtMarkno').css('color','black').css('background','white').removeAttr('readonly');
+            }else{
+            	$('#txtMarkno').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            }
+		}
 
         function btnMinus(id) {
             _btnMinus(id);
