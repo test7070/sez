@@ -176,6 +176,8 @@
 							}else{
 								_btnDele();
 							}
+						}else{
+							_btnDele();
 						}
 						break;
 					default:

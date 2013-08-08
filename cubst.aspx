@@ -92,6 +92,8 @@
 						}else{
 							_btnDele();
 						}
+					}else{
+						_btnDele();
 					}
 					break;
 				case 'ordet':
@@ -305,10 +307,10 @@
 				}
 				return arr1;
 			}
-			function getBBSWhere(objname){
+			function getBBTWhere(objname){
 				var tempArray = new Array();
-				for(var j = 0; j < q_bbsCount;j++){
-					tempArray.push($('#txt'+objname+'_'+j).val());
+				for(var j = 0; j < q_bbtCount;j++){
+					tempArray.push($('#txt'+objname+'__'+j).val());
 				}
 				var TmpStr = distinct(tempArray).sort();
 				TmpStr = TmpStr.toString().replace(/,/g,"','").replace(/^/,"'").replace(/$/,"'");
@@ -369,7 +371,7 @@
             }
 
             function btnDele() {
-				var t_where = 'where=^^ uno in('+getBBSWhere('Uno')+') ^^';
+				var t_where = 'where=^^ uno in('+getBBTWhere('Uno')+') ^^';
 				q_gt('uccy',t_where,0,0,0,'deleUccy',r_accy);
             }
 

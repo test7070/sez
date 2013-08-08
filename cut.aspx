@@ -141,6 +141,8 @@
 						}else{
 							_btnDele();
 						}
+					}else{
+						_btnDele();
 					}
 					break;
 				case q_name: 
