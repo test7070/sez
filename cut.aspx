@@ -569,6 +569,9 @@
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			if(q_cur == 2){
+				$('#txtUno').attr('readonly','readonly').css('background-color', t_background2);
+			}
 			size_change();
 		}
 
@@ -615,14 +618,8 @@
 		}
 
 		function btnDele() {
-			if (dec($('#txtGweight').val())>0)
-			{
-				alert("已有領料禁止刪除");
-				return;
-			}else{
-				var t_where = 'where=^^ uno in('+getBBSWhere('Bno')+') ^^';
-				q_gt('uccy',t_where,0,0,0,'deleUccy',r_accy);
-			}
+			var t_where = 'where=^^ uno in('+getBBSWhere('Bno')+') ^^';
+			q_gt('uccy',t_where,0,0,0,'deleUccy',r_accy);
 		}
 
 		function btnCancel() {
