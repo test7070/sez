@@ -28,7 +28,7 @@
         ['txtStorinno', 'lblStorein', 'store', 'noa,store', 'txtStorinno,txtStorin', 'store_b.aspx'],
         ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-        ['txtUno_', 'btnUno_', 'uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+        ['txtUno_', 'btnUno_', 'uccc', 'view_uccc', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
         $(document).ready(function () {
@@ -95,8 +95,6 @@
             }
 
             $('#txtWorker').val(r_name)
-            sum();
-
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
                 q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
@@ -225,15 +223,6 @@
             //            
             return true;
         }
-
-        function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
-
-        }
-
         
         function refresh(recno) {
             _refresh(recno);
@@ -247,7 +236,6 @@
 
         function btnMinus(id) {
             _btnMinus(id);
-            sum();
         }
 
         function btnPlus(org_htm, dest_tag, afield) {

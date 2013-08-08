@@ -31,7 +31,7 @@
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
             ['txtSales', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],
-            ['txtUno_', 'btnUno_', 'uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+            ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
             ['txtCno','btnAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
             ['txtTggno','btnTgg','tgg','noa,comp','txtTggno,txtTgg','tgg_b.aspx']);
             $(document).ready(function() {

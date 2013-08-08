@@ -833,7 +833,7 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
-                <td ><input class="txt num c1" id="txtUnit.*" type="text"  /></td>
+                <td ><input class="txt c1" id="txtUnit.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>

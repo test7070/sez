@@ -29,7 +29,7 @@
 		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
-		 ['txtUno_', 'btnUno_', 'uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+		 ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
 		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
