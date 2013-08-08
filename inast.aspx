@@ -161,6 +161,23 @@
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
+					case 'deleUccy':
+						var as = _q_appendData("uccy", "", true);
+						var err_str = '';
+						if(as[0] != undefined){
+							for(var i=0;i<as.length;i++){
+								if(dec(as[i].gweight) > 0){
+									err_str += as[i].uno + '已領料，不能刪除!!\n';
+								}
+							}
+							if(trim(err_str).length > 0){
+								alert(err_str);
+								return;
+							}else{
+								_btnDele();
+							}
+						}
+						break;
 					default:
 						if(t_name.split('^^')[0] == 'uccy'){
 							var as = _q_appendData("uccy", "", true);
@@ -346,7 +363,7 @@
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-                _btnModi();
+				_btnModi();
                 $('#txtProduct').focus();
                 size_change();
                 //判斷哪些資料不能修改
@@ -475,7 +492,8 @@
             }
 
             function btnDele() {
-                _btnDele();
+				var t_where = 'where=^^ uno in('+getBBSWhere('Uno')+') ^^';
+				q_gt('uccy',t_where,0,0,0,'deleUccy',r_accy);
             }
 
             function btnCancel() {
@@ -489,7 +507,25 @@
                 var t_where = "where=^^ noa='"+$('#txtUno_' +bbs_id).val()+"' and gweight>0 ^^"; 
 				q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
             }
-        
+
+			function distinct(arr1) {
+				for(var i = 0;i<arr1.length;i++){
+					if((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == ''){
+						arr1.splice(i, 1);
+							i--;
+					}
+				}
+				return arr1;
+			}
+			function getBBSWhere(objname){
+				var tempArray = new Array();
+				for(var j = 0; j < q_bbsCount;j++){
+					tempArray.push($('#txt'+objname+'_'+j).val());
+				}
+				var TmpStr = distinct(tempArray).sort();
+				TmpStr = TmpStr.toString().replace(/,/g,"','").replace(/^/,"'").replace(/$/,"'");
+				return TmpStr;
+			}
 		function size_change() {
 			if(q_cur==1 || q_cur==2){
 				$('input[id*="textSize"]').removeAttr('disabled');
@@ -730,7 +766,7 @@
         <td class="td2" colspan="3"><input id="txtTggno" type="text"  class="txt c2"/>
             <input id="txtComp" type="text"  class="txt c3"/></td>
             <td class="td5"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-        	<td class="td6"><input id="txtTotal" type="text" class="txt c1" /></td>
+        	<td class="td6"><input id="txtTotal" type="text" class="txt c1 num" /></td>
         </tr>
         <tr class="tr5">        
             <td class="td1"><span> </span><a id="lblStore" class="lbl btn" > </a></td>
@@ -749,9 +785,9 @@
         	<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
         	<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
         	<td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
-        	<td class="td4"><input id="txtPrice" type="text" class="txt c1" /></td>
+        	<td class="td4"><input id="txtPrice" type="text" class="txt c1 num" /></td>
         	<td class="td5"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
-        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1" /></td>
+        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1 num" /></td>
         </tr>
         <tr class="tr8">
         <td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>

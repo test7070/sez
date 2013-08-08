@@ -126,6 +126,23 @@
 						}
 					}
 					break;
+				case 'deleUccy':
+					var as = _q_appendData("uccy", "", true);
+					var err_str = '';
+					if(as[0] != undefined){
+						for(var i=0;i<as.length;i++){
+							if(dec(as[i].gweight) > 0){
+								err_str += as[i].uno + '已領料，不能刪除!!\n';
+							}
+						}
+						if(trim(err_str).length > 0){
+							alert(err_str);
+							return;
+						}else{
+							_btnDele();
+						}
+					}
+					break;
 				case q_name: 
 					if(q_cur == 1)
 						cuts= _q_appendData("cut", "", true);
@@ -600,8 +617,10 @@
 			{
 				alert("已有領料禁止刪除");
 				return;
+			}else{
+				var t_where = 'where=^^ uno in('+getBBSWhere('Bno')+') ^^';
+				q_gt('uccy',t_where,0,0,0,'deleUccy',r_accy);
 			}
-			_btnDele();
 		}
 
 		function btnCancel() {
@@ -625,7 +644,24 @@
 				$('#txtWeight_'+b_seq).val($('#txtTheory_'+b_seq).val());
 			}
 		}
-		
+		function distinct(arr1) {
+			for(var i = 0;i<arr1.length;i++){
+				if((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == ''){
+					arr1.splice(i, 1);
+					i--;
+				}
+			}
+			return arr1;
+		}
+		function getBBSWhere(objname){
+			var tempArray = new Array();
+			for(var j = 0; j < q_bbsCount;j++){
+				tempArray.push($('#txt'+objname+'_'+j).val());
+			}
+				var TmpStr = distinct(tempArray).sort();
+			TmpStr = TmpStr.toString().replace(/,/g,"','").replace(/^/,"'").replace(/$/,"'");
+			return TmpStr;
+		}
 		var ordes=[];//ordes資料內容
 		var uccb=[];	//uccb資料內容
 		var uccb_gweight=0;
