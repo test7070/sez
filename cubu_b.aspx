@@ -227,7 +227,6 @@
 
 			function btnOk() {
 				t_key = q_getHref();
-				//q_func('cubu_post' , r_accy+','+ t_noa+','+ 0);
 				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
 
