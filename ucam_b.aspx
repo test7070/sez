@@ -22,10 +22,10 @@
         //ajaxPath = ""; //  execute in Root
 		
         $(document).ready(function () {
-            bbmKey = ['noa','noq'];
+            bbmKey = ['noa'];
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy) 
-            $('#txtNoq').focus();
+            $('#txtMarkno').focus();
             
             //不用新增、查詢、列印、翻頁
             $('#q_menu').hide();
@@ -57,7 +57,17 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)  
+            	case 'check_btnOk':
+                		var as = _q_appendData("ucam", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].markno);
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
+                case q_name: 
+                	if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -69,7 +79,7 @@
         }
         function btnIns() {
             _btnIns();
-            $('#txtNoq').focus();
+            $('#txtMarkno').focus();
         }
 
         function btnModi() {
@@ -83,8 +93,8 @@
  
         }
         function btnOk() {
-        	 if (emp($('#txtNoq').val())){
-        	 	alert('請輸入'+q_getMsg('lblNoq')+'!!');
+        	 if (emp($('#txtMarkno').val())){
+        	 	alert('請輸入'+q_getMsg('lblMarkno')+'!!');
         	 	return;
         	}
         	if(q_cur==1)
@@ -92,11 +102,19 @@
 			else
 				$('#txtWorker2').val(r_name);
 				
+			$('#txtMain').val($('#txtMain').val().replace(/ /g,'　'))
+			$('#txtSide').val($('#txtSide').val().replace(/ /g,'　'))
+			
+			if(q_cur==1){
 				var t_key = q_getHref();
                 if(t_key[1] != undefined)
-                $('#txtNoa').val(t_key[1]);
-                var t_noa = trim($('#txtNoa').val());
-                wrServer(t_noa);
+                	$('#txtCustno').val(t_key[1]);
+                	$('#txtNoa').val(t_key[1]+'-'+$('#txtMarkno').val());
+				t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                q_gt('ucam', t_where, 0, 0, 0, "check_btnOk", r_accy);
+			}else{
+                wrServer($('#txtNoa').val());
+			}
         }
 
         function wrServer( key_value) {
@@ -107,11 +125,15 @@
                 xmlSql = q_preXml();
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-            _btnOk(key_value, bbmKey[0], '','',2);
+            _btnOk(key_value, bbmKey[0], bbmKey[1],'',2);
         }
        
         function refresh(recno) {
             _refresh(recno);
+            $('#txtMain').val(replaceAll($('#txtMain').val(),'chr(10)','\n'));
+            $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
+            $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
+            $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
         }
 		
 		var isins=true;
@@ -299,12 +321,12 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:30%"><a id='vewNoq'></a></td>
+                <td align="center" style="width:30%"><a id='vewMarkno'></a></td>
                 <td align="center" style="width:65%"><a id='vewNamea'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='noq'>~noq</td>
+                   <td align="center" id='markno'>~markno</td>
                    <td align="center" id='namea'>~namea</td>
             </tr>
         </table>
@@ -312,10 +334,10 @@
         <div class='dbbm' style="float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 		  <tr class="tr1">
-               <td class="td1" ><span> </span><a id="lblNoq" class="lbl"> </a></td>
+               <td class="td1" ><span> </span><a id="lblMarkno" class="lbl"> </a></td>
                <td class="td2">
-               		<input id="txtNoq" type="text" class="txt c1"/>
-               		<input id="txtNoa" type="hidden" class="txt c1"/>
+               		<input id="txtMarkno" type="text" class="txt c1"/>
+               		<input id="txtNoa" type="hidden" class="txt c1"/><input id="txtCustno" type="hidden" class="txt c1"/>
                </td>
                <td class="td3"> </td>
                <td class="td4"><span> </span><a id="lblNamea" class="lbl"> </a></td>

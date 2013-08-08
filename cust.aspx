@@ -62,7 +62,7 @@
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 
                 $('#btnUcam').click(function() {
-                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                    t_where = "custno='" + $('#txtNoa').val() + "'";
                     q_box("ucam_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucam', "95%", "95%", q_getMsg('btnUcam'));
              	});
                 

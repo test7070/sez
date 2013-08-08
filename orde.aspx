@@ -78,7 +78,7 @@
             });
 			
 			$('#btnOrdei').click(function () {
-				q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordei', "900px", "650px", q_getMsg('popOrdei'));
+				q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordei', "95%", "95%", q_getMsg('popOrdei'));
             });
 			
             $('#btnOrdem').click(function () {

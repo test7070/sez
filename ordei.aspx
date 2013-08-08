@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="ordei";
-        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtDatea'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
         var bbmNum = [['txtFloata', 6, 2],['txtCommissionpercent', 6, 2]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -51,10 +51,38 @@
 
 
         function mainPost() { 
-        	bbmMask = [['txtDatea', r_picd]];
+        	bbmMask = [];
             q_mask(bbmMask);
             q_cmbParse("cmbTrantype", q_getPara('ordei.trantype'));
 			q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
+			
+			//讀取嘜頭選項
+			 var wParent = window.parent.document;
+			 var t_custno= wParent.getElementById("txtCustno").value
+			var t_where="where=^^ custno='"+t_custno+"'^^";
+            q_gt('ucam', t_where, 0, 0, 0, "", r_accy);
+            
+            
+            $('#cmbMarkno').change(function() {
+            	if($('#cmbMarkno').val()==''){
+            		$('#txtMain').val('');
+            		$('#txtSide').val('');
+            		return;
+            	}
+            	for( i = 0; i < ucam_as.length; i++) {
+            		if($('#cmbMarkno').val()==ucam_as[i].noa){
+            			$('#txtMain').val(ucam_as[i].main);
+            			$('#txtSide').val(ucam_as[i].side);
+            			$('#txtMain').val(replaceAll($('#txtMain').val(),'chr(10)','\n'));
+			            $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
+			            $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
+			            $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
+            			break;
+            		}
+            	}
+            });
+            
+            
         }
 
         function q_boxClose( s2) {
@@ -66,10 +94,22 @@
             }   /// end Switch
         }
 
-
+		var ucam_as;
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)  
+            	case 'ucam':
+            		ucam_as = _q_appendData("ucam", "", true);
+            		if(ucam_as[0] != undefined){
+            			var t_markno='@';
+            			for( i = 0; i < ucam_as.length; i++) {
+                            t_markno = t_markno + (t_markno.length>0?',':'') + ucam_as[i].noa +'@' + ucam_as[i].namea;
+                        }
+            			q_cmbParse("cmbMarkno", t_markno);
+            			$('#cmbMarkno').val(abbm[0].markno);
+            		}
+                    break;
+                case q_name: 
+                	if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -83,7 +123,6 @@
         }
         function btnIns() {
             _btnIns();
-            $('#txtDatea').val(q_date());
             $('#txtLcno').focus();
         }
 
@@ -91,7 +130,7 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtDaeta').focus();
+            $('#txtLcno').focus();
         }
 
         function btnPrint() {
@@ -103,11 +142,16 @@
 			else
 				$('#txtWorker2').val(r_name);
 				
+			$('#txtMain').val($('#txtMain').val().replace(/ /g,'　'))
+			$('#txtSide').val($('#txtSide').val().replace(/ /g,'　'))
+			if(q_cur==1){
 				var t_key = q_getHref();
                 if(t_key[1] != undefined)
                 $('#txtNoa').val(t_key[1]);
-                var t_noa = trim($('#txtNoa').val());
-                wrServer(t_noa);
+                wrServer($('#txtNoa').val());
+             }else{
+             	wrServer($('#txtNoa').val());
+             }
         }
 
         function wrServer( key_value) {
@@ -123,6 +167,11 @@
        
         function refresh(recno) {
             _refresh(recno);
+            
+            $('#txtMain').val(replaceAll($('#txtMain').val(),'chr(10)','\n'));
+            $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
+            $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
+            $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
         }
 		
 		var isins=true;
@@ -204,7 +253,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 1100px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -217,7 +266,7 @@
                 font-size: medium;
                 color: blue;
                 background: #cad3ff;
-                width: 800px;
+                width: 1100px;
             }
             .tbbm tr {
                 height: 35px;
@@ -312,7 +361,6 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:40%"><a id='vewLcno'></a></td>
             </tr>
@@ -327,20 +375,13 @@
         <div class='dbbm' style="float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr style="height:1px;">
-				<td> </td>
+				<td> <input id="txtNoa" type="hidden" class="txt c1"/></td>
 				<td> </td>
 				<td> </td>
 				<td> </td>
 				<td> </td>
 				<td> </td>
 		  </tr>
-		  <tr class="tr1">
-               <td class="td4"><span> </span><a id="lblDatea" class="lbl"></a></td>
-               <td class="td5" colspan="2">
-               		<input id="txtDatea" type="text" class="txt c1"/>
-               		<input id="txtNoa" type="hidden" class="txt c1"/>
-               </td> 
-            </tr>
           	<tr class="tr2">
                <td class="td1"><span> </span><a id="lblLcno" class="lbl"></a></td>
                <td class="td2" colspan="2"><input id="txtLcno" type="text" class="txt c1"/></td>
@@ -411,6 +452,20 @@
                <td class="td3" ><input id="txtFloata" type="text" class="txt num c1"/></td>
                <td class="td4"><span> </span><a id="lblPaymentterms" class="lbl"></a></td>
                <td class="td5" colspan="2"><input id="txtPaymentterms" type="text" class="txt c1"/></td>
+            </tr>
+             <tr class="tr4">
+				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"></a></td>
+				<td class="td2"><select id="cmbMarkno" class="txt c1"> </select></td> 
+		  	</tr>
+            <tr class="tr5">
+               <td class="td1"><span> </span><a id="lblMain" class="lbl"> </a></td>
+               <td class="td2" colspan="2">
+					<textarea id="txtMain"  rows='5' cols='50' style="width:300px; height: 250px;"> </textarea>
+				</td>
+               <td class="td4"><span> </span><a id="lblSide" class="lbl"> </a></td>
+               <td class="td5">
+               		<textarea id="txtSide"  rows='15' cols='50' style="width:300px; height: 250px;"> </textarea>
+               </td> 
             </tr>
             <tr class="tr6">
                <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
