@@ -27,6 +27,18 @@
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
+            
+            //一個訂單只有一個ordei
+            $('#dview').hide();
+            //不用新增、查詢、列印、翻頁
+            $('#btnIns').hide();
+            $('#btnSeek').hide();
+            $('#btnPrint').hide();
+            $('#btnPrevPage').hide();
+            $('#btnPrev').hide();
+            $('#btnNext').hide();
+            $('#btnNextPage').hide();
+            $('#q_menu').hide();
         });
  
        function main() {
@@ -41,19 +53,6 @@
         function mainPost() { 
             bbmMask = [['txtDatea', r_picd],['txtEta', r_picd],['txtEtd', r_picd],['txtOnboarddate', r_picd],['txtShippingdate', r_picd],['txtCldate', r_picd]];
         	q_mask(bbmMask);
-        	  $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_change", r_accy);
-						}else{
-							Lock();
-							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-							Unlock();
-						}
-					}
-                });
         }        
         function q_boxClose( s2) {
             var ret; 
@@ -67,22 +66,6 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'checkVcctno_change':
-                		var as = _q_appendData("vcct", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa);
-                        }
-                		break;
-                	case 'checkVcctno_btnOk':
-                		var as = _q_appendData("vcct", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa);
-                            Unlock();
-                            return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
-                        }
-                		break;
                 case q_name: 
                 		if (q_cur == 4)  
                         q_Seek_gtPost();
@@ -93,15 +76,13 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('vcct_s.aspx', q_name + '_s', "500px", "400px", q_getMsg( "popSeek"));
+            //q_box('vcct_s.aspx', q_name + '_s', "500px", "400px", q_getMsg( "popSeek"));
         }
 
 
         function btnIns() {
             _btnIns();
-            refreshBbm();
-            $('#txtDatea').val(q_date());
-            $('#txtNoa').focus();
+            $('#txtExportno').focus();
         }
 
         function btnModi() {
@@ -109,8 +90,7 @@
                 return;
 
             _btnModi();
-            refreshBbm();
-            $('#txtDatea').focus();
+            $('#txtExportno').focus();
         }
 
         function btnPrint() {
@@ -119,28 +99,21 @@
         function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                Unlock();
-            }
+        }
         function btnOk() {
         	if(q_cur==1)
 				$('#txtWorker').val(r_name);
 			else
 				$('#txtWorker2').val(r_name);
 				        	
-          Lock(); 
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-				}else{
-					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-					Unlock();
-					return;
-				}
-        	if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
+          	if(q_cur==1){
+				var t_key = q_getHref();
+                if(t_key[1] != undefined)
+                $('#txtNoa').val(t_key[1]);
+                wrServer($('#txtNoa').val());
+             }else{
+             	wrServer($('#txtNoa').val());
+             }
         }
 
         function wrServer( key_value) {
@@ -156,17 +129,12 @@
        
         function refresh(recno) {
             _refresh(recno);
-            refreshBbm();
         }
-		function refreshBbm(){
-            	if(q_cur==1){
-            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
-            	}else{
-            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-            	}
-            }
+        
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if(abbm[0]==undefined && t_para)
+				btnIns();
         }
 
         function btnMinus(id) {
@@ -216,35 +184,8 @@
         function btnCancel() {
             _btnCancel();
         }
-		function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//�����Ҧr��
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//�Τ@�s��
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//�褸�~
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//����~
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//��~
-            }    </script>
+        
+	</script>
     <style type="text/css">
           #dmain {
                 overflow: hidden;
@@ -367,7 +308,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:38%;"  >
+        <div class="dview" id="dview" style="float: left;  width:0px;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -384,7 +325,7 @@
         <div class='dbbm' style="width: 60%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr style="height:1px;">
-			  <td> </td>
+			  <td><input id="txtNoa" type="hidden" class="txt c1"/></td>
 			  <td> </td>
 			  <td> </td>
 			  <td> </td>
@@ -393,12 +334,10 @@
 			  <td class="tdZ"> </td>
 		  </tr>
           <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
-               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
-               <td class="td5"><span> </span><a id="lblVccno" class="lbl"></a></td>
-               <td class="td6"><input id="txtVccno" type="text" class="txt c1"/></td>
+               <!--<td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
+               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>-->
+               <td class="td5"><span> </span><a id="lblExportno" class="lbl"> </a></td>
+               <td class="td6"><input id="txtExportno" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblBilloflading" class="lbl"></a></td>
