@@ -69,7 +69,12 @@
                 });
                 $('#btnLcv').click(function() {
 				q_box("lcv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'lcv', "95%", "95%", q_getMsg('popLcv'));
-			});
+				});
+				
+				$('#txtLcno').change(function() {
+					t_where="where=^^ lcno='"+$('#txtLcno').val()+"'^^";
+                	q_gt('lcu', t_where, 0, 0, 0, "check_Lcno", r_accy);
+				});
             }
             function q_boxClose(s2) {
                 var ret;
@@ -83,6 +88,22 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'check_Lcno':
+                		var as = _q_appendData("lcu", "", true);
+                        if (as[0] != undefined){
+                        	alert(q_getMsg('lblLcno')+'已存在!!');
+                            return;
+                        }
+                		break;
+                	case 'check_btnOk':
+                		var as = _q_appendData("lcu", "", true);
+                        if (as[0] != undefined){
+                        	if(confirm(q_getMsg('lblLcno')+'已存在,是否要儲存!!'))
+                        		q_gtnoa(q_name, replaceAll(q_getPara('sys.key_lcu') + $('#txtDatea').val(), '/', ''));
+                        	else
+                            	return;
+                        }
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -118,6 +139,14 @@
             }
 
             function btnOk() {
+            	 var t_err = '';
+	            t_err = q_chkEmpField([['txtLcno', q_getMsg('lblLcno')],['txtDatea', q_getMsg('lblDatea')],['txtEdate', q_getMsg('lblEdate')]]);
+	            
+	            if( t_err.length > 0) {
+	                alert(t_err);
+	                return;
+	            }
+            	
             	if (!q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
@@ -133,14 +162,15 @@
                 if ($('#txtCdate').val().length>0 && !q_cd($('#txtCdate').val())){
                 	alert(q_getMsg('lblCdate')+'錯誤。');
                 	return;
-                }
-                $('#txtWorker').val(r_name);
+                } 
                 var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_lcu') + $('#txtDatea').val(), '/', ''));
-                else
+				if (t_noa.length == 0 || t_noa == "AUTO"){
+					t_where="where=^^ lcno='"+$('#txtLcno').val()+"'^^";
+                	q_gt('lcu', t_where, 0, 0, 0, "check_btnOk", r_accy);
+                }else{
+                	$('#txtWorker').val(r_name);
                     wrServer(t_noa);
+                }
             }
 
             function wrServer(key_value) {
