@@ -21,7 +21,7 @@
 
             q_tables = 's';
             var q_name = "tranorde";
-            var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq', 'txtContract', 'txtWorker', 'txtWorker2','txtCasetype','txtCasetype2'];
+            var q_readonly = ['txtNoa', 'txtTranquatno','txtTweight2','txtTtrannumber', 'txtTranquatnoq', 'txtContract', 'txtWorker', 'txtWorker2','txtCasetype','txtCasetype2'];
             var q_readonlys = [];
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate', '999/99/99']);

@@ -30,7 +30,7 @@
 		 aPop = new Array( ['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype', 'cust_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
-		 ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+		 ['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,class,spec,style,product,radius,width,dime,lengthb', 'txtUno_,txtProductno_,txtClass_,txtSpec_,txtStyle_,txtProduct_,txtRadius_,txtWidth_,txtDime_,txtLengthb_', 'uccc_seek_b.aspx','95%','60%'],
 		 ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -427,16 +427,20 @@
 			});
 		}
 		function q_popPost(s1) {
-				switch (s1) {
-					case 'txtProductno_':
-						$('input[id*="txtProduct_"]').each(function(){
-							$(this).attr('OldValue',$(this).val());
-						});
-						ProductAddStyle(b_seq);
-						$('#txtStyle_' + b_seq).focus();
-						break;
-				}
+			switch (s1) {
+				case 'txtProductno_':
+					$('input[id*="txtProduct_"]').each(function(){
+						$(this).attr('OldValue',$(this).val());
+					});
+					ProductAddStyle(b_seq);
+					$('#txtStyle_' + b_seq).focus();
+					break;
+				case 'txtUno_':
+					size_change();
+					break;
 			}
+			
+		}
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
@@ -792,8 +796,6 @@
 			<tr class="tr6">
 				<td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
 				<td class="td2" colspan='5' ><input id="txtPost"  type="text"  class="txt c4"/><input id="txtAddr"  type="text" class="txt c5"/></td>
-				<td class="td7"><span> </span><a id='lblAccc' class="lbl btn"></a></td>
-				<td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
 			</tr>
 			<tr class="tr7">
 				<td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"></td>
@@ -833,6 +835,8 @@
 				<td class="td8"><input id="txtWorker"  type="text" class="txt c1"/></td> 
 				<td class="td7"><span> </span><a id='lblWorker2' class="lbl"></a></td>
 				<td class="td8"><input id="txtWorker2"  type="text" class="txt c1"/></td> 
+				<td class="td7"><span> </span><a id='lblAccc' class="lbl btn"></a></td>
+				<td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
 			</tr>
 			<tr class="tr10">
 				<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>

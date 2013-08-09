@@ -28,7 +28,7 @@
         aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
         ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
         //['txtUno_', 'btnUno_', 'uccc', 'noa,productno,product,spec,radius,width,dime,lengthb,emount,gweight,mweight,memo', 'txtUno_,txtProductno_,txtProduct_,txtSpec_,txtRadius_,txtWidth_,txtDime_,txtLengthb_,txtMount_,txtGweight_,txtWeight_,txtMemo_', 'uccc_b.aspx'],
-        ['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,product,spec,radius,width,dime,lengthb,emount,mweight,memo', 'txtUno_,txtProductno_,txtProduct_,txtSpec_,txtRadius_,txtWidth_,txtDime_,txtLengthb_,txtMount_,txtWeight_,txtMemo_', 'uccc_seek_b.aspx','95%','60%'],
+        ['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,product,spec,radius,width,dime,lengthb,emount,mweight,memo', 'txtUno_,txtProductno_,txtProduct_,txtSpec_,txtRadius_,txtWidth_,txtDime_,txtLengthb_,txtGmount_,txtWeight_,txtMemo_', 'uccc_seek_b.aspx','95%','60%'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
@@ -690,7 +690,7 @@
                 <!--<td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>-->
                 <!--<td align="center"><a id='lblRadius_s'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblGmount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
                 <!--<td align="center" style="width:4%;"><a id='lblType_s'> </a></td>-->
@@ -723,7 +723,7 @@
                          <input id="txtLengthb.*" type="hidden"/>
                          <input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
-                <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
+                <td><input class="txt num c1" id="txtGmount.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtGweight.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtTypea.*" type="text" /></td>-->
