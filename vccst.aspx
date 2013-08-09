@@ -895,7 +895,7 @@
 				<td><input id="txtGweight.*" type="text"  class="txt num c1" /></td>
 				<td><input id="txtMemo.*" type="text" class="txt c1"/>
 					<input id="txtOrdeno.*" type="text" style="width:65%;" />
-					<input id="txtNo2.*" type="text" style="width:26%;" />
+					<input id="txtNo2.*" type="text" style="width:25%;" />
 					<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
 				</td>
 			</tr>
