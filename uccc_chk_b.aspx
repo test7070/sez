@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'uccc', t_content = ' ', bbsKey = ['uno'],afilter = [], as; 
+			var q_name = 'view_uccc', t_content = ' ', bbsKey = ['uno'],afilter = [], as; 
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i,s1;

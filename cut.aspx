@@ -231,19 +231,6 @@
 				alert("領料數為零");
 				return;
 			}
-			
-			if($('#cmbTypea').find("option:selected").text()=='分條')//cut_save為切條
-			{
-				var t_weight=0;
-				for(var j = 0; j < q_bbsCount; j++) {
-					t_weight+=dec($('#txtWeight_'+j).val())
-				}
-				if(t_weight!=dec($('#txtGweight').val()))
-				{
-					alert("領料重量不等於入庫總重量");
-					return;
-				}	
-			}
 			if($('#cmbTypea').find("option:selected").text().indexOf('委')==-1)
 			{
 				for(var j = 0; j < q_bbsCount; j++) {
@@ -542,7 +529,7 @@
 		}
 
 		function bbsSave(as) {
-			if (!as['custno'] ) {  
+			if (!as['bno'] ) {  
 				as[bbsKey[1]] = '';   
 				return;
 			}

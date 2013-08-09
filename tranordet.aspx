@@ -112,6 +112,15 @@
             input[type="text"] {
                 font-size: medium;
             }
+            .txt{
+            	float:left;
+            }
+            .c1{
+            	width:95%;
+            }
+            .num{
+            	text-align:right;
+            }
 		</style>
 	</head>
 	<body onunload='returnparent();'>
@@ -134,13 +143,13 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 					</td>
 					<td class="td2">
-					<input class="txt" id="txtDatea.*" type="text" style="width:95%; "  />
+					<input class="txt c1" id="txtDatea.*" type="text" />
 					</td>
 					<td class="td3">
-					<input class="txt" id="txtWeight2.*" type="text" style="width:95%; text-align: right;"  />
+					<input class="txt c1 num" id="txtWeight2.*" type="text"/>
 					</td>
 					<td class="td4">
-					<input class="txt" id="txtTrannumber.*" type="text" style="width:95%; text-align: right;"  />
+					<input class="txt c1 num" id="txtTrannumber.*" type="text"/>
 					</td>
 				</tr>
 			</table>

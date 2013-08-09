@@ -852,7 +852,7 @@
 				<td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
 				<td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
 				<td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
-				<td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
+				<td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
 				<!--<td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>-->
 				<td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
 				<td align="center" style="width:8%;"><a id='lblSizea_st'></a></td>
@@ -895,7 +895,7 @@
 				<td><input id="txtGweight.*" type="text"  class="txt num c1" /></td>
 				<td><input id="txtMemo.*" type="text" class="txt c1"/>
 					<input id="txtOrdeno.*" type="text" style="width:65%;" />
-					<input id="txtNo2.*" type="text" style="width:26%;" />
+					<input id="txtNo2.*" type="text" style="width:25%;" />
 					<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
 				</td>
 			</tr>
