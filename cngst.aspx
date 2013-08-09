@@ -28,7 +28,7 @@
         ['txtStorinno', 'lblStorein', 'store', 'noa,store', 'txtStorinno,txtStorin', 'store_b.aspx'],
         ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-        ['txtUno_', 'btnUno_', 'uccc', 'view_uccc', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+        ['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,class,product,unit,radius,width,dime,lengthb,spec', 'txtUno_,txtProductno_,txtClass_,txtProduct_,txtUnit_,txtRadius_,txtWidth_,txtDime_,txtLengthb_,txtSpec_', 'uccc_seek_b.aspx','95%','60%'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
         $(document).ready(function () {
@@ -73,6 +73,9 @@
             b_pop = '';
         }
 
+		function q_popPost(){
+			
+		}
 
         function q_gtPost(t_name) {  
             switch (t_name) {
@@ -81,6 +84,15 @@
                     break;
             }  /// end switch
         }
+
+		function q_popPost(s1) {
+			switch (s1) {
+				case 'txtUno_':
+					size_change();
+					break;
+			}
+			
+		}
 
         function btnOk() {
             $('#txtDatea').val($.trim($('#txtDatea').val()));
@@ -556,17 +568,17 @@
         </tr>
         <tr class="tr5">
         	<td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
-        	<td class="td2"><input id="txtTax" type="text" class="txt c1"/></td>
+        	<td class="td2"><input id="txtTax" type="text" class="txt c1 num"/></td>
             <td class='td3'><span> </span><a id="lblMoney" class="lbl" > </a></td>
-            <td class="td4"><input id="txtMoney" type="text" class="txt c1"/></td>
+            <td class="td4"><input id="txtMoney" type="text" class="txt c1 num"/></td>
             <td class='td5'><span> </span><a id="lblPrice" class="lbl" > </a></td>
-            <td class="td6"><input id="txtPrice"   type="text" class="txt c1"/></td>
+            <td class="td6"><input id="txtPrice"   type="text" class="txt c1 num"/></td>
         </tr>
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl" > </a></td>
-            <td class="td2"><input id="txtWeight"   type="text" class="txt c1"/></td>
+            <td class="td2"><input id="txtWeight"   type="text" class="txt c1 num"/></td>
             <td class='td3'><span> </span><a id="lblTotal" class="lbl" > </a></td>
-            <td class="td4"><input id="txtTotal"   type="text" class="txt c1"/></td>
+            <td class="td4"><input id="txtTotal"   type="text" class="txt c1 num"/></td>
         </tr>
         <tr class="tr7">
         <td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -593,9 +605,11 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" /><input id="txtUno.*" type="text" style="width:83%;"/></td>
-                <td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" /><input id="txtProductno.*" type="text" style="width:83%;" />
-                	<input id="txtClass.*" type="text" style="width: 83%;"/>
+                <td><input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                	<input id="txtUno.*" type="text" style="width:83%;"/></td>
+                <td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                	<input id="txtProductno.*" type="text" style="width:80%;" />
+                	<input id="txtClass.*" type="text" style="width: 95%;"/>
                 </td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text"/></td>
                 <td><input class="txt c1" id="txtUnit.*" type="text" /></td>
