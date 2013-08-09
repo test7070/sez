@@ -341,7 +341,7 @@
 				//-------------------------------------------------
 				$('#txtUnit_' + j).focusout(function () { sum(); });
 				$('#txtWeight_' + j).focusout(function () { sum(); });
-				$('#txtPrice_' + j).focusout(function () { console.log('test');sum(); });
+				$('#txtPrice_' + j).focusout(function () { sum(); });
 				$('#txtMount_' + j).focusout(function () { sum(); });
 				$('#txtTotal_' + j).focusout(function () { sum(); });
 				if (!$('#btnMinus_' + j).hasClass('isAssign')) {

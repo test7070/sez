@@ -23,7 +23,8 @@
             var bbsNum = [['txtWeight2',12 , 3, 1],['txtTrannumber',12 , 0, 1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea', '999/99/99']];
-
+			var brwCount2 = 15;
+			var brwKey = 'noa';
             $(document).ready(function() {
                 if(!q_paraChk())
                     return;
