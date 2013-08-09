@@ -174,7 +174,6 @@
             $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
         }
 		
-		var isins=true;
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
             if(abbm[0]==undefined && t_para)
