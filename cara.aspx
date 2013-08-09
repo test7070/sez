@@ -550,7 +550,7 @@
 				
 				
 				for(var j = 0; j < q_bbsCount; j++) {
-					if($('#txtUmmnoa_'+j).val()!=''){
+					if($('#txtUmmnoa_'+j).val()!='' || $('#txtCaritemno_'+j).val()=='001'){
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
@@ -558,6 +558,10 @@
 						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 						$('#txtInmoney_'+j).attr('disabled', 'disabled');
 						$('#txtUdate_'+j).attr('disabled', 'disabled');
+						if($('#txtCaritemno_'+j).val()=='001'){
+							$('#btnCaritem_'+j).attr('disabled', 'disabled');
+							$('#txtCaritemno_'+j).attr('disabled', 'disabled');
+						}
 					}
 						
 					if(r_rank<=7&&t_date>$('#txtDatea_'+j).val()){

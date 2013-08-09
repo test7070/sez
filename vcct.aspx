@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
+    <title> </title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
@@ -28,7 +28,7 @@
            q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
             
-            //一個訂單只有一個ordei
+            //一個vcce只有一個vcct
             $('#dview').hide();
             //不用新增、查詢、列印、翻頁
             $('#btnIns').hide();
@@ -338,20 +338,18 @@
                <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>-->
                <td class="td5"><span> </span><a id="lblExportno" class="lbl"> </a></td>
                <td class="td6"><input id="txtExportno" type="text" class="txt c1"/></td>
-            </tr>
-            <tr class="tr2">
                <td class="td1"><span> </span><a id="lblBilloflading" class="lbl"></a></td>
                <td class="td2"><input id="txtBilloflading" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblDeliveryorder" class="lbl"></a></td>
                <td class="td4"><input id="txtDeliveryorder" type="text" class="txt c1"/></td>
+            </tr>
+            <tr class="tr2">
                <td class="td5"><span> </span><a id="lblNotify" class="lbl"></a></td>
                <td class="td6"><input id="txtNotify" type="text" class="txt c1"/></td> 
-            </tr>
-            <tr class="tr3">
                <td class="td1"><span> </span><a id="lblInvono" class="lbl"></a></td>
                <td class="td2"><input id="txtInvono" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblInvoiceno" class="lbl"></a></td>
-               <td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td> 
+               <td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td>                
             </tr>
             <tr class="tr4">
                <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"></a></td>

@@ -53,7 +53,7 @@
         function mainPost() { 
         	bbmMask = [];
             q_mask(bbmMask);
-            q_cmbParse("cmbTrantype", q_getPara('ordei.trantype'));
+            //q_cmbParse("cmbTrantype", q_getPara('ordei.trantype'));
 			q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
 			
 			//讀取嘜頭選項
@@ -384,8 +384,9 @@
           	<tr class="tr2">
                <td class="td1"><span> </span><a id="lblLcno" class="lbl"></a></td>
                <td class="td2" colspan="2"><input id="txtLcno" type="text" class="txt c1"/></td>
-               <td class="td4"><span> </span><a id="lblTrantype" class="lbl"></a></td>
-               <td class="td5"><select id="cmbTrantype" class="txt c1"> </select></td> 
+               <!--//依訂單
+               	<td class="td4"><span> </span><a id="lblTrantype" class="lbl"></a></td>
+               <td class="td5"><select id="cmbTrantype" class="txt c1"> </select></td>--> 
             </tr>
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblBdock" class="lbl"></a></td>

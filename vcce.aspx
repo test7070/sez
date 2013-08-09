@@ -17,16 +17,18 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "vcce";
-		var q_readonly = ['txtNoa','txtStype'];
-		var q_readonlys = ['txtOrdeno','txtNo2','txtProductno','txtProduct'];
-		var bbmNum = [];  
-		var bbsNum = [];
+		var q_readonly = ['txtNoa','cmbStype'];
+		var q_readonlys = [];
+		var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 10, 2, 1]];  
+		var bbsNum = [['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtEweight', 15, 3, 1],['txtEcount', 10, 0, 1],['txtAdjweight', 15, 3, 1],['txtAdjcount', 10, 0, 1]];
 		var bbmMask = [];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-		aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx'],
-		['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,product,radius,dime,width,lengthb,spec', 'txtUno_,txtProductno_,txtProduct_,txtRadius_,txtDime_,txtWidth_,txtLengthb_,txtSpec_', 'uccc_seek_b.aspx','95%','60%'],
-		['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx']);
+		aPop = new Array(
+		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx']
+		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,addr2', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtAddr_post', '']
+		,['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+		);
 
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -51,6 +53,7 @@
 			bbmMask = [['txtDatea', r_picd],['txtCldate',r_picd]];
 			q_mask(bbmMask);
 			q_cmbParse("cmbTrantype", q_getPara('vcce.trantype'));
+			q_cmbParse("cmbStype", q_getPara('orde.stype'));
 			
 			$('#btnVcct').click(function(){
 				var t_noa = $('#txtNoa').val();
@@ -94,8 +97,8 @@
 					if (q_cur > 0 && q_cur < 4) {
 						if (!b_ret || b_ret.length == 0)
 							return;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtWeight,txtMount,txtPrice,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret,
-												 'noa,no2,productno,product,weight,mount,price,dime,width,lengthb,spec','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
+												 'noa,no2,productno,product,weight,mount,price','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						if(b_ret[0].noa != undefined){
 							var t_where = "noa='" + b_ret[0].noa + "'";
 							q_gt('orde', t_where , 0, 0, 0, "", r_accy);
@@ -225,6 +228,7 @@
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			$('#cmbStype').attr('disabled',true);
 		}
 
 		function btnMinus(id) {
@@ -362,7 +366,7 @@
 				float: left;
 			}
 			.txt.c5 {
-				width: 65%;
+				width: 60%;
 				float: left;
 			}
 			.txt.c6 {
@@ -488,7 +492,7 @@
 			<td class="td7"><input id="txtCaseno"  type="text" class="txt c1"/> </td>
 			<td class="td8"><input id="txtCaseno2"  type="text" class="txt c1"/> </td>-->
 			<td class='td3'><span> </span><a id="lblStype" class="lbl"> </a> </td>
-			<td class="td4"><input id="txtStype"  type="text" class="txt c1"/> </td>
+			<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
 			<td class="td6"><input id="btnVcct" type="button"/> </td>
 		</tr>
 		<tr class="tr3">
@@ -544,6 +548,7 @@
 				<td ><input class="txt c1" id="txtNo2.*" type="text" /></td>
 				<td><input class="txt c4" id="txtProductno.*" type="text" />
 					 <input class="txt c5" id="txtProduct.*" type="text" />
+					 <input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
 				</td>
 				<td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
 				<td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
