@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
+    <title> </title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" /> 
+	<script src='../script/qj2.js' type="text/javascript"></script>
+	<script src='qset.js' type="text/javascript"></script>
+	<script src='../script/qj_mess.js' type="text/javascript"></script>
+	<script src='../script/mask.js' type="text/javascript"></script>
+	<script src="../script/qbox.js" type="text/javascript"></script>
+	<link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
@@ -16,13 +16,13 @@
         }
         var q_name="lcv";
         var q_readonly = ['txtAccno','txtNoa','txtWorker','txtLcmoney','txtLcedate'];
-        var bbmNum = [['txtMoney',10,0,1],['txtLcmoneys',10,0,1]]; 
+        var bbmNum = [['txtMoney',10,0,1],['txtLcmoney',10,0,1]]; 
         var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';brwCount2 = 11;
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
 								,['txtAcc1', 'lblBankacc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', 'acc_b.aspx']
-								,['txtLcno', '', 'lcu', 'lcno,money,edate', 'txtLcno,txtLcmoney,txtLcedate', '']
+								,['txtLcno', '', 'lcu', 'lcno,custno,comp,money,edate', 'txtLcno,txtCustno,txtComp,txtLcmoney,txtLcedate', '']
 		);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -77,6 +77,7 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').val('AUTO');
+            $('#txtDatea').val(q_date());
             $('#txtLcno').focus();
         }
 
@@ -93,8 +94,7 @@
         }
         function btnOk() {
             var t_err = '';
-
-            t_err = q_chkEmpField([['txtLcno', q_getMsg('lblLcno')]]);
+            t_err = q_chkEmpField([['txtLcno', q_getMsg('lblLcno')],['txtDatea', q_getMsg('lblDatea')]]);
             
             if( t_err.length > 0) {
                 alert(t_err);
@@ -301,10 +301,10 @@
         <div class="dview" id="dview" style="float: left;  width:38%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewLcno'></a></td>
-                <td align="center" style="width:40%"><a id='vewComp'></a></td>
-                <td align="center" style="width:30%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:25%"><a id='vewLcno'> </a></td>
+                <td align="center" style="width:40%"><a id='vewComp'> </a></td>
+                <td align="center" style="width:30%"><a id='vewDatea'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -369,5 +369,5 @@
         </div>
         </div> 
         <input id="q_sys" type="hidden" />
-</body>
+	</body>
 </html>
