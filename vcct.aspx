@@ -408,10 +408,12 @@
                <td class="td6"><input id="txtShippingdate" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr12">
-               <td class="td1"><span> </span><a id="lblCldate" class="lbl"></a></td>
-               <td class="td2"><input id="txtCldate" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblPallet" class="lbl"></a></td>
-               <td class="td4"><input id="txtPallet" type="text" class="txt c1"/></td>
+				<td class="td1"><span> </span><a id="lblSaildate" class="lbl"></a></td>
+				<td class="td2"><input id="txtSaildate" type="text" class="txt c1" /></td>
+				<td class="td3"><span> </span><a id="lblCldate" class="lbl"></a></td>
+				<td class="td4"><input id="txtCldate" type="text" class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblPallet" class="lbl"></a></td>
+				<td class="td6"><input id="txtPallet" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr12">
                <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
