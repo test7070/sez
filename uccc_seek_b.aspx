@@ -167,7 +167,11 @@
     	}
 	</style>
 </head>
-<body> 
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 <div id="dbbs">
 	<table id="tbbs" border="2" cellpadding='0' cellspacing='0' style='width:98%' >
 		<tr>

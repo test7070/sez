@@ -18,7 +18,7 @@
 
             q_tables = 's';
             var q_name = "ina";
-            var q_readonly = [];
+            var q_readonly = ['txtWorker'];
             var q_readonlys = [];
             var bbmNum = [['txtTotal', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1]];
@@ -29,6 +29,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
+            q_desc = 1;
             aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
             ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
             ['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtComp','tgg_b.aspx'],
