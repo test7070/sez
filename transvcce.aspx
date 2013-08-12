@@ -718,7 +718,7 @@
             	for(var i = 0; i < q_bbsCount; i++) {
             		if($.trim($('#txtMemo2_'+i).val()).length>0)
             			t_string += (t_string.length>0?',':'')+$.trim($('#txtMemo2_'+i).val());
-            		if(i==0)
+            		if(i==0 || $.trim($('#txtMemo3').val()).length==0)
             			$('#txtMemo3').val($.trim($('#txtAddr_'+i).val()));	
             	}
             	$('#txtMemo2').val(t_string);
