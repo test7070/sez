@@ -326,6 +326,7 @@
 			_btnIns();
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtDatea').val(q_date());
+			$('#txtMon').val(q_date().substring(0,6));
 			$('#txtDatea').focus();
 			size_change();
 		}

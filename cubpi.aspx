@@ -132,7 +132,8 @@
 					}
 				});
 				$('#btnUccc_pi').click(function(){
-                	var t_where = ' 1=1 and radius=0 ';
+                	//var t_where = ' 1=1 and radius=0 ';
+                	var t_where = ' 1=1';
 					var t_productno = trim($('#txtProductno').val());
 					var t_bdime = dec($('#txtBdime').val());
                 	var t_edime = dec($('#txtEdime').val());
@@ -873,6 +874,7 @@
 						<td style="width:100px; text-align: center;">入庫重</td>
 						<td style="width:100px; text-align: center;">耗用數</td>
 						<td style="width:100px; text-align: center;">耗料重</td>
+						<td style="width:100px; text-align: center;">領料日</td>
 						<td style="width:100px; text-align: center;">生產數</td>
 						<td style="width:100px; text-align: center;">生產重</td>
 						<td style="width:100px; text-align: center;">無主數</td>
@@ -883,7 +885,6 @@
 						<td style="width:100px; text-align: center;">試車管</td>
 						<td style="width:100px; text-align: center;">接頭管</td>
 						<td style="width:120px; text-align: center;">安全吊帶</td>
-						<td style="width:100px; text-align: center;">領料日</td>
 						<td style="width:120px; text-align: center;">倉庫</td>
 						<td style="width:80px; text-align: center;">儲位</td>
 						<td style="width:120px; text-align: center;">餘料備註</td>
@@ -912,6 +913,7 @@
 						<td><input id="txtWeight..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtGmount..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtGweight..*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtDatea..*" type="text" class="txt c1"/></td>
 						<td><input id="txtBmount..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBweight..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBstkmount..*" type="text" class="txt c1 num"/></td>
@@ -922,7 +924,6 @@
 						<td><input id="txtBtry..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBconn..*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtBsafe..*" type="text" class="txt c1"/></td>
-						<td><input id="txtDatea..*" type="text" class="txt c1"/></td>
 						<td><input id="txtStoreno..*" type="text" class="txt c1"/></td>
 						<td><input id="txtPlace..*" type="text" class="txt c1"/></td>
 						<td><input id="txtMemo..*" type="text" class="txt c1"/></td>

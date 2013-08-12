@@ -23,6 +23,7 @@
             				  'txtMount','txtWeight','txtWeight2'
             				 ];
             */
+			var q_readonly = ['txtWorker'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -100,7 +101,7 @@
             function btnOk() {
                 var t_err = '';
                 t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')]]);
-
+				$('#txtWorker').val(r_name);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
@@ -252,9 +253,15 @@
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
-            .txt.c1 {
+            .txt{
+            	float:left;
+            }
+            .c1 {
                 width: 100%;
-                float: left;
+            }
+            .c2{
+            	width:30px;
+            	text-align:center;
             }
             .txt.num {
                 text-align: right;
@@ -361,8 +368,8 @@
 							<input id="txtProductno" type="text" class="txt" style="width:30%;"/>
 							<input id="txtProduct" type="text" class="txt" style="width:70%;"/>
 						</td>
-						<td></td>
-						<td></td>
+						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
+						<td><input id="txtStyle" type="text" class="txt c2" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
@@ -388,8 +395,8 @@
 					<tr>
 						<td><span> </span><a id='lblWidth' class="lbl"> </a></td>
 						<td><input id="txtWidth" type="text" class="txt c1 num" /></td>
-						<td></td>
-						<td></td>
+						<td><span> </span><a id='lblPrt' class="lbl" style="font-size: 12px;"> </a></td>
+						<td><input id="txtPrt" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDime' class="lbl"> </a></td>
@@ -420,6 +427,12 @@
 						<td><select id="cmbTypea"  class="txt c1"> </select></td>
 						<td><span> </span><a id='lblTypea2' class="lbl"> </a></td>
 						<td><select id="cmbTypea2"  class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</table>
 			</div>
