@@ -62,7 +62,13 @@
 					t_where = "noa='" + t_noa + "'";
 					q_box("vcct.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcct', "95%", "95%", q_getMsg('btnVcct'));
 			});
-			
+			$('#btnInvoice').click(function(){
+				var t_noa = $('#txtNoa').val();
+				var t_where = '';
+				if(t_noa.length > 0)
+					t_where = "vcceno='" + t_noa + "'";
+					q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invoice', "95%", "95%", q_getMsg('btnInvoice'));
+			});
 			
 			$('#btnOrdeimport').click(function(){
 				var ordeno = $('#txtOrdeno').val();
@@ -500,6 +506,7 @@
 			<td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c7"/></td>
 			<td class="td3"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
 			<td class="td4"><select id="cmbTrantype" class="txt c1"> </select></td>
+			<td class="td6"><input id="btnInvoice" type="button"/> </td>
 		</tr>
 		<tr class="tr4">
 			<td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>

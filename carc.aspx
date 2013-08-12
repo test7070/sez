@@ -113,6 +113,8 @@
 		            
 		           //金額=0的不顯示
 		           	t_where+=" and a.outmoney!=0";
+		           	//1030812千嘉只帶會計科目為2195.16
+		           	t_where+=" and (case when a.acc1!='' then a.acc1 else (select top1 acc1 from caritem where noa=a.caritemno) end)='2195.16'";
 		            t_where+=" ^^";
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);			   
 			 });
@@ -152,6 +154,13 @@
 		var sssnumber=0;
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'payb':
+            		var as = _q_appendData("payb", "", true);
+            		if(dec(as[0].payed)!=0)
+            			payb_payed=true;
+            		else
+            			payb_payed=false;
+            		break;
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		sssnumber=as.length;
@@ -275,11 +284,14 @@
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
+            if(payb_payed){
+        		alert('此代付單據已付款,不能修改與刪除!!');
+        		return;
+        	}
             if (q_chkClose())
                 return; 
             _btnModi();
-            $('#txtAcdate').focus();            
-           
+            $('#txtAcdate').focus();
         }
         function btnPrint() {
 			q_box('z_carc.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -313,8 +325,13 @@
         }
         
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
+        var payb_payed=false;
         function refresh(recno) {
             _refresh(recno);
+            if(!emp($('#txtPaybno').val())){
+            	var payb_where="where=^^ noa='"+$('#txtPaybno').val()+"' ^^";
+				q_gt('payb', payb_where , 0, 0, 0, "", r_accy);	
+            }
        }
 
         function readonly(t_para, empty) {
@@ -383,6 +400,11 @@
         }
 
         function btnDele() {
+        	if(payb_payed){
+        		alert('此代付單據已付款,不能修改與刪除!!');
+        		return;
+        	}
+        		
         	if (q_chkClose())
                 return;
             _btnDele();
