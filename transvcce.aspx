@@ -25,7 +25,7 @@
             q_tables = 's';
             var q_name = "transvcce";
             var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
-            var q_readonlys = ['txtCommandid','txtSendno','txtSendid','txtSenddate','txtTaskcontent'];
+            var q_readonlys = ['txtCommandid','txtSendno','txtSendid','txtSenddate'];
             var bbmNum = [['txtMount',10,1,1]];
             var bbsNum = [['txtMount',10,1,1],['txtSel',10,0,1]];
             var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtTrantime', '99:99']];
@@ -718,7 +718,7 @@
             	for(var i = 0; i < q_bbsCount; i++) {
             		if($.trim($('#txtMemo2_'+i).val()).length>0)
             			t_string += (t_string.length>0?',':'')+$.trim($('#txtMemo2_'+i).val());
-            		if(i==0)
+            		if(i==0 || $.trim($('#txtMemo3').val()).length==0)
             			$('#txtMemo3').val($.trim($('#txtAddr_'+i).val()));	
             	}
             	$('#txtMemo2').val(t_string);
@@ -1185,7 +1185,7 @@
 						<input id="txtMemo.*" type="text" style="display: none;" title="暫存資料用。"/>
 					</td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/>
-						<input id="txtTaskcontent.*" type="text" style="width: 95%;"/>
+						<input id="txtTaskcontent.*" type="text" style="width: 95%;color:rgb(255,100,100);"/>
 					</td>
 					<td><input id="txtMemo2.*" type="text" style="width: 95%;"/></td>
 					<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
