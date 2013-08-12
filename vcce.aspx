@@ -62,12 +62,21 @@
 					t_where = "noa='" + t_noa + "'";
 					q_box("vcct.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcct', "95%", "95%", q_getMsg('btnVcct'));
 			});
+			
 			$('#btnInvoice').click(function(){
 				var t_noa = $('#txtNoa').val();
 				var t_where = '';
 				if(t_noa.length > 0)
 					t_where = "vcceno='" + t_noa + "'";
 					q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invoice', "95%", "95%", q_getMsg('btnInvoice'));
+			});
+			
+			$('#btnPack').click(function(){
+				var t_noa = $('#txtNoa').val();
+				var t_where = '';
+				if(t_noa.length > 0)
+					t_where = "noa='" + t_noa + "'";
+					q_box("packing_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invoice', "95%", "95%", q_getMsg('btnPack'));
 			});
 			
 			$('#btnOrdeimport').click(function(){
@@ -513,6 +522,7 @@
 			<td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
 			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
 			<td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
+			<td class="td6"><input id="btnPack" type="button"/> </td>
 		</tr>
 		<tr class="tr5">
 			<td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
