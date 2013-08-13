@@ -980,7 +980,7 @@
 		</tr> 
 		<tr>
 			<td class='td1'><span> </span><a id="lblLoss" class="lbl"></a></td>
-			<td class="td2"><input id="txtLoss" type="text" class="txt c1"/></td> 
+			<td class="td2"><input id="txtLoss" type="text" class="txt c1 num"/></td> 
 			<td class='td3'><span> </span><a id="lblTheyout" class="lbl" ></a></td>
 			<td class="td4"><input id="txtTheyout" type="text" class="txt num c1" /></td>
 			<td class='td5'><span> </span><a id="lblTotalout" class="lbl" ></a></td>

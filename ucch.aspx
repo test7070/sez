@@ -17,13 +17,11 @@
 
             var q_name = "ucch";
             var q_readonly = []
-            /*
             var q_readonly = ['txtNoa','txtUno2','txtCustno','txtCust','txtCustno2','txtCust2','txtProductno',
-            				  'txtProduct','txtSpec','txtClass','txtRadius','txtWidth','txtDime','txtLengthb',
-            				  'txtMount','txtWeight','txtWeight2'
+            				  'txtProduct','txtSpec','txtStyle','txtClass','txtRadius','txtWidth','txtDime','txtLengthb',
+            				  'txtMount','txtWeight','txtWeight2','txtWorker','txtWorker2'
             				 ];
-            */
-			var q_readonly = ['txtWorker'];
+			/*var q_readonly = ['txtWorker'];*/
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -54,7 +52,79 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", ','+q_getPara('ucch.typea'));
                 q_cmbParse("cmbTypea2", ','+q_getPara('ucch.typea2'));
+                $('#txtUno').focusout(function(){
+                	if(q_cur == 1 || q_cur==2){
+	                	thisVal = trim($(this).val());
+	                	if(thisVal.length > 0){
+		                	var t_where = "where=^^ 1=1 and uno='"+thisVal+"' ^^";
+		                	q_gt('view_uccc', t_where, 0, 0, 0, "");
+	                	}
+                	}
+                });
+                $('#txtMount2').focusout(function(){
+                	if(q_cur == 1 || q_cur==2){
+	                	var o_mount = dec($('#txtMount').val());
+	                	var o_weight = dec($('#txtWeight').val());
+	                	var n_mount = dec($(this).val());
+	                	var n_weight = 0;
+	                	if(n_mount > o_mount){
+	                		alert('轉換數量不可超過原數量!!');
+	                		$(this).val(0).focus();
+	                		return;
+	                	}
+	                	if(n_mount < 0){
+	                		alert('轉換數量不可為負數!!');
+	                		$(this).val(0).focus();
+	                		return;
+	                	}
+	                	if(emp(n_mount)){
+	                		$('#txtWeight2').val(0);
+	                	}else{
+	                		if(o_mount == n_mount){
+	                			$('#txtWeight2').val(o_weight);
+	                		}else{
+	                			n_weight = Math.round(((o_weight/o_mount)*n_mount),0);
+	                			$('#txtWeight2').val(n_weight);
+	                		}
+	                	}
+	                }
+                });
+                $('#txtOrdeno2').change(function(){
+                	if(q_cur == 1 || q_cur==2){
+	                	var t_ordeno2 = trim($(this).val());
+	                	if(t_ordeno2.length > 0){
+	                		var t_where = "where=^^ noa='"+t_ordeno2+"' ^^";
+	                		q_gt('orde', t_where, 0, 0, 0, "orde_txtCustno2_txtCust2", r_accy);
+	                	}
+                	}
+                });
+                $('#txtOrdeno').change(function(){
+                	if(q_cur == 1 || q_cur==2){
+	                	var t_ordeno = trim($(this).val());
+	                	if(t_ordeno.length > 0){
+	                		var t_where = "where=^^ noa='"+t_ordeno+"' ^^";
+	                		q_gt('orde', t_where, 0, 0, 0, "orde_txtCustno_txtCust", r_accy);
+	                	}
+                	}
+                });
             }
+
+			function getNewUno(o_Uno,pos){
+				var checkStr='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+				var o_UnoTmp = '';
+				pos = (emp(pos)?0:pos);
+				var NewSub = checkStr.charAt(checkStr.indexOf(o_Uno.charAt(o_Uno.length-1))+1+pos);
+				if(emp(NewSub)){
+					o_UnoTmp = '';
+				}else{
+					if((/\*?[A-Za-z]$/g).test(o_Uno)){
+						o_UnoTmp = o_Uno.substring(0,o_Uno.length-1) + NewSub;
+					}else{
+						o_UnoTmp = o_Uno + 	NewSub;
+					}
+				}
+				return o_UnoTmp;
+			}
 
             function q_boxClose(s2) {
                 var ret;
@@ -68,10 +138,87 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'getNewUnoGt':
+                		var o_Uno = trim($('#txtUno').val());
+                		var NewUno = '';
+                		var as = _q_appendData('view_uccc','',true);
+                		if (as[0] == undefined){
+                			NewUno = getNewUno(o_Uno,0);
+                		}else{
+	                		var unoas = new Array();
+	                		for(var j = 0;j<as.length;j++){
+	                			unoas.push(as[j].uno);
+	                		}
+	                		var i=0;
+	                		var isCheckOut = false;
+	                		while(!isCheckOut){
+	                			if(getNewUno(o_Uno,i).length > 0 && unoas.indexOf(getNewUno(o_Uno,i)) == -1){
+	                				isCheckOut = true;
+	                				NewUno = getNewUno(o_Uno,i);
+	                				$('#txtUno2').attr('readonly','readonly');
+									$('#txtUno2').css('background-color', t_background2).css('color','green');
+	                			}else{
+	                				if(getNewUno(o_Uno,i) == ''){
+	                					NewUno = '';
+	                					$('#txtUno2').removeAttr('readonly');
+										$('#txtUno2').css('background-color', t_background).css('color','');
+	                					isCheckOut = true;
+	                				}else{
+	                					isCheckOut = false;
+	                				}
+	                				i++;
+	                			}
+	                		}
+                		}
+	                	$('#txtUno2').val(NewUno);
+                		break;
+                	case 'view_uccc':
+                		var t_Uno = trim($('#txtUno').val());
+                		var as = _q_appendData('view_uccc','',true);
+                		if (as[0] != undefined){
+                			$('#txtProductno').val(as[0].productno);
+                			$('#txtProduct').val(as[0].product);
+                			$('#txtStyle').val(as[0].style);
+                			$('#txtSpec').val(as[0].spec);
+                			$('#txtClass').val(as[0].class);
+                			$('#txtRadius').val(as[0].radius);
+                			$('#txtWidth').val(as[0].width);
+                			$('#txtDime').val(as[0].dime);
+                			$('#txtLengthb').val(as[0].lengthb);
+                			$('#txtMount').val(as[0].emount);
+                			$('#txtWeight').val(as[0].eweight);
+                		}else{
+                			alert('無此批號!!');
+                			$('#txtUno').val('').focus();
+                			return;
+                		}
+		                thisVal = trim($('#txtUno').val());
+		                if((/\*?[A-Za-z]$/g).test(thisVal)){
+		                	thisVal = trim(thisVal.substring(0,thisVal.length-1));
+		                }
+		                if(thisVal.length > 0){
+		                	var t_where = "where=^^ 1=1 " +q_sqlPara2('uno',thisVal)+" ^^";
+		                	q_gt('view_uccc', t_where, 0, 0, 0, "getNewUnoGt");
+		                }
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
+					default:
+						if(t_name.length>5 && t_name.substring(0,4)== 'orde'){
+							var UseObj_Custno = '#'+t_name.split('_')[1];
+							var UseObj_Cust = '#'+t_name.split('_')[2];
+							var as = _q_appendData('orde','',true);
+							if (as[0] != undefined){
+								$(UseObj_Custno).val(as[0].custno);
+								$(UseObj_Cust).val(as[0].comp);
+							}else{
+								$(UseObj_Custno).val('');
+								$(UseObj_Cust).val('');
+							}
+						}
+						break;
                 }  /// end switch
             }
 
@@ -100,8 +247,16 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')]]);
-				$('#txtWorker').val(r_name);
+                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtUno', q_getMsg('lblUno')]]);
+				if(trim($('#txtCustno').val()).length > 0){
+					$('#cmbTypea2').val(2); //有主
+				}else{
+					$('#cmbTypea2').val(1); //無主
+				}
+				if(q_cur==1)
+                	$('#txtWorker').val(r_name);
+                else
+                	$('#txtWorker2').val(r_name);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
@@ -431,8 +586,8 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
-						<td></td>
-						<td></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
