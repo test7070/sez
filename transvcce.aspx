@@ -635,8 +635,8 @@
 	                        	t_msg += (as[0]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+as[0]['boatname']:'');
 	                        	t_msg += (as[0]['do1'].length>0?(t_msg.length>0?',':'')+'領編'+as[0]['do1']:'');
 	                        	t_msg += (as[0]['so'].length>0?(t_msg.length>0?',':'')+'SO:'+as[0]['so']:'');
-	                        	t_msg += (as[0]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+as[0]['casepackaddr']:'');
 	                        	t_msg += (as[0]['port'].length>0?(t_msg.length>0?',':'')+'港口'+as[0]['port']:'');
+	                        	t_msg += (as[0]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+as[0]['casepackaddr']:'');
 	                        	t_msg += (as[0]['casetype'].length>0?(t_msg.length>0?',':'')+'櫃型'+as[0]['casetype']:'');
 	                        	//進口
 	                        	t_msg += (as[0]['port2'].length>0?(t_msg.length>0?',':'')+as[0]['port2']+'領':'');
