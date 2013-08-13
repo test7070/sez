@@ -244,6 +244,16 @@
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
 			$('#cmbStype').attr('disabled',true);
+			
+			if(t_para){
+            	$('#btnVcct').removeAttr('disabled');
+            	$('#btnInvoice').removeAttr('disabled');
+            	$('#btnPack').removeAttr('disabled');
+            }else{
+            	$('#btnVcct').attr('disabled','disabled');
+            	$('#btnInvoice').attr('disabled','disabled');
+            	$('#btnPack').attr('disabled','disabled');
+            }
 		}
 
 		function btnMinus(id) {

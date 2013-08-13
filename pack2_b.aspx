@@ -56,9 +56,7 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center">
-					<input type="checkbox" id="checkAllCheckbox"/>
-				</td>
+                <td align="center"></td>
                 <td align="center"><a id='lblPackway'></a></td>
                 <td align="center"><a id='lblPack'></a></td>
                 <td align="center"><a id='lblInmount'></a></td>

@@ -22,6 +22,7 @@
 			var bbsNum = [['txtQuantity', 15, 2, 1],['txtPrice', 15, 2, 1],['txtAmount', 15, 0, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
+			
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -29,7 +30,7 @@
 			brwKey = 'noa';
 			aPop = new Array(
 				['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype', '']
-				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype,tax,money,total,coin,floata,totalus', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype,txtTax,txtMoney,txtTotal,cmbCoin,txtFloata,txtTotalus', '']				
+				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype,tax,money,total,coin,floata,totalus', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype,txtTax,txtMoney,txtTotal,cmbCoin,txtFloata,txtTotalus', '']
 			);
 			$(document).ready(function () {
 				bbmKey = ['noa'];
@@ -173,7 +174,6 @@
 				return true;
 			}
 			
-			
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {	
@@ -184,6 +184,7 @@
 				}
 				_bbsAssign();
 			}
+			
 
 			function btnOk() {
 				var t_err = '';
@@ -383,6 +384,18 @@
 		}
 		.txt.c2{
 			width:45%;
+			float:left;
+		}
+		.txt.c3{
+			width:30%;
+			float:left;
+		}
+		.txt.c4{
+			width:50%;
+			float:left;
+		}
+		.txt.c5{
+			width:80%;
 			float:left;
 		}
 		.num{
