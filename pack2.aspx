@@ -19,7 +19,7 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [['txtWeight', 10, 2,1]];
-            var bbsNum = [['txtInmount', 10, 2,1],['txtOutmount', 10, 2,1],['txtInweight', 10, 2,1],['txtOutweight', 10, 2,1],['txtWeight', 10, 2,1],['txtGweight', 10, 2,1],['txtLengthb', 10, 2,1],['txtWidth', 10, 2,1],['txtHigh', 10, 2,1],['txtCuft', 10, 2,1]];
+            var bbsNum = [['txtInmount', 10, 2,1],['txtOutmount', 10, 2,1],['txtInweight', 10, 2,1],['txtOutweight', 10, 2,1],['txtWeight', 10, 2,1],['txtGweight', 10, 2,1],['txtLengthb', 10, 2,1],['txtWidth', 10, 2,1],['txtHeight', 10, 2,1],['txtCuft', 10, 2,1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -27,7 +27,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtNoa', 'lblNoa', 'ucaucc', 'noa,product', 'txtNoa,txtProduct', 'ucaucc_b.aspx']);
+            aPop = new Array(['txtNoa', 'lblNoa', 'ucaucc', 'noa,product,unit,spec', 'txtNoa,txtProduct,txtUnit,txtSpec', 'ucaucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -58,7 +58,7 @@
 					}
                 });
                 $('#txtWeight').change(function () {
-	           	//分配室內金額
+	           	//計算BBS淨重
 	           	if(dec($('#txtWeight').val())>0){
 		           	for(var j = 0; j < q_bbsCount; j++) {
 		           		if(!emp($('#txtInmount_'+j).val()) && !emp($('#txtOutmount_'+j).val()))
@@ -169,19 +169,19 @@
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHigh_'+b_seq)*(0.032808*0.032808*0.032808))
+			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808))
 						});
 						$('#txtWidth_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHigh_'+b_seq)*(0.032808*0.032808*0.032808))
+			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808))
 						});
-						$('#txtHigh_' + j).change(function () {
+						$('#txtHeight_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHigh_'+b_seq)*(0.032808*0.032808*0.032808))
+			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808))
 						});
 					}
 				}
@@ -222,6 +222,9 @@
                 }
 
                 q_nowf();
+                as['product'] = abbm2['product'];
+                as['spec'] = abbm2['spec'];
+				as['unit'] = abbm2['unit'];
                 return true;
             }
 
@@ -482,7 +485,7 @@
 					<td align="center" style="width:80px;"><a id='lblGweight_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblLengthb_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblWidth_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblHigh_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblHeight_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblCuft_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -499,7 +502,7 @@
 					<td><input type="text" id="txtGweight.*" class="txt num c2" /></td>
 					<td><input type="text" id="txtLengthb.*" class="txt num c2" /></td>
 					<td><input type="text" id="txtWidth.*" class="txt num c2" /></td>
-					<td><input type="text" id="txtHigh.*" class="txt num c2"/></td>
+					<td><input type="text" id="txtHeight.*" class="txt num c2"/></td>
 					<td><input type="text" id="txtCuft.*" class="txt num c2"/></td>
 				</tr>
 			</table>
