@@ -152,6 +152,12 @@
 				$('#btnInvo').attr('disabled','disabled');
 				$('#btnPack').attr('disabled','disabled');
 				$('#txtNoa').focus();
+				
+				if(window.parent.q_name=='vcce'){
+					var wParent = window.parent.document;
+					var t_vcceno= wParent.getElementById("txtNoa").value;
+					$('#txtVcceno').val(t_vcceno);
+				}
 			}
 	
 			function btnModi() {
@@ -196,11 +202,7 @@
 					return;
 				}
 				
-				if(window.parent.q_name=='vcce'){
-						 var wParent = window.parent.document;
-						 var t_vcceno= wParent.getElementById("txtNoa").value;
-						 $('#txtVcceno').val(t_vcceno);
-				}
+				
 				
 				if(q_cur==1){
 					t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
@@ -425,12 +427,12 @@
 				<tr>
 					<td align="center" style="width:5%"><a id='vewChk' class="lbl"> </a></td>
 					<td align="center" style="width:25%"><a id='vewNoa' class="lbl"> </a></td>
-					<td align="center" style="width:40%"><a id='vewVccno' class="lbl"> </a></td>
+					<td align="center" style="width:40%"><a id='vewVcceno' class="lbl"> </a></td>
 				</tr>
 				<tr>
 					<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 					<td align="center" id='noa'>~noa</td>
-					<td align="center" id='vccno'>~vccno</td>
+					<td align="center" id='vcceno'>~vcceno</td>
 				</tr>
 			</table>
 		</div>
@@ -440,7 +442,6 @@
 					<td class="td1" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
 					<td class="td2">
 						<input id="txtNoa"  type="text"  class="txt c1"/>
-						<input id="txtVcceno" type="hidden" class="txt c1" />
 					</td>
 					<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 					<td class="td4"><input id="txtDatea" type="text" class="txt c1" /></td>
@@ -452,8 +453,8 @@
             		<td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>
 				</tr>
 				<tr class="tr1">
-					<td class="td1"><span> </span><a id="lblVccno" class="lbl"> </a></td>
-					<td class="td2"><input id="txtVccno" type="text" class="txt c1" /></td>
+					<td class="td1"><span> </span><a id="lblVcceno" class="lbl"> </a></td>
+					<td class="td2"><input id="txtVcceno" type="text" class="txt c1" /></td>
 					<td class="td3"><span> </span><a id="lblOrdeno" class="lbl btn"> </a></td>
             		<td class="td4"><input id="txtOrdeno" type="text" class="txt c1" /></td>
 				</tr>

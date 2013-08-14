@@ -20,6 +20,11 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
+        aPop = new Array(['txtInspection_compno', 'lblInspection_comp', 'tgg', 'noa,comp', 'txtInspection_compno,txtInspection_comp', 'tgg_b.aspx']
+		,['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx']
+		,['txtTrancompno', 'lblTrancomp', 'tgg', 'noa,comp', 'txtTrancompno,txtTrancomp', 'tgg_b.aspx']
+		,['txtForwarderno', 'lblForwarder', 'tgg', 'noa,comp', 'txtForwarderno,txtForwarder', 'tgg_b.aspx']
+		);
 		
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -56,12 +61,13 @@
             //q_cmbParse("cmbTrantype", q_getPara('ordei.trantype'));
 			q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
 			
-			//讀取嘜頭選項
-			 var wParent = window.parent.document;
-			 var t_custno= wParent.getElementById("txtCustno").value
-			var t_where="where=^^ custno='"+t_custno+"'^^";
-            q_gt('ucam', t_where, 0, 0, 0, "", r_accy);
-            
+			if(window.parent.q_name=='orde'){
+				//讀取嘜頭選項
+				var wParent = window.parent.document;
+				var t_custno= wParent.getElementById("txtCustno").value
+				var t_where="where=^^ custno='"+t_custno+"'^^";
+	            q_gt('ucam', t_where, 0, 0, 0, "", r_accy);
+           }
             
             $('#cmbMarkno').change(function() {
             	if($('#cmbMarkno').val()==''){
@@ -105,7 +111,8 @@
                             t_markno = t_markno + (t_markno.length>0?',':'') + ucam_as[i].noa +'@' + ucam_as[i].namea;
                         }
             			q_cmbParse("cmbMarkno", t_markno);
-            			$('#cmbMarkno').val(abbm[0].markno);
+            			if(abbm[0]!=undefined)
+            				$('#cmbMarkno').val(abbm[0].markno);
             		}
                     break;
                 case q_name: 
@@ -402,16 +409,28 @@
                <td class="td5" colspan="2"><input id="txtGoal" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblFactor" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtFactor" type="text" class="txt c1"/></td>
-               <td class="td4"><span> </span><a id="lblBcomp" class="lbl"></a></td>
-               <td class="td5" colspan="2"><input id="txtBcomp" type="text" class="txt c1"/></td> 
+               <td class="td1"><span> </span><a id="lblForwarder" class="lbl btn"></a></td>
+               <td class="td2" colspan="2">
+               		<input id="txtForwarderno" type="text" class="txt c2"/>
+               		<input id="txtForwarder" type="text" class="txt c3"/>
+               	</td>
+               <td class="td4"><span> </span><a id="lblBcomp" class="lbl btn"></a></td>
+               <td class="td5" colspan="2">
+               		<input id="txtBcompno" type="text" class="txt c2"/>
+               		<input id="txtBcomp" type="text" class="txt c3"/>
+               	</td> 
             </tr>
 			<tr class="trX">
-               <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtInspection_comp" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblTrancomp" class="lbl"></a></td>
-               <td class="td4" colspan="2"><input id="txtTrancomp" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"></a></td>
+               <td class="td2" colspan="2">
+               		<input id="txtInspection_compno" type="text" class="txt c2"/>
+               		<input id="txtInspection_comp" type="text" class="txt c3"/>
+               	</td>
+               <td class="td3"><span> </span><a id="lblTrancomp" class="lbl btn"></a></td>
+               <td class="td4" colspan="2">
+               		<input id="txtTrancompno" type="text" class="txt c2"/>
+               		<input id="txtTrancomp" type="text" class="txt c3"/>
+               	</td>
             </tr>
             <tr class="trX">
                <td class="td1"><span> </span><a id="lblBank" class="lbl"></a></td>
@@ -463,7 +482,7 @@
 					<textarea id="txtMain"  rows='5' cols='50' style="width:300px; height: 250px;"> </textarea>
 				</td>
                <td class="td4"><span> </span><a id="lblSide" class="lbl"> </a></td>
-               <td class="td5">
+               <td class="td5" colspan="2">
                		<textarea id="txtSide"  rows='15' cols='50' style="width:300px; height: 250px;"> </textarea>
                </td> 
             </tr>

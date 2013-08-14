@@ -1347,31 +1347,36 @@
         
         
 		var scrollcount=1;
+		//第一個參數指向要產生浮動表頭的table,第二個指向要放置浮動表頭的位置,第三個指要複製的行數(1表示只要複製表頭)
         function scroll(viewid,scrollid,size){
+        	//判斷目前有幾個scroll,//主要是隱藏欄位時要重新產生浮動表頭,導致浮動表頭重疊,要刪除重疊的浮動表格,salary_dc才有用到
         	if(scrollcount>1)
-        	$('#box_'+(scrollcount-1)).remove();
-			var scroll = document.getElementById(scrollid);
-			var tb2 = document.getElementById(viewid).cloneNode(true);
-			var len = tb2.rows.length;
-			for(var i=tb2.rows.length;i>size;i--){
+        		$('#box_'+(scrollcount-1)).remove();//刪除之前產生的浮動表頭
+        	
+			var scroll = document.getElementById(scrollid);//取的放置浮動表頭的位置
+			var tb2 = document.getElementById(viewid).cloneNode(true);//拷貝要複製表頭的table一份
+			var len = tb2.rows.length;//取的table的長度
+			for(var i=tb2.rows.length;i>size;i--){//刪除到只需要複製的行數,取得要表頭
 		                tb2.deleteRow(size);
 			}
 			//tb2.rows[0].deleteCell(0);
+			//由於btnPlus會複製成兩個所以將複製的btnPlus命名為scrollplus
 			tb2.rows[0].cells[0].children[0].id="scrollplus"
-			var bak = document.createElement("div");
-			bak.id="box_"+scrollcount
+			var bak = document.createElement("div");//新增一個div
+			bak.id="box_"+scrollcount//設置div的id,提供刪除使用
 			scrollcount++;
-			scroll.appendChild(bak);
-			bak.appendChild(tb2);
+			scroll.appendChild(bak);//將新建的div加入到放置浮動表頭的位置
+			bak.appendChild(tb2);//將浮動表頭加入到新建的div內
+			//以下設定新建div的屬性
 			bak.style.position = "absolute";
 			bak.style.backgroundColor = "#fff";
 		    bak.style.display = "block";
 			bak.style.left = 0;
 			bak.style.top = "0px";
 			scroll.onscroll = function(){
-				bak.style.top = this.scrollTop+"px";
+				bak.style.top = this.scrollTop+"px";//設定滾動條移動時浮動表頭與div的距離
 			}
-			$('#scrollplus').click(function () {
+			$('#scrollplus').click(function () {//讓scrollplus按下時執行btnPlus
 	            	$('#btnPlus').click();
 	       		});
 		}
