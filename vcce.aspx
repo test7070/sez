@@ -103,6 +103,14 @@
 					q_gt('cust', t_where, 0, 0, 0, "");
 				}  
 			});
+			
+			$('#txtOrdeno').change(function(){
+				var t_ordeno = trim($('#txtOrdeno').val());
+				if(!emp(t_ordeno)){
+					var t_where = "where=^^ noa='" + t_ordeno + "' ^^";
+					q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
+				}  
+			});
 		}
 
 		function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -130,6 +138,14 @@
 		var focus_addr='';
 		function q_gtPost(t_name) {  
 			switch (t_name) {
+				case 'ordei':
+            		var as = _q_appendData("ordei", "", true);
+            		var t_memo='';
+            		if(as[0]!=undefined)
+            			t_memo='INVOICE 備註:'+as[0].invoicememo+'\nPACKING LIST備註:'+as[0].packinglistmemo
+            		
+            		$('#txtMemo').val(t_memo);
+            		break;
 				case 'orde':
 					var orde=_q_appendData("orde", "", true);
 					if(orde[0]!=undefined)
@@ -195,14 +211,12 @@
 			_btnIns();
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtDatea').val(q_date());
-			size_change();
 			$('#txtDatea').focus();
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
 				return;
 			_btnModi();
-			size_change();
 			$('#txtDatea').focus();
 		}
 		function btnPrint() {
@@ -231,9 +245,9 @@
 		function sum() {
 			var t1 = 0, t_unit, t_mount, t_weight = 0;
 			for (var j = 0; j < q_bbsCount; j++) {
-
+				t_weight+=q_float('txtWeight_'+j);
 			}  // j
-
+			q_tr('txtWeight',t_weight);
 		}
 		
 		///////////////////////////////////////////////////  
@@ -263,7 +277,6 @@
 
 		function btnPlus(org_htm, dest_tag, afield) {
 			_btnPlus(org_htm, dest_tag, afield);
-			size_change();
 		}
 
 		function q_appendData(t_Table) {
@@ -306,9 +319,21 @@
 			_btnCancel();
 		}
 		
+		function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtOrdeno':
+		    			var t_ordeno = trim($('#txtOrdeno').val());
+						if(!emp(t_ordeno)){
+							var t_where = "where=^^ noa='" + t_ordeno + "' ^^";
+							q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
+						}
+			        break;
+		    	}
+			}
+		
 	</script>
 	<style type="text/css">
-				#dmain {
+			#dmain {
 			}
 			.dview {
 				float: left;

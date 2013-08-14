@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="vcct";
-        var q_readonly = ['txtWorker','txtWorker2'];
+        var q_readonly = ['txtSono','txtWorker','txtWorker2'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -55,7 +55,35 @@
         function mainPost() { 
             bbmMask = [['txtDatea', r_picd],['txtEta', r_picd],['txtEtd', r_picd],['txtOnboarddate', r_picd],['txtShippingdate', r_picd],['txtCldate', r_picd]];
         	q_mask(bbmMask);
-        }        
+        	
+        	//讀取嘜頭選項
+        	if(window.parent.q_name=='vcce'){
+				var wParent = window.parent.document;
+				var t_custno= wParent.getElementById("txtCustno").value
+				var t_where="where=^^ custno='"+t_custno+"'^^";
+	            q_gt('ucam', t_where, 0, 0, 0, "", r_accy);
+           }
+            $('#cmbMarkno').change(function() {
+            	if($('#cmbMarkno').val()==''){
+            		$('#txtMain').val('');
+            		$('#txtSide').val('');
+            		return;
+            	}
+            	for( i = 0; i < ucam_as.length; i++) {
+            		if($('#cmbMarkno').val()==ucam_as[i].noa){
+            			$('#txtMain').val(ucam_as[i].main);
+            			$('#txtSide').val(ucam_as[i].side);
+            			$('#txtMain').val(replaceAll($('#txtMain').val(),'chr(10)','\n'));
+			            $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
+			            $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
+			            $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
+            			break;
+            		}
+            	}
+            });
+        }
+
+
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop) {
@@ -65,9 +93,42 @@
             }   /// end Switch
         }
 
-
+		var ucam_as;
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'ucam':
+            		ucam_as = _q_appendData("ucam", "", true);
+            		if(ucam_as[0] != undefined){
+            			var t_markno='@';
+            			for( i = 0; i < ucam_as.length; i++) {
+                            t_markno = t_markno + (t_markno.length>0?',':'') + ucam_as[i].noa +'@' + ucam_as[i].namea;
+                        }
+            			q_cmbParse("cmbMarkno", t_markno);
+            			if(abbm[0]!=undefined)
+            				$('#cmbMarkno').val(abbm[0].markno);
+            		}
+                    break;
+				case 'ordei':
+            		var as = _q_appendData("ordei", "", true);
+            		if(as[0] != undefined){
+            			$('#txtBdock').val(as[0].bdock);
+            			$('#txtEdock').val(as[0].edock);
+            			$('#txtGoal').val(as[0].goal);
+            			$('#txtBcompno').val(as[0].bcompno);
+            			$('#txtBcomp').val(as[0].bcomp);
+            			$('#txtForwarderno').val(as[0].forwarderno);
+            			$('#txtForwarder').val(as[0].forwarder);
+            			$('#txtInspection_compno').val(as[0].inspection_compno);
+            			$('#txtInspection_comp').val(as[0].inspection_comp);
+            			$('#cmbMarkno').val(as[0].markno);
+            			$('#txtMain').val(as[0].main);
+            			$('#txtSide').val(as[0].side);
+            			$('#txtMain').val(replaceAll($('#txtMain').val(),'chr(10)','\n'));
+			            $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
+			            $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
+			            $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
+            		}
+                    break;
                 case q_name: 
                 		if (q_cur == 4)  
                         q_Seek_gtPost();
@@ -85,6 +146,13 @@
         function btnIns() {
             _btnIns();
             $('#txtExportno').focus();
+            if(window.parent.q_name=='vcce'){
+            	//讀取訂單
+            	var wParent = window.parent.document;
+	            var t_ordeno= wParent.getElementById("txtOrdeno").value
+	            var t_where="where=^^ noa='"+t_ordeno+"'^^";
+	            q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
+            }
         }
 
         function btnModi() {
@@ -107,7 +175,10 @@
 				$('#txtWorker').val(r_name);
 			else
 				$('#txtWorker2').val(r_name);
-				        	
+			
+			$('#txtMain').val($('#txtMain').val().replace(/ /g,'　'))
+			$('#txtSide').val($('#txtSide').val().replace(/ /g,'　'))
+			
           	if(q_cur==1){
 				var t_key = q_getHref();
                 if(t_key[1] != undefined)
@@ -131,6 +202,11 @@
        
         function refresh(recno) {
             _refresh(recno);
+            
+            $('#txtMain').val(replaceAll($('#txtMain').val(),'chr(10)','\n'));
+            $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
+            $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
+            $('#txtSide').val($('#txtSide').val().replace(/　/g,' '));
         }
         
         function readonly(t_para, empty) {
@@ -324,7 +400,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 60%;float: left;">
+        <div class='dbbm' style="width: 90%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr style="height:1px;">
 			  <td><input id="txtNoa" type="hidden" class="txt c1"/></td>
@@ -348,10 +424,10 @@
             <tr class="tr2">
                <td class="td5"><span> </span><a id="lblNotify" class="lbl"></a></td>
                <td class="td6"><input id="txtNotify" type="text" class="txt c1"/></td> 
-               <td class="td1"><span> </span><a id="lblInvono" class="lbl"></a></td>
-               <td class="td2"><input id="txtInvono" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblInvoiceno" class="lbl"></a></td>
-               <td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td>                
+               <td class="td1"><span> </span><a id="lblEntryno" class="lbl"></a></td>
+               <td class="td2"><input id="txtEntryno" type="text" class="txt c1"/></td>
+               <!--<td class="td3"><span> </span><a id="lblInvoiceno" class="lbl"></a></td>
+               <td class="td4"><input id="txtInvoiceno" type="text" class="txt c1"/></td>-->                
             </tr>
             <tr class="tr4">
                <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"></a></td>
@@ -399,18 +475,18 @@
                <td class="td6"><input id="txtGoal" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr10">
-               <td class="td1"><span> </span><a id="lblBoatname" class="lbl"></a></td>
-               <td class="td2"><input id="txtBoatname" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblShip" class="lbl"></a></td>
-               <td class="td4" colspan="3"><input id="txtShip" type="text" class="txt c1"/></td>
+				<td class="td1"><span> </span><a id="lblSono" class="lbl"></a></td>
+				<td class="td2"><input id="txtSono" type="text" class="txt c1"/></td>
+				<td class="td3"><span> </span><a id="lblBoatname" class="lbl"></a></td>
+				<td class="td4"><input id="txtBoatname" type="text" class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblShip" class="lbl"></a></td>
+				<td class="td6"><input id="txtShip" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr11">
-               <td class="td1"><span> </span><a id="lblSino" class="lbl"></a></td>
-               <td class="td2"><input id="txtSino" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblOnboarddate" class="lbl"></a></td>
-               <td class="td4"><input id="txtOnboarddate" type="text" class="txt c1"/></td>
-               <td class="td5"><span> </span><a id="lblShippingdate" class="lbl"></a></td>
-               <td class="td6"><input id="txtShippingdate" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblOnboarddate" class="lbl"></a></td>
+               <td class="td2"><input id="txtOnboarddate" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblShippingdate" class="lbl"></a></td>
+               <td class="td4"><input id="txtShippingdate" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr12">
 				<td class="td1"><span> </span><a id="lblSaildate" class="lbl"></a></td>
@@ -419,6 +495,20 @@
 				<td class="td4"><input id="txtCldate" type="text" class="txt c1"/></td>
 				<td class="td5"><span> </span><a id="lblPallet" class="lbl"></a></td>
 				<td class="td6"><input id="txtPallet" type="text" class="txt c1"/></td>
+            </tr>
+            <tr class="tr4">
+				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"></a></td>
+				<td class="td2"><select id="cmbMarkno" class="txt c1"> </select></td> 
+		  	</tr>
+            <tr class="tr5">
+               <td class="td1"><span> </span><a id="lblMain" class="lbl"> </a></td>
+               <td class="td2" colspan="2">
+					<textarea id="txtMain"  rows='5' cols='50' style="width:300px; height: 250px;"> </textarea>
+				</td>
+               <td class="td4"><span> </span><a id="lblSide" class="lbl"> </a></td>
+               <td class="td5" colspan="2">
+               		<textarea id="txtSide"  rows='15' cols='50' style="width:300px; height: 250px;"> </textarea>
+               </td> 
             </tr>
             <tr class="tr12">
                <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
