@@ -20,8 +20,10 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtInspection_compno', 'lblInspection_comp', 'tgg', 'noa,comp', 'txtInspection_compno,txtInspection_comp', 'tgg_b.aspx'],
-		['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx']);
+		aPop = new Array(['txtInspection_compno', 'lblInspection_comp', 'tgg', 'noa,comp', 'txtInspection_compno,txtInspection_comp', 'tgg_b.aspx']
+		,['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx']
+		,['txtForwarderno', 'lblForwarder', 'tgg', 'noa,comp', 'txtForwarderno,txtForwarder', 'tgg_b.aspx']
+		);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -362,8 +364,11 @@
                							   <input id="txtBcomp" type="text" class="txt c3"/></td> 
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblForwarder" class="lbl"></a></td>
-               <td class="td2"><input id="txtForwarder" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblForwarder" class="lbl btn"></a></td>
+               <td class="td2" colspan="3">
+					<input id="txtForwarderno" type="text" class="txt c2"/>
+					<input id="txtForwarder" type="text" class="txt c3"/>
+               </td>
                <td class="td3"><span> </span><a id="lblCustoms" class="lbl"></a></td>
                <td class="td4"><input id="txtCustoms" type="text" class="txt c1"/></td>
             </tr>
