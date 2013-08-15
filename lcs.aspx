@@ -20,7 +20,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+		aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
 			if(window.parent.q_name=='lc'){
@@ -95,15 +95,20 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')]]);
+			if( t_err.length > 0) {
+				alert(t_err);
+				return;
+			}
+            var t_noa = trim($('#txtNoa').val());
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
 			else if(t_noa == 'AUTO'){
 				var t_lcnoa = window.parent.document.getElementById('txtNoa').value;
-				t_lcnoa = trim($('#txtNoa').val()).replace('.','');
+				t_lcnoa = trim(t_lcnoa).replace('.','');
 				q_gtnoa(q_name, t_lcnoa);
             }else
-                wrServer(  t_noa);
+                wrServer(t_noa);
         }
 
         function wrServer( key_value) {
@@ -329,8 +334,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3"></td>
+               <td class="td2" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>
