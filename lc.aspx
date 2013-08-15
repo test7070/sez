@@ -20,24 +20,24 @@
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
 		//ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtNoa', 'lblNamea','acc','acc1,acc2', 'txtNoa,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-		 				  ['txtAccno', 'lblAccno','acc','acc1,acc2', 'txtAccno', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-		 				  ['txtAccno2', 'lblAccno2','acc','acc1,acc2', 'txtAccno2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-		 				  ['txtAccno4', 'lblAccno4','acc','acc1,acc2', 'txtAccno4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-		 				  ['txtAccno6', 'lblAccno6','acc','acc1,acc2', 'txtAccno6', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+		aPop = new Array(['txtAcc1', 'lblNamea','acc','acc1,acc2', 'txtAcc1,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+						 ['txtAccno', 'lblAccno','acc','acc1,acc2', 'txtAccno', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+						 ['txtAccno2', 'lblAccno2','acc','acc1,acc2', 'txtAccno2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+						 ['txtAccno4', 'lblAccno4','acc','acc1,acc2', 'txtAccno4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+						 ['txtAccno6', 'lblAccno6','acc','acc1,acc2', 'txtAccno6', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
 			q_brwCount();
 			q_gt(q_name, q_content, q_sqlCount, 1)
-			$('#txtNoa').focus();
+			$('#txtAcc1').focus();
 		});
  
-	   function main() {
-		   if (dataErr)   
-		   {
-			   dataErr = false;
-			   return;
-		   }
+	function main() {
+		if (dataErr)
+		{
+			dataErr = false;
+			return;
+		}
 			mainForm(0); // 1=Last  0=Top
 		}  
 
@@ -58,9 +58,9 @@
 			var ret; 
 			switch (b_pop) {
 				case q_name + '_s':
-					q_boxClose2(s2); ///   q_boxClose 3/4
+					q_boxClose2(s2); ///q_boxClose 3/4
 					break;
-			}   /// end Switch
+			}/// end Switch
 		}
 
 
@@ -77,18 +77,9 @@
 				return;
 		}
 
-		function combPay_chg() {   
-			var cmb = document.getElementById("combPay")
-			if (!q_cur) 
-				cmb.value = '';
-			else
-				$('#txtPay').val(cmb.value);
-			cmb.value = '';
-		}
-
 		function btnIns() {
 			_btnIns();
-			$('#txtNoa').focus();
+			$('#txtAcc1').focus();
 		}
 
 		function btnModi() {
@@ -96,16 +87,16 @@
 				return;
 
 			_btnModi();
-			$('#txtComp').focus();
+			$('#txtAcc1').focus();
 		}
 
 		function btnPrint() {
- 
+			q_box('z_lc.aspx', '', "95%", "95%", q_getMsg("popPrint"));
 		}
 		function btnOk() {
 			var t_err = '';
 
-			t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+			t_err = q_chkEmpField([['txtAcc1', q_getMsg('lblAcc1')]]);
 			if( t_err.length > 0) {
 				alert(t_err);
 				return;
@@ -114,7 +105,7 @@
 				$('#txtWorker').val(r_name);
 			else
 				$('#txtWorker2').val(r_name);
-			var t_noa = trim($('#txtNoa').val());
+			var t_noa = trim($('#txtAcc1').val()).replace('.','');
 			if ( t_noa.length==0 )  
 				q_gtnoa(q_name, t_noa);
 			else
@@ -125,13 +116,13 @@
 			var i;
 
 			xmlSql = '';
-			if (q_cur == 2)   /// popSave
+			if (q_cur == 2)/// popSave
 				xmlSql = q_preXml();
 
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 			_btnOk(key_value, bbmKey[0], '','',2);
 		}
-	   
+	
 		function refresh(recno) {
 			_refresh(recno);
 		}
@@ -189,7 +180,7 @@
 		}
 	</script>
 	<style type="text/css">
-		 #dmain {
+		#dmain {
 				overflow: hidden;
 			}
 			.dview {
@@ -306,7 +297,7 @@
 				font-size: medium;
 			}
 			
-			 input[type="text"],input[type="button"] {	 
+			input[type="text"],input[type="button"] {	
 				font-size: medium;
 			}
 			.tbbm .ch1, .tbbm .ch2, .tbbm .ch3, .tbbm .ch4 {background-color:  #FFEC8B; text-align: right;font-size: medium;}
@@ -316,7 +307,7 @@
 <!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
 		<div class="dview" id="dview" style="float: left;  width:25%;"  >
-		   <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		<table class="tview" id="tview"border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'></a></td>
 				<td align="center" style="width:15%"><a id='vewNoa'></a></td>
@@ -324,70 +315,73 @@
 				<td align="center" style="width:15%"><a id='vewAccno3'></a></td>
 				<td align="center" style="width:30%"><a id='vewAccname3'></a></td>
 			</tr>
-			 <tr>
-				   <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-				   <td align="center" id='noa'>~noa</td>
-				   <td align="center" id='namea'>~namea</td>
-				   <td align="center" id='accno3'>~accno3</td>
-				   <td align="center" id='accname3'>~accname3</td>
+			<tr>
+				<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
+				<td align="center" id='noa'>~noa</td>
+				<td align="center" id='namea'>~namea</td>
+				<td align="center" id='accno3'>~accno3</td>
+				<td align="center" id='accname3'>~accname3</td>
 			</tr>
 		</table>
 		</div>
 		<div class='dbbm' style="width: 70%;float: left;">
-		<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-		  <tr class="tr1">
-			   <td class="td1"><span> </span><a id="lblNamea" class="lbl btn"></a></td>
-			   <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-			   <td class="td4" colspan="2"><input id="txtNamea" type="text" class="txt c1" /></td>
-			   <td class="td5"><span> </span><a id="lblCredit" class="lbl"></a></td>
-			   <td class="td6"><input id="txtCredit" type="text" class="txt num c1" /></td>
-			   <td class="td7"><span> </span><a id="lblDatea" class="lbl"></a></td>
-			   <td class="td8"><input id="txtDatea" type="text" class="txt c1" /></td>  
+		<table class="tbbm"  id="tbbm"border="0" cellpadding='2'  cellspacing='5'>
+			<tr class="tr1">
+				<td class="td1"><span> </span><a id="lblNamea" class="lbl btn"></a></td>
+				<td class="td2">
+					<input id="txtAcc1" type="text" class="txt c1"/>
+					<input id="txtNoa" type="text" style="display:none;"/>
+				</td>
+				<td class="td4" colspan="2"><input id="txtNamea" type="text" class="txt c1" /></td>
+				<td class="td5"><span> </span><a id="lblCredit" class="lbl"></a></td>
+				<td class="td6"><input id="txtCredit" type="text" class="txt num c1" /></td>
+				<td class="td7"><span> </span><a id="lblDatea" class="lbl"></a></td>
+				<td class="td8"><input id="txtDatea" type="text" class="txt c1" /></td>  
 			</tr>
 			<tr class="tr2">
-			   <td class="td1"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
-			   <td class="td2"><input id="txtAccno" type="text" class="txt c1"/></td>
-			   <td class="td3"><span> </span><a id="lblAccno2" class="lbl btn"></a></td>
-			   <td class="td4"><input id="txtAccno2" type="text" class="txt c1" /></td>
-			   <td class="td5"><span> </span><a id="lblAccno4" class="lbl btn"></a></td>
-			   <td class="td6"><input id="txtAccno4" type="text" class="txt c1" /></td>
-			   <td class="td7"><span> </span><a id="lblAccno6" class="lbl btn"></a></td>
-			   <td class="td8"><input id="txtAccno6" type="text" class="txt c1" /></td>
-			   <td class="td9"><span> </span><a id="lblAccno5" class="lbl"></a></td>
-			   <td class="tdA"><input id="txtAccno5" type="text" class="txt c1" /></td> 
+				<td class="td1"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+				<td class="td2"><input id="txtAccno" type="text" class="txt c1"/></td>
+				<td class="td3"><span> </span><a id="lblAccno2" class="lbl btn"></a></td>
+				<td class="td4"><input id="txtAccno2" type="text" class="txt c1" /></td>
+				<td class="td5"><span> </span><a id="lblAccno4" class="lbl btn"></a></td>
+				<td class="td6"><input id="txtAccno4" type="text" class="txt c1" /></td>
+				<td class="td7"><span> </span><a id="lblAccno6" class="lbl btn"></a></td>
+				<td class="td8"><input id="txtAccno6" type="text" class="txt c1" /></td>
+				<td class="td9"><span> </span><a id="lblAccno5" class="lbl"></a></td>
+				<td class="tdA"><input id="txtAccno5" type="text" class="txt c1" /></td> 
 			</tr> 
 			<tr class="tr3">
 				<td align="left"><a id="lblSet" style="color: #000066;font-size: 20px;"></a></td>
 			</tr> 
 			<tr class="tr4">
-			   <td class="ch1"><span> </span><a id="lblConrate2" class="lbl"></a></td>
-			   <td class="ch2"><input id="txtConrate2" type="text" class="txt num c7"/> <a id="lblSymbol" ></a></td>
-			   <td class="ch3"><span> </span><a id="lblConrate1" class="lbl"></a></td>
-			   <td class="ch4"><input id="txtConrate1" type="text" class="txt num c7"/> <a id="lblSymbol1"></a></td>
-			   <td class="td5"><span> </span><a id="lblExpire" class="lbl"></a></td>
-			   <td class="td6"><input id="txtExpire" type="text" class="txt num c2"/> <a id="lblsymbol2"></a></td>
-			   <td class="td7"><span> </span><a id="lblRate" class="lbl"></a></td>
-			   <td class="td8"><input id="txtRate" type="text" class="txt num c1"/></td>
-			   <td class="td9"><span> </span><a id="lblCoin" class="lbl"></a></td>
-			   <td class="tdA"><select id="cmbCoin" class="txt c1"></select></td>  
+				<td class="ch1"><span> </span><a id="lblConrate2" class="lbl"></a></td>
+				<td class="ch2"><input id="txtConrate2" type="text" class="txt num c7"/> <a id="lblSymbol" ></a></td>
+				<td class="ch3"><span> </span><a id="lblConrate1" class="lbl"></a></td>
+				<td class="ch4"><input id="txtConrate1" type="text" class="txt num c7"/> <a id="lblSymbol1"></a></td>
+				<td class="td5"><span> </span><a id="lblExpire" class="lbl"></a></td>
+				<td class="td6"><input id="txtExpire" type="text" class="txt num c2"/> <a id="lblsymbol2"></a></td>
+				<td class="td7"><span> </span><a id="lblRate" class="lbl"></a></td>
+				<td class="td8"><input id="txtRate" type="text" class="txt num c1"/></td>
+				<td class="td9"><span> </span><a id="lblCoin" class="lbl"></a></td>
+				<td class="tdA"><select id="cmbCoin" class="txt c1"></select></td>  
 			</tr>
 			<tr class="tr5">
-			   <td class="td1"><span> </span><a id="lblAccname3" class="lbl"></a></td>
-			   <td class="td2"><input id="txtAccno3" type="text" class="txt c1"/></td>
-			   <td class="td4" colspan="2"><input id="txtAccname3" type="text" class="txt c1"/></td>
-			   <td class="td5"><span> </span><a id="lblUnpay" class="lbl"></a></td>
-			   <td class="td6"><input id="txtUnpay" type="text" class="txt num c1"/></td>
-			   <td class="td8" colspan="2"><input id="txtUnpayus" type="text" class="txt num c1"/></td>
-			   <td class="td9"><span> </span><a id="lblTotal" class="lbl"></a></td>
-			   <td class="tdA"><input id="txtTotal" type="text" class="txt num c1"/></td>  
+				<td class="td1"><span> </span><a id="lblAccname3" class="lbl"></a></td>
+				<td class="td2"><input id="txtAccno3" type="text" class="txt c1"/></td>
+				<td class="td4" colspan="2"><input id="txtAccname3" type="text" class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblUnpay" class="lbl"></a></td>
+				<td class="td6"><input id="txtUnpay" type="text" class="txt num c1"/></td>
+				<td class="td8" colspan="2"><input id="txtUnpayus" type="text" class="txt num c1"/></td>
+				<td class="td9"><span> </span><a id="lblTotal" class="lbl"></a></td>
+				<td class="tdA"><input id="txtTotal" type="text" class="txt num c1"/></td>  
 			</tr>
 			<tr class="tr6">
-			   <td class="td1"><span> </span><a id="lblDetail" class="lbl"></a></td>
-			   <td class="td2"><input id="btnDetail" type="button"/></td>
-			   <td class="td3"><span> </span><a id="lblWorker" class="lbl"></a></td>
-			   <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
-			   <td class="td5"><span> </span><a id="lblWorker2" class="lbl"></a></td>
-			   <td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
+				<td class="td1"><span> </span><a id="lblDetail" class="lbl"></a></td>
+				<td class="td2"><input id="btnDetail" type="button"/></td>
+				<td class="td3"><span> </span><a id="lblWorker" class="lbl"></a></td>
+				<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblWorker2" class="lbl"></a></td>
+				<td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
 			</tr>
 		</table>
 		</div>
