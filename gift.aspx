@@ -296,7 +296,7 @@
             }
             .dview {
                 float: left;
-                width: 330px; 
+                width: 350px; 
                 border-width: 0px; 
             }
             .tview {
@@ -316,7 +316,7 @@
             }
             .dbbm {
                 float: left;
-                width: 620px;
+                width: 600px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -411,7 +411,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewNoa'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNoa'></a></td>
 						<td align="center" style="width:250px; color:black;"><a id='vewProduct'></a></td>
 					</tr>
 					<tr>

@@ -32,7 +32,7 @@
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,job,comp,custno,nick', 'txtCustno_,txtNamea_,txtJob_,txtComp_,txtCustno2_,txtNick_', 'giftcust_b.aspx'],
-            ['txtGiftno_', 'btnGiftno_', 'bcc', 'noa,product,price', 'txtGiftno_,txtGift_,txtPrice_', 'bcc_b.aspx'],
+            ['txtGiftno_', 'btnGiftno_', 'gift', 'noa,product,price', 'txtGiftno_,txtGift_,txtPrice_', 'gift_b.aspx'],
             ['txtGiver_', 'lblGiver_s', 'sss', 'namea,noa', 'txtGiver_', 'sss_b.aspx'],
             ['txtSalute_', 'lblSalute_s', 'sss', 'namea,noa', 'txtSalute_', 'sss_b.aspx']);
             $(document).ready(function() {

@@ -37,7 +37,7 @@
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtComp_', 'btnComp_', 'cust', 'comp,noa,nick', 'txtComp_,txtCustno2_,txtNick_', 'cust_b.aspx'],
             ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,namea,job,comp,custno,nick', 'txtCustno_,txtNamea_,txtReceiver_,txtJob_,txtComp_,txtCustno2_,txtNick_,txtMount_', 'giftcust_b.aspx'],
-            ['txtGiftno', 'lblGiftno', 'bcc', 'noa,product,price', 'txtGiftno,txtGift,txtPrice', 'bcc_b.aspx'],
+            ['txtGiftno', 'lblGiftno', 'gift', 'noa,product,price', 'txtGiftno,txtGift,txtPrice', 'gift_b.aspx'],
             ['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtComp,txtNick', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];

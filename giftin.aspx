@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
-            , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit,price', 'txtBccno_,txtBccname_,txtUnit_,txtPrice_', 'bcc_b.aspx']
+            , ['txtGiftno_', 'btnGiftno_', 'gift', 'noa,product,unit,price', 'txtGiftno_,txtGift_,txtUnit_,txtPrice_', 'gift_b.aspx']
             ,['txtBuyer', 'lblBuyer', 'sss', 'namea,noa', 'txtBuyer', 'sss_b.aspx']);
             
             $(document).ready(function() {
@@ -222,7 +222,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['bccno'] && !as['bccname']) {
+                if (!as['giftno'] && !as['gift']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -255,30 +255,30 @@
                 t_discount = q_float('txtDiscount');
                 t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;
                 switch ($('#cmbTaxtype').val()) {
-			        case '1':  // ���|
+			        case '1':  
 			            t_tax = round(t_money * t_taxrate, 0);
 			            t_total = t_money + t_tax - t_discount;
 			            break;
-			        case '2': //�s�|�v
+			        case '2': 
 			        	t_tax = 0;
 			        	t_total = t_money + t_tax - t_discount;
 			        	break;
-			        case '3':  // ���t
+			        case '3':  
 			            t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
 			            t_total = t_money - t_discount;
 			            t_money = t_total - t_tax;
 			            break;
-			        case '4':  // �K�|
+			        case '4':  
 			            t_tax = 0;
 			        	t_total = t_money + t_tax - t_discount;
 			            break;
-			        case '5':  // �۩w
+			        case '5':  
 			        	$('#txtTax').attr('readonly',false);	
 						$('#txtTax').css('background-color','white').css('color','black');
 						t_tax = round(q_float('txtTax'),0);
 			        	t_total = t_money + t_tax - t_discount;
 			            break;
-			        case '6':  // �@�o-�M�Ÿ��
+			        case '6': 
 			        	t_money = 0,t_tax = 0, t_total = - t_discount;  
 			            break;		
 			        default:		
@@ -349,36 +349,7 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//�����Ҧr��
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//�Τ@�s��
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//�褸�~
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-                    if (regex.test(str))
-                        return 3;
-                } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//����~
-                    str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-                    if (regex.test(str))
-                        return 4
-                }
-                return 0;
-                //��~
-            }
+            
 		</script>
 		<style type="text/css">
             #dmain {
@@ -589,8 +560,8 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width: 5%;"><a id='lblBccno_s'> </a></td>
-					<td align="center" style="width: 15%;"><a id='lblBccname_s'> </a></td>
+					<td align="center" style="width: 5%;"><a id='lblGiftno_s'> </a></td>
+					<td align="center" style="width: 15%;"><a id='lblGift_s'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblMount2_s'> </a></td>	
@@ -607,10 +578,10 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input id="btnBccno.*" type="button" value="." style="float:left;width: 20%;"/>
-						<input id="txtBccno.*" type="text" style="float:left;width: 75%;" />
+						<input id="btnGiftno.*" type="button" value="." style="float:left;width: 20%;"/>
+						<input id="txtGiftno.*" type="text" style="float:left;width: 75%;" />
 					</td>
-					<td><input id="txtBccname.*" type="text" style="width: 95%;" /></td>
+					<td><input id="txtGift.*" type="text" style="width: 95%;" /></td>
 					<td><input id="txtUnit.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMount.*" type="text" style="width: 95%; text-align: right;"/></td>
 					<td><input id="txtMount2.*" type="text" style="width: 95%; text-align: right;"/></td>
