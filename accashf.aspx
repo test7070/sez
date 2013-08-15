@@ -108,12 +108,6 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
-                //alert(q_getMsg('dc').split('&').join());
-                q_cmbParse("cmbDc",q_getMsg('dc').split('&').join(),'t');
-                $('#btnLoad').click(function(){
-                	Lock();
-            		loadAccc(q_bbtCount-1);
-                });
             }
             function btnLoad_click(){
             	Lock();
@@ -137,7 +131,7 @@
 						}
 						
 						t_where = "where=^^"+t_where+"^^";
-						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n, t_accy+"_1");
+						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n+"_"+t_acc1, t_accy+"_1");
 					}
 					else{
 						loadAccc(n-1);
@@ -153,16 +147,14 @@
                     default:
                     	if(t_name.substring(0,10)=='acccs_sum_'){
                     		var n = parseFloat(t_name.split('_')[2]);
+                    		var t_acc1 = t_name.split('_')[3];
                     		var as = _q_appendData("acccs", "", true);
                     		if(as[0]!=undefined){
                     			var t_money = 0;
-                    			//1借，２貸，　沒輸入的都當借
-                    			if($('#cmdDc__'+n).val()=='2')
-                    				t_money = parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney)-parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney);
-                    			else{
-                    				$('#cmdDc__'+n).val('1');
+                    			if(t_acc1.substring(0,1)=='1' || t_acc1.substring(0,1)=='5' || t_acc1.substring(0,1)=='6' || t_acc1.substring(0,1)=='8' || t_acc1.substring(0,2)=='73')
                     				t_money = parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney)-parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney);
-                    			}
+                    			else
+                    				t_money = parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney)-parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney);
                     			$('#txtMoney1__'+n).val(FormatNumber(round(t_money,0)));
                     		}
                     		loadAccc(n-1);
@@ -252,7 +244,11 @@
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
                     	$('#txtAcc1__'+i).change(function(e){
                     		var patt = /^(\d{4})([^\.,.]*)$/g;
-		                    $(this).val($(this).val().replace(patt,"$1.$2"));
+		                	if(patt.test($(this).val()))
+		                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+		                    else if((/^(\d{4})$/).test($(this).val())){
+		                    	$(this).val($(this).val()+'.');
+		                    }
 		                    refreshBbt();
                     	});
                     	$('#txtGtitle__'+i).change(function(e){
@@ -291,7 +287,6 @@
                 				$('#txtAcc1__'+i).val($('#txtAcc1__'+(i-1)).val());
                 				$('#txtGroupno__'+i).val($('#txtGroupno__'+(i-1)).val());
                 				$('#txtGtitle__'+i).val($('#txtGtitle__'+(i-1)).val());
-                				$('#cmbDc__'+i).val($('#cmbDc__'+(i-1)).val());
                 				$('#txtMoney1__'+i).val($('#txtMoney1__'+(i-1)).val());
                 				$('#txtMoney2__'+i).val($('#txtMoney2__'+(i-1)).val());
                 			}
@@ -301,7 +296,6 @@
                 			$('#txtAcc1__'+(n+1)).val('');
                 			$('#txtGroupno__'+(n+1)).val($('#txtGroupno__'+n).val());
             				$('#txtGtitle__'+(n+1)).val('');
-            				$('#cmbDc__'+(n+1)).val('');
             				$('#txtMoney1__'+(n+1)).val('');
             				$('#txtMoney2__'+(n+1)).val('');
             				refreshBbt();
@@ -365,7 +359,6 @@
             		}
             		$('#btnPlutX__'+i).css("display","none");
             		$('#txtAcc1__'+i).css("display","none");
-            		$('#cmbDc__'+i).css("display","none");
             		$('#chkIsall__'+i).css("display","none");
             		$('#txtGtitle__'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
         			$('#txtMoney1__'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
@@ -378,7 +371,6 @@
             			case '01':
             				$('#btnPlutX__'+i).css("display","");
             				$('#txtAcc1__'+i).css("display","");
-            				$('#cmbDc__'+i).css("display","");
             				if($.trim($('#txtAcc1__'+i).val()).length==5)
             					$('#chkIsall__'+i).css("display","");
             				$('#txtGtitle__'+i).removeAttr('readonly').css("color","black").css("background","white");
@@ -436,6 +428,8 @@
             			n = t_group.indexOf($('#txtGroupno_'+i).val());
             			if(n>=0)
             				$('#txtMoney2_'+i).val(FormatNumber(t_data[n]));
+            			else
+            				$('#txtMoney2__'+i).val(0);
             		}else if($('#txtGindex_'+i).val()=='97'){
             			$('#txtMoney2_'+i).val(FormatNumber(t_97));
             		}else if($('#txtGindex_'+i).val()=='99'){
@@ -471,6 +465,8 @@
             			n = t_group.indexOf($('#txtGroupno__'+i).val());
             			if(n>=0)
             				$('#txtMoney2__'+i).val(FormatNumber(t_data[n]));
+            			else
+            				$('#txtMoney2__'+i).val(0);
             		}else if($('#txtGindex__'+i).val()=='97'){
             			$('#txtMoney2__'+i).val(FormatNumber(t_97));
             		}else if($('#txtGindex__'+i).val()=='99'){
@@ -852,13 +848,11 @@
 					<tr class="head" style="color:white; background:#003366;">
 						<td align="center" style="width:30px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;display: none;" value="＋"/>
-						<input id="btnLoad" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
+						<input id="btnLoad" value="匯入" type="button" onclick="btnLoad_click()" style="font-size: medium; font-weight: bold;"/>
 						</td>
-						<td style="width:20px;"></td>
-						
+						<td style="width:20px;"> </td>
 						<td style="width:120px; text-align: center;">會計科目</td>
 						<td style="width:200px; text-align: center;">項目</td>
-						<td style="width:80px; text-align: center;">借貸設定</td>
 						<td style="width:80px; text-align: center;">含子科目</td>
 						<td style="width:150px; text-align: center;">金額</td>
 						<td style="width:150px; text-align: center;">小計</td>
@@ -878,7 +872,6 @@
 							<input type="text" id="txtGroupno..*" style="display: none;" />
 							<input id="txtGtitle..*"  type="text" style="width:95%;"/>
 						</td>
-						<td><select id="cmbDc..*" style="width:95%;"> </select></td>
 						<td align="center"><input id="chkIsall..*" type="checkbox"/></td>
 						<td><input id="txtMoney1..*" type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMoney2..*" type="text" style="width:95%; text-align: right;"/></td>

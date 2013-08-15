@@ -17,7 +17,7 @@
             q_tables = 's';
             var q_name = "calctype";
             var q_readonly = [];
-            var q_readonlys = ['txtNoq'];
+            var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtDiscount',10,3],['txtDiscount2',10,3]];
             var bbmMask = [];

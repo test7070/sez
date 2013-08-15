@@ -14,7 +14,7 @@
 			var aPop = new Array(
 				['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
 				['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
-				['txtGiftno', 'lblGiftno', 'bcc', 'noa,product', 'txtGiftno,txtGift', 'bcc_b.aspx'],
+				['txtGiftno', 'lblGiftno', 'gift', 'noa,product', 'txtGiftno,txtGift', 'gift_b.aspx'],
 				['txtCustno', 'lblCustno', 'giftcust', 'noa,namea', 'txtCustno,txtNamea', 'giftcust_b.aspx']
 				);
 
