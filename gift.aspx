@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "bcc";
+            var q_name = "gift";
             var q_readonly = [];
             var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1]];
             var bbmMask = [];
@@ -45,9 +45,7 @@
             function mainPost() {
                 bbmMask = [['txtExpirationdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('bcc.type'));
 				q_cmbParse("cmbTaxtype", '含稅,自訂');
-				q_gt('store', '', 0, 0, 0, "");
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -80,7 +78,7 @@
 					if($(this).val().length>0){
 						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
 							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('bcc', t_where, 0, 0, 0, "checkBccno_change", r_accy);
+                    		q_gt('gift', t_where, 0, 0, 0, "checkgiftno_change", r_accy);
 						}else{
 							Lock();
 							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
@@ -136,14 +134,14 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'checkBccno_change':
-                		var as = _q_appendData("bcc", "", true);
+                	case 'checkgiftno_change':
+                		var as = _q_appendData("gift", "", true);
                         if (as[0] != undefined){
                         	alert('已存在 '+as[0].noa+' '+as[0].product);
                         }
                 		break;
-                	case 'checkBccno_btnOk':
-                		var as = _q_appendData("bcc", "", true);
+                	case 'checkgiftno_btnOk':
+                		var as = _q_appendData("gift", "", true);
                         if (as[0] != undefined){
                         	alert('已存在 '+as[0].noa+' '+as[0].product);
                             Unlock();
@@ -156,23 +154,13 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
-                    case 'store':
-		                var as = _q_appendData("store", "", true);
-		                if (as[0] != undefined) {
-		                    var t_item = "@";
-		                    for (i = 0; i < as.length; i++) {
-		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-		                    }
-		                    q_cmbParse("cmbStoreno", t_item);
-		                    refresh(q_recno);  /// 第一次需要重新載入
-		                }
                 }  /// end switch
             }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('bcc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('gift_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -193,7 +181,7 @@
             }
 
             function btnPrint() {
-                q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+                
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -217,7 +205,7 @@
 				}
 				if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('bcc', t_where, 0, 0, 0, "checkBccno_btnOk", r_accy);
+                    q_gt('gift', t_where, 0, 0, 0, "checkgiftno_btnOk", r_accy);
                 }else{
                 	wrServer($('#txtNoa').val());
                 }
@@ -443,10 +431,6 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"> </select></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
@@ -477,10 +461,6 @@
 					<tr>
 						<td><span> </span><a id='lblExpirationdate' class="lbl"> </a></td>
 						<td><input id="txtExpirationdate" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
-						<td><select id="cmbStoreno" class="txt c1"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
