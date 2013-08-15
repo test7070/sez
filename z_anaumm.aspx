@@ -129,7 +129,6 @@
                 q_gt('acomp', '', 0, 0, 0);
                 q_gt('calctype', '', 0, 0, 0);
                 q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);
-             
             }
 			var sssno='';
             function q_gtPost(t_name) {
@@ -140,110 +139,112 @@
             				sssno+=as[i].noa+'.';
             			}
             			sssno=sssno.substr(0,sssno.length-1);
+            			LoadQ_report();
             		break;
                     default:
                     	break;
                 }
-
-                if (sssno.length>0 && !isInit) {
+			}
+			
+			function LoadQ_report(){
+				if (sssno.length>0 && !isInit) {
                     isInit = true;
-				$('#q_report').q_report({
-                	fileName : 'z_anaumm',
-                    options : [{//[1]
-						type : '0',
-						name : 'accy',
-						value : r_accy+"_"+r_cno
-					},{//[2]
-						type : '0',
-						name : 'xaccy',
-						value : r_accy
-					}, {//[3][4]部門01-1
-                        type : '2',
-                        name : 'xpartno',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                    }, {//[5][6]客戶01-2
-                        type : '2',
-                        name : 'xcust',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
-                    }, {//[7][8]公司01-4
-                        type : '2',
-                        name : 'scno',
-                        dbf : 'acomp',
-                        index : 'noa,acomp',
-                        src : 'acomp_b.aspx'
-                    },{//[9][10]日期01-8
-                        type : '1',
-                        name : 'xdate'
-                    },{//[11]月份02-1
-                        type : '6',
-                        name : 'xmon'
-                    }, {//[12][13]會計科目02-2
-                        type : '2',
-                        name : 'acc',
-                        dbf : 'acc',
-                        index : 'acc1,acc2',
-                        src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*18-[14][15]-車主02-4*/
-                        type : '2',
-                        name : 'carowner',
-                        dbf : 'carowner',
-                        index : 'noa,namea',
-                        src : 'carowner_b.aspx'
-                    }, {/*20-[16]-管理帳號02-8*/
-	                    type : '8', //select
-	                    name : 'sssno',
-	                    value : (sssno).split('.')
-	                }, {/*21-[17][18]-金額範圍03-1*/
-                        type : '1',
-                        name : 'xmoney'
-                    }, {/*22-[19]-排序依車主、金額03-2*/
-	                    type : '5', //select
-	                    name : 'zorder',
-	                    value : ('車主,金額').split(',')
-                    }, {/*23-[20][21]-帳款月份03-4*/
-					    type : '1',
-						name : 'mon'
-					}, {/*24[22]-請款單號-03-8*/
-						type : '6',
-						name : 'xtrdno'
-					}, {/*25[23]-排序方式-04-1*/
-						type : '5',
-						name : 'xsort05',
-						value : q_getMsg('tsort05').split('&')
-					}, {/*26[24][25]-收款日期04-2*/
-						type : '1',
-						name : 'ummdate'
-					}, {/*27-[26]-請款單號04-4*/
-						type : '6',
-						name : 'xvccno'
-					}, {/*28-[27]-排序方式04-8*//*07*/
-						type : '5',
-						name : 'xsort06',
-						value : q_getMsg('tsort06').split('&')
-					}]
-				})
+					$('#q_report').q_report({
+	                	fileName : 'z_anaumm',
+	                    options : [{//[1]
+							type : '0',
+							name : 'accy',
+							value : r_accy+"_"+r_cno
+						},{//[2]
+							type : '0',
+							name : 'xaccy',
+							value : r_accy
+						}, {//[3][4]部門01-1
+	                        type : '2',
+	                        name : 'xpartno',
+	                        dbf : 'part',
+	                        index : 'noa,part',
+	                        src : 'part_b.aspx'
+	                    }, {//[5][6]客戶01-2
+	                        type : '2',
+	                        name : 'xcust',
+	                        dbf : 'cust',
+	                        index : 'noa,comp',
+	                        src : 'cust_b.aspx'
+	                    }, {//[7][8]公司01-4
+	                        type : '2',
+	                        name : 'scno',
+	                        dbf : 'acomp',
+	                        index : 'noa,acomp',
+	                        src : 'acomp_b.aspx'
+	                    },{//[9][10]日期01-8
+	                        type : '1',
+	                        name : 'xdate'
+	                    },{//[11]月份02-1
+	                        type : '6',
+	                        name : 'xmon'
+	                    }, {//[12][13]會計科目02-2
+	                        type : '2',
+	                        name : 'acc',
+	                        dbf : 'acc',
+	                        index : 'acc1,acc2',
+	                        src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
+	                    }, {/*18-[14][15]-車主02-4*/
+	                        type : '2',
+	                        name : 'carowner',
+	                        dbf : 'carowner',
+	                        index : 'noa,namea',
+	                        src : 'carowner_b.aspx'
+	                    }, {/*20-[16]-管理帳號02-8*/
+		                    type : '8', //select
+		                    name : 'sssno',
+		                    value : (sssno).split('.')
+		                }, {/*21-[17][18]-金額範圍03-1*/
+	                        type : '1',
+	                        name : 'xmoney'
+	                    }, {/*22-[19]-排序依車主、金額03-2*/
+		                    type : '5', //select
+		                    name : 'zorder',
+		                    value : ('車主,金額').split(',')
+	                    }, {/*23-[20][21]-帳款月份03-4*/
+						    type : '1',
+							name : 'mon'
+						}, {/*24[22]-請款單號-03-8*/
+							type : '6',
+							name : 'xtrdno'
+						}, {/*25[23]-排序方式-04-1*/
+							type : '5',
+							name : 'xsort05',
+							value : q_getMsg('tsort05').split('&')
+						}, {/*26[24][25]-收款日期04-2*/
+							type : '1',
+							name : 'ummdate'
+						}, {/*27-[26]-請款單號04-4*/
+							type : '6',
+							name : 'xvccno'
+						}, {/*28-[27]-排序方式04-8*//*07*/
+							type : '5',
+							name : 'xsort06',
+							value : q_getMsg('tsort06').split('&')
+						}]
+					})
 				};
                 q_popAssign();
                 q_langShow();
-                $('#txtDate1').mask('999/99/99');
-	            $('#txtDate1').datepicker();
-	            $('#txtDate2').mask('999/99/99');
-	            $('#txtDate2').datepicker(); 
-	            $('#txtXdate1').mask('99/99');
-	            $('#txtXdate2').mask('99/99');
-	            $('#txtMon1').mask('999/99');
-				$('#txtMon2').mask('999/99');
-				$('#txtUmmdate1').mask('999/99/99');
-				$('#txtUmmdate2').mask('999/99/99');
-				$('#txtUmmdate1').datepicker();
-				$('#txtUmmdate2').datepicker();
-				$('#txtXmoney1').val(-99999999);
-                $('#txtXmoney2').val(99999999);
-	                
+	                $('#txtDate1').mask('999/99/99');
+		            $('#txtDate1').datepicker();
+		            $('#txtDate2').mask('999/99/99');
+		            $('#txtDate2').datepicker(); 
+		            $('#txtXdate1').mask('99/99');
+		            $('#txtXdate2').mask('99/99');
+		            $('#txtMon1').mask('999/99');
+					$('#txtMon2').mask('999/99');
+					$('#txtUmmdate1').mask('999/99/99');
+					$('#txtUmmdate2').mask('999/99/99');
+					$('#txtUmmdate1').datepicker();
+					$('#txtUmmdate2').datepicker();
+					$('#txtXmoney1').val(-99999999);
+	                $('#txtXmoney2').val(99999999);
                 var t_date,t_year,t_month,t_day;
 					t_date = new Date();
 		            t_date.setDate(1);
@@ -288,8 +289,10 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtXdate2').val(t_month+'/'+t_day);
-	                
 			}
+			
+			
+			
 			function q_boxClose(t_name) {
             }
             
