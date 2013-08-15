@@ -23,7 +23,10 @@
         aPop = new Array(['txtInspection_compno', 'lblInspection_comp', 'tgg', 'noa,comp', 'txtInspection_compno,txtInspection_comp', 'tgg_b.aspx']
 		,['txtBcompno', 'lblBcomp', 'tgg', 'noa,comp', 'txtBcompno,txtBcomp', 'tgg_b.aspx']
 		,['txtTrancompno', 'lblTrancomp', 'tgg', 'noa,comp', 'txtTrancompno,txtTrancomp', 'tgg_b.aspx']
-		,['txtForwarderno', 'lblForwarder', 'tgg', 'noa,comp', 'txtForwarderno,txtForwarder', 'tgg_b.aspx']
+		,['txtAgentno', 'lblAgent', 'cust', 'noa,comp', 'txtAgentno,txtAgent', 'cust_b.aspx']
+		,['txtNegotiatingbankno', 'lblNegotiatingbank', 'bank', 'noa,bank', 'txtNegotiatingbankno,txtNegotiatingbank', 'bank_b.aspx']
+		,['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']
+		,['txtConsigneeno', 'lblConsignee', 'cust', 'noa,comp', 'txtConsigneeno,txtConsignee', 'cust_b.aspx']
 		);
 		
         $(document).ready(function () {
@@ -409,10 +412,10 @@
                <td class="td5" colspan="2"><input id="txtGoal" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblForwarder" class="lbl btn"></a></td>
+               <td class="td1"><span> </span><a id="lblAgent" class="lbl btn"></a></td>
                <td class="td2" colspan="2">
-               		<input id="txtForwarderno" type="text" class="txt c2"/>
-               		<input id="txtForwarder" type="text" class="txt c3"/>
+               		<input id="txtAgentno" type="text" class="txt c2"/>
+               		<input id="txtAgent" type="text" class="txt c3"/>
                	</td>
                <td class="td4"><span> </span><a id="lblBcomp" class="lbl btn"></a></td>
                <td class="td5" colspan="2">
@@ -433,10 +436,16 @@
                	</td>
             </tr>
             <tr class="trX">
-               <td class="td1"><span> </span><a id="lblBank" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtBank" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblTbank" class="lbl"></a></td>
-               <td class="td4" colspan="2"><input id="txtTbank" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblBank" class="lbl btn"></a></td>
+               <td class="td2" colspan="2">
+               		<input id="txtBankno" type="text" class="txt c2"/>
+               		<input id="txtBank" type="text" class="txt c3"/>
+               </td>
+               <td class="td3"><span> </span><a id="lblNegotiatingbank" class="lbl btn"></a></td>
+               <td class="td4" colspan="2">
+               		<input id="txtNegotiatingbankno" type="text" class="txt c2"/>
+               		<input id="txtNegotiatingbank" type="text" class="txt c3"/>
+				</td>
             </tr>
             <tr class="trX">
                <td class="td1"><span> </span><a id="lblCommissionpercent" class="lbl"></a></td>
@@ -446,10 +455,16 @@
                <td class="td4" colspan="2"><input id="txtAccount" type="text" class="txt c1"/></td>
             </tr>
             <tr class="trX">
-               <td class="td1"><span> </span><a id="lblConsignee" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtConsignee" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblConsignee" class="lbl btn"></a></td>
+               <td class="td2" colspan="2">
+					<input id="txtConsigneeno" type="text" class="txt c2"/>
+					<input id="txtConsignee" type="text" class="txt c3"/>
+               </td>
                <td class="td3"><span> </span><a id="lblNotify" class="lbl"></a></td>
-               <td class="td4" colspan="2"><input id="txtNotify" type="text" class="txt c1"/></td>
+               <td class="td4" colspan="2">
+               		<input id="txtNotifyno" type="text" class="txt c1"/>
+               		<input id="txtNotify" type="text" class="txt c1"/>
+               	</td>
             </tr>
             <tr class="trY">
                <td class="td1"><span> </span><a id="lblInvoicememo" class="lbl"></a></td>

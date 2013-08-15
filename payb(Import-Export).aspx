@@ -35,7 +35,8 @@
             , ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             , ['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtComp,txtNick', 'tgg_b.aspx']
             , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
-            , ['txtPayinvo_', '', 'invo', 'noa,comp', 'txtPayinvo_', '']);
+            , ['txtPayinvo_', '', 'invo', 'noa,comp', 'txtPayinvo_', '']
+            , ['txtChgitemno_', 'btnChgitemno_', 'chgitem', 'noa,item,acc1,acc2', 'txtChgitemno_,txtChgitem_,txtAcc1_,txtAcc2_,txtMount_', 'chgitem_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -538,7 +539,7 @@
             }
 
             function bbsSave(as) {
-                if (as['money'] ==0 && as['tax'] ==0 && as['acc1'] =='') {
+                if (as['payinvo'] =='' && as['chgitemno'] =='' && as['memo'] =='' && as['acc1'] =='') {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -959,13 +960,14 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:120px;">#<a id='lblPayinvo'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblPayinvo'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblChgitem'> </a></td>
 					<!--<td align="center" style="width:60px;">#<a id='lblKind'> </a></td>-->
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
-					<td align="center" style="width:80px;">*<a id='lblMoneys'> </a></td>
-					<td align="center" style="width:120px;">#<a id='lblInvonos'> </a>/<a id='lblTaxs'> </a></td>
-					<td align="center" style="width:80px;">*<a id='lblTotals'> </a></td>
-					<td align="center" style="width:150px;">*<a id='lblMemos'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblMoneys'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblInvonos'> </a>/<a id='lblTaxs'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblBal'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -975,6 +977,11 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtPayinvo.*" type="text"  style="width: 95%;"/></td>
+					<td>
+						<input id="txtChgitemno.*" type="text" style="text-align: left; width: 80%;" />
+						<input class="btn"  id="btnChgitemno.*" type="button" value='.' style=" font-weight: bold;" />
+						<input id="txtChgitem.*" type="text" style="text-align: left; width: 95%;" />
+					</td>
 					<!--<td><select id="cmbKind.*" style="width: 95%;"> </select></td>-->	
 					<td>
 						<input id="txtMount.*" type="text" style="text-align: right; width: 95%;" />
