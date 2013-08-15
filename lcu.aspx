@@ -17,7 +17,7 @@
 
             var q_name = "lcu";
             var q_readonly = ['txtNoa','txtWorker'];
-            var bbmNum = [['txtMoney',10,0,1]];
+            var bbmNum = [['txtMoney',10,0,1],['txtFloata',10,2,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -49,6 +49,7 @@
             	bbmMask = [['txtDatea', r_picd],['txtVdate',r_picd],['txtEdate',r_picd],['txtCdate',r_picd],['txtIssuedate', r_picd],['txtReceivedate', r_picd],['txtOnboarddate', r_picd],['txtNegotiatingdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('lcu.typea'));
+                q_cmbParse("cmbCoin", q_getPara('sys.coin'));
                 $('#cmbTypea').focus(function() {
 					var len = $(this).children().length > 0 ? $(this).children().length : 1;
 					$(this).attr('size', len + "");
@@ -320,7 +321,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 100%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
@@ -329,6 +330,10 @@
             }
             .txt.c3 {
                 width: 68%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 49%;
                 float: left;
             }
             .txt.num {
@@ -416,6 +421,13 @@
 							<input id="txtComp" type="text" style="float:left; width:80%;"/>
 							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
+		                <td>
+		                	<select id="cmbCoin" class="txt c4"> </select>
+		                	<input id="txtFloata" type="text" class="txt num c4"/>
+		                </td>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text" class="txt num c1"/></td>
 					</tr>

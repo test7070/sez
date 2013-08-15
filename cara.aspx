@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "cara";
             var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno','textUnpay','txtOldcarno'];
-            var q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate'];
+            var q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate','txtInmoney'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
             var bbmMask = [];
@@ -409,11 +409,17 @@
            					sum();
            				});
            				$('#txtOutmoney_'+j).change(function () {
-           					sum();
-           				//}).blur(function() {
            					t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+							
+           					if(dec($('#txtOutmoney_'+b_seq).val())<0){
+           						$('#txtOutmoney_'+b_seq).val(0);
+           						alert(q_getMsg('lblOutmoney')+'不得小於0。');
+           						return;
+           					}
+           					sum();
+           				//}).blur(function() {
 							$('#txtMemo_'+b_seq).focus();
 						});
 						
