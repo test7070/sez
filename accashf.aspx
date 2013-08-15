@@ -244,7 +244,11 @@
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
                     	$('#txtAcc1__'+i).change(function(e){
                     		var patt = /^(\d{4})([^\.,.]*)$/g;
-		                    $(this).val($(this).val().replace(patt,"$1.$2"));
+		                	if(patt.test($(this).val()))
+		                    	$(this).val($(this).val().replace(patt,"$1.$2"));
+		                    else if((/^(\d{4})$/).test($(this).val())){
+		                    	$(this).val($(this).val()+'.');
+		                    }
 		                    refreshBbt();
                     	});
                     	$('#txtGtitle__'+i).change(function(e){
