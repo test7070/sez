@@ -80,17 +80,12 @@
 			$('#btnOrdei').click(function () {
 				q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordei', "95%", "95%", q_getMsg('popOrdei'));
             });
-			
-            $('#btnOrdem').click(function () {
-            	//q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem'),true); 
-				q_box("ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordem', "95%", "95%", q_getMsg('popOrdem'));
-            });
             $('#btnQuat').click(function(){
             	btnQuat();
             })
            /* $('#lblQuat').click(function(){
             	btnQuat();
-            })*/
+            })
 			$('#btnOrdet').click(function(){
 				var noa = $('#txtNoa').val();
 				if(!emp(noa) && noa !='AUTO'){
@@ -99,6 +94,7 @@
 					q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
 				}
 			});
+			*/
 			$('#txtFloata').change(function () {sum();});
 			$('#txtTotal').change(function () {sum();});
 			$('#txtAddr').change(function(){
@@ -598,7 +594,6 @@
                <td class="td6"><input id="txtFloata" type="text" class="txt c1" /></td>
                <td align="center" class="td7" colspan="2" >
                 	<input id="btnQuat" type="button" value='' />
-                	<input id="btnOrdem" type="button" value='' />
                 </td>                  
               <!-- <td class="td7"><span> </span><a id="lblQuat"  class="lbl btn"></a></td>
                <td class="td8"><input id="txtInvo" type="text" class="txt c1"/></td>--> 
@@ -641,7 +636,7 @@
                 <td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
                 <td class="td7"></td>
-                <td class="td8"><input id="btnOrdet" type="button"/></td>
+                <td class="td8"></td>
             </tr>
             <tr class="tr8">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>

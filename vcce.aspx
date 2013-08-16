@@ -20,7 +20,7 @@
 		var q_readonly = ['txtNoa','cmbStype'];
 		var q_readonlys = [];
 		var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 10, 2, 1]];  
-		var bbsNum = [['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtEweight', 15, 3, 1],['txtEcount', 10, 0, 1],['txtAdjweight', 15, 3, 1],['txtAdjcount', 10, 0, 1]];
+		var bbsNum = [['txtMount', 10, 0, 1],['txtEcount', 10, 0, 1],['txtAdjcount', 10, 0, 1]];
 		var bbmMask = [];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -120,8 +120,8 @@
 					if (q_cur > 0 && q_cur < 4) {
 						if (!b_ret || b_ret.length == 0)
 							return;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
-												 'noa,no2,productno,product,weight,mount,price','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtMount', b_ret.length, b_ret,
+												 'noa,no2,productno,product,mount','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						if(b_ret[0].noa != undefined){
 							var t_where = "noa='" + b_ret[0].noa + "'";
 							q_gt('orde', t_where , 0, 0, 0, "", r_accy);
@@ -243,11 +243,13 @@
 		}
 
 		function sum() {
+			/*
 			var t1 = 0, t_unit, t_mount, t_weight = 0;
 			for (var j = 0; j < q_bbsCount; j++) {
 				t_weight+=q_float('txtWeight_'+j);
 			}  // j
 			q_tr('txtWeight',t_weight);
+			*/
 		}
 		
 		///////////////////////////////////////////////////  
@@ -585,12 +587,8 @@
 				<td align="center" style="width:4%;"><a id='lblNo2_s'> </a></td>
 				<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
-				<td align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
-				<td align="center" style="width:7%;"><a id='lblPrice_s'> </a></td>
 				<td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
-				<td align="center" style="width:7%;"><a id='lblEweight_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblEcount_s'> </a></td>
-				<td align="center" style="width:7%;"><a id='lblAdjweight_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblAdjcount_s'> </a></td>
 				<td align="center"><a id='lblMemo_s'> </a></td>
 			</tr>
@@ -603,12 +601,8 @@
 					 <input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
 				</td>
 				<td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
-				<td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
-				<td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
 				<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
-				<td ><input class="txt num c1" id="txtEweight.*" type="text" /></td>
 				<td ><input class="txt num c1" id="txtEcount.*" type="text" /></td>
-				<td ><input class="txt num c1" id="txtAdjweight.*" type="text" /></td>
 				<td ><input class="txt num c1" id="txtAdjcount.*" type="text" /></td>
 				<td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
 			</tr>

@@ -17,10 +17,10 @@
         }
         q_tables = 's';
         var q_name = "vcc";
-        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker', 'txtWeight'];
+        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
-        var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1], ['txtWeight',15 ,2 , 1]];
-        var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1], ['txtWeight',15 ,2 , 1]];
+        var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
+        var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; 
@@ -136,8 +136,8 @@
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,mount,weight'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtMount', b_ret.length, b_ret
+                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,mount'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
 						//寫入訂單號碼
 						var t_oredeno='';
@@ -286,7 +286,6 @@
                 t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
                 //t_mount = (!t_unit || emp(t_unit) || trim(t_unit).toLowerCase() == 'kg' ? q_float('txtWeight_' + j) : q_float('txtMount_' + j));  // 計價量
                 t_mount = q_float('txtMount_' + j);
-                t_weight = t_weight + dec(q_float('txtWeight_' + j)); // 重量合計
                 $('#txtTotal_' + j).val(round(q_float('txtPrice_' + j) * dec(t_mount), 0));
                 t1 = t1 + dec(q_float('txtTotal_' + j));
             }  // j
@@ -295,7 +294,6 @@
             if (!emp($('#txtPrice').val()))
                 $('#txtTranmoney').val(round(t_weight * dec(q_float('txtPrice')), 0));
 
-            $('#txtWeight').val(round(t_weight, 0));
             calTax();
             q_tr('txtTotalus' ,round(q_float('txtTotal')*q_float('txtFloata'),0));
         }
@@ -526,7 +524,7 @@
                 <td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
                 <td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>                 
                 <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td>                 
-                <td class="td7"><span> </span><a id='lblInvono' class="lbl"> </a></td>
+                <td class="td7"><span> </span><a id='lblInvono' class="lbl btn"> </a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td> 
             </tr>
             <tr>
@@ -593,8 +591,8 @@
             <tr>
 				<td class="td1"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
 				<td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
-                <td class="td4"><span> </span><a id='lblWeight' class="lbl"> </a></td>
-                <td class="td5"><input id="txtWeight" type="text" class="txt num c1"/></td>             
+                <td class="td4"></td>
+                <td class="td5"></td>             
                 <td class="td6"><span> </span><a id="lblWorker" class="lbl"> </a></td>                 
                 <td class="td7"><input id="txtWorker" type="text" class="txt c1"/></td>
             </tr>
@@ -612,7 +610,6 @@
                 <td align="center"><a id='lblProduct_s'> </a></td>
                 <td align="center"><a id='lblUnit_s'> </a></td>
                 <td align="center"><a id='lblMount_s'> </a></td>
-                <td align="center"><a id='lblWeight_s'> </a></td>
                 <td align="center"><a id='lblPrice_s'> </a></td>
                 <td align="center"><a id='lblTotal_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
@@ -626,7 +623,6 @@
                 <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
-                <td style="width:8%;"><input  id="txtWeight.*" type="text"  class="txt num c1" /></td>
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
                 <td style="width:8%;"><input id="txtTotal.*" type="text" class="txt num c1"/></td>
                 <td style="width:12%;"><input id="txtMemo.*" type="text" class="txt c1"/>
