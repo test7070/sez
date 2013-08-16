@@ -27,10 +27,12 @@
             brwCount2 = 15;
              
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
+            ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
             ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],
             ['txtIssuingbankno', 'lblIssuingbank', 'bank', 'noa,bank', 'txtIssuingbankno,txtIssuingbank', 'bank_b.aspx'],
             ['txtAdvisingbankno', 'lblAdvisingbank', 'bank', 'noa,bank', 'txtAdvisingbankno,txtAdvisingbank', 'bank_b.aspx'],
             ['txtNegotiatingbankno', 'lblNegotiatingbank', 'bank', 'noa,bank', 'txtNegotiatingbankno,txtNegotiatingbank', 'bank_b.aspx']);
+            
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -412,6 +414,13 @@
 						<td colspan="3">
 							<input id="txtLcno" type="text" class="txt c1"/>
 							<input id="txtNoa" type="hidden"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
+						<td>
+							<input id="txtCno" type="text" style="float:left; width:20%;"/>
+							<input id="txtAcomp" type="text" style="float:left; width:80%;"/>
 						</td>
 					</tr>
 					<tr>
