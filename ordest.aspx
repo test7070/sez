@@ -77,7 +77,10 @@
             
             q_gt('spec', '', 0, 0, 0, "", r_accy);
             $('#lblQuat').click(function () { btnQuat(); });
-            $('#btnOrdem').click(function () { q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); });
+            $('#btnOrdem').click(function () {
+            	//q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem'),true); 
+				q_box("ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';"+r_accy+";" + q_cur, 'ordem', "95%", "95%", q_getMsg('popOrdem'));
+            });
 			$('#cmbKind').change(function () {
 				size_change();
 			});
@@ -913,8 +916,10 @@
                 <td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
                 <td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
-                <td class="td7" align="center" colspan="2"><input id="btnBBTShow" type="button" value='' /></td>
-                <td class="td8" style="display: none;"><input id="btnOrdem" type="button" value='' /></td> 
+                <td class="td7" align="center" colspan="2">
+                	<input id="btnBBTShow" type="button" />
+                	<input id="btnOrdem" type="button"/>
+                </td>
             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
