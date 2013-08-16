@@ -45,28 +45,31 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtTicketdate', r_picd], ['txtAppeardate', r_picd], ['txtPaydate', r_picd],['txtBmon',r_picm],['txtEmon',r_picm]];
                 q_mask(bbmMask);
+                
+                $('#txtMoney').change(function() {
+                	if(!emp($('#txtMoney').val()) || !emp($('#txtDriverpay').val())){
+                		if(!emp($('#txtBmon').val()) || !emp($('#txtEmon').val())){
+                			var year_mon=(dec($('#txtEmon').val().substr(0,3))-dec($('#txtBmon').val().substr(0,3)))*12
+                			var t_mon=dec($('#txtEmon').val().substr(-2))-dec($('#txtBmon').val().substr(-2))+1;
+                			q_tr('txtComppay',(q_float('txtMoney')/(year_mon+t_mon))-q_float('txtDriverpay'));
+                		}else{
+                			q_tr('txtComppay',q_float('txtMoney')-q_float('txtDriverpay'));
+                		}
+                	}
+                });
+                $('#txtDriverpay').change(function() {
+                	if(!emp($('#txtMoney').val()) || !emp($('#txtDriverpay').val())){
+                		if(!emp($('#txtBmon').val()) || !emp($('#txtEmon').val())){
+                			var year_mon=(dec($('#txtEmon').val().substr(0,3))-dec($('#txtBmon').val().substr(0,3)))*12
+                			var t_mon=dec($('#txtEmon').val().substr(-2))-dec($('#txtBmon').val().substr(-2))+1;
+                			q_tr('txtComppay',(q_float('txtMoney')/(year_mon+t_mon))-q_float('txtDriverpay'));
+                		}else{
+                			q_tr('txtComppay',q_float('txtMoney')-q_float('txtDriverpay'));
+                		}
+                	}
+                });
             }
 
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if (trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for (var i = 0; i < adest.length; i++) { {
-                            if (t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if (t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
-                });
-            }
 
             function q_boxClose(s2) {
                 var ret;
@@ -83,10 +86,6 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }
@@ -116,33 +115,15 @@
             }
 
             function btnOk() {
-                $('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
-            	}
-                $('#txtTicketdate').val($.trim($('#txtTicketdate').val()));
-                if (checkId($('#txtTicketdate').val())==0){
-                	alert(q_getMsg('lblTicketdate')+'錯誤。');
-                	return;
-            	}
-                $('#txtAppeardate').val($.trim($('#txtAppeardate').val()));
-                if (checkId($('#txtAppeardate').val())==0){
-                	alert(q_getMsg('lblAppeardate')+'錯誤。');
-                	return;
-            	}
-                $('#txtPaydate').val($.trim($('#txtPaydate').val()));
-                if (checkId($('#txtPaydate').val())==0){
-                	alert(q_getMsg('lblPaydate')+'錯誤。');
-                	return;
-            	}
-
-                $('#txtWorker').val(r_name);
+                
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                
+                $('#txtWorker').val(r_name);
+                
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
@@ -217,14 +198,6 @@
                 _btnCancel();
             }
             
-            /*function returnparent() {
-            	if(window.parent.q_name=='cara'){
-					 var wParent = window.parent.document;
-					 var b_seq= wParent.getElementById("text_Noq").value
-					 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val()+$('#txtIrregularities').val();
-					 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
-				 }
-			}*/
 			
 			if(navigator.appName=="Microsoft Internet Explorer"){
             	window.onbeforeunload = function(e){
@@ -232,7 +205,7 @@
 						 var wParent = window.parent.document;
 						 var b_seq= wParent.getElementById("text_Noq").value
 						 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val()+$('#txtIrregularities').val();
-						 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
+						 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtComppay').val();
 					 }
 				}
             }else{
@@ -241,39 +214,9 @@
 						 var wParent = window.parent.document;
 						 var b_seq= wParent.getElementById("text_Noq").value
 						 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val()+$('#txtIrregularities').val();
-						 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
+						 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtComppay').val();
 					 }
 				}
-            }
-			
-			function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
             }
 		</script>
 		<style type="text/css">
@@ -473,20 +416,6 @@
 						<td class="td1" ><span> </span><a id='lblIrregularities' class="lbl"> </a></td>
 						<td class="td2" colspan='7'><input id="txtIrregularities" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr4">
-						<td class="td1" ><span> </span><a id='lblMoney' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtMoney"  type="text"   class="txt num c1"/>
-						</td>
-						<td class="td3" ><span> </span><a id='lblComppay' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtComppay"  type="text"   class="txt num c1"/>
-						</td>
-						<td class="td5" ><span> </span><a id='lblDriverpay' class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtDriverpay"  type="text"   class="txt num c1"/>
-						</td>
-					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblBmon' class="lbl" ></a></td>
 						<td class="td2" >
@@ -495,6 +424,20 @@
 						<td class="td3" align="center"><a id='lblEmon' style="font-weight: bolder;font-size: 20px;" ></a></td>
 						<td class="td4" >
 						<input id="txtEmon" type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr class="tr4">
+						<td class="td1" ><span> </span><a id='lblMoney' class="lbl"></a></td>
+						<td class="td2">
+						<input id="txtMoney"  type="text"   class="txt num c1"/>
+						</td>
+						<td class="td3" ><span> </span><a id='lblDriverpay' class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtDriverpay"  type="text"   class="txt num c1"/>
+						</td>
+						<td class="td5" ><span> </span><a id='lblComppay' class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtComppay"  type="text"   class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr6">

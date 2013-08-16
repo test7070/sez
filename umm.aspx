@@ -42,7 +42,6 @@
                 mainForm(1);
             }
 			
-			var clickmon=false;
             function mainPost() {
                 q_getFormat();
 
@@ -54,6 +53,14 @@
                 bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
 				q_gt('part', '', 0, 0, 0, "");
 		        q_gt('acomp', '', 0, 0, 0, "");
+		        
+		         $('#txtDatea').blur(function() {
+		         	if(!emp($('#txtDatea').val())&&(q_cur==1 || q_cur==2)){
+                    	var d = new Date(dec($('#txtDatea').val().substr(0,3))+1911, dec($('#txtDatea').val().substr(4,2))-1, dec($('#txtDatea').val().substr(7,2)));
+						d.setMonth(d.getMonth() - 1);
+						$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).substr(-2));
+					}
+                });
 		        
                 $('#lblAccc').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
@@ -121,13 +128,13 @@
                 		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
                 		return;
                 	}
-                	clickmon=false;
-                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa ^^";
                     var t_cust=emp($('#txtCustno').val())?"":(" and a.custno ='"+$('#txtCustno').val()+"'");
-                    var t_where1 = "where[1]=^^ 1=1 "+t_cust+" and datea<='"+$('#txtDatea').val()+"'^^";
+                    var t_where = "where=^^ 1=1 "+t_cust+" and datea<='"+$('#txtDatea').val()+"' ^^";
+                    var t_where1 = "where[1]=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa^^";
                     var t_where2 = "where[2]=^^ 1=0 ^^";
-                    var t_where3 = "where[3]=^^ 1=0 ^^";                    
-            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+                    var t_where3 = "where[3]=^^ 1=0 ^^";
+                    var t_where4 = "where[4]=^^ 1=0 ^^";
+            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);
                 });
                 
                 $('#btnMon').click(function(e) {
@@ -140,13 +147,13 @@
                 		return;
                 	}
                 	
-                	clickmon=true;
-                    var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and left(datea,6)<='"+$('#txtMon').val()+"' and vccno=a.noa ^^";
+                    var t_where = "where=^^ 1=0 ^^";
                     var t_where1 = "where[1]=^^ 1=0 ^^";
                     var t_cust=emp($('#txtCustno').val())?"":(" and custno ='"+$('#txtCustno').val()+"'");
-                    var t_where2 = "where[2]=^^ 1=1 "+t_cust+"and mon<='"+$('#txtMon').val()+"' and datea<='"+$('#txtDatea').val()+"' ^^";
-                    var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and CHARINDEX('月結',memo2)>0   and left(right(memo2,9),6)<='"+$('#txtMon').val()+"' and vccno=vcc.custno ^^";
-            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+                    var t_where2 = "where[2]=^^ 1=1 "+t_cust+"and vcc.mon<='"+$('#txtMon').val()+"' ^^";
+                    var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and vccno in(select noa from view_vcc"+r_accy+" where mon=vcc.mon and custno=vcc.custno) ^^";
+                    var t_where4 = "where[4]=^^ noa!='"+$('#txtNoa').val()+"' and left(vccno,6)=vcc.mon and substring(vccno,8,len(vccno))=vcc.custno ^^";
+            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);
                 });
             }
 			
@@ -331,11 +338,6 @@
                                 as.splice(i, 1);
                                 i--;
                             } 
-                        }
-                        if(clickmon){
-	                        for (var i = 0; i < as.length; i++) {
-	                            	as[i].memo+=' '+$('#txtMon').val()+' 月結';
-	                        }
                         }
                         
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtVccno', '');

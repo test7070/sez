@@ -399,6 +399,7 @@
             		Unlock(1);
             		return;
 				}
+					
                 if (!q_cd($('#txtPaydate').val())){
                 	alert(q_getMsg('lblPaydate')+'錯誤。'); 
                 	Unlock(1);
@@ -418,7 +419,10 @@
                     alert(q_getMsg('lblMon') + '錯誤。');
                     Unlock(1);
                     return;
-                }       
+                }
+                if(emp($('#txtMon').val()))
+					$('#txtMon').val($('#txtDatea').val().substr(0,6));
+                
                 sum();
                 
                 var yufu=false;

@@ -53,7 +53,7 @@
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             $('#btnImportWorkc').click(function(){
@@ -233,6 +233,8 @@
                 alert(t_err);
                 return;
             }
+            if(emp($('#txtMon').val()))
+				$('#txtMon').val($('#txtDatea').val().substr(0,6));
 			
 			if(!checkok){
 				var word_where='';
@@ -282,6 +284,7 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
+            $('#txtMon').val(q_date().substr(0,6));
             $('#txtDatea').focus();
 
          }
@@ -524,8 +527,8 @@
 	        <tr>
 	        	<td><span> </span><a id='lblInvono' class="lbl"> </a></td>
 	            <td><input id="txtInvono" type="text" class="txt c1"/></td>        
-				<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-	            <td><input id="txtMoney" type="text" class="txt c1 num"/></td>
+				<td><span> </span><a id='lblMon' class="lbl"> </a></td>
+	        	<td><input id="txtMon" type="text" class="txt c1"/></td>
 			</tr>
 	        <tr>
 	        	<td><span> </span><a id='lblTax' class="lbl"> </a></td>
@@ -533,12 +536,14 @@
 	            	<select id="cmbTaxtype" class="txt" onchange="calTax()"></select>
 	            	<input id="txtTax" type="text" class="txt c2 num"/>
 	            </td>        
-				<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
-	            <td><input id="txtTotal" type="text" class="txt c1 num"/></td>
+				<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+	            <td><input id="txtMoney" type="text" class="txt c1 num"/></td>
 			</tr>
 			<tr>
 	        	<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 				<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+				<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
+	            <td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 			</tr>
 			<tr>
 				<td><span> </span><a id='lblWorker' class="lbl"> </a></td>

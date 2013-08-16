@@ -174,7 +174,10 @@
 				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
-			} 
+			}
+			if(emp($('#txtMon').val()))
+				$('#txtMon').val($('#txtDatea').val().substr(0,6));
+			
             t_err = q_chkEmpField([
 	            	['txtNoa', q_getMsg('lblNoa')],
 	            	['txtTggno', q_getMsg('lblTgg')],

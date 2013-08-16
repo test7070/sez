@@ -116,6 +116,12 @@
 			}
 			function q_gtPost(t_name) { 
 				switch (t_name) {
+					case 'ordei':
+                		var as = _q_appendData("ordei", "", true);
+                        if (as[0] != undefined){
+                        	$('#txtMemo').val(as[0].invoicememo)
+                        }
+                		break;
 					case 'check_Noa':
                 		var as = _q_appendData("invo", "", true);
                         if (as[0] != undefined){
@@ -156,7 +162,11 @@
 				if(window.parent.q_name=='vcce'){
 					var wParent = window.parent.document;
 					var t_vcceno= wParent.getElementById("txtNoa").value;
+					var t_ordeno= wParent.getElementById("txtOrdeno").value;
 					$('#txtVcceno').val(t_vcceno);
+					
+					t_where="where=^^ noa='"+t_ordeno+"'^^";
+                	q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
 				}
 			}
 	
@@ -201,8 +211,6 @@
 					alert(t_err);
 					return;
 				}
-				
-				
 				
 				if(q_cur==1){
 					t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
