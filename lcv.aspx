@@ -15,8 +15,8 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="lcv";
-        var q_readonly = ['txtAccno','txtNoa','txtWorker','txtLcmoney','txtLcedate'];
-        var bbmNum = [['txtMoney',10,0,1],['txtLcmoney',10,0,1]]; 
+        var q_readonly = ['txtAccno','txtNoa','txtWorker','txtLcmoney','txtLcedate','txtUnaccept'];
+        var bbmNum = [['txtMoney',10,0,1],['txtLcmoney',10,0,1],['txtUnaccept',10,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';brwCount2 = 11;
         //ajaxPath = ""; //  execute in Root
@@ -45,9 +45,16 @@
         	 $('#lblAccc').click(function () {
 				q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
 			});
+			
+			$('#txtLcno').change(function() {
+				t_where="where=^^ lcno='"+$('#txtLcno').val()+"'^^";
+                q_gt('lcu', t_where, 0, 0, 0, "", r_accy);
+			});
+			$('#txtMoney').change(function() {
+				q_tr('txtUnaccept',t_unaccept-q_float('txtMoney'));
+			});
         }
 
-        
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop) {                   
@@ -56,10 +63,33 @@
                     break;
             }   /// end Switch
         }
-
-
+		
+		var t_lcmoney=0,t_unaccept=0;//lc金額,餘額
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'lcu':
+            		var as = _q_appendData("lcu", "", true);
+                    if (as[0] != undefined){
+						t_lcmoney=dec(as[0].money);
+						t_unaccept=0;
+						t_where="where=^^ lcno='"+$('#txtLcno').val()+"' and noa !='"+$('#txtNoa').val()+"' ^^";
+                		q_gt('lcv', t_where, 0, 0, 0, "unaccept", r_accy);
+                    }else{
+                    	t_lcmoney=0;
+                    	t_unaccept=0;
+                    	q_tr('txtUnaccept',t_unaccept);
+                    }
+                    q_tr('txtLcmoney',t_lcmoney);
+            		break;
+            	case 'unaccept':
+            		var as = _q_appendData("lcv", "", true);
+            		var t_accept=0;//已兌現
+                    for(var i=0;i<as.length;i++){
+                    	t_accept+=dec(as[i].money);
+            		}
+            		t_unaccept=t_lcmoney-t_accept
+            		q_tr('txtUnaccept',t_unaccept-q_float('txtMoney'));
+            		break;
                 case q_name: 
                 	if (q_cur == 4)  
                         q_Seek_gtPost();
@@ -87,6 +117,9 @@
 
             _btnModi();
             $('#txtLcno').focus();
+            //更新餘額
+            t_where="where=^^ lcno='"+$('#txtLcno').val()+"'^^";
+            q_gt('lcu', t_where, 0, 0, 0, "", r_accy);
         }
 
         function btnPrint() {
@@ -100,7 +133,11 @@
                 alert(t_err);
                 return;
             }
-          
+            
+          	if(q_float('txtUnaccept')<0){
+          		alert(q_getMsg('lblMoney')+'大於匯票餘額!!');
+            	return;
+          	}
             var t_noa = trim($('#txtNoa').val());
 			var t_date = trim($('#txtDatea').val());
 			if (t_noa.length == 0 || t_noa == "AUTO")
@@ -175,6 +212,15 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function q_popPost(s1) {
+			switch (s1) {
+				case 'txtLcno':
+					t_where="where=^^ lcno='"+$('#txtLcno').val()+"'^^";
+                	q_gt('lcu', t_where, 0, 0, 0, "", r_accy);
+				break;
+			}
+		}
 	</script>
     <style type="text/css">
           #dmain {
@@ -344,6 +390,10 @@
             <tr class="tr6">
                <td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
                <td class="td2"><input id="txtMoney" type="text" class="txt num c1"/></td>
+            </tr>
+            <tr class="tr6">
+               <td class="td1"><span> </span><a id="lblUnaccept" class="lbl"> </a></td>
+               <td class="td2"><input id="txtUnaccept" type="text" class="txt num c1"/></td>
             </tr>
             <!--<tr class="tr8">
                <td class="td1"><span> </span><a id="lblDate1" class="lbl"></a></td>
