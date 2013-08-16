@@ -35,10 +35,28 @@
          
          function bbsAssign() {  
         	_bbsAssign();
+        	
+        	var aspxnamea=window.parent.q_name;
+        	
+        	for (var j = 0; j < q_bbsCount; j++) {
+        		if(dec($('#txtMount_'+j).val())<=0){
+        			$('#txtState_'+j).val('製令錯誤');
+        			$('#radSel_'+j).attr('disabled','disabled');
+        		}else if(dec($('#txtInmount_'+j).val())>=dec($('#txtMount_'+j).val())){
+        			$('#txtState_'+j).val('入庫完成');
+        			$('#radSel_'+j).attr('disabled','disabled');
+        		}
+        		if(aspxnamea=='workd'){
+        			if(dec($('#txtWsgmount'+j).val())==0){
+	        			$('#txtState_'+j).val('未領料');
+	        			$('#radSel_'+j).attr('disabled','disabled');
+        			}
+        		}
+        	}
  		}
-
+		var works;
         function q_gtPost() {  ///  for   store2 
-         
+         	works = _q_appendData("works", "", true);
         }
         function refresh() {
             _refresh();
@@ -58,6 +76,7 @@
        <table id="tbbs"  class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;'>
                 <th align="center"> </th>
+                <th align="center"><a id='lblState'></a></th>
                 <th align="center"><a id='lblNoa'></a></th>
                 <th align="center"><a id='lblCuadate'></a></th>
                 <!--<th align="center"  ><a id='lblDatea'></a></th>-->
@@ -82,7 +101,9 @@
                 	<input id="txtUindate.*" type="hidden" />
                 	<input id="txtRmount.*" type="hidden" />
                 	<input id="txtWmount.*" type="hidden" />
+                	<input id="txtWsgmount.*" type="hidden" />
                 </td>
+                <td style="width:6%;"><input class="txt" id="txtState.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:15%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:8%;"><input class="txt" id="txtCuadate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <!--<td style="width:6%;"><input class="txt" id="txtDatea.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
