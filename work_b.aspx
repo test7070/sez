@@ -35,28 +35,39 @@
          
          function bbsAssign() {  
         	_bbsAssign();
-        	
-        	var aspxnamea=window.parent.q_name;
-        	
         	for (var j = 0; j < q_bbsCount; j++) {
-        		if(dec($('#txtMount_'+j).val())<=0){
-        			$('#txtState_'+j).val('製令錯誤');
-        			$('#radSel_'+j).attr('disabled','disabled');
-        		}else if(dec($('#txtInmount_'+j).val())>=dec($('#txtMount_'+j).val())){
-        			$('#txtState_'+j).val('入庫完成');
-        			$('#radSel_'+j).attr('disabled','disabled');
+        		if(!emp($('#txtNoa_'+j).val())){
+	        		if(dec($('#txtMount_'+j).val())<=0){
+	        			$('#txtState_'+j).val('製令錯誤');
+	        		}else if(dec($('#txtInmount_'+j).val())>=dec($('#txtMount_'+j).val())){
+	        			$('#txtState_'+j).val('入庫完成');
+	        		}
         		}
-        		if(aspxnamea=='workd'){
-        			if(dec($('#txtWsgmount'+j).val())==0){
-	        			$('#txtState_'+j).val('未領料');
-	        			$('#radSel_'+j).attr('disabled','disabled');
-        			}
-        		}
+        		if(!emp($('#txtState_'+j).val()))
+        			$('#radSel_'+j).attr('disabled','disabled');
         	}
  		}
-		var works;
+
         function q_gtPost() {  ///  for   store2 
-         	works = _q_appendData("works", "", true);
+        	var aspxnamea=window.parent.q_name;
+         	var works = _q_appendData("works", "", true);
+         	if(works[0]==undefined)
+         		return;
+         	if(aspxnamea=='workb' || aspxnamea=='workd'){
+         		for (var j = 0; j < q_bbsCount; j++) {
+         			if(!emp($('#txtNoa_'+j).val()) && emp($('#txtState_'+j).val())){
+         				var t_gmount=0;//領料數
+	         			for (var i = 0; i < works.length; i++) {
+	         				if($('#txtNoa_'+j).val()==works[i].noa)
+	         					t_gmount+=dec(works[i].gmount);
+	         			}
+	         			if(t_gmount==0){
+	         				$('#txtState_'+j).val('未領料');
+			        		$('#radSel_'+j).attr('disabled','disabled');
+	         			}
+	         		}
+        		}
+        	}
         }
         function refresh() {
             _refresh();
@@ -77,8 +88,7 @@
             <tr style='color:White; background:#003366;'>
                 <th align="center"> </th>
                 <th align="center"><a id='lblState'></a></th>
-                <th align="center"><a id='lblNoa'></a></th>
-                <th align="center"><a id='lblCuadate'></a></th>
+                <th align="center"><a id='lblNoa'></a> / <a id='lblCuadate'></a></th>
                 <!--<th align="center"  ><a id='lblDatea'></a></th>-->
                 <th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
                 <th align="center"><a id='lblMount'></a></th>
@@ -103,9 +113,11 @@
                 	<input id="txtWmount.*" type="hidden" />
                 	<input id="txtWsgmount.*" type="hidden" />
                 </td>
-                <td style="width:6%;"><input class="txt" id="txtState.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:15%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:8%;"><input class="txt" id="txtCuadate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:8%;"><input class="txt" id="txtState.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:15%;">
+                	<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
+                	<input class="txt" id="txtCuadate.*" type="text" style="width:50%;"  readonly="readonly" />
+                </td>
                 <!--<td style="width:6%;"><input class="txt" id="txtDatea.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
                 <td style="width:14%;">
                 	<input class="txt" id="txtProductno.*" type="text" style="width:98%;"  readonly="readonly" />
@@ -114,7 +126,7 @@
                 <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
                 <!--<td style="width:6%;"><input class="txt" id="txtWorkdate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:6%;"><input class="txt" id="txtUindate.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
-                <td style="width:9%;"><input class="txt" id="txtStationno.*" type="text" style="width:98%;"  readonly="readonly" />
+                <td style="width:7%;"><input class="txt" id="txtStationno.*" type="text" style="width:98%;"  readonly="readonly" />
                 	<input class="txt" id="txtStation.*" type="text" style="width:98%;"  readonly="readonly" />
                 </td>
                 <td style="width:5%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
