@@ -88,19 +88,25 @@
 			//1020729 排除已完全入庫&&完全未領料的成品
 			$('#btnOrdes').click(function(){
 				if(q_cur==1 || q_cur==2){
-					var t_where = "enda!=1 and noa+'_'+no2 not in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.mount=a.inmount or b.gmount=0) ";
+					if(!emp($('#txtTggno').val())){
+						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.tggno!='' and a.tggno='"+$('#txtTggno').val()+"' and (a.mount>a.inmount and b.gmount>0)) ";
+					}else{
+						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.tggno!='' and (a.mount>a.inmount and b.gmount>0)) ";
+					}
 	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
                }
 			});
 			$('#txtMoney').change(function(){sum();});
 			$('#txtTax').change(function(){sum();});
 			
-			//1020729 排除已完全入庫&&完全未領料的成品
+			//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 			$('#btnWork').click(function(){
 				if(!emp($('#txtTggno').val())){
-					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa not in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount=a.inmount or b.gmount=0)";
+					//var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
+					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"'";
 				}else{
-					var t_where = "enda!=1 and tggno!='' and noa not in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount=a.inmount or b.gmount=0)";
+					//var t_where = "enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
+					var t_where = "enda!=1 and tggno!=''";
 				}
                 q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
@@ -133,6 +139,8 @@
 				 break;
             	case 'work':
                 	b_ret = getb_ret();
+                	if (!b_ret || b_ret.length == 0)
+						return;
                 	if(b_ret&&(q_cur==1 || q_cur==2)){
                 		$('#txtTggno').val(b_ret[0].tggno);
                 		$('#txtTgg').val(b_ret[0].comp);

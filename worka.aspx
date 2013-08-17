@@ -77,17 +77,23 @@
                 	t_where = "noa='" + workno + "'";
                 q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 			});
-			//1020729 顯示未完全入庫&&未完全領料
+			//1020729 顯示未完全入庫
 			$('#btnOrdes').click(function(){
-				var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount group by a.ordeno,a.no2) ";
+				if(!emp($('#txtStationno').val())){
+					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where  (a.tggno is null or a.tggno='') and a.stationno='"+$('#txtStationno').val()+"' and a.mount>a.inmount  group by a.ordeno,a.no2) ";
+				}else{
+					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where  (a.tggno is null or a.tggno='') and a.mount>a.inmount  group by a.ordeno,a.no2) ";
+				}
                 q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 			});
-			//1020729 顯示未完全入庫&&未完全領料
+			//1020729 顯示未完全入庫,0816取消但會顯示狀態
 			$('#btnWork').click(function(){
 				if(!emp($('#txtStationno').val())){
-					var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount)";
+					//var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount>a.inmount)";
+					var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"'";
 				}else{
-					var t_where = "enda!=1 and (tggno is null or tggno='')  and noa not (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount!=a.inmount or b.gmount!=b.mount)";
+					//var t_where = "enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount>a.inmount)";
+					var t_where = "enda!=1 and (tggno is null or tggno='')";
 				}
                 q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
