@@ -31,10 +31,10 @@
 	                        value : r_accy
 	                    },{
 	                        type : '6',
-	                        name : 'lcno'
+	                        name : 'xlcno'
 	                    },{
 							type : '5',
-							name : 'typea',
+							name : 'xtypea',
 							value : (q_getPara('report.all')+','+q_getPara('lcu.typea')).split(',')
 						},{
 	                        type : '2',

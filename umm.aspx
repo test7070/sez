@@ -715,6 +715,8 @@
                     return;
                 }
                 q_nowf();
+                as['mon'] = abbm2['mon'];
+            	as['datea'] = abbm2['datea'];
                 return true;
             }
 
