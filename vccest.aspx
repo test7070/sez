@@ -70,7 +70,7 @@
 				var ordeno = $('#txtOrdeno').val();
 				var t_where = 'enda = 0 ';
 				if(ordeno.length > 0){
-					t_where = " and noa='" + ordeno + "'";
+					t_where += " and noa='" + ordeno + "'";
 				   	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 				}else{
 				   	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));

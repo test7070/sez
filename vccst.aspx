@@ -199,7 +199,7 @@
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-				q_gtnoa(q_name, replaceAll('I' + $('#txtDatea').val(), '/', ''));
+				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_vcc') + $('#txtDatea').val(), '/', ''));
 			else
 				wrServer(s1);
 		}
@@ -803,51 +803,49 @@
 			</tr>
 			<tr class="tr7">
 				<td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"></td>
-				<td class="td2" colspan="2">
+				<td class="td2" colspan="3">
 					<input id="txtCardealno" type="text"  class="txt c4"/>
 					<input id="txtCardeal"  type="text" class="txt c5"/>
 				</td>
 				<td class="td4"><span> </span><a id='lblCarno' class="lbl"></a></td>
 				<td class="td5"><input id="txtCarno"	type="text" class="txt c1"/></td> 
 				<td class="td6"><input id="btnImportVcce" type="button" /></td> 
-				<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"></a></td>
-				<td class="td2"><input id="txtTranmoney" type="text" class="txt num c1" /></td> 
+			</tr>
+			<tr class="tr10">
+				<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+				<td class="td2" colspan='8'>
+					<input id="txtMemo"  type="text" class="txt c1"/>
+				</td> 
 			</tr>
 			<tr class="tr4">
+				<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"></a></td>
+				<td class="td2"><input id="txtTranmoney" type="text" class="txt num c1" /></td> 
 				<td class="td7"><span> </span><a id='lblPrice' class="lbl"></a></td>
 				<td class="td8"><input id="txtPrice"  type="text" class="txt num c1" /></td>  
 				<td class="td5"><span> </span><a id='lblFloata' class="lbl"></a></td>
 				<td class="td6"><select id="cmbCoin" class="txt c1" > </select></td>
 				<td class="td7"><input id="txtFloata" type="text" class="txt c1 num" /></td>
+			</tr>
+			<tr class="tr8">
+				<td class="td5"><span> </span><a id='lblMoney' class="lbl"></a></td>
+				<td class="td6"><input id="txtMoney" type="text" class="txt num c1" /></td> 
 				<td class="td5" ><span> </span><a id='lblTax' class="lbl"></a></td>
 				<td class="td6" colspan="2">
 					<input id="txtTax" type="text" class="txt num" style="width:45%;" />
 					<select id="cmbTaxtype" class="txt" onchange="calTax()"></select>
 				</td>
 			</tr>
-			<tr class="tr8">
-				<td class="td5"><span> </span><a id='lblWeight' class="lbl"></a></td>
-				<td class="td6"><input id="txtWeight" type="text" class="txt num c1" /></td>
-				<td class="td5"><span> </span><a id='lblMoney' class="lbl"></a></td>
-				<td class="td6"><input id="txtMoney" type="text" class="txt num c1" /></td> 
+			<tr>
 				<td class="td1"><span> </span><a id='lblTotal' class="lbl"></a></td>
 				<td class="td2"><input id="txtTotal" type="text" class="txt num c1" /></td> 
 				<td class="td3"><span> </span><a id='lblTotalus' class="lbl"></a></td>
 				<td class="td4"><input id="txtTotalus" type="text" class="txt num c1" /></td> 
-			</tr>
-			<tr class="tr10">
-				<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-				<td class="td2" colspan='5'>
-					<input id="txtMemo"  type="text" class="txt c1"/>
-				</td> 
+				<td class="td5"><span> </span><a id='lblWeight' class="lbl"></a></td>
+				<td class="td6"><input id="txtWeight" type="text" class="txt num c1" /></td>
 				<td class="td7"><span> </span><a id='lblAccc' class="lbl btn"></a></td>
 				<td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
 			</tr>
 			<tr class="tr9">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
 				<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
 				<td class="td8"><input id="txtWorker"  type="text" class="txt c1"/></td> 
 				<td class="td7"><span> </span><a id='lblWorker2' class="lbl"></a></td>
