@@ -198,6 +198,7 @@
             }
 
             function btnPrint() {
+				q_box('z_cub.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
