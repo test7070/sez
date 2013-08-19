@@ -895,9 +895,9 @@
 					<td >
 					<input type="text" id="txtCaseno.*" style="width:95%;" />
 					</td>
-					<td >
-					<input type="text" id="txtTranno.*" style="float:left; width: 95%;"/>
-					<input type="text" id="txtTrannoq.*" style="display:none;"/>
+					<td>
+						<input type="text" id="txtTranno.*" style="float:left; width: 90%;"/>
+						<input type="text" id="txtTrannoq.*" style="float:left;visibility: hidden; width:1%"/>
 					</td>
 					<td >
 					<input type="text" id="txtTranmoney.*" style="width:95%;text-align: right;" />
