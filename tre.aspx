@@ -757,8 +757,8 @@
 					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtTranno.*" style="float:left; width: 95%;"/>
-					<input type="text" id="txtTrannoq.*" style="display:none;"/>
+						<input type="text" id="txtTranno.*" style="float:left; width: 90%;"/>
+						<input type="text" id="txtTrannoq.*" style="float:left;visibility: hidden; width:1%"/>
 					</td>
 					<td >
 					<input type="text" id="txtRs.*" style="width:95%;" />

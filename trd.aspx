@@ -311,6 +311,14 @@
             }
             function btnOk() {
             	Lock(1,{opacity:0});
+        		for ( i = 0; i < q_bbsCount; i++) {
+        			if($.trim($('#txtTrannoq_'+i).val()).length==0){
+        				alert($('#txtTranno_'+i).val()+'出車單資料異常。');
+        				Unlock(1);
+        				return;
+        			}
+        		}
+            	
             	if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
             		Unlock(1);
@@ -887,9 +895,9 @@
 					<td >
 					<input type="text" id="txtCaseno.*" style="width:95%;" />
 					</td>
-					<td >
-					<input type="text" id="txtTranno.*" style="float:left; width: 95%;"/>
-					<input type="text" id="txtTrannoq.*" style="display:none;"/>
+					<td>
+						<input type="text" id="txtTranno.*" style="float:left; width: 90%;"/>
+						<input type="text" id="txtTrannoq.*" style="float:left;visibility: hidden; width:1%"/>
 					</td>
 					<td >
 					<input type="text" id="txtTranmoney.*" style="width:95%;text-align: right;" />
