@@ -311,6 +311,14 @@
             }
             function btnOk() {
             	Lock(1,{opacity:0});
+        		for ( i = 0; i < q_bbsCount; i++) {
+        			if($.trim($('#txtTrannoq_'+i).val()).length==0){
+        				alert($('#txtTranno_'+i).val()+'出車單資料異常。');
+        				Unlock(1);
+        				return;
+        			}
+        		}
+            	
             	if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
             		Unlock(1);
