@@ -31,9 +31,8 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
-                $('#txtNoa').focus
-                r_accy=''
+                q_gt(q_name, q_content, q_sqlCount, 1);
+                $('#txtNoa').focus();
             });
             function main() {
                 if (dataErr) {
