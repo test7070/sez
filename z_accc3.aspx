@@ -35,14 +35,14 @@
             });
 
             function q_gfPost() {
-                q_gt('part', '', 0, 0, 0, "init1");
+                q_gt('acpart', '', 0, 0, 0, "init1", r_accy+'_'+r_cno);
             }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'init1':
                         t_data.data['part'] = '';
-                        var as = _q_appendData("part", "", true);
+                        var as = _q_appendData("acpart", "", true);
                         for ( i = 0; i < as.length; i++) {
                             t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
@@ -63,34 +63,50 @@
                         value : r_rank
                     }, {/*1 [3],[4]*/
                         type : '1',
-                        name : 'date'
-                    }, {/*2 [5]*/
+                        name : 'wdate'
+                    }, {/*2 [5],[6]*/
+                        type : '1',
+                        name : 'xdate'
+                    }, {/*3 [7],[8]*/
+                        type : '1',
+                        name : 'ydate'
+                    }, {/*4 [9]*/
+                        type : '6',
+                        name : 'wmon'
+                    }, {/*5 [10]*/
                         type : '6',
                         name : 'xmon'
-                    }, {/*3 [6][7] 含子科目*/
+                    }, {/*6 [11]*/
+                        type : '6',
+                        name : 'ymon'
+                    }, {/*7 [12][13] 含子科目*/
                         type : '2',
                         name : 'xacc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*4 [8][9] 不含子科目*/
-                        type : '2',
-                        name : 'yacc',
-                        dbf : 'view_acc',
-                        index : 'acc1,acc2',
-                        src : "view_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*5 [10]*/
+                    }, {/*8 [14]*/
                         type : '8',
                         name : 'xpart',
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
                     }]
                 });
+                $('#txtWmon').mask('999/99');
                 $('#txtXmon').mask('999/99');
+                $('#txtYmon').mask('999/99');
                 
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
+                $('#txtWdate1').mask('999/99/99');
+                $('#txtWdate1').datepicker();
+                $('#txtWdate2').mask('999/99/99');
+                $('#txtWdate2').datepicker();
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate1').datepicker();
+                $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate2').datepicker();
+                $('#txtYdate1').mask('999/99/99');
+                $('#txtYdate1').datepicker();
+                $('#txtYdate2').mask('999/99/99');
+                $('#txtYdate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				
 				$('#txtXacc1a').change(function(e) {
@@ -108,24 +124,7 @@
                     else if((/^(\d{4})$/).test($(this).val())){
                     	$(this).val($(this).val()+'.');
                     }
-        		});
-        		$('#txtYacc1a').change(function(e) {
-                	var patt = /^(\d{4})([^\.,.]*)$/g;
-                	if(patt.test($(this).val()))
-                    	$(this).val($(this).val().replace(patt,"$1.$2"));
-                    else if((/^(\d{4})$/).test($(this).val())){
-                    	$(this).val($(this).val()+'.');
-                    }
-        		});
-        		$('#txtYacc2a').change(function(e) {
-                	var patt = /^(\d{4})([^\.,.]*)$/g;
-                	if(patt.test($(this).val()))
-                    	$(this).val($(this).val().replace(patt,"$1.$2"));
-                    else if((/^(\d{4})$/).test($(this).val())){
-                    	$(this).val($(this).val()+'.');
-                    }
-        		});
-        		
+        		});	
         		q_popAssign();
         		q_langShow();
             }

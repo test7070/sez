@@ -32,13 +32,13 @@
                 q_gf('', 'z_umm');
             });
             function q_gfPost() {
-            	q_gt('part', '', 0, 0, 0, "init1");
+            	q_gt('acpart', '', 0, 0, 0, "init1", r_accy+'_'+r_cno);
             }
 			function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'init1':
                         t_data.data['part'] = '';
-                        var as = _q_appendData("part", "", true);
+                        var as = _q_appendData("acpart", "", true);
                         for ( i = 0; i < as.length; i++) {
                             t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
