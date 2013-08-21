@@ -312,7 +312,7 @@
             function btnOk() {
             	Lock(1,{opacity:0});
         		for ( i = 0; i < q_bbsCount; i++) {
-        			if($.trim($('#txtTrannoq_'+i).val()).length==0){
+        			if($.trim($('#txtTranno_'+i).val()).length>0 && $.trim($('#txtTrannoq_'+i).val()).length==0){
         				alert($('#txtTranno_'+i).val()+'出車單資料異常。');
         				Unlock(1);
         				return;
