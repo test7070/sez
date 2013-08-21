@@ -16,69 +16,65 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 		aPop  =  new Array();
-		
-             if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
-            }
-            $(document).ready(function() {
-            	q_getId();
-                q_gf('', 'z_saleforecast');
-            });
-            function q_gfPost() {
-               $('#q_report').q_report({
-                        fileName : 'z_saleforecast',
-                        options : [{
-					                        type : '0',
-					                        name : 'accy',
-					                        value : r_accy
-					                    },{
-					                        type : '2',
-					                        name : 'xcustno',
-					                        dbf : 'cust',
-					                        index : 'noa,comp',
-					                        src : 'cust_b.aspx'
-					                     },{
-					                        type : '2',
-					                        name : 'xproduct',
-					                        dbf : 'ucaucc',
-					                        index : 'noa,product',
-					                        src : 'ucaucc_b.aspx'
-					                     },{
-					                        type : '6',
-					                        name : 'xmon'
-					                    },{
-					                        type : '6',
-					                        name : 'xyear'
-					                    },{
-					                        type : '1',
-					                        name : 'rmon'
-					                    }]
-				});
-                q_popAssign();
-                $('#txtXyear').mask('999');
-                $('#txtXmon').mask('999/99');
-                $('#txtRmon1').mask('999/99');
-                $('#txtRmon2').mask('999/99');
-
-                 var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtXmon').val(t_year+'/'+t_month);
-	                $('#txtXyear').val(t_year);
-	                $('#txtRmon1').val(t_year+'/01');
-	                $('#txtRmon2').val(t_year+'/'+t_month);
-	                
-            }
-
-            function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
-            }
-		</script>
+		if (location.href.indexOf('?') < 0) {
+			location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
+		}
+		$(document).ready(function() {
+			q_getId();
+			q_gf('', 'z_saleforecast');
+		});
+		function q_gfPost() {
+		   $('#q_report').q_report({
+				fileName : 'z_saleforecast',
+				options : [{
+					type : '0',
+					name : 'accy',
+					value : r_accy
+				},{
+					type : '2',
+					name : 'xcustno',
+					dbf : 'cust',
+					index : 'noa,comp',
+					src : 'cust_b.aspx'
+				},{
+					type : '2',
+					name : 'xproduct',
+					dbf : 'ucaucc',
+					index : 'noa,product',
+					src : 'ucaucc_b.aspx'
+				},{
+					type : '6',
+					name : 'xmon'
+				},{
+					type : '6',
+					name : 'xyear'
+				},{
+					type : '1',
+					name : 'rmon'
+				}]
+			});
+			q_popAssign();
+			$('#txtXyear').mask('999');
+			$('#txtXmon').mask('999/99');
+			$('#txtRmon1').mask('999/99');
+			$('#txtRmon2').mask('999/99');
+			var t_date,t_year,t_month,t_day;
+			t_date = new Date();
+			t_date.setDate(1);
+			t_year = t_date.getUTCFullYear()-1911;
+			t_year = t_year>99?t_year+'':'0'+t_year;
+			t_month = t_date.getUTCMonth()+1;
+			t_month = t_month>9?t_month+'':'0'+t_month;
+			$('#txtXmon').val(t_year+'/'+t_month);
+			$('#txtXyear').val(t_year);
+			$('#txtRmon1').val(t_year+'/01');
+			$('#txtRmon2').val(t_year+'/'+t_month);
+		}
+		function q_boxClose(s2) {
+		}
+		function q_gtPost(s2) {
+		}
+	</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
@@ -95,5 +91,5 @@
 		</div>
 	</body>
 </html>
-           
-          
+		   
+		  
