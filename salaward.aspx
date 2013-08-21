@@ -53,14 +53,15 @@
             
             $('#btnImport').click(function() {
             	if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
-	            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' order by a.partno,a.jobno^^";
+            		//20130821 09:15 千嘉說:離職員工不列出來
+	            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and (len(a.outdate)=0 or a.outdate >='"+ q_date()+"') order by a.partno,a.jobno^^";
 	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
 	            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
 	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+dec($('#txtYear').val())+"'^^";
 	            	var t_where4 = "where[4]=^^ a.typea='年終' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";
 	            	q_gt('salaward_import', t_where+t_where1+t_where2+t_where3+t_where4 , 0, 0, 0, "", r_accy);
             	}else{
-            		var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' order by a.partno,a.jobno^^";
+            		var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and (len(a.outdate)=0 or a.outdate >='"+ q_date()+"') order by a.partno,a.jobno^^";
 	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
 	            	var t_where2 = "where[2]=^^ left(datea,3)='"+(dec($('#txtYear').val())-1)+"'^^";
 	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";

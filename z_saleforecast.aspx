@@ -22,11 +22,11 @@
             }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_scmforecast');
+                q_gf('', 'z_saleforecast');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_scmforecast',
+                        fileName : 'z_saleforecast',
                         options : [{
 					                        type : '0',
 					                        name : 'accy',

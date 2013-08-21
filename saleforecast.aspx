@@ -17,7 +17,7 @@
             }
 			q_desc=1;
             q_tables = 's';
-            var q_name = "scmforecast";
+            var q_name = "saleforecast";
             var q_readonly = ['txtNoa','txtDatea'];
             var q_readonlys = [];
             var bbmNum = [];
@@ -90,7 +90,7 @@
                 }
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_scmforecast')+ q_date(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_saleforecast')+ q_date(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -98,7 +98,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-               q_box('scmforecast_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
+               q_box('saleforecast_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -125,7 +125,7 @@
             }
 
             function btnPrint() {
-            	q_box('z_scmforecast.aspx','', "95%", "95%", q_getMsg("popPrint"));
+            	q_box('z_saleforecast.aspx','', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
