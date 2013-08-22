@@ -48,7 +48,7 @@
 
             q_brwCount();  // 計算 合適  brwCount 
 			q_gt('style','',0,0,0,'');
-			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
 			$('#txtOdate').focus();
         });
 
@@ -224,12 +224,12 @@
                 alert(t_err);
                 return;
             }
-            $('#txtWorker').val(r_name)
+            $('#txtWorker').val(r_name);
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('E' + $('#txtOdate').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_orde') + $('#txtOdate').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -241,7 +241,7 @@
         }
 
         function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-            var cmb = document.getElementById("combPaytype")
+            var cmb = document.getElementById("combPaytype");
             if (!q_cur) 
                 cmb.value = '';
             else
@@ -461,7 +461,7 @@
             if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
                 t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
             if (t_err) {
-                alert(t_err)
+                alert(t_err);
                 return false;
             }
             return true;
@@ -668,13 +668,13 @@
 			        $('#x3_'+j).hide();
 			        $('#Size').css('width','70px');
 			        $('#textSize1_'+j).val(0);
-			        $('#txtDime_'+j).val(0)
+			        $('#txtDime_'+j).val(0);
 			        $('#textSize2_'+j).val(0);
-			        $('#txtWidth_'+j).val(0)
+			        $('#txtWidth_'+j).val(0);
 			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
 			        //q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
 			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
+			        $('#txtRadius_'+j).val(0);
 				}
 			}
 		}

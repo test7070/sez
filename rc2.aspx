@@ -187,7 +187,7 @@
                 alert(t_err);
                 return;
             }
-            $('#txtWorker' ).val(  r_name)
+            $('#txtWorker' ).val(r_name);
             //sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -205,7 +205,7 @@
         }
 
         function cmbPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-            var cmb = document.getElementById("combPaytype")
+            var cmb = document.getElementById("combPaytype");
             if (!q_cur) 
                 cmb.value = '';
             else
@@ -317,7 +317,7 @@
                 t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
 
             if (t_err) {
-                alert(t_err)
+                alert(t_err);
                 return false;
             }
             
