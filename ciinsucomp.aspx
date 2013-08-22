@@ -16,7 +16,7 @@
         }
         var q_name="ciinsucomp";
         var q_readonly = ['txtWorker','txtWorker2'];
-        var bbmNum = [['txtArbdiscount', 5, 2, 1],['txtForcediscount', 10, 0, 1],['txtAccdiscount', 5, 2, 1],['txtWaterdiscount', 5, 2, 1]]; 
+        var bbmNum = [['txtArbdiscount', 8, 4, 1],['txtForcediscount', 10, 0, 1],['txtAccdiscount', 8, 4, 1],['txtWaterdiscount', 8, 4, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array();
