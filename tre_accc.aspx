@@ -284,6 +284,10 @@
 		    }
 
 		    function btnOk() {
+		    	if($.trim($('#txtChkbno').val()).length>0 && $.trim($('#txtAccount').val()).length==0){
+		    		alert('請輸入 '+q_getMsg('lblAccount') + '。');
+                    return;
+		    	}
                 $('#txtBdate').val($.trim($('#txtBdate').val()));
                 if (checkId($('#txtBdate').val()) == 0) {
                     alert(q_getMsg('lblBdate') + '錯誤。');
