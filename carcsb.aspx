@@ -57,7 +57,7 @@
             }///  end Main()
 
             function mainPost() {
-    			q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday');
+    			q_modiDay= q_getPara('sys.modiday3');  /// 若未指定， d4=  q_getPara('sys.modiday');
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate_export', r_picd], ['txtEdate_export', r_picd]];
                 q_mask(bbmMask);
                 q_gt('calctype2', '', 0, 0, 0, "calctypes");
