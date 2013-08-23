@@ -30,8 +30,8 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
-                $('#txtNoa').focus
+                q_gt(q_name, q_content, q_sqlCount, 1);
+                $('#txtNoa').focus();
             });
 
             function main() {
@@ -181,7 +181,7 @@
             }
 
             function btnPrint() {
-                
+                q_box('z_gift.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
