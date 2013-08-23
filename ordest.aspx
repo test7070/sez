@@ -826,7 +826,7 @@
                 margin: 0;
                 padding: 2px;
                 border: 2px pink double;
-                border-spacing: 1;
+                border-spacing: 1px;
                 border-collapse: collapse;
                 font-size: medium;
                 color: blue;
