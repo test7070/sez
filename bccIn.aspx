@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa', 'txtWorker','txtMoney','txtTax','txtTotal'];
             var q_readonlys = ['txtTotal'];
             var bbmNum = [['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtDiscount', 10, 0, 1]];
-            var bbsNum = [['txtMount', 10, 0, 1], ['txtMount2', 10, 0, 1], ['txtPrice', 15, 3, 1], ['txtDiscount', 15, 0, 1], ['txtMoney', 15, 0, 1], ['txtTotal', 15, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1], ['txtMount2', 10, 0, 1], ['txtPrice', 15, 3, 1], ['txtDiscount', 15, 0, 1], ['txtMoney', 15, 0, 1], ['txtTotal', 15, 0, 1], ['txtErrmount', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -586,19 +586,20 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width: 5%;"><a id='lblBccno'> </a></td>
-					<td align="center" style="width: 15%;"><a id='lblBccname'> </a></td>
+					<td align="center" style="width: 7%;"><a id='lblBccno'> </a></td>
+					<td align="center" style="width: 13%;"><a id='lblBccname'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblMount'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblMount2'> </a></td>	
 					<td align="center" style="width: 5%;"><a id='lblPrice'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width: 6%;"><a id='lblErrmount'> </a></td>
 					<td align="center" style="width: 10%;"><a id='lblUno'> </a></td>
 					<td align="center" style="width: 10%;"><a id='lblMemos'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;width:1%;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					<input id="txtStoreno.*" type="text" style="display: none;" />
 					</td>
@@ -613,6 +614,10 @@
 					<td><input id="txtMount2.*" type="text" style="width: 95%; text-align: right;"/></td>
 					<td><input id="txtPrice.*" type="text" style="width: 95%; text-align: right;"/></td>
 					<td><input id="txtTotal.*" type="text" style="width: 95%; text-align: right;"/></td>
+					<td>
+						<input id="txtErrmount.*" type="text" style="width: 95%; text-align: right;"/>
+						<input id="txtErrmemo.*" type="text" style="width: 95%;"/>
+					</td>
 					<td><input id="txtUno.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMemo.*"type="text" style="width: 95%;"/></td>
 				</tr>
