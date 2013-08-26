@@ -43,6 +43,12 @@
 	                        index : 'noa,comp',
 	                        src : 'cust_b.aspx'
 	                    },{
+	                        type : '2',
+	                        name : 'cno',
+	                        dbf : 'acomp',
+	                        index : 'noa,comp',
+	                        src : 'acomp_b.aspx'
+	                    },{
 	                        type : '1',
 	                        name : 'idate'
 	                    },{
@@ -51,6 +57,9 @@
 	                    },{
 	                        type : '1',
 	                        name : 'ndate'
+	                    },{
+	                        type : '1',
+	                        name : 'vdate'
 	                    }]
                     });
                 q_popAssign();
@@ -67,6 +76,10 @@
                 $('#txtNdate1').datepicker();
                 $('#txtNdate2').mask('999/99/99');
                 $('#txtNdate2').datepicker();  
+                $('#txtVdate1').mask('999/99/99');
+                $('#txtVdate1').datepicker();
+                $('#txtVdate2').mask('999/99/99');
+                $('#txtVdate2').datepicker();  
                 
 	            var t_date,t_year,t_month,t_day;
 	            t_date = new Date();
