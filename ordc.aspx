@@ -52,7 +52,7 @@
             }
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtOdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtOdate', r_picd],['txtTrandate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", q_getPara('ordc.kind')); //rc2.stype
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
@@ -607,14 +607,13 @@
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1 lef" name="D1" ></select></td> 
             </tr>
-            <tr class="tr4">
-                <td class="td1"><span> </span><a id="lblSales" class="lbl btn"></a></td>
-                <td class="td2" colspan="2"><input id="txtSalesno" type="text" class="txt c4 lef"/> 
-                <input id="txtSales" type="text" class="txt c5 lef"/></td> 
-                <td class="td4"><span> </span><a id='lblTel' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtTel"  type="text"  class="txt c1 lef"/></td>
-                <td class="td7"><span> </span><a id='lblFax' class="lbl"></a></td>
-                <td class="td8"><input id="txtFax" type="text"  class="txt c1 lef"/></td>
+             <tr class="tr4">
+                <td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
+                <td class="td2" colspan='2'><input id="txtTel"  type="text"  class="txt c1 lef"/></td>
+                <td class="td4"><span> </span><a id='lblFax' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtFax" type="text"  class="txt c1 lef"/></td>
+                <td class="td7"><span> </span><a id='lblTrandate' class="lbl"></a></td>
+                <td class="td8"><input id="txtTrandate" type="text"  class="txt c1 lef"/></td>
             </tr>
             <tr class="tr5">
                 <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
@@ -623,44 +622,45 @@
             	<td class="td1"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
             	<td class="td2"><input id="txtOrdbno"  type="text" class="txt c1 lef" /></td>
             </tr>
+            <tr class="tr4">
+                <td class="td1"><span> </span><a id="lblSales" class="lbl btn"></a></td>
+                <td class="td2" colspan="2">
+                	<input id="txtSalesno" type="text" class="txt c4 lef"/> 
+                	<input id="txtSales" type="text" class="txt c5 lef"/>
+                </td> 
+                <td class="td4" align="right">
+                	<input id="chkAeno" type="checkbox"/>
+					<a id='lblAeno' style="width: 50%;"></a>
+                </td>
+                <td class="td5" align="right">
+					<input id="chkEnda" type="checkbox"/>
+                	<a id='lblEnd' style="width: 40%;"></a><span> </span>
+                </td>
+                <td> </td> 
+                <td class="td7"><span> </span><a id="lblApv" class="lbl"></a></td>
+            	<td class="td8"><input id="txtApv" type="text" class="txt c1 lef" disabled="disabled" /></td>
+            </tr>
             <tr class="tr6">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
                 <td class="td2"><input id="txtMoney" type="text" class="txt num c1 lef" /></td> 
-                <td> </td>
                 <td class="td3"><span> </span><a id='lblTax' class="lbl"></a></td>
                 <td class="td4"><input id="txtTax"  type="text" class="txt num c1 lef" /></td>
                 <td class="td5"><select id="cmbTaxtype" class="txt c1" onchange="calTax()" ></select></td>
+				<td> </td>
                 <td class="td6"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td7"><input id="txtTotal" type="text" class="txt num c1 lef" /></td>
             </tr>
             <tr class="tr7">
-                
             	<td class="td1"><span> </span><a id='lblTotalus' class="lbl"></a></td>
                 <td class="td2"><input id="txtTotalus"  type="text" class="txt num c1 lef" /></td> 
-                <td> </td>
                 <td class="td5"><span> </span><a id='lblContract' class="lbl"></a></td>
                 <td class="td6"><input id="txtContract"  type="text" class="txt c1 lef"/></td>  
-                <td> </td> 
-                <td class="td7" align="right">
-                	<input id="chkAeno" type="checkbox"/>
-					<a id='lblAeno' style="width: 50%;"></a>
-                </td>
-                <td class="td8" align="right">
-					<input id="chkEnda" type="checkbox"/>
-                	<a id='lblEnd' style="width: 40%;"></a><span> </span>
-                </td>	
-            </tr>
-            <tr class="tr8">
-                <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>--> 
+                  <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>-->
                 <td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
                 <td class="td6"><input id="txtWorker"  type="text" class="txt c1 lef" /></td> 
-                <td> </td>
                 <td class="td7"><span> </span><a id='lblWorker2' class="lbl"></a></td>
                 <td class="td8"><input id="txtWorker2"  type="text" class="txt c1 lef" /></td>
-                <td> </td> 
-                <td class="td7"><span> </span><a id="lblApv" class="lbl"></a></td>
-            	<td class="td8"><input id="txtApv" type="text" class="txt c1 lef" disabled="disabled" /></td>
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>

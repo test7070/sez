@@ -208,23 +208,7 @@
 				}
             }
 
-            function btnOk() {
-            	$('#txtBegindate').val($.trim($('#txtBegindate').val()));
-                if (checkId($('#txtBegindate').val())==0){
-                	alert(q_getMsg('lblBegindate')+'錯誤。');
-                	return;
-            	}
-            	$('#txtCondate').val($.trim($('#txtCondate').val()));
-                if (checkId($('#txtCondate').val())==0){
-                	alert(q_getMsg('lblCondate')+'錯誤。');
-                	return;
-            	}
-            	$('#txtEnddate').val($.trim($('#txtEnddate').val()));
-                if (checkId($('#txtEnddate').val())==0){
-                	alert(q_getMsg('lblEnddate')+'錯誤。');
-                	return;
-            	}
-            	
+            function btnOk() {          	
                 var t_err = '';
                 t_err = q_chkEmpField([['txtTelno', q_getMsg('lblMobile')]]);
 
