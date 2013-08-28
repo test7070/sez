@@ -67,10 +67,8 @@
 		        q_getFormat();
 		        q_mask(bbmMask);
 		        
-		        $('#btnPlus').click(function(e){
-		        	
-		        	
-		        	q_gt('trd_tran', t_where, 0, 0, 0, "", r_accy);
+		        $('#btnImport').click(function(e){
+		        	q_gt('acshareh_import', '', 0, 0, 0, "", r_accy+'_'+r_cno);
 		        });
 		    }
 
@@ -86,6 +84,17 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'acshareh_import':
+		        		var as = _q_appendData("acccs", "", true);
+                        if (as[0] != undefined) {
+                        	$('#txtA_0').val(as[0].a);
+                        	$('#txtB_0').val(as[0].b);
+                        	$('#txtC_0').val(as[0].c);
+                        	$('#txtD_0').val(as[0].d);
+                        	$('#txtE_0').val(as[0].e);
+                        	$('#txtF_0').val(as[0].f);
+                        	$('#txtG_0').val(as[0].g);
+                        }
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
