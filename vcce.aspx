@@ -26,8 +26,10 @@
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array(
 		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx']
-		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,addr2', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtAddr_post', '']
+		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,addr2,salesno,sales,cno,acomp', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp', '']
 		,['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+		,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+		,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
 		);
 
 		$(document).ready(function () {
@@ -220,7 +222,7 @@
 			$('#txtDatea').focus();
 		}
 		function btnPrint() {
-
+			q_box('z_vccep.aspx', '', "95%", "650px", q_getMsg("popPrint"))
 		}
 
 		function wrServer(key_value) {
@@ -534,6 +536,14 @@
 			<td class='td3'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
 			<td class="td4"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
 			<td class="td6"><input id="btnOrdeimport" type="button"/> </td>
+		</tr>
+		<tr class="tr2">
+			<td class='td1'><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
+			<td class='td2'><input id="txtCno"  type="text" class="txt c1"/></td>
+			<td class='td3' colspan="3"><input id="txtAcomp"  type="text" class="txt c7"/></td>
+			<td class='td6'><span> </span><a id="lblSales" class="lbl btn"> </a> </td>
+			<td class='td7'><input id="txtSalesno"  type="text" class="txt c1"/> </td>
+			<td class='td8'><input id="txtSales"  type="text" class="txt c1"/> </td>
 		</tr>
 		<tr class="tr2">
 			<td class='td1'><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
