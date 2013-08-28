@@ -53,7 +53,7 @@
         }  
 
         function mainPost() { 
-            bbmMask = [['txtDatea', r_picd],['txtEta', r_picd],['txtEtd', r_picd],['txtOnboarddate', r_picd],['txtShippingdate', r_picd],['txtCldate', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtEta', r_picd],['txtEtd', r_picd],['txtOnboarddate', r_picd],['txtShippingdate', r_picd],['txtCldate', r_picd],['txtSaildate', r_picd]];
         	q_mask(bbmMask);
         	
         	//讀取嘜頭選項

@@ -27,7 +27,7 @@
 		aPop = new Array(
 		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx']
 		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,addr2,salesno,sales,cno,acomp', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp', '']
-		,['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+		,['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']
 		,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 		,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
 		);
@@ -122,8 +122,8 @@
 					if (q_cur > 0 && q_cur < 4) {
 						if (!b_ret || b_ret.length == 0)
 							return;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtMount', b_ret.length, b_ret,
-												 'noa,no2,productno,product,mount','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtProductno,txtProduct,txtUnit,txtSpec,txtMount', b_ret.length, b_ret,
+												 'noa,no2,productno,product,unit,spec,mount','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						if(b_ret[0].noa != undefined){
 							var t_where = "noa='" + b_ret[0].noa + "'";
 							q_gt('orde', t_where , 0, 0, 0, "", r_accy);
@@ -142,10 +142,13 @@
 			switch (t_name) {
 				case 'ordei':
             		var as = _q_appendData("ordei", "", true);
+            		var t_lcno='';
             		var t_memo='';
-            		if(as[0]!=undefined)
-            			t_memo='INVOICE 備註:'+as[0].invoicememo+'\nPACKING LIST備註:'+as[0].packinglistmemo
-            		
+            		if(as[0]!=undefined){
+            			t_lcno=as[0].lcno;
+            			t_memo='INVOICE 備註:'+as[0].invoicememo+'\nPACKING LIST備註:'+as[0].packinglistmemo;
+            		}
+            		$('#txtLcno').val(t_lcno);
             		$('#txtMemo').val(t_memo);
             		break;
 				case 'orde':
@@ -541,9 +544,8 @@
 			<td class='td1'><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 			<td class='td2'><input id="txtCno"  type="text" class="txt c1"/></td>
 			<td class='td3' colspan="3"><input id="txtAcomp"  type="text" class="txt c7"/></td>
-			<td class='td6'><span> </span><a id="lblSales" class="lbl btn"> </a> </td>
-			<td class='td7'><input id="txtSalesno"  type="text" class="txt c1"/> </td>
-			<td class='td8'><input id="txtSales"  type="text" class="txt c1"/> </td>
+			<td class='td1'><span> </span><a id="lblLcno" class="lbl"> </a></td>
+			<td class="td2" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
 		</tr>
 		<tr class="tr2">
 			<td class='td1'><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
@@ -567,17 +569,22 @@
 		<tr class="tr4">
 			<td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
 			<td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
-			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
-			<td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
+			<td class='td1'> </td>
+			<td class='td1'> </td>
 			<td class="td6"><input id="btnPack" type="button"/> </td>
 		</tr>
 		<tr class="tr5">
 			<td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
 			<td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
-			<td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
-			<td class="td7"><input id="txtCarno"  type="text" class="txt c1"/></td>
+			<td class='td6'><span> </span><a id="lblSales" class="lbl btn"> </a> </td>
+			<td class='td7'><input id="txtSalesno"  type="text" class="txt c1"/> </td>
+			<td class='td8'><input id="txtSales"  type="text" class="txt c1"/> </td>
 		</tr>   
 		<tr class="tr6">
+			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
+			<td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
+			<td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
+			<td class="td7"><input id="txtCarno"  type="text" class="txt c1"/></td>
 			<td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
 			<td class="td2"><input id="txtWeight"  type="text" class="txt c1 num"/></td>
 			<td class='td8'><span> </span><a id="lblTotal" class="lbl"> </a></td>
@@ -596,6 +603,8 @@
 				<td align="center" style="width:10%;"><a id='lblOrdeno_s'> </a></td>
 				<td align="center" style="width:4%;"><a id='lblNo2_s'> </a></td>
 				<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
+				<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
+				<td align="center" style="width:15%;"><a id='lblSpec_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 				<td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblEcount_s'> </a></td>
@@ -610,6 +619,8 @@
 					 <input class="txt c5" id="txtProduct.*" type="text" />
 					 <input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
 				</td>
+				<td ><input class="txt c1" id="txtUnit.*" type="text" /></td>
+				<td ><input class="txt c1" id="txtSpec.*" type="text" /></td>
 				<td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
 				<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
 				<td ><input class="txt num c1" id="txtEcount.*" type="text" /></td>
