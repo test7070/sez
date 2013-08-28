@@ -66,6 +66,12 @@
 		    function mainPost() {
 		        q_getFormat();
 		        q_mask(bbmMask);
+		        
+		        $('#btnPlus').click(function(e){
+		        	
+		        	
+		        	q_gt('trd_tran', t_where, 0, 0, 0, "", r_accy);
+		        });
 		    }
 
 		    function q_boxClose(s2) {
