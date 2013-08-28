@@ -30,6 +30,12 @@
 					},{
 						type : '1',
 						name : 'xdate'
+                    },{
+                        type : '2',
+                        name : 'xucc',
+                        dbf : 'ucaucc',
+                        index : 'noa,product',
+                        src : 'ucaucc_b.aspx'
 				   }]
 				});
 				q_popAssign();

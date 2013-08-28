@@ -30,7 +30,17 @@
 					},{
 						type : '1',
 						name : 'xdate'
-				   }]
+					},{
+						type : '2',
+						name : 'xucc',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
+					},{
+						type : '8',
+						name : 'aberrant',
+						value : ('1@異常篩選').split(',')
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
