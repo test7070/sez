@@ -86,22 +86,23 @@
                 	string+='<td id="tranorde_port2" onclick="tranorde.sort(\'port2\',false)" title="領櫃碼頭,自檢/追蹤" align="center" style="width:120px; color:black;">進口櫃</td>';
                 	string+='</tr>';
                 	
+                	var t_color = ['DarkBlue','DarkRed'];
 					for(var i=0;i<this.tbCount;i++){
 						string+='<tr id="tranorde_tr'+i+'">';
 						string+='<td style="text-align: center;">';
 						string+='<input id="tranorde_chk'+i+'" class="tranorde_chk" type="checkbox"/></td>';
 						string+='<td style="text-align: center; font-weight: bolder; color:black;">'+(i+1)+'</td>';
-						string+='<td id="tranorde_noa'+i+'" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>';
-						string+='<td id="tranorde_ctype'+i+'" style="text-align: center;"></td>';
-						string+='<td id="tranorde_strdate'+i+'" style="text-align: center;"></td>';
-						string+='<td id="tranorde_dldate'+i+'" style="text-align: center;"></td>';
-						string+='<td id="tranorde_nick'+i+'" style="text-align: center;"></td>';
-						string+='<td id="tranorde_addr'+i+'" style="text-align: left;"></td>';
-						string+='<td id="tranorde_product'+i+'" style="text-align: left;"></td>';
-						string+='<td id="tranorde_mount'+i+'" style="text-align: right;"></td>';
-						string+='<td id="tranorde_vccecount'+i+'" style="text-align: right;"></td>';
-						string+='<td id="tranorde_empdock'+i+'" style="text-align: left;"></td>';
-						string+='<td id="tranorde_port2'+i+'" style="text-align: left;"></td>';
+						string+='<td id="tranorde_noa'+i+'" onclick="tranorde.browNoa(this)" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_ctype'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_strdate'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_dldate'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_nick'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_addr'+i+'" style="text-align: left;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_product'+i+'" style="text-align: left;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_mount'+i+'" style="text-align: right;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_vccecount'+i+'" style="text-align: right;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_empdock'+i+'" style="text-align: left;color:'+t_color[i%t_color.length]+'"></td>';
+						string+='<td id="tranorde_port2'+i+'" style="text-align: left;color:'+t_color[i%t_color.length]+'"></td>';
 						string+='</tr>';
 					}
                 	string+='</table>';
@@ -927,7 +928,7 @@
                 text-align: center;
                 border-width: 0px;
                 background-color: #FFFF66;
-                color: blue;
+                color: darkblue;
             }
             .dbbm {
                 /*float: left;*/

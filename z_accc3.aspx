@@ -109,6 +109,17 @@
                 $('#txtYdate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				
+				var t_date = new Date();
+				var t_year = t_date.getFullYear()-1911;
+				var t_month = t_date.getMonth()+1;
+				$('#txtWmon').val(t_year+'/'+(t_month<10?'0':'')+t_month);
+				$('#txtWdate1').val(t_year +'/01/01');
+				$('#txtWdate2').val(t_year +'/12/31');
+				$('#txtXdate1').val(t_year +'/01/01');
+				$('#txtXdate2').val(t_year +'/12/31');
+				$('#txtYdate1').val((t_year-1) +'/01/01');
+				$('#txtYdate2').val((t_year-1) +'/12/31');
+				
 				$('#txtXacc1a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
                 	if(patt.test($(this).val()))

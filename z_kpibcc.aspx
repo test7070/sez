@@ -30,6 +30,24 @@
 					},{
 						type : '1',
 						name : 'xdate'
+				   },{
+						type : '1',
+						name : 'xratea'
+				   },{
+						type : '1',
+						name : 'xdayb'
+				   },{
+						type : '1',
+						name : 'xratec'
+				   },{
+						type : '1',
+						name : 'xrated'
+				   },{
+						type : '1',
+						name : 'xratee'
+				   },{
+						type : '1',
+						name : 'xratef'
 				   }]
 				});
 				q_popAssign();
@@ -68,7 +86,16 @@
 
 			function q_gtPost(s2) {
 			}
+
 		</script>
+		<style type="text/css">
+			.q_report .option div .c3 {
+				width: 110px;
+			}
+			.q_report .option div .text {
+				width: 70px;
+			}
+		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"

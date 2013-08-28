@@ -32,7 +32,7 @@
             
 
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'], 
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
             ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
@@ -567,7 +567,7 @@
 						<td colspan='3'>
 							<input id="txtCustno" type="text" style="float:left; width:26.67%;"/>
 							<input id="txtComp" type="text" style="float:left; width:73.33%;"/>
-							<input id="txtCustnick" style="display:none;"/>
+							<input id="txtNick" style="display:none;"/>
 						</td>
 						<td><span> </span><a id="lblCalctype" class="lbl btn"> </a></td>
 						<td><select id="cmbCalctype" type="text" class="txt c1"> </select></td>

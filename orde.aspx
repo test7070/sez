@@ -25,7 +25,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+		 aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucaucc_b.aspx'],
 		 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_fact,addr_fact',
@@ -679,7 +679,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center"><a id='lblProductno'> </a></td>
-                <td align="center"><a id='lblProduct_s'> </a></td>
+                <td align="center"><a id='lblProduct_s'> </a>/<a id='lblSpec'> </a></td>
                 <td align="center"><a id='lblUnit'> </a></td>
                 <td align="center"><a id='lblMount'> </a></td>
                 <!--<td align="center"><a id='lblWeights'> </a></td>-->
@@ -701,6 +701,7 @@
                 </td>
                 <td style="width:12%;">
                 	<input class="txt c7" id="txtProduct.*" type="text" />
+                	<input class="txt c7" id="txtSpec.*" type="text" />
                 </td>
                 <td style="width:4%;">
                 	<input class="txt c7" id="txtUnit.*" type="text"/>
@@ -730,7 +731,7 @@
                 <td style="width:6%;">
                 	<input class="txt c7" id="txtDatea.*" type="text"  />
                 </td>
-                <td style="width:4%;" align="center">
+                <td style="width:3%;" align="center">
 	                <input id="chkEnda.*" type="checkbox"/>
                 </td>
             </tr>
