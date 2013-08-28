@@ -669,7 +669,14 @@
 			function refresh(recno) {
 				_refresh(recno);
 				trans.refresh();
-				
+				/*t_color = ['darkred','darkblue'];
+				var obj=$('#dview').find('tr');
+				for(var i=1;i<obj.length;i++){
+					objs = obj.eq(i).find('td');
+					for(var j=0;j<objs.length;j++){
+						objs.eq(j).css('color',t_color[i%t_color.length]);
+					}
+				}*/
 			}
 
 			function readonly(t_para, empty) {
