@@ -66,6 +66,7 @@
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd ]];  
+            bbsMask = [['txtDatea', r_picd]];  
             q_mask(bbmMask);            
             q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
             q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
@@ -805,7 +806,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1800px;
+                width: 1900px;
             }
             .tbbs a {
                 font-size: medium;
@@ -975,6 +976,7 @@
                 <td align="center" style="width:6%;"><a id='lblTotals'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblOrdet_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGemounts'></a></td>
+                <td align="center" style="width:5%;"><a id='lblDateas'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblMemos'> </a></td>
                 <td align="center" style="width:2%;"><a id='lblssale_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblscut_st'> </a></td>
@@ -1018,6 +1020,7 @@
                 	<input class="txt num c1" id="txtC1.*" type="text" />
                 	<input class="txt num c1" id="txtNotv.*" type="text" />
                 </td>
+                <td ><input class="txt c7" id="txtDatea.*" type="text" />
                 <td >
                 	<input class="txt c7" id="txtMemo.*" type="text" />
 	                <input class="txt c5" id="txtQuatno.*" type="text"  />
