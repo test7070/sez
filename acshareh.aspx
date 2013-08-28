@@ -196,9 +196,6 @@
 		        return true;
 		    }
 		    function q_popPost(t_id) {
-		    	if((q_cur==1  ||  q_cur==2) && t_id.substring(0,13).toUpperCase()=='TXTPRODUCTNO_'){
-		    		sum();
-		    	}
             }
 		    function sum() {
 		    	if(!(q_cur==1 || q_cur==2))
