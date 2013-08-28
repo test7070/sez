@@ -22,7 +22,7 @@
 		    q_tables = 's';
 		    var q_name = "acshareh";
 		    var q_readonly = [];
-		    var q_readonlys = [];
+		    var q_readonlys = ['txtTotal'];
 		    var bbmNum = new Array();
 		    var bbsNum = new Array();
 		    var bbmMask = [];
@@ -41,7 +41,7 @@
 		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,typea,unit,inprice', 'txtProductno_,txtProduct_,txtTypea_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
 		  	*/
 		    q_desc = 1;
-
+			brwCount2 = 3;
 			var defaultTxt = ['期初餘額','員工股票紅利','本期損益','盈餘指撥及分配','提列法定盈餘公積','普通股現金股利'
 				,'備供出售金融資產未實現損益增減','外幣財務報表換算所產生兌換差額增減','採權益法評價之被投資公司股權淨值增減','期末餘額'];
 
@@ -68,7 +68,10 @@
 		        q_mask(bbmMask);
 		        
 		        $('#btnImport').click(function(e){
-		        	q_gt('acshareh_import', '', 0, 0, 0, "", r_accy+'_'+r_cno);
+		        	if($.trim($('#txtNoa').val()).length>0)
+		        		q_gt('acshareh_import', '', 0, 0, 0, "", $.trim($('#txtNoa').val())+'_'+r_cno);
+		        	else
+		        		alert('請輸入'+q_getMsg('lblNoa'));
 		        });
 		    }
 
@@ -87,13 +90,19 @@
 		        	case 'acshareh_import':
 		        		var as = _q_appendData("acccs", "", true);
                         if (as[0] != undefined) {
-                        	$('#txtA_0').val(as[0].a);
-                        	$('#txtB_0').val(as[0].b);
-                        	$('#txtC_0').val(as[0].c);
-                        	$('#txtD_0').val(as[0].d);
-                        	$('#txtE_0').val(as[0].e);
-                        	$('#txtF_0').val(as[0].f);
-                        	$('#txtG_0').val(as[0].g);
+                        	for(var i=0;i<q_bbsCount;i++){
+					    		if($('#txtTxt_'+i).val()==defaultTxt[0]){
+					    			$('#txtA_'+i).val(as[0].a);
+		                        	$('#txtB_'+i).val(as[0].b);
+		                        	$('#txtC_'+i).val(as[0].c);
+		                        	$('#txtD_'+i).val(as[0].d);
+		                        	$('#txtE_'+i).val(as[0].e);
+		                        	$('#txtF_'+i).val(as[0].f);
+		                        	$('#txtG_'+i).val(as[0].g);
+					    			break;
+					    		}
+					    	}
+                        	sum();
                         }
 		            case q_name:
 		                if (q_cur == 4)
@@ -110,7 +119,7 @@
             }
 		    function btnOk() {
 		    	Lock(1,{opacity:0});
-	            
+	            sum();
 		        var t_noa = trim($('#txtNoa').val());
 	            wrServer(t_noa);
 		    }
@@ -179,7 +188,7 @@
 		        _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 		    }
 		    function bbsSave(as) {
-		        if (!as['productno'] && !as['product']) {
+		        if (!as['txt']) {
 		            as[bbsKey[1]] = '';
 		            return;
 		        }
@@ -194,7 +203,44 @@
 		    function sum() {
 		    	if(!(q_cur==1 || q_cur==2))
 		    		return;
-		
+		    	var endN = -1;
+		    	for(var i=0;i<q_bbsCount;i++){
+		    		if($('#txtTxt_'+i).val()==defaultTxt[defaultTxt.length-1]){
+		    			endN = i;
+		    			$('#txtA_'+i).val(0);
+		    			$('#txtB_'+i).val(0);
+		    			$('#txtC_'+i).val(0);
+		    			$('#txtD_'+i).val(0);
+		    			$('#txtE_'+i).val(0);
+		    			$('#txtF_'+i).val(0);
+		    			$('#txtG_'+i).val(0);
+		    			break;
+		    		}
+		    	}
+		    	if(endN>=0){
+		    		for(var i=0;i<q_bbsCount;i++){
+		    			if(i!=endN){
+		    				$('#txtA_'+endN).val(q_float('txtA_'+endN)+q_float('txtA_'+i));
+		    				$('#txtB_'+endN).val(q_float('txtB_'+endN)+q_float('txtB_'+i));
+		    				$('#txtC_'+endN).val(q_float('txtC_'+endN)+q_float('txtC_'+i));
+		    				$('#txtD_'+endN).val(q_float('txtD_'+endN)+q_float('txtD_'+i));
+		    				$('#txtE_'+endN).val(q_float('txtE_'+endN)+q_float('txtE_'+i));
+		    				$('#txtF_'+endN).val(q_float('txtF_'+endN)+q_float('txtF_'+i));
+		    				$('#txtG_'+endN).val(q_float('txtG_'+endN)+q_float('txtG_'+i));
+		    			}
+		    		}
+		    	}	
+		    	for(var i=0;i<q_bbsCount;i++){
+		    		$('#txtTotal_'+i).val(
+		    			q_float('txtA_'+i)
+		    			+q_float('txtB_'+i)
+		    			+q_float('txtC_'+i)
+		    			+q_float('txtD_'+i)
+		    			+q_float('txtE_'+i)
+		    			+q_float('txtF_'+i)
+		    			+q_float('txtG_'+i)
+		    		);
+		    	}
 		    }
 
 		    function refresh(recno) {
@@ -461,13 +507,13 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
+						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td><input id="btnImport" type="button" class="txt c1" value="匯入"/></td>
+						<td><input id="btnImport" type="button" class="txt c1" value="匯入期初"/></td>
 					</tr>
 				</table>
 			</div>
