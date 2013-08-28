@@ -11,7 +11,9 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "trd_s";
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']
+            				,['txtBaddr', '', 'addr', 'noa,addr', 'txtBaddr', 'addr_b.aspx']
+            				,['txtEaddr', '', 'addr', 'noa,addr', 'txtEaddr', 'addr_b.aspx']);
 
             $(document).ready(function() {
                 main();
@@ -44,9 +46,12 @@
                 t_accno = $.trim($('#txtAccno').val());
                 t_umm = $.trim($('#cmbUmm').val());
                 t_tranno = $.trim($('#txtTranno').val());
-
+				t_baddr = $.trim($('#txtBaddr').val());
+                t_eaddr = $.trim($('#txtEaddr').val());
+                
                 var t_where = " 1=1 and (len(isnull(datea,''))!=9 or datea>='101/08/01') " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno) + q_sqlPara2("mon", t_mon) + q_sqlPara2("datea", t_bdate, t_edate)
-                 + q_sqlPara_or(["accno", "accno2"], t_accno) ;
+                 + q_sqlPara_or(["accno", "accno2"], t_accno)+q_sqlPara2("straddrno",t_baddr)+q_sqlPara2("endaddrno",t_eaddr);
+               	
                 if (t_comp.length > 0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
                 if (t_invono.length > 0)
@@ -125,6 +130,14 @@
 					<td class='seek'  style="width:20%;"><a id='lblAccno'></a></td>
 					<td>
 					<input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td   style="width:35%;" ><a id='lblAddr'></a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtBaddr" type="text" style="width:95px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEaddr" type="text" style="width:95px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
