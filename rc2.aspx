@@ -20,8 +20,8 @@
         var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
         var q_readonly = ['txtNoa','txtWorker']; 
         var q_readonlys= [];
-        var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [];
+        var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtPrice', 10, 0, 1],['txtTotalus', 15, 0, 1],['txtFloata', 10, 2, 1]];  // 允許 key 小數
+        var bbsNum = [['txtMount', 15, 0, 1],['txtPrice', 15, 0, 1],['txtTotal', 15, 0, 1],['txtGweight', 15, 2, 1],['txtErrmount', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
@@ -106,7 +106,7 @@
                             return;
                         var i, j = 0;
                         $('#txtOrdeno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdcno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
                                                            , 'uno,productno,product,unit,mount,noa,no2,price,total,memo'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
@@ -588,7 +588,7 @@
                 <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/><select id="combPaytype" class="txt c2" onchange='combPaytype_chg()'></select></td> 
                 <td class="td7"><span> </span><a id='lblOrdc' class="lbl btn"></a></td>
-                <td class="td8"><input id="txtOrdeno"  type="text"  class="txt c1"/></td> 
+                <td class="td8"><input id="txtOrdcno"  type="text"  class="txt c1"/></td> 
             </tr>
             <tr class="tr4">
                 <td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
@@ -651,11 +651,12 @@
            <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno'></a></td>
-                <td align="center" style="width:8%;"><a id='lblUno'></a></td>
+                <td align="center" style="width:12%;"><a id='lblUno'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
                 <td align="center" style="width:7%;"><a id='lblMount'></a></td>                
                 <td align="center" style="width:7%;"><a id='lblPrices'></a></td>
                 <td align="center" style="width:9%;"><a id='lblTotals'></a></td>
+                <td align="center" style="width:9%;"><a id='lblErrmount'></a></td>
                 <td align="center" style="width:12%;"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -674,10 +675,15 @@
                 	<!--<input id="txtWeight.*" type="text" class="txt num c1" />-->
                 </td>
                 <td><input id="txtPrice.*" type="text"  class="txt num c1" /></td>
-                <td><input id="txtTotal.*" type="text" class="txt num c1" />
-                                      <input id="txtGweight.*" type="text" class="txt num c1" /></td>
+                <td>
+                	<input id="txtTotal.*" type="text" class="txt num c1" />
+					<input id="txtGweight.*" type="text" class="txt num c1" />
+				</td>
+				<td><input id="txtErrmount.*" type="text" class="txt num c1" />
+                        <input id="txtErrmemo.*" type="text" class="txt c1" />
+				</td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
-                <input id="txtOrdeno.*" type="text" style="width:72%;" />
+                <input id="txtOrdcno.*" type="text" style="width:72%;" />
                 <input id="txtNo2.*" type="text" style="width:22%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
