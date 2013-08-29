@@ -40,6 +40,36 @@
 						type : '8',
 						name : 'aberrant',
 						value : ('1@異常篩選').split(',')
+					},{
+						type : '6',
+						name : 'xkpi_1'
+					},{
+						type : '6',
+						name : 'xkpi_2'
+					},{
+						type : '6',
+						name : 'xkpi_3'
+					},{
+						type : '6',
+						name : 'xkpi_4'
+					},{
+						type : '6',
+						name : 'xkpi_5'
+					},{
+						type : '6',
+						name : 'xkpi_6'
+					},{
+						type : '6',
+						name : 'xkpi_7'
+					},{
+						type : '6',
+						name : 'xkpi_8'
+					},{
+						type : '6',
+						name : 'xkpi_9'
+					},{
+						type : '6',
+						name : 'xkpi_10'
                     }]
 				});
 				q_popAssign();
@@ -51,8 +81,37 @@
 				$('#txtXdate2').datepicker();
 				$('#txtXdate1').val(q_date()).focus();
 				$('#txtXdate2').val(q_date());
+				var ErrCheckbox = $('#chkAberrant').children('input');
+				$(ErrCheckbox).change(function(){
+					if($('#Aberrant').css('display') == 'block'){
+						if($(this).is(':checked')){
+							$('div[id*="Xkpi_"]').each(function(){
+								$(this).show();
+							});
+						}else{
+							$('div[id*="Xkpi_"]').each(function(){
+								$(this).hide();
+							});
+						}
+					}
+				});
+				$('.report').click(function(){
+					$(ErrCheckbox).change();
+				});
+				//調整異常篩選細項 開始
+				$('div[id*="Xkpi_"]').each(function(){
+					$(this).removeAttr('class').attr('class','option a1');
+					$(this).children('.label').removeAttr('class').attr('class','label').css('width','150px').css('text-align','right');
+					$(this).children('input').after('<div class="label"><span id="lblXkpiSubTitle_1">%</span></div>');
+					$(this).children('input').css('text-align','right');
+					var Title = $(this).children('.label').children('span').eq(0).text();
+					if(Title.indexOf('率') == -1 && Title.indexOf('比') == -1){
+						$(this).children('.label').children('span').eq(1).text('');
+					}
+				});
+				//調整異常篩選細項 結束
 			}
-
+			
 			function q_boxClose(s2) {
 			}
 
