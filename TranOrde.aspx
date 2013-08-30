@@ -1015,6 +1015,12 @@
 						<input type="text" id="txtCancel" class="txt c1"/>
 						</td>
 					</tr>
+					<tr>
+						<td><span> </span><a id="lblMemo2" class="lbl"> </a></td>
+						<td colspan="5">
+							<textarea rows="5" id="txtMemo2" class="txt c1"> </textarea>
+						</td>
+					</tr>
 					<tr class="trX">
 						<td><span> </span><a id="lblExcon" class="lbl" style="color: #ff0033;font-weight:bolder;"> </a></td>
 						<td><span> </span><a id="lblDocketno1" class="lbl"> </a></td>
