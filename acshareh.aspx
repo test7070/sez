@@ -180,7 +180,7 @@
 				sum();
 		    }
 		    function btnPrint() {
-		    	q_box("z_acshareh.aspx?;;;;"+r_accy, 'z_acshareh', "95%", "95%", q_getMsg("popFixa"));
+		    	q_box("z_accc3.aspx?;;;;"+r_accy, 'z_acshareh', "95%", "95%", q_getMsg("popFixa"));
 		    }
 		    function wrServer(key_value) {
 		        var i;
