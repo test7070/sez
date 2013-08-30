@@ -126,6 +126,7 @@
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
+	                t_date.setMonth(t_date.getMonth() - 1);
 	                t_date.setDate(1);
 	                t_year = t_date.getUTCFullYear()-1911;
 	                t_year = t_year>99?t_year+'':'0'+t_year;
@@ -140,6 +141,7 @@
 	                $('#txtXyear2').val(t_year);
 	                
 	                t_date = new Date();
+	                t_date.setMonth(t_date.getMonth() - 1);
 	                t_date.setDate(35);
 	                t_date.setDate(0);
 	                t_year = t_date.getUTCFullYear()-1911;
@@ -149,6 +151,15 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                
+	                
+	                var t_where = r_accy+ ';' + $('#txtDate1').val() + ';' + $('#txtDate2').val() + ';' + '#non' + 
+	                ';' + '#non' + ';' + '#non'+ ';' + '#non'+ ';'+ '#non'+ 
+	                ';' + '#non'+ ';' + '#non'+ ';' + '#non'+ ';' + '#non'+ ';' + '統計' ;
+						
+					var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",bdate=" + $('#txtDate1').val() + ",edate=" + $('#txtDate2').val() + ",r_cno=" + r_cno;
+				    q_gtx('z_anadc4', t_where + ";;" + t_para + ";;z_anadc;;" + q_getMsg('qTitle'));
 
 			}
 

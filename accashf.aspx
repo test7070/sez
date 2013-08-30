@@ -55,29 +55,38 @@
             //gno  對應XLS
             var list = new Array(); 
             list.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
-            list.push({gindex:"01",groupno:"A",gtitle:"本期淨利",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"合併總(損)益",gno:"3"});
+            
             list.push({gindex:"00",groupno:"A",gtitle:"調整項目：",gno:"2"});
             list.push({gindex:"01",groupno:"A",gtitle:"折舊費用",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"出售設備損失",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"應收帳款",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"應收利息",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"存貨",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"預付費用",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"應付帳款",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"應付薪資",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"應付費用",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"應付利息",gno:"3"});
-            list.push({gindex:"01",groupno:"A",gtitle:"應付所得稅",gno:"3"});
-            list.push({gindex:"02",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"4"});
+            list.push({gindex:"01",groupno:"A",gtitle:"攤銷費用",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"其他調整項目",gno:"3"});
+            
+            list.push({gindex:"00",groupno:"A",gtitle:"營業資產及負債之淨變動：",gno:"2"});  
+            list.push({gindex:"01",groupno:"A",gtitle:"應收票據(增加)減少",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"應收帳款(增加)減少",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"存貨(增加)減少",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"預付款項(增加)減少",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"應付票據增加(減少)",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"應付帳款增加(減少)",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"應付費用增加(減少)",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"預收款項增加(減少)",gno:"3"});
+            list.push({gindex:"02",groupno:"A",gtitle:"營業活動之淨現金流入(流出)",gno:"4"});
             
             list.push({gindex:"00",groupno:"B",gtitle:"投資活動之現金流量：",gno:"1"});
-            list.push({gindex:"01",groupno:"B",gtitle:"出售設備",gno:"3"});
-            list.push({gindex:"02",groupno:"B",gtitle:"投資活動之淨現金流入",gno:"4"});
+            list.push({gindex:"01",groupno:"B",gtitle:"購置固定資產",gno:"3"});
+            list.push({gindex:"01",groupno:"B",gtitle:"處分固定資產價款",gno:"3"});
+            list.push({gindex:"01",groupno:"B",gtitle:"存出保證金增減",gno:"3"});
+            list.push({gindex:"02",groupno:"B",gtitle:"投資活動之淨現金流入(流出)",gno:"4"});
             
             list.push({gindex:"00",groupno:"C",gtitle:"融資活動之現金流量：",gno:"1"});
+            list.push({gindex:"01",groupno:"C",gtitle:"短期借款增減",gno:"3"});
             list.push({gindex:"01",groupno:"C",gtitle:"發行公司債",gno:"3"});
-            list.push({gindex:"01",groupno:"C",gtitle:"購買庫藏股",gno:"3"});
-            list.push({gindex:"02",groupno:"C",gtitle:"融資活動之淨現金流入",gno:"4"});
+            list.push({gindex:"01",groupno:"C",gtitle:"償還公司債",gno:"3"});
+            list.push({gindex:"01",groupno:"C",gtitle:"舉借長期借款",gno:"3"});
+            list.push({gindex:"01",groupno:"C",gtitle:"償還長期借款",gno:"3"});
+            list.push({gindex:"01",groupno:"C",gtitle:"其他融資活動",gno:"3"});
+            list.push({gindex:"02",groupno:"C",gtitle:"融資活動之淨現金流入(流出)",gno:"4"});
             
             list.push({gindex:"97",groupno:"",gtitle:"本期現金增加數",gno:"5"});
             list.push({gindex:"98",groupno:"",gtitle:"期初現金餘額",gno:"6"});
@@ -523,7 +532,8 @@
             }
 
             function btnPrint() {
-                q_box("z_accashf.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, 'accashf', "95%", "95%", m_print);
+                q_box("z_accc3.aspx?;;;;"+r_accy, 'z_accc3', "95%", "95%", q_getMsg("popAccc3"));
+                //q_box("z_accashf.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, 'accashf', "95%", "95%", m_print);
             }
 
             function wrServer(key_value) {
@@ -818,7 +828,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:200px;"><a id='lblGtitle_s'> </a></td>
+					<td align="center" style="width:250px;"><a id='lblGtitle_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMoney1_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMoney2_s'> </a></td>
 				</tr>
@@ -842,7 +852,7 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" >
+		<div id="dbbt" style="display:none;" >
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
@@ -872,7 +882,9 @@
 							<input type="text" id="txtGroupno..*" style="display: none;" />
 							<input id="txtGtitle..*"  type="text" style="width:95%;"/>
 						</td>
-						<td align="center"><input id="chkIsall..*" type="checkbox"/></td>
+						<td align="center">
+							<!--<input id="chkIsall..*" type="checkbox"/>-->
+							</td>
 						<td><input id="txtMoney1..*" type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMoney2..*" type="text" style="width:95%; text-align: right;"/></td>
 					</tr>
