@@ -89,8 +89,14 @@
                         type : '8',
                         name : 'xpart',
                         value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
+                    }, {/*9 [15]*/
+                        type : '6',
+                        name : 'wyear'
                     }]
                 });
+                $('#txtWyear').mask('999');
+                $('#txtWyear').val(r_accy);
+                
                 $('#txtWmon').mask('999/99');
                 $('#txtXmon').mask('999/99');
                 $('#txtYmon').mask('999/99');
