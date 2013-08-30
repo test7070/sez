@@ -17,7 +17,7 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "vcce";
-		var q_readonly = ['txtNoa','cmbStype'];
+		var q_readonly = ['txtNoa','cmbStype','txtWorker','txtWorker2','txtComp', 'txtAcomp','txtSales'];
 		var q_readonlys = [];
 		var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 10, 2, 1]];  
 		var bbsNum = [['txtMount', 10, 0, 1],['txtEcount', 10, 0, 1],['txtAdjcount', 10, 0, 1]];
@@ -26,7 +26,7 @@
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array(
 		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx']
-		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,addr2,salesno,sales,cno,acomp', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp', '']
+		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,addr2,salesno,sales,cno,acomp,paytype', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp,txtPaytype', '']
 		,['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']
 		,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 		,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
@@ -56,6 +56,7 @@
 			q_mask(bbmMask);
 			q_cmbParse("cmbTrantype", q_getPara('vcce.trantype'));
 			q_cmbParse("cmbStype", q_getPara('orde.stype'));
+			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 			
 			$('#btnVcct').click(function(){
 				var t_noa = $('#txtNoa').val();
@@ -143,13 +144,19 @@
 				case 'ordei':
             		var as = _q_appendData("ordei", "", true);
             		var t_lcno='';
-            		var t_memo='';
+            		var t_imemo='';
+            		var t_pmemo='';
+            		var t_conn='';
             		if(as[0]!=undefined){
             			t_lcno=as[0].lcno;
-            			t_memo='INVOICE 備註:'+as[0].invoicememo+'\nPACKING LIST備註:'+as[0].packinglistmemo;
+            			t_imemo=as[0].invoicememo;
+            			t_pmemo=as[0].packinglistmemo;
+            			t_conn=as[0].conn;
             		}
             		$('#txtLcno').val(t_lcno);
-            		$('#txtMemo').val(t_memo);
+            		$('#txtImemo').val(t_imemo);
+            		$('#txtPmemo').val(t_pmemo);
+            		$('#txtConn').val(t_conn);
             		break;
 				case 'orde':
 					var orde=_q_appendData("orde", "", true);
@@ -181,7 +188,10 @@
 				return;
 			}
 
-			$('#txtWorker').val(r_name)
+			if(q_cur==1)
+				$('#txtWorker').val(r_name);
+			else
+				$('#txtWorker2').val(r_name);
 			sum();
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -197,6 +207,15 @@
 
 			q_box('vcce_s.aspx', q_name + '_s', "500px", "360px", q_getMsg("popSeek"));
 		}
+		
+		function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            var cmb = document.getElementById("combPaytype")
+            if (!q_cur) 
+                cmb.value = '';
+            else
+                $('#txtPaytype').val(cmb.value);
+            cmb.value = '';
+        }
 
 		function combPay_chg() {   
 		}
@@ -569,16 +588,16 @@
 		<tr class="tr4">
 			<td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
 			<td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
-			<td class='td1'> </td>
-			<td class='td1'> </td>
-			<td class="td6"><input id="btnPack" type="button"/> </td>
+			<td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+            <td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td> 
+            <td class="td6"><select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' ></select></td> 
 		</tr>
 		<tr class="tr5">
 			<td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
 			<td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
-			<td class='td6'><span> </span><a id="lblSales" class="lbl btn"> </a> </td>
-			<td class='td7'><input id="txtSalesno"  type="text" class="txt c1"/> </td>
-			<td class='td8'><input id="txtSales"  type="text" class="txt c1"/> </td>
+			<td class='td6'><span> </span><a id="lblConn" class="lbl"> </a> </td>
+			<td class='td7'><input id="txtConn"  type="text" class="txt c1"/> </td>
+			<td class="td6"><input id="btnPack" type="button"/> </td>
 		</tr>   
 		<tr class="tr6">
 			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
@@ -591,9 +610,26 @@
 			<td class="td9"><input id="txtTotal"  type="text" class="txt c1 num"/></td>
 		</tr> 
 		<tr class="tr7">
+			<td class="td1"><span> </span><a id="lblImemo" class="lbl"> </a></td>
+			<td class="td2" colspan="8"><textarea id="txtImemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
+		</tr>	
+		<tr class="tr7">
+			<td class="td1"><span> </span><a id="lblPmemo" class="lbl"> </a></td>
+			<td class="td2" colspan="8"><textarea id="txtPmemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
+		</tr>	
+		<tr class="tr7">
 			<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 			<td class="td2" colspan="8"><textarea id="txtMemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
-		</tr>						  
+		</tr>			
+		<tr class="tr7">
+			<td class='td1'><span> </span><a id="lblSales" class="lbl btn"> </a> </td>
+			<td class='td2'><input id="txtSalesno"  type="text" class="txt c1"/> </td>
+			<td class='td3' colspan="2"><input id="txtSales"  type="text" class="txt c1"/> </td>
+			<td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
+            <td class="td6"><input id="txtWorker" type="text" class="txt c1" /></td>
+            <td class="td7"><span> </span><a id='lblWorker2' class="lbl"></a></td>
+            <td class="td8"><input id="txtWorker2" type="text" class="txt c1" /></td> 
+		</tr>				  
 		</table>
 		</div>
 		<div class='dbbs' > 
@@ -606,6 +642,7 @@
 				<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
 				<td align="center" style="width:15%;"><a id='lblSpec_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
+				<td align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
 				<td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblEcount_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblAdjcount_s'> </a></td>
@@ -622,6 +659,7 @@
 				<td ><input class="txt c1" id="txtUnit.*" type="text" /></td>
 				<td ><input class="txt c1" id="txtSpec.*" type="text" /></td>
 				<td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
+				<td ><input class="txt num c1" id="txtWeight.*" type="text"/></td>
 				<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
 				<td ><input class="txt num c1" id="txtEcount.*" type="text" /></td>
 				<td ><input class="txt num c1" id="txtAdjcount.*" type="text" /></td>
