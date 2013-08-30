@@ -26,7 +26,8 @@
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate', '999/99/99']);
             var bbmNum = new Array();
-            var bbmMask = new Array(['txtDatea', '999/99/99'], ['txtDldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtNodate', '999/99/99'], ['txtMadate', '999/99/99'], ['txtRedate', '999/99/99'], ['txtStrdate', '999/99/99']);
+            var bbmMask = new Array(['txtDatea', '999/99/99'], ['txtDldate', '999/99/99'], ['txtCldate', '999/99/99'], 
+            		['txtNodate', '999/99/99'], ['txtMadate', '999/99/99'], ['txtRedate', '999/99/99'], ['txtStrdate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -55,9 +56,8 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             function main() {
                 if (dataErr) {
@@ -277,6 +277,9 @@
                 });
                 $('#btnAddr').click(function(e){
                 	$('#divAddr').toggle();
+                });
+                $('#btnOrdet_Close').click(function(){
+                	$('#divTranordet').toggle();
                 });
                 $("#textAddrno1").focus(function() {
 					var input = document.getElementById ("textAddrno1");
@@ -800,6 +803,9 @@
             .font1 {
                 font-family: "細明體", Arial, sans-serif;
             }
+            #tableTranordet tr td input[type="text"]{
+            	width:80px;
+            }
 		</style>
 	</head>
 	<body 
@@ -848,6 +854,72 @@
 				</tr>
 				<tr>
 					<td colspan="4" align="center" style="width:100%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="button" id="btnDivaddr" value="關閉"/>	</td>
+				</tr>
+			</table>
+		</div>
+		<div id="divTranordet" style="display:none;z-index: 50;position:absolute;top:100px;left:600px;background:RGB(237,237,237);"> 
+			<table id="tableTranordet" style="border:4px solid gray; width:300px;; height: 100%;">
+				<tr>
+					<td colspan="4" align="center" style="width:100%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="button" id="btnOrdet_Top" value="第一頁"/>
+						<input type="button" id="btnOrdet_Prev" value="上一頁"/>
+						<input type="button" id="btnOrdet_Next" value="下一頁"/>
+						<input type="button" id="btnOrdet_Bott" value="最末頁"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center" style="width:100%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="button" id="btnOrdet_Ok" value="存檔"/>
+						<input type="button" id="btnOrdet_Close" value="關閉"/>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"> </td>
+					<td style="width:35%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>日期</a></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>碼頭重</a></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>車次</a></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;">
+						<input class="btn"  id="btnOrdetMinus_1" type="button" value='-' style=" font-weight: bold;" />
+					</td>
+					<td style="width:35%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+						<input type="text" id="textOrdet_Datea_1"/>
+					</td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Weight2_1"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Trannumber_1"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;">
+						<input class="btn"  id="btnOrdetMinus_2" type="button" value='-' style=" font-weight: bold;" />
+					</td>
+					<td style="width:35%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Datea_2"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Weight2_2"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Trannumber_2"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;">
+						<input class="btn"  id="btnOrdetMinus_3" type="button" value='-' style=" font-weight: bold;" />
+					</td>
+					<td style="width:35%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Datea_3"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Weight2_3"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Trannumber_3"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;">
+						<input class="btn"  id="btnOrdetMinus_4" type="button" value='-' style=" font-weight: bold;" />
+					</td>
+					<td style="width:35%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Datea_4"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Weight2_4"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Trannumber_4"/></td>
+				</tr>
+				<tr>
+					<td style="width:5%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: black;">
+						<input class="btn"  id="btnOrdetMinus_5" type="button" value='-' style=" font-weight: bold;" />
+					</td>
+					<td style="width:35%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Datea_5"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Weight2_5"/></td>
+					<td style="width:30%; padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;"><input type="text" id="textOrdet_Trannumber_5"/></td>
 				</tr>
 			</table>
 		</div>
