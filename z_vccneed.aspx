@@ -34,6 +34,9 @@
                         type : '6',
                         name : 'xnoa'
                     }, {
+                        type : '6',
+                        name : 'xno2'
+                    }, {
                         type : '1',
                         name : 'xdate'
                     },{
@@ -49,6 +52,11 @@
                 $('#txtXdate1').datepicker();
                 $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate2').datepicker();
+                
+                if(q_getHref()[1]!=undefined)
+                	$('#txtXnoa').val(q_getHref()[1]);
+                if(q_getHref()[3]!=undefined)
+                	$('#txtXno2').val(q_getHref()[3]);
             }
 
             function q_boxClose(s2) {

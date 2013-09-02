@@ -11,7 +11,7 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     
-    var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,comp", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'ordes_load'; t_postname = q_name; brwCount2 = 10;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -67,13 +67,14 @@
 					<input type="checkbox" id="checkAllCheckbox"/>
 				</td>
                 <td align="center"><a id='lblProductno'></a>/<a id='lblProduct'></a></td>
-                <td align="center"><a id='lblSpec'></a></td>
+                <!--<td align="center"><a id='lblSpec'></a></td>-->
                 <td align="center"><a id='lblUnit'></a></td>
                 <td align="center"><a id='lblMount'></a></td>
                 <td align="center"><a id='lblWeight'></a></td>
                 <td align="center"><a id='lblPrice'></a></td>
                 <td align="center"><a id='lblNotv'></a></td>
                 <td align="center"><a id='lblNoa'></a></td>
+                <td align="center"><a id='lblCust'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -82,16 +83,17 @@
                 	<input class="txt"  id="txtProductno.*" type="text" style="width:98%;" />
                 	<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
                 </td>
-                <td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
+                <!--<td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
                                     <input class="txt" id="txtDime.*" type="text"  style="width:25%;text-align:right;" />x
                                     <input class="txt" id="txtWidth.*" type="text"  style="width:25%;text-align:right;" />x
-                                    <input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" /></td>
+                                    <input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" /></td>-->
                 <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:11%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"/><input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /><input id="txtTotal.*" type="hidden" /></td>
             </tr>
         </table>

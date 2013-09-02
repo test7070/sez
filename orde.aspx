@@ -654,8 +654,10 @@
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id="lblApv" class="lbl"></a></td>
 						<td class="td2" colspan="2"><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
+						<td> </td>
 						<td class="td3"><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td class="td4" colspan="2"><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td> </td> 
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"></a></td>
 						<td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td> 
 					</tr>

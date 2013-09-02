@@ -106,9 +106,12 @@
 					sum();
 				});	
 				$('#btnVcc').click(function(e){
-					if(trim($('#txtCustno').val()).toUpperCase() == 'H249')
+					if(trim($('#txtCustno').val()).toUpperCase() == 'H249'){
+						alert('銷貨客戶 H249 不產生請款單。');
 						return;
+					}
 					else{
+						Lock(1,{opacity:0});
 						$('#btnVcc').val('請稍後。').attr('disabled','disabled');
 						q_func('vcca.genvcc',$('#txtNoa').val());
 					}
@@ -171,6 +174,7 @@
                     	}
 						$('#btnVcc').val(q_getMsg('btnVcc'));
 						$('#btnVcc').removeAttr('disabled');
+						Unlock(1);
                         break;
                 }
             }
