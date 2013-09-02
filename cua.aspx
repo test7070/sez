@@ -22,7 +22,7 @@
             var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1],['txtWmount', 15, 2, 1]];
+            var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1],['txtWmount', 15, 2, 1],['txtSalemount', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd],['txtEdate',r_picd]];
             q_sqlCount = 6;
@@ -66,11 +66,17 @@
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnCuap').click(function(){
-                	q_box('z_cuap.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                	q_box('z_cuap.aspx'+ "?;;;;"+r_accy+";", 'ordb', "95%", "95%", q_getMsg("popPrint"));
                 });
                 $('#btnWorkPrint').click(function(){
                 	q_box('z_workp.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
                 });
+                
+                $('#lblOrdbno').click(function(){
+                	t_where = " charindex(noa,'"+$('#txtOrdbno').val()+"')>0";
+                    q_box("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popOrdb'));
+                });
+                
             }
 
             function q_boxClose(s2) {
@@ -100,6 +106,10 @@
 	                        }  /// for i
 	                        UcaCatch(0,ret);
 	                    }
+						break;
+					case 'ordb':
+						t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";           	
+	            		q_gt('cua', t_where , 0, 0, 0, "cua_ordb", r_accy);
 						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
@@ -181,6 +191,13 @@
 							public_stationInfo = as;
 		                }
 	                	break;
+	                case 'cua_ordb':
+						var as = _q_appendData("cua", "", true);
+						if(as[0]!=undefined){
+							abbm[q_recno].ordbno=as[0].ordbno;
+							$('#txtOrdbno').val(as[0].ordbno);
+		                }
+	                	break;	
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -457,7 +474,7 @@
 					<tr>
 						<td><span> </span><a id='lblEnddatea' class="lbl"> </a></td>
 						<td><input id="txtEnddatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblOrdbno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblOrdbno' class="lbl btn"> </a></td>
 						<td><input id="txtOrdbno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -500,6 +517,7 @@
 					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblSalemount_s'></a></td>
 					<td align="center" style="width:6%;"><a id='lblIndate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblWmount_s'></a></td>
 					<td colspan="2" align="center" style="width:12%;"><a id='lblStationno_s'></a></td>
@@ -526,6 +544,7 @@
 					<td><input id="txtOrdemount.*" type="text" class="txt num c2"/></td>
 					<td><input id="txtCuamount.*" type="text" class="txt num c2"/></td>
 					<td><input id="txtInmount.*" type="text" class="txt num c2"/></td>
+					<td><input id="txtSalemount.*" type="text" class="txt num c2"/></td>
 					<td><input id="txtIndate.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtWmount.*" type="text" class="txt num c2"/></td>
 					<td colspan="2">

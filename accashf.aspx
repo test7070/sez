@@ -117,6 +117,11 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
+                
+                $('#btnImport').click(function(e){
+                	//if(q_cur==1 || q_cur==2)
+                		q_gt('tables', "where=^^ TABLE_NAME like 'acccs[0-9][0-9][0-9]_[0-9]'^^", 0, 0, 0, "");
+                });
             }
             function btnLoad_click(){
             	Lock();
@@ -149,6 +154,10 @@
 			}
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'tables':
+                		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
+                		
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -817,6 +826,10 @@
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td><input id="btnImport" type="button"  class="txt c1" value="匯入"/></td>
 					</tr>
 				</table>
 			</div>

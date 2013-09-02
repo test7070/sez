@@ -250,6 +250,15 @@
                 $('#txtPrice_' + j).focusout(function () { sum(); });
                 $('#txtMount_' + j).focusout(function () { sum(); });
                 $('#txtTotal_' + j).focusout(function () { sum(); });
+                
+                
+                $('#btnBorn_' + j).click(function () {
+                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+                     t_where = "noa='"+$('#txtNoa').val()+"' && no2='"+$('#txtNo2_'+b_seq).val()+"'";
+                    q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+                 });
 
             } //j
         }
@@ -689,6 +698,7 @@
                 <td align="center"><a id='lblMemos'> </a></td>
                 <td align="center"><a id='lblDateas'> </a></td>
                 <td align="center"><a id='lblEndas'> </a></td>
+                 <td align="center"><a id='lblBorn'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;">
@@ -733,6 +743,9 @@
                 </td>
                 <td style="width:3%;" align="center">
 	                <input id="chkEnda.*" type="checkbox"/>
+                </td>
+                 <td style="width:3%;" align="center">
+	                <input class="btn"  id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />
                 </td>
             </tr>
 
