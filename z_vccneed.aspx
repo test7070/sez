@@ -34,6 +34,9 @@
                         type : '6',
                         name : 'xnoa'
                     }, {
+                        type : '6',
+                        name : 'xno2'
+                    }, {
                         type : '1',
                         name : 'xdate'
                     },{

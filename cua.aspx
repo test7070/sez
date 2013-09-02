@@ -229,9 +229,16 @@
                     return;
            }
             function bbsAssign() {
-                for (var j = 0; j < q_bbsCount; j++) {
-                }
                 _bbsAssign();
+                for (var j = 0; j < q_bbsCount; j++) {
+                	$('#btnBorn_' + j).click(function () {
+	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+	                     t_where = "noa='"+$('#txtOrdeno_'+b_seq).val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
+	                    q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+	                 });
+                }
             }
 
             function btnIns() {
@@ -422,7 +429,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1500px;
+                width: 1700px;
             }
             .tbbs a {
                 font-size: medium;
@@ -518,12 +525,13 @@
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblSalemount_s'></a></td>
-					<td align="center" style="width:6%;"><a id='lblIndate_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblIndate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblWmount_s'></a></td>
-					<td colspan="2" align="center" style="width:12%;"><a id='lblStationno_s'></a></td>
-					<td align="center" style="width:6%;"><a id='lblUindate_s'></a></td>
+					<td colspan="2" align="center" style="width:10.5%;"><a id='lblStationno_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblEdate_s'></a></td>
-					<td align="center" style="width:6%;"><a id='lblTotalhours_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblTotalhours_s'></a></td>
+					<td align="center" style="width:6%;"><a id='lblBorn'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -556,6 +564,7 @@
 					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtEdate.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtTotalhours.*" type="text" class="txt num c1" style="width: 95%;"/></td>
+					<td align="center"><input class="btn"  id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" /></td>
 				</tr>
 			</table>
 		</div>
