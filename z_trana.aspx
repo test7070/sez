@@ -251,8 +251,8 @@
                 t_date2 = new Date(t_date.getTime()- 60*60*1000*(t_day+1)*24);
                 $('#txtTrandate1').val((t_date1.getFullYear()-1911)+'/'+((t_date1.getMonth()+1)<10?'0':'')+(t_date1.getMonth()+1)+'/'+(t_date1.getDate()<10?'0':'')+t_date1.getDate());
                 $('#txtTrandate2').val((t_date2.getFullYear()-1911)+'/'+((t_date2.getMonth()+1)<10?'0':'')+(t_date2.getMonth()+1)+'/'+(t_date2.getDate()<10?'0':'')+t_date2.getDate());
-                //預設 客戶分析表
-                $('#q_report').find('span.radio').eq(3).parent().click();
+                //預設 車隊分析表
+                $('#q_report').find('span.radio').eq(4).parent().click();
                 $('#q_report').data('info').execute($('#q_report'));
                 q_popAssign();
                 q_langShow();
