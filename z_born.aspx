@@ -38,6 +38,11 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
+                if(q_getHref()[1]!=undefined)
+                	$('#txtXnoa').val(q_getHref()[1]);
+                if(q_getHref()[3]!=undefined)
+                	$('#txtXnoq').val(q_getHref()[3]);
             }
 
             function q_boxClose(s2) {

@@ -256,7 +256,7 @@
                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
-                     t_where = "noa='"+$('#txtNoa').val()+"' && no2='"+$('#txtNo2_'+b_seq).val()+"'";
+                     t_where = "noa='"+$('#txtNoa').val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
                     q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
                  });
 
