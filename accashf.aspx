@@ -55,7 +55,7 @@
             //gno  對應XLS
             var list = new Array(); 
             list.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
-            list.push({gindex:"01",groupno:"A",gtitle:"合併總(損)益",gno:"3"});
+            list.push({gindex:"01",groupno:"A",gtitle:"本期損益",gno:"3"});
             
             list.push({gindex:"00",groupno:"A",gtitle:"調整項目：",gno:"2"});
             list.push({gindex:"01",groupno:"A",gtitle:"折舊費用",gno:"3"});
@@ -106,6 +106,7 @@
             list2.push({gindex:"98",groupno:"",gtitle:"期初現金餘額",gno:"6"});
             list2.push({gindex:"99",groupno:"",gtitle:"期末現金餘額",gno:"7"});
             
+            var t_data1 = new Array(),t_data2 = new Array();
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -119,8 +120,12 @@
                 q_mask(bbmMask);
                 
                 $('#btnImport').click(function(e){
-                	//if(q_cur==1 || q_cur==2)
-                		q_gt('tables', "where=^^ TABLE_NAME like 'acccs[0-9][0-9][0-9]_[0-9]'^^", 0, 0, 0, "");
+                	if($.trim($('#txtAccy').val()).length>0){
+                		Lock(1,{opacity:0});
+                		q_gt('tables', "where=^^ TABLE_NAME='acccs"+$.trim($('#txtAccy').val())+"_1'^^", 0, 0, 0, "checktable_"+$.trim($('#txtAccy').val()));
+                	}else{
+                		alert('請輸入年度‧');
+                	}
                 });
             }
             function btnLoad_click(){
@@ -153,17 +158,37 @@
 				}
 			}
             function q_gtPost(t_name) {
-                switch (t_name) {
-                	case 'tables':
-                		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
-                		
-                		break;
+                switch (t_name) {   
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                     default:
-                    	if(t_name.substring(0,10)=='acccs_sum_'){
+                    	if(t_name.substring(0,11)=='checktable_'){
+                    		var n = parseInt(t_name.split('_')[1]);
+                    		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
+	                		if(as[0]!=undefined){
+	                			q_gt('accashf_import', '', 0, 0, 0, "accashf_import_"+n, n+"_1");
+	                		
+	                		}else{
+	                			//alert('無資料。');
+	           					btnImport();
+	                		}
+                    	}else if(t_name.substring(0,15)=='accashf_import_'){
+                    		var n = parseInt(t_name.split('_')[2]);
+                    		var as = _q_appendData("acccs", "", true);
+	                		if(as[0]!=undefined){
+	                			if(n+""==$.trim($('#txtAccy').val()))
+	                				t_data1 = as;
+	                			else
+	                				t_data2 = as;
+	                		}		
+	                		if(n+""==$.trim($('#txtAccy').val())){
+	                			q_gt('tables', "where=^^ TABLE_NAME='acccs"+(n-1)+"_1'^^", 0, 0, 0, "checktable_"+(n-1));
+	                		}else{
+	                			btnImport();
+	                		}
+                    	}else if(t_name.substring(0,10)=='acccs_sum_'){
                     		var n = parseFloat(t_name.split('_')[2]);
                     		var t_acc1 = t_name.split('_')[3];
                     		var as = _q_appendData("acccs", "", true);
@@ -180,7 +205,142 @@
                     	break;
                 }
             }
-
+			function btnImport(){
+				for(var i=0;i<q_bbsCount;i++){
+					t_txt = $.trim($('#txtGtitle_'+i).val());
+					if(t_txt.substring(0,4)=='本期損益'){
+						//本期損益   4-5-6+7-8-9
+						t_money=0;
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1.substring(0,1)=='4' || t_data1[j].acc1.substring(0,1)=='7'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+							}else if(t_data1[j].acc1.substring(0,1)=='5' 
+								|| t_data1[j].acc1.substring(0,1)=='6'
+								|| t_data1[j].acc1.substring(0,1)=='8'
+								|| t_data1[j].acc1.substring(0,1)=='9'){
+									t_money -= parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,4)=='應收票據'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1=='1121'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+								break;
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1=='1121'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+								break;
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,4)=='應收帳款'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1=='1123'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+								break;
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1=='1123'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+								break;
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,2)=='存貨'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1.substring(0,3)=='113'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1.substring(0,3)=='113'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,4)=='預付款項'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1.substring(0,3)=='114'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1.substring(0,3)=='114'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,4)=='應付票據'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1=='2121'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+								break;
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1=='2121'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+								break;
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,4)=='應付帳款'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1=='2123'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+								break;
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1=='2123'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+								break;
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,4)=='應付費用'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1=='2122'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+								break;
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1=='2122'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+								break;
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}else if(t_txt.substring(0,4)=='預收款項'){
+						t_money = 0
+						for(var j=0;j<t_data1.length;j++){
+							if(t_data1[j].acc1.substring(0,3)=='213'){
+								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+							}
+						}
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1.substring(0,3)=='213'){
+								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+							}
+						}
+						$('#txtMoney1_'+i).val(FormatNumber(t_money));
+					}
+    			}
+    			sum();
+        		Unlock(1);
+			}
             function btnOk() {
             	Lock();
             	for (var i = 0; i < q_bbsCount; i++) {
@@ -572,10 +732,16 @@
                 _refresh(recno);
                 refreshBbs();
                 refreshBbt();
+                
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur=='1' || q_cur=='2'){
+                	$('#btnImport').removeAttr('disabled');
+                }else{
+                	$('#btnImport').attr('disabled','disabled');
+                }
             }
 
             function btnMinus(id) {
