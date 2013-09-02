@@ -640,7 +640,7 @@
 				<td align="center" style="width:4%;"><a id='lblNo2_s'> </a></td>
 				<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
 				<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-				<td align="center" style="width:15%;"><a id='lblSpec_s'> </a></td>
+				<!--<td align="center" style="width:15%;"><a id='lblSpec_s'> </a></td>-->
 				<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
 				<td align="center" style="width:3%;"><a id='lblEnds_s'> </a></td>
@@ -657,7 +657,7 @@
 					 <input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
 				</td>
 				<td ><input class="txt c1" id="txtUnit.*" type="text" /></td>
-				<td ><input class="txt c1" id="txtSpec.*" type="text" /></td>
+				<!--<td ><input class="txt c1" id="txtSpec.*" type="text" /></td>-->
 				<td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
 				<td ><input class="txt num c1" id="txtWeight.*" type="text"/></td>
 				<td align="center"><input id="chkEnda.*" type="checkbox"/></td>

@@ -43,7 +43,7 @@
 			bbmKey = ['noa'];
 			bbsKey = ['noa', 'noq'];
 			q_brwCount();  // 計算 合適  brwCount 
-			 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
 
 		});
 
@@ -95,7 +95,7 @@
 					//var t_where = "enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount>a.inmount)";
 					var t_where = "enda!=1 and (tggno is null or tggno='')";
 				}
-                q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+                q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
 			
 			$('#txtWorkno').change(function(){
@@ -103,10 +103,18 @@
 				q_gt('works', t_where , 0, 0, 0, "", r_accy);
 			});
 			$('#lblWorkno').click(function(){
-				var t_where="enda!=1 "
+				var t_where="enda!=1 ";
 				t_where += emp($('#txtWorkno').val())?'':"and charindex ('"+$('#txtWorkno').val()+"',noa)>0 ";
 				q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
+		}
+		
+		function getInStr(HasNoaArray){
+			var NewArray = new Array();
+			for(var i=0;i<HasNoaArray.length;i++){
+				NewArray.push("'"+HasNoaArray[i].noa+ "'");
+			}
+			return NewArray.toString();
 		}
 
 		function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -151,8 +159,7 @@
                 		$('#txtModel').val(b_ret[0].model);
                 		//$('#txtOrdeno').val(b_ret[0].ordeno);
                 		//$('#txtNo2').val(b_ret[0].no2);
-						
-						var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
+						var t_where = "where=^^ noa in("+getInStr(b_ret)+")^^";
 						q_gt('work', t_where , 0, 0, 0, "", r_accy);
                 		//var t_where = "where=^^ noa ='"+$('#txtWorkno').val()+"' ^^";
 						//q_gt('works', t_where , 0, 0, 0, "", r_accy);
@@ -166,8 +173,8 @@
 						var i, j = 0;
 						for (i = 0; i < b_ret.length; i++) {
 							if(b_ret[i].istd=='true'){
-								b_ret[i].productno=b_ret[i].tproductno
-								b_ret[i].product=b_ret[i].tproduct
+								b_ret[i].productno=b_ret[i].tproductno;
+								b_ret[i].product=b_ret[i].tproduct;
 							}
 							
 							if(b_ret[i].unit.toUpperCase()=='KG'){
