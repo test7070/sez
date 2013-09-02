@@ -199,8 +199,7 @@
 						value : q_getMsg('toption08').split('&')
 					}]
                 });
-                q_popAssign();
-                q_langShow();
+                
 
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
@@ -236,7 +235,6 @@
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtMon1').val(t_year + '/' + t_month);
 
-
     			t_date = new Date();
                 t_date.setDate(35);
                 t_date.setDate(0);
@@ -246,6 +244,18 @@
                 t_month = t_month>9?t_month+'':'0'+t_month;
                 $('#txtMon2').val(t_year + '/' + t_month);
                 $('#txtXmon').val(t_year+'/'+t_month);
+                
+                t_date = new Date();
+                t_day = t_date.getDay();
+                t_date1 = new Date(t_date.getTime()- 60*60*1000*(t_day+7)*24);
+                t_date2 = new Date(t_date.getTime()- 60*60*1000*(t_day)*24);
+                $('#txtTrandate1').val((t_date1.getFullYear()-1911)+'/'+((t_date1.getMonth()+1)<10?'0':'')+(t_date1.getMonth()+1)+'/'+(t_date1.getDate()<10?'0':'')+t_date1.getDate());
+                $('#txtTrandate2').val((t_date2.getFullYear()-1911)+'/'+((t_date2.getMonth()+1)<10?'0':'')+(t_date2.getMonth()+1)+'/'+(t_date2.getDate()<10?'0':'')+t_date2.getDate());
+                //預設 客戶分析表
+                $('#q_report').find('span.radio').eq(3).parent().click();
+                $('#q_report').data('info').execute($('#q_report'));
+                q_popAssign();
+                q_langShow();
             }
 		</script>
 	</head>
