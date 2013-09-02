@@ -11,7 +11,7 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     
-    var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,comp", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,comp,cuamount", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'ordes_load'; t_postname = q_name; brwCount2 = 10;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -34,6 +34,11 @@
 
     function bbsAssign() { 
         _bbsAssign();
+        for (var j = 0; j < q_bbsCount; j++) {
+        	//排程數量足夠，不再匯入
+        	if(dec($('#txtMount_' + j).val())<=dec($('#txtCuamount_' + j).val()))
+        		$('#chkSel_'+j).attr('disabled','disabled');
+        }
     }
 
     function q_gtPost() {  
@@ -44,7 +49,7 @@
 		$('#checkAllCheckbox').click(function(){
 			$('input[type=checkbox][id^=chkSel]').each(function(){
 				var t_id = $(this).attr('id').split('_')[1];
-				if(!emp($('#txtProductno_' + t_id).val()))
+				if(!emp($('#txtProductno_' + t_id).val()) && dec($('#txtMount_' + t_id).val())>dec($('#txtCuamount_' + t_id).val()))
 					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 			});
 		});
@@ -73,6 +78,7 @@
                 <td align="center"><a id='lblWeight'></a></td>
                 <td align="center"><a id='lblPrice'></a></td>
                 <td align="center"><a id='lblNotv'></a></td>
+                <td align="center"><a id='lblCuamount'></a></td>
                 <td align="center"><a id='lblNoa'></a></td>
                 <td align="center"><a id='lblCust'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
@@ -92,8 +98,9 @@
                 <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtCuamount.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:11%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"/><input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:right;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/></td>
                 <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /><input id="txtTotal.*" type="hidden" /></td>
             </tr>
         </table>

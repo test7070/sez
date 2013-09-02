@@ -19,7 +19,7 @@
 
             q_tables = 's';
             var q_name = "cua";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp','txtProduct'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1],['txtWmount', 15, 2, 1],['txtSalemount', 15, 0, 1]];
@@ -33,6 +33,8 @@
             brwKey = 'Datea';
 			q_desc = 1;
             aPop = new Array(
+            	['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            	['txtProductno', 'lblProduct', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
             	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
             	['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']
            	);
@@ -62,7 +64,12 @@
                     q_func('cua.genWork', r_accy+','+$('#txtNoa').val()+','+r_name);
                 });
                 $('#btnOrdewindow').click(function() {
-                	t_where = '';
+                	t_where='';
+                	if(!emp($('#txtCustno').val()))
+                		t_where = "custno='"+$('#txtCustno').val()+"'";
+                	if(!emp($('#txtProductno').val()))
+                		t_where = (t_where.length>0? ' and ':'')+"productno='"+$('#txtProductno').val()+"'";
+                		
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnCuap').click(function(){
@@ -88,6 +95,13 @@
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
 	                        var i, j = 0;
+	                        //排程數量足夠，不再匯入
+	                        for (i = 0; i < b_ret.length; i++) {
+		                        if(b_ret[i].cuamount>=b_ret[i].mount){
+		                        	b_ret.splice(i, 1);
+									i--;
+		                        }
+	                        }
 	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount,txtEdate,txtOrdeno,txtNo2', b_ret.length, b_ret
 	                                                           , 'productno,product,unit,mount,datea,noa,no2'
 	                                                           , 'txtProductno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
@@ -237,6 +251,24 @@
 	                    b_seq = t_IdSeq;
 	                     t_where = "noa='"+$('#txtOrdeno_'+b_seq).val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
 	                    q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+	                 });
+	                 
+	                 $('#txtDatea_' + j).blur(function () {
+	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+                		t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')]]);
+	                    if(emp($('#txtDatea').val())){
+	                    	alert(t_err);
+	                    	$('#txtDatea_' + b_seq).val('');
+	                    	return
+	                    }
+	                    if(!emp($('#txtDatea_'+b_seq).val())){
+	                    	if($('#txtDatea_'+b_seq).val()>$('#txtDatea').val()){
+	                    		alert('應開工日最晚為排程日期!!');
+	                    		$('#txtDatea_' + b_seq).val($('#txtDatea').val());
+	                    	}
+	                    }
 	                 });
                 }
             }
@@ -483,6 +515,16 @@
 						<td><input id="txtEnddatea" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblOrdbno' class="lbl btn"> </a></td>
 						<td><input id="txtOrdbno" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
+						<td><input id="txtCustno" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
+						<td><input id="txtProductno" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
