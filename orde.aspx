@@ -316,6 +316,7 @@
                 as['datea'] = abbm2['datea'];
 
             as['custno'] = abbm2['custno'];
+            as['comp'] = abbm2['comp'];
 
             if (!as['enda'])
                 as['enda'] = 'N';
