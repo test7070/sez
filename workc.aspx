@@ -42,7 +42,7 @@
             bbsKey = ['noa', 'noq'];
             q_mask(bbmMask);
             q_brwCount();  // 計算 合適  brwCount
-			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
             
         });
 
@@ -100,8 +100,16 @@
 					//var t_where = "enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount<a.inmount)";
 					var t_where = "enda!=1 and tggno!='' ";
 				}
-                q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+                q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
+		}
+
+		function getInStr(HasNoaArray){
+			var NewArray = new Array();
+			for(var i=0;i<HasNoaArray.length;i++){
+				NewArray.push("'"+HasNoaArray[i].noa+ "'");
+			}
+			return NewArray.toString();
 		}
 
         function q_boxClose( s2) {
@@ -138,7 +146,7 @@
                 		$('#txtTggno').val(b_ret[0].tggno);
                 		$('#txtTgg').val(b_ret[0].comp);
 
-                		var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
+                		var t_where = "where=^^ noa in("+getInStr(b_ret)+")^^";
 						q_gt('work', t_where , 0, 0, 0, "", r_accy);
                 	}
                 break;
@@ -214,7 +222,7 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
+            $('#txtWorker').val(r_name);
             sum();
             
 			var t_date = $('#txtDatea').val();
@@ -252,7 +260,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
-			q_box('z_workc.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
+			q_box('z_workcp.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
         }
 
         function wrServer( key_value) {

@@ -108,9 +108,17 @@
 					//var t_where = "enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 					var t_where = "enda!=1 and tggno!=''";
 				}
-                q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+                q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 			});
         }
+
+		function getInStr(HasNoaArray){
+			var NewArray = new Array();
+			for(var i=0;i<HasNoaArray.length;i++){
+				NewArray.push("'"+HasNoaArray[i].noa+ "'");
+			}
+			return NewArray.toString();
+		}
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret; 
@@ -145,7 +153,7 @@
                 		$('#txtTggno').val(b_ret[0].tggno);
                 		$('#txtTgg').val(b_ret[0].comp);
 
-                		var t_where = "where=^^ noa ='"+b_ret[0].noa+"'^^";
+                		var t_where = "where=^^ noa in("+getInStr(b_ret)+")^^";
 						q_gt('work', t_where , 0, 0, 0, "", r_accy);
                 	}
                 break;
