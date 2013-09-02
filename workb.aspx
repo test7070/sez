@@ -625,6 +625,7 @@
 			<td><input id="txtDatea" type="text" class="txt c1"/></td>
 			<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 			<td><input id="txtNoa" type="text" class="txt c1"/></td>
+			<td></td>
 		</tr>
         <tr>
 			<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
@@ -634,8 +635,10 @@
 			</td>
 			<!--<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 			<td><input id="txtWorkno" type="text" class="txt c1"/></td>-->
-			<td><input type="button" id="btnOrdes"></td>
-			<td><input type="button" id="btnWork"></td>
+			<td colspan="2">
+				<input type="button" id="btnWork">
+				<input type="button" id="btnOrdes">
+			</td>
 		</tr>
         <tr>
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
