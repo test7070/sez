@@ -37,7 +37,11 @@
             function q_gfPost() {
                 q_gt('acpart', '', 0, 0, 0, "init1", r_accy+'_'+r_cno);
             }
-
+			function sortNumber(a, b){
+				var n = parseInt(a.substring(0,3))*100+parseInt(a.substring(4,6));
+				var m = parseInt(b.substring(0,3))*100+parseInt(b.substring(4,6));
+				return m-n;
+			}
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'init1':
@@ -46,8 +50,25 @@
                         for ( i = 0; i < as.length; i++) {
                             t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
-                        initfinish();
+                        q_gt('accashf', '', 0, 0, 0, "init2");
                         break;
+                    case 'init2':
+                    	var as = _q_appendData("accashf", "", true);
+                    	tmp = new Array();
+                    	if(as[0]!=undefined){
+	                        for ( i = 0; i < as.length; i++) {
+	                        	if(as[i].mon.length>0 && tmp.indexOf(as[i].mon)<0){
+	                        		tmp.push(as[i].mon);
+	                        	}
+	                        }
+                        }
+                        tmp.sort(sortNumber);
+                        t_data.data['mon_accashf'] = '';
+                        for(var i in tmp){
+                        	t_data.data['mon_accashf'] += (t_data.data['mon_accashf'].length > 0 ? ',' : '') + tmp[i];
+                        }
+                        initfinish();
+                    	break;
                 }
             }
             function initfinish(){
@@ -92,7 +113,11 @@
                     }, {/*9 [15]*/
                         type : '6',
                         name : 'wyear'
-                    }]
+                    }, {/*10-[16]*/
+						type : '5',
+						name : 'mon_accashf',
+						value : t_data.data['mon_accashf'].split(',')
+					}]
                 });
                 $('#txtWyear').mask('999');
                 $('#txtWyear').val(r_accy);
@@ -114,7 +139,6 @@
                 $('#txtYdate2').mask('999/99/99');
                 $('#txtYdate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
-				
 				var t_date = new Date();
 				var t_year = t_date.getFullYear()-1911;
 				var t_month = t_date.getMonth()+1;
