@@ -25,8 +25,8 @@
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array(
-		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx']
-		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,addr2,salesno,sales,cno,acomp,paytype', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp,txtPaytype', '']
+		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,fax,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtFax,txtTrantype,txtAddr_post', 'cust_b.aspx']
+		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,fax,addr2,salesno,sales,cno,acomp,paytype', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtFax,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp,txtPaytype', '']
 		,['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']
 		,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 		,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
@@ -164,6 +164,7 @@
 						$('#txtCustno').val(orde[0].custno);
 						$('#txtComp').val(orde[0].comp);
 						$('#txtTel').val(orde[0].tel);
+						$('#txtFax').val(orde[0].fax);
 						$('#txtTrantype').val(orde[0].trantype);
 						$('#txtAddr_post').val(orde[0].addr2);
 						$('#txtOrdeno').val(orde[0].noa);
@@ -244,7 +245,8 @@
 			$('#txtDatea').focus();
 		}
 		function btnPrint() {
-			q_box('z_vccep.aspx', '', "95%", "650px", q_getMsg("popPrint"))
+			t_where = "noa='"+$('#txtNoa').val()+"'";
+			q_box("z_vccep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
 		}
 
 		function wrServer(key_value) {
@@ -563,8 +565,9 @@
 			<td class='td1'><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 			<td class='td2'><input id="txtCno"  type="text" class="txt c1"/></td>
 			<td class='td3' colspan="3"><input id="txtAcomp"  type="text" class="txt c7"/></td>
-			<td class='td1'><span> </span><a id="lblLcno" class="lbl"> </a></td>
-			<td class="td2" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
+			<td class='td3'><span> </span><a id="lblStype" class="lbl"> </a> </td>
+			<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
+			<td class="td6"><input id="btnVcct" type="button"/> </td>
 		</tr>
 		<tr class="tr2">
 			<td class='td1'><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
@@ -574,23 +577,23 @@
 			<td class="td6"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
 			<td class="td7"><input id="txtCaseno"  type="text" class="txt c1"/> </td>
 			<td class="td8"><input id="txtCaseno2"  type="text" class="txt c1"/> </td>-->
-			<td class='td3'><span> </span><a id="lblStype" class="lbl"> </a> </td>
-			<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
-			<td class="td6"><input id="btnVcct" type="button"/> </td>
+			<td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+            <td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td> 
+            <td class="td6"><select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' ></select></td>
 		</tr>
 		<tr class="tr3">
 			<td class='td1'><span> </span><a id="lblTel" class="lbl"> </a></td>
 			<td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c7"/></td>
-			<td class="td3"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
-			<td class="td4"><select id="cmbTrantype" class="txt c1"> </select></td>
-			<td class="td6"><input id="btnInvoice" type="button"/> </td>
+			<td class='td1'><span> </span><a id="lblFax" class="lbl"> </a></td>
+			<td class="td2" colspan="2"><input id="txtFax"  type="text" class="txt c7"/></td>
 		</tr>
+		
 		<tr class="tr4">
 			<td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
 			<td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
-			<td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
-            <td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td> 
-            <td class="td6"><select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' ></select></td> 
+			<td class="td3"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
+			<td class="td4"><select id="cmbTrantype" class="txt c1"> </select></td>
+			<td class="td6"><input id="btnInvoice" type="button"/> </td>
 		</tr>
 		<tr class="tr5">
 			<td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
@@ -601,9 +604,13 @@
 		</tr>   
 		<tr class="tr6">
 			<td class="td4"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
-			<td class="td5"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
+			<td class="td5" colspan="4"><input id="txtCardeal"  type="text" class="txt c1"/> </td>
+			<td class='td1'><span> </span><a id="lblLcno" class="lbl"> </a></td>
+			<td class="td2" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
+		</tr> 
+		<tr class="tr6">
 			<td class='td6'><span> </span><a id="lblCarno" class="lbl"> </a></td>
-			<td class="td7"><input id="txtCarno"  type="text" class="txt c1"/></td>
+			<td class="td7" colspan="2"><input id="txtCarno"  type="text" class="txt c1"/></td>
 			<td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
 			<td class="td2"><input id="txtWeight"  type="text" class="txt c1 num"/></td>
 			<td class='td8'><span> </span><a id="lblTotal" class="lbl"> </a></td>

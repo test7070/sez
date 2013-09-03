@@ -179,7 +179,7 @@
 			}
 	
 			function btnPrint() {
-	
+				
 			}
 			
 			function bbsSave(as) {
@@ -471,6 +471,10 @@
 					<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
 					<td class="td2" colspan="3"><input id="txtComp"  type="text" class="txt c1" /></td>
 				</tr>  
+				<tr class="tr10">
+					<td class="td1"><span> </span><a id='lblAttn' class="lbl"> </a></td>
+					<td class="td2" colspan="5"><input id="txtAttn"  type="text" class="txt c1" /></td>
+				</tr>
 				<tr class="tr3">
 					<td class="td1"><span> </span><a id='lblAddress' class="lbl"> </a></td>
 					<td class="td2" colspan="3"><input id="txtAddr"  type="text" class="txt c1" /></td>
@@ -526,10 +530,6 @@
 					<td class="td3"><span> </span><a id='lblTotalus' class="lbl"></a></td>
                 	<td class="td4" ><input id="txtTotalus" type="text" class="txt num c1"/></td> 
 				</tr> 
-				<tr class="tr10">
-					<td class="td1"><span> </span><a id='lblTitle' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtTitle"  type="text" class="txt c1" /></td>
-				</tr>
 				<tr class="tr11">
 					<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 					<td class="td2" colspan="5"><textarea id="txtMemo"  style="width:95%; height: 60px;"> </textarea></td>

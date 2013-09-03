@@ -26,7 +26,7 @@
         q_getFormat();
         q_langShow();
 
-        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBhdate', r_picd], ['txtEhdate', r_picd]];
         q_mask(bbmMask);
         $('#txtBdate').focus();
         q_gt('sss', "where=^^noa='" + q_getId()[0] + "'^^", q_sqlCount, 1)
@@ -64,11 +64,16 @@
         t_edate = $('#txtEdate').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
+        
+        t_bhdate = $('#txtBhdate').val();
+        t_ehdate = $('#txtEhdate').val();
+        t_bhdate = t_bhdate.length > 0 && t_bhdate.indexOf("_") > -1 ? t_bhdate.substr(0, t_bhdate.indexOf("_")) : t_bhdate;  /// 100.  .
+        t_ehdate = t_ehdate.length > 0 && t_ehdate.indexOf("_") > -1 ? t_ehdate.substr(0, t_ehdate.indexOf("_")) : t_ehdate;  /// 100.  .
 		
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("datea", t_bdate, t_edate)+ q_sqlPara2("sssno", t_sssno)
-        + q_sqlPara2("namea", t_namea)+ q_sqlPara2("htype", t_htype)+ q_sqlPara2("hname", t_hname);
-        
+        + q_sqlPara2("namea", t_namea)+ q_sqlPara2("htype", t_htype)+ q_sqlPara2("hname", t_hname)
+        + q_sqlPara2("bdate", t_bhdate, t_ehdate)+ q_sqlPara2("bdate", t_bhdate, t_ehdate);
 
         t_where = ' where=^^' + t_where + seekwhere+'^^ ';
         return t_where;
@@ -87,6 +92,12 @@
                 <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
                 <span style="display:inline-block; vertical-align:middle">&sim;</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblHdate'></a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBhdate" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                <input class="txt" id="txtEhdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
        	    <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>

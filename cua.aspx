@@ -88,7 +88,7 @@
                 
                 $('#btnNeed').click(function(){
                 	  t_where = "";
-                    	q_box("z_vccneed.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Need', "95%", "95%", q_getMsg('lblNeed'));
+                      q_box("z_vccneed.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Need', "95%", "95%", q_getMsg('lblNeed'));
                 });
             }
 
