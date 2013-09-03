@@ -420,9 +420,9 @@
                 <td align="center" style="width:9%;"><a id='lblMount_s'> </a></td>
                 <td align="center" style="width:9%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:9%;"><a id='lblTotal_s'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblEweight_s'> </a></td>
+                <!--<td align="center" style="width:8%;"><a id='lblEweight_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblAdjweight_s'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblEweight2_s'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblEweight2_s'> </a></td>-->
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -445,9 +445,9 @@
                 <td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtEweight.*" type="text" /></td>
+                <!--<td ><input class="txt num c1" id="txtEweight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtAdjweight.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtEweight2.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtEweight2.*" type="text" /></td>-->
                 <td ><input class="txt c1" id="txtMemo.*"type="text" /><input id="txtNoq.*" type="hidden" /></td>
                 
             </tr>
