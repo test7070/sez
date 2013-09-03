@@ -68,7 +68,9 @@
                 	if(!emp($('#txtCustno').val()))
                 		t_where = "custno='"+$('#txtCustno').val()+"'";
                 	if(!emp($('#txtProductno').val()))
-                		t_where = (t_where.length>0? ' and ':'')+"productno='"+$('#txtProductno').val()+"'";
+                		t_where += (t_where.length>0? ' and ':'')+"productno='"+$('#txtProductno').val()+"'";
+                	//排程數量足夠 直接不顯示
+                	t_where += (t_where.length>0? ' and ':'')+" (mount>cuamount or cuamount is null) ";
                 		
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
@@ -84,6 +86,10 @@
                     q_box("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popOrdb'));
                 });
                 
+                $('#btnNeed').click(function(){
+                	  t_where = "";
+                    	q_box("z_vccneed.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Need', "95%", "95%", q_getMsg('lblNeed'));
+                });
             }
 
             function q_boxClose(s2) {
@@ -96,12 +102,12 @@
 	                            return;
 	                        var i, j = 0;
 	                        //排程數量足夠，不再匯入
-	                        for (i = 0; i < b_ret.length; i++) {
+	                        /*for (i = 0; i < b_ret.length; i++) {
 		                        if(b_ret[i].cuamount>=b_ret[i].mount){
 		                        	b_ret.splice(i, 1);
 									i--;
 		                        }
-	                        }
+	                        }*/
 	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount,txtEdate,txtOrdeno,txtNo2', b_ret.length, b_ret
 	                                                           , 'productno,product,unit,mount,datea,noa,no2'
 	                                                           , 'txtProductno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
@@ -540,13 +546,13 @@
 					</tr>	
 					<tr>
 						<td></td>
-						<td colspan="4">
+						<td colspan="5">
 							<input id="btnOrdewindow" type="button" />
 							<input id="btnWork" type="button" />
 							<input id="btnCuap" type="button" />
 							<input id="btnWorkPrint" type="button" />
+							<input id="btnNeed" type="button" />
 						</td>
-						<td></td>
 					</tr>	
 				</table>
 			</div>

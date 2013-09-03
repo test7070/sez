@@ -35,9 +35,12 @@
     function bbsAssign() { 
         _bbsAssign();
         for (var j = 0; j < q_bbsCount; j++) {
+        	if(emp($('#txtCuamount_' + j).val()))
+        		$('#txtCuamount_'+j).val(0);
+        	
         	//排程數量足夠，不再匯入
-        	if(dec($('#txtMount_' + j).val())<=dec($('#txtCuamount_' + j).val()))
-        		$('#chkSel_'+j).attr('disabled','disabled');
+        	/*if(dec($('#txtMount_' + j).val())<=dec($('#txtCuamount_' + j).val()))
+        		$('#chkSel_'+j).attr('disabled','disabled');*/
         }
     }
 
@@ -75,8 +78,8 @@
                 <!--<td align="center"><a id='lblSpec'></a></td>-->
                 <td align="center"><a id='lblUnit'></a></td>
                 <td align="center"><a id='lblMount'></a></td>
-                <td align="center"><a id='lblWeight'></a></td>
-                <td align="center"><a id='lblPrice'></a></td>
+                <!--<td align="center"><a id='lblWeight'></a></td>
+                <td align="center"><a id='lblPrice'></a></td>-->
                 <td align="center"><a id='lblNotv'></a></td>
                 <td align="center"><a id='lblCuamount'></a></td>
                 <td align="center"><a id='lblNoa'></a></td>
@@ -95,8 +98,8 @@
                                     <input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" /></td>-->
                 <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
+               <!-- <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
+                <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>-->
                 <td style="width:8%;"><input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtCuamount.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:11%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"/><input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/></td>
