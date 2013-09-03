@@ -164,6 +164,7 @@
 					var t_vcceno= wParent.getElementById("txtNoa").value;
 					var t_ordeno= wParent.getElementById("txtOrdeno").value;
 					$('#txtVcceno').val(t_vcceno);
+					$('#txtOrdeno').val(t_ordeno);
 					
 					t_where="where=^^ noa='"+t_ordeno+"'^^";
                 	q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
