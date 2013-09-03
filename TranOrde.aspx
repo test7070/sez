@@ -84,6 +84,13 @@
 								wrServer(t_noa);
 						}
 						break;
+					case 'qtxt.query.tranordetinsert':
+						var t_noa =trim($('#txtNoa').val()); 
+						if(!emp(t_noa) && t_noa != 'AUTO'){
+							t_where = "where=^^noa='" + t_noa + "'^^";
+							q_gt("tranordet", t_where, 0, 0, 0, 'LoadOrdet', r_accy);
+						};
+						break;
 				}
 			}
 
@@ -151,13 +158,6 @@
 				$('#txtRedate').datepicker();
 				$('#txtStrdate').datepicker();
 				$('#txtDldate').datepicker();
-
-				$('#textOrdet_Datea_1').datepicker();
-				$('#textOrdet_Datea_2').datepicker();
-				$('#textOrdet_Datea_3').datepicker();
-				$('#textOrdet_Datea_4').datepicker();
-				$('#textOrdet_Datea_5').datepicker();
-
 				var m, n;
 				n = 7;
 				//一行可放幾個
@@ -337,6 +337,13 @@
 					var Total_Page = Math.ceil((TranOrdeArray.length/5)-1);
 					LoadTranOrdetTable(Total_Page);
 				});
+				//TranOrdetDiv 跳下一格解決 (若有後續問題 請直接刪除此段) BtnOk MainPost
+				for(var i = 1;i< 6;i++){
+					fbbm.push('textOrdet_Datea_'+i);
+					fbbm.push('textOrdet_Weight2_'+i);
+					fbbm.push('textOrdet_Trannumber_'+i);
+				}
+				//TranOrdetDiv 跳下一格解決 (若有後續問題 請直接刪除此段) BtnOk MainPost
 				$('input[id*="btnOrdetMinus_"]').click(function(){
 					var thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 					var ArryNo = $('#TranOrdet_Idno_'+thisId).val();
@@ -442,6 +449,25 @@
 				}
 				b_pop = '';
 			}
+
+			function TranOrdetNextFields(wcur){ //0 = dele 1 = add
+				if(wcur == 1){
+					for(var i = 1;i< 6;i++){
+						fbbm.push('textOrdet_Datea_'+i);
+						fbbm.push('textOrdet_Weight2_'+i);
+						fbbm.push('textOrdet_Trannumber_'+i);
+					}
+				}else if(wcur == 0){
+					for(var i = fbbm.length-1;i>0;i--){
+						if(fbbm[i] != undefined && fbbm[i].length >=10){
+							if(fbbm[i].substring(0,9) == 'textOrdet'){
+								fbbm.splice(i, 1);
+							}
+						}
+					}
+				}
+			}
+
 			function LoadTranOrdetTable(PageNo){ // -1 = 上一頁 -2 = 下一頁 否則 指定頁數
 				var Total_Page = Math.ceil((TranOrdeArray.length/5)-1);
 				var t_idno = 0;
@@ -517,26 +543,37 @@
 				}
 			}
 			function AlterTranOrdet(t_idno,ArrayId){
-				if(TranOrdeArray[ArrayId] != undefined){
-					TranOrdeArray[ArrayId].datea = $('#textOrdet_Datea_'+t_idno).val();
-					TranOrdeArray[ArrayId].weight2 = dec($('#textOrdet_Weight2_'+t_idno).val());
-					TranOrdeArray[ArrayId].trannumber = dec($('#textOrdet_Trannumber_'+t_idno).val());
+				var w_datea = trim($('#textOrdet_Datea_'+t_idno).val());
+				var w_weight2 = dec($('#textOrdet_Weight2_'+t_idno).val());
+				var w_trannumber = dec($('#textOrdet_Trannumber_'+t_idno).val());
+				if(!emp(w_datea)){
+					if(TranOrdeArray[ArrayId] != undefined){
+						TranOrdeArray[ArrayId].datea = w_datea;
+						TranOrdeArray[ArrayId].weight2 = w_weight2;
+						TranOrdeArray[ArrayId].trannumber = w_trannumber;
+					}else{
+						t_detail = {
+							datea : w_datea,
+							weight2 : w_weight2,
+							trannumber : w_trannumber
+						};
+						$('#TranOrdet_Idno_'+t_idno).val(TranOrdeArray.length);
+						TranOrdeArray.push(t_detail);
+					}
 				}else{
-					t_detail = {
-						datea : $('#textOrdet_Datea_'+t_idno).val(),
-						weight2 : dec($('#textOrdet_Weight2_'+t_idno).val()),
-						trannumber : dec($('#textOrdet_Trannumber_'+t_idno).val())
-					};
-					$('#TranOrdet_Idno_'+t_idno).val(TranOrdeArray.length);
-					TranOrdeArray.push(t_detail);
+					if(TranOrdeArray[ArrayId] != undefined){
+						TranOrdeArray.splice(ArrayId, 1);
+					}
 				}
 			}
 			function SaveTranOrdetStr(){
 				var ReturnStr = new Array();
 				for(var i = 0;i<TranOrdeArray.length;i++){
-					ReturnStr.push(TranOrdeArray[i].datea);
-					ReturnStr.push(TranOrdeArray[i].weight2);
-					ReturnStr.push(TranOrdeArray[i].trannumber);
+					if(!emp(TranOrdeArray[i].datea)){
+						ReturnStr.push(TranOrdeArray[i].datea);
+						ReturnStr.push(TranOrdeArray[i].weight2);
+						ReturnStr.push(TranOrdeArray[i].trannumber);
+					}
 				}
 				return ReturnStr.toString();
 			}
@@ -593,6 +630,9 @@
 			}
 
 			function btnOk() {
+				//TranOrdetDiv 跳下一格解決 (若有後續問題 請直接刪除此段)
+				TranOrdetNextFields(0);
+				//TranOrdetDiv 跳下一格解決 (若有後續問題 請直接刪除此段)
 				if ($('#txtDldate').val().length == 0 && $('#txtCldate').val().length > 0)
 					$('#txtDldate').val($('#txtCldate').val());
 				if ($('#txtDldate').val().length == 0 && $('#txtMadate').val().length > 0)
@@ -647,7 +687,13 @@
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
-				q_func('qtxt.query','tranordet.txt,tranordetinsert,'+encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
+			}
+			
+			function q_stPost() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return false;
+				q_func('qtxt.query.tranordetinsert','tranordet.txt,tranordetinsert,'+encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
+				TranOrdetNextFields(1);
 			}
 
 			function refresh(recno) {
@@ -676,10 +722,13 @@
 					}
 				}
 				//載入tranordet
-				if(!emp(trim($('#txtNoa').val()))){
-					t_where = "where=^^noa='" + $('#txtNoa').val() + "'^^";
+				var t_noa =trim($('#txtNoa').val()); 
+				if(!emp(t_noa) && t_noa != 'AUTO'){
+					t_where = "where=^^noa='" + t_noa + "'^^";
 					q_gt("tranordet", t_where, 0, 0, 0, 'LoadOrdet', r_accy);
 				};
+				TranOrdetNextFields(0);
+				TranOrdetNextFields(1);
 			}
 
 			function readonly(t_para, empty) {
