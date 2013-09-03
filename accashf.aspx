@@ -26,7 +26,7 @@
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1]];
             var bbtNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1]];
-            var bbmMask = [['txtAccy','999'],['txtDatea','999/99/99']];
+            var bbmMask = [['txtAccy','999'],['txtMon','999/99'],['txtDatea','999/99/99']];
             var bbsMask = [];
             var bbtMask = [];
             q_sqlCount = 6;
@@ -120,9 +120,10 @@
                 q_mask(bbmMask);
                 
                 $('#btnImport').click(function(e){
-                	if($.trim($('#txtAccy').val()).length>0){
+                	if($.trim($('#txtMon').val()).length>0){
+                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
                 		Lock(1,{opacity:0});
-                		q_gt('tables', "where=^^ TABLE_NAME='acccs"+$.trim($('#txtAccy').val())+"_1'^^", 0, 0, 0, "checktable_"+$.trim($('#txtAccy').val()));
+                		q_gt('tables', "where=^^ TABLE_NAME='acccs"+t_accy+"_1'^^", 0, 0, 0, "checktable");
                 	}else{
                 		alert('請輸入年度‧');
                 	}
@@ -140,6 +141,7 @@
 					if($('#txtGindex__'+n).val()=='01' && $.trim($('#txtAcc1__'+n).val()).length>0){
 						var t_accy = ($.trim($('#txtAccy').val()).length==0?r_accy:$.trim($('#txtAccy').val()));
 						var t_where = "";
+						t_data1 = new Array(),t_data2 = new Array();
 						$('#txtMoney1__'+n).val(0);
 						//5碼的才需判斷是否要包含子科目
 						var t_acc1 = $.trim($('#txtAcc1__'+n).val());
@@ -158,18 +160,48 @@
 				}
 			}
             function q_gtPost(t_name) {
-                switch (t_name) {   
+                switch (t_name) { 
+                	case 'checktable':
+                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
+                		t_mon = $.trim($('#txtMon').val()).substring(4,6);
+                		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
+                		if(as[0]!=undefined){
+                			//不含期初
+                			t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') and LEFT(a.accc3,2)!='00' ^^"
+                			q_gt('accashf_import', t_where, 0, 0, 0, "accashf_import1", t_accy+"_1");
+                		}else{
+                			//alert('無資料。');
+           					btnImport();
+                		}
+                		break;
+                	case  'accashf_import1':
+                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
+                		t_mon = $.trim($('#txtMon').val()).substring(4,6);
+                		var as = _q_appendData("acccs", "", true);
+                		if(as[0]!=undefined){
+                			t_data1 = as;
+                		}
+                		t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') ^^"
+            			q_gt('accashf_import', t_where, 0, 0, 0, "accashf_import2", t_accy+"_1");
+                		break; 
+                	case  'accashf_import2':
+                		var as = _q_appendData("acccs", "", true);
+                		if(as[0]!=undefined){
+                			t_data2 = as;
+                		}
+                		btnImport();
+                		break; 	
+                		
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                     default:
-                    	if(t_name.substring(0,11)=='checktable_'){
+                    	/*if(t_name.substring(0,11)=='checktable_'){
                     		var n = parseInt(t_name.split('_')[1]);
                     		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
 	                		if(as[0]!=undefined){
-	                			q_gt('accashf_import', '', 0, 0, 0, "accashf_import_"+n, n+"_1");
-	                		
+	                			q_gt('accashf_import', '', 0, 0, 0, "accashf_import", n+"_1");
 	                		}else{
 	                			//alert('無資料。');
 	           					btnImport();
@@ -188,7 +220,7 @@
 	                		}else{
 	                			btnImport();
 	                		}
-                    	}else if(t_name.substring(0,10)=='acccs_sum_'){
+                    	}else*/ if(t_name.substring(0,10)=='acccs_sum_'){
                     		var n = parseFloat(t_name.split('_')[2]);
                     		var t_acc1 = t_name.split('_')[3];
                     		var as = _q_appendData("acccs", "", true);
@@ -211,14 +243,14 @@
 					if(t_txt.substring(0,4)=='本期損益'){
 						//本期損益   4-5-6+7-8-9
 						t_money=0;
-						for(var j=0;j<t_data1.length;j++){
-							if(t_data1[j].acc1.substring(0,1)=='4' || t_data1[j].acc1.substring(0,1)=='7'){
-								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-							}else if(t_data1[j].acc1.substring(0,1)=='5' 
-								|| t_data1[j].acc1.substring(0,1)=='6'
-								|| t_data1[j].acc1.substring(0,1)=='8'
-								|| t_data1[j].acc1.substring(0,1)=='9'){
-									t_money -= parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
+						for(var j=0;j<t_data2.length;j++){
+							if(t_data2[j].acc1.substring(0,1)=='4' || t_data2[j].acc1.substring(0,1)=='7'){
+								t_money += parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
+							}else if(t_data2[j].acc1.substring(0,1)=='5' 
+								|| t_data2[j].acc1.substring(0,1)=='6'
+								|| t_data2[j].acc1.substring(0,1)=='8'
+								|| t_data2[j].acc1.substring(0,1)=='9'){
+									t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
 							}
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
@@ -227,12 +259,6 @@
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1=='1121'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-								break;
-							}
-						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1=='1121'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
 								break;
 							}
 						}
@@ -245,23 +271,12 @@
 								break;
 							}
 						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1=='1123'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
-								break;
-							}
-						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,2)=='存貨'){
 						t_money = 0
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1.substring(0,3)=='113'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-							}
-						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1.substring(0,3)=='113'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
 							}
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
@@ -272,23 +287,12 @@
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
 							}
 						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1.substring(0,3)=='114'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
-							}
-						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='應付票據'){
 						t_money = 0
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1=='2121'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-								break;
-							}
-						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1=='2121'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
 								break;
 							}
 						}
@@ -301,12 +305,6 @@
 								break;
 							}
 						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1=='2123'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
-								break;
-							}
-						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='應付費用'){
 						t_money = 0
@@ -315,24 +313,13 @@
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
 								break;
 							}
-						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1=='2122'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
-								break;
-							}
-						}
+						}		
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='預收款項'){
 						t_money = 0
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1.substring(0,3)=='213'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
-							}
-						}
-						for(var j=0;j<t_data2.length;j++){
-							if(t_data2[j].acc1.substring(0,3)=='213'){
-								t_money -= parseFloat(t_data2[j].money.length==0?'0':t_data2[j].money);
 							}
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
@@ -519,6 +506,11 @@
             			default:
             				$('#txtGtitle_'+i).css("display","none").val('');
             				break;
+            		}
+            		if(!(q_cur==1 || q_cur==2)){
+            			$('#txtGtitle_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
+        				$('#txtMoney1_'+i).attr("readonly","readonly").css("color","black").css("background","rgb(237, 237, 238)");
+            			$('#txtMoney2_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
             		}
             	}
             }
@@ -732,7 +724,6 @@
                 _refresh(recno);
                 refreshBbs();
                 refreshBbt();
-                
             }
 
             function readonly(t_para, empty) {
@@ -952,13 +943,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewAccy'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td id='accy' style="text-align: center;">~accy</td>
+						<td id='mon' style="text-align: center;">~mon</td>
 					</tr>
 				</table>
 			</div>
@@ -979,9 +970,13 @@
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr style="display:none;">
 						<td><span> </span><a id="lblAccy" class="lbl"> </a></td>
 						<td><input id="txtAccy" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td><input id="txtMon" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
