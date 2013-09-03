@@ -82,7 +82,11 @@
                     }, {/*7 [10]*/
                         type : '6',
                         name : 'xnoa'
-                    }]
+                    }, {/*8 [11]*/
+						type : '5',
+						name : 'xsort01',
+						value : q_getMsg('tsort01').split('&')
+					}]
                 });
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate1').datepicker();
