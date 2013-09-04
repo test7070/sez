@@ -21,7 +21,7 @@
         var q_readonly = ['txtNoa','txtWorker']; 
         var q_readonlys= [];
         var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtPrice', 10, 0, 1],['txtTotalus', 15, 0, 1],['txtFloata', 10, 2, 1]];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 0, 1],['txtPrice', 15, 0, 1],['txtTotal', 15, 0, 1],['txtGweight', 15, 2, 1],['txtErrmount', 15, 0, 1]];
+        var bbsNum = [['txtMount', 15, 0, 1],['txtPrice', 15, 0, 1],['txtTotal', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
@@ -227,16 +227,6 @@
 	                var t_mount = $('#txtMount_' + b_seq).val();
 	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
                 });
-                $('#txtGweight_' + j).change(function () {
-                	t_IdSeq = -1;
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
-					
-                	var t_unit = $('#txtUnit_' + b_seq).val();
-	                //var t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() != 'kg' ? $('#txtMount_' + b_seq).val() : $('#txtWeight_' +b_seq).val());  // 計價量
-	               var t_mount = $('#txtMount_' + b_seq).val();
-	               $('#txtTotal_' +b_seq).val(round( $('#txtPrice_' + b_seq).val() * dec( t_mount), 0));
-               	});
                 $('#txtMount_' + j).change(function () {
                 	t_IdSeq = -1;
 					q_bodyId($(this).attr('id'));
@@ -656,7 +646,7 @@
                 <td align="center" style="width:7%;"><a id='lblMount'></a></td>                
                 <td align="center" style="width:7%;"><a id='lblPrices'></a></td>
                 <td align="center" style="width:9%;"><a id='lblTotals'></a></td>
-                <td align="center" style="width:9%;"><a id='lblErrmount'></a></td>
+                <!--<td align="center" style="width:9%;"><a id='lblErrmount'></a></td>-->
                 <td align="center" style="width:12%;"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -677,11 +667,13 @@
                 <td><input id="txtPrice.*" type="text"  class="txt num c1" /></td>
                 <td>
                 	<input id="txtTotal.*" type="text" class="txt num c1" />
-					<input id="txtGweight.*" type="text" class="txt num c1" />
+					<!--<input id="txtGweight.*" type="text" class="txt num c1" />-->
 				</td>
+				<!--
 				<td><input id="txtErrmount.*" type="text" class="txt num c1" />
                         <input id="txtErrmemo.*" type="text" class="txt c1" />
 				</td>
+				-->
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 <input id="txtOrdcno.*" type="text" style="width:72%;" />
                 <input id="txtNo2.*" type="text" style="width:22%;" />
