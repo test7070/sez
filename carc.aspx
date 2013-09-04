@@ -114,7 +114,7 @@
 		           //金額=0的不顯示
 		           	t_where+=" and a.outmoney!=0";
 		           	//1030812千嘉只帶會計科目為2195.16
-		           	t_where+=" and (case when a.acc1!='' then a.acc1 else (select top1 acc1 from caritem where noa=a.caritemno) end)='2195.16'";
+		           	t_where+=" and (case when a.acc1!='' then a.acc1 else (select top 1 acc1 from caritem where noa=a.caritemno) end)='2195.16'";
 		            t_where+=" ^^";
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);			   
 			 });
