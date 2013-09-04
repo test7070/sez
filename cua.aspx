@@ -109,9 +109,10 @@
 		                        }*/
 		                       //計算應開工日
 		                       if(!emp(b_ret[i].productno)&&!emp(b_ret[i].datea)){
+		                       		var pretime=Math.ceil((dec(b_ret[i].mount)*dec(b_ret[i].ucahours))/(dec(b_ret[i].stationhours)*dec(b_ret[i].stationgen)));
 		                       		var t_date=b_ret[i].datea;
 									var bworkdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-									bworkdate.setDate(bworkdate.getDate() - dec(b_ret[i].pretime))
+									bworkdate.setDate(bworkdate.getDate() - pretime)
 									t_date=''+(bworkdate.getFullYear()-1911)+'/';
 									//月份
 									t_date=t_date+((bworkdate.getMonth()+1)<10?('0'+(bworkdate.getMonth()+1)+'/'):((bworkdate.getMonth()+1)+'/'));
@@ -136,7 +137,7 @@
 	                            }
 	
 	                        }  /// for i
-	                        UcaCatch(0,ret);
+	                        //UcaCatch(0,ret);
 	                    }
 						break;
 					case 'ordb':
@@ -150,7 +151,7 @@
                 b_pop = '';
             }
             var public_ret = "";
-            function UcaCatch(want_do,data,id){
+            /*function UcaCatch(want_do,data,id){
             	if(want_do == 0){		//Call GT for get data;
             		public_ret = data;
             		for(var i = 0;i < data.length;i++){
@@ -207,11 +208,11 @@
             	w_mon = (w_mon<10 ? padL(w_mon,'0',2):w_mon);
             	w_day = (w_day<10 ? padL(w_day,'0',2):w_day);
             	return w_year + '/' + w_mon + '/' + w_day;
-            }
+            }*/
             
             function q_gtPost(t_name) {
                 switch (t_name) {
-					case 'uca':
+					/*case 'uca':
 						var as = _q_appendData("uca", "", true);
 						if(as[0]!=undefined){
 							UcaCatch(1,as);
@@ -222,7 +223,7 @@
 						if(as[0]!=undefined){
 							public_stationInfo = as;
 		                }
-	                	break;
+	                	break;*/
 	                case 'cua_ordb':
 						var as = _q_appendData("cua", "", true);
 						if(as[0]!=undefined){

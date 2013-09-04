@@ -11,7 +11,7 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     
-    var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,comp,cuamount,pretime", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,comp,cuamount,ucahours,stationhours,stationgen", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'ordes_load'; t_postname = q_name; brwCount2 = 10;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -104,7 +104,12 @@
                 <td style="width:8%;"><input class="txt" id="txtCuamount.*" type="text" style="width:96%; text-align:right;"/></td>
                 <td style="width:11%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"/><input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/></td>
                 <td style="width:8%;"><input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/></td>
-                <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /><input id="txtTotal.*" type="hidden" /><input id="txtDatea.*" type="hidden" /><input id="txtPretime.*" type="hidden" /></td>
+                <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
+                	<input id="recno.*" type="hidden" />
+                	<input id="txtTotal.*" type="hidden" />
+                	<input id="txtDatea.*" type="hidden" />
+                	<input id="txtUcahours.*" type="hidden" /><input id="txtStationhours.*" type="hidden" /><input id="txtStationgen.*" type="hidden" />
+                </td>
             </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 
