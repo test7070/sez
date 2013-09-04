@@ -87,6 +87,10 @@
                         type : '8',
                         name : 'xoilkind',
                         value : t_oilkind.split(',')
+                    },{// [15] 日後要再增加,將此移到前面
+                    	type : '0',
+                        name : 'syscomp',
+                        value : q_getPara('sys.comp')
                     }]
                 });
                 q_popAssign();
