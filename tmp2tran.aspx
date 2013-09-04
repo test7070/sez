@@ -24,7 +24,7 @@
             var q_readonly = ['txtNoa','txtDatea','txtTotal','txtTotal2','txtMount','txtMount2','txtWorker','txtWorker2'];
             var q_readonlys = ['txtTotal','txtTotal2','txtTranno'];
             var bbmNum = [['txtMount',10,3,1],['txtTotal',10,0,1],['txtMount2',10,3,1],['txtTotal2',10,0,1]];
-            var bbsNum = [['txtInmount',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtTotal2',10,0,1],['txtTolls',10,0,1],['txtReserve',10,0,1],['txtGoss',10,3,1],['txtWeight',10,0,1]];
+            var bbsNum = [['txtInmount',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtTotal2',10,0,1],['txtTolls',10,0,1],['txtReserve',10,0,1],['txtGoss',10,3,1],['txtWeight',10,0,1],['txtWeight2',10,3,1],['txtWeight3',10,3,1]];
             var bbmMask = [['txtDatea','999/99/99'],['textBdate','999/99/99'],['textEdate','999/99/99']];
             var bbsMask = [['txtDatea','999/99/99'],['txtTrandate','999/99/99']];
             q_sqlCount = 6;
@@ -541,7 +541,7 @@
             }
             .dview {
                 float: left;
-                width: 150px;
+                width: 250px;
                 border-width: 0px;
             }
             .tview {
@@ -561,7 +561,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 700px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -679,10 +679,12 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id="vewDatea"> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id="vewComp"> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
 						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="comp" style="text-align: center;">~comp</td>
 					</tr>
 				</table>
 			</div>
@@ -702,6 +704,10 @@
 						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblComp" class="lbl"> </a></td>
+						<td><input id="txtComp" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
@@ -757,6 +763,7 @@
 					<td align="center" style="width:100px;display:none;"><a> 總重<br>淨重 </a></td>
 					<td align="center" style="width:100px;"><a> 櫃號</a></td>
 					<td align="center" style="width:200px;"><a> PO<br>憑單</a></td>
+					<td align="center" style="width:100px;"><a> 碼頭重<br>磅差</a></td>
 					<td align="center" style="width:100px;display:none;"><a> 里程數</a></td>
 					<td align="center" style="width:100px;"><a> 外務</a></td>
 					<td align="center" style="width:200px;"><a> 備註</a></td>
@@ -827,6 +834,10 @@
 					<td>
 						<input type="text" id="txtPo.*" style="width:95%;float:left;" />
 						<input type="text" id="txtCustorde.*" style="width:95%;float:left;" />
+					</td>
+					<td>
+						<input type="text" id="txtWeight2.*" style="width:95%;float:left;text-align: right;" />
+						<input type="text" id="txtWeight3.*" style="width:95%;float:left;text-align: right;" />
 					</td>
 					<td style="display:none;">
 						<input type="text" id="txtBmiles.*" style="width:20%;float:left;text-align: right;" />
