@@ -381,6 +381,13 @@
 				$("#txtCarownerno").change(function() {
                 	sendsignmemo();
 				});
+				
+				//1020904 車牌新增時判斷是否已存在
+				$('#txtNoa').change(function() {
+                    var t_where = "where=^^ a.noa ='"+$('#txtNoa').val()+"' ^^";
+					q_gt('car2', t_where, 0, 0, 0, "");
+                });
+				
             }
             
             function q_popPost(s1) {
@@ -503,6 +510,16 @@
                     	
                         if (q_cur == 4)
                             q_Seek_gtPost();
+                            
+                        if (q_cur == 1)
+                        {
+                        	var as = _q_appendData("car2", "", true);
+	                    	if(as[0]!=undefined){
+	                    		alert($('#txtNoa').val()+'車牌重覆!!');
+	                    		$('#txtNoa').val('');
+	                    		$('#txtNoa').focus();
+	                    	}
+                        }
 
                         if (q_cur == 2)
                         {
@@ -529,6 +546,7 @@
 
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                  if(q_getPara('sys.project').toUpperCase()=="DC"){
 	                $(".carexpense").show();
 				}
@@ -553,6 +571,7 @@
                     return;
 
                 _btnModi();
+                refreshBbm();
                 $('txtSaledate').val(q_date());
                 if (!emp($('#txtInvoicemoney').val())) {
                         if (dec($('#txtInvoicemoney').val()) >= 1000000) {
@@ -681,7 +700,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-
+				refreshBbm();
             }
 
             function readonly(t_para, empty) {
@@ -829,6 +848,13 @@
                			return 4
                	}
                	return 0;//錯誤
+            }
+            function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
             }
 		</script>
 		<style type="text/css">

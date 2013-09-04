@@ -114,7 +114,7 @@
 		           //金額=0的不顯示
 		           	t_where+=" and a.outmoney!=0";
 		           	//1030812千嘉只帶會計科目為2195.16
-		           	t_where+=" and (case when a.acc1!='' then a.acc1 else (select top1 acc1 from caritem where noa=a.caritemno) end)='2195.16'";
+		           	t_where+=" and (case when a.acc1!='' then a.acc1 else (select top 1 acc1 from caritem where noa=a.caritemno) end)='2195.16'";
 		            t_where+=" ^^";
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);			   
 			 });
@@ -662,7 +662,7 @@
             	<input id="txtAcc2"  type="text" class="txt c3" />
             </td>
 			<td class='td3'><span> </span></td>
-            <td class='td4'><input id="btnCarlender" type="button" style="float: left;"/></td>
+            <!--<td class='td4'><input id="btnCarlender" type="button" style="float: left;"/></td>-->
             <td class='td5'><input id="chkIsheetyn" type="checkbox" style="float: left;"/><a id="lblIsheetyn" class="lbl" style="float: left;"></a></td>
        </tr>
        <tr class="tr5">           

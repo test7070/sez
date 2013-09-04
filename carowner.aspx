@@ -62,6 +62,11 @@
                 $('#lblLabase').parent().click(function(e) {
                     q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
                 });
+                
+                $('#txtNoa').change(function() {
+                    var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
+					q_gt('carowner', t_where, 0, 0, 0, "changenoa");
+                });
             }
 
             function q_boxClose(s2) {
@@ -77,9 +82,17 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'changenoa':
+                		var as = _q_appendData("carowner", "", true);
+                		 if (as[0] != undefined) {
+                		 	alert($('#txtNoa').val()+'車主編號重覆!!');
+                		 	$('#txtNoa').val('');
+							$('#txtNoa').focus();
+                		 }
+                		break;
                     case q_name:
                         if (q_cur == 1) {
-                            var caras = _q_appendData("carowner", "", true);
+                            var as = _q_appendData("carowner", "", true);
                             if (as[0] != undefined) {
                                 $('#txtNoa').val(as[0].noa.substr(0, 1) + (dec(as[0].noa.substr(1)) + 1));
                             }else{
@@ -102,6 +115,7 @@
 
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                 $('#txtNamea').focus();
                 var t_where = "where=^^ noa=(select MAX(noa) from carOwner) ^^";
                 q_gt('carowner', t_where, 0, 0, 0, "", r_accy);
@@ -112,6 +126,7 @@
                     return;
 
                 _btnModi();
+                refreshBbm();
                 $('#txtNamea').focus();
             }
 
@@ -148,6 +163,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
             }
 
             function readonly(t_para, empty) {
@@ -253,6 +269,14 @@
                     wParent.getElementById("txtAddr_conn").value = $('#txtAddr_conn').val();
                     wParent.getElementById("txtAddr_home").value = $('#txtAddr_home').val();
                 }
+            }
+            
+            function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
             }
 		</script>
 		<style type="text/css">
