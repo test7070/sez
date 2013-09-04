@@ -24,7 +24,7 @@
 		var bbmMask = [];
 		var bbsMask = [['txtStyle','A']];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-		aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx'],
+		aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,trantype,addr_fact', 'txtCustno,txtComp,txtTel,txtTrantype,txtAddr_post', 'cust_b.aspx'],
 		['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
 		['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,product,radius,dime,width,lengthb,spec,class', 'txtUno_,txtProductno_,txtProduct_,txtRadius_,txtDime_,txtWidth_,txtLengthb_,txtSpec_,txtClass_', 'uccc_seek_b.aspx','95%','60%'],
 		['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
