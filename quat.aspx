@@ -392,9 +392,9 @@
 			<tr class="tr1">
 				<td class="label1" ><span> </span><a id='lblStype' class="lbl"> </a></td>
 				<td class="column1"><select id="cmbStype" class="txt c1"> </select></td>
-				<td class="column3"><input id="txtDatea" type="text"  class="txt c1"/></td>
-				<td class="label2" ><span> </span><a id='lblOdate' class="lbl"> </a></td>
 				<td class="column3"><input id="txtOdate" type="text"  class="txt c1"/></td>
+				<td class="label2" ><span> </span><a id='lblDatea' class="lbl"> </a></td>
+				<td class="column3"><input id="txtDatea" type="text"  class="txt c1"/></td>
 				<td></td>
 				<td class="label3" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
 				<td class="column2" ><input id="txtNoa" type="text" class="txt c2"/></td> 
