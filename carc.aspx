@@ -662,7 +662,7 @@
             	<input id="txtAcc2"  type="text" class="txt c3" />
             </td>
 			<td class='td3'><span> </span></td>
-            <td class='td4'><input id="btnCarlender" type="button" style="float: left;"/></td>
+            <!--<td class='td4'><input id="btnCarlender" type="button" style="float: left;"/></td>-->
             <td class='td5'><input id="chkIsheetyn" type="checkbox" style="float: left;"/><a id="lblIsheetyn" class="lbl" style="float: left;"></a></td>
        </tr>
        <tr class="tr5">           
