@@ -53,18 +53,19 @@
                 curObj : null,
                 init : function(){
             		t_option = '';
-                	t_option += '<div class="tmpList" style="background:yellow; width:400px; height:25px;">'
+                	t_option += '<div class="tmpList" style="background:yellow; width:500px; height:25px;">'
 	                	+'<input class="tmpList" type="button" id="tmpList_btnPrevious" value="◄" style="float:left;width:30px;height:25px;"/>'
-				    	+'<a class="tmpList" id="tmpList_curIndex" style="float:left;display:block; width:165px;height:25px;text-align: right;"> </a>'
+				    	+'<a class="tmpList" id="tmpList_curIndex" style="float:left;display:block; width:215px;height:25px;text-align: right;"> </a>'
 					    +'<a class="tmpList" style="float:left;display:block; width:10px;height:25px;">/</a>'
-					    +'<a class="tmpList" id="tmpList_totPage" style="float:left;display:block; width:165px;height:25px;"> </a>'
+					    +'<a class="tmpList" id="tmpList_totPage" style="float:left;display:block; width:215px;height:25px;"> </a>'
 					    +'<input class="tmpList" type="button" id="tmpList_btnNext" value="►" style="float:left;width:30px;height:25px;"/>'
 					+'</div>';
 					for(var i=0;i<this._count;i++){
-						t_option +='<div class="tmpList" style="background:yellow; width:400px; height:25px;">'
+						t_option +='<div class="tmpList" style="background:yellow; width:500px; height:25px;">'
 							+'<a class="tmpList" style="float:left;display:block; width:20px;height:25px;"> </a>'
 							+'<a class="tmpList" id="tmpList_noa_'+i+'" style="float:left;display:block; width:100px;height:25px;"> </a>'
 			                +'<a class="tmpList" id="tmpList_namea_'+i+'" style="float:left;display:block; width:280px;height:25px;"> </a>'
+			                +'<a class="tmpList" id="tmpList_price_'+i+'" style="float:left;display:block; width:100px;height:25px;text-align: right"> </a>'
 			            +'</div>';
 					}
 					$('#tmpList').hide().html(t_option);
@@ -92,21 +93,23 @@
                 listShow : function(obj,key,nn,tArray,tField){
                 	if(!(q_cur==1 || q_cur==2))
                 		return;
-                	this.tmpArray = tArray;
-                	this.tmpField = tField;
+                	this.tmpArray = tArray.concat();
+                	this.tmpField = tField.concat();
                 	this.curObj = obj;
+                	if(key.length>0)
+	                	for(var i=0;i<this.tmpArray.length;i++){
+	                		if(this.tmpArray[i].noa.toUpperCase().indexOf(key.toUpperCase() )>=0
+	                			|| this.tmpArray[i].namea.toUpperCase().indexOf(key.toUpperCase())>=0){
+	                		}else{
+	                			this.tmpArray.splice(i,1);
+	                			i--;
+	                		}	
+	                	}
                 	t_option = '';
                 	if(nn>=0){
                 		this.curIndex = nn;
-                	}else if(key.length==0){
-                		this.curIndex = 0;
                 	}else{
-                		for(var i=0;i<this.tmpArray.length;i++)
-                			if(key == this.tmpArray[i].noa.substring(0,key.length)){
-                				var n = Math.floor(i/this._count);
-                				this.curIndex = n;
-                				break;
-                			}
+                		this.curIndex = 0;
                 	}
                 	for(var i=0;i<this._count;i++){
             			n = this.curIndex*this._count + i;
@@ -114,10 +117,15 @@
             				$('#tmpList_noa_'+i).parent().attr('tag',n).show();
         					$('#tmpList_noa_'+i).html(this.tmpArray[n].noa);
         					$('#tmpList_namea_'+i).html(this.tmpArray[n].namea);
+        					if(this.tmpArray[n].price!=undefined)
+        						$('#tmpList_price_'+i).html(this.tmpArray[n].price);
+        					else
+        						$('#tmpList_price_'+i).html('');
             			}else{
             				$('#tmpList_noa_'+i).parent().removeAttr('tag').hide();
         					$('#tmpList_noa_'+i).html('');
         					$('#tmpList_namea_'+i).html('');
+        					$('#tmpList_price_'+i).html('');
             			}
             		}
                 	$('#tmpList_curIndex').html(this.curIndex+1);
@@ -139,6 +147,8 @@
                					$('#'+t_data.tmpField[0]+'_'+m).val(t_data.tmpArray[n].noa);
                				if(t_data.tmpField.length>1 && t_data.tmpField[1].length>0)
 	               				$('#'+t_data.tmpField[1]+'_'+m).val(t_data.tmpArray[n].namea);
+	               			if(t_data.tmpField.length>2 && t_data.tmpField[2].length>0)
+	               				$('#'+t_data.tmpField[2]+'_'+m).val(t_data.tmpArray[n].price);
 	               			$('#tmpList').hide();
                			}
                		});
@@ -193,7 +203,7 @@
 		        	case 'getProduct':
                         var as = _q_appendData("fixucc", "", true);
                         for ( i = 0; i < as.length; i++) {
-                        	t_data.productList.push({noa : as[i].noa,namea : as[i].namea});
+                        	t_data.productList.push({noa : as[i].noa,namea : as[i].namea,price : as[i].inprice});
                         }
                         q_gt("car2", "where=^^ a.cartype='2' ^^", 0, 0, 0, "getCar");
                         break;
@@ -266,9 +276,9 @@
 		        	$('#lblNo_'+i).text(i+1);
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 		                $('#txtProductno_' + i).focus(function(e){
-		                	t_data.listShow($(this),$(this).val(),-1,t_data.productList,['txtProductno','txtProduct']);
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.productList,['txtProductno','txtProduct','txtPrice']);
 		                }).keyup(function(e){
-		                	t_data.listShow($(this),$(this).val(),-1,t_data.productList,['txtProductno','txtProduct']);
+		                	t_data.listShow($(this),$(this).val(),-1,t_data.productList,['txtProductno','txtProduct','txtPrice']);
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();

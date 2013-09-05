@@ -694,9 +694,9 @@
 			<tr class="tr1">
 				<td class="td1"><span> </span><a id='lblStype' class="lbl"></a></td>
 				<td class="td2"><select id="cmbStype" class="txt c1"></select></td>
-				<td class="td5"><input id="txtDatea" type="text"  class="txt c1"/></td>
-				<td class="td4"><span> </span><a id='lblOdate' class="lbl"></a></td>
 				<td class="td5"><input id="txtOdate" type="text"  class="txt c1"/></td>
+				<td class="td4"><span> </span><a id='lblDatea' class="lbl"></a></td>
+				<td class="td5"><input id="txtDatea" type="text"  class="txt c1"/></td>
 				<td></td>
 				<td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>
 				<td class="td8"><input id="txtNoa" type="text" class="txt c1"/></td> 

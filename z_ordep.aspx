@@ -18,11 +18,11 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_ordcp');
+                q_gf('', 'z_ordep');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_ordcp',
+                    fileName : 'z_ordep',
                     options : [{
 						type : '0',
 						name : 'accy',

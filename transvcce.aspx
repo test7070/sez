@@ -518,17 +518,23 @@
 							var t_commandid = $('#txtCommandid_'+n).val();
 							var t_Sendcommandresult = $('#chkSendcommandresult_'+n).prop('checked');
 							if(t_isSend && t_carno.length>0 && t_msg.length>0 && t_commandid.length==0){
-			               		for(var i=0;i<q_bbsCount;i++){
-			               			if(t_carno==$.trim($('#txtCarno_'+i).val())){
-			               				x_sendno = q_float('txtSendno_'+i);
-										if(x_sendno>t_sendno){
-											t_sendno = x_sendno;
-										}
-			               			}
+			               		if($.trim($('#txtSendno_'+n).val()).length==0){
+			               			for(var i=0;i<q_bbsCount;i++){
+				               			if(t_carno==$.trim($('#txtCarno_'+i).val())){
+				               				x_sendno = q_float('txtSendno_'+i);
+											if(x_sendno>t_sendno){
+												t_sendno = x_sendno;
+											}
+				               			}
+				               		}
+				               		t_sendno = t_sendno+1;
+				               		t_sendid = t_sendno%100;
+				               		t_sendid = 'NB'+(t_sendid<10?'0':'')+t_sendid;
+			               		}else{
+			               			t_sendno = q_float('txtSendno_'+n);
+				               		t_sendid = $('#txtSendid_'+n).val();
 			               		}
-			               		t_sendno = t_sendno+1;
-			               		t_sendid = t_sendno%100;
-			               		t_sendid = 'NB'+(t_sendid<10?'0':'')+t_sendid;
+			               		
 			               		//常輝SERVER有時資料不會回傳,
 			               		$('#txtSendno_'+n).val(t_sendno);
 								$('#txtSendid_'+n).val(t_sendid);
