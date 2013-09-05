@@ -230,17 +230,24 @@
 			function btnPrint() {
 				q_box('z_carchg.aspx?;;;'+r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock(1);
+            }
 			function btnOk() {
+				Lock(1,{opacity:0});
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
+                	Unlock(1);
                 	return;
                 }
 				$('#txtWorker').val(r_name);
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
+					Unlock(1);
 					return;
 				}
 				sum();
