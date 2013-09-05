@@ -400,6 +400,7 @@
                		t_total=t_total.add(t_val);
                		$('#txtTotal_'+i).val(FormatNumber(t_val));
                		$('#txtMount2_'+i).val(FormatNumber(q_float('txtOutmount_'+i).add(q_float('txtPton2_'+i))));
+               		$('#txtWeight3_'+i).val(FormatNumber(q_float('txtInmount_'+i).sub(q_float('txtWeight2_'+i))));
                		t_val = (q_float('txtPrice2_'+i).add(q_float('txtPrice3_'+i))).mul(q_float('txtMount2_'+i)).mul(q_float('txtDiscount_'+i)).round(0);
                		t_mount2=t_mount2.add(q_float('txtMount2_'+i));
                		t_total2=t_total2.add(t_val);
@@ -750,10 +751,10 @@
 					<td align="center" style="width:100px;"><a> 計算類別<br>車隊 </a></td>
 					<td align="center" style="width:120px;"><a> 起迄地點</a></td>
 					<td align="center" style="width:100px;"><a> 產品</a></td>
-					<td align="center" style="width:100px;"><a> 收數量</a></td>
+					<td align="center" style="width:100px;"><a> 收數量<br>收補</a></td>
 					<td align="center" style="width:120px;"><a> 客戶單價</a></td>
 					<td align="center" style="width:100px;"><a> 收金額</a></td>
-					<td align="center" style="width:100px;"><a> 發數量</a></td>
+					<td align="center" style="width:100px;"><a> 發數量<br>發補</a></td>
 					<td align="center" style="width:120px;"><a> 司機單價</a></td>
 					<td align="center" style="width:120px;"><a> 外車單價</a></td>
 					<td align="center" style="width:100px;"><a> 折扣</a></td>
@@ -805,14 +806,14 @@
 					</td>
 					<td>
 						<input type="text" id="txtInmount.*" style="width:95%;text-align: right;" />
-						<input type="text" id="txtPton.*" style="display:none;text-align: right;" />
+						<input type="text" id="txtPton.*" style="width:95%;text-align: right;" />
 						<input type="text" id="txtMount.*" style="display:none;text-align: right;" />
 					</td>
 					<td><input type="text" id="txtPrice.*" style="width:95%;text-align: right;" /></td>
 					<td><input type="text" id="txtTotal.*" style="width:95%;text-align: right;" /></td>
 					<td>
 						<input type="text" id="txtOutmount.*" style="width:95%;text-align: right;;" />
-						<input type="text" id="txtPton2.*" style="display:none;text-align: right;" />
+						<input type="text" id="txtPton2.*" style="width:95%;text-align: right;" />
 						<input type="text" id="txtMount2.*" style="display:none;text-align: right;" />
 					</td>
 					<td><input type="text" id="txtPrice2.*" style="width:95%;text-align: right;" /></td>
