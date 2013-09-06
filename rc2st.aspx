@@ -35,10 +35,11 @@
 		q_desc = 1;
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype', 'txtTggno,txtTgg,txtPaytype', 'tgg_b.aspx'],
-		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-		['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
-		['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+		aPop = new Array(
+			['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype,tel,trantype,zip_fact,addr_fact', 'txtTggno,txtTgg,txtPaytype,txtTel,txtTrantype,txtPost,txtAddr', 'tgg_b.aspx'],
+			['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+			['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
 			bbsKey = ['noa', 'noq'];
@@ -112,8 +113,8 @@
 							return;
 						var i, j = 0;
 						$('#txtOrdeno').val(b_ret[0].noa);
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo', b_ret.length, b_ret
-														, 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo'
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtUno,txtClass,txtStyle', b_ret.length, b_ret
+														, 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo,uno,class,style'
 														, 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
 						size_change();
@@ -194,7 +195,7 @@
 				t_where = t_where;
 			}
 			else {
-				alert(q_getMsg('msgtggEmp'));
+				alert(q_getMsg('msgTggEmp'));
 				return;
 			}
 			q_box("ordcsst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));
@@ -215,7 +216,7 @@
 				alert(t_err);
 				return;
 			}
-			$('#txtWorker' ).val(  r_name)
+			$('#txtWorker' ).val(r_name);
 			//sum();
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -242,7 +243,7 @@
 		}
 
 		function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-			var cmb = document.getElementById("combPaytype")
+			var cmb = document.getElementById("combPaytype");
 			if (!q_cur) 
 				cmb.value = '';
 			else
@@ -432,7 +433,7 @@
 				t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
 
 			if (t_err) {
-				alert(t_err)
+				alert(t_err);
 				return false;
 			}
 			
@@ -591,7 +592,7 @@
 					$('#textSize2_'+j).val($('#txtWidth_'+j).val());
 					$('#textSize3_'+j).val($('#txtLengthb_'+j).val());
 					$('#textSize4_'+j).val(0);
-					$('#txtRadius_'+j).val(0)
+					$('#txtRadius_'+j).val(0);
 				}
 			}else if( $('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
@@ -621,7 +622,7 @@
 					$('#x3_'+j).hide();
 					$('#Size').css('width','70px');
 					$('#textSize1_'+j).val(0);
-					$('#txtDime_'+j).val(0)
+					$('#txtDime_'+j).val(0);
 					$('#textSize2_'+j).val(0);
 					$('#txtWidth_'+j).val(0);
 					$('#textSize3_' + j).val($('#txtLengthb_'+j).val());

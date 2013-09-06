@@ -141,10 +141,10 @@
 					q_gt('trando3', t_where, 0, 0, 0, "", r_accy);
 				});
 				$("#btnPrintorde").click(function(e) {
-					q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+					q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				});
 				$("#btnPrinttrand").click(function(e) {
-					q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+					q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				});
 				$('#btnTransvcce').click(function(e){
 					var noa = $.trim($('#txtNoa').val());
@@ -338,11 +338,7 @@
 					LoadTranOrdetTable(Total_Page);
 				});
 				//TranOrdetDiv 跳下一格解決 (若有後續問題 請直接刪除此段) BtnOk MainPost
-				for(var i = 1;i< 6;i++){
-					fbbm.push('textOrdet_Datea_'+i);
-					fbbm.push('textOrdet_Weight2_'+i);
-					fbbm.push('textOrdet_Trannumber_'+i);
-				}
+				TranOrdetNextFields(1);
 				//TranOrdetDiv 跳下一格解決 (若有後續問題 請直接刪除此段) BtnOk MainPost
 				$('input[id*="btnOrdetMinus_"]').click(function(){
 					var thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -626,7 +622,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
