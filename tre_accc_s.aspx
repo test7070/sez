@@ -32,6 +32,9 @@
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
 				q_gt('carteam', '', 0, 0, 0, "");
+				
+				$('#txtBdate').datepicker();
+				$('#txtEdate').datepicker();
                 $('#txtBdate').focus();
             }
 			function q_gtPost(t_name) {
@@ -53,14 +56,12 @@
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
                 t_carteam = $.trim($('#cmbCarteam').val());
+                t_treno = $.trim($('#txtTreno').val());
 
-                t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-                /// 100.  .
-                t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-                /// 100.  .
-
-                var t_where = " 1=1 " + q_sqlPara2("carteamno", t_carteam)+ q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver);
-
+                var t_where = " 1=1 " + q_sqlPara2("carteamno", t_carteam)+ q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate);
+				if (t_treno.length > 0)
+                    t_where += " and charindex('" + t_treno + "',treno)>0";
+                    
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -100,10 +101,9 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblTreno'></a></td>
 					<td>
-					<input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />
-					<input class="txt" id="txtDriver" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtTreno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

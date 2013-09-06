@@ -21,10 +21,10 @@
             }
             q_tables = 's';
             var q_name = "tmp2tran";
-            var q_readonly = ['txtNoa','txtDatea','txtTotal','txtTotal2','txtMount','txtMount2','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa','txtDatea','txtTotal','txtTotal2','txtMount','txtMount2','txtWorker','txtWorker2','txtInmount','txtOutmount','txtPton','txtPton2'];
             var q_readonlys = ['txtTotal','txtTotal2','txtTranno'];
-            var bbmNum = [['txtMount',10,3,1],['txtTotal',10,0,1],['txtMount2',10,3,1],['txtTotal2',10,0,1]];
-            var bbsNum = [['txtInmount',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtTotal2',10,0,1],['txtTolls',10,0,1],['txtReserve',10,0,1],['txtGoss',10,3,1],['txtWeight',10,0,1],['txtWeight2',10,3,1],['txtWeight3',10,3,1]];
+            var bbmNum = [['txtMount',10,3,1],['txtTotal',10,0,1],['txtMount2',10,3,1],['txtTotal2',10,0,1],['txtInmount',10,3,1],['txtOutmount',10,3,1],['txtPton',10,3,1],['txtPton2',10,3,1]];
+            var bbsNum = [['txtInmount',10,3,1],['txtPton',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPton2',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtTotal2',10,0,1],['txtTolls',10,0,1],['txtReserve',10,0,1],['txtGoss',10,3,1],['txtWeight',10,0,1],['txtWeight2',10,3,1],['txtWeight3',10,3,1]];
             var bbmMask = [['txtDatea','999/99/99'],['textBdate','999/99/99'],['textEdate','999/99/99']];
             var bbsMask = [['txtDatea','999/99/99'],['txtTrandate','999/99/99']];
             q_sqlCount = 6;
@@ -311,10 +311,16 @@
                 		$('#txtInmount_'+i).change(function(e){
                 			sum();
                 		});
+                		$('#txtPton_'+i).change(function(e){
+                			sum();
+                		});
                 		$('#txtPrice_'+i).change(function(e){
                 			sum();
                 		});
                 		$('#txtOutmount_'+i).change(function(e){
+                			sum();
+                		});
+                		$('#txtPton2_'+i).change(function(e){
                 			sum();
                 		});
                 		$('#txtPrice2_'+i).change(function(e){
@@ -392,7 +398,7 @@
             function sum() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
-               	var t_val,t_total=0,t_mount=0,t_total2=0,t_mount2=0;
+               	var t_val,t_total=0,t_mount=0,t_total2=0,t_mount2=0,t_inmount=0,t_pton=0,t_outmount=0,t_pton2=0;
                	for(var i=0;i<q_bbsCount;i++){
                		$('#txtMount_'+i).val(FormatNumber(q_float('txtInmount_'+i).add(q_float('txtPton_'+i))));
                		t_val = q_float('txtPrice_'+i).mul(q_float('txtMount_'+i)).round(0);
@@ -405,11 +411,20 @@
                		t_mount2=t_mount2.add(q_float('txtMount2_'+i));
                		t_total2=t_total2.add(t_val);
                		$('#txtTotal2_'+i).val(FormatNumber(t_val));
+               		
+               		t_inmount= t_inmount.add(q_float('txtInmount_'+i));
+               		t_outmount= t_outmount.add(q_float('txtOutmount_'+i));
+               		t_pton= t_pton.add(q_float('txtPton_'+i));
+               		t_pton2= t_pton2.add(q_float('txtPton2_'+i));
                	}
                	$('#txtMount').val(FormatNumber(t_mount)); 
                	$('#txtMount2').val(FormatNumber(t_mount2)); 
                	$('#txtTotal').val(FormatNumber(t_total)); 
-               	$('#txtTotal2').val(FormatNumber(t_total2));     
+               	$('#txtTotal2').val(FormatNumber(t_total2));
+               	$('#txtInmount').val(FormatNumber(t_inmount));      
+               	$('#txtOutmount').val(FormatNumber(t_outmount));   
+               	$('#txtPton').val(FormatNumber(t_pton));   
+               	$('#txtPton2').val(FormatNumber(t_pton2));   
             }
             function refresh(recno) {
                 _refresh(recno);
@@ -490,7 +505,7 @@
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
-			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
+			    return Math.round(this.mul( Math.pow(10,arg))).div( Math.pow(10,arg));
 			}
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
@@ -522,7 +537,7 @@
 			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
 			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
 			    m = Math.pow(10, Math.max(r1, r2))
-			    return (arg1 * m + arg2 * m) / m
+			    return (Math.round(arg1 * m) + Math.round(arg2 * m)) / m
 			}
 			Number.prototype.sub = function(arg) {
 			    return accSub(this,arg);
@@ -533,7 +548,7 @@
 			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
 			    m = Math.pow(10, Math.max(r1, r2));
 			    n = (r1 >= r2) ? r1 : r2;
-			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			    return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
 		</script>
 		<style type="text/css">
@@ -711,14 +726,24 @@
 						<td><input id="txtComp" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblInmount" class="lbl"> </a></td>
+						<td><input id="txtInmount" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblPton" class="lbl"> </a></td>
+						<td><input id="txtPton" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td><input id="txtMount" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
-						<td><input id="txtTotal" type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblOutmount" class="lbl"> </a></td>
+						<td><input id="txtOutmount" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblPton2" class="lbl"> </a></td>
+						<td><input id="txtPton2" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblMount2" class="lbl"> </a></td>
 						<td><input id="txtMount2" type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td><input id="txtTotal" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTotal2" class="lbl"> </a></td>
 						<td><input id="txtTotal2" type="text"  class="txt c1 num"/></td>
 					</tr>
