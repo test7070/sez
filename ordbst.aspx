@@ -17,7 +17,7 @@
             q_tables = 's';
             var q_name = "ordb";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtC1','txtNotv'];
+            var q_readonlys = ['txtC1','txtNotv','txtNo3'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1],['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtTheory', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [];
@@ -29,17 +29,17 @@
             brwKey = 'Odate';
             q_desc = 1;
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
-				             ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+				             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				             ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-				             ['txtUno_', 'btnUno_', 'uccc', 'view_uccc', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
-				             ['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,cmbPaytype','tgg_b.aspx']
+				             //['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
+				             ['txtTggno','lblTgg','tgg','noa,comp,paytype,tel,fax,addr_fact,zip_fact','txtTggno,txtTgg,cmbPaytype,txtTel,txtFax,txtAddr,txtPost','tgg_b.aspx']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
                 q_brwCount();
                 q_gt('style','',0,0,0,'');
-               q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+               q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             
             //////////////////   end Ready
@@ -64,7 +64,7 @@
                      q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#cmbPaytype').change(function () {
-	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
+	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text());
 			     });
                 $('#txtFloata').change(function () {
 		        	sum();
@@ -249,7 +249,7 @@
             }
 
             function btnPrint() {
-				q_box('z_ordbstp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_ordbstp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -320,8 +320,11 @@
 		                	$(this).attr('OldValue',$(this).val());
 		                });
 		                ProductAddStyle(b_seq);
-		                $('#txtStyle_' + b_seq).focus();
+		                $('#txtClass_' + b_seq).focus();
 		                break;
+					case 'txtTggno':
+		                $('#txtSalesno').focus();
+						break;
                 }
             }
 
@@ -407,7 +410,7 @@
 			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
 			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
 			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
+			        $('#txtRadius_'+j).val(0);
 				}
 			}else if( $('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
@@ -437,7 +440,7 @@
 			        $('#x3_'+j).hide();
 			        $('#Size').css('width','70px');
 			        $('#textSize1_'+j).val(0);
-			        $('#txtDime_'+j).val(0)
+			        $('#txtDime_'+j).val(0);
 			        $('#textSize2_'+j).val(0);
 			        $('#txtWidth_'+j).val(0);
 			        $('#textSize3_' + j).val($('#txtLengthb_'+j).val());
@@ -471,7 +474,7 @@
                 	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
                 	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
                		if(regex.test(str))
-               			return 4
+               			return 4;
                	}
                	return 0;//錯誤
             }

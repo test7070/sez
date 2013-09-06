@@ -18,18 +18,15 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_ordcstp');
+                q_gf('', 'z_cubst');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_ordcstp',
+                    fileName : 'z_cubst',
                     options : [{
 						type : '0',
 						name : 'accy',
                         value : q_getId()[4] //[1]
-                    },{
-                        type : '1',
-                        name : 'date'
                     },{
                         type : '6',
                         name : 'xnoa'
