@@ -70,9 +70,9 @@
 					q_box("cust_b2.aspx", 'cust', "95%", "95%", q_getMsg("popCust"));
 				});
 
-                $('#txtOpay').change(function() {
+                /*$('#txtOpay').change(function() {
                     sum();
-                });
+                });*/
                 $('#txtUnopay').change(function() {
                     sum();
                 });
