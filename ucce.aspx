@@ -299,7 +299,7 @@
                 float: left;
             }
             .txt.c3 {
-                width: 70%;
+                width: 80%;
                 float: left;
             }
             .txt.c4 {
@@ -409,8 +409,8 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id='lblStoreno_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblUno_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
+                <td align="center" style="width:15%;"><a id='lblUno_s'> </a></td>
+                <td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
                 <!--<td align="center"><a id='lblSpec_s'> </a></td>
                 <td align="center"><a id='lblDime_s'> </a></td>
                 <td align="center"><a id='lblWidth_s'> </a></td>
@@ -428,12 +428,12 @@
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c3" id="txtStoreno.*" type="text" />
-                		<input class="btn"  id="btnStoreno.*" type="button" value='.' style="width:10%;"  /><BR>
+                		<input class="btn"  id="btnStoreno.*" type="button" value='.' style="width:5%;"  /><BR>
                 		<input class="txt c1" id="txtStore.*" type="text" />
                 </td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
                 <td ><input class="txt c3" id="txtProductno.*" type="text" />
-                		<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:10%;"  /><BR>
+                		<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:5%;"  /><BR>
                 		<input class="txt c1" id="txtProduct.*" type="text" />
                 </td>
                 <!--<td ><input class="txt c1" id="txtSpec.*"type="text" /></td>

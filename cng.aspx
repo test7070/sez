@@ -33,7 +33,7 @@
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();   
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy )
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy );
 
         });
 
@@ -87,9 +87,7 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
-            sum();
-
+            $('#txtWorker').val(r_name);
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
                 q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
@@ -102,9 +100,6 @@
                 return;
 
             q_box('cng_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
-        }
-
-        function combPay_chg() {   
         }
 
         function bbsAssign() {  
@@ -124,7 +119,6 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
-		q_box('z_cng.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "1000px", "700px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
@@ -142,29 +136,9 @@
 
             q_nowf();
             as['date'] = abbm2['date'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
-        function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
-
-        }
-
-        
         function refresh(recno) {
             _refresh(recno);
        }
@@ -175,7 +149,6 @@
 
         function btnMinus(id) {
             _btnMinus(id);
-            sum();
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
@@ -246,7 +219,7 @@
                 	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
                 	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
                		if(regex.test(str))
-               			return 4
+               			return 4;
                	}
                	return 0;//錯誤
             }
@@ -424,16 +397,16 @@
         </tr>
         <tr class="tr5">
         	<td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
-        	<td class="td2"><input id="txtTax" type="text" class="txt c1"/></td>
+        	<td class="td2"><input id="txtTax" type="text" class="txt c1 num"/></td>
             <td class='td3'><span> </span><a id="lblMoney" class="lbl" > </a></td>
-            <td class="td4"><input id="txtMoney" type="text" class="txt c1"/></td>
+            <td class="td4"><input id="txtMoney" type="text" class="txt c1 num"/></td>
            
         </tr>
         <tr class="tr6">
         	<td class='td1'><span> </span><a id="lblPrice" class="lbl" > </a></td>
-            <td class="td2"><input id="txtPrice"   type="text" class="txt c1"/></td>
+            <td class="td2"><input id="txtPrice"   type="text" class="txt c1 num"/></td>
             <td class='td3'><span> </span><a id="lblTotal" class="lbl" > </a></td>
-            <td class="td4"><input id="txtTotal"   type="text" class="txt c1"/></td>
+            <td class="td4"><input id="txtTotal"   type="text" class="txt c1 num"/></td>
         </tr>
         <tr class="tr7">
         <td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
