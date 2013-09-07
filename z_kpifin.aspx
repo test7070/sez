@@ -18,67 +18,65 @@
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
-			function z_accc() {
+			function z_kipfin() {
             }
-            z_accc.prototype = {
+            z_kipfin.prototype = {
                 data : {
-                    mon_accashf : null
+                    year: null
                 }
             };
-            t_data = new z_accc();
+            t_data = new z_kipfin();
             
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
-				q_gf('', 'z_accashf');
+				q_gf('', 'z_kpifin');
 			});
 			function q_gfPost() {
-				q_gt('accashf', '', 0, 0, 0, "init1");
-			}
-			function sortNumber(a, b){
-				var n = parseInt(a.substring(0,3))*100+parseInt(a.substring(4,6));
-				var m = parseInt(b.substring(0,3))*100+parseInt(b.substring(4,6));
-				return m-n;
+				q_gt('tables', "where=^^ TABLE_NAME like 'accc[0-9][0-9][0-9]_[0-9]' ^^", 0, 0, 0, "init1");
 			}
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'init1':
-                    	var as = _q_appendData("accashf", "", true);
-                    	tmp = new Array();
+                	case 'init1':
+                		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
+                		tmp = new Array();
                     	if(as[0]!=undefined){
 	                        for ( i = 0; i < as.length; i++) {
-	                        	if(as[i].mon.length>0 && tmp.indexOf(as[i].mon)<0){
-	                        		tmp.push(as[i].mon);
-	                        	}
+	                        	tmp.push(as[i].TABLE_NAME.replace(/accc([0-9][0-9][0-9])\_[0-9]/g,'$1'));
 	                        }
                         }
                         tmp.sort(sortNumber);
-                        t_data.data['mon_accashf'] = '';
+                        t_data.data['year'] = '';
                         for(var i in tmp){
-                        	t_data.data['mon_accashf'] += (t_data.data['mon_accashf'].length > 0 ? ',' : '') + tmp[i];
+                        	t_data.data['year'] += (t_data.data['year'].length > 0 ? ',' : '') + tmp[i];
                         }
-                        initfinish();
-                    	break;
+                		initfinish();
+                		break;
                 }
             }
+            function sortNumber(a, b){
+				var n = parseInt(a.substring(0,3));
+				var m = parseInt(b.substring(0,3));
+				return m-n;
+			}
 			function initfinish(){
 				$('#q_report').q_report({
-					fileName : 'z_accashf',
+					fileName : 'z_kpifin',
 					options : [{
 						type : '0',
 						name : 'accy',
-						value : q_getId()[4]
+						value : r_accy
 					},{
 						type : '5',
-						name : 'mon_accashf',
-						value : t_data.data['mon_accashf'].split(',')
+						name : 'xyear',
+						value : t_data.data['year'].split(',')
 					}]
 				});
 				q_popAssign();
                 q_langShow();
 
-				var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
-				$('#txtXnoa').val(t_noa);
+				//var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+				//$('#txtXnoa').val(t_noa);
 			}
 			function q_boxClose(t_name) {
 			}
