@@ -31,9 +31,9 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            brwCount2=3
+            brwCount2=3;
             q_brwCount();   
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 
         });
 
@@ -84,12 +84,12 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
+            $('#txtWorker').val(r_name);
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ucce') + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -200,7 +200,7 @@
             size_change();
         }
         function btnPrint() {
-			q_box('z_uccestp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+			q_box('z_uccestp.aspx?;;;', '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
@@ -312,7 +312,7 @@
 			        $('#textSize2_'+j).val($('#txtWidth_'+j).val());
 			        $('#textSize3_'+j).val($('#txtLengthb_'+j).val());
 			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
+			        $('#txtRadius_'+j).val(0);
 				}
 			}else if( $('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
@@ -342,7 +342,7 @@
 			        $('#x3_'+j).hide();
 			        $('#Size').css('width','70px');
 			        $('#textSize1_'+j).val(0);
-			        $('#txtDime_'+j).val(0)
+			        $('#txtDime_'+j).val(0);
 			        $('#textSize2_'+j).val(0);
 			        $('#txtWidth_'+j).val(0);
 			        $('#textSize3_' + j).val($('#txtLengthb_'+j).val());
@@ -545,7 +545,7 @@
                 <td align="center" style="width:6%;"><a id='lblMount_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:7%;"><a id='lblTotal_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblEweight_s'></a>/<BR><a id='lblAdjweight_s'></a></td>
+                <td align="center" style="width:7%;"><a id='lblEweight_s'></a>/<BR><a id='lblAdjweight_s'> </a></td>
                 <td align="center" style="width:7%;"><a id='lblEweight2_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
