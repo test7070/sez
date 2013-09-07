@@ -18,12 +18,50 @@
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
+			function z_accc() {
+            }
+            z_accc.prototype = {
+                data : {
+                    mon_accashf : null
+                }
+            };
+            t_data = new z_accc();
+            
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
 				q_gf('', 'z_accashf');
 			});
 			function q_gfPost() {
+				q_gt('accashf', '', 0, 0, 0, "init1");
+			}
+			function sortNumber(a, b){
+				var n = parseInt(a.substring(0,3))*100+parseInt(a.substring(4,6));
+				var m = parseInt(b.substring(0,3))*100+parseInt(b.substring(4,6));
+				return m-n;
+			}
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'init1':
+                    	var as = _q_appendData("accashf", "", true);
+                    	tmp = new Array();
+                    	if(as[0]!=undefined){
+	                        for ( i = 0; i < as.length; i++) {
+	                        	if(as[i].mon.length>0 && tmp.indexOf(as[i].mon)<0){
+	                        		tmp.push(as[i].mon);
+	                        	}
+	                        }
+                        }
+                        tmp.sort(sortNumber);
+                        t_data.data['mon_accashf'] = '';
+                        for(var i in tmp){
+                        	t_data.data['mon_accashf'] += (t_data.data['mon_accashf'].length > 0 ? ',' : '') + tmp[i];
+                        }
+                        initfinish();
+                    	break;
+                }
+            }
+			function initfinish(){
 				$('#q_report').q_report({
 					fileName : 'z_accashf',
 					options : [{
@@ -31,8 +69,9 @@
 						name : 'accy',
 						value : q_getId()[4]
 					},{
-						type : '6',
-						name : 'xnoa'
+						type : '5',
+						name : 'mon_accashf',
+						value : t_data.data['mon_accashf'].split(',')
 					}]
 				});
 				q_popAssign();
@@ -41,12 +80,7 @@
 				var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
 				$('#txtXnoa').val(t_noa);
 			}
-
 			function q_boxClose(t_name) {
-			}
-
-			function q_gtPost(t_name) {
-				
 			}
 		</script>
 	</head>
