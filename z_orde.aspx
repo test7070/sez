@@ -27,63 +27,63 @@
                 $('#qReport').q_report({
                     fileName : 'z_orde',
                     options : [{
-                        type : '0',
+                        type : '0',//[1]
                         name : 'accy',
                         value : q_getId()[4]
                     }, {
-                        type : '1',
-                        name : 'date'
+                        type : '1',//[2][3]
+                        name : 'xdate'
                     },{
-                        type : '1',
-                        name : 'odate'
+                        type : '1',//[4][5]
+                        name : 'xodate'
                     }, {
-                        type : '2',
-                        name : 'cust',
+                        type : '2',//[6][7]
+                        name : 'xcust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
                     }, {
-                        type : '2',
-                        name : 'sales',
+                        type : '2',//[8][9]
+                        name : 'xsales',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
                     }, {
-                        type : '2',
-                        name : 'product',
+                        type : '2',//[10][11]
+                        name : 'xproduct',
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
                     }, {
-                        type : '5', 
-                        name : 'stype',
+                        type : '5', //[12]
+                        name : 'xstype',
                         value : [q_getPara('report.all')].concat(q_getPara('ordc.stype').split(','))
                     }, {
-                        type : '5', 
-                        name : 'tran',
+                        type : '5', //[13]
+                        name : 'xtran',
                         value : [q_getPara('report.all')].concat(q_getPara('sys.tran').split(','))
                     }, {
-                        type : '5', 
-                        name : 'cancel',
+                        type : '5', //[14]
+                        name : 'xcancel',
                         value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
                     }, {
-                        type : '5', 
-                        name : 'end',
+                        type : '5', //[15]
+                        name : 'xend',
                         value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#End select').val('N');
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
- 				$('#txtOdate1').mask('999/99/99');
-                $('#txtOdate1').datepicker();
-                $('#txtOdate2').mask('999/99/99');
-                $('#txtOdate2').datepicker();
+                $('#Xend select').val('N');
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate1').datepicker();
+                $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate2').datepicker();
+ 				$('#txtXodate1').mask('999/99/99');
+                $('#txtXodate1').datepicker();
+                $('#txtXodate2').mask('999/99/99');
+                $('#txtXodate2').datepicker();
             }
 
             function q_boxClose(s2) {
