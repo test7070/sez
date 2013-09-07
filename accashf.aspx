@@ -94,6 +94,7 @@
             
             var list2 = new Array();
             list2.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
+            //list2.push({gindex:"01",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"3"});
             list2.push({gindex:"02",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"4"});
             
             list2.push({gindex:"00",groupno:"B",gtitle:"投資活動之現金流量：",gno:"1"});
@@ -354,7 +355,7 @@
 	            	Unlock(1);
             		return;
 	            }
-	            q_gt('accashf', "where=^^ mon='"+t_mon+"' ^^", 0, 0, 0, "btnOk");
+	            q_gt('accashf', "where=^^ mon='"+t_mon+"' and noa!='"+$.trim($('#txtNoa').val())+"' ^^", 0, 0, 0, "btnOk");
             }
 
             function _btnSeek() {
