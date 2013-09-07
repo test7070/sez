@@ -55,11 +55,11 @@
 					}, {
 						type : '5', 
 						name : 'xaeno',
-						value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
+						value : [q_getPara('report.all')].concat(new Array('1@Y', '0@N'))
 					}, {
 						type : '5', 
 						name : 'xend',
-						value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
+						value : [q_getPara('report.all')].concat(new Array('1@Y', '0@N'))
 					}]
 				});
 				q_popAssign();

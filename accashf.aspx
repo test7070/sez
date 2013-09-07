@@ -94,6 +94,7 @@
             
             var list2 = new Array();
             list2.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
+            //list2.push({gindex:"01",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"3"});
             list2.push({gindex:"02",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"4"});
             
             list2.push({gindex:"00",groupno:"B",gtitle:"投資活動之現金流量：",gno:"1"});
@@ -118,20 +119,23 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
-                
-                $('#btnImport').click(function(e){
-                	if($.trim($('#txtMon').val()).length>0){
-                		t_accy = $.trim($('#txtMon').val()).substring(0,3);
-                		Lock(1,{opacity:0});
-                		q_gt('tables', "where=^^ TABLE_NAME='acccs"+t_accy+"_1'^^", 0, 0, 0, "checktable");
-                	}else{
-                		alert('請輸入年度‧');
-                	}
-                });
+            }
+            function btnImport_click(){
+            	if($.trim($('#txtMon').val()).length>0){
+            		t_accy = $.trim($('#txtMon').val()).substring(0,3);
+            		Lock(1,{opacity:0});
+            		q_gt('tables', "where=^^ TABLE_NAME='acccs"+t_accy+"_1'^^", 0, 0, 0, "checktable");
+            	}else{
+            		alert('請輸入月份‧');
+            	}
             }
             function btnLoad_click(){
-            	Lock();
-            	loadAccc(q_bbtCount-1);
+            	if($.trim($('#txtMon').val()).length>0){
+	            	Lock();
+	            	loadAccc(q_bbtCount-1);
+            	}else{
+            		alert('請輸入月份‧');
+            	}
             }
 			function loadAccc(n){
 				if(n<0){
@@ -139,18 +143,18 @@
 					Unlock();
 				}else{
 					if($('#txtGindex__'+n).val()=='01' && $.trim($('#txtAcc1__'+n).val()).length>0){
-						var t_accy = ($.trim($('#txtAccy').val()).length==0?r_accy:$.trim($('#txtAccy').val()));
+						var t_accy = $('#txtMon').val().substring(0,3);
 						var t_where = "";
 						t_data1 = new Array(),t_data2 = new Array();
 						$('#txtMoney1__'+n).val(0);
 						//5碼的才需判斷是否要包含子科目
 						var t_acc1 = $.trim($('#txtAcc1__'+n).val());
 						if(t_acc1.length==5 && $('#chkIsall__'+n).prop('checked')){
-							t_where = " left(accc5,5)='"+t_acc1+"'";
+							t_where = " left(a.accc5,5)='"+t_acc1+"'";
 						}else{
-							t_where = " accc5='"+t_acc1+"'";
+							t_where = " a.accc5='"+t_acc1+"'";
 						}
-						
+						t_where += " and left(b.accc2,2)<='"+$('#txtMon').val().substring(4,6)+"' and LEFT(a.accc3,2)!='00'";
 						t_where = "where=^^"+t_where+"^^";
 						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n+"_"+t_acc1, t_accy+"_1");
 					}
@@ -161,6 +165,20 @@
 			}
             function q_gtPost(t_name) {
                 switch (t_name) { 
+                	case 'btnOk':
+                		var as = _q_appendData("accashf", "", true);
+                		if(as[0]!=undefined){
+                			alert('月份重覆。');
+                			Unlock(1);
+                		}else{
+                			var t_noa = trim($('#txtNoa').val());
+			                var t_date = trim($('#txtDatea').val());
+			                if (t_noa.length == 0 || t_noa == "AUTO")
+			                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+			                else
+			                    wrServer(t_noa);
+                		}
+                		break;
                 	case 'checktable':
                 		t_accy = $.trim($('#txtMon').val()).substring(0,3);
                 		t_mon = $.trim($('#txtMon').val()).substring(4,6);
@@ -191,42 +209,18 @@
                 		}
                 		btnImport();
                 		break; 	
-                		
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                     default:
-                    	/*if(t_name.substring(0,11)=='checktable_'){
-                    		var n = parseInt(t_name.split('_')[1]);
-                    		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
-	                		if(as[0]!=undefined){
-	                			q_gt('accashf_import', '', 0, 0, 0, "accashf_import", n+"_1");
-	                		}else{
-	                			//alert('無資料。');
-	           					btnImport();
-	                		}
-                    	}else if(t_name.substring(0,15)=='accashf_import_'){
-                    		var n = parseInt(t_name.split('_')[2]);
-                    		var as = _q_appendData("acccs", "", true);
-	                		if(as[0]!=undefined){
-	                			if(n+""==$.trim($('#txtAccy').val()))
-	                				t_data1 = as;
-	                			else
-	                				t_data2 = as;
-	                		}		
-	                		if(n+""==$.trim($('#txtAccy').val())){
-	                			q_gt('tables', "where=^^ TABLE_NAME='acccs"+(n-1)+"_1'^^", 0, 0, 0, "checktable_"+(n-1));
-	                		}else{
-	                			btnImport();
-	                		}
-                    	}else*/ if(t_name.substring(0,10)=='acccs_sum_'){
+                    	if(t_name.substring(0,10)=='acccs_sum_'){
                     		var n = parseFloat(t_name.split('_')[2]);
                     		var t_acc1 = t_name.split('_')[3];
                     		var as = _q_appendData("acccs", "", true);
                     		if(as[0]!=undefined){
                     			var t_money = 0;
-                    			if(t_acc1.substring(0,1)=='1' || t_acc1.substring(0,1)=='5' || t_acc1.substring(0,1)=='6' || t_acc1.substring(0,1)=='8' || t_acc1.substring(0,2)=='73')
+                    			if(t_acc1.substring(0,1)=='1' || t_acc1.substring(0,1)=='5' || t_acc1.substring(0,1)=='6' || t_acc1.substring(0,1)=='8' || t_acc1.substring(0,2)=='73' || t_acc1.substring(0,1)=='9')
                     				t_money = parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney)-parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney);
                     			else
                     				t_money = parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney)-parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney);
@@ -237,6 +231,14 @@
                     	break;
                 }
             }
+            function q_boxClose(s2) {
+				var ret;
+				switch (b_pop) {
+					case q_name + '_s':
+						q_boxClose2(s2);
+						break;
+				}
+			}
 			function btnImport(){
 				for(var i=0;i<q_bbsCount;i++){
 					t_txt = $.trim($('#txtGtitle_'+i).val());
@@ -329,7 +331,7 @@
         		Unlock(1);
 			}
             function btnOk() {
-            	Lock();
+            	Lock(1,{opacity:0});
             	for (var i = 0; i < q_bbsCount; i++) {
             		$('#txtSel_'+i).val(i);
             	}
@@ -341,12 +343,19 @@
 	            }else{
 	            	alert("error: btnok!")
 	            }
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
+	            //---------------------------------------------------
+	            if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
+					alert(q_getMsg('lblDatea')+'錯誤。');
+					Unlock(1);
+            		return;
+				}
+	            var t_mon = $.trim($('#txtMon').val());
+	            if(t_mon.length==0 || !q_cd(t_mon+'/01')){
+	            	alert(q_getMsg('lblMon')+'異常。');
+	            	Unlock(1);
+            		return;
+	            }
+	            q_gt('accashf', "where=^^ mon='"+t_mon+"' and noa!='"+$.trim($('#txtNoa').val())+"' ^^", 0, 0, 0, "btnOk");
             }
 
             function _btnSeek() {
@@ -649,7 +658,7 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                Unlock();
+                Unlock(1);
             }
             function q_popPost(id) {
 				switch(id) {
@@ -693,8 +702,8 @@
             }
 
             function btnPrint() {
-                q_box("z_accc3.aspx?;;;;"+r_accy, 'z_accc3', "95%", "95%", q_getMsg("popAccc3"));
-                //q_box("z_accashf.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, 'accashf', "95%", "95%", m_print);
+                //q_box("z_accc3.aspx?;;;;"+r_accy, 'z_accc3', "95%", "95%", q_getMsg("popAccc3"));
+                q_box("z_accashf.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, 'accashf', "95%", "95%", m_print);
             }
 
             function wrServer(key_value) {
@@ -910,7 +919,7 @@
             }
             #dbbt {
             	float:left;
-                width: 850px;
+                width: 650px;
             }
             #tbbt {
                 margin: 0;
@@ -988,18 +997,15 @@
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text"  class="txt c1"/></td>
 					</tr>
-					<tr>
-						<td> </td>
-						<td><input id="btnImport" type="button"  class="txt c1" value="匯入"/></td>
-					</tr>
 				</table>
 			</div>
 		</div>
-		<div class='dbbs'>
+		<div class='dbbs' style="float:left;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
+					<input id="btnImport" value="匯入" type="button" onclick="btnImport_click()" style="font-size: medium; font-weight: bold;"/>
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:250px;"><a id='lblGtitle_s'> </a></td>
@@ -1026,7 +1032,7 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" style="display:none;" >
+		<div id="dbbt" style="float:left;">
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
@@ -1038,8 +1044,8 @@
 						<td style="width:120px; text-align: center;">會計科目</td>
 						<td style="width:200px; text-align: center;">項目</td>
 						<td style="width:80px; text-align: center;">含子科目</td>
-						<td style="width:150px; text-align: center;">金額</td>
-						<td style="width:150px; text-align: center;">小計</td>
+						<td style="width:120px; text-align: center;">金額</td>
+						<td style="width:120px; text-align: center;">小計</td>
 					</tr>
 					<tr>
 						<td align="center">
@@ -1057,7 +1063,7 @@
 							<input id="txtGtitle..*"  type="text" style="width:95%;"/>
 						</td>
 						<td align="center">
-							<!--<input id="chkIsall..*" type="checkbox"/>-->
+							<input id="chkIsall..*" type="checkbox"/>
 							</td>
 						<td><input id="txtMoney1..*" type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMoney2..*" type="text" style="width:95%; text-align: right;"/></td>
