@@ -50,25 +50,8 @@
                         for ( i = 0; i < as.length; i++) {
                             t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
-                        q_gt('accashf', '', 0, 0, 0, "init2");
-                        break;
-                    case 'init2':
-                    	var as = _q_appendData("accashf", "", true);
-                    	tmp = new Array();
-                    	if(as[0]!=undefined){
-	                        for ( i = 0; i < as.length; i++) {
-	                        	if(as[i].mon.length>0 && tmp.indexOf(as[i].mon)<0){
-	                        		tmp.push(as[i].mon);
-	                        	}
-	                        }
-                        }
-                        tmp.sort(sortNumber);
-                        t_data.data['mon_accashf'] = '';
-                        for(var i in tmp){
-                        	t_data.data['mon_accashf'] += (t_data.data['mon_accashf'].length > 0 ? ',' : '') + tmp[i];
-                        }
                         initfinish();
-                    	break;
+                        break;
                 }
             }
             function initfinish(){
@@ -113,11 +96,7 @@
                     }, {/*9 [15]*/
                         type : '6',
                         name : 'wyear'
-                    }, {/*10-[16]*/
-						type : '5',
-						name : 'mon_accashf',
-						value : t_data.data['mon_accashf'].split(',')
-					}]
+                    }]
                 });
                 $('#txtWyear').mask('999');
                 $('#txtWyear').val(r_accy);
