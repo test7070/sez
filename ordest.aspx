@@ -273,6 +273,13 @@
         	for(var j = 0; j < q_bbsCount; j++) {
         		$('#lblNo_' + j).text(j + 1);
 				if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+					$('#btnBorn_' + j).click(function () {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						t_where = "noa='"+$('#txtNoa').val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
+						q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+					});
 					$('#txtStyle_' + j).blur(function(){
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 					    q_bodyId($(this).attr('id'));
@@ -806,7 +813,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1900px;
+                width: 2100px;
             }
             .tbbs a {
                 font-size: medium;
@@ -970,17 +977,18 @@
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
-                <td align="center" style="width:5%;"><a id='lblMount'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblWeights'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblTotals'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblOrdet_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblGemounts'></a></td>
+                <td align="center" style="width:4%;"><a id='lblMount'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblWeights'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblPrices'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblTotals'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblOrdet_st'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblGemounts'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblDateas'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblMemos'> </a></td>
                 <td align="center" style="width:2%;"><a id='lblssale_st'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblscut_st'> </a></td>
+                <td align="center" style="width:2%;"><a id='lblscut_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblSizea_st'> </a></td>
+				<td align="center" style="width:2%;"><a id='lblBorn'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -1030,6 +1038,7 @@
 				<td align="center"><input id="chkIssale.*" type="checkbox"/></td>
 				<td align="center"><input id="chkIscut.*" type="checkbox"/></td>
                 <td ><input class="txt c7" id="txtSize.*" type="text"/></td>
+				<td align="center"><input class="btn"  id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" /></td>
             </tr>
         </table>
         </div>

@@ -436,12 +436,14 @@
                 <td align="center" style="width:4%"><a id='vewChk'></a></td>
                 <td align="center" style="width:10%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:30%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:30%"><a id='vewTgg'></a></td>
                 <!--<td align="center" style="width:55%"><a id='vewProduct'></a></td>-->
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='tgg,4'>~tgg,4</td>
                    <!--<td align="center" id='tggno tgg'>~tggno ~tgg</td>-->
                    <!--<td align="center" id='productno product'>~productno ~product</td>-->
             </tr>
