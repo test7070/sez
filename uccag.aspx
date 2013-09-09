@@ -69,13 +69,12 @@
             function show_confirm(){
                 if(!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())){
 					var r=confirm("你確定要執行嗎?");
-					if (r==true)
-  					{alert("確定執行");
+					if (!r){
+						return;
+					}
   					if(!emp($('#txtNoa').val()))
-						q_func('uccag.gen', $('#txtNoa').val());}
-					else
-  					{alert("取消執行");}
-  				}
+						q_func('uccag.gen', $('#txtNoa').val());
+					}
 			}
             function q_funcPost(t_func, result) {	//後端傳回
 				$('#txtAccno').val(result.split(';')[0]);

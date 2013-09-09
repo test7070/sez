@@ -23,65 +23,100 @@
 				q_getId();
 				q_gf('', 'z_anavcc');
 			});
+			function printWith(){
+				var obj=$('#printWith');
+				if(obj.attr('name')=='chart'){
+					var t_index = $('#q_report').data('info').radioIndex;
+					txtreport = $('#q_report').data('info').reportData[t_index].report;
+					if(txtreport == 'z_anavccCompare1' || txtreport=='z_anavccCompare2'){
+						obj.attr('disabled','disabled');
+						return;
+					}else{
+						obj.removeAttr('disabled');
+					}
+					obj.val('轉換至列表');
+					$('.prt').hide();
+					$('#chartCtrl').show();
+					$('#chart').show();
+					obj.attr('name','list');
+					$('#btnRun').click();
+				}else{
+					obj.val('轉換至圖表');
+					if(txtreport == 'z_anavccCompare1'|| txtreport=='z_anavccCompare2'){
+						return;
+					}
+					$('.prt').show();
+					$('#chartCtrl').hide();
+					$('#chart').hide();
+					obj.attr('name','chart');
+					$('#btnOk').click();
+				}
+			}
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_anavcc',
+					fileName : 'z_anavccxls',
 					options : [{
-						type : '0',
+						type : '0', //[1]
 						name : 'accy',
 						value : q_getId()[4]
 					}, {
-						type : '1',
+						type : '1', //[2][3]
 						name : 'date'
 					}, {
-						type : '1',
-						name : 'mon'
+						type : '1', //[4][5]
+						name : 'xmon'
 					}, {
-						type : '2',
+						type : '2', //[6][7]
 						name : 'cust',
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
 					}, {
-						type : '2',
+						type : '2', //[8][9]
 						name : 'sales',
 						dbf : 'sss',
 						index : 'noa,namea',
 						src : 'sss_b.aspx'
 					}, {
-						type : '2',
+						type : '2', //[10][11]
 						name : 'product',
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
 					}, {
-						type : '1',
+						type : '1', //[12][13]
 						name : 'xbmon'
 					}, {
-						type : '1',
+						type : '1', //[14][15]
 						name : 'xemon'
 					}, {
-						type : '1',
+						type : '1', //[16][17]
 						name : 'xyear'
 					}]
 				});
 				q_langShow();
 				q_popAssign();
 				q_getFormat();
+				printWith();
+				$('#printWith').click(function(){
+					printWith();
+				});
 				var lastClick = -1;
 				$('.report').click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
 					if(t_index != lastClick){
 						$('#barChart2').html('').removeAttr('style');
 						lastClick=t_index;
+						$('#printWith').attr('name','chart');
+						printWith();
 					}
 				});
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
 				$('#txtDate2').datepicker();
-				$('#txtMon1').mask('999/99');
-				$('#txtMon2').mask('999/99');
+				$('#txtXmon1').mask('999/99');
+				$('#txtXmon2').mask('999/99');
 				$('#txtXyear1').mask('999');
 				$('#txtXyear2').mask('999');
 				$('#txtXyear1').val('101');
@@ -125,10 +160,10 @@
 							t_bdate=encodeURI($('#txtDate1').val());
 						if(!emp($('#txtDate2').val()))
 							t_edate=encodeURI($('#txtDate2').val());
-						if(!emp($('#txtMon1').val()))
-							t_bmon=encodeURI($('#txtMon1').val());
-						if(!emp($('#txtMon2').val()))
-							t_emon=encodeURI($('#txtMon2').val());
+						if(!emp($('#txtXmon1').val()))
+							t_bmon=encodeURI($('#txtXmon1').val());
+						if(!emp($('#txtXmon2').val()))
+							t_emon=encodeURI($('#txtXmon2').val());
 						q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
 						t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
 						t_bproductno + ';' + t_eproductno + ';'
@@ -865,6 +900,9 @@
 				<input type="button" id="btnXXX" style="float:left; width:80px;font-size: medium;" value="權限"/>
 			</div>
 			<div style="display:inline-block;width:2000px;">
+				<input type="button" id="printWith" name="chart">
+			</div>
+			<div id="chartCtrl" style="display:inline-block;width:2000px;">
 				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
 				<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
 				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
@@ -875,10 +913,10 @@
 			<div id="chart">
 				<div id='barChart2'> </div>
 			</div>
+			<div class="prt" style="margin-left: -40px;display:none;">
+				<!--#include file="../inc/print_ctrl.inc"-->
+			</div>
 		</div>
 		<div id="q_acDiv" style="display: none;"><div> </div></div>
-		<div class="prt" style="display:none;">
-			<!--#include file="../inc/print_ctrl.inc"-->
-		</div>
 	</body>
 </html>
