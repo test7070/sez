@@ -89,6 +89,7 @@
 						if(!emp(t_noa) && t_noa != 'AUTO'){
 							t_where = "where=^^noa='" + t_noa + "'^^";
 							q_gt("tranordet", t_where, 0, 0, 0, 'LoadOrdet', r_accy);
+							Lock(1,{opacity:0});
 						};
 						break;
 				}
@@ -586,6 +587,7 @@
 						var as = _q_appendData("tranordet", "", true);
 						TranOrdeArray = as;
 						LoadTranOrdetTable(0);
+						Unlock(1);
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -611,6 +613,8 @@
 				$('#chkEnda').prop('checked',false);
 				$('#txtDatea').focus();
 				display();
+				TranOrdeArray = new Array();
+				TranOrdetPage = 0;
 			}
 
 			function btnModi() {
@@ -720,8 +724,10 @@
 				//載入tranordet
 				var t_noa =trim($('#txtNoa').val()); 
 				if(!emp(t_noa) && t_noa != 'AUTO'){
+					
 					t_where = "where=^^noa='" + t_noa + "'^^";
 					q_gt("tranordet", t_where, 0, 0, 0, 'LoadOrdet', r_accy);
+					Lock(1,{opacity:0});
 				};
 				TranOrdetNextFields(0);
 				TranOrdetNextFields(1);
@@ -729,12 +735,6 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if(q_cur == 2 || q_cur == 0){
-					$('#btnTweight2').removeAttr('disabled');
-				}else{
-					$('#btnTweight2').attr('disabled', 'disabled');
-					
-				}
 				if (q_cur == 1 || q_cur == 2) {
 					$('.x_chk').removeAttr('disabled');
 					$('.y_chk').removeAttr('disabled');
