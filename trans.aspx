@@ -754,7 +754,7 @@
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
-			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
+			    return Math.round(this.mul( Math.pow(10,arg))).div( Math.pow(10,arg));
 			}
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
@@ -786,7 +786,7 @@
 			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
 			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
 			    m = Math.pow(10, Math.max(r1, r2))
-			    return (arg1 * m + arg2 * m) / m
+			    return (Math.round(arg1 * m) + Math.round(arg2 * m)) / m
 			}
 			Number.prototype.sub = function(arg) {
 			    return accSub(this,arg);
@@ -797,7 +797,7 @@
 			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
 			    m = Math.pow(10, Math.max(r1, r2));
 			    n = (r1 >= r2) ? r1 : r2;
-			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			    return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
 		</script>
 		<style type="text/css">
