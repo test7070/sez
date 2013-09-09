@@ -63,6 +63,9 @@
 					},{
                         type : '6',
                         name : 'xdate'
+                    },{
+                        type : '1',
+                        name : 'mon'
                     }]
                     });
                 q_popAssign();
@@ -76,6 +79,9 @@
 	             $('#txtOrdeno2').css('width','100px'); 
 	             $('#txtCuano1').css('width','100px'); 
 	             $('#txtCuano2').css('width','100px'); 
+	             $('#txtMon1').mask('999/99');
+	             $('#txtMon2').mask('999/99');
+	             
 	             
 	             for(var i = 0;i < aPop.length;i++){
 					if(aPop[i][1].substr(0,9) == 'btnWorkno'){
@@ -94,6 +100,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                //$('#txtMon1').val(t_year+'/'+t_month);
+	                
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
@@ -104,6 +112,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                //$('#txtMon2').val(t_year+'/'+t_month);
 	                $('#txtXdate').val(q_date());
               
             }
