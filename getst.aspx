@@ -141,13 +141,13 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
+            $('#txtWorker').val(r_name);
             sum();
 			var t_noa = trim($('#txtNoa').val());
 			
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('A' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_get') + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -257,7 +257,7 @@
             size_change();
         }
         function btnPrint() {
- 			q_box('z_getstp.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", q_getMsg("popPrint"));
+ 			q_box('z_getstp.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer( key_value) {
