@@ -503,14 +503,14 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:18%"><a id='vewDatea'></a></td>
-                <!--<td align="center" style="width:30%"><a id='vewTgg'></a></td>-->
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:30%"><a id='vewTgg'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
-                   <!--<td align="center" id='tggno tgg,4'>~tggno ~tgg,4</td>-->
                    <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='tgg,4'>~tgg,4</td>
             </tr>
         </table>
         </div>
