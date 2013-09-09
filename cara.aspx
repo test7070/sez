@@ -645,7 +645,7 @@
                 }
                 
                 q_tr('txtInterest',t_interest);//本月息額不含001,002,102,201,202,203,306,401
-                if(dec($('#txtIprev').val())+dec($('#txtInterest').val())<0)
+                if(dec($('#txtIprev').val())+dec($('#txtInterest').val())<0 || t_total <= 0)
                 	q_tr('txtItotal',0);//累計息額=上月息額+本月息額
                 else
                 	q_tr('txtItotal',dec($('#txtIprev').val())+dec($('#txtInterest').val()));//累計息額=上月息額+本月息額
