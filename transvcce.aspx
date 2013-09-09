@@ -450,6 +450,15 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkBbsCount':
+                		var as = _q_appendData("view_transvcces", "", true);
+                		var t_count = 0;
+                		if(as[0]!=undefined){
+                			t_count = as.length;
+                		}
+                		if(q_bbsCount!=t_count)
+                			alert('資料異常:明細與資料庫個數不一致。'+t_count+','+q_bbsCount);
+                		break;
                 	case 'loadcaddr':
                 		var as = _q_appendData("view_tranorde", "", true);
                         if (as[0] != undefined){
@@ -690,6 +699,10 @@
             	if(x_checkData[0]!=x_checkData[1] || x_checkData[1]!=x_checkData[2])
             		alert('_資料異常。');
             	
+            	//檢查BBS個數是否和DBF一致
+            	var t_noa = $.trim($('#txtNoa').val());
+            	q_gt('view_transvcces', "where=^^ noa='"+t_noa+"'^^", 0, 0, 0, "checkBbsCount", r_accy);
+
                 Unlock();
             }
             function btnOk() {
