@@ -540,6 +540,7 @@
 				               		t_sendno = t_sendno+1;
 				               		t_sendid = t_sendno%100;
 				               		t_sendid = 'NB'+(t_sendid<10?'0':'')+t_sendid;
+				               		alert(t_sendid);
 			               		}else{
 			               			t_sendno = q_float('txtSendno_'+n);
 				               		t_sendid = $('#txtSendid_'+n).val();
@@ -697,7 +698,7 @@
             			x_checkData[2]++;
             	}
             	if(x_checkData[0]!=x_checkData[1] || x_checkData[1]!=x_checkData[2])
-            		alert('_資料異常。');
+            		alert('_資料異常。'+x_checkData[0]+', '+x_checkData[1]+', '+x_checkData[2]);
             	
             	//檢查BBS個數是否和DBF一致
             	var t_noa = $.trim($('#txtNoa').val());
