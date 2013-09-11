@@ -27,7 +27,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
-		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+		 ['txtCno','lblAcomp','acomp','noa,acomp,addr','txtCno,txtAcomp,txtAddr','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 		 ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
 		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
@@ -60,7 +60,10 @@
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
             q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
-            q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
+            q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
+            var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
+			
             /* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
@@ -94,6 +97,23 @@
             });
 			$('#txtFloata').change(function () {sum();});
 			$('#txtTotal').change(function () {sum();});
+			
+			$('#txtTggno').change(function(){
+				if(!emp($('#txtTggno').val())){
+					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+					q_gt('custaddr', t_where, 0, 0, 0, "");
+				}
+			});
+			
+			$('#txtAddr').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					zip_fact=$('#txtPost').attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
@@ -133,9 +153,29 @@
             b_pop = '';
         }
 
-
+		var focus_addr='',zip_fact='';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
+            	case 'custaddr':
+						var as = _q_appendData("custaddr", "", true);
+						if(as[0]!=undefined){
+	                        var t_item = " @ ";
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '') +as[i].post +'@'+ as[i].addr;
+	                        }
+	                        document.all.combAddr.options.length = 0; 
+	                        q_cmbParse("combAddr", t_item);
+                       }
+					break;
+            	case 'cust':
+						var as = _q_appendData("cust", "", true);
+						if(as[0]!=undefined && focus_addr !=''){
+							$('#'+zip_fact).val(as[0].zip_fact);
+							$('#'+focus_addr).val(as[0].addr_fact);
+							zip_fact = '';
+							focus_addr = '';
+						}
+					break;
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -212,6 +252,13 @@
                 $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
+        
+        function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            if (q_cur==1 || q_cur==2){
+                $('#txtAddr').val($('#combAddr').find("option:selected").text());
+                $('#txtPost').val($('#combAddr').find("option:selected").val());
+            }
+        }
 
         function bbsAssign() {  /// 表身運算式
             _bbsAssign();
@@ -261,6 +308,9 @@
             $('#txtAcomp').val( r_comp.substr( 0,2));
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            
+            var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
         }
 
         function btnModi() {
@@ -269,8 +319,12 @@
 
             _btnModi();
             $('#txtDatea').focus();
+            
+            if(!emp($('#txtTggno').val())){
+				var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
+			}
         }
-
 
         function btnPrint() {
  			q_box("z_rc2p.aspx?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -396,6 +450,17 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtTggno':
+		    			if(!emp($('#txtTggno').val())){
+							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+							q_gt('custaddr', t_where, 0, 0, 0, "");
+						}
+			        break;
+		    	}
+			}
     </script>
     <style type="text/css">
         #dmain {
@@ -591,7 +656,10 @@
             <tr class="tr5">
                 <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
                 <td class="td2"><input id="txtPost"  type="text"  class="txt c1"/> </td>
-                <td class="td3" colspan='4' ><input id="txtAddr"  type="text" class="txt c1"/></td>
+                <td class="td3" colspan='4' >
+                	<input id="txtAddr"  type="text" class="txt c1" style="width: 90%;"/>
+                	<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+                </td>
                 <td class="td7"><span> </span><a id='lblPrice' class="lbl"></a></td>
                 <td class="td8"><input id="txtPrice"  type="text" class="txt num c1" /></td> 
             </tr>
