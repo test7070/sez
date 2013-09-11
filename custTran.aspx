@@ -17,7 +17,7 @@
             }
 
             var q_name = "cust";
-            var q_readonly = ['txtWorker'];
+            var q_readonly = ['txtWorker','txtDatea'];
             var bbmNum = [['txtDueday',10,0]];
             var bbmMask = [['txtChkdate','999/99/99'],['txtStartdate','999/99/99']];
             q_sqlCount = 6;
@@ -31,7 +31,7 @@
             , ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx']
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
-            , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx'])
+            , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -49,6 +49,39 @@
                 q_mask(bbmMask);
                 mainForm(0);
             }
+			function currentData() {
+			}
+			currentData.prototype = {
+				data : [],
+				/*排除的欄位,新增時不複製*/
+				exclude : [],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isExclude = false;
+						for (var j in curData.exclude) {
+							if (fbbm[i] == curData.exclude[j]) {
+								isExclude = true;
+								break;
+							}
+						}
+						if (!isExclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
 
             function mainPost() {
                 q_cmbParse("cmbTypea", q_getPara('cust.typea'));
@@ -199,7 +232,13 @@
                 q_box('cust_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
-                _btnIns();
+				if($('#Copy').is(':checked')){
+					curData.copy();
+				}
+				_btnIns();
+				if($('#Copy').is(':checked')){
+					curData.paste();
+				}
                 refreshBbm();
                 $('#txtNoa').focus();
             }
@@ -532,6 +571,8 @@
 						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
 						<td><input id="txtSerial"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblComp' class="lbl"> </a></td>
@@ -548,7 +589,13 @@
 						<td><input id="txtStatus" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
+						<td>
+							<div style="float:left;">
+								<input id="Copy" type="checkbox" />
+								<span> </span><a id="lblCopy"></a>
+							</div>
+							<span> </span><a id='lblTel' class="lbl"> </a>
+						</td>
 						<td colspan="2"><input id="txtTel" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
 						<td><input id="txtFax" type="text" class="txt c1"/></td>

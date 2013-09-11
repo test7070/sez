@@ -64,6 +64,39 @@
         		mouse_div=true;
         	}
 		});
+			function currentData() {
+			}
+			currentData.prototype = {
+				data : [],
+				/*排除的欄位,新增時不複製*/
+				exclude : [],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isExclude = false;
+						for (var j in curData.exclude) {
+							if (fbbm[i] == curData.exclude[j]) {
+								isExclude = true;
+								break;
+							}
+						}
+						if (!isExclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
 
         //////////////////   end Ready
        function main() {
@@ -487,7 +520,13 @@
               };
 
         function btnIns() {
-            _btnIns();
+			if($('#Copy').is(':checked')){
+				curData.copy();
+			}
+			_btnIns();
+			if($('#Copy').is(':checked')){
+				curData.paste();
+			}
             //$('#txtCno').val('1');
             //$('#txtAcomp').val(r_comp.substr(0, 2));
             $('#txtKdate').val(q_date());
@@ -883,7 +922,13 @@
 		        <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 		        <td class="td2"><input id="txtNoa" type="text"  class="txt"/></td>
 		        <td class="td3"><span> </span><a id="lblKdate" class="lbl"> </a></td>
-		        <td class="td4"><input id="txtKdate" type="text"  class="txt"/></td>
+		        <td class="td4">
+		        	<input id="txtKdate" type="text"  class="txt" style="width:55%;"/>
+					<div style="float:left;">
+						<input id="Copy" type="checkbox" />
+						<span> </span><a id="lblCopy"></a>
+					</div>
+		        </td>
 				<td class="td5"><span> </span><a id="lblWdate" class="lbl"> </a></td>
 				<td class="td6"><input id="txtWdate" type="text"  class="txt"/></td> 
 			</tr>

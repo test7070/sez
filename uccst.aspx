@@ -32,6 +32,39 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
+			function currentData() {
+			}
+			currentData.prototype = {
+				data : [],
+				/*排除的欄位,新增時不複製*/
+				exclude : [],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isExclude = false;
+						for (var j in curData.exclude) {
+							if (fbbm[i] == curData.exclude[j]) {
+								isExclude = true;
+								break;
+							}
+						}
+						if (!isExclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
 
             function main() {
                 if (dataErr) {
@@ -70,7 +103,13 @@
                 q_box(q_name+'st_s.aspx', q_name + 'st_s', "500px", "330px", q_getMsg("popSeek"));
             }
             function btnIns() {
-                _btnIns();
+	            if($('#Copy').is(':checked')){
+	            	curData.copy();
+	            }
+	            _btnIns();
+	            if($('#Copy').is(':checked')){
+	            	curData.paste();
+	            }
                 $('#txtNoa').focus();
             }
             function btnModi() {
@@ -240,6 +279,10 @@
                 width: 100%;
                 float: left;
             }
+            .c2 {
+                width: 55%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -310,7 +353,13 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa_st' class="lbl"> </a></td>
-						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
+						<td>
+							<input id="txtNoa"  type="text" class="txt c1" />
+						</td>
+						<td>.
+							<input id="Copy" type="checkbox" />
+							<span> </span><a id="lblCopy"></a>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblProduct_st' class="lbl"> </a></td>
