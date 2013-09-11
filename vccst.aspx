@@ -31,6 +31,7 @@
 		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 		['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,class,spec,style,product,radius,width,dime,lengthb', 'txtUno_,txtProductno_,txtClass_,txtSpec_,txtStyle_,txtProduct_,txtRadius_,txtWidth_,txtDime_,txtLengthb_', 'uccc_seek_b.aspx','95%','60%'],
+		['txtStoreno2_', 'btnStoreno2_', 'store', 'noa,store', 'txtStoreno2_,txtStore2_', 'store_b.aspx'],
 		['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -704,7 +705,7 @@
 			font-size:medium;
 			color:blue;
 			background:#cad3ff;
-			width: 1500px;
+			width: 1800px;
 		}
 		.dbbs .tbbs tr{
 			height:35px;
@@ -859,17 +860,19 @@
 		  <tr style='color:White; background:#003366;' >
 				<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
 				<td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
-				<td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
+				<td align="center" style="width:8%;"><a id='lblProductno_st'> </a></td>
 				<td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
 				<td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
 				<!--<td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>-->
 				<td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
-				<td align="center" style="width:8%;"><a id='lblSizea_st'></a></td>
+				<td align="center" style="width:6%;"><a id='lblSizea_st'></a></td>
 				<td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
 				<td align="center" style="width:5%;"><a id='lblWeight_st'></a></td>
 				<td align="center" style="width:5%;"><a id='lblPrices_st'></a></td>
 				<td align="center" style="width:7%;"><a id='lblTotals_st'></a></td>
 				<td align="center" style="width:6%;"><a id='lblGweight_st'></a></td>
+				<td align="center" style="width:60px;"><a id='lblUsecoil_st'> </a></td>
+				<td align="center" style="width:5%;"><a id='lblStore2_st'> </a></td>
 				<td align="center"><a id='lblMemos_st'></a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
@@ -878,7 +881,8 @@
 					<input id="txtUno.*" type="text" class="txt c1" style="width:80%;"/>
 					<input class="btn" id="btnUno.*" type="button" value='.'/>
 				</td>
-				<td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" /><input  id="txtProductno.*" type="text" style="width:83%;" />
+				<td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+					<input  id="txtProductno.*" type="text" style="width:83%;" />
 					<input id="txtClass.*" type="text" style='width: 83%;'/>
 				</td>
 				<td ><input class="txt c7" id="txtStyle.*" style="text-align:center;" type="text" /></td>
@@ -902,6 +906,11 @@
 				<td><input id="txtTotal.*" type="text" class="txt num c1" />
 						<input id="txtTheory.*" type="text" class="txt num c1" /></td>
 				<td><input id="txtGweight.*" type="text"  class="txt num c1" /></td>
+				<td ><input class="txt c7" id="txtUsecoil.*" style="text-align:center;" type="text" /></td>
+				<td ><input class="btn"  id="btnStoreno2.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+					<input  id="txtStoreno2.*" type="text" style="width:75%;" />
+					<input id="txtStore2.*" type="text" style='width: 83%;'/>
+				</td>
 				<td><input id="txtMemo.*" type="text" class="txt c1"/>
 					<input id="txtOrdeno.*" type="text" style="width:65%;" />
 					<input id="txtNo2.*" type="text" style="width:25%;" />
