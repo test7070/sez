@@ -366,7 +366,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 750px;
+                width: 950px;
             }
             #tbbt {
                 margin: 0;
@@ -516,10 +516,10 @@
 						<td style="width:60px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:100px; text-align: center;"><a id='lblMech_t'> </a></td>
-						<td style="width:100px; text-align: center;"><a id='lblSales_t'> </a></td>
-						<td style="width:80px; text-align: center;"><a id='lblHours_t'> </a></td>
-						<td style="width:80px; text-align: center;"><a id='lblAddhours_t'> </a></td>
+						<td colspan="2" style="width:100px; text-align: center;"><a id='lblMech_t'> </a></td>
+						<td colspan="2" style="width:100px; text-align: center;"><a id='lblSales_t'> </a></td>
+						<td style="width:120px; text-align: center;"><a id='lblHours_t'> </a></td>
+						<td style="width:120px; text-align: center;"><a id='lblAddhours_t'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
@@ -530,13 +530,13 @@
 						<td>
 							<input id="btnMechno..*" type="button" value="." style="font-size: medium; font-weight: bold;" />
 							<input id="txtMechno..*" type="text" style="width: 75%;"/>
-							<input class="txt c3" id="txtMech..*" type="text" />
 						</td>
+						<td><input class="txt c3" id="txtMech..*" type="text" /></td>
 						<td>
 							<input id="btnSalesno..*" type="button" value="." style="font-size: medium; font-weight: bold;" />
 							<input id="txtSalesno..*" type="text" style="width: 75%;"/>
-							<input class="txt c3" id="txtSales..*" type="text" />
 						</td>
+						<td><input class="txt c3" id="txtSales..*" type="text" /></td>
 						<td>
 						<input id="txtHours..*"  type="text" class="txt num c3"/>
 						</td>
