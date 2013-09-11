@@ -21,8 +21,6 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-			var x_checkData = [0,0,0];
-			
             q_tables = 's';
             var q_name = "transvcce";
             var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
@@ -546,7 +544,7 @@
 				               		t_sendid = $('#txtSendid_'+n).val();
 			               		}
 			               		
-			               		//常輝SERVER有時資料不會回傳,
+			               		//長輝SERVER有時資料不會回傳,
 			               		$('#txtSendno_'+n).val(t_sendno);
 								$('#txtSendid_'+n).val(t_sendid);
 								$('#txtSenddate_'+n).val(t_senddate);
@@ -693,13 +691,6 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                for(var i=0;i<q_bbsCount;i++){
-            		if($.trim($('#txtCarno_'+i).val()).length>0 || q_float('txtMount_'+i)!=0 )
-            			x_checkData[2]++;
-            	}
-            	if(x_checkData[0]!=x_checkData[1] || x_checkData[1]!=x_checkData[2])
-            		alert('_資料異常。'+x_checkData[0]+', '+x_checkData[1]+', '+x_checkData[2]);
-            	
             	//檢查BBS個數是否和DBF一致
             	var t_noa = $.trim($('#txtNoa').val());
             	q_gt('view_transvcces', "where=^^ noa='"+t_noa+"'^^", 0, 0, 0, "checkBbsCount", r_accy);
@@ -707,13 +698,6 @@
                 Unlock();
             }
             function btnOk() {
-            	x_checkData = [0,0,0];
-            	for(var i=0;i<q_bbsCount;i++){
-            		if($.trim($('#txtCarno_'+i).val()).length>0 || q_float('txtMount_'+i)!=0 )
-            			x_checkData[0]++;
-            	}
-            	
-            	
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
@@ -743,11 +727,6 @@
                 SendCommand(q_bbsCount-1);
             }
             function SaveData(){
-            	for(var i=0;i<q_bbsCount;i++){
-            		if($.trim($('#txtCarno_'+i).val()).length>0 || q_float('txtMount_'+i)!=0 )
-            			x_checkData[1]++;
-            	}
-            	
             	var t_string = "";
             	for(var i = 0; i < q_bbsCount; i++) {
             		if($.trim($('#txtCarno_'+i).val()).length>0)
