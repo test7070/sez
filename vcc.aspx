@@ -136,8 +136,8 @@
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtMount', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,mount'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtMount,txtMemo', b_ret.length, b_ret
+                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,mount,memo'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
 						//寫入訂單號碼
 						var t_oredeno='';
@@ -145,6 +145,12 @@
 							if(t_oredeno.indexOf(b_ret[i].noa)==-1)
 								t_oredeno=t_oredeno+(t_oredeno.length>0?(','+b_ret[i].noa):b_ret[i].noa);
 						}
+						//取得訂單備註
+						if(t_oredeno.length>0){
+							var t_where = "where=^^ charindex(noa,'"+t_oredeno+"')>0 ^^";
+							q_gt('orde', t_where, 0, 0, 0, "", r_accy);
+						}
+						
 						$('#txtOrdeno').val(t_oredeno);
 						sum();
                     }
@@ -161,6 +167,15 @@
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {
+            	case 'orde':
+            	var as = _q_appendData("orde", "", true);
+            	var t_memo=$('#txtMemo').val();
+            		for ( i = 0; i < as.length; i++) {
+            			t_memo=t_memo+(t_memo.length>0?'\n':'')+as[i].noa+':'+as[i].memo;
+            		}
+            		$('#txtMemo').val(t_memo);
+            		break;
+            	break;
             	case 'cust':
             		var as = _q_appendData("cust", "", true);
             		if(as[0]!=undefined && focus_addr !=''){
@@ -602,7 +617,9 @@
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-				<td class="td2" colspan='7'><input id="txtMemo" type="text" class="txt c1"/></td>
+				<td class="td2" colspan='7'>
+					<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
+				</td>
             </tr>
         </table>
         </div>

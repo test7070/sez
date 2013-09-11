@@ -21,12 +21,15 @@
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
 		//ajaxPath = ""; //	execute in Root
-		aPop = new Array(['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+		aPop = new Array();
+		//['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
+		
 		$(document).ready(function () {
 			bbmKey = ['uno'];
 			q_brwCount();
 			q_gt(q_name, q_content, q_sqlCount, 1);
 			$('#txtUno').focus();
+			
 		});
 		function currentData() {
 		}
@@ -80,6 +83,10 @@
 			$('#btnUcctd').click(function() {
 				t_where = "noa='" + $('#txtNoa').val() + "'";
 				q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
+			});
+			$('#btnTgg').click(function() {
+				t_where = "productno='" + $('#txtNoa').val() + "'";
+				q_box("ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctgg', "95%", "95%", q_getMsg('btnTgg'));
 			});
 		}
 
@@ -319,7 +326,10 @@
 		</tr>
 		<tr><td class="label1"><a id='lblProduct'> </a></td>
 			<td colspan='2'><input	type="text" id="txtProduct" class="txt c1"/></td>
-			<td><input type="button" id="btnUcctd" style='width: auto; font-size: medium;' ></td>
+			<td>
+				<input type="button" id="btnUcctd" style='width: auto; font-size: medium;' >
+				<input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/>
+			</td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblEngpro'> </a></td>
@@ -347,11 +357,11 @@
 			<td class="label2"><a id='lblCoin'> </a></td>
 			<td><select id="cmbCoin" class="txt c2"> </select></td>
 		</tr>
-		<tr>
-			<td class="label1"><input id="btnTgg" type="button" value='.' style='width: auto; font-size: medium;'	/></td>
+		<!--<tr>
+			<td class="label1"><input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/></td>
 			<td><input id="txtTggno" type="text" class="txt c1"/></td>
 			<td colspan='2'><input id="txtTgg"	type="text" style="width: 97%;"/></td>
-		</tr>				
+		</tr>-->				
 		<tr>
 			<td class="label1"><a id='lblType'> </a></td>
 			<td><select id="cmbTypea" class="txt c1"> </select></td>
