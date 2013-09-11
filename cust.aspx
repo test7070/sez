@@ -16,7 +16,7 @@
             }
 
             var q_name = "cust";
-            var q_readonly = ['txtWorker','txtDatea','txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
+            var q_readonly = ['txtWorker','txtKdate','txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -228,7 +228,7 @@
                     t_err = t_err + q_getMsg("lblStartn") + q_getMsg("msgErr") + '\r';
                 if (dec($('#txtGetdate').val()) > 31)
                     t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r';
-				$('#txtDatea').val(q_date());
+				$('#txtKdate').val(q_date());
                  $('#txtWorker' ).val(r_name);
                 if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
@@ -506,7 +506,7 @@
 							<span> </span><a id='lblWorker' class="lbl"></a>
 						</td>
 						<td class="td6">
-						<input id="txtDatea" type="text" class="txt c6"/>
+						<input id="txtKdate" type="text" class="txt c6"/>
 						<input id="txtWorker" type="text"  class="txt c6"/>
 						</td>
 					</tr>

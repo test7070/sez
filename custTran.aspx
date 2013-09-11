@@ -17,7 +17,7 @@
             }
 
             var q_name = "cust";
-            var q_readonly = ['txtWorker','txtDatea'];
+            var q_readonly = ['txtWorker','txtKdate'];
             var bbmNum = [['txtDueday',10,0]];
             var bbmMask = [['txtChkdate','999/99/99'],['txtStartdate','999/99/99']];
             q_sqlCount = 6;
@@ -269,7 +269,7 @@
 					Unlock();
 					return;
 				}
-        	
+        		$('#txtKdate').val(q_date());
             	if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2){
                     alert(q_getMsg('lblSerial')+'錯誤。');
                     Unlock();
@@ -282,7 +282,7 @@
             	/*	var t_err = '';	
             	if (dec($('#txtCredit').val()) > 9999999999)
                     t_err = t_err + q_getMsg('msgCreditErr') + '\r';*/ 
-                 
+                
                 $('#txtWorker' ).val(r_name);
                 if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
@@ -571,8 +571,8 @@
 						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
 						<td><input id="txtSerial"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td><input id="txtKdate"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblComp' class="lbl"> </a></td>

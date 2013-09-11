@@ -15,86 +15,59 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-            $(document).ready(function() {
-                _q_boxClose();
-                q_getId();
-                q_gf('', 'z_uccst');
-            });
-            function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_uccst',
-                    options : [{
-	                        type : '1',
-	                        name : 'xdate'
-	                    }, {
-	                        type : '2',
-	                        name : 'xproduct',
-	                        dbf : 'ucaucc',
-	                        index : 'noa,product',
-	                        src : 'ucaucc_b.aspx'
-	                    }, {
-							type : '0',
+			$(document).ready(function() {
+				_q_boxClose();
+				q_getId();
+				q_gf('', 'z_uccst');
+			});
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_uccst',
+					options : [{
+							type : '0', //[1]
 							name : 'accy',
 							value : q_getId()[4]
-	                    },{
-	                        type : '6',
-	                        name : 'xedate'
-	                    },{
-	                        type : '1',
-	                        name : 'xordeno'
+						},{
+							type : '1', //[2][3]
+							name : 'xdate'
 						}, {
-							type : '5',
+							type : '2', //[4][5]
+							name : 'xproduct',
+							dbf : 'ucaucc',
+							index : 'noa,product',
+							src : 'ucaucc_b.aspx'
+						}, {
+							type : '6', // [6]
+							name : 'xedate'
+						},{
+							type : '1', //[7][8]
+							name : 'xordeno'
+						}, {
+							type : '5', //[9]
 							name : 'xstktype',
 							value : [q_getPara('report.all')].concat(q_getPara('sys.stktype').split(','))
-	                    }
-                    ]
-                });
-                q_popAssign();
-                q_getFormat();
-                q_langShow();
+						}
+					]
+				});
+				q_popAssign();
+				q_getFormat();
+				q_langShow();
 
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate2').datepicker();
-                
-                $('#txtXedate').mask('999/99/99');
-                $('#txtXedate').val(q_date());
-            }
+				$('#txtXdate1').mask('999/99/99');
+				$('#txtXdate1').datepicker();
+				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate2').datepicker();
+				
+				$('#txtXedate').mask('999/99/99');
+				$('#txtXedate').val(q_date());
+			}
 
-            function q_boxClose(s2) {
-            }
+			function q_boxClose(s2) {
+			}
 
-            function q_gtPost(s2) {
-            }
+			function q_gtPost(s2) {
+			}
 		</script>
-		<style type="text/css">
-			.q_report .option {
-				width: 600px;
-			}
-			.q_report .option div.a1 {
-				width: 580px;
-			}
-			.q_report .option div.a2 {
-				width: 220px;
-			}
-			.q_report .option div .label {
-				font-size:medium;
-			}
-			.q_report .option div .text {
-				font-size:medium;
-			}
-			.q_report .option div .cmb{
-				height: 22px;
-				font-size:medium;
-			}
-			.q_report .option div .c2 {
-				width: 80px;
-			}
-			.q_report .option div .c3 {
-				width: 110px;
-			}
-		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"

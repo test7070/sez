@@ -17,7 +17,7 @@
             }
 
             var q_name = "tgg";
-            var q_readonly = [['txtWorker'],['txtUacc1'],['txtUacc2'],['txtUacc3']];
+            var q_readonly = ['txtWorker','txtKdate','txtUacc1','txtUacc2','txtUacc3'];
             var bbmNum = [['txtDueday',10,0]];
             var bbmMask = [['txtChkdate','999/99/99'],['txtStartdate','999/99/99']];
             q_sqlCount = 6;
@@ -34,7 +34,7 @@
             							, ['txtUacc2', 'lblUacc2', 'acc', 'acc1,acc2', 'txtUacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             							, ['txtUacc3', 'lblUacc3', 'acc', 'acc1,acc2', 'txtUacc3', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]*/
             							, ['txtUacc4', 'lblUacc4', 'acc', 'acc1,acc2', 'txtUacc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            )
+           );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -210,6 +210,7 @@
             	if (dec($('#txtCredit').val()) > 9999999999)
                     t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 
                 */
+               $('#txtKdate').val(q_date());
                 $('#txtWorker' ).val(r_name);
                 if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
@@ -480,6 +481,8 @@
 						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
 						<td><input id="txtSerial"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td><input id="txtKdate"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblComp' class="lbl"> </a></td>
