@@ -21,8 +21,6 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-			var x_checkData = [0,0,0];
-			
             q_tables = 's';
             var q_name = "transvcce";
             var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
@@ -451,19 +449,19 @@
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'checkBbsCount':
-                		var as = _q_appendData("view_transvcces", "", true);
+                		var GG = _q_appendData("view_transvcces", "", true);
                 		var t_count = 0;
-                		if(as[0]!=undefined){
-                			t_count = as.length;
+                		if(GG[0]!=undefined){
+                			t_count = GG.length;
                 		}
                 		if(q_bbsCount!=t_count)
                 			alert('資料異常:明細與資料庫個數不一致。'+t_count+','+q_bbsCount);
                 		break;
                 	case 'loadcaddr':
-                		var as = _q_appendData("view_tranorde", "", true);
-                        if (as[0] != undefined){
+                		var GG = _q_appendData("view_tranorde", "", true);
+                        if (GG[0] != undefined){
                         	tranorde.curCaddr.push({addrno:'',addr:''});
-                        	var t_caddr = as[0].caddr.split(',');
+                        	var t_caddr = GG[0].caddr.split(',');
                         	var a_caddr = new Array(),t_item,t_str,t_addrno='';
                         	for(var i=0;i<t_caddr.length;i++){
 		                		t_item = t_caddr[i].split(' ');
@@ -489,18 +487,18 @@
                         }
                 		break;
                     case 'aaa':
-                        var as = _q_appendData("view_tranorde", "", true);
-                        if (as[0] != undefined)
-                            tranorde.init(as);
+                        var GG = _q_appendData("view_tranorde", "", true);
+                        if (GG[0] != undefined)
+                            tranorde.init(GG);
                         else{
                         	Unlock();
                         	alert('無資料。');
                         }
                         break;
                     case 'LoadCaseno':
-                    	var as = _q_appendData("view_tranordes", "", true);
-		               	if (as[0] != undefined){
-		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtMsg,txtMemo', as.length, as, 'caseno,memo,memo', '', '');
+                    	var GG = _q_appendData("view_tranordes", "", true);
+		               	if (GG[0] != undefined){
+		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtMsg,txtMemo', GG.length, GG, 'caseno,memo,memo', '', '');
 		               	}
 		               	Unlock();
                     	break;
@@ -514,9 +512,9 @@
                     		var n = parseInt(t_name.split('_')[3]);
                     		var t_sendid;
                     		var t_sendno = 0 ;
-                    		var as = _q_appendData("view_transvcces", "", true);
-			               	if (as[0] != undefined){
-			               		t_sendno = parseInt( as[0].sendno.length==0?"0":as[0].sendno);
+                    		var GG = _q_appendData("view_transvcces", "", true);
+			               	if (GG[0] != undefined){
+			               		t_sendno = parseInt( GG[0].sendno.length==0?"0":GG[0].sendno);
 			               	}
                     		var t_isSend = $('#chkIssend_'+n).prop('checked');
 		            		var t_carno = $.trim($('#txtCarno_'+n).val());
@@ -540,13 +538,12 @@
 				               		t_sendno = t_sendno+1;
 				               		t_sendid = t_sendno%100;
 				               		t_sendid = 'NB'+(t_sendid<10?'0':'')+t_sendid;
-				               		alert(t_sendid);
 			               		}else{
 			               			t_sendno = q_float('txtSendno_'+n);
 				               		t_sendid = $('#txtSendid_'+n).val();
 			               		}
 			               		
-			               		//常輝SERVER有時資料不會回傳,
+			               		//長輝SERVER有時資料不會回傳,
 			               		$('#txtSendno_'+n).val(t_sendno);
 								$('#txtSendid_'+n).val(t_sendid);
 								$('#txtSenddate_'+n).val(t_senddate);
@@ -607,9 +604,9 @@
                     		var t_noa = t_name.split('_')[1];
                     		var t_ordeno = t_name.split('_')[2];
                     		var t_mount = parseFloat(t_name.split('_')[3]);
-                    		var as = _q_appendData("view_tranorde", "", true);
-	                        if (as[0] != undefined){
-	                        	t_vccecount = (as[0]['vccecount']==undefined?"0":as[0]['vccecount']);
+                    		var GG = _q_appendData("view_tranorde", "", true);
+	                        if (GG[0] != undefined){
+	                        	t_vccecount = (GG[0]['vccecount']==undefined?"0":GG[0]['vccecount']);
 	                        	t_vccecount = (t_vccecount.length==0?"0":t_vccecount);
 	                        	t_where=" noa='"+t_noa+"'";
 	                        	t_where="where=^^"+t_where+"^^";
@@ -625,9 +622,9 @@
                     		var t_mount = parseFloat(t_name.split('_')[3]);
                     		var t_vccecount = parseFloat(t_name.split('_')[4]);
                     		var t_curVccecount = t_vccecount + t_mount;
-                    		var as = _q_appendData("transvcce", "", true);
-                    		if (as[0] != undefined){            
-                    			t_curVccecount -= parseFloat(as[0]['mount']==undefined?"0":as[0]['mount']);
+                    		var GG = _q_appendData("transvcce", "", true);
+                    		if (GG[0] != undefined){            
+                    			t_curVccecount -= parseFloat(GG[0]['mount']==undefined?"0":GG[0]['mount']);
                     		}
                     		for(var i in tranorde.data){
                 				if(tranorde.data[i]['noa']==t_ordeno){
@@ -693,13 +690,6 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                for(var i=0;i<q_bbsCount;i++){
-            		if($.trim($('#txtCarno_'+i).val()).length>0 || q_float('txtMount_'+i)!=0 )
-            			x_checkData[2]++;
-            	}
-            	if(x_checkData[0]!=x_checkData[1] || x_checkData[1]!=x_checkData[2])
-            		alert('_資料異常。'+x_checkData[0]+', '+x_checkData[1]+', '+x_checkData[2]);
-            	
             	//檢查BBS個數是否和DBF一致
             	var t_noa = $.trim($('#txtNoa').val());
             	q_gt('view_transvcces', "where=^^ noa='"+t_noa+"'^^", 0, 0, 0, "checkBbsCount", r_accy);
@@ -707,13 +697,6 @@
                 Unlock();
             }
             function btnOk() {
-            	x_checkData = [0,0,0];
-            	for(var i=0;i<q_bbsCount;i++){
-            		if($.trim($('#txtCarno_'+i).val()).length>0 || q_float('txtMount_'+i)!=0 )
-            			x_checkData[0]++;
-            	}
-            	
-            	
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
@@ -743,11 +726,6 @@
                 SendCommand(q_bbsCount-1);
             }
             function SaveData(){
-            	for(var i=0;i<q_bbsCount;i++){
-            		if($.trim($('#txtCarno_'+i).val()).length>0 || q_float('txtMount_'+i)!=0 )
-            			x_checkData[1]++;
-            	}
-            	
             	var t_string = "";
             	for(var i = 0; i < q_bbsCount; i++) {
             		if($.trim($('#txtCarno_'+i).val()).length>0)
