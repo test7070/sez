@@ -16,7 +16,7 @@
             }
 
             var q_name = "cust";
-            var q_readonly = ['txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
+            var q_readonly = ['txtWorker','txtDatea','txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -39,10 +39,42 @@
                 q_popSave(xmlTable);
                 // for conn_b.aspx
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
-
-                $('#txtNoa').focus
+                q_gt(q_name, q_content, q_sqlCount, 1);
+                $('#txtNoa').focus();
             });
+			function currentData() {
+			}
+			currentData.prototype = {
+				data : [],
+				/*排除的欄位,新增時不複製*/
+				exclude : [],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isExclude = false;
+						for (var j in curData.exclude) {
+							if (fbbm[i] == curData.exclude[j]) {
+								isExclude = true;
+								break;
+							}
+						}
+						if (!isExclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
 
             //////////////////   end Ready
             function main() {
@@ -88,10 +120,6 @@
 						}
 					}
                 });
-				
-                //txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-                //txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-                //txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
 
                 $('#txtUacc4').change(function() {
                     var s1 = trim($(this).val());
@@ -146,7 +174,7 @@
             }
 
             function combPaytype_chg() {
-                var cmb = document.getElementById("combPaytype")
+                var cmb = document.getElementById("combPaytype");
                 if (!q_cur)
                     cmb.value = '';
                 else
@@ -155,7 +183,13 @@
             }
 
             function btnIns() {
-                _btnIns();
+				if($('#Copy').is(':checked')){
+					curData.copy();
+				}
+				_btnIns();
+				if($('#Copy').is(':checked')){
+					curData.paste();
+				}
                 refreshBbm();
                 $('#txtNoa').focus();
             }
@@ -193,8 +227,8 @@
                 if (dec($('#txtStartn').val()) > 31)
                     t_err = t_err + q_getMsg("lblStartn") + q_getMsg("msgErr") + '\r';
                 if (dec($('#txtGetdate').val()) > 31)
-                    t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
+                    t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r';
+				$('#txtDatea').val(q_date());
                  $('#txtWorker' ).val(r_name);
                 if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
@@ -461,11 +495,18 @@
 						</td>
 						<td class="td3"><span> </span><a id='lblSerial' class="lbl"></a></td>
 						<td class="td4">
-						<input id="txtSerial" type="text" class="txt c1"/>
+							<input id="txtSerial" type="text" class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
+						<td class="td5">
+							<div style="float:left;">
+								<input id="Copy" type="checkbox" />
+								<span> </span><a id="lblCopy"></a>
+							</div>
+
+							<span> </span><a id='lblWorker' class="lbl"></a>
+						</td>
 						<td class="td6">
-						<input id="txtKeyin" type="text" class="txt c6"/>
+						<input id="txtDatea" type="text" class="txt c6"/>
 						<input id="txtWorker" type="text"  class="txt c6"/>
 						</td>
 					</tr>
