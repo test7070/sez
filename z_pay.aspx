@@ -80,6 +80,12 @@
 						dbf : 'ucc',
 						index : 'noa,product',
 						src : 'ucc_b.aspx'
+					}, {
+						type : '2', //[21][22]
+						name : 'xcardeal',
+						dbf : 'cardeal',
+						index : 'noa,comp',
+						src : 'cardeal_b.aspx'
 				}]
 			});
 			q_popAssign();
