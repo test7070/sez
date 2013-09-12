@@ -60,6 +60,9 @@
                     }, {
                         type : '1',
                         name : 'xemon'
+                    }, {
+                        type : '6',
+                        name : 'xmemo'
                     }]
                 });
                 q_popAssign();
@@ -75,7 +78,8 @@
                 $('#txtXbmon2').val(r_accy+'/12').mask('999/99');
                 $('#txtXemon1').val(r_accy+'/01').mask('999/99');
                 $('#txtXemon2').val(r_accy+'/12').mask('999/99');
-                
+                $('#Xmemo').removeClass('a2').addClass('a1');
+                $('#txtXmemo').css('width','85%');
             }
 
             function q_boxClose(s2) {
