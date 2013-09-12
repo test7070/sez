@@ -51,6 +51,21 @@
                 q_getFormat();
                 bbmMask = [['txtPredate', r_picd],['txtPricedate', r_picd]];
                 q_mask(bbmMask);
+                
+                $('#txtTggno').change(function(){
+					if(!emp($('#txtTggno').val()) || !emp($('#txtProductno').val())){
+						var t_where = "where=^^ productno='" + $('#txtProductno').val() + "' and tggno='" + $('#txtTggno').val() + "' ^^";
+						q_gt('ucctgg', t_where, 0, 0, 0, "ucctgg_tgg");
+					}
+				});
+				
+				$('#txtProductno').change(function(){
+					if(!emp($('#txtProductno').val())||!emp($('#txtTggno').val())){
+						var t_where = "where=^^ productno='" + $('#txtProductno').val() + "' and tggno='" + $('#txtTggno').val() + "' ^^";
+						q_gt('ucctgg', t_where, 0, 0, 0, "ucctgg_ucc");
+					}
+				});
+                
             }
 
             function q_boxClose(s2) {
@@ -70,6 +85,24 @@
                             q_Seek_gtPost();
                         break;
                 }  /// end switch
+                
+                if(t_name.substr(0,7)=='ucctgg_'){
+                	if(q_cur==1 || q_cur==2){
+                    	var as = _q_appendData("ucctgg", "", true);
+						if(as[0]!=undefined){
+							if(t_name=='ucctgg_tgg'){
+								alert('該'+q_getMsg("lblProduct")+'的'+q_getMsg("lblTgg")+'重覆!!');
+								$('#txtTggno').val('');
+								$('#txtTgg').val('');
+							}
+							if(t_name=='ucctgg_ucc'){
+								alert('該'+q_getMsg("lblTgg")+'的'+q_getMsg("lblProduct")+'重覆!!');
+								$('#txtProductno').val('');
+								$('#txtProduct').val('');
+							}	
+						}
+                	}
+                }
             }
 
             function btnOk() {
@@ -88,8 +121,8 @@
                 var t_noa = trim($('#txtNoa').val());
                	var t_porductno = trim($('#txtPorductno').val());
 		        var t_tggno = trim($('#txtTggno').val());
-		        if (t_noa.length == 0)
-		            q_gtnoa(q_name, t_porductno+'-'+t_tggno);
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll('UT'+q_date(), '/', ''));
 		        else
 		            wrServer(t_noa);
             }
@@ -98,10 +131,19 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('ucctgg_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('ucctgg_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
             }
             function bbsAssign() {           
                 for (var j = 0; j < q_bbsCount; j++) {
+                	$('#txtMount_' + j).change(function() {
+                		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(dec($('#txtMount_' +b_seq).val())<dec($('#txtMinmount').val())){
+							alert('數量不得小於'+q_getMsg("lblMinmount")+'!!');
+							$('#txtMount_' +b_seq).val($('#txtMinmount').val());
+						}
+	                });
                 }
                 _bbsAssign();
             }
@@ -131,7 +173,7 @@
             }
 
             function btnPrint() {
-                q_box("z_ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "650px", q_getMsg("popPrint"));
+                //q_box("z_ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -219,6 +261,23 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtTggno':
+		    			if(!emp($('#txtTggno').val()) || !emp($('#txtProductno').val())){
+							var t_where = "where=^^ productno='" + $('#txtProductno').val() + "' and tggno='" + $('#txtTggno').val() + "' ^^";
+							q_gt('ucctgg', t_where, 0, 0, 0, "ucctgg_tgg");
+						}
+			        break;
+			        case 'txtProductno':
+		    			if(!emp($('#txtTggno').val()) || !emp($('#txtProductno').val())){
+							var t_where = "where=^^ productno='" + $('#txtProductno').val() + "' and tggno='" + $('#txtTggno').val() + "' ^^";
+							q_gt('ucctgg', t_where, 0, 0, 0, "ucctgg_ucc");
+						}
+			        break;
+		    	}
+			}
             
 		</script>
 		<style type="text/css">
@@ -404,8 +463,8 @@
 					<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width: 10%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width: 10%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width: 20%;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width: 20%;"><a id='lblPrice_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>

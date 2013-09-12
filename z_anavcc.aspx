@@ -24,13 +24,12 @@
 				q_gf('', 'z_anavcc');
 			});
 			function printWith(){
+				var t_index = $('#q_report').data('info').radioIndex;
+				txtreport = $('#q_report').data('info').reportData[t_index].report;
 				var obj=$('#printWith');
 				if(obj.attr('name')=='chart'){
-					var t_index = $('#q_report').data('info').radioIndex;
-					txtreport = $('#q_report').data('info').reportData[t_index].report;
 					if(txtreport == 'z_anavccCompare1' || txtreport=='z_anavccCompare2'){
 						obj.attr('disabled','disabled');
-						return;
 					}else{
 						obj.removeAttr('disabled');
 					}
@@ -41,10 +40,10 @@
 					obj.attr('name','list');
 					$('#btnRun').click();
 				}else{
-					obj.val('轉換至圖表');
 					if(txtreport == 'z_anavccCompare1'|| txtreport=='z_anavccCompare2'){
 						return;
 					}
+					obj.val('轉換至圖表');
 					$('.prt').show();
 					$('#chartCtrl').hide();
 					$('#chart').hide();
@@ -562,7 +561,7 @@
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objpostData[i].comp+'</text>';	
 									else if(objpostData[i].product != undefined)
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objpostData[i].product+'</text>';	
-									//收入
+									//銷貨金額
 									t_total = (dec(objpostData[i].total)/10000);
 									t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
@@ -589,9 +588,9 @@
 								//Y軸
 								tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 51.6)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 								//符號說明
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','收入(萬元)','black');
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 							}else if(txtreport == 'z_anavcc3'){
 								//客戶名稱(標題)
 								tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].comp+'</text>';
@@ -600,7 +599,7 @@
 									x = strX - 5;
 	 								y = strY + i*40 + 35+(i*10);
 									tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objpostData[i].product+'</text>';	
-									//收入
+									//銷貨金額
 									t_total = (dec(objpostData[i].total)/10000);
 									t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
@@ -626,9 +625,9 @@
 									//Y軸
 									tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 40+25)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 									//符號說明
-									tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','收入(萬元)','black');
-									tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
-									tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
+									tmpPath += MarkHelp((strX+t_width+10),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
+									tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
+									tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 								}
 							}else if(txtreport == 'z_anavccCompare1' || txtreport == 'z_anavccCompare2'){
 								//客戶名稱(標題)
@@ -646,7 +645,7 @@
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+s_bdate+'</text>';	
 	 								else if(objpostData[i].mon =='E')
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+s_edate+'</text>';	
-									//收入
+									//銷貨金額
 									t_total = (dec(objpostData[i].total)/10000);
 									t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
@@ -673,9 +672,9 @@
 								//Y軸
 								tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 51.6)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 								//符號說明
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','收入(萬元)','black');
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 							}
 							obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph" width="100%" height="100%">' + tmpPath + '</svg> ');
 							//事件
@@ -829,8 +828,8 @@
 								//Y軸
 								tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+t_height)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 								//符號說明
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-60),'url(#chart2_color1)',t_byear+'年度','black');
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-60)+30,'url(#chart2_color3)',t_eyear+'年度','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-60),'url(#chart2_color1)',t_byear+'年度','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-60)+30,'url(#chart2_color3)',t_eyear+'年度','black');
 								
 							}
 							obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph" width="100%" height="100%">' + tmpPath + '</svg> ');
