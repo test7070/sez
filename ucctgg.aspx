@@ -86,7 +86,7 @@
                         break;
                 }  /// end switch
                 
-                if(t_name.substr(0,6)='ucctgg_'){
+                if(t_name.substr(0,7)=='ucctgg_'){
                 	if(q_cur==1 || q_cur==2){
                     	var as = _q_appendData("ucctgg", "", true);
 						if(as[0]!=undefined){
@@ -122,7 +122,7 @@
                	var t_porductno = trim($('#txtPorductno').val());
 		        var t_tggno = trim($('#txtTggno').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, t_porductno+'-'+t_tggno);
+		            q_gtnoa(q_name, replaceAll('UT'+q_date(), '/', ''));
 		        else
 		            wrServer(t_noa);
             }
@@ -131,7 +131,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('ucctgg_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('ucctgg_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
             }
             function bbsAssign() {           
                 for (var j = 0; j < q_bbsCount; j++) {
@@ -173,7 +173,7 @@
             }
 
             function btnPrint() {
-                q_box("z_ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "650px", q_getMsg("popPrint"));
+                //q_box("z_ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -463,8 +463,8 @@
 					<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width: 10%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width: 10%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width: 20%;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width: 20%;"><a id='lblPrice_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
