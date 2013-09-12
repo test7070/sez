@@ -562,7 +562,7 @@
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objpostData[i].comp+'</text>';	
 									else if(objpostData[i].product != undefined)
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objpostData[i].product+'</text>';	
-									//收入
+									//銷貨金額
 									t_total = (dec(objpostData[i].total)/10000);
 									t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
@@ -589,7 +589,7 @@
 								//Y軸
 								tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 51.6)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 								//符號說明
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','收入(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
 								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
 								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 							}else if(txtreport == 'z_anavcc3'){
@@ -600,7 +600,7 @@
 									x = strX - 5;
 	 								y = strY + i*40 + 35+(i*10);
 									tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objpostData[i].product+'</text>';	
-									//收入
+									//銷貨金額
 									t_total = (dec(objpostData[i].total)/10000);
 									t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
@@ -626,7 +626,7 @@
 									//Y軸
 									tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 40+25)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 									//符號說明
-									tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','收入(萬元)','black');
+									tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
 									tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
 									tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 								}
@@ -646,7 +646,7 @@
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+s_bdate+'</text>';	
 	 								else if(objpostData[i].mon =='E')
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+s_edate+'</text>';	
-									//收入
+									//銷貨金額
 									t_total = (dec(objpostData[i].total)/10000);
 									t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
@@ -673,7 +673,7 @@
 								//Y軸
 								tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 51.6)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 								//符號說明
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','收入(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
 								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
 								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 							}
