@@ -23,51 +23,79 @@
                 q_gf('', 'z_vcc');
             });
 			
-            function q_gfPost() {
+			function showPrice(){
+				var t_index = $('#q_report').data('info').radioIndex;
+				txtreport = $('#q_report').data('info').reportData[t_index].report;
+				if($('#Xshowprice').is(":visible")){ //有出現
+					var hasCheck = $('#chkXshowprice input[type="checkbox"]').is(':checked');
+					if(hasCheck){
+						txtreport = txtreport.replace('PriceNoShow','');
+						$('#q_report').data('info').reportData[t_index].report = txtreport;
+					}else{
+						txtreport = txtreport.replace('PriceNoShow','');
+						txtreport = txtreport + 'PriceNoShow';
+						$('#q_report').data('info').reportData[t_index].report = txtreport;
+					}
+				}
+			}
+			
+			function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_vcc',
                     options : [{
-                        type : '0',
+                        type : '0', //[1]
                         name : 'accy',
                         value : q_getId()[4]
                     }, {
-                        type : '1',
+                        type : '1',//[2][3]
                         name : 'date'
                     }, {
-                        type : '1',
+                        type : '1',//[4][5]
                         name : 'mon'
                     }, {
-                        type : '2',
+                        type : '2',//[6][7]
                         name : 'cust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
                     }, {
-                        type : '2',
+                        type : '2',//[8][9]
                         name : 'sales',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
                     }, {
-                        type : '2',
+                        type : '2',//[10][11]
                         name : 'product',
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
                     }, {
-                        type : '1',
+                        type : '1',//[12][13]
                         name : 'xbmon'
                     }, {
-                        type : '1',
+                        type : '1',//[14][15]
                         name : 'xemon'
                     }, {
-                        type : '6',
+                        type : '6',//[16]
                         name : 'xmemo'
+                    }, {
+                        type : '8',//[17]
+                        name : 'xshowprice',
+                        value : "1@".split(',')
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
+                showPrice();
+                $('#q_report').click(function(){
+                	showPrice();
+                });
+                $('#chkXshowprice input[type="checkbox"]').click(function(){
+                	showPrice();
+                });
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
