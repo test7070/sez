@@ -39,7 +39,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
 
             });
             function main() {
@@ -88,9 +88,9 @@
 					var t_tggno = $.trim($('#txtTggno').val());
 					var t_mon = $.trim($('#txtMon').val());				
 					if(t_tggno.length>0 && t_mon.length>0){
-						var t_where = "where=^^ (a.[money]!=0 or a.tax!=0 or a.discount!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"'))" 
+						var t_where = "where=^^ (a.[money]!=0 or a.tax!=0 or a.discount!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"'))" ;
                     	+ " and a.tggno='"+t_tggno+"' and a.mon='"+t_mon+"' ^^";
-                    	var t_where1 = " where[1]=^^ (a.plusmoney!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"')) and a.tggno='"+t_tggno+"' ^^"
+                    	var t_where1 = " where[1]=^^ (a.plusmoney!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"')) and a.tggno='"+t_tggno+"' ^^";
                     	q_gt('payb_fix', t_where+t_where1, 0, 0, 0, "", r_accy);
 					}else{
 						alert('請輸入'+q_getMsg('lblMon')+'、'+q_getMsg('lblTgg'));	
@@ -548,7 +548,7 @@
             	var tot_money=0,tot_tax=0,tot_discount=0,tot_total=0;
             	for (var j = 0; j < q_bbsCount; j++) {
             		t_money = q_float('txtMount_'+j).mul(q_float('txtPrice_'+j)).round(0);
-            		t_total = t_money.add(q_float('txtTax_'+j)).sub(q_float('txtDiscount_'+j))    		
+            		t_total = t_money.add(q_float('txtTax_'+j)).sub(q_float('txtDiscount_'+j));    		
             		$('#txtMoney_'+j).val(FormatNumber(t_money));
             		$('#txtTotal_'+j).val(FormatNumber(t_total));
             		tot_money = tot_money.add(t_money);
@@ -848,7 +848,7 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td class="tdZ"></td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
