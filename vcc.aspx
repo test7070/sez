@@ -69,6 +69,9 @@
             q_cmbParse("combPay", q_getPara('vcc.paytype')); 
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             
+            var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
+            
             $('#btnOrdes').click(function () {
                 var t_custno = trim($('#txtCustno').val());
 	            var t_where = '';
@@ -114,6 +117,13 @@
 					var t_where = "where=^^ noa='" + t_custno + "' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "");
 				}  
+			});
+			
+			$('#txtCustno').change(function(){
+				if(!emp($('#txtCustno').val())){
+					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+					q_gt('custaddr', t_where, 0, 0, 0, "");
+				}
 			});
         }
 
@@ -167,6 +177,17 @@
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {
+            	case 'custaddr':
+						var as = _q_appendData("custaddr", "", true);
+						var t_item = " @ ";
+						if(as[0]!=undefined){
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '') +as[i].post +'@'+ as[i].addr;
+	                        }
+                       }
+                       document.all.combAddr.options.length = 0; 
+	                   q_cmbParse("combAddr", t_item);
+					break;
             	case 'orde':
             	var as = _q_appendData("orde", "", true);
             	var t_memo=$('#txtMemo').val();
@@ -227,7 +248,13 @@
                 $('#txtPay').val(cmb.value);
             cmb.value = '';
         }
-
+		
+		function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            if (q_cur==1 || q_cur==2){
+                $('#txtAddr').val($('#combAddr').find("option:selected").text());
+                $('#txtZipcode').val($('#combAddr').find("option:selected").val());
+            }
+        }
 
         function bbsAssign() {  /// 表身運算式
             for (var i = 0; i < q_bbsCount ; i++) {   // q_bbsCount 表身總列數
@@ -249,6 +276,9 @@
             $('#txtDatea').val(q_date());
             $('#cmbTypea').val('1');
             $('#txtDatea').focus();
+            
+            var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
 
         }
         function btnModi() {
@@ -256,6 +286,11 @@
                 return;
             _btnModi();
             $('#txtDatea').focus();
+            
+            if(!emp($('#txtCustno').val())){
+				var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
+			}
         }
         function btnPrint() {
 			q_box('z_vccp.aspx' + "?;;;noa="+trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -330,6 +365,11 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if(t_para){
+				$('#combAddr').attr('disabled','disabled');
+			}else{
+				$('#combAddr').removeAttr('disabled');
+			}
         }
 
         function btnMinus(id) {
@@ -380,6 +420,17 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtCustno':
+		    			if(!emp($('#txtCustno').val())){
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('custaddr', t_where, 0, 0, 0, "");
+						}
+			        break;
+		    	}
+			}
     </script>
     <style type="text/css">
         #dmain {
@@ -570,7 +621,10 @@
             <tr>
 				<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
 				<td class="td2"><input id="txtZipcode" type="text" class="txt c1"/></td>
-				<td class="td3" colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
+				<td class="td3" colspan='4'>
+					<input id="txtAddr" type="text" class="txt c1" style="width: 90%;"/>
+					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+				</td>
                 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
                 <td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td> 
             </tr>

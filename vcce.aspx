@@ -25,7 +25,7 @@
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array(
-		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,fax,trantype,addr_comp', 'txtCustno,txtComp,txtTel,txtFax,txtTrantype,txtAddr_post', 'cust_b.aspx']
+		['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,fax,trantype,zip_comp,addr_comp', 'txtCustno,txtComp,txtTel,txtFax,txtTrantype,txtZip_post,txtAddr_post', 'cust_b.aspx']
 		,['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,fax,addr2,salesno,sales,cno,acomp,paytype', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtFax,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp,txtPaytype', '']
 		,['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']
 		,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
@@ -57,6 +57,9 @@
 			q_cmbParse("cmbTrantype", q_getPara('vcce.trantype'));
 			q_cmbParse("cmbStype", q_getPara('orde.stype'));
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
+			
+			var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
 			
 			$('#btnVcct').click(function(){
 				var t_noa = $('#txtNoa').val();
@@ -114,6 +117,13 @@
 					q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
 				}  
 			});
+			
+			$('#txtCustno').change(function(){
+				if(!emp($('#txtCustno').val())){
+					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+					q_gt('custaddr', t_where, 0, 0, 0, "");
+				}
+			});
 		}
 
 		function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -141,6 +151,17 @@
 		var focus_addr='';
 		function q_gtPost(t_name) {  
 			switch (t_name) {
+				case 'custaddr':
+						var as = _q_appendData("custaddr", "", true);
+						var t_item = " @ ";
+						if(as[0]!=undefined){
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '') +as[i].post +'@'+ as[i].addr;
+	                        }
+                       }
+                       document.all.combAddr.options.length = 0; 
+	                   q_cmbParse("combAddr", t_item);
+					break;
 				case 'ordei':
             		var as = _q_appendData("ordei", "", true);
             		var t_lcno='';
@@ -220,6 +241,13 @@
 
 		function combPay_chg() {   
 		}
+		
+		function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            if (q_cur==1 || q_cur==2){
+                $('#txtAddr_post').val($('#combAddr').find("option:selected").text());
+                $('#txtZip_post').val($('#combAddr').find("option:selected").val());
+            }
+        }
 
 		function bbsAssign() { 
 			for(var j = 0; j < q_bbsCount; j++) {
@@ -237,12 +265,20 @@
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtDatea').val(q_date());
 			$('#txtDatea').focus();
+			
+			var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
 				return;
 			_btnModi();
 			$('#txtDatea').focus();
+			
+			if(!emp($('#txtCustno').val())){
+				var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
+			}
 		}
 		function btnPrint() {
 			t_where = "noa='"+$('#txtNoa').val()+"'";
@@ -291,10 +327,12 @@
             	$('#btnVcct').removeAttr('disabled');
             	$('#btnInvoice').removeAttr('disabled');
             	$('#btnPack').removeAttr('disabled');
+            	$('#combAddr').attr('disabled','disabled');
             }else{
             	$('#btnVcct').attr('disabled','disabled');
             	$('#btnInvoice').attr('disabled','disabled');
             	$('#btnPack').attr('disabled','disabled');
+            	$('#combAddr').removeAttr('disabled');
             }
 		}
 
@@ -354,6 +392,12 @@
 						if(!emp(t_ordeno)){
 							var t_where = "where=^^ noa='" + t_ordeno + "' ^^";
 							q_gt('ordei', t_where, 0, 0, 0, "", r_accy);
+						}
+			        break;
+			        case 'txtCustno':
+		    			if(!emp($('#txtCustno').val())){
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 			        break;
 		    	}
@@ -590,7 +634,11 @@
 		
 		<tr class="tr4">
 			<td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
-			<td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
+			<td class="td2" colspan="4">
+				<input id="txtZip_post"  type="text" class="txt c7" style="width: 25%;"/> 
+				<input id="txtAddr_post"  type="text" class="txt c7" style="width: 68%;"/> 
+				<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+			</td>
 			<td class="td3"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
 			<td class="td4"><select id="cmbTrantype" class="txt c1"> </select></td>
 			<td class="td6"><input id="btnInvoice" type="button"/> </td>
