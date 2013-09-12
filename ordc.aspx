@@ -151,14 +151,14 @@
                 switch (t_name) {
                 	case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
+						var t_item = " @ ";
 						if(as[0]!=undefined){
-	                        var t_item = " @ ";
 	                        for ( i = 0; i < as.length; i++) {
 	                            t_item = t_item + (t_item.length > 0 ? ',' : '') +as[i].post +'@'+ as[i].addr;
 	                        }
-	                        document.all.combAddr.options.length = 0; 
-	                        q_cmbParse("combAddr", t_item);
                        }
+                       document.all.combAddr.options.length = 0; 
+	                   q_cmbParse("combAddr", t_item);
 					break;
                 	case 'cust':
 						var as = _q_appendData("cust", "", true);
@@ -343,10 +343,12 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
-		            $('#btnOrdb').attr('disabled', 'disabled');	          
+		            $('#btnOrdb').attr('disabled', 'disabled');
+		            $('#combAddr').attr('disabled','disabled');          
 		        }
 		        else {
 		        	$('#btnOrdb').removeAttr('disabled');	 
+		        	$('#combAddr').removeAttr('disabled');
 		        }
             }
 
