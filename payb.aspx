@@ -39,7 +39,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
 
             });
             function main() {
@@ -88,9 +88,9 @@
 					var t_tggno = $.trim($('#txtTggno').val());
 					var t_mon = $.trim($('#txtMon').val());				
 					if(t_tggno.length>0 && t_mon.length>0){
-						var t_where = "where=^^ (a.[money]!=0 or a.tax!=0 or a.discount!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"'))" 
+						var t_where = "where=^^ (a.[money]!=0 or a.tax!=0 or a.discount!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"'))" ;
                     	+ " and a.tggno='"+t_tggno+"' and a.mon='"+t_mon+"' ^^";
-                    	var t_where1 = " where[1]=^^ (a.plusmoney!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"')) and a.tggno='"+t_tggno+"' ^^"
+                    	var t_where1 = " where[1]=^^ (a.plusmoney!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"')) and a.tggno='"+t_tggno+"' ^^";
                     	q_gt('payb_fix', t_where+t_where1, 0, 0, 0, "", r_accy);
 					}else{
 						alert('請輸入'+q_getMsg('lblMon')+'、'+q_getMsg('lblTgg'));	
@@ -548,7 +548,7 @@
             	var tot_money=0,tot_tax=0,tot_discount=0,tot_total=0;
             	for (var j = 0; j < q_bbsCount; j++) {
             		t_money = q_float('txtMount_'+j).mul(q_float('txtPrice_'+j)).round(0);
-            		t_total = t_money.add(q_float('txtTax_'+j)).sub(q_float('txtDiscount_'+j))    		
+            		t_total = t_money.add(q_float('txtTax_'+j)).sub(q_float('txtDiscount_'+j));    		
             		$('#txtMoney_'+j).val(FormatNumber(t_money));
             		$('#txtTotal_'+j).val(FormatNumber(t_total));
             		tot_money = tot_money.add(t_money);
@@ -644,50 +644,50 @@
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
-			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
-			}
+			    return Math.round(this.mul( Math.pow(10,arg))).div( Math.pow(10,arg));
+			};
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
-			}
+			};
             function accDiv(arg1, arg2) {
 			    var t1 = 0, t2 = 0, r1, r2;
-			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
-			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    try { t1 = arg1.toString().split(".")[1].length; } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length; } catch (e) { }
 			    with (Math) {
-			        r1 = Number(arg1.toString().replace(".", ""))
-			        r2 = Number(arg2.toString().replace(".", ""))
+			        r1 = Number(arg1.toString().replace(".", ""));
+			        r2 = Number(arg2.toString().replace(".", ""));
 			        return (r1 / r2) * pow(10, t2 - t1);
 			    }
 			}
 			Number.prototype.mul = function(arg) {
 			    return accMul(arg, this);
-			}
+			};
 			function accMul(arg1, arg2) {
 			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-			    try { m += s1.split(".")[1].length } catch (e) { }
-			    try { m += s2.split(".")[1].length } catch (e) { }
-			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			    try { m += s1.split(".")[1].length; } catch (e) { }
+			    try { m += s2.split(".")[1].length; } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
 			}
 			Number.prototype.add = function(arg) {
 		   		return accAdd(arg, this);
-			}
+			};
 			function accAdd(arg1, arg2) {
 			    var r1, r2, m;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
-			    m = Math.pow(10, Math.max(r1, r2))
-			    return (arg1 * m + arg2 * m) / m
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    return (Math.round(arg1 * m) + Math.round(arg2 * m)) / m;
 			}
 			Number.prototype.sub = function(arg) {
 			    return accSub(this,arg);
-			}
+			};
 			function accSub(arg1, arg2) {
 			    var r1, r2, m, n;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
 			    m = Math.pow(10, Math.max(r1, r2));
 			    n = (r1 >= r2) ? r1 : r2;
-			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			    return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
 			
 			function q_popPost(s1) {
@@ -848,7 +848,7 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td class="tdZ"></td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -864,7 +864,6 @@
 						<td><input id="txtDatea"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text"  class="txt c1" /></td>			
-						
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblPart" class="lbl btn" > </a></td>
