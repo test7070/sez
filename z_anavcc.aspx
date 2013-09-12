@@ -589,9 +589,9 @@
 								//Y軸
 								tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').postData[n].length * 51.6)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 								//符號說明
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
-								tmpPath += MarkHelp((strX+t_width+40),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
+								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 							}else if(txtreport == 'z_anavcc3'){
 								//客戶名稱(標題)
 								tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].comp+'</text>';
