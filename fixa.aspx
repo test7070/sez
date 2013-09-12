@@ -1,14 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-	<head>
+	<head> 
 		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 		    this.errorHandler = null;
 		    function onPageError(error) {
@@ -37,7 +41,9 @@
 		    	['txtWacc1', 'lblWacc1', 'acc', 'acc1,acc2', 'txtWacc1,txtWacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
 		    	['txtCacc1', 'lblCacc1', 'acc', 'acc1,acc2', 'txtCacc1,txtCacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
 		    	['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], 
-		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
+		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx'],
+		    	['textBtggno', '', 'tgg', 'noa,comp,nick', 'textBtggno', 'tgg_b.aspx'],
+		    	['textEtggno', '', 'tgg', 'noa,comp,nick', 'textEtggno', 'tgg_b.aspx']);
 		    q_desc = 1;
 		    
 		    function currentData() {}
@@ -112,7 +118,67 @@
                     var patt = /^(\d{4})([^\.,.]*)$/g;
                     $(this).val($(this).val().replace(patt, "$1.$2"));
                 });
+                //export
+		        $('#textBdate').datepicker();
+		        $('#textEdate').datepicker();
+                $('#divExport').mousedown(function(e) {
+                	if(e.button==2){               		
+	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
+	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
+                	}
+                }).mousemove(function(e) {
+                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
+                		$(this).css('top',$(this).data('xtop')+e.clientY);
+                		$(this).css('left',$(this).data('xleft')+e.clientX);
+                	}
+                }).bind('contextmenu', function(e) {
+	            	if(e.target.nodeName!='INPUT')
+                		e.preventDefault();
+		        });
+                
+                $('#btn2').click(function(e){
+                	$('#divExport').toggle();
+                	$('#textBdate').focus();
+                });
+                $('#btnDivexport').click(function(e){
+                	$('#divExport').hide();             	
+                });
+                $('#textBdate').keydown(function(e){
+                	if(e.which==13)
+                		$('#textEdate').focus();			
+                });
+                $('#textEdate').keydown(function(e){
+                	if(e.which==13)
+                		$('#textBtggno').focus();			
+                });
+                $('#textBtggno').keydown(function(e){
+                	if(e.which==13)
+                		$('#textEtggno').focus();			
+                });
+                $('#textEtggno').keydown(function(e){
+                	if(e.which==13)
+                		$('#btnDivexport').focus();			
+                });
+                $('#btnExport').click(function(e){
+                	var t_bdate = $.trim($('#textBdate').val());
+                	var t_edate = $.trim($('#textEdate').val());
+                	var t_btggno = $.trim($('#textBtggno').val());
+                	var t_etggno = $.trim($('#textEtggno').val());
+                	if(t_bdate.length==0 || t_edate.length==0){
+                		alert('參數異常。');
+                		return;
+                	}
+                	Lock();
+                	q_func('qtxt.query.fixa4tgg2fixa', 'fixa.txt,fixa4tgg2fixa,' +encodeURI(r_name)+';'+encodeURI(t_bdate)+';'+encodeURI(t_edate)+';'+encodeURI(t_btggno)+';'+encodeURI(t_etggno));
+                });
 		    }
+		    function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.fixa4tgg2fixa':
+                    	location.reload();
+                    break;
+                }
+            }  
 
 		    function q_boxClose(s2) {
 		        var ret;
@@ -217,7 +283,7 @@
 	            }else if(q_cur ==2){
 	            	$('#txtWorker2').val(r_name);
 	            }else{
-	            	alert("error: btnok!")
+	            	alert("error: btnok!");
 	            }
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
@@ -349,9 +415,9 @@
 		    			}
 		    			var t_where ="";
 		    			if(t_carplateno.length==0)
-		    				t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and len(isnull(a.carplateno,''))=0 and a.fixadate<'"+t_fixadate+"' ^^"
+		    				t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and len(isnull(a.carplateno,''))=0 and a.fixadate<'"+t_fixadate+"' ^^";
                 		else
-                			t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carplateno='"+t_carplateno+"' and a.fixadate<'"+t_fixadate+"' ^^"
+                			t_where ="where=^^ (b.noa is not null) and b.noa!='"+t_noa+"' and b.productno='"+t_productno+"' and a.carplateno='"+t_carplateno+"' and a.fixadate<'"+t_fixadate+"' ^^";
                 		q_gt('fixa_lasttime', t_where, 0, 0, 0,'fixalasttime_'+b_seq, r_accy);
 		    			break;
 		    		default:
@@ -462,53 +528,51 @@
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
-			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
-			}
+			    return Math.round(this.mul( Math.pow(10,arg))).div( Math.pow(10,arg));
+			};
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
-			}
+			};
             function accDiv(arg1, arg2) {
 			    var t1 = 0, t2 = 0, r1, r2;
-			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
-			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    try { t1 = arg1.toString().split(".")[1].length; } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length; } catch (e) { }
 			    with (Math) {
-			        r1 = Number(arg1.toString().replace(".", ""))
-			        r2 = Number(arg2.toString().replace(".", ""))
+			        r1 = Number(arg1.toString().replace(".", ""));
+			        r2 = Number(arg2.toString().replace(".", ""));
 			        return (r1 / r2) * pow(10, t2 - t1);
 			    }
 			}
 			Number.prototype.mul = function(arg) {
 			    return accMul(arg, this);
-			}
+			};
 			function accMul(arg1, arg2) {
 			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-			    try { m += s1.split(".")[1].length } catch (e) { }
-			    try { m += s2.split(".")[1].length } catch (e) { }
-			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			    try { m += s1.split(".")[1].length; } catch (e) { }
+			    try { m += s2.split(".")[1].length; } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
 			}
 			Number.prototype.add = function(arg) {
 		   		return accAdd(arg, this);
-			}
+			};
 			function accAdd(arg1, arg2) {
 			    var r1, r2, m;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
-			    m = Math.pow(10, Math.max(r1, r2))
-			    return (arg1 * m + arg2 * m) / m
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    return (Math.round(arg1 * m) + Math.round(arg2 * m)) / m;
 			}
 			Number.prototype.sub = function(arg) {
 			    return accSub(this,arg);
-			}
+			};
 			function accSub(arg1, arg2) {
 			    var r1, r2, m, n;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
 			    m = Math.pow(10, Math.max(r1, r2));
 			    n = (r1 >= r2) ? r1 : r2;
-			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			    return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
-
-
 		</script>
 		<style type="text/css">
             #dmain {
@@ -624,7 +688,45 @@
 
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
+		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:120px;background:RGB(237,237,237);"> 
+			<table style="border:4px solid gray; width:100%; height: 100%;">
+				<tr style="height:1px;background-color: pink;">
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+					<td style="width:25%;"> </td>
+				</tr>
+				<tr>		
+					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;color: blue;"><a>登錄日期</a></td>
+					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
+						<input type="text" id="textBdate" style="float:left;width:40%;"/>
+						<span style="float:left;width:25px;">~</span>
+						<input type="text" id="textEdate" style="float:left;width:40%;"/>
+					</td>
+				</tr>
+				<tr>		
+					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;color: blue;"><a>廠商</a></td>
+					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
+						<input type="text" id="textBtggno" style="float:left;width:40%;"/>
+						<span style="float:left;width:25px;">~</span>
+						<input type="text" id="textEtggno" style="float:left;width:40%;"/>
+					</td>
+				</tr>	
+				<tr>
+					<td colspan="2" align="center" style="background-color: pink;">
+						<input type="button" id="btnExport" value="匯出"/>	
+					</td>
+					<td colspan="2" align="center" style=" background-color: pink;">
+						<input type="button" id="btnDivexport" value="關閉"/>	
+					</td>
+				</tr>
+			</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview" >
@@ -734,6 +836,10 @@
 					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td><input id="btn2" type="button" class="c1" value="匯出"></td>
 					</tr>
 					
 					<tr class="tr5">
