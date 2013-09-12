@@ -21,14 +21,14 @@
 			}
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_anavcc');
+				q_gf('', 'z_anavcc2');
 			});
 			function printWith(){
 				var t_index = $('#q_report').data('info').radioIndex;
 				txtreport = $('#q_report').data('info').reportData[t_index].report;
 				var obj=$('#printWith');
 				if(obj.attr('name')=='chart'){
-					if(txtreport == 'z_anavccCompare1' || txtreport=='z_anavccCompare2'){
+					if(txtreport == 'z_anavcc2_Compare1' || txtreport=='z_anavcc2_Compare2'){
 						obj.attr('disabled','disabled');
 					}else{
 						obj.removeAttr('disabled');
@@ -40,7 +40,7 @@
 					obj.attr('name','list');
 					$('#btnRun').click();
 				}else{
-					if(txtreport == 'z_anavccCompare1'|| txtreport=='z_anavccCompare2'){
+					if(txtreport == 'z_anavcc2_Compare1'|| txtreport=='z_anavcc2_Compare2'){
 						return;
 					}
 					obj.val('轉換至圖表');
@@ -53,7 +53,7 @@
 			}
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_anavccxls',
+					fileName : 'z_anavcc2xls',
 					options : [{
 						type : '0', //[1]
 						name : 'accy',
@@ -154,7 +154,7 @@
 						t_bproductno=encodeURI($('#txtProduct1a').val());
 					if(!emp($('#txtProduct2a').val()))
 						t_eproductno=encodeURI($('#txtProduct2a').val());
-					if(txtreport=='z_anavcc1' ||txtreport=='z_anavcc2' ||txtreport=='z_anavcc3'){
+					if(txtreport=='z_anavcc2_1' ||txtreport=='z_anavcc2_2' ||txtreport=='z_anavcc2_3'){
 						if(!emp($('#txtDate1').val()))
 							t_bdate=encodeURI($('#txtDate1').val());
 						if(!emp($('#txtDate2').val()))
@@ -163,11 +163,11 @@
 							t_bmon=encodeURI($('#txtXmon1').val());
 						if(!emp($('#txtXmon2').val()))
 							t_emon=encodeURI($('#txtXmon2').val());
-						q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
+						q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
 						t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
 						t_bproductno + ';' + t_eproductno + ';'
 						);
-					}else if(txtreport=='z_anavccCompare1' ||txtreport=='z_anavccCompare2'){
+					}else if(txtreport=='z_anavcc2_Compare1' ||txtreport=='z_anavcc2_Compare2'){
 						if(!emp($('#txtXbmon1').val()))
 							t_xbbmon=encodeURI($('#txtXbmon1').val());
 						if(!emp($('#txtXbmon2').val()))
@@ -176,19 +176,19 @@
 							t_xebmon=encodeURI($('#txtXemon1').val());
 						if(!emp($('#txtXemon2').val()))
 							t_xeemon=encodeURI($('#txtXemon2').val());
-						q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbbmon + ';' + t_xbemon + ';' +
+						q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbbmon + ';' + t_xbemon + ';' +
 						t_xebmon + ';' + t_xeemon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
 						t_bproductno + ';' + t_eproductno + ';'
 						);
-					}else if(txtreport=='z_anavccCustyear'||txtreport=='z_anavccProductyear'){
+					}else if(txtreport=='z_anavcc2_Custyear'||txtreport=='z_anavcc2_Productyear'){
 						if(!emp($('#txtXyear1').val()))
 							t_xbyear=encodeURI($('#txtXyear1').val());
 						if(!emp($('#txtXyear2').val()))
 							t_xeyear=encodeURI($('#txtXyear2').val());
-							if(txtreport=='z_anavccCustyear')
-								q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bcustno + ';' + t_ecustno + ';');
+							if(txtreport=='z_anavcc2_Custyear')
+								q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bcustno + ';' + t_ecustno + ';');
 							else
-								q_func('qtxt.query','z_anavcc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bproductno + ';' + t_eproductno + ';');
+								q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bproductno + ';' + t_eproductno + ';');
 					}
 				});
 			}
@@ -216,7 +216,7 @@
 								}
 								if(!bar[rec])
 									bar[rec] = new Array();
-								if(txtreport == 'z_anavcc1'){
+								if(txtreport == 'z_anavcc2_1'){
 									bar[rec].push(
 										{
 											custno:as[i].custno,
@@ -226,7 +226,7 @@
 											price:dec(as[i].total)-dec(as[i].price)
 										}
 									);
-								}else if(txtreport == 'z_anavcc2'){
+								}else if(txtreport == 'z_anavcc2_2'){
 									bar[rec].push(
 										{
 											productno:as[i].productno,
@@ -236,7 +236,7 @@
 											price:dec(as[i].total)-dec(as[i].price)
 										}
 									);
-								}else if(txtreport == 'z_anavcc3'){
+								}else if(txtreport == 'z_anavcc2_3'){
 									bar[rec].push(
 										{
 											custno:as[i].custno,
@@ -248,7 +248,7 @@
 											price:dec(as[i].total)-dec(as[i].price)
 										}
 									);
-								}else if(txtreport == 'z_anavccCompare1'){
+								}else if(txtreport == 'z_anavcc2_Compare1'){
 									if((i>1 && as[i].mon=='E' && as[i-1].mon != 'B') || (i==0 && as[i].mon=='E')){
 										bar[rec].push(
 											{
@@ -283,7 +283,7 @@
 											}
 										);
 									}
-								}else if(txtreport == 'z_anavccCompare2'){
+								}else if(txtreport == 'z_anavcc2_Compare2'){
 									if((i>1 && as[i].mon=='E' && as[i-1].mon != 'B') || (i==0 && as[i].mon=='E')){
 										bar[rec].push(
 											{
@@ -318,7 +318,7 @@
 											}
 										);
 									}
-								}else if(txtreport == 'z_anavccCustyear'||txtreport == 'z_anavccProductyear'){
+								}else if(txtreport == 'z_anavcc2_Custyear'||txtreport == 'z_anavcc2_Productyear'){
 									if($('#txtXyear1').val() == $('#txtXyear2').val()){
 										alert('年度相同無法比較!!');
 										$('#txtXyear1').focus();
@@ -435,7 +435,7 @@
 									}
 								}
 							}
-							if(txtreport=='z_anavccCustyear'||txtreport=='z_anavccProductyear'){
+							if(txtreport=='z_anavcc2_Custyear'||txtreport=='z_anavcc2_Productyear'){
 								$('#barChart2').barChart({
 									data : bar
 								});
@@ -551,7 +551,7 @@
 												'</linearGradient>' +
 											'</defs>';
 							}
-							if(txtreport == 'z_anavcc1' || txtreport == 'z_anavcc2'){
+							if(txtreport == 'z_anavcc2_1' || txtreport == 'z_anavcc2_2'){
 								for (var i = 0; i < objpostData.length; i++) {	
 									tmpPath +='<g id="chart2_item'+i+'">';
 									//客戶名稱	  
@@ -591,7 +591,7 @@
 								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90),'url(#chart2_color1)','銷貨金額(萬元)','black');
 								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
 								tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
-							}else if(txtreport == 'z_anavcc3'){
+							}else if(txtreport == 'z_anavcc2_3'){
 								//客戶名稱(標題)
 								tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].comp+'</text>';
 								for (var i = 0; i < objpostData.length; i++) {	
@@ -629,11 +629,11 @@
 									tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+30,'url(#chart2_color3)','數量','black');
 									tmpPath += MarkHelp((strX+t_width+10),(objHeight-90)+60,'url(#chart2_color5)','毛利(萬元)','black');
 								}
-							}else if(txtreport == 'z_anavccCompare1' || txtreport == 'z_anavccCompare2'){
+							}else if(txtreport == 'z_anavcc2_Compare1' || txtreport == 'z_anavcc2_Compare2'){
 								//客戶名稱(標題)
-								if(txtreport == 'z_anavccCompare1')
+								if(txtreport == 'z_anavcc2_Compare1')
 									tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].comp+'</text>';
-								else if(txtreport == 'z_anavccCompare2')
+								else if(txtreport == 'z_anavcc2_Compare2')
 									tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].product+'</text>';
 								for (var i = 0; i < objpostData.length; i++) {	
 									tmpPath +='<g id="chart2_item'+i+'">';
@@ -782,7 +782,7 @@
 												'</linearGradient>' +
 											'</defs>';
 							}
-							if(txtreport == 'z_anavccCustyear' || txtreport == 'z_anavccProductyear'){
+							if(txtreport == 'z_anavcc2_Custyear' || txtreport == 'z_anavcc2_Productyear'){
 								tmpPath += '<text x="30" y="30" fill="#000000" >'+objpostData[0].comp+'</text>';
 								wStrX = strX;
 								var t_range = round((t_maxMoney - t_minMoney)/5,0);
