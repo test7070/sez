@@ -64,6 +64,9 @@
 				q_cmbParse("cmbPaytype", q_getPara('vcc.paytype'));  
 				q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
+				var t_where = "where=^^ 1=1  group by post,addr^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
 				$('#txtFloata').change(function () {sum();});
 				$('#txtTotal').change(function () {sum();});
 				$('#txtAddr').change(function(){
@@ -82,6 +85,13 @@
 						q_gt('cust', t_where, 0, 0, 0, "");
 					}  
 				});
+				
+				$('#txtCustno').change(function(){
+					if(!emp($('#txtCustno').val())){
+						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+						q_gt('custaddr', t_where, 0, 0, 0, "");
+					}
+				});
 			}
 
 			function q_boxClose(s2) {///	q_boxClose 2/4
@@ -99,6 +109,17 @@
 			var focus_addr='';
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'custaddr':
+						var as = _q_appendData("custaddr", "", true);
+						var t_item = " @ ";
+						if(as[0]!=undefined){
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '') +as[i].post +'@'+ as[i].addr;
+	                        }
+                       }
+                       document.all.combAddr.options.length = 0; 
+	                   q_cmbParse("combAddr", t_item);
+					break;
 					case 'cust':
 						var as = _q_appendData("cust", "", true);
 						if(as[0]!=undefined && focus_addr !=''){
@@ -136,6 +157,13 @@
 
 			function combPay_chg() {
 			}
+			
+			function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+	            if (q_cur==1 || q_cur==2){
+	                $('#txtAddr2').val($('#combAddr').find("option:selected").text());
+	                $('#txtPost2').val($('#combAddr').find("option:selected").val());
+	            }
+	        }
 
 			function bbsAssign() {
 				for(var j = 0; j < q_bbsCount; j++) {
@@ -154,6 +182,9 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				
+				var t_where = "where=^^ 1=1  group by post,addr^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
 
 			function btnModi() {
@@ -161,6 +192,11 @@
 					return;
 				_btnModi();
 				$('#txtProduct').focus();
+				
+				if(!emp($('#txtCustno').val())){
+					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+					q_gt('custaddr', t_where, 0, 0, 0, "");
+				}
 			}
 
 			function btnPrint() {
@@ -210,6 +246,11 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(t_para){
+					$('#combAddr').attr('disabled','disabled');
+				}else{
+					$('#combAddr').removeAttr('disabled');
+				}
 			}
 
 			function btnMinus(id) {
@@ -265,6 +306,17 @@
 
 			function btnCancel() {
 				_btnCancel();
+			}
+			
+			function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtCustno':
+		    			if(!emp($('#txtCustno').val())){
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('custaddr', t_where, 0, 0, 0, "");
+						}
+			        break;
+		    	}
 			}
 		</script> 
 	<style type="text/css">
@@ -438,7 +490,10 @@
 			<tr class="tr6">
 				<td class="label1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
 				<td ><input id="txtPost2"  type="text"  class="txt c1"/> </td>
-				<td colspan='4' ><input id="txtAddr2"  type="text"  class="txt c1"/> </td>
+				<td colspan='4' >
+					<input id="txtAddr2"  type="text"  class="txt c1" style="width: 90%;"/> 
+					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+				</td>
 				<td align="right" >&nbsp;</td>
 				<td >&nbsp;</td> 
 			</tr>

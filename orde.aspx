@@ -58,6 +58,9 @@
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
 			q_cmbParse("cmbTrantype", q_getPara('orde.trantype'));
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+			
+			var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
 			 
 			$('#btnOrdei').hide();//外銷訂單按鈕隱藏
 			
@@ -91,6 +94,13 @@
 					var t_where = "where=^^ noa='" + t_custno + "' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "");
 				}  
+			});
+			
+			$('#txtCustno').change(function(){
+				if(!emp($('#txtCustno').val())){
+					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+					q_gt('custaddr', t_where, 0, 0, 0, "");
+				}
 			});
 		}
 
@@ -147,6 +157,17 @@
 		var focus_addr='';
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
+				case 'custaddr':
+						var as = _q_appendData("custaddr", "", true);
+						var t_item = " @ ";
+						if(as[0]!=undefined){
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '') +as[i].post +'@'+ as[i].addr;
+	                        }
+                       }
+                       document.all.combAddr.options.length = 0; 
+	                   q_cmbParse("combAddr", t_item);
+					break;
 				case 'quat':
 					var as = _q_appendData("quat", "", true);
 					if(as[0]!=undefined ){
@@ -230,6 +251,13 @@
 				$('#txtPaytype').val(cmb.value);
 			cmb.value = '';
 		}
+		
+		function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            if (q_cur==1 || q_cur==2){
+                $('#txtAddr2').val($('#combAddr').find("option:selected").text());
+                $('#txtPost2').val($('#combAddr').find("option:selected").val());
+            }
+        }
 
 		function bbsAssign() {  /// 表身運算式
 			_bbsAssign();
@@ -280,12 +308,20 @@
 			$('#txtAcomp').val(r_comp.substr(0, 2));
 			$('#txtOdate').val(q_date());
 			$('#txtOdate').focus();
+			
+			var t_where = "where=^^ 1=1  group by post,addr^^";
+			q_gt('custaddr', t_where, 0, 0, 0, "");
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
 				return;
 			_btnModi();
 			$('#txtOdate').focus();
+			
+			if(!emp($('#txtCustno').val())){
+				var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
+			}
 		}
 		function btnPrint() {
 			q_box('z_ordep.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -372,10 +408,13 @@
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
-			if(t_para)
+			if(t_para){
 				$('#btnOrdei').removeAttr('disabled');
-			else
+				$('#combAddr').attr('disabled','disabled');
+			}else{
 				$('#btnOrdei').attr('disabled','disabled');
+				$('#combAddr').removeAttr('disabled');
+			}
 		}
 
 		function btnMinus(id) {
@@ -427,6 +466,17 @@
 		function btnCancel() {
 			_btnCancel();
 		}
+		
+		function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtCustno':
+		    			if(!emp($('#txtCustno').val())){
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('custaddr', t_where, 0, 0, 0, "");
+						}
+			        break;
+		    	}
+			}
 	</script>
 	<style type="text/css">
 		#dmain {
@@ -649,7 +699,10 @@
 				<tr class="tr7">
 					<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
 					<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
-					<td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
+					<td class="td3" colspan='4' >
+						<input id="txtAddr2"  type="text" class="txt c1" style="width: 90%;"/>
+						<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+					</td>
 					<td class="td7"><span> </span><a id='lblEnda' class="lbl"> </a></td>
 					<td class="td8"><input id="chkEnda" type="checkbox"/></td> 
 				</tr>
