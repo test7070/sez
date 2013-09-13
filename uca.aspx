@@ -207,7 +207,31 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case q_name: if (q_cur == 4)   // 查詢
+            	case 'wcost':
+            		var as  = _q_appendData("wcost", "", true);
+            		$('#textCost1').val(0);
+	            		$('#textCost2').val(0);
+	            		$('#textCost3').val(0);
+	            		$('#textCost4').val(0);
+	            		$('#textCosttotal').val(0);
+            		if(as[0]!=undefined){
+	            		$('#textCost1').val(round(dec(as[0].costa)/dec(as[0].mount),0));
+	            		$('#textCost2').val(round(dec(as[0].costb)/dec(as[0].mount),0));
+	            		$('#textCost3').val(round(dec(as[0].costc)/dec(as[0].mount),0));
+	            		$('#textCost4').val(round(dec(as[0].costd)/dec(as[0].mount),0));
+	            		$('#textCosttotal').val(round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0));
+            		}
+            		break;
+            	case'calstk':
+            		var as  = _q_appendData("stkucc", "", true);
+            		var stkmount=0;
+            		for ( var i = 0; i < as.length; i++) {
+            			stkmount=stkmount+dec(as[i].mount);
+            		}
+            		$('#textStk').val(stkmount);
+            		break;
+                case q_name: 
+                	if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -585,6 +609,11 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by datea desc ^^";
+			q_gt('wcost', t_where , 0, 0, 0, "", r_accy);
+			var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtNoa').val()+"' ^^";
+			q_gt('calstk', t_where , 0, 0, 0, "", r_accy);
+            
             //format();
         }
 
@@ -902,7 +931,7 @@
 				<td align="center" ><input id="textCost3" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
-				<td align="center" ><a class="lbl">託工成本</a></td>
+				<td align="center" ><a class="lbl">委外成本</a></td>
 				<td align="center" ><input id="textCost4" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
