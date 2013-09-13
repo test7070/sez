@@ -31,7 +31,7 @@
                         type : '1',
                         name : 'date'
                     },{
-                        type : '6',
+                        type : '1',
                         name : 'xnoa'
                     }]
                 });
@@ -44,7 +44,8 @@
                 $('#txtDate2').datepicker();
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
-                	$('#txtXnoa').val(t_key[1]);
+                	$('#txtXnoa1').val(t_key[1]);
+                	$('#txtXnoa2').val(t_key[1]);
             }
 
             function q_boxClose(s2) {
