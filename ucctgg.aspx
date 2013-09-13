@@ -429,12 +429,18 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblProduct2" class="lbl"> </a></td>
+						<td >
+							<input id="txtProductno2"  type="text" style="float:left; width:98%;"/>
+						</td>
+						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>
+						<td><input id="txtUnit"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblMinmount' class="lbl"> </a></td>
 						<td><input id="txtMinmount"  type="text" class="txt num c1"/></td>
 						<td><span> </span><a id='lblPricedate' class="lbl"> </a></td>
 						<td><input id="txtPricedate"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>
-						<td><input id="txtUnit"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPredate' class="lbl"> </a></td>
@@ -447,6 +453,10 @@
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="5"><input id="txtMemo" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblOrdcmemo" class="lbl"> </a></td>
+						<td colspan="5"><input id="txtOrdcmemo" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>

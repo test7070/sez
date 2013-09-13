@@ -163,6 +163,11 @@
                     	q_bbs_addrow(row_bbsbbt,row_b_seq,1);
                     }
              });
+             
+             $('#btnCustproduct').click(function() {
+				t_where = "noa='" + $('#txtNoa').val() + "'";
+				q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCustproduct'));
+			});
         }
         
 		var t_td='';
@@ -940,10 +945,11 @@
 		        <td class="td5"><input id="btnUcctd" type="button"  /></td>
 			</tr>
         	<tr class="tr3">
-		        <td class="td1"><span> </span><a id="lblEngprono" class="lbl"> </a></td>
-		        <td class="td2"><input id="txtEngprono" type="text"  class="txt"/></td>
+		        <!--<td class="td1"><span> </span><a id="lblEngprono" class="lbl"> </a></td>
+		        <td class="td2"><input id="txtEngprono" type="text"  class="txt"/></td>-->
 		        <td class="td3"><span> </span><a id="lblEngpro" class="lbl"> </a></td>
 		        <td class="td4" colspan='3'><input id="txtEngpro" type="text"  class="txt c1"/></td>
+		        <td class="td5"><input id="btnCustproduct" type="button"  /></td>
 			</tr>
 			<tr class="tr4">
 		        <td class="td1"><span> </span><a id="lblProcess" class="lbl btn"> </a></td>

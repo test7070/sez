@@ -88,6 +88,10 @@
 				t_where = "productno='" + $('#txtNoa').val() + "'";
 				q_box("ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctgg', "95%", "95%", q_getMsg('btnTgg'));
 			});
+			$('#btnCust').click(function() {
+				t_where = "noa='" + $('#txtNoa').val() + "'";
+				q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCust'));
+			});
 		}
 
 		function q_boxClose(s2) { 
@@ -329,6 +333,7 @@
 			<td>
 				<input type="button" id="btnUcctd" style='width: auto; font-size: medium;' >
 				<input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/>
+				<input id="btnCust" type="button" style='width: auto; font-size: medium;'	/>
 			</td>
 		</tr>
 		<tr>

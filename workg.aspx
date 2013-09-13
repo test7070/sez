@@ -19,10 +19,10 @@
             q_tables = 't';
             var q_name = "workg";
             var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtDate2','txtOrdeno','txtNo2'];
+            var q_readonlys = ['txtWorkno'];
             var q_readonlyt = [];
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtOrdemount', 15, 0,1],['txtPlanmount', 15, 0,1],['txtStkmount', 15, 0,1],['txtIntmount', 15, 0,1],['txtPurmount', 15, 0,1],['txtAvailmount', 15, 0,1],['txtBornmount', 15, 0,1],['txtSalemount', 15, 0,1],['txtMount', 15, 0,1],['txtInmount', 15, 0,1],['txtWmount', 15, 0,1]];
             var bbtNum = [];
             var bbmMask = [];
             var bbsMask = [];
@@ -34,7 +34,10 @@
             brwKey = 'noa';
             q_desc = 1;
             brwCount2 = 5;
-			aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']);
+			aPop = new Array(
+				['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx'],
+				['txtProductno__', 'btnProduct__', 'uca', 'noa,product', 'txtProductno__,txtProduct__', 'uca_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -55,16 +58,82 @@
             function mainPost() {
             	q_getFormat();
 				bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd],['txtMon',r_picm]];
-				bbsMask = [['txtDatea',r_picd]];
+				bbsMask = [['txtRworkdate',r_picd],['txtDworkdate',r_picd],['txtIndate',r_picd]];
                 q_mask(bbmMask);
                 
                 $('#btnOrde').click(function () {
-	               
+                	if(q_cur==1 || q_cur==2){
+                		if(emp($('#txtBdate').val())&&emp($('#txtEdate').val())){
+                			alert(q_getMsg('lblBdate')+'請先填寫。');
+                			return;
+                		}
+                		if((!emp($('#txtBdate').val())&&emp($('#txtEdate').val())) || (emp($('#txtBdate').val())&&!emp($('#txtEdate').val()))){
+                			alert(q_getMsg('lblBdate')+'錯誤!!。');
+                			return;
+                		}
+                		
+                		if(!emp($('#txtBdate').val())&&!emp($('#txtEdate').val())){
+	               			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";
+	               			
+	               			if(!emp($('#txtProductno').val()))
+	               				var t_where1 = "where[1]=^^a.productno='"+$('#txtProductno').val()+"' and (b.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and b.stype!='4' and a.productno in (select noa from uca) group by productno ^^";
+	               			else
+	               				var t_where1 = "where[1]=^^(b.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and b.stype!='4' and a.productno in (select noa from uca) group by productno ^^";
+								               				
+	               			var t_where2 = "where[2]=^^e.productno=a.productno and (f.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and f.stype!='4' ^^";	
+							q_gt('workg_orde', t_where+t_where1+t_where2, 0, 0, 0, "", r_accy);
+						}/*else if(!emp($('#txtMon').val())){
+	               			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";
+	               			if(!emp($('#txtProductno').val()))
+	               				var t_where1 = "where[1]=^^a.productno='"+$('#txtProductno').val()+"' and (b.odate between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31') and b.stype!='4' and a.productno in (select noa from uca) group by productno ^^";
+	               			else
+	               				var t_where1 = "where[1]=^^ (b.odate between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31') and b.stype!='4' and a.productno in (select noa from uca) group by productno ^^";
+							q_gt('workg_orde', t_where+t_where1, 0, 0, 0, "", r_accy);
+						}*/
+						
+					}
+	            });
+	            $('#btnWork').click(function () {
+                	if(q_cur!=1 && q_cur!=2){
+                		q_func('workg.genWork', r_accy+','+$('#txtNoa').val()+','+r_name);
+					}
 	            });
             }
 
             function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'workg_orde':
+						var as = _q_appendData("view_ordes", "", true);
+						if(as[0]!=undefined){
+							for ( var i = 0; i < as.length; i++) {
+								var t_mount=0;
+								t_mount=dec(as[i].oedemount)+dec(as[i].planmount)-dec(as[i].stkmount)-dec(as[i].inmount)-dec(as[i].purmount)
+								as[i].availmount=-1*t_mount;
+								
+								if(t_mount<0) t_mount=0;
+								
+								//提前天數
+								var preday=0;
+								if(dec(as[i].stationhours)*dec(as[i].stationgen)!=0)
+									preday=dec(as[i].pretime)+Math.ceil((dec(t_mount)*dec(as[i].ucahours))/(dec(as[i].stationhours)*dec(as[i].stationgen)));
+								var t_date=emp(as[i].datea)?q_date():as[i].datea;
+								var rworkdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+								rworkdate.setDate(rworkdate.getDate() - preday);
+								//年份
+								t_date=''+(rworkdate.getFullYear()-1911)+'/';
+								//月份
+								t_date=t_date+((rworkdate.getMonth()+1)<10?('0'+(rworkdate.getMonth()+1)+'/'):((rworkdate.getMonth()+1)+'/'));
+								//日期
+								t_date=t_date+(rworkdate.getDate()<10?('0'+(rworkdate.getDate())):(rworkdate.getDate()));
+								as[i].rworkdate=t_date;	
+								
+								as[i].ordeno=as[i].ordeno.substr(0,as[i].ordeno.length-1);
+							}
+							q_gridAddRow(bbsHtm, 'tbbs'
+							, 'txtRworkdate,txtProductno,txtProduct,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtDworkdate,txtOrdeno', as.length, as,
+							'rworkdate,productno,product,oedemount,planmount,stkmount,inmount,purmount,availmount,bornmount,rworkdate,ordeno','txtProductno');
+						}
+					break;
 					case q_name:
 						if (q_cur == 4)
                             q_Seek_gtPost();
@@ -121,7 +190,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cub') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workg') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -133,7 +202,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['ordeno']) {
+                if (!as['productno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -249,6 +318,17 @@
                         break;
                 }
             }
+            
+            function q_funcPost(t_func, result) {
+            	if(t_func=='workg.genWork'){
+            		var workno=result.split(';')
+            		for(var j = 0;j < q_bbsCount;j++){
+            			abbsNow[j][workno]=workno[j+1];
+            			$('#txtWorkno_'+j).val(workno[j+1]);
+            		}
+		        	alert('製令產出執行完畢!!');
+		        }
+		    } //endfunction
 		</script>
 		<style type="text/css">
             #dmain {
@@ -257,11 +337,13 @@
             .dview {
                 float: left;
                 border-width: 0px;
+                width: 35%;
             }
             .tview {
                 border: 5px solid gray;
                 font-size: medium;
                 background-color: black;
+                width: 100%;
             }
             .tview tr {
                 height: 30px;
@@ -275,7 +357,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 65%;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -352,13 +434,13 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 2000px;
+                width: 2300px;
             }
             .dbbs .tbbs {
                 margin: 0;
                 padding: 2px;
                 border: 2px lightgrey double;
-                border-spacing: 1;
+                border-spacing: 1px;
                 border-collapse: collapse;
                 font-size: medium;
                 color: blue;
@@ -380,13 +462,13 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 100%;
+                width: 750px;
             }
             #tbbt {
                 margin: 0;
                 padding: 2px;
                 border: 2px pink double;
-                border-spacing: 1;
+                border-spacing: 1px;
                 border-collapse: collapse;
                 font-size: medium;
                 color: blue;
@@ -421,7 +503,7 @@
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='product' style="text-align: center;">~product</td>
-						<td id='datea mon' style="text-align: center;">~datea ~mon</td>
+						<td id='bdate edate' style="text-align: center;">~bdate - ~edate</td>
 					</tr>
 				</table>
 			</div>
@@ -440,15 +522,16 @@
 							<a style="float: left;">~</a>
 							<input id="txtEdate"  type="text" class="txt c2"/>
 						</td>
-						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
-						<td><input id="txtMon"  type="text" class="txt c1"/></td>
+						<!--<td><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td><input id="txtMon"  type="text" class="txt c1"/></td>-->
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
+						<td><span> </span><a id="lblProduct" class="lbl btn"> </a></td>
 						<td colspan="2"><input id="txtProductno"  type="text" class="txt c3"/>
 								<input id="txtProduct"  type="text" class="txt c4"/>
 						</td>
 						<td><input id="btnOrde" type="button"/></td>
+						<td><input id="btnWork" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
@@ -468,21 +551,25 @@
 						<td style="width:20px;">
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:60px;"><a id='lblRworkdate_s'> </a></td>
+						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:120px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:200px;"><a id='lblProduct_s'> </a></td>
 						<td style="width:80px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
-						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
+						<td style="width:80px;"><a id='lblIntmount_s'> </a></td>
  						<td style="width:80px;"><a id='lblPurmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
-						<td style="width:80px;"><a id='lblBornmount_s'> </a></td>
+						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
 						<td style="width:80px;"><a id='lblSalemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblMount_s'> </a></td>
-						<td style="width:60px;"><a id='lblDworkdate_s'> </a></td>
+						<td style="width:80px;"><a id='lblDworkdate_s'> </a></td>
 						<td style="width:120px;"><a id='lblWorkno_s'> </a></td>
+						<td style="width:80px;"><a id='lblIndate_s'> </a></td>
+						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
+						<td style="width:80px;"><a id='lblWmount_s'> </a></td>
 						<td style="width:300px;"><a id='lblMemo_s'> </a></td>
+						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
@@ -495,15 +582,19 @@
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtIntmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPurmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtAvailmount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>
+						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtDworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+						<td><input id="txtIndate.*" type="text" class="txt c1"/></td>
+						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
+						<td><input id="txtOrdeno.*" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
