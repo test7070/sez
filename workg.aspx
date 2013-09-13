@@ -95,13 +95,36 @@
 	            });
 	            $('#btnWork').click(function () {
                 	if(q_cur!=1 && q_cur!=2){
-                		q_func('workg.genWork', r_accy+','+$('#txtNoa').val()+','+r_name);
+                		var worked=false;
+                		for (var i = 0; i < q_bbsCount; i++) {
+                			if(!emp($('#txtWorkno_'+i).val()))
+                				worked=true;
+                		}
+                		if(worked&&t_gmount>0)
+                			alert('製令單已產生過!!。');
+                		else
+                			q_func('workg.genWork', r_accy+','+$('#txtNoa').val()+','+r_name);
 					}
 	            });
+	            $('#btnCuap').click(function(){
+                	q_box('z_cuap.aspx'+ "?;;;;"+r_accy+";", 'cup', "95%", "95%", q_getMsg("popPrint"));
+                });
+                $('#btnWorkPrint').click(function(){
+                	q_box('z_workp.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                });
             }
-
+			
+			var t_work,t_works,t_gmount=0;
             function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'work':
+						t_gmount=0;
+						t_work = _q_appendData("work", "", true);
+						t_works = _q_appendData("works", "", true);
+						for ( var i = 0; i < t_works.length; i++) {
+							t_gmount=t_gmount+dec(t_works[i].gmount);
+						}
+						break;
 					case 'workg_orde':
 						var as = _q_appendData("view_ordes", "", true);
 						if(as[0]!=undefined){
@@ -221,6 +244,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                var t_where = "where=^^ cuano ='"+$('#txtNoa').val()+"' ^^";
+				q_gt('work', t_where , 0, 0, 0, "", r_accy);
             }
 
             function readonly(t_para, empty) {
@@ -298,7 +323,10 @@
             }
 
             function btnDele() {
-				_btnDele();
+            	if(t_gmount>0)
+            		alert('製令單已領料不能刪除!!');
+            	else
+					_btnDele();
             }
 
             function btnCancel() {
@@ -462,7 +490,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 750px;
+                width: 800px;
             }
             #tbbt {
                 margin: 0;
@@ -522,6 +550,8 @@
 							<a style="float: left;">~</a>
 							<input id="txtEdate"  type="text" class="txt c2"/>
 						</td>
+						<td><input id="btnCuap" type="button" /></td>
+						<td><input id="btnWorkPrint" type="button" /></td>
 						<!--<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text" class="txt c1"/></td>-->
 					</tr>
@@ -561,10 +591,10 @@
  						<td style="width:80px;"><a id='lblPurmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
-						<td style="width:80px;"><a id='lblSalemount_s'> </a></td>
-						<td style="width:80px;"><a id='lblMount_s'> </a></td>
+						<td style="width:110px;"><a id='lblSalemount_s'> </a></td>
+						<td style="width:100px;"><a id='lblMount_s'> </a></td>
 						<td style="width:80px;"><a id='lblDworkdate_s'> </a></td>
-						<td style="width:120px;"><a id='lblWorkno_s'> </a></td>
+						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
 						<td style="width:80px;"><a id='lblIndate_s'> </a></td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblWmount_s'> </a></td>
@@ -611,7 +641,7 @@
 					<td style="width:40px; text-align: center;"><a id='lblNo2_t'> </a></td>
 					<td style="width:120px; text-align: center;"><a id='lblProductno_t'> </a></td>
 					<td style="width:180px; text-align: center;"><a id='lblProduct_t'> </a></td>
-					<td style="width:80px; text-align: center;"><a id='lblSalemount_t'> </a></td>
+					<td style="width:100px; text-align: center;"><a id='lblSalemount_t'> </a></td>
 				</tr>
 				<tr>
 					<td>

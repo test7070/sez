@@ -168,6 +168,13 @@
 				t_where = "noa='" + $('#txtNoa').val() + "'";
 				q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCustproduct'));
 			});
+			
+			$('#btnStkcost').click(function() {
+             	$('#div_stkcost').toggle();
+             });
+             $('#btnClose_div_stkcost').click(function() {
+             	$('#div_stkcost').toggle();
+             });
         }
         
 		var t_td='';
@@ -880,6 +887,37 @@
     </style>
 </head>
 <body>
+	<div id="div_stkcost" style="position:absolute; top:300px; left:500px; display:none; width:300px; background-color: #ffffff; ">
+		<table id="table_stkcost"  class="table_row" style="width:100%;" border="1" cellpadding='1'  cellspacing='0'>
+			<tr>
+				<td align="center" width="50%"><a class="lbl">原料成本</a></td>
+				<td align="center" width="50%"><input id="textCost1" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">人工成本</a></td>
+				<td align="center" ><input id="textCost2" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">製造成本</a></td>
+				<td align="center" ><input id="textCost3" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">託工成本</a></td>
+				<td align="center" ><input id="textCost4" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">總成本</a></td>
+				<td align="center" ><input id="textCosttotal" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">庫存</a></td>
+				<td align="center" ><input id="textStk" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" colspan='2'><input id="btnClose_div_stkcost" type="button" value="關閉視窗"></td>
+			</tr>
+		</table>
+	</div>
 	<div id="div_row" style="position:absolute; top:300px; left:500px; display:none; width:150px; background-color: #ffffff; ">
 		<table id="table_row"  class="table_row" style="width:100%;" border="1" cellpadding='1'  cellspacing='0'>
 			<tr>
@@ -906,6 +944,7 @@
 			</tr>
 			</table>
 		</div>
+		
 	<!--#include file="../inc/toolbar.inc"-->
     <div class="dview" id="dview" style="float: left;  width:32%;"  >
 		<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -983,6 +1022,7 @@
 		        </td>
 		        <td class="td5"><input id="btnUcap" type="button"  /></td>
 		        <!--<td class="td6"><input id="btnUcam" type="button"  /></td>-->
+		        <td class="td6"><input id="btnStkcost" type="button"  /></td>
 			</tr>
 			<tr>
 		        <td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>

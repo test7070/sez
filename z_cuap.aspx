@@ -45,7 +45,7 @@
                 btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='轉至請購單'>");
                 
                 var Parent = window.parent.document;
-                if(window.parent.q_name=='cua')
+                if(window.parent.q_name=='cua'||window.parent.q_name=='workg')
                 	$('#txtCuano').val(Parent.getElementById('txtNoa').value);
                 
                 var cuano=!emp($('#txtCuano').val())?$('#txtCuano').val():'#non';

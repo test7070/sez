@@ -708,7 +708,7 @@
 				</tr>
 				<tr class="tr8">
 					<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
-					<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1"/></td> 
+					<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: center;"/></td> 
 					<td class="td4"><span> </span><a id='lblTax' class="lbl"> </a></td>
 					<td class="td5"><input id="txtTax" type="text" class="txt num c1"/></td>
 					<td class="td6"><select id="cmbTaxtype" class="txt c1"  onchange='calTax()' > </select></td>
@@ -717,8 +717,7 @@
 				</tr>
 				<tr class="tr10">
 					<td class="td1"><span> </span><a id="lblApv" class="lbl"> </a></td>
-					<td class="td2"><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
-					<td> </td>
+					<td class="td2" colspan='2'><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
 					<td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 					<td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td>
 					<td> </td> 
