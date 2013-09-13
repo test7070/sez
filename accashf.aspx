@@ -43,7 +43,7 @@
                 bbsKey = ['noa', 'noq'];
                 bbtKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             
             t_curMoney = 0;
@@ -185,7 +185,7 @@
                 		var as = _q_appendData("INFORMATION_SCHEMA.TABLES", "", true);
                 		if(as[0]!=undefined){
                 			//不含期初
-                			t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') and LEFT(a.accc3,2)!='00' ^^"
+                			t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') and LEFT(a.accc3,2)!='00' ^^";
                 			q_gt('accashf_import', t_where, 0, 0, 0, "accashf_import1", t_accy+"_1");
                 		}else{
                 			//alert('無資料。');
@@ -199,7 +199,7 @@
                 		if(as[0]!=undefined){
                 			t_data1 = as;
                 		}
-                		t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') ^^"
+                		t_where = "where=^^ (b.accc2 between '01/01' and '"+t_mon+"/31') ^^";
             			q_gt('accashf_import', t_where, 0, 0, 0, "accashf_import2", t_accy+"_1");
                 		break; 
                 	case  'accashf_import2':
@@ -257,7 +257,7 @@
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='應收票據'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1=='1121'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -266,7 +266,7 @@
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='應收帳款'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1=='1123'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -275,7 +275,7 @@
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,2)=='存貨'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1.substring(0,3)=='113'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -283,7 +283,7 @@
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='預付款項'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1.substring(0,3)=='114'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -291,7 +291,7 @@
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='應付票據'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1=='2121'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -300,7 +300,7 @@
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='應付帳款'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1=='2123'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -309,7 +309,7 @@
 						}
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='應付費用'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1=='2122'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -318,7 +318,7 @@
 						}		
 						$('#txtMoney1_'+i).val(FormatNumber(t_money));
 					}else if(t_txt.substring(0,4)=='預收款項'){
-						t_money = 0
+						t_money = 0;
 						for(var j=0;j<t_data1.length;j++){
 							if(t_data1[j].acc1.substring(0,3)=='213'){
 								t_money += parseFloat(t_data1[j].money.length==0?'0':t_data1[j].money);
@@ -341,7 +341,7 @@
 	            }else if(q_cur ==2){
 	            	$('#txtWorker2').val(r_name);
 	            }else{
-	            	alert("error: btnok!")
+	            	alert("error: btnok!");
 	            }
 	            //---------------------------------------------------
 	            if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
@@ -588,7 +588,7 @@
             	var t_98 = 0;
             	for (var i = 0; i < q_bbsCount; i++) {
             		if($('#txtGindex_'+i).val()=='01' && $.trim($('#txtGtitle_'+i).val()).length>0){
-            			n = t_group.indexOf($('#txtGroupno_'+i).val())
+            			n = t_group.indexOf($('#txtGroupno_'+i).val());
             			t_97 += q_float('txtMoney1_'+i);
             			if(n>=0){
             				t_data[n] += q_float('txtMoney1_'+i);
@@ -624,7 +624,7 @@
             	t_98 = 0;
             	for (var i = 0; i < q_bbtCount; i++) {
             		if($('#txtGindex__'+i).val()=='01' && $.trim($('#txtGtitle__'+i).val()).length>0){
-            			n = t_group.indexOf($('#txtGroupno__'+i).val())
+            			n = t_group.indexOf($('#txtGroupno__'+i).val());
             			t_97 += q_float('txtMoney1__'+i);
             			if(n>=0){
             				t_data[n] += q_float('txtMoney1__'+i);
@@ -951,8 +951,8 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMon'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
 					</tr>
 					<tr>
 						<td >
