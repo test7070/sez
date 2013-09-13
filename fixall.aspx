@@ -22,7 +22,7 @@
 		    q_tables = 's';
 		    var q_name = "fixall";
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney', 'txtDmoney','txtMoney','txtTax', 'txtDiscount', 'txtTotal','txtWorker','txtWorker2'];
-		    var q_readonlys = ['txtMoney','txtMemo'];
+		    var q_readonlys = ['txtMoney','txtMemo','txtFixano'];
 		    var bbmNum = new Array(['txtWmoney', 10, 0, 1], ['txtCmoney', 10, 0, 1], ['txtDmoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtTotal', 10, 0, 1]);
 		    var bbsNum = new Array(['txtPrice', 10, 2, 1], ['txtMount', 10, 2, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtDiscount', 10, 0, 1]);
 		    var bbmMask = [];
@@ -162,7 +162,7 @@
 	            }else if(q_cur ==2){
 	            	$('#txtWorker2').val(r_name);
 	            }else{
-	            	alert("error: btnok!")
+	            	alert("error: btnok!");
 	            }
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
@@ -204,6 +204,9 @@
                 if($('#txtDatea').val().length==0)
                		$('#txtDatea').val(q_date());
 		        $('#txtDatea').focus();
+		        
+		        
+		        
 		    }
 
 		    function btnModi() {
@@ -212,6 +215,15 @@
                 _btnModi();
                 $('#txtDatea').focus();
 		        sum();
+		        
+		        t_noa = abbm[q_recno].noa;
+		        for(var i=0;i<abbs.length;i++){
+		        	if(abbs[i].noa == t_noa && abbs[i].fixano.length>0){
+		        		$('#tbbs').find('input[type="button"]').attr('disabled','disabled');
+		        		break;
+		        	}
+		        }
+		        
 		    }
 		    function btnPrint() {
 		    	q_box("z_fixall.aspx?;;;;"+r_accy, 'z_fixall', "95%", "95%", q_getMsg("popFixa"));
@@ -222,7 +234,7 @@
 		        _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 		    }
 		    function bbsSave(as) {
-		        if (!as['carno'] && !as['productno'] && !as['product']) {
+		        if (!as['carno'] && !as['productno'] && !as['product'] && !as['fixano']) {
 		            as[bbsKey[1]] = '';
 		            return;
 		        }
@@ -694,9 +706,9 @@
 					<td>
 						<input id="txtMoney.*" type="text"  style="float:left;width:95%;text-align:right;"/>
 						<input id="txtDiscount.*" type="text"  style="float:left;width:95%;text-align:right;"/>
-						<input id="txtWmoney.*" type="text"  style="float:left;width:0;visibility: hidden;"/>
-						<input id="txtCmoney.*" type="text"  style="float:left;width:0;visibility: hidden;"/>
-						<input id="txtDmoney.*" type="text"  style="float:left;width:0;visibility: hidden;"/>
+						<input id="txtWmoney.*" type="text"  style="display:none;"/>
+						<input id="txtCmoney.*" type="text"  style="display:none;"/>
+						<input id="txtDmoney.*" type="text"  style="display:none;"/>
 					</td>
 					<td>
 						<input id="txtTax.*" type="text"  style="width:95%;text-align:right;"/>
