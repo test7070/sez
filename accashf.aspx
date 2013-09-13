@@ -94,13 +94,22 @@
             
             var list2 = new Array();
             list2.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
-            //list2.push({gindex:"01",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"3"});
+            list2.push({gindex:"01",groupno:"A",gtitle:"銷貨收入收現數",gno:"3",acc1:"",isall:false});
+            list2.push({gindex:"01",groupno:"A",gtitle:"進貨付現數",gno:"3",acc1:"",isall:false});
+            list2.push({gindex:"01",groupno:"A",gtitle:"營業費用付現數",gno:"3",acc1:"",isall:false});
+            list2.push({gindex:"01",groupno:"A",gtitle:"其他營業付現數",gno:"3",acc1:"",isall:false});
             list2.push({gindex:"02",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"4"});
             
             list2.push({gindex:"00",groupno:"B",gtitle:"投資活動之現金流量：",gno:"1"});
+            list2.push({gindex:"01",groupno:"B",gtitle:"出售廠房設備收現數",gno:"3",acc1:"",isall:false});
+            list2.push({gindex:"01",groupno:"B",gtitle:"購入廠房設備付現數",gno:"3",acc1:"",isall:false});
+            list2.push({gindex:"01",groupno:"B",gtitle:"處分長期投資收現數",gno:"3",acc1:"",isall:false});
+            list2.push({gindex:"01",groupno:"B",gtitle:"取得長期投資付現數",gno:"3",acc1:"",isall:false});
             list2.push({gindex:"02",groupno:"B",gtitle:"投資活動之淨現金流入",gno:"4"});
             
             list2.push({gindex:"00",groupno:"C",gtitle:"融資活動之現金流量：",gno:"1"});
+            list2.push({gindex:"01",groupno:"C",gtitle:"發行股票收現數",gno:"3",acc1:"",isall:false});
+            list2.push({gindex:"01",groupno:"C",gtitle:"現金股利付現數",gno:"3",acc1:"",isall:false});
             list2.push({gindex:"02",groupno:"C",gtitle:"融資活動之淨現金流入",gno:"4"});
             
             list2.push({gindex:"97",groupno:"",gtitle:"本期現金增加數",gno:"5"});
@@ -684,6 +693,10 @@
                 	$('#txtGindex__'+i).val(list2[i].gindex);
                 	$('#txtGroupno__'+i).val(list2[i].groupno);
                 	$('#txtGtitle__'+i).val(list2[i].gtitle);
+                	if(list2[i].acc1 != undefined)
+                		$('#txtAcc1__'+i).val(list2[i].acc1);
+                	if(list2[i].isall != undefined && list2[i].isall)
+                		$('#chkIsall__'+i).prop('checked',true);
                 }
                 refreshBbt();
                 $('#txtNoa').val('AUTO');
