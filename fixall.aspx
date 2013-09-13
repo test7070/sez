@@ -22,7 +22,7 @@
 		    q_tables = 's';
 		    var q_name = "fixall";
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney', 'txtDmoney','txtMoney','txtTax', 'txtDiscount', 'txtTotal','txtWorker','txtWorker2'];
-		    var q_readonlys = ['txtMoney','txtMemo','txtFixano'];
+		    var q_readonlys = ['txtMoney','txtFixano'];
 		    var bbmNum = new Array(['txtWmoney', 10, 0, 1], ['txtCmoney', 10, 0, 1], ['txtDmoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtTotal', 10, 0, 1]);
 		    var bbsNum = new Array(['txtPrice', 10, 2, 1], ['txtMount', 10, 2, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtDiscount', 10, 0, 1]);
 		    var bbmMask = [];
@@ -37,7 +37,7 @@
 		    	['txtCarno_', '', 'car2', 'a.noa,cardno,driverno,driver', 'txtCarno_,txtCardno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],
 		    	['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], 
 		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
-		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,typea,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
+		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,typea,inprice', 'txtProductno_,txtProduct_,txtTypea_,txtPrice_', 'fixucc_b.aspx']);
 		    q_desc = 1;
 
 		    $(document).ready(function () {
@@ -244,7 +244,7 @@
 		    function q_popPost(t_id) {
 		    	switch(t_id){
 		    		case 'txtCarno_':
-		    			$('#txtDriverno_'+b_seq).focus();
+		    			$('#txtDriver_'+b_seq).focus();
 		    			break;
 		    		case 'txtProductno_':
 		    			$('#txtPrice_'+b_seq).focus();
