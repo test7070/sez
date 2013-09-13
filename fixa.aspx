@@ -719,7 +719,7 @@
 				</tr>	
 				<tr>
 					<td colspan="2" align="center" style="background-color: pink;">
-						<input type="button" id="btnExport" value="匯出"/>	
+						<input type="button" id="btnExport" value="匯入"/>	
 					</td>
 					<td colspan="2" align="center" style=" background-color: pink;">
 						<input type="button" id="btnDivexport" value="關閉"/>	
@@ -839,7 +839,7 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td><input id="btn2" type="button" class="c1" value="匯出"></td>
+						<td><input id="btn2" type="button" class="c1" value="廠商維修匯入"></td>
 					</tr>
 					
 					<tr class="tr5">
