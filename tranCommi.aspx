@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtInprice1', 15, 0, 1],['txtInprice2', 15, 0, 1],['txtOutprice1', 15, 0, 1],['txtOutprice2', 15, 0, 1]];
+            var bbsNum = [['txtInprice1', 15, 3, 1],['txtInprice2', 15, 3, 1],['txtOutprice1', 15, 3, 1],['txtOutprice2', 15, 3, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 4;
@@ -42,7 +42,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             function main() {
                 if (dataErr) {
@@ -319,8 +319,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNick'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewAddr'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewAddr'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
