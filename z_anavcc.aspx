@@ -71,8 +71,7 @@
 				$('#txtXdate2').datepicker();
 				$('#txtXmon1').mask('999/99');
 				$('#txtXmon2').mask('999/99');
-				$('#txtXyear1').mask('999');
-				$('#txtXyear2').mask('999');
+				$('#txtXyear').mask('999');
 				$('#txtXyear').val(r_accy.substring(0,3));
 				$('#txtXbmon1').val(r_accy+'/01').mask('999/99');
 				$('#txtXbmon2').val(r_accy+'/12').mask('999/99');
