@@ -513,7 +513,7 @@
 				
 			}
 			.txt.c7 {
-				width: 95%;
+				width: 60%;
 				float: left;
 			}
 			.txt.c8 {
@@ -620,7 +620,7 @@
 			<tr class="tr4">
 				<td class="td1"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
 				<td class="td2" colspan="2"><input id="txtSalesno" type="text" class="txt c2 lef"/> 
-				<input id="txtSales" type="text" class="txt c3 lef"/></td> 
+				<input id="txtSales" type="text" class="txt c7 lef"/></td> 
 				<td class="td4"><span> </span><a id='lblTel' class="lbl"> </a></td>
 				<td class="td5" colspan='2'><input id="txtTel"  type="text"  class="txt c1 lef"/></td>
 				<td class="td7"><span> </span><a id='lblFax' class="lbl"> </a></td>
@@ -665,10 +665,7 @@
 			<tr class="tr8">
 				<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 				<td class="td2"><input id="txtWorker"  type="text" class="txt c1 lef" /></td> 
-				<td> </td>
-				<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 				<td class="td4"><input id="txtWorker2"  type="text" class="txt c1 lef" /></td>
-				<td> </td>
 				<td class="td7"><span> </span><a id="lblApv" class="lbl"> </a></td>
 				<td class="td8"><input id="txtApv" type="text" class="txt c1 lef"/></td> 
 			</tr>
