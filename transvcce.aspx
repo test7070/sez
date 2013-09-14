@@ -1171,11 +1171,11 @@
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:70px;"><a id='lblCarno_s'> </a></td>
-					<td align="center" style="width:200px;"><a id='lblDriver_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblDriver_s'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblAddr_s'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblCaseno_s'> </a></td>
-					<td align="center" style="width:280px;"><a id='lblMsg_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
+					<td align="center" style="width:350px;"><a id='lblMsg_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo2_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblIssend_s' title="若要發送訊息給司機，請打勾。"> </a></td>
 					<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
@@ -1190,14 +1190,14 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtCarno.*" type="text" style="width: 95%;"/></td>
 					<td>
-						<input id="txtDriverno.*"type="text" style="float:left;width: 80px;"/>	
-						<input id="txtDriver.*" type="text" style="float:left;width:100px;"/>		
+						<input id="txtDriverno.*"type="text" style="width: 95%;"/>	
+						<input id="txtDriver.*" type="text" style="width: 95%;"/>		
 					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td>
-						<input id="txtAddrno.*" type="text" style="width: 35%;"/>
-						<input id="txtAddr.*" type="text" style="width: 40%;"/>
+						<input id="txtAddrno.*" type="text" style="width: 70%;"/>
 						<select id="combCaddr.*" style="width: 10%;"> </select>
+						<input id="txtAddr.*" type="text" style="width: 95%;"/>
 					</td>
 					<td>
 						<input id="txtCaseno.*" type="text" style="width: 95%;"/>
