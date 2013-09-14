@@ -302,6 +302,7 @@
                 border: 5px solid gray;
                 font-size: medium;
                 background-color: black;
+                width: 100%;
             }
             .tview tr {
                 height: 30px;

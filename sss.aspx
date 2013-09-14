@@ -14,7 +14,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+            
             var q_name = "sss";
             var q_readonly = [];
             var bbmNum = [];
@@ -26,7 +26,7 @@
             brwKey = 'noa';
             brwCount2 = 15;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array();
+            aPop = new Array(['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -481,6 +481,14 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 30%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 69%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -643,13 +651,13 @@
 							<input id="txtJob"  type="text" style="display: none;"/>
 						</td>
 					</tr>
-					<!--<tr>
+					<tr style="display: none;"><!--公司-->
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
-							<select id="cmbCno" class="txt c1"> </select>
-							<input id="txtAcomp"  type="text" style="display: none;"/>
+							<input id="txtCno"  type="text" class="txt c2"/>
+							<input id="txtAcomp"  type="text" class="txt c3"/>
 						</td>
-					</tr>-->					
+					</tr>					
 					<tr>
 						<td><span> </span><a id="lblConn" class="lbl"> </a></td>
 						<td><input id="txtConn"  type="text"  class="txt c1"/></td>

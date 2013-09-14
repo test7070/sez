@@ -162,6 +162,21 @@
                             q_Seek_gtPost();
                         break;
                 }
+                if(t_name.substr(0,9)=='modiwork_'){
+					var s_works = _q_appendData("works", "", true);
+					var s_gmount=0;
+					for ( var i = 0; i < s_works.length; i++) {
+							s_gmount=s_gmount+dec(s_works[i].gmount);
+					}
+					if(s_gmount>0){
+						t_noq=t_name.substr(t_name.indexOf('_')+1,t_name.length)
+						for ( var j = 0; j < fbbs.length; j++) {
+							$('#'+fbbs[j]+'_'+t_noq).attr('disabled','disabled');
+							
+						}
+						$('#btnMinus_'+t_noq).attr('disabled','disabled');
+					}
+                }
             }
             
             function q_stPost() {
@@ -196,6 +211,10 @@
                     return;
                 _btnModi();
                 $('#txtBdate').focus();
+                for (var i = 0; i < q_bbsCount; i++) {
+                	var t_where = "where=^^ cuano ='"+$('#txtNoa').val()+"' and cuanoq='"+$('#txtNoq_'+i).val()+"'^^";
+					q_gt('work', t_where , 0, 0, 0, "modiwork_"+i, r_accy);
+				}
             }
 
             function btnPrint() {
