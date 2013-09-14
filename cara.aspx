@@ -449,12 +449,15 @@
 							b_seq = t_IdSeq;
 		                    
 		                    if(!emp($('#txtUmmnoa_'+b_seq).val())){
-		                    	if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='FB')
+		                    	if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='FB'){
 		                    		q_box("ummtran.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'umm', "95%", "95%", q_getMsg("popUmmtran"));
-		                    	if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='BK')
+		                    	}else if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='BK'){
 		                    		q_box("carchg.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'carchg', "95%", "95%", q_getMsg("popCarchg"));
-		                    	if($('#txtUmmnoa_'+b_seq).val().substr(0,1)=='Z')
+		                    	}else if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='ZA'){
+		                    		q_box("labchg.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'labchg', "95%", "95%", q_getMsg("popLabchg"));
+	                    		}else if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='ZB' || $('#txtUmmnoa_'+b_seq).val().substr(0,1)=='Z'){
 		                    		q_box("lab_accc.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'labaccc', "95%", "95%", q_getMsg("popLabaccc"));
+		                    	}
 		                    }
                 		});
                 		

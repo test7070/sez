@@ -16,7 +16,7 @@
 		}
 		var decbbm = ['inprice', 'saleprice', 'reserve', 'beginmount','uweight','beginmoney','drcr','price2','days','stkmount','safemount','stkmoney'];
 		var q_name = "ucc";
-		var q_readonly = [];
+		var q_readonly = ['textUccprice','textStk','textSaleprice','textInprice'];
 		var bbmNum = [];	
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
@@ -92,6 +92,7 @@
 				t_where = "noa='" + $('#txtNoa').val() + "'";
 				q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCust'));
 			});
+			
 		}
 
 		function q_boxClose(s2) { 
@@ -106,7 +107,44 @@
 
 		function q_gtPost(t_name) {	
 			switch (t_name) {
-				case q_name: if (q_cur == 4)	
+				case 'ucc_rc2':
+					var as  = _q_appendData("rc2s", "", true);
+					$('#textInprice').val(0);
+					if(as[0]!=undefined){
+						for ( var i = 0; i < as.length; i++) {
+							if(as[0].productno==$('#txtNoa').val())
+								$('#textInprice').val(dec(as[i].price));
+						}
+					}
+					break;
+				case 'ucc_vcc':
+					var as  = _q_appendData("vccs", "", true);
+					$('#textSaleprice').val(0);
+					if(as[0]!=undefined){
+						for ( var i = 0; i < as.length; i++) {
+							if(as[0].productno==$('#txtNoa').val())
+								$('#textSaleprice').val(dec(as[i].price));
+						}
+					}
+					break;
+				case 'ucc_price':
+					var as  = _q_appendData("costs", "", true);
+					if(as[0]!=undefined){
+						$('#textUccprice').val(as[0].price);
+					}else{
+						$('#textUccprice').val(0);
+					}
+				break;
+				case 'ucc_stk':
+					var as  = _q_appendData("stkucc", "", true);
+            		var stkmount=0;
+            		for ( var i = 0; i < as.length; i++) {
+            			stkmount=stkmount+dec(as[i].mount);
+            		}
+            		$('#textStk').val(stkmount);
+				break;
+				case q_name: 
+					if (q_cur == 4)	
 						q_Seek_gtPost();
 					break;
 			}	/// end switch
@@ -181,6 +219,18 @@
 		
 		function refresh(recno) {
 			_refresh(recno);
+			//抓原物料單價
+			var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by mon desc ^^";
+			q_gt('costs', t_where , 0, 0, 0, "ucc_price", r_accy);
+			//庫存
+			var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtNoa').val()+"' ^^";
+			q_gt('calstk', t_where , 0, 0, 0, "ucc_stk", r_accy);
+			//最新出貨單價
+			var t_where = "where=^^ noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
+			q_gt('vcc', t_where , 0, 0, 0, "ucc_vcc", r_accy);
+			//最新進貨單價
+			var t_where = "where=^^ noa in (select noa from rc2s"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
+			q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
 		}
 
 		function readonly(t_para, empty) {
@@ -294,6 +344,9 @@
 			margin: -1px;
 			font-size: medium;
 		}
+		.num {
+			text-align: right;
+        }
 	</style>
 </head>
 <body>
@@ -348,17 +401,23 @@
 			<td class="label1"><a id='lblUnit'> </a></td>
 			<td><input	type="text" id="txtUnit" class="txt c1"/></td>
 			<td class="label2"><a id='lblInprice'> </a></td>
-			<td><input	type="text" id="txtInprice" class="txt c2"/></td>			
+			<td><input	type="text" id="textInprice" class="txt num c2"/></td>			
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblSafemount'> </a></td>
-			<td><input	type="text" id="txtSafemount" class="txt c1"/></td>
+			<td><input	type="text" id="txtSafemount" class="txt num c1"/></td>
 			<td class="label2"><a id='lblSaleprice'> </a></td>
-			<td><input	type="text" id="txtSaleprice"	class="txt c2"/></td>
+			<td><input	type="text" id="textSaleprice"	class="txt num c2"/></td>
+		</tr>
+		<tr>
+			<td class="label1"><a id='lblUccprice'> </a></td>
+			<td><input	type="text" id="textUccprice" class="txt num c1"/></td>
+			<td class="label2"><a id='lblStk'> </a></td>
+			<td><input	type="text" id="textStk"	class="txt num c2"/></td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblUweight'> </a></td>
-			<td><input	type="text" id="txtUweight"	class="txt c1"/></td>
+			<td><input	type="text" id="txtUweight"	class="txt num c1"/></td>
 			<td class="label2"><a id='lblCoin'> </a></td>
 			<td><select id="cmbCoin" class="txt c2"> </select></td>
 		</tr>
