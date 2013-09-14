@@ -26,7 +26,7 @@
             brwKey = 'noa';
             brwCount2 = 15;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
+            aPop = new Array(['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtComp','acomp_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -655,7 +655,7 @@
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtCno"  type="text" class="txt c2"/>
-							<input id="txtAcomp"  type="text" class="txt c3"/>
+							<input id="txtComp"  type="text" class="txt c3"/>
 						</td>
 					</tr>					
 					<tr>
