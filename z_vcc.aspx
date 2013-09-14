@@ -23,22 +23,6 @@
 				q_gf('', 'z_vcc');
 			});
 			
-			function showPrice(){
-				var t_index = $('#q_report').data('info').radioIndex;
-				txtreport = $('#q_report').data('info').reportData[t_index].report;
-				if($('#Xshowprice').is(":visible")){ //有出現
-					var hasCheck = $('#chkXshowprice input[type="checkbox"]').is(':checked');
-					if(hasCheck){
-						txtreport = txtreport.replace('PriceNoShow','');
-						$('#q_report').data('info').reportData[t_index].report = txtreport;
-					}else{
-						txtreport = txtreport.replace('PriceNoShow','');
-						txtreport = txtreport + 'PriceNoShow';
-						$('#q_report').data('info').reportData[t_index].report = txtreport;
-					}
-				}
-			}
-			
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_vcc',
@@ -79,23 +63,11 @@
 					}, {
 						type : '6',//[16]
 						name : 'xmemo'
-					}, {
-						type : '8',//[17]
-						name : 'xshowprice',
-						value : "1@".split(',')
 					}]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				
-				showPrice();
-				$('#q_report').click(function(){
-					showPrice();
-				});
-				$('#chkXshowprice input[type="checkbox"]').click(function(){
-					showPrice();
-				});
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');

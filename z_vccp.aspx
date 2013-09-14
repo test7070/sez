@@ -45,6 +45,10 @@
 	                    } , {
 	                        type : '1',
 	                        name : 'xmon'
+						}, {
+							type : '8',//[17]
+							name : 'xshowprice',
+							value : "1@".split(',')
 	                    }]
                     });
                 q_popAssign();
