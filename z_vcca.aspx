@@ -16,15 +16,16 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             t_cno = '';
-                t_isinit = false;
+            t_isinit = false;
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_vcca');  
+                q_gf('', 'z_vcca');
             });
             function q_gfPost() {
-            	q_gt('acomp', '', 0, 0, 0);
+                q_gt('acomp', '', 0, 0, 0);
             }
-			function q_gtPost(t_name) {
+
+            function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'acomp':
                         t_cno = '';
@@ -32,40 +33,96 @@
                         for ( i = 0; i < as.length; i++) {
                             t_cno += (t_cno.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
                         }
+                        t_cno += ',checkAll@全選';
+                        LoadFinish();
                         break;
                 }
-               if (!t_isinit && t_cno.length > 0 ) {
-               	t_isinit = true;
+            }
+
+            function LoadFinish() {
                 $('#q_report').q_report({
                     fileName : 'z_vcca',
-                    options : [{
+                    options : [{/*0 [1]*/
                         type : '0',
                         name : 'accy',
-                        value : q_getId()[4]
-                    }, {/*1*/
+                        value : r_accy
+                    },{/*0 [2]*/
+                        type : '0',
+                        name : 'xworker',
+                        value : r_name
+                    }, {/*1 [3][4]*/
                         type : '1',
-                        name : 'mon'
-                    }, {/*2*/
-                        type : '8',
-                        name : 'xcno',
-                        value : t_cno.split(',')
-                    }, {
+                        name : 'xmon'
+                    }, {/*2 [5][6]*/
+                        type : '1',
+                        name : 'xdate'
+                    }, {/*3 [7][8]*/
                         type : '2',
                         name : 'xcust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
+                    }, {/*4 [9][10]*/
+                        type : '2',
+                        name : 'xproduct',
+                        dbf : 'ucca',
+                        index : 'noa,product',
+                        src : 'ucca_b.aspx'
+                    }, {/*5 [11]*/
+                        type : '5',
+                        name : 'xtype',
+                        value : [' @全部','2@二聯','3@三聯']
+                    }, {/*6 [12]*/
+                        type : '8',
+                        name : 'xcno',
+                        value : t_cno.split(',')
                     }]
                 });
                 q_popAssign();
-                q_getFormat();
-				q_langShow();
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');             
+                q_langShow();
+                $('#txtXmon1').mask('999/99');
+                $('#txtXmon2').mask('999/99');
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate2').mask('999/99/99');
+				$('#txtXdate1').datepicker();
+				$('#txtXdate2').datepicker();
+                var t_date, t_year, t_month, t_day;
+                t_date = new Date();
+                t_date.setDate(1);
+                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 1;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtXmon1').val(t_year + '/' + t_month);
+
+                t_date = new Date();
+                t_date.setDate(35);
+                t_date.setDate(0);
+                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 1;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtXmon2').val(t_year + '/' + t_month);
+
+                $("input[type='checkbox'][value='checkAll']").click(function() {
+                    if ($(this).next('span').text() == '全選') {
+                        $("input[type='checkbox'][value!='']").attr('checked', true);
+                        $(this).removeAttr('checked');
+                        $(this).next('span').text('取消全選');
+                    } else if ($(this).next('span').text() == '取消全選') {
+                        $("input[type='checkbox'][value!='']").removeAttr('checked');
+                        $(this).next('span').text('全選');
+                    }
+                });
             }
-            }
+
             function q_boxClose(s2) {
             }
+
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
