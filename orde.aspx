@@ -102,6 +102,8 @@
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
 			});
+			
+			
 		}
 
 		function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -157,6 +159,58 @@
 		var focus_addr='';
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
+				case 'msg_stk':
+            		var as  = _q_appendData("stkucc", "", true);
+            		var stkmount=0;
+            		t_msg='';
+            		for ( var i = 0; i < as.length; i++) {
+            			stkmount=stkmount+dec(as[i].mount);
+            		}
+            		t_msg="庫存量："+stkmount;
+            		//最新出貨單價
+					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+b_seq).val()+"' and price>0 ) ^^ stop=1";
+					q_gt('vcc', t_where , 0, 0, 0, "msg_vcc", r_accy);
+            		break;
+            	case 'msg_vcc':
+					var as  = _q_appendData("vccs", "", true);
+					var vcc_price=0;
+					if(as[0]!=undefined){
+						for ( var i = 0; i < as.length; i++) {
+							if(as[0].productno==$('#txtProductno_'+b_seq).val())
+								vcc_price=dec(as[i].price);
+						}
+					}
+					t_msg=t_msg+"<BR>最近出貨單價："+vcc_price;
+					//平均成本
+					var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by datea desc ^^ stop=1";
+					q_gt('wcost', t_where , 0, 0, 0, "msg_wcost", r_accy);
+					break;
+				case 'msg_wcost':
+					var as  = _q_appendData("wcost", "", true);
+					var wcost_price;
+					if(as[0]!=undefined){
+						wcost_price=round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0);
+					}
+					if(wcost_price!=undefined){
+						t_msg=t_msg+"<BR>平均成本："+wcost_price;
+						q_msg( $('#txtMount_'+b_seq), t_msg);	
+					}else{
+						//原料成本
+						var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by mon desc ^^ stop=1";
+						q_gt('costs', t_where , 0, 0, 0, "msg_costs", r_accy);
+					}
+					break;
+				case 'msg_costs':
+					var as  = _q_appendData("costs", "", true);
+					var costs_price;
+					if(as[0]!=undefined){
+						costs_price=as[0].price;
+					}
+					if(costs_price!=undefined){
+						t_msg=t_msg+"<BR>平均成本："+costs_price;
+					}
+					q_msg( $('#txtMount_'+b_seq), t_msg);
+					break;
 				case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
 						var t_item = " @ ";
@@ -282,6 +336,18 @@
 				$('#txtMount_' + j).focusout(function () { sum(); });
 				$('#txtTotal_' + j).focusout(function () { sum(); });
 				
+				$('#txtMount_' + j).focusin (function() {
+					if(q_cur==1 ||q_cur==2 ){
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+	                    if(!emp($('#txtProductno_'+b_seq).val())){
+	                    	//庫存
+							var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+							q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+	                	}
+                	}
+				});
 				
 				$('#btnBorn_' + j).click(function () {
 					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -389,7 +455,7 @@
 				$('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
 
 			// $('#txtWeight').val(round(t_weight, 0));
-			$('#txtTotal').val(t1 + dec($('#txtTax').val()));
+			q_tr('txtTotal',t1 + dec($('#txtTax').val()));
 			q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 
 			calTax();
@@ -480,72 +546,73 @@
 	</script>
 	<style type="text/css">
 		#dmain {
-				overflow: hidden;
-			}
-			.dview {
-				float: left;
-				width: 28%;
-			}
-			.tview {
-				margin: 0;
-				padding: 2px;
-				border: 1px black double;
-				border-spacing: 0;
-				font-size: medium;
-				background-color: #FFFF66;
-				color: blue;
-				width: 100%;
-			}
-			.tview td {
-				padding: 2px;
-				text-align: center;
-				border: 1px black solid;
-			}
-			.dbbm {
-				float: left;
-				width: 70%;
-				margin: -1px;
-				border: 1px black solid;
-				border-radius: 5px;
-			}
-			.tbbm {
-				padding: 0px;
-				border: 1px white double;
-				border-spacing: 0;
-				border-collapse: collapse;
-				font-size: medium;
-				color: blue;
-				background: #cad3ff;
-				width: 100%;
-			}
-			.tbbm tr {
-				height: 35px;
-			}
-			.tbbm tr td {
-				width: 9%;
-			}
-			.tbbm .tdZ {
-				width: 2%;
-			}
-			.tbbm tr td span {
-				float: right;
-				display: block;
-				width: 5px;
-				height: 10px;
-			}
-			.tbbm tr td .lbl {
-				float: right;
-				color: blue;
-				font-size: medium;
-			}
-			.tbbm tr td .lbl.btn {
-				color: #4297D7;
-				font-weight: bolder;
-				font-size: medium;
-			}
-			.tbbm tr td .lbl.btn:hover {
-				color: #FF8F19;
-			}
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 30%;
+                border-width: 0px;
+            }
+            .tview {
+            	width: 100%;
+                border: 5px solid gray;
+                font-size: medium;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .dbbm {
+                float: left;
+                width: 70%;
+                /*margin: -1px;
+                 border: 1px black solid;*/
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                /*width: 10%;*/
+            }
+            .tbbm .tdZ {
+                width: 1%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
 			.txt.c1 {
 				width: 98%;
 				float: left;
@@ -623,8 +690,8 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
 	<div id='dmain' style="overflow:hidden;">
-		<div class="dview" id="dview" style="float: left;  width:32%;"  >
-			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		<div class="dview" id="dview">
+			<table class="tview" id="tview">
 				<tr>
 					<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 					<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
@@ -639,17 +706,17 @@
 				</tr>
 			</table>
 		</div>
-		<div class='dbbm' style="width: 68%;float: left;">
-			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+		<div class='dbbm'>
+			<table class="tbbm"  id="tbbm" style="width: 872px;">
 				<tr class="tr1">
-					<td class="td1"><span> </span><a id='lblStype' class="lbl"> </a></td>
-					<td class="td2"><select id="cmbStype" class="txt c1"> </select></td>
-					<td class="td3"><input id="btnOrdei" type="button" /></td>
-					<td class="td4"><span> </span><a id='lblOdate' class="lbl"> </a></td>
-					<td class="td5"><input id="txtOdate"  type="text"  class="txt c1"/></td>
-					<td class="td6"> </td>
-					<td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-					<td class="td8"><input id="txtNoa"   type="text" class="txt c1"/></td> 
+					<td class="td1" style="width: 108px;"><span> </span><a id='lblStype' class="lbl"> </a></td>
+					<td class="td2" style="width: 108px;"><select id="cmbStype" class="txt c1"> </select></td>
+					<td class="td3" style="width: 108px;"><input id="btnOrdei" type="button" /></td>
+					<td class="td4" style="width: 108px;"><span> </span><a id='lblOdate' class="lbl"> </a></td>
+					<td class="td5" style="width: 108px;"><input id="txtOdate"  type="text"  class="txt c1"/></td>
+					<td class="td6" style="width: 108px;"> </td>
+					<td class="td7" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+					<td class="td8" style="width: 108px;"><input id="txtNoa"   type="text" class="txt c1"/></td> 
 				</tr>
 				<tr class="tr2">
 					<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
@@ -700,7 +767,7 @@
 					<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
 					<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
 					<td class="td3" colspan='4' >
-						<input id="txtAddr2"  type="text" class="txt c1" style="width: 90%;"/>
+						<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
 						<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 					</td>
 					<td class="td7"><span> </span><a id='lblEnda' class="lbl"> </a></td>
@@ -720,10 +787,7 @@
 					<td class="td2" colspan='2'><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
 					<td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 					<td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td>
-					<td> </td> 
-					<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-					<td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td> 
-					
+					<td class="td5"><input id="txtWorker2" type="text" class="txt c1" /></td> 
 				</tr>
 				<tr class="tr11">
 					<td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>

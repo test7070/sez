@@ -548,7 +548,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 10%;
+                /*width: 10%;*/
             }
             .tbbm .tdZ {
                 width: 1%;
@@ -647,14 +647,14 @@
         <div class='dbbm'>
         <table class="tbbm"  id="tbbm" style="width: 872px;">
             <tr>
-               <td class="td1" style="width: 102px;"><span> </span><a id='lblType' class="lbl"> </a></td>
-               <td class="td2" style="width: 102px;"><select id="cmbTypea"> </select></td>
-               <td class="td3" style="width: 115px;"><a id='lblStype' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><select id="cmbStype"> </select></td>
-               <td class="td4" style="width: 115px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-               <td class="td5" style="width: 115px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
-               <td class="td6" style="width: 116px;"> </td>
-               <td class="td7" style="width: 113px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-               <td class="td8" style="width: 113px;"><input id="txtNoa" type="text" class="txt c1" /></td> 
+               <td class="td1" style="width: 108px;"><span> </span><a id='lblType' class="lbl"> </a></td>
+               <td class="td2" style="width: 108px;"><select id="cmbTypea"> </select></td>
+               <td class="td3" style="width: 108px;"><a id='lblStype' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><select id="cmbStype"> </select></td>
+               <td class="td4" style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+               <td class="td5" style="width: 108px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
+               <td class="td6" style="width: 108px;"> </td>
+               <td class="td7" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+               <td class="td8" style="width: 108px;"><input id="txtNoa" type="text" class="txt c1" /></td> 
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
@@ -693,7 +693,7 @@
 				<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
 				<td class="td2"><input id="txtZipcode" type="text" class="txt c1"/></td>
 				<td class="td3" colspan='4'>
-					<input id="txtAddr" type="text" class="txt c1" style="width: 505px;"/>
+					<input id="txtAddr" type="text" class="txt c1" style="width: 412px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
                 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
