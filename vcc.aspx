@@ -17,7 +17,7 @@
         }
         q_tables = 's';
         var q_name = "vcc";
-        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker'];
+        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
         var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
         var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
@@ -172,11 +172,63 @@
             b_pop = '';
         }
 
-
+		var t_msg='';
 		var focus_addr='';
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {
+            	case 'msg_stk':
+            		var as  = _q_appendData("stkucc", "", true);
+            		var stkmount=0;
+            		t_msg='';
+            		for ( var i = 0; i < as.length; i++) {
+            			stkmount=stkmount+dec(as[i].mount);
+            		}
+            		t_msg="庫存量："+stkmount;
+            		//最新出貨單價
+					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+b_seq).val()+"' and price>0 ) ^^ stop=1";
+					q_gt('vcc', t_where , 0, 0, 0, "msg_vcc", r_accy);
+            		break;
+            	case 'msg_vcc':
+					var as  = _q_appendData("vccs", "", true);
+					var vcc_price=0;
+					if(as[0]!=undefined){
+						for ( var i = 0; i < as.length; i++) {
+							if(as[0].productno==$('#txtProductno_'+b_seq).val())
+								vcc_price=dec(as[i].price);
+						}
+					}
+					t_msg=t_msg+"<BR>最近出貨單價："+vcc_price;
+					//平均成本
+					var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by datea desc ^^ stop=1";
+					q_gt('wcost', t_where , 0, 0, 0, "msg_wcost", r_accy);
+					break;
+				case 'msg_wcost':
+					var as  = _q_appendData("wcost", "", true);
+					var wcost_price;
+					if(as[0]!=undefined){
+						wcost_price=round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0);
+					}
+					if(wcost_price!=undefined){
+						t_msg=t_msg+"<BR>平均成本："+wcost_price;
+						q_msg( $('#txtMount_'+b_seq), t_msg);	
+					}else{
+						//原料成本
+						var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by mon desc ^^ stop=1";
+						q_gt('costs', t_where , 0, 0, 0, "msg_costs", r_accy);
+					}
+					break;
+				case 'msg_costs':
+					var as  = _q_appendData("costs", "", true);
+					var costs_price;
+					if(as[0]!=undefined){
+						costs_price=as[0].price;
+					}
+					if(costs_price!=undefined){
+						t_msg=t_msg+"<BR>平均成本："+costs_price;
+					}
+					q_msg( $('#txtMount_'+b_seq), t_msg);
+					break;
             	case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
 						var t_item = " @ ";
@@ -261,8 +313,26 @@
                 if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                     $('#txtUnit_' + i).focusout(function () { sum(); });
                     //$('#txtWeight_' + i).focusout(function () { sum(); });
-                    $('#txtPrice_' + i).focusout(function () { sum(); });
-                    $('#txtMount_' + i).focusout(function () { sum(); });
+                    $('#txtPrice_' + i).focusout(function () {
+                    	 sum(); 
+                    });
+                    
+                    $('#txtMount_' + i).focusout(function () { 
+                    	if(q_cur==1 ||q_cur==2 )
+                    		sum(); 
+                    })
+                    $('#txtMount_' + i).focusin (function() {
+                    	if(q_cur==1 ||q_cur==2 ){
+	                    	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+	                    	if(!emp($('#txtProductno_'+b_seq).val())){
+	                    		//庫存
+								var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+								q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+	                    	}
+                    	}
+                    });
                 }
             } //j
             _bbsAssign();
@@ -442,6 +512,7 @@
                 border-width: 0px;
             }
             .tview {
+            	width: 100%;
                 border: 5px solid gray;
                 font-size: medium;
                 background-color: black;
@@ -574,16 +645,16 @@
         </table>
         </div>
         <div class='dbbm'>
-        <table class="tbbm"  id="tbbm" >
+        <table class="tbbm"  id="tbbm" style="width: 872px;">
             <tr>
-               <td class="td1"><span> </span><a id='lblType' class="lbl"> </a></td>
-               <td class="td2"><select id="cmbTypea"> </select></td>
-               <td class="td3"><a id='lblStype' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><select id="cmbStype"> </select></td>
-               <td class="td4"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-               <td class="td5"><input id="txtDatea" type="text"  class="txt c1"/></td>
-               <td class="td6"> </td>
-               <td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-               <td class="td8"><input id="txtNoa" type="text" class="txt c1" /></td> 
+               <td class="td1" style="width: 102px;"><span> </span><a id='lblType' class="lbl"> </a></td>
+               <td class="td2" style="width: 102px;"><select id="cmbTypea"> </select></td>
+               <td class="td3" style="width: 115px;"><a id='lblStype' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><select id="cmbStype"> </select></td>
+               <td class="td4" style="width: 115px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+               <td class="td5" style="width: 115px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
+               <td class="td6" style="width: 116px;"> </td>
+               <td class="td7" style="width: 113px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+               <td class="td8" style="width: 113px;"><input id="txtNoa" type="text" class="txt c1" /></td> 
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
@@ -622,7 +693,7 @@
 				<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
 				<td class="td2"><input id="txtZipcode" type="text" class="txt c1"/></td>
 				<td class="td3" colspan='4'>
-					<input id="txtAddr" type="text" class="txt c1" style="width: 90%;"/>
+					<input id="txtAddr" type="text" class="txt c1" style="width: 505px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
                 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
@@ -664,10 +735,9 @@
             <tr>
 				<td class="td1"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
 				<td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
-                <td class="td4"></td>
-                <td class="td5"></td>             
-                <td class="td6"><span> </span><a id="lblWorker" class="lbl"> </a></td>                 
-                <td class="td7"><input id="txtWorker" type="text" class="txt c1"/></td>
+                <td class="td4"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+                <td class="td5"><input id="txtWorker" type="text" class="txt c1"/></td>             
+                <td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
