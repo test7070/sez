@@ -300,7 +300,14 @@
 				   sum();
 				});
 				$('#txtTotal_' + j).focusout(function () { sum(); });
-
+				
+				$('#btnRecord_' + j).click(function () {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					t_where = "tgg='"+$('#txtTggno').val()+"' and noq='"+$('#txtProductno_'+b_seq).val()+"'";
+					q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2record', "95%", "95%", q_getMsg('lblRecord_s'));
+				});
 			} //j
 		}
 
@@ -725,6 +732,7 @@
 				<td align="center" style="width:9%;"><a id='lblTotals'></a></td>
 				<!--<td align="center" style="width:9%;"><a id='lblErrmount'></a></td>-->
 				<td align="center" style="width:12%;"><a id='lblMemos'></a></td>
+				<td align="center" style="width:2%;"><a id='lblRecord_s'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -755,6 +763,7 @@
 				<input id="txtOrdcno.*" type="text" style="width:72%;" />
 				<input id="txtNo2.*" type="text" style="width:22%;" />
 				<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+				<td align="center"><input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
 			</tr>
 		</table>
 		</div>
