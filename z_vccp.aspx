@@ -26,27 +26,27 @@
                $('#q_report').q_report({
                         fileName : 'z_vccp',
                         options : [{
-	                        type : '0',
+	                        type : '0', //[1]
 	                        name : 'accy',
 	                        value : r_accy
 	                    },  {
-	                        type : '1',
+	                        type : '1', //[2][3]
 	                        name : 'xnoa'
 	                    }, {
-	                        type : '1',
+	                        type : '1', //[4][5]
 	                        name : 'date'
 	                    },
 	                    {
-	                        type : '2',
+	                        type : '2', //[6][7]
 	                        name : 'cust',
 	                        dbf : 'cust',
 	                        index : 'noa,comp',
 	                        src : 'cust_b.aspx'
 	                    } , {
-	                        type : '1',
+	                        type : '1', //[8][9]
 	                        name : 'xmon'
 						}, {
-							type : '8',//[17]
+							type : '8',//[10]
 							name : 'xshowprice',
 							value : "1@".split(',')
 	                    }]

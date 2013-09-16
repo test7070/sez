@@ -23,7 +23,7 @@
             var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtMount','txtMount2','txtWorker','txtWorker2'];
             var q_readonlys = ['txtTotal','txtTotal2','txtTransvcceno','txtTranno','txtTaskcontent'];
             var bbmNum = [['txtMount',10,3,1],['txtTotal',10,0,1],['txtMount2',10,3,1],['txtTotal2',10,0,1]];
-            var bbsNum = [['txtInmount',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtTotal2',10,0,1],['txtTolls',10,0,1],['txtReserve',10,0,1],['txtGoss',10,3,1],['txtWeight',10,0,1]];
+            var bbsNum = [['txtBmiles',10,0,1],['txtEmiles',10,0,1],['txtInmount',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtTotal2',10,0,1],['txtTolls',10,0,1],['txtReserve',10,0,1],['txtGoss',10,3,1],['txtWeight',10,0,1]];
             var bbmMask = [['txtDatea','999/99/99'],['textBdate','999/99/99'],['textBBdate','999/99/99'],['textEdate','999/99/99'],['textEEdate','999/99/99']];
             var bbsMask = [['txtDatea','999/99/99'],['txtTrandate','999/99/99']];
             q_sqlCount = 6;
@@ -48,7 +48,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             function main() {
                 if (dataErr) {
@@ -395,7 +395,7 @@
                 }else if(q_cur ==2){
                 	$('#txtWorker2').val(r_name);
                 }else{
-                	alert("error: btnok!")
+                	alert("error: btnok!");
                 }       
                 for(var i=0;i<q_bbsCount;i++){
                 	$('#txtMon_'+i).val($('#txtDatea_'+i).val().substring(0,6));
@@ -515,6 +515,7 @@
                		t_mount2+=q_float('txtMount2_'+i);
                		t_total2+=t_val;
                		$('#txtTotal2_'+i).val(FormatNumber(t_val));
+               		$('#txtMiles_'+i).val(q_float('txtEmiles_'+i)-q_float('txtBmiles_'+i));
                	}
                	$('#txtMount').val(FormatNumber(t_mount)); 
                	$('#txtMount2').val(FormatNumber(t_mount2)); 
@@ -603,50 +604,50 @@
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
-			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
-			}
+			    return Math.round(this.mul( Math.pow(10,arg))).div( Math.pow(10,arg));
+			};
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
-			}
+			};
             function accDiv(arg1, arg2) {
 			    var t1 = 0, t2 = 0, r1, r2;
-			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
-			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    try { t1 = arg1.toString().split(".")[1].length; } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length; } catch (e) { }
 			    with (Math) {
-			        r1 = Number(arg1.toString().replace(".", ""))
-			        r2 = Number(arg2.toString().replace(".", ""))
+			        r1 = Number(arg1.toString().replace(".", ""));
+			        r2 = Number(arg2.toString().replace(".", ""));
 			        return (r1 / r2) * pow(10, t2 - t1);
 			    }
 			}
 			Number.prototype.mul = function(arg) {
 			    return accMul(arg, this);
-			}
+			};
 			function accMul(arg1, arg2) {
 			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-			    try { m += s1.split(".")[1].length } catch (e) { }
-			    try { m += s2.split(".")[1].length } catch (e) { }
-			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			    try { m += s1.split(".")[1].length; } catch (e) { }
+			    try { m += s2.split(".")[1].length; } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
 			}
 			Number.prototype.add = function(arg) {
 		   		return accAdd(arg, this);
-			}
+			};
 			function accAdd(arg1, arg2) {
 			    var r1, r2, m;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
-			    m = Math.pow(10, Math.max(r1, r2))
-			    return (arg1 * m + arg2 * m) / m
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    return (Math.round(arg1 * m) + Math.round(arg2 * m)) / m;
 			}
 			Number.prototype.sub = function(arg) {
 			    return accSub(this,arg);
-			}
+			};
 			function accSub(arg1, arg2) {
 			    var r1, r2, m, n;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
 			    m = Math.pow(10, Math.max(r1, r2));
 			    n = (r1 >= r2) ? r1 : r2;
-			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			    return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
 		</script>
 		<style type="text/css">
@@ -901,7 +902,7 @@
 					<td align="center" style="width:150px;"><a> 起迄地點</a></td>
 					<td align="center" style="width:100px;"><a> 產品</a></td>
 					<td align="center" style="width:200px;"><a> 櫃號</a></td>
-					<td align="center" style="width:100px;"><a> 里程數</a></td>
+					<td align="center" style="width:100px;"><a> 里程數<br>起/迄</a></td>
 					<td align="center" style="width:100px;"><a> 收數量</a></td>
 					<td align="center" style="width:120px;"><a> 客戶單價</a></td>
 					<td align="center" style="width:100px;"><a> 收金額</a></td>
@@ -958,9 +959,9 @@
 						<input type="text" id="txtCaseno2.*" style="width:95%;float:left;display:none;" />
 					</td>
 					<td>
-						<input type="text" id="txtBmiles.*" style="width:20%;float:left;text-align: right;display:none;" />
-						<input type="text" id="txtEmiles.*" style="width:20%;float:left;text-align: right;display:none;" />
-						<input type="text" id="txtMiles.*" style="width:95%;float:left;text-align: right;" />
+						<input type="text" id="txtBmiles.*" style="width:95%;float:left;text-align: right;" />
+						<input type="text" id="txtEmiles.*" style="width:95%;float:left;text-align: right;color:darkred;" />
+						<input type="text" id="txtMiles.*" style="width:95%;float:left;text-align: right;display:none;" />
 						<input type="text" id="txtGps.*" style="width:20%;float:left;text-align: right;display:none;" />
 					</td>
 					<td>

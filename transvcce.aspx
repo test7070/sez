@@ -76,9 +76,9 @@
                 	string+='<td id="tranorde_ctype" onclick="tranorde.sort(\'ctype\',false)" title="類型" align="center" style="width:50px; color:black;">類型</td>';
                 	string+='<td id="tranorde_strdate" onclick="tranorde.sort(\'strdate\',false)" title="開工日期" align="center" style="width:100px; color:black;">開工日</td>';
                 	string+='<td id="tranorde_strdate" onclick="tranorde.sort(\'dldate\',false)" title="完工日期" align="center" style="width:100px; color:black;">完工日</td>';
-                	string+='<td id="tranorde_nick" onclick="tranorde.sort(\'custno\',false)" title="客戶" align="center" style="width:100px; color:black;">客戶</td>'
-                	string+='<td id="tranorde_addr" onclick="tranorde.sort(\'addrno\',false)" title="起迄地點" align="center" style="width:200px; color:black;">起迄地點</td>'
-                	string+='<td id="tranorde_product" onclick="tranorde.sort(\'productno\',false)" title="品名" align="center" style="width:100px; color:black;">品名</td>'
+                	string+='<td id="tranorde_nick" onclick="tranorde.sort(\'custno\',false)" title="客戶" align="center" style="width:100px; color:black;">客戶</td>';
+                	string+='<td id="tranorde_addr" onclick="tranorde.sort(\'addrno\',false)" title="起迄地點" align="center" style="width:200px; color:black;">起迄地點</td>';
+                	string+='<td id="tranorde_product" onclick="tranorde.sort(\'productno\',false)" title="品名" align="center" style="width:100px; color:black;">品名</td>';
                 	string+='<td id="tranorde_mount" onclick="tranorde.sort(\'mount\',true)" align="center" style="width:80px; color:black;">收數量</td>';
                 	string+='<td id="tranorde_vccecount" onclick="tranorde.sort(\'vccecount\',true)" align="center" style="width:80px; color:black;">已派數量</td>';
                 	string+='<td id="tranorde_empdock" onclick="tranorde.sort(\'empdock\',false)" title="領,S/O" align="center" style="width:120px; color:black;">出口櫃</td>';
@@ -289,7 +289,7 @@
                 	//複製資料
                 	if(ordeno.length == 0)
                 		return;
-                	var t_where = "where=^^ noa='"+ordeno+"'^^"
+                	var t_where = "where=^^ noa='"+ordeno+"'^^";
                 	q_gt('view_tranorde', t_where, 0, 0, 0,'ddd_'+ordeno+'_'+sel, r_accy);
                 },
                 loadcaddr : function(ordeno){
@@ -298,10 +298,10 @@
 		                $('#combCaddr_'+i).html('');
                 	if(ordeno.length == 0)
                 		return;
-                	var t_where = "where=^^ noa='"+ordeno+"'^^"
+                	var t_where = "where=^^ noa='"+ordeno+"'^^";
                 	q_gt('view_tranorde', t_where, 0, 0, 0,'loadcaddr', r_accy);
                 }
-            }
+            };
             tranorde = new tranorde();
             
 			//---------------------------------------------------------------------
@@ -310,7 +310,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
 					
             function main() {
@@ -385,7 +385,7 @@
 				        	//nothing 			         
 				        },
 					    error: function(jqXHR, exception) {
-					    	var errmsg = '資料傳送異常。\n'+('accy:'+this.accy+' senddate:'+this.senddate)+'\n\n'
+					    	var errmsg = '資料傳送異常。\n'+('accy:'+this.accy+' senddate:'+this.senddate)+'\n\n';
 				            if (jqXHR.status === 0) {
 				                alert(errmsg+'Not connect.\n Verify Network.');
 				            } else if (jqXHR.status == 404) {
@@ -577,7 +577,7 @@
 							        },
 								    error: function(jqXHR, exception) {
 								    	var errmsg = this.carno+'資料傳送異常。\n'
-								    	+'\n message: \n'+('回傳代碼:'+this.sendid+'.'+this.msg)+'\n\n'
+								    	+'\n message: \n'+('回傳代碼:'+this.sendid+'.'+this.msg)+'\n\n';
 							            if (jqXHR.status === 0) {
 							                alert(errmsg+'Not connect.\n Verify Network.');
 							            } else if (jqXHR.status == 404) {
@@ -719,7 +719,7 @@
                 }else if(q_cur ==2){
                 	$('#txtWorker2').val(r_name);
                 }else{
-                	alert("error: btnok!")
+                	alert("error: btnok!");
                 }
                 sum();
                 Lock();
@@ -756,7 +756,7 @@
             		t_noa = $.trim($('#txtNoa').val());
             		t_ordeno = $.trim($('#txtOrdeno').val());
             		t_mount = $.trim($('#txtMount').val()).length ==0 ? '0':$.trim($('#txtMount').val());
-            		t_where = "noa='"+t_ordeno+"'"
+            		t_where = "noa='"+t_ordeno+"'";
             		t_where="where=^^"+t_where+"^^";
                     q_gt('view_tranorde', t_where, 0, 0, 0, "bbb_"+t_noa+"_"+t_ordeno+"_"+t_mount, r_accy);
             	}else{ 
