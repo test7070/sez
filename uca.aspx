@@ -23,7 +23,7 @@
         var decbbs = ['weight', 'uweight', 'price'];
         var decbbm = ['weight', 'hours' , 'pretime', 'mount', 'wages', 'makes', 'mechs', 'trans', 'molds', 'packs', 'uweight', 'price'];
         var decbbt = [];
-        var q_readonly = ['textCosta','textCostb','textCostc','textCostd','textCosttotal','textStk'];
+        var q_readonly = ['textCosta','textCostb','textCostc','textCostd','textCosttotal','textStk','textOrdemount','textPlanmount','textIntmount','textAvaistk'];
         var q_readonlys = [];
         var q_readonlyt = ['txtAssm'];
         var bbmNum = [['txtPrice', 12, 2 ,1]];  // 允許 key 小數
@@ -231,17 +231,10 @@
             			$('#textCost4').val(dec($('#txtPrice').val()));
             			ucsa_cost=0;
             			 for (var i = 0; i < q_bbsCount; i++) {
-            			 	var t_where = "where=^^ productno ='"+$('#txtProductno_'+i).val()+"' order by mon desc ^^";
-							q_gt('costs', t_where , 0, 0, 0, "ucas_cost", r_accy);
+            			 	var t_where = "where=^^ productno ='"+$('#txtProductno_'+i).val()+"' order by mon desc ^^ stop =1 ";
+							q_gt('costs', t_where , 0, 0, 0, "ucascost_"+i, r_accy);
 						}
             		}
-            		break;
-            	case 'ucas_cost':
-            		var as  = _q_appendData("costs", "", true);
-            		if(as[0]!=undefined){
-            			ucsa_cost=ucsa_cost+dec(as[0].price);
-            		}
-            		$('#textCosta').val(ucsa_cost)
             		break;
             	case'calstk':
             		var as  = _q_appendData("stkucc", "", true);
@@ -250,12 +243,37 @@
             			stkmount=stkmount+dec(as[i].mount);
             		}
             		$('#textStk').val(stkmount);
+            		//可用庫存=庫存+在途-訂單(+計畫??)
+            		$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
+            		break;
+            	case 'workg_orde':
+            		var t_oedemount=0,t_planmount=0,t_intmount=0;
+            		var as  = _q_appendData("view_ordes", "", true);
+            		if(as[0]!=undefined){
+            			 t_oedemount=dec(as[0].oedemount);
+            			 t_planmount=dec(as[0].planmount);
+            			 t_intmount=dec(as[0].inmount)+dec(as[0].purmount);
+            		}
+            		$('#textOrdemount').val(t_oedemount);//訂單
+            		$('#textPlanmount').val(t_planmount);//計畫
+            		$('#textIntmount').val(t_intmount);//在途
+            		//可用庫存=庫存+在途-訂單(+計畫??)
+            		$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
             		break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
+            
+            if(t_name.substr(0,9)=='ucascost_'){
+            	var as  = _q_appendData("costs", "", true);
+            	if(as[0]!=undefined){
+            		t_noq=t_name.substr(9,t_name.length);
+            		ucsa_cost=ucsa_cost+(dec(as[0].price)*dec($('#txtMount_'+t_noq).val()));
+            	}
+            	$('#textCosta').val(round(ucsa_cost,2))
+            }
         }
         
         function btnOk() {
@@ -635,6 +653,12 @@
 			var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtNoa').val()+"' ^^";
 			q_gt('calstk', t_where , 0, 0, 0, "", r_accy);
             
+            //訂單、在途量、計畫
+            var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";   			
+			var t_where1 = "where[1]=^^a.productno='"+$('#txtNoa').val()+"' and a.enda!='1' group by productno ^^";
+			var t_where2 = "where[2]=^^1=0^^";	
+			var t_where3 ="where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
+			q_gt('workg_orde', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
             //format();
         }
 
@@ -944,24 +968,40 @@
 				<td align="center" width="50%"><input id="textCosta" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
-				<td align="center" ><a class="lbl">人工成本</a></td>
+				<td align="center" ><a class="lbl">直接人工</a></td>
 				<td align="center" ><input id="textCostb" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
-				<td align="center" ><a class="lbl">製造成本</a></td>
+				<td align="center" ><a class="lbl">製造費用</a></td>
 				<td align="center" ><input id="textCostc" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
-				<td align="center" ><a class="lbl">委外成本</a></td>
+				<td align="center" ><a class="lbl">委外單價</a></td>
 				<td align="center" ><input id="textCostd" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
-				<td align="center" ><a class="lbl">總成本</a></td>
+				<td align="center" ><a class="lbl">成本合計</a></td>
 				<td align="center" ><input id="textCosttotal" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
-				<td align="center" ><a class="lbl">庫存</a></td>
+				<td align="center" ><a class="lbl">訂單數量</a></td>
+				<td align="center" ><input id="textOrdemount" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">計畫生產</a></td>
+				<td align="center" ><input id="textPlanmount" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">在途量</a></td>
+				<td align="center" ><input id="textIntmount" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">庫存量</a></td>
 				<td align="center" ><input id="textStk" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">可用庫存</a></td>
+				<td align="center" ><input id="textAvaistk" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr>
 				<td align="center" colspan='2'><input id="btnClose_div_stkcost" type="button" value="關閉視窗"></td>
