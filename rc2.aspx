@@ -483,9 +483,11 @@
 			}
 			.dview {
 				float: left;
-				width: 98%;
+                width: 30%;
+                border-width: 0px;
 			}
 			.tview {
+				width: 100%;
 				margin: 0;
 				padding: 2px;
 				border: 1px black double;
@@ -500,11 +502,11 @@
 				border: 1px black solid;
 			}
 			.dbbm {
-				float: left;
-				width: 98%;
-				margin: -1px;
-				border: 1px black solid;
-				border-radius: 5px;
+				 float: left;
+                width: 70%;
+                /*margin: -1px;
+                 border: 1px black solid;*/
+                border-radius: 5px;
 			}
 			.tbbm {
 				padding: 0px;
@@ -520,7 +522,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -545,7 +547,7 @@
 				color: #FF8F19;
 			}
 			.txt.c1 {
-				width: 98%;
+				width: 99%;
 				float: left;
 			}
 			.txt.c2 {
@@ -608,8 +610,8 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
-		<div class="dview" id="dview" style="float: left;  width:32%;"  >
-		   <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		<div class="dview" id="dview">
+		   <table class="tview" id="tview" >
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'></a></td>
 				<td align="center" style="width:5%"><a id='vewTypea'></a></td>
@@ -626,19 +628,19 @@
 			</tr>
 		</table>
 		</div>
-		<div class='dbbm' style="width: 68%;float: left;">
-		<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+		<div class='dbbm'>
+		<table class="tbbm"  id="tbbm" style="width: 872px;">
 			<tr class="tr1">
-			   <td class="td1" ><span> </span><a id='lblType' class="lbl"></a></td>
-			   <td class="td2" >
+			   <td class="td1" style="width: 108px;"><span> </span><a id='lblType' class="lbl"></a></td>
+			   <td class="td2" style="width: 108px;">
 			   		<input id="txtType" type="text"  style='width:0%; visibility:collapse;'/>
-			   		<select id="cmbTypea" class="txt c3"></select></td>
-			   <td class="td3" ><span> </span><a id='lblStype' class="lbl"></a></td>
-			   <td class="td4" ><select id="cmbStype" class="txt c1"></select></td>
-			   <td class="td5" ><span> </span><a id='lblDatea' class="lbl"></a></td>
-			   <td class="td6" ><input id="txtDatea" type="text"  class="txt c1"/></td>
-			   <td class="td7" ><span> </span><a id='lblNoa' class="lbl"></a></td>
-			   <td class="td8" ><input id="txtNoa" type="text" class="txt c1"/></td> 
+			   		<select id="cmbTypea" class="txt c3"></select> </td>
+			   <td class="td3" style="width: 108px;"><span> </span><a id='lblStype' class="lbl"></a></td>
+			   <td class="td4" style="width: 108px;"><select id="cmbStype" class="txt c1"></select></td>
+			   <td class="td5" style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"></a></td>
+			   <td class="td6" style="width: 108px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
+			   <td class="td7" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"></a></td>
+			   <td class="td8" style="width: 108px;"><input id="txtNoa" type="text" class="txt c1"/></td> 
 			</tr>
 			<tr class="tr2">
 			   <td class="td1"><span> </span><a id='lblAcomp' class="lbl btn"></a></td>
@@ -672,7 +674,7 @@
 				<td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
 				<td class="td2"><input id="txtPost"  type="text"  class="txt c1"/> </td>
 				<td class="td3" colspan='4' >
-					<input id="txtAddr"  type="text" class="txt c1" style="width: 90%;"/>
+					<input id="txtAddr"  type="text" class="txt c1" style="width: 412px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
 				<td class="td7"><span> </span><a id='lblPrice' class="lbl"></a></td>

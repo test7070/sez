@@ -495,7 +495,8 @@
 			}
 			.dview {
 				float: left;
-				width: 28%;
+                width: 30%;
+                border-width: 0px;
 			}
 			.tview {
 				margin: 0;
@@ -513,11 +514,11 @@
 				border: 1px black solid;
 			}
 			.dbbm {
-				float: left;
-				width: 70%;
-				margin: -1px;
-				border: 1px black solid;
-				border-radius: 5px;
+				 float: left;
+                width: 70%;
+                /*margin: -1px;
+                 border: 1px black solid;*/
+                border-radius: 5px;
 			}
 			.tbbm {
 				padding: 0px;
@@ -533,7 +534,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -639,7 +640,7 @@
 <!--#include file="../inc/toolbar.inc"--> 
 		<div id='dmain'>
 		<div class="dview" >
-			<table class="tview" id="tview"	border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			<table class="tview" id="tview">
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'></a></td>
 				<td align="center" style="width:25%"><a id='vewDatea'></a></td>
@@ -655,16 +656,16 @@
 		</table>
 		</div>
 		<div class='dbbm' >
-		<table class="tbbm"  id="tbbm"	border="0" cellpadding='2'  cellspacing='0'>
+		<table class="tbbm"  id="tbbm" style="width: 872px;">
 			<tr class="tr1">
-				<td class="td1"><span> </span><a id='lblKind' class="lbl"></a></td>
-				<td class="td2"><select id="cmbKind" class="txt c1 lef"></select></td>
-				<td> </td>
-				<td class="td3"><span> </span><a id='lblOdate' class="lbl"></a></td>
-				<td class="td4"><input id="txtOdate" type="text" class="txt c1 lef"/></td>
-				<td> </td>
-				<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
-				<td class="td6"><input id="txtDatea" type="text" class="txt c1 lef"/></td>
+				<td class="td1" style="width: 108px;"><span> </span><a id='lblKind' class="lbl"></a></td>
+				<td class="td2" style="width: 108px;"><select id="cmbKind" class="txt c1 lef"></select></td>
+				<td style="width: 108px;"> </td>
+				<td class="td3" style="width: 108px;"><span> </span><a id='lblOdate' class="lbl"></a></td>
+				<td class="td4" style="width: 108px;"><input id="txtOdate" type="text" class="txt c1 lef"/></td>
+				<td style="width: 108px;"> </td>
+				<td class="td5" style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"></a></td>
+				<td class="td6" style="width: 108px;"><input id="txtDatea" type="text" class="txt c1 lef"/></td>
 			</tr>
 			<tr class="tr2">
 				<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" ></a></td>
@@ -697,7 +698,7 @@
 				<td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
 				<td class="td2"><input id="txtPost"  type="text"	class="txt c1 lef"/></td>
 				<td class="td3" colspan='4' >
-					<input id="txtAddr"  type="text"  class="txt c1 lef" style="width: 90%;"/>
+					<input id="txtAddr"  type="text"  class="txt c1 lef" style="width: 412px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
 				<td class="td1"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
