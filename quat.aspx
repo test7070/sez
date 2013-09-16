@@ -172,6 +172,13 @@
 						$('#txtMount_' + j).change(function () {sum();});
 						//$('#txtWeight_' + j).change(function () {sum();});
 						$('#txtPrice_' + j).change(function () {sum();});
+						$('#btnVccrecord_' + j).click(function () {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							t_where = "cust='"+$('#txtCustno').val()+"' and noq='"+$('#txtProductno_'+b_seq).val()+"'";
+							q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
+						});
 					}
 				}
 				_bbsAssign();
@@ -218,6 +225,7 @@
 
 				q_nowf();
 				as['datea'] = abbm2['datea'];
+				as['odate'] = abbm2['odate'];
 				return true;
 			}
 
@@ -533,6 +541,7 @@
 				<td align="center"><a id='lblPrices'></a></td>
 				<td align="center"><a id='lblTotals'></a></td>
 				<td align="center"><a id='lblMemos'></a></td>
+				<td align="center"><a id='lblVccrecord'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -554,6 +563,9 @@
 				<input class="txt" id="txtOrdeno.*" type="text"style="width:65%;" />
 				<input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
 				<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+				<td style="width:3%;" align="center">
+					<input class="btn"  id="btnVccrecord.*" type="button" value='.' style=" font-weight: bold;" />
+				</td>
 			</tr>
 		</table>
 		</div>

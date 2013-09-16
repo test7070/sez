@@ -60,7 +60,8 @@
 				q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				$('#btnOrde').click(function() {
-					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'ordes', "95%", "95%", q_getMsg('popOrde'));
+					
+					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=1", 'ordes', "95%", "95%", q_getMsg('popOrde'));
 				});
 				
 				$('#cmbPaytype').change(function () {
@@ -213,6 +214,14 @@
 							 	}else{
 											$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
 							 	}
+							});
+							
+							$('#btnRc2record_' + j).click(function () {
+								t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+								q_bodyId($(this).attr('id'));
+								b_seq = t_IdSeq;
+								t_where = "tgg='"+$('#txtTggno').val()+"' and noq='"+$('#txtProductno_'+b_seq).val()+"'";
+								q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2record', "95%", "95%", q_getMsg('lblRc2record'));
 							});
 					 }
 				}
@@ -692,6 +701,7 @@
 				<td align="center" style="width:10%;"><a id='lblTotals'> </a></td>
 				<td align="center" style="width:10%;"><a id='lblGemounts'> </a></td>
 				<td align="center" style="width:15%;"><a id='lblMemos_st'> </a></td>
+				<td align="center" style="width:3%;"><a id='lblRc2record'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -724,6 +734,7 @@
 					<input class="txt" id="txtOrdeno.*" type="text" style="width:73%;" />
 						<input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
 						<input id="recno.*" type="hidden" /></td>
+				<td align="center"><input class="btn"  id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" /></td>
 			</tr>
 		</table>
 		</div>

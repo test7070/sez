@@ -76,12 +76,13 @@
 	               			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";
 	               			
 	               			if(!emp($('#txtProductno').val()))
-	               				var t_where1 = "where[1]=^^a.productno='"+$('#txtProductno').val()+"' and (b.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and b.stype!='4' and a.productno in (select noa from uca) group by productno ^^";
+	               				var t_where1 = "where[1]=^^a.productno='"+$('#txtProductno').val()+"' and a.enda!='1' and (b.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,(select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')))=0  group by productno ^^";
 	               			else
-	               				var t_where1 = "where[1]=^^(b.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and b.stype!='4' and a.productno in (select noa from uca) group by productno ^^";
+	               				var t_where1 = "where[1]=^^a.enda!='1' and (b.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,(select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')))=0 group by productno ^^";
 								               				
-	               			var t_where2 = "where[2]=^^e.productno=a.productno and (f.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and f.stype!='4' ^^";	
-							q_gt('workg_orde', t_where+t_where1+t_where2, 0, 0, 0, "", r_accy);
+	               			var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (f.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,(select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')))=0 ^^";
+	               			var t_where3 ="where[3]=^^ (d.odate between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
+							q_gt('workg_orde', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
 						}/*else if(!emp($('#txtMon').val())){
 	               			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";
 	               			if(!emp($('#txtProductno').val()))

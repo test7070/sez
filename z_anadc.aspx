@@ -1208,8 +1208,8 @@
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
-			<div id="svgbet">
-				<input id="btnSvg" type="button" />
+			<div id="svgbet" style="display:inline-block;width:2000px;">
+				<input id="btnSvg" type="button" style="font-size: medium;"/>
 			</div>
 			<div id='Loading'> </div>
 			<div id='pieChart'> </div>
