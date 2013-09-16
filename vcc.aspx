@@ -338,8 +338,8 @@
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						t_where = "noa='"+$('#txtNoa').val()+"' and noq='"+$('#txtNoq_'+b_seq).val()+"'";
-						q_box("z_record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'record', "95%", "95%", q_getMsg('lblRecord_s'));
+						t_where = "cust='"+$('#txtCustno').val()+"' and noq='"+$('#txtProductno_'+b_seq).val()+"'";
+						q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
 					});
                 }
             } //j
@@ -774,7 +774,7 @@
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
                 	<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
                 </td>
-                <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
+                <td style="width:17%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
@@ -784,7 +784,7 @@
                 	<input id="txtNo2.*" type="text" class="txt" style="width:20%;"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
-                <td style="width:1%;"><input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
+                <td style="width:2%;" align="center"><input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
             </tr>
         </table>
         </div>
