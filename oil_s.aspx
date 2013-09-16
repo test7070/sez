@@ -1,21 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "oil_s";
 			
 			aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa','txtCarno', 'car2_b.aspx'],
-            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
+            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx'], 
+            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno', 'oilstation_b.aspx']);
             	
             $(document).ready(function() {
                 main();
@@ -33,28 +36,39 @@
 
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBoildate', r_picd], ['txtEoildate', r_picd]];
                 q_mask(bbmMask);
-
+				$('#txtBdate').datepicker();
+				$('#txtEdate').datepicker(); 
+				$('#txtBoildate').datepicker();
+				$('#txtEoildate').datepicker(); 
+				
                 $('#txtBdate').focus();
             }
 
             function q_seekStr() {
-                t_noa = $('#txtNoa').val();
-                t_bdate = $('#txtBdate').val();
-                t_edate = $('#txtEdate').val();
-                t_boildate = $('#txtBoildate').val();
-                t_eoildate = $('#txtEoildate').val();
-                t_carno = $('#txtCarno').val();
-                t_driverno = $('#txtDriverno').val();
-                t_driver = $('#txtDriver').val();
-                t_oilstationno = $('#txtOilstationno').val();
-                t_oilstation = $('#txtOilstation').val();
-                t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-                t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
+                t_noa = $.trim($('#txtNoa').val());
+                t_bdate = $.trim($('#txtBdate').val());
+                t_edate = $.trim($('#txtEdate').val());
+                t_boildate = $.trim($('#txtBoildate').val());
+                t_eoildate = $.trim($('#txtEoildate').val());
+                t_carno = $.trim($('#txtCarno').val());
+                t_driverno = $.trim($('#txtDriverno').val());
+                t_driver = $.trim($('#txtDriver').val());
+                t_oilstationno = $.trim($('#txtOilstationno').val());
+                t_oilstation = $.trim($('#txtOilstation').val());
 
-                var t_where = " 1=1 " + q_sqlPara2("oilstationno", t_oilstationno) +q_sqlPara2("oilstation", t_oilstation) +
-                q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver)
-                 + q_sqlPara2("oildate", t_boildate, t_eoildate);
-
+                var t_where = " 1=1 " 
+                + q_sqlPara2("oilstationno", t_oilstationno) 
+                + q_sqlPara2("noa", t_noa) 
+                + q_sqlPara2("datea", t_bdate, t_edate) 
+                + q_sqlPara2("carno", t_carno) 
+                + q_sqlPara2("driverno", t_driverno)
+                + q_sqlPara2("oildate", t_boildate, t_eoildate);
+                 
+             	if(t_driver.length>0)
+                 	t_where += " and charindex('"+t_driver+"',driver)>0";
+				if(t_oilstation.length>0)
+                 	t_where += " and charindex('"+t_oilstation+"',oilstation)>0";
+                 	
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -102,17 +116,25 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
 					<td>
-					<input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtDriver" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblDriver'></a></td>
+					<td>
+					<input class="txt" id="txtDriver" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblOilstationno'></a></td>
+					<td>
+					<input class="txt" id="txtOilstationno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblOilstation'></a></td>
 					<td>
-					<input class="txt" id="txtOilstationno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtOilstation" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtOilstation" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
