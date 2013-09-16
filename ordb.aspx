@@ -60,7 +60,8 @@
 				q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				$('#btnOrde').click(function() {
-					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'ordes', "95%", "95%", q_getMsg('popOrde'));
+					
+					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=1", 'ordes', "95%", "95%", q_getMsg('popOrde'));
 				});
 				
 				$('#cmbPaytype').change(function () {

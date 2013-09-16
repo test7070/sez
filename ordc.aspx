@@ -314,7 +314,7 @@
 				as['datea'] = abbm2['datea'];
 				as['kind'] = abbm2['kind'];
 				as['tggno'] = abbm2['tggno'];
-				as['odate'] = abbm2['kind'];
+				as['odate'] = abbm2['odate'];
 				return true;
 			}
 			function sum() {

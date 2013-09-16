@@ -333,6 +333,14 @@
 	                    	}
                     	}
                     });
+                    
+                    $('#btnRecord_' + i).click(function () {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						t_where = "noa='"+$('#txtNoa').val()+"' and noq='"+$('#txtNoq_'+b_seq).val()+"'";
+						q_box("z_record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'record', "95%", "95%", q_getMsg('lblRecord_s'));
+					});
                 }
             } //j
             _bbsAssign();
@@ -758,6 +766,7 @@
                 <td align="center"><a id='lblPrice_s'> </a></td>
                 <td align="center"><a id='lblTotal_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
+                <td align="center"><a id='lblRecord_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -775,6 +784,7 @@
                 	<input id="txtNo2.*" type="text" class="txt" style="width:20%;"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
+                <td style="width:1%;"><input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
             </tr>
         </table>
         </div>

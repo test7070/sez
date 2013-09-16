@@ -218,6 +218,7 @@
 
 				q_nowf();
 				as['datea'] = abbm2['datea'];
+				as['odate'] = abbm2['odate'];
 				return true;
 			}
 
