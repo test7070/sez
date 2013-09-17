@@ -540,7 +540,7 @@
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTax').val(FormatNumber(t_tax));
                 $('#txtTotal').val(FormatNumber(t_total));
-                $('#txtTotalus').val(q_float('txtTotal').mul(q_float('txtFloata')));
+                $('#txtTotalus').val(FormatNumber(q_float('txtTotal').mul(q_float('txtFloata'))));
             }
 
             function refresh(recno) {
