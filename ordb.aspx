@@ -59,6 +59,10 @@
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
 				q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				
+				var t_where = "where=^^ 1=1  group by post,addr^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
 				$('#btnOrde').click(function() {
 					
 					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=1", 'ordes', "95%", "95%", q_getMsg('popOrde'));
@@ -81,6 +85,13 @@
 				});
 				$('#txtTotal').change(function () {
 					sum();
+				});
+				
+				$('#txtTggno').change(function(){
+					if(!emp($('#txtTggno').val())){
+						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+						q_gt('custaddr', t_where, 0, 0, 0, "");
+					}
 				});
 			}
 
@@ -110,6 +121,17 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'custaddr':
+						var as = _q_appendData("custaddr", "", true);
+						var t_item = " @ ";
+						if(as[0]!=undefined){
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') +as[i].post +'@'+ as[i].addr;
+							}
+						}
+						document.all.combAddr.options.length = 0; 
+						q_cmbParse("combAddr", t_item);
+						break;
 					case q_name:
 						if(q_cur == 4)
 							q_Seek_gtPost();
@@ -169,6 +191,13 @@
 				else
 					$('#txtPaytype').val(cmb.value);
 				cmb.value = '';
+			}
+			
+			function combAddr_chg() {	/// 只有 comb 開頭，才需要寫 onChange()	，其餘 cmb 連結資料庫
+				if (q_cur==1 || q_cur==2){
+					$('#txtAddr').val($('#combAddr').find("option:selected").text());
+					$('#txtPost').val($('#combAddr').find("option:selected").val());
+				}
 			}
 
 			function bbsAssign() {
@@ -249,6 +278,9 @@
 				$('#txtOdate').val(q_date());
 				$('#txtOdate').focus();
 				product_change();
+				
+				var t_where = "where=^^ 1=1  group by post,addr^^";
+				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
 
 			function btnModi() {
@@ -257,6 +289,11 @@
 				_btnModi();
 				$('#txtProduct').focus();
 				product_change();
+				
+				if(!emp($('#txtTggno').val())){
+					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+					q_gt('custaddr', t_where, 0, 0, 0, "");
+				}
 			}
 
 			function btnPrint() {
@@ -309,6 +346,12 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if (t_para) {
+					$('#combAddr').attr('disabled','disabled');		  
+				}
+				else {
+					$('#combAddr').removeAttr('disabled');
+				}
 			}
 
 			function btnMinus(id) {
@@ -427,7 +470,16 @@
 					}
 			 	}
 			}
-			
+			function q_popPost(s1) {
+				switch (s1) {
+					case 'txtTggno':
+						if(!emp($('#txtTggno').val())){
+							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+							q_gt('custaddr', t_where, 0, 0, 0, "");
+						}
+					break;
+				}
+			}
 		</script>
 	<style type="text/css">
 		#dmain {
@@ -435,7 +487,7 @@
 			}
 			.dview {
 				float: left;
-				width: 28%;
+				width: 30%;
 			}
 			.tview {
 				margin: 0;
@@ -454,10 +506,10 @@
 			}
 			.dbbm {
 				float: left;
-				width: 70%;
-				margin: -1px;
-				border: 1px black solid;
-				border-radius: 5px;
+                width: 70%;
+                /*margin: -1px;
+                 border: 1px black solid;*/
+                border-radius: 5px;
 			}
 			.tbbm {
 				padding: 0px;
@@ -473,7 +525,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -578,7 +630,7 @@
 <!--#include file="../inc/toolbar.inc"--> 
 		<div id='dmain' style="overflow:hidden;">
 		<div class="dview" id="dview"  >
-			<table class="tview" id="tview"	border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			<table class="tview" id="tview"	>
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 				<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
@@ -594,16 +646,16 @@
 		</table>
 		</div>
 		<div class='dbbm' >
-		<table class="tbbm"  id="tbbm"	border="0" cellpadding='2'  cellspacing='0'>
+		<table class="tbbm"  id="tbbm" style="width: 872px;">
 			<tr class="tr1">
-				<td class="td1"><span> </span><a id='lblKind' class="lbl"> </a></td>
-				<td class="td2"><select id="cmbKind" class="txt c1 lef"> </select></td>
-				<td> </td>
-				<td class="td3"><span> </span><a id='lblOdate' class="lbl"> </a></td>
-				<td class="td4"><input id="txtOdate" type="text" class="txt c1 lef"/></td>
-				<td> </td>
-				<td class="td5"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-				<td class="td6"><input id="txtDatea" type="text" class="txt c1 lef"/></td>
+				<td class="td1" style="width: 108px;"><span> </span><a id='lblKind' class="lbl"> </a></td>
+				<td class="td2" style="width: 108px;"><select id="cmbKind" class="txt c1 lef"> </select></td>
+				<td style="width: 108px;"> </td>
+				<td class="td3" style="width: 108px;"><span> </span><a id='lblOdate' class="lbl"> </a></td>
+				<td class="td4" style="width: 108px;"><input id="txtOdate" type="text" class="txt c1 lef"/></td>
+				<td style="width: 108px;"> </td>
+				<td class="td5" style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+				<td class="td6" style="width: 108px;"><input id="txtDatea" type="text" class="txt c1 lef"/></td>
 				
 			</tr>
 			<tr class="tr2">
@@ -638,7 +690,10 @@
 			<tr class="tr5">
 				<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 				<td class="td2"><input id="txtPost"  type="text"  class="txt c1 lef"/></td>
-				<td class="td3" colspan='4' ><input id="txtAddr"  type="text" class="txt c1 lef"/></td>
+				<td class="td3" colspan='4' >
+					<input id="txtAddr"  type="text" class="txt c1 lef" style="width: 412px;"/>
+					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+				</td>
 				<td> </td>
 				<td class="td8"><input id="btnOrde" type="button" /></td> 
 			</tr>
