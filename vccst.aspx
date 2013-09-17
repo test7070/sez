@@ -26,7 +26,7 @@
             var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
             var q_readonly = ['txtNoa', 'txtAccno', 'txtWorker', 'txtWorker2', 'txtOrdeno', 'txtMoney', 'txtTax', 'txtTotal', 'txtWeight','txtTotalus','txtTranmoney'];
             var q_readonlys = ['txtTotal','txtOrdeno','txtNo2'];
-            var bbmNum = [['txtFloata',10,3,1],['txtTotalus', 10, 4, 1], ['txtPrice', 10, 3, 1], ['txtTranmoney', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtWeight', 10, 0, 1]];
+            var bbmNum = [['txtFloata',10,2,1],['txtTotalus', 10, 2, 1], ['txtPrice', 10, 3, 1], ['txtTranmoney', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtWeight', 10, 0, 1]];
             var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1], ['txtRadius', 10, 3, 1], ['txtWidth', 10, 2, 1], ['txtDime', 10, 3, 1], ['txtLengthb', 10, 2, 1], ['txtMount', 10, 2, 1], ['txtWeight', 10, 1, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1], ['txtGweight', 10, 1, 1]];
             var bbmMask = [];
             var bbsMask = [['txtStyle', 'A']];
@@ -540,7 +540,7 @@
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTax').val(FormatNumber(t_tax));
                 $('#txtTotal').val(FormatNumber(t_total));
-                $('#txtTotalus').val(FormatNumber(q_float('txtTotal').mul(q_float('txtFloata'))));
+                $('#txtTotalus').val(FormatNumber(Math.round(q_float('txtTotal').mul(q_float('txtFloata'),2))));
             }
 
             function refresh(recno) {
