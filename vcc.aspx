@@ -25,7 +25,7 @@
         var bbsMask = [];
         q_sqlCount = 6; 
         brwCount = 6; 
-        brwCount2 = 10; 
+        brwCount2 = 9; 
         brwList = []; 
         brwNowPage = 0; 
         brwKey = 'datea';
@@ -774,7 +774,7 @@
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
                 	<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
                 </td>
-                <td style="width:18%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
+                <td style="width:17%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
