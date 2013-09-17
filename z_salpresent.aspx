@@ -29,10 +29,6 @@
                         type : '1',
                         name : 'date'
                     },{
-                        type : '5',
-                        name : 'xperson',
-                        value : (('').concat(new Array("本國","日薪","外勞"))).split(',')
-                    },{
                         type : '2',
                         name : 'sssno',
                         dbf : 'sss',
