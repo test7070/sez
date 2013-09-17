@@ -687,7 +687,7 @@
 					<input id="txtCardeal"  type="text" class="txt c3"/>
 				</td>
 				<td class="td4"><span> </span><a id='lblCarno' class="lbl"></a></td>
-				<td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c2"/></td> 
+				<td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c1"/></td> 
 				<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"></a></td>
 				<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td> 
 			</tr>
