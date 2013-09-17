@@ -22,7 +22,7 @@
 		    q_tables = 's';
 		    var q_name = "fixa4tgg";
 		    var q_readonly = ['txtNoa','txtTggno','txtTgg','txtMoney','txtWorker','txtWorker2'];
-		    var q_readonlys = ['txtMoney'];
+		    var q_readonlys = ['txtMoney','txtBfixadate'];
 		    var bbmNum = new Array(['txtMoney', 10, 0, 1]);
 		    var bbsNum = new Array(['txtPrice', 10, 1,1], ['txtMount', 10, 1,1], ['txtMoney', 10, 0,1], ['txtMile', 10, 0,1]);
 		    var bbmMask = [];
@@ -150,6 +150,7 @@
 	               			if(t_data.tmpField.length>2 && t_data.tmpField[2].length>0)
 	               				$('#'+t_data.tmpField[2]+'_'+m).val(t_data.tmpArray[n].price);
 	               			$('#tmpList').hide();
+	               			getBfixadate(m);
                			}
                		});
                		
@@ -158,7 +159,33 @@
                 	$('#tmpList').hide();
                 },
             };
-            
+            function getBfixadate(n){
+            	Lock(1,{opacity:0});
+    			var t_fixadate = $.trim($('#txtDatea').val());
+    			var t_carno = '';
+    			var t_carplateno = '';
+    			var t_productno = $.trim($('#txtProductno_'+n).val());;
+    			
+    			for(var i=n;i>=0;i--){
+    				t_carno = $.trim($('#txtCarno_'+i).val());
+    				if(t_carno.length>0)
+    					break;
+    				t_carplateno = $.trim($('#txtCarplateno_'+i).val());
+    				if(t_carplateno.length>0)
+    					break;
+    			}
+    			
+    			if(t_carno.length==0 || t_productno.length==0){
+    				Unlock(1);
+    				return false;
+    			}
+    			var t_where ="";
+    			if(t_carplateno.length==0)
+    				t_where ="where=^^ (b.noa is not null) and b.productno='"+t_productno+"' and a.carno='"+t_carno+"' and len(isnull(a.carplateno,''))=0 and a.fixadate<'"+t_fixadate+"' ^^";
+        		else
+        			t_where ="where=^^ (b.noa is not null) and b.productno='"+t_productno+"' and a.carplateno='"+t_carplateno+"' and a.fixadate<'"+t_fixadate+"' ^^";
+        		q_gt('fixa_lasttime', t_where, 0, 0, 0,'fixalasttime_'+n, r_accy);
+            }
             
 		    $(document).ready(function () {
 		    	t_data = new fixa4tgg();
@@ -189,6 +216,7 @@
 		        q_mask(bbmMask);
 		        $('#txtDatea').datepicker();
 		        q_gt("fixucc", "where=^^ left(noa,"+(r_userno.length+1)+")='"+r_userno+"-' ^^", 0, 0, 0, "getProduct");
+		 		
 		    }
 		    function q_boxClose(s2) {
 		        var ret;
@@ -210,7 +238,7 @@
                     case 'getCar':
                     	var as = _q_appendData("car2", "", true);
                     	for ( i = 0; i < as.length; i++) {
-                        	t_data.carList.push({noa : as[i].carno,namea:''});
+                        	t_data.carList.push({noa : as[i].carno,namea:as[i].driver});
                         }
                         q_gt("carplate", '', 0, 0, 0, "getCarplate");
                     	break;
@@ -234,6 +262,17 @@
 		                    q_Seek_gtPost();
 		                break;
 		            default:
+		            	if(t_name.substring(0,12)=='fixalasttime'){
+		            		var sel = parseInt(t_name.split('_')[1]);
+		            		var as = _q_appendData("fixa", "", true);
+                        	if (as[0] != undefined) {
+                        		$('#txtBfixadate_'+sel).val(as[0].fixadate);
+                        	}else{
+                        		
+                        	}
+                        	sum();
+                        	Unlock(1);
+		            	}
 		            	break;
 		        }
 		    }
@@ -255,7 +294,7 @@
 	            }else if(q_cur ==2){
 	            	$('#txtWorker2').val(r_name);
 	            }else{
-	            	alert("error: btnok!")
+	            	alert("error: btnok!");
 	            }
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
@@ -282,6 +321,9 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
+		                }).change(function(e){
+		                	var n = $(this).attr('id').replace('txtProductno_','');
+		                	getBfixadate(n);
 		                });
 		                $('#txtCarno_' + i).focus(function(e){
 		                	t_data.listShow($(this),$(this).val(),-1,t_data.carList,['txtCarno']);
@@ -290,6 +332,9 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
+		                }).change(function(e){
+		                	var n = $(this).attr('id').replace('txtProductno_');
+		                	getBfixadate(n);
 		                });
 		                $('#txtCarplateno_' + i).focus(function(e){
 		                	t_data.listShow($(this),$(this).val(),-1,t_data.carplateList,['txtCarplateno','']);
@@ -298,6 +343,9 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
+		                }).change(function(e){
+		                	var n = $(this).attr('id').replace('txtProductno_');
+		                	getBfixadate(n);
 		                });
 		                $('#txtMount_' + i).change(function (e) {
 		                    sum();
@@ -439,53 +487,51 @@
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
-			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
-			}
+			    return Math.round(this.mul( Math.pow(10,arg))).div( Math.pow(10,arg));
+			};
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
-			}
+			};
             function accDiv(arg1, arg2) {
 			    var t1 = 0, t2 = 0, r1, r2;
-			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
-			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    try { t1 = arg1.toString().split(".")[1].length; } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length; } catch (e) { }
 			    with (Math) {
-			        r1 = Number(arg1.toString().replace(".", ""))
-			        r2 = Number(arg2.toString().replace(".", ""))
+			        r1 = Number(arg1.toString().replace(".", ""));
+			        r2 = Number(arg2.toString().replace(".", ""));
 			        return (r1 / r2) * pow(10, t2 - t1);
 			    }
 			}
 			Number.prototype.mul = function(arg) {
 			    return accMul(arg, this);
-			}
+			};
 			function accMul(arg1, arg2) {
 			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-			    try { m += s1.split(".")[1].length } catch (e) { }
-			    try { m += s2.split(".")[1].length } catch (e) { }
-			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			    try { m += s1.split(".")[1].length; } catch (e) { }
+			    try { m += s2.split(".")[1].length; } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
 			}
 			Number.prototype.add = function(arg) {
 		   		return accAdd(arg, this);
-			}
+			};
 			function accAdd(arg1, arg2) {
 			    var r1, r2, m;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
-			    m = Math.pow(10, Math.max(r1, r2))
-			    return (arg1 * m + arg2 * m) / m
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    return (Math.round(arg1 * m) + Math.round(arg2 * m)) / m;
 			}
 			Number.prototype.sub = function(arg) {
 			    return accSub(this,arg);
-			}
+			};
 			function accSub(arg1, arg2) {
 			    var r1, r2, m, n;
-			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
-			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+			    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
 			    m = Math.pow(10, Math.max(r1, r2));
 			    n = (r1 >= r2) ? r1 : r2;
-			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			    return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
-
-
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -676,6 +722,7 @@
 					
 					<td align="center" style="width:80px;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblBfixadate_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -694,6 +741,7 @@
 					<td><input class="txt num c1" id="txtMount.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtMoney.*" type="text" /></td>
 					<td><input class="txt c1" id="txtMemo.*" type="text" /></td>
+					<td><input class="txt c1" id="txtBfixadate.*" type="text" /></td>
 				</tr>
 				
 			</table>
