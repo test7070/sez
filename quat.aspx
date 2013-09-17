@@ -328,22 +328,37 @@
 			}
 		</script> 
 	<style type="text/css">
+		.dview {
+			float: left;
+			width: 30%;
+			border-width: 0px;
+	    }
 		.tview
 		{
+			width: 100%;
 			FONT-SIZE: 12pt;
 			COLOR:  Blue ;
 			background:#FFCC00;
 			padding: 3px;
 			TEXT-ALIGN:  center;
 		}	
-		.tbbm
-		{
-			FONT-SIZE: 12pt;
-			COLOR: blue;
-			TEXT-ALIGN: left;
-			border-color: white; 
-			width:100%; border-collapse: collapse; background:#cad3ff;
-		} 
+		.tbbm {
+			padding: 0px;
+			border: 1px white double;
+			border-spacing: 0;
+			border-collapse: collapse;
+			font-size: medium;
+			color: blue;
+			background: #cad3ff;
+			width: 100%;
+           }
+           .dbbm {
+                float: left;
+                width: 70%;
+                /*margin: -1px;
+                 border: 1px black solid;*/
+                border-radius: 5px;
+            }
 		
 		.tbbs
 		{
@@ -354,38 +369,36 @@
 			 width:100% ; height:100% ;  
 		} 
 		
-		
-		.column1
-		{
-			width: 8%;
-		}
-		.column2
-		{
-			width: 10%;
-		}	  
-		.column3
-		{
-			width: 8%;
-		}	
-		.column4
-		{
-			width: 8%;
-		}			
-		.label1
-		{
-			width: 8%;text-align:right;
-		}		
-		.label2
-		{
-			width: 8%;text-align:right;
-		}
-		.label3
-		{
-			width: 8%;text-align:right;
-		}
+		.tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                /*width: 10%;*/
+            }
+            .tbbm .tdZ {
+                width: 1%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
 		.txt.c1
 		{
-			width: 100%;
+			width: 99%;
 		}
 		.txt.c2
 		{
@@ -395,34 +408,25 @@
 		{
 			width: 25%;
 		}
-		.tbbm select {
-			border-width: 1px;
-			padding: 0px;
-			margin: -1px;
-			font-size: medium;
-		}
-		.tbbm tr td .lbl.btn {
-			color: #4297D7;
-			font-weight: bolder;
-			font-size: medium;
-		 }
-		.tbbm tr td .lbl.btn:hover {
-			color: #FF8F19;
-		}
-		.tbbm tr td .lbl {
-			float: right;
-			color: blue;
-			font-size: medium;
-		}
-		.tbbm tr td span {
-			float: right;
-			display: block;
-			width: 5px;
-			height: 10px;
-		}
-		.tbbm tr {
-			height: 35px;
-		}
+		 .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
 		input[type="text"], input[type="button"] {
 			font-size: medium;
 		}
@@ -431,7 +435,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
-		<div class="dview" id="dview" style="float: left;  width:32%;"  >
+		<div class="dview" id="dview">
 			<table class="tview" id="tview"	border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -447,17 +451,17 @@
 			</tr>
 		</table>
 		</div>
-		<div class='dbbm' style="width: 68%;float: left;">
-		<table class="tbbm"  id="tbbm"	border="0" cellpadding='2'  cellspacing='0'>
+		<div class='dbbm'>
+		<table class="tbbm"  id="tbbm" style="width: 872px;">
 			<tr class="tr1">
-				<td class="label1" ><span> </span><a id='lblStype' class="lbl"> </a></td>
-				<td class="column1"><select id="cmbStype" class="txt c1"> </select></td>
-				<td class="column3"><input id="txtOdate" type="text"  class="txt c1"/></td>
-				<td class="label2" ><span> </span><a id='lblDatea' class="lbl"> </a></td>
-				<td class="column3"><input id="txtDatea" type="text"  class="txt c1"/></td>
-				<td></td>
-				<td class="label3" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
-				<td class="column2" ><input id="txtNoa" type="text" class="txt c2"/></td> 
+				<td class="td1" style="width: 108px;"><span> </span><a id='lblStype' class="lbl"> </a></td>
+				<td class="td2" style="width: 108px;"><select id="cmbStype" class="txt c1"> </select></td>
+				<td class="td3" style="width: 108px;"><input id="txtOdate" type="text"  class="txt c1"/></td>
+				<td class="td4"  style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+				<td class="td5" style="width: 108px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
+				<td style="width: 108px;"></td>
+				<td class="td7" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+				<td class="td8" style="width: 108px;"><input id="txtNoa" type="text" class="txt c2"/></td> 
 			</tr>	
 			<tr class="tr2">
 				<td class="label1"><span> </span><a id='lblAcomp' class="lbl btn"> </a></td>
@@ -499,7 +503,7 @@
 				<td class="label1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
 				<td ><input id="txtPost2"  type="text"  class="txt c1"/> </td>
 				<td colspan='4' >
-					<input id="txtAddr2"  type="text"  class="txt c1" style="width: 90%;"/> 
+					<input id="txtAddr2"  type="text"  class="txt c1" style="width: 412px;"/> 
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
 				<td align="right" >&nbsp;</td>
