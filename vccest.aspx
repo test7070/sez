@@ -295,7 +295,7 @@
             }
 
             function btnPrint() {
-                q_box('z_vccestp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_vccestp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
