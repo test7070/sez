@@ -179,7 +179,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('vcce_s.aspx', q_name + '_s', "500px", "360px", q_getMsg("popSeek"));
+                q_box('vccest_s.aspx', q_name + '_s', "500px", "360px", q_getMsg("popSeek"));
             }
 
             function getTheory(b_seq) {
@@ -295,7 +295,7 @@
             }
 
             function btnPrint() {
-                q_box('z_vccest.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_vccestp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {

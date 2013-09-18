@@ -19,7 +19,7 @@
             q_tables = 't';
             var q_name = "workg";
             var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtWorkno'];
+            var q_readonlys = ['txtWorkno','txtIndate','txtInmount','txtWmount','txtOrdeno'];
             var q_readonlyt = [];
             var bbmNum = [];
             var bbsNum = [['txtOrdemount', 15, 0,1],['txtPlanmount', 15, 0,1],['txtStkmount', 15, 0,1],['txtIntmount', 15, 0,1],['txtPurmount', 15, 0,1],['txtAvailmount', 15, 0,1],['txtBornmount', 15, 0,1],['txtSalemount', 15, 0,1],['txtMount', 15, 0,1],['txtInmount', 15, 0,1],['txtWmount', 15, 0,1]];
@@ -198,6 +198,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
+                q_box('workg_s.aspx', q_name + '_s', "500px", "350px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -219,7 +220,7 @@
             }
 
             function btnPrint() {
-				q_box('z_workg.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_workgp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
