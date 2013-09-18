@@ -19,7 +19,7 @@
 			var q_name = "quat";
 			var decbbs = ['price', 'weight', 'mount', 'total', 'c2', 'notv2', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price','totalus'];
-			var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales'];
+			var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales','txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
 						  ['txtFloata', 15, 3, 1]];
@@ -525,7 +525,8 @@
 				<!--<td class="label2"><span> </span><a id='lblWeight' class="lbl"> </a></td>
 				<td colspan='2' ><input id="txtWeight"  type="text"  class="txt c1" style="text-align: right;" /></td>-->
 				<td class="label3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-				<td ><input id="txtWorker"  type="text" class="txt c2" /></td> 
+				<td ><input id="txtWorker"  type="text" class="txt c1" /></td>
+				<td ><input id="txtWorker2"  type="text" class="txt c1" /></td>  
 			</tr>
 			<tr class="tr9">
 				<td align="right"><span> </span><a id='lblMemo' class="lbl"></a></td>
