@@ -50,7 +50,7 @@
         if(t_product.length>0)
         	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where product='"+t_product+"')"
         if(t_bdate.length>0 && t_edate.length>0)
-        	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where dworkdate=between '"+t_bdate+"' and '"+t_edate+"')"
+        	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where dworkdate between '"+t_bdate+"' and '"+t_edate+"')"
         if(t_ordeno.length>0)
         	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where charindex('"+t_ordeno+"',ordeno)>0)"
 

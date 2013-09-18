@@ -31,11 +31,15 @@
                         value : q_getId()[4] //[1]
                     },{
                         type : '6',
-                        name : 'workgno'
+                        name : 'xnoa'
                     }]
                     });
                 q_popAssign();
-               
+               if(window.parent.q_name=='workg'){
+					var wParent = window.parent.document;
+					var t_noa= wParent.getElementById("txtNoa").value;
+					$('#txtXnoa').val(t_noa);
+				}
 			}
 
             function q_boxClose(s2) {
