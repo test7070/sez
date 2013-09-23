@@ -80,6 +80,18 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'ucc_rc2':
+                		var as  = _q_appendData("rc2s", "", true);
+						if(as[0]!=undefined){
+							for ( var i = 0; i < as.length; i++) {
+								if(as[0].productno==$('#txtProductno').val()){
+									$('#txtPredate').val(as[i].datea);
+									$('#txtMount').val(dec(as[i].mount));
+									$('#txtPrice').val(dec(as[i].price));
+								}
+							}
+						}
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -202,7 +214,9 @@
 
             function refresh(recno) {
                 _refresh(recno);
-
+				//最新進貨單價
+				var t_where = "where=^^tggno='"+$('#txtTggno').val()+"' and noa in (select noa from rc2s"+r_accy+" where productno='"+$('#txtProductno').val()+"' and price>0 ) ^^ stop=1";
+				q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
             }
 
             function readonly(t_para, empty) {
