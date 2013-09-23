@@ -30,6 +30,7 @@
         aPop = new Array(
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         	['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+        	['txtStoreno_','btnStore_','store','noa,store','txtStoreno_,txtStore_','store_b.aspx'],
         	['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx'],
         	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
         	['txtProcessno_','btnProcessno_','process','noa,process','txtProcessno_,txtProcess_','process_b.aspx'],
@@ -225,6 +226,14 @@
             $('#txtWorker').val(r_name);
             sum();
             
+            //如果表身倉庫沒填，表頭倉庫帶入
+			for(var i = 0; i < q_bbsCount; i++) {
+				if(emp($('#txtStoreno_'+i).val())){
+					$('#txtStoreno_'+i).val($('#txtStoreno').val());
+					$('#txtStore_'+i).val($('#txtStore').val());
+				}
+			}
+            
 			var t_date = $('#txtDatea').val();
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
@@ -371,7 +380,7 @@
             COLOR: blue;
             TEXT-ALIGN: left;
             border-color: white; 
-            width:98%; border-collapse: collapse; background:#cad3ff;
+            width:100%; border-collapse: collapse; background:#cad3ff;
         } 
         
         .tbbs
@@ -380,7 +389,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:98% ; height:98% ;  
+             width:100% ;
         } 
             .tbbm tr {
                 height: 35px;
@@ -411,7 +420,7 @@
 				float: left;
 			}
             .txt.c1 {
-                width: 95%;
+                width: 98%;
             }
             .txt.c2 {
                 width: 46%;
@@ -523,28 +532,34 @@
                 <td style="width:15%;" align="center"><a id='lblProducts'></a></td>
                 <td style="width:4%;" align="center"><a id='lblUnit'></a></td>
                 <td style="width:10%;" align="center"><a id='lblMounts'></a></td>
+                <td style="width:15%;" align="center"><a id='lblStores'></a></td>
                 <!--<td style="width:10%;" align="center"><a id='lblWeights'></a></td>-->
                 <td style="width:15%;" align="center"><a id='lblProcesss'></a></td>
-                <td style="width:10%;" align="center"><a id='lblTypes'></a></td>
-                <td style="width:12%;" align="center"><a id='lblMemos'></a></td>
-                <td style="width:10%;" align="center"><a id='lblWorknos'></a></td>
+                <!--<td style="width:10%;" align="center"><a id='lblTypes'></a></td>-->
+                <td align="center"><a id='lblMemos'></a></td>
+                <td style="width:13%;" align="center"><a id='lblWorknos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td>
                 	<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
-                	<input class="btn" id="btnProductno.*" type="button" value='...' style="width:12%;"  />
+                	<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;"  />
                 </td>
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+                <td>
+					<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
+					<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
+					<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
+				</td>
                 <!--<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>-->
                 <td>
+                	<input class="btn" id="btnProcessno.*" type="button" value='.' style="width:1%;float: left;"  />
                 	<input class="txt" id="txtProcessno.*" type="text" style="width:25%;" />
                 	<input class="txt" id="txtProcess.*" type="text" style="width:60%;" />
-                	<input class="btn" id="btnProcessno.*" type="button" value='.' style="width:1%;"  />
                 </td>
-                <td><input id="txtTypea.*" type="text" class="txt c1"/></td>
+                <!--<td><input id="txtTypea.*" type="text" class="txt c1"/></td>-->
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
                 <td><input id="txtWorkno.*" type="text" class="txt c1"/></td>

@@ -36,6 +36,7 @@
         aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtStoreno_','btnStore_','store','noa,store','txtStoreno_,txtStore_','store_b.aspx'],
 					['txtWorkno','lblWorkno','work','noa','txtWorkno','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
@@ -311,6 +312,14 @@
             }else{
 				checkok=false;
 				$('#txtWorker').val(r_name);
+				
+				//如果表身倉庫沒填，表頭倉庫帶入
+				for(var i = 0; i < q_bbsCount; i++) {
+					if(emp($('#txtStoreno_'+i).val())){
+						$('#txtStoreno_'+i).val($('#txtStoreno').val());
+						$('#txtStore_'+i).val($('#txtStore').val());
+					}
+				}
 		            
 				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 				var t_date = $('#txtDatea').val();
@@ -457,9 +466,11 @@
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 30%;
+                border-width: 0px;
             }
             .tview {
+            	width: 100%;
                 margin: 0;
                 padding: 2px;
                 border: 1px black double;
@@ -475,9 +486,9 @@
             }
             .dbbm {
                 float: left;
-                width: 98%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 70%;
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -587,7 +598,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 100%;
+         	width: 120%;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -604,7 +615,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 <!--#include file="../inc/toolbar.inc"-->
-        <div class="dview" id="dview" style="float: left;  width:32%;"  >
+        <div class="dview" id="dview">
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -618,7 +629,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 68%;float:left">
+        <div class='dbbm'>
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
 			<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -674,15 +685,16 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:6%;"><a id='lblTimea_st'></a></td>
-                <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
-                <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
+                <td align="center" style="width:11%;"><a id='lblProductnos'></a></td>
+                <td align="center" style="width:14%;"><a id='lblProducts'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
                 <!--<td align="center" style="width:8%;"><a id='lblLength'></a></td>-->
-                <td align="center" style="width:8%;"><a id='lblMounts'></a></td>
-                <td align="center" style="width:8%;"><a id='lblTheory'></a></td>
+                <td align="center" style="width:7%;"><a id='lblMounts'></a></td>
+                <td align="center" style="width:7%;"><a id='lblTheory'></a></td>
                 <!--<td align="center" style="width:8%;"><a id='lblBorn'></a></td>-->
-                <td align="center" style="width:8%;"><a id='lblWmount'></a></td>
+                <td align="center" style="width:7%;"><a id='lblWmount'></a></td>
                 <!--<td align="center" style="width:8%;"><a id='lblErrmount'></a></td>-->
+                <td align="center" style="width:12%;"><a id='lblStores'></a></td>
                 <td align="center" style="width:10%;"><a id='lblMemos'></a></td>
                 <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblWorknos'></a></td>
@@ -712,6 +724,11 @@
                 </td>-->
                 <td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
                 <!--<td><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>-->
+                <td>
+					<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
+					<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
+					<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
+				</td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtOrdeno.*" type="text" style="width:70%;"/>
                 	<input id="txtNo2.*" type="text" style="width:20%;"/>

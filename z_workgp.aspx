@@ -28,7 +28,7 @@
                         options : [{
 						type : '0',
 						name : 'accy',
-                        value : q_getId()[4] //[1]
+                        value : r_accy
                     },{
                         type : '6',
                         name : 'xnoa'

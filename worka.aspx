@@ -30,6 +30,7 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtStoreno_','btnStore_','store','noa,store','txtStoreno_,txtStore_','store_b.aspx'],
 					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
@@ -253,8 +254,14 @@
 				alert(t_err);
 				return;
 			}
-
-			$('#txtWorker').val(r_name)
+			//如果表身倉庫沒填，表頭倉庫帶入
+			for(var i = 0; i < q_bbsCount; i++) {
+				if(emp($('#txtStoreno_'+i).val())){
+					$('#txtStoreno_'+i).val($('#txtStoreno').val());
+					$('#txtStore_'+i).val($('#txtStore').val());
+				}
+			}
+			$('#txtWorker').val(r_name);
 			sum();
 			var t_date = $('#txtDatea').val();
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -403,6 +410,7 @@
                 width: 98%;
             }
             .tview {
+            	width: 100%;
                 margin: 0;
                 padding: 2px;
                 border: 1px black double;
@@ -419,8 +427,8 @@
             .dbbm {
                 float: left;
                 width: 98%;
-                margin: -1px;
-                border: 1px black solid;
+                /*margin: -1px;
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -626,8 +634,9 @@
 				<td align="center"><a id='lblProduct_s'></a></td>
 				<td align="center"><a id='lblUnit'></a></td>
 				<td align="center"><a id='lblMounts'></a></td>
+				<td align="center"><a id='lblStores'></a></td>
 				<!--<td align="center"><a id='lblWeights'></a></td>-->
-				<td align="center"><a id='lblTypes'></a></td>
+				<!--<td align="center"><a id='lblTypes'></a></td>-->
 				<!--<td align="center"><a id='lblMechno'></a></td>
 				<td align="center"><a id='lblMech'></a></td>-->
 				<td align="center"><a id='lblMemos'></a></td>
@@ -648,12 +657,17 @@
 				<td style="width:8%;">
 					<input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/>
 				</td>
+				<td style="width:12%;">
+					<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
+					<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
+					<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
+				</td>
 				<!--<td style="width:8%;">
 					<input id="txtWeight.*" type="text" class="txt c1" style="text-align:right"/>
 				</td>-->
-				<td style="width:10%;">
+				<!--<td style="width:10%;">
 					<input id="txtTypea.*" type="text" class="txt c1"/>
-				</td>
+				</td>-->
 				<!--<td style="width:10%;">
 					<input class="txt" id="txtMechno.*" type="text" style="width:80%;" />
 					<input class="btn"  id="btnMechno.*" type="button" value='.' style="width:10%;"  />

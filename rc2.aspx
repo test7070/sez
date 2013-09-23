@@ -502,7 +502,7 @@
 				border: 1px black solid;
 			}
 			.dbbm {
-				 float: left;
+				float: left;
                 width: 70%;
                 /*margin: -1px;
                  border: 1px black solid;*/
