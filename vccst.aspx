@@ -288,8 +288,7 @@
 			}
 
 			function q_boxClose(s2) {///   q_boxClose 2/4
-				var
-				ret;
+				var ret;
 				switch (b_pop) {
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {//  q_cur： 0 = 瀏覽狀態  1=新增  2=修改 3=刪除  4=查詢

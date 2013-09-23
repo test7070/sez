@@ -14,7 +14,8 @@
 			//, t_where = '';
 			var t_sqlname = 'ordests_load';
 			t_postname = q_name;
-			brwCount2 = 10;
+			brwCount2 = 0;
+			brwCount = -1;
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm;
 			var i, s1;
