@@ -41,12 +41,16 @@
                         type : '5',
                         name : 'xkind',
                         value : (('').concat(new Array("本月","上期","下期"))).split(',')
+                    },{
+                        type : '6',
+                        name : 'xyear'
                     }]
                 });
                 q_langShow();
 	            q_popAssign();
 	            
                 $('#txtXmon').mask('999/99');
+                $('#txtXyear').mask('999');
                 
                 var t_date=q_date();
 				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
@@ -59,6 +63,7 @@
 					t_date=t_date+(nextdate.getMonth()+1);
 					
                 $('#txtXmon').val(t_date);
+                $('#txtXyear').val(t_date.substr(0,3));
                 
             }
 		</script>
