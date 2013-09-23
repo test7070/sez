@@ -63,15 +63,19 @@
                 	var t_edate = trim($('#txtEdate').val());
                 	var t_bdime = dec($('#txtBdime').val());
                 	var t_edime = dec($('#txtEdime').val());
-                	var t_where = ' 1=1 ';
+                	var t_where_sql = ' 1=1 ';
                 	t_bdate = (emp(t_bdate)?'':t_bdate);
                 	t_edate = (emp(t_edate)?'char(255)':t_edate);
-                	t_where += " and ((select datea from orde"+r_accy+" where noa=ordes" + r_accy+".noa) between '" + t_bdate + "' and '" + t_edate + "') ";
+                	t_where_sql += " and (datea between '" + t_bdate + "' and '" + t_edate + "') ";
                 	t_bdime = (emp(t_bdime)?0:t_bdime);
                 	t_edime = (t_edime==0?Number.MAX_VALUE:t_edime);
-                	t_where += " and (dime between " + t_bdime + " and " + t_edime + ")";
-                	t_where += ' and (iscut=1)';
-                    q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+                	t_where_sql += " and (dime between " + t_bdime + " and " + t_edime + ")";
+                	t_where_sql += ' and (iscut=1)';
+					var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
+					t_where += " where[2]=^^ 1=1 and a.noa!='"+$('#txtNoa').val()+"'^^"; //cub
+					t_where += " where[3]=^^ 1=1 ^^"; //cut
+					t_where += " where[4]=^^ 1=1 ^^"; //ordet
+                    q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
             }
 
@@ -137,7 +141,7 @@
 								}
 							}
 							if(b_ret[0] != undefined){
-	                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtClass,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtWeight,txtMount,txtTheory,txtSize,txtUno,txtMemo', b_ret.length, b_ret, 'custno,class,productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory,size,uno,memo','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtClass,txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtWeight,txtMount,txtTheory,txtSize,txtUno,txtMemo', b_ret.length, b_ret, 'custno,class,productno,product,unit,dime,width,lengthb,spec,noa,no2,lastweight,lastmount,theory,size,uno,memo','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 								var t_where = 'where=^^ 1=0 ';
 								for(var i = 0;i < ret.length;i++){
 									t_where += " or (noa='" + $('#txtOrdeno_' + ret[i]).val()+"' and no3='" + $('#txtNo2_' + ret[i]).val() + "')";

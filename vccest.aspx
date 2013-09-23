@@ -71,13 +71,15 @@
 
                 $('#btnOrdeimport').click(function() {
                     var ordeno = $('#txtOrdeno').val();
-                    var t_where = 'enda = 0 ';
+                    var t_where_sql = 'enda = 0 ';
                     if (ordeno.length > 0) {
-                        t_where += " and noa='" + ordeno + "'";
-                        q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
-                    } else {
-                        q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
+                        t_where_sql += " and noa='" + ordeno + "'";
                     }
+					var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
+					t_where += " where[2]=^^ 1=1 ^^"; //cub
+					t_where += " where[3]=^^ 1=1 ^^"; //cut
+					t_where += " where[4]=^^ 1=1 ^^"; //ordet
+					q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnVcceImport').click(function() {
                     var t_ordeno = $('#txtOrdeno').val();

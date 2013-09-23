@@ -87,9 +87,13 @@
 						var t_width = dec($('#txtWidth').val())+11;
 						var t_productno = trim($('#txtProductno').val());
 						t_edime = (t_edime==0?999:t_edime);
-						var t_where = '1=1 ';
-						t_where += q_sqlPara2('dime',t_bdime,t_edime) + q_sqlPara2('width',0,t_width) + q_sqlPara2('productno',t_productno);
-						q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+						var t_where_sql = ' 1=1 ';
+						t_where_sql += q_sqlPara2('dime',t_bdime,t_edime) + q_sqlPara2('width',0,t_width) + q_sqlPara2('productno',t_productno) ;
+						var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
+						t_where += " where[2]=^^ 1=1 ^^"; //cub
+						t_where += " where[3]=^^ 1=1 and a.noa !='"+$('#txtNoa').val()+"' ^^"; //cut
+						t_where += " where[4]=^^ 1=1 ^^"; //ordet
+						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 					}
 				});
 			}
@@ -103,9 +107,9 @@
 							b_ret = getb_ret();
 							if (!b_ret || b_ret.length == 0)
 								return;
-							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass'
-									, b_ret.length, b_ret, 'custno,comp,style,radius,width,dime,lengthb,mount,memo,productno,spec,noa,no2,class', '');
+	                        for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass'
+									, b_ret.length, b_ret, 'custno,comp,style,radius,width,dime,lengthb,lastmount,lastweight,memo,productno,spec,noa,no2,class', '');
 							sum();
 							for (var j = 0; j < q_bbsCount; j++) {
 								getTheory(j);

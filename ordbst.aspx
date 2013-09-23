@@ -60,7 +60,12 @@
 				q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				$('#btnOrde').click(function() {
-					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=1", 'ordes', "95%", "95%", q_getMsg('popOrde'));
+					var t_where_sql=' 1=1 ';
+					var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
+					t_where += " where[2]=^^ 1=1 ^^"; //cub
+					t_where += " where[3]=^^ 1=1 ^^"; //cut
+					t_where += " where[4]=^^ 1=1 ^^"; //ordet
+					q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 				});
 				$('#cmbPaytype').change(function() {
 					$('#txtPay').val($('#cmbPaytype').find("option:selected").text());
@@ -86,10 +91,13 @@
 							b_ret = getb_ret();
 							if (!b_ret || b_ret.length == 0)
 								return;
-							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret, 'productno,product,unit,mount,price,noa,no2,dime,width,lengthb,spec', 'txtOrdeno,txtNo2');
+	                        for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret, 'uno,style,class,productno,product,unit,lastmount,lastweight,price,noa,no2,radius,dime,width,lengthb,spec', 'txtOrdeno,txtNo2');
 							/// 最後 aEmpField 不可以有【數字欄位】
 							sum();
+							for(var i=0;i<ret.length;i++){
+								$('#txtMount_'+ret[i]).change();
+							}
 						}
 						break;
 					case q_name + '_s':
@@ -133,7 +141,7 @@
 				sum();
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll('G' + $('#txtOdate').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll( q_getPara('sys.key_ordb')+ $('#txtOdate').val(), '/', ''));
 				else
 					wrServer(s1);
 			}

@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ordests', t_bbsTag = 'tbbs', t_content = " field=noa", afilter = [], bbsKey = ['noa', 'no2'], as;
+			var q_name = 'view_ordes', t_bbsTag = 'tbbs', t_content = " field=accy,noa,no2,productno,product,sizea,unit,price,weight,memo,mount,total,datea,cancel,type,custno,indate,enda,c2,notv2,odate,spec,no3,quatno,size,dime,width,lengthb,c1,notv,style,uno,source,classa,issale,slit,iscut,theory,apv,radius,gweight,class,comp,cust,mechno,mech,tdmount,kind,cub_ordeno,cub_no2,cub_mount,cub_weight,cut_ordeno,cut_no2,cut_mount,cut_weight,ordet_ordeno,ordet_no3,ordet_mount,ordet_weight,lastmount,lastweight", afilter = [], bbsKey = ['noa'], as;
 			//, t_where = '';
 			var t_sqlname = 'ordests_load';
 			t_postname = q_name;
@@ -42,12 +42,26 @@
 
 			}
 
+			var maxAbbsCount = 0;
 			function refresh() {
+				_refresh();
+				var w = window.parent;
+				if (maxAbbsCount < abbs.length) {
+					for (var i = (abbs.length-(abbs.length - maxAbbsCount)); i < abbs.length; i++) {
+						for (var j = 0; j < w.q_bbsCount; j++) {
+							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
+								abbs[i]['sel'] = "true";
+								$('#chkSel_' + abbs[i].rec).attr('checked', true);
+							}
+						}
+					}
+					maxAbbsCount = abbs.length;
+				}
 				_refresh();
 				$('#checkAllCheckbox').click(function() {
 					$('input[type=checkbox][id^=chkSel]').each(function() {
 						var t_id = $(this).attr('id').split('_')[1];
-						if (!emp($('#txtProductno_' + t_id).val()) && dec($('#txtMount_' + t_id).val()) > dec($('#txtCuamount_' + t_id).val()))
+						if (!emp($('#txtProductno_' + t_id).val()))
 							$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 					});
 				});
@@ -55,13 +69,13 @@
 
 		</script>
 		<style type="text/css">
-            .seek_tr {
+			.seek_tr {
                 color: white;
                 text-align: center;
                 font-weight: bold;
-                BACKGROUND-COLOR: #76a2fe
+                background-color: #76a2fe;
             }
-            input[type="text"], input[type="button"] {
+			input[type="text"], input[type="button"] {
                 font-size: medium;
             }
 		</style>
@@ -104,10 +118,10 @@
 					<input class="txt" id="txtUnit.*" type="text" style="width:94%;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/>
+					<input class="txt" id="txtLastmount.*" type="text" style="width:94%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtLastweight.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
 					<input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/>
