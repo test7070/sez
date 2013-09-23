@@ -42,7 +42,9 @@
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtUno_', 'btnUno_', 'view_uccc', 'uno,class,spec,unit', 'txtUno_,txtClass_,txtSpec_,txtUnit_', 'uccc_seek_b.aspx', '95%', '60%']
-            , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtNick,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'], ['txtUno__', 'btnUno__', 'view_uccc', 'uno', 'txtUno__', 'uccc_seek_b.aspx', '95%', '60%'], ['txtProductno__', 'btnProductno__', 'assignproduct', 'noa,product', 'txtProductno__,txtProduct__', 'ucc_b.aspx']);
+            , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtNick,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx']
+            , ['txtUno__', 'btnUno__', 'view_uccc', 'uno', 'txtUno__', 'uccc_seek_b.aspx', '95%', '60%']
+            , ['txtProductno__', 'btnProductno__', 'assignproduct', 'noa,product', 'txtProductno__,txtProduct__', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no2'];
@@ -88,7 +90,7 @@
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 $('#btnOrdei').hide();
                 //外銷訂單按鈕隱藏
-
+			
                 q_gt('spec', '', 0, 0, 0, "", r_accy);
                 $('#lblQuat').click(function() {
                     btnQuat();
@@ -100,7 +102,10 @@
                     size_change();
                     sum();
                 });
-
+				$("#combPaytype").change(function(e) {
+                    if (q_cur == 1 || q_cur == 2)
+                        $('#txtPaytype').val($('#combPaytype').find(":selected").text());
+                });
                 $('#cmbStype').change(function() {
                     if ($('#cmbStype').find("option:selected").text() == '外銷')
                         $('#btnOrdei').show();
@@ -286,17 +291,10 @@
                     return;
                 q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
-
-            function combPaytype_chg() {/// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-                var cmb = document.getElementById("combPaytype");
-                if (!q_cur)
-                    cmb.value = '';
-                else
-                    $('#txtPaytype').val(cmb.value);
-                cmb.value = '';
-            }
-
             function bbtAssign() {
+            	for(var i=0;i<q_bbtCount;i++){
+            		$('#lblNo__' + i).text(i + 1);
+            	}
                 _bbtAssign();
             }
 
@@ -555,6 +553,12 @@
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
             function refresh(recno) {
                 _refresh(recno);
+                for(var i=0;i<q_bbtCount;i++){
+                	if($.trim($('#txtUno__'+i).val()).length>0){
+                		$('#dbbt').show();
+                		break;
+                	}
+                }
                 if ($('#cmbStype').find("option:selected").text() == '外銷')
                     $('#btnOrdei').show();
                 else
@@ -614,11 +618,16 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 size_change();
-
+				
                 if (t_para)
                     $('#btnOrdei').removeAttr('disabled');
                 else
                     $('#btnOrdei').attr('disabled', 'disabled');
+                    
+                if(q_cur==1)
+                	$('#btnOrdem').attr('disabled', 'disabled');
+                else
+                	$('#btnOrdem').removeAttr('disabled');
             }
 
             function btnMinus(id) {
@@ -943,7 +952,27 @@
             select {
                 font-size: medium;
             }
-
+			#dbbt {
+                width: 1800px;
+            }
+            #tbbt {
+                margin: 0;
+                padding: 2px;
+                border: 2px pink double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: pink;
+                width: 100%;
+            }
+            #tbbt tr {
+                height: 35px;
+            }
+            #tbbt tr td {
+                text-align: center;
+                border: 2px pink double;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -1243,6 +1272,7 @@
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlut" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td class="td2" align="center" style="width:15%;"><a id='lblUno_t'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_t'></a></td>
 					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_t'></a></td>
@@ -1259,13 +1289,14 @@
 					<td class="td1" align="center">
 					<input class="btn"  id="btnMinut..*" type="button" value='-' style="font-weight: bold; "  />
 					</td>
+					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td class="td2">
-					<input class="txt c1" id="txtUno..*" type="text" style="width:80%;" />
-					<input class="btn" id="btnUno..*" type="button" value='.' style="width:1%;"/>
+						<input class="btn" id="btnUno..*" type="button" value='.' style="float:left;width:1%;"/>
+						<input class="txt c1" id="txtUno..*" type="text" style="float:left;width:85%;" />
 					</td>
 					<td class="td3">
-					<input class="txt" id="txtProduct..*" type="text" style="width:85%;"  />
-					<input type="button" id="btnProductno..*" value="." style="width:10%;">
+						<input type="button" id="btnProductno..*" value="." style="width:1%;">
+						<input class="txt" id="txtProduct..*" type="text" style="width:85%;"  />
 					</td>
 					<td class="td4">
 					<input class="txt" id="txtProductno..*" type="text" style="width:95%;"  />
