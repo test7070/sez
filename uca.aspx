@@ -230,7 +230,7 @@
             			$('#textCostd').val(dec($('#txtPrice').val()));
             			ucsa_cost=0;
             			 for (var i = 0; i < q_bbsCount; i++) {
-            			 	var t_where = "where=^^ productno ='"+$('#txtProductno_'+i).val()+"' order by mon desc ^^ stop =1 ";
+            			 	var t_where = "where=^^ productno ='"+$('#txtProductno_'+i).val()+"' order by mon desc ^^ stop=1 ";
 							q_gt('costs', t_where , 0, 0, 0, "ucascost_"+i, r_accy);
 						}
             		}
@@ -662,7 +662,7 @@
             var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by datea desc ^^";
 			q_gt('wcost', t_where , 0, 0, 0, "", r_accy);
 			//報廢、模具
-			var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by mon desc ^^ stop =1 ";
+			var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by mon desc ^^ stop=1 ";
 			q_gt('costs', t_where , 0, 0, 0, "", r_accy);
 			//包裝、運輸
 			$('#textCostp').val($('#txtPacks').val());
