@@ -15,7 +15,7 @@
 			var isBott = false;  /// 是否已按過 最後一頁
 			var afield, t_htm;
 			var i, s1;
-			var q_readonly = [];
+			var q_readonly = ['txtNoa'];
 			var q_readonlys = [];
 			var q_readonlyt = [];
 			var bbmNum = []; 
@@ -45,6 +45,8 @@
 			}
 
 			function mainPost(){
+				//alert(q_getHref()[1]);
+				$('#txtNoa').val(q_getHref()[1]);
 				q_cmbParse("combUsage", q_getPara('ordem.usage'));
 			}
 
@@ -64,8 +66,8 @@
 			 }
 
 			function btnOk() {
-				t_key = q_getHref();
-				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+				t_key = $('txtNoa').val();
+				_btnOk(t_key, bbsKey[0], bbsKey[1], '', 2);
 			}
 			
 			function bbsSave(as,table) {
@@ -183,7 +185,7 @@
 						<td class="label3" align="right"><a id='lblPacks'></a></td>
 						<td class="column3" >
 							<input id="txtPacks" type="text" style='width:85%;'/>
-							<input id="txtNoa" type="text" style='display: none;'/>
+							<input id="txtNoa" type="text" style='width:85%;'/>
 						</td>
 					</tr>
 				</table>
