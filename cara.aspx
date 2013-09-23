@@ -443,6 +443,15 @@
 		                        $('#txtAcc1_'+b_seq).val(s1 + '.');
                 		});
                 		
+                		$('#txtAcc1_'+j).keydown(function(e) {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+		                   	if(e.keyCode==13){
+		                   		$('#txtAcc2_'+b_seq).focus();
+		                   	}
+                		});
+                		
 						$('#txtUmmnoa_'+j).click(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
