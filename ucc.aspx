@@ -423,7 +423,7 @@
 			<td align="center" style="width:25%"><a id='vewProduct'> </a></td>
 		</tr>
 		<tr>
-			<td ><input id="chkBrow.*" type="checkbox" style=''/>.</td>
+			<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 			<td align="center" id='noa'>~noa</td>
 			<td align="center" id='product spec'>~product ~spec</td>
 		</tr>
