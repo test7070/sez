@@ -1225,7 +1225,6 @@
 					<td align="center" id="Size"><a id='lblSize_help'> </a>
 					<BR>
 					<a id='lblSize_st'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblSizea_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblWeight_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices_st'></a></td>
@@ -1236,6 +1235,7 @@
 					代Z</td>
 					<td align="center" style="width:80px;"><a id='lblStore2_st'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblMemos_st'></a></td>
+					<td align="center" style="width:80px;"><a id='lblSizea_st'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -1281,9 +1281,6 @@
 					<input id="txtSpec.*" type="text" style="float:left;"/>
 					</td>
 					<td>
-					<input id="txtSize.*" type="text" style="width:95%;" />
-					</td>
-					<td>
 					<input id="txtMount.*" type="text" class="txt num" style="width:95%;"/>
 					</td>
 					<td>
@@ -1312,6 +1309,9 @@
 					<input id="txtOrdeno.*" type="text" style="width:65%;" />
 					<input id="txtNo2.*" type="text" style="width:25%;" />
 					<input id="recno.*" type="hidden" />
+					</td>
+					<td>
+					<input id="txtSize.*" type="text" style="width:95%;" />
 					</td>
 				</tr>
 			</table>
