@@ -16,7 +16,7 @@
 		}
 		var decbbm = ['inprice', 'saleprice', 'reserve', 'beginmount','uweight','beginmoney','drcr','price2','days','stkmount','safemount','stkmoney'];
 		var q_name = "ucc";
-		var q_readonly = ['textUccprice','textStk','textSaleprice','textInprice'];
+		var q_readonly = ['textUccprice','textStk','textSaleprice','textInprice','textCosta','textOrdemount','textPlanmount','textIntmount','textAvaistk'];
 		var bbmNum = [];	
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
@@ -92,7 +92,18 @@
 				t_where = "noa='" + $('#txtNoa').val() + "'";
 				q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCust'));
 			});
-			
+			$('#btnStkcost').mousedown(function(e) {
+             		if(e.button==0){
+             			////////////控制顯示位置
+						$('#div_stkcost').css('top',e.pageY);
+						$('#div_stkcost').css('left',e.pageX-$('#div_stkcost').width());
+                    	$('#div_stkcost').toggle();
+                    }
+             });
+             
+             $('#btnClose_div_stkcost').click(function() {
+             	$('#div_stkcost').toggle();
+             });
 		}
 
 		function q_boxClose(s2) { 
@@ -107,6 +118,20 @@
 
 		function q_gtPost(t_name) {	
 			switch (t_name) {
+				case 'workg_orde':
+            		var t_oedemount=0,t_planmount=0,t_intmount=0;
+            		var as  = _q_appendData("view_ordes", "", true);
+            		if(as[0]!=undefined){
+            			 t_oedemount=dec(as[0].oedemount);
+            			 t_planmount=dec(as[0].planmount);
+            			 t_intmount=dec(as[0].inmount)+dec(as[0].purmount);
+            		}
+            		$('#textOrdemount').val(t_oedemount);//訂單
+            		$('#textPlanmount').val(t_planmount);//計畫
+            		$('#textIntmount').val(t_intmount);//在途
+            		//可用庫存=庫存+在途-訂單(+計畫??)
+            		$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
+            		break;
 				case 'ucc_rc2':
 					var as  = _q_appendData("rc2s", "", true);
 					$('#textInprice').val(0);
@@ -130,9 +155,9 @@
 				case 'ucc_price':
 					var as  = _q_appendData("costs", "", true);
 					if(as[0]!=undefined){
-						$('#textUccprice').val(as[0].price);
+						$('#textCosta').val(as[0].price);
 					}else{
-						$('#textUccprice').val(0);
+						$('#textCosta').val(0);
 					}
 				break;
 				case 'ucc_stk':
@@ -142,6 +167,7 @@
             			stkmount=stkmount+dec(as[i].mount);
             		}
             		$('#textStk').val(stkmount);
+            		$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
 				break;
 				case q_name: 
 					if (q_cur == 4)	
@@ -231,6 +257,13 @@
 			//最新進貨單價
 			var t_where = "where=^^ noa in (select noa from rc2s"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
 			q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
+			
+			//訂單、在途量、計畫
+            var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";   			
+			var t_where1 = "where[1]=^^a.productno='"+$('#txtNoa').val()+"' and a.enda!='1' group by productno ^^";
+			var t_where2 = "where[2]=^^1=0^^";	
+			var t_where3 ="where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
+			q_gt('workg_orde', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
 		}
 
 		function readonly(t_para, empty) {
@@ -350,6 +383,37 @@
 	</style>
 </head>
 <body>
+	<div id="div_stkcost" style="position:absolute; top:300px; left:500px; display:none; width:300px; background-color: #ffffff; ">
+		<table id="table_stkcost"  class="table_row" style="width:100%;" border="1" cellpadding='1'  cellspacing='0'>
+			<tr>
+				<td align="center" width="50%"><a class="lbl">原物料成本</a></td>
+				<td align="center" width="50%"><input id="textCosta" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">訂單數量</a></td>
+				<td align="center" ><input id="textOrdemount" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">計畫生產</a></td>
+				<td align="center" ><input id="textPlanmount" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">在途量</a></td>
+				<td align="center" ><input id="textIntmount" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">庫存量</a></td>
+				<td align="center" ><input id="textStk" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">可用庫存</a></td>
+				<td align="center" ><input id="textAvaistk" type="text"  class="txt num c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" colspan='2'><input id="btnClose_div_stkcost" type="button" value="關閉視窗"></td>
+			</tr>
+		</table>
+	</div>
 	<!--#include file="../inc/toolbar.inc"-->
 	<div class="dview" id="dview" style="float: left;	width:32%;"	>
 		<table class="tview" id="tview"	border="1" cellpadding='2'	cellspacing='0' style="background-color: #FFFF66;">
@@ -382,20 +446,18 @@
 			<td class="label3"> </td>
 		</tr>
 		<tr><td class="label1"><a id='lblProduct'> </a></td>
-			<td colspan='2'><input	type="text" id="txtProduct" class="txt c1"/></td>
-			<td>
-				<input type="button" id="btnUcctd" style='width: auto; font-size: medium;' >
-				<input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/>
-				<input id="btnCust" type="button" style='width: auto; font-size: medium;'	/>
-			</td>
+			<td colspan='3'><input	type="text" id="txtProduct" class="txt c1"/></td>
+			<td><input type="button" id="btnUcctd" style='width: auto; font-size: medium;' ></td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblEngpro'> </a></td>
 			<td colspan='3' ><input	type="text" id="txtEngpro" class="txt c1"/></td>
+			<td><input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/></td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblSpec'> </a></td>
 			<td colspan='3'><input	type="text" id="txtSpec"	class="txt c1"/></td>
+			<td><input id="btnCust" type="button" style='width: auto; font-size: medium;'	/></td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblUnit'> </a></td>
@@ -408,13 +470,14 @@
 			<td><input	type="text" id="txtSafemount" class="txt num c1"/></td>
 			<td class="label2"><a id='lblSaleprice'> </a></td>
 			<td><input	type="text" id="textSaleprice"	class="txt num c2"/></td>
+			<td class="td5"><input id="btnStkcost" type="button"  /></td>
 		</tr>
-		<tr>
+		<!--<tr>
 			<td class="label1"><a id='lblUccprice'> </a></td>
 			<td><input	type="text" id="textUccprice" class="txt num c1"/></td>
 			<td class="label2"><a id='lblStk'> </a></td>
 			<td><input	type="text" id="textStk"	class="txt num c2"/></td>
-		</tr>
+		</tr>-->
 		<tr>
 			<td class="label1"><a id='lblUweight'> </a></td>
 			<td><input	type="text" id="txtUweight"	class="txt num c1"/></td>

@@ -287,6 +287,17 @@
 
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
+                	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                		$('#txtWorkno_' + i).click(function () {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtWorkno_' + b_seq).val())){
+								t_where = "cuano='"+$('#txtNoa').val()+"' and cuanoq='"+$('#txtNoq_'+b_seq).val()+"'";
+								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+							}
+						});	
+                	}
                 }
                 _bbsAssign();
             }
