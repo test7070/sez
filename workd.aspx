@@ -30,6 +30,7 @@
         aPop = new Array(
         	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         	['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+        	['txtStoreno_','btnStore_','store','noa,store','txtStoreno_,txtStore_','store_b.aspx'],
         	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
         	['txtWorkno','lblWorkno','work','noa,productno,product,tggno,comp','txtWorkno,txtProductno,txtProduct,txtTggno,txtTgg,','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
         );
@@ -266,6 +267,13 @@
                 q_gt('work_pick', t_where+t_where1, 0, 0, 0, "", r_accy);
 			}else{
 				checkok=false;
+				//如果表身倉庫沒填，表頭倉庫帶入
+				for(var i = 0; i < q_bbsCount; i++) {
+					if(emp($('#txtStoreno_'+i).val())){
+						$('#txtStoreno_'+i).val($('#txtStoreno').val());
+						$('#txtStore_'+i).val($('#txtStore').val());
+					}
+				}
 				if(q_cur==1)
 					$('#txtWorker').val(r_name);
 				else
@@ -448,7 +456,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:110% ; height:98% ;  
+             width:130% ; height:98% ;  
         } 
             .tbbm tr {
                 height: 35px;
@@ -578,19 +586,20 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
             <tr style='color:White; background:#003366;' >
                 <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td style="width:10%;" align="center"><a id='lblProductnos'></a></td>
-                <td style="width:13%;" align="center"><a id='lblProduct_s'></a></td>
-                <td style="width:4%;" align="center"><a id='lblUnit'></a></td>
+                <td style="width:8%;" align="center"><a id='lblProductnos'></a></td>
+                <td style="width:11%;" align="center"><a id='lblProduct_s'></a></td>
+                <td style="width:3%;" align="center"><a id='lblUnit'></a></td>
                 <!--<td style="width:7%;" align="center"><a id='lblBorn'></a></td>-->
                 <td style="width:6%;" align="center"><a id='lblMounts'></a></td>
+                <td style="width:10%;" align="center"><a id='lblStores'></a></td>
                 <td style="width:6%;" align="center"><a id='lblWmounts'></a></td>
                 <td style="width:6%;" align="center"><a id='lblPrice_s'></a></td>
-                <td style="width:7%;" align="center"><a id='lblTotal_s'></a></td>
-                <td style="width:6%;" align="center"><a id='lblInmount_s'></a></td>
-                <td style="width:6%;" align="center"><a id='lblOutmount_s'></a></td>
-                <td style="width:9%;" align="center"><a id='lblErrmount'></a></td>
+                <td style="width:6%;" align="center"><a id='lblTotal_s'></a></td>
+                <td style="width:5%;" align="center"><a id='lblInmount_s'></a></td>
+                <td style="width:5%;" align="center"><a id='lblOutmount_s'></a></td>
+                <td style="width:10%;" align="center"><a id='lblErrmount'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
-                <td style="width:10%;" align="center"><a id='lblWorknos'></a></td>
+                <td style="width:9%;" align="center"><a id='lblWorknos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
                 <td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -606,6 +615,11 @@
                 <td><input class="txt c1 num" id="txtMount.*" type="text"/>
                 	<!--<input class="txt c1 num" id="txtWeight.*" type="text"/>-->
                 </td>
+                <td>
+					<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
+					<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
+					<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
+				</td>
                 <td><input class="txt c1 num" id="txtWmount.*" type="text"/>
                 </td>
                 <td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
