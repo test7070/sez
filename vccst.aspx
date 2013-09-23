@@ -699,6 +699,7 @@
 						break;
 					case 'txtUno_':
 						size_change();
+						$('#txtMount_'+b_seq).focus();
 						break;
 				}
 
@@ -1219,7 +1220,7 @@
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:150px;"><a id="lblUno_st" > </a></td>
 					<td align="center" style="width:120px;"><a id='lblProductno_st'> </a></td>
-					<td align="center" style="width:70px;"><a id='lblStyle_st'> </a></td>
+					<td align="center" style="width:20px;"><a id='lblStyle_st'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" id="Size"><a id='lblSize_help'> </a>
 					<BR>
@@ -1252,7 +1253,7 @@
 					<input id="txtClass.*" type="text" style='width: 83%;'/>
 					</td>
 					<td>
-					<input type="text" id="txtStyle.*" style="width:95%;" />
+					<input type="text" id="txtStyle.*" style="width:90%;text-align:center;" />
 					</td>
 					<td>
 					<input type="text" id="txtProduct.*" style="width:95%;" />
@@ -1261,15 +1262,15 @@
 					<td>
 					<input class="txt num" id="textSize1.*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 					<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >
-						X
+						x
 					</div>
 					<input class="txt num" id="textSize2.*" type="text" style="float: left;width:60px;"  disabled="disabled"/>
 					<div id="x2.*" style="float: left;display:block;width:20px;padding-top: 4px;">
-						X
+						x
 					</div>
 					<input class="txt num" id="textSize3.*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 					<div id="x3.*" style="float: left;display:block;width:20px;padding-top: 4px;">
-						X
+						x
 					</div>
 					<input class="txt num" id="textSize4.*" type="text"  style="float: left;width:60px;" disabled="disabled"/>
 					<!--上為虛擬下為實際-->
