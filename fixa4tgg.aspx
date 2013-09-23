@@ -93,6 +93,7 @@
                 listShow : function(obj,key,nn,tArray,tField){
                 	if(!(q_cur==1 || q_cur==2))
                 		return;
+                	$('#tmpList').data('isLoad',false);
                 	this.tmpArray = tArray.concat();
                 	this.tmpField = tField.concat();
                 	this.curObj = obj;
@@ -142,7 +143,7 @@
                		}).click(function(e){
                			var n = $(this).parent().attr('tag');
                			var m = $(this).parent().parent().attr('tag');
-               			if(n!=undefined && m!=undefined){
+               			if(n!=undefined && m!=undefined && !$('#tmpList').data('isLoad')){
                				if(t_data.tmpField.length>0)
                					$('#'+t_data.tmpField[0]+'_'+m).val(t_data.tmpArray[n].noa);
                				if(t_data.tmpField.length>1 && t_data.tmpField[1].length>0)
@@ -150,6 +151,7 @@
 	               			if(t_data.tmpField.length>2 && t_data.tmpField[2].length>0)
 	               				$('#'+t_data.tmpField[2]+'_'+m).val(t_data.tmpArray[n].price);
 	               			$('#tmpList').hide();
+	               			$('#tmpList').data('isLoad',true);
 	               			getBfixadate(m);
                			}
                		});
@@ -321,7 +323,7 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
-		                }).change(function(e){
+		                }).blur(function(e){
 		                	var n = $(this).attr('id').replace('txtProductno_','');
 		                	getBfixadate(n);
 		                });
@@ -332,7 +334,7 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
-		                }).change(function(e){
+		                }).blur(function(e){
 		                	var n = $(this).attr('id').replace('txtProductno_');
 		                	getBfixadate(n);
 		                });
@@ -343,7 +345,7 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
-		                }).change(function(e){
+		                }).blur(function(e){
 		                	var n = $(this).attr('id').replace('txtProductno_');
 		                	getBfixadate(n);
 		                });
