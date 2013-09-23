@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "cara";
             var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno','textUnpay','txtOldcarno'];
-            var q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate','txtInmoney'];
+            var q_readonlys = ['txtCaritem','txtUmmnoa','txtUdate','txtInmoney','txtCarcaccno'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
             var bbmMask = [];
@@ -458,6 +458,16 @@
 	                    		}else if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='ZB' || $('#txtUmmnoa_'+b_seq).val().substr(0,1)=='Z'){
 		                    		q_box("lab_accc.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'labaccc', "95%", "95%", q_getMsg("popLabaccc"));
 		                    	}
+		                    }
+                		});
+                		
+                		$('#txtCarcaccno_'+j).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+		                    
+		                    if(!emp($('#txtCarcaccno_'+b_seq).val())){
+		                    		q_box("carc.aspx?;;;accno='" + $('#txtCarcaccno_'+b_seq).val() + "';" + r_accy, 'carc', "95%", "95%", q_getMsg("popCarc"));
 		                    }
                 		});
                 		
@@ -1157,7 +1167,7 @@
 		</div>
 		<div id="box">
 		<div class='dbbs'>
-				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1250px;">
+				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1330px;">
 					<tr style='color:White; background:#003366;'>
 						<td align="center" id='hide_Plus'  style="width: 42px;">
 						<input class="btn"  id="btnPlus" style="width: 25px;" type="button" value='+' style="font-weight: bold;"  />
@@ -1178,6 +1188,7 @@
 						<td align="center" style="width: 110px;"><a id='lblAcc2'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblPdates'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblUdate'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblCarcaccno'></a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
@@ -1221,6 +1232,7 @@
 							<input type="text" id="txtUdate.*" class="txt c1" />
 							<input type="text" id="txtUmmnoa.*" class="txt c1"/>
 						</td>
+						<td><input type="text" id="txtCarcaccno.*" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
