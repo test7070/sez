@@ -323,7 +323,7 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
-		                }).blur(function(e){
+		                }).change(function(e){
 		                	var n = $(this).attr('id').replace('txtProductno_','');
 		                	getBfixadate(n);
 		                });
@@ -334,7 +334,7 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
-		                }).blur(function(e){
+		                }).change(function(e){
 		                	var n = $(this).attr('id').replace('txtProductno_');
 		                	getBfixadate(n);
 		                });
@@ -345,7 +345,7 @@
 		                }).keydown(function(e){
 		                	if(e.which==13 || e.which==9)
 		                		t_data.listHide();
-		                }).blur(function(e){
+		                }).change(function(e){
 		                	var n = $(this).attr('id').replace('txtProductno_');
 		                	getBfixadate(n);
 		                });
