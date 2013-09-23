@@ -425,9 +425,9 @@
 			}
 
 			function bbsAssign() {/// 表身運算式
-				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-					$('#lblNo_' + i).text(i + 1);
-					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+				for (var j = 0; j < q_bbsCount; j++) {
+					$('#lblNo_' + j).text(j + 1);
+					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 
 						$('#btnMinus_' + j).click(function() {
 							btnMinus($(this).attr('id'));
