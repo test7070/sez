@@ -71,7 +71,6 @@
                 		t_where += (t_where.length>0? ' and ':'')+"productno='"+$('#txtProductno').val()+"'";
                 	//排程數量足夠 直接不顯示
                 	t_where += (t_where.length>0? ' and ':'')+" (mount>cuamount or cuamount is null) ";
-                		
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnCuap').click(function(){
@@ -112,7 +111,7 @@
 		                       		var pretime=Math.ceil((dec(b_ret[i].mount)*dec(b_ret[i].ucahours))/(dec(b_ret[i].stationhours)*dec(b_ret[i].stationgen)));
 		                       		var t_date=b_ret[i].datea;
 									var bworkdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-									bworkdate.setDate(bworkdate.getDate() - pretime)
+									bworkdate.setDate(bworkdate.getDate() - pretime);
 									t_date=''+(bworkdate.getFullYear()-1911)+'/';
 									//月份
 									t_date=t_date+((bworkdate.getMonth()+1)<10?('0'+(bworkdate.getMonth()+1)+'/'):((bworkdate.getMonth()+1)+'/'));
@@ -121,6 +120,7 @@
 									b_ret[i].bworkdate=$('#txtDatea').val()<t_date?$('#txtDatea').val():t_date;	
 								}
 	                        }
+	                        for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
 	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount,txtEdate,txtOrdeno,txtNo2,txtDatea', b_ret.length, b_ret
 	                                                           , 'productno,product,unit,mount,datea,noa,no2,bworkdate'
 	                                                           , 'txtProductno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
