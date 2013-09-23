@@ -173,6 +173,16 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
+            	case 'msg_stk':
+            		var as  = _q_appendData("stkucc", "", true);
+            		var stkmount=0;
+            		t_msg='';
+            		for ( var i = 0; i < as.length; i++) {
+            			stkmount=stkmount+dec(as[i].mount);
+            		}
+            		t_msg="庫存量："+stkmount;
+            		q_msg( $('#txtMount_'+b_seq), t_msg);
+            		break;
             	case 'work':
             		if(emp($('#txtTggno').val())){
 						var as = _q_appendData("work", "", true);
@@ -249,6 +259,32 @@
         }
 
         function bbsAssign() {  /// 表身運算式
+        	for (var i = 0; i < q_bbsCount; i++) {
+                if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                	$('#txtMount_' + i).focusin (function() {
+                    	if(q_cur==1 ||q_cur==2 ){
+	                    	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+	                    	if(!emp($('#txtProductno_'+b_seq).val())){
+	                    		//庫存
+								var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+								q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+	                    	}
+                    	}
+                    });
+                    $('#btnStk_' + i).click (function() {
+	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(!emp($('#txtProductno_'+b_seq).val())){
+							//庫存
+							var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+							q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+	                    }
+                    });
+                }
+			}
             _bbsAssign();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
@@ -538,6 +574,7 @@
                 <!--<td style="width:10%;" align="center"><a id='lblTypes'></a></td>-->
                 <td align="center"><a id='lblMemos'></a></td>
                 <td style="width:13%;" align="center"><a id='lblWorknos'></a></td>
+                <td align="center" style="width:4%;"><a id='lblStks'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -563,6 +600,9 @@
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
                 <td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+                <td align="center">
+					<input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  />
+				</td>
             </tr>
         </table>
         </div>
