@@ -241,32 +241,285 @@
                     });
                     q_popAssign();
                     q_langShow();
-					$('#btnOk2').hide();
+					$('#btnOk').hide();
 					$('#btnOk2').click(function(e){
-						switch($('#q_report').data('info').readioIndex){
+						var msg_datea = '',msg_trandate = '';
+						var patt = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+	        			var t_date1 = $.trim($('#txtDate1').val());
+	        			var t_date2 = $.trim($('#txtDate2').val());
+	        			var t_trandate1 = $.trim($('#txtTrandate1').val());
+	        			var t_trandate2 = $.trim($('#txtTrandate2').val());
+	        			var t_po = $.trim($('#txtXpo').val());
+	        			//check datea
+	        			if(t_date1.length==0){
+	        				msg_datea = '請輸入起始登錄日期。'; 
+	               		}else if(t_date2.length==0){
+	               			msg_datea = '請輸入終止登錄日期。';
+	               		}else if(!patt.test((parseInt(t_date1.substring(0,3))+1911)+t_date1.substring(3))){
+	               			msg_datea = t_date1+' 起始登錄日期異常。';
+	               		}else if(!patt.test((parseInt(t_date2.substring(0,3))+1911)+t_date2.substring(3))){
+	               			msg_datea = t_date2+' 終止登錄日期異常。';
+	               		}
+	               		if(msg_datea.length==0){
+	               			var d1 = new Date(parseInt(t_date1.substr(0, 3)) + 1911, parseInt(t_date1.substring(4, 6)) - 1, parseInt(t_date1.substring(7, 9)));
+		               		var d2 = new Date(parseInt(t_date2.substr(0, 3)) + 1911, parseInt(t_date2.substring(4, 6)) - 1, parseInt(t_date2.substring(7, 9)));
+		               		if(d2 < d1){
+		               			msg_datea = '日期異常：終止日期<起始日期。';
+		               		}else if((Math.abs(d2 - d1) / (1000 * 60 * 60 * 24) + 1)>366){
+		               			msg_datea = '查詢日數不得大於３６６天。';
+		               		}	
+	               		}
+	               		
+               			//check trandate
+               			if(t_trandate1.length==0){
+	        				msg_trandate = '請輸入起始交運日期。'; 
+	               		}else if(t_trandate2.length==0){
+	               			msg_trandate = '請輸入終止交運日期。';
+	               		}else if(!patt.test((parseInt(t_trandate1.substring(0,3))+1911)+t_trandate1.substring(3))){
+	               			msg_trandate = t_trandate1+' 起始交運日期異常。';
+	               		}else if(!patt.test((parseInt(t_trandate2.substring(0,3))+1911)+t_trandate2.substring(3))){
+	               			msg_trandate = t_trandate2+' 終止交運日期異常。';
+	               		}
+	               		if(msg_trandate.length==0){
+	               			var d1 = new Date(parseInt(t_trandate1.substr(0, 3)) + 1911, parseInt(t_trandate1.substring(4, 6)) - 1, parseInt(t_trandate1.substring(7, 9)));
+		               		var d2 = new Date(parseInt(t_trandate2.substr(0, 3)) + 1911, parseInt(t_trandate2.substring(4, 6)) - 1, parseInt(t_trandate2.substring(7, 9)));
+		               		if(d2 < d1){
+		               			msg_trandate = '日期異常：終止日期<起始日期。';
+		               		}else if((Math.abs(d2 - d1) / (1000 * 60 * 60 * 24) + 1)>366){
+		               			msg_trandate = '查詢日數不得大於３６６天。';
+		               		}	
+	               		}
+	               		//---------------------
+						switch($('#q_report').data('info').radioIndex){
 							case 0://營運日報表
+								if(msg_trandate.length>0){
+									alert(msg_trandate);
+									return false;
+								}
 								break;
 							case 1://客戶差額統計表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
 								break;
-							case 2://客戶差額統計表
+							case 2://營運月報表-車號司機
+								if(msg_datea.length>0){
+									alert(msg_datea);
+									return false;
+								}
 								break;
-							case 3:
+							case 3://司機差額統計表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
 								break;
-							case 3:
+							case 4://請款明細表-散裝
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
 								break;
-							case 3:
+							case 5://營業額統計表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
 								break;
-							case 3:
+							case 6://請款明細表-貨櫃
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
 								break;
-							case 3:
+							case 7://請款明細表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
 								break;
-							case 3:
+							case 8://公里數統計表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 9://業績油費耗用表
+								if(msg_datea.length>0){
+									alert(msg_datea);
+									return false;
+								}
+								break;
+							case 10://公司車未出勤明細表
+								if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 11://現場人員業績表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 12://出車明細表(收、發)
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 13://客戶月報明細表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 14://出車明細表-A5
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 15://客戶月報統計表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 16://出車明細表*
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 17://營業額統計表(數量)
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 18://業務業績表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 19://碼頭重量差異表
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 20://請款明細表(中鋼散裝)
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
+								break;
+							case 21://營運月報表-車號
+								if(msg_datea.length>0){
+									alert(msg_datea);
+									return false;
+								}
+								break;
+							case 22://營運月報表-司機
+								if(msg_datea.length>0){
+									alert(msg_datea);
+									return false;
+								}
+								break;
+							case 23://營運月報統計表
+								if(msg_datea.length>0){
+									alert(msg_datea);
+									return false;
+								}
+								break;
+							case 24://請款明細表(威致)
+								if(t_po.length>0){
+									
+								}else if(msg_datea.length==0 || msg_trandate.length==0){
+									
+								}else{
+									alert(msg_datea+'\n'+msg_trandate);
+									return false;
+								}
 								break;
 							default:
 								alert('Undefin,radio');
 								break;
 						}
-						//營運月報表-車號司機司機差額統計表請款明細表-散裝營業額統計表請款明細表-貨櫃請款明細表公里數統計表業績油費耗用表公司車未出勤明細表現場人員業績表出車明細表(收、發)客戶月報明細表出車明細表-A5客戶月報統計表出車明細表*營業額統計表(數量)業務業績表碼頭重量差異表請款明細表(中鋼散裝)營運月報表-車號營運月報表-司機營運月報統計表請款明細表(威致)
+						$('#btnOk').click();
 					});
                     $('#txtDate1').mask('999/99/99');
                     $('#txtDate1').datepicker();
