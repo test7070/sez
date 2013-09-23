@@ -241,7 +241,33 @@
                     });
                     q_popAssign();
                     q_langShow();
-
+					$('#btnOk2').hide();
+					$('#btnOk2').click(function(e){
+						switch($('#q_report').data('info').readioIndex){
+							case 0://營運日報表
+								break;
+							case 1://客戶差額統計表
+								break;
+							case 2://客戶差額統計表
+								break;
+							case 3:
+								break;
+							case 3:
+								break;
+							case 3:
+								break;
+							case 3:
+								break;
+							case 3:
+								break;
+							case 3:
+								break;
+							default:
+								alert('Undefin,radio');
+								break;
+						}
+						//營運月報表-車號司機司機差額統計表請款明細表-散裝營業額統計表請款明細表-貨櫃請款明細表公里數統計表業績油費耗用表公司車未出勤明細表現場人員業績表出車明細表(收、發)客戶月報明細表出車明細表-A5客戶月報統計表出車明細表*營業額統計表(數量)業務業績表碼頭重量差異表請款明細表(中鋼散裝)營運月報表-車號營運月報表-司機營運月報統計表請款明細表(威致)
+					});
                     $('#txtDate1').mask('999/99/99');
                     $('#txtDate1').datepicker();
                     $('#txtDate2').mask('999/99/99');
@@ -292,12 +318,13 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
+				<input type="button" id="btnOk2" style="float:left;font-size:16px;font-weight: bold;color: blue;cursor: pointer;width:50px;height:30px;" value="查詢"/>
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
