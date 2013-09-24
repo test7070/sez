@@ -10,12 +10,16 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'sss', t_content = ' field=noa,namea,id,partno,part,cno,comp,indate,person', bbsKey = ['noa'], as;
+            var q_name = 'sss', t_content = ' field=noa,namea,id,partno,part,cno,comp,indate,person order=odate', afilter = [], bbsKey = ['noa'], as;
+            var t_sqlname = 'sss_load';
+            t_postname = q_name;
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;
             $(document).ready(function() {
+            	brwCount2 = 15;
+
                 main();
             });
             // end ready
@@ -26,7 +30,11 @@
                     dataErr = false;
                     return;
                 }
-                mainBrow(0, t_content);
+                mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+            }
+            
+            function bbsAssign() {
+                _bbsAssign();
             }
 
             function q_gtPost() {
@@ -49,7 +57,7 @@
 				</tr>
 				<tr>
 					<td style="width:2%;">
-					<input name="chk"  id="chkSel.*" type="checkbox" />
+					<input name="chk"  id="chkSel.*" type="checkbox" name="chkSel"/>
 					</td>
 					<td style="width:20%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
