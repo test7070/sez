@@ -334,11 +334,16 @@
                             /// 要先給  才能使用 q_bodyId()
                             q_bodyId($(this).attr('id'));
                             b_seq = t_IdSeq;
-                            t_where = "noa='" + $('#txtNoa').val() + "' and no2='" + $('#txtNo2_' + b_seq).val() + "'";
-                            q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+                            t_noa = trim($('#txtNoa').val());
+                            if(t_noa.length==0 ||t_noa.toUpperCase() == 'AUTO'){
+                            	return;
+                            }else{
+	                            t_where = "noa='" + $('#txtNoa').val() + "' and no2='" + $('#txtNo2_' + b_seq).val() + "'";
+	                            q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+                            }
                         });
                         $('#txtStyle_' + j).blur(function() {
-                        	var n = $(this).val().replace('txtStyle_','');
+                        	var n = $(this).attr('id').replace('txtStyle_','');
                             ProductAddStyle(n);
                         });
                         //計算理論重
@@ -1190,7 +1195,7 @@
 					<input type="text" id="txtProductno.*"  style="width:75px; float:left;"/>
 					</td>
 					<td>
-					<input id="txtStyle.*" type="text" style="width:90%;"/>
+					<input id="txtStyle.*" type="text" style="width:90%;text-align:center;"/>
 					</td>
 					<td>
 					<span style="width:15px;height:1px;display:block;float:left;"> </span>
@@ -1198,7 +1203,7 @@
 					<input class="btn" id="btnUno.*" type="button" value='.' style="float:left;width:15px;"/>
 					<input id="txtUno.*" type="text" style="float:left;width:100px;" />
 					</td><td >
-					<input id="txtClass.*" type="text" style="width:90%;"/>
+					<input id="txtClass.*" type="text" style="width:90%;text-align:center;"/>
 					</td><td>
 					<input class="txt num" id="textSize1.*" type="text" style="float: left;width:60px;" disabled="disabled"/>
 					<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >
