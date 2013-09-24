@@ -22,7 +22,6 @@
 			$(document).ready(function() {
 				if (!q_paraChk())
 					return;
-
 				main();
 			});
 			function main() {
@@ -31,6 +30,13 @@
 					return;
 				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+				parent.$.fn.colorbox.resize({
+					height : "750px"
+				});
+                $('#btnTop').hide();
+                $('#btnPrev').hide();
+                $('#btnNext').hide();
+                $('#btnBott').hide();
 			}
 
 			function bbsAssign() {
@@ -48,7 +54,8 @@
 				_refresh();
 				var w = window.parent;
 				if (maxAbbsCount < abbs.length) {
-					for (var i = (abbs.length-(abbs.length - maxAbbsCount)); i < abbs.length; i++) {
+					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
+						abbs[i].uno = (!emp(abbs[i].cub_uno) ? abbs[i].cub_uno : (!emp(abbs[i].cut_uno) ? abbs[i].cut_uno : (!emp(abbs[i].ordet_uno) ? abbs[i].ordet_uno : '')));
 						for (var j = 0; j < w.q_bbsCount; j++) {
 							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
 								abbs[i]['sel'] = "true";
@@ -70,21 +77,40 @@
 
 		</script>
 		<style type="text/css">
-			.seek_tr {
+            .seek_tr {
                 color: white;
                 text-align: center;
                 font-weight: bold;
                 background-color: #76a2fe;
             }
-			input[type="text"], input[type="button"] {
+            input[type="text"], input[type="button"] {
                 font-size: medium;
             }
 		</style>
 	</head>
 	<body>
-		<div  id="dbbs"  >
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+		<div  id="dFixedTitle" style="overflow-y: scroll;">
+			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:White; background:#003366;' >
+					<td align="center" style="width:1%;">
+					<input type="checkbox" id="checkAllCheckbox"/>
+					</td>
+					<td align="center" style="width:15%;"><a id='lblProductno'></a>/<a id='lblProduct'></a></td>
+					<td align="center" style="width:18%;"><a id='lblSpec'></a></td>
+					<td align="center" style="width:4%;"><a id='lblUnit'></a></td>
+					<td align="center" style="width:8%;"><a id='lblMount'></a></td>
+					<td align="center" style="width:8%;"><a id='lblWeight'></a></td>
+					<td align="center" style="width:8%;"><a id='lblPrice'></a></td>
+					<td align="center" style="width:8%;"><a id='lblNotv'></a></td>
+					<td align="center" style="width:11%;"><a id='lblNoa'></a></td>
+					<td align="center" style="width:8%;"><a id='lblCust'></a></td>
+					<td align="center"><a id='lblMemo'></a></td>
+				</tr>
+			</table>
+		</div>
+		<div  id="dbbs" style="overflow: scroll;height:550px;" >
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+				<tr style='color:White; background:#003366;display:none;' >
 					<td align="center">
 					<input type="checkbox" id="checkAllCheckbox"/>
 					</td>
@@ -142,7 +168,7 @@
 					</td>
 				</tr>
 			</table>
-			<!--#include file="../inc/pop_ctrl.inc"-->
 		</div>
+			<!--#include file="../inc/pop_ctrl.inc"-->
 	</body>
 </html>
