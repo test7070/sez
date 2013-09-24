@@ -32,7 +32,7 @@
             q_desc = 1;
             aPop = new Array(
              ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
-            , ['txtInvono_', '', 'vcca', 'noa,datea,serial,custno,comp,cno,acomp', '0txtInvono_,txtIdate_,txtSerial_,txtCustno_,txtComp_,txtCno_,txtAcomp_', 'vcca_b.aspx']
+            , ['txtInvono_', '', 'vcca', 'noa,datea,serial,custno,comp,cno,acomp,productno,product,price,mount,money,tax,taxtype', '0txtInvono_,txtIdate_,txtSerial_,txtCustno_,txtComp_,txtCno_,txtAcomp_,txtProductno_,txtProduct_,txtPrice_,txtMount_,txtTotal_,txtTax_,cmbTaxtype_', 'vcca_b.aspx']
        		, ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
             , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
@@ -59,7 +59,7 @@
                 bbsMask = [['txtIdate', r_picd]];
                 q_mask(bbsMask);
                 q_cmbParse("cmbTypea", q_getPara('vccb.typea'));
-                q_cmbParse("cmbTaxtype", q_getPara('vccb.taxtype'),'s');
+                q_cmbParse("cmbTaxtype", ' @ ,'+q_getPara('sys.taxtype'),'s');
                 q_gt('acomp', '', 0, 0, 0, "");
                 typea_chg();
 	            $('#lblAccno').click(function () {
