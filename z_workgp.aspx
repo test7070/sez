@@ -31,15 +31,22 @@
                         value : r_accy
                     },{
                         type : '6',
-                        name : 'xnoa'
-                    }]
+                        name : 'xdate'
+                    },{
+						type : '8',
+						name : 'isorders',
+						value : ('顯示訂單明細').split(',')
+					}]
                     });
                 q_popAssign();
-               if(window.parent.q_name=='workg'){
+               /*if(window.parent.q_name=='workg'){
 					var wParent = window.parent.document;
 					var t_noa= wParent.getElementById("txtNoa").value;
 					$('#txtXnoa').val(t_noa);
-				}
+				}*/
+				$('#txtXdate').datepicker();
+				$('#txtXdate').mask('999/99/99');
+				$('#txtXdate').val(q_date());
 			}
 
             function q_boxClose(s2) {
