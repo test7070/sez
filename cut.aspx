@@ -97,10 +97,9 @@
 					}
 				});
 			}
-
+			var w_ret = new Array;
 			function q_boxClose(s2) {///   q_boxClose 2/4
-				var
-				ret;
+				var ret;
 				switch (b_pop) {
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
@@ -114,7 +113,13 @@
 							for (var j = 0; j < q_bbsCount; j++) {
 								getTheory(j);
 							}
-
+							//產生編號
+							var t_noa = trim($('#txtUno').val());
+							if(t_noa.length > 0){
+								var t_where = "where=^^ left(uno,"+t_noa.length+")='"+t_noa+"' ^^";
+								w_ret = ret;
+								q_gt('view_uccb', t_where, 0, 0, 0, "view_uccb", r_accy);
+							}
 						}
 						break;
 					case q_name + '_s':
@@ -130,6 +135,7 @@
 				}
 			}
 			var StyleList = '';
+			var unoArray = new Array;
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'ordes':
@@ -186,6 +192,15 @@
 						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
+					case 'view_uccb':
+						var as = _q_appendData("view_uccb", "", true);
+						for(var i=0;i<as.length;i++){
+							unoArray.push(as[i].uno);
+						}
+						for(var i=0;i<w_ret.length;i++){
+							setNewBno(unoArray,w_ret[i]);
+						}
+						break;
 					default:
 						if (t_name.split('^^')[0] == 'uccy') {
 							var as = _q_appendData("uccy", "", true);
@@ -197,6 +212,21 @@
 						}
 						break;
 				}  /// end switch
+			}
+			function setNewBno(w_unoArray,idno,IndexNum,IndexEng){
+				var newIndexNum = (dec(IndexNum) > 0?dec(IndexNum)+1:1);
+				var newIndexEng = (dec(IndexEng) > 0?dec(IndexEng):65);
+				if(newIndexNum >9){
+					newIndexEng = dec(newIndexEng)+1;
+					newIndexNum = 1; 
+				}
+				var newBno = trim($('#txtUno').val())+newIndexNum+String.fromCharCode(newIndexEng);
+				if(w_unoArray.indexOf(newBno) == -1){
+					$('#txtBno_'+idno).val(newBno);
+					unoArray.push(newBno);
+				}else{
+					setNewBno(unoArray,idno,newIndexNum,newIndexEng);
+				}
 			}
 
 			var i_uno = 1;

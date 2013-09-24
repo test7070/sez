@@ -11,7 +11,7 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "vccb_s";
-    var aPop = new Array(['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+    var aPop = new Array(['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -35,6 +35,7 @@
         t_noa = $('#txtNoa').val();
         t_tggno = $('#txtTggno').val();
         t_tgg = $('#txtTgg').val();
+        t_custno = $('#txtCustno').val();
         t_worker = $('#txtWorker').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
@@ -43,7 +44,7 @@
 		
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("worker", t_worker)+ q_sqlPara2("tggno", t_tggno)
-        + q_sqlPara2("tgg", t_tgg)+ q_sqlPara2("datea", t_bdate, t_edate);
+        + q_sqlPara2("tgg", t_tgg)+ q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
         
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -73,10 +74,16 @@
                 <td><input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />&nbsp;
                 	<input class="txt" id="txtTgg" type="text" style="width:115px; font-size:medium;" />
                 </td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
+                <td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+                </td>
+            </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblWorker'></a></td>
                 <td><input class="txt" id="txtWorker" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

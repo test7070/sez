@@ -125,7 +125,8 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
 							for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtPrice', b_ret.length, b_ret, 'productno,product,weight,mount,price', 'txtProductno');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtOrdeno,txtNo2,txtProductno,txtClass,txtStyle,txtProduct,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
+                            												'uno,noa,no2,productno,class,style,product,radius,dime,width,lengthb,spec,lastweight,lastmount,price', 'txtProductno');
                             /// 最後 aEmpField 不可以有【數字欄位】
                         }
                         sum();
@@ -168,7 +169,7 @@
                     return;
                 }
 
-                $('#txtWorker').val(r_name)
+                $('#txtWorker').val(r_name);
                 sum();
 
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -272,7 +273,7 @@
                             q_tr('txtWeight_' + b_seq, getTheory(b_seq));
                         });
                         $('#txtWeight_' + j).change(function() {
-                            sum()
+                            sum();
                         });
                     }
                 }
@@ -458,7 +459,7 @@
                         $('#textSize2_' + j).val($('#txtWidth_' + j).val());
                         $('#textSize3_' + j).val($('#txtLengthb_' + j).val());
                         $('#textSize4_' + j).val(0);
-                        $('#txtRadius_' + j).val(0)
+                        $('#txtRadius_' + j).val(0);
                     }
                 } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
                     $('#lblSize_help').text("短徑x長徑x厚度x長度");
@@ -488,7 +489,7 @@
                         $('#x3_' + j).hide();
                         $('#Size').css('width', '70px');
                         $('#textSize1_' + j).val(0);
-                        $('#txtDime_' + j).val(0)
+                        $('#txtDime_' + j).val(0);
                         $('#textSize2_' + j).val(0);
                         $('#txtWidth_' + j).val(0);
                         $('#textSize3_' + j).val($('#txtLengthb_' + j).val());
