@@ -17,7 +17,7 @@
 
 			q_tables = 's';
 			var q_name = "cut";
-			var q_readonly = ['txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker'];
+			var q_readonly = ['txtNoa', 'txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker'];
 			var q_readonlys = [];
 			var bbmNum = [];
 			var bbsNum = [];
@@ -80,43 +80,53 @@
 				$('#cmbKind').change(function() {
 					size_change();
 				});
-				$('#btnOrdesImport').click(function(){
-					if(q_cur == 1 || q_cur == 2){
-						var t_bdime = dec($('#txtBdime').val())-0.5;
+				$('#btnOrdesImport').click(function() {
+					if (q_cur == 1 || q_cur == 2) {
+						var t_bdime = dec($('#txtBdime').val()) - 0.5;
 						var t_edime = dec($('#txtEdime').val());
-						var t_width = dec($('#txtWidth').val())+11;
+						var t_width = dec($('#txtWidth').val()) + 11;
 						var t_productno = trim($('#txtProductno').val());
-						t_edime = (t_edime==0?999:t_edime);
+						var t_custno = trim($('#txtCustno').val());
+						t_edime = (t_edime == 0 ? 999 : t_edime);
 						var t_where_sql = ' 1=1 ';
-						t_where_sql += q_sqlPara2('dime',t_bdime,t_edime) + q_sqlPara2('width',0,t_width) + q_sqlPara2('productno',t_productno) ;
-						var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
-						t_where += " where[2]=^^ 1=1 ^^"; //cub
-						t_where += " where[3]=^^ 1=1 and a.noa !='"+$('#txtNoa').val()+"' ^^"; //cut
-						t_where += " where[4]=^^ 1=1 ^^"; //ordet
+						t_where_sql += q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('width', 0, t_width) + q_sqlPara2('productno', t_productno);
+						if (!emp(t_custno))
+							t_where_sql += q_sqlPara2('custno', t_custno);
+						var t_where = " where[1]=^^ " + t_where_sql + " ^^";
+						//All
+						t_where += " where[2]=^^ 1=1 ^^";
+						//cub
+						t_where += " where[3]=^^ 1=1 and a.noa !='" + $('#txtNoa').val() + "' ^^";
+						//cut
+						t_where += " where[4]=^^ 1=1 ^^";
+						//ordet
 						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 					}
 				});
 			}
+
 			var w_ret = new Array;
 			function q_boxClose(s2) {///   q_boxClose 2/4
-				var ret;
+				var
+				ret;
 				switch (b_pop) {
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();
 							if (!b_ret || b_ret.length == 0)
 								return;
-	                        for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass'
-									, b_ret.length, b_ret, 'custno,comp,style,radius,width,dime,lengthb,lastmount,lastweight,memo,productno,spec,noa,no2,class', '');
+							for (var i = 0; i < q_bbsCount; i++) {
+								$('#btnMinus_' + i).click();
+							}
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass', b_ret.length, b_ret, 'custno,comp,style,radius,width,dime,lengthb,lastmount,lastweight,memo,productno,spec,noa,no2,class', '');
 							sum();
 							for (var j = 0; j < q_bbsCount; j++) {
 								getTheory(j);
 							}
 							//產生編號
 							var t_noa = trim($('#txtUno').val());
-							if(t_noa.length > 0){
-								var t_where = "where=^^ left(uno,"+t_noa.length+")='"+t_noa+"' ^^";
+							if (t_noa.length > 0) {
+								var t_where = "where=^^ left(uno," + t_noa.length + ")='" + t_noa + "' ^^";
 								w_ret = ret;
 								q_gt('view_uccb', t_where, 0, 0, 0, "view_uccb", r_accy);
 							}
@@ -129,11 +139,13 @@
 				}/// end Switch
 				b_pop = '';
 			}
-			function bbsClear(){
-				for(var i=0;i<q_bbsCount;i++){
-					$('#btnMinus_'+i).click();
+
+			function bbsClear() {
+				for (var i = 0; i < q_bbsCount; i++) {
+					$('#btnMinus_' + i).click();
 				}
 			}
+
 			var StyleList = '';
 			var unoArray = new Array;
 			function q_gtPost(t_name) {
@@ -194,11 +206,11 @@
 						break;
 					case 'view_uccb':
 						var as = _q_appendData("view_uccb", "", true);
-						for(var i=0;i<as.length;i++){
+						for (var i = 0; i < as.length; i++) {
 							unoArray.push(as[i].uno);
 						}
-						for(var i=0;i<w_ret.length;i++){
-							setNewBno(unoArray,w_ret[i]);
+						for (var i = 0; i < w_ret.length; i++) {
+							setNewBno(unoArray, w_ret[i]);
 						}
 						break;
 					default:
@@ -213,19 +225,20 @@
 						break;
 				}  /// end switch
 			}
-			function setNewBno(w_unoArray,idno,IndexNum,IndexEng){
-				var newIndexNum = (dec(IndexNum) > 0?dec(IndexNum)+1:1);
-				var newIndexEng = (dec(IndexEng) > 0?dec(IndexEng):65);
-				if(newIndexNum >9){
-					newIndexEng = dec(newIndexEng)+1;
-					newIndexNum = 1; 
+
+			function setNewBno(w_unoArray, idno, IndexNum, IndexEng) {
+				var newIndexNum = (dec(IndexNum) > 0 ? dec(IndexNum) : 1);
+				var newIndexEng = (dec(IndexEng) > 0 ? dec(IndexEng)+1 : 65);
+				if (newIndexEng >= 91) {
+					newIndexNum = dec(newIndexNum) + 1;
+					newIndexEng = 65;
 				}
-				var newBno = trim($('#txtUno').val())+newIndexNum+String.fromCharCode(newIndexEng);
-				if(w_unoArray.indexOf(newBno) == -1){
-					$('#txtBno_'+idno).val(newBno);
+				var newBno = trim($('#txtUno').val()) + newIndexNum + String.fromCharCode(newIndexEng);
+				if (w_unoArray.indexOf(newBno) == -1) {
+					$('#txtBno_' + idno).val(newBno);
 					unoArray.push(newBno);
-				}else{
-					setNewBno(unoArray,idno,newIndexNum,newIndexEng);
+				} else {
+					setNewBno(unoArray, idno, newIndexNum, newIndexEng);
 				}
 			}
 
@@ -948,7 +961,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1800px;
+                width: 2000px;
             }
             .tbbs a {
                 font-size: medium;
@@ -961,6 +974,12 @@
                 color: red;
             }
             input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
                 font-size: medium;
             }
 
@@ -1069,7 +1088,9 @@
 						<input id="txtEweight" type="text" class="txt num c1" />
 						</td>
 						<td></td>
-						<td><input id="btnOrdesImport" type="button"/></td>
+						<td>
+						<input id="btnOrdesImport" type="button"/>
+						</td>
 					</tr>
 					<tr>
 						<td class='td1'><span> </span><a id="lblGweight" class="lbl" ></a></td>

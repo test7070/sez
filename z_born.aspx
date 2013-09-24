@@ -43,11 +43,7 @@
                 	$('#txtXnoa').val(q_getHref()[1]);
                 if(q_getHref()[3]!=undefined)
                 	$('#txtXnoq').val(q_getHref()[3]);
-                	
-                var t_where = r_accy+ ';' + $('#txtXnoa').val() + ';' + $('#txtXnoq').val() ;
-						
-					var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
-				    q_gtx('z_born1', t_where + ";;" + t_para + ";;z_born;;" + q_getMsg('qTitle'));
+                $('#btnOk').click();
             }
 
             function q_boxClose(s2) {
