@@ -1065,6 +1065,7 @@
 					<td align="center" id="Size"><a id='lblSize_help'> </a>
 					<BR>
 					<a id='lblSize_st'> </a></td>
+					<td align="center" style="width:30px;"><a id='lblUnit'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblWeight_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices_st'></a></td>
@@ -1119,6 +1120,9 @@
 					<input id="txtDime.*" type="text" style="display:none;"/>
 					<input id="txtLengthb.*" type="text" style="display:none;"/>
 					<input id="txtSpec.*" type="text" style="float:left;"/>
+					</td>
+					<td>
+					<input id="txtUnit.*" type="text" class="txt num" style="width:95%;text-align: center;"/>
 					</td>
 					<td>
 					<input id="txtMount.*" type="text" class="txt num" style="width:95%;"/>
