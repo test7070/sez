@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="Content-Language" content="en-us" />
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src="../script/qj2.js" type="text/javascript"></script>
@@ -33,10 +32,10 @@
 				parent.$.fn.colorbox.resize({
 					height : "750px"
 				});
-                $('#btnTop').hide();
-                $('#btnPrev').hide();
-                $('#btnNext').hide();
-                $('#btnBott').hide();
+				$('#btnTop').hide();
+				$('#btnPrev').hide();
+				$('#btnNext').hide();
+				$('#btnBott').hide();
 			}
 
 			function bbsAssign() {
@@ -62,6 +61,11 @@
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
 						}
+						if (abbs[i].lastmount <= 0 || abbs[i].lastweight <= 0) {
+							abbs.splice(i, 1);
+							i--;
+						}
+
 					}
 					maxAbbsCount = abbs.length;
 				}
@@ -77,15 +81,15 @@
 
 		</script>
 		<style type="text/css">
-            .seek_tr {
-                color: white;
-                text-align: center;
-                font-weight: bold;
-                background-color: #76a2fe;
-            }
-            input[type="text"], input[type="button"] {
-                font-size: medium;
-            }
+			.seek_tr {
+				color: white;
+				text-align: center;
+				font-weight: bold;
+				background-color: #76a2fe;
+			}
+			input[type="text"], input[type="button"] {
+				font-size: medium;
+			}
 		</style>
 	</head>
 	<body>
@@ -127,48 +131,48 @@
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;" align="center">
-					<input id="chkSel.*" type="checkbox"/>
+						<input id="chkSel.*" type="checkbox"/>
 					</td>
 					<td style="width:15%;">
-					<input class="txt"  id="txtProductno.*" type="text" style="width:98%;" />
-					<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
+						<input class="txt"  id="txtProductno.*" type="text" style="width:98%;" />
+						<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
 					</td>
 					<td style="width:18%;">
-					<input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
-					<input class="txt" id="txtDime.*" type="text"  style="width:25%;text-align:right;" />
-					x
-					<input class="txt" id="txtWidth.*" type="text"  style="width:25%;text-align:right;" />
-					x
-					<input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" />
+						<input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
+						<input class="txt" id="txtDime.*" type="text"  style="width:25%;text-align:right;" />
+						x
+						<input class="txt" id="txtWidth.*" type="text"  style="width:25%;text-align:right;" />
+						x
+						<input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" />
 					</td>
 					<td style="width:4%;">
-					<input class="txt" id="txtUnit.*" type="text" style="width:94%;"/>
+						<input class="txt" id="txtUnit.*" type="text" style="width:94%;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtLastmount.*" type="text" style="width:94%; text-align:right;"/>
+						<input class="txt" id="txtLastmount.*" type="text" style="width:94%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtLastweight.*" type="text" style="width:96%; text-align:right;"/>
+						<input class="txt" id="txtLastweight.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/>
+						<input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/>
+						<input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:11%;">
-					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>
-					<input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/>
+						<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>
+						<input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/>
+						<input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/>
 					</td>
 					<td>
-					<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
+						<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
 					</td>
 				</tr>
 			</table>
 		</div>
-			<!--#include file="../inc/pop_ctrl.inc"-->
+		<!--#include file="../inc/pop_ctrl.inc"-->
 	</body>
 </html>
