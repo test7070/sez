@@ -202,7 +202,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 100%;
             }
             .tview {
                 margin: 0;
@@ -221,7 +221,7 @@
             }
             .dbbm {
                 float: left;
-                width: 73%;
+                width: 100%;
                 margin: -1px;
                 /*border: 1px black solid;*/
                 border-radius: 5px;
@@ -319,9 +319,10 @@
 				<div class="dview" id="dview">
 					<table class="tview" id="tview">
 						<tr>
-							<td style="width:5%"><a id='vewChk'></a></td>
-							<td style="width:25%"><a id='vewDatea'></a></td>
-							<td style="width:40%"><a id='vewReceiver'></a></td>
+							<td style="width:1%"><a id='vewChk'></a></td>
+							<td style="width:10%"><a id='vewDatea'></a></td>
+							<td style="width:20%"><a id='vewReceiver'></a></td>
+							<td style="width:68%"><a id='vewMessage'></a></td>
 						</tr>
 						<tr>
 							<td>
@@ -329,6 +330,7 @@
 							</td>
 							<td id='datea'>~datea</td>
 							<td id='receiver'>~receiver</td>
+							<td id='message,25'>~message,25</td>
 						</tr>
 					</table>
 				</div>
@@ -342,8 +344,8 @@
 							</td>
 							<td class="td3"><span> </span><a id='lblTime' class="lbl"></a></td>
 							<td class="td4"><input id="txtTime"  type="text" class="txt c1"/></td>
-							<td class="td5"></td>
-							<td class="td6"></td>
+							<td class="td5"><span> </span><a id='lblDays' class="lbl"></a></td>
+							<td class="td6"><input id="txtDays"  type="text" class="txt c1"/></td>
 						</tr>
 						<tr class="tr2">
 							<td class="td1"><span> </span><a id='lblReceiver' class="lbl btn"></a></td>
@@ -357,12 +359,12 @@
 								<textarea id="txtMessage" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea>
 							</td>
 						</tr>
-						<tr class="tr4">
+						<!--<tr class="tr4">
 							<td class="td1"><span> </span><a id='lblOk' class="lbl"></a></td>
 							<td class="td2"><input id="txtOk"  type="text" class="txt c1"/></td>
 							<td class="td3"><span> </span><a id='lblTeam' class="lbl"></a></td>
 							<td class="td4"><input id="txtTeam"  type="text" class="txt c1"/></td>
-						</tr>
+						</tr>-->
 					</table>
 				</div>
 			</div>
