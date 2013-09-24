@@ -24,7 +24,7 @@
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_vccep',
+                    fileName : 'z_vccestp',
                     options : [{
                         type : '0',
                         name : 'accy',
