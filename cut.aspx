@@ -97,6 +97,7 @@
 					}
 				});
 			}
+			var w_ret = new Array;
 			function q_boxClose(s2) {///   q_boxClose 2/4
 				var ret;
 				switch (b_pop) {
@@ -116,6 +117,7 @@
 							var t_noa = trim($('#txtUno').val());
 							if(t_noa.length > 0){
 								var t_where = "where=^^ left(uno,"+t_noa.length+")='"+t_noa+"' ^^";
+								w_ret = ret;
 								q_gt('view_uccb', t_where, 0, 0, 0, "view_uccb", r_accy);
 							}
 						}
@@ -195,8 +197,8 @@
 						for(var i=0;i<as.length;i++){
 							unoArray.push(as[i].uno);
 						}
-						for(var i=0;i<q_bbsCount;i++){
-							setNewBno(unoArray,i);
+						for(var i=0;i<w_ret.length;i++){
+							setNewBno(unoArray,w_ret[i]);
 						}
 						break;
 					default:
@@ -213,11 +215,11 @@
 			}
 			function setNewBno(w_unoArray,idno,IndexNum,IndexEng){
 				var newIndexNum = (dec(IndexNum) > 0?dec(IndexNum)+1:1);
+				var newIndexEng = (dec(IndexEng) > 0?dec(IndexEng):65);
 				if(newIndexNum >9){
-					IndexEng += 1;
-					newIndexNum = 0; 
+					newIndexEng = dec(newIndexEng)+1;
+					newIndexNum = 1; 
 				}
-				var newIndexEng = (dec(IndexEng) > 0?dec(IndexEng)+1:65);
 				var newBno = trim($('#txtUno').val())+newIndexNum+String.fromCharCode(newIndexEng);
 				if(w_unoArray.indexOf(newBno) == -1){
 					$('#txtBno_'+idno).val(newBno);
