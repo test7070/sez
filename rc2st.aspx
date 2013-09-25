@@ -36,7 +36,7 @@
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
 		aPop = new Array(
-			['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype,tel,trantype,zip_fact,addr_fact', 'txtTggno,txtTgg,txtPaytype,txtTel,txtTrantype,txtPost,txtAddr', 'tgg_b.aspx'],
+			['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype,tel,trantype,zip_fact,addr_fact', 'txtTggno,txtTgg,txtPaytype,txtTel,cmbTrantype,txtPost,txtAddr', 'tgg_b.aspx'],
 			['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 			['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
@@ -113,8 +113,8 @@
 							return;
 						var i, j = 0;
 						$('#txtOrdeno').val(b_ret[0].noa);
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtUno,txtClass,txtStyle', b_ret.length, b_ret
-														, 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo,uno,class,style'
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtClass,txtStyle,txtUnit', b_ret.length, b_ret
+														, 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo,class,style,unit'
 														, 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
 						size_change();

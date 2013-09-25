@@ -169,7 +169,7 @@
                             ///  q_box() 執行後，選取的資料
                             if (!b_ret || b_ret.length == 0)
                                 return;
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtStyle,txtClass,txtUno,txtMount', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,style,class,uno,mount', 'txtProductno,txtProduct,txtSpec');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtStyle,txtClass,txtUno,txtMount,txtWeight', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,style,class,uno,lastmount,lastweight', 'txtProductno,txtProduct,txtSpec');
                             /// 最後 aEmpField 不可以有【數字欄位】
                         }
                         for (var i = 0; i < ret.length; i++) {
@@ -220,16 +220,20 @@
 
             function btnOrdes() {
                 var t_custno = trim($('#txtCustno').val());
-                var t_where = '';
+                var t_where_sql = '';
                 if (t_custno.length > 0) {
-                    t_where = "enda='0' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
+                    t_where_sql = "enda='0' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
                     ////  sql AND 語法，請用 &&
-                    t_where = t_where;
+                    t_where_sql = t_where_sql;
                 } else {
                     alert(q_getMsg('msgCustEmp'));
                     return;
                 }
-                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
+				var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
+				t_where += " where[2]=^^ 1=1 ^^"; //cub
+				t_where += " where[3]=^^ 1=1 ^^"; //cut
+				t_where += " where[4]=^^ 1=1 ^^"; //ordet
+                q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
             }/// q_box()  開 視窗
 
             function btnOk() {
