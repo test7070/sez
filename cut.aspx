@@ -318,8 +318,8 @@
 						alert("表身有重量,日期為空");
 						return;
 					}
-					if (dec($('#txtWeight_' + j).val()) > 0 && emp($('#txtWidth_' + j).val())) {
-						alert("表身重量或寬度小於零");
+					if (dec($('#txtWeight_' + j).()) > 0 && emp($('#txtWidth_' + j).val())) {
+						alert("表身重量或寬度小於val零");
 						return;
 					}
 					if ($('#cmbTypea').find("option:selected").text().indexOf('委') > -1 && $('#txtWaste_' + j).val() >= 'X') {
