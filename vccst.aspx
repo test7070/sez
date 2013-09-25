@@ -428,7 +428,9 @@
                 var t_mount = 0, t_price = 0, t_money = 0, t_weight = 0, t_total = 0, t_tax = 0;
                 var t_mounts = 0, t_prices = 0, t_moneys = 0, t_weights = 0;
                 var t_float = q_float('txtFloata');
+                var t_unit = '';
                 for (var j = 0; j < q_bbsCount; j++) {
+	                t_unit = trim($('#txtUnit_'+j).val()).toUpperCase();
                     //---------------------------------------
                     if ($('#cmbKind').val().substr(0, 1) == 'A') {
                         q_tr('txtDime_' + j, q_float('textSize1_' +j));
@@ -448,7 +450,7 @@
                     t_weights = q_float('txtWeight_' + j);
                     t_prices = q_float('txtPrice_' + j);
                     t_mounts = q_float('txtMount_' + j);
-                    t_moneys = t_prices.mul(t_mounts).round(0);
+                    t_moneys = t_prices.mul((t_unit == ' KG'?t_weights:t_mounts)).round(0);
 
                     t_weight = t_weight.add(t_weights);
                     t_mount = t_mount.add(t_mounts);
