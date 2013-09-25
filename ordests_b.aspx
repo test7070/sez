@@ -9,7 +9,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'view_ordes', t_bbsTag = 'tbbs', t_content = " field=accy,noa,no2,productno,product,sizea,unit,price,weight,memo,mount,total,datea,cancel,type,custno,indate,enda,c2,notv2,odate,spec,no3,quatno,size,dime,width,lengthb,c1,notv,style,uno,source,classa,issale,slit,iscut,theory,apv,radius,gweight,class,comp,cust,mechno,mech,tdmount,kind,cub_ordeno,cub_no2,cub_mount,cub_weight,cut_ordeno,cut_no2,cut_mount,cut_weight,ordet_ordeno,ordet_no3,ordet_mount,ordet_weight,lastmount,lastweight", afilter = [], bbsKey = ['noa'], as;
+			var q_name = 'view_ordes', t_bbsTag = 'tbbs', t_content = " field=accy,noa,no2,productno,product,sizea,unit,price,weight,memo,mount,total,datea,cancel,type,custno,indate,enda,c2,notv2,odate,spec,no3,quatno,size,dime,width,lengthb,c1,notv,style,uno,source,classa,issale,slit,iscut,theory,apv,radius,gweight,class,comp,cust,mechno,mech,tdmount,kind", afilter = [], bbsKey = ['noa'], as;
 			//, t_where = '';
 			var t_sqlname = 'ordests_load';
 			t_postname = q_name;
@@ -54,19 +54,13 @@
 				var w = window.parent;
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
-						abbs[i].uno = (!emp(abbs[i].cub_uno) ? abbs[i].cub_uno : (!emp(abbs[i].cut_uno) ? abbs[i].cut_uno : (!emp(abbs[i].ordet_uno) ? abbs[i].ordet_uno : '')));
-						
-						if(w.q_name == 'vcc'){
-							abbs[i].lastmount = abbs[i].mount;
-							abbs[i].lastweight = abbs[i].weight;
-						}
 						for (var j = 0; j < w.q_bbsCount; j++) {
 							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
 								abbs[i]['sel'] = "true";
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
 						}
-						if (abbs[i].lastmount <= 0 || abbs[i].lastweight <= 0) {
+						if (abbs[i].mount <= 0 || abbs[i].weight <= 0) {
 							abbs.splice(i, 1);
 							i--;
 						}
@@ -163,10 +157,10 @@
 						<input class="txt" id="txtSpec.*" type="text"  style="width:94%;text-align:center;" />
 					</td>
 					<td style="width:8%;">
-						<input class="txt" id="txtLastmount.*" type="text" style="width:94%; text-align:right;"/>
+						<input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
-						<input class="txt" id="txtLastweight.*" type="text" style="width:96%; text-align:right;"/>
+						<input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
 						<input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/>

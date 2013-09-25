@@ -71,14 +71,10 @@
 
                 $('#btnOrdeimport').click(function() {
                     var ordeno = $('#txtOrdeno').val();
-                    var t_where_sql = 'enda = 0 ';
+                    var t_where = 'enda = 0 ';
                     if (ordeno.length > 0) {
-                        t_where_sql += " and noa='" + ordeno + "'";
+                        t_where += " and noa='" + ordeno + "'";
                     }
-					var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
-					t_where += " where[2]=^^ 1=1 ^^"; //cub
-					t_where += " where[3]=^^ 1=1 ^^"; //cut
-					t_where += " where[4]=^^ 1=1 ^^"; //ordet
 					q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnVcceImport').click(function() {
@@ -126,7 +122,7 @@
                                 return;
 							for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtOrdeno,txtNo2,txtProductno,txtClass,txtStyle,txtProduct,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
-                            												'uno,noa,no2,productno,class,style,product,radius,dime,width,lengthb,spec,lastweight,lastmount,price', 'txtProductno');
+                            												'uno,noa,no2,productno,class,style,product,radius,dime,width,lengthb,spec,weight,mount,price', 'txtProductno');
                             /// 最後 aEmpField 不可以有【數字欄位】
                         }
                         sum();

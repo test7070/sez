@@ -60,11 +60,7 @@
 				q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				$('#btnOrde').click(function() {
-					var t_where_sql=' 1=1 ';
-					var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
-					t_where += " where[2]=^^ 1=1 ^^"; //cub
-					t_where += " where[3]=^^ 1=1 ^^"; //cut
-					t_where += " where[4]=^^ 1=1 ^^"; //ordet
+					var t_where=' 1=1 ';
 					q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 				});
 				$('#cmbPaytype').change(function() {
@@ -92,7 +88,7 @@
 							if (!b_ret || b_ret.length == 0)
 								return;
 	                        for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret, 'uno,style,class,productno,product,unit,lastmount,lastweight,price,noa,no2,radius,dime,width,lengthb,spec', 'txtOrdeno,txtNo2');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret, 'uno,style,class,productno,product,unit,mount,weight,price,noa,no2,radius,dime,width,lengthb,spec', 'txtOrdeno,txtNo2');
 							/// 最後 aEmpField 不可以有【數字欄位】
 							sum();
 							for(var i=0;i<ret.length;i++){

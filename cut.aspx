@@ -88,18 +88,10 @@
 						var t_productno = trim($('#txtProductno').val());
 						var t_custno = trim($('#txtCustno').val());
 						t_edime = (t_edime == 0 ? 999 : t_edime);
-						var t_where_sql = ' 1=1 ';
-						t_where_sql += q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('width', 0, t_width) + q_sqlPara2('productno', t_productno);
+						var t_where = ' 1=1 ';
+						t_where += q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('width', 0, t_width) + q_sqlPara2('productno', t_productno);
 						if (!emp(t_custno))
-							t_where_sql += q_sqlPara2('custno', t_custno);
-						var t_where = " where[1]=^^ " + t_where_sql + " ^^";
-						//All
-						t_where += " where[2]=^^ 1=1 ^^";
-						//cub
-						t_where += " where[3]=^^ 1=1 and a.noa !='" + $('#txtNoa').val() + "' ^^";
-						//cut
-						t_where += " where[4]=^^ 1=1 ^^";
-						//ordet
+							t_where += q_sqlPara2('custno', t_custno);
 						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 					}
 				});
@@ -118,7 +110,7 @@
 							for (var i = 0; i < q_bbsCount; i++) {
 								$('#btnMinus_' + i).click();
 							}
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass', b_ret.length, b_ret, 'custno,comp,style,radius,width,dime,lengthb,lastmount,lastweight,memo,productno,spec,noa,no2,class', '');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass', b_ret.length, b_ret, 'custno,comp,style,radius,width,dime,lengthb,mount,weight,memo,productno,spec,noa,no2,class', '');
 							sum();
 							for (var j = 0; j < q_bbsCount; j++) {
 								getTheory(j);
@@ -227,11 +219,11 @@
 			}
 
 			function setNewBno(w_unoArray, idno, IndexNum, IndexEng) {
-				var newIndexNum = (dec(IndexNum) > 0 ? dec(IndexNum) : 1);
-				var newIndexEng = (dec(IndexEng) > 0 ? dec(IndexEng)+1 : 65);
-				if (newIndexEng >= 91) {
-					newIndexNum = dec(newIndexNum) + 1;
-					newIndexEng = 65;
+				var newIndexNum = (dec(IndexNum) > 0 ? dec(IndexNum)+1 : 1);
+				var newIndexEng = (dec(IndexEng) > 0 ? dec(IndexEng) : 65);
+				if (newIndexNum > 9) {
+					newIndexNum = 1;
+					newIndexEng = dec(IndexEng)+1;
 				}
 				var newBno = trim($('#txtUno').val()) + newIndexNum + String.fromCharCode(newIndexEng);
 				if (w_unoArray.indexOf(newBno) == -1) {
@@ -326,8 +318,8 @@
 						alert("表身有重量,日期為空");
 						return;
 					}
-					if (dec($('#txtWeight_' + j).val()) > 0 && emp($('#txtWidth_' + j).val())) {
-						alert("表身重量或寬度小於零");
+					if (dec($('#txtWeight_' + j).()) > 0 && emp($('#txtWidth_' + j).val())) {
+						alert("表身重量或寬度小於val零");
 						return;
 					}
 					if ($('#cmbTypea').find("option:selected").text().indexOf('委') > -1 && $('#txtWaste_' + j).val() >= 'X') {
