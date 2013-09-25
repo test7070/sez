@@ -130,9 +130,16 @@
 					case 'workg_orde':
 						var as = _q_appendData("view_ordes", "", true);
 						if(as[0]!=undefined){
+							//清空bbs資料
+							if(q_cur==1){
+								for (var i = 0; i < q_bbsCount; i++) {
+									$('#btnMinus_'+i).click();
+								}
+							}
+							//計算
 							for ( var i = 0; i < as.length; i++) {
 								var t_mount=0;
-								t_mount=dec(as[i].unmount)+dec(as[i].ordemount)+dec(as[i].planmount)-dec(as[i].stkmount)-dec(as[i].inmount)-dec(as[i].purmount)
+								t_mount=dec(as[i].unmount)+dec(as[i].ordemount)+dec(as[i].planmount)-dec(as[i].stkmount)//-dec(as[i].inmount)-dec(as[i].purmount)
 								as[i].availmount=-1*t_mount;
 								
 								if(t_mount<0) t_mount=0;
@@ -157,6 +164,8 @@
 							q_gridAddRow(bbsHtm, 'tbbs'
 							, 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtDworkdate,txtOrdeno', as.length, as,
 							'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,rworkdate,ordeno','txtProductno');
+						}else{
+							alert('無訂單資料!!。');
 						}
 					break;
 					case q_name:
@@ -621,9 +630,9 @@
 						<td style="width:100px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
+						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblIntmount_s'> </a></td>
  						<td style="width:80px;"><a id='lblPurmount_s'> </a></td>
-						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
 						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
 						<td style="width:100px;"><a id='lblMount_s'> </a></td>
@@ -648,9 +657,9 @@
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtAvailmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtIntmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPurmount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtAvailmount.*" type="text" class="txt c1 num"/></td>
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
