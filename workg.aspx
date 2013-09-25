@@ -465,7 +465,7 @@
                 float: left;
             }
             .txt.c2 {
-                width: 45%;
+                width: 47.5%;
                 float: left;
             }
             .txt.c3 {
@@ -554,10 +554,10 @@
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview" >
 					<tr>
-						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:80px; color:black;"><a id='vewNoa'> </a></td>
-						<td style="width:80px; color:black;"><a id='vewProduct'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewRang'> </a></td>
+						<td style="width:1%; color:black;"><a id='vewChk'> </a></td>
+						<td style="width:24%; color:black;"><a id='vewNoa'> </a></td>
+						<td style="width:38%; color:black;"><a id='vewProduct'> </a></td>
+						<td style="width:37%; color:black;"><a id='vewRang'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -616,7 +616,7 @@
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:120px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:200px;"><a id='lblProduct_s'> </a></td>
-						<td style="width:80px;"><a id='lblRank_s'> </a></td>
+						<td style="width:50px;"><a id='lblRank_s'> </a></td>
 						<td style="width:80px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
@@ -642,7 +642,7 @@
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
-						<td><input id="txtRank.*" type="text" class="txt c1"/></td>
+						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
@@ -671,7 +671,7 @@
 					<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 					</td>
 					<td style="width:20px;"> </td>
-					<td style="width:180px; text-align: center;"><a id='lblOrdeno_t'> </a></td>
+					<td style="width:160px; text-align: center;"><a id='lblOrdeno_t'> </a></td>
 					<td style="width:40px; text-align: center;"><a id='lblNo2_t'> </a></td>
 					<td style="width:120px; text-align: center;"><a id='lblProductno_t'> </a></td>
 					<td style="width:180px; text-align: center;"><a id='lblProduct_t'> </a></td>

@@ -32,7 +32,17 @@
                     },{
                         type : '6',
                         name : 'xdate'
+                    }, {
+						type : '2',
+						name : 'product',
+						dbf : 'uca',
+						index : 'noa,product',
+						src : 'uca_b.aspx'
                     },{
+						type : '5',
+						name : 'monweek',
+						value : ('1@週期,2@月份').split(',')
+					},{
 						type : '8',
 						name : 'isorders',
 						value : ('顯示訂單明細').split(',')
@@ -46,7 +56,7 @@
 				}*/
 				$('#txtXdate').datepicker();
 				$('#txtXdate').mask('999/99/99');
-				$('#txtXdate').val(q_date());
+				//$('#txtXdate').val(q_date());
 			}
 
             function q_boxClose(s2) {
