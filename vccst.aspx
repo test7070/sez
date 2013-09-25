@@ -857,7 +857,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1800px;
+                width: 1460px;
             }
             .tbbs a {
                 font-size: medium;
@@ -880,7 +880,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id="dmain">
+		<div id="dmain" style="width:1050px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
@@ -1071,7 +1071,7 @@
 					<td align="center" style="width:80px;"><a id='lblMount_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblWeight_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices_st'></a></td>
-					<td align="center" style="width:80px;"><a id='lblTotals_st'></a></td>
+					<td align="center" style="width:80px;">合計<br>理論重</td>
 					<td align="center" style="width:80px;"><a id='lblGweight_st'></a></td>
 					<td align="center" style="width:60px;">寄Y
 					<BR>
@@ -1087,13 +1087,14 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-					<input class="btn" id="btnUno.*" type="button" value='.' style="width:5%;"/>
-					<input id="txtUno.*" type="text" style="width:80%;"/>
+					<input class="btn" id="btnUno.*" type="button" value='.' style="width:15px;"/>
+					<input id="txtUno.*" type="text" style="width:110px;"/>
 					</td>
 					<td>
-					<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-					<input  id="txtProductno.*" type="text" style="width:83%;" />
-					<input id="txtClass.*" type="text" style='width: 83%;'/>
+					<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:15px;float:left;" />
+					<input  id="txtProductno.*" type="text" style="width:85px;" />
+					<span style="display:block;width:15px;"> </span>
+					<input id="txtClass.*" type="text" style='width: 85px;'/>
 					</td>
 					<td>
 					<input type="text" id="txtStyle.*" style="width:90%;text-align:center;" />
@@ -1103,19 +1104,19 @@
 					</td>
 					<!--<td><input class="txt c1" id="txtSpec.*" type="text"/></td>-->
 					<td>
-					<input class="txt num" id="textSize1.*" type="text" style="float: left;width:60px;" disabled="disabled"/>
+					<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
 					<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >
 						x
 					</div>
-					<input class="txt num" id="textSize2.*" type="text" style="float: left;width:60px;"  disabled="disabled"/>
+					<input class="txt num" id="textSize2.*" type="text" style="float: left;width:55px;"  disabled="disabled"/>
 					<div id="x2.*" style="float: left;display:block;width:20px;padding-top: 4px;">
 						x
 					</div>
-					<input class="txt num" id="textSize3.*" type="text" style="float: left;width:60px;" disabled="disabled"/>
+					<input class="txt num" id="textSize3.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
 					<div id="x3.*" style="float: left;display:block;width:20px;padding-top: 4px;">
 						x
 					</div>
-					<input class="txt num" id="textSize4.*" type="text"  style="float: left;width:60px;" disabled="disabled"/>
+					<input class="txt num" id="textSize4.*" type="text"  style="float: left;width:55px;" disabled="disabled"/>
 					<!--上為虛擬下為實際-->
 					<input id="txtRadius.*" type="text" style="display:none;"/>
 					<input id="txtWidth.*" type="text" style="display:none;"/>
@@ -1152,8 +1153,8 @@
 					</td>
 					<td>
 					<input id="txtMemo.*" type="text" class="txt" style="width:95%;"/>
-					<input id="txtOrdeno.*" type="text" style="width:65%;" />
-					<input id="txtNo2.*" type="text" style="width:25%;" />
+					<input id="txtOrdeno.*" type="text" style="width:80px;" />
+					<input id="txtNo2.*" type="text" style="width:20px;" />
 					<input id="recno.*" type="hidden" />
 					</td>
 					<td>
