@@ -65,21 +65,24 @@
                     }, {/*2  [4][5]*/
                         type : '1',
                         name : 'xtrandate'
-                    }, {/*3 [6]*/
-                        type : '6',
-                        name : 'xcustno'
-                    }, {/*4 [7]*/
+                    }, {/*3  [6][7]*/
+                            type : '2',
+                            name : 'xcustno',
+                            dbf : 'cust',
+                            index : 'noa,comp',
+                            src : 'cust_b.aspx'
+                     }, {/*4 [8]*/
                         type : '6',
                         name : 'xcarno'
-                    }, {/*5-[8]-車隊*/
+                    }, {/*5-[9]-車隊*/
                         type : '8',
                         name : 'xcarteam',
                         value : t_carteam.split(',')
-                    }, {/*6-[9]-計算類別*/
+                    }, {/*6-[10]-計算類別*/
                         type : '8',
                         name : 'xcalctype',
                         value : t_calctypes.split(',')
-                    }, {/*7 [10]*/
+                    }, {/*7 [11]*/
                         type : '6',
                         name : 'xnoa'
                     }]
