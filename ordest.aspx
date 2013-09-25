@@ -49,10 +49,9 @@
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'no2'];
 				bbtKey = ['noa', 'no2'];
-				$('#dbbt').hide();
-				$('#btnBBTShow').click(function() {
+				/*$('#btnBBTShow').click(function() {
 					$('#dbbt').toggle();
-				});
+				});*/
 
 				q_brwCount();
 				// 計算 合適  brwCount
@@ -397,7 +396,6 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#cmbKind').val(q_getPara('vcc.kind'));
 				size_change();
-				$('#dbbt').hide();
 				$('#txtOdate').val(q_date());
 				$('#txtOdate').focus();
 			}
@@ -407,7 +405,6 @@
 					return;
 				_btnModi();
 				size_change();
-				$('#dbbt').hide();
 				$('#txtOdate').focus();
 			}
 
@@ -426,7 +423,6 @@
 					xmlSql = q_preXml();
 
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-				$('#dbbt').hide();
 			}
 
 			function bbtSave(as) {
@@ -561,12 +557,6 @@
 			///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
 			function refresh(recno) {
 				_refresh(recno);
-				for(var i=0;i<q_bbtCount;i++){
-					if($.trim($('#txtUno__'+i).val()).length>0){
-						$('#dbbt').show();
-						break;
-					}
-				}
 				if ($('#cmbStype').find("option:selected").text() == '外銷')
 					$('#btnOrdei').show();
 				else
@@ -694,7 +684,6 @@
 
 			function btnCancel() {
 				_btnCancel();
-				$('#dbbt').hide();
 			}
 
 			function size_change() {
@@ -1082,7 +1071,7 @@
 						<input id="txtAddr2"  type="text" class="txt c1" />
 						</td>
 						<td align="center" colspan="2">
-						<input id="btnBBTShow" type="button" />
+						<input id="btnBBTShow" type="button" STYLE="display: none;" />
 						<input id="btnOrdem" type="button"/>
 						</td>
 					</tr>
