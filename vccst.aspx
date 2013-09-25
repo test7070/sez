@@ -169,7 +169,7 @@
                             ///  q_box() 執行後，選取的資料
                             if (!b_ret || b_ret.length == 0)
                                 return;
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtStyle,txtClass,txtUno,txtMount', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,style,class,uno,mount', 'txtProductno,txtProduct,txtSpec');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtStyle,txtClass,txtUno,txtMount,txtWeight', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,style,class,uno,lastmount,lastweight', 'txtProductno,txtProduct,txtSpec');
                             /// 最後 aEmpField 不可以有【數字欄位】
                         }
                         for (var i = 0; i < ret.length; i++) {
@@ -220,16 +220,20 @@
 
             function btnOrdes() {
                 var t_custno = trim($('#txtCustno').val());
-                var t_where = '';
+                var t_where_sql = '';
                 if (t_custno.length > 0) {
-                    t_where = "enda='0' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
+                    t_where_sql = "enda='0' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
                     ////  sql AND 語法，請用 &&
-                    t_where = t_where;
+                    t_where_sql = t_where_sql;
                 } else {
                     alert(q_getMsg('msgCustEmp'));
                     return;
                 }
-                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
+				var t_where = " where[1]=^^ "+t_where_sql+" ^^"; //All
+				t_where += " where[2]=^^ 1=1 ^^"; //cub
+				t_where += " where[3]=^^ 1=1 ^^"; //cut
+				t_where += " where[4]=^^ 1=1 ^^"; //ordet
+                q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
             }/// q_box()  開 視窗
 
             function btnOk() {
@@ -428,7 +432,9 @@
                 var t_mount = 0, t_price = 0, t_money = 0, t_weight = 0, t_total = 0, t_tax = 0;
                 var t_mounts = 0, t_prices = 0, t_moneys = 0, t_weights = 0;
                 var t_float = q_float('txtFloata');
+                var t_unit = '';
                 for (var j = 0; j < q_bbsCount; j++) {
+	                t_unit = trim($('#txtUnit_'+j).val()).toUpperCase();
                     //---------------------------------------
                     if ($('#cmbKind').val().substr(0, 1) == 'A') {
                         q_tr('txtDime_' + j, q_float('textSize1_' +j));
@@ -448,7 +454,7 @@
                     t_weights = q_float('txtWeight_' + j);
                     t_prices = q_float('txtPrice_' + j);
                     t_mounts = q_float('txtMount_' + j);
-                    t_moneys = t_prices.mul(t_mounts).round(0);
+                    t_moneys = t_prices.mul((t_unit == 'KG'?t_weights:t_mounts)).round(0);
 
                     t_weight = t_weight.add(t_weights);
                     t_mount = t_mount.add(t_mounts);
@@ -1065,6 +1071,7 @@
 					<td align="center" id="Size"><a id='lblSize_help'> </a>
 					<BR>
 					<a id='lblSize_st'> </a></td>
+					<td align="center" style="width:30px;"><a id='lblUnit'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblWeight_st'></a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices_st'></a></td>
@@ -1119,6 +1126,9 @@
 					<input id="txtDime.*" type="text" style="display:none;"/>
 					<input id="txtLengthb.*" type="text" style="display:none;"/>
 					<input id="txtSpec.*" type="text" style="float:left;"/>
+					</td>
+					<td>
+					<input id="txtUnit.*" type="text" class="txt num" style="width:95%;text-align: center;"/>
 					</td>
 					<td>
 					<input id="txtMount.*" type="text" class="txt num" style="width:95%;"/>

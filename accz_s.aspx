@@ -13,7 +13,7 @@
 <script type="text/javascript">
     var q_name = "accz_s";
         aPop = new Array(
-        	['txtNoa', '', 'acc', 'acc1,acc2', 'txtNoa,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        	['txtNoa', '', 'acc', 'acc1,acc2', 'txtNoa', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
         	['txtDepl_ac', '', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
         );
     $(document).ready(function () {

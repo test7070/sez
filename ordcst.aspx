@@ -594,7 +594,7 @@
 				color: #FF8F19;
 			}
 			.txt.c1 {
-				width: 98%;
+				width: 95%;
 				float: left;
 			}
 			.txt.c2 {
@@ -787,6 +787,7 @@
 				<!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
 				<td align="center" id='Size'><a id='lblSize_help'> </a><BR><a id='lblSize_st'> </a></td>
 				<td align="center" style="width:8%"><a id='lblSizea_st'> </a></td>
+				<td align="center" style="width:50px"><a id='lblUnit'> </a></td>
 				<td align="center" style="width:6%"><a id='lblMount_st'> </a></td>
 				<td align="center" style="width:6%"><a id='lblWeights_st'> </a></td>
 				<td align="center" style="width:6%"><a id='lblPrices_st'> </a></td>
@@ -822,6 +823,7 @@
 						<input  id="txtSpec.*" type="text"  class="txt c1"/>
 				</td>
 				<td><input id="txtSize.*" type="text" class="txt c1" /></td>
+				<td><input id="txtUnit.*" type="text" class="txt c1" /></td>
 				<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 				<td><input id="txtWeight.*" type="text" class="txt num c1" /></td>
 				<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
