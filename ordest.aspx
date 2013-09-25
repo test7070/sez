@@ -1275,8 +1275,7 @@
 		<div id="dbbt">
 			<table id="tbbt" class='tbbt'  border="2"  cellpadding='2' cellspacing='1'>
 				<tr style='color:white; background:#003366;' >
-					<input class="txt c1"  id="txtNoa..*" type="hidden"  />
-					<input id="txtNoq..*" type="hidden" />
+					<input class="txt c1"  id="txtNoa..*" type="hidden"  />			
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlut" type="button" value='+' style="font-weight: bold;"  />
 					</td>
@@ -1332,6 +1331,7 @@
 					</td>
 					<td class="td11">
 					<input class="txt" id="txtNo3..*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtNo2..*" type="text" style="display:none;"  />
 					</td>
 				</tr>
 			</table>
