@@ -255,14 +255,14 @@
             		$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
             		break;
             	case 'workg_orde':
-            		var t_oedemount=0,t_planmount=0,t_intmount=0;
+            		var t_ordemount=0,t_planmount=0,t_intmount=0;
             		var as  = _q_appendData("view_ordes", "", true);
             		if(as[0]!=undefined){
-            			 t_oedemount=dec(as[0].oedemount);
+            			 t_ordemount=dec(as[0].ordemount);
             			 t_planmount=dec(as[0].planmount);
             			 t_intmount=dec(as[0].inmount)+dec(as[0].purmount);
             		}
-            		$('#textOrdemount').val(t_oedemount);//訂單
+            		$('#textOrdemount').val(t_ordemount);//訂單
             		$('#textPlanmount').val(t_planmount);//計畫
             		$('#textIntmount').val(t_intmount);//在途
             		//可用庫存=庫存+在途-訂單(+計畫??)
@@ -675,7 +675,8 @@
 			var t_where1 = "where[1]=^^a.productno='"+$('#txtNoa').val()+"' and a.enda!='1' group by productno ^^";
 			var t_where2 = "where[2]=^^1=0^^";	
 			var t_where3 ="where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
-			q_gt('workg_orde', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+			var t_where4 ="where[4]=^^ 1=0 ^^"
+			q_gt('workg_orde', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);
             //format();
         }
 
