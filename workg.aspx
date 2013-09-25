@@ -82,7 +82,8 @@
 								               				
 	               			var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,(select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')))=0 ^^";
 	               			var t_where3 ="where[3]=^^ (c.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
-							q_gt('workg_orde', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+	               			var t_where4 ="where[4]=^^ (c.datea < '"+$('#txtBdate').val()+"' and c.datea >= '"+q_date()+"') and c.productno=a.productno and c.enda!='1' ^^"
+							q_gt('workg_orde', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);
 						}/*else if(!emp($('#txtMon').val())){
 	               			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";
 	               			if(!emp($('#txtProductno').val()))
@@ -131,7 +132,7 @@
 						if(as[0]!=undefined){
 							for ( var i = 0; i < as.length; i++) {
 								var t_mount=0;
-								t_mount=dec(as[i].oedemount)+dec(as[i].planmount)-dec(as[i].stkmount)-dec(as[i].inmount)-dec(as[i].purmount)
+								t_mount=dec(as[i].unmount)+dec(as[i].ordemount)+dec(as[i].planmount)-dec(as[i].stkmount)-dec(as[i].inmount)-dec(as[i].purmount)
 								as[i].availmount=-1*t_mount;
 								
 								if(t_mount<0) t_mount=0;
@@ -154,8 +155,8 @@
 								as[i].ordeno=as[i].ordeno.substr(0,as[i].ordeno.length-1);
 							}
 							q_gridAddRow(bbsHtm, 'tbbs'
-							, 'txtRworkdate,txtProductno,txtProduct,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtDworkdate,txtOrdeno', as.length, as,
-							'rworkdate,productno,product,oedemount,planmount,stkmount,inmount,purmount,availmount,bornmount,rworkdate,ordeno','txtProductno');
+							, 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtDworkdate,txtOrdeno', as.length, as,
+							'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,rworkdate,ordeno','txtProductno');
 						}
 					break;
 					case q_name:
@@ -616,14 +617,15 @@
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:120px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:200px;"><a id='lblProduct_s'> </a></td>
-						<td style="width:80px;"><a id='lblOrdemount_s'> </a></td>
+						<td style="width:100px;"><a id='lblUnmount_s'> </a></td>
+						<td style="width:100px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblIntmount_s'> </a></td>
  						<td style="width:80px;"><a id='lblPurmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
-						<td style="width:110px;"><a id='lblSalemount_s'> </a></td>
+						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
 						<td style="width:100px;"><a id='lblMount_s'> </a></td>
 						<td style="width:80px;"><a id='lblDworkdate_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
@@ -631,7 +633,7 @@
 						<td style="width:80px;"><a id='lblIndate_s'> </a></td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblWmount_s'> </a></td>
-						<td style="width:300px;"><a id='lblMemo_s'> </a></td>
+						<td><a id='lblMemo_s'> </a></td>
 						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
@@ -642,6 +644,7 @@
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+						<td><input id="txtUnmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
