@@ -170,7 +170,7 @@
 
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if (s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_vcce') + $('#txtDatea').val(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -874,6 +874,7 @@
 
 					<td >
 					<input class="txt c1" id="txtMemo.*" type="text" />
+					<input class="txt c1" id="txtNoq.*" type="hidden" />
 					</td>
 				</tr>
 			</table>

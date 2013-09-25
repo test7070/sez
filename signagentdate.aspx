@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -26,8 +25,8 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+			q_gt(q_name, q_content, q_sqlCount, 1);
+            $('#txtNoa').focus();
         });
 
         //////////////////   end Ready
@@ -47,6 +46,10 @@
         	var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
 			q_gt('signagent', t_where, 0, 0, 0, "");
 			$('#txtCheckerno').change(function() {
+        		var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+				q_gt('signagent', t_where, 0, 0, 0, "");
+			});
+			$('#txtCheckerno').focusout(function() {
         		var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
 				q_gt('signagent', t_where, 0, 0, 0, "");
 			});
@@ -122,15 +125,6 @@
             q_box('signagentdate_s.aspx', q_name + '_s', "500px", "380px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
         	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
@@ -188,7 +182,13 @@
 			var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
 			q_gt('signagent', t_where, 0, 0, 0, "");
         }
-
+		function q_popPost(s1) {
+			switch (s1) {
+				case 'txtCheckerno':
+					$('#txtCheckerno').focusout();
+					break;
+			}
+		}
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
         }
@@ -405,13 +405,11 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:15%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:15%"><a id='vewPart'></a></td>
-                <td align="center" style="width:10%"><a id='vewChecker'></a></td>
+                <td align="center" style="width:15%"><a id='vewChecker'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='part'>~part</td>
                    <td align="center" id='checker'>~checker</td>
             </tr>
         </table>
