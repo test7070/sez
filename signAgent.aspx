@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -30,8 +29,8 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+			q_gt(q_name, q_content, q_sqlCount, 1);
+            $('#txtNoa').focus();
         });
 
         //////////////////   end Ready
@@ -47,8 +46,7 @@
 
         function mainPost() { 
            q_mask(bbmMask);
-
-            }
+		}
 
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -72,20 +70,6 @@
         function q_boxClose( s2) { 
             var ret; 
             switch (b_pop) {  
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -95,16 +79,8 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss': 
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -112,17 +88,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-
             q_box('signagent_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
-        }
-
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
         }
 
         function btnIns() {
@@ -335,13 +301,11 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:10%"><a id='vewPart'></a></td>
                 <td align="center" style="width:15%"><a id='vewChecker'></a></td>
-                <td align="center" style="width:10%"><a id='vewAgent'></a></td>
+                <td align="center" style="width:15%"><a id='vewAgent'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='part'>~part</td>
                    <td align="center" id='checker'>~checker</td>
                    <td align="center" id='agent'>~agent</td>
             </tr>

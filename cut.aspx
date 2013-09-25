@@ -694,10 +694,13 @@
 				t_Mount = dec($('#txtMount_' + b_seq).val());
 				t_Style = $('#txtStyle_' + b_seq).val();
 				t_spec = $('#txtSpec_' + b_seq).val();
+				t_Divide = dec($('#txtDivide_'+b_seq).val());
+				if(dec(t_Divide)==0)
+					t_Divide = 1;
 				if ($('#cmbKind').val().substr(1, 1) == '4') {//鋼胚
 					q_tr('txtTheory_' + b_seq, round(t_Mount * theory_bi(t_spec, $('#txtSpec_' + b_seq).val(), t_Dime, t_Width, t_Lengthb), 0));
 				} else {
-					q_tr('txtTheory_' + b_seq, theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+					q_tr('txtTheory_' + b_seq, theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style)/t_Divide);
 				}
 				if (dec($('#txtRadius_' + b_seq).val()) != 0) {
 					$('#txtWeight_' + b_seq).val($('#txtTheory_' + b_seq).val());
