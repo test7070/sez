@@ -874,6 +874,7 @@
 
 					<td >
 					<input class="txt c1" id="txtMemo.*" type="text" />
+					<input class="txt c1" id="txtNoq.*" type="hidden" />
 					</td>
 				</tr>
 			</table>

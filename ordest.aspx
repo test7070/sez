@@ -167,8 +167,7 @@
 			}
 
 			function q_boxClose(s2) {///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
-				var
-				ret;
+				var ret;
 				switch (b_pop) {/// 重要：不可以直接 return ，最後需執行 originalClose();
 					case 'quats':
 						if (q_cur > 0 && q_cur < 4) {
@@ -191,7 +190,7 @@
 							for (var j = 0; j < b_ret.length; j++) {
 								for (var i = 0; i < q_bbtCount; i++) {
 									var t_uno = $('#txtUno__' + i).val();
-									if (b_ret[j] && b_ret[j].noa == t_uno) {
+									if (b_ret[j] && b_ret[j].uno == t_uno) {
 										b_ret.splice(j, 1);
 									}
 								}
@@ -199,13 +198,13 @@
 							if (b_ret[0] != undefined) {
 								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtUno,txtProduct,txtProductno,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtSource', b_ret.length, b_ret, 'uno,product,productno,dime,width,lengthb,mount,weight,source', 'txtUno,txtProduct,txtProductno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
-							}
-							if (qBoxNo3id != -1) {
-								for (var i = 0; i < ret.length; i++) {
-									$('#txtNo3__' + ret[i]).val(padL($('#lblNo_' + qBoxNo3id).text(), '0', 3));
+								if (qBoxNo3id != -1) {
+									for (var i = 0; i < ret.length; i++) {
+										$('#txtNo3__' + ret[i]).val(padL($('#lblNo_' + qBoxNo3id).text(), '0', 3));
+									}
 								}
+								qBoxNo3id = -1;
 							}
-							qBoxNo3id = -1;
 							bbsAssign();
 							sum();
 						}
@@ -393,7 +392,7 @@
 
 			function btnIns() {
 				_btnIns();
-				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+				$('#txtNoa').val('AUTO');
 				$('#cmbKind').val(q_getPara('vcc.kind'));
 				size_change();
 				$('#txtOdate').val(q_date());

@@ -207,7 +207,7 @@
                     case 'vcce':
                         var as = _q_appendData("vcces", "", true);
                         if (as[0] != undefined) {
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice', as.length, as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price', 'txtUno');
+                            q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice,txtStyle', as.length, as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price,style', 'txtUno');
                         }
                         sum();
                         break;

@@ -45,7 +45,25 @@
 
 			function q_gtPost() {}
 
+			var maxAbbsCount = 0;
 			function refresh() {
+				_refresh();
+				var w = window.parent;
+				if (maxAbbsCount < abbs.length) {
+					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
+						for (var j = 0; j < w.q_bbsCount; j++) {
+							if (w.$('#txtUno_' + j).val() == abbs[i].uno) {
+								abbs[i]['sel'] = "true";
+								$('#chkSel_' + abbs[i].rec).attr('checked', true);
+							}
+						}
+						if (abbs[i].emount <= 0 || abbs[i].eweight <= 0) {
+							abbs.splice(i, 1);
+							i--;
+						}
+					}
+					maxAbbsCount = abbs.length;
+				}
 				_refresh();
 				$('#checkAllCheckbox').click(function(){
 					$('input[type=checkbox][id^=chkSel]').each(function(){
@@ -107,20 +125,20 @@
 					<td align="center" style="width:8%;"><a id='lblUno_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblEmount_st'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblSize_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblEordmount_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblEordweight_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblOrdeno_st'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblNo2_st'> </a></td>                
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
 					<td><input id="txtUno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+					<td><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+					<td><input id="txtEweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
 					<td><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td>
 						<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
@@ -131,12 +149,8 @@
 						<span id="StrX3" class="StrX">x</span>
 						<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
 					</td>
-					<td><input id="txtEordmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-					<td><input id="txtEordweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
 					<td><input id="txtMweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
 					<td><input id="txtMemo.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-					<td><input id="txtOrdeno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-					<td><input id="txtNo2.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/brow_ctrl.inc"--> 
