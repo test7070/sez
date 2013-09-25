@@ -616,7 +616,6 @@
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:120px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:200px;"><a id='lblProduct_s'> </a></td>
-						<td style="width:50px;"><a id='lblRank_s'> </a></td>
 						<td style="width:80px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
@@ -628,6 +627,7 @@
 						<td style="width:100px;"><a id='lblMount_s'> </a></td>
 						<td style="width:80px;"><a id='lblDworkdate_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
+						<td style="width:50px;"><a id='lblRank_s'> </a></td>
 						<td style="width:80px;"><a id='lblIndate_s'> </a></td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblWmount_s'> </a></td>
@@ -642,7 +642,6 @@
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
-						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
@@ -654,6 +653,7 @@
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtDworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>
 						<td><input id="txtIndate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
