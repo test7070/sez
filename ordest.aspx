@@ -117,14 +117,14 @@
 					var input = document.getElementById("txtPaytype");
 					if ( typeof (input.selectionStart) != 'undefined' && n != null) {
 						input.selectionStart = $(this).val().indexOf(n);
-						input.selectionEnd = $(this).val().indexOf(n) + n.length + 1;
+						input.selectionEnd = $(this).val().indexOf(n) + (n+"").length;
 					}
 				}).click(function(e) {
 					var n = $(this).val().match(/[0-9]+/g);
 					var input = document.getElementById("txtPaytype");
 					if ( typeof (input.selectionStart) != 'undefined' && n != null) {
 						input.selectionStart = $(this).val().indexOf(n);
-						input.selectionEnd = $(this).val().indexOf(n) + n.length + 1;
+						input.selectionEnd = $(this).val().indexOf(n) + (n+"").length;
 					}
 				});
 
