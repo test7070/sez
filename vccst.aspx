@@ -450,7 +450,7 @@
                     t_weights = q_float('txtWeight_' + j);
                     t_prices = q_float('txtPrice_' + j);
                     t_mounts = q_float('txtMount_' + j);
-                    t_moneys = t_prices.mul((t_unit == ' KG'?t_weights:t_mounts)).round(0);
+                    t_moneys = t_prices.mul((t_unit == 'KG'?t_weights:t_mounts)).round(0);
 
                     t_weight = t_weight.add(t_weights);
                     t_mount = t_mount.add(t_mounts);
