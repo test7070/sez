@@ -18,9 +18,9 @@
 
             q_desc = 1;
             q_tables = 's';
-            var q_name = "cug";
+            var q_name = "workn";
             var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtProductno','txtProduct','txtHours','txtDays','txtMount','txtWorkno'];
+            var q_readonlys = ['txtWorkno'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -51,7 +51,6 @@
 
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd]];
-                bbsMask = [['txtWorkdate', r_picd],['txtEnddate', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
                 
