@@ -54,19 +54,13 @@
 				var w = window.parent;
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
-						abbs[i].uno = (!emp(abbs[i].cub_uno) ? abbs[i].cub_uno : (!emp(abbs[i].cut_uno) ? abbs[i].cut_uno : (!emp(abbs[i].ordet_uno) ? abbs[i].ordet_uno : '')));
-						
-						if(w.q_name == 'vcc'){
-							abbs[i].lastmount = abbs[i].mount;
-							abbs[i].lastweight = abbs[i].weight;
-						}
 						for (var j = 0; j < w.q_bbsCount; j++) {
 							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
 								abbs[i]['sel'] = "true";
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
 						}
-						if (abbs[i].lastmount <= 0 || abbs[i].lastweight <= 0) {
+						if (abbs[i].mount <= 0 || abbs[i].weight <= 0) {
 							abbs.splice(i, 1);
 							i--;
 						}

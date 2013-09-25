@@ -219,11 +219,11 @@
 			}
 
 			function setNewBno(w_unoArray, idno, IndexNum, IndexEng) {
-				var newIndexNum = (dec(IndexNum) > 0 ? dec(IndexNum) : 1);
-				var newIndexEng = (dec(IndexEng) > 0 ? dec(IndexEng)+1 : 65);
-				if (newIndexEng >= 91) {
-					newIndexNum = dec(newIndexNum) + 1;
-					newIndexEng = 65;
+				var newIndexNum = (dec(IndexNum) > 0 ? dec(IndexNum)+1 : 1);
+				var newIndexEng = (dec(IndexEng) > 0 ? dec(IndexEng) : 65);
+				if (newIndexNum > 9) {
+					newIndexNum = 1;
+					newIndexEng = dec(IndexEng)+1;
 				}
 				var newBno = trim($('#txtUno').val()) + newIndexNum + String.fromCharCode(newIndexEng);
 				if (w_unoArray.indexOf(newBno) == -1) {
