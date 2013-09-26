@@ -25,11 +25,17 @@
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
+			brwCount2 = 15;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'], ['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'uccc_seek_b.aspx', '95%', '60%'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], ['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
-			//['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
+									 ['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'uccc_seek_b.aspx', '95%', '60%'],
+									 ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
+									 ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],
+									 ['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
+									 ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+			q_desc = 1;
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -318,8 +324,8 @@
 						alert("表身有重量,日期為空");
 						return;
 					}
-					if (dec($('#txtWeight_' + j).()) > 0 && emp($('#txtWidth_' + j).val())) {
-						alert("表身重量或寬度小於val零");
+					if (dec($('#txtWeight_' + j).val()) > 0 && emp($('#txtWidth_' + j).val())) {
+						alert("表身重量或寬度小於零");
 						return;
 					}
 					if ($('#cmbTypea').find("option:selected").text().indexOf('委') > -1 && $('#txtWaste_' + j).val() >= 'X') {
@@ -844,139 +850,139 @@
 
 		</script>
 		<style type="text/css">
-            #dmain {
-                overflow: hidden;
-            }
-            .dview {
-                float: left;
-                width: 18%;
-            }
-            .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
-                font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
-            }
-            .tview td {
-                padding: 2px;
-                text-align: center;
-                border: 1px black solid;
-            }
-            .dbbm {
-                float: left;
-                width: 80%;
-                margin: -1px;
-                border: 1px black solid;
-                border-radius: 5px;
-            }
-            .tbbm {
-                padding: 0px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
-                font-size: medium;
-                color: blue;
-                background: #cad3ff;
-                width: 100%;
-            }
-            .tbbm tr {
-                height: 35px;
-            }
-            .tbbm tr td {
-                width: 9%;
-            }
-            .tbbm .tdZ {
-                width: 2%;
-            }
-            .tbbm tr td span {
-                float: right;
-                display: block;
-                width: 5px;
-                height: 10px;
-            }
-            .tbbm tr td .lbl {
-                float: right;
-                color: blue;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn {
-                color: #4297D7;
-                font-weight: bolder;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn:hover {
-                color: #FF8F19;
-            }
-            .txt.c1 {
-                width: 95%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 98%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 38%;
-                float: left;
-            }
-            .txt.c4 {
-                width: 60%;
-                float: left;
-            }
-            .txt.c5 {
-                width: 80%;
-                float: left;
-            }
-            .txt.c8 {
-                width: 65px;
-                float: left;
-            }
-            .txt.num {
-                text-align: right;
-            }
-            .tbbm td {
-                margin: 0 -1px;
-                padding: 0;
-            }
-            .tbbm td input[type="text"] {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                float: left;
-            }
-            .tbbm td input[type="button"] {
-                float: left;
-            }
-            .tbbm select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-            }
-            .dbbs {
-                width: 2000px;
-            }
-            .tbbs a {
-                font-size: medium;
-            }
+			#dmain {
+				overflow: hidden;
+			}
+			.dview {
+				float: left;
+				width: 18%;
+			}
+			.tview {
+				margin: 0;
+				padding: 2px;
+				border: 1px black double;
+				border-spacing: 0;
+				font-size: medium;
+				background-color: #FFFF66;
+				color: blue;
+			}
+			.tview td {
+				padding: 2px;
+				/*text-align: center;*/
+				border: 1px black solid;
+			}
+			.dbbm {
+				float: left;
+				width: 80%;
+				margin: -1px;
+				border: 1px black solid;
+				border-radius: 5px;
+			}
+			.tbbm {
+				padding: 0px;
+				border: 1px white double;
+				border-spacing: 0;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: #cad3ff;
+				width: 100%;
+			}
+			.tbbm tr {
+				height: 35px;
+			}
+			.tbbm tr td {
+				width: 9%;
+			}
+			.tbbm .tdZ {
+				width: 2%;
+			}
+			.tbbm tr td span {
+				float: right;
+				display: block;
+				width: 5px;
+				height: 10px;
+			}
+			.tbbm tr td .lbl {
+				float: right;
+				color: blue;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn {
+				color: #4297D7;
+				font-weight: bolder;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn:hover {
+				color: #FF8F19;
+			}
+			.txt.c1 {
+				width: 95%;
+				float: left;
+			}
+			.txt.c2 {
+				width: 98%;
+				float: left;
+			}
+			.txt.c3 {
+				width: 38%;
+				float: left;
+			}
+			.txt.c4 {
+				width: 60%;
+				float: left;
+			}
+			.txt.c5 {
+				width: 80%;
+				float: left;
+			}
+			.txt.c8 {
+				width: 65px;
+				float: left;
+			}
+			.txt.num {
+				text-align: right;
+			}
+			.tbbm td {
+				margin: 0 -1px;
+				padding: 0;
+			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				float: left;
+			}
+			.tbbm td input[type="button"] {
+				float: left;
+			}
+			.tbbm select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+			}
+			.dbbs {
+				width: 2000px;
+			}
+			.tbbs a {
+				font-size: medium;
+			}
 
-            .num {
-                text-align: right;
-            }
-            .tbbs tr.error input[type="text"] {
-                color: red;
-            }
-            input[type="text"], input[type="button"] {
-                font-size: medium;
-            }
-            .tbbm select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                font-size: medium;
-            }
+			.num {
+				text-align: right;
+			}
+			.tbbs tr.error input[type="text"] {
+				color: red;
+			}
+			input[type="text"], input[type="button"] {
+				font-size: medium;
+			}
+			.tbbm select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				font-size: medium;
+			}
 
 		</style>
 	</head>
@@ -991,16 +997,20 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:35%"><a id='vewUno'></a></td>
+						<td align="center" style="width:35%"><a id='vewProduct'></a></td>
+						<!--
 						<td align="center" style="width:25%"><a id='vewOrdeno'></a></td>
 						<td align="center" style="width:40%"><a id='vewCust'></a></td>
+						-->
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='ordeno'>~ordeno</td>
-						<td align="center" id='custno cust'>~custno ~cust</td>
+						<td align="left" id='uno'>~uno</td>
+						<td align="center" id='productno product,5'>~productno ~product,5</td>
 					</tr>
 				</table>
 			</div>
