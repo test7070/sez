@@ -322,18 +322,91 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0;
-				var t_money=0;
-				for(var j = 0; j < q_bbsCount; j++) {
-					t_money+=q_float('txtTotal_'+j);
-					t_weight+=q_float('txtWeight_'+j);
-					q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-					q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1_'+j));
-				}  // j
-				q_tr('txtMoney' ,t_money);
-				q_tr('txtWeight' ,t_weight);
-				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
-				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
+				if (!(q_cur == 1 || q_cur == 2))
+					return;
+				$('#txtMoney').attr('readonly', true);
+				$('#txtTax').attr('readonly', true);
+				$('#txtTotal').attr('readonly', true);
+				$('#txtMoney').css('background-color', 'rgb(237,237,238)').css('color', 'green');
+				$('#txtTax').css('background-color', 'rgb(237,237,238)').css('color', 'green');
+				$('#txtTotal').css('background-color', 'rgb(237,237,238)').css('color', 'green');
+
+				var t_mount = 0, t_price = 0, t_money = 0, t_weight = 0, t_total = 0, t_tax = 0;
+				var t_mounts = 0, t_prices = 0, t_moneys = 0, t_weights = 0;
+				var t_unit = '';
+				var t_float = q_float('txtFloata');
+				
+				for (var j = 0; j < q_bbsCount; j++) {
+					t_unit = $('#txtUnit_'+j).val().toUpperCase();
+					//---------------------------------------
+					if ($('#cmbKind').val().substr(0, 1) == 'A') {
+						q_tr('txtDime_' + j, q_float('textSize1_' +j));
+						q_tr('txtWidth_' + j, q_float('textSize2_' + j));
+						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
+						q_tr('txtRadius_' + j, q_float('textSize4_' + j));
+					} else if ($('#cmbKind').val().substr(0, 1) == 'B') {
+						q_tr('txtRadius_' + j, q_float('textSize1_' + j));
+						q_tr('txtWidth_' + j, q_float('textSize2_' + j));
+						q_tr('txtDime_' + j, q_float('textSize3_' + j));
+						q_tr('txtLengthb_' + j, q_float('textSize4_' + j));
+					}else {//鋼筋、胚
+						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
+					}
+					getTheory(j);
+					//---------------------------------------
+					t_weights = q_float('txtWeight_' + j);
+					t_prices = q_float('txtPrice_' + j);
+					t_mounts = q_float('txtMount_' + j);
+					t_moneys = (t_unit == 'KG' ?t_prices.mul(t_weights).round(0):t_prices.mul(t_mounts).round(0));
+
+					t_weight = t_weight.add(t_weights);
+					t_mount = t_mount.add(t_mounts);
+					t_money = t_money.add(t_moneys);
+
+					$('#txtTotal_' + j).val(FormatNumber(t_moneys));
+				}
+				t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
+				switch ($('#cmbTaxtype').val()) {
+					case '1':
+						// 應稅
+						t_tax = round(t_money * t_taxrate, 0);
+						t_total = t_money + t_tax;
+						break;
+					case '2':
+						//零稅率
+						t_tax = 0;
+						t_total = t_money + t_tax;
+						break;
+					case '3':
+						// 內含
+						t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
+						t_total = t_money;
+						t_money = t_total - t_tax;
+						break;
+					case '4':
+						// 免稅
+						t_tax = 0;
+						t_total = t_money + t_tax;
+						break;
+					case '5':
+						// 自定
+						$('#txtTax').attr('readonly', false);
+						$('#txtTax').css('background-color', 'white').css('color', 'black');
+						t_tax = round(q_float('txtTax'), 0);
+						t_total = t_money + t_tax;
+						break;
+					case '6':
+						// 作廢-清空資料
+						t_money = 0, t_tax = 0, t_total = 0;
+						break;
+					default:
+				}
+				$('#txtWeight').val(FormatNumber(t_weight));
+
+				$('#txtMoney').val(FormatNumber(t_money));
+				$('#txtTax').val(FormatNumber(t_tax));
+				$('#txtTotal').val(FormatNumber(t_total));
+				$('#txtTotalus').val(FormatNumber(Math.round(q_float('txtTotal').mul(q_float('txtFloata'), 2))));
 			}
 
 			function refresh(recno) {
@@ -523,6 +596,99 @@
 							return 4;
 					}
 					return 0;//錯誤
+			}
+			function FormatNumber(n) {
+				var xx = "";
+				if (n < 0) {
+					n = Math.abs(n);
+					xx = "-";
+				}
+				n += "";
+				var arr = n.split(".");
+				var re = /(\d{1,3})(?=(\d{3})+$)/g;
+				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+			}
+
+
+			Number.prototype.round = function(arg) {
+				return Math.round(this.mul(Math.pow(10, arg))).div(Math.pow(10, arg));
+			};
+			Number.prototype.div = function(arg) {
+				return accDiv(this, arg);
+			};
+			function accDiv(arg1, arg2) {
+				var t1 = 0, t2 = 0, r1, r2;
+				try {
+					t1 = arg1.toString().split(".")[1].length;
+				} catch (e) {
+				}
+				try {
+					t2 = arg2.toString().split(".")[1].length;
+				} catch (e) {
+				}
+				with (Math) {
+					r1 = Number(arg1.toString().replace(".", ""));
+					r2 = Number(arg2.toString().replace(".", ""));
+					return (r1 / r2) * pow(10, t2 - t1);
+				}
+			}
+
+
+			Number.prototype.mul = function(arg) {
+				return accMul(arg, this);
+			};
+			function accMul(arg1, arg2) {
+				var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+				try {
+					m += s1.split(".")[1].length;
+				} catch (e) {
+				}
+				try {
+					m += s2.split(".")[1].length;
+				} catch (e) {
+				}
+				return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+			}
+
+
+			Number.prototype.add = function(arg) {
+				return accAdd(arg, this);
+			};
+			function accAdd(arg1, arg2) {
+				var r1, r2, m;
+				try {
+					r1 = arg1.toString().split(".")[1].length;
+				} catch (e) {
+					r1 = 0;
+				}
+				try {
+					r2 = arg2.toString().split(".")[1].length;
+				} catch (e) {
+					r2 = 0;
+				}
+				m = Math.pow(10, Math.max(r1, r2));
+				return (Math.round(arg1 * m) + Math.round(arg2 * m)) / m;
+			}
+
+
+			Number.prototype.sub = function(arg) {
+				return accSub(this, arg);
+			};
+			function accSub(arg1, arg2) {
+				var r1, r2, m, n;
+				try {
+					r1 = arg1.toString().split(".")[1].length;
+				} catch (e) {
+					r1 = 0;
+				}
+				try {
+					r2 = arg2.toString().split(".")[1].length;
+				} catch (e) {
+					r2 = 0;
+				}
+				m = Math.pow(10, Math.max(r1, r2));
+				n = (r1 >= r2) ? r1 : r2;
+				return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
 		</script>
 	<style type="text/css">
