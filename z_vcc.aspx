@@ -15,14 +15,16 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			var uccgaItem = '';
 			if(location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;100";
 			}
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_vcc');
+				if(uccgaItem.length == 0){
+					q_gt('uccga', '', 0, 0, 0, "");
+				}
 			});
-			
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_vcc',
@@ -63,6 +65,10 @@
 					}, {
 						type : '6',//[16]
 						name : 'xmemo'
+					}, {
+                        type : '5', //[17]
+                        name : 'xgroupano',
+                        value : uccgaItem.split(',')
 					}]
 				});
 				q_popAssign();
@@ -80,12 +86,23 @@
 				$('#txtXemon2').val(r_accy+'/12').mask('999/99');
 				$('#Xmemo').removeClass('a2').addClass('a1');
 				$('#txtXmemo').css('width','85%');
+				$('#Xgroupano select').css('width','150px');
 			}
 
 			function q_boxClose(s2) {
 			}
 
-			function q_gtPost(s2) {
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'uccga':
+                        var as = _q_appendData("uccga", "", true);
+                        uccgaItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
+                        }
+						q_gf('', 'z_vcc');
+                        break;
+				}
 			}
 		</script>
 	</head>
