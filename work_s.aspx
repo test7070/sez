@@ -50,9 +50,14 @@
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)
         + q_sqlPara2("productno", t_productno) 
         + q_sqlPara2("product", t_product)
-        + q_sqlPara2("ordeno", t_ordeno)
-        + q_sqlPara2("cuano", t_cuano) 
-        + q_sqlPara2("cuadate", t_bcuadate, t_ecuadate) 
+        + q_sqlPara2("cuadate", t_bcuadate, t_ecuadate)
+        /*+ q_sqlPara2("ordeno", t_ordeno)
+        + q_sqlPara2("cuano", t_cuano)*/
+        
+        if(t_ordeno.length>0)
+        	t_where=t_where+" and charindex('"+t_ordeno+"',ordeno)>0 "
+        if(t_cuano.length>0)
+         	t_where=t_where+" and charindex('"+t_cuano+"',cuano)>0 "
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
