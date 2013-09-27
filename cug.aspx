@@ -61,9 +61,9 @@
                 		return;
                 	}else{
                 		if(!emp($('#txtProcessno').val()))
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.hours,a.rank,a.productno ^^";
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
                 		else
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.hours,a.rank,a.productno ^^";
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
 						q_gt('cug_work', t_where, 0, 0, 0, "", r_accy);
                 	}
                 });
