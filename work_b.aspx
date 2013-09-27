@@ -38,7 +38,7 @@
         	for (var j = 0; j < q_bbsCount; j++) {
         		if(!emp($('#txtNoa_'+j).val())){
 	        		if(dec($('#txtMount_'+j).val())<=0){
-	        			$('#txtState_'+j).val('製令錯誤');
+	        			$('#txtState_'+j).val('數量錯誤');
 	        		}else if(dec($('#txtInmount_'+j).val())>=dec($('#txtMount_'+j).val())){
 	        			$('#txtState_'+j).val('入庫完成');
 	        		}

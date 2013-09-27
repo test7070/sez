@@ -59,7 +59,7 @@
             function mainPost() {
             	q_getFormat();
 				bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd],['txtMon',r_picm]];
-				bbsMask = [['txtRworkdate',r_picd],['txtDworkdate',r_picd],['txtIndate',r_picd]];
+				bbsMask = [['txtRworkdate',r_picd],['txtCuadate',r_picd],['txtIndate',r_picd]];
                 q_mask(bbmMask);
                 
                 $('#btnOrde').click(function () {

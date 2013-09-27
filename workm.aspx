@@ -19,8 +19,8 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "workm";
-            var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtWorkno'];
+            var q_readonly = ['txtNoa','txtDatea','txtMount','txtWorkno','txtWorker','txtWorker2'];
+            var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -30,7 +30,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx']
+            aPop = new Array(['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx']
             ,['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
             ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
             $(document).ready(function() {
@@ -54,8 +54,23 @@
                 q_getFormat();
                 q_mask(bbmMask);
                 
+                $('#lblWorkno').click(function() {
+					if(!emp($('#txtWorkno').val())){
+						t_where = "noa='"+$('#txtWorkno').val()+"'";
+						q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+					}
+                });
+                
                 $('#btnWork').click(function() {
-					
+                	var t_err = '';
+                	t_err = q_chkEmpField([['txtProcessno', q_getMsg('lblProcess')], ['txtProductno', q_getMsg('lblProduct')]]);
+                	if (t_err.length > 0) {
+	                    alert(t_err);
+    	                return;
+        	        }
+        	        
+					t_where = "productno='"+$('#txtProductno').val()+"' and processno='"+$('#txtProcessno').val()+"'";
+					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('btnWork'));
                 });
             }
 
@@ -85,7 +100,7 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+                t_err = q_chkEmpField([['txtProcessno', q_getMsg('lblProcess')], ['txtProductno', q_getMsg('lblProduct')], ['txtStationno', q_getMsg('lblStation')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
@@ -100,7 +115,7 @@
                 var t_date = trim($('#txtDatea').val());
 
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cug') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workm') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -115,7 +130,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtProductno').focus();
             }
 
             function btnModi() {
@@ -374,17 +389,17 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:30%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:30%"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:30%"><a id='vewStation'> </a></td>
-						<td align="center" style="width:30%"><a id='vewProcess'> </a></td>
+						<td align="center" style="width:30%"><a id='vewProduct'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='station'>~station</td>
-						<td align="center" id='process'>~process</td>
+						<td align="center" id='prodcut'>~prodcut</td>
 					</tr>
 				</table>
 			</div>
@@ -397,10 +412,10 @@
 						<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
-							<input id="txtStationno"  type="text" class="txt c2"/>
-							<input id="txtStation"  type="text" class="txt c3"/>
+							<input id="txtProductno"  type="text" class="txt c2"/>
+							<input id="txtProduct"  type="text" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
@@ -409,7 +424,30 @@
 							<input id="txtProcessno"  type="text" class="txt c2"/>
 							<input id="txtProcess"  type="text" class="txt c3"/>
 						</td>
-						<td class="td4"><input id="btnWork" type="button"/></td>
+						<td class="td4"> <input id="btnWork" type="button" /></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtStationno"  type="text" class="txt c2"/>
+							<input id="txtStation"  type="text" class="txt c3"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMount"  type="text" class="txt num c1"/></td>
+						<td class="td3"><span> </span><a id='lblHours' class="lbl"> </a></td>
+						<td class="td4"><input id="txtHours"  type="text" class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblCuadate' class="lbl"> </a></td>
+						<td class="td2"><input id="txtCuadate"  type="text" class="txt num c1"/></td>
+						<td class="td3"><span> </span><a id='lblUindate' class="lbl"> </a></td>
+						<td class="td4"><input id="txtUindate"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtWorkno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -428,28 +466,37 @@
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
-					<td align="center" style="width:4%;"><a id='lblNoq_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblWorkno_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblStation_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblProcess_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblHours_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblDays_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblWorkdate_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblEnddate_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblWorkno_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblCuadate_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblUindate_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-					<td><input id="txtNoq.*" type="text" class="txt c1"/></td>
+					<td align="center">
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="hidden" class="txt c1"/>
+					</td>
+					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtStationno.*" type="hidden" class="txt c1"/>
+						<input id="txtStation.*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtProcessno.*" type="hidden" class="txt c1"/>
+						<input id="txtProcess.*" type="text" class="txt c1"/>
+					</td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtHours.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtDays.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtWorkdate.*" type="text" class="txt c1"/></td>
-					<td><input id="txtEnddate.*" type="text" class="txt c1"/></td>
-					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
