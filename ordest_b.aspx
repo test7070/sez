@@ -10,14 +10,15 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'view_orde', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], as;
+			var q_name = 'orde', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], as;
 			//, t_where = '';
-			var t_sqlname = 'orde_b_load';
+			var t_sqlname = 'orde_load';
 			t_postname = q_name;
 			brwCount2 = 10;
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm;
 			var i, s1;
+			q_desc=1;
 			$(document).ready(function() {
 				if (!q_paraChk())
 					return;
