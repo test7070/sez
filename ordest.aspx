@@ -84,16 +84,6 @@
                 $('#btnOrdei').hide();
                 //外銷訂單按鈕隱藏
 				
-				$('#cmbTrantype') = $("select.fixedWidth");
-                $('#cmbTrantype').data("origWidth", $('#cmbTrantype').outerWidth());
-
-                $('#cmbTrantype').mouseenter(function() {
-                    $(this).css("width", "auto");
-                }).bind("blur change", function() {
-                    el = $(this);
-                    el.css("width", el.data("origWidth"));
-                });
-                
                 q_gt('spec', '', 0, 0, 0, "", r_accy);
                 $('#lblQuat').click(function() {
                     btnQuat();
