@@ -948,6 +948,9 @@
 			select {
 				font-size: medium;
 			}
+			select:focus { width:auto ;
+				position:relative ;
+			}
 			#dbbt {
 				width: 1525px;
 			}
