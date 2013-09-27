@@ -871,9 +871,6 @@
             select {
                 font-size: medium;
             }
-			select:focus { width:auto ;
-				position:relative ;
-			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
