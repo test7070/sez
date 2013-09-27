@@ -34,7 +34,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'datea';
+            brwKey = 'noa';
             //ajaxPath = "";
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,paytype', 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype', 'cust_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,class,spec,style,product,radius,width,dime,lengthb', 'txtUno_,txtProductno_,txtClass_,txtSpec_,txtStyle_,txtProduct_,txtRadius_,txtWidth_,txtDime_,txtLengthb_', 'uccc_seek_b.aspx', '95%', '60%'], ['txtStoreno2_', 'btnStoreno2_', 'store', 'noa,store', 'txtStoreno2_,txtStore2_', 'store_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
@@ -871,7 +871,6 @@
             select {
                 font-size: medium;
             }
-
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -879,7 +878,9 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="dmain" style="width:1050px;">
 		<!--#include file="../inc/toolbar.inc"-->
+		</div>
 		<div id="dmain" style="width:1050px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">

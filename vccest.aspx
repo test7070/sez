@@ -306,24 +306,13 @@
             }
 
             function bbsSave(as) {
-                if (!as['product']) {
+                if (!as['product'] && !as['uno'] && praseFloat(as['mount'].length=0?"0":as['mount'])!=0 && praseFloat(as['mount'].length=0?"0":as['weight'])!=0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
 
                 q_nowf();
                 as['date'] = abbm2['date'];
-
-                //			t_err ='';
-                //			if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //				t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //			if (t_err) {
-                //				alert(t_err)
-                //				return false;
-                //			}
-                //
                 return true;
             }
 
