@@ -30,11 +30,21 @@
 						name : 'accy',
                         value : r_accy
                     }, {
+						type : '0',
+						name : 'nosix',
+                        value : q_getPara('sys.saturday')
+                    },{
 						type : '2',
 						name : 'station',
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
+                    },{
+						type : '2',
+						name : 'process',
+						dbf : 'process',
+						index : 'noa,process',
+						src : 'process_b.aspx'
                     }]
                     });
                 q_popAssign();
