@@ -20,7 +20,7 @@
             q_tables = 's';
             var q_name = "cug";
             var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtProductno','txtProduct','txtHours','txtDays','txtMount','txtWorkno'];
+            var q_readonlys = ['txtProcess','txtProductno','txtProduct','txtHours','txtDays','txtMount','txtWorkno'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -51,12 +51,21 @@
 
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd]];
-                bbsMask = [['txtWorkdate', r_picd],['txtEnddate', r_picd]];
+                bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
                 
                 $('#btnWork').click(function() {
-					
+                	if(emp($('#txtStationno').val())){
+                		alert(q_getMsg('lblStation')+'請先填寫。');
+                		return;
+                	}else{
+                		if(!emp($('#txtProcessno').val()))
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.hours,a.rank,a.productno ^^";
+                		else
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.hours,a.rank,a.productno ^^";
+						q_gt('cug_work', t_where, 0, 0, 0, "", r_accy);
+                	}
                 });
             }
 
@@ -72,6 +81,20 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cug_work':
+                		var as = _q_appendData("view_work", "", true);
+                		if(as[0]!=undefined){
+                			for (var i = 0; i < q_bbsCount; i++) {
+								$('#btnMinus_'+i).click();
+							}
+                			for ( var i = 0; i < as.length; i++) {
+                				as[i].noq=('0000'+(i+1)).substr(-4);	
+                			}
+                			q_gridAddRow(bbsHtm, 'tbbs'
+							,'txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtMount,txtHours,txtDays,txtCuadate,txtUindate,txtWorkno', as.length, as,
+							'noq,processno,process,productno,product,mount,hours,days,cuadate,uindate,workno','txtProductno');
+                		}
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -126,7 +149,7 @@
             }
 
             function btnPrint() {
-                q_box('z_cug.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_cugp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -142,6 +165,15 @@
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	$('#txtWorkno_'+i).click(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtWorkno_' + b_seq).val())){
+								t_where = "noa='"+$('#txtWorkno_' + b_seq).val()+"'";
+								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+							}
+		                });
                     }
                 }
                 _bbsAssign();
@@ -430,6 +462,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
 					<td align="center" style="width:4%;"><a id='lblNoq_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblProcess_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
@@ -443,13 +476,14 @@
 				<tr  style='background:#cad3ff;'>
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
 					<td><input id="txtNoq.*" type="text" class="txt c1"/></td>
+					<td><input id="txtProcess.*" type="text" class="txt c1"/><input id="txtProcessno.*" type="hidden" class="txt c1"/></td>
 					<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtHours.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtDays.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtWorkdate.*" type="text" class="txt c1"/></td>
-					<td><input id="txtEnddate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>

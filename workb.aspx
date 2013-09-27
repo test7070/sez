@@ -684,7 +684,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:6%;"><a id='lblTimea_st'></a></td>
+                <!--<td align="center" style="width:6%;"><a id='lblTimea_st'></a></td>-->
                 <td align="center" style="width:11%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:14%;"><a id='lblProducts'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
@@ -701,7 +701,7 @@
             </tr>
             <tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input id="txtTimea.*" type="text" class="txt c1"/></td>
+                <!--<td><input id="txtTimea.*" type="text" class="txt c1"/></td>-->
                 <td>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
                 	<input id="txtProductno.*" type="text" style="width:76%;"/>

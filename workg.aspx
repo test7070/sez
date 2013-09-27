@@ -37,7 +37,8 @@
 			aPop = new Array(
 				['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
 				['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx'],
-				['txtProductno__', 'btnProduct__', 'uca', 'noa,product', 'txtProductno__,txtProduct__', 'uca_b.aspx']);
+				['txtProductno__', 'btnProduct__', 'uca', 'noa,product', 'txtProductno__,txtProduct__', 'uca_b.aspx']
+				 ,['txtStationno_', 'btnStation_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -129,6 +130,7 @@
 						break;
 					case 'workg_orde':
 						var as = _q_appendData("view_ordes", "", true);
+						var holiday=q_holiday;
 						if(as[0]!=undefined){
 							//清空bbs資料
 							if(q_cur==1){
@@ -146,24 +148,41 @@
 								
 								//提前天數
 								var preday=0;
-								if(dec(as[i].stationhours)*dec(as[i].stationgen)!=0)
-									preday=dec(as[i].pretime)+Math.ceil((dec(t_mount)*dec(as[i].ucahours))/(dec(as[i].stationhours)*dec(as[i].stationgen)));
-								var t_date=emp(as[i].datea)?q_date():as[i].datea;
-								var rworkdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-								rworkdate.setDate(rworkdate.getDate() - preday);
-								//年份
-								t_date=''+(rworkdate.getFullYear()-1911)+'/';
-								//月份
-								t_date=t_date+((rworkdate.getMonth()+1)<10?('0'+(rworkdate.getMonth()+1)+'/'):((rworkdate.getMonth()+1)+'/'));
-								//日期
-								t_date=t_date+(rworkdate.getDate()<10?('0'+(rworkdate.getDate())):(rworkdate.getDate()));
-								as[i].rworkdate=t_date;	
+								preday=preday+dec(as[i].pretime) //前置時間
+								if(dec(as[i].stationhours)*dec(as[i].stationgen)!=0)//加上預計生產日數=(數量*需時*耗損率)/(工作中心工時*產能)
+									preday=preday+Math.ceil((dec(t_mount)*dec(as[i].ucahours)*dec(as[i].badperc))/(dec(as[i].stationhours)*dec(as[i].stationgen)));
 								
+								var t_date=emp(as[i].datea)?q_date():as[i].datea;//預交日
+								//跳過週休和假日
+								var six=q_getPara('sys.saturday');//週六休假,1有休0沒休
+								while(preday>0){
+									//轉換日期
+									var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+									nextdate.setDate(nextdate.getDate() - 1);//日期往前1天
+									t_date=''+(nextdate.getFullYear()-1911)+'/';//年
+									t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));//月
+									t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));//日
+									if(six==1 && new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6) continue;//禮拜六
+									if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0) continue;//禮拜日
+									//假日
+									var isholiday=false;
+									for(var j=0;j<holiday.length;j++){
+										if(holiday[j]==t_date){
+											isholiday=true;
+											break;
+										}
+									}
+									if(isholiday) continue;
+									
+									preday=preday-1;
+								}
+								
+								as[i].rworkdate=t_date;	
 								as[i].ordeno=as[i].ordeno.substr(0,as[i].ordeno.length-1);
 							}
 							q_gridAddRow(bbsHtm, 'tbbs'
-							, 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtDworkdate,txtOrdeno', as.length, as,
-							'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,rworkdate,ordeno','txtProductno');
+							, 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation', as.length, as,
+							'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station','txtProductno');
 						}else{
 							alert('無訂單資料!!。');
 						}
@@ -306,7 +325,16 @@
 								t_where = "cuano='"+$('#txtNoa').val()+"' and cuanoq='"+$('#txtNoq_'+b_seq).val()+"'";
 								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
 							}
-						});	
+						});
+						$('#txtOrdeno_' + i).click(function () {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtOrdeno_' + b_seq).val())){
+								t_where = " charindex(noa,'"+$('#txtOrdeno_' + b_seq).val()+"')>0 ";
+								q_box("orde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+							}
+						});
                 	}
                 }
                 _bbsAssign();
@@ -504,7 +532,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 2300px;
+                width: 2550px;
             }
             .dbbs .tbbs {
                 margin: 0;
@@ -636,7 +664,8 @@
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
 						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
 						<td style="width:100px;"><a id='lblMount_s'> </a></td>
-						<td style="width:80px;"><a id='lblDworkdate_s'> </a></td>
+						<td style="width:80px;"><a id='lblCuadate_s'> </a></td>
+						<td style="width:250px;"><a id='lblStation_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
 						<td style="width:50px;"><a id='lblRank_s'> </a></td>
 						<td style="width:80px;"><a id='lblIndate_s'> </a></td>
@@ -663,7 +692,12 @@
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtDworkdate.*" type="text" class="txt c1"/></td>
+						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtStationno.*" type="text" class="txt c1" style="width: 25%"/>
+							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
+							<input id="txtStation.*" type="text" class="txt c1" style="width: 60%"/>
+						</td>
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>
 						<td><input id="txtIndate.*" type="text" class="txt c1"/></td>
