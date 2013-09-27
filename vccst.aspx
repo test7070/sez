@@ -879,7 +879,9 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="dmain" style="width:1050px;">
 		<!--#include file="../inc/toolbar.inc"-->
+		</div>
 		<div id="dmain" style="width:1050px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
