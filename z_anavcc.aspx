@@ -15,10 +15,13 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			var uccgaItem = '';
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
-				q_gf('', 'z_anavcc');
+				if(uccgaItem.length == 0){
+					q_gt('uccga', '', 0, 0, 0, "");
+				}
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
@@ -60,6 +63,10 @@
 					}, {
 						type : '6', //[16]
 						name : 'xyear'
+					}, {
+                        type : '5', //[17]
+                        name : 'xgroupano',
+                        value : uccgaItem.split(',')
 					}]
 				});
 				q_popAssign();
@@ -77,12 +84,23 @@
 				$('#txtXbmon2').val(r_accy+'/12').mask('999/99');
 				$('#txtXemon1').val(r_accy+'/01').mask('999/99');
 				$('#txtXemon2').val(r_accy+'/12').mask('999/99');
+				$('#Xgroupano select').css('width','150px');
 			}
 
 			function q_boxClose(s2) {
 			}
 
-			function q_gtPost(s2) {
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'uccga':
+                        var as = _q_appendData("uccga", "", true);
+                        uccgaItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
+                        }
+						q_gf('', 'z_anavcc');
+                        break;
+				}
 			}
 		</script>
 	</head>

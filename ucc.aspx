@@ -80,6 +80,7 @@
 			q_cmbParse("cmbTypea", q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
 			q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
 			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	
+			q_gt('uccga', '', 0, 0, 0, "");
 			$('#btnUcctd').click(function() {
 				t_where = "noa='" + $('#txtNoa').val() + "'";
 				q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
@@ -93,17 +94,17 @@
 				q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCust'));
 			});
 			$('#btnStkcost').mousedown(function(e) {
-             		if(e.button==0){
-             			////////////控制顯示位置
+			 		if(e.button==0){
+			 			////////////控制顯示位置
 						$('#div_stkcost').css('top',e.pageY);
 						$('#div_stkcost').css('left',e.pageX-$('#div_stkcost').width());
-                    	$('#div_stkcost').toggle();
-                    }
-             });
-             
-             $('#btnClose_div_stkcost').click(function() {
-             	$('#div_stkcost').toggle();
-             });
+						$('#div_stkcost').toggle();
+					}
+			 });
+			 
+			 $('#btnClose_div_stkcost').click(function() {
+			 	$('#div_stkcost').toggle();
+			 });
 		}
 
 		function q_boxClose(s2) { 
@@ -118,20 +119,33 @@
 
 		function q_gtPost(t_name) {	
 			switch (t_name) {
+				case 'uccga':
+					var as = _q_appendData("uccga", "", true);
+					if (as[0] != undefined) {
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa+' . '+as[i].namea;
+						}
+						q_cmbParse("cmbGroupano", t_item);
+						if (abbm[q_recno] != undefined) {
+							$("#cmbGroupano").val(abbm[q_recno].groupano);
+						}
+					}
+					break;
 				case 'workg_orde':
-            		var t_ordemount=0,t_planmount=0,t_intmount=0;
-            		var as  = _q_appendData("view_ordes", "", true);
-            		if(as[0]!=undefined){
-            			 t_ordemount=dec(as[0].ordemount);
-            			 t_planmount=dec(as[0].planmount);
-            			 t_intmount=dec(as[0].inmount)+dec(as[0].purmount);
-            		}
-            		$('#textOrdemount').val(t_ordemount);//訂單
-            		$('#textPlanmount').val(t_planmount);//計畫
-            		$('#textIntmount').val(t_intmount);//在途
-            		//可用庫存=庫存+在途-訂單(+計畫??)
-            		$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
-            		break;
+					var t_ordemount=0,t_planmount=0,t_intmount=0;
+					var as  = _q_appendData("view_ordes", "", true);
+					if(as[0]!=undefined){
+						 t_ordemount=dec(as[0].ordemount);
+						 t_planmount=dec(as[0].planmount);
+						 t_intmount=dec(as[0].inmount)+dec(as[0].purmount);
+					}
+					$('#textOrdemount').val(t_ordemount);//訂單
+					$('#textPlanmount').val(t_planmount);//計畫
+					$('#textIntmount').val(t_intmount);//在途
+					//可用庫存=庫存+在途-訂單(+計畫??)
+					$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
+					break;
 				case 'ucc_rc2':
 					var as  = _q_appendData("rc2s", "", true);
 					$('#textInprice').val(0);
@@ -162,12 +176,12 @@
 				break;
 				case 'ucc_stk':
 					var as  = _q_appendData("stkucc", "", true);
-            		var stkmount=0;
-            		for ( var i = 0; i < as.length; i++) {
-            			stkmount=stkmount+dec(as[i].mount);
-            		}
-            		$('#textStk').val(stkmount);
-            		$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
+					var stkmount=0;
+					for ( var i = 0; i < as.length; i++) {
+						stkmount=stkmount+dec(as[i].mount);
+					}
+					$('#textStk').val(stkmount);
+					$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
 				break;
 				case q_name: 
 					if (q_cur == 4)	
@@ -193,13 +207,13 @@
 		}
 
 		function btnIns() {
-            if($('#Copy').is(':checked')){
-            	curData.copy();
-            }
-            _btnIns();
-            if($('#Copy').is(':checked')){
-            	curData.paste();
-            }
+			if($('#Copy').is(':checked')){
+				curData.copy();
+			}
+			_btnIns();
+			if($('#Copy').is(':checked')){
+				curData.paste();
+			}
 			$('#txtUno').focus();
 		}
 
@@ -259,7 +273,7 @@
 			q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
 			
 			//訂單、在途量、計畫
-            var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";   			
+			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";   			
 			var t_where1 = "where[1]=^^a.productno='"+$('#txtNoa').val()+"' and a.enda!='1' group by productno ^^";
 			var t_where2 = "where[2]=^^1=0^^";	
 			var t_where3 ="where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
@@ -380,7 +394,7 @@
 		}
 		.num {
 			text-align: right;
-        }
+		}
 	</style>
 </head>
 <body>
@@ -513,6 +527,10 @@
 			<td class='column3'><input type="text" id="txtDate2" class="txt c1"/></td>
 			<td class="label2"><a id='lblWorker'> </a></td>
 			<td ><input id="txtWorker" type="text" class="txt c2" style='text-align:center;'/></td> 
+		</tr>
+		<tr>
+			<td class="label1"><a id='lblGroupano'> </a></td>
+			<td><select id="cmbGroupano" class="txt c2"> </select></td> 
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblMemo'> </a></td>
