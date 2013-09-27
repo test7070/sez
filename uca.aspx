@@ -27,8 +27,8 @@
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2 ,1]];  // 允許 key 小數
-			var bbsNum = [['txtMount', 12, 2], ['txtWeight', 11, 2], ['txtHours', 9, 2]];
-			var bbtNum = [['txtMount_', 12, 2 ,1],['txtWeight_', 12, 2 ,1],['txtPrice_', 12, 2 ,1],['txtEndmount_', 12, 0 ,1],['txtEndweight_', 12, 2 ,1]]; 
+			var bbsNum = [['txtMount', 12, 2]/*, ['txtWeight', 11, 2]*/, ['txtHours', 9, 2]];
+			var bbtNum = [['txtMount_', 12, 2 ,1]/*,['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 2 ,1],['txtEndmount_', 12, 0 ,1],['txtEndweight_', 12, 2 ,1]]; 
 			var bbmMask = [];
 			var bbsMask = [];
 			var bbtMask = [];
@@ -1209,7 +1209,7 @@
 				<td align="center" style="width:20%;"><a id='lblProducts'></a></td>
 				<td align="center" style="width:4%;"><a id='lblUnit'></a></td>
 				<td align="center" style="width:5%;"><a id='lblMount'></a></td>
-				<td align="center" style="width:8%;"><a id='lblWeights'></a></td>
+				<!--<td align="center" style="width:8%;"><a id='lblWeights'></a></td>-->
 				<td align="center" style="width:8%;"><a id='lblMtype_s'></a></td>
 				<td align="center" style="width:12%;"><a id='lblProcessno_s'></a></td>
 				<td align="center" style="width:6%;"><a id='lblLoss_s'></a></td>
@@ -1229,7 +1229,7 @@
 				</td>
 				<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 				<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
-				<td><input id="txtWeight.*" type="text" class="txt num c1"/></td>
+				<!--<td><input id="txtWeight.*" type="text" class="txt num c1"/></td>-->
 				<td><select id="cmbMtype.*" class="txt c1"> </select></td>
 				<td>
 					<input class="btn"  id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />

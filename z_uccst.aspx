@@ -32,38 +32,32 @@
 							type : '1', //[2][3]
 							name : 'xdate'
 						}, {
-							type : '2', //[4][5]
+							type : '5', //[4]
+							name : 'xstktype',
+							value : [q_getPara('report.all')].concat(q_getPara('sys.stktype').split(','))
+						}, {
+							type : '2', //[5][6]
 							name : 'xproduct',
 							dbf : 'ucaucc',
 							index : 'noa,product',
 							src : 'ucaucc_b.aspx'
-						}, {
-							type : '6', // [6]
-							name : 'xedate'
 						},{
-							type : '1', //[7][8]
-							name : 'xordeno'
-						}, {
-							type : '5', //[9]
-							name : 'xstktype',
-							value : [q_getPara('report.all')].concat(q_getPara('sys.stktype').split(','))
-						},{
-							type : '6', //[10]
+							type : '6', //[7]
 							name : 'xstyle'
 						},{
-							type : '6', //[11]
+							type : '6', //[8]
 							name : 'xwaste'
 						},{
-							type : '1', //[12][13]
+							type : '1', //[9][10]
 							name : 'xradius'
 						},{
-							type : '1', //[14][15]
+							type : '1', //[11][12]
 							name : 'xwidth'
 						},{
-							type : '1', //[16][17]
+							type : '1', //[13][14]
 							name : 'xdime'
 						},{
-							type : '1', //[18][19]
+							type : '1', //[15][16]
 							name : 'xlengthb'
 						}
 					]
@@ -71,7 +65,8 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-
+				$('#Xdate').css('width','350px');
+				$('#Xstktype').css('width','250px');
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99/99');
@@ -79,7 +74,21 @@
 				
 				$('#txtXedate').mask('999/99/99');
 				$('#txtXedate').val(q_date());
-				
+				$('#Xstktype select').change(function(){
+					size_change();
+				});
+				$('#Xstktype select').val('A1');
+				setDefaultValue();
+				size_change();
+			}
+
+			function q_boxClose(s2) {
+			}
+
+			function q_gtPost(s2) {
+			}
+
+			function setDefaultValue(){
 				$('#txtXradius1').val(0).addClass('num').focusout(function(){
 					$(this).val(dec($(this).val()));
 					if($(this).val() == 'NaN') $(this).val(0);
@@ -114,11 +123,42 @@
 				});
 			}
 
-			function q_boxClose(s2) {
+			function size_change(){
+				var SelectedVal = $('#Xstktype select').val().toUpperCase();
+				if(!($('#Xstktype').is(":hidden"))){
+					switch (SelectedVal.substring(0,1)){
+						case 'A':
+							$('#Xradius').hide();
+							$('#Xwidth').show();
+							$('#lblXwidth').text('寬度');
+							$('#Xdime').show();
+							$('#Xlengthb').show();
+							break;
+						case 'B':
+							$('#Xradius').show();
+							$('#Xwidth').show();
+							$('#lblXwidth').text('長徑');
+							$('#Xdime').show();
+							$('#Xlengthb').show();
+							break;
+						case 'C':
+							$('#Xradius').hide();
+							$('#Xwidth').hide();
+							$('#Xdime').hide();
+							$('#Xlengthb').show();
+							break;
+						default:
+							$('#Xradius').show();
+							$('#Xwidth').show();
+							$('#lblXwidth').text('長徑');
+							$('#Xdime').show();
+							$('#Xlengthb').show();
+							break;
+					}
+					setDefaultValue();
+				}
 			}
-
-			function q_gtPost(s2) {
-			}
+			
 		</script>
 		<style type="text/css">
 			.num{
