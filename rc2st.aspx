@@ -35,7 +35,12 @@
             brwNowPage = 0;
             brwKey = 'noa';
 
-            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype,tel,trantype,zip_fact,addr_fact', 'txtTggno,txtTgg,txtPaytype,txtTel,cmbTrantype,txtPost,txtAddr', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype,tel,trantype,zip_fact,addr_fact', 'txtTggno,txtTgg,txtPaytype,txtTel,cmbTrantype,txtPost,txtAddr', 'tgg_b.aspx']
+            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+            , ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
+            , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            , ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx', '95%', '60%']);
             brwCount2 = 10;
             $(document).ready(function() {
                 bbmKey = ['noa'];
