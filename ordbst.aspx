@@ -139,6 +139,7 @@
 					case 'ordes' :
 						var as = _q_appendData("ordes", "", true);
 						if (as[0] != undefined){
+							for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', as.length, as
 	                                                           , 'uno,style,class,productno,product,unit,mount,weight,price,noa,no2,radius,dime,width,lengthb,spec'
 	                                                           ,'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
@@ -160,6 +161,25 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 				Unlock(1);
+			}
+			
+			function distinct(arr1) {
+				for(var i = 0;i<arr1.length;i++){
+					if((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == ''){
+						arr1.splice(i, 1);
+							i--;
+					}
+				}
+				return arr1;
+			}
+
+			function GetOrdenoList(){
+				var ReturnStr = new Array;
+				for(var i=0;i<q_bbsCount;i++){
+					ReturnStr.push(trim($('#txtOrdeno_'+i).val()));
+				}
+				ReturnStr = distinct(ReturnStr).sort();
+				return ReturnStr.toString();
 			}
 
 			function btnOk() {
@@ -385,6 +405,7 @@
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
 				$('#txtTotalus').val(FormatNumber(Math.round(q_float('txtTotal').mul(q_float('txtFloata'), 2))));
+				$('#txtOrdeno').val(GetOrdenoList());
 			}
 
 			function refresh(recno) {
