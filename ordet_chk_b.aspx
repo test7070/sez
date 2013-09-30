@@ -55,12 +55,40 @@
 			}
 
 			function q_gtPost(t_name) {
-
+				switch(t_name){
+					case 'vccs':
+						var as = _q_appendData("vccs", "", true);
+						if(as[0]!=undefined && abbs[0]!=undefined){
+							for(var i=0;i<as.length;i++){
+								for(var j=0;j<abbs.length;j++){
+									if(abbs[j].noa == as[i].ordeno && abbs[j].no2 == as[i].no2){
+										abbs[j].mount=dec(abbs[j].mount)-dec(as[i].mount);
+										abbs[j].weight=dec(abbs[j].weight)-dec(as[i].weight);
+									}
+								}
+							}
+						}
+						DoDefault();
+						break;
+					case 'vcces':
+						var as = _q_appendData("vcces", "", true);
+						if(as[0]!=undefined && abbs[0]!=undefined){
+							for(var i=0;i<as.length;i++){
+								for(var j=0;j<abbs.length;j++){
+									if(abbs[j].noa == as[i].ordeno && abbs[j].no2 == as[i].no2){
+										abbs[j].mount=dec(abbs[j].mount)-dec(as[i].mount);
+										abbs[j].weight=dec(abbs[j].weight)-dec(as[i].weight);
+									}
+								}
+							}
+						}
+						DoDefault();
+						break;
+				}
 			}
 			
 			var maxAbbsCount = 0;
 			function refresh() {
-				_refresh();
 				var w = window.parent;
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
@@ -70,12 +98,35 @@
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
 						}
-						if (abbs[i].issale == 'false' || abbs[i].issale == false) {
+						if (abbs[i].issale == 'false' || abbs[i].issale == false || abbs[i].enda == 'true' || abbs[i].enda == true) {
 							abbs.splice(i, 1);
 							i--;
 						}
 					}
 					maxAbbsCount = abbs.length;
+				}
+				Lock(1,{opacity:0});
+				switch(w.q_name.toLowerCase()){
+					case 'vcc' :
+						var t_where = "where=^^ 1=1 ^^";
+						q_gt('vccs', t_where , 0, 0, 0, "", r_accy);
+						break;
+					case 'vcce' :
+						var t_where = "where=^^ 1=1 ^^";
+						q_gt('vcces', t_where , 0, 0, 0, "", r_accy);
+						break; 
+					default:
+						DoDefault();
+						break;
+				}
+			}
+			
+			function DoDefault(){
+				for(var i=0;i<abbs.length;i++){
+					if (abbs[i].mount <=0 || abbs[i].weight <=0) {
+							abbs.splice(i, 1);
+							i--;
+					}
 				}
 				_refresh();
 				for(var i=0;i<q_bbsCount;i++){
@@ -88,8 +139,9 @@
 							$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 					});
 				});
+				Unlock(1);
 			}
-		
+			
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 			}
