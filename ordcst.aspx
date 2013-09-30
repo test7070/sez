@@ -23,7 +23,7 @@
             var q_name = "ordc";
             var q_readonly = ['txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtTax','txtTotal','txtTotalus','txtWeight'];
             var q_readonlys = ['txtC1', 'txtNotv', 'txtNo2', 'txtOrdbno', 'txtNo3'];
-            var bbmNum = [['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1], ['txtWeight', 10, 1, 1]];
+            var bbmNum = [['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 2, 1], ['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1], ['txtRadius', 10, 3, 1], ['txtWidth', 10, 2, 1], ['txtDime', 10, 3, 1], ['txtLengthb', 10, 2, 1], ['txtMount', 10, 2, 1], ['txtWeight', 10, 1, 1], ['txtTheory', 10, 1, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [['txtStyle', 'A']];
