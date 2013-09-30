@@ -125,14 +125,6 @@
                     q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordei', "95%", "95%", q_getMsg('popOrdei'));
                 });
 
-                $('#btnOrdet').click(function() {
-                    var noa = $('#txtNoa').val();
-                    if (!emp(noa) && noa != 'AUTO') {
-                        t_where = '';
-                        t_where = "noa='" + noa + "'";
-                        q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
-                    }
-                });
                 $('#txtFloata').change(function() {
                     sum();
                 });
@@ -171,6 +163,7 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
                             var i, j = 0;
+                            for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
                             $('#txtQuatno').val(b_ret[0].noa);
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice,txtMount,txtWeight,txtClass,txtTheory', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price,mount,weight,class,theory', 'txtProductno,txtProduct,txtSpec');
                             /// 最後 aEmpField 不可以有【數字欄位】
@@ -378,7 +371,7 @@
                             if ($('#cmbKind').val().substr(0, 1) == 'B')
                                 t_where += q_sqlPara2('dime', (t_dime - 0.1), (t_dime + 0.1));
                             else
-                                t_where += q_sqlPara2('dime', (t_dime * 0.93), (t_dime * 1.07));
+								t_where += q_sqlPara2('dime', (t_dime * 0.93), (t_dime * 1.07));
                             qBoxNo3id = b_seq;
                             q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "80%", q_getMsg('popOrdet'));
                         });
@@ -1145,9 +1138,6 @@
 						<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td>
 						<input id="txtApv" type="text"  class="txt c1" disabled="disabled"/>
-						</td>
-						<td style="display: none;">
-						<input id="btnOrdet" type="button"/>
 						</td>
 					</tr>
 				</table>
