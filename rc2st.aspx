@@ -137,14 +137,57 @@
             function q_boxClose(s2) {///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
                 var ret;
                 switch (b_pop) {/// 重要：不可以直接 return ，最後需執行 originalClose();
+					case 'ordc':
+						b_ret = getb_ret();
+						var inStr = '';
+						if (!b_ret || b_ret.length == 0)
+							return;
+						for(var i=0;i<b_ret.length;i++){
+							inStr += "'"+b_ret[i].noa+"',";
+						}
+						inStr = inStr.substring(0,inStr.length-1);
+						var t_where = "where=^^ noa in("+inStr+") ^^";
+						q_gt('ordcs', t_where, 0, 0, 0, "", r_accy);
+						break;
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        ///   q_boxClose 3/4
+                        break;
+                }/// end Switch
+                b_pop = '';
+            }
+			function distinct(arr1) {
+				for(var i = 0;i<arr1.length;i++){
+					if((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == ''){
+						arr1.splice(i, 1);
+							i--;
+					}
+				}
+				return arr1;
+			}
+
+			function GetOrdcnoList(){
+				var ReturnStr = new Array;
+				for(var i=0;i<q_bbsCount;i++){
+					ReturnStr.push(trim($('#txtOrdcno_'+i).val()));
+				}
+				ReturnStr = distinct(ReturnStr).sort();
+				return ReturnStr.toString();
+			}
+
+            var StyleList = '';
+            function q_gtPost(t_name) {/// 資料下載後 ...
+                switch (t_name) {
                     case 'ordcs':
                         if (q_cur > 0 && q_cur < 4) {
-                            b_ret = getb_ret();
+                            var b_ret = _q_appendData("ordcs", "", true);
                             if (!b_ret || b_ret.length == 0)
                                 return;
                             var i, j = 0;
-                            $('#txtOrdeno').val(b_ret[0].noa);
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtClass,txtStyle,txtUnit', b_ret.length, b_ret, 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo,class,style,unit', 'txtProductno,txtProduct,txtSpec');
+                            for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdcno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtClass,txtStyle,txtUnit',
+                            							 b_ret.length, b_ret, 
+                            							 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo,class,style,unit', 'txtProductno,txtProduct,txtSpec');
                             /// 最後 aEmpField 不可以有【數字欄位】
                             bbsAssign();
                             size_change();
@@ -162,18 +205,6 @@
                             sum();
                         }
                         break;
-
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        ///   q_boxClose 3/4
-                        break;
-                }/// end Switch
-                b_pop = '';
-            }
-
-            var StyleList = '';
-            function q_gtPost(t_name) {/// 資料下載後 ...
-                switch (t_name) {
                     case 'style' :
                         var as = _q_appendData("style", "", true);
                         StyleList = new Array();
@@ -216,22 +247,14 @@
 
             function lblOrdc() {
                 var t_tggno = trim($('#txtTggno').val());
-                var t_ordeno = trim($('#txtOrdeno').val());
                 var t_where = '';
                 if (t_tggno.length > 0) {
-                    if (t_ordeno.length > 0)
-                        t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "") + " && kind='" + $('#cmbKind').val() + "'";
-                    ////  sql AND 語法，請用 &&
-                    else
-                        /*t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&*/
                         t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
-                    ////  sql AND 語法，請用 &&
-                    t_where = t_where;
                 } else {
                     alert(q_getMsg('msgTggEmp'));
                     return;
                 }
-                q_box("ordcsst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));
+                q_box("ordcst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'ordc', "95%", "95%", q_getMsg('popOrdcs'));
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -468,6 +491,7 @@
                 $('#txtTax').val(FormatNumber(t_tax));
                 $('#txtTotal').val(FormatNumber(t_total));
                 $('#txtTotalus').val(FormatNumber(Math.round(q_float('txtTotal').mul(q_float('txtFloata'), 2))));
+				$('#txtOrdcno').val(GetOrdcnoList());
             }
 
             function refresh(recno) {
