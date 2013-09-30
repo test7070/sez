@@ -306,7 +306,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['product'] && !as['uno'] && praseFloat(as['mount'].length=0?"0":as['mount'])!=0 && praseFloat(as['mount'].length=0?"0":as['weight'])!=0) {
+                if (!as['product'] && !as['uno'] && parseFloat(as['mount'].length=0?"0":as['mount'])!=0 && parseFloat(as['mount'].length=0?"0":as['weight'])!=0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
