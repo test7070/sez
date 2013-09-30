@@ -731,7 +731,7 @@
             </tr>
             <tr>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtDatea.*" type="text" /><input class="txt c1" id="txtNoq.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtWeek.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
                 <td >
