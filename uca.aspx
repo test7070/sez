@@ -38,6 +38,7 @@
 			
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+				['txtRackno', 'lblRackno', 'noa,storeno,store,place', 'noa', 'txtRackno', 'rack_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
@@ -1136,7 +1137,9 @@
 					<input id="txtProcess" type="text"  class="txt" style="width: 45%;"/>
 				</td>
 				<td class="td3"><span> </span><a id="lblSpec" class="lbl"> </a></td>
-				<td class="td4" colspan='3'><input id="txtSpec" type="text"  class="txt c1"/></td>
+				<td class="td4"><input id="txtSpec" type="text"  class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblRackno" class="lbl btn"> </a></td>
+				<td class="td6"><input id="txtRackno" type="text"  class="txt c1"/></td>
 			</tr>
 			<tr class="tr5">
 				<td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>

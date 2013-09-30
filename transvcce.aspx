@@ -384,6 +384,12 @@
 				        complete: function(){
 				        	//nothing 			         
 				        },
+				        /*error:function(xhr, ajaxOptions, thrownError){
+				        //	alert(xhr.status);
+				           
+				           alert(this.senddate+'\n'+this.url);
+				           document.write(xhr.responseText);
+				        }*/
 					    error: function(jqXHR, exception) {
 					    	var errmsg = '資料傳送異常。\n'+('accy:'+this.accy+' senddate:'+this.senddate)+'\n\n';
 				            if (jqXHR.status === 0) {

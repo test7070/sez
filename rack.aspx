@@ -142,7 +142,10 @@
 			}
 			$('#txtWorker').val(r_name);
 			if(q_cur==1){
-				t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+				var t_storeno = trim($('#txtStoreno').val());
+				var t_place = trim($('#txtPlace').val()).toUpperCase();
+				var t_noa = trim($('#txtStoreno').val());
+				var t_where="where=^^ ltrim(rtrim(storeno))='"+t_storeno+"' and ltrim(rtrim(noa))='"+t_noa+"' and upper(ltrim(rtrim(place)))='"+t_place+"' ^^";
 				q_gt('rack', t_where, 0, 0, 0, "checkNoa_btnOk", r_accy);
 			}else{
 				wrServer($('#txtNoa').val());

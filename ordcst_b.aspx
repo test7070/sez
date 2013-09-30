@@ -10,9 +10,9 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'orde', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], as;
+			var q_name = 'ordc', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], as;
 			//, t_where = '';
-			var t_sqlname = 'orde_load';
+			var t_sqlname = 'ordc_load';
 			t_postname = q_name;
 			brwCount = -1;
 			brwCount2 = 0;
@@ -59,7 +59,7 @@
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
 						for (var j = 0; j < w.q_bbsCount; j++) {
-							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa) {
+							if (w.$('#txtOrdcno_' + j).val() == abbs[i].noa) {
 								abbs[i]['sel'] = "true";
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
@@ -75,17 +75,10 @@
 				_refresh();
 				for (var j = 0; j < q_bbsCount; j++) {
 				q_cmbParse("combKind_"+j, q_getPara('sys.stktype'));
-				q_cmbParse("combStype_"+j, q_getPara('orde.stype'));
 					if(!emp($('#txtKind_'+j).val()))
 						$('#combKind_'+j).val($('#txtKind_'+j).val());
 					else
 						$('#combKind_'+j).text('');
-					if(!emp($('#txtStype_'+j).val()))
-						$('#combStype_'+j).val($('#txtStype_'+j).val());
-					else
-						$('#combStype_'+j).text('');
-			        $('#combStype_'+j).attr('disabled', 'disabled');
-		            $('#combStype_'+j).css('background', t_background2);
 			        $('#combKind_'+j).attr('disabled', 'disabled');
 		            $('#combKind_'+j).css('background', t_background2);
 				}
@@ -126,7 +119,6 @@
 					<td align="center" style="width:3%;"><a id='lblNo'></a></td>
 					<td align="center" style="width:10%;"><a id='lblNoa'></a></td>
 					<td align="center" style="width:8%;"><a id='lblOdate'></a></td>
-					<td align="center" style="width:10%;"><a id='lblStype'></a></td>
 					<td align="center" style="width:10%;"><a id='lblKind'></a></td>
 					<td align="center" style="width:18%;"><a id='lblAcomp'></a></td>
 					<td align="center" style="width:20%;"><a id='lblCust'></a></td>
@@ -142,10 +134,9 @@
 					<td align="center"><a id='lblNo'></a></td>
 					<td align="center"><a id='lblNoa'></a></td>
 					<td align="center"><a id='lblOdate'></a></td>
-					<td align="center"><a id='lblStype'></a></td>
 					<td align="center"><a id='lblKind'></a></td>
 					<td align="center"><a id='lblAcomp'></a></td>
-					<td align="center"><a id='lblCust'></a></td>
+					<td align="center"><a id='lblTgg'></a></td>
 					<td align="center"><a id='lblEnda'></a></td>
 					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
@@ -159,10 +150,6 @@
 					<td style="width:10%;"><input class="txt"  id="txtNoa.*" type="text" style="width:98%;" /></td>
 					<td style="width:8%;"><input class="txt"  id="txtOdate.*" type="text" style="width:98%;" /></td>
 					<td style="width:10%;">
-						<select id="combStype.*" class="txt c1"></select>
-						<input class="txt"  id="txtStype.*" type="text" style="display:none;" />
-					</td>
-					<td style="width:10%;">
 						<select id="combKind.*" class="txt c1"></select>
 						<input class="txt"  id="txtKind.*" type="text" style="display:none;" />
 					</td>
@@ -171,8 +158,8 @@
 						<input class="txt"  id="txtAcomp.*" type="text" style="width:70%;" />
 					</td>
 					<td style="width:20%;">
-						<input class="txt"  id="txtCustno.*" type="text" style="width:25%;" />
-						<input class="txt"  id="txtComp.*" type="text" style="width:70%;" />
+						<input class="txt"  id="txtTggno.*" type="text" style="width:25%;" />
+						<input class="txt"  id="txtTgg.*" type="text" style="width:70%;" />
 					</td>
 					<td align="center" style="width:5%;"><input id="chkEnda.*" type="checkbox"/></td>
 					<td align="center"><input class="txt"  id="txtMemo.*" type="text" style="width:98%;" /></td>

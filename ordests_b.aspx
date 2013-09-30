@@ -92,6 +92,10 @@
 			input[type="text"], input[type="button"] {
 				font-size: medium;
 			}
+			.txt.c1 {
+				width: 98%;
+				float: left;
+			}
 		</style>
 	</head>
 	<body>

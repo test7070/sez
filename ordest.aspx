@@ -125,14 +125,6 @@
                     q_box("ordei.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordei', "95%", "95%", q_getMsg('popOrdei'));
                 });
 
-                $('#btnOrdet').click(function() {
-                    var noa = $('#txtNoa').val();
-                    if (!emp(noa) && noa != 'AUTO') {
-                        t_where = '';
-                        t_where = "noa='" + noa + "'";
-                        q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
-                    }
-                });
                 $('#txtFloata').change(function() {
                     sum();
                 });
@@ -171,6 +163,7 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
                             var i, j = 0;
+                            for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
                             $('#txtQuatno').val(b_ret[0].noa);
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice,txtMount,txtWeight,txtClass,txtTheory', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price,mount,weight,class,theory', 'txtProductno,txtProduct,txtSpec');
                             /// 最後 aEmpField 不可以有【數字欄位】
@@ -284,7 +277,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('ordest_s.aspx', q_name + '_s', "550px", "500px", q_getMsg("popSeek"));
             }
 
             function bbtAssign() {
@@ -378,7 +371,7 @@
                             if ($('#cmbKind').val().substr(0, 1) == 'B')
                                 t_where += q_sqlPara2('dime', (t_dime - 0.1), (t_dime + 0.1));
                             else
-                                t_where += q_sqlPara2('dime', (t_dime * 0.93), (t_dime * 1.07));
+								t_where += q_sqlPara2('dime', (t_dime * 0.93), (t_dime * 1.07));
                             qBoxNo3id = b_seq;
                             q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "80%", q_getMsg('popOrdet'));
                         });
@@ -1146,9 +1139,6 @@
 						<td>
 						<input id="txtApv" type="text"  class="txt c1" disabled="disabled"/>
 						</td>
-						<td style="display: none;">
-						<input id="btnOrdet" type="button"/>
-						</td>
 					</tr>
 				</table>
 			</div>
@@ -1162,7 +1152,7 @@
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:120px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:35px;"><a id='lblStyle_st'> </a></td>
-					<td align="center" style="width:140px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:140px;">品名</td>
 					<td align="center" style="width:50px;"><a id='lblClasss'> </a></td>
 					<td align="center" id='Size'><a id='lblSize_help'> </a>
 					<BR>
@@ -1196,8 +1186,8 @@
 					</td>
 					<td><span style="width:20px;height:1px;display:block;float:left;"> </span>
 					<input id="txtProduct.*" type="text" style="float:left;width:100px;"/>
-					<input class="btn" id="btnUno.*" type="button" value='' style="float:left;width:20px;height:25px;"/>
-					<input id="txtUno.*" type="text" style="float:left;width:100px;" />
+					<input class="btn" id="btnUno.*" type="button" value='' style="display:none;float:left;width:20px;height:25px;"/>
+					<input id="txtUno.*" type="text" style="display:none;float:left;width:100px;" />
 					</td><td >
 					<input id="txtClass.*" type="text" style="width:90%;text-align:center;"/>
 					</td><td>
