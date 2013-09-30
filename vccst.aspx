@@ -190,6 +190,7 @@
 
 			var focus_addr = '';
 			var StyleList = '';
+			var vcces_as = new Array;
 			function q_gtPost(t_name) {/// 資料下載後 ...
 				switch (t_name) {
 					case 'spec':
@@ -208,11 +209,41 @@
 						}
 						break;
 					case 'vcce':
-						var as = _q_appendData("vcces", "", true);
-						if (as[0] != undefined) {
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice,txtStyle', as.length, as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price,style', 'txtUno');
+						vcces_as = _q_appendData("vcces", "", true);
+						if (vcces_as[0] != undefined) {
+							var distinctArray = new Array;
+							var inStr = '';
+							for(var i=0;i<vcces_as.length;i++){distinctArray.push(vcces_as[i].ordeno);}
+							distinctArray = distinct(distinctArray);
+							for(var i=0;i<distinctArray.length;i++){
+								inStr += "'"+distinctArray[i]+"',";
+							}
+							inStr = inStr.substring(0,inStr.length-1);
+							var t_where = "where=^^ ordeno in("+inStr+") and (isnull(ordeno,'') != '') ^^";
+							q_gt('vccs', t_where , 0, 0, 0, "", r_accy);
 						}
 						sum();
+						break;
+					case 'vccs':
+						var vccs_as = _q_appendData("vccs", "", true);
+						for(var i=0;i<vccs_as.length;i++){
+							for(var j=0;j<vcces_as.length;j++){
+								if((vcces_as[j].ordeno == vccs_as[i].ordeno) && (vcces_as[j].no2 == vccs_as[i].no2)){
+									vcces_as[j].mount = dec(vcces_as[j].mount)-dec(vccs_as[i].mount);
+									vcces_as[j].weight = dec(vcces_as[j].weight)-dec(vccs_as[i].weight);
+								}
+							}
+						}
+						for(var i=0;i<vcces_as.length;i++){
+							if (vcces_as[i].mount <=0 || vcces_as[i].weight <=0 || vcces_as[i].ordeno == '') {
+									vcces_as.splice(i, 1);
+									i--;
+							}
+						}
+						if (vcces_as[0] != undefined) {
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice,txtStyle', vcces_as.length, vcces_as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price,style', 'txtUno');
+						}
+						vcces_as = new Array;
 						break;
 					case q_name:
 						if (q_cur == 4)// 查詢

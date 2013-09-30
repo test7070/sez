@@ -66,7 +66,7 @@
 			 }
 
 			function btnOk() {
-				t_key = $('txtNoa').val();
+				t_key = $('#txtNoa').val();
 				_btnOk(t_key, bbsKey[0], bbsKey[1], '', 2);
 			}
 			

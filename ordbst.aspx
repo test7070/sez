@@ -67,7 +67,7 @@
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				
 				$('#btnOrde').click(function() {
-					var t_where = ' 1=1 ';
+					var t_where = " 1=1 and enda='0' ";
 					q_box("ordest_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
 				});
 				$("#combPaytype").change(function(e) {
@@ -134,17 +134,48 @@
 			}
 
 			var StyleList = '';
+			var ordesArray = new Array;
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'ordes' :
-						var as = _q_appendData("ordes", "", true);
-						if (as[0] != undefined){
-							for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', as.length, as
-	                                                           , 'uno,style,class,productno,product,unit,mount,weight,price,noa,no2,radius,dime,width,lengthb,spec'
-	                                                           ,'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
+						ordesArray = _q_appendData("ordes", "", true);
+						if (ordesArray[0] != undefined) {
+							var distinctArray = new Array;
+							var inStr = '';
+							for(var i=0;i<ordesArray.length;i++){distinctArray.push(ordesArray[i].noa);}
+							distinctArray = distinct(distinctArray);
+							for(var i=0;i<distinctArray.length;i++){
+								inStr += "'"+distinctArray[i]+"',";
+							}
+							inStr = inStr.substring(0,inStr.length-1);
+							var t_where = "where=^^ ordeno in("+inStr+") and (isnull(ordeno,'') != '') ^^";
+							q_gt('ordbs', t_where , 0, 0, 0, "", r_accy);
 						}
-						size_change();
+						break;
+					case 'ordbs':
+						var as = _q_appendData("ordbs", "", true);
+						for(var i = 0;i<as.length;i++){
+							for(var j=0;j<ordesArray.length;j++){
+								if(as[i].ordeno == ordesArray[j].noa && as[i].no2 == ordesArray[j].no2){
+									ordesArray[j].mount = dec(ordesArray[j].mount)-dec(as[i].mount);
+									ordesArray[j].weight = dec(ordesArray[j].weight)-dec(as[i].weight);
+								}
+							}
+							for(var i=0;i<ordesArray.length;i++){
+								if (ordesArray[i].mount <=0 || ordesArray[i].weight <=0 || ordesArray[i].noa == '') {
+										ordesArray.splice(i, 1);
+										i--;
+								}
+							}
+							if (ordesArray[0] != undefined){
+								for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', ordesArray.length, ordesArray
+		                                                           , 'uno,style,class,productno,product,unit,mount,weight,price,noa,no2,radius,dime,width,lengthb,spec'
+		                                                           ,'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
+							}
+							size_change();
+						}
+						ordesArray = new Array;
 						break;
 					case 'style' :
 						var as = _q_appendData("style", "", true);
