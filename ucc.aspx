@@ -21,7 +21,7 @@
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
 		//ajaxPath = ""; //	execute in Root
-		aPop = new Array();
+		aPop = new Array(['txtRackno', 'lblRackno', 'noa,storeno,store,place', 'noa', 'txtRackno', 'rack_b.aspx']);
 		//['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
 		
 		$(document).ready(function () {
@@ -380,6 +380,11 @@
 		input[type="text"], input[type="button"] {
 				font-size: medium;
 		}
+		.btn {
+			color: #4297D7;
+			font-weight: bolder;
+			font-size: medium;
+		}
 		.tbbm td input[type="text"] {
 				border-width: 1px;
 				padding: 0px;
@@ -531,6 +536,8 @@
 		<tr>
 			<td class="label1"><a id='lblGroupano'> </a></td>
 			<td><select id="cmbGroupano" class="txt c2"> </select></td> 
+			<td class="label2 btn"><a id='lblRackno'> </a></td>
+			<td><input	type="text" id="txtRackno" class="txt c2"/></td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblMemo'> </a></td>
