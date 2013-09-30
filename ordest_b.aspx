@@ -124,13 +124,12 @@
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:1%;"><input type="checkbox" id="checkAllCheckbox"/></td>
 					<td align="center" style="width:3%;"><a id='lblNo'></a></td>
-					<td align="center" style="width:10%;"><a id='lblNoa'></a></td>
+					<td align="center" style="width:12%;"><a id='lblNoa'></a></td>
 					<td align="center" style="width:8%;"><a id='lblOdate'></a></td>
 					<td align="center" style="width:10%;"><a id='lblStype'></a></td>
 					<td align="center" style="width:10%;"><a id='lblKind'></a></td>
 					<td align="center" style="width:18%;"><a id='lblAcomp'></a></td>
 					<td align="center" style="width:20%;"><a id='lblCust'></a></td>
-					<td align="center" style="width:5%;"><a id='lblEnda'></a></td>
 					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
 			</table>
@@ -146,7 +145,6 @@
 					<td align="center"><a id='lblKind'></a></td>
 					<td align="center"><a id='lblAcomp'></a></td>
 					<td align="center"><a id='lblCust'></a></td>
-					<td align="center"><a id='lblEnda'></a></td>
 					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -156,7 +154,7 @@
 					<td style="width:3%;">
 						<a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a>
 					</td>
-					<td style="width:10%;"><input class="txt"  id="txtNoa.*" type="text" style="width:98%;" /></td>
+					<td style="width:12%;"><input class="txt"  id="txtNoa.*" type="text" style="width:98%;" /></td>
 					<td style="width:8%;"><input class="txt"  id="txtOdate.*" type="text" style="width:98%;" /></td>
 					<td style="width:10%;">
 						<select id="combStype.*" class="txt c1"></select>
@@ -174,7 +172,6 @@
 						<input class="txt"  id="txtCustno.*" type="text" style="width:25%;" />
 						<input class="txt"  id="txtComp.*" type="text" style="width:70%;" />
 					</td>
-					<td align="center" style="width:5%;"><input id="chkEnda.*" type="checkbox"/></td>
 					<td align="center"><input class="txt"  id="txtMemo.*" type="text" style="width:98%;" /></td>
 				</tr>
 			</table>

@@ -70,11 +70,13 @@
                 });
 
                 $('#btnOrdeimport').click(function() {
-                    var ordeno = $('#txtOrdeno').val();
-                    var t_where = '';
-                    if (ordeno.length > 0) {
-                        t_where += "1=1 and noa='" + ordeno + "'";
+                    var t_ordeno = $('#txtOrdeno').val();
+                    var t_where = ' 1=1 ';
+                    var t_custno = trim($('#txtCustno').val());
+                    if (t_ordeno.length > 0) {
+                        t_where += q_sqlPara2('ordeno', t_ordeno);
                     }
+                    t_where += q_sqlPara2('custno', t_custno) ;
 					q_box("ordet_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnVcceImport').click(function() {
