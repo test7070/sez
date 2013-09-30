@@ -163,14 +163,16 @@
 				var
 				ret;
 				switch (b_pop) {
-					case 'ordes':
+					case 'ordet':
 						if (q_cur > 0 && q_cur < 4) {//  q_cur： 0 = 瀏覽狀態  1=新增  2=修改 3=刪除  4=查詢
 							b_ret = getb_ret();
 							///  q_box() 執行後，選取的資料
 							if (!b_ret || b_ret.length == 0)
 								return;
 							for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice,txtStyle,txtClass,txtUno,txtMount,txtWeight', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price,style,class,uno,mount,weight', 'txtProductno,txtProduct,txtSpec');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtUno,txtMount,txtWeight', 
+																b_ret.length, b_ret, 
+																'productno,product,dime,width,lengthb,unit,noa,no3,uno,mount,weight', 'txtProductno,txtProduct');
 							/// 最後 aEmpField 不可以有【數字欄位】
 							for (var i = 0; i < ret.length; i++) {
 								$('#txtMount_' + i).change();
@@ -223,14 +225,14 @@
 				var t_custno = trim($('#txtCustno').val());
 				var t_where = '';
 				if (t_custno.length > 0) {
-					t_where = "enda='0' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
+					t_where = " 1=1 " + (t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "");
 					////  sql AND 語法，請用 &&
 					t_where = t_where;
 				} else {
 					alert(q_getMsg('msgCustEmp'));
 					return;
 				}
-				q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
+				q_box("ordet_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "650px", q_getMsg('popOrde'));
 			}/// q_box()  開 視窗
 
 			function distinct(arr1) {

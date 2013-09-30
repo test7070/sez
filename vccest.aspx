@@ -71,11 +71,11 @@
 
                 $('#btnOrdeimport').click(function() {
                     var ordeno = $('#txtOrdeno').val();
-                    var t_where = 'enda = 0 ';
+                    var t_where = '';
                     if (ordeno.length > 0) {
-                        t_where += " and noa='" + ordeno + "'";
+                        t_where += "1=1 and noa='" + ordeno + "'";
                     }
-					q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
+					q_box("ordet_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnVcceImport').click(function() {
                     var t_ordeno = $('#txtOrdeno').val();
@@ -116,13 +116,13 @@
                         }
                         sum();
                         break;
-                    case 'orde':
+                    case 'ordet':
                         if (q_cur > 0 && q_cur < 4) {
                             if (!b_ret || b_ret.length == 0)
                                 return;
 							for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtOrdeno,txtNo2,txtProductno,txtClass,txtStyle,txtProduct,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
-                            												'uno,noa,no2,productno,class,style,product,radius,dime,width,lengthb,spec,weight,mount,price', 'txtProductno');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtOrdeno,txtNo2,txtProductno,txtProduct,txtDime,txtWidth,txtLengthb,txtWeight,txtMount', b_ret.length, b_ret,
+                            												'uno,noa,no3,productno,product,dime,width,lengthb,weight,mount', 'txtProductno');
                             /// 最後 aEmpField 不可以有【數字欄位】
                         }
                         sum();
@@ -306,7 +306,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['product'] && !as['uno'] && parseFloat(as['mount'].length=0?"0":as['mount'])!=0 && parseFloat(as['mount'].length=0?"0":as['weight'])!=0) {
+                if (!as['product'] && !as['uno'] && parseFloat(as['mount'].length=0?"0":as['mount'])==0 && parseFloat(as['weight'].length=0?"0":as['weight'])==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }

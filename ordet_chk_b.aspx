@@ -10,10 +10,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ordet', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, 
+			var q_name = 'view_ordet', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, 
 			brwCount2 = 0;
 			brwCount = -1;
-			var t_sqlname = 'ordet_load'; t_postname = q_name;
+			var t_sqlname = 'view_ordet_load'; t_postname = q_name;
 			var isBott = false;
 			var afield, t_htm;
 			var i, s1;
@@ -65,7 +65,7 @@
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
 						for (var j = 0; j < w.q_bbsCount; j++) {
-							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
+							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa) {
 								abbs[i]['sel'] = "true";
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
@@ -84,7 +84,7 @@
 				$('#checkAllCheckbox').click(function() {
 					$('input[type=checkbox][id^=chkSel]').each(function() {
 						var t_id = $(this).attr('id').split('_')[1];
-						if (!emp($('#txtUno' + t_id).val()))
+						if (!emp($('#txtUno_' + t_id).val()))
 							$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 					});
 				});
@@ -110,9 +110,26 @@
 		</style>
 	</head>
 	<body>
+		<div  id="dFixedTitle" style="overflow-y: scroll;">
+			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+				<tr style='color:white; background:#003366;' >
+					<td class="td1" align="center" style="width:1%;"><input type="checkbox" id="checkAllCheckbox"/></td>
+					<td align="center" style="width:3%;"> </td>
+					<td class="td2" align="center" style="width:15%;"><a id='lblUno_s'></a></td>
+					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_s'></a></td>
+					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
+					<td class="td5" align="center" style="width:8%;"><a id='lblDime_s'></a></td>
+					<td class="td6" align="center" style="width:8%;"><a id='lblWidth_s'></a></td>
+					<td class="td7" align="center" style="width:8%;"><a id='lblLengthb_s'></a></td>
+					<td class="td8" align="center" style="width:8%;"><a id='lblMount_s'></a></td>
+					<td class="td9" align="center" style="width:8%;"><a id='lblWeight_s'></a></td>
+					<td class="td10" align="center" style="width:10%;"><a id='lblSource_s'></a></td>
+				</tr>
+			</table>
+		</div>
 		<div id="dbbs" style="overflow: scroll;height:550px;" >
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
-				<tr style='color:white; background:#003366;' >
+				<tr style='color:white; background:#003366;display:none;' >
 					<td class="td1" align="center" style="width:1%;">
 						<input type="checkbox" id="checkAllCheckbox"/>
 					</td>
@@ -128,38 +145,40 @@
 					<td class="td10" align="center" style="width:10%;"><a id='lblSource_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td align="center"><input id="chkSel.*" type="checkbox"  /></td>
-					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td class="td2">
+					<td align="center" style="width:1%;"><input id="chkSel.*" type="checkbox"  /></td>
+					<td style="width:3%;">
+						<a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a>
+					</td>
+					<td class="td2" style="width:15%;">
 						<input class="txt c1" id="txtUno.*" type="text" />
 					</td>
-					<td class="td3">
+					<td class="td3" style="width:15%;">
 						<input class="txt c1" id="txtProduct.*" type="text" />
 					</td>
-					<td class="td4">
+					<td class="td4" style="width:10%;">
 						<input class="txt c1" id="txtProductno.*" type="text" />
 					</td>
-					<td class="td5">
+					<td class="td5" style="width:8%;">
 						<input class="txt c1 num" id="txtDime.*" type="text" />
 					</td>
-					<td class="td6">
+					<td class="td6" style="width:8%;">
 						<input class="txt c1 num" id="txtWidth.*" type="text"  />
 					</td>
-					<td class="td7">
+					<td class="td7" style="width:8%;">
 						<input class="txt c1 num" id="txtLengthb.*" type="text" />
 					</td>
-					<td class="td8">
+					<td class="td8" style="width:8%;">
 						<input class="txt c1 num" id="txtMount.*" type="text" />
 					</td>
-					<td class="td9">
+					<td class="td9" style="width:8%;">
 						<input class="txt c1 num" id="txtWeight.*" type="text" />
 					</td>
-					<td class="td10">
+					<td class="td10" style="width:10%;">
 						<input class="txt c1" id="txtSource.*" type="text" />
 					</td>
 				</tr>
 			</table>
-			<!--#include file="../inc/pop_ctrl.inc"-->
 		</div>
+			<!--#include file="../inc/pop_ctrl.inc"-->
 	</body>
 </html>
