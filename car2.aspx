@@ -387,7 +387,15 @@
                     var t_where = "where=^^ a.noa ='"+$('#txtNoa').val()+"' ^^";
 					q_gt('car2', t_where, 0, 0, 0, "");
                 });
-				
+                
+                $('#txtEngineno').click(function () {
+					if(q_cur==0 || q_cur==4)
+           				q_msg( $(this), $(this).val());
+				});
+				$('#txtCarstyleno').click(function () {
+					if(q_cur==0 || q_cur==4)
+           				q_msg( $(this), $(this).val());
+				});
             }
             
             function q_popPost(s1) {
