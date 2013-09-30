@@ -1162,7 +1162,7 @@
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:120px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:35px;"><a id='lblStyle_st'> </a></td>
-					<td align="center" style="width:140px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:140px;">品名</td>
 					<td align="center" style="width:50px;"><a id='lblClasss'> </a></td>
 					<td align="center" id='Size'><a id='lblSize_help'> </a>
 					<BR>
@@ -1196,8 +1196,8 @@
 					</td>
 					<td><span style="width:20px;height:1px;display:block;float:left;"> </span>
 					<input id="txtProduct.*" type="text" style="float:left;width:100px;"/>
-					<input class="btn" id="btnUno.*" type="button" value='' style="float:left;width:20px;height:25px;"/>
-					<input id="txtUno.*" type="text" style="float:left;width:100px;" />
+					<input class="btn" id="btnUno.*" type="button" value='' style="display:none;float:left;width:20px;height:25px;"/>
+					<input id="txtUno.*" type="text" style="display:none;float:left;width:100px;" />
 					</td><td >
 					<input id="txtClass.*" type="text" style="width:90%;text-align:center;"/>
 					</td><td>
