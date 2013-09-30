@@ -30,7 +30,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx']
+            aPop = new Array(['txtProductno', 'lblProduct', 'ucaall', 'noa,product', 'txtProductno,txtProduct', 'ucaall_b.aspx']
             ,['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
             ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
             $(document).ready(function() {
@@ -77,6 +77,27 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+                	case 'work':
+                		if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+	                            return;
+							var mindate='999/99/99';
+	                        for (i = 0; i < b_ret.length; i++) {
+	                        	if(mindate>b_ret[i].cuadate)
+	                        		mindate=b_ret[i].cuadate;
+	                        }
+	                        if(mindate<q_date())
+	                        	$('#txtCuadate').val(q_date());
+	                        else
+	                        	$('#txtCuadate').val(mindate);
+	                        
+                	  		ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtWorkno,txtProductno,txtProduct,txtStationno,txtStation,txtProcessno,txtProcess,txtMount,txtHours,txtCuadate,txtUindate', b_ret.length, b_ret
+	                        , 'noa,productno,product,stationno,station,processno,process,mount,hours,cuadate,cuadate,uindate'
+	                        , 'txtProductno');
+	                        sum();
+						}
+                	break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -173,10 +194,13 @@
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount;
+                var t1 = 0, t_unit, t_mount=0,t_hours=0;
                 for (var j = 0; j < q_bbsCount; j++) {
-
+					t_mount+=q_float('txtMount_'+j);
+					t_hours+=q_float('txtHours_'+j);
                 } // j
+                q_tr('txtMount',t_mount);
+                q_tr('txtHours',t_hours);
             }
 
             function refresh(recno) {
