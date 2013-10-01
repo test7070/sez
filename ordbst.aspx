@@ -176,6 +176,7 @@
 		                                                          ,'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
 						}
 						size_change();
+						sum();
 						ordesArray = new Array;
 						break;
 					case 'style' :
