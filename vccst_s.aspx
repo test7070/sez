@@ -38,7 +38,7 @@
 
             function q_seekStr() {
             	t_kind = $.trim($('#cmbKind').val());
-            	t_type = $.trim($('#cmbType').val());
+            	t_typea = $.trim($('#cmbTypea').val());
                 t_noa = $.trim($('#txtNoa').val());
 		        t_custno = $.trim($('#txtCustno').val());
 		        t_comp = $.trim($('#txtComp').val());
@@ -48,7 +48,7 @@
 
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("kind", t_kind)
-		        + q_sqlPara2("type", t_type)
+		        + q_sqlPara2("typea", t_typea)
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 		     
 		        + q_sqlPara2("custno", t_custno);
