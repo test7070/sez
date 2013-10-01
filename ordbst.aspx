@@ -175,6 +175,7 @@
 							}
 							size_change();
 						}
+						sum();
 						ordesArray = new Array;
 						break;
 					case 'style' :

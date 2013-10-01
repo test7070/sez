@@ -437,15 +437,15 @@
 				var i;
 
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-				_btnOk(null, bbmKey[0], bbsKey[1], '', 2);
+				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 				// key_value
 			}
 
 			function bbsSave(as) {
-				if (!as['productno'] && !as['product'] && !as['spec'] && !dec(as['total'])) {//不存檔條件
-					as[bbsKey[1]] = '';
-					return;
-				}
+				if (!as['product'] && !as['uno'] && parseFloat(as['mount'].length==0?"0":as['mount'])==0 && parseFloat(as['weight'].length==0?"0":as['weight'])==0) {
+                    as[bbsKey[1]] = '';
+                    return;
+                }
 
 				q_nowf();
 				as['type'] = abbm2['type'];
