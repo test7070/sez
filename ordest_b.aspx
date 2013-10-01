@@ -32,6 +32,14 @@
 					dataErr = false;
 					return;
 				}
+				
+				var w = window.parent;
+				if(w.q_name == 'orde' || emp(w.q_name) ){
+					t_content = '';
+				}else{
+					t_content = "where=^^ ((select isnull(sum(mount),0) from ordes"+r_accy+" b where orde.noa = b.noa)-(select isnull(sum(mount),0) from "+w.q_name+"s"+r_accy+" a where orde.noa=a.ordeno ) >0) ";
+					t_content +=" and ((select isnull(sum(weight),0) from ordes"+r_accy+" b where orde.noa = b.noa)-(select isnull(sum(weight),0) from "+w.q_name+"s"+r_accy+" a where orde.noa=a.ordeno) >0) ^^";
+				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
 				parent.$.fn.colorbox.resize({
 					height : "750px"
@@ -79,7 +87,7 @@
 				}
 				_refresh();
 				q_bbsCount = abbs.length;
-				for (var j = 0; j < q_bbsCount; j++) {
+				for (var j = 0; j < (q_bbsCount ==0 ?1:q_bbsCount); j++) {
 				q_cmbParse("combKind_"+j, q_getPara('sys.stktype'));
 				q_cmbParse("combStype_"+j, q_getPara('orde.stype'));
 					if(!emp($('#txtKind_'+j).val()))

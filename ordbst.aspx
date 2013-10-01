@@ -154,6 +154,7 @@
 						break;
 					case 'ordbs':
 						var as = _q_appendData("ordbs", "", true);
+						console.log(as);
 						for(var i = 0;i<as.length;i++){
 							for(var j=0;j<ordesArray.length;j++){
 								if(as[i].ordeno == ordesArray[j].noa && as[i].no2 == ordesArray[j].no2){
@@ -161,20 +162,20 @@
 									ordesArray[j].weight = dec(ordesArray[j].weight)-dec(as[i].weight);
 								}
 							}
-							for(var i=0;i<ordesArray.length;i++){
-								if (ordesArray[i].mount <=0 || ordesArray[i].weight <=0 || ordesArray[i].noa == '') {
-										ordesArray.splice(i, 1);
-										i--;
-								}
-							}
-							if (ordesArray[0] != undefined){
-								for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
-								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', ordesArray.length, ordesArray
-		                                                           , 'uno,style,class,productno,product,unit,mount,weight,price,noa,no2,radius,dime,width,lengthb,spec'
-		                                                           ,'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
-							}
-							size_change();
 						}
+						for(var i=0;i<ordesArray.length;i++){
+							if (ordesArray[i].mount <=0 || ordesArray[i].weight <=0 || ordesArray[i].noa == '') {
+									ordesArray.splice(i, 1);
+									i--;
+							}
+						}
+						if (ordesArray[0] != undefined){
+							for(var i=0;i<q_bbsCount;i++){$('#btnMinus_'+i).click();}
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', ordesArray.length, ordesArray
+		                                                          , 'uno,style,class,productno,product,unit,mount,weight,price,noa,no2,radius,dime,width,lengthb,spec'
+		                                                          ,'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
+						}
+						size_change();
 						sum();
 						ordesArray = new Array;
 						break;

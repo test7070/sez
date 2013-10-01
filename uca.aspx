@@ -38,7 +38,6 @@
 			
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
-				['txtRackno', 'lblRackno', 'noa,storeno,store,place', 'noa', 'txtRackno', 'rack_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
@@ -1138,8 +1137,8 @@
 				</td>
 				<td class="td3"><span> </span><a id="lblSpec" class="lbl"> </a></td>
 				<td class="td4"><input id="txtSpec" type="text"  class="txt c1"/></td>
-				<td class="td5"><span> </span><a id="lblRackno" class="lbl btn"> </a></td>
-				<td class="td6"><input id="txtRackno" type="text"  class="txt c1"/></td>
+				<td class="td5"><span> </span><a id="lblUnit" class="lbl"> </a></td>
+				<td class="td6"><input id="txtUnit" type="text"  class="txt c1"/></td>
 			</tr>
 			<tr class="tr5">
 				<td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
@@ -1150,7 +1149,7 @@
 				<td class="td3"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 				<td class="td4">
 					<input id="txtTggno" type="text"  class="txt" style="width: 45%;"/>
-					<input id="txtComp" type="text"  class="txt" style="width: 45%;"/>
+					<input id="txtComp" type="text"  class="txt" style="width: 53%;"/>
 				</td>
 				<td class="td5"><span> </span><a id="lblPrice" class="lbl"> </a></td>
 				<td class="td6"><input id="txtPrice" type="text"  class="txt num c1"/></td>
@@ -1164,7 +1163,7 @@
 				<td class="td1"><span> </span><a id="lblStationg" class="lbl btn" style="font-size: 14px;"> </a></td>
 				<td class="td2">
 					<input id="txtStationgno" type="text"  class="txt" style="width: 45%;"/>
-					<input id="txtStationg" type="text"  class="txt" style="width: 45%;"/>
+					<input id="txtStationg" type="text"  class="txt" style="width: 53%;"/>
 				</td>
 				<td class="td5"><input id="btnUcap" type="button"  /></td>
 				<!--<td class="td6"><input id="btnUcam" type="button"  /></td>-->
@@ -1188,17 +1187,17 @@
 				<td class="td1"><span> </span><a id="lblMechs" class="lbl" style="font-size: 14px;"> </a></td>
 				<td class="td2"><input id="txtMechs" type="text"  class="txt num"/></td>
 				<td class="td3"><span> </span><a id="lblMakes" class="lbl" style="font-size: 14px;"></a></td>
-				<td class="td4"><input id="txtMakes" type="text"  class="txt num"/></td>
+				<td class="td4"><input id="txtMakes" type="text"  class="txt c1 num"/></td>
 				<td class="td5"><span> </span><a id="lblPacks" class="lbl"> </a></td>
-				<td class="td6"><input id="txtPacks" type="text"  class="txt num"/></td> 
+				<td class="td6"><input id="txtPacks" type="text"  class="txt c1 num"/></td> 
 			</tr>
 			<tr class="tr9">
 				<td class="td1"><span> </span><a id="lblMolds" class="lbl" style="font-size: 14px;"> </a></td>
-				<td class="td2"><input id="txtMolds" type="text"  class="txt num"/></td>
+				<td class="td2"><input id="txtMolds" type="text"  class="txt c1 num"/></td>
 				<td class="td3"><span> </span><a id="lblWages" class="lbl" style="font-size: 14px;"> </a></td>
-				<td class="td4"><input id="txtWages" type="text"  class="txt num"/></td>
+				<td class="td4"><input id="txtWages" type="text"  class="txt c1 num"/></td>
 				<td class="td5"><span> </span><a id="lblTrans" class="lbl"> </a></td>
-				<td class="td6"><input id="txtTrans" type="text"  class="txt num"/></td> 
+				<td class="td6"><input id="txtTrans" type="text"  class="txt c1 num"/></td> 
 			</tr>
 			<input id="text_Noq" type="hidden" />
 		</table>
