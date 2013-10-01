@@ -74,6 +74,7 @@
 					}
 					maxAbbsCount = abbs.length;
 				}
+
 				abbs.sort(function(a,b){
 					var x = (a.sel==true || a.sel=="true"?1:0);
 					var y = (b.sel==true || b.sel=="true"?1:0);

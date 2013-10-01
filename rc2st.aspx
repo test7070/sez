@@ -219,17 +219,6 @@
 							/// 最後 aEmpField 不可以有【數字欄位】
 							bbsAssign();
 							size_change();
-							for ( i = 0; i < ret.length; i++) {
-								k = ret[i];
-								///ret[i]  儲存 tbbs 指標
-								if (!ordcsArray[i]['unit'] || ordcsArray[i]['unit'].toUpperCase() == 'KG') {
-									$('#txtMount_' + k).val(ordcsArray[i]['notv']);
-									$('#txtWeight_' + k).val(divide0(ordcsArray[i]['weight'] * ordcsArray[i]['notv'], ordcsArray[i]['mount']));
-								} else {
-									$('#txtWeight_' + k).val(ordcsArray[i]['notv2']);
-									$('#txtMount_' + k).val(divide0(ordcsArray[i]['mount'] * ordcsArray[i]['notv2'], ordcsArray[i]['weight']));
-								}
-							}/// for i
 							sum();
 						}
 						ordcsArray = new Array;
