@@ -105,7 +105,7 @@
                 	}
                 	
                 	var t_tgg=emp($('#txtTggno').val())?"":(" and a.tggno ='"+$('#txtTggno').val()+"'");
-                    var t_where = "where=^^ 1=1 "+t_tgg+" and datea<='"+$('#txtDatea').val()+"'^^";
+                    var t_where = "where=^^ 1=1 "+t_tgg+" and a.datea<='"+$('#txtDatea').val()+"'^^";
                     var t_where1 = "where[1]=^^ noa!='"+$('#txtNoa').val()+"' and rc2no=a.noa^^";
                     var t_where2 = "where[2]=^^ 1=0 ^^";
                     var t_where3 = "where[3]=^^ 1=0 ^^"; 
