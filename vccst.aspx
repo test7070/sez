@@ -149,6 +149,10 @@
 				$('#txtTax').change(function() {
 					sum();
 				});
+				$('#txtPrice').change(function() {
+					sum();
+				});
+				
 				$('#txtAddr').change(function() {
 					var t_custno = trim($(this).val());
 					if (!emp(t_custno)) {
