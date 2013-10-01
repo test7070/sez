@@ -53,7 +53,7 @@
 			function refresh() {
 				_refresh();
 				var w = window.parent;
-				if (maxAbbsCount < abbs.length) {
+				/*if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
 						for (var j = 0; j < w.q_bbsCount; j++) {
 							if (w.$('#txtOrdeno_' + j).val() == abbs[i].ordeno && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
@@ -63,6 +63,18 @@
 						}
 					}
 					maxAbbsCount = abbs.length;
+				}*/
+				for (var i = 0; i < abbs.length; i++) {
+					if(abbs[i].ordeno.length>0)
+						for (var j = 0; j < w.q_bbsCount; j++) {
+							if (w.$('#txtOrdeno_' + j).val() == abbs[i].ordeno && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
+								abbs[i]['sel'] = "true";
+								$('#chkSel_' + abbs[i].rec).prop('checked', true);
+							}else{
+								abbs[i]['sel'] = "false";
+								$('#chkSel_' + abbs[i].rec).prop('checked', false);
+							}
+						}
 				}
 				abbs.sort(function(a,b){
 					var x = (a.sel==true || a.sel=="true"?1:0);
