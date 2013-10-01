@@ -185,7 +185,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['productno'] && !as['product']) {//不存檔條件
+                if (!as['productno'] && !as['txtWorkno']) {//不存檔條件
                     as[bbsKey[1]] = '';
                     return;
                 }

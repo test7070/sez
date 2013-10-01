@@ -25,7 +25,7 @@
             ,'txtModelno','txtModel','txtPrice','txtWages','txtMakes','txtHours','txtWages_fee','txtMakes_fee','txtMemo'];
             var q_readonlys = ['txtWorkno'];
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtMount',10,2,1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -57,7 +57,7 @@
 
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd]];
-                bbsMask = [['txtCuadate', r_picd]];
+                bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
                 
@@ -224,9 +224,23 @@
                     			$('#txtCuadate_'+b_seq).val('');
                     			return;
                     		}
-							if($('#txtCuadate_'+b_seq).val()<q_date()){
+							if(!emp($('#txtCuadate_'+b_seq).val())&&$('#txtCuadate_'+b_seq).val()<q_date()){
 								alert(q_getMsg('lblCuadate_s')+'不能低於今天日期!!');
 								$('#txtCuadate_'+b_seq).val(q_date());
+							}
+						});
+						$('#txtUindate_'+i).blur(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtWorkno').val())){
+                    			alert('請先填寫'+q_getMsg('lblWorkno')+'!!');
+                    			$('#txtUindate_'+b_seq).val('');
+                    			return;
+                    		}
+							if(!emp($('#txtUindate_'+b_seq).val())&&$('#txtUindate_'+b_seq).val()<q_date()){
+								alert(q_getMsg('lblUindate_s')+'不能低於今天日期!!');
+								$('#txtUindate_'+b_seq).val(q_date());
 							}
 						});
                     }
@@ -235,7 +249,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['productno'] && !as['product']) {//不存檔條件
+                if (dec(as['mount'])<=0) {//不存檔條件
                     as[bbsKey[1]] = '';
                     return;
                 }
