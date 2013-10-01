@@ -146,7 +146,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('cug_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
+                q_box('workm_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -163,7 +163,7 @@
             }
 
             function btnPrint() {
-                q_box('z_cug.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_workmp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
