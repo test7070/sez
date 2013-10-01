@@ -313,7 +313,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
-				q_box('rc2st_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+				q_box('rc2st_s.aspx', q_name + '_s', "500px", "530px", q_getMsg("popSeek"));
 			}
 			function getTheory(b_seq) {
 				t_Radius = $('#txtRadius_' + b_seq).val();
