@@ -264,21 +264,11 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-						$('#txtMount_' + j).change(function() {
-							sum();
-						});
-						$('#txtWeight_' + j).change(function() {
-							sum();
-						});
-						$('#txtPrice_' + j).change(function() {
-							sum();
-						});
-						$('#txtTotal_' + j).change(function() {
-							sum();
-						});
-						$('#txtC1_' + j).change(function() {
-							sum();
-						});
+						$('#txtMount_' + j).change(function() {sum();});
+						$('#txtWeight_' + j).change(function() {sum();});
+						$('#txtPrice_' + j).change(function() {sum();});
+						$('#txtTotal_' + j).change(function() {sum();});
+						$('#txtC1_' + j).change(function() {sum();});
 						$('#txtStyle_' + j).blur(function() {
 							t_IdSeq = -1;
 							/// 要先給  才能使用 q_bodyId()
@@ -287,18 +277,10 @@
 							ProductAddStyle(b_seq);
 						});
 						//計算理論重
-						$('#textSize1_' + j).change(function() {
-							sum();
-						});
-						$('#textSize2_' + j).change(function() {
-							sum();
-						});
-						$('#textSize3_' + j).change(function() {
-							sum();
-						});
-						$('#textSize4_' + j).change(function() {
-							sum();
-						});
+						$('#textSize1_' + j).change(function() {sum();});
+						$('#textSize2_' + j).change(function() {sum();});
+						$('#textSize3_' + j).change(function() {sum();});
+						$('#textSize4_' + j).change(function() {sum();});
 					}
 				}
 				_bbsAssign();
