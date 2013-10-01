@@ -129,7 +129,7 @@
                 		return;
                 	}
                     var t_cust=emp($('#txtCustno').val())?"":(" and a.custno ='"+$('#txtCustno').val()+"'");
-                    var t_where = "where=^^ 1=1 "+t_cust+" and datea<='"+$('#txtDatea').val()+"' ^^";
+                    var t_where = "where=^^ 1=1 "+t_cust+" and a.datea<='"+$('#txtDatea').val()+"' ^^";
                     var t_where1 = "where[1]=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa^^";
                     var t_where2 = "where[2]=^^ 1=0 ^^";
                     var t_where3 = "where[3]=^^ 1=0 ^^";
