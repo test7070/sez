@@ -54,7 +54,6 @@
 
 			var maxAbbsCount = 0;
 			function refresh() {
-				_refresh();
 				var w = window.parent;
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
@@ -72,7 +71,14 @@
 					var y = (b.sel==true || b.sel=="true"?1:0);
 					return y-x;
 				});
+				for(var i=0;i<abbs.length;i++){
+					if(abbs[i].kind == ''){
+						abbs.splice(i,1);
+						i--;
+					}
+				}
 				_refresh();
+				q_bbsCount = abbs.length;
 				for (var j = 0; j < q_bbsCount; j++) {
 				q_cmbParse("combKind_"+j, q_getPara('sys.stktype'));
 				q_cmbParse("combStype_"+j, q_getPara('orde.stype'));

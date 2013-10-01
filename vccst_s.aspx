@@ -29,22 +29,36 @@
                 q_langShow();
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
+                q_cmbParse("cmbTypea", '@全部,'+q_getPara('vcc.typea'));
                 $('#txtBdate').datepicker();
 				$('#txtEdate').datepicker(); 
                 $('#txtNoa').focus();
             }
 
             function q_seekStr() {
+            	t_kind = $.trim($('#cmbKind').val());
+            	t_type = $.trim($('#cmbType').val());
+            	t_enda = $.trim($('#cmbEnda').val());
                 t_noa = $.trim($('#txtNoa').val());
 		        t_custno = $.trim($('#txtCustno').val());
+		        t_comp = $.trim($('#txtComp').val());
+		        t_uno = $.trim($('#txtUno').val());
+
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
-				
+
 		        var t_where = " 1=1 " 
+		        + q_sqlPara2("kind", t_kind)
+		        + q_sqlPara2("type", t_type)
+		        + q_sqlPara2("enda", t_enda)
 		        + q_sqlPara2("noa", t_noa) 
-		        + q_sqlPara2("datea", t_bdate, t_edate)
+		        + q_sqlPara2("datea", t_bdate, t_edate) 		     
 		        + q_sqlPara2("custno", t_custno);
-				
+		        if (t_comp.length>0)
+                    t_where += " and charindex('" + t_comp + "',comp)>0";
+		       	if(t_uno.length>0)
+		       		t_where += " and exists(select noa from vccs"+r_accy+" where vccs"+r_accy+".noa=vcc"+r_accy+".noa and vccs"+r_accy+".uno='"+t_uno+"')";
+		       	
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
@@ -66,6 +80,14 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
+					<td><select id="cmbTypea" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblKind'> </a></td>
+					<td><select id="cmbKind" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
@@ -83,6 +105,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
 					<td>
 					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
+					<td>
+					<input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblUno'></a></td>
+					<td>
+					<input class="txt" id="txtUno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

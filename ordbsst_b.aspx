@@ -60,8 +60,7 @@
 					for (var j = 0; j < brwCount2 ; j++) {
 						$('#txtSize4_'+j).attr('hidden', 'true');
 						$('#x3_'+j).attr('hidden', 'true');
-						$('#Size').css('width','222px');
-						$('#FixedSize').css('width','222px');
+						$('*[id="FixedSize"').css('width','222px');
 						q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
 						q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
 						q_tr('txtSize3_'+ j ,q_float('txtLengthb_'+j));
@@ -73,8 +72,7 @@
 					 for (var j = 0; j < brwCount2 ; j++) {
 						$('#txtSize4_'+j).removeAttr('hidden');
 						$('#x3_'+j).removeAttr('hidden');
-						$('#Size').css('width','297px');
-						$('#FixedSize').css('width','297px');
+						$('*[id="FixedSize"').css('width','297px');
 						q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
 						q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
 						q_tr('txtSize3_'+ j ,q_float('txtDime_'+j));
@@ -243,7 +241,7 @@
 				<td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
 				<td align="center" style="width:10%;"><a id='lblProduct'></a></td>
 				<td align="center" style="width:10%;"><a id='lblSpec'></a></td>
-				<td align="center" id='Size'><a id='lblSize'></a><BR><a id='lblSize_help'> </a></td>
+				<td align="center" id='FixedSize'><a id='lblSize'></a><BR><a id='lblSize_help'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblMount'></a></td>
 				<td align="center" style="width:7%;"><a id='lblWeight'></a></td>
 				<td align="center" style="width:7%;"><a id='lblPrice'></a></td>
