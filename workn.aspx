@@ -62,8 +62,10 @@
                 q_mask(bbmMask);
                 
                 $('#btnWork').click(function() {
-					t_where = "enda !='1' ";
-					q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('btnWork'));
+                	if(q_cur==1 || q_cur==2){
+						t_where = "enda !='1' ";
+						q_box("work_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('btnWork'));
+					}
                 });
             }
 
@@ -129,10 +131,20 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtWorkno', q_getMsg('lblWorkno')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
+                }
+                
+                //判斷剩餘生產數量=分批數量
+                var t_mount=0;
+				for (var j = 0; j < q_bbsCount; j++) {
+					t_mount+=q_float('txtMount_'+j);
+                } // j
+                if(t_mount!=q_float('txtMount')-q_float('txtInmount')){
+                	alert(q_getMsg('lblMount_s')+'錯誤!!');
+                	return;
                 }
                 sum();
                 if (q_cur == 1)
@@ -185,6 +197,38 @@
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	$('#txtMount_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+                    		if(emp($('#txtWorkno').val())){
+                    			alert('請先填寫'+q_getMsg('lblWorkno')+'!!');
+                    			$('#txtMount_'+b_seq).val('');
+                    			return;
+                    		}
+                    		
+                    		var t_mount=0;
+							for (var j = 0; j < q_bbsCount; j++) {
+								t_mount+=q_float('txtMount_'+j);
+                			} // j
+                			
+                			if(t_mount>q_float('txtMount')-q_float('txtInmount'))
+                				alert(q_getMsg('lblMount_s')+'錯誤!!');
+						});
+						$('#txtCuadate_'+i).blur(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtWorkno').val())){
+                    			alert('請先填寫'+q_getMsg('lblWorkno')+'!!');
+                    			$('#txtCuadate_'+b_seq).val('');
+                    			return;
+                    		}
+							if($('#txtCuadate_'+b_seq).val()<q_date()){
+								alert(q_getMsg('lblCuadate_s')+'不能低於今天日期!!');
+								$('#txtCuadate_'+b_seq).val(q_date());
+							}
+						});
                     }
                 }
                 _bbsAssign();
@@ -533,6 +577,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
 					<td align="center" style="width:8%;"><a id='lblCuadate_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblUindate_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblStation_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblTgg_s'> </a></td>
@@ -545,6 +590,7 @@
 						<input id="txtNoq.*" type="hidden" class="txt c1"/>
 					</td>
 					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td>
 						<input id="txtStationno.*" type="text" class="txt c1" style="width: 30%;"/>
