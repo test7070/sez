@@ -51,7 +51,7 @@
             }
 
             function mainPost() {
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtCuadate', r_picd],['txtUindate', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
                 
@@ -123,11 +123,16 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtProcessno', q_getMsg('lblProcess')], ['txtProductno', q_getMsg('lblProduct')], ['txtStationno', q_getMsg('lblStation')]]);
+                t_err = q_chkEmpField([['txtProcessno', q_getMsg('lblProcess')], ['txtProductno', q_getMsg('lblProduct')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                if((emp($('#txtStationno').val())&&emp($('#txtTggno').val()))||(!emp($('#txtStationno').val())&&!emp($('#txtTggno').val()))){
+                	alert("'"+q_getMsg('lblStation')+"'和'"+q_getMsg('lblTgg')+"'請擇一輸入!!");
+                	return;
+                }
+                
                 sum();
                 if (q_cur == 1)
                     $('#txtWorker').val(r_name);
@@ -179,6 +184,15 @@
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	$('#txtWorkno_'+i).click(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtWorkno_' + b_seq).val())){
+								t_where = "noa='"+$('#txtWorkno_' + b_seq).val()+"'";
+								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+							}
+		                });
                     }
                 }
                 _bbsAssign();
