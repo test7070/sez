@@ -20,7 +20,7 @@
             q_tables = 's';
             var q_name = "workm";
             var q_readonly = ['txtNoa','txtDatea','txtMount','txtWorkno','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate'];
+            var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate','txtTgg'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -32,7 +32,8 @@
             brwKey = 'noa';
             aPop = new Array(['txtProductno', 'lblProduct', 'ucaall', 'noa,product', 'txtProductno,txtProduct', 'ucaall_b.aspx']
             ,['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
-            ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
+            ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+            ,['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -92,8 +93,8 @@
 	                        else
 	                        	$('#txtCuadate').val(mindate);
 	                        
-                	  		ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtWorkno,txtProductno,txtProduct,txtStationno,txtStation,txtProcessno,txtProcess,txtMount,txtHours,txtCuadate,txtUindate', b_ret.length, b_ret
-	                        , 'noa,productno,product,stationno,station,processno,process,mount,hours,cuadate,cuadate,uindate'
+                	  		ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtWorkno,txtProductno,txtProduct,txtStationno,txtStation,txtProcessno,txtProcess,txtMount,txtHours,txtCuadate,txtUindate,txtTggno,txtTgg', b_ret.length, b_ret
+	                        , 'noa,productno,product,stationno,station,processno,process,mount,hours,cuadate,uindate,tggno,comp'
 	                        , 'txtProductno');
 	                        sum();
 						}
@@ -392,7 +393,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 1450px;
             }
             .tbbs a {
                 font-size: medium;
@@ -458,6 +459,13 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtTggno"  type="text" class="txt c2"/>
+							<input id="txtTgg"  type="text" class="txt c3"/>
+						</td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMount"  type="text" class="txt num c1"/></td>
 						<td class="td3"><span> </span><a id='lblHours' class="lbl"> </a></td>
@@ -489,17 +497,18 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
-					<td align="center" style="width:10%;"><a id='lblWorkno_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblStation_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblProcess_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblHours_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblCuadate_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblUindate_s'> </a></td>
-					<td align="center"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
+					<td align="center" style="width:160px;"><a id='lblWorkno_s'> </a></td>
+					<td align="center" style="width:173px;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:230px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:110px;"><a id='lblStation_s'> </a></td>
+					<td align="center" style="width:110px;"><a id='lblTgg_s'> </a></td>
+					<td align="center" style="width:110px;"><a id='lblProcess_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblHours_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblCuadate_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblUindate_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -512,6 +521,10 @@
 					<td>
 						<input id="txtStationno.*" type="hidden" class="txt c1"/>
 						<input id="txtStation.*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtTggno.*" type="hidden" class="txt c1"/>
+						<input id="txtTgg.*" type="text" class="txt c1"/>
 					</td>
 					<td>
 						<input id="txtProcessno.*" type="hidden" class="txt c1"/>
