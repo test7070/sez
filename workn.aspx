@@ -491,11 +491,12 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
-						<td class="td5"> <input id="btnWork" type="button" /></td>
+						<td class="td1" style="width:13%"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td2" style="width:20%"><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td class="td3" style="width:13%"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td4" style="width:20%"><input id="txtDatea"  type="text" class="txt c1"/></td>
+						<td class="td5" style="width:13%"> <input id="btnWork" type="button" style="float:right;" /></td>
+						<td class="td6" style="width:20%"> </td> 
 					</tr>
 					<tr>
 				        <td class="td1"><span> </span><a id="lblWorkno" class="lbl"> </a></td>
