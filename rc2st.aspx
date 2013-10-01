@@ -34,7 +34,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 
-			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype,tel,trantype,zip_fact,addr_fact', 'txtTggno,txtTgg,txtPaytype,txtTel,cmbTrantype,txtPost,txtAddr', 'tgg_b.aspx']
+			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick,paytype,tel,trantype,zip_fact,addr_fact', 'txtTggno,txtTgg,txtNick,txtPaytype,txtTel,cmbTrantype,txtPost,txtAddr', 'tgg_b.aspx']
 			, ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 			, ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
 			, ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
@@ -219,17 +219,6 @@
 							/// 最後 aEmpField 不可以有【數字欄位】
 							bbsAssign();
 							size_change();
-							for ( i = 0; i < ret.length; i++) {
-								k = ret[i];
-								///ret[i]  儲存 tbbs 指標
-								if (!ordcsArray[i]['unit'] || ordcsArray[i]['unit'].toUpperCase() == 'KG') {
-									$('#txtMount_' + k).val(ordcsArray[i]['notv']);
-									$('#txtWeight_' + k).val(divide0(ordcsArray[i]['weight'] * ordcsArray[i]['notv'], ordcsArray[i]['mount']));
-								} else {
-									$('#txtWeight_' + k).val(ordcsArray[i]['notv2']);
-									$('#txtMount_' + k).val(divide0(ordcsArray[i]['mount'] * ordcsArray[i]['notv2'], ordcsArray[i]['weight']));
-								}
-							}/// for i
 							sum();
 						}
 						ordcsArray = new Array;
@@ -324,7 +313,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
-				q_box('rc2st_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+				q_box('rc2st_s.aspx', q_name + '_s', "500px", "530px", q_getMsg("popSeek"));
 			}
 			function getTheory(b_seq) {
 				t_Radius = $('#txtRadius_' + b_seq).val();

@@ -56,9 +56,9 @@
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
 						for (var j = 0; j < w.q_bbsCount; j++) {
-							if (w.$('#txtOrdeno_' + j).val() == abbs[i].ordeno && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
+							if (abbs[i].ordeno.length>0 && w.$('#txtOrdeno_' + j).val() == abbs[i].ordeno && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
 								abbs[i]['sel'] = "true";
-								$('#chkSel_' + abbs[i].rec).attr('checked', true);
+								$('#chkSel_' + abbs[i].rec).prop('checked', true);
 							}
 						}
 					}
