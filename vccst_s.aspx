@@ -14,7 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "vccst_s";
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx']);
+			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -30,6 +30,7 @@
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", '@全部,'+q_getPara('vcc.typea'));
+                q_cmbParse("cmbKind", '@全部,'+q_getPara('sys.stktype'));
                 $('#txtBdate').datepicker();
 				$('#txtEdate').datepicker(); 
                 $('#txtNoa').focus();
@@ -38,19 +39,16 @@
             function q_seekStr() {
             	t_kind = $.trim($('#cmbKind').val());
             	t_type = $.trim($('#cmbType').val());
-            	t_enda = $.trim($('#cmbEnda').val());
                 t_noa = $.trim($('#txtNoa').val());
 		        t_custno = $.trim($('#txtCustno').val());
 		        t_comp = $.trim($('#txtComp').val());
 		        t_uno = $.trim($('#txtUno').val());
-
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
 
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("kind", t_kind)
 		        + q_sqlPara2("type", t_type)
-		        + q_sqlPara2("enda", t_enda)
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 		     
 		        + q_sqlPara2("custno", t_custno);
