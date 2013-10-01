@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'work' , t_content = ' field=noa,datea,workdate,uindate,cuadate,ordeno,no2,enddate,mount,rmount,inmount,wmount,memo,productno,product,process,station,processno,stationno,unit,modelno,model,hours,tggno,comp', bbsKey = ['noa'], as, t_where = '';
+    var q_name = 'work' , t_content = ' field=noa,datea,workdate,uindate,cuadate,ordeno,no2,enddate,mount,rmount,inmount,wmount,memo,productno,product,process,station,processno,stationno,unit,modelno,model,hours,tggno,comp,price,wages,wages_fee,makes,makes_fee,rank', bbsKey = ['noa'], as, t_where = '';
     var t_sqlname = 'work_load'; t_postname = q_name;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
@@ -111,6 +111,16 @@
                 	<input id="txtUindate.*" type="hidden" />
                 	<input id="txtRmount.*" type="hidden" />
                 	<input id="txtWmount.*" type="hidden" />
+                	<input id="txtUnit.*" type="hidden" />
+                	<input id="txtEnddate.*" type="hidden" />
+                	<input id="txtRank.*" type="hidden" />
+                	<input id="txtModelno.*" type="hidden" />
+                	<input id="txtModel.*" type="hidden" />
+                	<input id="txtPrice.*" type="hidden" />
+                	<input id="txtWages.*" type="hidden" />
+                	<input id="txtMakes.*" type="hidden" />
+                	<input id="txtWages_fee.*" type="hidden" />
+                	<input id="txtMakes_fee.*" type="hidden" />
                 	<input id="txtWsgmount.*" type="hidden" />
                 </td>
                 <td style="width:8%;"><input class="txt" id="txtState.*" type="text" style="width:98%;"  readonly="readonly" /></td>
@@ -140,7 +150,7 @@
                 	<input class="txt" id="txtTggno.*" type="text" style="width:98%;"  readonly="readonly" />
                 	<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
                 </td>
-                <td style="width:7%;"><input class="txt" id="txtProcess.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:7%;"><input class="txt" id="txtProcess.*" type="text" style="width:98%;"  readonly="readonly" /><input id="txtProcessno.*" type="hidden" /></td>
                 <td style="width:5%;"><input class="txt" id="txtHours.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
                 <td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>

@@ -70,7 +70,7 @@
     	                return;
         	        }
         	        
-					t_where = "productno='"+$('#txtProductno').val()+"' and processno='"+$('#txtProcessno').val()+"'";
+					t_where = "productno='"+$('#txtProductno').val()+"' and processno='"+$('#txtProcessno').val()+"' and enda!='1' ";
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('btnWork'));
                 });
             }
@@ -419,9 +419,7 @@
 						<td align="center" style="width:30%"><a id='vewProduct'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='station'>~station</td>
 						<td align="center" id='prodcut'>~prodcut</td>
