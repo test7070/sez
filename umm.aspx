@@ -368,6 +368,7 @@
                         }
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtVccno', '');
                         */
+                        var as = _q_appendData("umm_mon", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtAccy,txtTablea,txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'accy,tablea,noa,memo,unpay,unpay,part', 'txtVccno', '');
                         sum();
                         break;
@@ -646,8 +647,11 @@
                     	var t_n = $(this).attr('id').replace('txtVccno_','');
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
-                    	if(t_tablea.length>0)
+                    	if(t_tablea.length>0){
+                    		t_tablea = t_tablea + q_getPara('sys.project');
                     		q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
+                    	}
+                    		
                     });
 					$('#txtAcc1_' + i).change(function() {
                         var patt = /^(\d{4})([^\.,.]*)$/g;
