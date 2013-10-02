@@ -16,42 +16,76 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-                _q_boxClose();
-                q_getId();
-                q_gf('', 'z_ordest');
-            });
-            function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_ordest',
-                    options : [{
-						type : '0',
+				_q_boxClose();
+				q_getId();
+				q_gf('', 'z_ordest');
+			});
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_ordest',
+					options : [{
+						type : '0',//[1]
 						name : 'accy',
-                        value : q_getId()[4] //[1]
-                    },{
-                        type : '1',
-                        name : 'xodate'
-                    },{
-                        type : '6',
-                        name : 'xnoa'
-                    }]
-                });
-                q_popAssign();
-                q_getFormat();
-                q_langShow();
-                $('#txtXodate1').mask('999/99/99');
-                $('#txtXodate1').datepicker();
-                $('#txtXodate2').mask('999/99/99');
-                $('#txtXodate2').datepicker();
-                var t_key = q_getHref();
-                if(t_key[1] != undefined)
-                	$('#txtXnoa').val(t_key[1]);
-            }
+						value : q_getId()[4]
+					}, {
+						type : '1',//[2][3]
+						name : 'xdate'
+					},{
+						type : '1',//[4][5]
+						name : 'xodate'
+					}, {
+						type : '2',//[6][7]
+						name : 'xcust',
+						dbf : 'cust',
+						index : 'noa,comp',
+						src : 'cust_b.aspx'
+					}, {
+						type : '2',//[8][9]
+						name : 'xsales',
+						dbf : 'sss',
+						index : 'noa,namea',
+						src : 'sss_b.aspx'
+					}, {
+						type : '2',//[10][11]
+						name : 'xproduct',
+						dbf : 'ucc',
+						index : 'noa,product',
+						src : 'ucc_b.aspx'
+					}, {
+						type : '5', //[12]
+						name : 'xstype',
+						value : [q_getPara('report.all')].concat(q_getPara('ordc.stype').split(','))
+					}, {
+						type : '5', //[13]
+						name : 'xtran',
+						value : [q_getPara('report.all')].concat(q_getPara('sys.tran').split(','))
+					}, {
+						type : '5', //[14]
+						name : 'xcancel',
+						value : [q_getPara('report.all')].concat(new Array('1@Y', '0@N'))
+					}, {
+						type : '5', //[15]
+						name : 'xend',
+						value : [q_getPara('report.all')].concat(new Array('1@Y', '0@N'))
+					}]
+				});
+				q_popAssign();
+				q_getFormat();
+				q_langShow();
+				$('#txtXodate1').mask('999/99/99');
+				$('#txtXodate1').datepicker();
+				$('#txtXodate2').mask('999/99/99');
+				$('#txtXodate2').datepicker();
+				var t_key = q_getHref();
+				if(t_key[1] != undefined)
+					$('#txtXnoa').val(t_key[1]);
+			}
 
-            function q_boxClose(s2) {
-            }
+			function q_boxClose(s2) {
+			}
 
-            function q_gtPost(s2) {
-            }
+			function q_gtPost(s2) {
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
