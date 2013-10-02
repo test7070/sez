@@ -21,7 +21,7 @@
             var q_name = "workm";
             var q_readonly = ['txtNoa','txtDatea','txtMount','txtWorkno','txtWorker','txtWorker2'];
             var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate','txtTgg'];
-            var bbmNum = [];
+            var bbmNum = [['txtMount',12,2,1],['txtHours',10,2,1]];
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
@@ -486,7 +486,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCuadate' class="lbl"> </a></td>
-						<td class="td2"><input id="txtCuadate"  type="text" class="txt num c1"/></td>
+						<td class="td2"><input id="txtCuadate"  type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblUindate' class="lbl"> </a></td>
 						<td class="td4"><input id="txtUindate"  type="text" class="txt c1"/></td>
 					</tr>
