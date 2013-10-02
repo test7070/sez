@@ -1177,7 +1177,7 @@
 					</td>
 					<td>
 					<input type="text" id="txtMemo2.*" style="width:95%;"/>
-					<input type="text" id="txtVccno.*" style="width:95%;" />
+					<input type="text" id="txtVccno.*" style="width:95%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
 					<input type="text" id="txtAccy.*" style="display:none;" />
 					<input type="text" id="txtTablea.*" style="display:none;" />
 					</td>
