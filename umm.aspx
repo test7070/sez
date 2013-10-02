@@ -124,7 +124,18 @@
                 });
                 
                 $('#btnVcc').click(function(e) {
-                	if(emp($('#txtDatea').val())){
+                	var t_noa = $.trim($('#txtNoa').val());
+                	var t_custno = $.trim($('#txtCustno').val());
+                	if(t_custno.length==0){
+                		alert('請先輸入'+q_getMsg('lblCust')+'!!');
+                		return;
+                	}
+                	var t_where = " where=^^ a.custno='"+t_custno+"' ^^";
+                	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";
+                	var t_where2 = " where[2]=^^ 1=0 ^^";
+                	var t_where3 = " where[3]=^^ 1=0 ^^";
+                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+                	/*if(emp($('#txtDatea').val())){
                 		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
                 		return;
                 	}
@@ -134,11 +145,27 @@
                     var t_where2 = "where[2]=^^ 1=0 ^^";
                     var t_where3 = "where[3]=^^ 1=0 ^^";
                     var t_where4 = "where[4]=^^ 1=0 ^^";
-            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);
+            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);*/
                 });
                 
                 $('#btnMon').click(function(e) {
-                	if(emp($('#txtDatea').val())){
+                	var t_noa = $.trim($('#txtNoa').val());
+                	var t_custno = $.trim($('#txtCustno').val());
+                	var t_mon = $.trim($('#txtMon').val());
+                	if(t_custno.length==0){
+                		alert('請先輸入'+q_getMsg('lblCust')+'!!');
+                		return;
+                	}
+                	if(t_mon.length==0){
+                		alert('請先輸入'+q_getMsg('lblMon')+'!!');
+                		return;
+                	}
+                	var t_where = " where=^^ 1=0 ^^";
+                	var t_where1 = " where[1]=^^ 1=0 ^^";
+                	var t_where2 = " where[2]=^^ a.custno='"+t_custno+"' and a.mon<='"+t_mon+"' ^^";
+                	var t_where3 = " where[3]=^^ vccno=a.custno+'-'+a.mon and noa!='"+t_noa+"' ^^";
+                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+                	/*if(emp($('#txtDatea').val())){
                 		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
                 		return;
                 	}
@@ -153,7 +180,7 @@
                     var t_where2 = "where[2]=^^ 1=1 "+t_cust+"and vcc.mon<='"+$('#txtMon').val()+"' ^^";
                     var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and vccno in(select noa from view_vcc"+r_accy+" where mon=vcc.mon and custno=vcc.custno) ^^";
                     var t_where4 = "where[4]=^^ noa!='"+$('#txtNoa').val()+"' and left(vccno,6)=vcc.mon and substring(vccno,8,len(vccno))=vcc.custno ^^";
-            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);
+            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);*/
                 });
             }
 			
@@ -332,15 +359,16 @@
                                 $('#txtMemo2_' + i).val('');
                             }
                         }
-                        var as = _q_appendData("umms", "", true);
+                        /*var as = _q_appendData("umms", "", true);
                         for (var i = 0; i < as.length; i++) {
                             if (as[i].total - as[i].payed == 0) {
                                 as.splice(i, 1);
                                 i--;
                             } 
                         }
-                        
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtVccno', '');
+                        */
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtAccy,txtTablea,txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'accy,tablea,noa,memo,unpay,unpay,part', 'txtVccno', '');
                         sum();
                         break;
                     case q_name:
@@ -613,6 +641,14 @@
                 	$('#lblNo_'+i).text(i+1);	
                     if ($('#btnMinus_' + i).hasClass('isAssign'))/// 重要
                         continue;
+                    $('#txtVccno_'+i).bind('contextmenu',function(e) {
+                    	e.preventDefault();
+                    	var t_n = $(this).attr('id').replace('txtVccno_','');
+                    	var t_accy = $('#txtAccy_'+n).val();
+                    	var t_tablea = $('#txtTablea_'+n).val();
+                    	if(t_tablea.length>0)
+                    		q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
+                    });
 					$('#txtAcc1_' + i).change(function() {
                         var patt = /^(\d{4})([^\.,.]*)$/g;
 	                    $(this).val($(this).val().replace(patt,"$1.$2"));
@@ -1134,6 +1170,8 @@
 					<td>
 					<input type="text" id="txtMemo2.*" style="width:95%;"/>
 					<input type="text" id="txtVccno.*" style="width:95%;" />
+					<input type="text" id="txtAccy.*" style="display:none;" />
+					<input type="text" id="txtTablea.*" style="display:none;" />
 					</td>
 					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
