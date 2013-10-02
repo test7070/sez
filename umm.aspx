@@ -643,6 +643,7 @@
                     if ($('#btnMinus_' + i).hasClass('isAssign'))/// 重要
                         continue;
                     $('#txtVccno_'+i).bind('contextmenu',function(e) {
+                    	/*滑鼠右鍵*/
                     	e.preventDefault();
                     	var t_n = $(this).attr('id').replace('txtVccno_','');
                     	var t_accy = $('#txtAccy_'+n).val();
