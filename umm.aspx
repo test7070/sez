@@ -328,6 +328,8 @@
                     case 'umm_trd':
                         for (var i = 0; i < q_bbsCount; i++) {
                             if ($('#txtVccno_' + i).val().length > 0) {
+                            	$('#txtAccy_' + i).val('');
+                                $('#txtTablea_' + i).val('');
                                 $('#txtVccno_' + i).val('');
                                 $('#txtPaysale_' + i).val('');
                                 $('#txtUnpay_' + i).val('');
@@ -351,6 +353,8 @@
 					case 'umm_mon':
                         for (var i = 0; i < q_bbsCount; i++) {
                             if ($('#txtVccno_' + i).val().length > 0) {
+                            	$('#txtAccy_' + i).val('');
+                                $('#txtTablea_' + i).val('');
                                 $('#txtVccno_' + i).val('');
                                 $('#txtPaysale_' + i).val(0);
                                 $('#txtUnpay_' + i).val('');
@@ -645,14 +649,13 @@
                     $('#txtVccno_'+i).bind('contextmenu',function(e) {
                     	/*滑鼠右鍵*/
                     	e.preventDefault();
-                    	var t_n = $(this).attr('id').replace('txtVccno_','');
+                    	var n = $(this).attr('id').replace('txtVccno_','');
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
                     	if(t_tablea.length>0){
                     		t_tablea = t_tablea + q_getPara('sys.project');
                     		q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
                     	}
-                    		
                     });
 					$('#txtAcc1_' + i).change(function() {
                         var patt = /^(\d{4})([^\.,.]*)$/g;
