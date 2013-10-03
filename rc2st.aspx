@@ -38,8 +38,8 @@
 			, ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 			, ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
 			, ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
-			, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-			, ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx', '95%', '60%']);
+			, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
+			//, ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx', '95%', '60%']);
 			brwCount2 = 10;
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -251,14 +251,23 @@
 						}
 						break;
 					default:
-						if (t_name.split('^^')[0] == 'uccy') {
+						if(t_name.substring(0,9)=='checkUno_'){
+							var n = t_name.split('_')[1];
+							var as = _q_appendData("uccy", "", true);
+							if(as[0]!=undefined){
+								var t_uno = $('#txtUno_' + n).val();
+								alert(t_uno + ' 此批號已存在!!');
+								$('#txtUno_' + n).focus();
+							}
+						}
+						/*if (t_name.split('^^')[0] == 'uccy') {
 							var as = _q_appendData("uccy", "", true);
 							if (as[0] != undefined) {
 								var t_uno = t_name.substr(t_name.indexOf('^^') + 2);
 								alert(t_uno + ' 此批號已存在!!');
 								$('#txtUno_' + b_seq).focus();
 							}
-						}
+						}*/
 						break;
 				}  /// end switch
 			}
@@ -334,6 +343,11 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtUno_'+j).change(function(e){
+							var n = $(this).attr('id').replace('txtUno_','');
+							var t_uno = $.trim($(this).val());
+							q_gt('uccy', "where^^noa='"+t_uno+"'^^", 0, 0, 0, 'checkUno_'+n);
+						});
 						$('#txtMount_' + j).change(function() {
 							sum();
 						});
