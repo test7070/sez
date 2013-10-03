@@ -613,7 +613,7 @@
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1"/></td>
 						<td colspan="2"><span> </span><a id="lblPaybno" class="lbl btn"> </a></td>
-						<td><input id="txtPaybno" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtPaybno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
@@ -688,6 +688,7 @@
 							<!--<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>-->
 							<span> </span><a id="lblCancel_t" class="lbl"> </a>
 							<input id="chkCancel..*" type="checkbox"/>
+							<input id="txtNoq..*" type="text" style="display:none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
