@@ -54,7 +54,7 @@
                 
                 var t_date=q_date();
 				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() -30)
+				nextdate.setDate(nextdate.getDate() -30);
 				t_date=''+(nextdate.getFullYear()-1911)+'/';
 				//月份
 				if(nextdate.getMonth()+1<10)
