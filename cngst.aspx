@@ -333,7 +333,7 @@
                         $('#textSize2_' + j).val($('#txtWidth_' + j).val());
                         $('#textSize3_' + j).val($('#txtLengthb_' + j).val());
                         $('#textSize4_' + j).val(0);
-                        $('#txtRadius_' + j).val(0)
+                        $('#txtRadius_' + j).val(0);
                     }
                 } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
                     $('#lblSize_help').text("短徑x長徑x厚度x長度");
@@ -363,7 +363,7 @@
                         $('#x3_' + j).hide();
                         $('#Size').css('width', '70px');
                         $('#textSize1_' + j).val(0);
-                        $('#txtDime_' + j).val(0)
+                        $('#txtDime_' + j).val(0);
                         $('#textSize2_' + j).val(0);
                         $('#txtWidth_' + j).val(0);
                         $('#textSize3_' + j).val($('#txtLengthb_' + j).val());
@@ -398,7 +398,7 @@
                     str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
                     var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
                     if (regex.test(str))
-                        return 4
+                        return 4;
                 }
                 return 0;
                 //錯誤
