@@ -22,7 +22,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "cng";
-            var q_readonly = ['txtNoa', 'txtWorker'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtTax', 10, 0, 1], ['txtMoney', 15, 0, 1], ['txtPrice', 10, 2, 1], ['txtWeight', 15, 2, 1], ['txtTotal', 15, 0, 1]];
             var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1], ['txtMount', 10, 0, 1], ['txtWeight', 15, 2, 1]];
@@ -531,7 +531,11 @@
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div class="dview" id="dview" style="float: left;  width:32%;"  >
 			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -626,9 +630,12 @@
 				<tr class="tr7">
 					<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
 					<td class="td2" colspan='3'>					<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
-					<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+					<td class='td3'>
+						<span> </span><a id="lblWorker" class="lbl"> </a>
+					</td>
 					<td class="td4">
-					<input id="txtWorker" type="text" class="txt c1"/>
+						<input id="txtWorker" type="text" style="float:left;width:50%"/>
+						<input id="txtWorker2" type="text" style="float:left;width:50%"/>
 					</td>
 				</tr>
 			</table>
