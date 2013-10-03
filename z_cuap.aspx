@@ -28,28 +28,36 @@
 						name : 'accy',
                         value : q_getId()[4] //[1]
                     },{
+                        type : '2',
+                        name : 'xproductno',
+                        dbf : 'ucc',
+                        index : 'noa,product',
+                        src : 'ucc_b.aspx'
+                     }]
+                });
+                	/*,{
                         type : '6',
                         name : 'cuano'
                     },{
                         type : '6',
                         name : 'stkdate'
-                    }]
-                });
+                    }*/
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtStkdate').mask('999/99/99');
-                $('#txtStkdate').val(q_date());
+                /*$('#txtStkdate').mask('999/99/99');
+                $('#txtStkdate').val(q_date());*/
                 
                 var btn = document.getElementById('btnOk');
                 btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='轉至請購單'>");
                 
-                var Parent = window.parent.document;
+                /*var Parent = window.parent.document;
                 if(window.parent.q_name=='cua'||window.parent.q_name=='workg')
-                	$('#txtCuano').val(Parent.getElementById('txtNoa').value);
+                	$('#txtCuano').val(Parent.getElementById('txtNoa').value);*/
                 
-                var cuano=!emp($('#txtCuano').val())?$('#txtCuano').val():'#non';
-				var t_where = r_accy+ ';' + cuano;
+                var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
+                var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+				var t_where = r_accy+ ';' + bpno+ ';' + epno;
 				var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
                 q_gtx("z_cuap1", t_where + ";;" + t_para + ";;z_cuap;;" + q_getMsg('qTitle'));
                 
@@ -57,8 +65,9 @@
                 $('#btnOrdb').click(function(){
                 	if(confirm("確定要轉至請款單?"))
 					{
-						var cuano=!emp($('#txtCuano').val())?$('#txtCuano').val():'#non';
-						var t_where = r_accy+ ';' + cuano+';'+r_userno+';'+q_getPara('sys.key_ordb');
+						var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
+                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+						var t_where = r_accy+ ';' + bpno+ ';' + epno+';'+r_userno+';'+q_getPara('sys.key_ordb');
 						var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 		                q_gtx("z_cuap2", t_where + ";;" + t_para + ";;z_cuap;;" + q_getMsg('qTitle'));
 					}
