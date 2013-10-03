@@ -613,7 +613,7 @@
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1"/></td>
 						<td colspan="2"><span> </span><a id="lblPaybno" class="lbl btn"> </a></td>
-						<td><input id="txtPaybno" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtPaybno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
