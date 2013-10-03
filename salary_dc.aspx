@@ -484,7 +484,7 @@
 						imports=true;
 						for (var i = 0; i < as.length; i++) {
 							//判斷是否哪些員工要計算薪水
-		                    if (!emp(as[i].outdate)&&as[i].outdate<date_1) {//(!emp(as[i].ft_date) && as[i].ft_date >date_1)||as[i].indate>$('#txtMon').val()
+		                    if ((!emp(as[i].outdate)&&as[i].outdate<date_1) || as[i].indate>date_2) {//(!emp(as[i].ft_date) && as[i].ft_date >date_1)||as[i].indate>$('#txtMon').val()
 		                        as.splice(i, 1);
 		                        i--;
 		                    }else{

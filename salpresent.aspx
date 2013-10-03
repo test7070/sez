@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         q_desc=1;
-		aPop = new Array(['txtSssno_', 'txtSssno_', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
+		aPop = new Array(['txtSssno_', '', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -59,7 +59,7 @@
             });
             
             $('#btnInput').click(function () {
-            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"' and hname not like '遲到' and hname not like '早退' ) and noa!='Z001' and noa!='010132'^^";
+            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where ('"+$('#txtNoa').val()+"' between bdate and edate) and hr_used>=8 and hname not like '遲到' and hname not like '早退' ) and noa!='Z001' and noa!='010132' and (jobno not between '97' and '99')^^";
             	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
             });
         }
@@ -85,6 +85,7 @@
             			$('#txtClockin_'+j).val('08:00');
             			$('#txtClockout_'+j).val('17:30');
             		}
+            		sum()
             		table_change();
             	break;
                 case q_name: 
@@ -134,6 +135,7 @@
 
         function bbsAssign() {  /// ???B??
             _bbsAssign();
+            table_change();
         }
 		
 		var insed=false;
@@ -555,7 +557,7 @@
                 <td align="center"><a id='lblAddwork_s'> </a></td>-->
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtSssno.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtNamea.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtClockin.*"type="text" /></td>
@@ -569,7 +571,7 @@
                 <td ><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddwork.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>-->
+                <td ><input class="txt num c1" id="txtAddwork.*" type="text" /></td>-->
             </tr>
         </table>
         </div>

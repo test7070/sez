@@ -40,6 +40,7 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				['txtStationno__', 'btnStation__', 'station__', 'noa,station', 'txtStationno__,txtStation__', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
@@ -953,7 +954,7 @@
 				font-size: medium;
 				color: blue;
 				background: pink;
-				width: 100%;
+				width: 1430px;
 			}
 			#tbbt tr {
 				height: 35px;
@@ -1253,22 +1254,21 @@
 		<div id="dbbt" >
 			<table id="tbbt" class='tbbt'  border="1"  cellpadding='2' cellspacing='1'>
 				<tr class="head" style="color:white; background:#003366;">
-					<td style="width:1%;">
-					<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
-					</td>
-					<td style="width:1%;"> </td>
-					<td align="center" style="width:10%;"><a id='lblProcess_t'></a></td>
-					<td align="center" style="width:10%;"><a id='lblTgg_t'></a></td>
+					<td style="width:45px;">	<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
+					<td style="width:20px;"> </td>
+					<td align="center" style="width:145px;"><a id='lblProcess_t'></a></td>
+					<td align="center" style="width:145px;"><a id='lblTgg_t'></a></td>
+					<td align="center" style="width:145px;"><a id='lblStation_t'></a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>-->
-					<td align="center" style="width:8%;"><a id='lblPrice_t'></a></td>
+					<td align="center" style="width:100px;"><a id='lblPrice_t'></a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>-->
-					<td align="center" style="width:5%;"><a id='lblHours_t'></a></td>
-					<td align="center" style="width:12%;"><a id='lblProductno_t'></a></td>
-					<td align="center" style="width:13%;"><a id='lblAssm_t'></a></td>
-					<td align="center" style="width:6%;"><a id='lblWages_t'></a></td>
-					<td align="center" style="width:6%;"><a id='lblMakes_t'></a></td>
-					<td align="center" style="width:6%;"><a id='lblWages_fee_t'></a></td>
-					<td align="center" style="width:6%;"><a id='lblMakes_fee_t'></a></td>
+					<td align="center" style="width:75px;"><a id='lblHours_t'></a></td>
+					<td align="center" style="width:175px;"><a id='lblProductno_t'></a></td>
+					<td align="center" style="width:190px;"><a id='lblAssm_t'></a></td>
+					<td align="center" style="width:87px;"><a id='lblWages_t'></a></td>
+					<td align="center" style="width:87px;"><a id='lblMakes_t'></a></td>
+					<td align="center" style="width:103px;"><a id='lblWages_fee_t'></a></td>
+					<td align="center" style="width:103px;"><a id='lblMakes_fee_t'></a></td>
 				</tr>
 				<tr>
 					<td>
@@ -1285,6 +1285,11 @@
 						<input id="txtTggno..*" type="text" class="txt c5"/>
 						<input id="btnTggno..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 						<input id="txtNick..*" type="text" class="txt c1"/>
+					</td>
+					<td>
+						<input id="txtStationno..*" type="text" class="txt c5"/>
+						<input id="btnStation..*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+						<input id="txtStation..*" type="text" class="txt c1"/>
 					</td>
 					<!--<td>
 						<input id="txtMount..*" type="text" class="txt c1 num"/>
