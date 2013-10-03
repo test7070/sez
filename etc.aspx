@@ -17,7 +17,7 @@
             }
 
             var q_name = "etc";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtCurmoney'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtCurmoney','txtCustno'];
             var bbmNum = new Array(['txtMoney', 10, 0], ['txtCurmoney', 10, 2]);
             var bbmMask = [['txtDatea', '999/99/99'], ['txtMon', '999/99'], ['txtTimea', '99:99:99']];
             q_sqlCount = 6;
@@ -519,8 +519,8 @@
 						<td class="td2">
 						<input id="txtNoa"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"><span> </span><a id='lblCustno' class="lbl"> </a></td>
+						<td class="td4"><input id="txtCustno"  type="text"  class="txt c1"/></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
