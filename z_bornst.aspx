@@ -15,60 +15,45 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXcarno', '', 'cicar', 'a.noa,cust', 'txtXcarno', 'cicar_b.aspx'],
-						 ['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
-						 ['txtXinsurerno', '', 'ciinsucomp', 'noa,insurer', 'txtXinsurerno', 'ciinsucomp_b.aspx'],
-						  ['txtXsales', '', 'cisale', 'noa,namea', 'txtXsales', 'cisale_b.aspx']
-		);
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
-            }
             $(document).ready(function() {
+                _q_boxClose();
                 q_getId();
-                q_gf('', 'z_sssp');   
+                q_gf('', 'z_bornst');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_sssp',
+                    fileName : 'z_bornst',
                     options : [{
 						type : '0',
-						name : 'sss',
-						value : r_userno
+						name : 'accy',
+                        value : q_getId()[4] //[1]
                     },{
                         type : '6',
-                        name : 'xmon'
-                    },{
-                        type : '5',
-                        name : 'xkind',
-                        value : (('').concat(new Array("本月","上期","下期"))).split(',')
+                        name : 'xnoa'
                     },{
                         type : '6',
-                        name : 'xyear'
+                        name : 'xnoq'
                     }]
                 });
+                q_popAssign();
+                q_getFormat();
                 q_langShow();
-	            q_popAssign();
-	            
-                $('#txtXmon').mask('999/99');
-                $('#txtXyear').mask('999');
                 
-                var t_date=q_date();
-				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-				nextdate.setDate(nextdate.getDate() -30);
-				t_date=''+(nextdate.getFullYear()-1911)+'/';
-				//月份
-				if(nextdate.getMonth()+1<10)
-					t_date=t_date+'0'+(nextdate.getMonth()+1);
-				else
-					t_date=t_date+(nextdate.getMonth()+1);
-					
-                $('#txtXmon').val(t_date);
-                $('#txtXyear').val(t_date.substr(0,3));
-                
+                if(q_getHref()[1]!=undefined)
+                	$('#txtXnoa').val(q_getHref()[1]);
+                if(q_getHref()[3]!=undefined)
+                	$('#txtXnoq').val(q_getHref()[3]);
+                $('#btnOk').click();
+            }
+
+            function q_boxClose(s2) {
+            }
+
+            function q_gtPost(s2) {
             }
 		</script>
 	</head>
-	<body ondragstart="return false" draggable="false"
+	<body id="z_accc" ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">

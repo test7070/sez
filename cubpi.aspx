@@ -180,6 +180,8 @@
 						if(as[0]!=undefined){
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2'
 									, as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate', '');
+						}else{
+							alert('無符合的訂單，檢查條件是否輸入有誤。');
 						}
 						sum();
 						var chkWhere = 'where=^^ ordeno in('+getBBSWhere('Ordeno')+') ^^';
