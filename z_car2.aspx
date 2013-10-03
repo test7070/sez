@@ -34,22 +34,22 @@
                 		var montaxhtml='1=1';
                 		switch ($('#combTax').val()) {
                 			case '01':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '02':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '03':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '04':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '05':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '06':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 		}
                 		q_box((montaxhtml), 'cartax', "90%", "600px", q_getMsg("popCartax"));
