@@ -253,7 +253,7 @@
 					default:
 						if(t_name.substring(0,9)=='checkUno_'){
 							var n = t_name.split('_')[1];
-							var as = _q_appendData("uccy", "", true);
+							var as = _q_appendData("uccb", "", true);
 							if(as[0]!=undefined){
 								var t_uno = $('#txtUno_' + n).val();
 								alert(t_uno + ' 此批號已存在!!');
@@ -346,7 +346,7 @@
 						$('#txtUno_'+j).change(function(e){
 							var n = $(this).attr('id').replace('txtUno_','');
 							var t_uno = $.trim($(this).val());
-							q_gt('uccy', "where^^noa='"+t_uno+"'^^", 0, 0, 0, 'checkUno_'+n);
+							q_gt('uccb', "where^^noa='"+t_uno+"'^^", 0, 0, 0, 'checkUno_'+n);
 						});
 						$('#txtMount_' + j).change(function() {
 							sum();
