@@ -76,11 +76,6 @@
                 }/// end Switch
                 b_pop = '';
             }
-
-            function q_popPost() {
-
-            }
-
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
