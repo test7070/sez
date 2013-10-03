@@ -253,25 +253,27 @@
 					default:
 						if(t_name.substring(0,9)=='checkUno_'){
 							var n = t_name.split('_')[1];
-							var as = _q_appendData("uccy", "", true);
+							var as = _q_appendData("view_uccb", "", true);
 							if(as[0]!=undefined){
 								var t_uno = $('#txtUno_' + n).val();
-								alert(t_uno + ' 此批號已存在!!');
+								alert(t_uno + ' 此批號已存在!!\n【'+as[0].action+'】單號：'+as[0].noa);
 								$('#txtUno_' + n).focus();
 							}
-						}
-						/*if (t_name.split('^^')[0] == 'uccy') {
-							var as = _q_appendData("uccy", "", true);
-							if (as[0] != undefined) {
-								var t_uno = t_name.substr(t_name.indexOf('^^') + 2);
-								alert(t_uno + ' 此批號已存在!!');
-								$('#txtUno_' + b_seq).focus();
+						}else if(t_name.substring(0,14)=='btnOkcheckUno_'){
+							var n = parseInt(t_name.split('_')[1]);
+							var as = _q_appendData("view_uccb", "", true);
+							if(as[0]!=undefined){
+								var t_uno = $('#txtUno_' + n).val();
+								alert(t_uno + ' 此批號已存在!!\n【'+as[0].action+'】單號：'+as[0].noa);
+								Unlock(1);
+								return;
+							}else{
+								btnOk_checkUno(n-1);
 							}
-						}*/
+						}
 						break;
-				}  /// end switch
+				} 
 			}
-
 			function lblOrdc() {
 				var t_tggno = trim($('#txtTggno').val());
 				var t_where = '';
@@ -307,18 +309,43 @@
 					Unlock(1);
 					return;
 				}
-				if (q_cur == 1)
-					$('#txtWorker').val(r_name);
-				else
-					$('#txtWorker2').val(r_name);
-				sum();
-				var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_rc2') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(t_noa);
+				if ($('#txtMon').val().length > 0 && !q_cd($('#txtMon').val()+'/01')) {
+					alert(q_getMsg('lblMon') + '錯誤。');
+					Unlock(1);
+					return;
+				}
+				//檢查批號
+				for(var i=0;i<q_bbsCount;i++){
+					for(var j=i+1;j<q_bbsCount;j++){
+						if($.trim($('#txtUno_'+i).val()).length>0 && $.trim($('#txtUno_'+i).val()) == $.trim($('#txtUno_'+j).val())){
+							alert('【'+$.trim($('#txtUno_'+i).val())+'】'+q_getMsg('lblUno_st')+'重覆。\n'+(i+1)+', '+(j+1));
+							Unlock(1);
+							return;
+						}
+					}					
+				}
+				btnOk_checkUno($('#cmbTypea').val()!='2'?q_bbsCount-1:-1);
 			}
+			function btnOk_checkUno(n){
+				if(n<0){
+					if (q_cur == 1)
+						$('#txtWorker').val(r_name);
+					else
+						$('#txtWorker2').val(r_name);
+					sum();
+					var t_noa = trim($('#txtNoa').val());
+					var t_date = trim($('#txtDatea').val());
+					if (t_noa.length == 0 || t_noa == "AUTO")
+						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_rc2') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+					else
+						wrServer(t_noa);
+				}else{
+					var t_uno = $.trim($('#txtUno_'+n).val());
+					var t_noa = $.trim($('#txtNoa').val());
+					q_gt('view_uccb', "where=^^uno='"+t_uno+"' and not(accy='"+r_accy+"' and tablea='rc2s' and noa='"+t_noa+"')^^", 0, 0, 0, 'btnOkcheckUno_'+n);
+				}
+			}
+			
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
@@ -344,9 +371,12 @@
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 						$('#txtUno_'+j).change(function(e){
-							var n = $(this).attr('id').replace('txtUno_','');
-							var t_uno = $.trim($(this).val());
-							q_gt('uccy', "where^^noa='"+t_uno+"'^^", 0, 0, 0, 'checkUno_'+n);
+							if($('#cmbTypea').val()!='2'){
+								var n = $(this).attr('id').replace('txtUno_','');
+								var t_uno = $.trim($(this).val());
+								var t_noa = $.trim($('#txtNoa').val());
+								q_gt('view_uccb', "where=^^uno='"+t_uno+"' and not(accy='"+r_accy+"' and tablea='rc2s' and noa='"+t_noa+"')^^", 0, 0, 0, 'checkUno_'+n);
+							}
 						});
 						$('#txtMount_' + j).change(function() {
 							sum();
@@ -416,7 +446,7 @@
 			}
 
 			function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
-				if (!as['productno'] && !as['product'] && !as['spec'] && !dec(as['total'])) {//不存檔條件
+				if (!as['uno'] && !as['productno'] && !as['product'] && !as['spec'] && !dec(as['total'])) {//不存檔條件
 					as[bbsKey[1]] = '';
 					/// noq 為空，不存檔
 					return;
@@ -1132,8 +1162,8 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input id="btnUno.*" type="button" value='.' style="float:left;width:20px;"/>
-						<input id="txtUno.*" type="text" style="float:left;width:110px;" />
+						<input id="btnUno.*" type="button" value='.' style="float:left;width:20px;display:none;"/>
+						<input id="txtUno.*" type="text" style="float:left;width:95%;" />
 					</td>
 					<td>
 					<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:20px;float:left;" />
