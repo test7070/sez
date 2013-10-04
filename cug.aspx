@@ -114,6 +114,17 @@
                     alert(t_err);
                     return;
                 }
+                
+                //檢查排程序號
+                for (var i = 0; i < q_bbsCount; i++) {
+                	for (var j = i+1; j < q_bbsCount; j++) {
+                		if (i!=j && $('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()){
+                			alert(q_getMsg('lblNoq_s')+'['+$('#txtNoq_'+i).val()+']重覆')
+                			return;
+                		}
+                	}
+                }
+                
                 sum();
                 if (q_cur == 1)
                     $('#txtWorker').val(r_name);
@@ -262,10 +273,11 @@
 		<style type="text/css">
             #dmain {
                 overflow: hidden;
+                width: 1280px;
             }
             .dview {
                 float: left;
-                width: 28%;
+                width: 30%;
             }
             .tview {
                 margin: 0;
@@ -284,7 +296,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 875px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -303,7 +315,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                /*width: 9%;*/
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -424,9 +436,9 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td1" style="width: 130px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td3" style="width: 130px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
