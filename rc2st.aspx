@@ -20,7 +20,7 @@
 			}
 			q_tables = 's';
 			var q_name = "rc2";
-			var q_readonly = ['txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtWeight','txtTotal','txtTax','txtTotalus'];
+			var q_readonly = ['txtTgg', 'txtAccno', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtWeight','txtTotal','txtTax','txtTotalus'];
 			var q_readonlys = ['txtMoney', 'txtOrdeno', 'txtNo2','txtOrdcno','txtNo3'];
 			var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 2, 1], ['txtWeight', 10, 2, 1], ['txtFloata', 10, 4, 1]];
 			var bbsNum = [['txtPrice', 12, 2, 1], ['txtTotal', 12, 2, 1, 1], ['txtWeight', 10, 2, 1], ['txtMount', 10, 2, 1],['txtTheory',10,2,1]];
@@ -71,7 +71,7 @@
 				q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				q_cmbParse("cmbKind", q_getPara('sys.stktype'));
-				$('#lblAccc').click(function() {
+				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
 				});
 				$('#lblOrdc').click(function() {
