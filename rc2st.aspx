@@ -977,9 +977,9 @@
 				<table class="tview" id="tview"	>
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:20px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:20px; color:black;"><a id='vewNick'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNick'> </a></td>
 					</tr>
 					<tr>
 						<td >
