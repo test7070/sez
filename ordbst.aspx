@@ -837,7 +837,7 @@
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id="vewOdate"> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id="vewNoa"> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id="vewTgg"> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id="vewNick"> </a></td>
 					</tr>
 					<tr>
 						<td >
