@@ -916,7 +916,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1460px;
+				width: 1560px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -998,7 +998,7 @@
 						<input id="txtCno" type="text" style="float:left;width:25%;"/>
 						<input id="txtAcomp" type="text" style="float:left;width:75%;"/>
 						</td>
-						<td><span> </span><a id='lblOrde' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 						<td colspan="2"><input id="txtOrdeno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
@@ -1051,9 +1051,9 @@
 						<input id="txtFloata" type="text" class="txt num c1" />
 						</td>
 						<td><span style="float:left;display:block;width:10px;"></span><select id="cmbCoin" style="float:left;width:80px;" > </select></td>
-						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
-						<td colspan="2">
-						<input id="txtLcno"  type="text" class="txt num c1"/>
+						<td></td>
+						<td>
+						<input id="btnImportVcce" type="button" />
 						</td>
 					</tr>
 					<tr>
@@ -1134,7 +1134,7 @@
 					代Z</td>
 					<td align="center" style="width:80px;"><a id='lblStore2_st'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblMemos_st'></a></td>
-					<td align="center" style="width:80px;"><a id='lblSizea_st'></a></td>
+					<td align="center" style="width:180px;"><a id='lblSizea_st'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
