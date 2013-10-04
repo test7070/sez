@@ -105,10 +105,7 @@
 					var t_ordbno = trim($('#txtOrdbno').val());
 					var t_where = "enda=0 ";
 					if (t_tggno.length > 0) {
-						if (t_ordbno.length > 0)
-							t_where += (t_tggno.length > 0 ? q_sqlPara2("tggno", t_tggno) : "") + " " + (t_ordbno.length > 0 ? q_sqlPara2("noa", t_ordbno) : "") + " && kind='" + $('#cmbKind').val() + "'";
-						else
-							t_where += (t_tggno.length > 0 ? q_sqlPara2("tggno", t_tggno) : "") + " && kind='" + $('#cmbKind').val() + "'";
+						t_where += (t_tggno.length > 0 ? q_sqlPara2("tggno", t_tggno) : "") + " && kind='" + $('#cmbKind').val() + "'";
 					} else {
 						alert(q_getMsg('msgTggEmp'));
 						return;
