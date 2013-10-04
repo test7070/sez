@@ -1099,10 +1099,10 @@
 						<input id="txtTotalus" type="text" class="txt num c1" />
 						</td>
 						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td><select id="cmbCoin" class="txt c1" ></select></td>
 						<td>
-						<input id="txtFloata" type="text" class="txt c1 num" />
+						<input id="txtFloata" type="text" class="txt num c1" />
 						</td>
+						<td><span style="float:left;display:block;width:10px;"></span><select id="cmbCoin" style="float:left;width:80px;" > </select></td>
 						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
 						<td>
 						<input id="txtWeight"  type="text" class="txt num c1"/>
@@ -1117,7 +1117,7 @@
 						<td>
 						<input id="txtTax" type="text" class="txt num c1" />
 						</td>
-						<td><span style="float:left;display:block;width:10px;"></span><select id="cmbTaxtype" style="float:left;width:80px;" ></select></td>
+						<td><span style="float:left;display:block;width:10px;"></span><select id="cmbTaxtype" style="float:left;width:80px;" > </select></td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td>
 						<input id="txtTotal" type="text" class="txt num c1" />
@@ -1166,9 +1166,9 @@
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblWeights'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblTotals'> </a><br><a id='lblTheorys'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblOrdet_st'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblGemounts'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblGemounts'> </a><br><a id='lblNotv'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDateas'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblssale_st'> </a></td>
