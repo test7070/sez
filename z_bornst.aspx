@@ -43,7 +43,8 @@
                 	$('#txtXnoa').val(q_getHref()[1]);
                 if(q_getHref()[3]!=undefined)
                 	$('#txtXnoq').val(q_getHref()[3]);
-                $('#btnOk').click();
+                if((!emp($('#txtXnoa').val())))
+                	$('#btnOk').click();
             }
 
             function q_boxClose(s2) {
