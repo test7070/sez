@@ -37,6 +37,7 @@
 			brwKey = 'noa';
 			//ajaxPath = "";
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,paytype', 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype', 'cust_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtUno_', 'btnUno_', 'view_uccc', 'uno,productno,class,spec,style,product,radius,width,dime,lengthb', 'txtUno_,txtProductno_,txtClass_,txtSpec_,txtStyle_,txtProduct_,txtRadius_,txtWidth_,txtDime_,txtLengthb_', 'uccc_seek_b.aspx', '95%', '60%'], ['txtStoreno2_', 'btnStoreno2_', 'store', 'noa,store', 'txtStoreno2_,txtStore2_', 'store_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+			brwCount2 = 12;
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -850,7 +851,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 750px;
+				width: 800px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -936,25 +937,25 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="dmain" style="width:1050px;">
+		<div style="overflow: auto;display:block;">
 		<!--#include file="../inc/toolbar.inc"-->
 		</div>
-		<div id="dmain" style="width:1050px;">
+		<div style="overflow: auto;display:block;width:1280px;">
 			<div class="dview" id="dview">
-				<table class="tview" id="tview">
+				<table class="tview" id="tview"	>
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
-						<td align="center" style="width:40px; color:black;"><a id="veTypea"> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id="vewDatea"> </a></td>
-						<td align="center" style="width:120px; color:black;"><a id="vewComp"> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNick'> </a></td>
 					</tr>
 					<tr>
 						<td >
-						<input id="chkBrow.*" type="checkbox"/>
+						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td id="typea=vcc.typea" style="text-align: center;">~typea=vcc.typea</td>
-						<td id="datea" style="text-align: center;">~datea</td>
-						<td id="nick" style="text-align: center;">~nick</td>
+						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='nick'>~nick</td>
 					</tr>
 				</table>
 			</div>
