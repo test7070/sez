@@ -126,7 +126,6 @@
 				if(t_custno.length==0){t_custno=' ';}
 				var t_credit = (dec($('#txtCredit').val()).toString() == 'NaN'?0:dec($('#txtCredit').val()));
 				q_func('qtxt.query.ecrdchange','ecrd.txt,ecrdchange,'+t_custno+';'+t_credit);
-				console.log(2);
 			}
 	
 			function refresh(recno) {
