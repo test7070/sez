@@ -100,14 +100,14 @@
 			if(Parent.getElementById('cmbKind')){
 				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
 				if(t_cmbKind=='A'){
-					$('#lblSize_st').text('厚度x寬度x長度');
+					$('#lblSize_st').text(q_getPara('sys.lblSizea'));
 					$('input[id*="txtLengthb_"]').css('width','29%');
 					$('input[id*="txtWidth_"]').css('width','29%');
 					$('input[id*="txtDime_"]').css('width','29%');
 					$('input[id*="txtRadius_"]').remove();
 					$('span[id*="StrX1"]').remove();
 				}else if((t_cmbKind !='A') && (t_cmbKind !='B')){
-					$('#lblSize_st').text('長度');
+					$('#lblSize_st').text(q_getPara('sys.lblSizec'));
 					$('#lblSize_st').parent().css('width','6%');
 					$('input[id*="txtLengthb_"]').css('width','95%');
 					$('input[id*="txtRadius_"]').remove();

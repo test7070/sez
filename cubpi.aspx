@@ -480,7 +480,7 @@
 					$('input[id*="textSize"]').attr('disabled', 'disabled');
 				}
 			  	if($('#cmbTypea').find("option:selected").text()=='製管'){
-	            	$('#lblSize_help').text("厚度x寬度x長度");
+	            	$('#lblSize_help').text(q_getPara('sys.lblSizea'));
 		        	for (var j = 0; j < q_bbtCount; j++) {
 		            	$('#textSize1__'+j).show();
 		            	$('#textSize2__'+j).show();
@@ -497,7 +497,7 @@
 				        $('#txtRadius__'+j).val(0)
 					}
 				}else{
-					$('#lblSize_help').text("短徑x長徑x厚度x長度");
+					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 				    for (var j = 0; j < q_bbtCount; j++) {
 				    	$('#textSize1__'+j).show();
 		            	$('#textSize2__'+j).show();

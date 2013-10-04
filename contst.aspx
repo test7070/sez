@@ -383,7 +383,7 @@
 				$('input[id*="textSize"]').attr('disabled', 'disabled');
 			}
 		  	if( $('#cmbKind').val().substr(0,1)=='A'){
-            	$('#lblSize_help').text("厚度x寬度x長度");
+            	$('#lblSize_help').text(q_getPara('sys.lblSizea'));
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -400,7 +400,7 @@
 			        $('#txtRadius_'+j).val(0)
 				}
 			}else if( $('#cmbKind').val().substr(0,1)=='B'){
-				$('#lblSize_help').text("短徑x長徑x厚度x長度");
+				$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 			    for (var j = 0; j < q_bbsCount; j++) {
 			    	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -416,7 +416,7 @@
 			        $('#textSize4_'+j).val($('#txtLengthb_'+j).val());
 				}
 			}else{//鋼筋和鋼胚
-				$('#lblSize_help').text("長度");
+				$('#lblSize_help').text(q_getPara('sys.lblSizec'));
 	            for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).hide();
 	            	$('#textSize2_'+j).hide();

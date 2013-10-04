@@ -49,7 +49,7 @@
     function size_change () {
 		  if(dec($('#txtRadius_0').val())<=0)	//根據第一筆資料判斷是鋼捲還是鋼管，鋼捲沒有Radius
             	{
-            		$('#lblSize_help').text("厚度x寬度x長度");
+            		$('#lblSize_help').text(q_getPara('sys.lblSizea'));
 	            	for (var j = 0; j < brwCount2 ; j++) {
 			           $('#txtSize4_'+j).attr('hidden', 'true');
 			           $('#x3_'+j).attr('hidden', 'true');
@@ -63,7 +63,7 @@
 			     }
 		         else
 		         {
-		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
+		         	$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 			         for (var j = 0; j < brwCount2 ; j++) {
 			         	$('#txtSize4_'+j).removeAttr('hidden');
 			         	$('#x3_'+j).removeAttr('hidden');
