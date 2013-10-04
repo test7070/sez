@@ -117,7 +117,7 @@
                 
                 //檢查排程序號
                 for (var i = 0; i < q_bbsCount; i++) {
-                	for (var j = 0; j < q_bbsCount; j++) {
+                	for (var j = i+1; j < q_bbsCount; j++) {
                 		if (i!=j && $('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()){
                 			alert(q_getMsg('lblNoq_s')+'['+$('#txtNoq_'+i).val()+']重覆')
                 			return;
