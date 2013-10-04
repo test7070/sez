@@ -113,7 +113,7 @@
                 	q_box('z_cuap.aspx'+ "?;;;;"+r_accy+";", 'cup', "95%", "95%", q_getMsg("popPrint"));
                 });
                 $('#btnWorkPrint').click(function(){
-                	q_box('z_workp.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
+                	q_box('z_workp.aspx'+ "?;;;noa='"+$('#txtNoa').val()+"';"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
                 });
             }
 			
