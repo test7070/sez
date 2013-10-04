@@ -304,6 +304,9 @@
             }
 
             function bbsAssign() {/// 表身運算式
+				$('input[id*="btnOrdet_"]').each(function(){
+					$(this).val($('#lblOrdet_st').text());
+				});
                 for (var j = 0; j < q_bbsCount; j++) {
                     $('#lblNo_' + j).text(j + 1);
                     if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -1157,7 +1160,7 @@
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:120px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:35px;"><a id='lblStyle_st'> </a></td>
-					<td align="center" style="width:140px;">品名</td>
+					<td align="center" style="width:140px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblClasss'> </a></td>
 					<td align="center" id='Size'><a id='lblSize_help'> </a>
 					<BR>
@@ -1233,11 +1236,13 @@
 					<input id="txtTheory.*" type="text" class="txt num" style="width:95%;"/>
 					</td>
 					<td align="center">
-					<input id="btnOrdet.*" type="button" value="選料"/>
-					</td><td>
+						<input id="btnOrdet.*" type="button"/>
+					</td>
+					<td>
 					<input class="txt num " id="txtC1.*" type="text" style="width:95%;"/>
 					<input class="txt num " id="txtNotv.*" type="text" style="width:95%;"/>
-					</td><td >
+					</td>
+					<td >
 					<input class="txt " id="txtDatea.*" type="text" style="width:95%;"/>
 					</td>
 					<td >
