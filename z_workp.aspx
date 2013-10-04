@@ -49,18 +49,38 @@
                 q_langShow();
                 $('#txtXdate1').datepicker().mask('999/99/99');
                 $('#txtXdate2').datepicker().mask('999/99/99');
-                $('#txtXdate1').val(q_date().substring(0,7)+'01');
-                var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
-                $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
                 var t_key = q_getHref();
-                if(t_key[1] != undefined)
+                //抓製令單號
+                if(window.parent.q_name=='workg'){
+					if(t_key[1] != undefined){
+						var t_where = "where=^^ cuano='"+t_key[1]+"'^^";
+						q_gt('work', t_where, 0, 0, 0, "", r_accy);
+					}
+				}else{
+					if(t_key[1] != undefined)
                 	$('#txtXnoa1').val(t_key[1]);
+				}
             }
 
             function q_boxClose(s2) {
             }
 
             function q_gtPost(s2) {
+            	switch (s2) {
+                	case 'work':
+                		var as = _q_appendData("work", "", true);
+                		if(as[0]!=undefined){
+                			$('#txtXnoa2').val(as[0].noa);
+                			$('#txtXnoa1').val(as[as.length-1].noa);
+                		}else{
+                			$('#txtXnoa2').val('');
+                			$('#txtXnoa1').val('');
+                			$('#txtXdate1').val(q_date().substring(0,7)+'01');
+			                var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
+			                $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
+                		}
+                		break;
+                }  /// end switch
             }
 		</script>
 	</head>
