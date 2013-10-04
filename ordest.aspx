@@ -28,8 +28,8 @@
             var q_readonlyt = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory'];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 2, 1], ['txtWeight', 10, 2, 1]];
             // 允許 key 小數
-            var bbsNum = [['txtPrice', 12, 2, 1], ['txtTotal', 12, 2, 1, 1], ['txtWeight', 11, 2, 1], ['txtMount', 9, 2, 1]];
-            var bbtNum = [['txtDime'], ['txtWidth'], ['txtLengthb'], ['txtMount', 10, 0, 1], ['txtWeight', 10, 0, 1]];
+            var bbsNum = [['txtPrice', 12, 2, 1], ['txtTotal', 12, 2, 1, 1], ['txtWeight', 10, 2, 1], ['txtMount', 10, 2, 1],['txtTheory',10,2,1]];
+            var bbtNum = [['txtMount', 10, 2, 1], ['txtWeight', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [['txtStyle', 'A']];
             q_sqlCount = 6;
@@ -39,6 +39,7 @@
             brwKey = 'noa';
             //ajaxPath = ""; // 只在根目錄執行，才需設定
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtUno_', 'btnUno_', 'view_uccc', 'uno,class,spec,unit', 'txtUno_,txtClass_,txtSpec_,txtUnit_', 'uccc_seek_b.aspx', '95%', '60%'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtNick,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'], ['txtUno__', 'btnUno__', 'view_uccc', 'uno', 'txtUno__', 'uccc_seek_b.aspx', '95%', '60%'], ['txtProductno__', 'btnProductno__', 'assignproduct', 'noa,product', 'txtProductno__,txtProduct__', 'ucc_b.aspx']);
+            brwCount2 = 10;
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no2'];
@@ -871,7 +872,7 @@
             }
             .dbbm {
                 float: left;
-                width: 750px;
+                width: 800px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -981,7 +982,7 @@
 		<div style="overflow: auto;display:block;width:1050px;">
 			<!--#include file="../inc/toolbar.inc"-->
 		</div>
-		<div id="dmain" style="overflow: auto;display:block;width:1050px;">
+		<div style="overflow: auto;display:block;width:1280px;">
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
 					<tr>
@@ -1020,20 +1021,19 @@
 						</td>
 						<td><select id="cmbStype" class="txt c1"></select></td>
 						
-						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
-						<td><select id="cmbKind" class="txt c1"></select></td>
-						<td></td>
 						<td><input id="btnOrdei" type="button" /></td>
 						<td align="center">
 						<input id="btnBBTShow" type="button" STYLE="display: none;" />
 						<input id="btnOrdem" type="button"/>
 						</td>
+						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
+						<td><select id="cmbKind" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcomp' class="lbl btn"> </a></td>
 						<td colspan="4">
-						<input id="txtCno" type="text" style="float:left;width:20%;"/>
-						<input id="txtAcomp" type="text" style="float:left;width:80%;"/>
+						<input id="txtCno" type="text" style="float:left;width:25%;"/>
+						<input id="txtAcomp" type="text" style="float:left;width:75%;"/>
 						</td>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td colspan="2">
@@ -1043,8 +1043,8 @@
 					<tr>
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td colspan="4">
-						<input id="txtCustno" type="text" style="float:left;width:35%;"/>
-						<input id="txtComp" type="text" style="float:left;width:65%;"/>
+						<input id="txtCustno" type="text" style="float:left;width:25%;"/>
+						<input id="txtComp" type="text" style="float:left;width:75%;"/>
 						<input id="txtNick" type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id='lblContract' class="lbl"> </a></td>
@@ -1069,8 +1069,8 @@
 						</td>
 						<td><span> </span><a id="lblSales" class="lbl btn"> </a></td>
 						<td colspan="2">
-						<input id="txtSalesno" type="text" style="float:left;width:45%;"/>
-						<input id="txtSales" type="text" style="float:left;width:55%;"/>
+						<input id="txtSalesno" type="text" style="float:left;width:50%;"/>
+						<input id="txtSales" type="text" style="float:left;width:50%;"/>
 						</td>
 					</tr>
 					<tr>
@@ -1091,7 +1091,7 @@
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td colspan="2">
 						<input id="txtPaytype" type="text" style="float:left; width:165px;"/>
-						<select id="combPaytype" style="float:right; width:20px;"></select></td>
+						<select id="combPaytype" style="float:left; width:20px;"></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
