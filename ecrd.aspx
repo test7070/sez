@@ -15,14 +15,16 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			var q_name = "ecrd";
-			var q_readonly = ['txtNoa'];
-			var bbmNum = [];
+			var q_readonly = ['txtNoa','txtDatea','txtTimea','txtWorker'];
+			var bbmNum = [['txtCredit', 10, 0, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
+			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+			q_desc = 1;
 			$(document).ready(function () {
 				bbmKey = ['noa'];
 				q_brwCount();
@@ -42,6 +44,18 @@
 				q_getFormat();
 				bbmMask = [];
 				q_mask(bbmMask);
+				$('#btnCodazero').click(function(){
+					if(q_cur==1){
+						$('#txtCustno').val('');
+						$('#txtComp').val('');						
+						$('#txtCredit').val(0);
+						$('#txtMemo').val('額度全部歸零');
+						$('#txtWorker').val(r_name);
+						var t_noa = trim($('#txtNoa').val());
+						var t_date = trim($('#txtDatea').val());
+						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ecrd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+					}
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -80,30 +94,39 @@
 			}
 	
 			function btnPrint() {
-	
 			}
 
 			function btnOk() {
 				var t_err = '';
-	
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtCustno', q_getMsg('lblCustno')]]);
 
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
 				}
+				$('#txtWorker').val(r_name);
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0)   
+				if (t_noa.length == 0 || t_noa == 'AUTO')   
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ecrd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
 					wrServer(t_noa);
 			}
 	
 			function wrServer(key_value) {
+				var NowTime = new Date;
+				var w_Hours = padL(NowTime.getHours(),'0',2); 
+				var w_Minutes = padL(NowTime.getMinutes(),'0',2); 
+				$('#txtDatea').val(q_date());
+				$('#txtTimea').val(w_Hours+':'+w_Minutes);
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
+				var t_custno = trim($('#txtCustno').val());
+				if(t_custno.length==0){t_custno=' ';}
+				var t_credit = (dec($('#txtCredit').val()).toString() == 'NaN'?0:dec($('#txtCredit').val()));
+				q_func('qtxt.query.ecrdchange','ecrd.txt,ecrdchange,'+t_custno+';'+t_credit);
+				console.log(2);
 			}
 	
 			function refresh(recno) {
@@ -226,9 +249,9 @@
 		.tbbm tr td .lbl.btn:hover{
 			color:#FF8F19;
 		}
-			.tbbm tr td {
-				width: 9%;
-			}
+		.tbbm tr td {
+			width: 10%;
+		}
 		.txt.c1{
 			width:95%;
 			float:left;
@@ -278,7 +301,6 @@
 					<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
 					<td></td>
 					<td></td>
-					<td></td>
 				</tr>
 				<tr class="tr2">
 					<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -286,34 +308,29 @@
 						<input id="txtDatea"  type="text" class="txt c2" />
 						<input id="txtTimea"  type="text" class="txt c3" />
 					</td>
-					<td></td>
 				</tr>  
 				<tr class="tr3">
-					<td class="td1"><span> </span><a id='lblCustno' class="lbl"> </a></td>
+					<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
 					<td class="td2" colspan="2">
-						<input id="txtCustno"  type="text" class="txt" style="width:30%;" />
-						<input id="txtComp"  type="text" class="txt" style="width:65%;" />
+						<input id="txtCustno"  type="text" class="txt" style="width:22%;" />
+						<input id="txtComp"  type="text" class="txt" style="width:73%;" />
 					</td>
-					<td></td>
 				</tr>  
 				<tr class="tr4">
 					<td class="td1"><span> </span><a id='lblCredit' class="lbl"> </a></td>
-					<td class="td2"><input id="txtCredit"  type="text" class="txt c1" /></td>
-					<td></td>
-					<td></td>
+					<td class="td2"><input id="txtCredit"  type="text" class="txt c1 num" /></td>
+					<td class="td3"><input id="btnCodazero" type="button"></td>
 					<td></td>
 				</tr>
 				<tr class="tr5">
 					<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-					<td class="td2"><input id="txtMemo"  type="text" class="txt c1" /></td>
-					<td></td>
+					<td class="td2" colspan="2"><input id="txtMemo"  type="text" class="txt c1" /></td>
 					<td></td>
 					<td></td>
 				</tr>
 				<tr class="tr6">
 					<td class="td1" ><span> </span><a id='lblWorker' class="lbl"> </a></td>
 					<td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
-					<td></td>
 					<td></td>
 					<td></td>
 				</tr>							   

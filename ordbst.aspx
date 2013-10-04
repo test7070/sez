@@ -68,7 +68,7 @@
 				
 				$('#btnOrde').click(function() {
 					var t_where = " 1=1 and enda='0' ";
-					q_box("ordest_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
+					q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 				});
 				$("#combPaytype").change(function(e) {
 					if (q_cur == 1 || q_cur == 2)
@@ -113,32 +113,9 @@
 			function q_boxClose(s2) {///   q_boxClose 2/4
 				var ret;
 				switch (b_pop) {
-					case 'orde':
+					case 'ordes':
 						b_ret = getb_ret();
-						var inStr = '';
-						if (!b_ret || b_ret.length == 0)
-							return;
-						for(var i=0;i<b_ret.length;i++){
-							inStr += "'"+b_ret[i].noa+"',";
-						}
-						inStr = inStr.substring(0,inStr.length-1);
-						var t_where = "where=^^ noa in("+inStr+") ^^";
-						q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
-						break;
-					case q_name + '_s':
-						q_boxClose2(s2);
-						///   q_boxClose 3/4
-						break;
-				}/// end Switch
-				b_pop = '';
-			}
-
-			var StyleList = '';
-			var ordesArray = new Array;
-			function q_gtPost(t_name) {
-				switch (t_name) {
-					case 'ordes' :
-						ordesArray = _q_appendData("ordes", "", true);
+						ordesArray = b_ret;
 						if (ordesArray[0] != undefined) {
 							var distinctArray = new Array;
 							var inStr = '';
@@ -152,9 +129,20 @@
 							q_gt('ordbs', t_where , 0, 0, 0, "", r_accy);
 						}
 						break;
+					case q_name + '_s':
+						q_boxClose2(s2);
+						///   q_boxClose 3/4
+						break;
+				}/// end Switch
+				b_pop = '';
+			}
+
+			var StyleList = '';
+			var ordesArray = new Array;
+			function q_gtPost(t_name) {
+				switch (t_name) {
 					case 'ordbs':
 						var as = _q_appendData("ordbs", "", true);
-						console.log(as);
 						for(var i = 0;i<as.length;i++){
 							for(var j=0;j<ordesArray.length;j++){
 								if(as[i].ordeno == ordesArray[j].noa && as[i].no2 == ordesArray[j].no2){
@@ -174,6 +162,19 @@
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtStyle,txtClass,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtPrice,txtOrdeno,txtNo2,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', ordesArray.length, ordesArray
 		                                                          , 'uno,style,class,productno,product,unit,mount,weight,price,noa,no2,radius,dime,width,lengthb,spec'
 		                                                          ,'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
+							var oAMap = ordesArray.map(function(el){return el['noa'];});
+							for(var i = 0;i<oAMap.length;i++){
+								if((oAMap.indexOf(oAMap[i]) != oAMap.lastIndexOf(oAMap[i])) || oAMap[i] == ''){
+									ordesArray.splice(i, 1);
+									oAMap.splice(i, 1);
+									i--;
+								}else if(trim(ordesArray[i].acoin) != '' && dec(ordesArray[i].afloata) !=0 && dec(ordesArray[i].afloata).toString() != 'NaN'){
+									console.log(ordesArray[i]);
+									$('#cmbCoin').val(ordesArray[i].acoin);
+									$('#txtFloata').val(ordesArray[i].afloata);
+								}
+							}
+							$('#txtMemo').val(distinct(ordesArray.map(function(el){return el['amemo'];})).toString());
 						}
 						size_change();
 						sum();
