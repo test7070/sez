@@ -28,14 +28,20 @@
 						name : 'accy',
                         value : q_getId()[4] //[1]
                     },{
-                        type : '6',
-                        name : 'xnoa' //[2]
+                        type : '1',
+                        name : 'xnoa' //[2][3]
                     },{
                         type : '1',
-                        name : 'xdate' //[3] [4]
+                        name : 'xdate' //[4] [5]
+                    }, {
+                        type : '2',
+                        name : 'xtgg',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'//[6][7]
                     },{
                         type : '6',
-                        name : 'xcuano' //[2]
+                        name : 'xcuano' //[8]
                     }]
                 });
                 q_popAssign();
@@ -43,12 +49,12 @@
                 q_langShow();
                 $('#txtXdate1').datepicker().mask('999/99/99');
                 $('#txtXdate2').datepicker().mask('999/99/99');
-                $('#txtXdate1').val(q_date().substring(0,4)+'06/01');
+                $('#txtXdate1').val(q_date().substring(0,7)+'01');
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
-                	$('#txtXnoa').val(t_key[1]);
+                	$('#txtXnoa1').val(t_key[1]);
             }
 
             function q_boxClose(s2) {

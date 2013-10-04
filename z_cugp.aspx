@@ -45,12 +45,19 @@
 						dbf : 'process',
 						index : 'noa,process',
 						src : 'process_b.aspx'
-                    }]
-                    });
+                    },{
+                        type : '6',
+                        name : 'xenddate' //[8]
+                    }, {
+						type : '5', //select
+						name : 'xorder',
+						value : ('1@製程,2@開工日').split(',')
+					}]
+				});
                 q_popAssign();
-				/*$('#txtXdate').datepicker();
-				$('#txtXdate').mask('999/99/99');
-				$('#txtXdate').val(q_date());*/
+				$('#txtXenddate').datepicker();
+				$('#txtXenddate').mask('999/99/99');
+				//$('#txtXenddate').val(q_date());
 			}
 
             function q_boxClose(s2) {

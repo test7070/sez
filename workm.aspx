@@ -65,12 +65,15 @@
                 $('#btnWork').click(function() {
                 	if(q_cur==1 || q_cur==2){
                 		var t_err = '';
-                		t_err = q_chkEmpField([['txtProcessno', q_getMsg('lblProcess')], ['txtProductno', q_getMsg('lblProduct')]]);
+                		t_err = q_chkEmpField([['txtProductno', q_getMsg('lblProduct')]]);
 	                	if (t_err.length > 0) {
 		                    alert(t_err);
 	    	                return;
 	        	        }
-						t_where = "productno='"+$('#txtProductno').val()+"' and processno='"+$('#txtProcessno').val()+"' and enda!='1' ";
+	        	        if(!emp($('#txtProcessno').val()))
+	        	        	t_where = "productno='"+$('#txtProductno').val()+"' and processno='"+$('#txtProcessno').val()+"' and enda!='1' ";
+	        	        else
+							t_where = "productno='"+$('#txtProductno').val()+"' and enda!='1' ";
 						q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('btnWork'));
 					}
                 });
@@ -306,7 +309,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 900px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -325,7 +328,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                /*width: 9%;*/
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -444,10 +447,10 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
+						<td class="td1" style="width: 128px"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td2" style="width: 343px"><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td class="td3" style="width: 133px"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td4" style="width: 261px"><input id="txtDatea"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProduct' class="lbl btn"> </a></td>

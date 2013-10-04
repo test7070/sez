@@ -100,11 +100,11 @@
 						$('#txtModelno').val(b_ret[0].modelno);
 						$('#txtModel').val(b_ret[0].model);
 						$('#txtPrice').val(b_ret[0].price);
-						$('#txtWages').val(b_ret[0].wages);
-						$('#txtMakes').val(b_ret[0].makes);
+						/*$('#txtWages').val(b_ret[0].wages);
+						$('#txtMakes').val(b_ret[0].makes);*/
 						$('#txtHours').val(b_ret[0].hours);
-						$('#txtWages_fee').val(b_ret[0].wages_fee);
-						$('#txtMakes_fee').val(b_ret[0].makes_fee);
+						/*$('#txtWages_fee').val(b_ret[0].wages_fee);
+						$('#txtMakes_fee').val(b_ret[0].makes_fee);*/
 						$('#txtMemo').val(b_ret[0].memo);
 					}
                 	break;
@@ -363,7 +363,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 900px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -382,7 +382,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                /*width: 9%;*/
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -569,30 +569,28 @@
 				        <td class="td6"><input id="txtPrice" type="text"  class="txt num c1"/></td>
 					</tr>
 			        <tr>
-				        <td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>
+			        	 <td class="td5"><span> </span><a id="lblHours" class="lbl"> </a></td>
+				        <td class="td6"><input id="txtHours" type="text"  class="txt num c1"/></td> 
+			        	<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+				        <td class="td2"><input id="txtWorker" type="text"  class="txt c1"/></td>
+				        <td class="td3"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+				        <td class="td4"><input id="txtWorker2" type="text"  class="txt c1"/></td>
+					</tr>
+					<!--<tr>
+						<td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>
 				        <td class="td2"><input id="txtWages" type="text"  class="txt num c1"/></td>
 				        <td class="td3"><span> </span><a id="lblMakes" class="lbl"> </a></td>
 				        <td class="td4"><input id="txtMakes" type="text"  class="txt num c1"/></td>
-				        <td class="td5"><span> </span><a id="lblHours" class="lbl"> </a></td>
-				        <td class="td6"><input id="txtHours" type="text"  class="txt num c1"/></td> 
-					</tr>
-					<tr>
 				        <td class="td1"><span> </span><a id="lblWages_fee" class="lbl"> </a></td>
 				        <td class="td2"><input id="txtWages_fee" type="text"  class="txt num c1"/></td>
 				        <td class="td3"><span> </span><a id="lblMakes_fee" class="lbl"> </a></td>
 				        <td class="td4"><input id="txtMakes_fee" type="text"  class="txt num c1"/></td>
-					</tr>
+					</tr>-->
 					<tr>
 				        <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 				        <td class="td2" colspan='5'>
 				        	<input id="txtMemo" type="text"  class="txt c1 "/>
 				        </td>
-					</tr>
-					<tr>
-				        <td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-				        <td class="td2"><input id="txtWorker" type="text"  class="txt c1"/></td>
-				        <td class="td3"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-				        <td class="td4"><input id="txtWorker2" type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "labchg";
-            var q_readonly = ['txtNoa','txtAccno','txtPaybno','txtWorker','txtWorker2'];
+            var q_readonly = ['txtDatea','txtNoa','txtAccno','txtPaybno','txtWorker','txtWorker2'];
             var q_readonlys = ['txtVccno'];
             var bbmNum = [];
             var bbsNum = [['txtLabplus', 15, 0, 1],['txtLabminus', 15, 0, 1],['txtHeplus', 15, 0, 1],['txtHeminus', 15, 0, 1],['txtReplus', 15, 0, 1],['txtReminus', 15, 0, 1],['txtDisasterplus', 15, 0, 1],['txtDisasterminus', 15, 0, 1]];

@@ -22,7 +22,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "cng";
-            var q_readonly = ['txtNoa', 'txtWorker'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtTax', 10, 0, 1], ['txtMoney', 15, 0, 1], ['txtPrice', 10, 2, 1], ['txtWeight', 15, 2, 1], ['txtTotal', 15, 0, 1]];
             var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1], ['txtMount', 10, 0, 1], ['txtWeight', 15, 2, 1]];
@@ -333,7 +333,7 @@
                         $('#textSize2_' + j).val($('#txtWidth_' + j).val());
                         $('#textSize3_' + j).val($('#txtLengthb_' + j).val());
                         $('#textSize4_' + j).val(0);
-                        $('#txtRadius_' + j).val(0)
+                        $('#txtRadius_' + j).val(0);
                     }
                 } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
                     $('#lblSize_help').text("短徑x長徑x厚度x長度");
@@ -363,7 +363,7 @@
                         $('#x3_' + j).hide();
                         $('#Size').css('width', '70px');
                         $('#textSize1_' + j).val(0);
-                        $('#txtDime_' + j).val(0)
+                        $('#txtDime_' + j).val(0);
                         $('#textSize2_' + j).val(0);
                         $('#txtWidth_' + j).val(0);
                         $('#textSize3_' + j).val($('#txtLengthb_' + j).val());
@@ -398,7 +398,7 @@
                     str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
                     var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
                     if (regex.test(str))
-                        return 4
+                        return 4;
                 }
                 return 0;
                 //錯誤
@@ -531,7 +531,11 @@
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div class="dview" id="dview" style="float: left;  width:32%;"  >
 			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -626,9 +630,12 @@
 				<tr class="tr7">
 					<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
 					<td class="td2" colspan='3'>					<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
-					<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+					<td class='td3'>
+						<span> </span><a id="lblWorker" class="lbl"> </a>
+					</td>
 					<td class="td4">
-					<input id="txtWorker" type="text" class="txt c1"/>
+						<input id="txtWorker" type="text" style="float:left;width:50%"/>
+						<input id="txtWorker2" type="text" style="float:left;width:50%"/>
 					</td>
 				</tr>
 			</table>
