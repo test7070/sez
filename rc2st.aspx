@@ -942,7 +942,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1525px;
+				width: 1600px;
 			}
 			#tbbt {
 				margin: 0;
@@ -976,10 +976,10 @@
 			<div class="dview" id="dview"  >
 				<table class="tview" id="tview"	>
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:40%"><a id='vewTgg'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewNick'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -1161,7 +1161,7 @@
 					<td align="center" style="width:80px;"><a id='lblPrices_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotals_st'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblCert_st'></a><br><a id='lblMemos_st'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblOrdenos_st'> </a><br><a id='lblOrdcnos_st'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblOrdenos_st'> </a><br><a id='lblOrdcnos_st'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblSizea_st'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -1228,10 +1228,10 @@
 						<input id="txtMemo.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input id="txtOrdeno.*" type="text"  style="width:70px;float:left;"/>
-					<input id="txtNo2.*" type="text"  style="width:30px;float:left;"/>
-					<input id="txtOrdcno.*" type="text"  style="width:70px;float:left;"/>
-					<input id="txtNo3.*" type="text"  style="width:30px;float:left;"/>
+					<input id="txtOrdeno.*" type="text"  style="width:140px;float:left;"/>
+					<input id="txtNo2.*" type="text"  style="width:40px;float:left;"/>
+					<input id="txtOrdcno.*" type="text"  style="width:140px;float:left;"/>
+					<input id="txtNo3.*" type="text"  style="width:40px;float:left;"/>
 					</td>
 					<td>
 					<input id="txtSize.*" type="text" style="width:95%;"/>
