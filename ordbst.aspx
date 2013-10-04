@@ -67,7 +67,7 @@
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				
 				$('#btnOrde').click(function() {
-					var t_where = " 1=1 and enda='0' ";
+					var t_where = " 1=1 and enda='0' and kind='"+$('#cmbKind').val()+"'";
 					q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 				});
 				$("#combPaytype").change(function(e) {
@@ -169,7 +169,6 @@
 									oAMap.splice(i, 1);
 									i--;
 								}else if(trim(ordesArray[i].acoin) != '' && dec(ordesArray[i].afloata) !=0 && dec(ordesArray[i].afloata).toString() != 'NaN'){
-									console.log(ordesArray[i]);
 									$('#cmbCoin').val(ordesArray[i].acoin);
 									$('#txtFloata').val(ordesArray[i].afloata);
 								}

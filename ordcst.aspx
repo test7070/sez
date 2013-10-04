@@ -103,15 +103,12 @@
 				$('#lblOrdb').click(function() {
 					var t_tggno = trim($('#txtTggno').val());
 					var t_ordbno = trim($('#txtOrdbno').val());
-					var t_where = '';
+					var t_where = "enda=0 ";
 					if (t_tggno.length > 0) {
 						if (t_ordbno.length > 0)
-							t_where = "enda=0 " + (t_tggno.length > 0 ? q_sqlPara2("tggno", t_tggno) : "") + " " + (t_ordbno.length > 0 ? q_sqlPara2("noa", t_ordbno) : "") + " && kind='" + $('#cmbKind').val() + "'";
-						////  sql AND 語法，請用 &&
+							t_where += (t_tggno.length > 0 ? q_sqlPara2("tggno", t_tggno) : "") + " " + (t_ordbno.length > 0 ? q_sqlPara2("noa", t_ordbno) : "") + " && kind='" + $('#cmbKind').val() + "'";
 						else
-							t_where = "enda=0 " + (t_tggno.length > 0 ? q_sqlPara2("tggno", t_tggno) : "") + " && kind='" + $('#cmbKind').val() + "'";
-						////  sql AND 語法，請用 &&
-						t_where = t_where;
+							t_where += (t_tggno.length > 0 ? q_sqlPara2("tggno", t_tggno) : "") + " && kind='" + $('#cmbKind').val() + "'";
 					} else {
 						alert(q_getMsg('msgTggEmp'));
 						return;
@@ -185,6 +182,18 @@
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdbno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtTheory,txtStyle,txtClass,txtUno,txtSize', 
 														ordbsArray.length, ordbsArray,
 														'productno,product,spec,dime,width,lengthb,radius,noa,no3,price,mount,weight,total,memo,theory,style,class,uno,size', 'txtProductno,txtProduct,txtSpec');
+							var oAMap = ordbsArray.map(function(el){return el['ordbno'];});
+							for(var i = 0;i<oAMap.length;i++){
+								if((oAMap.indexOf(oAMap[i]) != oAMap.lastIndexOf(oAMap[i])) || oAMap[i] == ''){
+									ordbsArray.splice(i, 1);
+									oAMap.splice(i, 1);
+									i--;
+								}else if(trim(ordbsArray[i].acoin) != '' && dec(ordbsArray[i].afloata) !=0 && dec(ordbsArray[i].afloata).toString() != 'NaN'){
+									$('#cmbCoin').val(ordbsArray[i].acoin);
+									$('#txtFloata').val(ordbsArray[i].afloata);
+								}
+							}
+							$('#txtMemo').val(distinct(ordbsArray.map(function(el){return el['amemo'];})).toString());
 							bbsAssign();
 							sum();
 							size_change();
