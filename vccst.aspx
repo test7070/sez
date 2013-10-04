@@ -22,12 +22,10 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "vcc";
-			var decbbs = ['money', 'total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
-			var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
-			var q_readonly = ['txtNoa', 'txtAccno', 'txtWorker', 'txtWorker2', 'txtOrdeno', 'txtMoney', 'txtTax', 'txtTotal', 'txtWeight', 'txtTotalus', 'txtTranmoney'];
+			var q_readonly = ['txtComp', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtWeight','txtTotal','txtTax','txtTotalus'];
 			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2'];
-			var bbmNum = [['txtFloata', 10, 2, 1], ['txtTotalus', 10, 2, 1], ['txtPrice', 10, 3, 1], ['txtTranmoney', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtWeight', 10, 0, 1]];
-			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1], ['txtRadius', 10, 3, 1], ['txtWidth', 10, 2, 1], ['txtDime', 10, 3, 1], ['txtLengthb', 10, 2, 1], ['txtMount', 10, 2, 1], ['txtWeight', 10, 1, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1], ['txtGweight', 10, 1, 1]];
+			var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 2, 1], ['txtWeight', 10, 2, 1], ['txtFloata', 10, 4, 1]];
+			var bbsNum = [['txtPrice', 12, 2, 1], ['txtTotal', 12, 2, 1, 1], ['txtWeight', 10, 2, 1], ['txtMount', 10, 2, 1],['txtTheory',10,2,1], ['txtGweight', 10, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [['txtStyle', 'A']];
 			q_sqlCount = 6;
@@ -294,6 +292,7 @@
 				Lock(1, {
 					opacity : 0
 				});
+				$('#txtOrdeno').val(GetOrdenoList());
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					Unlock(1);
@@ -474,96 +473,107 @@
 			}
 
 			function sum() {
-				if (!(q_cur == 1 || q_cur == 2))
-					return;
-				$('#txtMoney').attr('readonly', true);
-				$('#txtTax').attr('readonly', true);
-				$('#txtTotal').attr('readonly', true);
-				$('#txtMoney').css('background-color', 'rgb(237,237,238)').css('color', 'green');
-				$('#txtTax').css('background-color', 'rgb(237,237,238)').css('color', 'green');
-				$('#txtTotal').css('background-color', 'rgb(237,237,238)').css('color', 'green');
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                $('#txtMoney').attr('readonly', true);
+                $('#txtTax').attr('readonly', true);
+                $('#txtTotal').attr('readonly', true);
+                $('#txtMoney').css('background-color', 'rgb(237,237,238)').css('color', 'green');
+                $('#txtTax').css('background-color', 'rgb(237,237,238)').css('color', 'green');
+                $('#txtTotal').css('background-color', 'rgb(237,237,238)').css('color', 'green');
 
-				var t_mount = 0, t_price = 0, t_money = 0, t_weight = 0, t_total = 0, t_tax = 0;
-				var t_mounts = 0, t_prices = 0, t_moneys = 0, t_weights = 0;
-				var t_float = q_float('txtFloata');
-				var t_unit = '';
-				for (var j = 0; j < q_bbsCount; j++) {
-					t_unit = trim($('#txtUnit_'+j).val()).toUpperCase();
-					//---------------------------------------
-					if ($('#cmbKind').val().substr(0, 1) == 'A') {
-						q_tr('txtDime_' + j, q_float('textSize1_' +j));
-						q_tr('txtWidth_' + j, q_float('textSize2_' + j));
-						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
-						q_tr('txtRadius_' + j, q_float('textSize4_' + j));
-					} else if ($('#cmbKind').val().substr(0, 1) == 'B') {
-						q_tr('txtRadius_' + j, q_float('textSize1_' + j));
-						q_tr('txtWidth_' + j, q_float('textSize2_' + j));
-						q_tr('txtDime_' + j, q_float('textSize3_' + j));
-						q_tr('txtLengthb_' + j, q_float('textSize4_' + j));
-					}else {//鋼筋、胚
-						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
-					}
-					//---------------------------------------
-					getTheory(j);
-					t_weights = q_float('txtWeight_' + j);
-					t_prices = q_float('txtPrice_' + j);
-					t_mounts = q_float('txtMount_' + j);
-					t_moneys = t_prices.mul((t_unit == 'KG'?t_weights:t_mounts)).round(0);
+                var t_mount = 0, t_price = 0, t_money = 0, t_moneyus=0, t_weight = 0, t_total = 0, t_tax = 0;
+                var t_mounts = 0, t_prices = 0, t_moneys = 0, t_weights = 0;
+                var t_unit = '';
+                var t_float = q_float('txtFloata');
 
-					t_weight = t_weight.add(t_weights);
-					t_mount = t_mount.add(t_mounts);
-					t_money = t_money.add(t_moneys);
+                for (var j = 0; j < q_bbsCount; j++) {
+                    t_unit = $.trim($('#txtUnit_' + j).val()).toUpperCase();
+                    //---------------------------------------
+                    if ($('#cmbKind').val().substr(0, 1) == 'A') {
+                        q_tr('txtDime_' + j, q_float('textSize1_' + j));
+                        q_tr('txtWidth_' + j, q_float('textSize2_' + j));
+                        q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
+                        q_tr('txtRadius_' + j, q_float('textSize4_' + j));
+                    } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
+                        q_tr('txtRadius_' + j, q_float('textSize1_' + j));
+                        q_tr('txtWidth_' + j, q_float('textSize2_' + j));
+                        q_tr('txtDime_' + j, q_float('textSize3_' + j));
+                        q_tr('txtLengthb_' + j, q_float('textSize4_' + j));
+                    } else {//鋼筋、胚
+                        q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
+                    }
+                    getTheory(j);
+                    //---------------------------------------
+                    t_weights = q_float('txtWeight_' + j);
+                    t_prices = q_float('txtPrice_' + j);
+                    t_mounts = q_float('txtMount_' + j);
+                    if(t_unit.length==0 ||t_unit=='KG' || t_unit=='M2' || t_unit=='M' || t_unit=='批' || t_unit=='公斤' || t_unit=='噸' || t_unit=='頓'){
+                    	t_moneys = t_prices.mul(t_weights);
+                    }else{
+                    	t_moneys = t_prices.mul(t_mounts);
+                    }
+                    if(t_float==0){
+                    	t_moneys = t_moneys.round(0);
+                    }else{
+                    	t_moneyus = t_moneyus.add(t_moneys.round(2));
+                    	t_moneys = t_moneys.mul(t_float).round(0);
+                    }
+                    t_weight = t_weight.add(t_weights);
+                    t_mount = t_mount.add(t_mounts);
+                    t_money = t_money.add(t_moneys);
+                    $('#txtTotal_' + j).val(FormatNumber(t_moneys));
+                }
+                t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
+                switch ($('#cmbTaxtype').val()) {
+                    case '1':
+                        // 應稅
+                        t_tax = round(t_money * t_taxrate, 0);
+                        t_total = t_money + t_tax;
+                        break;
+                    case '2':
+                        //零稅率
+                        t_tax = 0;
+                        t_total = t_money + t_tax;
+                        break;
+                    case '3':
+                        // 內含
+                        t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
+                        t_total = t_money;
+                        t_money = t_total - t_tax;
+                        break;
+                    case '4':
+                        // 免稅
+                        t_tax = 0;
+                        t_total = t_money + t_tax;
+                        break;
+                    case '5':
+                        // 自定
+                        $('#txtTax').attr('readonly', false);
+                        $('#txtTax').css('background-color', 'white').css('color', 'black');
+                        t_tax = round(q_float('txtTax'), 0);
+                        t_total = t_money + t_tax;
+                        break;
+                    case '6':
+                        // 作廢-清空資料
+                        t_money = 0, t_tax = 0, t_total = 0;
+                        break;
+                    default:
+                }
+                t_price = q_float('txtPrice');
+                if (t_price != 0) {
+                    $('#txtTranmoney').val(FormatNumber(t_weight.mul(t_price).round(0)));
+                }
+                $('#txtWeight').val(FormatNumber(t_weight));
 
-					$('#txtTotal_' + j).val(FormatNumber(t_moneys));
-				}
-				t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
-				switch ($('#cmbTaxtype').val()) {
-					case '1':
-						// 應稅
-						t_tax = round(t_money * t_taxrate, 0);
-						t_total = t_money + t_tax;
-						break;
-					case '2':
-						//零稅率
-						t_tax = 0;
-						t_total = t_money + t_tax;
-						break;
-					case '3':
-						// 內含
-						t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
-						t_total = t_money;
-						t_money = t_total - t_tax;
-						break;
-					case '4':
-						// 免稅
-						t_tax = 0;
-						t_total = t_money + t_tax;
-						break;
-					case '5':
-						// 自定
-						$('#txtTax').attr('readonly', false);
-						$('#txtTax').css('background-color', 'white').css('color', 'black');
-						t_tax = round(q_float('txtTax'), 0);
-						t_total = t_money + t_tax;
-						break;
-					case '6':
-						// 作廢-清空資料
-						t_money = 0, t_tax = 0, t_total = 0;
-						break;
-					default:
-				}
-				t_price = q_float('txtPrice');
-				if (t_price != 0) {
-					$('#txtTranmoney').val(FormatNumber(t_weight.mul(t_price).round(0)));
-				}
-				$('#txtWeight').val(FormatNumber(t_weight));
-
-				$('#txtMoney').val(FormatNumber(t_money));
-				$('#txtTax').val(FormatNumber(t_tax));
-				$('#txtTotal').val(FormatNumber(t_total));
-				$('#txtTotalus').val(FormatNumber(Math.round(q_float('txtTotal').mul(q_float('txtFloata'), 2))));
-				$('#txtOrdeno').val(GetOrdenoList());
-			}
+                $('#txtMoney').val(FormatNumber(t_money));
+                $('#txtTax').val(FormatNumber(t_tax));
+                $('#txtTotal').val(FormatNumber(t_total));
+                if(t_float==0)
+                	$('#txtTotalus').val(0);
+                else
+                	$('#txtTotalus').val(FormatNumber(t_moneyus));
+            }
 
 			function refresh(recno) {
 				_refresh(recno);
