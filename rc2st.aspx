@@ -1074,22 +1074,6 @@
 						<td colspan="2"><input id="txtCarno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
-						<td>
-						<input id="txtWeight" type="text" class="txt num c1" />
-						</td>
-						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td>
-						<input id="txtPrice" type="text" class="txt num c1" />
-						</td>
-						<td></td>
-						<td><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-						<td>
-						<input id="txtTranmoney" type="text" class="txt num c1" />
-						</td>
-						
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblTotalus' class="lbl"> </a></td>
 						<td>
 						<input id="txtTotalus" type="text" class="txt num c1" />
@@ -1100,7 +1084,7 @@
 						</td>
 						<td><span style="float:left;display:block;width:10px;"></span><select id="cmbCoin" style="float:left;width:80px;" > </select></td>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
-						<td>
+						<td colspan="2">
 						<input id="txtLcno"  type="text" class="txt num c1"/>
 						</td>
 					</tr>
@@ -1117,6 +1101,21 @@
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td>
 						<input id="txtTotal" type="text" class="txt num c1" />
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
+						<td>
+						<input id="txtWeight" type="text" class="txt num c1" />
+						</td>
+						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td>
+						<input id="txtPrice" type="text" class="txt num c1" />
+						</td>
+						<td></td>
+						<td><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+						<td>
+						<input id="txtTranmoney" type="text" class="txt num c1" />
 						</td>
 					</tr>
 					<tr>
