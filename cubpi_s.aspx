@@ -13,7 +13,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-            var q_name = "cut_s";
+            var q_name = "cubpi_s";
 			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno', 'mech_b.aspx']);
             $(document).ready(function() {
                 main();
@@ -29,9 +29,7 @@
                 q_langShow();
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", '@全部,'+q_getPara('cut.typea'));
-				q_cmbParse("cmbType2", '@全部,'+q_getPara('cut.type2'));
-				q_cmbParse("cmbKind", '@全部,'+q_getPara('sys.stktype'));
+                q_cmbParse("cmbTypea", '@全部,'+q_getPara('cubpi.typea'));
                 $('#txtBdate').datepicker();
 				$('#txtEdate').datepicker(); 
                 $('#txtNoa').focus();
@@ -39,32 +37,25 @@
 
             function q_seekStr() {
             	t_typea = $.trim($('#cmbTypea').val());
-            	t_kind = $.trim($('#cmbKind').val());
-            	t_type2 = $.trim($('#cmbType2').val());
                 t_noa = $.trim($('#txtNoa').val());
 		        t_mechno = $.trim($('#txtMechno').val());
 		        t_mech = $.trim($('#txtMech').val());
 		        t_ordeno = $.trim($('#txtOrdeno').val());
 		        t_uno = $.trim($('#txtUno').val());
-		        t_bno = $.trim($('#txtBno').val());
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
 
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("typea", t_typea)
-		        + q_sqlPara2("kind", t_kind)
-		        + q_sqlPara2("type2", t_type2)
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 		     
-		        + q_sqlPara2("mechno", t_mechno)
-		        + + q_sqlPara2("uno", t_uno) ;
+		        + q_sqlPara2("mechno", t_mechno);
 		        if (t_mech.length>0)
                     t_where += " and charindex('" + t_mech + "',mech)>0";
 		       	if(t_ordeno.length>0)
-		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cut"+r_accy+".noa and cuts"+r_accy+".ordeno='"+t_ordeno+"')";
-		       	if(t_bno.length>0)
-		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cub"+r_accy+".noa and cuts"+r_accy+".bno='"+t_bno+"')";
-		       		
+		       		t_where += " and exists(select noa from cubs"+r_accy+" where cubs"+r_accy+".noa=cub"+r_accy+".noa and cubs"+r_accy+".ordeno='"+t_ordeno+"')";
+		       	if(t_uno.length>0)
+		       		t_where += " and exists(select noa from cubt"+r_accy+" where cubt"+r_accy+".noa=cub"+r_accy+".noa and cubt"+r_accy+".uno='"+t_uno+"')";
 		       	
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
@@ -89,14 +80,6 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" style="width:215px; font-size:medium;" > </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblKind'> </a></td>
-					<td><select id="cmbKind" style="width:215px; font-size:medium;" > </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblType2'> </a></td>
-					<td><select id="cmbType2" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
@@ -134,12 +117,6 @@
 					<td class='seek'  style="width:20%;"><a id='lblUno'></a></td>
 					<td>
 					<input class="txt" id="txtUno" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblBno'></a></td>
-					<td>
-					<input class="txt" id="txtBno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

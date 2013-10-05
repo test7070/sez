@@ -440,7 +440,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
-				q_box('cut_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+				q_box('cut_s.aspx', q_name + '_s', "500px", "530px", q_getMsg("popSeek"));
 			}
 
 			function bbsAssign() {
@@ -613,8 +613,7 @@
 
 			function btnIns() {
 				_btnIns();
-				$('#cmbKind').val(q_getPara('vcc.kind'));
-				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
 			}
@@ -889,31 +888,33 @@
 		</script>
 		<style type="text/css">
 			#dmain {
-				overflow: hidden;
+				/*overflow: hidden;*/
 			}
 			.dview {
 				float: left;
-				width: 18%;
+				width: 300px;
+				border-width: 0px;
 			}
 			.tview {
-				margin: 0;
-				padding: 2px;
-				border: 1px black double;
-				border-spacing: 0;
+				border: 5px solid gray;
 				font-size: medium;
-				background-color: #FFFF66;
-				color: blue;
+				background-color: black;
+			}
+			.tview tr {
+				height: 30px;
 			}
 			.tview td {
 				padding: 2px;
-				/*text-align: center;*/
-				border: 1px black solid;
+				text-align: center;
+				border-width: 0px;
+				background-color: #FFFF66;
+				color: blue;
 			}
 			.dbbm {
 				float: left;
-				width: 80%;
-				margin: -1px;
-				border: 1px black solid;
+				width: 800px;
+				/*margin: -1px;
+				 border: 1px black solid;*/
 				border-radius: 5px;
 			}
 			.tbbm {
@@ -930,10 +931,10 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				width: 10%;
 			}
 			.tbbm .tdZ {
-				width: 2%;
+				width: 1%;
 			}
 			.tbbm tr td span {
 				float: right;
@@ -949,33 +950,12 @@
 			.tbbm tr td .lbl.btn {
 				color: #4297D7;
 				font-weight: bolder;
-				font-size: medium;
 			}
 			.tbbm tr td .lbl.btn:hover {
 				color: #FF8F19;
 			}
 			.txt.c1 {
-				width: 95%;
-				float: left;
-			}
-			.txt.c2 {
-				width: 98%;
-				float: left;
-			}
-			.txt.c3 {
-				width: 38%;
-				float: left;
-			}
-			.txt.c4 {
-				width: 60%;
-				float: left;
-			}
-			.txt.c5 {
-				width: 80%;
-				float: left;
-			}
-			.txt.c8 {
-				width: 65px;
+				width: 100%;
 				float: left;
 			}
 			.txt.num {
@@ -991,61 +971,68 @@
 				margin: -1px;
 				float: left;
 			}
-			.tbbm td input[type="button"] {
-				float: left;
-			}
 			.tbbm select {
 				border-width: 1px;
 				padding: 0px;
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2000px;
+				width: 1570px;
 			}
 			.tbbs a {
 				font-size: medium;
 			}
-
-			.num {
-				text-align: right;
-			}
-			.tbbs tr.error input[type="text"] {
-				color: red;
-			}
 			input[type="text"], input[type="button"] {
 				font-size: medium;
 			}
-			.tbbm select {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
+			.num {
+				text-align: right;
+			}
+			select {
 				font-size: medium;
 			}
-
+			#dbbt {
+				width: 1600px;
+			}
+			#tbbt {
+				margin: 0;
+				padding: 2px;
+				border: 2px pink double;
+				border-spacing: 1;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: pink;
+				width: 100%;
+			}
+			#tbbt tr {
+				height: 35px;
+			}
+			#tbbt tr td {
+				text-align: center;
+				border: 2px pink double;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
+		<div style="overflow: auto;display:block;">
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:32%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		</div>
+		<div style="overflow: auto;display:block;width:1280px;">
+			<div class="dview" id="dview"  >
+				<table class="tview" id="tview"	>
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:35%"><a id='vewUno'></a></td>
-						<td align="center" style="width:35%"><a id='vewProduct'></a></td>
-						<!--
-						<td align="center" style="width:25%"><a id='vewOrdeno'></a></td>
-						<td align="center" style="width:40%"><a id='vewCust'></a></td>
-						-->
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewUno'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewProduct'></a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=' '/>
-						</td>
+						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="left" id='uno'>~uno</td>
 						<td align="center" id='productno product,5'>~productno ~product,5</td>
@@ -1075,7 +1062,7 @@
 						<input id="txtMech"  type="text"  class="txt c4"/>
 						</td>
 						<td class='td3'><span> </span><a id="lblType2"class="lbl" ></a></td>
-						<td class="td4"><select id="cmbType2" class="txt c1"></select></td><!--<input id="txtType2" type="text" class="txt c1" />-->
+						<td class="td4"><select id="cmbType2" class="txt c1"></select></td>
 						<td class='td5'><span> </span><a id="lblCust" class="lbl btn" ></a></td>
 						<td class="td6">
 						<input id="txtCustno" type="text"  class="txt c1"/>
@@ -1251,8 +1238,8 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					</td>
 					<td>
-					<input id="txtCustno.*" type="text" style="width: 70%;"/>
-					<input id="btnCust.*" type="button" value="." style="width: 1%;"/>
+						<input id="btnCust.*" type="button" value="." style="width: 1%;"/>
+						<input id="txtCustno.*" type="text" style="width: 70%;"/>
 					</td>
 					<td>
 					<input class="txt c1" id="txtCust.*" type="text" />
