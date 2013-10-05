@@ -209,6 +209,7 @@
 
             var focus_addr = '';
             var StyleList = '';
+            var t_uccArray = new Array;
             function q_gtPost(t_name) {/// 資料下載後 ...
                 switch (t_name) {
                     case 'spec':
@@ -227,6 +228,7 @@
                         }
                         break;
                     case q_name:
+                    	t_uccArray = _q_appendData("ucc", "", true);
                         if (q_cur == 4)// 查詢
                             q_Seek_gtPost();
                         break;
