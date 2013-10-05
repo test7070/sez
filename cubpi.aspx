@@ -366,6 +366,7 @@
                     }
                 }
                 _bbsAssign();
+                size_change();
             }
 
             function bbtAssign() {
