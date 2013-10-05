@@ -63,7 +63,7 @@
 		       	if(t_ordeno.length>0)
 		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cut"+r_accy+".noa and cuts"+r_accy+".ordeno='"+t_ordeno+"')";
 		       	if(t_bno.length>0)
-		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cut"+r_accy+".noa and cuts"+r_accy+".bno='"+t_bno+"')";
+		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cub"+r_accy+".noa and cuts"+r_accy+".bno='"+t_bno+"')";
 		       		
 		       	
 		        t_where = ' where=^^' + t_where + '^^ ';
