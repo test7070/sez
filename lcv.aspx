@@ -53,6 +53,10 @@
 			$('#txtMoney').change(function() {
 				q_tr('txtUnaccept',t_unaccept-q_float('txtMoney'));
 			});
+			
+			$('#btnZlcu').click(function() {
+				q_box("z_lcu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'lcv', "95%", "95%", q_getMsg('popLcv'));
+			});
         }
 
         function q_boxClose( s2) {
