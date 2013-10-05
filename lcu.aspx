@@ -71,7 +71,7 @@
                     q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "1054px", q_getMsg('btnAccc'), true);
                 });
                 $('#btnLcv').click(function() {
-				q_box("lcv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'lcv', "95%", "95%", q_getMsg('popLcv'));
+					q_box("lcv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'lcv', "95%", "95%", q_getMsg('popLcv'));
 				});
 				
 				$('#txtLcno').change(function() {
@@ -145,7 +145,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_lcu.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
