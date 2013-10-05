@@ -876,7 +876,67 @@
 				n = (r1 >= r2) ? r1 : r2;
 				return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
-			
+			function theory_st(setting) {
+	//setting as object
+	//define radius,width,dime,lengthb,mount,style,stype,round,calc,ucc,productno
+	//if undefine mount will return 0
+	//Must defint -> calc(StyleList) 
+	//if has calc has DENSITY please load ucc and need productno
+	try {
+		if(typeof setting == 'object'){
+			var t_Radius = (setting.radius ? dec(setting.radius) : 0);
+			var t_Width = (setting.width ? dec(setting.width) : 0);
+			var t_Dime = (setting.dime ? dec(setting.dime) : 0);
+			var t_Lengthb = (setting.lengthb ? dec(setting.lengthb) : 0);
+			var t_Mount = (setting.mount ? dec(setting.mount) : 0);
+			var t_Style = (setting.style ? setting.style.toUpperCase() : '');
+			var t_Stype = (setting.stype ? setting.stype : 0);
+			var t_Round = (setting.round ? setting.round : 0);
+			var t_Calc = (setting.calc ? setting.calc : new Array);
+			var t_Productno = (setting.productno ? trim(setting.productno.toUpperCase()) : '');
+			var t_UccArray = (setting.ucc ? setting.ucc : new Array);
+			var t_UseCalc = '';
+			var t_Density = 0;
+			if (t_Calc[0] != undefined) {
+				for (var i = 0; i < t_Calc.length; i++) {
+					if (t_Calc[i].noa.toUpperCase() == t_Style) {
+						if (t_Stype == 1)
+							t_UseCalc = (t_Calc[i].calc2 ? t_Calc[i].calc2.toUpperCase() : '');
+						else if (t_Stype == 2)
+							t_UseCalc = (t_Calc[i].calc3 ? t_Calc[i].calc3.toUpperCase() : '');
+						else
+							t_UseCalc = (t_Calc[i].calc ? t_Calc[i].calc.toUpperCase() : '');
+						break;
+					}
+				}
+			}
+			if (!emp(t_UseCalc)) {
+				if(t_UseCalc.indexOf('DENSITY') > -1){
+					if (t_UccArray[0] == undefined) {
+						t_Density = 7.85;
+					}else{
+						for(var i=0;i<t_UccArray.length;i++){
+							if(t_UccArray[i].noa != undefined){
+								if(t_Productno == trim(t_UccArray[i].noa).toUpperCase()){
+									if(t_UccArray[i].density != undefined){t_Density = dec(t_UccArray[i].density);}
+									if(isNaN(t_Density)){t_Density = 7.85;}
+									break;
+								}
+							}
+						}
+					}
+				}
+				eval('var result=' + t_UseCalc.replace(/DENSITY/g, t_Density).replace(/RADIUS/g, t_Radius).replace(/WIDTH/g, t_Width).replace(/DIME/g, t_Dime).replace(/LENGTHB/g, t_Lengthb) + '*' + t_Mount);
+				result = Math.round(result, dec(t_Round));
+			} else {
+				var result = 0;
+			}
+			return result;
+		}
+	} catch (e) {
+		errout(e, 'theory_st()');
+	}
+}
 		</script>
 		<style type="text/css">
             #dmain {
