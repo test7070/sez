@@ -18,9 +18,24 @@
            if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
+			var txtreport='';
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_cugp');
+                
+                $('#q_report').click(function(e) {
+
+					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
+						if($('.radio.select').next().text()==$('#q_report').data().info.reportData[i].reportName){
+							txtreport=$('#q_report').data().info.reportData[i].report;
+						}
+					}
+					if(txtreport=='z_cugp2')
+						$('#dataSearch').hide();
+					else
+						$('#dataSearch').show();
+				});
+				
             });
             function q_gfPost() {
                $('#q_report').q_report({
@@ -78,7 +93,19 @@
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
-			<div class="prt" style="margin-left: -40px;">
+			<div id="svg_search" style="display:inline-block;width:2000px;">
+				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
+				<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
+				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
+				<input type="text" id="txtCurPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;"/>
+				<span style="display:block; float:left; width:20px;"><label class="control" style="vertical-align: middle;font-size: medium;">／</label></span>
+				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
+			</div>
+			<div id="chart">
+				<div id='Loading' class="z_anainb chart"> </div>
+				<div id='chart01' class="z_anainb chart"> </div>
+			</div>
+			<div id='dataSearch' class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>

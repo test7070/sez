@@ -195,7 +195,9 @@
                     as[bbsKey[1]] = '';
                     return;
                 }
-
+				
+				as['stationno'] = abbm2['stationno'];
+				as['station'] = abbm2['station'];
                 q_nowf();
 
                 return true;
@@ -487,7 +489,11 @@
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-					<td><input id="txtNoq.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtNoq.*" type="text" class="txt c1"/>
+						<input id="txtStationno.*" type="hidden" class="txt c1"/>
+						<input id="txtStation.*" type="hidden" class="txt c1"/>
+					</td>
 					<td><input id="txtProcess.*" type="text" class="txt c1"/><input id="txtProcessno.*" type="hidden" class="txt c1"/></td>
 					<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
