@@ -32,7 +32,7 @@
             brwCount2 = 15;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'noa';
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'], ['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'uccc_seek_b.aspx', '95%', '60%'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], ['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             q_desc = 1;
             brwCount2 = 12;
@@ -455,132 +455,34 @@
                         });
                         //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
                         $('#textSize1_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-
-                            if ($('#cmbKind').val().substr(0, 1) == 'A') {
-                                q_tr('txtDime_' + b_seq, q_float('textSize1_' + b_seq));
-                                //厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
-                            } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
-                                q_tr('txtRadius_' + b_seq, q_float('textSize1_' + b_seq));
-                                //短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());
-                            }
-
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#textSize2_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-
-                            if ($('#cmbKind').val().substr(0, 1) == 'A') {
-                                q_tr('txtWidth_' + b_seq, q_float('textSize2_' + b_seq));
-                                //寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
-                            } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
-                                q_tr('txtWidth_' + b_seq, q_float('textSize2_' + b_seq));
-                                //長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
-                            }
-
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#textSize3_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-
-                            if ($('#cmbKind').val().substr(0, 1) == 'A') {
-                                q_tr('txtLengthb_' + b_seq, q_float('textSize3_' + b_seq));
-                                //長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());
-                            } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
-                                q_tr('txtDime_' + b_seq, q_float('textSize3_' + b_seq));
-                                //厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());
-                            } else {//鋼筋、胚
-                                q_tr('txtLengthb_' + b_seq, q_float('textSize3_' + b_seq));
-                            }
-
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#textSize4_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-
-                            if ($('#cmbKind').val().substr(0, 1) == 'A') {
-                                q_tr('txtRadius_' + b_seq, q_float('textSize4_' + b_seq));
-                                //短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());
-                            } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
-                                q_tr('txtLengthb_' + b_seq, q_float('textSize4_' + b_seq));
-                                //長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());
-                            }
-
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         //計算理論重
                         $('#txtRadius_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#txtDivide_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#txtWidth_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#txtMount_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#txtDime_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         $('#txtLengthb_' + j).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            getTheory(b_seq);
-                            cut_save_db();
                             sum();
                         });
                         //判斷訂單是否存在
@@ -640,14 +542,13 @@
             }
 
             function bbsSave(as) {
-                if (!as['bno']) {
+                if (!as['bno'] && !as['productno'] && !as['product'] && !as['spec'] && parseFloat(as['mount'].length==0?"0":as['mount'])==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
 
                 q_nowf();
                 as['datea'] = abbm2['datea'];
-
                 return true;
             }
 
@@ -655,6 +556,23 @@
                 var t_theyout = 0,t_totalout=0;
                 var t_weights,t_theorys;
                 for (var j = 0; j < q_bbsCount; j++) {
+                	t_unit = $.trim($('#txtUnit_' + j).val()).toUpperCase();
+                    //---------------------------------------
+                    if ($('#cmbKind').val().substr(0, 1) == 'A') {
+                        q_tr('txtDime_' + j, q_float('textSize1_' + j));
+                        q_tr('txtWidth_' + j, q_float('textSize2_' + j));
+                        q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
+                        q_tr('txtRadius_' + j, q_float('textSize4_' + j));
+                    } else if ($('#cmbKind').val().substr(0, 1) == 'B') {
+                        q_tr('txtRadius_' + j, q_float('textSize1_' + j));
+                        q_tr('txtWidth_' + j, q_float('textSize2_' + j));
+                        q_tr('txtDime_' + j, q_float('textSize3_' + j));
+                        q_tr('txtLengthb_' + j, q_float('textSize4_' + j));
+                    } else {//鋼筋、胚
+                        q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
+                    }
+                    getTheory(j);
+                    //---------------------------------------
                 	t_weights = q_float('txtWeight_'+j);
                 	t_theorys = q_float('txtTheory_'+j);
                 	t_theyout = t_theyout.add(t_weights);
@@ -1283,9 +1201,7 @@
 					<td style="width:110px;" align="center"><a id='lblCustno'></a></td>
 					<td style="width:80px;" align="center"><a id='lblComps'></a></td>
 					<td style="width:50px;" align="center"><a id='lblStyle'></a></td>
-					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a>
-					<BR>
-					<a id='lblSize_st'> </a></td>
+					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:20px;" align="center"><a id='lblDivide'></a></td>
 					<td style="width:80px;" align="center"><a id='lblTheory'></a></td>
