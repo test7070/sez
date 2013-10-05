@@ -613,8 +613,7 @@
 
 			function btnIns() {
 				_btnIns();
-				$('#cmbKind').val(q_getPara('vcc.kind'));
-				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
 			}
@@ -1075,7 +1074,7 @@
 						<input id="txtMech"  type="text"  class="txt c4"/>
 						</td>
 						<td class='td3'><span> </span><a id="lblType2"class="lbl" ></a></td>
-						<td class="td4"><select id="cmbType2" class="txt c1"></select></td><!--<input id="txtType2" type="text" class="txt c1" />-->
+						<td class="td4"><select id="cmbType2" class="txt c1"></select></td>
 						<td class='td5'><span> </span><a id="lblCust" class="lbl btn" ></a></td>
 						<td class="td6">
 						<input id="txtCustno" type="text"  class="txt c1"/>
