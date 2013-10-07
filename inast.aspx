@@ -429,7 +429,7 @@
             }
 
             function btnPrint() {
-                q_box('z_inastp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", q_getMsg("popPrint"));
+                q_box('z_inast.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
