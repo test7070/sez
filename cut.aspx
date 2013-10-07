@@ -659,12 +659,24 @@
                 t_Style = $('#txtStyle_' + b_seq).val();
                 t_spec = $('#txtSpec_' + b_seq).val();
                 t_Divide = dec($('#txtDivide_' + b_seq).val());
+                var zz ={ radius: t_Radius
+                	,width:t_Width
+                	,dime:t_Dime 
+                	,lengthb:t_Lengthb
+                	,mount:t_Mount
+                	,style:t_Style
+                	,stype:t_spec
+                	//,round
+                	,calc:StyleList
+                	//,ucc
+                };
                 if (dec(t_Divide) == 0)
                     t_Divide = 1;
                 if ($('#cmbKind').val().substr(1, 1) == '4') {//鋼胚
                     q_tr('txtTheory_' + b_seq, round(t_Mount * theory_bi(t_spec, $('#txtSpec_' + b_seq).val(), t_Dime, t_Width, t_Lengthb), 0));
                 } else {
-                    q_tr('txtTheory_' + b_seq, theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style) / t_Divide);
+                    //q_tr('txtTheory_' + b_seq, theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style) / t_Divide);
+                    q_tr('txtTheory_' + b_seq, theory_st(zz) / t_Divide);
                 }
                 if (dec($('#txtRadius_' + b_seq).val()) != 0) {
                     $('#txtWeight_' + b_seq).val($('#txtTheory_' + b_seq).val());
@@ -864,6 +876,7 @@
 				n = (r1 >= r2) ? r1 : r2;
 				return parseFloat(((Math.round(arg1 * m) - Math.round(arg2 * m)) / m).toFixed(n));
 			}
+		
 		</script>
 		<style type="text/css">
             #dmain {
@@ -1259,61 +1272,61 @@
 					<input id="txtLengthb.*" type="text" style="display:none;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtMount.*" type="text" />
+					<input id="txtMount.*" type="text" style="width:95%;text-align: right;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtDivide.*" type="text" />
+					<input id="txtDivide.*" type="text" style="width:95%;text-align: right;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtTheory.*" type="text" />
+					<input id="txtTheory.*" type="text" style="width:95%;text-align: right;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtHweight.*" type="text" />
+					<input id="txtHweight.*" type="text" style="width:95%;text-align: right;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtWeight.*" type="text"  />
+					<input id="txtWeight.*" type="text"  style="width:95%;text-align: right;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtWaste.*" type="text" />
+					<input id="txtWaste.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtBno.*" type="text" />
+					<input id="txtBno.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtStoreno.*" type="text" />
+					<input id="txtStoreno.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtMemo.*" type="text" />
+					<input id="txtMemo.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtTime.*" type="text" />
+					<input id="txtTime.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtProductno.*" type="text" />
+					<input id="txtProductno.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtSpec.*" type="text" />
+					<input id="txtSpec.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtWprice.*" type="text" />
+					<input id="txtWprice.*" type="text" style="width:95%;text-align: right;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtSize.*" type="text" />
+					<input id="txtSize.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtMweight.*" type="text" />
+					<input id="txtMweight.*" type="text" style="width:95%;text-align: right;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtOrdeno.*" type="text" />
+					<input id="txtOrdeno.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtNo2.*" type="text" />
+					<input id="txtNo2.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtSpecial.*" type="text" />
+					<input id="txtSpecial.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtCname.*" type="text" />
+					<input id="txtCname.*" type="text" style="width:95%;"/>
 					</td>
 				</tr>
 			</table>
