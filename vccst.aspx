@@ -348,6 +348,7 @@
 				t_Lengthb = dec($('#txtLengthb_' + b_seq).val());
 				t_Mount = dec($('#txtMount_' + b_seq).val());
 				t_Style = $('#txtStyle_' + b_seq).val();
+				t_Productno = $('#txtProductno_' + b_seq).val();
 				var theory_setting={
 					calc:StyleList,
 					ucc:t_uccArray,
@@ -356,7 +357,8 @@
 					dime:t_Dime,
 					lengthb:t_Lengthb,
 					mount:t_Mount,
-					style:t_Style
+					style:t_Style,
+					productno:t_Productno
 				};
 				if ($('#cmbKind').val().substr(1, 1) == '4') {//鋼胚
 					q_tr('txtTheory_' + b_seq, round(t_Mount * theory_bi(t_spec, $('#txtSpec_' + b_seq).val(), t_Dime, t_Width, t_Lengthb), 0));

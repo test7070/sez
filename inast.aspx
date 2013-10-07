@@ -272,6 +272,7 @@
                 t_Lengthb = $('#txtLengthb_' + b_seq).val();
                 t_Mount = $('#txtMount_' + b_seq).val();
                 t_Style = $('#txtStyle_' + b_seq).val();
+                t_Productno = $('#txtProductno_'+b_seq).val();
 				var theory_setting={
 					calc:StyleList,
 					ucc:t_uccArray,
@@ -280,7 +281,8 @@
 					dime:t_Dime,
 					lengthb:t_Lengthb,
 					mount:t_Mount,
-					style:t_Style
+					style:t_Style,
+					productno:t_Productno
 				};
 				return theory_st(theory_setting);
             }

@@ -64,6 +64,7 @@
 				t_Lengthb = $('#txtLengthb_'+b_seq).val();
 				t_Mount = $('#txtMount_'+b_seq).val();
 				t_Style = $('#txtStyle_'+b_seq).val();
+				t_Productno = $('#txtProductno_'+b_seq).val(); 
 				var theory_setting={
 					calc:StyleList,
 					ucc:t_uccArray,
@@ -73,7 +74,8 @@
 					lengthb:t_Lengthb,
 					mount:t_Mount,
 					style:t_Style,
-					stype:2
+					stype:2,
+					productno:t_Productno
 				};
 				var TheoryVal = theory_st(theory_setting);
 				$('#txtWeight_'+b_seq).val(TheoryVal);

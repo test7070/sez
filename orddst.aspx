@@ -132,6 +132,7 @@
 				t_Mount = $('#txtMount_'+b_seq).val();
 				t_Style = $('#txtStyle_'+b_seq).val();
 				t_Stype = ($('#cmbStype').find("option:selected").text() == '外銷'?1:0);
+                t_Productno = $('#txtProductno_' + b_seq).val();
 				var theory_setting={
 					calc:StyleList,
 					ucc:t_uccArray,
@@ -141,7 +142,8 @@
 					lengthb:t_Lengthb,
 					mount:t_Mount,
 					style:t_Style,
-					stype:t_Stype
+					stype:t_Stype,
+					productno:t_Productno
 				};
 				q_tr('txtTheory_'+b_seq ,theory_st(theory_setting));
 			}

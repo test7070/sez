@@ -661,23 +661,25 @@
                 t_Style = $('#txtStyle_' + b_seq).val();
                 t_spec = $('#txtSpec_' + b_seq).val();
                 t_Divide = dec($('#txtDivide_' + b_seq).val());
-                var zz ={ radius: t_Radius
-                	,width:t_Width
-                	,dime:t_Dime 
-                	,lengthb:t_Lengthb
-                	,mount:t_Mount
-                	,style:t_Style
-                	,stype:t_spec
-                	,calc:StyleList,
-                	ucc:t_uccArray
-                };
+                t_Productno = $('#txtProductno_' + b_seq).val();
+				var theory_setting={
+					calc:StyleList,
+					ucc:t_uccArray,
+					radius:t_Radius,
+					width:t_Width,
+					dime:t_Dime,
+					lengthb:t_Lengthb,
+					mount:t_Mount,
+					style:t_Style,
+					stype:t_spec
+				};
                 if (dec(t_Divide) == 0)
                     t_Divide = 1;
                 if ($('#cmbKind').val().substr(1, 1) == '4') {//鋼胚
                     q_tr('txtTheory_' + b_seq, round(t_Mount * theory_bi(t_spec, $('#txtSpec_' + b_seq).val(), t_Dime, t_Width, t_Lengthb), 0));
                 } else {
                     //q_tr('txtTheory_' + b_seq, theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style) / t_Divide);
-                    q_tr('txtTheory_' + b_seq, theory_st(zz) / t_Divide);
+                    q_tr('txtTheory_' + b_seq, theory_st(theory_setting) / t_Divide);
                 }
                 if (dec($('#txtRadius_' + b_seq).val()) != 0) {
                     $('#txtWeight_' + b_seq).val($('#txtTheory_' + b_seq).val());
