@@ -194,6 +194,7 @@
 			var focus_addr = '';
 			var StyleList = '';
 			var vcces_as = new Array;
+			var t_uccArray = new Array;
 			function q_gtPost(t_name) {/// 資料下載後 ...
 				switch (t_name) {
 					case 'spec':
@@ -249,6 +250,7 @@
 						vcces_as = new Array;
 						break;
 					case q_name:
+						t_uccArray = _q_appendData("ucc", "", true);
 						if (q_cur == 4)// 查詢
 							q_Seek_gtPost();
 						break;
@@ -346,10 +348,20 @@
 				t_Lengthb = dec($('#txtLengthb_' + b_seq).val());
 				t_Mount = dec($('#txtMount_' + b_seq).val());
 				t_Style = $('#txtStyle_' + b_seq).val();
+				var theory_setting={
+					calc:StyleList,
+					ucc:t_uccArray,
+					radius:t_Radius,
+					width:t_Width,
+					dime:t_Dime,
+					lengthb:t_Lengthb,
+					mount:t_Mount,
+					style:t_Style
+				};
 				if ($('#cmbKind').val().substr(1, 1) == '4') {//鋼胚
 					q_tr('txtTheory_' + b_seq, round(t_Mount * theory_bi(t_spec, $('#txtSpec_' + b_seq).val(), t_Dime, t_Width, t_Lengthb), 0));
 				} else {
-					q_tr('txtTheory_' + b_seq, theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style));
+					q_tr('txtTheory_' + b_seq, theory_st(theory_setting));
 				}
 			}
 
