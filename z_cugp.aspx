@@ -37,6 +37,13 @@
 					}
 				});
 				
+				$("#btnNext").click(function(e) {
+                    $('#' + $(this).data('chart')).data('info').next($('#' + $(this).data('chart')));
+                });
+                $("#btnPrevious").click(function(e) {
+                    $('#' + $(this).data('chart')).data('info').previous($('#' + $(this).data('chart')));
+                });
+				
             });
             function q_gfPost() {
                $('#q_report').q_report({
@@ -144,41 +151,49 @@
                                 			process : new Array({
                                 				processno : as[i].processno,
                                 				process : as[i].process,
-                                				productno : as[i].productno,
-	                                			product : as[i].product,
-	                                			mount : as[i].mount,
-	                                			hours : as[i].hours,
-	                                			days : as[i].days,
-	                                			cuadate : as[i].cuadate,
-	                                			uindate : as[i].uindate,
-	                                			workno : as[i].workno,
-	                                			memo : as[i].memo
+	                                			detail : new Array({
+	                                				productno : as[i].productno,
+	                                				product : as[i].product,
+	                                				noq : as[i].noq,
+	                                				mount : as[i].mount,
+		                                			hours : as[i].hours,
+		                                			days : as[i].days,
+		                                			cuadate : as[i].cuadate,
+		                                			uindate : as[i].uindate,
+		                                			workno : as[i].workno,
+		                                			memo : as[i].memo
+	                                			})
                                 			})
                                 		});
                                 	}else if(m==-1){
-                                		t_data[n].inbs.push({
-                                			inbnoq : as[i].inbnoq,
+                                		t_data[n].process.push({
+                                			processno : as[i].processno,
+                                			process : as[i].process,
+	                                		detail : new Array({
+	                                			noq : as[i].noq,
+	                                			productno : as[i].productno,
 	                                			product : as[i].product,
-	                                			bweight : parseFloat(as[i].bweight.length == 0 ? '0' : as[i].bweight),
-	                                			weight : parseFloat(as[i].weight.length == 0 ? '0' : as[i].weight),
-	                                			ordeno : as[i].ordeno,
-	                                			ordenoq : as[i].ordenoq,
-	                                			ucctno : as[i].ucctno,
-	                                			detail : new Array({
-	                                				ucctnoq : as[i].uccnoq,
-	                                				processno : as[i].processno,
-	                                				process : as[i].process,
-	                                				datea : as[i].datea,
-	                                				timea : as[i].timea
-	                                			})  
+	                                			mount : as[i].mount,
+		                                		hours : as[i].hours,
+		                                		days : as[i].days,
+		                                		cuadate : as[i].cuadate,
+		                                		uindate : as[i].uindate,
+		                                		workno : as[i].workno,
+		                                		memo : as[i].memo
+	                                		})
                                 		});
                                 	}else{
-                                		t_data[n].inbs[m].detail.push({
-                            				ucctnoq : as[i].uccnoq,
-                            				processno : as[i].processno,
-                            				process : as[i].process,
-                            				datea : as[i].datea,
-                            				timea : as[i].timea
+                                		t_data[n].process[m].detail.push({
+                                			noq : as[i].noq,
+                                			productno : as[i].productno,
+	                                		product : as[i].product,
+                            				mount : as[i].mount,
+		                                	hours : as[i].hours,
+		                                	days : as[i].days,
+		                                	cuadate : as[i].cuadate,
+		                                	uindate : as[i].uindate,
+		                                	workno : as[i].workno,
+		                                	memo : as[i].memo
                                 		});
                                 	}
                                 }
@@ -189,7 +204,7 @@
                                 data : t_data
                             });
                             
-                            $('#txtTotPage').val(1);
+                            $('#txtTotPage').val(t_data.length);
                             $('#txtCurPage').data('chart', 'chart01').val(1).change(function(e) {
                                 $(this).val(parseInt($(this).val()));
                                 $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
@@ -232,7 +247,7 @@
                 $.fn.barChart01 = function(value) {
                     $(this).data('info', {
                         curIndex : -1,
-                        inbData : value.data,
+                        cugData : value.data,
                         init : function(obj) {
                             if (value.length == 0) {
                                 alert('無資料。');
@@ -242,14 +257,14 @@
                             obj.data('info').refresh(obj);
                         },
                         page : function(obj, n) {
-                            if (n > 0 && n <= 1) {
+                            if (n > 0 && n <= obj.data('info').cugData.length) {
                                 obj.data('info').curIndex = n - 1;
                                 obj.data('info').refresh(obj);
                             } else
                                 alert('頁數錯誤。');
                         },
                         next : function(obj) {
-                            if (obj.data('info').curIndex == 1 - 1)
+                            if (obj.data('info').curIndex == obj.data('info').cugData.length - 1)
                                 alert('已到最後頁。');
                             else {
                                 obj.data('info').curIndex++;
@@ -267,87 +282,90 @@
                             }
                         },
                         refresh : function(obj) {
-                            obj.width(1200).height(500).html(''); 
-                            if(obj.data('info').inbData.length==0)
+                            if(obj.data('info').cugData.length==0)
 								return
+							var t_data = obj.data('info').cugData[obj.data('info').curIndex];
                             var tmpPath = "";
 							var bkColor = ['rgb(210,233,255)', 'rgb(255,238,221)'];//背景色
-							var bkN = 10;//分幾個區塊
-							var bkWidth = 900, bkHeight = 350;
-							var bkOrigin = [130,50];
-							var t_data = obj.data('info').inbData;
-							bkHeight = Math.max(bkHeight,t_data.length*40);
-							if(bkHeight+bkOrigin[1]+10>500){
-								obj.height(bkHeight+bkOrigin[1]+10);
-							}
-							n = Math.max(bkHeight/bkN,40);
+							var bkN = t_data.process.length;//分幾個製程
+							var p_height=50//固定製程高度
+							var start_date='';//起始
+                        	var end_date='';//終止
+                        	for(var i=0;i<t_data.process.length;i++){
+                        		for(var j=0;j<t_data.process[i].detail.length;j++){
+                        			if(start_date=='' || start_date>t_data.process[i].detail[j].cuadate)
+                        				start_date=t_data.process[i].detail[j].cuadate;
+                        			if(end_date=='' || end_date<t_data.process[i].detail[j].uindate)
+                        				end_date=t_data.process[i].detail[j].uindate;
+                        		}
+                        	}
+							//寄算天數差
+							if(emp(end_date)) end_date=q_date();
+							var t1=new Date((dec(start_date.substr(0,3))+1911)+'/'+start_date.substr(4,2)+'/'+start_date.substr(7,2));
+							var t2=new Date((dec(end_date.substr(0,3))+1911)+'/'+end_date.substr(4,2)+'/'+end_date.substr(7,2));
+							var days=t2.getTime()-t1.getTime();
+							days= Math.floor(days / (24 * 3600 * 1000))
+							var day_width=100;//估定天數大小
+							var bkOrigin = [130,50];//邊界
+							//div大小
+							obj.width(bkOrigin[0]+day_width*days+50).height((bkOrigin[1]+(p_height+10)*bkN+50)).html(''); 
+							//底色
 							for (var i = 0; i < bkN; i++)
-                                tmpPath += '<rect x="'+(bkOrigin[0])+'" y="'+(bkOrigin[1]+n*i)+'" width="' + (bkWidth+200) + '" height="' + (n) + '" style="fill:' + bkColor[i % bkColor.length] + ';"/>';
+                                tmpPath += '<rect x="'+(bkOrigin[0])+'" y="'+(bkOrigin[1]+(p_height+10)*i)+'" width="' + (day_width*days) + '" height="' + ((p_height+10)) + '" style="fill:' + bkColor[i % bkColor.length] + ';"/>';
+							
                             //X軸
-                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+bkOrigin[1]+'" x2="' + (bkOrigin[0]+bkWidth) + '" y2="' + bkOrigin[1]+ '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+(bkOrigin[1]+(p_height+10)*bkN)+'" x2="' + (bkOrigin[0]+day_width*days) + '" y2="' + (bkOrigin[1]+(p_height+10)*bkN)+ '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
                             //Y軸
-                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+bkOrigin[1]+'" x2="'+bkOrigin[0]+'" y2="' + (bkOrigin[1]+n*bkN) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';                       	
-                        	var t_process = new Array();
-                        	var chk ;
-                        	for(var i=0; i<t_data.length;i++){
-                        		for(var j=0; j<t_data[i].inbs.length;j++){
-                        			for(var k=0; k<t_data[i].inbs[j].detail.length;k++){
-                        				if(t_data[i].inbs[j].detail[k].processno.length>0){
-                        					chk = false;
-                        					for(var m=0;m<t_process.length;m++){
-                        					if(t_data[i].inbs[j].detail[k].processno==t_process[m].processno)
-	                        					chk = true;
-	                        				}
-	                        				if(!chk){
-	                        					t_process.push({
-	                        						processno:t_data[i].inbs[j].detail[k].processno,
-	                        						process:t_data[i].inbs[j].detail[k].process,
-	                        						isexist:false
-	                        					});
-	                        				}
-                        				}
-                        			}
-                        		}
-                        	}
-                        	var curX = bkOrigin[0],curY;
-                        	var t_width = Math.round(bkWidth/t_process.length);
-                        	var itemColor = ['rgb(180,200,180)', 'rgb(200,180,180)', 'rgb(180,180,200)'];
-                        	for(var i=0; i<t_process.length;i++){
-                        		tmpPath += '<text text-anchor="middle" x="'+(curX+t_width/2)+'" y="' + (bkOrigin[1]-5) + '" fill="black">' + t_process[i].process + '</text>';
-                        		tmpPath += '<line x1="'+curX+'" y1="'+bkOrigin[1]+'" x2="'+curX+'" y2="' + (bkOrigin[1]+Math.max(bkHeight/bkN,40)*bkN) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';               
-                        		curX += t_width;
-                        	}
-                        	tmpPath += '<text text-anchor="middle" x="'+(curX+150/2)+'" y="' + (bkOrigin[1]-5) + '" fill="black">預計產量/實際產量</text>';
-                        	tmpPath += '<line x1="'+curX+'" y1="'+bkOrigin[1]+'" x2="'+curX+'" y2="' + (bkOrigin[1]+Math.max(bkHeight/bkN,40)*bkN) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';               
+                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+bkOrigin[1]+'" x2="'+bkOrigin[0]+'" y2="' + (bkOrigin[1]+(p_height+10)*bkN) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';                       	
                         	
-                        	for(var i=0;i<t_data.length;i++){
-                        		for(var m=0;m<t_process.length;m++){
-            						t_process[m].isexist = false;
-                				}
-                        		t_bweight = 0;
-                        		t_weight = 0;
-                        		for(var j=0; j<t_data[i].inbs.length;j++){
-                        			t_bweight += t_data[i].inbs[j].bweight;
-                        			t_weight += t_data[i].inbs[j].weight;
-                        			for(var k=0; k<t_data[i].inbs[j].detail.length;k++){
-                        				for(var m=0;m<t_process.length;m++){                 					
-                    						if(t_data[i].inbs[j].detail[k].processno==t_process[m].processno && t_data[i].inbs[j].detail[k].datea.length>0)
-                        						t_process[m].isexist = true;
-                        				}
-                        			}
-                        		}
-                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-5)+'" y="' + (bkOrigin[1]+(i+1)*40-15) + '" fill="black" font-size="14px">' + t_data[i].inbno+ '</text>';
-                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]+bkWidth+80)+'" y="' + (bkOrigin[1]+(i+1)*40-15) + '" fill="black" font-size="14px">' + FormatNumber(t_bweight)+ ' / </text>';
-                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]+bkWidth+145)+'" y="' + (bkOrigin[1]+(i+1)*40-15) + '" fill="black" font-size="14px">' + FormatNumber(t_weight)+ '</text>';
-                        		curY = (bkOrigin[1]+i*40+5);
-                        		for(var m=0;m<t_process.length;m++){
-                        			if(t_process[m].isexist){
-                        				curX = bkOrigin[0] + t_width * m;
-                        				tmpPath += '<rect x="'+(curX+5)+'" y="'+curY+'" width="' + (t_width-10) + '" height="30" style="fill:' + itemColor[m % itemColor.length] + ';"/>';
-                        			}
-                				}
+                        	//tmpPath += '<text text-anchor="middle" x="'+(bkOrigin[0]-5)+'" y="' +(bkOrigin[1]+(p_height+10)*bkN+20) + '" fill="black">' +start_date + '</text>';
+                        	//tmpPath += '<text text-anchor="middle" x="'+ (bkOrigin[0]+day_width*days)+'" y="' +(bkOrigin[1]+(p_height+10)*bkN+20) + '" fill="black">' +end_date + '</text>';
+                        	
+                        	//時間差距
+                        	for(var i=0;i<=days;i++){
+                        		var t_date=(dec(t1.getFullYear())-1911)+'/'+(t1.getMonth()+1)+'/'+t1.getDate();
+                        		tmpPath += '<line x1="'+(bkOrigin[0]+day_width*i)+'" y1="'+(bkOrigin[1]+(p_height+10)*bkN-5)+'" x2="'+(bkOrigin[0]+day_width*i)+'" y2="' + (bkOrigin[1]+(p_height+10)*bkN+5) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                        		tmpPath += '<text text-anchor="middle" x="'+(bkOrigin[0]+day_width*i)+'" y="' +(bkOrigin[1]+(p_height+10)*bkN+20) + '" fill="black">' +t_date + '</text>';
+                        		t1.setDate(t1.getDate()+1);
                         	}
+                        	//製程名稱
+                        	for(var i=0; i<t_data.process.length;i++){
+                        		var process_name=emp(t_data.process[i].process)?'無製程名稱':t_data.process[i].process;
+                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+(p_height+10)*(i+1)-((p_height+10)/2)) + '" fill="black">' + process_name + '</text>';
+                        	}
+                        	
+                        	tmpPath += '<text font-size="26" text-anchor="middle" x="'+(bkOrigin[0])+'" y="' + 30 + '" fill="black">'+t_data.station+'</text>';
+                        	
+                        	/*for(var i=0;i<t_data.process.length;i++){
+                        		for(var j=0;j<t_data.process[i].detail.length;j++){
+                        			if(start_date=='' || start_date>t_data.process[i].detail[j].cuadate)
+                        				start_date=t_data.process[i].detail[j].cuadate;
+                        			if(end_date=='' || end_date<t_data.process[i].detail[j].uindate)
+                        				end_date=t_data.process[i].detail[j].uindate;
+                        				
+                        			t_process=dec(t_data.process[i].detail[j].noq)-1;
+	                       			curX = bkOrigin[0] + t_width * i;
+	                       			curY = (bkOrigin[1]+t_process*t_height+5);
+                       				tmpPath += '<rect x="'+(curX+5)+'" y="'+curY+'" width="' + (t_width-10) + '" height="'+(t_height-10)+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
+                       				tmpPath += '<text id="'+t_data.process[i].detail[j].workno+'" class="workno" text-anchor="start" x="'+(curX+5)+'" y="' +(curY+20) + '" fill="black">' + t_data.process[i].detail[j].product+' 需工時:'+t_data.process[i].detail[j].hours + '</text>';
+                        		}
+                        	}
+                        	tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-5)+'" y="' +(bkOrigin[1]+15) + '" fill="black">' +start_date + '</text>';
+                        	tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-5)+'" y="' +(bkOrigin[1]+n*bkN) + '" fill="black">' +end_date + '</text>';
+                        	*/
+                        	
                         	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                        	
+                        	//事件
+                        	obj.children('svg').find('.workno').hover(function(e) {
+	                                $(this).attr('fill', 'red');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'black');
+	                            }).click(function(e){
+	                            var workno = $(this).attr('id')
+	                            t_where = "noa='"+workno+"'";
+								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+							});
                         }
                     });
                     $(this).data('info').init($(this));
