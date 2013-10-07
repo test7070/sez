@@ -30,10 +30,13 @@
 							txtreport=$('#q_report').data().info.reportData[i].report;
 						}
 					}
-					if(txtreport=='z_cugp2')
+					if(txtreport=='z_cugp2'){
 						$('#dataSearch').hide();
-					else
+						$('#svg_search').show();
+					}else{
 						$('#dataSearch').show();
+						$('#svg_search').hide();
+					}
 				});
 				
             });
@@ -73,6 +76,37 @@
 				$('#txtXenddate').datepicker();
 				$('#txtXenddate').mask('999/99/99');
 				//$('#txtXenddate').val(q_date());
+				
+				//SVG
+				$("#btnRun").click(function(e) {
+                	var t_bstation = $('#txtStation1a').val();
+                	var t_estation = $('#txtStation2a').val();
+                	var t_bprocess = $('#txtProcess1a').val();
+                	var t_eprocess = $('#txtProcess2a').val();
+                    var t_index = $('#q_report').data('info').radioIndex;
+                    var t_report = $('#q_report').data('info').reportData[t_index].report;
+
+                    $(".z_cugp.chart").html('').height(0);
+                    $("#txtCurPage").val(0);
+                    $("#txtTotPage").val(0);
+                    switch(txtreport) {
+                        case 'chart01':
+                            $('#Loading').Loading();
+                            Lock();
+                            q_func('qtxt.query.chart01', 'z_cugp_svg.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + t_bstation+ ';' + t_estation+ ';' + t_bprocess+ ';' + t_eprocess );
+                            break;
+                        default:
+                            alert('錯誤：未定義報表');
+                    }
+
+                });
+                $("#btnNext").click(function(e) {
+                    $('#' + $(this).data('chart')).data('info').next($('#' + $(this).data('chart')));
+                });
+                $("#btnPrevious").click(function(e) {
+                    $('#' + $(this).data('chart')).data('info').previous($('#' + $(this).data('chart')));
+                });
+				
 			}
 
             function q_boxClose(s2) {
@@ -102,8 +136,8 @@
 				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
 			</div>
 			<div id="chart">
-				<div id='Loading' class="z_anainb chart"> </div>
-				<div id='chart01' class="z_anainb chart"> </div>
+				<div id='Loading' class="z_cugp chart"> </div>
+				<div id='chart01' class="z_cugp chart"> </div>
 			</div>
 			<div id='dataSearch' class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->

@@ -20,8 +20,8 @@
             q_tables = 's';
             var q_name = "workm";
             var q_readonly = ['txtNoa','txtDatea','txtMount','txtWorkno','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate','txtTgg'];
-            var bbmNum = [['txtMount',12,2,1],['txtHours',10,2,1]];
+            var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate','txtComp'];
+            var bbmNum = [['txtMount',12,2,1],['txtHours',10,2,1],['txtPrice',10,2,1]];
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
@@ -33,7 +33,7 @@
             aPop = new Array(['txtProductno', 'lblProduct', 'ucaall', 'noa,product', 'txtProductno,txtProduct', 'ucaall_b.aspx']
             ,['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
             ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
-            ,['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+            ,['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -97,7 +97,7 @@
 	                        else
 	                        	$('#txtCuadate').val(mindate);
 	                        
-                	  		ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtWorkno,txtProductno,txtProduct,txtStationno,txtStation,txtProcessno,txtProcess,txtMount,txtHours,txtCuadate,txtUindate,txtTggno,txtTgg', b_ret.length, b_ret
+                	  		ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtWorkno,txtProductno,txtProduct,txtStationno,txtStation,txtProcessno,txtProcess,txtMount,txtHours,txtCuadate,txtUindate,txtTggno,txtComp', b_ret.length, b_ret
 	                        , 'noa,productno,product,stationno,station,processno,process,mount,hours,cuadate,uindate,tggno,comp'
 	                        , 'txtProductno');
 	                        sum();
@@ -479,14 +479,14 @@
 						<td class="td1"><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
 							<input id="txtTggno"  type="text" class="txt c2"/>
-							<input id="txtTgg"  type="text" class="txt c3"/>
+							<input id="txtComp"  type="text" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td class="td2"><input id="txtMount"  type="text" class="txt num c1"/></td>
-						<td class="td3"><span> </span><a id='lblHours' class="lbl"> </a></td>
-						<td class="td4"><input id="txtHours"  type="text" class="txt num c1"/></td>
+						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td class="td2"><input id="txtPrice"  type="text" class="txt num c1"/></td>
+						<td class="td1"><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtWorkno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCuadate' class="lbl"> </a></td>
@@ -495,8 +495,10 @@
 						<td class="td4"><input id="txtUindate"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
-						<td class="td2"><input id="txtWorkno"  type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMount"  type="text" class="txt num c1"/></td>
+						<td class="td3"><span> </span><a id='lblHours' class="lbl"> </a></td>
+						<td class="td4"><input id="txtHours"  type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -541,7 +543,7 @@
 					</td>
 					<td>
 						<input id="txtTggno.*" type="hidden" class="txt c1"/>
-						<input id="txtTgg.*" type="text" class="txt c1"/>
+						<input id="txtComp.*" type="text" class="txt c1"/>
 					</td>
 					<td>
 						<input id="txtProcessno.*" type="hidden" class="txt c1"/>

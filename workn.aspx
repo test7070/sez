@@ -25,7 +25,7 @@
             ,'txtModelno','txtModel','txtPrice','txtWages','txtMakes','txtHours','txtWages_fee','txtMakes_fee','txtMemo'];
             var q_readonlys = ['txtWorkno'];
             var bbmNum = [];
-            var bbsNum = [['txtMount',10,2,1]];
+            var bbsNum = [['txtMount',10,2,1],['txtPrice',10,2,1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -38,7 +38,7 @@
             , 'txtWorkno,txtCuadate,txtMount,txtProductno,txtWorkdate,txtUnit,txtProduct,txtUindate,txtInmount,txtStationno,txtStation,txtEnddate,txtRmount,txtTggno,txtComp,txtRank,txtWmount,txtProcessno,txtProcess,txtModelno,txtModel,txtPrice,txtWages,txtMakes,txtHours,txtWages_fee,txtMakes_fee,txtMemo'
             , 'work_b.aspx','95%']
             ,['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']
-            ,['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']);
+            ,['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -605,6 +605,7 @@
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblStation_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblTgg_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:15%;"><a id='lblWorkno_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 				</tr>
@@ -624,8 +625,9 @@
 					<td>
 						<input id="txtTggno.*" type="text" class="txt c1" style="width: 30%;"/>
 						<input class="btn"  id="btnTggno.*" type="button" value='.' style="float:left;font-weight: bold;" />
-						<input id="txtTgg.*" type="text" class="txt c1" style="width: 55%;"/>
+						<input id="txtComp.*" type="text" class="txt c1" style="width: 55%;"/>
 					</td>
+					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
