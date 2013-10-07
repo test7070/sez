@@ -14,663 +14,663 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            this.errorHandler = null;
+			this.errorHandler = null;
 
-            q_tables = 't';
-            var q_name = "cub";
-            var q_readonly = ['txtNoa'];
-            var q_readonlys = [];
-            var q_readonlyt = [];
-            var bbmNum = [];
-            var bbsNum = [];
-            var bbtNum = [];
-            var bbmMask = [];
-            var bbsMask = [];
-            var bbtMask = [];
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'noa';
-            q_desc = 1;
-            brwCount2 = 5;
-            aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], ['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], ['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], ['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx']);
-            function distinct(arr1) {
-                for (var i = 0; i < arr1.length; i++) {
-                    if ((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == '') {
-                        arr1.splice(i, 1);
-                        i--;
-                    }
-                }
-                return arr1;
-            }
+			q_tables = 't';
+			var q_name = "cub";
+			var q_readonly = ['txtNoa'];
+			var q_readonlys = [];
+			var q_readonlyt = [];
+			var bbmNum = [];
+			var bbsNum = [];
+			var bbtNum = [];
+			var bbmMask = [];
+			var bbsMask = [];
+			var bbtMask = [];
+			q_sqlCount = 6;
+			brwCount = 6;
+			brwList = [];
+			brwNowPage = 0;
+			brwKey = 'noa';
+			q_desc = 1;
+			brwCount2 = 5;
+			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], ['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], ['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], ['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx']);
+			function distinct(arr1) {
+				for (var i = 0; i < arr1.length; i++) {
+					if ((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == '') {
+						arr1.splice(i, 1);
+						i--;
+					}
+				}
+				return arr1;
+			}
 
 
-            $(document).ready(function() {
-                bbmKey = ['noa'];
-                bbsKey = ['noa', 'noq'];
-                bbtKey = ['noa', 'noq'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-            });
+			$(document).ready(function() {
+				bbmKey = ['noa'];
+				bbsKey = ['noa', 'noq'];
+				bbtKey = ['noa', 'noq'];
+				q_brwCount();
+				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+			});
 
-            function main() {
-                if (dataErr) {
-                    dataErr = false;
-                    return;
-                }
-                mainForm(0);
-            }
+			function main() {
+				if (dataErr) {
+					dataErr = false;
+					return;
+				}
+				mainForm(0);
+			}
 
-            function mainPost() {
-                q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
-                bbsMask = [['txtDatea', r_picd], ['txtDate2', r_picd], ['txtHdate', r_picd]];
-                bbtMask = [['txtDatea', r_picd]];
-                q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('cubpi.typea'));
-                $('#cmbTypea').change(function() {
-                    size_change();
-                });
-                $('#btnOrdeImport').click(function() {
-                    if (q_cur == 1 || q_cur == 2) {
-                        var t_bdate = trim($('#txtBdate').val());
-                        var t_edate = trim($('#txtEdate').val());
-                        var t_bdime = dec($('#txtBdime').val());
-                        var t_edime = dec($('#txtEdime').val());
-                        var t_bradius = dec($('#txtRadius').val()) * 0.93;
-                        var t_eradius = dec($('#txtRadius').val());
-                        var t_bwidth = dec($('#txtWidth').val()) * 0.93;
-                        var t_ewidth = dec($('#txtWidth').val());
-                        var t_style = trim($('#txtStyle').val());
-                        var t_productno = trim($('#txtProductno').val());
-                        var t_mechno = trim($('#txtMechno').val());
-                        t_edate = (t_edate == '' ? 'char(255)' : t_edate);
-                        t_edime = (t_edime == 0 ? 9999 : t_edime);
-                        t_eradius = (t_eradius == 0 ? 9999 : t_eradius * 1.07);
-                        t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
-                        var t_where = 'where=^^ 1=1 ';
-                        t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno) + q_sqlPara2('mechno', t_mechno);
-                        t_where += ' ^^';
-                        q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
-                    }
-                });
-                $('#btnCucImport').click(function() {
-                    if (q_cur == 1 || q_cur == 2) {
-                        var t_bdate = trim($('#txtBdate').val());
-                        var t_edate = trim($('#txtEdate').val());
-                        var t_bdime = dec($('#txtBdime').val());
-                        var t_edime = dec($('#txtEdime').val());
-                        var t_bradius = dec($('#txtRadius').val()) * 0.93;
-                        var t_eradius = dec($('#txtRadius').val());
-                        var t_bwidth = dec($('#txtWidth').val()) * 0.93;
-                        var t_ewidth = dec($('#txtWidth').val());
-                        var t_style = trim($('#txtStyle').val());
-                        var t_productno = trim($('#txtProductno').val());
-                        var t_mechno = trim($('#txtMechno').val());
-                        t_edate = (t_edate == '' ? 'char(255)' : t_edate);
-                        t_edime = (t_edime == 0 ? 9999 : t_edime);
-                        t_eradius = (t_eradius == 0 ? 9999 : t_eradius * 1.07);
-                        t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
-                        var t_where = 'where=^^ 1=1 ';
-                        t_where += q_sqlPara2('a.udate', t_bdate, t_edate) + q_sqlPara2('a.dime', t_bdime, t_edime) + q_sqlPara2('a.radius', t_bradius, t_eradius) + q_sqlPara2('a.width', t_bwidth, t_ewidth) + q_sqlPara2('a.productno', t_productno) + q_sqlPara2('b.mechno', t_mechno);
-                        t_where += ' ^^';
-                        q_gt('cucs', t_where, 0, 0, 0, "", r_accy);
-                    }
-                });
-                $('#btnCubu').click(function() {
-                    if (q_cur == 0) {
-                        var t_where = "noa='" + trim($('#txtNoa').val()) + "'";
-                        q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cubu', "95%", "95%", q_getMsg('popCubu'));
-                    }
-                });
-                $('#btnUccc_pi').click(function() {
-                    //var t_where = ' 1=1 and radius=0 ';
-                    var t_where = ' 1=1';
-                    var t_productno = trim($('#txtProductno').val());
-                    var t_bdime = dec($('#txtBdime').val());
-                    var t_edime = dec($('#txtEdime').val());
-                    var t_width = dec($('#txtWidth').val());
-                    if (t_bdime == 0 && t_edime == 0) {
-                        t_edime = 9999;
-                    }
-                    t_where += " and width >=" + t_width;
-                    if (getProductWhere().length > 2)
-                        t_where += " and (productno in(" + getProductWhere() + ")) ";
-                    t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
-                    q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
-                });
-            }
+			function mainPost() {
+				q_getFormat();
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
+				bbsMask = [['txtDatea', r_picd], ['txtDate2', r_picd], ['txtHdate', r_picd]];
+				bbtMask = [['txtDatea', r_picd]];
+				q_mask(bbmMask);
+				q_cmbParse("cmbTypea", q_getPara('cubpi.typea'));
+				$('#cmbTypea').change(function() {
+					size_change();
+				});
+				$('#btnOrdeImport').click(function() {
+					if (q_cur == 1 || q_cur == 2) {
+						var t_bdate = trim($('#txtBdate').val());
+						var t_edate = trim($('#txtEdate').val());
+						var t_bdime = dec($('#txtBdime').val());
+						var t_edime = dec($('#txtEdime').val());
+						var t_bradius = dec($('#txtRadius').val()) * 0.93;
+						var t_eradius = dec($('#txtRadius').val());
+						var t_bwidth = dec($('#txtWidth').val()) * 0.93;
+						var t_ewidth = dec($('#txtWidth').val());
+						var t_style = trim($('#txtStyle').val());
+						var t_productno = trim($('#txtProductno').val());
+						var t_mechno = trim($('#txtMechno').val());
+						t_edate = (t_edate == '' ? 'char(255)' : t_edate);
+						t_edime = (t_edime == 0 ? 9999 : t_edime);
+						t_eradius = (t_eradius == 0 ? 9999 : t_eradius * 1.07);
+						t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
+						var t_where = 'where=^^ 1=1 ';
+						t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno) + q_sqlPara2('mechno', t_mechno);
+						t_where += ' ^^';
+						q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
+					}
+				});
+				$('#btnCucImport').click(function() {
+					if (q_cur == 1 || q_cur == 2) {
+						var t_bdate = trim($('#txtBdate').val());
+						var t_edate = trim($('#txtEdate').val());
+						var t_bdime = dec($('#txtBdime').val());
+						var t_edime = dec($('#txtEdime').val());
+						var t_bradius = dec($('#txtRadius').val()) * 0.93;
+						var t_eradius = dec($('#txtRadius').val());
+						var t_bwidth = dec($('#txtWidth').val()) * 0.93;
+						var t_ewidth = dec($('#txtWidth').val());
+						var t_style = trim($('#txtStyle').val());
+						var t_productno = trim($('#txtProductno').val());
+						var t_mechno = trim($('#txtMechno').val());
+						t_edate = (t_edate == '' ? 'char(255)' : t_edate);
+						t_edime = (t_edime == 0 ? 9999 : t_edime);
+						t_eradius = (t_eradius == 0 ? 9999 : t_eradius * 1.07);
+						t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
+						var t_where = 'where=^^ 1=1 ';
+						t_where += q_sqlPara2('a.udate', t_bdate, t_edate) + q_sqlPara2('a.dime', t_bdime, t_edime) + q_sqlPara2('a.radius', t_bradius, t_eradius) + q_sqlPara2('a.width', t_bwidth, t_ewidth) + q_sqlPara2('a.productno', t_productno) + q_sqlPara2('b.mechno', t_mechno);
+						t_where += ' ^^';
+						q_gt('cucs', t_where, 0, 0, 0, "", r_accy);
+					}
+				});
+				$('#btnCubu').click(function() {
+					if (q_cur == 0) {
+						var t_where = "noa='" + trim($('#txtNoa').val()) + "'";
+						q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cubu', "95%", "95%", q_getMsg('popCubu'));
+					}
+				});
+				$('#btnUccc_pi').click(function() {
+					//var t_where = ' 1=1 and radius=0 ';
+					var t_where = ' 1=1';
+					var t_productno = trim($('#txtProductno').val());
+					var t_bdime = dec($('#txtBdime').val());
+					var t_edime = dec($('#txtEdime').val());
+					var t_width = dec($('#txtWidth').val());
+					if (t_bdime == 0 && t_edime == 0) {
+						t_edime = 9999;
+					}
+					t_where += " and width >=" + t_width;
+					if (getProductWhere().length > 2)
+						t_where += " and (productno in(" + getProductWhere() + ")) ";
+					t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
+					q_box("uccc_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uccc', "95%", "95%", q_getMsg('popUccc'));
+				});
+			}
 
-            function getProductWhere() {
-                var tempArray = new Array();
-                tempArray.push($('#txtProductno').val());
-                for (var j = 0; j < q_bbsCount; j++) {
-                    tempArray.push($('#txtProductno_' + j).val());
-                    tempArray.push($('#txtProductno2_' + j).val());
-                }
-                var TmpStr = distinct(tempArray).sort();
-                TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
-                return TmpStr;
-            }
+			function getProductWhere() {
+				var tempArray = new Array();
+				tempArray.push($('#txtProductno').val());
+				for (var j = 0; j < q_bbsCount; j++) {
+					tempArray.push($('#txtProductno_' + j).val());
+					tempArray.push($('#txtProductno2_' + j).val());
+				}
+				var TmpStr = distinct(tempArray).sort();
+				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
+				return TmpStr;
+			}
 
-            function getBBSWhere(objname) {
-                var tempArray = new Array();
-                for (var j = 0; j < q_bbsCount; j++) {
-                    tempArray.push($('#txt' + objname + '_' + j).val());
-                }
-                var TmpStr = distinct(tempArray).sort();
-                TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
-                return TmpStr;
-            }
+			function getBBSWhere(objname) {
+				var tempArray = new Array();
+				for (var j = 0; j < q_bbsCount; j++) {
+					tempArray.push($('#txt' + objname + '_' + j).val());
+				}
+				var TmpStr = distinct(tempArray).sort();
+				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
+				return TmpStr;
+			}
 
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'view_ordes':
-                        var wret = '';
-                        var chkWhere = 'where=^^';
-                        var as = _q_appendData("view_ordes", "", true);
-                        if (as[0] != undefined) {
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate', '');
-                        } else {
-                            alert('無符合的訂單，檢查條件是否輸入有誤。');
-                        }
-                        sum();
-                        var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') ^^';
-                        q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
-                        break;
-                    case 'cucs':
-                        var wret = '';
-                        var as = _q_appendData("cucs", "", true);
-                        if (as[0] != undefined) {
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2', as.length, as, 'ordeno,no2,custno,productno,product,radius,width,dime,lengthb,mount,udate', '');
-                        }
-                        sum();
-                        var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') ^^';
-                        q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
-                        break;
-                    case 'cub_ordechk':
-                        var as = _q_appendData("cub_ordechk", "", true);
-                        if (as[0] != undefined) {
-                            for (var i = 0; i < as.length; i++) {
-                                for (var j = 0; j < q_bbsCount; j++) {
-                                    var t_ordeno = $('#txtOrdeno_' + j).val();
-                                    var t_no2 = $('#txtNo2_' + j).val();
-                                    var t_mount = dec($('#txtMount_' + j).val());
-                                    if (t_ordeno == as[i].ordeno && t_no2 == as[i].no2) {
-                                        if (dec(as[i].mount) < 0)
-                                            $('#txtMount_' + j).val(0);
-                                        if ((dec(as[i].mount) - t_mount) < 0 && dec(as[i].mount) > 0)
-                                            $('#txtMount_' + j).val(dec(as[i].mount));
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case q_name:
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
-                }
-            }
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'view_ordes':
+						var wret = '';
+						var chkWhere = 'where=^^';
+						var as = _q_appendData("view_ordes", "", true);
+						if (as[0] != undefined) {
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate', '');
+						} else {
+							alert('無符合的訂單，檢查條件是否輸入有誤。');
+						}
+						sum();
+						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0 ^^';
+						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
+						break;
+					case 'cucs':
+						var wret = '';
+						var as = _q_appendData("cucs", "", true);
+						if (as[0] != undefined) {
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2', as.length, as, 'ordeno,no2,custno,productno,product,radius,width,dime,lengthb,mount,udate', '');
+						}
+						sum();
+						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0  ^^';
+						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
+						break;
+					case 'cub_ordechk':
+						var as = _q_appendData("cub_ordechk", "", true);
+						if (as[0] != undefined) {
+							for (var i = 0; i < as.length; i++) {
+								for (var j = 0; j < q_bbsCount; j++) {
+									var t_ordeno = $('#txtOrdeno_' + j).val();
+									var t_no2 = $('#txtNo2_' + j).val();
+									var t_mount = dec($('#txtMount_' + j).val());
+									if (t_ordeno == as[i].ordeno && t_no2 == as[i].no2) {
+										if (dec(as[i].mount) < 0)
+											$('#txtMount_' + j).val(0);
+										if ((dec(as[i].mount) - t_mount) < 0 && dec(as[i].mount) > 0)
+											$('#txtMount_' + j).val(dec(as[i].mount));
+										break;
+									}
+								}
+							}
+						}
+						break;
+					case q_name:
+						if (q_cur == 4)
+							q_Seek_gtPost();
+						break;
+				}
+			}
 
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-            }
+			function q_stPost() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return false;
+			}
 
-            function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case 'uccc':
-                        if (!b_ret || b_ret.length == 0)
-                            return;
-                        if (q_cur > 0 && q_cur < 4) {
-                            for (var j = 0; j < b_ret.length; j++) {
-                                for (var i = 0; i < q_bbtCount; i++) {
-                                    var t_uno = $('#txtUno__' + i).val();
-                                    if (b_ret[j] && b_ret[j].noa == t_uno) {
-                                        b_ret.splice(j, 1);
-                                    }
-                                }
-                            }
-                            if (b_ret[0] != undefined) {
-                                ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtGmount,txtGweight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,eordmount,eordweight,radius,dime,width,lengthb', 'txtUno', '__');
-                                /// 最後 aEmpField 不可以有【數字欄位】
-                                bbtAssign();
-                                size_change();
-                            }
-                            sum();
-                            b_ret = '';
-                        }
-                        break;
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        break;
-                }
-                b_pop = '';
-            }
+			function q_boxClose(s2) {
+				var ret;
+				switch (b_pop) {
+					case 'uccc':
+						if (!b_ret || b_ret.length == 0)
+							return;
+						if (q_cur > 0 && q_cur < 4) {
+							for (var j = 0; j < b_ret.length; j++) {
+								for (var i = 0; i < q_bbtCount; i++) {
+									var t_uno = $('#txtUno__' + i).val();
+									if (b_ret[j] && b_ret[j].noa == t_uno) {
+										b_ret.splice(j, 1);
+									}
+								}
+							}
+							if (b_ret[0] != undefined) {
+								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtGmount,txtGweight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,eordmount,eordweight,radius,dime,width,lengthb', 'txtUno', '__');
+								/// 最後 aEmpField 不可以有【數字欄位】
+								bbtAssign();
+								size_change();
+							}
+							sum();
+							b_ret = '';
+						}
+						break;
+					case q_name + '_s':
+						q_boxClose2(s2);
+						break;
+				}
+				b_pop = '';
+			}
 
-            function sum() {
-                for (var j = 0; j < q_bbsCount; j++) {
-                    var t_dime = dec($('#txtDime_' + j).val());
-                    $('#txtBdime_' + j).val(round(t_dime * 0.93, 2));
-                    $('#txtEdime_' + j).val(round(t_dime * 1.07, 2));
-                }
-            }
+			function sum() {
+				for (var j = 0; j < q_bbsCount; j++) {
+					var t_dime = dec($('#txtDime_' + j).val());
+					$('#txtBdime_' + j).val(round(t_dime * 0.93, 2));
+					$('#txtEdime_' + j).val(round(t_dime * 1.07, 2));
+				}
+			}
 
-            function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)
-                    return;
-                q_box('cubpi_s.aspx', q_name + '_s', "500px", "530px", q_getMsg("popSeek"));
-            }
+			function _btnSeek() {
+				if (q_cur > 0 && q_cur < 4)
+					return;
+				q_box('cubpi_s.aspx', q_name + '_s', "500px", "530px", q_getMsg("popSeek"));
+			}
 
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                size_change();
-                $('#txtDatea').focus();
-            }
+			function btnIns() {
+				_btnIns();
+				$('#txtNoa').val('AUTO');
+				$('#txtDatea').val(q_date());
+				size_change();
+				$('#txtDatea').focus();
+			}
 
-            function btnModi() {
-                if (emp($('#txtNoa').val()))
-                    return;
-                _btnModi();
-                size_change();
-                $('#txtDatea').focus();
-            }
+			function btnModi() {
+				if (emp($('#txtNoa').val()))
+					return;
+				_btnModi();
+				size_change();
+				$('#txtDatea').focus();
+			}
 
-            function btnPrint() {
-            }
+			function btnPrint() {
+			}
 
-            function btnOk() {
-                if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
-                    alert(q_getMsg('lblDatea') + '錯誤。');
-                    return;
-                }
-                $('#txtWorker').val(r_name);
+			function btnOk() {
+				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
+					alert(q_getMsg('lblDatea') + '錯誤。');
+					return;
+				}
+				$('#txtWorker').val(r_name);
 
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cub') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
-            }
+				var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cub') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
+			}
 
-            function wrServer(key_value) {
-                var i;
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-            }
+			function wrServer(key_value) {
+				var i;
+				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+			}
 
-            function bbsSave(as) {
-                if (!as['ordeno']) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-                q_nowf();
-                as['noa'] = abbm2['noa'];
-                return true;
-            }
+			function bbsSave(as) {
+				if (!as['ordeno']) {
+					as[bbsKey[1]] = '';
+					return;
+				}
+				q_nowf();
+				as['noa'] = abbm2['noa'];
+				return true;
+			}
 
-            function bbtSave(as) {
-                if (!as['uno']) {
-                    as[bbtKey[1]] = '';
-                    return;
-                }
-                q_nowf();
-                return true;
-            }
+			function bbtSave(as) {
+				if (!as['uno']) {
+					as[bbtKey[1]] = '';
+					return;
+				}
+				q_nowf();
+				return true;
+			}
 
-            function refresh(recno) {
-                _refresh(recno);
-                size_change();
-            }
+			function refresh(recno) {
+				_refresh(recno);
+				size_change();
+			}
 
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-                size_change();
-                if (q_cur == 0 && trim($('#txtNoa').val()) != '')
-                    $('#btnCubu').removeAttr('disabled');
-                else
-                    $('#btnCubu').attr('disabled', 'disabled');
-            }
+			function readonly(t_para, empty) {
+				_readonly(t_para, empty);
+				size_change();
+				if (q_cur == 0 && trim($('#txtNoa').val()) != '')
+					$('#btnCubu').removeAttr('disabled');
+				else
+					$('#btnCubu').attr('disabled', 'disabled');
+			}
 
-            function btnMinus(id) {
-                _btnMinus(id);
-            }
+			function btnMinus(id) {
+				_btnMinus(id);
+			}
 
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
+			function btnPlus(org_htm, dest_tag, afield) {
+				_btnPlus(org_htm, dest_tag, afield);
+			}
 
-            function btnPlut(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-                size_change();
-            }
+			function btnPlut(org_htm, dest_tag, afield) {
+				_btnPlus(org_htm, dest_tag, afield);
+				size_change();
+			}
 
-            function bbsAssign() {
-                for (var i = 0; i < q_bbsCount; i++) {
-                    $('#lblNo_' + i).text(i + 1);
-                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                        $('#txtDime_' + i).change(function() {
-                            sum();
-                        });
-                        $('#txtMount_' + i).change(function() {
-                            var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') ^^';
-                            q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
-                        });
-                    }
-                }
-                _bbsAssign();
-                size_change();
-            }
+			function bbsAssign() {
+				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
+					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+						$('#txtDime_' + i).change(function() {
+							sum();
+						});
+						$('#txtMount_' + i).change(function() {
+							var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') ^^';
+							q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
+						});
+					}
+				}
+				_bbsAssign();
+				size_change();
+			}
 
-            function bbtAssign() {
-                for (var i = 0; i < q_bbtCount; i++) {
-                    $('#lblNo__' + i).text(i + 1);
-                    if (!$('#btnMinut__' + i).hasClass('isAssign')) {
-                        $('#textSize1__' + i).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            if ($('#cmbTypea').find("option:selected").text() == '製管') {
-                                q_tr('txtDime__' + b_seq, q_float('textSize1__' + b_seq));
-                                //厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
-                            } else {
-                                q_tr('txtRadius__' + b_seq, q_float('textSize1__' + b_seq));
-                                //短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());
-                            }
-                        });
-                        $('#textSize2__' + i).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            if ($('#cmbTypea').find("option:selected").text() == '製管') {
-                                q_tr('txtWidth__' + b_seq, q_float('textSize2__' + b_seq));
-                                //寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
-                            } else {
-                                q_tr('txtWidth__' + b_seq, q_float('textSize2__' + b_seq));
-                                //長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
-                            }
-                        });
-                        $('#textSize3__' + i).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            if ($('#cmbTypea').find("option:selected").text() == '製管') {
-                                q_tr('txtLengthb__' + b_seq, q_float('textSize3__' + b_seq));
-                                //長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());
-                            } else {
-                                q_tr('txtDime__' + b_seq, q_float('textSize3__' + b_seq));
-                                //厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());
-                            }
-                        });
-                        $('#textSize4__' + i).change(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            if ($('#cmbTypea').find("option:selected").text() == '製管') {
-                                q_tr('txtRadius__' + b_seq, q_float('textSize4__' + b_seq));
-                                //短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());
-                            } else {
-                                q_tr('txtLengthb__' + b_seq, q_float('textSize4__' + b_seq));
-                                //長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());
-                            }
-                        });
-                    }
-                }
-                _bbtAssign();
-                size_change();
-            }
+			function bbtAssign() {
+				for (var i = 0; i < q_bbtCount; i++) {
+					$('#lblNo__' + i).text(i + 1);
+					if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+						$('#textSize1__' + i).change(function() {
+							t_IdSeq = -1;
+							/// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if ($('#cmbTypea').find("option:selected").text() == '製管') {
+								q_tr('txtDime__' + b_seq, q_float('textSize1__' + b_seq));
+								//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
+							} else {
+								q_tr('txtRadius__' + b_seq, q_float('textSize1__' + b_seq));
+								//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());
+							}
+						});
+						$('#textSize2__' + i).change(function() {
+							t_IdSeq = -1;
+							/// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if ($('#cmbTypea').find("option:selected").text() == '製管') {
+								q_tr('txtWidth__' + b_seq, q_float('textSize2__' + b_seq));
+								//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
+							} else {
+								q_tr('txtWidth__' + b_seq, q_float('textSize2__' + b_seq));
+								//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
+							}
+						});
+						$('#textSize3__' + i).change(function() {
+							t_IdSeq = -1;
+							/// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if ($('#cmbTypea').find("option:selected").text() == '製管') {
+								q_tr('txtLengthb__' + b_seq, q_float('textSize3__' + b_seq));
+								//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());
+							} else {
+								q_tr('txtDime__' + b_seq, q_float('textSize3__' + b_seq));
+								//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());
+							}
+						});
+						$('#textSize4__' + i).change(function() {
+							t_IdSeq = -1;
+							/// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if ($('#cmbTypea').find("option:selected").text() == '製管') {
+								q_tr('txtRadius__' + b_seq, q_float('textSize4__' + b_seq));
+								//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());
+							} else {
+								q_tr('txtLengthb__' + b_seq, q_float('textSize4__' + b_seq));
+								//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());
+							}
+						});
+					}
+				}
+				_bbtAssign();
+				size_change();
+			}
 
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
+			function q_appendData(t_Table) {
+				return _q_appendData(t_Table);
+			}
 
-            function btnSeek() {
-                _btnSeek();
-            }
+			function btnSeek() {
+				_btnSeek();
+			}
 
-            function btnTop() {
-                _btnTop();
-            }
+			function btnTop() {
+				_btnTop();
+			}
 
-            function btnPrev() {
-                _btnPrev();
-            }
+			function btnPrev() {
+				_btnPrev();
+			}
 
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
+			function btnPrevPage() {
+				_btnPrevPage();
+			}
 
-            function btnNext() {
-                _btnNext();
-            }
+			function btnNext() {
+				_btnNext();
+			}
 
-            function btnNextPage() {
-                _btnNextPage();
-            }
+			function btnNextPage() {
+				_btnNextPage();
+			}
 
-            function btnBott() {
-                _btnBott();
-            }
+			function btnBott() {
+				_btnBott();
+			}
 
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
+			function q_brwAssign(s1) {
+				_q_brwAssign(s1);
+			}
 
-            function btnDele() {
-                _btnDele();
-            }
+			function btnDele() {
+				_btnDele();
+			}
 
-            function btnCancel() {
-                _btnCancel();
-            }
+			function btnCancel() {
+				_btnCancel();
+			}
 
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
+			function onPageError(error) {
+				alert("An error occurred:\r\n" + error.Message);
+			}
 
-            function size_change() {
-                if (q_cur == 1 || q_cur == 2) {
-                    $('input[id*="textSize"]').removeAttr('disabled');
-                } else {
-                    $('input[id*="textSize"]').attr('disabled', 'disabled');
-                }
-                if ($('#cmbTypea').find("option:selected").text() == '製管') {
-                    $('#lblSize_help').text(q_getPara('sys.lblSizea'));
-                    for (var j = 0; j < q_bbtCount; j++) {
-                        $('#textSize1__' + j).show();
-                        $('#textSize2__' + j).show();
-                        $('#textSize3__' + j).show();
-                        $('#textSize4__' + j).hide();
-                        $('#x1__' + j).show();
-                        $('#x2__' + j).show();
-                        $('#x3__' + j).hide();
-                        $('#Size').css('width', '230px');
-                        $('#textSize1__' + j).val($('#txtDime__' + j).val());
-                        $('#textSize2__' + j).val($('#txtWidth__' + j).val());
-                        $('#textSize3__' + j).val($('#txtLengthb__' + j).val());
-                        $('#textSize4__' + j).val(0);
-                        $('#txtRadius__' + j).val(0)
-                    }
-                } else {
-                    $('#lblSize_help').text(q_getPara('sys.lblSizeb'));
-                    for (var j = 0; j < q_bbtCount; j++) {
-                        $('#textSize1__' + j).show();
-                        $('#textSize2__' + j).show();
-                        $('#textSize3__' + j).show();
-                        $('#textSize4__' + j).show();
-                        $('#x1__' + j).show();
-                        $('#x2__' + j).show();
-                        $('#x3__' + j).show();
-                        $('#Size').css('width', '330px');
-                        $('#textSize1__' + j).val($('#txtRadius__' + j).val());
-                        $('#textSize2__' + j).val($('#txtWidth__' + j).val());
-                        $('#textSize3__' + j).val($('#txtDime__' + j).val());
-                        $('#textSize4__' + j).val($('#txtLengthb__' + j).val());
-                    }
-                }
-            }
+			function size_change() {
+				if (q_cur == 1 || q_cur == 2) {
+					$('input[id*="textSize"]').removeAttr('disabled');
+				} else {
+					$('input[id*="textSize"]').attr('disabled', 'disabled');
+				}
+				if ($('#cmbTypea').find("option:selected").text() == '製管') {
+					$('#lblSize_help').text(q_getPara('sys.lblSizea'));
+					for (var j = 0; j < q_bbtCount; j++) {
+						$('#textSize1__' + j).show();
+						$('#textSize2__' + j).show();
+						$('#textSize3__' + j).show();
+						$('#textSize4__' + j).hide();
+						$('#x1__' + j).show();
+						$('#x2__' + j).show();
+						$('#x3__' + j).hide();
+						$('#Size').css('width', '230px');
+						$('#textSize1__' + j).val($('#txtDime__' + j).val());
+						$('#textSize2__' + j).val($('#txtWidth__' + j).val());
+						$('#textSize3__' + j).val($('#txtLengthb__' + j).val());
+						$('#textSize4__' + j).val(0);
+						$('#txtRadius__' + j).val(0)
+					}
+				} else {
+					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
+					for (var j = 0; j < q_bbtCount; j++) {
+						$('#textSize1__' + j).show();
+						$('#textSize2__' + j).show();
+						$('#textSize3__' + j).show();
+						$('#textSize4__' + j).show();
+						$('#x1__' + j).show();
+						$('#x2__' + j).show();
+						$('#x3__' + j).show();
+						$('#Size').css('width', '330px');
+						$('#textSize1__' + j).val($('#txtRadius__' + j).val());
+						$('#textSize2__' + j).val($('#txtWidth__' + j).val());
+						$('#textSize3__' + j).val($('#txtDime__' + j).val());
+						$('#textSize4__' + j).val($('#txtLengthb__' + j).val());
+					}
+				}
+			}
 		</script>
 		<style type="text/css">
-            #dmain {
-                /*overflow: hidden;*/
-            }
-            .dview {
-                float: left;
-                width: 250px;
-                border-width: 0px;
-            }
-            .tview {
-                border: 5px solid gray;
-                font-size: medium;
-                background-color: black;
-            }
-            .tview tr {
-                height: 30px;
-            }
-            .tview td {
-                padding: 2px;
-                text-align: center;
-                border-width: 0px;
-                background-color: #FFFF66;
-                color: blue;
-            }
-            .dbbm {
-                float: left;
-                width: 800px;
-                /*margin: -1px;
-                 border: 1px black solid;*/
-                border-radius: 5px;
-            }
-            .tbbm {
-                padding: 0px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
-                font-size: medium;
-                color: blue;
-                background: #cad3ff;
-                width: 100%;
-            }
-            .tbbm tr {
-                height: 35px;
-            }
-            .tbbm tr td {
-                width: 9%;
-            }
-            .tbbm .tdZ {
-                width: 1%;
-            }
-            .tbbm tr td span {
-                float: right;
-                display: block;
-                width: 5px;
-                height: 10px;
-            }
-            .tbbm tr td .lbl {
-                float: right;
-                color: blue;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn {
-                color: #4297D7;
-                font-weight: bolder;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn:hover {
-                color: #FF8F19;
-            }
-            .txt.c1 {
-                width: 95%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 35%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 120px;
-                float: left;
-            }
-            .txt.c8 {
-                float: left;
-                width: 65px;
-            }
-            .num {
-                text-align: right;
-            }
-            .tbbm td {
-                margin: 0 -1px;
-                padding: 0;
-            }
-            .tbbm td input[type="text"] {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                float: left;
-            }
-            input[type="text"], input[type="button"] {
-                font-size: medium;
-            }
-            .dbbs {
-                width: 2500px;
-            }
-            .dbbs .tbbs {
-                margin: 0;
-                padding: 2px;
-                border: 2px lightgrey double;
-                border-spacing: 1;
-                border-collapse: collapse;
-                font-size: medium;
-                color: blue;
-                /*background: #cad3ff;*/
-                background: lightgrey;
-                width: 100%;
-            }
-            .dbbs .tbbs tr {
-                height: 35px;
-            }
-            .dbbs .tbbs tr td {
-                text-align: center;
-                border: 2px lightgrey double;
-            }
-            .dbbs .tbbs select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                font-size: medium;
-            }
-            #dbbt {
-                width: 3000px;
-            }
-            #tbbt {
-                margin: 0;
-                padding: 2px;
-                border: 2px pink double;
-                border-spacing: 1;
-                border-collapse: collapse;
-                font-size: medium;
-                color: blue;
-                background: pink;
-                width: 100%;
-            }
-            #tbbt tr {
-                height: 35px;
-            }
-            #tbbt tr td {
-                text-align: center;
-                border: 2px pink double;
-            }
+			#dmain {
+				/*overflow: hidden;*/
+			}
+			.dview {
+				float: left;
+				width: 250px;
+				border-width: 0px;
+			}
+			.tview {
+				border: 5px solid gray;
+				font-size: medium;
+				background-color: black;
+			}
+			.tview tr {
+				height: 30px;
+			}
+			.tview td {
+				padding: 2px;
+				text-align: center;
+				border-width: 0px;
+				background-color: #FFFF66;
+				color: blue;
+			}
+			.dbbm {
+				float: left;
+				width: 800px;
+				/*margin: -1px;
+				 border: 1px black solid;*/
+				border-radius: 5px;
+			}
+			.tbbm {
+				padding: 0px;
+				border: 1px white double;
+				border-spacing: 0;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: #cad3ff;
+				width: 100%;
+			}
+			.tbbm tr {
+				height: 35px;
+			}
+			.tbbm tr td {
+				width: 9%;
+			}
+			.tbbm .tdZ {
+				width: 1%;
+			}
+			.tbbm tr td span {
+				float: right;
+				display: block;
+				width: 5px;
+				height: 10px;
+			}
+			.tbbm tr td .lbl {
+				float: right;
+				color: blue;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn {
+				color: #4297D7;
+				font-weight: bolder;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn:hover {
+				color: #FF8F19;
+			}
+			.txt.c1 {
+				width: 95%;
+				float: left;
+			}
+			.txt.c2 {
+				width: 35%;
+				float: left;
+			}
+			.txt.c3 {
+				width: 120px;
+				float: left;
+			}
+			.txt.c8 {
+				float: left;
+				width: 65px;
+			}
+			.num {
+				text-align: right;
+			}
+			.tbbm td {
+				margin: 0 -1px;
+				padding: 0;
+			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				float: left;
+			}
+			input[type="text"], input[type="button"] {
+				font-size: medium;
+			}
+			.dbbs {
+				width: 2500px;
+			}
+			.dbbs .tbbs {
+				margin: 0;
+				padding: 2px;
+				border: 2px lightgrey double;
+				border-spacing: 1;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				/*background: #cad3ff;*/
+				background: lightgrey;
+				width: 100%;
+			}
+			.dbbs .tbbs tr {
+				height: 35px;
+			}
+			.dbbs .tbbs tr td {
+				text-align: center;
+				border: 2px lightgrey double;
+			}
+			.dbbs .tbbs select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				font-size: medium;
+			}
+			#dbbt {
+				width: 3000px;
+			}
+			#tbbt {
+				margin: 0;
+				padding: 2px;
+				border: 2px pink double;
+				border-spacing: 1;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: pink;
+				width: 100%;
+			}
+			#tbbt tr {
+				height: 35px;
+			}
+			#tbbt tr td {
+				text-align: center;
+				border: 2px pink double;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
