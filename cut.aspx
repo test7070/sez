@@ -144,6 +144,7 @@
 
             var StyleList = '';
             var unoArray = new Array;
+            var t_uccArray = new Array;
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'ordes':
@@ -195,6 +196,7 @@
                         }
                         break;
                     case q_name:
+                    	t_uccArray = _q_appendData("ucc", "", true);
                         if (q_cur == 1)
                             cuts = _q_appendData("cut", "", true);
                         if (q_cur == 4)
@@ -666,9 +668,8 @@
                 	,mount:t_Mount
                 	,style:t_Style
                 	,stype:t_spec
-                	//,round
-                	,calc:StyleList
-                	//,ucc
+                	,calc:StyleList,
+                	ucc:t_uccArray
                 };
                 if (dec(t_Divide) == 0)
                     t_Divide = 1;
