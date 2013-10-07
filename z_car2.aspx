@@ -111,6 +111,8 @@
                 switch (b_pop) {
                 	case 'carspec':
                         ret = getb_ret();
+                        if(ret==null)
+                        	return;
                         var xcarspec='';
                         if(ret[0]!=undefined){
                         	for (var i = 0; i < ret.length; i++) {
