@@ -74,7 +74,7 @@
                     var t_where = ' 1=1 ';
                     var t_custno = trim($('#txtCustno').val());
                     if (t_ordeno.length > 0) {
-                        t_where += q_sqlPara2('ordeno', t_ordeno);
+                        t_where += q_sqlPara2('noa', t_ordeno);
                     }
                     t_where += q_sqlPara2('custno', t_custno) ;
 					q_box("ordet_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrde'));
@@ -754,10 +754,10 @@
 					<input id="txtOrdeno"  type="text" class="txt c1"/>
 					</td>
 					<td class="td8">
-					<input id="btnOrdeimport" type="button" />
+					<input id="btnOrdeimport" type="button" title="only ordet"/>
 					</td>
 					<td class="td8">
-					<input id="btnVcceImport" type="button"/>
+					<input id="btnVcceImport" type="button" title="cut cubu"/>
 					</td>
 				</tr>
 				<tr class="tr6">

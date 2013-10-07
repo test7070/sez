@@ -116,7 +116,7 @@
 						$('#btnOk').removeAttr('disabled');
 					}
 				});
-				$('#lblOrdes').click(function() {
+				$('#lblOrdeno').click(function() {
 					btnOrdes();
 				});
 				$('#lblAccno').click(function() {
@@ -195,6 +195,7 @@
 			var StyleList = '';
 			var vcces_as = new Array;
 			var t_uccArray = new Array;
+			var AddRet = new Array;
 			function q_gtPost(t_name) {/// 資料下載後 ...
 				switch (t_name) {
 					case 'spec':
@@ -245,9 +246,36 @@
 							}
 						}
 						if (vcces_as[0] != undefined) {
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice,txtStyle', vcces_as.length, vcces_as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price,style', 'txtUno');
+							AddRet = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice,txtStyle,txtOrdeno,txtNo2', vcces_as.length, vcces_as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price,style,ordeno,no2', 'txtUno');
+							//get ordes.price <Start>
+							var distinctArray = new Array;
+							var inStr = '';
+							for(var i=0;i<vcces_as.length;i++){distinctArray.push(vcces_as[i].ordeno);}
+							distinctArray = distinct(distinctArray);
+							for(var i=0;i<distinctArray.length;i++){
+								inStr += "'"+distinctArray[i]+"',";
+							}
+							inStr = inStr.substring(0,inStr.length-1);
+							var t_where = "where=^^ noa in("+inStr+") and (isnull(noa,'') != '') ^^";
+							q_gt('ordes', t_where , 0, 0, 0, "", r_accy);
+							//get ordes.price <End>
 						}
 						vcces_as = new Array;
+						break;
+					case 'ordes':
+						var ordes_as = _q_appendData("ordes", "", true);
+						if (AddRet[0] != undefined && ordes_as[0] != undefined) {
+							for(var i=0;i<ordes_as.length;i++){
+								for(var j=0;j<AddRet.length;j++){
+									var t_ordeno = $('#txtOrdeno_'+j).val();
+									var t_no2 = $('#txtNo2_'+j).val();
+									if(ordes_as.noa == t_ordeno && ordes_as.no2 == t_no2){
+										$('#txtPrice_'+j).val(ordes_as.price);
+									}
+								}
+							}
+						}
+						AddRet = new Array;
 						break;
 					case q_name:
 						t_uccArray = _q_appendData("ucc", "", true);
@@ -259,9 +287,9 @@
 
 			function btnOrdes() {
 				var t_custno = trim($('#txtCustno').val());
-				var t_where = '';
+				var t_where = " 1=1 and issale='1' ";
 				if (t_custno.length > 0) {
-					t_where = " 1=1 " + (t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "");
+					t_where += (t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "");
 					////  sql AND 語法，請用 &&
 					t_where = t_where;
 				} else {
