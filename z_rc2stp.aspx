@@ -57,8 +57,8 @@
 
                 var t_noa = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
                 t_noa = t_noa.replace('noa=', '');
-                //$('#txtXnoa1').val(t_noa).css('width','110px');
-                //$('#txtXnoa2').val(t_noa).css('width','110px');
+                $('#txtXnoa1').val(t_noa);
+                $('#txtXnoa2').val(t_noa);
 
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();
