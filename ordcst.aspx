@@ -156,6 +156,7 @@
 			}
 
 			var StyleList = '';
+			var t_uccArray = new Array;
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'ordcs':
@@ -214,7 +215,9 @@
 						var as = _q_appendData("style", "", true);
 						StyleList = new Array();
 						StyleList = as;
+						break;
 					case q_name:
+						t_uccArray = _q_appendData("ucc", "", true);
 						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
@@ -279,7 +282,19 @@
 				t_Lengthb = $('#txtLengthb_' + b_seq).val();
 				t_Mount = $('#txtMount_' + b_seq).val();
 				t_Style = $('#txtStyle_' + b_seq).val();
-				return theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style);
+                t_Productno = $('#txtProductno_' + b_seq).val();
+				var theory_setting={
+					calc:StyleList,
+					ucc:t_uccArray,
+					radius:t_Radius,
+					width:t_Width,
+					dime:t_Dime,
+					lengthb:t_Lengthb,
+					mount:t_Mount,
+					style:t_Style,
+					productno:t_Productno
+				};
+				return theory_st(theory_setting);
 			}
 
 			function bbsAssign() {
@@ -384,7 +399,7 @@
                     } else {//鋼筋、胚
                         q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
                     }
-                    getTheory(j);
+                    $('#txtTheory_'+j).val(getTheory(j));
                     //---------------------------------------
                     t_weights = q_float('txtWeight_' + j);
                     t_prices = q_float('txtPrice_' + j);
