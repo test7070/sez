@@ -283,8 +283,8 @@
         }
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
-            if (!as['productno']) {  //不存檔條件
-                as[bbsKey[1]] = '';   /// no2 為空，不存檔
+            if (!as['uno'] && !as['productno'] && !as['product'] && !as['spec']) {
+                as[bbsKey[1]] = '';
                 return;
             }
 
