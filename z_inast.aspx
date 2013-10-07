@@ -17,7 +17,7 @@
 		<script type="text/javascript">
            if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
-			}
+			} 
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_inast');
