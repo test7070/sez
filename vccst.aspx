@@ -116,6 +116,13 @@
 						$('#btnOk').removeAttr('disabled');
 					}
 				});
+                $('#btnVcceImport').click(function() {
+                    var t_ordeno = $('#txtOrdeno').val();
+                    var t_custno = $('#txtCustno').val();
+                    var t_where = '1=1 ';
+                    t_where += q_sqlPara2('ordeno', t_ordeno) + q_sqlPara2('custno', t_custno) + " and ((len(gmemo)=0) or gmemo='cubu')";
+                    q_box("vcce_import_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'view_vcce_import', "95%", "95%", q_getMsg('popVcceImport'));
+                });
 				$('#lblOrdeno').click(function() {
 					btnOrdes();
 				});
@@ -166,6 +173,28 @@
 				var
 				ret;
 				switch (b_pop) {
+                    case 'view_vcce_import':
+                        if (q_cur > 0 && q_cur < 4) {
+                            if (!b_ret || b_ret.length == 0)
+                                return;
+                            AddRet = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtOrdeno,txtNo2,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtSpec,txtMount,txtWeight,txtPrice', b_ret.length, b_ret, 'uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price', '');
+							//get ordes.price <Start>
+							var distinctArray = new Array;
+							var inStr = '';
+							for(var i=0;i<b_ret.length;i++){distinctArray.push(b_ret[i].ordeno);}
+							distinctArray = distinct(distinctArray);
+							for(var i=0;i<distinctArray.length;i++){
+								inStr += "'"+distinctArray[i]+"',";
+							}
+							inStr = inStr.substring(0,inStr.length-1);
+							var t_where = "where=^^ noa in("+inStr+") and (isnull(noa,'') != '') ^^";
+							q_gt('ordes', t_where , 0, 0, 0, "", r_accy);
+							//get ordes.price <End>
+                            /// 最後 aEmpField 不可以有【數字欄位】
+                            size_change();
+                        }
+                        sum();
+                        break;
 					case 'ordet':
 						if (q_cur > 0 && q_cur < 4) {//  q_cur： 0 = 瀏覽狀態  1=新增  2=修改 3=刪除  4=查詢
 							b_ret = getb_ret();
@@ -269,8 +298,8 @@
 								for(var j=0;j<AddRet.length;j++){
 									var t_ordeno = $('#txtOrdeno_'+j).val();
 									var t_no2 = $('#txtNo2_'+j).val();
-									if(ordes_as.noa == t_ordeno && ordes_as.no2 == t_no2){
-										$('#txtPrice_'+j).val(ordes_as.price);
+									if(ordes_as[i].noa == t_ordeno && ordes_as[i].no2 == t_no2){
+										$('#txtPrice_'+j).val(ordes_as[i].price);
 									}
 								}
 							}
@@ -1104,8 +1133,9 @@
 						</td>
 						<td><span style="float:left;display:block;width:10px;"></span><select id="cmbCoin" style="float:left;width:80px;" > </select></td>
 						<td></td>
-						<td>
+						<td colspan="2">
 						<input id="btnImportVcce" type="button" />
+						<input id="btnVcceImport" type="button" title="cut cubu"/>
 						</td>
 					</tr>
 					<tr>
