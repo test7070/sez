@@ -165,6 +165,9 @@
                     alert(q_getMsg('lblNoa')+'錯誤。');
                     return;
                 }                         
+				if(emp($.trim($('#txtMon').val()))){
+					$('#txtMon').val($('#txtDatea').val().substring(0,6));
+				}
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');

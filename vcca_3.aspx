@@ -194,6 +194,9 @@
                     alert(q_getMsg('lblNoa')+'錯誤。');
                     return;
                 }
+				if(emp($.trim($('#txtMon').val()))){
+					$('#txtMon').val($('#txtDatea').val().substring(0,6));
+				}
                 $('#txtWorker' ).val(  r_name);           
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
@@ -595,7 +598,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
+						<td>
+							<input id="txtDatea"  type="text"  class="txt c1"/>
+							<input id="txtMon"  type="text" style="display:none;"/>
+						</td>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtCno" type="text" style="float:left; width:15%;">
