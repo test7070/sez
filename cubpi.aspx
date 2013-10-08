@@ -356,6 +356,10 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				if(r_rank < 9){
+                	$('#btnCucImport').css('display','none');
+                }
+
 				size_change();
 			}
 

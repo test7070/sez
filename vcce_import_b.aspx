@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'vcce_import', t_bbsTag = 'tbbs', t_content = " field=uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price,custno,comp", afilter = [], bbsKey = ['ordeno'],  as; //, t_where = '';
+			var q_name = 'vcce_import', t_bbsTag = 'tbbs', t_content = " field=uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price,custno,comp,style", afilter = [], bbsKey = ['ordeno'],  as; //, t_where = '';
 			var t_sqlname = 'vcce_import'; t_postname = q_name;
 			brwCount2 = 0;
 			brwCount = -1;
@@ -101,9 +101,9 @@
 							<input type="checkbox" id="checkAllCheckbox"/>
 						</td>
 						<td align="center" style="width:12%;"><a id='lblUno'></a></td>
-						<td align="center" style="width:15%;"><a id='lblOrdeno'></a></td>
+						<td align="center" style="width:18%;"><a id='lblOrdeno'></a></td>
 						<td align="center" style="width:10%;"><a id='lblCustno'></a></td>
-						<td align="center" style="width:15%;"><a id='lblProductno'></a></td>
+						<td align="center" style="width:12%;"><a id='lblProductno'></a></td>
 						<td align="center" style="width:25%;"><a id='lblSizea'></a></td>
 						<td align="center" style="width:8%;"><a id='lblMount'></a></td>
 						<td align="center" style="width:8%;"><a id='lblWeight'></a></td>
@@ -129,7 +129,7 @@
 					<tr  style='background:#cad3ff;'>
 						<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
 						<td style="width:12%;"><input class="txt c1" id="txtUno.*" type="text"/></td>
-						<td style="width:15%;">
+						<td style="width:18%;">
 							<input class="txt" id="txtOrdeno.*" type="text" style="width:65%;"/>
 							<input class="txt" id="txtNo2.*" type="text" style="width:25%;"/>
 						</td>
@@ -137,7 +137,7 @@
 							<input class="txt c1" id="txtCustno.*" type="text"/>
 							<input class="txt c1" id="txtComp.*" type="text"/>
 						</td>
-						<td style="width:15%;">
+						<td style="width:12%;">
 							<input class="txt c1" id="txtProductno.*" type="text"/>
 							<input class="txt c1" id="txtProduct.*" type="text"/>
 						</td>
