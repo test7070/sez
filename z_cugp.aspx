@@ -31,9 +31,11 @@
 					if(txtreport=='z_cugp_svg1'){
 						$('#dataSearch').hide();
 						$('#svg_search').show();
+						$('#chart').show();
 					}else{
 						$('#dataSearch').show();
 						$('#svg_search').hide();
+						$('#chart').hide();
 					}
 				});
 				
@@ -132,6 +134,7 @@
                         else {
                             var n = -1;
                             t_data = new Array();
+                            s_data = new Array();
                             for (var i in as) {
                                 if (as[i].stationno != undefined) {
                                 	n = -1;
@@ -148,6 +151,8 @@
                                 		t_data.push({
                                 			stationno : as[i].stationno,
                                 			station : as[i].station,
+                                			shours: as[i].shours,
+                                			gen: as[i].gen,
                                 			process : new Array({
                                 				processno : as[i].processno,
                                 				process : as[i].process,
@@ -161,9 +166,33 @@
 		                                			cuadate : as[i].cuadate,
 		                                			uindate : as[i].uindate,
 		                                			workno : as[i].workno,
-		                                			memo : as[i].memo
+		                                			memo : as[i].memo,
+		                                			custno : as[i].custno,
+		                                			comp : as[i].comp
 	                                			})
                                 			})
+                                		});
+                                		s_data.push({
+                                			stationno : as[i].stationno,
+                                			station : as[i].station,
+                                			shours: as[i].shours,
+                                			gen: as[i].gen,
+	                                		detail : new Array({
+	                                			processno : as[i].processno,
+                                				process : as[i].process,
+	                                			productno : as[i].productno,
+	                                			product : as[i].product,
+	                                			noq : as[i].noq,
+	                                			mount : as[i].mount,
+		                                		hours : as[i].hours,
+		                                		days : as[i].days,
+		                                		cuadate : as[i].cuadate,
+		                                		uindate : as[i].uindate,
+		                                		workno : as[i].workno,
+		                                		memo : as[i].memo,
+		                                		custno : as[i].custno,
+		                                		comp : as[i].comp
+	                                		})
                                 		});
                                 	}else if(m==-1){
                                 		t_data[n].process.push({
@@ -179,8 +208,26 @@
 		                                		cuadate : as[i].cuadate,
 		                                		uindate : as[i].uindate,
 		                                		workno : as[i].workno,
-		                                		memo : as[i].memo
+		                                		memo : as[i].memo,
+		                                		custno : as[i].custno,
+		                                		comp : as[i].comp
 	                                		})
+                                		});
+                                		s_data[n].detail.push({
+                                			processno : as[i].processno,
+                                			process : as[i].process,
+	                                		productno : as[i].productno,
+	                                		product : as[i].product,
+	                                		noq : as[i].noq,
+	                                		mount : as[i].mount,
+		                                	hours : as[i].hours,
+		                                	days : as[i].days,
+		                                	cuadate : as[i].cuadate,
+		                                	uindate : as[i].uindate,
+		                                	workno : as[i].workno,
+		                                	memo : as[i].memo,
+		                                	custno : as[i].custno,
+		                                	comp : as[i].comp
                                 		});
                                 	}else{
                                 		t_data[n].process[m].detail.push({
@@ -193,7 +240,25 @@
 		                                	cuadate : as[i].cuadate,
 		                                	uindate : as[i].uindate,
 		                                	workno : as[i].workno,
-		                                	memo : as[i].memo
+		                                	memo : as[i].memo,
+		                                	custno : as[i].custno,
+		                                	comp : as[i].comp
+                                		});
+                                		s_data[n].detail.push({
+                                			processno : as[i].processno,
+                                			process : as[i].process,
+	                                		productno : as[i].productno,
+	                                		product : as[i].product,
+	                                		noq : as[i].noq,
+	                                		mount : as[i].mount,
+		                                	hours : as[i].hours,
+		                                	days : as[i].days,
+		                                	cuadate : as[i].cuadate,
+		                                	uindate : as[i].uindate,
+		                                	workno : as[i].workno,
+		                                	memo : as[i].memo,
+		                                	custno : as[i].custno,
+		                                	comp : as[i].comp
                                 		});
                                 	}
                                 }
@@ -201,7 +266,8 @@
                             $('#Loading').hide();
                             Unlock();
                             $('#chart01').barChart01({
-                                data : t_data
+                                data : t_data,
+                                data2 : s_data
                             });
                             
                             $('#txtTotPage').val(t_data.length);
@@ -248,6 +314,7 @@
                     $(this).data('info', {
                         curIndex : -1,
                         cugData : value.data,
+                        cugData2 : value.data2,
                         init : function(obj) {
                             if (value.length == 0) {
                                 alert('無資料。');
@@ -285,10 +352,13 @@
                             if(obj.data('info').cugData.length==0)
 								return
 							var t_data = obj.data('info').cugData[obj.data('info').curIndex];
+							var s_data = obj.data('info').cugData2[obj.data('info').curIndex];
                             var tmpPath = "";
 							var bkColor = ['rgb(210,233,255)', 'rgb(255,238,221)'];//背景色
 							var bkN = t_data.process.length;//分幾個製程
-							var p_height=50//固定製程高度
+							var p_height=90//固定背景製程高度
+							var s_process=3;//每個製程要區分段落
+							var s_height=p_height/s_process;//固定製程高度
 							var start_date='';//起始
                         	var end_date='';//終止
                         	for(var i=0;i<t_data.process.length;i++){
@@ -299,69 +369,105 @@
                         				end_date=t_data.process[i].detail[j].uindate;
                         		}
                         	}
+                        	if(emp(end_date)){
+								for(var i=0;i<t_data.process.length;i++){
+	                        		for(var j=0;j<t_data.process[i].detail.length;j++){
+	                        			if(end_date<t_data.process[i].detail[j].cuadate)
+	                        				end_date=t_data.process[i].detail[j].cuadate;
+	                        		}
+	                        	}
+							}
 							//寄算天數差
-							if(emp(end_date)) end_date=q_date();
 							var t1=new Date((dec(start_date.substr(0,3))+1911)+'/'+start_date.substr(4,2)+'/'+start_date.substr(7,2));
 							var t2=new Date((dec(end_date.substr(0,3))+1911)+'/'+end_date.substr(4,2)+'/'+end_date.substr(7,2));
 							var days=t2.getTime()-t1.getTime();
-							days= Math.floor(days / (24 * 3600 * 1000))
-							var day_width=100;//估定天數大小
+							days= Math.floor(days / (24 * 3600 * 1000))+1
+							var day_width=70;//估定天數大小
 							var bkOrigin = [130,50];//邊界
 							//div大小
-							obj.width(bkOrigin[0]+day_width*days+50).height((bkOrigin[1]+(p_height+10)*bkN+50)).html(''); 
+							obj.width(bkOrigin[0]+day_width*days+100).height((bkOrigin[1]+p_height*bkN+100)).html(''); 
 							//底色
 							for (var i = 0; i < bkN; i++)
-                                tmpPath += '<rect x="'+(bkOrigin[0])+'" y="'+(bkOrigin[1]+(p_height+10)*i)+'" width="' + (day_width*days) + '" height="' + ((p_height+10)) + '" style="fill:' + bkColor[i % bkColor.length] + ';"/>';
+                                tmpPath += '<rect x="'+(bkOrigin[0])+'" y="'+(bkOrigin[1]+p_height*i)+'" width="' + (day_width*days) + '" height="' + (p_height) + '" style="fill:' + bkColor[i % bkColor.length] + ';"/>';
 							
                             //X軸
-                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+(bkOrigin[1]+(p_height+10)*bkN)+'" x2="' + (bkOrigin[0]+day_width*days) + '" y2="' + (bkOrigin[1]+(p_height+10)*bkN)+ '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+(bkOrigin[1]+p_height*bkN)+'" x2="' + (bkOrigin[0]+day_width*days) + '" y2="' + (bkOrigin[1]+p_height*bkN)+ '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
                             //Y軸
-                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+bkOrigin[1]+'" x2="'+bkOrigin[0]+'" y2="' + (bkOrigin[1]+(p_height+10)*bkN) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';                       	
-                        	
-                        	//tmpPath += '<text text-anchor="middle" x="'+(bkOrigin[0]-5)+'" y="' +(bkOrigin[1]+(p_height+10)*bkN+20) + '" fill="black">' +start_date + '</text>';
-                        	//tmpPath += '<text text-anchor="middle" x="'+ (bkOrigin[0]+day_width*days)+'" y="' +(bkOrigin[1]+(p_height+10)*bkN+20) + '" fill="black">' +end_date + '</text>';
+                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+bkOrigin[1]+'" x2="'+bkOrigin[0]+'" y2="' + (bkOrigin[1]+p_height*bkN) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';                       	
                         	
                         	//時間差距
+                        	var t3=new Date(t1);
                         	for(var i=0;i<=days;i++){
-                        		var t_date=(dec(t1.getFullYear())-1911)+'/'+(t1.getMonth()+1)+'/'+t1.getDate();
-                        		tmpPath += '<line x1="'+(bkOrigin[0]+day_width*i)+'" y1="'+(bkOrigin[1]+(p_height+10)*bkN-5)+'" x2="'+(bkOrigin[0]+day_width*i)+'" y2="' + (bkOrigin[1]+(p_height+10)*bkN+5) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                        		tmpPath += '<text text-anchor="middle" x="'+(bkOrigin[0]+day_width*i)+'" y="' +(bkOrigin[1]+(p_height+10)*bkN+20) + '" fill="black">' +t_date + '</text>';
-                        		t1.setDate(t1.getDate()+1);
+                        		var t_date=(t3.getMonth()+1)+'/'+t3.getDate();
+                        		tmpPath += '<line x1="'+(bkOrigin[0]+day_width*i)+'" y1="'+(bkOrigin[1]+p_height*bkN-5)+'" x2="'+(bkOrigin[0]+day_width*i)+'" y2="' + (bkOrigin[1]+p_height*bkN+5) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                        		tmpPath += '<text text-anchor="middle" x="'+(bkOrigin[0]+day_width*i)+'" y="' +(bkOrigin[1]+p_height*bkN+20+(i%2)*20) + '" fill="black">' +t_date + '</text>';
+                        		t3.setDate(t3.getDate()+1);
                         	}
                         	//製程名稱
                         	for(var i=0; i<t_data.process.length;i++){
                         		var process_name=emp(t_data.process[i].process)?'無製程名稱':t_data.process[i].process;
-                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+(p_height+10)*(i+1)-((p_height+10)/2)) + '" fill="black">' + process_name + '</text>';
+                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)) + '" fill="black">' + process_name + '</text>';
                         	}
-                        	
+                        	//工作中心
                         	tmpPath += '<text font-size="26" text-anchor="middle" x="'+(bkOrigin[0])+'" y="' + 30 + '" fill="black">'+t_data.station+'</text>';
                         	
-                        	/*for(var i=0;i<t_data.process.length;i++){
-                        		for(var j=0;j<t_data.process[i].detail.length;j++){
-                        			if(start_date=='' || start_date>t_data.process[i].detail[j].cuadate)
-                        				start_date=t_data.process[i].detail[j].cuadate;
-                        			if(end_date=='' || end_date<t_data.process[i].detail[j].uindate)
-                        				end_date=t_data.process[i].detail[j].uindate;
-                        				
-                        			t_process=dec(t_data.process[i].detail[j].noq)-1;
-	                       			curX = bkOrigin[0] + t_width * i;
-	                       			curY = (bkOrigin[1]+t_process*t_height+5);
-                       				tmpPath += '<rect x="'+(curX+5)+'" y="'+curY+'" width="' + (t_width-10) + '" height="'+(t_height-10)+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
-                       				tmpPath += '<text id="'+t_data.process[i].detail[j].workno+'" class="workno" text-anchor="start" x="'+(curX+5)+'" y="' +(curY+20) + '" fill="black">' + t_data.process[i].detail[j].product+' 需工時:'+t_data.process[i].detail[j].hours + '</text>';
+                        	//製程甘特圖
+                        	var itemColor = ['rgb(180,200,180)', 'rgb(200,180,180)', 'rgb(180,180,200)'];
+                        	var x=bkOrigin[0];
+                        	var y=(bkOrigin[1]+5);
+	                        var end_width=0;
+	                        var pre_date='999/99/99';
+                        	for(var i=0;i<s_data.detail.length;i++){
+                        		var total=0,tmptotal=0;
+                        		var t_date=s_data.detail[i].cuadate;
+                        		pre_date=pre_date=='999/99/99'?s_data.detail[i].cuadate:pre_date;
+                        		var tmpdate=s_data.detail[i].uindate;
+                        		//計算該製程開工日包含其他同一天開工的製程數量(含該製程)
+                        		for(var j=0;j<s_data.detail.length;j++){
+                        			if(t_date==s_data.detail[j].cuadate){ total+=dec(s_data.detail[j].hours);}
+                        			if(t_date==s_data.detail[j].uindate&&t_date!=s_data.detail[j].cuadate){ total+=dec(s_data.detail[j].hours);}
                         		}
+                        		//計算該製程完工日包含其他同一天開工或完工的製程數量(含該製程)
+                        		if(t_date!=tmpdate){
+                        			for(var j=0;j<s_data.detail.length;j++){
+	                        			if(tmpdate==s_data.detail[j].cuadate || tmpdate==s_data.detail[j].uindate){tmptotal+=dec(s_data.detail[j].hours);}
+		                        	}
+	                        	}
+	                        	
+	                        	//計算製程的起始Y
+	                        	for(var j=0;j<t_data.process.length;j++){
+	                        		if(s_data.detail[i].processno==t_data.process[j].processno)
+	                        			y=bkOrigin[1]+(p_height*j)+((i%s_process)*s_height);
+	                        	}
+	                        	
+	                        	//計算製程的長度
+	                        	end_width=(day_width/total*dec(s_data.detail[i].hours));
+	                        	if(tmptotal!=0){
+	                        		var t3=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
+									var t4=new Date((dec(tmpdate.substr(0,3))+1911)+'/'+tmpdate.substr(4,2)+'/'+tmpdate.substr(7,2));
+									var tdays=t4.getTime()-t3.getTime();
+									tdays= Math.floor(tdays / (24 * 3600 * 1000))-1
+	                        		end_width+=(day_width/tmptotal*dec(s_data.detail[i].hours))+(day_width*tdays);
+	                        	}
+	                        	//如果製程沒有連續
+	                        	if(t_date!=pre_date){
+	                        		var t3=new Date((dec(pre_date.substr(0,3))+1911)+'/'+pre_date.substr(4,2)+'/'+pre_date.substr(7,2));
+									var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
+									var tdays=t4.getTime()-t3.getTime();
+									tdays= Math.floor(tdays / (24 * 3600 * 1000))-1
+	                        		x+=(day_width*tdays);
+	                        	}
+	                        	
+	                        	tmpPath += '<rect id="'+s_data.detail[i].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
+	                        	tmpPath += '<text text-anchor="start" x="'+(x+end_width)+'" y="' + (y+s_height/2) + '" fill="black">' + (s_data.detail[i].comp==''?'生計':s_data.detail[i].comp) + '</text>';
+                        		//設定下個製程的起始X
+                        		x+=end_width;
+                        		pre_date=tmpdate;
                         	}
-                        	tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-5)+'" y="' +(bkOrigin[1]+15) + '" fill="black">' +start_date + '</text>';
-                        	tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-5)+'" y="' +(bkOrigin[1]+n*bkN) + '" fill="black">' +end_date + '</text>';
-                        	*/
-                        	
                         	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                         	
                         	//事件
-                        	obj.children('svg').find('.workno').hover(function(e) {
-	                                $(this).attr('fill', 'red');
-	                            }, function(e) {
-	                                $(this).attr('fill', 'black');
-	                            }).click(function(e){
+                        	obj.children('svg').find('.workno').click(function(e){
 	                            var workno = $(this).attr('id')
 	                            t_where = "noa='"+workno+"'";
 								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
