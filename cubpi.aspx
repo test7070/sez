@@ -529,7 +529,7 @@
 						$('#textSize2__' + j).val($('#txtWidth__' + j).val());
 						$('#textSize3__' + j).val($('#txtLengthb__' + j).val());
 						$('#textSize4__' + j).val(0);
-						$('#txtRadius__' + j).val(0)
+						$('#txtRadius__' + j).val(0);
 					}
 				} else {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
