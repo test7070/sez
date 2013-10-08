@@ -36,7 +36,7 @@
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']			
 			);
 			$(document).ready(function() {
-				bbmKey = ['noa'];
+				bbmKey = [];
 				bbsKey = ['noa', 'noq'];
 				if (!q_paraChk())
 					return;
@@ -80,7 +80,7 @@
 				var TheoryVal = theory_st(theory_setting);
 				$('#txtWeight_'+b_seq).val(TheoryVal);
 			}
-
+			var toFocusOrdeno = 0;
 			function bbsAssign() {
 				_bbsAssign();
 				for(var j = 0;j<q_bbsCount;j++){
@@ -100,6 +100,7 @@
 									$('#txtDime_' + b_seq).val(temp_bbt.dime);
 								}
 							}
+							toFocusOrdeno = 1;
 						});
 						$('#txtOrdeno_'+j).change(function(){
 							var thisordeno = trim($(this).val());
@@ -244,7 +245,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['uno'] ) {
+				if (!as['uno'] && !as['ordeno']) {
 					as[bbsKey[0]] = '';
 					return;
 				}
@@ -311,6 +312,9 @@
 		                	$(this).attr('OldValue',$(this).val());
 		                });
 		                ProductAddStyle(b_seq);
+		                if(toFocusOrdeno == 1)
+		                	$('#txtOrdeno_'+b_seq).focus();
+		                toFocusOrdeno = 0;
 		                break;
                 }
             }
@@ -349,7 +353,7 @@
 				text-align: right;
 			}
 			#dbbs{
-				width:1800px;
+				width:1900px;
 			}
 			.btn{
 				font-weight: bold;

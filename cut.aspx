@@ -533,7 +533,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_cut.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -557,10 +557,14 @@
             function sum() {
                 var t_theyout = 0,t_totalout=0;
                 var t_weights,t_theorys;
+                var t_kind = $('#cmbKind').val();
+                var t_typea = $('#cmbTypea').find(":selected").text();
+                var t_type2 = $('#cmbType2').find(":selected").text();
                 for (var j = 0; j < q_bbsCount; j++) {
                 	t_unit = $.trim($('#txtUnit_' + j).val()).toUpperCase();
-                    //---------------------------------------
-                    if ($('#cmbKind').val().substr(0, 1) == 'A') {
+                	t_mount = q_float('txtMount_'+j);
+                	//---------------------------------------
+                	if ($('#cmbKind').val().substr(0, 1) == 'A') {
                         q_tr('txtDime_' + j, q_float('textSize1_' + j));
                         q_tr('txtWidth_' + j, q_float('textSize2_' + j));
                         q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
@@ -573,7 +577,18 @@
                     } else {//鋼筋、胚
                         q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
                     }
-                    getTheory(j);
+                	if(q_float('txtLengthb_'+j)>0){
+	                    getTheory(j);
+                	}else{//非 管
+                		if($('#txtStyle_'+j).val().length>0){
+                			t_theory = (q_float('txtGweight')>0?q_float('txtGweight'):q_float('txtEweight'))
+                				.div(q_float('txtWidth'))
+                				.mul(q_float('txtWidth_'+j))
+                				.mul(q_float('txtMount_'+j))
+                				.div(q_float('txtDivide_'+j)>0?q_float('txtDivide_'+j):1).round(0);
+                			$('#txtTheory_'+j).val(t_theory);
+                		}               
+                	}
                     //---------------------------------------
                 	t_weights = q_float('txtWeight_'+j);
                 	t_theorys = q_float('txtTheory_'+j);
@@ -972,7 +987,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 2000px;
+                width: 1970px;
             }
             .tbbs a {
                 font-size: medium;
@@ -1054,14 +1069,14 @@
 						<td>
 						<input id="txtDatea" type="text" class="txt c1"/>
 						</td>
+						<td><span> </span><a id="lblKind" class="lbl"> </a></td>
+						<td><select id="cmbKind" class="txt c1"></select></td>
+						<td><span> </span><a id="lblType"class="lbl" ></a></td>
+						<td><select id="cmbTypea" class="txt c1"></select></td>
 						<td><span> </span><a id="lblNoa" class="lbl"></a></td>
 						<td>
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblType"class="lbl" ></a></td>
-						<td><select id="cmbTypea" class="txt c1"></select></td>
-						<td><span> </span><a id="lblKind" class="lbl"> </a></td>
-						<td><select id="cmbKind" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMech" class="lbl btn" ></a></td>
@@ -1218,19 +1233,19 @@
 					<td style="width:80px;" align="center"><a id='lblComps'></a></td>
 					<td style="width:50px;" align="center"><a id='lblStyle'></a></td>
 					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a></td>
-					<td style="width:80px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:50px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:20px;" align="center"><a id='lblDivide'></a></td>
 					<td style="width:80px;" align="center"><a id='lblTheory'></a></td>
 					<td style="width:80px;" align="center"><a id='lblHweight'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWeight'></a></td>
 					<td style="width:50px;" align="center"><a id='lblWaste'></a></td>
 					<td style="width:150px;" align="center"><a id='lblBno'></a></td>
-					<td style="width:50px;" align="center"><a id='lblStoreno'></a></td>
+					<td style="width:50px;" align="center">入庫<br>倉庫</a></td>
 					<td style="width:150px;" align="center"><a id='lblMemos'></a></td>
 					<td style="width:50px;" align="center" ><a id='lbltime'></a></td>
 					<td style="width:50px;" align="center" ><a id='lblProductno'></a></td>
 					<td style="width:50px;" align="center" ><a id='lblSpecs'></a></td>
-					<td style="width:50px;" align="center"><a id='lblWprice'></a></td>
+					<td style="width:50px;" align="center">加工<br>單價</td>
 					<td style="width:100px;" align="center"><a id='lblSize'></a></td>
 					<td style="width:80px;" align="center"><a id='lblMweight'></a></td>
 					<td style="width:120px;" align="center"><a id='lblOrdenos'></a></td>

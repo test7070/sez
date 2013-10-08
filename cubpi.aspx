@@ -51,6 +51,7 @@
 				bbsKey = ['noa', 'noq'];
 				bbtKey = ['noa', 'noq'];
 				q_brwCount();
+				q_gt('style', '', 0, 0, 0, '');
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
 
@@ -89,10 +90,11 @@
 						t_edime = (t_edime == 0 ? 9999 : t_edime);
 						t_eradius = (t_eradius == 0 ? 9999 : t_eradius * 1.07);
 						t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
-						var t_where = 'where=^^ 1=1 ';
+						var t_where = '1=1 ';
 						t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno) + q_sqlPara2('mechno', t_mechno);
-						t_where += ' ^^';
-						q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
+						t_where += ' ';
+						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'view_ordes', "95%", "95%", q_getMsg('popOrde'));
+						//q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
 				$('#btnCucImport').click(function() {
@@ -153,6 +155,28 @@
 				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
 				return TmpStr;
 			}
+			
+			function getTheory(b_seq) {
+				t_Radius = $('#txtRadius_' + b_seq).val();
+				t_Width = $('#txtWidth_' + b_seq).val();
+				t_Dime = $('#txtDime_' + b_seq).val();
+				t_Lengthb = $('#txtLengthb_' + b_seq).val();
+				t_Mount = $('#txtMount_' + b_seq).val();
+				t_Style = $('#txtStyle_' + b_seq).val();
+                t_Productno = $('#txtProductno_' + b_seq).val();
+				var theory_setting={
+					calc:StyleList,
+					ucc:t_uccArray,
+					radius:t_Radius,
+					width:t_Width,
+					dime:t_Dime,
+					lengthb:t_Lengthb,
+					mount:t_Mount,
+					style:t_Style,
+					productno:t_Productno
+				};
+				return theory_st(theory_setting);
+			}
 
 			function getBBSWhere(objname) {
 				var tempArray = new Array();
@@ -163,7 +187,9 @@
 				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
 				return TmpStr;
 			}
-
+			
+			var StyleList = '';
+			var t_uccArray = new Array;
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'view_ordes':
@@ -171,7 +197,7 @@
 						var chkWhere = 'where=^^';
 						var as = _q_appendData("view_ordes", "", true);
 						if (as[0] != undefined) {
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate', '');
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2,txtStyle', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate,style', '');
 						} else {
 							alert('無符合的訂單，檢查條件是否輸入有誤。');
 						}
@@ -208,7 +234,13 @@
 							}
 						}
 						break;
+					case 'style' :
+						var as = _q_appendData("style", "", true);
+						StyleList = new Array();
+						StyleList = as;
+						break;
 					case q_name:
+						t_uccArray = _q_appendData("ucc", "", true);
 						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
@@ -223,6 +255,19 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'view_ordes':
+						var wret = '';
+						var chkWhere = 'where=^^';
+						var as = getb_ret();
+						if (as[0] != undefined) {
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2,txtStyle', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate,style', '');
+						} else {
+							alert('無符合的訂單，檢查條件是否輸入有誤。');
+						}
+						sum();
+						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0 ^^';
+						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
+						break;
 					case 'uccc':
 						if (!b_ret || b_ret.length == 0)
 							return;
@@ -254,9 +299,7 @@
 
 			function sum() {
 				for (var j = 0; j < q_bbsCount; j++) {
-					var t_dime = dec($('#txtDime_' + j).val());
-					$('#txtBdime_' + j).val(round(t_dime * 0.93, 2));
-					$('#txtEdime_' + j).val(round(t_dime * 1.07, 2));
+					$('#txtWeight_'+j).val(getTheory(j));
 				}
 			}
 
@@ -327,6 +370,10 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				if(r_rank < 9){
+                	$('#btnCucImport').css('display','none');
+                }
+
 				size_change();
 			}
 
@@ -500,7 +547,7 @@
 						$('#textSize2__' + j).val($('#txtWidth__' + j).val());
 						$('#textSize3__' + j).val($('#txtLengthb__' + j).val());
 						$('#textSize4__' + j).val(0);
-						$('#txtRadius__' + j).val(0)
+						$('#txtRadius__' + j).val(0);
 					}
 				} else {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
@@ -651,7 +698,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 3000px;
+				width: 1200px;
 			}
 			#tbbt {
 				margin: 0;
@@ -770,10 +817,10 @@
 						</td>
 						<td></td>
 						<td>
-						<input type="button" id="btnCucImport">
+						<input type="button" id="btnOrdeImport">
 						</td>
 						<td>
-						<input type="button" id="btnOrdeImport">
+						<input type="button" id="btnCucImport">
 						</td>
 					</tr>
 					<tr>
@@ -828,24 +875,13 @@
 					<td style="width:80px;"><a id='lbl_hmount'> </a></td>
 					<td style="width:80px;"><a id='lbl_hweight'> </a></td>
 					<td style="width:150px;"><a id='lbl_uno'> </a></td>
-					<td style="width:80px;"><a id='lbl_bdime'> </a></td>
-					<td style="width:80px;"><a id='lbl_edime'> </a></td>
 					<td style="width:120px;"><a id='lbl_date2'> </a></td>
 					<td style="width:120px;"><a id='lbl_datea'> </a></td>
 					<td style="width:60px;"><a id='lbl_enda'> </a></td>
 					<td style="width:60px;"><a id='lbl_hend'> </a></td>
 					<td style="width:120px;"><a id='lbl_hdate_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bmount_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bweight_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bstkmount_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bstkweight_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bsecmount_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bsecweight_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bpack_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_btry_pi'> </a></td>
-					<td style="width:80px;"><a id='lbl_bconn_pi'> </a></td>
-					<td style="width:120px;"><a id='lbl_bsafe_pi'> </a></td>
 					<td style="width:120px;"><a id='lbl_spec'> </a></td>
+					<td style="width:30px;"><a id='lbl_Style'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -923,12 +959,6 @@
 					<input id="txtUno.*" type="text" class="txt c1"/>
 					</td>
 					<td>
-					<input id="txtBdime.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtEdime.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
 					<input id="txtDate2.*" type="text" class="txt c1"/>
 					</td>
 					<td>
@@ -944,37 +974,10 @@
 					<input id="txtHdate.*" type="text" class="txt c1"/>
 					</td>
 					<td>
-					<input id="txtBmount.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBweight.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBstkmount.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBstkweight.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBsecmount.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBsecweight.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBpack.*" type="text" class="txt c1"/>
-					</td>
-					<td>
-					<input id="txtBtry.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBconn.*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBsafe.*" type="text" class="txt c1"/>
-					</td>
-					<td>
 					<input id="txtBspec.*" type="text" class="txt c1"/>
+					</td>
+					<td>
+					<input id="txtStyle.*" type="text" class="txt c1"/>
 					</td>
 				</tr>
 			</table>
@@ -993,23 +996,10 @@
 					<BR>
 					<a id='lblSize_st'> </a></td>
 					<td style="width:100px; text-align: center;">數量</td>
-					<td style="width:100px; text-align: center;">入庫重</td>
+					<td style="width:100px; text-align: center;">重量</td>
 					<td style="width:100px; text-align: center;">耗用數</td>
 					<td style="width:100px; text-align: center;">耗料重</td>
 					<td style="width:100px; text-align: center;">領料日</td>
-					<td style="width:100px; text-align: center;">生產數</td>
-					<td style="width:100px; text-align: center;">生產重</td>
-					<td style="width:100px; text-align: center;">無主數</td>
-					<td style="width:100px; text-align: center;">無主重</td>
-					<td style="width:100px; text-align: center;">次級數</td>
-					<td style="width:100px; text-align: center;">次級重</td>
-					<td style="width:120px; text-align: center;">包裝方式</td>
-					<td style="width:100px; text-align: center;">試車管</td>
-					<td style="width:100px; text-align: center;">接頭管</td>
-					<td style="width:120px; text-align: center;">安全吊帶</td>
-					<td style="width:120px; text-align: center;">倉庫</td>
-					<td style="width:80px; text-align: center;">儲位</td>
-					<td style="width:120px; text-align: center;">餘料備註</td>
 				</tr>
 				<tr>
 					<td>
@@ -1058,45 +1048,6 @@
 					</td>
 					<td>
 					<input id="txtDatea..*" type="text" class="txt c1"/>
-					</td>
-					<td>
-					<input id="txtBmount..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBweight..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBstkmount..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBstkweight..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBsecmount..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBsecweight..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBpack..*" type="text" class="txt c1"/>
-					</td>
-					<td>
-					<input id="txtBtry..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBconn..*" type="text" class="txt c1 num"/>
-					</td>
-					<td>
-					<input id="txtBsafe..*" type="text" class="txt c1"/>
-					</td>
-					<td>
-					<input id="txtStoreno..*" type="text" class="txt c1"/>
-					</td>
-					<td>
-					<input id="txtPlace..*" type="text" class="txt c1"/>
-					</td>
-					<td>
-					<input id="txtMemo..*" type="text" class="txt c1"/>
 					</td>
 				</tr>
 			</table>
