@@ -23,7 +23,7 @@
 						$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
 						$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
 					}
-				}else if(window.parent.q_name != 'cub'){
+				}else if(window.parent.q_name != 'cub' || window.parent.q_name == 'cub'){
 					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
@@ -93,7 +93,7 @@
 						$('span[id*="StrX2"]').remove();
 						$('span[id*="StrX3"]').remove();
 					}
-				}else if(window.parent.q_name != 'cub'){
+				}else if(window.parent.q_name != 'cub' || window.parent.q_name == 'cub'){
 					$('#lblSize_st').text(q_getPara('sys.lblSizea'));
 					$('input[id*="txtLengthb_"]').css('width','29%');
 					$('input[id*="txtWidth_"]').css('width','29%');
@@ -129,7 +129,6 @@
 					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblSize_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -149,7 +148,6 @@
 						<span id="StrX3" class="StrX">x</span>
 						<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
 					</td>
-					<td><input id="txtMweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
 					<td><input id="txtMemo.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 				</tr>
 			</table>
