@@ -125,6 +125,7 @@
 		            }
 				});
                 $('#btnConn').click(function() {
+                	if(q_cur==1){return;}
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
                 });

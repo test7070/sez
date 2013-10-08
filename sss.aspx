@@ -130,12 +130,15 @@
                 });
                          
                 $('#btnLabases').click(function(e) {
+                	if(q_cur==1){return;}
                     q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
                 });
                 $('#btnSsspart').click(function(e) {
+                	if(q_cur==1){return;}
                     q_box("ssspart_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ssspart', "60%", "95%", q_getMsg("popSsspart"));
                 });
                 $('#btnSaladjust').click(function(e) {
+                	if(q_cur==1){return;}
                     q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "95%", "95%", q_getMsg("popSaladjust"));
                 });
 
