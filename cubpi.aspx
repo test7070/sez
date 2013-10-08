@@ -90,10 +90,11 @@
 						t_edime = (t_edime == 0 ? 9999 : t_edime);
 						t_eradius = (t_eradius == 0 ? 9999 : t_eradius * 1.07);
 						t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
-						var t_where = 'where=^^ 1=1 ';
+						var t_where = '1=1 ';
 						t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno) + q_sqlPara2('mechno', t_mechno);
-						t_where += ' ^^';
-						q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
+						t_where += ' ';
+						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'view_ordes', "95%", "95%", q_getMsg('popOrde'));
+						//q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
 				$('#btnCucImport').click(function() {
@@ -254,6 +255,19 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'view_ordes':
+						var wret = '';
+						var chkWhere = 'where=^^';
+						var as = getb_ret();
+						if (as[0] != undefined) {
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2,txtStyle', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate,style', '');
+						} else {
+							alert('無符合的訂單，檢查條件是否輸入有誤。');
+						}
+						sum();
+						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0 ^^';
+						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
+						break;
 					case 'uccc':
 						if (!b_ret || b_ret.length == 0)
 							return;
