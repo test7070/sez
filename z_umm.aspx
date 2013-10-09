@@ -89,6 +89,8 @@
 				 //$('#txtSmon2').mask('999/99'); 
 				$('#Xmemo').removeClass('a2').addClass('a1');
 				$('#txtXmemo').css('width','85%');
+				$('.q_report .report').css('width','420px');
+				$('.q_report .report div').css('width','200px');
 				
 				
 				 var t_date,t_year,t_month,t_day;
