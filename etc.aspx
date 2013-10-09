@@ -519,7 +519,7 @@
 						<input id="txtNoa"  type="text"  class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblCustno' class="lbl"> </a></td>
-						<td class="td4"><input id="txtCustno"  type="text"  class="txt c1"/></td>
+						<td class="td4"><input id="txtCustno"  type="text"  class="txt c1" tag="ETC電子檔的客戶統編"/></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
