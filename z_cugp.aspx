@@ -422,18 +422,7 @@
                         		var t_date=s_data.detail[i].cuadate;
                         		pre_date=pre_date=='999/99/99'?s_data.detail[i].cuadate:pre_date;
                         		var tmpdate=s_data.detail[i].uindate;
-                        		//計算該製程開工日包含其他同一天開工的製程數量(含該製程)
-                        		for(var j=0;j<s_data.detail.length;j++){
-                        			if(t_date==s_data.detail[j].cuadate){ total+=dec(s_data.detail[j].hours);}
-                        			if(t_date==s_data.detail[j].uindate&&t_date!=s_data.detail[j].cuadate){ total+=dec(s_data.detail[j].hours);}
-                        		}
-                        		//計算該製程完工日包含其他同一天開工或完工的製程數量(含該製程)
-                        		if(t_date!=tmpdate){
-                        			for(var j=0;j<s_data.detail.length;j++){
-	                        			if(tmpdate==s_data.detail[j].cuadate || tmpdate==s_data.detail[j].uindate){tmptotal+=dec(s_data.detail[j].hours);}
-		                        	}
-	                        	}
-	                        	
+                        		
 	                        	//計算製程的起始Y
 	                        	for(var j=0;j<t_data.process.length;j++){
 	                        		if(s_data.detail[i].processno==t_data.process[j].processno)
@@ -441,25 +430,49 @@
 	                        	}
 	                        	
 	                        	//計算製程的長度
-	                        	end_width=(day_width/total*dec(s_data.detail[i].hours));
-	                        	if(tmptotal!=0){
+	                        	//一天總時數
+	                        	var totalgen=dec(s_data.shours);
+	                        	//-------平均
+	                        	//計算該製程開工日包含其他同一天開工的製程數量(含該製程)
+                        		/*for(var j=0;j<s_data.detail.length;j++){
+                        			if(t_date==s_data.detail[j].cuadate){ total++;}
+                        			if(t_date==s_data.detail[j].uindate&&t_date!=s_data.detail[j].cuadate){ total++;}
+                        		}*/
+                        		//計算該製程完工日包含其他同一天開工或完工的製程數量(含該製程)
+                        		/*if(t_date!=tmpdate){
+                        			for(var j=0;j<s_data.detail.length;j++){
+	                        			if(tmpdate==s_data.detail[j].cuadate || tmpdate==s_data.detail[j].uindate){tmptotal++;}
+		                        	}
+	                        	}*/
+	                        	//end_width=(day_width/total);
+	                        	/*if(tmptotal!=0){
 	                        		var t3=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
 									var t4=new Date((dec(tmpdate.substr(0,3))+1911)+'/'+tmpdate.substr(4,2)+'/'+tmpdate.substr(7,2));
 									var tdays=t4.getTime()-t3.getTime();
 									tdays= Math.floor(tdays / (24 * 3600 * 1000))-1
-	                        		end_width+=(day_width/tmptotal*dec(s_data.detail[i].hours))+(day_width*tdays);
-	                        	}
+	                        		end_width+=(day_width/tmptotal)+(day_width*tdays);
+	                        	}*/
 	                        	//如果製程沒有連續
-	                        	if(t_date!=pre_date){
+	                        	/*if(t_date!=pre_date){
 	                        		var t3=new Date((dec(pre_date.substr(0,3))+1911)+'/'+pre_date.substr(4,2)+'/'+pre_date.substr(7,2));
 									var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
 									var tdays=t4.getTime()-t3.getTime();
 									tdays= Math.floor(tdays / (24 * 3600 * 1000))-1
 	                        		x+=(day_width*tdays);
+	                        	}*/
+	                        	//--------時數
+	                        	end_width=(day_width/totalgen*dec(s_data.detail[i].hours));
+	                        	
+	                        	//如果製程沒有連續
+	                        	if(t_date!=pre_date){
+									var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
+									var tdays=t4.getTime()-t1.getTime();
+									tdays= Math.floor(tdays / (24 * 3600 * 1000))
+	                        		x=bkOrigin[0]+(day_width*tdays);
 	                        	}
 	                        	
 	                        	tmpPath += '<rect id="'+s_data.detail[i].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
-	                        	tmpPath += '<text text-anchor="start" x="'+(x+end_width)+'" y="' + (y+s_height/2) + '" fill="black">' + (s_data.detail[i].comp==''?'生計':s_data.detail[i].comp) + '</text>';
+	                        	tmpPath += '<text id="'+s_data.detail[i].workno+'" class="workno" text-anchor="start" x="'+(x+end_width)+'" y="' + (y+s_height/2) + '" fill="black">' + (s_data.detail[i].comp==''?'生計':s_data.detail[i].comp) + '</text>';
                         		//設定下個製程的起始X
                         		x+=end_width;
                         		pre_date=tmpdate;
@@ -467,7 +480,11 @@
                         	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                         	
                         	//事件
-                        	obj.children('svg').find('.workno').click(function(e){
+                        	obj.children('svg').find('.workno').hover(function(e) {
+								$(this).attr('fill', 'red');
+	                        }, function(e) {
+								$(this).attr('fill', 'black');
+							}).click(function(e){
 	                            var workno = $(this).attr('id')
 	                            t_where = "noa='"+workno+"'";
 								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
