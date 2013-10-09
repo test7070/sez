@@ -18,8 +18,8 @@
         var q_name = "cng";
         var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtTax',10,0,1],['txtMoney',15,0,1],['txtPrice',10,0,1],['txtTotal',15,0,1]];  
+        var bbsNum = [['txtMount',10,0,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -27,7 +27,7 @@
         ['txtStorinno', 'lblStorein', 'store', 'noa,store', 'txtStorinno,txtStorin', 'store_b.aspx'],
         ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-        ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+        ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -54,6 +54,10 @@
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('cng.typea'));
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+            
+            $('#txtPrice').change(function () {sum()});
+            $('#txtMoney').change(function () {sum2()});
+            $('#txtTax').change(function () {sum2()});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -66,7 +70,6 @@
             b_pop = '';
         }
 
-
         function q_gtPost(t_name) {  
             switch (t_name) {
                 case q_name: if (q_cur == 4)   
@@ -76,12 +79,8 @@
         }
 
         function btnOk() {
-            $('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
-            }
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
+        	
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')]]);  
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -103,6 +102,11 @@
         }
 
         function bbsAssign() {  
+        	for (var i = 0; i < q_bbsCount; i++) {
+               	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+               		$('#txtMount_' + i).click(function () {sum()});
+               	}
+			}
             _bbsAssign();
         }
 
@@ -194,35 +198,19 @@
         function btnCancel() {
             _btnCancel();
         }
-        function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4;
-               	}
-               	return 0;//錯誤
+        
+        function sum() {
+        	var total=0;
+        	for(var j = 0;j < q_bbsCount;j++){
+				total+=dec($('#txtMount_'+j).val());
             }
+            q_tr('txtMoney',total*dec($('#txtPrice').val()))
+            q_tr('txtTotal',dec($('#txtMoney').val())+dec($('#txtTax').val()))
+		}
+		function sum2() {
+            q_tr('txtTotal',dec($('#txtMoney').val())+dec($('#txtTax').val()))
+		}
+        
     </script>
     <style type="text/css">
                  #dmain {
@@ -341,13 +329,40 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
-
-      
+            
+            .dbbs {
+                width: 100%;
+            }
+            .dbbs .tbbs {
+                margin: 0;
+                padding: 2px;
+                border: 2px lightgrey double;
+                border-spacing: 1px;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                /*background: #cad3ff;*/
+                background: lightgrey;
+                width: 100%;
+            }
+            .dbbs .tbbs tr {
+                height: 35px;
+            }
+            .dbbs .tbbs tr td {
+                text-align: center;
+                border: 2px lightgrey double;
+            }
+            .dbbs .tbbs select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div class="dview" id="dview" style="float: left;  width:32%;"  >
+        <div class="dview" id="dview" style="float: left;  width:390px;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
@@ -363,7 +378,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 68%;float:left">
+        <div class='dbbm' style="width: 852px;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
        <tr class="tr1">
         	<td class='td1'><span> </span><a id="lblType" class="lbl" > </a></td>
@@ -377,10 +392,15 @@
             <td class='td1'><span> </span><a id="lblTrantype" class="lbl" > </a></td>
             <td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
             <td class='td3'><span> </span><a id="lblStore" class="lbl btn"> </a></td>
-            <td class="td4"><input id="txtStoreno" type="text"  class="txt c6"/><input id="txtStore" type="text" class="txt c6"/></td>       
+            <td class="td4">
+            	<input id="txtStoreno" type="text"  class="txt c2"/>
+            	<input id="txtStore" type="text" class="txt c3"/>
+            </td>       
             <td class="td5"><span> </span><a id="lblStorein" class="lbl btn"> </a></td>
-            <td class="td6"><input id="txtStorinno" type="text" class="txt c6"/>
-            	<input id="txtStorin" type="text" class="txt c6"/></td> 
+            <td class="td6">
+            	<input id="txtStorinno" type="text" class="txt c2"/>
+            	<input id="txtStorin" type="text" class="txt c3"/>
+            </td> 
         </tr>
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -396,23 +416,25 @@
         	<td class="td6"><input id="txtCarno" type="text" class="txt c1"/></td> 
         </tr>
         <tr class="tr5">
-        	<td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
-        	<td class="td2"><input id="txtTax" type="text" class="txt c1 num"/></td>
+        	<td class='td1'><span> </span><a id="lblPrice" class="lbl" > </a></td>
+            <td class="td2"><input id="txtPrice"   type="text" class="txt c1 num"/></td>
             <td class='td3'><span> </span><a id="lblMoney" class="lbl" > </a></td>
             <td class="td4"><input id="txtMoney" type="text" class="txt c1 num"/></td>
            
         </tr>
         <tr class="tr6">
-        	<td class='td1'><span> </span><a id="lblPrice" class="lbl" > </a></td>
-            <td class="td2"><input id="txtPrice"   type="text" class="txt c1 num"/></td>
+        	<td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
+        	<td class="td2"><input id="txtTax" type="text" class="txt c1 num"/></td>
             <td class='td3'><span> </span><a id="lblTotal" class="lbl" > </a></td>
             <td class="td4"><input id="txtTotal"   type="text" class="txt c1 num"/></td>
+            <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+			<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
         <tr class="tr7">
-        <td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
-        <td class="td2" colspan='3'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
-        <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
-            <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+        	<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
+        	<td class="td2" colspan='5'>
+        		<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
+        	</td>
         </tr>
         </table>
         </div>
@@ -429,7 +451,7 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td style="width:15%;"><input id="txtProductno.*" type="text" style="width:80%;" />
-                	<input class="btn"  id="btnProductno.*" type="button" value='...' style="width:15%;"  /></td>
+                	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:15%;"  /></td>
                 <td style="width:25%;"><input class="txt c1" id="txtProduct.*" type="text"/></td>
                 <td style="width:4%;"><input class="txt c1" id="txtUnit.*" type="text" /></td>
                 <td style="width:8%;"><input class="txt num c1" id="txtMount.*" type="text"/></td>

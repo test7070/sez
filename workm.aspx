@@ -434,13 +434,13 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:30%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:30%"><a id='vewStation'> </a></td>
+						<td align="center" style="width:30%"><a id='vewStation'> </a></BR>/<a id='vewTgg'> </a></td>
 						<td align="center" style="width:30%"><a id='vewProduct'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='station tgg'>~station ~tgg</td>
+						<td align="center" id='station comp'>~station ~comp</td>
 						<td align="center" id='product'>~product</td>
 					</tr>
 				</table>
