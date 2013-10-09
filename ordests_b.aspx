@@ -177,7 +177,7 @@
 						<input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/>
 					</td>
 					<td style="width:8%;">
-						<input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/>
+						<input class="txt" id="txtCust.*" type="text" style="width:96%; text-align:left;"/>
 					</td>
 					<td>
 						<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
