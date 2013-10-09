@@ -23,18 +23,27 @@
                 q_gf('', 'z_cng');
             });
             function q_gfPost() {
-               $('#q_report').q_report({
-                        fileName : 'z_cng',
-                        options : [{
-							type : '0',
-							name : 'accy',
-							value : r_accy
+				$('#q_report').q_report({
+					fileName : 'z_cng',
+					options : [{
+						type : '0',
+						name : 'accy',
+						value : r_accy
 					},{
                         type : '1',
                         name : 'noa'
                     },{
                         type : '1',
                         name : 'date'
+                    },{
+                        type : '1',
+                        name : 'mon'
+                    },{
+                        type : '2',
+                        name : 'storeno',
+                        dbf : 'store',
+                        index : 'noa,store',
+                        src : 'store_b.aspx'
                     }]
                     });
                 q_popAssign();
@@ -42,7 +51,9 @@
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
-	             $('#txtDate2').datepicker();  
+	             $('#txtDate2').datepicker();
+	             $('#txtMon1').mask('999/99');  
+	             $('#txtMon2').mask('999/99');
                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtNoa1').val(t_noa);
@@ -58,6 +69,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtMon1').val(t_year+'/'+t_month);
+	                $('#txtMon2').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
