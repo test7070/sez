@@ -577,9 +577,7 @@
                     } else {//鋼筋、胚
                         q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
                     }
-                	if(q_float('txtLengthb_'+j)>0){
-	                    getTheory(j);
-                	}else{//非 管
+                	if(t_type2.indexOf('條')>0 || t_type2.indexOf('貼膜')>0){
                 		if($('#txtStyle_'+j).val().length>0){
                 			t_theory = (q_float('txtGweight')>0?q_float('txtGweight'):q_float('txtEweight'))
                 				.div(q_float('txtWidth'))
@@ -588,6 +586,8 @@
                 				.div(q_float('txtDivide_'+j)>0?q_float('txtDivide_'+j):1).round(0);
                 			$('#txtTheory_'+j).val(t_theory);
                 		}               
+                	}else{
+                		 getTheory(j);
                 	}
                     //---------------------------------------
                 	t_weights = q_float('txtWeight_'+j);
@@ -902,7 +902,7 @@
             }
             .dview {
                 float: left;
-                width: 300px;
+                width: 320px;
                 border-width: 0px;
             }
             .tview {
@@ -922,7 +922,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 1000px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -932,7 +932,7 @@
                 border: 1px white double;
                 border-spacing: 0;
                 border-collapse: collapse;
-                font-size: medium;
+                font-size: larger;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -954,7 +954,7 @@
             }
             .tbbm tr td .lbl {
                 float: right;
-                color: blue;
+                color: black;
                 font-size: medium;
             }
             .tbbm tr td .lbl.btn {
@@ -987,7 +987,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1970px;
+                width: 1950px;
             }
             .tbbs a {
                 font-size: medium;
@@ -1032,7 +1032,7 @@
 		<div style="overflow: auto;display:block;">
 			<!--#include file="../inc/toolbar.inc"-->
 		</div>
-		<div style="overflow: auto;display:block;width:1280px;">
+		<div style="overflow: auto;display:block;width:1400px;">
 			<div class="dview" id="dview"  >
 				<table class="tview" id="tview"	>
 					<tr>
@@ -1071,11 +1071,10 @@
 						</td>
 						<td><span> </span><a id="lblKind" class="lbl"> </a></td>
 						<td><select id="cmbKind" class="txt c1"></select></td>
-						<td><span> </span><a id="lblType"class="lbl" ></a></td>
-						<td><select id="cmbTypea" class="txt c1"></select></td>
 						<td><span> </span><a id="lblNoa" class="lbl"></a></td>
-						<td>
+						<td colspan="3">
 						<input id="txtNoa" type="text" class="txt c1"/>
+						<select id="cmbTypea" style="display:none;"></select>
 						</td>
 					</tr>
 					<tr>
@@ -1231,7 +1230,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:110px;" align="center"><a id='lblCustno'></a></td>
 					<td style="width:80px;" align="center"><a id='lblComps'></a></td>
-					<td style="width:50px;" align="center"><a id='lblStyle'></a></td>
+					<td style="width:30px;" align="center"><a id='lblStyle'></a></td>
 					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:20px;" align="center"><a id='lblDivide'></a></td>
