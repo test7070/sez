@@ -20,8 +20,8 @@
             var q_name="welfare";
             var q_readonly = ['txtNoa','txtIncome','txtPay'];
             var q_readonlys = [];
-            var bbmNum = [['txtIncome',10,0,0,1],['txtPay',10,0,0,1]];
-            var bbsNum = [['txtIncome',10,0,0,1],['txtPay',10,0,0,1]];
+            var bbmNum = [['txtIncome',10,0,1],['txtPay',10,0,1]];
+            var bbsNum = [['txtIncome',10,0,1],['txtPay',10,0,1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
