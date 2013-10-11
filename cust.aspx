@@ -28,6 +28,7 @@
             
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            , ['txtAddr_fact', 'lblAddr_fact', 'view_road', 'zipcode,memo', '0txtZip_fact,txtAddr_fact', 'road_b.aspx']
             , ['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
             , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']);
             $(document).ready(function() {
