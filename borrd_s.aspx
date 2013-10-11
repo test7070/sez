@@ -52,12 +52,14 @@
 				t_carno = $.trim($('#txtCarno').val());
 				t_driverno = $.trim($('#txtDriverno').val());
 				t_driver = $.trim($('#txtDriver').val());
+				t_accno = $.trim($('#txtAccno').val());
 				
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)
 				+ q_sqlPara2("datea", t_bdate, t_edate)
 				+ q_sqlPara2("carno", t_carno)
 				+ q_sqlPara2("driverno", t_driverno) 
-				+ q_sqlPara2("custno", t_custno);
+				+ q_sqlPara2("custno", t_custno)
+				+ q_sqlPara2("accno", t_accno);
 				if (t_comp.length>0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
                 if (t_driver.length>0)
@@ -113,7 +115,11 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
 					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>			
+				</tr>	
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblAccno'> </a></td>
+					<td><input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>		
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
