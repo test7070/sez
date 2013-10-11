@@ -121,6 +121,7 @@
 								$('#txtDime_' + b_seq).val(temp_bbs.dime);
 								$('#txtLengthb_' + b_seq).val(temp_bbs.lengthb);
 								$('#txtMount_' + b_seq).val(temp_bbs.mount);
+								$('#txtStyle_' + b_seq).val(temp_bbs.style);
 								getTheory(b_seq);
 							}
 						});
