@@ -57,6 +57,16 @@
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
 						}
+						if(w.q_name == 'cub' || w.q_name == 'orde'){
+							for (var j = 0; j < w.q_bbtCount; j++) {
+								if (w.$('#txtUno__' + j).val() == abbs[i].uno) {
+									abbs[i].emount = dec(abbs[i].emount) + dec(w.$('#txtMount__'+j).val());
+									abbs[i].eweight = dec(abbs[i].eweight) + dec(w.$('#txtWeight__'+j).val());
+									abbs[i]['sel'] = "true";
+									$('#chkSel_' + abbs[i].rec).attr('checked', true);
+								}
+							}
+						}
 						if (abbs[i].emount <= 0 || abbs[i].eweight <= 0) {
 							abbs.splice(i, 1);
 							i--;
