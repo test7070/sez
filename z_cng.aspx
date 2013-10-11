@@ -44,8 +44,14 @@
                         dbf : 'store',
                         index : 'noa,store',
                         src : 'store_b.aspx'
+                    },{
+                        type : '2',
+                        name : 'productno',
+                        dbf : 'ucaucc',
+                        index : 'noa,product',
+                        src : 'ucaucc_b.aspx'
                     }]
-                    });
+				});
                 q_popAssign();
                  
                  $('#txtDate1').mask('999/99/99');

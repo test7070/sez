@@ -24,31 +24,37 @@
                 $('#q_report').q_report({
                     fileName : 'z_ucc',
                     options : [{
-	                        type : '1',
-	                        name : 'date'
-	                    }, {
-	                        type : '2',
-	                        name : 'product',
-	                        dbf : 'ucaucc',
-	                        index : 'noa,product',
-	                        src : 'ucaucc_b.aspx'
-	                    }, {
 							type : '0',
 							name : 'accy',
 							value : q_getId()[4]
 	                    },{
+	                        type : '1',
+	                        name : 'date' //[2][3]
+	                    }, {
+	                        type : '2',
+	                        name : 'product', //[4][5]
+	                        dbf : 'ucaucc',
+	                        index : 'noa,product',
+	                        src : 'ucaucc_b.aspx'
+	                    },{
+	                        type : '2',
+	                        name : 'storeno', //[6][7]
+	                        dbf : 'store',
+	                        index : 'noa,store',
+	                        src : 'store_b.aspx'
+                    	}, {
 	                        type : '6',
-	                        name : 'edate'
+	                        name : 'edate' //[8]
 	                    },{
 	                        type : '1',
-	                        name : 'ordeno'
+	                        name : 'ordeno' //[9][10]
 						}, {
 							type : '5',
-							name : 'ucctype',
+							name : 'ucctype', //[11]
 							value : [q_getPara('report.all')].concat(q_getPara('uccst.typea').split(','))
 	                    }, {
 							type : '5',
-							name : 'outtypea',
+							name : 'outtypea', //[12]
 							value : ('all@全部,out@委外,notout@非委外').split(',')
 	                    }
                     ]
@@ -73,7 +79,7 @@
             }
 		</script>
 		<style type="text/css">
-			.q_report .option {
+			/*.q_report .option {
 				width: 600px;
 			}
 			.q_report .option div.a1 {
@@ -97,7 +103,7 @@
 			}
 			.q_report .option div .c3 {
 				width: 110px;
-			}
+			}*/
 		</style>
 	</head>
 	<body id="z_accc" ondragstart="return false" draggable="false"
