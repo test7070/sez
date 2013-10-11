@@ -281,7 +281,7 @@
 								}
 							}
 							if (b_ret[0] != undefined) {
-								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtGmount,txtGweight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,eordmount,eordweight,radius,dime,width,lengthb', 'txtUno', '__');
+								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
 								bbtAssign();
 								size_change();
