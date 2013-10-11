@@ -57,9 +57,17 @@
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
 						for (var j = 0; j < w.q_bbsCount; j++) {
 							if (abbs[i].ordeno.length>0 && w.$('#txtOrdeno_' + j).val() == abbs[i].ordeno && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
+								if(w.q_name == 'vcc'){
+									abbs[i].mount = dec(abbs[i].mount)+dec(w.$('#txtMount_' + j).val());
+									abbs[i].weight = dec(abbs[i].weight)+dec(w.$('#txtWeight_' + j).val());
+								}
 								abbs[i]['sel'] = "true";
 								$('#chkSel_' + abbs[i].rec).prop('checked', true);
 							}
+						}
+						if (abbs[i].mount <= 0 || abbs[i].weight <= 0) {
+							abbs.splice(i, 1);
+							i--;
 						}
 					}
 					maxAbbsCount = abbs.length;
