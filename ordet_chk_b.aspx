@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'view_ordet', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, 
+			var q_name = 'view_ordet', t_bbsTag = 'tbbs', t_content = " field=accy,noa,no2,productno,product,unit,ordmount,ordweight,mount,weight,memo,uno,noq,source,no3,issale,radius,dime,width,lengthb,custno,enda", afilter = [], bbsKey = [], t_count = 0, as, 
 			brwCount2 = 0;
 			brwCount = -1;
 			var t_sqlname = 'view_ordet_load'; t_postname = q_name;

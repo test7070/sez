@@ -199,7 +199,7 @@
 						if (as[0] != undefined) {
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2,txtStyle', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate,style', '');
 						} else {
-							alert('無符合的訂單，檢查條件是否輸入有誤。');
+							//alert('無符合的訂單，檢查條件是否輸入有誤。');
 						}
 						sum();
 						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0 ^^';
@@ -262,7 +262,7 @@
 						if (as[0] != undefined) {
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2,txtStyle', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate,style', '');
 						} else {
-							alert('無符合的訂單，檢查條件是否輸入有誤。');
+							//alert('無符合的訂單，檢查條件是否輸入有誤。');
 						}
 						sum();
 						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0 ^^';
@@ -281,7 +281,7 @@
 								}
 							}
 							if (b_ret[0] != undefined) {
-								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtGmount,txtGweight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,eordmount,eordweight,radius,dime,width,lengthb', 'txtUno', '__');
+								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
 								bbtAssign();
 								size_change();
