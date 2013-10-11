@@ -130,7 +130,7 @@
                 		alert('請先輸入'+q_getMsg('lblCust')+'!!');
                 		return;
                 	}
-                	var t_where = " where=^^ a.custno='"+t_custno+"' ^^";
+                	var t_where = " where=^^ (case when a.custno2!='' then a.custno2 else a.custno end)='"+t_custno+"' ^^";
                 	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";
                 	var t_where2 = " where[2]=^^ 1=0 ^^";
                 	var t_where3 = " where[3]=^^ 1=0 ^^";

@@ -25,7 +25,7 @@
         var bbsMask = [];
         q_sqlCount = 6; 
         brwCount = 6; 
-        brwCount2 = 9; 
+        brwCount2 = 11; 
         brwList = []; 
         brwNowPage = 0; 
         brwKey = 'datea';
@@ -33,8 +33,10 @@
 		 aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,paytype,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype', 'cust_b.aspx'],
                 ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
-                ['txtAcomp', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+                ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
                 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+                ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
+                ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
                 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
 		);
               
@@ -692,10 +694,8 @@
 				<td class="td1"><span> </span><a id="lblTel" class="lbl"> </a></td>
 				<td class="td2" colspan='2'><input id="txtTel" type="text" class="txt c1"/></td>
                 <td class="td4"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
-                <td class="td5"><select id="cmbTrantype" style="width: 100%;"> </select></td>                 
-                <td class="td6"><input id="btnOrdes" type="button"/></td>                 
-                <td class="td7"><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
-                <td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td> 
+                <td class="td5"colspan='2'><select id="cmbTrantype" style="width: 100%;"> </select></td>                 
+                <td class="td6"align="right"><input id="btnOrdes" type="button"/></td>                 
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
@@ -704,7 +704,21 @@
 					<input id="txtAddr" type="text" class="txt c1" style="width: 412px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
-                <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+               <td class="td7"><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
+                <td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td> 
+            </tr>
+            <tr>
+				<td class="td1"><span> </span><a id="lblCust2" class="lbl btn"> </a></td>
+				<td class="td2" colspan='2'>
+					<input id="txtCustno2" type="text" class="txt c2"/>
+					<input id="txtComp2" type="text" class="txt c3"/>
+				</td>
+                <td class="td3"><span> </span><a id="lblSales2" class="lbl btn"> </a></td>
+				<td class="td4" colspan='2'>
+					<input id="txtSalesno2" type="text" class="txt c2"/>
+					<input id="txtSales2" type="text" class="txt c3"/>
+				</td>
+				 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
                 <td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td> 
             </tr>
             <tr>
@@ -714,8 +728,7 @@
 					<input id="txtCardeal" type="text" class="txt c3"/>
 				</td>
                 <td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-                <td class="td5"><input id="txtCarno" type="text" class="txt c1"/></td>                 
-                <td class="td6"> </td>                 
+                <td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c1"/></td>
                 <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
                 <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td> 
             </tr>
