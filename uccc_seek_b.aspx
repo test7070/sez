@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		var q_name = 'view_uccc', t_content = ' field=uno,productno,product,spec,unit,radius,dime,width,lengthb,weight,eweight,storeno,class,style', bbsKey = ['uno'], as; 
+		var q_name = 'view_uccc', t_content = ' field=accy,tablea,action,noa,datea,uno,productno,product,radius,dime,width,lengthb,spec,style,storeno,class,class2,typea,source,hard,waste,mount,weight,mweight,size,memo,descr,zinc,scolor,ucolor,unit,kind,eweight,emount', bbsKey = ['uno'], as; 
 		var isBott = false;
 		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 		var i,s1;
@@ -118,7 +118,7 @@
 					$('span[id*="StrX3"]').remove();
 				}
 			}
-            _readonly(true);
+			_readonly(true);
 		}
 	</script>
 	<style type="text/css">
@@ -144,7 +144,7 @@
 			width:98%;
 		}
 		.txt.c2{
-			width:99%;
+			width:95%;
 		}
 		.lbl{
 			float:right;
@@ -161,10 +161,10 @@
 		input[type="button"] {	 
 			font-size: medium;
 		}
-    	.StrX{
-    		margin-right:-2px;
-    		margin-left:-2px;
-    	}
+		.StrX{
+			margin-right:-2px;
+			margin-left:-2px;
+		}
 	</style>
 </head>
 	<body ondragstart="return false" draggable="false"
@@ -183,28 +183,26 @@
 			<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
 			<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 			<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
-			<td align="center" style="width:6%;"><a id='lblMweight_st'> </a></td>
 			<td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
 		</tr>
 		<tr>
 			<td style="width:2%;"><input name="sel" id="radSel.*" type="radio" /></td>
-			<td ><input id="txtUno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-			<td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-			<td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-			<td ><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			<td ><input id="txtUno.*" type="text" class="txt c2" readonly="readonly"/></td>
+			<td ><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
+			<td ><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
+			<td ><input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/></td>
 			<td >
 				<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-                <span id="StrX1" class="StrX">x</span>
+				<span id="StrX1" class="StrX">x</span>
 				<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
 				<span id="StrX2" class="StrX">x</span>
 				<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
 				<span id="StrX3" class="StrX">x</span>
 				<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-            </td>
-			<td ><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-			<td ><input id="txtEweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-			<td ><input id="txtMweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-			<td ><input id="txtMemo.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+			</td>
+			<td ><input id="txtEmount.*" type="text" class="txt c2 num" readonly="readonly"/></td>
+			<td ><input id="txtEweight.*" type="text" class="txt c2 num" readonly="readonly"/></td>
+			<td ><input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/></td>
 		</tr>
 	</table>
 </div>
@@ -212,8 +210,6 @@
 <div id="seekForm">
 	<table id="seekTable" border="0" cellpadding='0' cellspacing='0'>
 		<tr>
-			<td><span class="lbl">訂單編號</span></td>
-			<td colspan="3"><input id="textOrdeno" type="text" class="txt c2"/></td>
 			<td><span class="lbl">品名編號</span></td>
 			<td colspan="3">
 				<input id="textProductno" type="text" style="width:25%"/>

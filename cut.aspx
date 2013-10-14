@@ -55,6 +55,7 @@
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+                bbsMask = [['txtStyle', "A"]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('cut.typea'));
                 q_cmbParse("cmbType2", q_getPara('cut.type2'));
@@ -1266,7 +1267,7 @@
 					<input id="txtCust.*" type="text" style="width:95%;"/>
 					</td>
 					<td>
-					<input style="width:95%;" id="txtStyle.*" type="text" />
+					<input style="width:95%;text-align: center;" id="txtStyle.*" type="text" />
 					</td>
 					<td>
 					<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
