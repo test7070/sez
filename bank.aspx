@@ -26,8 +26,10 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
-            
+            aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            , ['txtAddr', '', 'view_road', 'memo', '0txtAddr', 'road_b.aspx']
+            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 brwCount2 = 20
@@ -40,30 +42,31 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);          
+                mainForm(0);
             }
 
             function mainPost() {
                 q_mask(bbmMask);
-				$('#txtAcc1').change(function() {
-					var str=$.trim($(this).val());
-                	if((/^[0-9]{4}$/g).test(str))
-                		$(this).val(str+'.');
-				});
-			$('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002d\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('bank', t_where, 0, 0, 0, "checkBankno_change", r_accy);
-						}else{
-							Lock();
-							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-							Unlock();
-						}
-					}
+                $('#txtAcc1').change(function() {
+                    var str = $.trim($(this).val());
+                    if ((/^[0-9]{4}$/g).test(str))
+                        $(this).val(str + '.');
+                });
+                $('#txtNoa').change(function(e) {
+                    $(this).val($.trim($(this).val()).toUpperCase());
+                    if ($(this).val().length > 0) {
+                        if ((/^(\w+|\w+\u002d\w+)$/g).test($(this).val())) {
+                            t_where = "where=^^ noa='" + $(this).val() + "'^^";
+                            q_gt('bank', t_where, 0, 0, 0, "checkBankno_change", r_accy);
+                        } else {
+                            Lock();
+                            alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
+                            Unlock();
+                        }
+                    }
                 });
             }
+
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -71,32 +74,32 @@
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
-                }  
+                }
             }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'checkBankno_change':
-                		var as = _q_appendData("bank", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].bank);
+                    case 'checkBankno_change':
+                        var as = _q_appendData("bank", "", true);
+                        if (as[0] != undefined) {
+                            alert('已存在 ' + as[0].noa + ' ' + as[0].bank);
                         }
-                		break;
-					case 'checkBankno_btnOk':
-                		var as = _q_appendData("bank", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].bank);
+                        break;
+                    case 'checkBankno_btnOk':
+                        var as = _q_appendData("bank", "", true);
+                        if (as[0] != undefined) {
+                            alert('已存在 ' + as[0].noa + ' ' + as[0].bank);
                             Unlock();
                             return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
+                        } else {
+                            wrServer($('#txtNoa').val());
                         }
-                		break;
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
-                } 
+                }
             }
 
             function _btnSeek() {
@@ -104,38 +107,42 @@
                     return;
                 q_box('bank_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
+
             function btnIns() {
                 _btnIns();
                 refreshBbm();
                 $('#txtNoa').focus();
             }
+
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
                 refreshBbm();
-                $('#txtNoa').attr('disabled','disabled')
+                $('#txtNoa').attr('disabled', 'disabled')
                 $('#txtComp').focus();
             }
 
             function btnPrint() {
 
             }
-			 function q_stPost() {
+
+            function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                    Unlock();
+                Unlock();
 
             }
+
             function btnOk() {
-                Lock(); 
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-            	if((/^(\w+|\w+\u002d\w+)$/g).test($('#txtNoa').val())){
-				}else{
-					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-					Unlock();
-					return;
-				}
+                Lock();
+                $('#txtNoa').val($.trim($('#txtNoa').val()));
+                if ((/^(\w+|\w+\u002d\w+)$/g).test($('#txtNoa').val())) {
+                } else {
+                    alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
+                    Unlock();
+                    return;
+                }
 
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
@@ -143,11 +150,11 @@
                     alert(t_err);
                     return;
                 }
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                if (q_cur == 1) {
+                    t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
                     q_gt('bank', t_where, 0, 0, 0, "checkBankno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
+                } else {
+                    wrServer($('#txtNoa').val());
                 }
             }
 
@@ -164,15 +171,17 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                refreshBbm();  
+                refreshBbm();
             }
-			 function refreshBbm(){
-            	if(q_cur==1){
-            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
-            	}else{
-            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-            	}
+
+            function refreshBbm() {
+                if (q_cur == 1) {
+                    $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+                } else {
+                    $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+                }
             }
+
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }
@@ -235,8 +244,8 @@
             }
             .dview {
                 float: left;
-                width: 400px; 
-                border-width: 0px; 
+                width: 400px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -256,8 +265,8 @@
             .dbbm {
                 float: left;
                 width: 550px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -344,8 +353,10 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain'>
+		<div style="overflow: auto;display:block;">
+			<!--#include file="../inc/toolbar.inc"-->
+		</div>
+		<div style="overflow: auto;display:block;width:1280px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
@@ -354,7 +365,9 @@
 						<td align="center" style="width:280px; color:black;"><a id='vewBank'> </a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=' '/>
+						</td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='bank' style="text-align: left;">~bank</td>
 					</tr>
@@ -363,48 +376,62 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
+						<td>
+						<input id="txtNoa"  type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtBank"  type="text" class="txt c1" /></td>
+						<td colspan="3">
+						<input id="txtBank"  type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblConn' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtConn" type="text" class="txt c1" /></td>
+						<td colspan="3">
+						<input id="txtConn" type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtTel" type="text" class="txt c1" /></td>
+						<td colspan="3">
+						<input id="txtTel" type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtAddr" type="text" class="txt c1" /></td>
+						<td colspan="3">
+						<input id="txtAddr" type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtAccount"  type="text" class="txt c1" /></td>
+						<td colspan="3">
+						<input id="txtAccount"  type="text" class="txt c1" />
+						</td>
 					</tr>
 					<td><span> </span><a id="lblAcomp" class="lbl" > </a></td>
-						<td colspan="3">
-						<input id="txtCno" type="text" style="float:left; width:25%;"/>
-						<input id="txtAcomp"  type="text" style="float:left; width:73%;"/>
-						</td>
+					<td colspan="3">
+					<input id="txtCno" type="text" style="float:left; width:25%;"/>
+					<input id="txtAcomp"  type="text" style="float:left; width:73%;"/>
+					</td>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>
-						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
+						<td>
+						<input id="txtAcc1" type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
+						<td colspan="3" >						<textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
 					</tr>
 				</table>
 			</div>
