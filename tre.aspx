@@ -95,7 +95,7 @@
                 $('#btnTrans').click(function(e) {
                 	if(q_cur != 1 && q_cur != 2){
                 		if(r_accy.substring(0,3)!=$('#txtDate2').val().substring(0,3)){
-		            		alert('年度異常!');
+		            		alert(q_getMsg('lblDate2')+'年度異常!');
 		            		return;
 		            	}
 						Lock(1,{opacity:0});
