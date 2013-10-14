@@ -354,8 +354,10 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' >
+		<div style="overflow: auto;display:block;">
+			<!--#include file="../inc/toolbar.inc"-->
+		</div>
+		<div style="overflow: auto;display:block;width:1280px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 						<tr>
