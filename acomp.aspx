@@ -9,7 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -27,7 +30,8 @@
             brwKey = 'noa';
 			brwCount2 = 20;
 			t_stamp = new Array();//q_getPara('stamp.typea')
-			
+			aPop = new Array(['txtAddr', '', 'view_road', 'memo', '0txtAddr', 'road_b.aspx']);
+            				
 			function acomp(noa,stamp) {
 				try{
 					this.noa = noa;
@@ -519,8 +523,10 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain'>
+		<div style="overflow: auto;display:block;width:1050px;">
+			<!--#include file="../inc/toolbar.inc"-->
+		</div>
+		<div style="overflow: auto;display:block;width:1280px;">
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
 					<tr>
