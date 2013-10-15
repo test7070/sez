@@ -248,7 +248,7 @@
             function btnOk() {
                 var t_err = '';
                 t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtUno', q_getMsg('lblUno')]]);
-				if(trim($('#txtCustno').val()).length > 0){
+				if(trim($('#txtCustno2').val()).length > 0){
 					$('#cmbTypea2').val(2); //有主
 				}else{
 					$('#cmbTypea2').val(1); //無主
