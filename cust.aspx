@@ -572,6 +572,12 @@
 						<input id="txtMobile" type="text" class="txt c1"/>
 						</td>
 					</tr>
+					<tr class="tr7">
+						<td class="td1"><span> </span><a id='lblInvoicetitle' class="lbl"> </a></td>
+						<td class="td2" colspan='3' >
+						<input id="txtInvoicetitle" type="text" class="txt c7"/>
+						</td>
+					</tr>
 					<tr class="tr8">
 						<td class="td1"><span> </span><a id='lblAddr_fact' class="lbl"></a></td>
 						<td class="td2">
