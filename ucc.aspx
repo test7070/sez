@@ -17,7 +17,7 @@
 		var decbbm = ['inprice', 'saleprice', 'reserve', 'beginmount','uweight','beginmoney','drcr','price2','days','stkmount','safemount','stkmoney'];
 		var q_name = "ucc";
 		var q_readonly = ['textUccprice','textStk','textSaleprice','textInprice','textCosta','textOrdemount','textPlanmount','textIntmount','textAvaistk'];
-		var bbmNum = [];	
+		var bbmNum = [['txtSaleprice',10,2,1],['txtInprice',10,2,1]];	
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
 		//ajaxPath = ""; //	execute in Root
@@ -266,11 +266,11 @@
 			var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtNoa').val()+"' ^^";
 			q_gt('calstk', t_where , 0, 0, 0, "ucc_stk", r_accy);
 			//最新出貨單價
-			var t_where = "where=^^ noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
-			q_gt('vcc', t_where , 0, 0, 0, "ucc_vcc", r_accy);
+			//var t_where = "where=^^ noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
+			//q_gt('vcc', t_where , 0, 0, 0, "ucc_vcc", r_accy);
 			//最新進貨單價
-			var t_where = "where=^^ noa in (select noa from rc2s"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
-			q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
+			//var t_where = "where=^^ noa in (select noa from rc2s"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
+			//q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
 			
 			//訂單、在途量、計畫
 			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";   			
@@ -483,13 +483,13 @@
 			<td class="label1"><a id='lblUnit'> </a></td>
 			<td><input	type="text" id="txtUnit" class="txt c1"/></td>
 			<td class="label2"><a id='lblInprice'> </a></td>
-			<td><input	type="text" id="textInprice" class="txt num c2"/></td>			
+			<td><input	type="text" id="txtInprice" class="txt num c2"/></td>			
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblSafemount'> </a></td>
 			<td><input	type="text" id="txtSafemount" class="txt num c1"/></td>
 			<td class="label2"><a id='lblSaleprice'> </a></td>
-			<td><input	type="text" id="textSaleprice"	class="txt num c2"/></td>
+			<td><input	type="text" id="txtSaleprice"	class="txt num c2"/></td>
 			<td class="td5"><input id="btnStkcost" type="button"  /></td>
 		</tr>
 		<!--<tr>

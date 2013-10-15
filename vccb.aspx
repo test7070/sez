@@ -176,7 +176,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_vccb.aspx'+ "?;;;;" + ";noa="+ $('#txtNoa').val(), '', "95%", "95%", q_getMsg("popPrint"));
             }
 			function typea_chg(){
 				if($('#cmbTypea').val() == 1 || $('#cmbTypea').val() == 2){
