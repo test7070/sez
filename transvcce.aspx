@@ -231,7 +231,10 @@
                             $('#tranorde_noa' + i).html(this.data[n+i]['noa']);
                             $('#tranorde_ctype' + i).html(this.data[n+i]['ctype']);
                             $('#tranorde_strdate' + i).html(this.data[n+i]['strdate']);
-                            $('#tranorde_dldate' + i).html(this.data[n+i]['dldate']);
+                            //結關日cldate,到期日madate,預計完工日dldate	
+                            t_date = this.data[n+i]['cldate'].length>0?this.data[n+i]['cldate']:this.data[n+i]['madate'];
+                            t_date =  t_date.length>0? t_date:this.data[n+i]['dldate'];
+                            $('#tranorde_dldate' + i).html(t_date);
                             $('#tranorde_nick' + i).html(this.data[n+i]['nick']);
                             $('#tranorde_addr' + i).html(this.data[n+i]['addr']);
                             $('#tranorde_product' + i).html(this.data[n+i]['product']);  
