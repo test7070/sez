@@ -10,104 +10,104 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
+			this.errorHandler = null;
+			function onPageError(error) {
+				alert("An error occurred:\r\n" + error.Message);
+			}
 
-            var q_name = "ucch";
-            var q_readonly = []
-            var q_readonly = ['txtNoa','txtUno2','txtCustno','txtCust','txtCustno2','txtCust2','txtProductno',
-            				  'txtProduct','txtSpec','txtStyle','txtClass','txtRadius','txtWidth','txtDime','txtLengthb',
-            				  'txtMount','txtWeight','txtWeight2','txtWorker','txtWorker2'
-            				 ];
-			/*var q_readonly = ['txtWorker'];*/
-            var bbmNum = [];
-            var bbmMask = [];
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'noa';
-            q_desc = 1;
-            brwCount2 = 12;
+			var q_name = "ucch";
+			var q_readonly = [];
+			var q_readonly = ['txtNoa','txtUno2','txtCustno','txtCust','txtCustno2','txtCust2','txtProductno',
+							  'txtProduct','txtSpec','txtStyle','txtClass','txtRadius','txtWidth','txtDime','txtLengthb',
+							  'txtMount','txtWeight','txtWeight2','txtWorker','txtWorker2'
+							 ];
+			var bbmNum = [];
+			var bbmMask = [];
+			q_sqlCount = 6;
+			brwCount = 6;
+			brwList = [];
+			brwNowPage = 0;
+			brwKey = 'noa';
+			q_desc = 1;
+			brwCount2 = 12;
+			aPop = new Array(['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']);
+		
+			$(document).ready(function() {
+				bbmKey = ['noa'];
+				q_brwCount();
+				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+			});
 
-            $(document).ready(function() {
-                bbmKey = ['noa'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-            });
+			function main() {
+				if (dataErr) {
+					dataErr = false;
+					return;
+				}
+				mainForm(1);
+			}
 
-            function main() {
-                if (dataErr) {
-                    dataErr = false;
-                    return;
-                }
-                mainForm(1);
-            }
-
-            function mainPost() {
-                q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
-                q_mask(bbmMask);
-                q_cmbParse("cmbTypea", ','+q_getPara('ucch.typea'));
-                q_cmbParse("cmbTypea2", ','+q_getPara('ucch.typea2'));
-                $('#txtUno').focusout(function(){
-                	if(q_cur == 1 || q_cur==2){
-	                	thisVal = trim($(this).val());
-	                	if(thisVal.length > 0){
-		                	var t_where = "where=^^ 1=1 and uno='"+thisVal+"' ^^";
-		                	q_gt('view_uccc', t_where, 0, 0, 0, "");
-	                	}
-                	}
-                });
-                $('#txtMount2').focusout(function(){
-                	if(q_cur == 1 || q_cur==2){
-	                	var o_mount = dec($('#txtMount').val());
-	                	var o_weight = dec($('#txtWeight').val());
-	                	var n_mount = dec($(this).val());
-	                	var n_weight = 0;
-	                	if(n_mount > o_mount){
-	                		alert('轉換數量不可超過原數量!!');
-	                		$(this).val(0).focus();
-	                		return;
-	                	}
-	                	if(n_mount < 0){
-	                		alert('轉換數量不可為負數!!');
-	                		$(this).val(0).focus();
-	                		return;
-	                	}
-	                	if(emp(n_mount)){
-	                		$('#txtWeight2').val(0);
-	                	}else{
-	                		if(o_mount == n_mount){
-	                			$('#txtWeight2').val(o_weight);
-	                		}else{
-	                			n_weight = Math.round(((o_weight/o_mount)*n_mount),0);
-	                			$('#txtWeight2').val(n_weight);
-	                		}
-	                	}
-	                }
-                });
-                $('#txtOrdeno2').change(function(){
-                	if(q_cur == 1 || q_cur==2){
-	                	var t_ordeno2 = trim($(this).val());
-	                	if(t_ordeno2.length > 0){
-	                		var t_where = "where=^^ noa='"+t_ordeno2+"' ^^";
-	                		q_gt('orde', t_where, 0, 0, 0, "orde_txtCustno2_txtCust2", r_accy);
-	                	}
-                	}
-                });
-                $('#txtOrdeno').change(function(){
-                	if(q_cur == 1 || q_cur==2){
-	                	var t_ordeno = trim($(this).val());
-	                	if(t_ordeno.length > 0){
-	                		var t_where = "where=^^ noa='"+t_ordeno+"' ^^";
-	                		q_gt('orde', t_where, 0, 0, 0, "orde_txtCustno_txtCust", r_accy);
-	                	}
-                	}
-                });
-            }
+			function mainPost() {
+				q_getFormat();
+				bbmMask = [['txtDatea', r_picd]];
+				q_mask(bbmMask);
+				q_cmbParse("cmbTypea", ','+q_getPara('ucch.typea'));
+				q_cmbParse("cmbTypea2", ','+q_getPara('ucch.typea2'));
+				$('#txtUno').focusout(function(){
+					if(q_cur == 1 || q_cur==2){
+						thisVal = trim($(this).val());
+						if(thisVal.length > 0){
+							var t_where = "where=^^ 1=1 and uno='"+thisVal+"' ^^";
+							q_gt('view_uccc', t_where, 0, 0, 0, "");
+						}
+					}
+				});
+				$('#txtMount2').focusout(function(){
+					if(q_cur == 1 || q_cur==2){
+						var o_mount = dec($('#txtMount').val());
+						var o_weight = dec($('#txtWeight').val());
+						var n_mount = dec($(this).val());
+						var n_weight = 0;
+						if(n_mount > o_mount){
+							alert('轉換數量不可超過原數量!!');
+							$(this).val(0).focus();
+							return;
+						}
+						if(n_mount < 0){
+							alert('轉換數量不可為負數!!');
+							$(this).val(0).focus();
+							return;
+						}
+						if(emp(n_mount)){
+							$('#txtWeight2').val(0);
+						}else{
+							if(o_mount == n_mount){
+								$('#txtWeight2').val(o_weight);
+							}else{
+								n_weight = Math.round(((o_weight/o_mount)*n_mount),0);
+								$('#txtWeight2').val(n_weight);
+							}
+						}
+					}
+				});
+				$('#txtOrdeno2').change(function(){
+					if(q_cur == 1 || q_cur==2){
+						var t_ordeno2 = trim($(this).val());
+						if(t_ordeno2.length > 0){
+							var t_where = "where=^^ noa='"+t_ordeno2+"' ^^";
+							q_gt('orde', t_where, 0, 0, 0, "orde_txtCustno2_txtCust2", r_accy);
+						}
+					}
+				});
+				$('#txtOrdeno').change(function(){
+					if(q_cur == 1 || q_cur==2){
+						var t_ordeno = trim($(this).val());
+						if(t_ordeno.length > 0){
+							var t_where = "where=^^ noa='"+t_ordeno+"' ^^";
+							q_gt('orde', t_where, 0, 0, 0, "orde_txtCustno_txtCust", r_accy);
+						}
+					}
+				});
+			}
 
 			function getNewUno(o_Uno,pos){
 				var checkStr='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -126,85 +126,85 @@
 				return o_UnoTmp;
 			}
 
-            function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        ///   q_boxClose 3/4
-                        break;
-                }   /// end Switch
-            }
+			function q_boxClose(s2) {
+				var ret;
+				switch (b_pop) {
+					case q_name + '_s':
+						q_boxClose2(s2);
+						///   q_boxClose 3/4
+						break;
+				}   /// end Switch
+			}
 
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                	case 'getNewUnoGt':
-                		var o_Uno = trim($('#txtUno').val());
-                		var NewUno = '';
-                		var as = _q_appendData('view_uccc','',true);
-                		if (as[0] == undefined){
-                			NewUno = getNewUno(o_Uno,0);
-                		}else{
-	                		var unoas = new Array();
-	                		for(var j = 0;j<as.length;j++){
-	                			unoas.push(as[j].uno);
-	                		}
-	                		var i=0;
-	                		var isCheckOut = false;
-	                		while(!isCheckOut){
-	                			if(getNewUno(o_Uno,i).length > 0 && unoas.indexOf(getNewUno(o_Uno,i)) == -1){
-	                				isCheckOut = true;
-	                				NewUno = getNewUno(o_Uno,i);
-	                				$('#txtUno2').attr('readonly','readonly');
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'getNewUnoGt':
+						var o_Uno = trim($('#txtUno').val());
+						var NewUno = '';
+						var as = _q_appendData('view_uccc','',true);
+						if (as[0] == undefined){
+							NewUno = getNewUno(o_Uno,0);
+						}else{
+							var unoas = new Array();
+							for(var j = 0;j<as.length;j++){
+								unoas.push(as[j].uno);
+							}
+							var i=0;
+							var isCheckOut = false;
+							while(!isCheckOut){
+								if(getNewUno(o_Uno,i).length > 0 && unoas.indexOf(getNewUno(o_Uno,i)) == -1){
+									isCheckOut = true;
+									NewUno = getNewUno(o_Uno,i);
+									$('#txtUno2').attr('readonly','readonly');
 									$('#txtUno2').css('background-color', t_background2).css('color','green');
-	                			}else{
-	                				if(getNewUno(o_Uno,i) == ''){
-	                					NewUno = '';
-	                					$('#txtUno2').removeAttr('readonly');
+								}else{
+									if(getNewUno(o_Uno,i) == ''){
+										NewUno = '';
+										$('#txtUno2').removeAttr('readonly');
 										$('#txtUno2').css('background-color', t_background).css('color','');
-	                					isCheckOut = true;
-	                				}else{
-	                					isCheckOut = false;
-	                				}
-	                				i++;
-	                			}
-	                		}
-                		}
-	                	$('#txtUno2').val(NewUno);
-                		break;
-                	case 'view_uccc':
-                		var t_Uno = trim($('#txtUno').val());
-                		var as = _q_appendData('view_uccc','',true);
-                		if (as[0] != undefined){
-                			$('#txtProductno').val(as[0].productno);
-                			$('#txtProduct').val(as[0].product);
-                			$('#txtStyle').val(as[0].style);
-                			$('#txtSpec').val(as[0].spec);
-                			$('#txtClass').val(as[0].class);
-                			$('#txtRadius').val(as[0].radius);
-                			$('#txtWidth').val(as[0].width);
-                			$('#txtDime').val(as[0].dime);
-                			$('#txtLengthb').val(as[0].lengthb);
-                			$('#txtMount').val(as[0].emount);
-                			$('#txtWeight').val(as[0].eweight);
-                		}else{
-                			alert('無此批號!!');
-                			$('#txtUno').val('').focus();
-                			return;
-                		}
-		                thisVal = trim($('#txtUno').val());
-		                if((/\*?[A-Za-z]$/g).test(thisVal)){
-		                	thisVal = trim(thisVal.substring(0,thisVal.length-1));
-		                }
-		                if(thisVal.length > 0){
-		                	var t_where = "where=^^ 1=1 " +q_sqlPara2('uno',thisVal)+" ^^";
-		                	q_gt('view_uccc', t_where, 0, 0, 0, "getNewUnoGt");
-		                }
-                		break;
-                    case q_name:
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
+										isCheckOut = true;
+									}else{
+										isCheckOut = false;
+									}
+									i++;
+								}
+							}
+						}
+						$('#txtUno2').val(NewUno);
+						break;
+					case 'view_uccc':
+						var t_Uno = trim($('#txtUno').val());
+						var as = _q_appendData('view_uccc','',true);
+						if (as[0] != undefined){
+							$('#txtProductno').val(as[0].productno);
+							$('#txtProduct').val(as[0].product);
+							$('#txtStyle').val(as[0].style);
+							$('#txtSpec').val(as[0].spec);
+							$('#txtClass').val(as[0].class);
+							$('#txtRadius').val(as[0].radius);
+							$('#txtWidth').val(as[0].width);
+							$('#txtDime').val(as[0].dime);
+							$('#txtLengthb').val(as[0].lengthb);
+							$('#txtMount').val(as[0].emount);
+							$('#txtWeight').val(as[0].eweight);
+						}else{
+							alert('無此批號!!');
+							$('#txtUno').val('').focus();
+							return;
+						}
+						thisVal = trim($('#txtUno').val());
+						if((/\*?[A-Za-z]$/g).test(thisVal)){
+							thisVal = trim(thisVal.substring(0,thisVal.length-1));
+						}
+						if(thisVal.length > 0){
+							var t_where = "where=^^ 1=1 " +q_sqlPara2('uno',thisVal)+" ^^";
+							q_gt('view_uccc', t_where, 0, 0, 0, "getNewUnoGt");
+						}
+						break;
+					case q_name:
+						if (q_cur == 4)
+							q_Seek_gtPost();
+						break;
 					default:
 						if(t_name.length>5 && t_name.substring(0,4)== 'orde'){
 							var UseObj_Custno = '#'+t_name.split('_')[1];
@@ -219,232 +219,232 @@
 							}
 						}
 						break;
-                }  /// end switch
-            }
+				}  /// end switch
+			}
 
-            function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)// 1-3
-                    return;
-            }
+			function _btnSeek() {
+				if (q_cur > 0 && q_cur < 4)// 1-3
+					return;
+			}
 
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
-            }
+			function btnIns() {
+				_btnIns();
+				$('#txtNoa').val('AUTO');
+				$('#txtDatea').val(q_date());
+				$('#txtDatea').focus();
+			}
 
-            function btnModi() {
-                if (emp($('#txtNoa').val()))
-                    return;
-                _btnModi();
-                $('#txtDatea').focus();
-            }
+			function btnModi() {
+				if (emp($('#txtNoa').val()))
+					return;
+				_btnModi();
+				$('#txtDatea').focus();
+			}
 
-            function btnPrint() {
+			function btnPrint() {
 
-            }
+			}
 
-            function btnOk() {
-                var t_err = '';
-                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtUno', q_getMsg('lblUno')]]);
-				if(trim($('#txtCustno').val()).length > 0){
+			function btnOk() {
+				var t_err = '';
+				t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtUno', q_getMsg('lblUno')]]);
+				if(trim($('#txtCustno2').val()).length > 0){
 					$('#cmbTypea2').val(2); //有主
 				}else{
 					$('#cmbTypea2').val(1); //無主
 				}
 				if(q_cur==1)
-                	$('#txtWorker').val(r_name);
-                else
-                	$('#txtWorker2').val(r_name);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                var t_noa = trim($('#txtNoa').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll($('#txtDatea').val(), '/', ''));
-                else
-                    wrServer(t_noa);
-            }
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
+				if (t_err.length > 0) {
+					alert(t_err);
+					return;
+				}
+				var t_noa = trim($('#txtNoa').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll($('#txtDatea').val(), '/', ''));
+				else
+					wrServer(t_noa);
+			}
 
-            function wrServer(key_value) {
-                var i;
-                xmlSql = '';
-                if (q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
+			function wrServer(key_value) {
+				var i;
+				xmlSql = '';
+				if (q_cur == 2)/// popSave
+					xmlSql = q_preXml();
 
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
-            }
+				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+				_btnOk(key_value, bbmKey[0], '', '', 2);
+			}
 
-            function refresh(recno) {
-                _refresh(recno);    
-            }
+			function refresh(recno) {
+				_refresh(recno);	
+			}
 
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-                $('#cmbTypea').attr('disabled','disabled').css('background-color',t_background2);
-                $('#cmbTypea2').attr('disabled','disabled').css('background-color',t_background2);
-            }
+			function readonly(t_para, empty) {
+				_readonly(t_para, empty);
+				$('#cmbTypea').attr('disabled','disabled').css('background-color',t_background2);
+				$('#cmbTypea2').attr('disabled','disabled').css('background-color',t_background2);
+			}
 
-            function btnMinus(id) {
-                _btnMinus(id);
-            }
+			function btnMinus(id) {
+				_btnMinus(id);
+			}
 
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
+			function btnPlus(org_htm, dest_tag, afield) {
+				_btnPlus(org_htm, dest_tag, afield);
+			}
 
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
+			function q_appendData(t_Table) {
+				return _q_appendData(t_Table);
+			}
 
-            function btnSeek() {
-                _btnSeek();
-            }
+			function btnSeek() {
+				_btnSeek();
+			}
 
-            function btnTop() {
-                _btnTop();
-            }
+			function btnTop() {
+				_btnTop();
+			}
 
-            function btnPrev() {
-                _btnPrev();
-            }
+			function btnPrev() {
+				_btnPrev();
+			}
 
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
+			function btnPrevPage() {
+				_btnPrevPage();
+			}
 
-            function btnNext() {
-                _btnNext();
-            }
+			function btnNext() {
+				_btnNext();
+			}
 
-            function btnNextPage() {
-                _btnNextPage();
-            }
+			function btnNextPage() {
+				_btnNextPage();
+			}
 
-            function btnBott() {
-                _btnBott();
-            }
+			function btnBott() {
+				_btnBott();
+			}
 
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
+			function q_brwAssign(s1) {
+				_q_brwAssign(s1);
+			}
 
-            function btnDele() {
-                _btnDele();
-            }
+			function btnDele() {
+				_btnDele();
+			}
 
-            function btnCancel() {
-                _btnCancel();
-            }
+			function btnCancel() {
+				_btnCancel();
+			}
 		</script>
 		<style type="text/css">
-            #dmain {
-                overflow: hidden;
-            }
-            .dview {
-                float: left;
-                width: 300px;
-                border-width: 0px;
-            }
-            .tview {
-                border: 5px solid gray;
-                font-size: medium;
-                background-color: black;
-            }
-            .tview tr {
-                height: 30px;
-            }
-            .tview td {
-                padding: 2px;
-                text-align: center;
-                border-width: 0px;
-                background-color: #FFFF66;
-                color: blue;
-            }
-            .dbbm {
-                float: left;
-                width: 700px;
-                /*margin: -1px;
-                 border: 1px black solid;*/
-                border-radius: 5px;
-            }
-            .tbbm {
-                padding: 0px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
-                font-size: medium;
-                color: blue;
-                background: #cad3ff;
-                width: 100%;
-            }
-            .tbbm tr {
-                height: 35px;
-            }
-            .tbbm tr td {
-                width: 9%;
-            }
-            .tbbm .tdZ {
-                width: 2%;
-            }
-            .tbbm tr td span {
-                float: right;
-                display: block;
-                width: 5px;
-                height: 10px;
-            }
-            .tbbm tr td .lbl {
-                float: right;
-                color: blue;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn {
-                color: #4297D7;
-                font-weight: bolder;
-            }
-            .tbbm tr td .lbl.btn:hover {
-                color: #FF8F19;
-            }
-            .txt{
-            	float:left;
-            }
-            .c1 {
-                width: 100%;
-            }
-            .c2{
-            	width:30px;
-            	text-align:center;
-            }
-            .txt.num {
-                text-align: right;
-            }
-            .tbbm td {
-                margin: 0 -1px;
-                padding: 0;
-            }
-            .tbbm td input[type="text"] {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                float: left;
-            }
-            .tbbm select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-            }
-            .num {
-                text-align: right;
-            }
-            input[type="text"], input[type="button"] {
-                font-size: medium;
-            }
-            select {
-                font-size: medium;
-            }
+			#dmain {
+				overflow: hidden;
+			}
+			.dview {
+				float: left;
+				width: 300px;
+				border-width: 0px;
+			}
+			.tview {
+				border: 5px solid gray;
+				font-size: medium;
+				background-color: black;
+			}
+			.tview tr {
+				height: 30px;
+			}
+			.tview td {
+				padding: 2px;
+				text-align: center;
+				border-width: 0px;
+				background-color: #FFFF66;
+				color: blue;
+			}
+			.dbbm {
+				float: left;
+				width: 700px;
+				/*margin: -1px;
+				 border: 1px black solid;*/
+				border-radius: 5px;
+			}
+			.tbbm {
+				padding: 0px;
+				border: 1px white double;
+				border-spacing: 0;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: #cad3ff;
+				width: 100%;
+			}
+			.tbbm tr {
+				height: 35px;
+			}
+			.tbbm tr td {
+				width: 9%;
+			}
+			.tbbm .tdZ {
+				width: 2%;
+			}
+			.tbbm tr td span {
+				float: right;
+				display: block;
+				width: 5px;
+				height: 10px;
+			}
+			.tbbm tr td .lbl {
+				float: right;
+				color: blue;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn {
+				color: #4297D7;
+				font-weight: bolder;
+			}
+			.tbbm tr td .lbl.btn:hover {
+				color: #FF8F19;
+			}
+			.txt{
+				float:left;
+			}
+			.c1 {
+				width: 100%;
+			}
+			.c2{
+				width:30px;
+				text-align:center;
+			}
+			.txt.num {
+				text-align: right;
+			}
+			.tbbm td {
+				margin: 0 -1px;
+				padding: 0;
+			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				float: left;
+			}
+			.tbbm select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+			}
+			.num {
+				text-align: right;
+			}
+			input[type="text"], input[type="button"] {
+				font-size: medium;
+			}
+			select {
+				font-size: medium;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
