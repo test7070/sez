@@ -645,7 +645,7 @@
 							<input id="txtProduct"  type="text"  style="float:left; width:75%;"/>
 						</td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td><input id="txtMon"  type="text"  class="txt"/>	</td>
+						<td><input id="txtMon"  type="text"  class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
