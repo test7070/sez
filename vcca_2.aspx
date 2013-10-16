@@ -177,11 +177,13 @@
 							//3聯須輸入統編
 							if (as[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){										
 								alert(q_getMsg('lblSerial')+'錯誤。');
+								Unlock(1);
 								return;
 							}
 							//2聯不須輸入統編
 							if (as[0].rev=='2' && $('#txtSerial').val().length>0 && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){										
 								alert(q_getMsg('lblSerial')+'錯誤。');
+								Unlock(1);
 								return;
 							}
 							wrServer($('#txtNoa').val()); 
@@ -199,37 +201,36 @@
 					return false;
 				abbm[q_recno]['accno'] = xmlString;
 				$('#txtAccno').val(xmlString);
+				Unlock(1);
 			}
 			function btnOk() {	
+				Lock(1,{opacity:0});
 				if($('#cmbTaxtype').val() !=6 && emp($('#txtProductno').val())){
 					alert(q_getMsg('lblProduct')+'未填寫。');
+					Unlock(1);
 					return;
 				}
 				if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
+					Unlock(1);
 					return;
 				}							   
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
 				if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())){
 					alert(q_getMsg('lblNoa')+'錯誤。');
+					Unlock(1);
 					return;
 				}
-				if(emp($.trim($('#txtMon').val()))){
+				if($.trim($('#txtMon').val()).length==0)
 					$('#txtMon').val($('#txtDatea').val().substring(0,6));
-				}
 				$('#txtMon').val($.trim($('#txtMon').val()));
-				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+				if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 					alert(q_getMsg('lblMon')+'錯誤。');
-				}
-						
+					Unlock(1);
+					return;
+				}		
 				$('#txtWorker' ).val(r_name);
 				sum();
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
-				// 檢查空白
-				if (t_err.length > 0) {
-					alert(t_err);
-					return;
-				}
 				var t_where = '';
 				if(q_cur==1){
 					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
