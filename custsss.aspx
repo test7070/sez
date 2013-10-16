@@ -51,12 +51,15 @@
                 q_mask(bbmMask);
                 
                 $('#btnChange').click(function() {
+                	var t_err = '';
+	                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtSssno', q_getMsg('lblSssno')]]);
+	                if (t_err.length > 0) {
+	                    alert(t_err);
+	                    return;
+	                }
                 	var r=confirm("你確定要執行嗎?");
                 	if (r==true){
-                		alert("確定執行");
-	                	if(!emp($('#txtNoa').val())&&!emp($('#txtSssno').val()))
-							q_func('custsss.change', $('#txtSssno').val()+','+$('#txtBcustno').val()+','+$('#txtEcustno').val())
-							q_func('qtxt.query','custsss.txt,custsss,'+encodeURI($('#txtSssno').val()) + ';' + encodeURI($('#txtBcustno').val()) + ';' + encodeURI($('#txtEcustno').val()));
+						q_func('qtxt.query','custsss.txt,custsss,'+encodeURI($('#txtSssno').val()) + ';' + encodeURI($('#txtBcustno').val()) + ';' + encodeURI($('#txtEcustno').val()));
 					}else{
 						alert("取消執行");
 					}
