@@ -598,7 +598,7 @@
 		            }else if(q_cur ==2){
 		            	$('#txtWorker2').val(r_name);
 		            }else{
-		            	alert("error: btnok!")
+		            	alert("error: btnok!");
 		            }
             		var t_noa = trim($('#txtNoa').val());
 	                var t_date = trim($('#txtDatea').val());
