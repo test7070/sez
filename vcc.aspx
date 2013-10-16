@@ -188,6 +188,15 @@
             		}
             		t_msg="庫存量："+stkmount;
             		//最新出貨單價
+					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
+					q_gt('ucccust', t_where , 0, 0, 0, "msg_ucccust", r_accy);
+            		break;
+            	case 'msg_ucccust':
+            		var as  = _q_appendData("ucccust", "", true);
+            		if(as[0]!=undefined){
+            			t_msg=t_msg+"<BR>銷售單價："+dec(as[0].price);
+            		}
+            		//最新出貨單價
 					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+b_seq).val()+"' and price>0 ) ^^ stop=1";
 					q_gt('vcc', t_where , 0, 0, 0, "msg_vcc", r_accy);
             		break;
