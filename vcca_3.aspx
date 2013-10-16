@@ -80,7 +80,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtMon', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
                 
 				$('#txtNoa').change(function(e) {
