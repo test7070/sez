@@ -225,7 +225,8 @@
 		    function q_stPost() {
 		        if (!(q_cur == 1 || q_cur == 2))
 		            return false;
-		        abbm[q_recno]['accno'] = xmlString;
+				var s2 = xmlString.split(';');
+		        abbm[q_recno]['accno'] = s2[0];
 		        //$('#txtAccno').val(xmlString);
 		    }
 

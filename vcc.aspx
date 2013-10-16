@@ -34,7 +34,7 @@
                 ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
                 ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-                ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+                ['txtSalesno', 'lblSales', 'cust_sssall', 'noa,nick', 'txtSalesno,txtSales', 'cust_sssall_b.aspx'],
                 ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
                 ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
                 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
@@ -781,6 +781,7 @@
         <table id="tbbs" class='tbbs'>
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;width:" /> </td>
+				<td align="center"><a id='lblUno_s'> </a></td>
                 <td align="center"><a id='lblProductno_s'> </a></td>
                 <td align="center"><a id='lblProduct_s'> </a></td>
                 <td align="center"><a id='lblUnit_s'> </a></td>
@@ -792,6 +793,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <td style="width:10%;"><input id="txtUno.*" type="text" class="txt c1" /></td>
                 <td style="width:10%">
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
                 	<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
