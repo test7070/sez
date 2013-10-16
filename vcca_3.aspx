@@ -67,7 +67,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             function main() {
@@ -80,7 +80,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtMon', r_picd]];
                 q_mask(bbmMask);
                 
 				$('#txtNoa').change(function(e) {
@@ -204,7 +204,8 @@
                     Unlock(1);
                     return;
                 }
-                $('#txtMon').val($('#txtDatea').val().substring(0,6));
+                if($.trim($('#txtMon').val()).length==0)
+					$('#txtMon').val($('#txtDatea').val().substring(0,6));
 				$('#txtMon').val($.trim($('#txtMon').val()));
 				if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 					alert(q_getMsg('lblMon')+'錯誤。');
@@ -608,7 +609,6 @@
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td>
 							<input id="txtDatea"  type="text"  class="txt c1"/>
-							<input id="txtMon"  type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
@@ -644,6 +644,8 @@
 							<input id="txtProductno"  type="text"  style="float:left; width:25%;"/>
 							<input id="txtProduct"  type="text"  style="float:left; width:75%;"/>
 						</td>
+						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td><input id="txtMon"  type="text"  class="txt"/>	</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
