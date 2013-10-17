@@ -109,7 +109,7 @@
 					<td class="td2" align="center" style="width:10%;"><a id='lblCustno'> </a></td>
 					<td class="td3" align="center" style="width:20%;"><a id='lblComp'> </a></td>
 					<td class="td4" align="center" style="width:15%;"><a id='lblProductno'> </a></td>
-					<td class="td4" align="center" style="width:10%;"><a id='lblPrice'> </a></td>
+					<!--<td class="td4" align="center" style="width:10%;"><a id='lblPrice'> </a></td>-->
 					<td class="td5" align="center" ><a id='lblMemo'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -120,7 +120,7 @@
 					<td class="td2"><input class="txt"  id="txtCustno.*" maxlength='30'type="text" style="width:95%;"  /></td>
 					<td class="td3"><input class="txt" id="txtComp.*" type="text" maxlength='90' style="width:95%;"   /></td>
 					<td class="td4"><input class="txt" id="txtProductno.*" type="text" maxlength='10' style="width:95%;"  /></td>
-					<td class="td4"><input class="txt" id="txtPrice.*" type="text" maxlength='10' style="text-align: right ;width:95%;"  /></td>
+					<!--<td class="td4"><input class="txt" id="txtPrice.*" type="text" maxlength='10' style="text-align: right ;width:95%;"  /></td>-->
 					<td class="td5"><input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:95%;"   /></td>
 				</tr>
 			</table>

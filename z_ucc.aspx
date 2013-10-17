@@ -15,10 +15,13 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			var uccgaItem = '';
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_ucc');
+                if(uccgaItem.length == 0){
+					q_gt('uccga', '', 0, 0, 0, "");
+				}
             });
             function q_gfPost() {
                 $('#q_report').q_report({
@@ -51,11 +54,23 @@
 						}, {
 							type : '5',
 							name : 'ucctype', //[11]
-							value : [q_getPara('report.all')].concat(q_getPara('uccst.typea').split(','))
+							value : [q_getPara('report.all')].concat(q_getPara('sys.comp').indexOf('英特瑞')>-1?q_getPara('ucc.typea_ir').split(','):q_getPara('ucc.typea').split(','))
 	                    }, {
 							type : '5',
 							name : 'outtypea', //[12]
 							value : ('all@全部,out@委外,notout@非委外').split(',')
+	                    }, {
+	                        type : '5', //[13]
+	                        name : 'xgroupano',
+	                        value : uccgaItem.split(',')
+						},{
+							type : '0',//[14]
+							name : 'xgroupas',
+							value : uccgaItem
+	                    },{
+							type : '0',//[15]
+							name : 'xucctype',
+							value : q_getPara('sys.comp').indexOf('英特瑞')>-1?q_getPara('ucc.typea_ir'):q_getPara('ucc.typea')
 	                    }
                     ]
                 });
@@ -75,8 +90,18 @@
             function q_boxClose(s2) {
             }
 
-            function q_gtPost(s2) {
-            }
+            function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'uccga':
+                        var as = _q_appendData("uccga", "", true);
+                        uccgaItem = "#non@全部";
+                        for ( i = 0; i < as.length; i++) {
+                            uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
+                        }
+						q_gf('', 'z_ucc');
+                        break;
+				}
+			}
 		</script>
 		<style type="text/css">
 			/*.q_report .option {
