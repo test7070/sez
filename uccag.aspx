@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -9,6 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -119,6 +123,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
+				q_box('uccag_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -223,7 +228,7 @@
             }
             .dview {
                 float: left;
-                width: 250px;
+                width: 320px;
                 border-width: 0px;
             }
             .tview {
@@ -254,7 +259,7 @@
                 border-spacing: 0;
                 border-collapse: collapse;
                 font-size: medium;
-                color: blue;
+                color: black;
                 background: #cad3ff;
                 width: 100%;
             }
@@ -320,21 +325,24 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain'>
+		<div style="overflow: auto;display:block;">
+			<!--#include file="../inc/toolbar.inc"-->
+		</div>
+		<div style="overflow: auto;display:block;width:1280px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:130px; color:black;"><a id='vewTypea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTypea'> </a></td>
+						<td align="center" style="width:200px; color:black;" colspan="2"><a id='vewDate'> </a></td>
 					</tr>
 					<tr>
 						<td>
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='typea=uccag.typea'>~typea=uccag.typea</td>
+						<td align="center" id='bdate'>~bdate</td>
+						<td align="center" id='edate'>~edate</td>
 					</tr>
 				</table>
 			</div>
