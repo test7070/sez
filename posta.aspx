@@ -389,8 +389,8 @@
 						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td>
-						<input id="txtUseno.*" type="text" class="txt" style="width:85%;"/>
-						<input type="button" id="btnUseno.*" value="." style="width:5%;">
+						<input id="txtUseno.*" type="text" class="txt" style="width:80%;"/>
+						<input type="button" id="btnUseno.*" value="." style="width:1%;">
 					</td>
 					<td><input id="txtComp.*" type="text" class="txt c1"/></td>
 					<td><input id="txtZipcode.*" type="text" class="txt c1" /></td>
