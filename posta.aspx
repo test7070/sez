@@ -39,7 +39,6 @@
 				dataErr = false;
 				return;
 			}
-
 			mainForm(1); 
 		}  
 
@@ -49,6 +48,7 @@
 			q_getFormat();
 			bbmMask = [];
 			q_mask(bbmMask);
+			q_cmbParse("cmbTypea", q_getPara('posta.typea'));
 		}
 		
 		function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -101,6 +101,7 @@
 		function btnIns() {
 			_btnIns();
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+			$('#txtDatea').val(q_date()).focus();
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))

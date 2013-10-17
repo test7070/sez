@@ -51,13 +51,30 @@
 			}
 			var maxAbbsCount = 0;
 			function refresh() {
-				_refresh();
+				switch (window.parent.q_name) {
+					case 'vcce':
+						q_gt('vcces', '', 0, 0, 0, "",r_accy);
+						break;
+					default:
+						toReabbs();
+						break;
+				}
+				$('#checkAllCheckbox').click(function(){
+					$('input[type=checkbox][id^=chkSel]').each(function(){
+						var t_id = $(this).attr('id').split('_')[1];
+						if(!emp($('#txtOrdeno_' + t_id).val()))
+							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
+					});
+				});
+			}
+			
+			function toReabbs(){
 				var w = window.parent;
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
 						for (var j = 0; j < w.q_bbsCount; j++) {
 							if (abbs[i].ordeno.length>0 && w.$('#txtOrdeno_' + j).val() == abbs[i].ordeno && w.$('#txtNo2_' + j).val() == abbs[i].no2) {
-								if(w.q_name == 'vcc'){
+								if((w.q_name == 'vcc' || w.q_name=='vcce') && (w.$('#txtNoa').val() != 'AUTO')){
 									abbs[i].mount = dec(abbs[i].mount)+dec(w.$('#txtMount_' + j).val());
 									abbs[i].weight = dec(abbs[i].weight)+dec(w.$('#txtWeight_' + j).val());
 								}
@@ -78,14 +95,33 @@
 					return y-x;
 				});
 				_refresh();
-				$('#checkAllCheckbox').click(function(){
-					$('input[type=checkbox][id^=chkSel]').each(function(){
-						var t_id = $(this).attr('id').split('_')[1];
-						if(!emp($('#txtOrdeno_' + t_id).val()))
-							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
-					});
-				});
 			}
+			
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'vcces' :
+                        var as = _q_appendData("vcces", "", true);
+                        if (as[0] != undefined){
+							var w = window.parent;
+							if (maxAbbsCount < abbs.length) {
+								for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
+									for (var j = 0; j < as.length; j++) {
+										if (abbs[i].ordeno.length>0 && as[j].ordeno == abbs[i].ordeno && as[j].no2 == abbs[i].no2) {
+												abbs[i].mount = dec(abbs[i].mount)-dec(as[j].mount);
+												abbs[i].weight = dec(abbs[i].weight)-dec(as[j].weight);
+										}
+									}
+									if (abbs[i].mount <= 0 || abbs[i].weight <= 0) {
+										abbs.splice(i, 1);
+										i--;
+									}
+								}
+							}
+                        }
+                        toReabbs();
+                        break;
+                }  /// end switch
+            }
 	</script>
 	<style type="text/css">
 		.seek_tr
