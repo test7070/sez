@@ -23,7 +23,9 @@
 		var bbmMask = [];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-		aPop = new Array();
+		aPop = new Array(
+			['txtUseno_', 'btnUseno_', 'custtgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'custtgg_b.aspx']
+		);
 
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -39,16 +41,14 @@
 				dataErr = false;
 				return;
 			}
-
 			mainForm(1); 
 		}  
-
-	   
 
 		function mainPost() { 
 			q_getFormat();
 			bbmMask = [];
 			q_mask(bbmMask);
+			q_cmbParse("cmbTypea", q_getPara('posta.typea'));
 		}
 		
 		function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -60,7 +60,6 @@
 			}   /// end Switch
 			b_pop = '';
 		}
-
 
 		function q_gtPost(t_name) {  
 			switch (t_name) {
@@ -101,13 +100,17 @@
 		function btnIns() {
 			_btnIns();
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+			$('#txtDatea').val(q_date()).focus();
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
 				return;		   
 			_btnModi();
 		}
+		
 		function btnPrint() {
+			var t_where = "noa='" + $('#txtNoa').val() + "'";
+			q_box("z_posta.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
 		}
 
 		function wrServer(key_value) {
@@ -118,7 +121,7 @@
 		}
 
 		function bbsSave(as) {
-			if (!as['noq'] ) {  
+			if (!as['useno'] || !as['comp'] || !as['zipcode'] || !as['addr']) {  
 				as[bbsKey[1]] = '';   
 				return;
 			}
@@ -344,7 +347,7 @@
 			 <tr>
 				<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 				<td align="center" id='noa'>~noa</td>
-				<td align="center" id='typea'>~typea</td> 
+				<td align="center" id='typea=cmbTypea'>~typea=cmbTypea</td> 
 			</tr>
 		</table>
 		</div>
@@ -360,13 +363,13 @@
 				</tr>
 				<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
-						<td class="td2" colspan="5"><input id="txtComp" type="text" class="txt c1"/></td>
+						<td class="td2" colspan="3"><input id="txtComp" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id="lblTel" class="lbl" > </a></td>
+						<td class="td4"><input id="txtTel" type="text" class="txt c1"/></td>
 				</tr>
 				<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
-						<td class="td2" conspan="3"><input id="txtAddr" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblTel" class="lbl" > </a></td>
-						<td class="td4"><input id="txtTel" type="text" class="txt c1"/></td>
+						<td class="td2" colspan="5"><input id="txtAddr" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>
@@ -375,17 +378,23 @@
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-					<td align="center" style="width: 10%;"><a id='lblUseno_s'> </a></td>
+					<td align="center" style="width: 15%;"><a id='lblUseno_s'> </a></td>
 					<td align="center" style="width: 25%;"><a id='lblComp_s'> </a></td>
 					<td align="center" style="width: 8%;"><a id='lblZipcode_s'> </a></td>
 					<td align="center"><a id='lblAddr_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td><input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-					<td><input id="txtUseno.*"type="text" class="txt c1"/></td>
+					<td>
+						<input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="text" style="display: none;" />
+					</td>
+					<td>
+						<input id="txtUseno.*" type="text" class="txt" style="width:80%;"/>
+						<input type="button" id="btnUseno.*" value="." style="width:1%;">
+					</td>
 					<td><input id="txtComp.*" type="text" class="txt c1"/></td>
-					<td><input id="txtZipcode.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtAddr.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtZipcode.*" type="text" class="txt c1" /></td>
+					<td><input id="txtAddr.*" type="text" class="txt c1" /></td>
 				</tr>
 			</table>
 		</div>

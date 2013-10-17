@@ -10,9 +10,8 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'custtgg', t_content = ' field=noa,comp,tel,zip_fact,addr_fact,zip_invo,addr_invo,nick,conn', bbsKey = ['noa'], as;
+            var q_name = 'custtgg', t_content = ' field=noa,comp,tel,zip_fact,addr_fact,zip_invo,addr_invo,zip_home,addr_home,nick,conn', bbsKey = ['noa'], as;
             var isBott = false;
-            /// �O�_�w���L �̫�@��
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;
             $(document).ready(function() {
