@@ -87,7 +87,8 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 		                    }
 							q_cmbParse("cmbPartno", t_item);
-		                    $("#cmbPartno").val(abbm[q_recno].partno);
+							if(abbm[q_recno]!=undefined)
+		                    	$("#cmbPartno").val(abbm[q_recno].partno);
 		                }
 		                break;
                     case 'store':
@@ -98,7 +99,8 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
 		                    }
 		                    q_cmbParse("cmbStoreno", t_item);
-		                    $("#cmbStoreno").val(abbm[q_recno].storeno);
+		                    if(abbm[q_recno]!=undefined)
+		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
                     case q_name:
