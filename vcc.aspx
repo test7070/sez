@@ -179,22 +179,20 @@
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {
-            	case 'msg_stk':
-            		var as  = _q_appendData("stkucc", "", true);
-            		var stkmount=0;
+            	case 'msg_ucc':
+            		var as  = _q_appendData("ucc", "", true);
             		t_msg='';
-            		for ( var i = 0; i < as.length; i++) {
-            			stkmount=stkmount+dec(as[i].mount);
+            		if(as[0]!=undefined){
+            			t_msg="銷售單價："+dec(as[0].saleprice)+"<BR>";
             		}
-            		t_msg="庫存量："+stkmount;
-            		//最新出貨單價
-					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
+            		//客戶售價
+            		var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
 					q_gt('ucccust', t_where , 0, 0, 0, "msg_ucccust", r_accy);
             		break;
             	case 'msg_ucccust':
             		var as  = _q_appendData("ucccust", "", true);
             		if(as[0]!=undefined){
-            			t_msg=t_msg+"<BR>銷售單價："+dec(as[0].price);
+            			t_msg=t_msg+"客戶銷售單價："+dec(as[0].price)+"<BR>";
             		}
             		//最新出貨單價
 					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+b_seq).val()+"' and price>0 ) ^^ stop=1";
@@ -209,11 +207,21 @@
 								vcc_price=dec(as[i].price);
 						}
 					}
-					t_msg=t_msg+"<BR>最近出貨單價："+vcc_price;
-					//平均成本
+					t_msg=t_msg+"最近出貨單價："+vcc_price;
+					q_msg( $('#txtPrice_'+b_seq), t_msg);	
+					break;
+            	case 'msg_stk':
+            		var as  = _q_appendData("stkucc", "", true);
+            		var stkmount=0;
+            		t_msg='';
+            		for ( var i = 0; i < as.length; i++) {
+            			stkmount=stkmount+dec(as[i].mount);
+            		}
+            		t_msg="庫存量："+stkmount;
+            		//平均成本
 					var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by datea desc ^^ stop=1";
 					q_gt('wcost', t_where , 0, 0, 0, "msg_wcost", r_accy);
-					break;
+            		break;
 				case 'msg_wcost':
 					var as  = _q_appendData("wcost", "", true);
 					var wcost_price;
@@ -341,6 +349,18 @@
 	                    		//庫存
 								var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
 								q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+	                    	}
+                    	}
+                    });
+                    $('#txtPrice_' + i).focusin (function() {
+                    	if(q_cur==1 ||q_cur==2 ){
+	                    	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+	                    	if(!emp($('#txtProductno_'+b_seq).val())){
+	                    		//金額
+								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
+								q_gt('ucc', t_where , 0, 0, 0, "msg_ucc", r_accy);
 	                    	}
                     	}
                     });

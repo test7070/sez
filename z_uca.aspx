@@ -15,34 +15,61 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXproductno', '', 'uca', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
-		);
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_ucap');
+                q_gf('', 'z_uca');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_ucap',
+                    fileName : 'z_uca',
                     options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : r_accy
-                    },{
-                        type : '6',
-                        name : 'xproductno'
-                    }, {
-                        type : '2',
-                        name : 'spno',
-                        dbf : 'uca',
-                        index : 'noa,product',
-                        src : 'uca_b.aspx'
-                    }]
+							type : '0',
+							name : 'accy',
+							value : q_getId()[4]
+	                    },{
+	                        type : '1',
+	                        name : 'date' //[2][3]
+	                    }, {
+	                        type : '2',
+	                        name : 'product', //[4][5]
+	                        dbf : 'ucaucc',
+	                        index : 'noa,product',
+	                        src : 'ucaucc_b.aspx'
+	                    },{
+	                        type : '2',
+	                        name : 'storeno', //[6][7]
+	                        dbf : 'store',
+	                        index : 'noa,store',
+	                        src : 'store_b.aspx'
+                    	}, {
+	                        type : '6',
+	                        name : 'edate' //[8]
+	                    },{
+	                        type : '1',
+	                        name : 'ordeno' //[9][10]
+						}, {
+							type : '5',
+							name : 'ucctype', //[11]
+							value : [q_getPara('report.all')].concat(q_getPara('uccst.typea').split(','))
+	                    }, {
+							type : '5',
+							name : 'outtypea', //[12]
+							value : ('all@全部,out@委外,notout@非委外').split(',')
+	                    }
+                    ]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
+                
+                $('#txtEdate').mask('999/99/99');
+                $('#txtEdate').val(q_date());
             }
 
             function q_boxClose(s2) {
@@ -51,6 +78,33 @@
             function q_gtPost(s2) {
             }
 		</script>
+		<style type="text/css">
+			/*.q_report .option {
+				width: 600px;
+			}
+			.q_report .option div.a1 {
+				width: 580px;
+			}
+			.q_report .option div.a2 {
+				width: 220px;
+			}
+			.q_report .option div .label {
+				font-size:medium;
+			}
+			.q_report .option div .text {
+				font-size:medium;
+			}
+			.q_report .option div .cmb{
+				height: 22px;
+				font-size:medium;
+			}
+			.q_report .option div .c2 {
+				width: 80px;
+			}
+			.q_report .option div .c3 {
+				width: 110px;
+			}*/
+		</style>
 	</head>
 	<body id="z_accc" ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"

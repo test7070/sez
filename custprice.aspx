@@ -19,7 +19,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "custprice";
-            var q_readonly = ['txtNoa', 'txtDatea'];
+            var q_readonly = ['txtNoa', 'txtDatea','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 0, 1]];
@@ -38,6 +38,54 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
+            
+            function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				//bbm
+				include : ['txtCustno', 'txtComp'],
+				
+				//bbs
+				includes : ['txtProductno_', 'txtProduct_','txtOprice_','txtDiscount_','txtPrice_','txtMemo_'],
+				
+				/*記錄當前的資料*/
+				copy : function() {
+					this.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in this.include) {
+							if (fbbm[i] == this.include[j] ) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude ) {
+							this.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+					//bbs
+					for (var i in this.includes) {
+						for(var j = 0; j < q_bbsCount; j++) {
+							this.data.push({
+								field : this.includes[i]+j,
+								value : $('#' + this.includes[i]+j).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in this.data) {
+					   	$('#' + this.data[i].field).val(this.data[i].value);
+				   	}
+				}
+			};
+			
+			var curData = new currentData();
 
             function main() {
                 if (dataErr) {
@@ -109,9 +157,16 @@
             }
 
             function btnIns() {
+            	if($('#Copy').is(':checked')){
+					curData.copy();
+				}
                 _btnIns();
+                if($('#Copy').is(':checked')){
+					curData.paste();
+				}
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                $('#txtBdate').val(q_date());
                 $('#txtBdate').focus();
 
             }
