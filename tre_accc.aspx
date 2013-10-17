@@ -284,6 +284,10 @@
 		    }
 
 		    function btnOk() {
+		    	if(!(/^[0-9,A-Z,a-z]*$/).test($('#txtChkbno').val())){
+		    		alert(q_getMsg('lblChkbno')+'格式錯誤!\n只允許英文、數字。');
+		    		return;
+		    	}
 		    	if($.trim($('#txtChkbno').val()).length>0 && $.trim($('#txtAccount').val()).length==0){
 		    		alert('請輸入 '+q_getMsg('lblAccount') + '。');
                     return;
@@ -613,7 +617,7 @@
 						<td><input id="txtTimea"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBdate' class="lbl">  </a></td>
+						<td><span> </span><a id='lblBdate' class="lbl" title="對應司機立帳的出車登錄日期，包含符合此日期區間的。">  </a></td>
 						<td><input id="txtBdate" type="text"  class="txt c1"/></td>
 						<td align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td><input id="txtEdate" type="text"  class="txt c1"/> </td>

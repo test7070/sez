@@ -186,14 +186,19 @@
             			t_msg="銷售單價："+dec(as[0].saleprice)+"<BR>";
             		}
             		//客戶售價
-            		var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
-					q_gt('ucccust', t_where , 0, 0, 0, "msg_ucccust", r_accy);
+            		var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and datea<'"+q_date()+"' ^^ stop=1";
+					q_gt('quat', t_where , 0, 0, 0, "msg_quat", r_accy);
             		break;
-            	case 'msg_ucccust':
-            		var as  = _q_appendData("ucccust", "", true);
-            		if(as[0]!=undefined){
-            			t_msg=t_msg+"客戶銷售單價："+dec(as[0].price)+"<BR>";
-            		}
+            	case 'msg_quat':
+            		var as  = _q_appendData("quats", "", true);
+            		var quat_price=0;
+					if(as[0]!=undefined){
+						for ( var i = 0; i < as.length; i++) {
+							if(as[0].productno==$('#txtProductno_'+b_seq).val())
+								quat_price=dec(as[i].price);
+						}
+					}
+            		t_msg=t_msg+"最近報價單價："+quat_price+"<BR>";
             		//最新出貨單價
 					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+b_seq).val()+"' and price>0 ) ^^ stop=1";
 					q_gt('vcc', t_where , 0, 0, 0, "msg_vcc", r_accy);
