@@ -284,6 +284,10 @@
 		    }
 
 		    function btnOk() {
+		    	if(!(/^[0-9,A-Z,a-z]*$/).test($('#txtChkbno').val())){
+		    		alert(q_getMsg('lblChkbno')+'格式錯誤!\n只允許英文、數字。');
+		    		return;
+		    	}
 		    	if($.trim($('#txtChkbno').val()).length>0 && $.trim($('#txtAccount').val()).length==0){
 		    		alert('請輸入 '+q_getMsg('lblAccount') + '。');
                     return;
