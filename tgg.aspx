@@ -192,6 +192,7 @@
 				$('#txtNoa').focus();
 			}
 
+
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
@@ -201,39 +202,32 @@
 				$('#txtComp').focus();
 			}
 
-			function btnPrint() {
-			}
-			function q_stPost() {
-				if (!(q_cur == 1 || q_cur == 2))
-					return false;
-				Unlock();
-			}
-			function btnOk() {
-				if($('#txtChkdate').val().length>0 && !q_cd($('#txtChkdate').val()))
-					alert(q_getMsg('lblChkdate')+'錯誤。');  
-				if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
-					alert(q_getMsg('lblStartdate')+'錯誤。');
-				/*var t_err = '';	
-				if (dec($('#txtCredit').val()) > 9999999999)
-					t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 
-				*/
-				$('#txtKdate').val(q_date());
-				$('#txtWorker' ).val(r_name);
-				var t_noa = trim($('#txtNoa').val());
-				if(q_cur==1){
-					if(emp(t_noa)){
-						alert(q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]));
-						$('#txtNoa').focus();
-						return;
-					}else{
-						t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-						q_gt('tgg', t_where, 0, 0, 0, "checkTggno_btnOk", r_accy);
-					}
-				}else{
-					wrServer($('#txtNoa').val());
-				}
-			}
-
+            function btnPrint() {
+                q_box("z_label.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=" + $('#txtNoa').val() + ";" + r_accy, 'z_label', "95%", "95%", q_getMsg('popZ_label'));
+            }
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
+            function btnOk() {
+                if($('#txtChkdate').val().length>0 && !q_cd($('#txtChkdate').val()))
+            		alert(q_getMsg('lblChkdate')+'錯誤。');  
+            	if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
+            		alert(q_getMsg('lblStartdate')+'錯誤。');
+            	/*var t_err = '';	
+            	if (dec($('#txtCredit').val()) > 9999999999)
+                    t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 
+                */
+               $('#txtKdate').val(q_date());
+                $('#txtWorker' ).val(r_name);
+                if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('tgg', t_where, 0, 0, 0, "checkTggno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
+            }
 			function wrServer(key_value) {
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
