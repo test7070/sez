@@ -53,7 +53,11 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('lab_accc.typea')); //20130601
+                if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
+					q_cmbParse("cmbTypea", q_getPara('lab_accc.typea_ir'));	//IR
+				else
+					q_cmbParse("cmbTypea", q_getPara('lab_accc.typea')); //20130601
+                
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtMon').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
                 });

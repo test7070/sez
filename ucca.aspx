@@ -42,7 +42,10 @@
 
         function mainPost() {
             q_mask(bbmMask);
-            q_cmbParse("cmbTypea", q_getPara('ucc.typea'));
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
+				q_cmbParse("cmbTypea", q_getPara('ucc.typea_ir'));	//IR
+			else
+				q_cmbParse("cmbTypea", q_getPara('ucc.typea'));
             $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
 					if($(this).val().length>0){
