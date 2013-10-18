@@ -109,6 +109,12 @@
 							$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
 					}));
 				}	
+				
+				if(q_getPara('sys.comp').indexOf('大昌')>-1){ 
+					$('.stamp_tr').show();
+				}else{
+					$('.stamp_tr').hide();
+				}
             }
             function display(){
             	$('.stamp_chk').prop('checked',false);
