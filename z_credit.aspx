@@ -86,7 +86,13 @@
                 $('#txtIndate2').mask('999/99/99');
                 $('#txtIndate2').datepicker();
                 
-                
+                var t_key = q_getHref();
+                //抓製令單號
+				if(t_key[1] != undefined){
+                	$('#txtCust1a').val(t_key[1]);
+                	$('#txtCust2a').val(t_key[1]);
+                	$('#btnOk').click();
+               }
             }
 		</script>
 	</head>

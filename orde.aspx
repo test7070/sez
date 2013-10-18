@@ -103,7 +103,11 @@
 				}
 			});
 			
-			
+			$('#btnCredit').click(function(){
+				if(!emp($('#txtCustno').val())){
+					q_box("z_credit.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";custno='" + $('#txtCustno').val() + "';"+r_accy+";" + q_cur, 'ordei', "95%", "95%", q_getMsg('btnCredit'));
+				}
+			});
 		}
 
 		function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -735,6 +739,7 @@
 					<td class="td6"><input id="txtFloata" type="text" class="txt c1" /></td>
 					<td align="center" class="td7" colspan="2" >
 						<input id="btnQuat" type="button" value='' />
+						<input id="btnCredit" type="button" value='' />
 					</td>				 
 				</tr>
 				<tr class="tr3">
