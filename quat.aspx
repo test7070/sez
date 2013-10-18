@@ -550,9 +550,9 @@
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-				<td style="width:10%; text-align:center"><input id="txtProductno.*" type="text" class="txt c2" />
+				<td style="width:10%; text-align:center"><input id="txtProductno.*" type="text" class="txt" style="width:65%;" />
 										<input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
-										<input id="txtNo3.*" type="text" class="txt c3"/></td>
+										<input id="txtNo3.*" type="text" class="txt c3" style="display:none;"/></td>
 				<td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c2"/></td>
 				<!-- <td style="width:18%;"><input id="txtDime.*" type="text" class="txt c3" style="text-align:right;" />x
 									<input id="txtWidth.*" type="text"  class="txt c3" style="text-align:right;" />x
