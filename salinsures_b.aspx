@@ -24,7 +24,7 @@
         var bbsNum = [['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtDisaster', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtPay', 15, 0, 1],['txtUnpay', 15, 0, 1],['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtMount', 15, 0, 1]];
         var bbmMask = [];
 	    var bbsMask = [['txtMon', '999/99']];
-	    aPop = new Array(['txtCustno_', 'lblCust', 'sssall', 'noa,namea', 'txtCustno_', 'sssall_b.aspx'],
+	    aPop = new Array(['txtCustno_', '', 'sssall', 'noa,namea', 'txtCustno_', 'sssall_b.aspx'],
 	    	['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtComp_', 'acomp_b.aspx']);
 	    
         $(document).ready(function () {
@@ -106,6 +106,11 @@
 				
 			}
 			_bbsAssign();
+			if(q_getPara('sys.comp').indexOf('大昌')>-1){
+			 	 $('.hidecust').show();
+			 }else{
+			 	$('.hidecust').hide();
+			 }
 		}
 		
 		function q_popPost(s1) {
@@ -143,6 +148,7 @@
 
         function refresh() {
             _refresh();
+            
         }
         
         function sumperson(xseq) {
@@ -161,19 +167,11 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:150% ; height:100% ;  
+             width:100% ; height:100% ;  
         }      
         .txt.c1
         {
-            width: 95%;
-        }
-        .td1
-        {
-            width: 3%;
-        }
-        .td2
-        {
-            width: 2%;
+            width: 97%;
         }
         .num {
                 text-align: center;
@@ -182,8 +180,8 @@
 </head>
 
 <body> 
-<div  id="dbbs"  style="width: 3000px;">
-       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 3000px;">
+<div  id="dbbs"  style="width: 2620px;">
+       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 2600px;">
             <tr>
 				<td class="td1" align="center" style="width:36px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
@@ -208,8 +206,8 @@
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_health'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblMount'></a></td>
                 <td align="center" style="color:Blue;width:300px;" class="td1"><a id='lblComp'></a></td>
-                <td align="center" style="color:Blue;width:300px;" class="td1"><a id='lblMemo'></a></td>
-                <td align="center" style="color:Blue;width:100px;" class="td1"><a id='lblCust'></a></td>
+                <td align="center" style="color:Blue;" class="td1"><a id='lblMemo'></a></td>
+                <td class="hidecust" align="center" style="color:Blue;width:100px;"><a id='lblCust'></a></td>
             </tr>
             <tr>
 					<td class="td1" align="center">
@@ -240,10 +238,10 @@
                 <td >
                 	<input class="txt c1" id="txtCno.*" type="text"  readonly="readonly"  style="width: 20%;"/>
                 	<input id="btnCno.*" type="button" value="." style="width: 1%;" />
-                	<input class="txt c1" id="txtComp.*" type="text"  readonly="readonly"  style="width: 70%;"/>
+                	<input class="txt c1" id="txtComp.*" type="text"  readonly="readonly"  style="width: 65%;"/>
                 </td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtCustno.*" type="text"  readonly="readonly" /></td>
+                <td class="hidecust"><input class="txt c1" id="txtCustno.*" type="text"  readonly="readonly" /></td>
             </tr>
         </table>
 			<!--#include file="../inc/pop_modi.inc"-->

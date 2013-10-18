@@ -230,11 +230,16 @@
             //----------------------------------------
                 $('#chkIssssp').hide();
             	$('#lblIssssp').hide();
+            	$('#lblCustno').hide();
+            	$('#txtCustno').hide();
+            	$('#txtComp').hide();
             	
-            
             if(q_getPara('sys.comp').indexOf('大昌')>-1){ 
             	$('#chkIssssp').show();
             	$('#lblIssssp').show();
+            	$('#lblCustno').show();
+            	$('#txtCustno').show();
+            	$('#txtComp').show();
 
 	            $('#chkIssssp').change(function () {
 	            	if($('#chkIssssp')[0].checked){//寄保人員
@@ -670,7 +675,7 @@
             }
         }
         function btnPrint() {
-		q_box('z_labase.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+		q_box('z_labase.aspx', '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
