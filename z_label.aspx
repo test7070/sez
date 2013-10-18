@@ -72,8 +72,7 @@
                 q_langShow();
                 //cust.aspx,tgg.aspx
                 var t_no = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
-				
-                if (t_no.indexOf('cust=') > 0) {
+                if (t_no.indexOf('cust=') >= 0) {
                     t_no = t_no.replace('cust=', '');
                     if(t_no.length>0){
 	                    $('#txtCust1a').val(t_no);
