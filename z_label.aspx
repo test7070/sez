@@ -29,16 +29,16 @@
                 switch (t_name) {
                     case 'getCust':
                         var as = _q_appendData("cust", "", true);
-                        if(as[0]!=undefined){
-                        	$('#txtCust1b').val(as[0].nick);
-                    		$('#txtCust2b').val(as[0].nick);
+                        if (as[0] != undefined) {
+                            $('#txtCust1b').val(as[0].nick);
+                            $('#txtCust2b').val(as[0].nick);
                         }
                         break;
                     case 'getTgg':
                         var as = _q_appendData("tgg", "", true);
-                        if(as[0]!=undefined){
-                        	$('#txtTgg1b').val(as[0].nick);
-                    		$('#txtTgg2b').val(as[0].nick);
+                        if (as[0] != undefined) {
+                            $('#txtTgg1b').val(as[0].nick);
+                            $('#txtTgg2b').val(as[0].nick);
                         }
                         break;
                 }
@@ -47,18 +47,22 @@
             function initfinish() {
                 $('#q_report').q_report({
                     fileName : 'z_label',
-                    options : [{/*1-[1]2]客戶*/
+                    options : [{/*1-[1][2]客戶*/
                         type : '2',
                         name : 'cust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }, {/*2-[3]4]廠商*/
+                    }, {/*2-[3][4]廠商*/
                         type : '2',
                         name : 'tgg',
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
+                    }, {/*3-[5]*/
+                        type : '5',
+                        name : 'typea',
+                        value : q_getMsg('typea').split('&')
                     }]
                 });
                 $('#btnOk').hide();
@@ -74,17 +78,17 @@
                 var t_no = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
                 if (t_no.indexOf('cust=') >= 0) {
                     t_no = t_no.replace('cust=', '');
-                    if(t_no.length>0){
-	                    $('#txtCust1a').val(t_no);
-	                    $('#txtCust2a').val(t_no);
-	                    q_gt('cust', "where=^^ noa='"+t_no+"'^^", 0, 0, 0, 'getCust');
+                    if (t_no.length > 0) {
+                        $('#txtCust1a').val(t_no);
+                        $('#txtCust2a').val(t_no);
+                        q_gt('cust', "where=^^ noa='" + t_no + "'^^", 0, 0, 0, 'getCust');
                     }
                 } else {
                     t_no = t_no.replace('tgg=', '');
-                    if(t_no.length>0){
-                    	 $('#txtTgg1a').val(t_no);
-	                    $('#txtTgg2a').val(t_no);
-	                    q_gt('tgg', "where=^^ noa='"+t_no+"'^^", 0, 0, 0, 'getTgg');
+                    if (t_no.length > 0) {
+                        $('#txtTgg1a').val(t_no);
+                        $('#txtTgg2a').val(t_no);
+                        q_gt('tgg', "where=^^ noa='" + t_no + "'^^", 0, 0, 0, 'getTgg');
                     }
                 }
             }
