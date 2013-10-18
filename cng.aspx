@@ -140,7 +140,11 @@
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];
+            as['datea'] = abbm2['datea'];
+            as['tggno'] = abbm2['tggno'];
+            as['typea'] = abbm2['typea'];
+            as['storeno'] = abbm2['storeno'];
+            as['storinno'] = abbm2['storinno'];
             return true;
         }
 
