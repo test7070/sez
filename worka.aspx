@@ -354,6 +354,7 @@
 			q_nowf();
 			as['datea'] = abbm2['datea'];
 			as['cuano'] = abbm2['cuano'];
+			as['stationno'] = abbm2['stationno'];
 			
 			return true;
 		}
