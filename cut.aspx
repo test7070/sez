@@ -751,6 +751,8 @@
                     $('input[id*="textSize"]').attr('disabled', 'disabled');
                 }
                 if ($('#cmbKind').val().substring(0, 1) == 'A') {
+                    $('#cmbType2').text('');
+                    q_cmbParse("cmbType2", q_getPara('cut.type2'));
                     $('#lblSize_help').text(q_getPara('sys.lblSizea'));
                     $('#Size').css('width', '240px');
                     for (var j = 0; j < q_bbsCount; j++) {
@@ -771,6 +773,8 @@
                 } else if ($('#cmbKind').val().substring(0, 1) == 'B') {
                     $('#lblSize_help').text(q_getPara('sys.lblSizeb'));
                     $('#Size').css('width', '340px');
+                    $('#cmbType2').text('');
+                    q_cmbParse("cmbType2", q_getPara('cut.type2A'));
                     for (var j = 0; j < q_bbsCount; j++) {
                         $('#textSize1_' + j).show();
                         $('#textSize2_' + j).show();
@@ -788,6 +792,8 @@
                 } else {//鋼筋和鋼胚
                     $('#lblSize_help').text(q_getPara('sys.lblSizec'));
                     $('#Size').css('width', '200px');
+                    $('#cmbType2').text('');
+                    q_cmbParse("cmbType2", q_getPara('cut.type2'));
                     for (var j = 0; j < q_bbsCount; j++) {
                         $('#textSize1_' + j).hide();
                         $('#textSize2_' + j).hide();
@@ -806,6 +812,7 @@
                         $('#txtRadius_' + j).val(0);
                     }
                 }
+                $('#cmbType2').change();
             }
 			function FormatNumber(n) {
 				var xx = "";
@@ -1186,17 +1193,21 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" ></a></td>
-						<td colspan='7'>						<textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea></td>
+						<td colspan='7'><input id="txtMemo" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
-						<td colspan="3">
-						<input id="txtCardealno" type="text" style="float:left;width:30%;"/>
-						<input id="txtCardeal" type="text" style="float:left;width:70%;"/>
-						</td>
 						<td><span> </span><a id="lblCarno"  class="lbl"></a></td>
 						<td>
 						<input id="txtCarno" type="text" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
+						<td>
+						<input id="txtCardealno" type="text" style="float:left;width:30%;"/>
+						<input id="txtCardeal" type="text" style="float:left;width:70%;"/>
+						</td>
+						<td><span> </span><a id="lblPrice" class="lbl" ></a></td>
+						<td>
+						<input id="txtPrice" type="text" class="txt num c1" />
 						</td>
 						<td><span> </span><a id="lblTranmoney" class="lbl" ></a></td>
 						<td>
@@ -1204,20 +1215,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblOrdeno" class="lbl"></a></td>
-						<td>
-						<input id="txtOrdeno" type="text" class="txt c1"/>
-						</td>
-						<td><span> </span><a id="lblPrice" class="lbl" ></a></td>
-						<td>
-						<input id="txtPrice" type="text" class="txt num c1" />
-						</td>
-						<td></td>
-						<td></td>
 						<td><span> </span><a id="lblWorker" class="lbl" ></a></td>
-						<td>
-						<input id="txtWorker" type="text" class="txt c1"/>
-						</td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl" ></a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

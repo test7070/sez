@@ -45,7 +45,6 @@
 				return arr1;
 			}
 
-
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -594,7 +593,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 800px;
+				width: 1000px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -613,7 +612,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				width: 8%;
 			}
 			.tbbm .tdZ {
 				width: 1%;
@@ -748,14 +747,16 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td style="width:9%;"></td>
+						<td style="width:9%;"></td>
+						<td style="width:9%;"></td>
+						<td style="width:6%;"></td>
+						<td style="width:6%;"></td>
+						<td style="width:5%;"></td>
+						<td style="width:6%;"></td>
+						<td style="width:5%;"></td>
+						<td style="width:9%;"></td>
+						<td style="width:9%;"></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
@@ -795,6 +796,10 @@
 						<td>
 						<input id="txtProductno" type="text" class="txt c1"/>
 						</td>
+						<td><span> </span><a id="lblStyle_pi" class="lbl"></a></td>
+						<td>
+						<input id="txtStyle" type="text" class="txt c2"/>
+						</td>
 						<td><span> </span><a id="lblRadius_pi" class="lbl" ></a></td>
 						<td>
 						<input id="txtRadius" type="text" class="txt c1 num"/>
@@ -803,30 +808,23 @@
 						<td>
 						<input id="txtWidth" type="text" class="txt c1 num"/>
 						</td>
-						<td><span> </span><a id="lblStyle_pi" class="lbl"></a></td>
-						<td>
-						<input id="txtStyle" type="text" class="txt c2"/>
-						</td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblBdime" class="lbl" ></a></td>
 						<td colspan="3">
-						<input id="txtBdime" type="text" style="width:45%;" class="num"/>
+						<input id="txtBdime" type="text" style="width:40%;" class="txt num"/>
 						<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
-						<input id="txtEdime" type="text" style="width:45%;" class="num"/>
+						<input id="txtEdime" type="text" style="width:40%;" class="txt num"/>
 						</td>
-						<td></td>
 						<td>
 						<input type="button" id="btnOrdeImport">
-						</td>
-						<td>
-						<input type="button" id="btnCucImport">
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" ></a></td>
-						<td colspan="4">
+						<td colspan="10">
 						<input id="txtMemo2"  type="text" class="txt c1"/>
+						</td>
+						<td>
+						<input type="button" id="btnCucImport">
 						</td>
 						<td>
 						<input type="button" id="btnUccc_pi">
@@ -834,9 +832,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo_pi" class="lbl" ></a></td>
-						<td colspan="4">
+						<td colspan="10">
 						<input id="txtMemo" type="text" class="txt c1"/>
 						</td>
+						<td></td>
 						<td>
 						<input type="button" id="btnCubu">
 						</td>
