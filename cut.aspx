@@ -73,6 +73,19 @@
                     for (var j = 0; j < q_bbsCount; j++) {
                         getTheory(j);
                     }
+                    var choiceItem = $(this).val().toUpperCase();
+                    switch(choiceItem){
+                    	case '9':
+                    		$('#lblWidth').text(q_getMsg('lblWidth'));
+                    		$('#lblRadius').css('display','none');
+                    		$('#txtRadius').css('display','none');
+                    		break;
+                    	default:
+                    		$('#lblWidth').text(q_getMsg('lblWidth2'));
+                    		$('#lblRadius').css('display','');
+                    		$('#txtRadius').css('display','');
+                    		break;
+                    }
                     cut_save_db();
                 });
                 $('#txtGweight').change(function() {
