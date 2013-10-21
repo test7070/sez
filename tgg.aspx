@@ -136,7 +136,6 @@
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
 				});
-
 			}
 			function q_boxClose(s2) {
 				var ret;
@@ -145,7 +144,8 @@
 						q_boxClose2(s2);
 						///	q_boxClose 3/4
 						break;
-				}  
+				}
+				b_pop = '';
 			}
 
 			function q_gtPost(t_name) {
@@ -176,7 +176,6 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
-
 				q_box('tgg_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
 			}
 			function btnIns() {
@@ -202,32 +201,33 @@
 				$('#txtComp').focus();
 			}
 
-            function btnPrint() {
-                q_box("z_label.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=" + $('#txtNoa').val() + ";" + r_accy, 'z_label', "95%", "95%", q_getMsg('popZ_label'));
-            }
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                Unlock();
-            }
-            function btnOk() {
-                if($('#txtChkdate').val().length>0 && !q_cd($('#txtChkdate').val()))
-            		alert(q_getMsg('lblChkdate')+'錯誤。');  
-            	if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
-            		alert(q_getMsg('lblStartdate')+'錯誤。');
-            	/*var t_err = '';	
-            	if (dec($('#txtCredit').val()) > 9999999999)
-                    t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 
-                */
-               $('#txtKdate').val(q_date());
-                $('#txtWorker' ).val(r_name);
-                if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('tgg', t_where, 0, 0, 0, "checkTggno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
-                }
-            }
+			function btnPrint() {
+				q_box("z_label.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=" + $('#txtNoa').val() + ";" + r_accy, 'z_label', "95%", "95%", q_getMsg('popZ_label'));
+			}
+			function q_stPost() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return false;
+				Unlock();
+			}
+			function btnOk() {
+				if($('#txtChkdate').val().length>0 && !q_cd($('#txtChkdate').val()))
+					alert(q_getMsg('lblChkdate')+'錯誤。');  
+				if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
+					alert(q_getMsg('lblStartdate')+'錯誤。');
+				$('#txtKdate').val(q_date());
+				$('#txtWorker' ).val(r_name);
+				var t_noa = trim($('#txtNoa').val()).toUpperCase();
+				if(t_noa.length == 0){
+					alert(q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]));
+					return;
+				}
+				if(q_cur==1){
+					t_where="where=^^ noa='"+t_noa+"'^^";
+					q_gt('tgg', t_where, 0, 0, 0, "checkTggno_btnOk", r_accy);
+				}else{
+					wrServer(t_noa);
+				}
+			}
 			function wrServer(key_value) {
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
