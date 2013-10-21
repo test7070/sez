@@ -47,6 +47,30 @@
 			}
 			mainForm(1); // 1=最後一筆  0=第一筆
 		}  ///  end Main()
+		
+		function sum() {
+			var t1 = 0, t_unit, t_mount, t_weight = 0;
+			for (var j = 0; j < q_bbsCount; j++) {
+				t_unit = $('#txtUnit_' + j).val();
+				//t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
+				t_mount = $('#txtMount_' + j).val();  // 計價量
+				//t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
+				$('#txtTotal_' + j).val(round(q_mul(dec($('#txtPrice_' + j).val()),dec(t_mount)), 0));
+				
+				q_tr('txtNotv_'+j ,q_sub( q_float('txtMount_'+j),q_float('txtC1'+j)));
+				t1 =q_add( t1, dec($('#txtTotal_' + j).val()));
+			}  // j
+
+			$('#txtMoney').val(round(t1, 0));
+			if( !emp( $('#txtPrice' ).val()))
+				$('#txtTranmoney').val(round(q_mul( t_weight,dec($('#txtPrice').val())), 0));
+
+			// $('#txtWeight').val(round(t_weight, 0));
+			q_tr('txtTotal',q_add( t1,dec($('#txtTax').val())));
+			q_tr('txtTotalus',q_mul( q_float('txtTotal'),q_float('txtFloata')));
+
+			calTax();
+		}
 
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
@@ -163,14 +187,26 @@
 		var focus_addr='';
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
-				case 'msg_stk':
-            		var as  = _q_appendData("stkucc", "", true);
-            		var stkmount=0;
+				case 'msg_ucc':
+            		var as  = _q_appendData("ucc", "", true);
             		t_msg='';
-            		for ( var i = 0; i < as.length; i++) {
-            			stkmount=stkmount+dec(as[i].mount);
+            		if(as[0]!=undefined){
+            			t_msg="銷售單價："+dec(as[0].saleprice)+"<BR>";
             		}
-            		t_msg="庫存量："+stkmount;
+            		//客戶售價
+            		var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and datea<'"+q_date()+"' ^^ stop=1";
+					q_gt('quat', t_where , 0, 0, 0, "msg_quat", r_accy);
+            		break;
+            	case 'msg_quat':
+            		var as  = _q_appendData("quats", "", true);
+            		var quat_price=0;
+					if(as[0]!=undefined){
+						for ( var i = 0; i < as.length; i++) {
+							if(as[0].productno==$('#txtProductno_'+b_seq).val())
+								quat_price=dec(as[i].price);
+						}
+					}
+            		t_msg=t_msg+"最近報價單價："+quat_price+"<BR>";
             		//最新出貨單價
 					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+b_seq).val()+"' and price>0 ) ^^ stop=1";
 					q_gt('vcc', t_where , 0, 0, 0, "msg_vcc", r_accy);
@@ -184,16 +220,31 @@
 								vcc_price=dec(as[i].price);
 						}
 					}
-					t_msg=t_msg+"<BR>最近出貨單價："+vcc_price;
-					//平均成本
+					t_msg=t_msg+"最近出貨單價："+vcc_price;
+					q_msg( $('#txtPrice_'+b_seq), t_msg);	
+					break;
+            	case 'msg_stk':
+            		var as  = _q_appendData("stkucc", "", true);
+            		var stkmount=0;
+            		t_msg='';
+            		for ( var i = 0; i < as.length; i++) {
+            			stkmount=q_add(stkmount,dec(as[i].mount));
+            		}
+            		t_msg="庫存量："+stkmount;
+            		//平均成本
 					var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by datea desc ^^ stop=1";
 					q_gt('wcost', t_where , 0, 0, 0, "msg_wcost", r_accy);
-					break;
+            		break;
 				case 'msg_wcost':
 					var as  = _q_appendData("wcost", "", true);
 					var wcost_price;
 					if(as[0]!=undefined){
-						wcost_price=round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0);
+						if(dec(as[0].mount)==0){
+							wcost_price=0;
+						}else{
+							wcost_price=round(q_div(q_add(q_add(q_add(dec(as[0].costa),dec(as[0].costb)),dec(as[0].costc)),dec(as[0].costd)),dec(as[0].mount)),0)
+							//wcost_price=round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0);
+						}
 					}
 					if(wcost_price!=undefined){
 						t_msg=t_msg+"<BR>平均成本："+wcost_price;
@@ -318,65 +369,78 @@
         }
 
 		function bbsAssign() {  /// 表身運算式
-			_bbsAssign();
 			for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-				$('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-				$('#btnProductno_' + j).click(function () {
-					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
-					pop('ucc');
-				});
-				$('#txtProductno_' + j).change(function () {
-					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
-					q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
-				});
-				
-				$('#txtUnit_' + j).focusout(function () { sum(); });
-				// $('#txtWeight_' + j).focusout(function () { sum(); });
-				$('#txtPrice_' + j).focusout(function () { sum(); });
-				$('#txtMount_' + j).focusout(function () { sum(); });
-				$('#txtTotal_' + j).focusout(function () { sum(); });
-				
-				$('#txtMount_' + j).focusin (function() {
-					if(q_cur==1 ||q_cur==2 ){
+				if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+					$('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
+					$('#btnProductno_' + j).click(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-	                    if(!emp($('#txtProductno_'+b_seq).val())){
-	                    	//庫存
-							var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
-							q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
-	                	}
-                	}
-				});
-				
-				$('#btnBorn_' + j).click(function () {
-					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
-					t_where = "noa='"+$('#txtNoa').val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
-					q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
-				});
-				$('#btnNeed_' + j).click(function () {
-					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
-					t_where = "noa='"+$('#txtNoa').val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
-					q_box("z_vccneed.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Need', "95%", "95%", q_getMsg('lblNeed'));
-				});
-				
-				$('#btnVccrecord_' + j).click(function () {
-					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
-					t_where = "cust='"+$('#txtCustno').val()+"' and noq='"+$('#txtProductno_'+b_seq).val()+"'";
-					q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
-				});
-
+						pop('ucc');
+					});
+					$('#txtProductno_' + j).change(function () {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
+					});
+					
+					$('#txtUnit_' + j).focusout(function () { sum(); });
+					// $('#txtWeight_' + j).focusout(function () { sum(); });
+					$('#txtPrice_' + j).focusout(function () { sum(); });
+					$('#txtMount_' + j).focusout(function () { sum(); });
+					$('#txtTotal_' + j).focusout(function () { sum(); });
+					
+					$('#txtMount_' + j).focusin (function() {
+	                    if(q_cur==1 ||q_cur==2 ){
+		                   	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                   q_bodyId($(this).attr('id'));
+			                   b_seq = t_IdSeq;
+		                   	if(!emp($('#txtProductno_'+b_seq).val())){
+		                   		//庫存
+								var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+								q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+		                   	}
+	                    }
+					});
+					$('#txtPrice_' + j).focusin (function() {
+						if(q_cur==1 ||q_cur==2 ){
+		                   	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+		                   	if(!emp($('#txtProductno_'+b_seq).val())){
+		                    	//金額
+								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
+								q_gt('ucc', t_where , 0, 0, 0, "msg_ucc", r_accy);
+		                    }
+	                    }
+					});
+					
+					$('#btnBorn_' + j).click(function () {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						t_where = "noa='"+$('#txtNoa').val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
+						q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+					});
+					$('#btnNeed_' + j).click(function () {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						t_where = "noa='"+$('#txtNoa').val()+"' and no2='"+$('#txtNo2_'+b_seq).val()+"'";
+						q_box("z_vccneed.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Need', "95%", "95%", q_getMsg('lblNeed'));
+					});
+					
+					$('#btnVccrecord_' + j).click(function () {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						t_where = "cust='"+$('#txtCustno').val()+"' and noq='"+$('#txtProductno_'+b_seq).val()+"'";
+						q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
+					});
+				}
 			} //j
+			_bbsAssign();
 		}
 
 		function btnIns() {
@@ -449,29 +513,7 @@
 			
 			return true;
 		}
-
-		function sum() {
-			var t1 = 0, t_unit, t_mount, t_weight = 0;
-			for (var j = 0; j < q_bbsCount; j++) {
-				t_unit = $('#txtUnit_' + j).val();
-				//t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
-				t_mount = $('#txtMount_' + j).val();  // 計價量
-				//t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
-				$('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
-				q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
-				t1 = t1 + dec($('#txtTotal_' + j).val());
-			}  // j
-
-			$('#txtMoney').val(round(t1, 0));
-			if( !emp( $('#txtPrice' ).val()))
-				$('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
-
-			// $('#txtWeight').val(round(t_weight, 0));
-			q_tr('txtTotal',t1 + dec($('#txtTax').val()));
-			q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
-
-			calTax();
-		}
+		
 		///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
 		function refresh(recno) {
 			_refresh(recno);
@@ -791,7 +833,7 @@
 					<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: center;"/></td> 
 					<td class="td4"><span> </span><a id='lblTax' class="lbl"> </a></td>
 					<td class="td5"><input id="txtTax" type="text" class="txt num c1"/></td>
-					<td class="td6"><select id="cmbTaxtype" class="txt c1"  onchange='calTax()' > </select></td>
+					<td class="td6"><select id="cmbTaxtype" class="txt c1"  onchange='sum()' > </select></td>
 					<td class="td7"><span> </span><a id='lblTotal' class="lbl"> </a></td>
 					<td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td> 
 				</tr>
