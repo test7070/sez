@@ -32,9 +32,13 @@
                         for ( i = 0; i < as.length; i++) {
                             t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
                         }
+                        loadFinish();
                         break;
                 }
-               $('#q_report').q_report({
+               
+            }
+            function loadFinish(){
+            	$('#q_report').q_report({
                         fileName : 'z_bcc9',
                         options : [{
                         type : '1',
