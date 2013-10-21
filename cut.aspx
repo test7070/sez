@@ -106,7 +106,7 @@
                         var t_productno = trim($('#txtProductno').val());
                         var t_custno = trim($('#txtCustno').val());
                         t_edime = (t_edime == 0 ? 999 : t_edime);
-                        var t_where = ' 1=1 ';
+                        var t_where = " 1=1 and enda='0'";
                         t_where += q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('width', 0, t_width) + q_sqlPara2('productno', t_productno);
                         if (!emp(t_custno))
                             t_where += q_sqlPara2('custno', t_custno);
@@ -127,7 +127,7 @@
                             for (var i = 0; i < q_bbsCount; i++) {
                                 $('#btnMinus_' + i).click();
                             }
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass', b_ret.length, b_ret, 'custno,comp,style,radius,width,dime,lengthb,mount,weight,memo,productno,spec,noa,no2,class', '');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass,txtSize', b_ret.length, b_ret, 'custno,cust,style,radius,width,dime,lengthb,mount,weight,memo,productno,spec,noa,no2,class,size', '');
                             sum();
                             for (var j = 0; j < q_bbsCount; j++) {
                                 getTheory(j);
