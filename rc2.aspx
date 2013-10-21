@@ -762,7 +762,7 @@
 				</td>
 				-->
 				<td><input id="txtMemo.*" type="text" class="txt c1"/>
-				<input id="txtOrdcno.*" type="text" style="width:72%;" />
+				<input id="txtOrdeno.*" type="text" style="width:72%;" />
 				<input id="txtNo2.*" type="text" style="width:22%;" />
 				<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
 				<td align="center"><input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
