@@ -28,9 +28,9 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Odate';
-			aPop = new Array(['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit,price', 'txtProductno1_,txtProduct_,txtUnit_,txtPrice_', 'bcc_b.aspx']
-							,['txtProductno2_', 'btnProduct2_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno2_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']
-							,['txtProductno3_', 'btnProduct3_', 'ucaucc', 'noa,product', 'txtProductno3_,txtProduct_', 'ucaucc_b.aspx']
+			aPop = new Array(['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx']
+							,['txtProductno2_', 'btnProduct2_', 'fixucc', 'noa,namea,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'fixucc_b.aspx']
+							,['txtProductno3_', 'btnProduct3_', 'ucaucc', 'noa,product,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
 							,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 							,['txtCno','lblAcomp','acomp','noa,acomp,addr','txtCno,txtAcomp,txtAddr','acomp_b.aspx']
 							,['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
@@ -50,6 +50,27 @@
 
 				mainForm(1);
 			}
+			
+			function sum() {
+				var t1 = 0, t_unit, t_mount, t_weight = 0;
+				var t_money=0;
+				for(var j = 0; j < q_bbsCount; j++) {
+					/*if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
+						q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
+					}else{
+						q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
+					}*/
+					q_tr('txtTotal_'+j ,q_mul(q_float('txtMount_'+j),q_float('txtPrice_'+j)));
+					q_tr('txtNotv_'+j ,q_sub(q_float('txtMount_'+j),q_float('txtC1'+j)));
+					t_money=q_add(t_money,q_float('txtTotal_'+j));
+				}  // j
+				q_tr('txtMoney' ,t_money);
+				q_tr('txtTotal' ,q_add(q_float('txtMoney'),q_float('txtTax')));
+				q_tr('txtTotalus' ,q_mul(q_float('txtTotal'),q_float('txtFloata')));
+				
+				calTax();
+			}
+			
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd],['txtOdate', r_picd],['txtTrandate', r_picd]];
@@ -323,23 +344,6 @@
 				as['tggno'] = abbm2['tggno'];
 				as['odate'] = abbm2['odate'];
 				return true;
-			}
-			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0;
-				var t_money=0;
-				for(var j = 0; j < q_bbsCount; j++) {
-					/*if($('#txtUnit_' + j).val().toUpperCase() == 'KG'){
-						q_tr('txtTotal_'+j ,q_float('txtWeight_'+j)*q_float('txtPrice_'+j));
-					}else{
-						q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-					}*/
-					q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-					q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
-					t_money+=q_float('txtTotal_'+j);
-				}  // j
-				q_tr('txtMoney' ,t_money);
-				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
-				q_tr('txtTotalus' ,q_float('txtTotal')*q_float('txtFloata'));
 			}
 
 			function refresh(recno) {
@@ -727,7 +731,7 @@
 				<td class="td2" colspan="2"><input id="txtMoney" type="text" class="txt num c1 lef" /></td> 
 				<td class="td3"><span> </span><a id='lblTax' class="lbl"></a></td>
 				<td class="td4"><input id="txtTax"  type="text" class="txt num c1 lef" /></td>
-				<td class="td5"><select id="cmbTaxtype" class="txt c1" onchange="calTax()" ></select></td>
+				<td class="td5"><select id="cmbTaxtype" class="txt c1" onchange='sum()' ></select></td>
 				<td class="td6"><span> </span><a id='lblTotal' class="lbl"></a></td>
 				<td class="td7"><input id="txtTotal" type="text" class="txt num c1 lef" /></td>
 			</tr>

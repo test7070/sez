@@ -33,7 +33,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_fact',
 				 'txtCustno,txtComp,txtPay,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
@@ -55,6 +55,26 @@
 
 				mainForm(1);
 			}
+			
+			function sum() {
+				var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
+				for(var j = 0; j < q_bbsCount; j++) {
+					/*if($('#txtUnit_' + j).val().toUpperCase()=='KG'){
+						q_tr('txtTotal_'+j,q_mul(q_float('txtWeight_'+j),q_float('txtPrice_'+j)))
+					}else{
+						q_tr('txtTotal_'+j,q_mul(q_float('txtMount_'+j),q_float('txtPrice_'+j)))
+					}*/
+					q_tr('txtTotal_'+j,q_mul(q_float('txtMount_'+j),q_float('txtPrice_'+j)));
+					t_total=q_add( t_total,q_float('txtTotal_'+j));
+					//t_weight+=q_float('txtWeight_'+j);
+				}  // j
+				q_tr('txtMoney',t_total);
+				//q_tr('txtWeight',t_weight);
+				q_tr('txtTotal',t_total);
+				calTax();
+				q_tr('txtTotalus',q_mul( q_float('txtTotal'),q_float('txtFloata')));
+			}
+			
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd],['txtOdate',r_picd]];
@@ -227,25 +247,6 @@
 				as['datea'] = abbm2['datea'];
 				as['odate'] = abbm2['odate'];
 				return true;
-			}
-
-			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
-				for(var j = 0; j < q_bbsCount; j++) {
-					/*if($('#txtUnit_' + j).val().toUpperCase()=='KG'){
-						q_tr('txtTotal_'+j,q_float('txtWeight_'+j)*q_float('txtPrice_'+j))
-					}else{
-						q_tr('txtTotal_'+j,q_float('txtMount_'+j)*q_float('txtPrice_'+j))
-					}*/
-					q_tr('txtTotal_'+j,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-					t_total+=q_float('txtTotal_'+j);
-					//t_weight+=q_float('txtWeight_'+j);
-				}  // j
-				q_tr('txtMoney',t_total);
-				//q_tr('txtWeight',t_weight);
-				q_tr('txtTotal',t_total);
-				calTax();
-				q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 			}
 
 			function refresh(recno) {
@@ -514,7 +515,7 @@
 				<td colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: right;" /></td> 
 				<td class="label2"><span> </span><a id='lblTax' class="lbl"> </a></td>
 				<td><input id="txtTax" type="text"  class="txt c1" style="text-align: right;" /></td>
-				<td><select id="cmbTaxtype" class="txt c1"> </select></td>
+				<td><select id="cmbTaxtype" class="txt c1" onchange='sum()'> </select></td>
 				<td class="label3"><span> </span><a id='lblTotal' class="lbl"> </a></td>
 				<td ><input id="txtTotal" type="text"  class="txt c2" style='text-align:right;'/>
 				</td> 
