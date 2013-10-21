@@ -61,7 +61,6 @@
                 q_cmbParse("cmbType2", q_getPara('cut.type2'));
                 q_cmbParse("cmbKind", q_getPara('sys.stktype'));
                 //q_cmbParse("cmbKind", q_getPara('cut.kind'));
-
                 //重新計算理論重
                 $('#cmbTypea').change(function() {
                     for (var j = 0; j < q_bbsCount; j++) {
@@ -75,15 +74,15 @@
                     }
                     var choiceItem = $(this).val().toUpperCase();
                     switch(choiceItem){
-                    	case '9':
-                    		$('#lblWidth').text(q_getMsg('lblWidth'));
-                    		$('#lblRadius').css('display','none');
-                    		$('#txtRadius').css('display','none');
-                    		break;
-                    	default:
+                    	case 'A':
                     		$('#lblWidth').text(q_getMsg('lblWidth2'));
                     		$('#lblRadius').css('display','');
                     		$('#txtRadius').css('display','');
+                    		break;
+                    	default:
+                    		$('#lblWidth').text(q_getMsg('lblWidth'));
+                    		$('#lblRadius').css('display','none');
+                    		$('#txtRadius').css('display','none');
                     		break;
                     }
                     cut_save_db();
@@ -93,6 +92,7 @@
                         getTheory(j);
                     }
                     cut_save_db();
+                    sum();
                 });
                 //變動尺寸欄位
                 $('#cmbKind').change(function() {
@@ -117,8 +117,7 @@
 
             var w_ret = new Array;
             function q_boxClose(s2) {///   q_boxClose 2/4
-                var
-                ret;
+                var ret;
                 switch (b_pop) {
                     case 'ordes':
                         if (q_cur > 0 && q_cur < 4) {
@@ -149,6 +148,15 @@
                 }/// end Switch
                 b_pop = '';
             }
+
+			function q_popPost(s1) {
+				switch(s1){
+					case 'txtUno':
+						$('#txtGweight').val($('#txtOweight').val());
+						$('#txtGmount').val(1);
+						break;
+				}
+			}
 
             function bbsClear() {
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -311,12 +319,6 @@
                     alert("委外廠商不可為空白");
                     Unlock(1);
                     return;
-                } else {
-                    if (emp($('#txtMechno').val()) && !($('#cmbTypea').find("option:selected").text().indexOf('委') > -1 || !emp($('#txtTggno').val()))) {
-                        alert("機台不可為空白");
-                        Unlock(1);
-                        return;
-                    }
                 }
                 if (q_cur > 0 && dec($('#txtPrice').val()) > 0)
                     $('#txtTranmoney').val(dec($('#txtPrice').val()) * dec($('#txtTheyout').val()));
@@ -522,6 +524,21 @@
                                 q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
                             }
                         });
+                        $('#txtStyle_'+j).focus(function(){
+                        	var thisVal = trim($(this).val());
+                        	if(emp(thisVal) && ($('#cmbType2').val() == '1')){
+                        		$(this).val('B');
+                        	}
+                        }).focusout(function(){
+                            t_IdSeq = -1;
+                            q_bodyId($(this).attr('id'));
+                            b_seq = t_IdSeq;
+                            var dimeVal = dec($('#txtDime_'+b_seq).val());
+                            if(dimeVal == 0){
+                            	$('#txtDime_'+b_seq).val($('#txtDime').val());
+                            	size_change();
+                            }
+                        });
                     }
                 }
                 _bbsAssign();
@@ -611,6 +628,7 @@
                 }
                 $('#txtTheyout').val(FormatNumber(t_theyout));
                 $('#txtTotalout').val(FormatNumber(t_totalout));
+                $('#txtLoss').val(q_sub(dec($('#txtGweight').val()),dec($('#txtTheyout').val())));
             }
 
             function refresh(recno) {
