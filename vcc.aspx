@@ -59,6 +59,24 @@
 			}
             mainForm(1); 
         } 
+        
+        function sum() {
+            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            for (var j = 0; j < q_bbsCount; j++) {
+                t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
+                //t_mount = (!t_unit || emp(t_unit) || trim(t_unit).toLowerCase() == 'kg' ? q_float('txtWeight_' + j) : q_float('txtMount_' + j));  // 計價量
+                t_mount = q_float('txtMount_' + j);
+                $('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j),dec(t_mount)), 0));
+                t1 = q_add(t1 , dec(q_float('txtTotal_' + j)));
+            }  // j
+
+            $('#txtMoney').val(round(t1, 0));
+            if (!emp($('#txtPrice').val()))
+                $('#txtTranmoney').val(round(q_mul(t_weight,dec(q_float('txtPrice'))), 0));
+
+            calTax();
+            q_tr('txtTotalus' ,round(q_mul(q_float('txtTotal'),q_float('txtFloata')),0));
+        }
 
         function mainPost() { 
             q_getFormat();
@@ -231,7 +249,12 @@
 					var as  = _q_appendData("wcost", "", true);
 					var wcost_price;
 					if(as[0]!=undefined){
-						wcost_price=round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0);
+						if(dec(as[0].mount)==0){
+							wcost_price=0;
+						}else{
+							wcost_price=round(q_div(q_add(q_add(q_add(dec(as[0].costa),dec(as[0].costb)),dec(as[0].costc)),dec(as[0].costd)),dec(as[0].mount)),0)
+							//wcost_price=round((dec(as[0].costa)+dec(as[0].costb)+dec(as[0].costc)+dec(as[0].costd))/dec(as[0].mount),0);
+						}
 					}
 					if(wcost_price!=undefined){
 						t_msg=t_msg+"<BR>平均成本："+wcost_price;
@@ -424,7 +447,7 @@
             }
 
             q_nowf();
-            as['type'] = abbm2['type'];
+            as['typea'] = abbm2['typea'];
             as['mon'] = abbm2['mon'];
             as['noa'] = abbm2['noa'];
             as['datea'] = abbm2['datea'];
@@ -435,37 +458,16 @@
             t_err = '';
             if (as['price'] != null && (dec(as['price']) > 99999999 || dec(as['price']) < -99999999))
                 t_err = q_getMsg('msgPriceErr') + as['price'] + '\n';
-
             if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
                 t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
 
             if (t_err) {
                 alert(t_err)
                 return false;
             }
-
             return true;
         }
-
-        function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-                t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
-                //t_mount = (!t_unit || emp(t_unit) || trim(t_unit).toLowerCase() == 'kg' ? q_float('txtWeight_' + j) : q_float('txtMount_' + j));  // 計價量
-                t_mount = q_float('txtMount_' + j);
-                $('#txtTotal_' + j).val(round(q_float('txtPrice_' + j) * dec(t_mount), 0));
-                t1 = t1 + dec(q_float('txtTotal_' + j));
-            }  // j
-
-            $('#txtMoney').val(round(t1, 0));
-            if (!emp($('#txtPrice').val()))
-                $('#txtTranmoney').val(round(t_weight * dec(q_float('txtPrice')), 0));
-
-            calTax();
-            q_tr('txtTotalus' ,round(q_float('txtTotal')*q_float('txtFloata'),0));
-        }
-
+        
         function q_stPost() {
             if (q_cur == 1 || q_cur == 2) {
                 abbm[q_recno]['accno'] = xmlString;   /// 存檔後， server 傳回 xmlString 
