@@ -78,7 +78,7 @@
 
 		function mainPost() { 
 			if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
-				q_cmbParse("cmbTypea", q_getPara('ucc.typea_ir'));	//IR
+				q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));	//IR
 			else
 				q_cmbParse("cmbTypea", q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
 			
