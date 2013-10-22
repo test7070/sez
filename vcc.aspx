@@ -125,7 +125,7 @@
 				t_invo = $('#txtInvono').val();
                 if(t_invo.length > 0){
                 	t_where = "noa='" + t_invo + "'";
-                	q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
+                	q_box("vcca.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcca', "95%", "95%", q_getMsg('lblInvono'));
                 }
             });
             $('#txtFloata').change(function () {sum();});

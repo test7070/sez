@@ -76,6 +76,12 @@
                         type : '8',
                         name : 'xcno',
                         value : t_cno.split(',')
+                    }, {/*3 [13][14]*/
+                        type : '2',
+                        name : 'xtgg',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
                     }]
                 });
                 q_popAssign();
