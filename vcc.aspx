@@ -30,7 +30,7 @@
         brwNowPage = 0; 
         brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,paytype,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype', 'cust_b.aspx'],
+		 aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
                 ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
                 ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
