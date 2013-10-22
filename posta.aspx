@@ -99,6 +99,11 @@
 
 		function btnIns() {
 			_btnIns();
+			var sInfo = (q_getPara('sys.tel')).toUpperCase();
+			var s_tel = sInfo.substring(0,sInfo.indexOf('FAX'));
+			$('#txtTel').val(s_tel);
+			$('#txtComp').val(q_getPara('sys.comp'));
+			$('#txtAddr').val(q_getPara('sys.addr'));
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtDatea').val(q_date()).focus();
 		}
