@@ -179,7 +179,7 @@
             }
 
             function btnPrint() {
-                q_box('z_custprice.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                //q_box('z_custprice.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
