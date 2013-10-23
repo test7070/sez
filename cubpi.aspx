@@ -325,6 +325,7 @@
 			}
 
 			function btnPrint() {
+				q_box('z_cubpip.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
@@ -573,7 +574,7 @@
 			}
 			.dview {
 				float: left;
-				width: 250px;
+				width: 230px;
 				border-width: 0px;
 			}
 			.tview {
