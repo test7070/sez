@@ -43,7 +43,7 @@
         function mainPost() {
             q_mask(bbmMask);
             if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
-				q_cmbParse("cmbTypea", q_getPara('ucc.typea_ir'));	//IR
+				q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));	//IT
 			else
 				q_cmbParse("cmbTypea", q_getPara('ucc.typea'));
             $('#txtNoa').change(function(e){
