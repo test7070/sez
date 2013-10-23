@@ -46,7 +46,7 @@
                 + q_sqlPara2("datea", t_bdate, t_edate);
 
                 if (t_tranno.length>0)
-                	t_where += " and exists(select noa from transvcce2trans where transvcce2trans.noa=transvcce2tran.noa and patindex('%" + t_tranno + "%',transvcce2trans.tranno)>0)";
+                	t_where += " and exists(select noa from transvcce2trans"+r_accy+" where transvcce2trans"+r_accy+".noa=transvcce2tran"+r_accy+".noa and patindex('%" + t_tranno + "%',transvcce2trans"+r_accy+".tranno)>0)";
                 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
