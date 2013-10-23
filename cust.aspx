@@ -90,7 +90,10 @@
 			function mainPost() {
 				bbmMask = [['txtChkdate', r_picd], ['txtDuedate', r_picd]];
 				q_mask(bbmMask);
-				q_cmbParse("cmbTypea", q_getPara('cust.typea'));
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
+					q_cmbParse("cmbTypea", q_getPara('cust.typea_it'));
+				else
+					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
 				
