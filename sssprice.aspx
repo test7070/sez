@@ -18,7 +18,7 @@
 
             q_desc = 1;
             q_tables = 's';
-            var q_name = "custprice";
+            var q_name = "sssprice";
             var q_readonly = ['txtNoa', 'txtDatea','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
@@ -30,7 +30,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            aPop = new Array(['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,saleprice', 'txtProductno_,txtProduct_,txtOprice_', 'uca_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -44,7 +44,7 @@
 				data : [],
 				/*新增時複製的欄位*/
 				//bbm
-				include : ['txtCustno', 'txtComp'],
+				include : ['txtSssno', 'txtNamea'],
 				
 				//bbs
 				includes : ['txtProductno_', 'txtProduct_','txtOprice_','txtDiscount_','txtPrice_','txtMemo_'],
@@ -134,7 +134,7 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtSssno', q_getMsg('lblSssno')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
@@ -145,7 +145,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_custprice') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_sssprice') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -153,7 +153,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('custprice_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
+                q_box('sssprice_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -179,7 +179,7 @@
             }
 
             function btnPrint() {
-                //q_box('z_custprice.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                //q_box('z_sssprice.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -228,7 +228,7 @@
                     return;
                 }
                 q_nowf();
-                as['custno'] = abbm2['custno'];
+                as['sssno'] = abbm2['sssno'];
                 as['bdate'] = abbm2['bdate'];
                 return true;
             }
@@ -452,14 +452,14 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:40%"><a id='vewBdate'> </a></td>
-						<td align="center" style="width:40%"><a id='vewCust'> </a></td>
+						<td align="center" style="width:40%"><a id='vewNamea'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='bdate'>~bdate</td>
-						<td align="center" id='comp'>~comp</td>
+						<td align="center" id='namea'>~namea</td>
 					</tr>
 				</table>
 			</div>
@@ -483,10 +483,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id='lblSssno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
-							<input id="txtCustno"  type="text" class="txt c2"/>
-							<input id="txtComp"  type="text" class="txt c3"/>
+							<input id="txtSssno"  type="text" class="txt c2"/>
+							<input id="txtNamea"  type="text" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
