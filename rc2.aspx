@@ -80,7 +80,10 @@
 			bbmMask = [['txtDatea', r_picd ],['txtMon', r_picm ]];
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
-			q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
+			if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
+				q_cmbParse("cmbStype", q_getPara('rc2.stype_it'));
+			else
+				q_cmbParse("cmbStype", q_getPara('rc2.stype'));
 			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	  /// q_cmbParse 會加入 fbbm
 			q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  // comb 未連結資料庫
 			q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
@@ -729,7 +732,7 @@
 		   <tr style='color:White; background:#003366;' >
 				<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
 				<td align="center" style="width:8%;"><a id='lblProductno'></a></td>
-				<td align="center" style="width:12%;"><a id='lblUno'></a></td>
+				<td align="center" style="width:12%;"><a id='lblProduct'></a></td>
 				<td align="center" style="width:4%;"><a id='lblUnit'></a></td>
 				<td align="center" style="width:7%;"><a id='lblMount'></a></td>				
 				<td align="center" style="width:7%;"><a id='lblPrices'></a></td>
@@ -746,8 +749,8 @@
 				<td>
 					<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
 					<span style="display:block; width:1%;float:left;"> </span>
-					<input type="text" id="txtUno.*"  style="width:85%; float:left;"/>
-					<input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+					<!--<input type="text" id="txtUno.*"  style="width:85%; float:left;"/>
+					<input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />-->
 				</td>
 				<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 				<td><input id="txtMount.*" type="text" class="txt num c1" />
