@@ -25,52 +25,34 @@
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_ucc',
+                    fileName : 'z_sssprice',
                     options : [{
 							type : '0',
 							name : 'accy',
 							value : q_getId()[4]
-	                    },{
-	                        type : '1',
-	                        name : 'date' //[2][3]
 	                    }, {
 	                        type : '2',
-	                        name : 'product', //[4][5]
+	                        name : 'product', //[2][3]
 	                        dbf : 'ucaucc',
 	                        index : 'noa,product',
 	                        src : 'ucaucc_b.aspx'
-	                    },{
-	                        type : '2',
-	                        name : 'storeno', //[6][7]
-	                        dbf : 'store',
-	                        index : 'noa,store',
-	                        src : 'store_b.aspx'
-                    	}, {
-	                        type : '6',
-	                        name : 'edate' //[8]
-	                    },{
-	                        type : '1',
-	                        name : 'ordeno' //[9][10]
-						}, {
+	                    }, {
 							type : '5',
-							name : 'ucctype', //[11]
+							name : 'ucctype', //[4]
 							value : [q_getPara('report.all')].concat(q_getPara('sys.comp').indexOf('英特瑞')>-1?q_getPara('ucc.typea_it').split(','):q_getPara('ucc.typea').split(','))
 	                    }, {
-							type : '5',
-							name : 'outtypea', //[12]
-							value : ('all@全部,out@委外,notout@非委外').split(',')
-	                    }, {
-	                        type : '5', //[13]
+	                        type : '5', //[5]
 	                        name : 'xgroupano',
 	                        value : uccgaItem.split(',')
-						},{
-							type : '0',//[14]
-							name : 'xgroupas',
-							value : uccgaItem
+						}, {
+	                        type : '2',
+	                        name : 'sssno', //[6][7]
+	                        dbf : 'sss',
+	                        index : 'noa,namea',
+	                        src : 'sss_b.aspx'
 	                    },{
-							type : '0',//[15]
-							name : 'xucctype',
-							value : q_getPara('sys.comp').indexOf('英特瑞')>-1?q_getPara('ucc.typea_it'):q_getPara('ucc.typea')
+	                        type : '6',
+	                        name : 'bdate' //[8]
 	                    }
                     ]
                 });
@@ -83,8 +65,8 @@
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
                 
-                $('#txtEdate').mask('999/99/99');
-                $('#txtEdate').val(q_date());
+                $('#txtBdate').mask('999/99/99');
+                $('#txtBdate').val(q_date());
             }
 
             function q_boxClose(s2) {
@@ -98,7 +80,7 @@
                         for ( i = 0; i < as.length; i++) {
                             uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
                         }
-						q_gf('', 'z_ucc');
+						q_gf('', 'z_sssprice');
                         break;
 				}
 			}
