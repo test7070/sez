@@ -88,7 +88,7 @@
 			}///  end Main()
 
 			function mainPost() {
-				bbmMask = [['txtChkdate', r_picd], ['txtDuedate', r_picd], ['txtGetdate', '99']];
+				bbmMask = [['txtChkdate', r_picd], ['txtDuedate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('cust.typea'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
