@@ -539,7 +539,7 @@
 						<td class="td2" colspan='5'><input id="txtEmail"  type="text"  class="txt c7"/></td>
 					</tr>
 					<tr class="tr13">
-						<td class="td1"><span> </span><a id="lblCredit" class="lbl btn" ></a></td>
+						<td class="td1"><span> </span><a id="lblCredit" class="lbl" ></a></td>
 						<td class="td2"><input id="txtCredit" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblSales" class="lbl btn"></a></td>
 						<td class="td4">
