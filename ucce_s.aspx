@@ -36,7 +36,7 @@
 				t_store = $('#txtStore').val();
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
-				var t_where = " 1=1 " + q_sqlPara_between("storeno1","storeno2",t_storeno) + q_sqlPara_between("store1","store2",t_store)+ q_sqlPara2("bdate", t_bdate,t_edate)
+				var t_where = " 1=1 " + q_sqlPara_between("storeno","storeno2",t_storeno) + q_sqlPara_between("store","store2",t_store)+ q_sqlPara2("bdate", t_bdate,t_edate)
 				+ q_sqlPara2("noa", t_noa);
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
