@@ -670,7 +670,7 @@
     </style>
 </head>
 <body>
-    <div id="dmain">
+    <div id="dmain" style="width: 1270px;">
         <!--#include file="../inc/toolbar.inc"-->
         <div class="dview" id="dview" >
            <table class="tview" id="tview">

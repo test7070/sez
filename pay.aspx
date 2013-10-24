@@ -971,7 +971,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' >
+		<div id='dmain' style="width: 1270px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
@@ -1107,7 +1107,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' >
+		<div class='dbbs' style="width: 1270px;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:1%;">

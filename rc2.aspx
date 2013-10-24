@@ -614,7 +614,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="overflow:hidden;">
+		<div id='dmain' style="overflow:hidden; width: 1270px;">
 		<div class="dview" id="dview">
 		   <table class="tview" id="tview" >
 			<tr>
@@ -727,7 +727,7 @@
 		</table>
 		</div>
 		</div>
-		<div class='dbbs' >
+		<div class='dbbs' style="width: 1270px;">
 		<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 		   <tr style='color:White; background:#003366;' >
 				<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
