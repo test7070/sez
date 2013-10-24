@@ -22,7 +22,7 @@
             var q_readonly = ['txtNoa', 'txtDatea','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 0, 1]];
+            var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -47,7 +47,7 @@
 				include : ['txtSssno', 'txtNamea'],
 				
 				//bbs
-				includes : ['txtProductno_', 'txtProduct_','txtOprice_','txtDiscount_','txtPrice_','txtMemo_'],
+				includes : ['txtProductno_', 'txtProduct_','txtOprice_','txtDiscount_','txtNotaxprice_','txtTaxrate_','txtPrice_','txtMemo_'],
 				
 				/*記錄當前的資料*/
 				copy : function() {
@@ -196,24 +196,42 @@
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                    	$('#txtProductno_'+i).change(function() {
+                    	$('#txtProductno_'+i).blur(function() {
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if(!emp($('#txtProductno_'+b_seq).val()))
-								$('#txtDiscount_'+b_seq).val(100);
+							if((q_cur==1 || q_cur==2)&&!emp($('#txtProductno_'+b_seq).val())){
+								if(emp($('#txtDiscount_'+b_seq).val()))
+									$('#txtDiscount_'+b_seq).val(100);
+								if(emp($('#txtTaxrate_'+b_seq).val()))
+									$('#txtTaxrate_'+b_seq).val(5);
+							}
 						});
 						$('#txtOprice_'+i).change(function() {
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-								q_tr('txtPrice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
+								q_tr('txtNotaxprice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
+								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
 						});
 						$('#txtDiscount_'+i).change(function() {
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-								q_tr('txtPrice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
+								q_tr('txtNotaxprice_'+b_seq,round(q_div(q_mul(dec($('#txtOprice_'+b_seq).val()),dec($('#txtDiscount_'+b_seq).val())),100),2));
+								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
+						});
+						$('#txtNotaxprice_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
+						});
+						$('#txtTaxrate_'+i).change(function() {
+                    		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+								q_tr('txtPrice_'+b_seq,round(q_add(q_float('txtNotaxprice_'+b_seq),q_div(q_mul(q_float('txtNotaxprice_'+b_seq),q_float('txtTaxrate_'+b_seq)),100)),2));
 						});
                     }
                 }
@@ -510,12 +528,14 @@
 					<td  align="center" style="width: 2%;">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblOprice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblDiscount_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblDiscount_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblNotaxprice_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblTaxrate_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:30%;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:20%;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -531,6 +551,8 @@
 					</td>
 					<td><input id="txtOprice.*" type="text" style="width: 98%;text-align: right;"/></td>
 					<td><input id="txtDiscount.*" type="text" style="width: 98%;text-align: right;"/></td>
+					<td><input id="txtNotaxprice.*" type="text" style="width: 98%;text-align: right;"/></td>
+					<td><input id="txtTaxrate.*" type="text" style="width: 98%;text-align: right;"/></td>
 					<td><input id="txtPrice.*" type="text" style="width: 98%;text-align: right;"/></td>
 					<td><input id="txtMemo.*" type="text" style="width: 98%;"/></td>
 				</tr>
