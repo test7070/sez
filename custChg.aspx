@@ -27,20 +27,14 @@
             brwKey = 'noa';
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
-            , ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
-            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            , ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx']
-            , ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx']
-            , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
-           	q_xchg = 1;
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            q_xchg = 1;
             brwCount2 = 20;
-           
+
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
-                $('#txtNoa').focus
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             //////////////////   end Ready
@@ -54,7 +48,8 @@
             }///  end Main()
 
             function mainPost() {
-				q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
+                q_modiDay = q_getPara('sys.modiday2');
+                /// 若未指定， d4=  q_getPara('sys.modiday');
                 q_mask(bbmMask);
                 $('#txtAcc1').change(function() {
                     var s1 = trim($(this).val());
@@ -64,11 +59,11 @@
                         $(this).val(s1 + '.');
                 });
                 $('#txtMinusitemno').blur(function(e) {
-					$('#txtMinusitem').focus();
-				});
-				$('#txtPlusitemno').blur(function(e) {
-					$('#txtPlusitem').focus();
-				});
+                    $('#txtMinusitem').focus();
+                });
+                $('#txtPlusitemno').blur(function(e) {
+                    $('#txtPlusitem').focus();
+                });
             }
 
             function q_boxClose(s2) {
@@ -90,20 +85,21 @@
                         break;
                 }  /// end switch
             }
-         /*   function q_popPost(id) {
-				switch(id) {
-					case 'txtMinusitemno':
-						if(q_cur==1 || q_cur==2){
-							$('#txtMinusitem').focus();
-						}
-						break;
-					case 'txtPlusitemno':
-						if(q_cur==1 || q_cur==2){
-							$('#txtPlnusitem').focus();
-						}
-						break;
-				}
-			}*/
+
+            /*   function q_popPost(id) {
+             switch(id) {
+             case 'txtMinusitemno':
+             if(q_cur==1 || q_cur==2){
+             $('#txtMinusitem').focus();
+             }
+             break;
+             case 'txtPlusitemno':
+             if(q_cur==1 || q_cur==2){
+             $('#txtPlnusitem').focus();
+             }
+             break;
+             }
+             }*/
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
@@ -123,21 +119,21 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 if (q_chkClose())
-             		return;
+                    return;
                 _btnModi();
                 $('#txtDatea').focus();
                 sum();
             }
 
             function btnPrint() {
-				q_box('z_custchg.aspx?;;;'+r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+                q_box('z_custchg.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
+                $('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val()) == 0) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
                 }
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
@@ -221,14 +217,15 @@
             }
 
             function btnDele() {
-            	if (q_chkClose())
-             		return;
+                if (q_chkClose())
+                    return;
                 _btnDele();
             }
 
             function btnCancel() {
                 _btnCancel();
             }
+
             function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
@@ -246,27 +243,28 @@
                     }
                     if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
                         return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
+                } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 3;
+                } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
+                    str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 4;
+                }
+                return 0;
+                //錯誤
             }
 		</script>
 		<style type="text/css">
-			#dmain {
+            #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 950px; 
-                border-width: 0px; 
+                width: 950px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -286,11 +284,11 @@
             .dbbm {
                 float: left;
                 width: 950px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
-			.tbbm {
+            .tbbm {
                 padding: 0px;
                 border: 1px white double;
                 border-spacing: 0;
@@ -300,91 +298,91 @@
                 background: #cad3ff;
                 width: 100%;
             }
-			.tbbm tr {
-				height: 35px;
-			}
-			.tbbm td {
-				width: 10%;
-			}
-			.tbbm .tdZ {
-				width: 1%;
-			}
-			td .schema {
-				display: block;
-				width: 95%;
-				height: 0px;
-			}
-			.tbbm tr td span {
-				float: right;
-				display: block;
-				width: 5px;
-				height: 10px;
-			}
-			.tbbm tr td .lbl {
-				float: right;
-				color: blue;
-				font-size: 16px;
-			}
-			.tbbm tr td .lbl.btn {
-				color: #4297D7;
-				font-weight: bolder;
-			}
-			.tbbm tr td .lbl.btn:hover {
-				color: #FF8F19;
-			}
-			.tbbm tr td .txt.c1 {
-				width: 100%;
-				float: left;
-			}
-			.tbbm tr td .txt.c2 {
-				width: 45%;
-				float: left;
-			}
-			.tbbm tr td .txt.c3 {
-				width: 55%;
-				float: left;
-			}
-			.tbbm tr td .txt.c4 {
-				width: 60%;
-				float: left;
-			}
-			.tbbm tr td .txt.c5 {
-				width: 40%;
-				float: left;
-			}
-			.tbbm tr td .txt.num {
-				text-align: right;
-			}
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm td {
+                width: 10%;
+            }
+            .tbbm .tdZ {
+                width: 1%;
+            }
+            td .schema {
+                display: block;
+                width: 95%;
+                height: 0px;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: 16px;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .tbbm tr td .txt.c1 {
+                width: 100%;
+                float: left;
+            }
+            .tbbm tr td .txt.c2 {
+                width: 45%;
+                float: left;
+            }
+            .tbbm tr td .txt.c3 {
+                width: 55%;
+                float: left;
+            }
+            .tbbm tr td .txt.c4 {
+                width: 60%;
+                float: left;
+            }
+            .tbbm tr td .txt.c5 {
+                width: 40%;
+                float: left;
+            }
+            .tbbm tr td .txt.num {
+                text-align: right;
+            }
 
-			.txt.num {
-				text-align: right;
-			}
-			td {
-				margin: 0px -1px;
-				padding: 0;
-			}
-			td input[type="text"] {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-			}
-			select {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-				font-size: medium;
-			}
-			input[type="text"], input[type="button"] {
-				font-size: medium;
-			}
-			input[readonly="readonly"]#txtMiles {
-				color: green;
-			}
-			.focus_b {
-				border-width: 3px;
-				border-color: #FF7F24;
-				border-style: double;
-			}
+            .txt.num {
+                text-align: right;
+            }
+            td {
+                margin: 0px -1px;
+                padding: 0;
+            }
+            td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+            input[readonly="readonly"]#txtMiles {
+                color: green;
+            }
+            .focus_b {
+                border-width: 3px;
+                border-color: #FF7F24;
+                border-style: double;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -406,7 +404,9 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewTrdno'> </a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" /></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" />
+						</td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="comp,4" style="text-align: center;">~comp,4</td>
 						<td id="minusitem plusitem" style="text-align: left;">~minusitem ~plusitem</td>
@@ -431,9 +431,13 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						<td colspan="2">
+						<input id="txtNoa"  type="text"  class="txt c1"/>
+						</td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td>
+						<input id="txtDatea"  type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
@@ -476,10 +480,10 @@
 						<td class="td2" colspan="3">
 						<input id="txtAcc1"  type="text" class="txt c2"/>
 						<input id="txtAcc2"  type="text"  class="txt c3"/>
-						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input id="txtTggno"  type="text" class="txt c2"/>
-							<input id="txtTgg"  type="text"  class="txt c3"/>
+						</td>
+						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td><td colspan="2">
+						<input id="txtTggno"  type="text" class="txt c2"/>
+						<input id="txtTgg"  type="text"  class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
