@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'view_ordet', t_bbsTag = 'tbbs', t_content = " field=accy,noa,no2,productno,product,unit,ordmount,ordweight,mount,weight,memo,uno,noq,source,no3,issale,radius,dime,width,lengthb,custno,enda", afilter = [], bbsKey = [], t_count = 0, as, 
+			var q_name = 'view_ordet', t_bbsTag = 'tbbs', t_content = " field=accy,noa,no2,productno,product,unit,ordmount,ordweight,mount,weight,memo,uno,noq,source,no3,issale,radius,dime,width,lengthb,custno,enda,kind", afilter = [], bbsKey = [], t_count = 0, as, 
 			brwCount2 = 0;
 			brwCount = -1;
 			var t_sqlname = 'view_ordet_load'; t_postname = q_name;
@@ -139,7 +139,71 @@
 							$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 					});
 				});
+				size_change();
 				Unlock(1);
+			}
+			function size_change(){
+				var w = window.parent;
+				if(w && w.$('#cmbKind').val()){
+					var SelectrdVal = (w.$('#cmbKind').val()).toUpperCase().substring(0,1);
+					switch(SelectrdVal){
+						case 'A':
+							$('*[id="lblSize_help"]').text(q_getPara('sys.lblSizea'));
+							for (var j = 0; j < q_bbsCount; j++) {
+								$('#textSize1_' + j).show();
+								$('#textSize2_' + j).show();
+								$('#textSize3_' + j).show();
+								$('#textSize4_' + j).hide();
+								$('#x1_' + j).show();
+								$('#x2_' + j).show();
+								$('#x3_' + j).hide();
+								$('*[id="Size"]').css('width', '230px');
+								$('#textSize1_' + j).val($('#txtDime_' + j).val());
+								$('#textSize2_' + j).val($('#txtWidth_' + j).val());
+								$('#textSize3_' + j).val($('#txtLengthb_' + j).val());
+								$('#textSize4_' + j).val(0);
+								$('#txtRadius_' + j).val(0);
+							}
+							break;
+						case 'B':
+							$('*[id="lblSize_help"]').text(q_getPara('sys.lblSizeb'));
+							for (var j = 0; j < q_bbsCount; j++) {
+								$('#textSize1_' + j).show();
+								$('#textSize2_' + j).show();
+								$('#textSize3_' + j).show();
+								$('#textSize4_' + j).show();
+								$('#x1_' + j).show();
+								$('#x2_' + j).show();
+								$('#x3_' + j).show();
+								$('*[id="Size"]').css('width', '313px');
+								$('#textSize1_' + j).val($('#txtRadius_' + j).val());
+								$('#textSize2_' + j).val($('#txtWidth_' + j).val());
+								$('#textSize3_' + j).val($('#txtDime_' + j).val());
+								$('#textSize4_' + j).val($('#txtLengthb_' + j).val());
+							}
+							break;
+						default:
+							$('*[id="lblSize_help"]').text(q_getPara('sys.lblSizec'));
+							for (var j = 0; j < q_bbsCount; j++) {
+								$('#textSize1_' + j).hide();
+								$('#textSize2_' + j).hide();
+								$('#textSize3_' + j).show();
+								$('#textSize4_' + j).hide();
+								$('#x1_' + j).hide();
+								$('#x2_' + j).hide();
+								$('#x3_' + j).hide();
+								$('*[id="Size"]').css('width', '230px');
+								$('#textSize1_' + j).val(0);
+								$('#txtDime_' + j).val(0);
+								$('#textSize2_' + j).val(0);
+								$('#txtWidth_' + j).val(0);
+								$('#textSize3_' + j).val($('#txtLengthb_' + j).val());
+								$('#textSize4_' + j).val(0);
+								$('#txtRadius_' + j).val(0);
+							}
+							break;
+					}
+				}
 			}
 			
 			function readonly(t_para, empty) {
@@ -170,9 +234,7 @@
 					<td class="td2" align="center" style="width:15%;"><a id='lblUno_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_s'></a></td>
 					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
-					<td class="td5" align="center" style="width:8%;"><a id='lblDime_s'></a></td>
-					<td class="td6" align="center" style="width:8%;"><a id='lblWidth_s'></a></td>
-					<td class="td7" align="center" style="width:8%;"><a id='lblLengthb_s'></a></td>
+					<td class="td5" id='Size' align="center"><a id='lblSize_help'></a></td>
 					<td class="td8" align="center" style="width:8%;"><a id='lblMount_s'></a></td>
 					<td class="td9" align="center" style="width:8%;"><a id='lblWeight_s'></a></td>
 					<td class="td10" align="center" style="width:10%;"><a id='lblSource_s'></a></td>
@@ -189,9 +251,7 @@
 					<td class="td2" align="center" style="width:15%;"><a id='lblUno_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_s'></a></td>
 					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
-					<td class="td5" align="center" style="width:8%;"><a id='lblDime_s'></a></td>
-					<td class="td6" align="center" style="width:8%;"><a id='lblWidth_s'></a></td>
-					<td class="td7" align="center" style="width:8%;"><a id='lblLengthb_s'></a></td>
+					<td class="td5" id='Size' align="center"><a id='lblSize_help'></a></td>
 					<td class="td8" align="center" style="width:8%;"><a id='lblMount_s'></a></td>
 					<td class="td9" align="center" style="width:8%;"><a id='lblWeight_s'></a></td>
 					<td class="td10" align="center" style="width:10%;"><a id='lblSource_s'></a></td>
@@ -210,14 +270,19 @@
 					<td class="td4" style="width:10%;">
 						<input class="txt c1" id="txtProductno.*" type="text" />
 					</td>
-					<td class="td5" style="width:8%;">
-						<input class="txt c1 num" id="txtDime.*" type="text" />
-					</td>
-					<td class="td6" style="width:8%;">
-						<input class="txt c1 num" id="txtWidth.*" type="text"  />
-					</td>
-					<td class="td7" style="width:8%;">
-						<input class="txt c1 num" id="txtLengthb.*" type="text" />
+					<td class="td5" id='Size'>
+						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
+						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >x</div>
+						<input class="txt num" id="textSize2.*" type="text" style="float: left;width:55px;"  disabled="disabled"/>
+						<div id="x2.*" style="float: left;display:block;width:20px;padding-top: 4px;">x</div>
+						<input class="txt num" id="textSize3.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
+						<div id="x3.*" style="float: left;display:block;width:20px;padding-top: 4px;">x</div>
+						<input class="txt num" id="textSize4.*" type="text"  style="float: left;width:55px;" disabled="disabled"/>
+						<!--上為虛擬下為實際-->
+						<input id="txtRadius.*" type="text" style="display:none;"/>
+						<input id="txtWidth.*" type="text" style="display:none;"/>
+						<input id="txtDime.*" type="text" style="display:none;"/>
+						<input id="txtLengthb.*" type="text" style="display:none;"/>
 					</td>
 					<td class="td8" style="width:8%;">
 						<input class="txt c1 num" id="txtMount.*" type="text" />
