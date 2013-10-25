@@ -64,7 +64,6 @@
 						q_boxClose2(s2);
 						///	q_boxClose 3/4
 						break;
-				
 			}	/// end Switch
 		}
 
@@ -135,12 +134,10 @@
 				}else{
 					wrServer($('#txtNoa').val());
 				}
-
 		 }
 
 		function wrServer( key_value) {
 			var i;
-
 			xmlSql = '';
 			if (q_cur == 2)	
 				xmlSql = q_preXml();
@@ -258,9 +255,6 @@
 			.tbbm tr td {
 				width: 9%;
 			}
-			.tbbm .tdZ {
-				width: 2%;
-			}
 			.tbbm tr td span {
 				float: right;
 				display: block;
@@ -272,40 +266,9 @@
 				color: blue;
 				font-size: medium;
 			}
-			.tbbm tr td .lbl.btn {
-				color: #4297D7;
-				font-weight: bolder;
-				font-size: medium;
-			}
-			.tbbm tr td .lbl.btn:hover {
-				color: #FF8F19;
-			}
 			.txt.c1 {
 				width: 98%;
 				float: left;
-			}
-			.txt.c2 {
-				width: 38%;
-				float: left;
-			}
-			.txt.c3 {
-				width: 60%;
-				float: left;
-			}
-			.txt.c4 {
-				width: 18%;
-				float: left;
-			}
-			.txt.c5 {
-				width: 80%;
-				float: left;
-			}
-			.txt.c6 {
-				width: 50%;
-				float: left;
-			}
-			.txt.num {
-				text-align: right;
 			}
 			.tbbm td {
 				margin: 0 -1px;
@@ -317,16 +280,6 @@
 				margin: -1px;
 				float: left;
 			}
-			.tbbm select {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-				font-size:medium;
-			}
-			.tbbm textarea {
-				font-size: medium;
-			}
-			
 			 input[type="text"],input[type="button"] {	 
 				font-size: medium;
 			}
