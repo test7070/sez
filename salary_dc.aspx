@@ -52,7 +52,7 @@
             q_mask(bbmMask);
             
             //q_cmbParse("cmbPerson", q_getPara('person.typea'));
-            q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
+            q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪','外勞')));
             q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
             q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
              $('#txtDatea').focusout(function () {
@@ -810,7 +810,7 @@
             table_change();
         }
         function btnPrint() {
-			q_box('z_salary.aspx', '', "1000px", "800px", q_getMsg("popPrint"));
+			q_box('z_salary.aspx', '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
@@ -1177,6 +1177,7 @@
 		            	 $('#hid_tax5_'+j).show();
             	 	}
             }else{//外勞
+            		$('#tbbs').css("width","6000px");
             		//bbm
             	 	$('#lblDaymoney').hide();
 	            	 $('#txtDaymoney').hide();
