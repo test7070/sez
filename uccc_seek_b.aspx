@@ -94,7 +94,27 @@
 			seekData(t_where);
 		}
 
+		var maxAbbsCount = 0;
 		function refresh() {
+			//_refresh();
+			var w = window.parent;
+			if (maxAbbsCount < abbs.length) {
+				for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
+					if(w.q_name == 'cub' || w.q_name == 'orde'){
+						for (var j = 0; j < w.q_bbtCount; j++) {
+							if (w.$('#txtUno__' + j).val() == abbs[i].uno) {
+								abbs[i].emount = dec(abbs[i].emount) + dec(w.$('#txtMount__'+j).val());
+								abbs[i].eweight = dec(abbs[i].eweight) + dec(w.$('#txtWeight__'+j).val());
+							}
+						}
+					}
+					if (dec(abbs[i].emount) <= 0 || dec(abbs[i].eweight) <= 0) {
+						abbs.splice(i, 1);
+						i--;
+					}
+				}
+				maxAbbsCount = abbs.length;
+			}
 			_refresh();
 			var Parent = window.parent.document;
 			if(Parent.getElementById('cmbKind')){

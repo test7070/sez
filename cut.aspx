@@ -112,7 +112,6 @@
 				});
 			}
 
-			var w_ret = new Array;
 			function q_boxClose(s2) {///   q_boxClose 2/4
 				var ret;
 				switch (b_pop) {
@@ -128,13 +127,6 @@
 							sum();
 							for (var j = 0; j < q_bbsCount; j++) {
 								getTheory(j);
-							}
-							//產生編號
-							var t_noa = trim($('#txtUno').val());
-							if (t_noa.length > 0) {
-								var t_where = "where=^^ left(uno," + t_noa.length + ")='" + t_noa + "' ^^";
-								w_ret = ret;
-								q_gt('view_uccb', t_where, 0, 0, 0, "view_uccb", r_accy);
 							}
 						}
 						break;
@@ -154,7 +146,9 @@
 						break;
 				}
 			}
-
+			function SetEmpUno(){
+				
+			}
 			function bbsClear() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#btnMinus_' + i).click();
@@ -226,9 +220,7 @@
 						for (var i = 0; i < as.length; i++) {
 							unoArray.push(as[i].uno);
 						}
-						for (var i = 0; i < w_ret.length; i++) {
-							setNewBno(unoArray, w_ret[i]);
-						}
+						setEmpUno();
 						break;
 					default:
 						if (t_name.substring(0, 9) == 'checkUno_') {
@@ -278,150 +270,110 @@
 				Unlock(1);
 			}
 
-			var i_uno = 1;
-			//餘料編號初始值
-			function btnOk() {
-				Lock(1, {
-					opacity : 0
-				});
-				//日期檢查
+			function CheckInputError(){
+				var t_err = '';
+				var t_theyout = dec($('#txtTheyout').val());
+				var t_gweight = dec($('#txtGweight').val());
+				var t_gmount = dec($('#txtGmount').val());
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
-					alert(q_getMsg('lblDatea') + '錯誤。');
-					Unlock(1);
-					return;
+					t_err += q_getMsg('lblDatea') + '錯誤。\n';
 				}
 				if ($('#txtDatea').val().substring(0, 3) != r_accy) {
-					alert('年度異常錯誤，請切換到【' + $('#txtDatea').val().substring(0, 3) + '】年度再作業。');
-					Unlock(1);
-					return;
+					t_err += '年度異常錯誤，請切換到【' + $('#txtDatea').val().substring(0, 3) + '】年度再作業。\n';
 				}
-
-				//參考cut_save
-				if (emp($('#txtUno').val()) && dec($('#txtGweight').val()) > 0) {
-					alert("批號不可為空白");
-					Unlock(1);
-					return;
+				if (emp($('#txtUno').val())) {
+					t_err += "批號不可為空白\n";
 				}
-				if (dec($('#txtTheyout').val()) > dec($('#txtGweight').val())) {
-					alert("產出實際重 > 領料重");
-					Unlock(1);
-					return;
-				}
-				if (dec($('#txtTheyout').val()) > 0 && dec($('#txtGweight').val()) > 0 && ((Math.abs(dec($('#txtTheyout').val()) - dec($('#txtGweight').val()))) / dec($('#txtGweight').val())) > 0.05) {
-					alert("產出實際重、領料重，差異過大");
-					Unlock(1);
-					return;
+				if (uccb_gweight > 0){
+					t_err += "此批號已有領用\n";
 				}
 				if (emp($('#txtTggno').val()) && $('#cmbTypea').find("option:selected").text().indexOf('委') > -1) {
-					alert("委外廠商不可為空白");
-					Unlock(1);
-					return;
+					t_err += "委外廠商不可為空白\n";
 				}
-				if (q_cur > 0 && dec($('#txtPrice').val()) > 0)
-					$('#txtTranmoney').val(dec($('#txtPrice').val()) * dec($('#txtTheyout').val()));
-				if ($('#cmbTypea').find("option:selected").text().indexOf('條') > -1) {
-					if (cuts[0] != undefined && cuts[0].typea == $('#cmbTypea').val() && dec($('#txtTheyout').val()) == 0) {
-						alert("不可重覆分條");
-						Unlock(1);
-						return;
-					}
+				if (t_theyout != 0 && t_gweight == 0) {
+					t_err += "領料重為零\n";
 				}
-				if (dec($('#txtTheyout').val()) != 0 && dec($('#txtGweight').val()) == 0) {
-					alert("領料重為零");
-					Unlock(1);
-					return;
+				if (t_theyout != 0 && t_gmount == 0) {
+					t_err += "領料數為零\n";
 				}
-				if (dec($('#txtTheyout').val()) != 0 && dec($('#txtGmount').val()) == 0) {
-					alert("領料數為零");
-					Unlock(1);
-					return;
+				if (t_theyout > t_gweight) {
+					t_err += "產出實際重 > 領料重\n";
+				}
+				if (t_theyout > 0 && t_gweight > 0 && ((Math.abs(t_theyout - t_gweight)) / t_gweight) > 0.05) {
+					t_err += "產出實際重、領料重，差異過大\n";
 				}
 				if ($('#cmbTypea').find("option:selected").text().indexOf('委') == -1) {
 					for (var j = 0; j < q_bbsCount; j++) {
-						if (emp($('#txtBno_' + j).val()) && $('#txtWaste_' + j).val() >= 'X') {
-							$('#txtBno_' + j).val($('#txtWaste_' + j).val() + '001');
+						var thisWaste = trim($('#txtWaste_' + j).val()).toUpperCase();
+						if (emp($('#txtBno_' + j).val()) && thisWaste >= 'X') {
+							$('#txtBno_' + j).val(thisWaste + '001');
 						}
-						if (emp($('#txtStyle_' + j).val()) && !emp($('#txtBno_' + j).val())) {
-							alert("無型別,請檢查");
-							Unlock(1);
-							return;
-						}
-						if ($('#txtStyle_' + j).val() == 'c' && trim($('#txtBno_' + j).val()).length > 12) {
-							alert("批號異常，清空批號再重新產生，並確認是否已有領料");
-							Unlock(1);
-							return;
+						if (emp($('#txtStyle_' + j).val()) && !emp($('#txtBno_' + j).val()) && (thisWaste.length ==0)) {
+							t_err += "第 "+(j+1)+" 筆無型別,請檢查\n";
 						}
 					}
 				}
-
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!emp($('#txtOrdeno_' + j).val()) && emp($('#txtNo2_' + j).val())) {
-						alert("訂序為空");
-						Unlock(1);
-						return;
+						t_err += "第 "+(j+1)+" 筆訂序為空\n";
 					}
 					if (dec($('#txtWeight_' + j).val()) > 0 && emp($('#txtDatea').val())) {
-						alert("表身有重量,日期為空");
-						Unlock(1);
-						return;
+						t_err += "第 "+(j+1)+" 筆表身有重量,日期為空\n";
 					}
 					if (dec($('#txtWeight_' + j).val()) > 0 && emp($('#txtWidth_' + j).val())) {
-						alert("表身重量或寬度小於零");
-						Unlock(1);
-						return;
+						t_err += "第 "+(j+1)+" 筆表身重量或寬度小於零\n";
 					}
 					if ($('#cmbTypea').find("option:selected").text().indexOf('委') > -1 && $('#txtWaste_' + j).val() >= 'X') {
 						$('#txtBno_' + j).val($('#txtWaste_' + j).val() + '001');
 					}
 					if (dec($('#txtDime_' + j).val()) == dec($('#txtWidth_' + j).val()) && dec($('#txtWidth_' + j).val()) > 0) {
-						alert("表身尺寸異常");
-						Unlock(1);
-						return;
+						t_err += "第 "+(j+1)+" 筆表身尺寸異常\n";
 					}
 				}
-				//判斷已領用
-				if (uccb_gweight > 0)//dec($('#txtGweight').val())>uccb_gweight
-				{
-					alert("已有領用");
-					return;
-				}
+				return t_err;
+			}
 
-				//------------參考cut_save
-
-				//--------------自動產生餘料編號
-				for (var j = 0; j < q_bbsCount; j++) {
-					var tmp_uno = trim($('#txtUno').val());
-					if (!($('#txtUno').val().indexOf('-') > -1))
-						tmp_uno = tmp_uno + '-';
-
-					if (!emp($('#txtWeight_' + j).val()) && emp($('#txtBno_' + j).val()))//有入庫重自動產生餘料編號
-					{
-						$('#txtBno_' + j).val(tmp_uno + i_uno.toString(16).toUpperCase());
-						i_uno++;
+			function setEmpUno(){
+				for(var j=0;j<q_bbsCount;j++){
+					var thisBno = trim($('#txtBno_' + j).val());
+					var thisMount = dec($('#txtMount_' + j).val());
+					var thisWeight = dec($('#txtWeight_' + j).val());
+					if((thisBno.length==0) && (thisMount >0) && (thisWeight>0)){
+						setNewBno(unoArray, j);
 					}
 				}
-				//------------------------------------------
-				/*//判斷餘料編號是否重複
-				for (var i = 0; i < q_bbsCount; i++) {
-				for (var j = 0; j < q_bbsCount; j++) {
-				if (i != j && !emp($('#txtBno_' + i).val()) && !emp($('#txtBno_' + j).val()) && $('#txtBno_' + i).val() == $('#txtBno_' + j).val()) {
-				alert("表身餘料編號重複");
-				return;
+				btnOk_checkUno(q_bbsCount - 1);
+			}
+
+			function btnOk() {
+				Lock(1, {
+					opacity : 0
+				});
+				var t_err = CheckInputError();
+				if(t_err.length>0){
+					alert(t_err);
+					Unlock(1);
+					return;					
 				}
-				}
-				}*/
-				//----------------------------
-				//檢查批號
+				if (q_cur > 0 && dec($('#txtPrice').val()) > 0)
+					$('#txtTranmoney').val(dec($('#txtPrice').val()) * dec($('#txtTheyout').val()));
+				//檢查BBS批號
 				for (var i = 0; i < q_bbsCount; i++) {
 					for (var j = i + 1; j < q_bbsCount; j++) {
-						if ($.trim($('#txtBno_' + i).val()).length > 0 && $.trim($('#txtBno_' + i).val()) == $.trim($('#txtBno_' + j).val())) {
-							alert('【' + $.trim($('#txtBno_' + i).val()) + '】' + q_getMsg('lblBno') + '重覆。\n' + (i + 1) + ', ' + (j + 1));
+						var iBno = $.trim($('#txtBno_' + i).val()).toUpperCase();
+						var jBno = $.trim($('#txtBno_' + j).val()).toUpperCase();
+						if ((iBno.length > 0 && iBno == jBno) && iBno.substring(0,1) <'X') {
+							alert('【' + iBno + '】' + q_getMsg('lblBno') + '重覆。\n' + (i + 1) + ', ' + (j + 1));
 							Unlock(1);
 							return;
 						}
 					}
 				}
-				btnOk_checkUno(q_bbsCount - 1);
+				var t_noa = trim($('#txtUno').val());
+				if (t_noa.length > 0) {
+					var t_where = "where=^^ left(uno," + t_noa.length + ")='" + t_noa + "' ^^";
+					q_gt('view_uccb', t_where, 0, 0, 0, "view_uccb", r_accy);
+				}
 			}
 
 			function btnOk_checkUno(n) {
