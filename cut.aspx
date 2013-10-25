@@ -141,7 +141,7 @@
 			function q_popPost(s1) {
 				switch(s1){
 					case 'txtUno':
-						$('#txtGweight').val($('#txtOweight').val());
+						$('#txtGweight').val($('#txtEweight').val());
 						$('#txtGmount').val(1);
 						break;
 				}
@@ -171,7 +171,7 @@
 						StyleList = as;
 						break;
 					case 'uccb':
-						i_uno = 1;
+						var i_uno = 1;
 						uccb = _q_appendData("uccb", "", true);
 						//取得餘料編號
 						if (uccb[uccb.length - 1] != undefined) {
@@ -544,12 +544,12 @@
 					t_unit = $.trim($('#txtUnit_' + j).val()).toUpperCase();
 					t_mount = q_float('txtMount_'+j);
 					//---------------------------------------
-					if ($('#cmbKind').val().substr(0, 1) == 'A') {
+					if (trim($('#cmbKind').val()).substr(0, 1) == 'A') {
 						q_tr('txtDime_' + j, q_float('textSize1_' + j));
 						q_tr('txtWidth_' + j, q_float('textSize2_' + j));
 						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
 						q_tr('txtRadius_' + j, q_float('textSize4_' + j));
-					} else if ($('#cmbKind').val().substr(0, 1) == 'B') {
+					} else if (trim($('#cmbKind').val()).substr(0, 1) == 'B') {
 						q_tr('txtRadius_' + j, q_float('textSize1_' + j));
 						q_tr('txtWidth_' + j, q_float('textSize2_' + j));
 						q_tr('txtDime_' + j, q_float('textSize3_' + j));
@@ -669,7 +669,7 @@
 				};
 				if (dec(t_Divide) == 0)
 					t_Divide = 1;
-				if ($('#cmbKind').val().substr(1, 1) == '4') {//鋼胚
+				if (trim($('#cmbKind').val()).substring(1, 1) == '4') {//鋼胚
 					q_tr('txtTheory_' + b_seq, round(t_Mount * theory_bi(t_spec, $('#txtSpec_' + b_seq).val(), t_Dime, t_Width, t_Lengthb), 0));
 				} else {
 					//q_tr('txtTheory_' + b_seq, theory_st(StyleList, t_Radius, t_Width, t_Dime, t_Lengthb, t_Mount, t_Style) / t_Divide);
@@ -728,7 +728,8 @@
 				} else {
 					$('input[id*="textSize"]').attr('disabled', 'disabled');
 				}
-				if ($('#cmbKind').val().substring(0, 1) == 'A') {
+				var SelectedVal = trim($('#cmbKind').val()).toUpperCase();
+				if (SelectedVal.substring(0, 1) == 'A') {
 					$('#cmbType2').text('');
 					q_cmbParse("cmbType2", q_getPara('cut.type2'));
 					$('#lblSize_help').text(q_getPara('sys.lblSizea'));
@@ -748,7 +749,7 @@
 						$('#textSize4_' + j).val(0);
 						$('#txtRadius_' + j).val(0);
 					}
-				} else if ($('#cmbKind').val().substring(0, 1) == 'B') {
+				} else if (SelectedVal.substring(0, 1) == 'B') {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 					$('#Size').css('width', '340px');
 					$('#cmbType2').text('');
@@ -1039,7 +1040,7 @@
 							<input id="txtMechno" type="text" style="float:left;width:50%;" />
 							<input id="txtMech"  type="text" style="float:left;width:50%;"/>
 						</td>
-						<td><span> </span><a id="lblType2"class="lbl" > </a></td>
+						<td><span> </span><a id="lblType2" class="lbl" > </a></td>
 						<td><select id="cmbType2" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblCust" class="lbl btn" > </a></td>
 						<td colspan="3">
@@ -1099,7 +1100,7 @@
 						<td><span> </span><a id="lblTheyout" class="lbl" > </a></td>
 						<td><input id="txtTheyout" type="text" class="txt num c1" /></td>
 						<td><span> </span><a id="lblTotalout" class="lbl" > </a></td>
-						<td><input id="txtTotalout" type="text"class="txt num c1" /></td>
+						<td><input id="txtTotalout" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
