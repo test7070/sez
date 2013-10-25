@@ -197,6 +197,18 @@
 			var holiday;//存放holiday的資料
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cara_ins':
+                		var as = _q_appendData("cara", "", true);
+                		if(as[0]!=undefined){
+                			alert('該車輛當月單據以存在!!!');
+                			location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+as[0].noa+"' ;"+r_accy;
+                		}else{
+                			isbtnok=true;
+			                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+			                if(s1.length == 0 || s1 == "AUTO")
+			                    wrServer($('#txtCarno').val()+'-'+$('#txtMon').val());
+                		}
+                	break;
                 	case 'holiday':
 	            		holiday = _q_appendData("holiday", "", true);
 	            	break;
@@ -345,35 +357,41 @@
 			//1020311增加修改完單據後會重新整理網頁(解決次月金額變動而沒有重新整理的問題)
 			var isbtnok=false;
             function btnOk() {
-                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
-            	}
-                if (!q_cd($('#txtPdate').val())){
-                	alert(q_getMsg('lblPdate')+'錯誤。');
-                	return;
-            	}
+            	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
+					alert(q_getMsg('lblDatea')+'錯誤。');
+					return;
+				}
+				if (!q_cd($('#txtPdate').val())){
+					alert(q_getMsg('lblPdate')+'錯誤。');
+	                return;
+	            }
 				$('#txtMon').val($.trim($('#txtMon').val()));
 				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
 				}         	
-
-                 t_err = q_chkEmpField([['txtCarno', q_getMsg('lblCarno')],['txtMon', q_getMsg('lblMon')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-
-                $('#txtWorker').val(r_name)
-                sum();
+	
+				t_err = q_chkEmpField([['txtCarno', q_getMsg('lblCarno')],['txtMon', q_getMsg('lblMon')]]);
+				if(t_err.length > 0) {
+					alert(t_err);
+					return;
+				}
 				
-				isbtnok=true;
-                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-                if(s1.length == 0 || s1 == "AUTO")
-                    wrServer($('#txtCarno').val()+'-'+$('#txtMon').val());
-                else
-                	wrServer(s1);
+            	if(q_cur==1){
+            		//判斷單據是否已存在
+            		var t_where = "where=^^ carno ='"+$('#txtCarno').val()+"' and mon='"+$('#txtMon').val()+"' ^^";
+					q_gt('cara', t_where , 0, 0, 0, "cara_ins", r_accy);
+            	}else{
+	                $('#txtWorker').val(r_name)
+	                sum();
+					
+					isbtnok=true;
+	                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+	                if(s1.length == 0 || s1 == "AUTO")
+	                    wrServer($('#txtCarno').val()+'-'+$('#txtMon').val());
+	                else
+	                	wrServer(s1);
+               }
             }
 			
 			function q_stPost() {
