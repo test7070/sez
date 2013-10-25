@@ -275,6 +275,7 @@
 				var t_theyout = dec($('#txtTheyout').val());
 				var t_gweight = dec($('#txtGweight').val());
 				var t_gmount = dec($('#txtGmount').val());
+				var t_eweight = dec($('#txtEweight').val());
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					t_err += q_getMsg('lblDatea') + '錯誤。\n';
 				}
@@ -298,6 +299,9 @@
 				}
 				if (t_theyout > t_gweight) {
 					t_err += "產出實際重 > 領料重\n";
+				}
+				if (t_gweight > t_eweight) {
+					t_err += "領料重 > 可領料重\n";
 				}
 				if (t_theyout > 0 && t_gweight > 0 && ((Math.abs(t_theyout - t_gweight)) / t_gweight) > 0.05) {
 					t_err += "產出實際重、領料重，差異過大\n";
