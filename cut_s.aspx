@@ -57,15 +57,13 @@
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 		     
 		        + q_sqlPara2("mechno", t_mechno)
-		        + + q_sqlPara2("uno", t_uno) ;
+		        + q_sqlPara2("uno", t_uno) ;
 		        if (t_mech.length>0)
                     t_where += " and charindex('" + t_mech + "',mech)>0";
 		       	if(t_ordeno.length>0)
 		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cut"+r_accy+".noa and cuts"+r_accy+".ordeno='"+t_ordeno+"')";
 		       	if(t_bno.length>0)
 		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cub"+r_accy+".noa and cuts"+r_accy+".bno='"+t_bno+"')";
-		       		
-		       	
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
