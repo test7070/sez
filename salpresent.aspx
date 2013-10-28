@@ -157,7 +157,7 @@
             $('#txtNoa').attr('disabled', 'disabled');
         }
         function btnPrint() {
-
+			q_box("z_salpresent.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'salpresent', "95%", "95%", m_print);
         }
 
         function wrServer(key_value) {
