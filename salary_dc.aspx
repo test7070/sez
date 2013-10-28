@@ -1231,7 +1231,7 @@
 		            	 $('#hid_tax5_'+j).hide();
             	 	}
             }
-            //大昌不要公費和住宿電費
+            //公費和住宿電費拿到有需要再加
         	$('#lblPubmoney').hide();
         	$('#txtPubmoney').hide();
         	$('#hid_pubmoney').hide();
