@@ -103,7 +103,7 @@
             }
 
             function btnPrint() {
-
+				q_box("z_specp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_specp', "95%", "95%", q_getMsg('popPrint'));
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
