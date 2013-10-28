@@ -26,12 +26,31 @@
 				$('#q_report').q_report({
 					fileName : 'z_cubpip',
 					options : [{
-						type : '0',
+						type : '0',//[1]
 						name : 'accy',
 						value : r_accy
 					},{
-						type : '1',
+						type : '1',//[2][3]
 						name : 'xnoa'
+					},{
+						type : '1',//[4][5]
+						name : 'xindate'
+					},{
+						type : '8',//[6]
+						name : 'xbtype',
+						value : 'cut@製管,slit@切管,sale@修端,ordc@包裝'.split(',')
+					},{
+						type : '1', //[10][11]
+						name : 'xradius'
+					},{
+						type : '1', //[12][13]
+						name : 'xwidth'
+					},{
+						type : '1', //[14][15]
+						name : 'xdime'
+					},{
+						type : '1', //[16][17]
+						name : 'xlengthb'
 					}]
 				});
 				q_popAssign();
@@ -39,10 +58,52 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa1').val(t_noa);
                 $('#txtXnoa2').val(t_noa);
+				$('#txtXindate1').mask('999/99/99');
+				$('#txtXindate1').datepicker();
+				$('#txtXindate2').mask('999/99/99');
+				$('#txtXindate2').datepicker();
+				setDefaultValue();
+				$('#chkXbtype > input[type="checkbox"]').each(function(){
+					$(this).attr('checked','true');
+				});
 			}
 			function q_boxClose(s2) {
 			}
 			function q_gtPost(s2) {
+			}
+			function setDefaultValue(){
+				$('#txtXradius1').val(0).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(0);
+				});
+				$('#txtXradius2').val(9999.99).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(9999.99);
+				});
+				$('#txtXwidth1').val(0).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(0);
+				});
+				$('#txtXwidth2').val(9999.99).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(9999.99);
+				});
+				$('#txtXdime1').val(0).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(0);
+				});
+				$('#txtXdime2').val(999.99).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(999.99);
+				});
+				$('#txtXlengthb1').val(0).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(0);
+				});
+				$('#txtXlengthb2').val(99999.9).addClass('num').focusout(function(){
+					$(this).val(dec($(this).val()));
+					if($(this).val() == 'NaN') $(this).val(99999.9);
+				});
 			}
 		</script>
 	</head>
