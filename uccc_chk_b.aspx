@@ -132,32 +132,32 @@
 					<th align="center" >
 						<input type="checkbox" id="checkAllCheckbox"/>
 					</th>
-					<td align="center" style="width:8%;"><a id='lblUno_st'> </a></td>
+					<td align="center" style="width:12%;"><a id='lblUno_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblEmount_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblSize_st'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblSpec_st'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblEmount_st'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblEweight_st'> </a></td>
+					<td align="center" ><a id='lblMemo_st'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
 					<td><input id="txtUno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+					<td>
+						<input id="txtRadius.*" type="text" style=" width: 20%;text-align: right;" readonly="readonly"/>
+						<span id="StrX1" class="StrX">x</span>
+						<input id="txtWidth.*" type="text" style=" width: 20%;text-align: right;" readonly="readonly"/>
+						<span id="StrX2" class="StrX">x</span>
+						<input id="txtDime.*" type="text" style=" width: 20%;text-align: right;" readonly="readonly"/>
+						<span id="StrX3" class="StrX">x</span>
+						<input id="txtLengthb.*" type="text" style=" width: 20%;text-align: right;" readonly="readonly"/>
+					</td>
+					<td><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
 					<td><input id="txtEweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
-					<td><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-					<td>
-						<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-						<span id="StrX1" class="StrX">x</span>
-						<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-						<span id="StrX2" class="StrX">x</span>
-						<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-						<span id="StrX3" class="StrX">x</span>
-						<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-					</td>
 					<td><input id="txtMemo.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 				</tr>
 			</table>
