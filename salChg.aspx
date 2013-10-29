@@ -17,7 +17,7 @@
         }
         var q_name="salchg";
         var q_readonly = ['txtNoa','txtWorker','txtAccno'];
-        var bbmNum = [['txtBorrow',15,0,1],['txtMinus',15,0,1],['txtPlus',15,0,1]]; 
+        var bbmNum = [['txtBorrow',15,0,1],['txtMinus',15,0,1],['txtPlus',15,0,1],['txtDay_meal',5,0,1]]; 
         var bbmMask = [];
         q_desc=1; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';

@@ -29,8 +29,8 @@
 			brwNowPage = 0;
 			brwKey = 'Odate';
 			aPop = new Array(['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx']
-							,['txtProductno2_', 'btnProduct2_', 'fixucc', 'noa,namea,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'fixucc_b.aspx']
-							,['txtProductno3_', 'btnProduct3_', 'ucaucc', 'noa,product,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+							,['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+							,['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx']
 							,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 							,['txtCno','lblAcomp','acomp','noa,acomp,addr','txtCno,txtAcomp,txtAddr','acomp_b.aspx']
 							,['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
