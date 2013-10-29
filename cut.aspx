@@ -99,12 +99,14 @@
 					if (q_cur == 1 || q_cur == 2) {
 						var t_bdime = dec($('#txtBdime').val()) - 0.5;
 						var t_edime = dec($('#txtEdime').val());
-						var t_width = dec($('#txtWidth').val()) + 11;
+						var t_width = dec($('#txtWidth').val());
 						var t_productno = trim($('#txtProductno').val());
 						var t_custno = trim($('#txtCustno').val());
 						t_edime = (t_edime == 0 ? 999 : t_edime);
-						var t_where = " 1=1 and enda='0'";
-						t_where += q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('width', 0, t_width) + q_sqlPara2('productno', t_productno);
+						var t_where = " 1=1 and isnull(enda,0)='0'";
+						t_where += q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('productno', t_productno);
+						if(t_width!=0)
+							t_where += q_sqlPara2('width', 0, t_width+11);
 						if (!emp(t_custno))
 							t_where += q_sqlPara2('custno', t_custno);
 						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));

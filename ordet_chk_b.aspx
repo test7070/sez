@@ -61,7 +61,7 @@
 						if(as[0]!=undefined && abbs[0]!=undefined){
 							for(var i=0;i<as.length;i++){
 								for(var j=0;j<abbs.length;j++){
-									if(abbs[j].noa == as[i].ordeno && abbs[j].no2 == as[i].no2){
+									if(abbs[j].noa == as[i].ordeno && abbs[j].no2 == as[i].no2 && (abbs[j].uno == as[i].uno)){
 										abbs[j].mount=dec(abbs[j].mount)-dec(as[i].mount);
 										abbs[j].weight=dec(abbs[j].weight)-dec(as[i].weight);
 									}
