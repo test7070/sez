@@ -14,7 +14,7 @@
             //, t_where = '';
             var t_sqlname = q_name;
             t_postname = q_name;
-            brwCount2 = 15;
+            brwCount = -1;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
             var bbsNum = [];
@@ -24,6 +24,10 @@
             	if (!q_paraChk())
                     return;
                 main();
+                $('#btnTop').hide();
+                $('#btnPrev').hide();
+                $('#btnNext').hide();
+                $('#btnBott').hide();
             });
             function main() {
                 if (dataErr) {
