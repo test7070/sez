@@ -36,7 +36,7 @@
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_fact',
-				 'txtCustno,txtComp,txtPay,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
+				 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
 			);
@@ -516,7 +516,7 @@
 				<td ><input id="txtCustno" type="text" class="txt c1"/></td>
 				<td ><input id="txtComp"  type="text" class="txt c1"/></td>
 				<td class="label2"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
-				<td ><input id="txtPay" type="text" class="txt c1" /></td> 
+				<td ><input id="txtPaytype" type="text" class="txt c1" /></td> 
 				<td> <select id="cmbPaytype" class="txt c1"> </select></td> 
 				<td class="label3"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
 				<td><select id="cmbTrantype" class="txt c1" name="D1" > </select></td> 
