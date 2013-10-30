@@ -42,49 +42,11 @@
                         dbf : 'team',
                         index : 'noa,team',
                         src : 'team_b.aspx'
-                    },{/*[6]*//*型態*///3
-                        type : '5',
-                        name : 'stype',
-                        value : [q_getPara('report.all')].concat(q_getPara('gqb.typea').split(','))
-                    }, {/*[7]*//*兌現*///4
-                        type : '5',
-                        name : 'status',
-                        value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
-                    }, {/*[8][9]*//*收開日期*///5
-                        type : '1',
-                        name : 'date'
-                    }, {/*[10][11]*//*到期日期*///6
-                        type : '1',
-                        name : 'indate'
-                    },{/*[12][13]*//*銀行編號*///7
-                        type : '2',
-                        name : 'bank',
-                        dbf : 'bank',
-                        index : 'noa,bank',
-                        src : 'bank_b.aspx'
-                    }, {/*[14]*/
-                        type : '5',
-                        name : 'sort01',
-                        value : q_getMsg('sort01').split('&')
-                    }, {/*[15]*/
-                        type : '0',
-                        name : 'ctypea',
-                        value : q_getPara('gqb.typea')
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-                
-                $('#txtIndate1').mask('999/99/99');
-                $('#txtIndate1').datepicker();
-                $('#txtIndate2').mask('999/99/99');
-                $('#txtIndate2').datepicker();
                 
                 var t_key = q_getHref();
                 //抓製令單號
