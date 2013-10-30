@@ -43,7 +43,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
 
             function main() {
@@ -125,18 +125,6 @@
 	                                                           , 'productno,product,unit,mount,datea,noa,no2,bworkdate'
 	                                                           , 'txtProductno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
 	                        bbsAssign();
-	                        for (i = 0; i < ret.length; i++) {
-	                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
-	                            if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-	                                $('#txtMount_' + k).val(b_ret[i]['notv']);
-	                                $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-	                            }
-	                            else {
-	                                $('#txtWeight_' + k).val(b_ret[i]['notv2']);
-	                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv2'], b_ret[i]['weight']));
-	                            }
-	
-	                        }  /// for i
 	                        //UcaCatch(0,ret);
 	                    }
 						break;

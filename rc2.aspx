@@ -157,19 +157,6 @@
 														   , 'uno,productno,product,unit,mount,noa,no2,price,total,memo'
 														   , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
-
-					   /* for (i = 0; i < ret.length; i++) {
-							k = ret[i];  ///ret[i]  儲存 tbbs 指標
-							if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-								$('#txtMount_' + k).val(b_ret[i]['notv']);
-								$('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-							}
-							else {
-								$('#txtWeight_' + k).val(b_ret[i]['notv2']);
-								$('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv2'], b_ret[i]['weight']));
-							}
-					   }  /// for i
-						sum();*/
 					}
 					break;
 				

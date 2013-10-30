@@ -23,9 +23,9 @@
             q_tables = 's';
             var q_name = "ordb";
             var q_readonly = ['txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtTotal','txtTotalus'];
-            var q_readonlys = ['txtNo3','txtNo2','txtTotal', 'txtC2', 'txtNotv2'];
+            var q_readonlys = ['txtNo3','txtNo2','txtTotal', 'txtC1', 'txtNotv'];
             var bbmNum = [['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]];
-            var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1], ['txtC2', 10, 2, 1], ['txtNotv2', 10, 2, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1], ['txtC1', 10, 2, 1], ['txtNotv', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -900,8 +900,8 @@
 					<td>
 					<input id="txtTotal.*" type="text" style="float:left;width:95%;text-align: right;"/></td>
 					<td>
-					<input id="txtC2.*" type="text" style="float:left;width:95%;text-align: right;"/>
-					<input id="txtNotv2.*" type="text" style="float:left;width:95%;text-align: right;"/>
+					<input id="txtC1.*" type="text" style="float:left;width:95%;text-align: right;"/>
+					<input id="txtNotv.*" type="text" style="float:left;width:95%;text-align: right;"/>
 					</td>
 					<td>
 					<input id="txtMemo.*" type="text" style="float:left;width:195px;"/>

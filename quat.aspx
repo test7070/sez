@@ -17,7 +17,7 @@
 			q_desc=1;
 			q_tables = 's';
 			var q_name = "quat";
-			var decbbs = ['price', 'weight', 'mount', 'total', 'c2', 'notv2', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
+			var decbbs = ['price', 'weight', 'mount', 'total','dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price','totalus'];
 			var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales','txtWorker2'];
 			var q_readonlys = [];
