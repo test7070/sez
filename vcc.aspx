@@ -30,7 +30,7 @@
         brwNowPage = 0; 
         brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
+		 aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
                 ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
                 ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
@@ -344,7 +344,7 @@
             if (!q_cur)
                 cmb.value = '';
             else
-                $('#txtPay').val(cmb.value);
+                $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
 		
@@ -721,7 +721,7 @@
 					<input id="txtComp" type="text" class="txt c3"/>
 				</td>
                 <td class="td4"><span> </span><a id='lblPay' class="lbl"> </a></td>
-                <td class="td5"><input id="txtPay" type="text" class="txt c1"/></td>                 
+                <td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td>                 
                 <td class="td6"><select id="combPay" style="width: 100%;" onchange='combPay_chg()'> </select></td>                 
                 <td class="td7"><span> </span><a id='lblMon' class="lbl"> </a></td>
                 <td class="td8"><input id="txtMon" type="text" class="txt c1"/></td> 
@@ -804,7 +804,8 @@
             </tr>
         </table>
         </div>
-        <div class='dbbs'>
+        </div>
+        <div class='dbbs' style="width: 1270px;">
         <table id="tbbs" class='tbbs'>
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;width:" /> </td>
@@ -840,7 +841,6 @@
         </table>
         </div>
         <input id="q_sys" type="hidden" />
-      </div>
 </body>
 </html>
 
