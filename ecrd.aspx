@@ -134,6 +134,10 @@
 	
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(q_cur==1 || q_cur==2)
+					$('#btnCodazero').removeAttr('disabled');
+				else
+					$('#btnCodazero').Attr('disabled','disabled');
 			}
 	
 			function btnMinus(id) {
