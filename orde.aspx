@@ -437,6 +437,7 @@
 
 		function btnIns() {
 			_btnIns();
+			$('#chkIsproj').attr('checked',true);
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtCno').val('1');
 			$('#txtAcomp').val(r_comp.substr(0, 2));
@@ -846,6 +847,11 @@
 					<td class="td2" colspan='2'><input id="txtWorker" type="text" class="txt c1" /></td>
 					<td class="td4"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 					<td class="td6" colspan='2'><input id="txtWorker2" type="text" class="txt c1" /></td> 
+					<td>
+						<input id="chkIsproj" type="checkbox"/>
+						<span> </span><a id='lblIsproj'> </a>
+					
+					</td>
 				</tr>
 				<tr class="tr11">
 					<td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>

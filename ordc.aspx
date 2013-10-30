@@ -300,6 +300,7 @@
 
 			function btnIns() {
 				_btnIns();
+				$('#chkIsproj').attr('checked',true);
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtOdate').val(q_date());
 				$('#txtOdate').focus();
@@ -715,8 +716,8 @@
 					<input id="txtSales" type="text" class="txt c7 lef"/>
 				</td> 
 				<td class="td4" align="right">
-					<input id="chkAeno" type="checkbox"/>
-					<a id='lblAeno' style="width: 50%;"></a>
+					<input id="chkIsproj" type="checkbox"/>
+					<a id='lblIsproj' style="width: 50%;"></a>
 				</td>
 				<td class="td5" align="right">
 					<input id="chkEnda" type="checkbox"/>

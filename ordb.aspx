@@ -178,6 +178,10 @@
                     }
                     product_change();
                 });
+				$('#txtAddr').change(function(){
+					var t_where = "where=^^ noa='" + trim($(this).val()) + "' ^^";
+					q_gt('cust', t_where , 0, 0, 0, "", r_accy);
+				});
 
                 $('#txtFloata').change(function() {
                     sum();
@@ -228,6 +232,16 @@
                         }
                         q_cmbParse("combAddr", t_item);
                         break;
+					case 'cust' :
+						var as = _q_appendData("cust", "", true);
+						if (as[0] != undefined) {
+							var CustAddr = trim(as[0].addr_fact);
+							if(CustAddr.length>0){
+								$('#txtAddr').val(CustAddr);
+								$('#txtPost').val(as[0].zip_fact);
+							}
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -326,6 +340,7 @@
 
             function btnIns() {
                 _btnIns();
+				$('#chkIsproj').attr('checked',true);
                 $('#txtNoa').val('AUTO');
                 $('#txtOdate').val(q_date());
                 $('#txtOdate').focus();
@@ -745,7 +760,7 @@
 						<td class="td4"><input id="txtOdate" type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td6" colspan="2"><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td class="td8" align="right"><input id="chkAeno" type="checkbox"/><a id='lblAeno' style="width: 50%;"> </a><span> </span></td>
+						<td class="td8" align="right"><input id="chkIsproj" type="checkbox"/><a id='lblIsproj' style="width: 50%;"> </a><span> </span></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn"> </a></td>
