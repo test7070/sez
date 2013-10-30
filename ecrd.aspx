@@ -137,7 +137,7 @@
 				if(q_cur==1 || q_cur==2)
 					$('#btnCodazero').removeAttr('disabled');
 				else
-					$('#btnCodazero').Attr('disabled','disabled');
+					$('#btnCodazero').attr('disabled','disabled');
 			}
 	
 			function btnMinus(id) {
