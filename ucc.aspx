@@ -187,6 +187,16 @@
 					$('#textStk').val(stkmount);
 					$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
 				break;
+				case 'ucc_acomp_stk':
+					var as  = _q_appendData("acomp", "", true);
+					var storeno='';
+					for ( var i = 0; i < as.length; i++) {
+						storeno=storeno+','+as[i].noa;
+					}
+					storeno=storeno.substr(1,storeno.length);
+					var t_where = "where=^^ ['"+q_date()+"','"+storeno+"','') where productno='"+$('#txtNoa').val()+"' ^^";
+					q_gt('calstk', t_where , 0, 0, 0, "ucc_stk", r_accy);
+				break;
 				case q_name: 
 					if (q_cur == 4)	
 						q_Seek_gtPost();
@@ -267,8 +277,13 @@
 			var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by mon desc ^^";
 			q_gt('costs', t_where , 0, 0, 0, "ucc_price", r_accy);
 			//庫存
-			var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtNoa').val()+"' ^^";
-			q_gt('calstk', t_where , 0, 0, 0, "ucc_stk", r_accy);
+			if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+				var t_where = "where=^^ 1=1 ^^";
+				q_gt('acomp', t_where , 0, 0, 0, "ucc_acomp_stk", r_accy);
+			}else{
+				var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtNoa').val()+"' ^^";
+				q_gt('calstk', t_where , 0, 0, 0, "ucc_stk", r_accy);
+			}
 			//最新出貨單價
 			//var t_where = "where=^^ noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
 			//q_gt('vcc', t_where , 0, 0, 0, "ucc_vcc", r_accy);
