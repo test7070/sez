@@ -31,7 +31,10 @@
             brwCount2 = 15;
             q_xchg = 1;
             
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtTcompno', 'lblTcomp', 'cust', 'noa,comp', 'txtTcompno,txtTcomp', 'cust_b.aspx'], ['txtCompno', 'lblComp', 'tgg', 'noa,comp', 'txtCompno,txtComp', 'tgg_b.aspx'], ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtTcompno', 'lblTcomp', 'tgg', 'noa,comp', '0txtTcompno,txtTcomp', 'tgg_b.aspx']
+            , ['txtCompno', 'lblComp', 'cust', 'noa,comp', '0txtCompno,txtComp', 'cust_b.aspx']
+            , ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
