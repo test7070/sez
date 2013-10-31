@@ -480,8 +480,8 @@
 					<span> </span><a id="lblCopy"></a>
 				</div>
 			</td>
-			<td class="label2"><a id='lblDatea'> </a></td>
-			<td class='column2'><input	type="text" id="txtDatea" class="txt c2"/></td>
+			<td class="label2"><!--<a id='lblDatea'> </a>--></td>
+			<td class='column2'><!--<input	type="text" id="txtDatea" class="txt c2"/>--></td>
 			<td class="label3"> </td>
 		</tr>
 		<tr><td class="label1"><a id='lblProduct'> </a></td>
