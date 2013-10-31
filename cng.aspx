@@ -51,6 +51,7 @@
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
+            bbsMask = [['txtClass', r_picd]]; //102/10/31 製造業(醫療 食品)當成有效日
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('cng.typea'));
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
@@ -411,7 +412,6 @@
             <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
             <td class="td2" colspan="3"><input id="txtTggno" type="text"  class="txt c4"/>       
             <input id="txtTgg" type="text"  class="txt c5"/></td>
-            
         </tr>
         <tr class="tr4">
         	<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
@@ -446,20 +446,22 @@
         <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblProductnos'> </a></td>
-                <td align="center"><a id='lblProducts'> </a></td>
-                <td align="center"><a id='lblUnit'> </a></td>
-                <td align="center"><a id='lblMounts'> </a></td>
+                <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
+                <td style="width:15%;" align="center"><a id='lblProductnos'> </a></td>
+                <td style="width:25%;" align="center"><a id='lblProducts'> </a></td>
+                <td style="width:4%;" align="center"><a id='lblUnit'> </a></td>
+                <td style="width:8%;" align="center"><a id='lblMounts'> </a></td>
+                <td style="width:8%;" align="center"><a id='lblClass'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:15%;"><input id="txtProductno.*" type="text" style="width:80%;" />
+                <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <td><input id="txtProductno.*" type="text" style="width:80%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:15%;"  /></td>
-                <td style="width:25%;"><input class="txt c1" id="txtProduct.*" type="text"/></td>
-                <td style="width:4%;"><input class="txt c1" id="txtUnit.*" type="text" /></td>
-                <td style="width:8%;"><input class="txt num c1" id="txtMount.*" type="text"/></td>
+                <td><input class="txt c1" id="txtProduct.*" type="text"/></td>
+                <td><input class="txt c1" id="txtUnit.*" type="text" /></td>
+                <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
+                <td><input class="txt c1" id="txtClass.*" type="text"/></td>
                 <td><input class="txt c1" id="txtMemo.*" type="text"/>
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
