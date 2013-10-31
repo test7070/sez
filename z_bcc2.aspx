@@ -29,7 +29,7 @@
                     case 'store':
                         t_store = '';
                         var as = _q_appendData("store", "", true);
-                        t_store += '99@全部';
+                        t_store = '';
                         for ( i = 0; i < as.length; i++) {
                             t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
                         }
@@ -51,7 +51,7 @@
                         index : 'noa,product',
                         src : 'bcc_b.aspx'
                     }, {/*3*/
-                        type : '5',
+                        type : '8',
                         name : 'xstore',
                         value : t_store.split(',')
                     }]
@@ -64,7 +64,8 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
-
+				$('#chkXstore').children('input').attr('checked', 'checked');
+				
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();
                 t_date.setDate(1);
