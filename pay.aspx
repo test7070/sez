@@ -831,7 +831,61 @@
 
 		    function btnCancel() {
 		        _btnCancel();
-		    }    
+		    }  
+		    function tipShow(){
+				Lock(1);
+				tipInit();
+				var t_set = $('body');
+				t_set.find('.tip').eq(0).show();//tipClose
+				for(var i=1;i<t_set.data('tip').length;i++){
+					index = t_set.data('tip')[i].index;
+					obj = t_set.data('tip')[i].ref;
+					msg = t_set.data('tip')[i].msg;
+					shiftX = t_set.data('tip')[i].shiftX;
+					shiftY = t_set.data('tip')[i].shiftY;
+					if(obj.is(":visible")){
+						t_set.find('.tip').eq(index).show().offset({top:round(obj.offset().top+shiftY,0),left:round(obj.offset().left+obj.width()+shiftX,0)}).html(msg);
+					}else{
+						t_set.find('.tip').eq(index).hide();
+					}
+				}
+			}
+			function tipInit(){
+				
+				tip($('#txtMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">匯入資料前需注意【'+q_getMsg('lblMon')+'】有無輸入正確。</a>',-20,-20);
+				tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:400px;display:block;">【'+q_getMsg('btnVcc')+'】、【'+q_getMsg('btnMon')+'】只能擇一輸入。</a>',-50,30);
+				tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預付金額。</a>',-80,30);
+				tip($('#txtUnopay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑若使用預付金額來沖帳，則在此填入金額。</a>',-100,30);
+				tip($('#textOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑累計預付金額。</a>',-80,30);
+				tip($('#btnAuto'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑自動填入沖帳金額。</a>',-80,30);
+				tip($('#txtAcc2_0'),'<a style="color:red;font-size:16px;font-weight:bold;width:200px;display:block;">若要退票，則會計科目輸入 2121. 應付票據，付款金額輸入負數。</a>',-80,30);
+			}
+			function tip(obj,msg,x,y){
+				x = x==undefined?0:x;
+				y = y==undefined?0:y;
+				var t_set = $('body');
+				if($('#tipClose').length==0){
+					t_set.data('tip',new Array());
+					t_set.append('<input type="button" id="tipClose" class="tip" value="關閉"/>');
+					$('#tipClose').css('top','20px').css('left','20px')
+					.css('position','absolute')
+					.css('z-index','1000')
+					.css('color','red')
+					.css('font-size','18px')
+					.css('display','none')
+					.click(function(e){
+						$('body').find('.tip').css('display','none');
+						Unlock(1);
+					});
+					t_set.data('tip').push({index:0,ref:$('#tipClose')});
+				}
+				if(obj.data('tip')==undefined){
+					t_index = t_set.find('.tip').length;
+					obj.data('tip',t_index);
+					t_set.append('<div class="tip" style="position: absolute;z-index:1000;display:none;"> </div>');
+					t_set.data('tip').push({index:t_index,ref:obj,msg:msg,shiftX:x,shiftY:y});
+				}			
+			}  
 		</script>
 		<style type="text/css">
             #dmain {
@@ -1021,6 +1075,7 @@
 						</td>
 						<td class="td7"><span> </span><a id='lblPayc' class="lbl"></a></td>
 						<td class="td8"><input id="txtPayc" type="text" class="txt c1"/></td>
+						<td class="tdZ"><input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/></td>
 					</tr>
 					<tr class="tr2">
                         <td class="td1" ><span> </span><a id='lblTgg' class="lbl btn"></a></td>
