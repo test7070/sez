@@ -516,8 +516,6 @@
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtMobile" type="text" class="txt c1"/></td>
 						<td><input id="btnConn" type="button"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
 						<td><select id="cmbTypea"  class="txt c1"> </select></td>
 					</tr>
