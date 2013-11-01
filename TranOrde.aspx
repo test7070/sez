@@ -789,32 +789,26 @@
 
 			function btnTop() {
 				_btnTop();
-				refresh(q_recno);
 			}
 
 			function btnPrev() {
 				_btnPrev();
-				refresh(q_recno);
 			}
 
 			function btnPrevPage() {
 				_btnPrevPage();
-				refresh(q_recno);
 			}
 
 			function btnNext() {
 				_btnNext();
-				refresh(q_recno);
 			}
 
 			function btnNextPage() {
 				_btnNextPage();
-				refresh(q_recno);
 			}
 
 			function btnBott() {
 				_btnBott();
-				refresh(q_recno);
 			}
 
 			function q_brwAssign(s1) {
