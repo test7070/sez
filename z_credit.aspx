@@ -39,9 +39,9 @@
                     }, {/*[4][5]*///2
                         type : '2',
                         name : 'group',
-                        dbf : 'team',
-                        index : 'noa,team',
-                        src : 'team_b.aspx'
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     }]
                 });
                 q_popAssign();
