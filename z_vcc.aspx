@@ -77,6 +77,10 @@
 						type : '5',
 						name : 'xstype', //[19]
 						value : [q_getPara('report.all')].concat(q_getPara('vcc.stype').split(','))
+                    }, {
+                        type : '8', //[20]
+                        name : 'xshowprice',
+                        value : "1@".split(',')
 	                }]
 				});
 				q_popAssign();
