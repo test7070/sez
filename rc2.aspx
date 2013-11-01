@@ -27,6 +27,7 @@
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
 		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,nick,tel,zip_invo,addr_comp,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
+		 ['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp,addr','txtCno,txtAcomp,txtAddr','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 		 ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
@@ -714,16 +715,17 @@
 		</table>
 		</div>
 		</div>
-		<div class='dbbs' style="width: 1270px;">
+		<div class='dbbs' style="width: 1260px;">
 		<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 		   <tr style='color:White; background:#003366;' >
 				<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
 				<td align="center" style="width:8%;"><a id='lblProductno'></a></td>
-				<td align="center" style="width:12%;"><a id='lblProduct'></a></td>
-				<td align="center" style="width:4%;"><a id='lblUnit'></a></td>
-				<td align="center" style="width:7%;"><a id='lblMount'></a></td>				
-				<td align="center" style="width:7%;"><a id='lblPrices'></a></td>
-				<td align="center" style="width:9%;"><a id='lblTotals'></a></td>
+				<td align="center" style="width:10%;"><a id='lblProduct'></a></td>
+				<td align="center" style="width:3%;"><a id='lblUnit'></a></td>
+				<td align="center" style="width:6%;"><a id='lblMount'></a></td>				
+				<td align="center" style="width:6%;"><a id='lblPrices'></a></td>
+				<td align="center" style="width:8%;"><a id='lblTotals'></a></td>
+				<td align="center" style="width:8%;"><a id='lblStore_s'> </a></td>
 				<!--<td align="center" style="width:9%;"><a id='lblErrmount'></a></td>-->
 				<td align="center" style="width:12%;"><a id='lblMemos'></a></td>
 				<td align="center" style="width:2%;"><a id='lblRecord_s'> </a></td>
@@ -734,7 +736,7 @@
 					<input  id="txtProductno.*" type="text" style="width: 75%;"/></td>
 									   
 				<td>
-					<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
+					<input type="text" id="txtProduct.*"  style="width:98%; float:left;"/>
 					<span style="display:block; width:1%;float:left;"> </span>
 					<!--<input type="text" id="txtUno.*"  style="width:85%; float:left;"/>
 					<input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />-->
@@ -748,6 +750,11 @@
 					<input id="txtTotal.*" type="text" class="txt num c1" />
 					<!--<input id="txtGweight.*" type="text" class="txt num c1" />-->
 				</td>
+				<td>
+                	<input id="txtStoreno.*" type="text" class="txt c1" style="width: 75%"/>
+                	<input class="btn"  id="btnStoreno.*" type="button" value='.' style=" font-weight: bold;" />
+                	<input id="txtStore.*" type="text" class="txt c1"/>
+                </td>
 				<!--
 				<td><input id="txtErrmount.*" type="text" class="txt num c1" />
 						<input id="txtErrmemo.*" type="text" class="txt c1" />
