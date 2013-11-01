@@ -50,6 +50,10 @@
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
+                    },{
+                        type : '5',
+                        name : 'xorder',
+                        value : (('').concat(new Array("1@調撥日","2@有效日"))).split(',')
                     }]
 				});
                 q_popAssign();
