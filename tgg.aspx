@@ -31,8 +31,7 @@
 			brwCount2 = 20;
 			//ajaxPath = ""; //  execute in Root
 			aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
-										, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-										, ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']
+										, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']	
 										, ['txtAddr_fact', '', 'view_road', 'memo,zipcode', '0txtAddr_fact,txtZip_fact', 'road_b.aspx']
 										, ['txtAddr_comp', '', 'view_road', 'memo,zipcode', '0txtAddr_comp,txtZip_comp', 'road_b.aspx']
 										, ['txtAddr_invo', '', 'view_road', 'memo,zipcode', '0txtAddr_invo,txtZip_invo', 'road_b.aspx']
@@ -521,11 +520,6 @@
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
 						<td><select id="cmbTypea"  class="txt c1"> </select></td>
-						<td><span> </span><a id="lblGrp"  class="lbl btn"> </a></td>
-						<td>
-							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
-							<input id="txtGrpname" type="text" style="float:left; width:60%;"/>
-						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
