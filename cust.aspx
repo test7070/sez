@@ -40,6 +40,9 @@
 				q_popSave(xmlTable);
 				// for conn_b.aspx
 				q_brwCount();
+				console.log(q_content);
+				q_content = "where=^^ salesno='" +r_userno+ "' ^^";
+				console.log(q_content);
 				q_gt(q_name, q_content, q_sqlCount, 1);
 				$('#txtNoa').focus();
 			});
