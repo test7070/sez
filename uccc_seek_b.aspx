@@ -42,7 +42,7 @@
 				SeekStr();
 			});
 		}
-		
+		var SeekF = new Array();
 		function mainPost(){
 			q_getFormat();
 			$('#textProductno').focus(function(){
@@ -54,6 +54,15 @@
 				q_cur=1;
 			}).blur(function(){
 				q_cur=0;
+			});
+			$('#seekTable td').children("input:text").each(function () {
+				SeekF.push($(this).attr('id'));
+			});
+			SeekF.push('btnToSeek');
+			$('#seekTable td').children("input:text").each(function () {
+				$(this).bind('keydown', function (event) {
+					keypress_bbm(event, $(this), SeekF, 'btnToSeek'); 
+				});
 			});
 		}
 		
