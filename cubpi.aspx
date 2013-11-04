@@ -294,6 +294,7 @@
 						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
 						break;
 					case 'uccc':
+						b_ret = getb_ret();
 						if (!b_ret || b_ret.length == 0){
 							b_pop = '';
 							return;
