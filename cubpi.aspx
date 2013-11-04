@@ -146,14 +146,23 @@
 					}
 					if($('#cmbTypea').val() == '1'){
 						t_where +=" and (charindex('帶',product) != 0) ";
-						t_width = (t_radius*0.8)+(t_width*0.8);
-						t_ewidth = (t_radius*2.2)+(t_width*2.2);
-						if(t_width > 0 || t_width >0)
+						for(var k=0;k<q_bbsCount;k++){
+							var t_bbsProduct = $('#txtProduct_'+k).val();
+							var a1 = $('#txtRadius_'+k).val();
+							var a2 = $('#txtWidth_'+k).val();
+							var a3 = $('#txtDime_'+k).val();
+							var a4 = $('#txtLengthb_'+k).val();
+							t_width=(t_bbsProduct.indexOf('方管')?((t_width==0?4:2)*a1)+(2*a2-a3*3.5):t_width);
+							t_width=(t_bbsProduct.substring(0,1)=='圓'?3.1416*a1-a3*3.5:t_width);
+							t_width=(t_bbsProduct.indexOf('橢圓管')?(3.1416*a1+(a2-a1)*2-a3*3.5-5):t_width);
+							t_width=(t_bbsProduct.indexOf('橢圓形')?(1.5*a1+1.5*a2-a3*3.5):t_width);
+							t_ewidth=t_width * 1.2;
+						}
+						if(t_width > 0 || t_ewidth >0)
 							t_where += q_sqlPara2('width',t_width,t_ewidth);
 					}else{
 						t_where += " and width >=" + t_width;
 					}
-					t_where += q_sqlPara2('style',t_style);
 					if (getProductWhere().length > 2)
 						t_where += " and (productno in(" + getProductWhere() + ")) ";
 					t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";

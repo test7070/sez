@@ -646,7 +646,6 @@
 			}
 
 			function getTheory(b_seq) {
-				//alert('function  getTheory:'+arguments.callee.caller);
 				t_Radius = dec($('#txtRadius_' + b_seq).val());
 				t_Width = dec($('#txtWidth_' + b_seq).val());
 				t_Dime = dec($('#txtDime_' + b_seq).val());
@@ -676,6 +675,10 @@
 					q_tr('txtTheory_' + b_seq, theory_st(theory_setting) / t_Divide);
 				}
 				if (dec($('#txtRadius_' + b_seq).val()) != 0) {
+					$('#txtWeight_' + b_seq).val($('#txtTheory_' + b_seq).val());
+				}
+				var t_Product = $('#txtProduct_' + b_seq).val();
+				if(t_Product.indexOf('管') > -1){
 					$('#txtWeight_' + b_seq).val($('#txtTheory_' + b_seq).val());
 				}
 			}
