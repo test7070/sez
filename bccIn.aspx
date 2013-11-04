@@ -528,13 +528,13 @@
 					<tr>
 						<td align="center" style="width:1%; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:30%; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:39%; color:black;"><a id='vewInvono'> </a></td>
+						<td align="center" style="width:39%; color:black;"><a id='vewTgg'> </a></td>
 						<td align="center" style="width:30%; color:black;"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="datea" style="text-align: center;">~datea</td>
-						<td id="invono" style="text-align: center;">~invono</td>
+						<td id="tgg,4" style="text-align: center;">~tgg,4</td>
 						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
