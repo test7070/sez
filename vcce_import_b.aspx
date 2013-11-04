@@ -66,6 +66,7 @@
 							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 					});
 				});
+				size_change();
 			}
 			
 			function toReabbs(){
@@ -122,6 +123,64 @@
                         break;
                 }  /// end switch
             }
+			function size_change() {
+				var w = window.parent;
+                var t_kind = ((w.$('#cmbKind').val())?w.$('#cmbKind').val():'');
+                t_kind = t_kind.substr(0, 1);				
+				if (t_kind == 'A') {
+					$('*[id="sizeTd"]').css('width','208px');
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#textSize1_' + j).show();
+						$('#textSize2_' + j).show();
+						$('#textSize3_' + j).show();
+						$('#textSize4_' + j).hide();
+						$('#x1_' + j).show();
+						$('#x2_' + j).show();
+						$('#x3_' + j).hide();
+						$('#txtSpec_'+j).css('width','208px');
+						$('#textSize1_' + j).val($('#txtDime_' + j).val());
+						$('#textSize2_' + j).val($('#txtWidth_' + j).val());
+						$('#textSize3_' + j).val($('#txtLengthb_' + j).val());
+						$('#textSize4_' + j).val(0);
+						$('#txtRadius_' + j).val(0);
+					}
+				} else if (t_kind == 'B') {
+					$('*[id="sizeTd"]').css('width','280px');
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#textSize1_' + j).show();
+						$('#textSize2_' + j).show();
+						$('#textSize3_' + j).show();
+						$('#textSize4_' + j).show();
+						$('#x1_' + j).show();
+						$('#x2_' + j).show();
+						$('#x3_' + j).show();
+						$('#txtSpec_'+j).css('width','280px');
+						$('#textSize1_' + j).val($('#txtRadius_' + j).val());
+						$('#textSize2_' + j).val($('#txtWidth_' + j).val());
+						$('#textSize3_' + j).val($('#txtDime_' + j).val());
+						$('#textSize4_' + j).val($('#txtLengthb_' + j).val());
+					}
+				} else if (t_kind == 'C'){//鋼筋和鋼胚
+					$('*[id="sizeTd"]').css('width','55px');
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#textSize1_' + j).hide();
+						$('#textSize2_' + j).hide();
+						$('#textSize3_' + j).show();
+						$('#textSize4_' + j).hide();
+						$('#x1_' + j).hide();
+						$('#x2_' + j).hide();
+						$('#x3_' + j).hide();
+						$('#txtSpec_'+j).css('width','55px');
+						$('#textSize1_' + j).val(0);
+						$('#txtDime_' + j).val(0);
+						$('#textSize2_' + j).val(0);
+						$('#txtWidth_' + j).val(0);
+						$('#textSize3_' + j).val($('#txtLengthb_' + j).val());
+						$('#textSize4_' + j).val(0);
+						$('#txtRadius_' + j).val(0);
+					}
+				}
+			}
 	</script>
 	<style type="text/css">
 		.seek_tr
@@ -135,6 +194,9 @@
 		.c1 {
 			width:95%;
 		}
+			.num {
+				text-align: right;
+			}
 	</style>
 </head>
 <body>
@@ -144,14 +206,14 @@
 						<td align="center" style="width:1%;">
 							<input type="checkbox" id="checkAllCheckbox"/>
 						</td>
-						<td align="center" style="width:12%;"><a id='lblUno'></a></td>
+						<td align="center"><a id='lblUno'></a></td>
 						<td align="center" style="width:18%;"><a id='lblOrdeno'></a></td>
 						<td align="center" style="width:10%;"><a id='lblCustno'></a></td>
-						<td align="center" style="width:12%;"><a id='lblProductno'></a></td>
-						<td align="center" style="width:25%;"><a id='lblSizea'></a></td>
-						<td align="center" style="width:8%;"><a id='lblMount'></a></td>
+						<td align="center" style="width:8%;"><a id='lblProductno'></a></td>
+						<td align="center" id="sizeTd" ><a id='lblSizea'></a></td>
+						<td align="center" style="width:6%;"><a id='lblMount'></a></td>
 						<td align="center" style="width:8%;"><a id='lblWeight'></a></td>
-						<td align="center" style="width:8%;"><a id='lblPrice'></a></td>
+						<td align="center" style="width:6%;"><a id='lblPrice'></a></td>
 					</tr>
 			</table>
 		</div>
@@ -172,7 +234,7 @@
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
-						<td style="width:12%;"><input class="txt c1" id="txtUno.*" type="text"/></td>
+						<td><input class="txt c1" id="txtUno.*" type="text"/></td>
 						<td style="width:18%;">
 							<input class="txt" id="txtOrdeno.*" type="text" style="width:65%;"/>
 							<input class="txt" id="txtNo2.*" type="text" style="width:25%;"/>
@@ -181,18 +243,34 @@
 							<input class="txt c1" id="txtCustno.*" type="text"/>
 							<input class="txt c1" id="txtComp.*" type="text"/>
 						</td>
-						<td style="width:12%;">
+						<td style="width:8%;">
 							<input class="txt c1" id="txtProductno.*" type="text"/>
 							<input class="txt c1" id="txtProduct.*" type="text"/>
 						</td>
-						<td style="width:25%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
-											<input id="txtRadius.*" type="text"  style="width:21%;text-align:right;" />x
-											<input id="txtDime.*" type="text"  style="width:21%;text-align:right;" />x
-											<input id="txtWidth.*" type="text"  style="width:21%;text-align:right;" />x
-											<input id="txtLengthb.*" type="text"  style="width:21%;text-align:right;" /></td>
-						<td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
+					<td id="sizeTd">
+						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
+						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >
+							x
+						</div>
+						<input class="txt num" id="textSize2.*" type="text" style="float: left;width:55px;"  disabled="disabled"/>
+						<div id="x2.*" style="float: left;display:block;width:20px;padding-top: 4px;">
+							x
+						</div>
+						<input class="txt num" id="textSize3.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
+						<div id="x3.*" style="float: left;display:block;width:20px;padding-top: 4px;">
+							x
+						</div>
+						<input class="txt num" id="textSize4.*" type="text"  style="float: left;width:55px;" disabled="disabled"/>
+						<!--上為虛擬下為實際-->
+						<input id="txtRadius.*" type="text" style="display:none;"/>
+						<input id="txtWidth.*" type="text" style="display:none;"/>
+						<input id="txtDime.*" type="text" style="display:none;"/>
+						<input id="txtLengthb.*" type="text" style="display:none;"/>
+						<input id="txtSpec.*" type="text" style="float:left;"/>
+					</td>
+						<td style="width:6%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
 						<td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
-						<td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
+						<td style="width:6%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
 					</tr>
 				</table>
 		 </div>
