@@ -60,15 +60,10 @@
 				//q_cmbParse("cmbKind", q_getPara('cut.kind'));
 				//重新計算理論重
 				$('#cmbTypea').change(function() {
-					for (var j = 0; j < q_bbsCount; j++) {
-						getTheory(j);
-					}
 					cut_save_db();
+					sum();
 				});
 				$('#cmbType2').change(function() {
-					for (var j = 0; j < q_bbsCount; j++) {
-						getTheory(j);
-					}
 					var choiceItem = $(this).val().toUpperCase();
 					switch(choiceItem){
 						case 'A':
@@ -83,11 +78,9 @@
 							break;
 					}
 					cut_save_db();
+					sum();
 				});
 				$('#txtGweight').change(function() {
-					for (var j = 0; j < q_bbsCount; j++) {
-						getTheory(j);
-					}
 					cut_save_db();
 					sum();
 				});
@@ -127,9 +120,6 @@
 							bbsClear();
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtCust,txtStyle,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtProductno,txtSpec,txtOrdeno,txtNo2,txtClass,txtSize', b_ret.length, b_ret, 'custno,cust,style,radius,width,dime,lengthb,mount,weight,memo,productno,spec,noa,no2,class,size', '');
 							sum();
-							for (var j = 0; j < q_bbsCount; j++) {
-								getTheory(j);
-							}
 						}
 						break;
 					case q_name + '_s':
@@ -514,8 +504,9 @@
 				$('#txtProduct').focus();
 				size_change();
 				//取得餘料編號
-				t_where = "where=^^ noa like '%" + $('#txtUno').val() + "%' ^^";
-				q_gt('uccb', t_where, 0, 0, 0, "", r_accy);
+				/*t_where = "where=^^ noa like '%" + $('#txtUno').val() + "%' ^^";
+				q_gt('uccb', t_where, 0, 0, 0, "", r_accy);*/
+				sum();
 			}
 
 			function btnPrint() {
@@ -655,6 +646,7 @@
 			}
 
 			function getTheory(b_seq) {
+				//alert('function  getTheory:'+arguments.callee.caller);
 				t_Radius = dec($('#txtRadius_' + b_seq).val());
 				t_Width = dec($('#txtWidth_' + b_seq).val());
 				t_Dime = dec($('#txtDime_' + b_seq).val());

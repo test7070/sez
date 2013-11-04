@@ -653,7 +653,11 @@
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
                     	if(t_tablea.length>0){
-                    		t_tablea = t_tablea + q_getPara('sys.project');
+                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+                    			t_tablea = t_tablea;
+                    		}else{
+                    			t_tablea = t_tablea + q_getPara('sys.project');
+                    		}
                     		q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
                     	}
                     });
@@ -866,7 +870,7 @@
 			}
 			function tipInit(){
 				
-				tip($('#txtMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:300px;display:block;">匯入資料前需注意【'+q_getMsg('lblMon')+'】有無輸入正確。</a>',-20,-10);
+				tip($('#txtMon'),'<a style="color:red;font-size:16px;font-weight:bold;width:250px;display:block;">匯入資料前需注意【'+q_getMsg('lblMon')+'】有無輸入正確。</a>',-20,-10);
 				tip($('#btnVcc'),'<a style="color:red;font-size:16px;font-weight:bold;width:300px;display:block;">【'+q_getMsg('btnVcc')+'】、【'+q_getMsg('btnMon')+'】只能擇一輸入。</a>',-50,30);
 				tip($('#txtOpay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑本次預收金額。</a>',-100,30);
 				tip($('#txtUnopay'),'<a style="color:red;font-size:16px;font-weight:bold;width:150px;display:block;">↑若使用預收金額來沖帳，則在此填入金額。</a>',-100,30);
@@ -879,11 +883,12 @@
 				y = y==undefined?0:y;
 				var t_set = $('body');
 				if($('#tipClose').length==0){
+					//顯示位置在btnTip上
 					t_set.data('tip',new Array());
 					t_set.append('<input type="button" id="tipClose" class="tip" value="關閉"/>');
-					$('#tipClose').css('top','20px').css('left','20px')
+					$('#tipClose')
 					.css('position','absolute')
-					.css('z-index','1000')
+					.css('z-index','1001')
 					.css('color','red')
 					.css('font-size','18px')
 					.css('display','none')
@@ -891,6 +896,7 @@
 						$('body').find('.tip').css('display','none');
 						Unlock(1);
 					});
+					$('#tipClose').offset({top:round($('#btnTip').offset().top-2,0),left:round($('#btnTip').offset().left-15,0)});
 					t_set.data('tip').push({index:0,ref:$('#tipClose')});
 				}
 				if(obj.data('tip')==undefined){
