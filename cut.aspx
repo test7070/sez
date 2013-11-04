@@ -136,6 +136,13 @@
 						$('#txtGweight').val($('#txtEweight').val());
 						$('#txtGmount').val(1);
 						break;
+					case 'txtProductno_':
+						$('input[id*="txtProduct_"]').each(function() {
+							$(this).attr('OldValue', $(this).val());
+						});
+						ProductAddStyle(b_seq);
+						$('#txtStyle_' + b_seq).focus();
+						break;
 				}
 			}
 			function SetEmpUno(){
@@ -345,6 +352,7 @@
 				Lock(1, {
 					opacity : 0
 				});
+				
 				var t_err = CheckInputError();
 				if(t_err.length>0){
 					alert(t_err);
@@ -364,6 +372,7 @@
 							return;
 						}
 					}
+					$('#txtStyle_'+i).blur();
 				}
 				var t_noa = trim($('#txtUno').val());
 				if (t_noa.length > 0) {
@@ -484,6 +493,10 @@
 								size_change();
 							}
 						});
+						$('#txtStyle_' + j).blur(function() {
+							var n = $(this).attr('id').replace('txtStyle_', '');
+							ProductAddStyle(n);
+						});
 					}
 				}
 				_bbsAssign();
@@ -580,6 +593,25 @@
 			function refresh(recno) {
 				_refresh(recno);
 				size_change();
+				$('input[id*="txtProduct_"]').each(function() {
+					t_IdSeq = -1;
+					/// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					OldValue = $(this).val();
+					nowStyle = $('#txtStyle_' + b_seq).val();
+					if (!emp(nowStyle) && (StyleList[0] != undefined)) {
+						for (var i = 0; i < StyleList.length; i++) {
+							if (StyleList[i].noa.toUpperCase() == nowStyle) {
+								styleProduct = StyleList[i].product;
+								if (OldValue.substr(OldValue.length - styleProduct.length) == styleProduct) {
+									OldValue = OldValue.substr(0, OldValue.length - styleProduct.length);
+								}
+							}
+						}
+					}
+					$(this).attr('OldValue', OldValue);
+				});
 			}
 
 			function readonly(t_para, empty) {
@@ -683,14 +715,15 @@
 				}
 			}
 
-			function distinct(arr1) {
-				var nonDupes = [];
-				arr1.forEach(function(value) {
-					if (nonDupes.indexOf(value) == -1) {
-						nonDupes.push(value);
+			function distinct(arr1){
+				var uniArray = [];
+				for(var i=0;i<arr1.length;i++){
+					var val = arr1[i];
+					if($.inArray(val, uniArray)===-1){
+						uniArray.push(val);
 					}
-				});
-				return nonDupes;
+				}
+				return uniArray;
 			}
 
 			function getBBSWhere(objname) {
@@ -1153,6 +1186,7 @@
 					<td style="width:150px;" align="center"><a id='lblMemos'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lbltime'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lblProductno'> </a></td>
+					<td style="width:50px;" align="center" ><a id='lblProduct_s'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lblSpecs'> </a></td>
 					<td style="width:50px;" align="center">加工<br>單價</td>
 					<td style="width:100px;" align="center"><a id='lblSize'> </a></td>
@@ -1199,6 +1233,7 @@
 					<td><input id="txtMemo.*" type="text" class="txt c2"/></td>
 					<td><input id="txtTime.*" type="text" class="txt c2"/></td>
 					<td><input id="txtProductno.*" type="text" class="txt c2"/></td>
+					<td><input id="txtProduct.*" type="text" class="txt c2"/></td>
 					<td><input id="txtSpec.*" type="text" class="txt c2"/></td>
 					<td><input id="txtWprice.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtSize.*" type="text" class="txt c2"/></td>

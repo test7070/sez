@@ -41,16 +41,16 @@
 				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx'],
 				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__', 'uccc_seek_b.aspx','95%','60%']
 			);
-			function distinct(arr1) {
-				var nonDupes = [];
-				arr1.forEach(function(value) {
-					if (nonDupes.indexOf(value) == -1) {
-						nonDupes.push(value);
+			function distinct(arr1){
+				var uniArray = [];
+				for(var i=0;i<arr1.length;i++){
+					var val = arr1[i];
+					if($.inArray(val, uniArray)===-1){
+						uniArray.push(val);
 					}
-				});
-				return nonDupes;
+				}
+				return uniArray;
 			}
-
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -146,18 +146,17 @@
 					}
 					if($('#cmbTypea').val() == '1'){
 						t_where +=" and (charindex('帶',product) != 0) ";
-						for(var k=0;k<q_bbsCount;k++){
-							var t_bbsProduct = $('#txtProduct_'+k).val();
-							var a1 = $('#txtRadius_'+k).val();
-							var a2 = $('#txtWidth_'+k).val();
-							var a3 = $('#txtDime_'+k).val();
-							var a4 = $('#txtLengthb_'+k).val();
-							t_width=(t_bbsProduct.indexOf('方管')?((t_width==0?4:2)*a1)+(2*a2-a3*3.5):t_width);
-							t_width=(t_bbsProduct.substring(0,1)=='圓'?3.1416*a1-a3*3.5:t_width);
-							t_width=(t_bbsProduct.indexOf('橢圓管')?(3.1416*a1+(a2-a1)*2-a3*3.5-5):t_width);
-							t_width=(t_bbsProduct.indexOf('橢圓形')?(1.5*a1+1.5*a2-a3*3.5):t_width);
-							t_ewidth=t_width * 1.2;
-						}
+						var t_bbsProduct = $('#txtProduct_0').val();
+						var a1 = dec($('#txtRadius_0').val());
+						var a2 = dec($('#txtWidth_0').val());
+						var a3 = dec($('#txtDime_0').val());
+						var a4 = dec($('#txtLengthb_0').val());
+						t_width=(t_bbsProduct.indexOf('方管')>-1?((t_width==0?4:2)*a1)+(2*a2-a3*3.5):t_width);
+						t_width=(t_bbsProduct.substring(0,1)=='圓'?3.1416*a1-a3*3.5:t_width);
+						t_width=(t_bbsProduct.indexOf('橢圓管')>-1?(3.1416*a1+(a2-a1)*2-a3*3.5-5):t_width);
+						t_width=(t_bbsProduct.indexOf('橢圓形')>-1?(1.5*a1+1.5*a2-a3*3.5):t_width);
+						console.log(t_width);
+						t_ewidth=t_width * 1.2;
 						if(t_width > 0 || t_ewidth >0)
 							t_where += q_sqlPara2('width',t_width,t_ewidth);
 					}else{
