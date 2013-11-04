@@ -85,8 +85,8 @@
 				 $('#txtDate2').datepicker(); 
 				 $('#txtXdate1').mask('99/99');
 				 $('#txtXdate2').mask('99/99'); 
-				 //$('#txtSmon1').mask('999/99');
-				 //$('#txtSmon2').mask('999/99'); 
+				 $('#txtSmon1').mask('999/99');
+				 $('#txtSmon2').mask('999/99'); 
 				$('#Xmemo').removeClass('a2').addClass('a1');
 				$('#txtXmemo').css('width','85%');
 				$('.q_report .report').css('width','420px');
