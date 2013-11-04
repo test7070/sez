@@ -112,7 +112,7 @@
 				t_invo = $('#txtInvono').val();
 				if(t_invo.length > 0){
 					t_where = "noa='" + t_invo + "'";
-					q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
+					q_box("rc2a.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2a', "95%", "95%", q_getMsg('popRc2a'));
 				}
 			});
 			$('#lblLcno').click(function(){
