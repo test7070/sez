@@ -507,6 +507,21 @@
 								//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());
 							}
 						});
+						$('#txtGmount__' + i).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var thisVal = dec($(this).val());
+							var t_Mount = dec($('#txtMount__'+b_seq).val());
+							var t_Weight = dec($('#txtWeight__'+b_seq).val());
+							if(thisVal > t_Mount)
+								$(this).val(t_Mount);
+							if(t_Mount > 0 && t_Weight > 0){
+								var newVal = round(q_mul(q_div(t_Weight,t_Mount),thisVal),0);
+								newVal = (isNaN(newVal)?0:newVal);
+								$('#txtGweight__'+b_seq).val(round(q_mul(q_div(t_Weight,t_Mount),thisVal),0));
+							}
+						});
 					}
 				}
 				_bbtAssign();
