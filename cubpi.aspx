@@ -34,7 +34,13 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			brwCount2 = 5;
-			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], ['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], ['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], ['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx']);
+			aPop = new Array(
+				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
+				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], 
+				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], 
+				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx'],
+				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__', 'uccc_seek_b.aspx','95%','60%']
+			);
 			function distinct(arr1) {
 				for (var i = 0; i < arr1.length; i++) {
 					if ((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == '') {
@@ -132,10 +138,22 @@
 					var t_bdime = dec($('#txtBdime').val());
 					var t_edime = dec($('#txtEdime').val());
 					var t_width = dec($('#txtWidth').val());
+					var t_radius = dec($('#txtRadius').val());
+					var t_style = ($('#txtStyle').val()).toUpperCase();
+					var t_ewidth = 0;
 					if (t_bdime == 0 && t_edime == 0) {
 						t_edime = 9999;
 					}
-					t_where += " and width >=" + t_width;
+					if($('#cmbTypea').val() == '1'){
+						t_where +=" and (charindex('帶',product) != 0) ";
+						t_width = (t_radius*0.8)+(t_width*0.8);
+						t_ewidth = (t_radius*2.2)+(t_width*2.2);
+						if(t_width > 0 || t_width >0)
+							t_where += q_sqlPara2('width',t_width,t_ewidth);
+					}else{
+						t_where += " and width >=" + t_width;
+					}
+					t_where += q_sqlPara2('style',t_style);
 					if (getProductWhere().length > 2)
 						t_where += " and (productno in(" + getProductWhere() + ")) ";
 					t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
@@ -921,7 +939,10 @@
 						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 					</td>
 					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input id="txtUno..*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="btnUno..*" type="button" value="." style="width:5%;"/>
+						<input id="txtUno..*" type="text" style="width:80%;"/>
+					</td>
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 					<td>
 						<input class="txt num c8" id="textSize1..*" type="text" disabled="disabled"/>
