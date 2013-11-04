@@ -16,7 +16,7 @@
 			}
 			var q_name = "cust";
 			var q_readonly = ['txtWorker','txtKdate','txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
-			var bbmNum = [];
+			var bbmNum = [['txtCredit', 10, 0, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -40,8 +40,8 @@
 				q_popSave(xmlTable);
 				// for conn_b.aspx
 				q_brwCount();
-				q_content = "where=^^ salesno='" +r_userno+ "' ^^";
-				q_gt(q_name, q_content, q_sqlCount, 1);
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('sss',t_where,0,0,0,"",r_accy);
 				$('#txtNoa').focus();
 			});
 			function currentData() {
@@ -160,10 +160,19 @@
 							wrServer($('#txtNoa').val());
 						}
 						break;
+					case 'sss':
+						var as = _q_appendData("sss", "", true);
+						if (as[0] == undefined || as[0].issales=='0'){
+							q_gt(q_name, q_content, q_sqlCount, 1);
+						}else{
+							q_content = "where=^^ salesno='" +r_userno+ "'^^";
+							q_gt(q_name, q_content, q_sqlCount, 1);							
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
-				 break;
+				 		break;
 				}  /// end switch
 			}
 
@@ -541,7 +550,7 @@
 					</tr>
 					<tr class="tr13">
 						<td class="td1"><span> </span><a id="lblCredit" class="lbl" ></a></td>
-						<td class="td2"><input id="txtCredit" type="text" class="txt c1"/></td>
+						<td class="td2"><input id="txtCredit" type="text" class="txt c1 num"/></td>
 						<td class="td3"><span> </span><a id="lblSales" class="lbl btn"></a></td>
 						<td class="td4">
 							<input id="txtSalesno" type="text" class="txt c6"/>
