@@ -732,7 +732,7 @@
                 var t_kind = (($('#cmbKind').val())?$('#cmbKind').val():'');
                 t_kind = t_kind.substr(0, 1);				
 				if (t_kind == 'A') {
-					$('#cmbType2').text('');
+					//$('#cmbType2').text('');
 					q_cmbParse("cmbType2", q_getPara('cut.type2'));
 					$('#lblSize_help').text(q_getPara('sys.lblSizea'));
 					$('#Size').css('width', '225px');
@@ -753,7 +753,7 @@
 				} else if (t_kind == 'B') {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 					$('#Size').css('width', '325px');
-					$('#cmbType2').text('');
+					//$('#cmbType2').text('');
 					q_cmbParse("cmbType2", q_getPara('cut.type2A'));
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).show();
@@ -771,7 +771,7 @@
 				} else {//鋼筋和鋼胚
 					$('#lblSize_help').text(q_getPara('sys.lblSizec'));
 					$('#Size').css('width', '55px');
-					$('#cmbType2').text('');
+					//$('#cmbType2').text('');
 					q_cmbParse("cmbType2", q_getPara('cut.type2'));
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).hide();
