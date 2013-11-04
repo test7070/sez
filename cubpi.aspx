@@ -285,7 +285,7 @@
 						var wret = '';
 						var chkWhere = 'where=^^';
 						var as = getb_ret();
-						if (as[0] != undefined) {
+						if (as && as[0] != undefined) {
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2,txtStyle', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate,style', '');
 						} else {
 							//alert('無符合的訂單，檢查條件是否輸入有誤。');
@@ -295,8 +295,10 @@
 						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
 						break;
 					case 'uccc':
-						if (!b_ret || b_ret.length == 0)
+						if (!b_ret || b_ret.length == 0){
+							b_pop = '';
 							return;
+						}
 						if (q_cur > 0 && q_cur < 4) {
 							for (var j = 0; j < b_ret.length; j++) {
 								for (var i = 0; i < q_bbtCount; i++) {
