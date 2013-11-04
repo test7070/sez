@@ -233,6 +233,16 @@
 					t_msg=t_msg+"最近出貨單價："+vcc_price;
 					q_msg( $('#txtPrice_'+b_seq), t_msg);	
 					break;
+				case 'acomp_stk':
+					var as  = _q_appendData("acomp", "", true);
+					var storeno='';
+					for ( var i = 0; i < as.length; i++) {
+						storeno=storeno+','+as[i].noa;
+					}
+					storeno=storeno.substr(1,storeno.length);
+					var t_where = "where=^^ ['"+q_date()+"','"+storeno+"','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+					q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+				break;
             	case 'msg_stk':
             		var as  = _q_appendData("stkucc", "", true);
             		var stkmount=0;
@@ -375,8 +385,13 @@
 		                    b_seq = t_IdSeq;
 	                    	if(!emp($('#txtProductno_'+b_seq).val())){
 	                    		//庫存
-								var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
-								q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+	                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+									var t_where = "where=^^ 1=1 ^^";
+									q_gt('acomp', t_where , 0, 0, 0, "acomp_stk", r_accy);
+								}else{
+									var t_where = "where=^^ ['"+q_date()+"','','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+									q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
+								}
 	                    	}
                     	}
                     });
