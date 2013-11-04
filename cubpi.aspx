@@ -42,13 +42,13 @@
 				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__', 'uccc_seek_b.aspx','95%','60%']
 			);
 			function distinct(arr1) {
-				for (var i = 0; i < arr1.length; i++) {
-					if ((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == '') {
-						arr1.splice(i, 1);
-						i--;
+				var nonDupes = [];
+				arr1.forEach(function(value) {
+					if (nonDupes.indexOf(value) == -1) {
+						nonDupes.push(value);
 					}
-				}
-				return arr1;
+				});
+				return nonDupes;
 			}
 
 			$(document).ready(function() {
