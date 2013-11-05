@@ -768,8 +768,18 @@
                 var t_kind = (($('#cmbKind').val())?$('#cmbKind').val():'');
                 t_kind = t_kind.substr(0, 1);				
 				if (t_kind == 'A') {
-					//$('#cmbType2').text('');
+					$('#txtPaytype').val($('#combPaytype').find(":selected").text());
+					
+					var t_text = $('#cmbType2').find(":selected").text();
+					$('#cmbType2').text('');
 					q_cmbParse("cmbType2", q_getPara('cut.type2'));
+					$('#cmbType2').val($('#cmbType2').children().eq(0).val());
+					for(var i=0;i<$('#cmbType2').children().length;i++){
+						if($('#cmbType2').children().eq(i).text()==t_text){
+							$('#cmbType2').val($('#cmbType2').children().eq(i).val());
+						}
+					}
+					
 					$('#lblSize_help').text(q_getPara('sys.lblSizea'));
 					$('#Size').css('width', '225px');
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -789,8 +799,16 @@
 				} else if (t_kind == 'B') {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 					$('#Size').css('width', '325px');
-					//$('#cmbType2').text('');
+					
+					var t_text = $('#cmbType2').find(":selected").text();
+					$('#cmbType2').text('');
 					q_cmbParse("cmbType2", q_getPara('cut.type2A'));
+					$('#cmbType2').val($('#cmbType2').children().eq(0).val());
+					for(var i=0;i<$('#cmbType2').children().length;i++){
+						if($('#cmbType2').children().eq(i).text()==t_text){
+							$('#cmbType2').val($('#cmbType2').children().eq(i).val());
+						}
+					}
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).show();
 						$('#textSize2_' + j).show();
@@ -807,8 +825,16 @@
 				} else {//鋼筋和鋼胚
 					$('#lblSize_help').text(q_getPara('sys.lblSizec'));
 					$('#Size').css('width', '55px');
-					//$('#cmbType2').text('');
+					alert($('#cmbType2').val());
+					var t_text = $('#cmbType2').find(":selected").text();
+					$('#cmbType2').text('');
 					q_cmbParse("cmbType2", q_getPara('cut.type2'));
+					$('#cmbType2').val($('#cmbType2').children().eq(0).val());
+					for(var i=0;i<$('#cmbType2').children().length;i++){
+						if($('#cmbType2').children().eq(i).text()==t_text){
+							$('#cmbType2').val($('#cmbType2').children().eq(i).val());
+						}
+					}
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).hide();
 						$('#textSize2_' + j).hide();
