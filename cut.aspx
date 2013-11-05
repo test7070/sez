@@ -584,6 +584,14 @@
 			}
 
 			function sum() {
+				if($('#txtType2').val().length==0){
+					if($('#combType2').is(":visible")){
+	                	$('#txtType2').val($('#combType2').val());
+					}
+					if($('#combType2A').is(":visible")){
+						$('#txtType2').val($('#combType2A').val());
+					}
+				}
 				var t_theyout = 0,t_totalout=0;
 				var t_weights,t_theorys;
 				var t_kind = $('#cmbKind').val();
@@ -592,6 +600,7 @@
                 t_kind = t_kind.substr(0, 1);
                 var t_type2 = $('#txtType2').val();
                 var t_array = new Array();
+                
                 if($('#combType2').is(":visible")){
                 	t_array = q_getPara('cut.type2').split(',');
 				}
@@ -604,7 +613,6 @@
             			break;
             		}
             	}
-                
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $.trim($('#txtUnit_' + j).val()).toUpperCase();
 					t_mount = q_float('txtMount_'+j);
