@@ -111,9 +111,7 @@
 		                		as[i]._day=14+as[i]._year-9;
 		                }
 		                
-		                if(q_getPara('sys.comp').indexOf('大昌')>-1){//大昌用時數算
-		            		as[i]._day=as[i]._day*8
-		            	}
+		            	as[i]._day=as[i]._day*8
 		           }
 		            
 	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtId,txtJob,txtJobday,txtInday,txtTotal,txtCno', as.length, as, 'noa,namea,id,job,indate,_day,_day,cno', 'txtSssno');
