@@ -34,17 +34,23 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			brwCount2 = 5;
-			aPop = new Array(['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], ['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], ['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], ['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx']);
-			function distinct(arr1) {
-				for (var i = 0; i < arr1.length; i++) {
-					if ((arr1.indexOf(arr1[i]) != arr1.lastIndexOf(arr1[i])) || arr1[i] == '') {
-						arr1.splice(i, 1);
-						i--;
+			aPop = new Array(
+				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
+				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], 
+				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], 
+				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx'],
+				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__', 'uccc_seek_b.aspx','95%','60%']
+			);
+			function distinct(arr1){
+				var uniArray = [];
+				for(var i=0;i<arr1.length;i++){
+					var val = arr1[i];
+					if($.inArray(val, uniArray)===-1){
+						uniArray.push(val);
 					}
 				}
-				return arr1;
+				return uniArray;
 			}
-
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -91,7 +97,7 @@
 						t_ewidth = (t_ewidth == 0 ? 9999 : t_ewidth * 1.07);
 						var t_where = "1=1 and enda='0' and iscut='1' ";
 						t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno) + q_sqlPara2('mechno', t_mechno);
-						t_where += ' ';
+						t_where += ' and (notv > 0) ';
 						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'view_ordes', "95%", "95%", q_getMsg('popOrde'));
 						//q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
 					}
@@ -132,10 +138,30 @@
 					var t_bdime = dec($('#txtBdime').val());
 					var t_edime = dec($('#txtEdime').val());
 					var t_width = dec($('#txtWidth').val());
+					var t_radius = dec($('#txtRadius').val());
+					var t_style = ($('#txtStyle').val()).toUpperCase();
+					var t_ewidth = 0;
 					if (t_bdime == 0 && t_edime == 0) {
 						t_edime = 9999;
 					}
-					t_where += " and width >=" + t_width;
+					if($('#cmbTypea').val() == '1'){
+						t_where +=" and (charindex('帶',product) != 0) ";
+						var t_bbsProduct = $('#txtProduct_0').val();
+						var a1 = dec($('#txtRadius_0').val());
+						var a2 = dec($('#txtWidth_0').val());
+						var a3 = dec($('#txtDime_0').val());
+						var a4 = dec($('#txtLengthb_0').val());
+						t_width=(t_bbsProduct.indexOf('方管')>-1?((t_width==0?4:2)*a1)+(2*a2-a3*3.5):t_width);
+						t_width=(t_bbsProduct.substring(0,1)=='圓'?3.1416*a1-a3*3.5:t_width);
+						t_width=(t_bbsProduct.indexOf('橢圓管')>-1?(3.1416*a1+(a2-a1)*2-a3*3.5-5):t_width);
+						t_width=(t_bbsProduct.indexOf('橢圓形')>-1?(1.5*a1+1.5*a2-a3*3.5):t_width);
+						console.log(t_width);
+						t_ewidth=t_width * 1.2;
+						if(t_width > 0 || t_ewidth >0)
+							t_where += q_sqlPara2('width',t_width,t_ewidth);
+					}else{
+						t_where += " and width >=" + t_width;
+					}
 					if (getProductWhere().length > 2)
 						t_where += " and (productno in(" + getProductWhere() + ")) ";
 					t_where += " and (dime between " + t_bdime + " and " + t_edime + ") ";
@@ -258,7 +284,7 @@
 						var wret = '';
 						var chkWhere = 'where=^^';
 						var as = getb_ret();
-						if (as[0] != undefined) {
+						if (as && as[0] != undefined) {
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2,txtStyle', as.length, as, 'noa,no2,custno,productno,product,radius,width,dime,lengthb,mount,odate,style', '');
 						} else {
 							//alert('無符合的訂單，檢查條件是否輸入有誤。');
@@ -268,8 +294,11 @@
 						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
 						break;
 					case 'uccc':
-						if (!b_ret || b_ret.length == 0)
+						b_ret = getb_ret();
+						if (!b_ret || b_ret.length == 0){
+							b_pop = '';
 							return;
+						}
 						if (q_cur > 0 && q_cur < 4) {
 							for (var j = 0; j < b_ret.length; j++) {
 								for (var i = 0; i < q_bbtCount; i++) {
@@ -329,6 +358,12 @@
 			}
 
 			function btnOk() {
+				for(var k=0;k<q_bbtCount;k++){
+					var t_indate = trim($('#txtDatea__'+k).val());
+					if(t_indate.length == 0){
+						$('#txtDatea__'+k).val(q_date());
+					}
+				}
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					return;
@@ -470,6 +505,21 @@
 							} else {
 								q_tr('txtLengthb__' + b_seq, q_float('textSize4__' + b_seq));
 								//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());
+							}
+						});
+						$('#txtGmount__' + i).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var thisVal = dec($(this).val());
+							var t_Mount = dec($('#txtMount__'+b_seq).val());
+							var t_Weight = dec($('#txtWeight__'+b_seq).val());
+							if(thisVal > t_Mount)
+								$(this).val(t_Mount);
+							if(t_Mount > 0 && t_Weight > 0){
+								var newVal = round(q_mul(q_div(t_Weight,t_Mount),thisVal),0);
+								newVal = (isNaN(newVal)?0:newVal);
+								$('#txtGweight__'+b_seq).val(round(q_mul(q_div(t_Weight,t_Mount),thisVal),0));
 							}
 						});
 					}
@@ -921,7 +971,10 @@
 						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 					</td>
 					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input id="txtUno..*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="btnUno..*" type="button" value="." style="width:5%;"/>
+						<input id="txtUno..*" type="text" style="width:80%;"/>
+					</td>
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 					<td>
 						<input class="txt num c8" id="textSize1..*" type="text" disabled="disabled"/>
