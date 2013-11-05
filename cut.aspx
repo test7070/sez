@@ -820,12 +820,10 @@
                 t_kind = t_kind.substr(0, 1);				
 				if (t_kind == 'A') {
 					$('#txtPaytype').val($('#combPaytype').find(":selected").text());
-					
 					$('#combType2').show().val($('#txtType2').val());
 					$('#combType2A').hide();
-
 					$('#lblSize_help').text(q_getPara('sys.lblSizea'));
-					$('#Size').css('width', '225px');
+					$('#Size').css('width', '230px');
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).show();
 						$('#textSize2_' + j).show();
@@ -843,10 +841,8 @@
 				} else if (t_kind == 'B') {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 					$('#Size').css('width', '325px');
-					
 					$('#combType2A').show().val($('#txtType2').val());
 					$('#combType2').hide();
-					
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).show();
 						$('#textSize2_' + j).show();
@@ -863,10 +859,8 @@
 				} else {//鋼筋和鋼胚
 					$('#lblSize_help').text(q_getPara('sys.lblSizec'));
 					$('#Size').css('width', '55px');
-					
 					$('#combType2').show().val($('#txtType2').val());
 					$('#combType2A').hide();
-					
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).hide();
 						$('#textSize2_' + j).hide();
