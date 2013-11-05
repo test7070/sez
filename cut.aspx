@@ -595,12 +595,14 @@
                 if($('#combType2').is(":visible")){
                 	t_array = q_getPara('cut.type2').split(',');
 				}
-				if($('#combType2A').is(":visible") && $('#combType2A').val()=='1'){
+				if($('#combType2A').is(":visible")){
 					t_array = q_getPara('cut.type2A').split(',');
 				}
 				for(var j=0;j<t_array.length;j++){
-            		if(t_array[j].substring(0,t_type2.length+1)==t_type2+'@')
-            			t_type2 = t_array[j].substring(t_type2.length+1,t_type2.length);
+            		if(t_array[j].substring(0,t_type2.length+1)==t_type2+'@'){
+            			t_type2 = t_array[j].substring(t_type2.length+1,t_array[j].length);
+            			break;
+            		}
             	}
                 
 				for (var j = 0; j < q_bbsCount; j++) {
