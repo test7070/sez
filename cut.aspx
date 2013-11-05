@@ -372,6 +372,12 @@
 				Lock(1, {
 					opacity : 0
 				});
+				if($('#combType2').is(":visible")){
+					$('#txtType2').val($('#combType2').val());
+				}
+				if($('#combType2A').is(":visible")){
+					$('#txtType2').val($('#combType2A').val());
+				}
 				
 				var t_err = CheckInputError();
 				if(t_err.length>0){
