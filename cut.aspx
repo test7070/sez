@@ -840,7 +840,7 @@
 					}
 				} else if (t_kind == 'B') {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
-					$('#Size').css('width', '325px');
+					$('#Size').css('width', '340px');
 					$('#combType2A').show().val($('#txtType2').val());
 					$('#combType2').hide();
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -1261,7 +1261,7 @@
 						<input id="txtCustno.*" type="text" style="width: 70px; float:left;"/>
 					</td>
 					<td><input id="txtCust.*" type="text" class="txt c2"/></td>
-					<td><input style="width:95%;text-align: center;" id="txtStyle.*" type="text" /></td>
+					<td><input style="width:90%;text-align: center;" id="txtStyle.*" type="text" /></td>
 					<td>
 						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
 						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >x</div>
