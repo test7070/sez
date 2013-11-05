@@ -241,6 +241,16 @@
 			} 
 
 			function btnOk() {
+				for(var i=0;i<q_bbsCount;i++){
+					var t_datea = trim($('#txtDatea_'+i).val());
+					var t_uno = trim($('#txtUno_'+i).val());
+					var t_ordeno = trim($('#txtOrdeno_'+i).val());
+					if(t_uno.length > 0 && t_ordeno.length > 0){
+						if(t_datea.length != 9){
+							$('#txtDatea_'+i).val(q_date());
+						}
+					}
+				}
 				t_key = q_getHref();
 				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}

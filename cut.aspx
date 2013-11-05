@@ -87,6 +87,7 @@
 				//變動尺寸欄位
 				$('#cmbKind').change(function() {
 					size_change();
+					$('#cmbType2').change();
 				});
 				$('#btnOrdesImport').click(function() {
 					if (q_cur == 1 || q_cur == 2) {

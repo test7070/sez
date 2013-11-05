@@ -192,7 +192,7 @@
 								$('#x1_' + j).hide();
 								$('#x2_' + j).hide();
 								$('#x3_' + j).hide();
-								$('*[id="Size"]').css('width', '230px');
+								$('*[id="Size"]').css('width', '55px');
 								$('#textSize1_' + j).val(0);
 								$('#txtDime_' + j).val(0);
 								$('#textSize2_' + j).val(0);
@@ -231,7 +231,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:1%;"><input type="checkbox" id="checkAllCheckbox"/></td>
 					<td align="center" style="width:3%;"> </td>
-					<td class="td2" align="center" style="width:15%;"><a id='lblUno_s'></a></td>
+					<td class="td2" align="center"><a id='lblUno_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_s'></a></td>
 					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
 					<td class="td5" id='Size' align="center"><a id='lblSize_help'></a></td>
@@ -248,7 +248,7 @@
 						<input type="checkbox" id="checkAllCheckbox"/>
 					</td>
 					<td align="center" style="width:3%;"> </td>
-					<td class="td2" align="center" style="width:15%;"><a id='lblUno_s'></a></td>
+					<td class="td2" align="center" ><a id='lblUno_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_s'></a></td>
 					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
 					<td class="td5" id='Size' align="center"><a id='lblSize_help'></a></td>
@@ -261,7 +261,7 @@
 					<td style="width:3%;">
 						<a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a>
 					</td>
-					<td class="td2" style="width:15%;">
+					<td class="td2">
 						<input class="txt c1" id="txtUno.*" type="text" />
 					</td>
 					<td class="td3" style="width:15%;">
