@@ -55,7 +55,8 @@
 				bbsMask = [['txtStyle', "A"]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('cut.typea'));
-				q_cmbParse("cmbType2", q_getPara('cut.type2'));
+				q_cmbParse("combType2", q_getPara('cut.type2'));
+				q_cmbParse("combType2A", q_getPara('cut.type2A'));
 				q_cmbParse("cmbKind", q_getPara('sys.stktype'));
 				//q_cmbParse("cmbKind", q_getPara('cut.kind'));
 				//重新計算理論重
@@ -63,7 +64,26 @@
 					cut_save_db();
 					sum();
 				});
-				$('#cmbType2').change(function() {
+				$('#combType2').change(function() {
+					$('#txtType2').val($('#combType2').val());
+					var choiceItem = $(this).val().toUpperCase();
+					switch(choiceItem){
+						case 'A':
+							$('#lblWidth').text(q_getMsg('lblWidth2'));
+							$('#lblRadius').css('display','');
+							$('#txtRadius').css('display','');
+							break;
+						default:
+							$('#lblWidth').text(q_getMsg('lblWidth'));
+							$('#lblRadius').css('display','none');
+							$('#txtRadius').css('display','none');
+							break;
+					}
+					cut_save_db();
+					sum();
+				});
+				$('#combType2A').change(function() {
+					$('#txtType2').val($('#combType2A').val());
 					var choiceItem = $(this).val().toUpperCase();
 					switch(choiceItem){
 						case 'A':
@@ -480,8 +500,13 @@
 						});
 						$('#txtStyle_'+j).focus(function(){
 							var thisVal = trim($(this).val());
-							if(emp(thisVal) && ($('#cmbType2').val() == '1')){
-								$(this).val('B');
+							if(thisVal.length=0){
+								if($('#combType2').is(":visible") && $('#combType2').val()=='1'){
+									$(this).val('B');
+								}
+								if($('#combType2A').is(":visible") && $('#combType2A').val()=='1'){
+									$(this).val('B');
+								}
 							}
 						}).focusout(function(){
 							t_IdSeq = -1;
@@ -548,10 +573,22 @@
 				var t_theyout = 0,t_totalout=0;
 				var t_weights,t_theorys;
 				var t_kind = $('#cmbKind').val();
-				var t_typea = $('#cmbTypea').find(":selected").text();
-				var t_type2 = $('#cmbType2').find(":selected").text();
+				var t_typea = $('#cmbTypea').find(":selected").text();	
                 var t_kind = (($('#cmbKind').val())?$('#cmbKind').val():'');
                 t_kind = t_kind.substr(0, 1);
+                var t_type2 = $('#txtType2').val();
+                var t_array = new Array();
+                if($('#combType2').is(":visible")){
+                	t_array = q_getPara('cut.type2').split(',');
+				}
+				if($('#combType2A').is(":visible") && $('#combType2A').val()=='1'){
+					t_array = q_getPara('cut.type2A').split(',');
+				}
+				for(var j=0;j<t_array.length;j++){
+            		if(t_array[j].substring(0,t_type2.length+1)==t_type2+'@')
+            			t_type2 = t_array[j].substring(t_type2.length+1,t_type2.length);
+            	}
+                
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $.trim($('#txtUnit_' + j).val()).toUpperCase();
 					t_mount = q_float('txtMount_'+j);
@@ -618,6 +655,13 @@
 				_readonly(t_para, empty);
 				if (q_cur == 2) {
 					$('#txtUno').attr('readonly', 'readonly').css('background-color', t_background2);
+				}
+				if(q_cur == 1 || q_cur ==2){
+					$('#combType2').removeAttr('disabled');
+					$('#combType2A').removeAttr('disabled');
+				}else{
+					$('#combType2').attr('disabled','disabled');
+					$('#combType2A').attr('disabled','disabled');
 				}
 				size_change();
 			}
@@ -770,16 +814,9 @@
 				if (t_kind == 'A') {
 					$('#txtPaytype').val($('#combPaytype').find(":selected").text());
 					
-					var t_text = $('#cmbType2').find(":selected").text();
-					$('#cmbType2').text('');
-					q_cmbParse("cmbType2", q_getPara('cut.type2'));
-					$('#cmbType2').val($('#cmbType2').children().eq(0).val());
-					for(var i=0;i<$('#cmbType2').children().length;i++){
-						if($('#cmbType2').children().eq(i).text()==t_text){
-							$('#cmbType2').val($('#cmbType2').children().eq(i).val());
-						}
-					}
-					
+					$('#combType2').show().val($('#txtType2').val());
+					$('#combType2A').hide();
+
 					$('#lblSize_help').text(q_getPara('sys.lblSizea'));
 					$('#Size').css('width', '225px');
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -800,15 +837,9 @@
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
 					$('#Size').css('width', '325px');
 					
-					var t_text = $('#cmbType2').find(":selected").text();
-					$('#cmbType2').text('');
-					q_cmbParse("cmbType2", q_getPara('cut.type2A'));
-					$('#cmbType2').val($('#cmbType2').children().eq(0).val());
-					for(var i=0;i<$('#cmbType2').children().length;i++){
-						if($('#cmbType2').children().eq(i).text()==t_text){
-							$('#cmbType2').val($('#cmbType2').children().eq(i).val());
-						}
-					}
+					$('#combType2A').show().val($('#txtType2').val());
+					$('#combType2').hide();
+					
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).show();
 						$('#textSize2_' + j).show();
@@ -825,16 +856,10 @@
 				} else {//鋼筋和鋼胚
 					$('#lblSize_help').text(q_getPara('sys.lblSizec'));
 					$('#Size').css('width', '55px');
-					alert($('#cmbType2').val());
-					var t_text = $('#cmbType2').find(":selected").text();
-					$('#cmbType2').text('');
-					q_cmbParse("cmbType2", q_getPara('cut.type2'));
-					$('#cmbType2').val($('#cmbType2').children().eq(0).val());
-					for(var i=0;i<$('#cmbType2').children().length;i++){
-						if($('#cmbType2').children().eq(i).text()==t_text){
-							$('#cmbType2').val($('#cmbType2').children().eq(i).val());
-						}
-					}
+					
+					$('#combType2').show().val($('#txtType2').val());
+					$('#combType2A').hide();
+					
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).hide();
 						$('#textSize2_' + j).hide();
@@ -853,7 +878,6 @@
 						$('#txtRadius_' + j).val(0);
 					}
 				}
-				$('#cmbType2').change();
 			}
 			function FormatNumber(n) {
 				var xx = "";
@@ -1103,7 +1127,10 @@
 							<input id="txtMech"  type="text" style="float:left;width:50%;"/>
 						</td>
 						<td><span> </span><a id="lblType2" class="lbl" > </a></td>
-						<td><select id="cmbType2" class="txt c1"> </select></td>
+						<td><select id="combType2" class="txt c1"> </select>
+							<select id="combType2A" class="txt c1"> </select>
+							<input id="txtType2" type="text" style="display:none;"/>
+						</td>
 						<td><span> </span><a id="lblCust" class="lbl btn" > </a></td>
 						<td colspan="3">
 							<input id="txtCustno" type="text" style="float:left;width:30%;"/>
