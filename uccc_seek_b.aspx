@@ -14,7 +14,8 @@
 		var isBott = false;
 		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 		var i,s1;
-		brwCount2 = 6;
+		brwCount = 10;
+		brwCount2 = 10;
 		aPop = new Array(
 			['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'],
 			['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
