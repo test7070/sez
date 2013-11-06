@@ -535,6 +535,7 @@
 						$('#txtStyle_' + j).blur(function() {
 							var n = $(this).attr('id').replace('txtStyle_', '');
 							ProductAddStyle(n);
+							sum();
 						});
 					}
 				}
@@ -631,7 +632,7 @@
 					} else {//鋼筋、胚
 						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
 					}
-					if(t_type2.indexOf('條')>0 || t_type2.indexOf('貼膜')>0){
+					if(( $('#txtStyle_'+j).val()=='B' || q_float('txtLengthb_' + j)==0) && (t_type2.indexOf('條')>0 || t_type2.indexOf('貼膜')>0)){
 						if($('#txtStyle_'+j).val().length>0){
 							t_theory = (q_float('txtGweight')>0?q_float('txtGweight'):q_float('txtEweight'));
 							t_theory = (isNaN(t_theory)?0:t_theory);
