@@ -88,8 +88,10 @@
 				var mon = $('#textMon').val();
 				if(!emp(mon) && mon.length == 6){
 					q_func( 'accz.gen', mon+','+r_name);
+					Lock();
 					$('#btnChangeaccno').attr('disabled','disabled');
 				}else{
+					Unlock();
 					alert('月份錯誤!!');
 					return;
 				}
@@ -176,6 +178,7 @@
 		function q_funcPost(t_func, result) {
 			switch(t_func) {
 				case 'accz.gen':
+					Unlock();
 					alert(result);
 					$('#btnChangeaccno').removeAttr('disabled', 'disabled');
 					$('#btnCloseaccno').click();
@@ -318,6 +321,8 @@
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			$('#textMon').removeAttr('readonly');
+			$('#textMon').css('background-color', t_background).css('color','');
 		}
 
 		function btnMinus(id) {

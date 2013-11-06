@@ -31,6 +31,7 @@
                         name : 'xnoa'
                     }]
                 });
+                q_langShow();
                 q_popAssign();
             }
             function q_boxClose(s2) {
