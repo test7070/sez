@@ -56,7 +56,10 @@
                         value : (('').concat(new Array("1@調撥日","2@有效日"))).split(',')
                     }]
 				});
-                q_popAssign();
+				
+                q_getFormat();
+				q_langShow();
+				q_popAssign();
                  
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
