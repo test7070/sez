@@ -544,6 +544,7 @@
 
 			function btnIns() {
 				_btnIns();
+				$('#cmbKind').val($('#cmbKind').children().eq(0).val()).change();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
