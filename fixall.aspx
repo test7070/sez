@@ -32,12 +32,16 @@
 		    brwList = [];
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
-		    //ajaxPath = "";
+		    brwCount2 = 10;
 		    aPop = new Array(
-		    	['txtCarno_', '', 'car2', 'a.noa,cardno,driverno,driver', 'txtCarno_,txtCardno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],
-		    	['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], 
-		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
-		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,typea,inprice', 'txtProductno_,txtProduct_,txtTypea_,txtPrice_', 'fixucc_b.aspx']);
+		    	['txtCarno_', '', 'car2', 'a.noa,cardno,driverno,driver', 'txtCarno_,txtCardno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
+		    	,['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
+		    	,['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx']
+		    	, ['txtWacc1', 'lblWacc', 'acc', 'acc1,acc2', 'txtWacc1,txtWacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
+            		, ['txtCacc1', 'lblCacc', 'acc', 'acc1,acc2', 'txtCacc1,txtCacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
+        			, ['txtDacc1', 'lblDacc', 'acc', 'acc1,acc2', 'txtDacc1,txtDacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
+            		, ['txtEacc1', 'lblEacc', 'acc', 'acc1,acc2', 'txtEacc1,txtEacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
+		    	,['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,typea,inprice', 'txtProductno_,txtProduct_,txtTypea_,txtPrice_', 'fixucc_b.aspx']);
 		    q_desc = 1;
 
 		    $(document).ready(function () {
@@ -126,6 +130,23 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'getAcc':
+                        var as = _q_appendData("acc", "", true);
+                        if (as[0] != undefined) {
+                        	for(var i=0;i<as.length;i++){
+                        		if(as[i].acc1==$('#txtWacc1').val())
+                        			$('#txtWacc2').val(as[i].acc2);
+                    			if(as[i].acc1==$('#txtCacc1').val())
+                        			$('#txtCacc2').val(as[i].acc2);
+                    			if(as[i].acc1==$('#txtDacc1').val())
+                        			$('#txtDacc2').val(as[i].acc2);
+                    			if(as[i].acc1==$('#txtEacc1').val())
+                        			$('#txtEacc2').val(as[i].acc2);
+                        	}
+                        }
+                		$('#txtDatea').focus();
+                        Unlock(1);
+                        break;
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
@@ -203,10 +224,15 @@
                 $('#txtNoa').val('AUTO');
                 if($('#txtDatea').val().length==0)
                		$('#txtDatea').val(q_date());
-		        $('#txtDatea').focus();
-		        
-		        
-		        
+		        $('#txtWacc1').val(q_getPara('fixa.wacc1'));
+                $('#txtCacc1').val(q_getPara('fixa.cacc1'));
+                $('#txtDacc1').val(q_getPara('fixa.dacc1'));
+                $('#txtEacc1').val(q_getPara('fixa.eacc1'));
+                t_where = "where=^^ acc1='" + $('#txtWacc1').val() + "' or acc1='" + $('#txtCacc1').val() + "' or acc1='" + $('#txtDacc1').val() + "' or acc1='" + $('#txtEacc1').val() + "'^^";
+                Lock(1, {
+                    opacity : 0
+                });
+                q_gt('acc', t_where, 0, 0, 0, "getAcc", r_accy+'_'+r_cno);
 		    }
 
 		    function btnModi() {
@@ -255,7 +281,7 @@
 		    function sum() {
 		    	if(!(q_cur==1 || q_cur==2))
 		    		return;
-		        var t_money,t_wmoney,t_cmoney,t_dmoney,t_tax,t_discount,t_total;
+		        var t_money,t_wmoney,t_cmoney,t_dmoney,t_emoney,t_tax,t_discount,t_total;
 		        var tot_wmoney = 0,tot_cmoney = 0,tot_dmoney = 0, tot_tax=0, tot_discount=0, tot_total=0;
 		        for(var i=0;i<q_bbsCount;i++){
 		        	t_money = q_float('txtMount_' + i).mul(q_float('txtPrice_' + i)).round(0);
@@ -263,6 +289,7 @@
 		        	t_wmoney = 0;
 		        	t_cmoney = 0;
 		        	t_dmoney = 0;
+		        	t_emoney = 0;
 		        	switch($.trim($('#txtTypea_' + i).val())){
 		        		case '工資':
 		        			t_wmoney = t_money;
@@ -273,16 +300,20 @@
 		        		case '材料':
 		        			t_dmoney = t_money;
 		        			break;
+		        		case '費用':
+                            t_emoney = t_money;
+		        			break;
 		        		default:
 		        			break;
 		        	}
 		        	t_tax = q_float('txtTax_'+i);
 		        	t_discount = q_float('txtDiscount_'+i);
-		        	t_total = t_wmoney.add(t_cmoney).add(t_dmoney).add(t_tax).sub(t_discount);
+		        	t_total = t_wmoney.add(t_cmoney).add(t_dmoney).add(t_emoney).add(t_tax).sub(t_discount);
 		        	
 		        	tot_wmoney = tot_wmoney.add(t_wmoney);
 		        	tot_cmoney = tot_cmoney.add(t_cmoney);
 		        	tot_dmoney = tot_dmoney.add(t_dmoney);
+		        	tot_emoney = tot_emoney.add(t_emoney);
 					tot_tax = tot_tax.add(t_tax);
 					tot_discount = tot_discount.add(t_discount);
 					tot_total = tot_total.add(t_total);
@@ -290,6 +321,7 @@
 		        	$('#txtWmoney_'+i).val(t_wmoney);
 		        	$('#txtCmoney_'+i).val(t_cmoney);
 		        	$('#txtDmoney_'+i).val(t_dmoney);
+		        	$('#txtEmoney_'+i).val(t_emoney);
 		        	$('#txtTax_'+i).val(t_tax);
 		        	$('#txtDiscount_'+i).val(t_discount);
 		        	$('#txtTotal_'+i).val(t_total);
@@ -299,6 +331,7 @@
 		        $('#txtWmoney').val(FormatNumber(tot_wmoney));
 		        $('#txtCmoney').val(FormatNumber(tot_cmoney));
 		        $('#txtDmoney').val(FormatNumber(tot_dmoney));
+		        $('#txtEmoney').val(FormatNumber(tot_emoney));
 		        $('#txtTax').val(FormatNumber(tot_tax));
 		        $('#txtDiscount').val(FormatNumber(tot_discount));
 		        $('#txtTotal').val(FormatNumber(tot_total));
@@ -615,11 +648,55 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWmoney" class="lbl"> </a></td>
-						<td><input id="txtWmoney" type="text" class="txt num c1" /></td>
+						<td>
+						<input id="txtWmoney" type="text" class="txt num c1" />
+						</td>
+						<td><span> </span><a id="lblWacc" class="lbl btn"> </a></td>
+						<td>
+						<input id="txtWacc1" type="text" class="txt c1" />
+						</td>
+						<td colspan="2">
+						<input id="txtWacc2" type="text" class="txt c1" />
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblCmoney" class="lbl"> </a></td>
-						<td><input id="txtCmoney" type="text" class="txt num c1" /></td>
+						<td>
+						<input id="txtCmoney" type="text" class="txt num c1" />
+						</td>
+						<td><span> </span><a id="lblCacc" class="lbl btn"> </a></td>
+						<td>
+						<input id="txtCacc1" type="text" class="txt c1" />
+						</td>
+						<td colspan="2">
+						<input id="txtCacc2" type="text" class="txt c1" />
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblDmoney" class="lbl"> </a></td>
-						<td><input id="txtDmoney" type="text" class="txt num c1" /></td>
+						<td>
+						<input id="txtDmoney" type="text" class="txt num c1" />
+						</td>
+						<td><span> </span><a id="lblDacc" class="lbl btn"> </a></td>
+						<td>
+						<input id="txtDacc1" type="text" class="txt c1" />
+						</td>
+						<td colspan="2">
+						<input id="txtDacc2" type="text" class="txt c1" />
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblEmoney" class="lbl"> </a></td>
+						<td>
+						<input id="txtEmoney" type="text" class="txt num c1" />
+						</td>
+						<td><span> </span><a id="lblEacc" class="lbl btn"> </a></td>
+						<td>
+						<input id="txtEacc1" type="text" class="txt c1" />
+						</td>
+						<td colspan="2">
+						<input id="txtEacc2" type="text" class="txt c1" />
+						</td>
 					</tr>
 					<tr>
 						<td> </td>
@@ -709,6 +786,7 @@
 						<input id="txtWmoney.*" type="text"  style="display:none;"/>
 						<input id="txtCmoney.*" type="text"  style="display:none;"/>
 						<input id="txtDmoney.*" type="text"  style="display:none;"/>
+						<input id="txtEmoney.*" type="text"  style="display:none;"/>
 					</td>
 					<td>
 						<input id="txtTax.*" type="text"  style="width:95%;text-align:right;"/>
