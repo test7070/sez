@@ -672,13 +672,14 @@
 				if (q_cur == 2) {
 					$('#txtUno').attr('readonly', 'readonly').css('background-color', t_background2);
 				}
-				if(q_cur == 1 || q_cur ==2){
-					$('#combType2').removeAttr('disabled');
-					$('#combType2A').removeAttr('disabled');
-				}else{
-					$('#combType2').attr('disabled','disabled');
-					$('#combType2A').attr('disabled','disabled');
-				}
+                var WantDisabledArray = ['combType2','combType2A','btnOrdesImport'];
+                for(var k=0;k<WantDisabledArray.length;k++){
+                	if(q_cur==1 || q_cur ==2){
+                		$("#"+WantDisabledArray[k]).removeAttr('disabled','disabled');
+                	}else{
+                		$("#"+WantDisabledArray[k]).attr('disabled','disabled');
+                	}
+                }
 				size_change();
 			}
 

@@ -340,6 +340,8 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
+				$('#txtCno').val('A');
+				$('#txtAcomp').val((q_getPara('sys.comp').substring(0,3)=='裕承隆'?q_getPara('sys.comp').substring(0,3):q_getPara('sys.comp').substring(0,2)));
 				size_change();
 				$('#txtDatea').focus();
 			}
@@ -414,6 +416,14 @@
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				size_change();
+                var WantDisabledArray = ['btnOrdeImport','btnUccc_pi','btnCucImport'];
+                for(var k=0;k<WantDisabledArray.length;k++){
+                	if(q_cur==1 || q_cur ==2){
+                		$("#"+WantDisabledArray[k]).removeAttr('disabled','disabled');
+                	}else{
+                		$("#"+WantDisabledArray[k]).attr('disabled','disabled');
+                	}
+                }
 				if (q_cur == 0 && trim($('#txtNoa').val()) != '')
 					$('#btnCubu').removeAttr('disabled');
 				else
