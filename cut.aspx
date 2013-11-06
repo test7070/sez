@@ -493,22 +493,16 @@
 						});
 						//判斷訂單是否存在
 						$('#txtOrdeno_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if (!emp($('#txtOrdeno_' + b_seq)) && !emp($('#txtOrdeno_' + b_seq))) {
-								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + b_seq).val() + "' and no2 = '" + $('#txtNo2_' + b_seq).val() + "' ^^";
+							var n = $(this).attr('id').replace('txtOrdeno_', '');
+							if (!emp($('#txtOrdeno_' + n)) && !emp($('#txtOrdeno_' + n))) {
+								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + n).val() + "' and no2 = '" + $('#txtNo2_' + n).val() + "' ^^";
 								q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
 							}
 						});
 						$('#txtNo2_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if (!emp($('#txtOrdeno_' + b_seq)) && !emp($('#txtOrdeno_' + b_seq))) {
-								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + b_seq).val() + "' and no2 = '" + $('#txtNo2_' + b_seq).val() + "' ^^";
+							var n = $(this).attr('id').replace('txtNo2_', '');
+							if (!emp($('#txtOrdeno_' + n)) && !emp($('#txtOrdeno_' + n))) {
+								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + n).val() + "' and no2 = '" + $('#txtNo2_' + n).val() + "' ^^";
 								q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
 							}
 						});
@@ -522,18 +516,14 @@
 									$(this).val('B');
 								}
 							}
-						}).focusout(function(){
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							var dimeVal = dec($('#txtDime_'+b_seq).val());
-							if(dimeVal == 0){
-								$('#txtDime_'+b_seq).val($('#txtDime').val());
-								size_change();
-							}
 						});
 						$('#txtStyle_' + j).blur(function() {
 							var n = $(this).attr('id').replace('txtStyle_', '');
+							var dimeVal = dec($('#txtDime_'+n).val());
+							if(dimeVal == 0){
+								$('#txtDime_'+n).val($('#txtDime').val());
+								size_change();
+							}
 							ProductAddStyle(n);
 							sum();
 						});
