@@ -978,7 +978,7 @@
 		<style type="text/css">
 			.dview {
 				float: left;
-				width: 320px;
+				width: 350px;
 				border-width: 0px;
 			}
 			.tview {
@@ -1015,7 +1015,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 10%;
+				width: 1%;
 			}
 			.tbbm .tdZ {
 				width: 1%;
