@@ -493,22 +493,16 @@
 						});
 						//判斷訂單是否存在
 						$('#txtOrdeno_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if (!emp($('#txtOrdeno_' + b_seq)) && !emp($('#txtOrdeno_' + b_seq))) {
-								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + b_seq).val() + "' and no2 = '" + $('#txtNo2_' + b_seq).val() + "' ^^";
+							var n = $(this).attr('id').replace('txtOrdeno_', '');
+							if (!emp($('#txtOrdeno_' + n)) && !emp($('#txtOrdeno_' + n))) {
+								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + n).val() + "' and no2 = '" + $('#txtNo2_' + n).val() + "' ^^";
 								q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
 							}
 						});
 						$('#txtNo2_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if (!emp($('#txtOrdeno_' + b_seq)) && !emp($('#txtOrdeno_' + b_seq))) {
-								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + b_seq).val() + "' and no2 = '" + $('#txtNo2_' + b_seq).val() + "' ^^";
+							var n = $(this).attr('id').replace('txtNo2_', '');
+							if (!emp($('#txtOrdeno_' + n)) && !emp($('#txtOrdeno_' + n))) {
+								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + n).val() + "' and no2 = '" + $('#txtNo2_' + n).val() + "' ^^";
 								q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
 							}
 						});
@@ -522,19 +516,16 @@
 									$(this).val('B');
 								}
 							}
-						}).focusout(function(){
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							var dimeVal = dec($('#txtDime_'+b_seq).val());
-							if(dimeVal == 0){
-								$('#txtDime_'+b_seq).val($('#txtDime').val());
-								size_change();
-							}
 						});
 						$('#txtStyle_' + j).blur(function() {
 							var n = $(this).attr('id').replace('txtStyle_', '');
+							var dimeVal = dec($('#txtDime_'+n).val());
+							if(dimeVal == 0){
+								$('#txtDime_'+n).val($('#txtDime').val());
+								size_change();
+							}
 							ProductAddStyle(n);
+							sum();
 						});
 					}
 				}
@@ -544,6 +535,7 @@
 
 			function btnIns() {
 				_btnIns();
+				$('#cmbKind').val($('#cmbKind').children().eq(0).val()).change();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
@@ -630,7 +622,7 @@
 					} else {//鋼筋、胚
 						q_tr('txtLengthb_' + j, q_float('textSize3_' + j));
 					}
-					if(t_type2.indexOf('條')>0 || t_type2.indexOf('貼膜')>0){
+					if(( $('#txtStyle_'+j).val()=='B' || q_float('txtLengthb_' + j)==0) && (t_type2.indexOf('條')>0 || t_type2.indexOf('貼膜')>0)){
 						if($('#txtStyle_'+j).val().length>0){
 							t_theory = (q_float('txtGweight')>0?q_float('txtGweight'):q_float('txtEweight'));
 							t_theory = (isNaN(t_theory)?0:t_theory);
