@@ -368,6 +368,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
+	<div id='dmain' style="width: 1260px;">
         <div class="dview" id="dview" style="float: left;  width:390px;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -442,6 +443,7 @@
         	</td>
         </tr>
         </table>
+        </div>
         </div>
         <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
