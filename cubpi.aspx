@@ -155,7 +155,6 @@
 						t_width=(t_bbsProduct.substring(0,1)=='圓'?3.1416*a1-a3*3.5:t_width);
 						t_width=(t_bbsProduct.indexOf('橢圓管')>-1?(3.1416*a1+(a2-a1)*2-a3*3.5-5):t_width);
 						t_width=(t_bbsProduct.indexOf('橢圓形')>-1?(1.5*a1+1.5*a2-a3*3.5):t_width);
-						console.log(t_width);
 						t_ewidth=t_width * 1.2;
 						if(t_width > 0 || t_ewidth >0)
 							t_where += q_sqlPara2('width',t_width,t_ewidth);

@@ -31,7 +31,13 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'], ['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'uccc_seek_b.aspx', '95%', '60%'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], ['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
+			['txtUno', 'lblUno', 'view_uccc', 'uno,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'uccc_seek_b.aspx?;;;1=0', '95%', '60%'], 
+			['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
+			['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
+			['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
+			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
+			);
 			q_desc = 1;
 			brwCount2 = 11;
 			$(document).ready(function() {
@@ -123,6 +129,7 @@
 							t_where += q_sqlPara2('width', 0, t_width+11);
 						if (!emp(t_custno))
 							t_where += q_sqlPara2('custno', t_custno);
+						t_where += " and kind='" +$('#cmbKind').val()+ "'";
 						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 					}
 				});
@@ -577,6 +584,14 @@
 			}
 
 			function sum() {
+				if($('#txtType2').val().length==0){
+					if($('#combType2').is(":visible")){
+	                	$('#txtType2').val($('#combType2').val());
+					}
+					if($('#combType2A').is(":visible")){
+						$('#txtType2').val($('#combType2A').val());
+					}
+				}
 				var t_theyout = 0,t_totalout=0;
 				var t_weights,t_theorys;
 				var t_kind = $('#cmbKind').val();
@@ -585,17 +600,19 @@
                 t_kind = t_kind.substr(0, 1);
                 var t_type2 = $('#txtType2').val();
                 var t_array = new Array();
+                
                 if($('#combType2').is(":visible")){
                 	t_array = q_getPara('cut.type2').split(',');
 				}
-				if($('#combType2A').is(":visible") && $('#combType2A').val()=='1'){
+				if($('#combType2A').is(":visible")){
 					t_array = q_getPara('cut.type2A').split(',');
 				}
 				for(var j=0;j<t_array.length;j++){
-            		if(t_array[j].substring(0,t_type2.length+1)==t_type2+'@')
-            			t_type2 = t_array[j].substring(t_type2.length+1,t_type2.length);
+            		if(t_array[j].substring(0,t_type2.length+1)==t_type2+'@'){
+            			t_type2 = t_array[j].substring(t_type2.length+1,t_array[j].length);
+            			break;
+            		}
             	}
-                
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $.trim($('#txtUnit_' + j).val()).toUpperCase();
 					t_mount = q_float('txtMount_'+j);
@@ -820,12 +837,10 @@
                 t_kind = t_kind.substr(0, 1);				
 				if (t_kind == 'A') {
 					$('#txtPaytype').val($('#combPaytype').find(":selected").text());
-					
 					$('#combType2').show().val($('#txtType2').val());
 					$('#combType2A').hide();
-
 					$('#lblSize_help').text(q_getPara('sys.lblSizea'));
-					$('#Size').css('width', '225px');
+					$('#Size').css('width', '230px');
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).show();
 						$('#textSize2_' + j).show();
@@ -842,11 +857,9 @@
 					}
 				} else if (t_kind == 'B') {
 					$('#lblSize_help').text(q_getPara('sys.lblSizeb'));
-					$('#Size').css('width', '325px');
-					
+					$('#Size').css('width', '340px');
 					$('#combType2A').show().val($('#txtType2').val());
 					$('#combType2').hide();
-					
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).show();
 						$('#textSize2_' + j).show();
@@ -863,10 +876,8 @@
 				} else {//鋼筋和鋼胚
 					$('#lblSize_help').text(q_getPara('sys.lblSizec'));
 					$('#Size').css('width', '55px');
-					
 					$('#combType2').show().val($('#txtType2').val());
 					$('#combType2A').hide();
-					
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#textSize1_' + j).hide();
 						$('#textSize2_' + j).hide();
@@ -1267,7 +1278,7 @@
 						<input id="txtCustno.*" type="text" style="width: 70px; float:left;"/>
 					</td>
 					<td><input id="txtCust.*" type="text" class="txt c2"/></td>
-					<td><input style="width:95%;text-align: center;" id="txtStyle.*" type="text" /></td>
+					<td><input style="width:90%;text-align: center;" id="txtStyle.*" type="text" /></td>
 					<td>
 						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
 						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >x</div>
