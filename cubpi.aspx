@@ -416,7 +416,7 @@
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				size_change();
-                var WantDisabledArray = ['btnOrdeImport','btnUccc_pi','btnCucImport'];
+                var WantDisabledArray = ['btnOrdeImport','btnUccc_pi','btnCucImport','btnCubuImport'];
                 for(var k=0;k<WantDisabledArray.length;k++){
                 	if(q_cur==1 || q_cur ==2){
                 		$("#"+WantDisabledArray[k]).removeAttr('disabled','disabled');
@@ -842,8 +842,8 @@
 							<input id="txtMechno" type="text" style="width:30%;"/>
 							<input id="txtMech" type="text" style="width:65%;"/>
 						</td>
-						<td> </td>
-						<td> </td>
+						<td colspan="9"> </td>
+						<td><input type="button" id="btnOrdeImport"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProductno_pi" class="lbl btn" > </a></td>
@@ -860,19 +860,19 @@
 							<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
 							<input id="txtEdime" type="text" style="width:40%;" class="txt num"/>
 						</td>
-						<td><input type="button" id="btnOrdeImport"></td>
+						<td><input type="button" id="btnUccc_pi"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo2_pi" class="lbl" > </a></td>
 						<td colspan="10"><input id="txtMemo2"  type="text" class="txt c1"/></td>
 						<td><input type="button" id="btnCucImport"></td>
-						<td><input type="button" id="btnUccc_pi"></td>
+						<td><input type="button" id="btnCubu"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo_pi" class="lbl" > </a></td>
 						<td colspan="10"><input id="txtMemo" type="text" class="txt c1"/></td>
 						<td> </td>
-						<td><input type="button" id="btnCubu"></td>
+						<td><input type="button" id="btnCubuImport"></td>
 					</tr>
 				</table>
 			</div>
