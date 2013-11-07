@@ -30,7 +30,18 @@
         brwNowPage = 0; 
         brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
+        if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+		 	aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
+                ['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
+                ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
+                ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+                ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+                ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
+                ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
+                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucc_b.aspx']
+			);
+		}else{
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
                 ['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
                 ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
                 ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
@@ -38,7 +49,9 @@
                 ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
                 ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
                 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
-		);
+			);
+		}
+	
               
         $(document).ready(function () {
             q_desc = 1;
@@ -91,7 +104,7 @@
             
             var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
-            
+			
             $('#btnOrdes').click(function () {
                 var t_custno = trim($('#txtCustno').val());
 	            var t_where = '';
@@ -492,6 +505,12 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+				$('.it').show();
+			}else{
+				$('.it').hide();
+			}
         }
 
         function readonly(t_para, empty) {
@@ -822,7 +841,7 @@
         <table id="tbbs" class='tbbs'>
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;width:" /> </td>
-				<td align="center"><a id='lblUno_s'> </a></td>
+				<td align="center" class="it"><a id='lblUno_s'> </a></td>
                 <td align="center"><a id='lblProductno_s'> </a></td>
                 <td align="center"><a id='lblProduct_s'> </a></td>
                 <td align="center"><a id='lblUnit_s'> </a></td>
@@ -835,12 +854,15 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:8%;"><input id="txtUno.*" type="text" class="txt c1" /></td>
+                <td style="width:8%;" class="it"><input id="txtUno.*" type="text" class="txt c1" /></td>
                 <td style="width:10%">
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
                 	<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
                 </td>
-                <td style="width:15%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
+                <td style="width:15%;">
+                	<input id="txtProduct.*" type="text" class="txt c1" />
+                	<input id="txtSpec.*" type="text" class="txt c1 it" />
+                </td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
