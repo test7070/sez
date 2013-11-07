@@ -78,6 +78,9 @@
 				$('#cmbTypea').change(function() {
 					size_change();
 				});
+				$('#btnCubuImport').click(function(){
+					q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + '', 'view_cubu2cub', "95%", "95%", q_getMsg('popCubu2Cub'));					
+				});
 				$('#btnOrdeImport').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
 						var t_bdate = trim($('#txtBdate').val());
