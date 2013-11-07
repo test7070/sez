@@ -79,7 +79,8 @@
 					size_change();
 				});
 				$('#btnCubuImport').click(function(){
-					q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + '', 'view_cubu2cub', "95%", "95%", q_getMsg('popCubu2Cub'));					
+					var t_where = " noa !='"+trim($('#txtNoa').val())+"'";
+					q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, 'view_cubu2cub', "95%", "95%", q_getMsg('popCubu2Cub'));					
 				});
 				$('#btnOrdeImport').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
@@ -319,6 +320,25 @@
 							sum();
 							b_ret = '';
 						}
+						break;
+					case 'view_cubu2cub':
+						b_ret = getb_ret();
+						if (!b_ret || b_ret.length == 0){
+							b_pop = '';
+							return;
+						}
+						if (b_ret[0] != undefined) {
+							bbs_ret = q_gridAddRow(bbtHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb', 'txtUno');
+							bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
+							/// 最後 aEmpField 不可以有【數字欄位】
+							for(var k=0;k<bbs_ret.length;k++){
+								$('#chkOrdc_'+bbs_ret[k]).attr('checked',true);
+							}
+							bbsAssign();
+							bbtAssign();
+							size_change();
+						}
+												
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
