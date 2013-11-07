@@ -17,15 +17,15 @@
 		<script type="text/javascript">
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_uno');  
+                q_gf('', 'z_uno');
             });
-			function q_gfPost(t_name) {
+            function q_gfPost(t_name) {
                 $('#q_report').q_report({
                     fileName : 'z_uno',
                     options : [{
                         type : '0',
                         name : 'accy',
-                        value : q_getId()[4]
+                        value : r_accy
                     }, {/*1*/
                         type : '6',
                         name : 'xnoa'
@@ -33,9 +33,16 @@
                 });
                 q_langShow();
                 q_popAssign();
+                var t_noa = q_getId()[3];
+                if(t_noa.length>0){//used by z_uccstk
+                	$('#txtXnoa').val(t_noa);
+                	$('#btnOk').click();
+                }
             }
+
             function q_boxClose(s2) {
             }
+
             function q_gtPost() {
             }
 		</script>
