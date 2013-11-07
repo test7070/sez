@@ -14,7 +14,8 @@
             //, t_where = '';
             var t_sqlname = 'ordes_load';
             t_postname = q_name;
-            brwCount2 = 10;
+            brwCount=-1;
+            //brwCount2 = 10;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
             var i, s1;
@@ -58,6 +59,10 @@
                             $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
                     });
                 });
+                $('#btnTop').hide();
+                $('#btnPrev').hide();
+                $('#btnNext').hide();
+                $('#btnBott').hide();
             }
 
 		</script>
