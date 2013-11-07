@@ -379,8 +379,10 @@
                	var i = 0;
 				for (var j = 0; j < abbs.length; j++) {
 					if(abbs[j]['noa'] == t_noa){
-						abbs[j]['tranno'] = string[i];
-						$('#txtTranno_'+i).val(string[i]);
+						if(abbs[j]['tranno'].length==0){
+							abbs[j]['tranno'] = string[i];
+							$('#txtTranno_'+i).val(string[i]);
+						}
 						i++;
 						b_seq++;
 					}
