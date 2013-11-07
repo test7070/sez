@@ -308,8 +308,7 @@
 			if (t_custno.length > 0) {
 				//t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&
 				t_where = "noa+'_'+no3 not in (select isnull(quatno,'')+'_'+isnull(no3,'') from view_ordes"+r_accy+" where noa!='"+$('#txtNoa').val()+"' )"
-				t_where = t_where+' and '+(t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
-				t_where =  t_where +'1=1';
+				t_where = t_where+' and '+q_sqlPara("custno", t_custno) ;  ////  sql AND 語法，請用 &&  
 			}
 			else {
 				alert(q_getMsg('msgCustEmp'));
