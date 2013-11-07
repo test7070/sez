@@ -110,9 +110,9 @@
 					var t_where='';
 					if (t_tggno.length > 0) {
 						if (t_ordbno.length > 0) 
-							t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+							t_where = "isnull(enda,'0')='0' and ( noa+'_'+no3 not in (select isnull(ordbno,'')+'_'+isnull(no3,'') from view_ordc"+r_accy+" where noa!='"+$('#txtNoa').val()+"' ) ) and " + q_sqlPara("tggno", t_tggno) +"and " +q_sqlPara("noa", t_ordbno) +" and kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
 						else
-							t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+							t_where = "isnull(enda,'0')='0' and ( noa+'_'+no3 not in (select isnull(ordbno,'')+'_'+isnull(no3,'') from view_ordc"+r_accy+" where noa!='"+$('#txtNoa').val()+"' ) ) and " +q_sqlPara("tggno", t_tggno) +" and kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
 						t_where = t_where;
 					}
 					else {
