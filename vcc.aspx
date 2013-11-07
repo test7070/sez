@@ -436,8 +436,8 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtCno').val('1');
-            $('#txtAcomp').val(r_comp.substr(0, 2));
+            //$('#txtCno').val('1');
+            //$('#txtAcomp').val(r_comp.substr(0, 2));
             $('#txtDatea').val(q_date());
             $('#cmbTypea').val('1');
             $('#txtDatea').focus();

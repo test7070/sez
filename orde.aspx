@@ -439,8 +439,8 @@
 			_btnIns();
 			$('#chkIsproj').attr('checked',true);
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-			$('#txtCno').val('1');
-			$('#txtAcomp').val(r_comp.substr(0, 2));
+			//$('#txtCno').val('1');
+			//$('#txtAcomp').val(r_comp.substr(0, 2));
 			$('#txtOdate').val(q_date());
 			$('#txtOdate').focus();
 			
