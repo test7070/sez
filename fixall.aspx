@@ -21,9 +21,9 @@
 
 		    q_tables = 's';
 		    var q_name = "fixall";
-		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney', 'txtDmoney','txtMoney','txtTax', 'txtDiscount', 'txtTotal','txtWorker','txtWorker2'];
+		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney', 'txtDmoney', 'txtEmoney','txtMoney','txtTax', 'txtDiscount', 'txtTotal','txtWorker','txtWorker2'];
 		    var q_readonlys = ['txtMoney','txtFixano'];
-		    var bbmNum = new Array(['txtWmoney', 10, 0, 1], ['txtCmoney', 10, 0, 1], ['txtDmoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtTotal', 10, 0, 1]);
+		    var bbmNum = new Array(['txtWmoney', 10, 0, 1], ['txtCmoney', 10, 0, 1], ['txtDmoney', 10, 0, 1], ['txtEmoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtTotal', 10, 0, 1]);
 		    var bbsNum = new Array(['txtPrice', 10, 2, 1], ['txtMount', 10, 2, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtDiscount', 10, 0, 1]);
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -282,7 +282,7 @@
 		    	if(!(q_cur==1 || q_cur==2))
 		    		return;
 		        var t_money,t_wmoney,t_cmoney,t_dmoney,t_emoney,t_tax,t_discount,t_total;
-		        var tot_wmoney = 0,tot_cmoney = 0,tot_dmoney = 0, tot_tax=0, tot_discount=0, tot_total=0;
+		        var tot_wmoney = 0,tot_cmoney = 0,tot_dmoney = 0,tot_emoney = 0, tot_tax=0, tot_discount=0, tot_total=0;
 		        for(var i=0;i<q_bbsCount;i++){
 		        	t_money = q_float('txtMount_' + i).mul(q_float('txtPrice_' + i)).round(0);
 		        	$('#txtMoney_'+i).val(FormatNumber(t_money));
