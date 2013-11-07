@@ -340,7 +340,7 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtCno').val('A');
+				$('#txtCno').val('1');
 				$('#txtAcomp').val((q_getPara('sys.comp').substring(0,3)=='裕承隆'?q_getPara('sys.comp').substring(0,3):q_getPara('sys.comp').substring(0,2)));
 				size_change();
 				$('#txtDatea').focus();
