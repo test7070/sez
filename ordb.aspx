@@ -168,7 +168,7 @@
                 });
                 
                 $('#btnOrde').click(function() {
-                    q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";1=1", 'ordes', "95%", "95%", q_getMsg('popOrde'));
+                    q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; isnull(enda,'0')='0' and noa+'_'+no2 not in (select isnull(ordeno,'')+'_'+isnull(no2,'') from view_ordbs"+r_accy+" where noa!='"+$('#txtNoa').val()+"')", 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
 
                 //變動按鈕
@@ -204,8 +204,12 @@
                     case 'ordes':
                         if (q_cur > 0 && q_cur < 4) {
                             b_ret = getb_ret();
-                            if (!b_ret || b_ret.length == 0)
-                                return;
+							if (!b_ret || b_ret.length == 0)
+	                             return;
+	                        for (var j = 0; j < q_bbsCount; j++) {
+	                        	$('#btnMinus_'+j).click();
+	                        }
+                            
                             var i, j = 0;
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret, 'productno,product,unit,mount,price,noa,no2', 'txtOrdeno,txtNo2');
                             /// 最後 aEmpField 不可以有【數字欄位】
@@ -328,6 +332,7 @@
                     }
                 }
                 _bbsAssign();
+                product_change();
             }
 
             function q_popPost(s1) {
