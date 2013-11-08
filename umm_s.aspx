@@ -28,7 +28,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picd]];
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0, "");
@@ -73,7 +73,7 @@
 				
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
-                + q_sqlPara2("mon", t_mon) 
+                + q_sqlPara2("case when isnull(mon,'')='' then left(datea,6) else mon end ", t_mon) 
                 + q_sqlPara2("accno", t_accno) 
                 + q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("cno", t_cno);
