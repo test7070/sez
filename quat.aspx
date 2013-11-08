@@ -45,6 +45,7 @@
 				bbsKey = ['noa', 'no3'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
 			});
 			
 			//////////////////	end Ready
@@ -177,8 +178,17 @@
 			}
 
 			var focus_addr='';
+			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
 					case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
 						var t_item = " @ ";
@@ -264,6 +274,9 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				
+				$('#txtCno').val(z_cno);
+				$('#txtAcomp').val(z_acomp);
 				
 				var t_where = "where=^^ 1=1  group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");

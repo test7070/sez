@@ -35,7 +35,7 @@
 			bbsKey = ['noa', 'no2'];
 			q_brwCount();  // 計算 合適  brwCount 
 			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
-				
+			q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
 			$('#txtOdate').focus();
 		});
 		//////////////////   end Ready
@@ -177,8 +177,17 @@
 		}
 		
 		var focus_addr='';
+		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
+				case 'cno_acomp':
+                	var as = _q_appendData("acomp", "", true);
+                	if (as[0] != undefined) {
+	                	z_cno=as[0].noa;
+	                	z_acomp=as[0].acomp;
+	                	z_nick=as[0].nick;
+	                }
+                	break;
 				case 'msg_ucc':
             		var as  = _q_appendData("ucc", "", true);
             		t_msg='';
@@ -439,8 +448,8 @@
 			_btnIns();
 			$('#chkIsproj').attr('checked',true);
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-			//$('#txtCno').val('1');
-			//$('#txtAcomp').val(r_comp.substr(0, 2));
+			$('#txtCno').val(z_cno);
+			$('#txtAcomp').val(z_acomp);
 			$('#txtOdate').val(q_date());
 			$('#txtOdate').focus();
 			

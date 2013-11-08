@@ -37,6 +37,8 @@
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
+                
+                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
             function main() {
                 mainForm(1);
@@ -294,9 +296,18 @@
                 }
                 q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
             }
-
+			
+			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
                 	case 'part':
 		                var as = _q_appendData("part", "", true);
 		                if (as[0] != undefined) {
@@ -707,6 +718,9 @@
                 $('#txtDatea').focus();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                
+                $('#cmbCno').val(z_cno);
+                $('#txtAcomp').val(z_acomp);
             }
 
             function btnModi() {
@@ -1033,7 +1047,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="width: 1270px;">
+		<div id='dmain' style="width: 1260px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
@@ -1181,7 +1195,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1270px;">
+		<div class='dbbs' style="width: 1260px;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:1%;">
@@ -1207,48 +1221,48 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtAcc1.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtAcc1.*"  style="width:75%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtAcc2.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtAcc2.*"  style="width:97%; float:left;"/>
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>
+					<input type="text" id="txtMoney.*" style="text-align:right;width:97%;"/>
+					<input type="text" id="txtMemo.*" style="width:97%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtCheckno.*"  style="width:95%;" />
-					<input type="text" id="txtTitle.*" style="width:95%;" />
+					<input type="text" id="txtCheckno.*"  style="width:97%;" />
+					<input type="text" id="txtTitle.*" style="width:97%;" />
 					</td>
 					<td>
-					<input type="text" id="txtAccount.*"  style="width:95%;" />
+					<input type="text" id="txtAccount.*"  style="width:97%;" />
 					</td>
 					<td>
 						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtBankno.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtBankno.*"  style="width:75%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtBank.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtBank.*"  style="width:97%; float:left;"/>
 					</td>
 					<td>
 					<input type="text" id="txtIndate.*" style="width:95%;" />
 					</td>
 					<td>
-						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
-						<select id="cmbPartno.*"  style="float:left;width:95%;" > </select>
+						<input type="text" id="txtChgs.*" style="text-align:right;width:97%;"/>
+						<select id="cmbPartno.*"  style="float:left;width:97%;" > </select>
 						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
-					<input type="text" id="txtMemo2.*" style="width:95%;"/>
-					<input type="text" id="txtVccno.*" style="width:95%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
+					<input type="text" id="txtMemo2.*" style="width:97%;"/>
+					<input type="text" id="txtVccno.*" style="width:97%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
 					<input type="text" id="txtAccy.*" style="display:none;" />
 					<input type="text" id="txtTablea.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
+					<input type="text" id="txtPaysale.*" style="text-align:right;width:97%;"/>
+					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:97%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
-					<input type="text" id="txtPart2.*"  style="float:left;width: 95%;"/>
+					<input type="text" id="txtUnpay.*"  style="width:97%; text-align: right;" />
+					<input type="text" id="txtPart2.*"  style="float:left;width: 97%;"/>
 					</td>
 				</tr>
 			</table>

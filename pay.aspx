@@ -38,6 +38,7 @@
 		        bbsKey = ['noa', 'noq'];
 		        q_brwCount();
 		        q_gt(q_name, q_content, q_sqlCount, 1);
+		        q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
 		    });
 		    function main() {
 		        mainForm(1);
@@ -248,9 +249,17 @@
                         break;
 		    	}
 		    }
-			
+			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
 		        	case 'pay_mon':
 		        		for (var i = 0; i < q_bbsCount; i++) {
                             if ($('#txtRc2no_' + i).val().length > 0) {
@@ -687,6 +696,8 @@
 		        $('#txtDatea').focus();
 		        $('#txtNoa').val('AUTO');
 		        $('#txtDatea').val(q_date());
+		        $('#cmbCno').val(z_cno);
+                $('#txtAcomp').val(z_acomp);
 		    }
 
 		    function btnModi() {

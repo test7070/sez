@@ -46,10 +46,9 @@
             q_desc = 1;
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-
             q_brwCount(); 
-            
             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy); 
+            q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
         });
 
         //////////////////   end Ready
@@ -208,9 +207,18 @@
 
 		var t_msg='';
 		var focus_addr='';
+		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {
+            	case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
             	case 'msg_ucc':
             		var as  = _q_appendData("ucc", "", true);
             		t_msg='';
@@ -437,8 +445,8 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            //$('#txtCno').val('1');
-            //$('#txtAcomp').val(r_comp.substr(0, 2));
+            $('#txtCno').val(z_cno);
+            $('#txtAcomp').val(z_acomp);
             $('#txtDatea').val(q_date());
             $('#cmbTypea').val('1');
             $('#txtDatea').focus();

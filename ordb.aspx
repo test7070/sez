@@ -45,6 +45,7 @@
                 bbsKey = ['noa', 'no3'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
 
             function main() {
@@ -223,9 +224,18 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			
+			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
                     case 'combAddr':
                         var as = _q_appendData("custaddr", "", true);
                         var t_item = " @ ";
@@ -349,6 +359,8 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtOdate').val(q_date());
                 $('#txtOdate').focus();
+                $('#txtCno').val(z_cno);
+				$('#txtAcomp').val(z_acomp);
                 product_change();
                 if(abbm[q_recno]!=undefined)
                 	loadCustAddr(abbm[q_recno].tggno);

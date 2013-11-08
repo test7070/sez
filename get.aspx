@@ -418,7 +418,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' >
+        <div id='dmain' style="width: 1260px;">
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -488,13 +488,13 @@
         </table>
         </div>
 		</div>
-        <div class='dbbs' >
+        <div class='dbbs' style="width: 1260px;">
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:12%;"><a id='lblUno_st'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
-                <td align="center" style="width:13%;"><a id='lblProduct_s'> </a></td>
+                <!--<td align="center" style="width:12%;"><a id='lblUno_st'> </a></td>-->
+                <td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
+                <td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblType_s'> </a></td>
@@ -502,7 +502,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td><input id="txtUno.*" type="text" style="width:75%;"/><input class="btn"  id="btnUno.*" type="button" value='...' style="width:15%;"  /></td>
+                <!--<td><input id="txtUno.*" type="text" style="width:75%;"/><input class="btn"  id="btnUno.*" type="button" value='...' style="width:15%;"  /></td>-->
                 <td><input id="txtProductno.*" type="text" style="width:75%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:15%;"  /></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" /></td> 
                 <td><input class="txt c1" id="txtUnit.*" type="text"/></td>
