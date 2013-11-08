@@ -155,11 +155,14 @@
 						var a2 = dec($('#txtWidth_0').val());
 						var a3 = dec($('#txtDime_0').val());
 						var a4 = dec($('#txtLengthb_0').val());
+						var t_width = a2;
 						t_width=(t_bbsProduct.indexOf('方管')>-1?((t_width==0?4:2)*a1)+(2*a2-a3*3.5):t_width);
 						t_width=(t_bbsProduct.substring(0,1)=='圓'?3.1416*a1-a3*3.5:t_width);
 						t_width=(t_bbsProduct.indexOf('橢圓管')>-1?(3.1416*a1+(a2-a1)*2-a3*3.5-5):t_width);
 						t_width=(t_bbsProduct.indexOf('橢圓形')>-1?(1.5*a1+1.5*a2-a3*3.5):t_width);
 						t_ewidth=t_width * 1.2;
+						t_bdime = a3;
+						t_edime = 9999;
 						if(t_width > 0 || t_ewidth >0)
 							t_where += q_sqlPara2('width',t_width,t_ewidth);
 					}else{
@@ -176,8 +179,12 @@
 				var tempArray = new Array();
 				tempArray.push($('#txtProductno').val());
 				for (var j = 0; j < q_bbsCount; j++) {
-					tempArray.push($('#txtProductno_' + j).val());
-					tempArray.push($('#txtProductno2_' + j).val());
+					var t_productno = trim($('#txtProductno_' + j).val());
+					var t_productno2 = trim($('#txtProductno2_' + j).val());
+					if(t_productno.length >0)
+						tempArray.push($('#txtProductno_' + j).val());
+					if(t_productno2.length >0)
+						tempArray.push($('#txtProductno2_' + j).val());
 				}
 				var TmpStr = distinct(tempArray).sort();
 				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
