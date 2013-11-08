@@ -174,9 +174,6 @@
 						break;
 				}
 			}
-			function SetEmpUno(){
-				
-			}
 			function bbsClear() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#btnMinus_' + i).click();
@@ -188,6 +185,20 @@
 			var t_uccArray = new Array;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+                    case 'btnOk_checkuno':
+                    	var as = _q_appendData("view_uccb", "", true);
+                        if (as[0] != undefined) {
+                        	var msg = '';
+                        	for(var i=0;i<as.length;i++){
+                        		msg += (msg.length>0?'\n':'')+as[i].uno+' 此批號已存在!!\n【' + as[i].action + '】單號：' + as[i].noa;
+                        	}
+                          	alert(msg);
+                            Unlock(1);
+                            return;
+                        }else{
+                        	getUno();
+                        }
+                    	break;
 					case 'ordes':
 						ordes = _q_appendData("ordes", "", true);
 						if (ordes[0] == undefined)
@@ -243,13 +254,6 @@
 						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
-					case 'view_uccb':
-						var as = _q_appendData("view_uccb", "", true);
-						for (var i = 0; i < as.length; i++) {
-							unoArray.push(as[i].uno);
-						}
-						setEmpUno();
-						break;
 					default:
 						if (t_name.substring(0, 9) == 'checkUno_') {
 							var n = t_name.split('_')[1];
@@ -259,37 +263,57 @@
 								alert(t_uno + ' 此批號已存在!!\n【' + as[0].action + '】單號：' + as[0].noa);
 								$('#txtUno_' + n).focus();
 							}
-						} else if (t_name.substring(0, 14) == 'btnOkcheckUno_') {
-							var n = parseInt(t_name.split('_')[1]);
-							var as = _q_appendData("view_uccb", "", true);
-							if (as[0] != undefined) {
-								var t_uno = $('#txtBno_' + n).val();
-								alert(t_uno + ' 此批號已存在!!\n【' + as[0].action + '】單號：' + as[0].noa);
-								Unlock(1);
-								return;
-							} else {
-								btnOk_checkUno(n - 1);
-							}
 						}
 						break;
 				}  /// end switch
 			}
-
-			function setNewBno(w_unoArray, idno, IndexNum, IndexEng) {
-				var newIndexNum = (dec(IndexNum) > 0 ? dec(IndexNum) + 1 : 1);
-				var newIndexEng = (dec(IndexEng) > 0 ? dec(IndexEng) : 65);
-				if (newIndexNum > 9) {
-					newIndexNum = 1;
-					newIndexEng = dec(IndexEng) + 1;
-				}
-				var newBno = trim($('#txtUno').val()) + newIndexNum + String.fromCharCode(newIndexEng);
-				if (w_unoArray.indexOf(newBno) == -1) {
-					$('#txtBno_' + idno).val(newBno);
-					unoArray.push(newBno);
-				} else {
-					setNewBno(unoArray, idno, newIndexNum, newIndexEng);
-				}
-			}
+            function getUno(){
+            	var t_buno='　';
+ 				var t_datea='　';
+ 				var t_style='　';
+ 				for(var i=0;i<q_bbsCount;i++){
+ 					if(i!=0){
+ 						t_buno += '&';
+ 						t_datea += '&';
+ 						t_style += '&';
+ 					}
+ 					if($('#txtBno_'+i).val().length==0){
+ 						t_buno += $('#txtUno').val();
+	 					t_datea += $('#txtDatea').val();
+	 					t_style += $('#txtStyle_'+i).val();
+ 					}	
+ 				}
+				q_func('qtxt.query.getuno', 'uno.txt,getuno,'+t_buno+';' + t_datea + ';' + t_style +';');
+            }
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.getuno':
+                        var as = _q_appendData("tmp0", "", true, true);
+                       	if(as[0]!=undefined){
+                       		if(as.length!=q_bbsCount){
+                       			alert('批號取得異常。');
+                       		}else{
+                       			for(var i=0;i<q_bbsCount;i++){
+                       				if($('#txtBno_'+i).val().length==0){
+		                        		$('#txtBno_'+i).val(as[i].uno);
+		                        	}
+		                        }
+                       		}
+                       	}
+                       	if (q_cur == 1)
+							$('#txtWorker').val(r_name);
+						else
+							$('#txtWorker2').val(r_name);
+						sum();
+						var t_noa = trim($('#txtNoa').val());
+						var t_date = trim($('#txtDatea').val());
+						if (t_noa.length == 0 || t_noa == "AUTO")	 
+							q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cut') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+						else
+							wrServer(t_noa);
+                        break;
+            	}
+  			}
 
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
@@ -365,18 +389,6 @@
 				return t_err;
 			}
 
-			function setEmpUno(){
-				for(var j=0;j<q_bbsCount;j++){
-					var thisBno = trim($('#txtBno_' + j).val());
-					var thisMount = dec($('#txtMount_' + j).val());
-					var thisWeight = dec($('#txtWeight_' + j).val());
-					if((thisBno.length==0) && (thisMount >0) && (thisWeight>0)){
-						setNewBno(unoArray, j);
-					}
-				}
-				btnOk_checkUno(q_bbsCount - 1);
-			}
-
 			function btnOk() {
 				Lock(1, {
 					opacity : 0
@@ -409,35 +421,15 @@
 					}
 					$('#txtStyle_'+i).blur();
 				}
-				var t_noa = trim($('#txtUno').val());
-				if (t_noa.length > 0) {
-					var t_where = "where=^^ left(uno," + t_noa.length + ")='" + t_noa + "' ^^";
-					q_gt('view_uccb', t_where, 0, 0, 0, "view_uccb", r_accy);
-				}
-			}
-
-			function btnOk_checkUno(n) {
-				if (n < 0) {
-					if (q_cur == 1)
-						$('#txtWorker').val(r_name);
-					else
-						$('#txtWorker2').val(r_name);
-					sum();
-					var t_noa = trim($('#txtNoa').val());
-					var t_date = trim($('#txtDatea').val());
-					if (t_noa.length == 0 || t_noa == "AUTO")
-						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cut') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-					else
-						wrServer(t_noa);
-				} else {
-					if ($('#txtWaste_' + n).val().length == 0) {
-						var t_uno = $.trim($('#txtBno_' + n).val());
-						var t_noa = $.trim($('#txtNoa').val());
-						q_gt('view_uccb', "where=^^uno='" + t_uno + "' and not(accy='" + r_accy + "' and tablea='cuts' and noa='" + t_noa + "')^^", 0, 0, 0, 'btnOkcheckUno_' + n);
-					} else {
-						btnOk_checkUno(n - 1);
-					}
-				}
+ 				var t_where = '';
+ 				for(var i=0;i<q_bbsCount;i++){
+ 					if($.trim($('#txtBno_'+i).val()).length>0)
+ 						t_where += (t_where.length>0?' or ':'')+"(uno='" + $.trim($('#txtBno_'+i).val()) + "' and not(accy='" + r_accy + "' and tablea='cuts' and noa='" + $.trim($('#txtNoa').val())+"'))";
+ 				}
+ 				if(t_where.length>0)
+               		q_gt('view_uccb', "where=^^"+t_where+"^^", 0, 0, 0, 'btnOk_checkuno');
+               	else 
+               		getUno();
 			}
 
 			function _btnSeek() {

@@ -87,12 +87,12 @@
 					if(Parent.q_name && Parent.q_name== 'cub'){
 						$('#txtUno_'+j).change(function(){
 							var thisuno = trim($(this).val());
-							if(cubBBtArray[dec(thisuno)-1] != undefined){
-								var temp_bbt = cubBBtArray[dec(thisuno)-1];
 								t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 								q_bodyId($(this).attr('id'));
 								b_seq = t_IdSeq;
-								$(this).val(getNewUno(temp_bbt.uno));
+							if(cubBBtArray[dec(thisuno)-1] != undefined){
+								var temp_bbt = cubBBtArray[dec(thisuno)-1];
+								$(this).val(temp_bbt.uno);
 								if(trim($(this).val()) != ''){
 									$('#txtProductno_' + b_seq).val(temp_bbt.productno);
 									if(trim(temp_bbt.productno) != '')
@@ -101,6 +101,11 @@
 								}
 							}
 							toFocusOrdeno = 1;
+						    var t_where = '';
+		 					if($.trim($('#txtUno_'+b_seq).val()).length>0)
+		 						t_where = "(uno='" + $.trim($('#txtUno_'+b_seq).val()) + "' and not(accy='" + r_accy + "' and tablea='cubu' and noa='" + $.trim($('#txtNoa_'+b_seq).val())+"'))";
+			 				if(t_where.length>0)
+			               		q_gt('view_uccb', "where=^^"+t_where+"^^", 0, 0, 0, 'btnOk_checkuno^^'+b_seq);
 						});
 						$('#txtOrdeno_'+j).change(function(){
 							var thisordeno = trim($(this).val());
@@ -192,53 +197,8 @@
 						}
 						getTheory(b_seq);
 					});
-					$('#txtUno_' + j).focusout(function(){
-						var t_uno = trim($(this).val()).toUpperCase();
-						if(t_uno.length > 0){
-							var err_str = '';
-							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							for(var i = 0;i < q_bbsCount;i++){
-								var x_uno = trim($('#txtUno_'+i).val()).toUpperCase();
-								if(t_uno == x_uno && i != b_seq){
-									err_str = t_uno + ' 此批號已存在!!';
-									$(this).focus();
-									break;
-								}
-							}
-							if(err_str.length == 0){
-								var t_where = "where=^^ 1=1 and uno='"+t_uno+"' ";
-								var t_key = q_getHref();
-								var t_noa = (t_key[1]== undefined?'':t_key[1].toUpperCase());
-								if(t_noa != 'AUTO'){
-									t_where += " and inoa not like '%" + t_noa + "%'";
-								}
-								t_where += ' ^^ ';
-								q_gt('uccy', t_where , 0, 0, 0, "uccy^^"+t_uno, r_accy);
-							}else{
-								alert(err_str);
-							}
-						}
-					});
 				}
 			}
-
-			function getNewUno(o_Uno){
-				var idno = 1;
-				for(var i = 0;i< q_bbsCount;i++){
-					var refUno = trim($('#txtUno_' + i).val());
-					if(refUno.substring(0,o_Uno.length)==o_Uno){
-						idno +=1;
-					}
-				}
-				if(idno > 99){
-					alert('無法產生新批號\n批號不足使用!!');
-					return;
-				}
-				var newUno = o_Uno + padL(idno,'0',2) + 'A';
-				return newUno;
-			} 
 
 			function btnOk() {
 				for(var i=0;i<q_bbsCount;i++){
@@ -312,6 +272,18 @@
 								alert(t_uno + ' 此批號已存在!!');
 								$('#txtUno_'+b_seq).focus();
 							}
+						}else if(t_postname.split('^^')[0] == 'btnOk_checkuno'){
+	                    	var as = _q_appendData("view_uccb", "", true);
+	                        var t_id = t_postname.split('^^')[1];
+	                        if (as[0] != undefined) {
+	                        	var msg = '';
+	                        	msg = (msg.length>0?'\n':'')+as[0].uno+' 此批號已存在!!\n【' + as[0].action + '】單號：' + as[0].noa;
+	                          	alert(msg);
+	                            Unlock(1);
+	                            return;
+	                        }else{
+	                        	getUno(t_id);
+	                        }
 						}
 						break;
 				}  /// end switch
@@ -329,7 +301,47 @@
 		                break;
                 }
             }
-			
+            function getUno(t_id){
+            	var t_buno='　';
+ 				var t_datea='　';
+ 				var t_style='　';
+ 				t_buno += $('#txtUno_'+t_id).val();
+	 			t_datea += $('#txtDatea_'+t_id).val();
+	 			t_style += $('#txtStyle_'+t_id).val();
+				q_func('qtxt.query.getuno^^'+t_id, 'uno.txt,getuno,'+t_buno+';' + t_datea + ';' + t_style +';');
+            }
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.getuno':
+                        var as = _q_appendData("tmp0", "", true, true);
+                       	if(as[0]!=undefined){
+                       		if(as.length!=q_bbsCount){
+                       			alert('批號取得異常。');
+                       		}else{
+                       			for(var i=0;i<q_bbsCount;i++){
+                       				if($('#txtUno_'+i).val().length==0){
+		                        		$('#txtUno_'+i).val(as[i].uno);
+		                        	}
+		                        }
+                       		}
+                       	}
+					break;
+					default:
+						if(t_func.split('^^')[0] == 'qtxt.query.getuno'){
+							var as = _q_appendData("tmp0", "", true, true);
+							var t_id = t_postname.split('^^')[1];
+							if(as[0]!=undefined){
+	                       		if(as.length!=1){
+	                       			alert('批號取得異常。');
+	                       		}else{
+                       				if($('#txtUno_'+t_id).val().length==0){
+			                        	$('#txtUno_'+t_id).val(as[0].uno);
+			                        }
+	                       		}
+                       		}
+						}
+  				}
+			}
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 			}
@@ -398,7 +410,10 @@
 				</tr>
 				<tr style="background:#cad3ff;font-size: 14px;">
 					<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value="－" style="font-weight: bold;"/></td>
-					<td><input type="text" id="txtPrt.*" class="txt c1" style="text-align: center;"/></td>
+					<td>
+						<input type="text" id="txtNoa.*" class="txt c1" style="display:none;"/>
+						<input type="text" id="txtPrt.*" class="txt c1" style="text-align: center;"/>
+					</td>
 					<td><input type="text" id="txtStyle.*" class="txt c1" style="text-align: center;"/></td>
 					<td><input type="text" id="txtUno.*" class="txt c1"/></td>
 					<td>
