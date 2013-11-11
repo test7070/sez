@@ -1144,7 +1144,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblUno" class="lbl btn"> </a></td>
-						<td><input id="txtUno" type="text" class="txt c1"/></td>
+						<td colspan="3"><input id="txtUno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
 						<td>
 							<input id="txtProductno" type="text" style="float:left;width:40%;"/>
@@ -1152,8 +1152,6 @@
 						</td>
 						<td><span> </span><a id="lblSpec" class="lbl"> </a></td>
 						<td><input id="txtSpec" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblCuano" class="lbl"> </a></td>
-						<td><input id="txtCuano" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDime" class="lbl"> </a></td>
@@ -1172,6 +1170,8 @@
 						<td><input id="txtEweight" type="text" class="txt num c1" /></td>
 						<td> </td>
 						<td><input id="btnOrdesImport" type="button"/></td>
+						<td><span> </span><a id="lblCuano" class="lbl"> </a></td>
+						<td><input id="txtCuano" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblGweight" class="lbl" > </a></td>
