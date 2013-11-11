@@ -80,7 +80,7 @@
                     }, {
                         type : '8', //[20]
                         name : 'xshowprice',
-                        value : "1@".split(',')
+                        value : "0@".split(',')
 	                }]
 				});
 				q_popAssign();

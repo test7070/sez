@@ -451,6 +451,12 @@
             $('#cmbTypea').val('1');
             $('#txtDatea').focus();
             
+             if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+				$('.it').show();
+			}else{
+				$('.it').hide();
+			}
+            
             var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
 
