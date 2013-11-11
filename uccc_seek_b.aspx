@@ -206,14 +206,14 @@
 	<table id="tbbs" border="2" cellpadding='0' cellspacing='0' style='width:98%' >
 		<tr>
 			<th align="center" > </th>
-			<td align="center" style="width:8%;"><a id='lblUno_st'> </a></td>
+			<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
 			<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
 			<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
 			<td align="center" style="width:8%;"><a id='lblSpec_st'> </a></td>
 			<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
 			<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 			<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
-			<td align="center" style="width:8%;"><a id='lblMemo_st'> </a></td>
+			<td align="center" style="width:5%;"><a id='lblMemo_st'> </a></td>
 		</tr>
 		<tr>
 			<td style="width:2%;"><input name="sel" id="radSel.*" type="radio" /></td>
