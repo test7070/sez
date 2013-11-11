@@ -20,37 +20,44 @@
 			}
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_inap');
+                q_gf('', 'z_get');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_inap',
+                        fileName : 'z_get',
                         options : [{
+	                    type : '0',
+	                    name : 'r_tel',
+	                    value : q_getPara('sys.tel')
+	                    },{
+	                    type : '0',
+	                    name : 'r_addr',
+	                    value : q_getPara('sys.addr')
+	                    },{
 							type : '0',
 							name : 'accy',
 							value : r_accy
 					},{
-                        type : '5',
-                        name : 'itype',
-                        value : [q_getPara('report.all')].concat(q_getPara('ina.typea').split(','))
+                        type : '1',
+                        name : 'noa'
                     },{
                         type : '5',
-                        name : 'typea',
-                        value : [q_getPara('report.all')].concat(q_getPara('uccc.itype').split(','))
+                        name : 'itype',
+                        value : [q_getPara('report.all')].concat(q_getPara('get.typea').split(','))
                     },{
 						type : '1',
 						name : 'date'
 					},{
-						type : '1',
-						name : 'noa'
-					}]
+                        type : '1',
+                        name : 'dime'
+                    }]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker();  
-               
+                
                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtNoa1').val(t_noa);

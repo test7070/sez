@@ -20,11 +20,11 @@
 			}
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_get');
+                q_gf('', 'z_getp');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_get',
+                        fileName : 'z_getp',
                         options : [{
 	                    type : '0',
 	                    name : 'r_tel',

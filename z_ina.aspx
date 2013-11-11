@@ -20,11 +20,11 @@
 			}
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_inap');
+                q_gf('', 'z_ina');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_inap',
+                        fileName : 'z_ina',
                         options : [{
 							type : '0',
 							name : 'accy',
