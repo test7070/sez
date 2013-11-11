@@ -87,12 +87,14 @@
 					if(Parent.q_name && Parent.q_name== 'cub'){
 						$('#txtUno_'+j).change(function(){
 							var thisuno = trim($(this).val());
-								t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-								q_bodyId($(this).attr('id'));
-								b_seq = t_IdSeq;
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var t_datea = $('#txtDatea_'+b_seq).val();
 							if(cubBBtArray[dec(thisuno)-1] != undefined){
 								var temp_bbt = cubBBtArray[dec(thisuno)-1];
-								$(this).val(temp_bbt.uno);
+								getUno(b_seq,temp_bbt.uno);
+								var t_datea = $('#txtDatea_'+b_seq);
 								if(trim($(this).val()) != ''){
 									$('#txtProductno_' + b_seq).val(temp_bbt.productno);
 									if(trim(temp_bbt.productno) != '')
@@ -101,11 +103,13 @@
 								}
 							}
 							toFocusOrdeno = 1;
-						    var t_where = '';
-		 					if($.trim($('#txtUno_'+b_seq).val()).length>0)
-		 						t_where = "(uno='" + $.trim($('#txtUno_'+b_seq).val()) + "' and not(accy='" + r_accy + "' and tablea='cubu' and noa='" + $.trim($('#txtNoa_'+b_seq).val())+"'))";
-			 				if(t_where.length>0)
-			               		q_gt('view_uccb', "where=^^"+t_where+"^^", 0, 0, 0, 'btnOk_checkuno^^'+b_seq);
+						}).focusout(function(){
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var oUno = trim($(this).val());
+							if(oUno.length == 0)
+								getUno(b_seq,'');
 						});
 						$('#txtOrdeno_'+j).change(function(){
 							var thisordeno = trim($(this).val());
@@ -131,8 +135,9 @@
 							}
 						});
 						$('#txtDatea_' + j).focusout(function(){
-							if($(this).val() == '')
+							if($(this).val() == ''){
 								$(this).val(q_date());
+							}
 						});
 						$('#txtPrt_' +j).focusout(function(){
 							var t_prt = trim($(this).val());
@@ -282,7 +287,8 @@
 	                            Unlock(1);
 	                            return;
 	                        }else{
-	                        	getUno(t_id);
+	                        	var o_Uno = trim($('#txtUno_'+t_id).val());
+	                        	getUno(t_id,o_Uno);
 	                        }
 						}
 						break;
@@ -301,45 +307,31 @@
 		                break;
                 }
             }
-            function getUno(t_id){
+            function getUno(t_id,t_ouno){
             	var t_buno='　';
  				var t_datea='　';
  				var t_style='　';
- 				t_buno += $('#txtUno_'+t_id).val();
-	 			t_datea += $('#txtDatea_'+t_id).val();
+ 				t_buno += t_ouno;
+	 			t_datea += '';
 	 			t_style += $('#txtStyle_'+t_id).val();
 				q_func('qtxt.query.getuno^^'+t_id, 'uno.txt,getuno,'+t_buno+';' + t_datea + ';' + t_style +';');
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
-                    case 'qtxt.query.getuno':
-                        var as = _q_appendData("tmp0", "", true, true);
-                       	if(as[0]!=undefined){
-                       		if(as.length!=q_bbsCount){
-                       			alert('批號取得異常。');
-                       		}else{
-                       			for(var i=0;i<q_bbsCount;i++){
-                       				if($('#txtUno_'+i).val().length==0){
-		                        		$('#txtUno_'+i).val(as[i].uno);
-		                        	}
-		                        }
-                       		}
-                       	}
-					break;
 					default:
 						if(t_func.split('^^')[0] == 'qtxt.query.getuno'){
 							var as = _q_appendData("tmp0", "", true, true);
-							var t_id = t_postname.split('^^')[1];
+							var t_id = t_func.split('^^')[1];
+							console.log(as);
 							if(as[0]!=undefined){
 	                       		if(as.length!=1){
 	                       			alert('批號取得異常。');
 	                       		}else{
-                       				if($('#txtUno_'+t_id).val().length==0){
 			                        	$('#txtUno_'+t_id).val(as[0].uno);
-			                        }
 	                       		}
                        		}
 						}
+						break;
   				}
 			}
 			function readonly(t_para, empty) {
