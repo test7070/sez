@@ -1059,7 +1059,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1950px;
+				width: 2000px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -1239,7 +1239,7 @@
 					<td style="width:80px;" align="center"><a id='lblHweight'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblWeight'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblWaste'> </a></td>
-					<td style="width:150px;" align="center"><a id='lblBno'> </a></td>
+					<td style="width:180px;" align="center"><a id='lblBno'> </a></td>
 					<td style="width:50px;" align="center">入庫<br>倉庫</td>
 					<td style="width:150px;" align="center"><a id='lblMemos'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lbltime'> </a></td>
