@@ -93,7 +93,7 @@
 							var t_datea = $('#txtDatea_'+b_seq).val();
 							if(cubBBtArray[dec(thisuno)-1] != undefined){
 								var temp_bbt = cubBBtArray[dec(thisuno)-1];
-								getUno(b_seq,temp_bbt.uno);
+								getUno(b_seq,temp_bbt.uno,'');
 								var t_datea = $('#txtDatea_'+b_seq);
 								if(trim($(this).val()) != ''){
 									$('#txtProductno_' + b_seq).val(temp_bbt.productno);
@@ -108,8 +108,9 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							var oUno = trim($(this).val());
-							if(oUno.length == 0)
-								getUno(b_seq,'');
+							var t_datea = trim($('#txtDatea_'+b_seq).val());
+							if(oUno.length == 0 && t_datea.length > 0)
+								getUno(b_seq,'',t_datea);
 						});
 						$('#txtOrdeno_'+j).change(function(){
 							var thisordeno = trim($(this).val());
@@ -135,9 +136,16 @@
 							}
 						});
 						$('#txtDatea_' + j).focusout(function(){
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
 							if($(this).val() == ''){
 								$(this).val(q_date());
 							}
+							var oUno = trim($('#txtUno_'+b_seq).val());
+							if(oUno.length == 0)
+								getUno(b_seq,'',$(this).val());
+							
 						});
 						$('#txtPrt_' +j).focusout(function(){
 							var t_prt = trim($(this).val());
@@ -269,29 +277,6 @@
 					case q_name:
 						t_uccArray = _q_appendData("ucc", "", true);
 						break;
-					default:
-						if(t_postname.split('^^')[0] == 'uccy'){
-							var as = _q_appendData("uccy", "", true);
-							if (as[0] != undefined){
-								var t_uno = t_postname.substr(t_postname.indexOf('^^')+2);
-								alert(t_uno + ' 此批號已存在!!');
-								$('#txtUno_'+b_seq).focus();
-							}
-						}else if(t_postname.split('^^')[0] == 'btnOk_checkuno'){
-	                    	var as = _q_appendData("view_uccb", "", true);
-	                        var t_id = t_postname.split('^^')[1];
-	                        if (as[0] != undefined) {
-	                        	var msg = '';
-	                        	msg = (msg.length>0?'\n':'')+as[0].uno+' 此批號已存在!!\n【' + as[0].action + '】單號：' + as[0].noa;
-	                          	alert(msg);
-	                            Unlock(1);
-	                            return;
-	                        }else{
-	                        	var o_Uno = trim($('#txtUno_'+t_id).val());
-	                        	getUno(t_id,o_Uno);
-	                        }
-						}
-						break;
 				}  /// end switch
 			}
 			function q_popPost(s1) {
@@ -307,12 +292,12 @@
 		                break;
                 }
             }
-            function getUno(t_id,t_ouno){
+            function getUno(t_id,s_ouno,s_datea){
             	var t_buno='　';
  				var t_datea='　';
  				var t_style='　';
- 				t_buno += t_ouno;
-	 			t_datea += '';
+ 				t_buno += s_ouno;
+	 			t_datea += s_datea;
 	 			t_style += $('#txtStyle_'+t_id).val();
 				q_func('qtxt.query.getuno^^'+t_id, 'uno.txt,getuno,'+t_buno+';' + t_datea + ';' + t_style +';');
             }
@@ -322,7 +307,6 @@
 						if(t_func.split('^^')[0] == 'qtxt.query.getuno'){
 							var as = _q_appendData("tmp0", "", true, true);
 							var t_id = t_func.split('^^')[1];
-							console.log(as);
 							if(as[0]!=undefined){
 	                       		if(as.length!=1){
 	                       			alert('批號取得異常。');
@@ -383,22 +367,22 @@
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: medium;'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /></td>
-					<td align="center" style="width:2%;"><a id='lblPrt'></a></td>
-					<td align="center" style="width:2%;"><a id='lblStyle'></a></td>
-					<td align="center" style="width:10%;"><a id='lblUno'></a></td>
-					<td align="center" style="width:10%;"><a id='lblOrdeno'></a></td>
-					<td align="center" style="width:6%;"><a id='lblCustno'></a></td>
-					<td align="center" style="width:5%;"><a id='lblDatea'></a></td>
-					<td align="center" style="width:6%;"><a id='lblStoreno'></a></td>
-					<td align="center" style="width:3%;"><a id='lblClass'></a></td>
-					<td align="center" style="width:6%;"><a id='lblProductno'></a></td>
+					<td align="center" style="width:45px;"><a id='lblPrt'></a></td>
+					<td align="center" style="width:30px;"><a id='lblStyle'></a></td>
+					<td align="center" style="width:250px;"><a id='lblUno'></a></td>
+					<td align="center" style="width:180px;"><a id='lblOrdeno'></a></td>
+					<td align="center" style="width:100px;"><a id='lblCustno'></a></td>
+					<td align="center" style="width:100px;"><a id='lblDatea'></a></td>
+					<td align="center" style="width:120px;"><a id='lblStoreno'></a></td>
+					<td align="center" style="width:80px;"><a id='lblClass'></a></td>
+					<td align="center" style="width:80px;"><a id='lblProductno'></a></td>
 					<td align="center" style="width:260px;"><a id='lblSizea'></a></td>
-					<td align="center" style="width:4%;"><a id='lblMount'></a></td>
-					<td align="center" style="width:4%;"><a id='lblWeight'></a></td>
-					<td align="center" style="width:4%;"><a id='lblInweight'></a></td>
-					<td align="center" style="width:4%;"><a id='lblWaste'></a></td>
-					<td align="center" style="width:4%;"><a id='lblGmount'></a></td>
-					<td align="center"><a id='lblMemo'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMount'></a></td>
+					<td align="center" style="width:120px;"><a id='lblWeight'></a></td>
+					<td align="center" style="width:120px;"><a id='lblInweight'></a></td>
+					<td align="center" style="width:80px;"><a id='lblWaste'></a></td>
+					<td align="center" style="width:80px;"><a id='lblGmount'></a></td>
+					<td align="center" style="width:220px;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr style="background:#cad3ff;font-size: 14px;">
 					<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value="－" style="font-weight: bold;"/></td>

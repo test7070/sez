@@ -993,7 +993,7 @@
 					<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 					</td>
 					<td style="width:20px;"> </td>
-					<td style="width:200px; text-align: center;">原料批號</td>
+					<td style="width:250px; text-align: center;">原料批號</td>
 					<td style="width:120px; text-align: center;">材質</td>
 					<td align="center" id='Size'><a id='lblSize_help'> </a>
 					<BR>
