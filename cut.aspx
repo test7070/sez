@@ -578,7 +578,7 @@
 					}
 				}
 				var t_theyout = 0,t_totalout=0;
-				var t_weights,t_theorys;
+				var t_weights,t_theorys,t_style;
 				var t_kind = $('#cmbKind').val();
 				var t_typea = $('#cmbTypea').find(":selected").text();	
                 var t_kind = (($('#cmbKind').val())?$('#cmbKind').val():'');
@@ -764,7 +764,7 @@
 					$('#txtWeight_' + b_seq).val($('#txtTheory_' + b_seq).val());
 				}
 				var t_Product = $('#txtProduct_' + b_seq).val();
-				if(t_Product.indexOf('管') > -1){
+				if(t_Product.indexOf('管') > -1 && dec($('#txtWeight_' + b_seq).val()) == 0){
 					$('#txtWeight_' + b_seq).val($('#txtTheory_' + b_seq).val());
 				}
 			}
