@@ -90,7 +90,7 @@
             q_cmbParse("combPay", q_getPara('vcc.paytype')); 
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             
-             if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+             if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 			 	aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
 	                ['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 	                ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
@@ -407,7 +407,7 @@
 		                    b_seq = t_IdSeq;
 	                    	if(!emp($('#txtProductno_'+b_seq).val())){
 	                    		//庫存
-	                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+	                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 									var t_where = "where=^^ 1=1 ^^";
 									q_gt('acomp', t_where , 0, 0, 0, "acomp_stk", r_accy);
 								}else{
@@ -451,7 +451,7 @@
             $('#cmbTypea').val('1');
             $('#txtDatea').focus();
             
-             if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+             if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 				$('.it').show();
 			}else{
 				$('.it').hide();
@@ -521,7 +521,7 @@
         function refresh(recno) {
             _refresh(recno);
             
-            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 				$('.it').show();
 			}else{
 				$('.it').hide();

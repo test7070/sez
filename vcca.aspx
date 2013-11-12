@@ -110,6 +110,12 @@
                 $('#lblTrdno').click(function() {
                     q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
                 });
+                
+                if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+                	$('lblTrdno').hide();
+                	$('txtTrdno').hide();
+                }
+                
             }	
             function q_boxClose(s2) {
                 var ret;
@@ -611,8 +617,8 @@
 						</td>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
-						<input id="txtCno" type="text" style="float:left; width:15%;">
-						<input id="txtAcomp" type="text" style="float:left; width:85%;"/>
+						<input id="txtCno" type="text" style="float:left; width:25%;">
+						<input id="txtAcomp" type="text" style="float:left; width:75%;"/>
 						</td>
 					</tr>
 					<tr>
@@ -643,6 +649,8 @@
 						<input id="txtComp" type="text" style="float:left; width:70%;"/>
 						<input id="txtNick" type="text"  style="display:none;"/>
 						</td>
+						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
+						<td><select id="cmbTaxtype" class="txt c1" ></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddress' class="lbl"> </a></td>
@@ -656,8 +664,6 @@
 						<td>
 						<input id="txtMoney"  type="text"  class="txt num c1"/>
 						</td>
-						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c1" ></select></td>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td>
 						<input id="txtTax"  type="text"  class="txt num c1"/>

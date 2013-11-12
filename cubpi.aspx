@@ -79,8 +79,27 @@
 					size_change();
 				});
 				$('#btnCubuImport').click(function(){
-					var t_where = " noa !='"+trim($('#txtNoa').val())+"'";
-					q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, 'view_cubu2cub', "95%", "95%", q_getMsg('popCubu2Cub'));					
+					var t_where = '1=1';
+					var t_type = $('#cmbTypea').val();
+					if(t_type=='2' || t_type=='3' || t_type=='4'){
+						switch(t_type){
+							case '2':
+								t_where += ' and slit=1';
+								break;
+							case '3':
+								t_where += ' and sale=1';
+								break;
+							case '4':
+								t_where += ' and ordc=1';
+								break;
+							default:
+								break;
+						}
+						t_where += " and noa !='"+trim($('#txtNoa').val())+"'";
+						q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, 'view_cubu2cub_'+t_type, "95%", "95%", q_getMsg('popCubu2Cub'));					
+					}else{
+						alert('切管、修端、包裝才有上製程匯入。');	
+					}
 				});
 				$('#btnOrdeImport').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
@@ -328,27 +347,45 @@
 							b_ret = '';
 						}
 						break;
-					case 'view_cubu2cub':
-						b_ret = getb_ret();
-						if (!b_ret || b_ret.length == 0){
-							b_pop = '';
-							return;
-						}
-						if (b_ret[0] != undefined) {
-							bbs_ret = q_gridAddRow(bbtHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb', 'txtOrdeno,txtNo2');
-							bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
-							/// 最後 aEmpField 不可以有【數字欄位】
-							for(var k=0;k<bbs_ret.length;k++){
-								$('#chkOrdc_'+bbs_ret[k]).attr('checked',true);
-							}
-							bbsAssign();
-							bbtAssign();
-							size_change();
-						}
-												
-						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
+						break;
+					default: 
+						if(b_pop.substring(0,14)=='view_cubu2cub_'){
+							t_type = b_pop.replace('view_cubu2cub_','');
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0){
+								b_pop = '';
+								return;
+							}
+							if (b_ret[0] != undefined) {
+								bbs_ret = q_gridAddRow(bbtHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb', 'txtOrdeno,txtNo2');
+								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
+								/// 最後 aEmpField 不可以有【數字欄位】
+								for(var k=0;k<bbs_ret.length;k++){
+									$('#chkCut_'+bbs_ret[k]).attr('checked',b_ret[k].cut+''=='true');
+									$('#chkSlit_'+bbs_ret[k]).attr('checked',b_ret[k].slit+''=='true');
+									$('#chkSale_'+bbs_ret[k]).attr('checked',b_ret[k].sale+''=='true');
+									$('#chkOrdc_'+bbs_ret[k]).attr('checked',b_ret[k].ordc+''=='true');
+										
+									if(t_type=='2'){
+										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
+									}
+									if(t_type=='3'){
+										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
+										$('#chkSlit_'+bbs_ret[k]).attr('checked',false);
+									}
+									if(t_type=='4'){
+										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
+										$('#chkSlit_'+bbs_ret[k]).attr('checked',false);
+										$('#chkSale_'+bbs_ret[k]).attr('checked',false);
+									}
+								}
+								bbsAssign();
+								bbtAssign();
+								size_change();
+							}
+						}
 						break;
 				}
 				b_pop = '';
