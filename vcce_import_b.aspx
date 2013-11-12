@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'vcce_import', t_bbsTag = 'tbbs', t_content = " field=uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price,custno,comp,style", afilter = [], bbsKey = ['ordeno'],  as; //, t_where = '';
+			var q_name = 'vcce_import', t_bbsTag = 'tbbs', t_content = " field=uno,ordeno,no2,productno,product,radius,width,dime,lengthb,spec,mount,weight,price,custno,comp,style,size", afilter = [], bbsKey = ['ordeno'],  as; //, t_where = '';
 			var t_sqlname = 'vcce_import'; t_postname = q_name;
 			brwCount2 = 0;
 			brwCount = -1;
@@ -33,6 +33,8 @@
 					return;
 				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+				var w = window.parent;
+				w.$('#cboxTitle').text('若沒有找到相關資料，請注意類別的選取。').css('color','red').css('font-size','initial');
 				parent.$.fn.colorbox.resize({
 					height : "750px"
 				});

@@ -132,14 +132,14 @@
 					<th align="center" >
 						<input type="checkbox" id="checkAllCheckbox"/>
 					</th>
-					<td align="center" style="width:12%;"><a id='lblUno_st'> </a></td>
+					<td align="center" style="width:20%;"><a id='lblUno_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblSize_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblEmount_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblEweight_st'> </a></td>
-					<td align="center" ><a id='lblMemo_st'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblMemo_st'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>

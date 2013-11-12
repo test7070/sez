@@ -1068,164 +1068,173 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<!--#include file="../inc/toolbar.inc"-->
-		<input type="button" id="btn1" style="width:100px;" value="司機回傳">
-		<div id="divImport" style="display:none;position:absolute;top:100px;left:700px;width:400px;height:150px;background:RGB(237,237,237);"> 
-			<table style="border:4px solid gray; width:100%; height: 100%;">
-				<tr style="height:1px;background-color: #cad3ff;">
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-				</tr>
-				<tr>		
-					<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>發送訊息日期</a></td>
-					<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
-						<input type="text" id="textDate" style="float:left;width:95%;"/>
-					</td>
-				</tr>				
-				<tr>
-					<td colspan="2" align="center" style="background-color: #cad3ff;">
-						<input type="button" id="btnImport" value="匯入"/>	
-					</td>
-					<td colspan="2" align="center" style=" background-color: #cad3ff;">
-						<input type="button" id="btnDivimport" value="關閉"/>	
-					</td>
-				</tr>
-			</table>
+		<div style="overflow: auto;display:block;width:1400px;">
+			<!--#include file="../inc/toolbar.inc"-->
+			<input type="button" id="btn1" style="width:100px;float:left;" value="司機回傳">
 		</div>
-		<div id='dmain' >
-			<div class="dview" id="dview">
-				<table class="tview" id="tview">
-					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
-						<td align="center" style="width:250px; color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMemo2'> </a></td>
-						<td align="center" style="width:200px; color:black;"><a id='vewMemo3'> </a></td>
+		
+		<div style="overflow: auto;display:block;width:1400px;">
+			<div id="divImport" style="display:none;position:absolute;top:100px;left:700px;width:400px;height:150px;background:RGB(237,237,237);"> 
+				<table style="border:4px solid gray; width:100%; height: 100%;">
+					<tr style="height:1px;background-color: #cad3ff;">
+						<td style="width:25%;"> </td>
+						<td style="width:25%;"> </td>
+						<td style="width:25%;"> </td>
+						<td style="width:25%;"> </td>
 					</tr>
-					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
+					<tr>		
+						<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;color: blue;"><a>發送訊息日期</a></td>
+						<td colspan="2" style="padding: 2px;text-align: center;border-width: 0px;background-color: #cad3ff;">
+							<input type="text" id="textDate" style="float:left;width:95%;"/>
 						</td>
-						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
-						<td id='carno' style="text-align: left;">~carno</td>
-						<td id='memo2' style="text-align: left;">~memo2</td>
-						<td id='memo3' style="text-align: left;">~memo3</td>
-					</tr>
-				</table>
-			</div>
-			<div id="tranorde" style="float:left;width:1500px;"> </div>	
-			<div id="tranorde_control" style="width:950px;"> </div>	
-			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm">
-					<tr style="height: 1px;">
-						<td><input type="text" id="txtCarno" style="display:none;"> </td>
-						<td><input type="text" id="txtMemo2" style="display:none;"> </td>
-						<td><input type="text" id="txtMemo3" style="display:none;"> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
-					</tr>
+					</tr>				
 					<tr>
-						<td><span> </span><a id="lblCust"t class="lbl"> </a></td>
-						<td colspan="4">
-						<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
-						<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
-						<input id="txtNick"  type="text"  style="display:none;"/>
+						<td colspan="2" align="center" style="background-color: #cad3ff;">
+							<input type="button" id="btnImport" value="匯入"/>	
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
-						<td><input id="txtOrdeno"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblDatea" title="實際派車日期" class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" title="實際派車日期" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>
-						<td><select id="combMemo" style="width:20px;"> </select></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblTrandate" title="發送訊息給司機用" class="lbl"> </a></td>
-						<td><input id="txtTrandate"  type="text" title="發送訊息給司機用" class="txt c1"/></td>
-						<td><span> </span><a id="lblTrantime" title="發送訊息給司機用" class="lbl"> </a></td>
-						<td><input id="txtTrantime" title="發送訊息給司機用" type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblMount" title="總數量" class="lbl"> </a></td>
-						<td><input id="txtMount" title="總數量" type="text"  class="txt c1 num"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-						<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						<td colspan="2" align="center" style=" background-color: #cad3ff;">
+							<input type="button" id="btnDivimport" value="關閉"/>	
+						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		<div class='dbbs'>
-			<table id="tbbs" class='tbbs'>
-				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
-					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:70px;"><a id='lblCarno_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblDriver_s'> </a></td>
-					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:200px;"><a id='lblAddr_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
-					<td align="center" style="width:350px;"><a id='lblMsg_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblMemo2_s'> </a></td>
-					<td align="center" style="width:40px;"><a id='lblIssend_s' title="若要發送訊息給司機，請打勾。"> </a></td>
-					<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblCommandid_s'> </a></td>
-				</tr>
-				<tr  style='background:#cad3ff;'>
-					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="text" style="float:left;visibility: hidden; width:1%" />
-					<input id="txtSel.*" type="text" style="display: none;" />
-					</td>
-					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input id="txtCarno.*" type="text" style="width: 95%;"/></td>
-					<td>
-						<input id="txtDriverno.*"type="text" style="width: 95%;"/>	
-						<input id="txtDriver.*" type="text" style="width: 95%;"/>		
-					</td>
-					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
-					<td>
-						<input id="txtAddrno.*" type="text" style="width: 70%;"/>
-						<select id="combCaddr.*" style="width: 10%;"> </select>
-						<input id="txtAddr.*" type="text" style="width: 95%;"/>
-					</td>
-					<td>
-						<input id="txtCaseno.*" type="text" style="width: 95%;"/>
-						<input id="txtMemo.*" type="text" style="display: none;" title="暫存資料用。"/>
-					</td>
-					<td><input id="txtMsg.*" type="text" style="width: 95%;"/>
-						<input id="txtTaskcontent.*" type="text" style="width: 95%;color:rgb(255,100,100);"/>
-					</td>
-					<td><input id="txtMemo2.*" type="text" style="width: 95%;"/></td>
-					<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
-					<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
-					<td>
-						<input id="txtCommandid.*" type="text" style="width: 95%;"/>
-						<input id="txtSendno.*" type="text" style="display:none;"/>
-						<input id="txtSendid.*" type="text" style="width: 30%;float:left;"/>
-						<input id="txtSenddate.*" type="text" style="width: 60%;float:left;"/>
-					</td>
-				</tr>
-			</table>
+		<div style="overflow: auto;display:block;width:1400px;">
+			<div id='dmain' >
+				<div class="dview" id="dview">
+					<table class="tview" id="tview">
+						<tr>
+							<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+							<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+							<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
+							<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
+							<td align="center" style="width:250px; color:black;"><a id='vewCarno'> </a></td>
+							<td align="center" style="width:100px; color:black;"><a id='vewMemo2'> </a></td>
+							<td align="center" style="width:200px; color:black;"><a id='vewMemo3'> </a></td>
+						</tr>
+						<tr>
+							<td >
+							<input id="chkBrow.*" type="checkbox" style=''/>
+							</td>
+							<td id='datea' style="text-align: center;">~datea</td>
+							<td id='nick' style="text-align: center;">~nick</td>
+							<td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
+							<td id='carno' style="text-align: left;">~carno</td>
+							<td id='memo2' style="text-align: left;">~memo2</td>
+							<td id='memo3' style="text-align: left;">~memo3</td>
+						</tr>
+					</table>
+				</div>
+				<div id="tranorde" style="float:left;width:1500px;"> </div>	
+				<div id="tranorde_control" style="width:950px;"> </div>	
+				<div class='dbbm'>
+					<table class="tbbm"  id="tbbm">
+						<tr style="height: 1px;">
+							<td><input type="text" id="txtCarno" style="display:none;"> </td>
+							<td><input type="text" id="txtMemo2" style="display:none;"> </td>
+							<td><input type="text" id="txtMemo3" style="display:none;"> </td>
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td class="tdZ"> </td>
+						</tr>
+						<tr>
+							<td><span> </span><a id="lblCust"t class="lbl"> </a></td>
+							<td colspan="4">
+							<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
+							<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
+							<input id="txtNick"  type="text"  style="display:none;"/>
+							</td>
+						</tr>
+						<tr>
+							<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+							<td><input id="txtOrdeno"  type="text"  class="txt c1"/></td>
+							<td><span> </span><a id="lblDatea" title="實際派車日期" class="lbl"> </a></td>
+							<td><input id="txtDatea"  type="text" title="實際派車日期" class="txt c1"/></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+							<td colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>
+							<td><select id="combMemo" style="width:20px;"> </select></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id="lblTrandate" title="發送訊息給司機用" class="lbl"> </a></td>
+							<td><input id="txtTrandate"  type="text" title="發送訊息給司機用" class="txt c1"/></td>
+							<td><span> </span><a id="lblTrantime" title="發送訊息給司機用" class="lbl"> </a></td>
+							<td><input id="txtTrantime" title="發送訊息給司機用" type="text"  class="txt c1"/></td>
+							<td><span> </span><a id="lblMount" title="總數量" class="lbl"> </a></td>
+							<td><input id="txtMount" title="總數量" type="text"  class="txt c1 num"/></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+							<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
+							<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+							<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
+							<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+							<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div style="overflow: auto;display:block;width:1400px;">
+			<div class='dbbs'>
+				<table id="tbbs" class='tbbs'>
+					<tr style='color:white; background:#003366;' >
+						<td  align="center" style="width:30px;">
+						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+						</td>
+						<td align="center" style="width:20px;"> </td>
+						<td align="center" style="width:70px;"><a id='lblCarno_s'> </a></td>
+						<td align="center" style="width:100px;"><a id='lblDriver_s'> </a></td>
+						<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
+						<td align="center" style="width:200px;"><a id='lblAddr_s'> </a></td>
+						<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
+						<td align="center" style="width:350px;"><a id='lblMsg_s'> </a></td>
+						<td align="center" style="width:100px;"><a id='lblMemo2_s'> </a></td>
+						<td align="center" style="width:40px;"><a id='lblIssend_s' title="若要發送訊息給司機，請打勾。"> </a></td>
+						<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
+						<td align="center" style="width:150px;"><a id='lblCommandid_s'> </a></td>
+					</tr>
+					<tr  style='background:#cad3ff;'>
+						<td align="center">
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="text" style="float:left;visibility: hidden; width:1%" />
+						<input id="txtSel.*" type="text" style="display: none;" />
+						</td>
+						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+						<td><input id="txtCarno.*" type="text" style="width: 95%;"/></td>
+						<td>
+							<input id="txtDriverno.*"type="text" style="width: 95%;"/>	
+							<input id="txtDriver.*" type="text" style="width: 95%;"/>		
+						</td>
+						<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
+						<td>
+							<input id="txtAddrno.*" type="text" style="width: 70%;"/>
+							<select id="combCaddr.*" style="width: 10%;"> </select>
+							<input id="txtAddr.*" type="text" style="width: 95%;"/>
+						</td>
+						<td>
+							<input id="txtCaseno.*" type="text" style="width: 95%;"/>
+							<input id="txtMemo.*" type="text" style="display: none;" title="暫存資料用。"/>
+						</td>
+						<td><input id="txtMsg.*" type="text" style="width: 95%;"/>
+							<input id="txtTaskcontent.*" type="text" style="width: 95%;color:rgb(255,100,100);"/>
+						</td>
+						<td><input id="txtMemo2.*" type="text" style="width: 95%;"/></td>
+						<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
+						<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
+						<td>
+							<input id="txtCommandid.*" type="text" style="width: 95%;"/>
+							<input id="txtSendno.*" type="text" style="display:none;"/>
+							<input id="txtSendid.*" type="text" style="width: 30%;float:left;"/>
+							<input id="txtSenddate.*" type="text" style="width: 60%;float:left;"/>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>

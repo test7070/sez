@@ -45,6 +45,7 @@
                         }]
                 });
                 q_popAssign();
+                q_langShow();
                 $('#txtAcc1a').change(function(e) {
                     var patt = /^(\d{4})([^\.,.]*)$/g;
                     $(this).val($(this).val().replace(patt,"$1.$2"));
