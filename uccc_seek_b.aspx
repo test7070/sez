@@ -14,8 +14,8 @@
 		var isBott = false;
 		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 		var i,s1;
-		brwCount = 10;
-		brwCount2 = 10;
+		brwCount = -1;
+		brwCount2 = 0;
 		aPop = new Array(
 			['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'],
 			['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
@@ -38,7 +38,7 @@
 				dataErr = false;
 				return;
 			}
-			mainBrow(0,t_content);
+			mainBrow(6,t_content);
 			$('#btnToSeek').click(function(){
 				SeekStr();
 			});
@@ -80,6 +80,10 @@
 					newUrlStr += ';';
 			}
 			location.href = newUrlStr;
+		}
+		
+		function bbsAssign(){
+			
 		}
 		
 		function SeekStr(){
