@@ -359,18 +359,23 @@
 								return;
 							}
 							if (b_ret[0] != undefined) {
-								bbs_ret = q_gridAddRow(bbtHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb,chkSlit,chkSale,chkOrdc', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb,slit,sale,ordc', 'txtOrdeno,txtNo2');
+								bbs_ret = q_gridAddRow(bbtHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb', 'txtOrdeno,txtNo2');
 								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
 								for(var k=0;k<bbs_ret.length;k++){
-									if(t_type='2'){
+									$('#chkCut_'+bbs_ret[k]).attr('checked',b_ret[k].cut);
+									$('#chkSlit_'+bbs_ret[k]).attr('checked',b_ret[k].slit);
+									$('#chkSale_'+bbs_ret[k]).attr('checked',b_ret[k].sale);
+									$('#chkOrdc_'+bbs_ret[k]).attr('checked',b_ret[k].ordc);
+										
+									if(t_type=='2'){
 										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
 									}
-									if(t_type='3'){
+									if(t_type=='3'){
 										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
 										$('#chkSlit_'+bbs_ret[k]).attr('checked',false);
 									}
-									if(t_type='4'){
+									if(t_type=='4'){
 										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
 										$('#chkSlit_'+bbs_ret[k]).attr('checked',false);
 										$('#chkSale_'+bbs_ret[k]).attr('checked',false);
