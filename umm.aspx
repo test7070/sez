@@ -664,7 +664,7 @@
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
                     	if(t_tablea.length>0){
-                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
                     			t_tablea = t_tablea;
                     		}else{
                     			t_tablea = t_tablea + q_getPara('sys.project');

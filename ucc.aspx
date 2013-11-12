@@ -77,7 +77,7 @@
 
 
 		function mainPost() { 
-			if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
+			if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
 				q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));	//IR
 			else
 				q_cmbParse("cmbTypea", q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
@@ -277,7 +277,7 @@
 			var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by mon desc ^^";
 			q_gt('costs', t_where , 0, 0, 0, "ucc_price", r_accy);
 			//庫存
-			if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+			if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 				var t_where = "where=^^ 1=1 ^^";
 				q_gt('acomp', t_where , 0, 0, 0, "ucc_acomp_stk", r_accy);
 			}else{
