@@ -32,13 +32,23 @@
 			}
 			main();
 		});		 /// end ready
-
+		
+		
 		function main() {
 			if (dataErr){
 				dataErr = false;
 				return;
 			}
-			mainBrow(6,t_content);
+			mainBrow(6, t_content);
+			var w = window.parent;
+			w.$('#cboxTitle').text('若沒有找到相關資料，請注意類別的選取。').css('color','red').css('font-size','initial');
+			parent.$.fn.colorbox.resize({
+				height : "750px"
+			});
+			$('#btnTop').hide();
+			$('#btnPrev').hide();
+			$('#btnNext').hide();
+			$('#btnBott').hide();
 			$('#btnToSeek').click(function(){
 				SeekStr();
 			});
@@ -67,7 +77,7 @@
 			});
 		}
 		
-		function q_gtPost() {
+		function q_gtPost(s1) {
 		}
 		
 		function seekData(seekStr){
@@ -206,76 +216,90 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-<div id="dbbs">
-	<table id="tbbs" border="2" cellpadding='0' cellspacing='0' style='width:98%' >
-		<tr>
-			<th align="center" > </th>
-			<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
-			<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
-			<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
-			<td align="center" style="width:8%;"><a id='lblSpec_st'> </a></td>
-			<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
-			<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
-			<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
-			<td align="center" style="width:5%;"><a id='lblMemo_st'> </a></td>
-		</tr>
-		<tr>
-			<td style="width:2%;"><input name="sel" id="radSel.*" type="radio" /></td>
-			<td ><input id="txtUno.*" type="text" class="txt c2" readonly="readonly"/></td>
-			<td ><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
-			<td ><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
-			<td ><input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/></td>
-			<td >
-				<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-				<span id="StrX1" class="StrX">x</span>
-				<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-				<span id="StrX2" class="StrX">x</span>
-				<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-				<span id="StrX3" class="StrX">x</span>
-				<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
-			</td>
-			<td ><input id="txtEmount.*" type="text" class="txt c2 num" readonly="readonly"/></td>
-			<td ><input id="txtEweight.*" type="text" class="txt c2 num" readonly="readonly"/></td>
-			<td ><input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/></td>
-		</tr>
-	</table>
-</div>
-<!--#include file="../inc/brow_ctrl.inc"-->
-<div id="seekForm">
-	<table id="seekTable" border="0" cellpadding='0' cellspacing='0'>
-		<tr>
-			<td><span class="lbl">品名編號</span></td>
-			<td colspan="3">
-				<input id="textProductno" type="text" style="width:25%"/>
-				<input id="textProduct" type="text" style="width:73%"/>
-			</td>
-			<td><span class="lbl">倉庫</span></td>
-			<td colspan="3">
-				<input id="textStoreno" type="text" style="width:25%"/>
-				<input id="textStore" type="text" style="width:73%"/>
-			</td>
-		</tr>
-		<tr>
-			<td><span class="lbl">等級</span></td>
-			<td><input id="textClass" type="text" class="txt c1 num"/></td>
-			<td><span class="lbl">短徑</span></td>
-			<td><input id="textRadius" type="text" class="txt c1 num"/></td>
-			<td><span class="lbl">厚度</span></td>
-			<td><input id="textDime" type="text" class="txt c1 num"/></td>
-			<td><span class="lbl">寬度</span></td>
-			<td><input id="textWidth" type="text" class="txt c1 num"/></td>
-			<td><span class="lbl">長度</span></td>
-			<td><input id="textLengthb" type="text" class="txt c1 num"/></td>
-			<td><span class="lbl">重量</span></td>
-			<td><input id="textWeight" type="text" class="txt c1 num"/></td>
-		</tr>
-		<tr>
-			<td colspan="12" align="center">
-				<input type="button" id="btnToSeek" value="查詢">
-			</td>
-		</tr>
-	</table>
-</div>
+		<div  id="dFixedTitle" style="overflow-y: scroll;">
+			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;'  >
+				<tr style='color:White; background:#003366;' >
+					<th align="center" style="width:2%;" > </th>
+					<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblSpec_st'> </a></td>
+					<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
+					<td align="center"><a id='lblMemo_st'> </a></td>
+				</tr>
+			</table>
+		</div>
+		<div id="dbbs" style="overflow: scroll;height:450px;" >
+			<table id="tbbs" class='tbbs' border="2" cellpadding='2' cellspacing='1' style='width:100%;' >
+				<tr style="display:none;">
+					<th align="center" style="width:2%;" > </th>
+					<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblSpec_st'> </a></td>
+					<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
+					<td align="center"><a id='lblMemo_st'> </a></td>
+				</tr>
+				<tr style='background:#cad3ff;'>
+					<td style="width:2%;"><input name="sel" id="radSel.*" type="radio" /></td>
+					<td align="center" style="width:10%;"><input id="txtUno.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td align="center" style="width:6%;"><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td align="center" style="width:8%;"><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td align="center" style="width:4%;"><input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td align="center" style="width:18%;">
+						<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+						<span id="StrX1" class="StrX">x</span>
+						<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+						<span id="StrX2" class="StrX">x</span>
+						<input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+						<span id="StrX3" class="StrX">x</span>
+						<input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
+					</td>
+					<td align="center" style="width:4%;"><input id="txtEmount.*" type="text" class="txt c2 num" readonly="readonly"/></td>
+					<td style="width:6%;"><input id="txtEweight.*" type="text" class="txt c2 num" readonly="readonly"/></td>
+					<td ><input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/></td>
+				</tr>
+			</table>
+		</div>
+		<div id="seekForm">
+			<table id="seekTable" border="0" cellpadding='0' cellspacing='0'>
+				<tr>
+					<td><span class="lbl">品名編號</span></td>
+					<td colspan="3">
+						<input id="textProductno" type="text" style="width:25%"/>
+						<input id="textProduct" type="text" style="width:73%"/>
+					</td>
+					<td><span class="lbl">倉庫</span></td>
+					<td colspan="3">
+						<input id="textStoreno" type="text" style="width:25%"/>
+						<input id="textStore" type="text" style="width:73%"/>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="lbl">等級</span></td>
+					<td><input id="textClass" type="text" class="txt c1 num"/></td>
+					<td><span class="lbl">短徑</span></td>
+					<td><input id="textRadius" type="text" class="txt c1 num"/></td>
+					<td><span class="lbl">厚度</span></td>
+					<td><input id="textDime" type="text" class="txt c1 num"/></td>
+					<td><span class="lbl">寬度</span></td>
+					<td><input id="textWidth" type="text" class="txt c1 num"/></td>
+					<td><span class="lbl">長度</span></td>
+					<td><input id="textLengthb" type="text" class="txt c1 num"/></td>
+					<td><span class="lbl">重量</span></td>
+					<td><input id="textWeight" type="text" class="txt c1 num"/></td>
+				</tr>
+				<tr>
+					<td colspan="12" align="center">
+						<input type="button" id="btnToSeek" value="查詢">
+					</td>
+				</tr>
+			</table>
+		</div>
 </body>
 </html>
 
