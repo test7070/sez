@@ -76,6 +76,9 @@
 					}, {
 						type : '6',//[19]
 						name : 'xmemo'
+					},{
+						type : '6', //[1]
+						name : 'paytype'
 					}]
 					});
 				q_popAssign();
