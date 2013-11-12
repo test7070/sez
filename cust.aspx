@@ -162,7 +162,7 @@
 						break;
 					case 'sss':
 						var as = _q_appendData("sss", "", true);
-						if (as[0] == undefined || as[0].issales=='0'){
+						if (as[0] == undefined || (as[0].issales=='false') || (as[0].issales==false) ){
 							q_gt(q_name, q_content, q_sqlCount, 1);
 						}else{
 							q_content = "where=^^ salesno='" +r_userno+ "'^^";
