@@ -87,64 +87,56 @@
 					if(Parent.q_name && Parent.q_name== 'cub'){
 						$('#txtUno_'+j).change(function(){
 							var thisuno = trim($(this).val());
-							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							var t_datea = $('#txtDatea_'+b_seq).val();
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var t_datea = $('#txtDatea_'+n).val();
 							if(cubBBtArray[dec(thisuno)-1] != undefined){
 								var temp_bbt = cubBBtArray[dec(thisuno)-1];
-								getUno(b_seq,temp_bbt.uno,'');
-								var t_datea = $('#txtDatea_'+b_seq);
+								getUno(n,temp_bbt.uno,'');
+								var t_datea = $('#txtDatea_'+n);
 								if(trim($(this).val()) != ''){
-									$('#txtProductno_' + b_seq).val(temp_bbt.productno);
+									$('#txtProductno_' + n).val(temp_bbt.productno);
 									if(trim(temp_bbt.productno) != '')
-										q_popsChange($('#txtProductno_' + b_seq));
-									$('#txtDime_' + b_seq).val(temp_bbt.dime);
+										q_popsChange($('#txtProductno_' + n));
+									$('#txtDime_' + n).val(temp_bbt.dime);
 								}
 							}
 							toFocusOrdeno = 1;
 						}).focusout(function(){
-							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							var oUno = trim($(this).val());
-							var t_datea = trim($('#txtDatea_'+b_seq).val());
+							var t_datea = trim($('#txtDatea_'+n).val());
 							if(oUno.length == 0 && t_datea.length > 0)
-								getUno(b_seq,'',t_datea);
+								getUno(n,'',t_datea);
 						});
 						$('#txtOrdeno_'+j).change(function(){
 							var thisordeno = trim($(this).val());
 							if(cubBBsArray[dec(thisordeno)-1] != undefined){
 								var temp_bbs = cubBBsArray[dec(thisordeno)-1];
-								t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-								q_bodyId($(this).attr('id'));
-								b_seq = t_IdSeq;
+								var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 								$(this).val(temp_bbs.ordeno);
-								$('#txtNo2_' + b_seq).val(temp_bbs.no2);
-								$('#txtCustno_' + b_seq).val(temp_bbs.custno);
-								q_popsChange($('#txtCustno_' + b_seq));
-								$('#txtProductno_' + b_seq).val(temp_bbs.productno);
-								$('#txtProduct_' + b_seq).val(temp_bbs.product);
-								$('#txtSpec_' + b_seq).val(temp_bbs.bspec);
-								$('#txtRadius_' + b_seq).val(temp_bbs.radius);
-								$('#txtWidth_' + b_seq).val(temp_bbs.width);
-								$('#txtDime_' + b_seq).val(temp_bbs.dime);
-								$('#txtLengthb_' + b_seq).val(temp_bbs.lengthb);
-								$('#txtMount_' + b_seq).val(temp_bbs.mount);
-								$('#txtStyle_' + b_seq).val(temp_bbs.style);
-								getTheory(b_seq);
+								$('#txtNo2_' + n).val(temp_bbs.no2);
+								$('#txtCustno_' + n).val(temp_bbs.custno);
+								q_popsChange($('#txtCustno_' + n));
+								$('#txtProductno_' + n).val(temp_bbs.productno);
+								$('#txtProduct_' + n).val(temp_bbs.product);
+								$('#txtSpec_' + n).val(temp_bbs.bspec);
+								$('#txtRadius_' + n).val(temp_bbs.radius);
+								$('#txtWidth_' + n).val(temp_bbs.width);
+								$('#txtDime_' + n).val(temp_bbs.dime);
+								$('#txtLengthb_' + n).val(temp_bbs.lengthb);
+								$('#txtMount_' + n).val(temp_bbs.mount);
+								$('#txtStyle_' + n).val(temp_bbs.style);
+								getTheory(n);
 							}
 						});
 						$('#txtDatea_' + j).focusout(function(){
-							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							if($(this).val() == ''){
 								$(this).val(q_date());
 							}
-							var oUno = trim($('#txtUno_'+b_seq).val());
+							var oUno = trim($('#txtUno_'+n).val());
 							if(oUno.length == 0)
-								getUno(b_seq,'',$(this).val());
+								getUno(n,'',$(this).val());
 							
 						});
 						$('#txtPrt_' +j).focusout(function(){
@@ -162,53 +154,41 @@
 						});
 					}
 					$('#txtStyle_' + j).blur(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					    q_bodyId($(this).attr('id'));
-					    b_seq = t_IdSeq;
-						ProductAddStyle(b_seq);
-						getTheory(b_seq);
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						ProductAddStyle(n);
+						getTheory(n);
 					});
 					$('#txtRadius_' + j).change(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					    q_bodyId($(this).attr('id'));
-					    b_seq = t_IdSeq;
-						getTheory(b_seq);
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						getTheory(n);
 					});
 					$('#txtWidth_' + j).change(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					    q_bodyId($(this).attr('id'));
-					    b_seq = t_IdSeq;
-						getTheory(b_seq);
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						getTheory(n);
 					});
 					$('#txtDime_' + j).change(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					    q_bodyId($(this).attr('id'));
-					    b_seq = t_IdSeq;
-						getTheory(b_seq);
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						getTheory(n);
 					});
 					$('#txtLengthb_' + j).change(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					    q_bodyId($(this).attr('id'));
-					    b_seq = t_IdSeq;
-						getTheory(b_seq);
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						getTheory(n);
 					});
 					$('#txtMount_' + j).change(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					    q_bodyId($(this).attr('id'));
-					    b_seq = t_IdSeq;
-					    var t_ordeno = $('#txtOrdeno_'+b_seq).val();
-					    var t_no2 = $('#txtNo2_'+b_seq).val();
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+					    var t_ordeno = $('#txtOrdeno_'+n).val();
+					    var t_no2 = $('#txtNo2_'+n).val();
 						for(var i = 0;i<cubBBsArray.length;i++){
 							if(cubBBsArray[i].ordeno==t_ordeno && cubBBsArray[i].no2==t_no2){
-								var t_mount = dec($('#txtMount_'+b_seq).val());
+								var t_mount = dec($('#txtMount_'+n).val());
 								if(t_mount > dec(cubBBsArray[i].mount)){
 									alert('數量不可大於訂單數量!!');
-									$('#txtMount_'+b_seq).val(dec(cubBBsArray[i].mount));
+									$('#txtMount_'+n).val(dec(cubBBsArray[i].mount));
 									break;
 								}
 							}
 						}
-						getTheory(b_seq);
+						getTheory(n);
 					});
 				}
 			}
@@ -247,11 +227,9 @@
 			function refresh() {
 				_refresh();
 				$('input[id*="txtProduct_"]').each(function(){
-					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
+					var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 					OldValue = $(this).val();
-					nowStyle = $('#txtStyle_'+b_seq).val();
+					nowStyle = $('#txtStyle_'+n).val();
 					if(!emp(nowStyle) && (StyleList[0] != undefined)){
 						for(var i = 0;i < StyleList.length;i++){
 		               		if(StyleList[i].noa.toUpperCase() == nowStyle){

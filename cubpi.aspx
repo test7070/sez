@@ -495,70 +495,48 @@
 					$('#lblNo__' + i).text(i + 1);
 					if (!$('#btnMinut__' + i).hasClass('isAssign')) {
 						$('#textSize1__' + i).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							if ($('#cmbTypea').find("option:selected").text() == '製管') {
-								q_tr('txtDime__' + b_seq, q_float('textSize1__' + b_seq));
-								//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
+								q_tr('txtDime__' + n, q_float('textSize1__' + n));
 							} else {
-								q_tr('txtRadius__' + b_seq, q_float('textSize1__' + b_seq));
-								//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());
+								q_tr('txtRadius__' + n, q_float('textSize1__' + n));
 							}
 						});
 						$('#textSize2__' + i).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							if ($('#cmbTypea').find("option:selected").text() == '製管') {
-								q_tr('txtWidth__' + b_seq, q_float('textSize2__' + b_seq));
-								//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
+								q_tr('txtWidth__' + n, q_float('textSize2__' + n));
 							} else {
-								q_tr('txtWidth__' + b_seq, q_float('textSize2__' + b_seq));
-								//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());
+								q_tr('txtWidth__' + n, q_float('textSize2__' + n));
 							}
 						});
 						$('#textSize3__' + i).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							if ($('#cmbTypea').find("option:selected").text() == '製管') {
-								q_tr('txtLengthb__' + b_seq, q_float('textSize3__' + b_seq));
-								//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());
+								q_tr('txtLengthb__' + n, q_float('textSize3__' + n));
 							} else {
-								q_tr('txtDime__' + b_seq, q_float('textSize3__' + b_seq));
-								//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());
+								q_tr('txtDime__' + n, q_float('textSize3__' + n));
 							}
 						});
 						$('#textSize4__' + i).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							if ($('#cmbTypea').find("option:selected").text() == '製管') {
-								q_tr('txtRadius__' + b_seq, q_float('textSize4__' + b_seq));
-								//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());
+								q_tr('txtRadius__' + n, q_float('textSize4__' + n));
 							} else {
-								q_tr('txtLengthb__' + b_seq, q_float('textSize4__' + b_seq));
-								//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());
+								q_tr('txtLengthb__' + n, q_float('textSize4__' + n));
 							}
 						});
 						$('#txtGmount__' + i).change(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							var thisVal = dec($(this).val());
-							var t_Mount = dec($('#txtMount__'+b_seq).val());
-							var t_Weight = dec($('#txtWeight__'+b_seq).val());
+							var t_Mount = dec($('#txtMount__'+n).val());
+							var t_Weight = dec($('#txtWeight__'+n).val());
 							if(thisVal > t_Mount)
 								$(this).val(t_Mount);
 							if(t_Mount > 0 && t_Weight > 0){
 								var newVal = round(q_mul(q_div(t_Weight,t_Mount),thisVal),0);
 								newVal = (isNaN(newVal)?0:newVal);
-								$('#txtGweight__'+b_seq).val(round(q_mul(q_div(t_Weight,t_Mount),thisVal),0));
+								$('#txtGweight__'+n).val(round(q_mul(q_div(t_Weight,t_Mount),thisVal),0));
 							}
 						});
 					}
