@@ -96,7 +96,7 @@
 								break;
 						}
 						t_where += " and noa !='"+trim($('#txtNoa').val())+"'";
-						q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, 'view_cubu2cub', "95%", "95%", q_getMsg('popCubu2Cub'));					
+						q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, 'view_cubu2cub_'+t_type, "95%", "95%", q_getMsg('popCubu2Cub'));					
 					}else{
 						alert('切管、修端、包裝才有上製程匯入。');	
 					}
@@ -347,27 +347,40 @@
 							b_ret = '';
 						}
 						break;
-					case 'view_cubu2cub':
-						b_ret = getb_ret();
-						if (!b_ret || b_ret.length == 0){
-							b_pop = '';
-							return;
-						}
-						if (b_ret[0] != undefined) {
-							bbs_ret = q_gridAddRow(bbtHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb', 'txtOrdeno,txtNo2');
-							bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
-							/// 最後 aEmpField 不可以有【數字欄位】
-							for(var k=0;k<bbs_ret.length;k++){
-								$('#chkOrdc_'+bbs_ret[k]).attr('checked',true);
-							}
-							bbsAssign();
-							bbtAssign();
-							size_change();
-						}
-												
-						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
+						break;
+					default: 
+						if(b_pop.substring(0,14)=='view_cubu2cub_'){
+							t_type = b_pop.replace('view_cubu2cub_','');
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0){
+								b_pop = '';
+								return;
+							}
+							if (b_ret[0] != undefined) {
+								bbs_ret = q_gridAddRow(bbtHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb,chkSlit,chkSale,chkOrdc', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb,slit,sale,ordc', 'txtOrdeno,txtNo2');
+								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
+								/// 最後 aEmpField 不可以有【數字欄位】
+								for(var k=0;k<bbs_ret.length;k++){
+									if(t_type='2'){
+										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
+									}
+									if(t_type='3'){
+										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
+										$('#chkSlit_'+bbs_ret[k]).attr('checked',false);
+									}
+									if(t_type='4'){
+										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
+										$('#chkSlit_'+bbs_ret[k]).attr('checked',false);
+										$('#chkSale_'+bbs_ret[k]).attr('checked',false);
+									}
+								}
+								bbsAssign();
+								bbtAssign();
+								size_change();
+							}
+						}
 						break;
 				}
 				b_pop = '';
