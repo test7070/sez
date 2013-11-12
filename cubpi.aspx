@@ -79,8 +79,27 @@
 					size_change();
 				});
 				$('#btnCubuImport').click(function(){
-					var t_where = " noa !='"+trim($('#txtNoa').val())+"'";
-					q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, 'view_cubu2cub', "95%", "95%", q_getMsg('popCubu2Cub'));					
+					var t_where = '1=1';
+					var t_type = $('#cmbTypea').val();
+					if(t_type=='2' || t_type=='3' || t_type=='4'){
+						switch(t_type){
+							case '2':
+								t_where += ' and slit=1';
+								break;
+							case '3':
+								t_where += ' and sale=1';
+								break;
+							case '4':
+								t_where += ' and ordc=1';
+								break;
+							default:
+								break;
+						}
+						t_where += " and noa !='"+trim($('#txtNoa').val())+"'";
+						q_box("cubu2cub_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, 'view_cubu2cub', "95%", "95%", q_getMsg('popCubu2Cub'));					
+					}else{
+						alert('切管、修端、包裝才有上製程匯入。');	
+					}
 				});
 				$('#btnOrdeImport').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
