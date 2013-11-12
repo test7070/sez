@@ -363,10 +363,10 @@
 								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
 								for(var k=0;k<bbs_ret.length;k++){
-									$('#chkCut_'+bbs_ret[k]).attr('checked',b_ret[k].cut);
-									$('#chkSlit_'+bbs_ret[k]).attr('checked',b_ret[k].slit);
-									$('#chkSale_'+bbs_ret[k]).attr('checked',b_ret[k].sale);
-									$('#chkOrdc_'+bbs_ret[k]).attr('checked',b_ret[k].ordc);
+									$('#chkCut_'+bbs_ret[k]).attr('checked',b_ret[k].cut+''=='true');
+									$('#chkSlit_'+bbs_ret[k]).attr('checked',b_ret[k].slit+''=='true');
+									$('#chkSale_'+bbs_ret[k]).attr('checked',b_ret[k].sale+''=='true');
+									$('#chkOrdc_'+bbs_ret[k]).attr('checked',b_ret[k].ordc+''=='true');
 										
 									if(t_type=='2'){
 										$('#chkCut_'+bbs_ret[k]).attr('checked',false);
