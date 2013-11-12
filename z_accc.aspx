@@ -88,9 +88,9 @@
                 });
                 
                 $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
+           //     $('#txtDate1').datepicker(); 打完日期按ENTER會變成當天日期
                 $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
+           //     $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				
 				$('#txtXacc1a').change(function(e) {
