@@ -20,6 +20,7 @@
         var bbmNum = [];  
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
+        aPop = new Array(['txtNou', 'lblNou', 'ucc', 'noa,product', 'txtNou', 'ucc_b.aspx']);
         //ajaxPath = ""; //  execute in Root
 
         $(document).ready(function () {
@@ -41,7 +42,9 @@
 
 
         function mainPost() {
+        	bbmMask = [['txtMon', r_picm]];
             q_mask(bbmMask);
+            q_gt('acomp', '', 0, 0, 0, "");
             if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
 				q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));	//IT
 			else
@@ -72,6 +75,16 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'acomp':
+		                var as = _q_appendData("acomp", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "@";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+		                    }
+		                    q_cmbParse("cmbCno", t_item);
+		                }
+		                break;
             	case 'checkUccano_change':
                 		var as = _q_appendData("ucca", "", true);
                         if (as[0] != undefined){
@@ -105,6 +118,13 @@
             _btnIns();
             refreshBbm();
             $('#txtNoa').focus();
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+				$('.it').show();
+				$('.normal').hide();
+			}else{
+				$('.normal').show();
+				$('.it').hide();
+			}
         }
 
         function btnModi() {
@@ -116,7 +136,7 @@
         }
 
         function btnPrint() {
-
+			q_box('z_ucca.aspx?;;;'+r_accy, '', "95%", "95%", q_getMsg("popPrint"));
         }
         function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -154,6 +174,13 @@
         function refresh(recno) {
             _refresh(recno);
             refreshBbm();
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+				$('.it').show();
+				$('.normal').hide();
+			}else{
+				$('.normal').show();
+				$('.it').hide();
+			}
         }
 		function refreshBbm(){
             	if(q_cur==1){
@@ -331,6 +358,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .num {
                 text-align: right;
@@ -347,37 +375,53 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewProduct'></a></td>
-                <td align="center" style="width:25%"><a id='vewUnit'></a></td>
-                <td align="center" style="width:25%"><a id='vewType'></a></td>                
+                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:60%"><a id='vewProduct'></a></td>
+                <td align="center" style="width:7%"><a id='vewUnit'></a></td>
+                <td align="center" style="width:13%" class="normal"><a id='vewType'></a></td>     
+                <td align="center" style="width:13%" class="it"><a id='vewType_it'></a></td>           
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='product'>~product</td>
                    <td align="center" id='unit'>~unit</td>
-                   <td align="center" id='typea=ucc.typea'>~typea=ucc.typea</td>
+                   <td align="center" id='typea=ucc.typea' class="normal">~typea=ucc.typea</td>
+                   <td align="center" id='typea=ucc.typea_it' class="it">~typea=ucc.typea_it</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="float: left;">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>                        
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>   
+        	<tr>
+        		<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
+				<td><select id="cmbCno" class="txt c1"> </select></td>           
+			</tr>          
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
                <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-               <td class="td3"><span> </span><a id='lblProduct' class="lbl"></a></td>
+               <td class="td3"><span> </span><a id='lblProduct' class="lbl"> </a></td>
                <td class="td4"><input id="txtProduct" type="text" class="txt c1" /></td>
-               <td class="td5"><span> </span><a id='lblUnit' class="lbl"></a></td>
+               <td class="td5"><span> </span><a id='lblUnit' class="lbl"> </a></td>
                <td class="td6"><input id="txtUnit"  type="text" class="txt c1" /></td>
+               <td class="td7"><span> </span><a id='lblType' class="lbl"> </a></td>
+               <td class="td8"><select id="cmbTypea" class="txt c1"> </select></td>
             </tr>
             <tr>
-               <td class="td1" ></td>
-               <td class="td2"></td>
-               <td class="td3" ></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id='lblType' class="lbl"></a></td>
-               <td class="td6"><select id="cmbTypea" class="txt c1"></select></td>
+               <td class="td1"><span> </span><a id='lblNou' class="lbl btn"> </a></td>
+               <td class="td2"><input id="txtNou"  type="text" class="txt c1" /></td>
+               <td class="td1"><span> </span><a id='lblMon' class="lbl"> </a></td>
+               <td class="td2"><input id="txtMon"  type="text" class="txt c1" /></td>
+               <td class="td3"><span> </span><a id='lblBeginmount' class="lbl"> </a></td>
+               <td class="td4"><input id="txtBeginmount" type="text" class="txt num c1" /></td>
+               <td class="td5"><span> </span><a id='lblBeginmoney' class="lbl"> </a></td>
+               <td class="td6"><input id="txtBeginmoney"  type="text" class="txt num c1" /></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblVccacc' class="lbl"> </a></td>
+               <td class="td2"><input id="txtVccacc"  type="text" class="txt c1" /></td>
+               <td class="td1"><span> </span><a id='lblRc2acc' class="lbl"> </a></td>
+               <td class="td2"><input id="txtRc2acc"  type="text" class="txt c1" /></td>
             </tr>
         </table>
         </div>
