@@ -112,8 +112,8 @@
                 });
                 
                 if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-                	$('lblTrdno').hide();
-                	$('txtTrdno').hide();
+                	$('#lblTrdno').hide();
+                	$('#txtTrdno').hide();
                 }
                 
             }	
