@@ -28,15 +28,16 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Noa';
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,zip_invo,addr_invo,serial', 'txtCustno,txtComp,txtNick,txtZip,txtAddress,txtSerial', 'cust_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,zip_invo,addr_invo,serial', 'txtCustno,txtComp,txtNick,txtZip,txtAddress,txtSerial', 'cust_b.aspx']
+            , ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
+            , ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
             q_xchg = 1;
             brwCount2 = 20;
 
             function currentData() {
             }
-
-
-            currentData.prototype = {
+	           currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
                 include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon', 'txtNoa', 'txtBuyerno', 'txtBuyer'],
@@ -73,6 +74,7 @@
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
 
             function main() {
@@ -88,6 +90,7 @@
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
+                
                 $('#cmbTaxtype').focus(function() {
                     var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
                     $("#cmbTaxtype").attr('size', len + "");
@@ -127,9 +130,18 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			
+			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
                 	case 'vccar':
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
@@ -226,7 +238,11 @@
                 curData.copy();
                 _btnIns();
                 curData.paste();
-
+                
+                if(emp($('#txtCno').val())){
+                	$('#txtCno').val(z_cno);
+            		$('#txtAcomp').val(z_acomp);
+				}
                 //發票號碼+1
                 var t_noa = trim($('#txtNoa').val());
                 var str = '00000000' + (parseInt(t_noa.substring(2, 10)) + 1);
