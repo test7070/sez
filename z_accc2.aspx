@@ -15,93 +15,93 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
-            }
+			if (location.href.indexOf('?') < 0) {
+				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
+			}
 			aPop = [
 				['txtXbpart', '', 'acpart', 'noa,part', 'txtXbpart', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 				['txtXepart', '', 'acpart', 'noa,part', 'txtXepart', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 			];
-            $(document).ready(function() {
-                _q_boxClose();
-                q_getId();
-                q_gf('', 'z_accc2');
-            });
-            function q_gfPost() {
-            	$('#q_report').q_report({
-                    fileName : 'z_accc2',
-                    options : [{/*  [1]*/
-                        type : '0',
-                        name : 'accy',
-                        value : r_accy + "_" + r_cno
-                    }, {/*1-1 [2],[3]*/
-                        type : '1',
-                        name : 'date'
-                    }, {/*1-2 [4][5] 不含子科目*/
-                        type : '2',
-                        name : 'yacc',
-                        dbf : 'view_acc',
-                        index : 'acc1,acc2',
-                        src : "view_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*1-4 [6][7]*/
-                        type : '2',
-                        name : 'part',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                    }, {/*1-1 [8],[9]*/
-                        type : '1',
-                        name : 'xbmon'
-                    }, {/*1-1 [10]*/
-                        type : '6',
-                        name : 'xbpart'
-                    }, {/*1-1 [11],[12]*/
-                        type : '1',
-                        name : 'xemon'
-                    }, {/*1-1 [13]*/
-                        type : '6',
-                        name : 'xepart'
-                    }]
-                });
-                $('#txtDate1').mask('99/99');
-                $('#txtDate2').mask('99/99');
-                $('#txtXbmon1').mask('999/99');
-                $('#txtXbmon2').mask('999/99');
-                $('#txtXemon1').mask('999/99');
-                $('#txtXemon2').mask('999/99');
-                /*$('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();*/
-               
-				$('#Xbmon').css('width','250px');
+			$(document).ready(function() {
+				_q_boxClose();
+				q_getId();
+				q_gf('', 'z_accc2');
+			});
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_accc2',
+					options : [{/*  [1]*/
+						type : '0',
+						name : 'accy',
+						value : r_accy + "_" + r_cno
+					}, {/*1-1 [2],[3]*/
+						type : '1',
+						name : 'date'
+					}, {/*1-2 [4][5] 不含子科目*/
+						type : '2',
+						name : 'yacc',
+						dbf : 'view_acc',
+						index : 'acc1,acc2',
+						src : "view_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
+					}, {/*1-4 [6][7]*/
+						type : '2',
+						name : 'part',
+						dbf : 'part',
+						index : 'noa,part',
+						src : 'part_b.aspx'
+					}, {/*1-1 [8],[9]*/
+						type : '1',
+						name : 'xbmon'
+					}, {/*1-1 [10]*/
+						type : '6',
+						name : 'xbpart'
+					}, {/*1-1 [11],[12]*/
+						type : '1',
+						name : 'xemon'
+					}, {/*1-1 [13]*/
+						type : '6',
+						name : 'xepart'
+					}]
+				});
+				$('#txtDate1').mask('99/99');
+				$('#txtDate2').mask('99/99');
+				$('#txtXbmon1').mask('999/99');
+				$('#txtXbmon2').mask('999/99');
+				$('#txtXemon1').mask('999/99');
+				$('#txtXemon2').mask('999/99');
+				/*$('#txtDate1').mask('999/99/99');
+				$('#txtDate1').datepicker();
+				$('#txtDate2').mask('999/99/99');
+				$('#txtDate2').datepicker();*/
+
+				$('#Xbmon').css('width','370px');
 				$('#txtXbpart').removeAttr('class').attr('class','c3 text');
-				$('#Xbpart').css('width','150px');
-				$('#Xemon').css('width','250px');
+				$('#Xbpart').css('width','230px');
+				$('#Xemon').css('width','370px');
 				$('#txtXepart').removeAttr('class').attr('class','c3 text');
-				$('#Xepart').css('width','150px');
+				$('#Xepart').css('width','230px');
 				
-        		$('#txtYacc1a').change(function(e) {
-                	var patt = /^(\d{4})([^\.,.]*)$/g;
-                	if(patt.test($(this).val()))
-                    	$(this).val($(this).val().replace(patt,"$1.$2"));
-                    else if((/^(\d{4})$/).test($(this).val())){
-                    	$(this).val($(this).val()+'.');
-                    }
-        		});
-        		$('#txtYacc2a').change(function(e) {
-                	var patt = /^(\d{4})([^\.,.]*)$/g;
-                	if(patt.test($(this).val()))
-                    	$(this).val($(this).val().replace(patt,"$1.$2"));
-                    else if((/^(\d{4})$/).test($(this).val())){
-                    	$(this).val($(this).val()+'.');
-                    }
-        		});
-        		q_popAssign();
-        		q_langShow();
-            }
-            function q_boxClose(t_name) {
-            }
+				$('#txtYacc1a').change(function(e) {
+					var patt = /^(\d{4})([^\.,.]*)$/g;
+					if(patt.test($(this).val()))
+						$(this).val($(this).val().replace(patt,"$1.$2"));
+					else if((/^(\d{4})$/).test($(this).val())){
+						$(this).val($(this).val()+'.');
+					}
+				});
+				$('#txtYacc2a').change(function(e) {
+					var patt = /^(\d{4})([^\.,.]*)$/g;
+					if(patt.test($(this).val()))
+						$(this).val($(this).val().replace(patt,"$1.$2"));
+					else if((/^(\d{4})$/).test($(this).val())){
+						$(this).val($(this).val()+'.');
+					}
+				});
+				q_popAssign();
+				q_langShow();
+			}
+			function q_boxClose(t_name) {
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
