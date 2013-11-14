@@ -51,7 +51,7 @@
 		        bbsKey = ['noa', 'noq'];
 		        q_brwCount();
 
-		        q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+		        q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 		    });
 		    function main() {
 		        if (dataErr) {
@@ -67,7 +67,7 @@
 		        //------------------------------------------------
 		        //零用金下拉式與TXT輸入
 		        q_cmbParse("cmbDc", q_getPara('chgcash.typea'));
-		        q_gt('part', '', 0, 0, 0, "");
+		        q_gt('acpart', '', 0, 0, 0, "",r_accy+'_'+r_cno);
 		        //q_gt('carteam', '', 0, 0, 0, "");
 		        q_gt('chgpart', '', 0, 0, 0, "");
 		        
@@ -169,15 +169,14 @@
 		                    $("#cmbCarteamno").val(abbm[q_recno].carteamno);
 		                }
 		                break;
-		            case 'part':
-		                var as = _q_appendData("part", "", true);
+		            case 'acpart':
+		                var as = _q_appendData("acpart", "", true);
 		                if (as[0] != undefined) {
 		                    var t_item = "@";
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 		                    }
 		                    q_cmbParse("cmbPartno", t_item, 's');
-
 		                    refresh(q_recno);  /// 第一次需要重新載入
 		                }
 		                break;
