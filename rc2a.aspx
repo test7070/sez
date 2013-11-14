@@ -35,6 +35,7 @@
             bbsKey = ['noa', 'noq'];
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
+            q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
         });
 
         //////////////////   end Ready
@@ -54,7 +55,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
-             q_cmbParse("cmbTypea", q_getPara('rc2.typea')); 
+             //q_cmbParse("cmbTypea", q_getPara('rc2.typea')); 
              q_cmbParse("cmbTaxtype", ('').concat(new Array('應稅', '零稅率', '內含', '免稅','自訂','作廢')));
             /* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
@@ -77,10 +78,19 @@
             b_pop = '';
         }
 
-
+		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)   
+            	case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
+                case q_name: 
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -98,15 +108,17 @@
                 alert(t_err);
                 return;
             }
+            
+            if (!(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())){
+				alert(q_getMsg('lblNoa')+'格式錯誤。');
+                return;
+			}
 
             $('#txtWorker').val(r_name)
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-            else
-                wrServer(s1);
+            wrServer(s1);
         }
 
         function _btnSeek() {
@@ -155,7 +167,9 @@
 
         function btnIns() {
             _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtCno').val(z_cno);
+           	$('#txtAcomp').val(z_acomp);
+            //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
             $('#cmbTaxtype').val(1);
@@ -464,8 +478,9 @@
         <tr class="tr4">
             <td class="td1"><span> </span><a id='lblMon' class="lbl"> </a></td>
             <td class="td2"><input id="txtMon" type="text" class="txt c1"/></td>
-            <td class="td3"><span> </span><a id='lblType' class="lbl"> </a></td>
-            <td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>                           
+            <td class="td3"><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
+            <td class="td4" colspan="3"><input id="txtBuyerno"  type="text"  class="txt c2"/>
+            						<input id="txtBuyer"  type="text" class="txt c3" /></td>
         </tr>
         <tr class="tr5">
             <td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -480,15 +495,10 @@
             <td class="td2"><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' / ></select></td>
             <td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
             <td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td>
+            <td class="td1"><span> </span><a id='lblAccno' class="lbl"> </a></td>
+            <td class="td2"><input id="txtAccno"  type="text" class="txt c1" /></td>
         </tr>
         <tr class="tr7">
-        	<td class="td1"><span> </span><a id='lblAccno' class="lbl"> </a></td>
-            <td class="td2"><input id="txtAccno"  type="text" class="txt c1" /></td>
-              <td class="td3"><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
-            <td class="td4" colspan="3"><input id="txtBuyerno"  type="text"  class="txt c2"/>
-            						<input id="txtBuyer"  type="text" class="txt c3" /></td>
-        </tr>
-        <tr class="tr8">
             <td class="td1"><span> </span><a id="lblMemo" class="lbl" > </a></td>
             <td class="td2" colspan='5'><input id="txtMemo" type="text" class="txt c1" /></td>
         </tr>
