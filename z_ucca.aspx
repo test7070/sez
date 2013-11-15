@@ -20,6 +20,19 @@
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_ucca');
+                
+                
+                $('#q_report').click(function(e) {
+					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
+						if($('.radio.select').next().text()==$('#q_report').data().info.reportData[i].reportName){
+							var txtreport=$('#q_report').data().info.reportData[i].report;
+							if(txtreport=='z_ucca4')
+								$('#lblXdate').text('出貨日期');
+							else
+								$('#lblXdate').text('發票日期');
+						}
+					}
+				});
             });
             function q_gfPost() {
                 q_gt('acomp', '', 0, 0, 0);
