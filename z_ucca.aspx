@@ -98,6 +98,10 @@
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtXdate2').val(t_year + '/' + t_month+'/'+t_day);
+                
+                $("input[type='checkbox'][value!='']").attr('checked', true);
+                $("input[type='checkbox'][value='checkAll']").removeAttr('checked');
+                $("input[type='checkbox'][value='checkAll']").next('span').text('取消全選');
 
                 $("input[type='checkbox'][value='checkAll']").click(function() {
                     if ($(this).next('span').text() == '全選') {
