@@ -62,7 +62,7 @@
         function mainPost() { 
         	bbmMask = [];
             q_mask(bbmMask);
-            //q_cmbParse("cmbTrantype", q_getPara('ordei.trantype'));
+            //q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
 			
 			if(window.parent.q_name=='orde'){

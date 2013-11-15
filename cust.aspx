@@ -96,7 +96,7 @@
 				else
 					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
-				q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
+				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				
 				$('#btnUcam').click(function() {
 					t_where = "custno='" + $('#txtNoa').val() + "'";

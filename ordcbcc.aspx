@@ -57,7 +57,7 @@
                 q_cmbParse("cmbStype", q_getPara('rc2.stype')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
                 q_cmbParse("cmbPaytype", q_getPara('rc2.paytype'));  
-                q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+                q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
                 $('#txtFloata').change(function () {sum();});
 				$('#txtTotal').change(function () {sum();});

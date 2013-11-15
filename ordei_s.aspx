@@ -24,7 +24,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                q_cmbParse("cmbTrantype",q_getPara('ordei.trantype'));
+                q_cmbParse("cmbTrantype",q_getPara('sys.tran'));
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         		q_mask(bbmMask);
         		$('#txtBdate').focus();

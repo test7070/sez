@@ -47,7 +47,7 @@
                 bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
-                q_cmbParse("cmbTrantype", ('').concat(new Array( '','送達','自取','貨運','FOB','FOR','CIF','C&F','TO DOOR' )));
+                q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_gt('add2', '', 0, 0, 0, "");              
             }
             function q_boxClose(s2) {

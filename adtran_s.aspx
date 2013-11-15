@@ -25,7 +25,7 @@
         q_langShow();
         q_gt('add2','', 0, 0, 0, "");
 		q_cmbParse("cmbStyle",('全部'+',').concat(q_getPara('adsss.stype').split(',')));
-		q_cmbParse("cmbTrantype", ('全部'+',').concat(new Array('送達','自取','貨運','FOB','FOR','CIF','C&F','TO DOOR' )));
+		q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
         bbmMask = [['txtMon', r_picm]];
         q_mask(bbmMask);
 

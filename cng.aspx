@@ -54,7 +54,7 @@
             bbsMask = [['txtClass', r_picd]]; //102/10/31 製造業(醫療 食品)當成有效日
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('cng.typea'));
-            q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+            q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
             
             $('#txtPrice').change(function () {sum()});
             $('#txtMoney').change(function () {sum2()});

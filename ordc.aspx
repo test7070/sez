@@ -79,7 +79,7 @@
 				q_cmbParse("cmbKind", q_getPara('ordc.kind')); //rc2.stype
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));	  
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
-				q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
 				
 				var t_where = "where=^^ 1=1  group by post,addr^^";

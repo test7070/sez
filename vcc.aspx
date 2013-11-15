@@ -88,7 +88,7 @@
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             q_cmbParse("cmbCoin", q_getPara('sys.coin')); 
             q_cmbParse("combPay", q_getPara('vcc.paytype')); 
-            q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
+            q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
             
              if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 			 	aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],

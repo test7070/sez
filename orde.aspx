@@ -80,7 +80,7 @@
 			q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
 			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	 /// q_cmbParse 會加入 fbbm
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
-			q_cmbParse("cmbTrantype", q_getPara('orde.trantype'));
+			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 			
 			var t_where = "where=^^ 1=1  group by post,addr^^";

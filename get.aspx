@@ -58,7 +58,7 @@
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('get.typea'));
             
-            q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+            q_cmbParse("cmbTrantype",q_getPara('sys.tran'));
             // 需在 main_form() 後執行，才會載入 系統參數
             /* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {

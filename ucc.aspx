@@ -82,7 +82,7 @@
 			else
 				q_cmbParse("cmbTypea", q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
 			
-			q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	
 			q_gt('uccga', '', 0, 0, 0, "");
 			$('#btnUcctd').click(function() {

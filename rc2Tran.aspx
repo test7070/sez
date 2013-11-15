@@ -64,7 +64,7 @@
                 q_cmbParse("cmbStype", q_getPara('rc2.stype'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("combPay", q_getPara('rc2.pay'));
-                q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+                q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
                $('#btnAccc').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 		        });
