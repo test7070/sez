@@ -374,6 +374,7 @@
 				as['kind'] = abbm2['kind'];
 				as['tggno'] = abbm2['tggno'];
 				as['odate'] = abbm2['odate'];
+				as['trandate'] = abbm2['trandate'];
 				return true;
 			}
 
