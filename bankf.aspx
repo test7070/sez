@@ -22,8 +22,7 @@
 
             var bbmNum = [['txtMoney', 11, 2, 1], ['txtMoney2', 11, 2, 1], ['txtInterestrate', 6, 3, 1]];
             var bbmMask = [];
-            var compArr = new Array();
-            var CheckLcno//有重複為true 無重複為false
+            var CheckLcno;//有重複為true 無重複為false
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -88,24 +87,27 @@
                         break;
                 }
             }
-
+            var compArr = new Array();
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'acomp':
                         var as = _q_appendData("acomp", "", true);
                         if (as[0] != undefined) {
                             var t_item = "@";
-                            for ( i = 0; i < as.length; i++) {
+                            for (var  i = 0; i < as.length; i++) {
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
                                 compArr[as[i].noa] = new Array();
-                                compArr[as[i].noa].cno = as[i].cno;
-                                compArr[as[i].noa].acomp = as[i].acomp;
-                                compArr[as[i].noa].nick = as[i].nick;
+                                compArr[as[i].noa].push({
+                                	cno:as[i].noa,
+                                	acomp:as[i].acomp,
+                                	nick:as[i].nick
+                                });
                             }
                             q_cmbParse("cmbCno", t_item);
-                            if (abbm[q_recno])
+                            if (abbm[q_recno] != undefined){
                                 $("#cmbCno").val(abbm[q_recno].cno);
-                            $('#txtNick').val(compArr[abbm[q_recno].cno].nick);
+                            	$('#txtNick').val(compArr[abbm[q_recno].cno].nick);
+                            }
                         }
                         break;
                     case 'bankf':
@@ -152,7 +154,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtNoa').attr('disabled', 'disabled')
+                $('#txtNoa').attr('disabled', 'disabled');
                 $('#txtLcno').focus();
             }
 
@@ -176,7 +178,7 @@
                 } else if (q_cur == 2) {
                     $('#txtWorker2').val(r_name);
                 } else {
-                    alert("error: btnok!")
+                    alert("error: btnok!");
                 }
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());

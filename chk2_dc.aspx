@@ -514,6 +514,7 @@
 					</td>
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:20px;"><a id='vewChks'> </a></td>
+					<td align="center" style="width:20px;"><a id='vewChkin'> </a></td>
 					<td align="center" style="width:100px;"><a id='vewCheckno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='vewBank_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewBankno_s'> </a></td>
@@ -531,6 +532,9 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td >
 					<input id="chkSel.*" type="checkbox"/>
+					</td>
+					<td >
+					<input id="chkIns.*" type="checkbox"/>
 					</td>
 					<td >
 					<input class="txt c1" id="txtCheckno.*" onclick="browGqb(this)" type="text"  style="width: 95%"/>
