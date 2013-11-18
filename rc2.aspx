@@ -200,6 +200,48 @@
 							focus_addr = '';
 						}
 					break;
+				case 'btnDele':
+                	var as = _q_appendData("pays", "", true);
+                    if (as[0] != undefined) {
+                    	var t_msg = "",t_paysale=0;
+                       	for(var i=0;i<as.length;i++){
+                       		t_paysale = parseFloat(as[i].paysale.length==0?"0":as[i].paysale);
+                       		if(t_paysale!=0)
+                       			t_msg += String.fromCharCode(13)+'付款單號【'+as[i].noa+'】 '+FormatNumber(t_paysale);
+                       	}
+                       	if(t_msg.length>0){
+                       		alert('已沖帳:'+ t_msg);
+                       		Unlock(1);
+                       		return;
+                       	}
+					}
+                    _btnDele();
+                    Unlock(1);
+                	break;
+				case 'btnModi':
+                	var as = _q_appendData("pays", "", true);
+					if (as[0] != undefined) {
+						var t_msg = "",t_paysale=0;
+						for(var i=0;i<as.length;i++){
+							t_paysale = parseFloat(as[i].paysale.length==0?"0":as[i].paysale);
+							if(t_paysale!=0)
+                        		t_msg += String.fromCharCode(13)+'付款單號【'+as[i].noa+'】 '+FormatNumber(t_paysale);
+                       	}
+						if(t_msg.length>0){
+                       		alert('已沖帳:'+ t_msg);
+                       		Unlock(1);
+                       		return;
+                       	}
+					}
+                    _btnModi();
+					Unlock(1);
+					$('#txtDatea').focus();
+			
+					if(!emp($('#txtTggno').val())){
+						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+						q_gt('custaddr', t_where, 0, 0, 0, "");
+					}
+                	break;
 				case q_name: if (q_cur == 4)   // 查詢
 						q_Seek_gtPost();
 					break;
@@ -352,14 +394,10 @@
 		function btnModi() {
 			if( emp( $('#txtNoa').val()))
 				return;
-
-			_btnModi();
-			$('#txtDatea').focus();
-			
-			if(!emp($('#txtTggno').val())){
-				var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
-				q_gt('custaddr', t_where, 0, 0, 0, "");
-			}
+				
+			Lock(1,{opacity:0});
+			var t_where =" where=^^ rc2no='"+ $('#txtNoa').val()+"'^^";
+			q_gt('pays', t_where, 0, 0, 0, 'btnModi',r_accy);
 		}
 
 		function btnPrint() {
@@ -461,7 +499,9 @@
 			_q_brwAssign(s1);
 		}
 		function btnDele() {
-			_btnDele();
+			Lock(1,{opacity:0});
+			var t_where =" where=^^ rc2no='"+ $('#txtNoa').val()+"'^^";
+			q_gt('pays', t_where, 0, 0, 0, 'btnDele',r_accy);
 		}
 
 		function btnCancel() {
@@ -469,15 +509,26 @@
 		}
 		
 		function q_popPost(s1) {
-				switch (s1) {
-					case 'txtTggno':
-						if(!emp($('#txtTggno').val())){
-							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
-							q_gt('custaddr', t_where, 0, 0, 0, "");
-						}
-					break;
-				}
+			switch (s1) {
+				case 'txtTggno':
+					if(!emp($('#txtTggno').val())){
+						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+						q_gt('custaddr', t_where, 0, 0, 0, "");
+					}
+				break;
 			}
+		}
+		function FormatNumber(n) {
+            var xx = "";
+            if(n<0){
+            	n = Math.abs(n);
+            	xx = "-";
+			}     		
+			n += "";
+			var arr = n.split(".");
+			var re = /(\d{1,3})(?=(\d{3})+$)/g;
+			return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+		}
 	</script>
 	<style type="text/css">
 		#dmain {
