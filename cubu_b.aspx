@@ -75,7 +75,8 @@
 					mount:t_Mount,
 					style:t_Style,
 					stype:2,
-					productno:t_Productno
+					productno:t_Productno,
+					round:3
 				};
 				var TheoryVal = theory_st(theory_setting);
 				$('#txtWeight_'+b_seq).val(TheoryVal);

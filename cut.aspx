@@ -22,8 +22,8 @@
 			var q_name = "cut";
 			var q_readonly = ['txtNoa', 'txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker', 'txtWorker2'];
 			var q_readonlys = [];
-			var bbmNum = [];
-			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1]];
+			var bbmNum = [['txtGweight',10,3,1]];
+			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1],['txtTheory',10,3,1],['txtHweight',10,3,1],['txtWeight',10,3,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -747,7 +747,8 @@
 					lengthb:t_Lengthb,
 					mount:t_Mount,
 					style:t_Style,
-					stype:t_spec
+					stype:t_spec,
+					round:3
 				};
 				if (dec(t_Divide) == 0)
 					t_Divide = 1;
