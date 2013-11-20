@@ -17,10 +17,10 @@
 
             q_tables = 's';
             var q_name = "shipinstruct";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = ['txtOrdcno','txtNo2'];
-            var bbmNum = [['txtTotal', 10, 1, 1]];
-            var bbsNum = [['txtSize1', 10, 3, 1], ['txtSize2', 10, 2, 1], ['txtSize3', 10, 3, 1], ['txtSize4', 10, 2, 1], ['txtRadius', 10, 3, 1], ['txtWidth', 10, 2, 1], ['txtDime', 10, 3, 1], ['txtLengthb', 10, 2, 1], ['txtMount', 10, 2, 1], ['txtWeight', 10, 1, 1]];
+            var bbmNum = [];
+            var bbsNum = [['txtMount', 10, 2, 1], ['txtWeight', 10, 1, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -187,7 +187,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['mount']) {
+                if (!as['productno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }

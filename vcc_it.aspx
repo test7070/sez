@@ -812,8 +812,11 @@
 					<input id="txtAcomp" type="text" class="txt c3"/>
 				</td>
                 <td class="td7"><span> </span><a id='lblMon' class="lbl"> </a></td>
-                <td class="td8"><input id="txtMon" type="text" class="txt c1"/></td>        
-				<td class="td8"></td>
+                <td class="td8" colspan='2'>
+                	<input id="txtMon" type="text" class="txt" style="width: 70px;"/>
+                	<span> </span><a id='lblIsgenvcca' class="lbl"> </a>
+                	<input id="chkIsgenvcca" type="checkbox" style="float: right;"/>
+                </td>        
                 <td class="td7"><span> </span><a id='lblInvono' class="lbl btn"> </a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td> 
             </tr>
@@ -847,6 +850,20 @@
                 <td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td> 
             </tr>
             <tr>
+				<td class="td1"><span> </span><a id="lblCust2" class="lbl btn"> </a></td>
+				<td class="td2" colspan='2'>
+					<input id="txtCustno2" type="text" class="txt c2"/>
+					<input id="txtComp2" type="text" class="txt c3"/>
+				</td>
+                <td class="td3"><span> </span><a id="lblSales2" class="lbl btn"> </a></td>
+				<td class="td4" colspan='2'>
+					<input id="txtSalesno2" type="text" class="txt c2"/>
+					<input id="txtSales2" type="text" class="txt c3"/>
+				</td>
+				 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+                <td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td> 
+            </tr>
+            <tr>
 				<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
 				<td class="td2" colspan='2'>
 					<input id="txtCardealno" type="text" class="txt c2"/>
@@ -854,18 +871,18 @@
 				</td>
                 <td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
                 <td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c1"/></td>
-				 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-                <td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td> 
+                <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+                <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td> 
             </tr>
-            <tr>
-				<td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
+			<tr>
+                <td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
                 <td class="td5"><input id="txtSalesno" type="text" class="txt c1"/></td>                 
                 <td class="td6"><input id="txtSales" type="text" class="txt c1"/></td>
                 <td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
                 <td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>                 
-                <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td> 
-                <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-                <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td> 
+                <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td>                    
+                <td class="td7"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
+                <td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
             </tr>
 			<tr>
 				<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
@@ -882,8 +899,6 @@
                 <td class="td4"><span> </span><a id="lblWorker" class="lbl"> </a></td>
                 <td class="td5"><input id="txtWorker" type="text" class="txt c1"/></td>             
                 <td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
-                <td class="td7"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-                <td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
