@@ -56,6 +56,7 @@
 		var SeekF = new Array();
 		function mainPost(){
 			q_getFormat();
+			q_cmbParse("combTypea", q_getPara('sys.stktype'));
 			$('#textProductno').focus(function(){
 				q_cur=1;
 			}).blur(function(){
@@ -106,6 +107,7 @@
 			t_width = trim($('#textWidth').val());
 			t_lengthb = trim($('#textLengthb').val());
 			t_weight = trim($('#textWeight').val());
+			t_kind = trim($('#combTypea').val());
 			var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno)
 								 + q_sqlPara2("productno", t_productno)
 								 + q_sqlPara2("storeno", t_storeno)
@@ -114,7 +116,8 @@
 								 + q_sqlPara2("dime", t_dime)
 								 + q_sqlPara2("width", t_width)
 								 + q_sqlPara2("lengthb", t_lengthb)
-								 + q_sqlPara2("weight", t_weight);
+								 + q_sqlPara2("weight", t_weight)
+								 + q_sqlPara2("kind", t_kind);
 			seekData(t_where);
 		}
 
@@ -278,6 +281,10 @@
 						<input id="textStoreno" type="text" style="width:25%"/>
 						<input id="textStore" type="text" style="width:73%"/>
 					</td>
+					<td><span class="lbl">類別</span></td>
+					<td>
+						<select id="combTypea" class="txt c1"> </select>
+					</td>
 				</tr>
 				<tr>
 					<td><span class="lbl">等級</span></td>
@@ -299,6 +306,7 @@
 					</td>
 				</tr>
 			</table>
+			<div id="q_acDiv" style="display: none;"><div> </div></div>
 		</div>
 </body>
 </html>

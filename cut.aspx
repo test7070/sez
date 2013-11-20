@@ -171,7 +171,7 @@
 							$(this).attr('OldValue', $(this).val());
 						});
 						ProductAddStyle(b_seq);
-						$('#txtStyle_' + b_seq).focus();
+						//$('#txtStyle_' + b_seq).focus();
 						break;
 				}
 			}
@@ -288,7 +288,22 @@
             }
             
             function SetBBsPno(){
-            	
+            	var thisComp = q_getPara('sys.comp');
+            	var bbmPno = trim($('#txtProductno').val()).toUpperCase();
+            	if(thisComp.indexOf('裕承隆') > -1){
+            		for(var i=0;i<q_bbsCount;i++){
+            			var bbs_thisPno = trim($('#txtProductno_'+i).val());
+            			var bbsNewPno = '';
+            			if(bbs_thisPno.length == 0){
+            				switch(bbmPno){
+            					case 'GI' : bbsNewPno = 'GS'; break;
+            					case 'HR' : bbsNewPno = 'HS'; break;
+            					default : bbsNewPno = bbmPno; break;
+            				}
+            				$('#txtProductno_'+i).val(bbsNewPno);
+            			}
+            		}
+            	}
             }
             
             function q_funcPost(t_func, result) {
@@ -412,6 +427,7 @@
 					Unlock(1);
 					return;					
 				}
+				SetBBsPno();
 				if (q_cur > 0 && dec($('#txtPrice').val()) > 0)
 					$('#txtTranmoney').val(dec($('#txtPrice').val()) * dec($('#txtTheyout').val()));
 				//檢查BBS批號
@@ -515,6 +531,7 @@
 									$(this).val('B');
 								}
 							}
+							SetBBsPno();
 						});
 						$('#txtStyle_' + j).blur(function() {
 							var n = $(this).attr('id').replace('txtStyle_', '');
