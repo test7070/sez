@@ -16,6 +16,10 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 			var uccgaItem = '';
+			var sss_state=false;
+			var issale='0';
+			var job='';
+			var sgroup='';
 			if(location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;100";
 			}
@@ -23,6 +27,9 @@
 				q_getId();
 				if(uccgaItem.length == 0){
 					q_gt('uccga', '', 0, 0, 0, "");
+				}
+				if(!sss_state){
+					q_gt('sss', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "");
 				}
 			});
 			function q_gfPost() {
@@ -81,7 +88,13 @@
                         type : '8', //[20]
                         name : 'xshowprice',
                         value : "0@".split(',')
-	                }]
+	                }, {
+                        type : '6', //[21]
+                      	 name : 'salesgroup'
+	                }, {
+                        type : '6', //[22]
+                        name : 'paytype'
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -124,6 +137,42 @@
 				$('.q_report .report').css('width','420px');
 				$('.q_report .report div').css('width','200px');
 				
+				var tmp = document.getElementById("txtPaytype");
+                var selectbox = document.createElement("select");
+                selectbox.id="combPay";
+                selectbox.style.cssText ="width:15px;font-size: medium;";
+                //selectbox.attachEvent('onchange',combPay_chg);
+                //selectbox.onchange="combPay_chg";
+                tmp.parentNode.appendChild(selectbox,tmp);
+                q_cmbParse("combPay", '全部,'+q_getPara('vcc.paytype')); 
+                $('#txtPaytype').val('全部');
+                
+                $('#combPay').change(function() {
+					var cmb = document.getElementById("combPay")
+		                $('#txtPaytype').val(cmb.value);
+				});
+				
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+					if(issale=='true'&&job.indexOf('經理')<0&&r_rank<='7'){//一般業務只能看到自己的業績
+						$('#txtSales1a').val(r_userno);
+						$('#txtSales1b').val(r_name);
+						$('#txtSales2a').val(r_userno);
+						$('#txtSales2b').val(r_name);
+						$('#btnSales1').hide();
+						$('#btnSales2').hide();
+						$('#txtSales1a').attr('disabled','disabled');
+						$('#txtSales2a').attr('disabled','disabled');
+						$('#txtSalesgroup').val(sgroup)
+						$('#txtSalesgroup').attr('disabled','disabled');
+					}else if(issale=='true'&&job.indexOf('經理')>-1&&r_rank<='7'){
+						$('#txtSales1a').val(r_userno);
+						$('#txtSales1b').val(r_name);
+						$('#txtSales2a').val(r_userno);
+						$('#txtSales2b').val(r_name);
+						$('#txtSalesgroup').val(sgroup)
+						$('#txtSalesgroup').attr('disabled','disabled');
+					}
+				}
 			}
 
 			function q_boxClose(s2) {
@@ -131,14 +180,25 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'sss':
+                        var as = _q_appendData("sss", "", true);
+                        if (as[0] != undefined) {
+                        	issale=as[0].issales;
+							job=as[0].job;
+							sgroup=as[0].salesgroup;
+						}
+                        sss_state=true;
+                        break;
 					case 'uccga':
                         var as = _q_appendData("uccga", "", true);
                         uccgaItem = " @全部";
                         for ( i = 0; i < as.length; i++) {
                             uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
                         }
-						q_gf('', 'z_vcc');
                         break;
+				}
+				if(uccgaItem.length>0&&sss_state){
+					q_gf('', 'z_vcc');
 				}
 			}
 		</script>
