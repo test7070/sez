@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			var gfrun = false;
 			var uccgaItem = '';
 			var sss_state=false;
 			var issale='0';
@@ -197,7 +198,8 @@
                         }
                         break;
 				}
-				if(uccgaItem.length>0&&sss_state){
+				if(uccgaItem.length>0&&sss_state&&!gfrun){
+					gfrun=true;
 					q_gf('', 'z_vcc');
 				}
 			}

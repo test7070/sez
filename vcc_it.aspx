@@ -38,7 +38,8 @@
 			['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 			['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
 			['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
-			['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+			['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+			['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_', '']
 		);
 	
               
@@ -98,7 +99,8 @@
 	                ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 	                ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
 	                ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
-	                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucc_b.aspx']
+	                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucc_b.aspx'],
+	                ['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_', '']
 				);
 			}
             
@@ -338,14 +340,14 @@
             	case 'btnDele':
                 	var as = _q_appendData("umms", "", true);
                     if (as[0] != undefined) {
-                    	var t_msg = "",t_paysale=0;
+                    	var z_msg = "",t_paysale=0;
                        	for(var i=0;i<as.length;i++){
                        		t_paysale = parseFloat(as[i].paysale.length==0?"0":as[i].paysale);
                        		if(t_paysale!=0)
-                       			t_msg += String.fromCharCode(13)+'收款單號【'+as[i].noa+'】 '+FormatNumber(t_paysale);
+                       			z_msg += String.fromCharCode(13)+'收款單號【'+as[i].noa+'】 '+FormatNumber(t_paysale);
                        	}
-                       	if(t_msg.length>0){
-                       		alert('已沖帳:'+ t_msg);
+                       	if(z_msg.length>0){
+                       		alert('已沖帳:'+ z_msg);
                        		Unlock(1);
                        		return;
                        	}
@@ -356,14 +358,14 @@
 				case 'btnModi':
                 	var as = _q_appendData("umms", "", true);
 					if (as[0] != undefined) {
-						var t_msg = "",t_paysale=0;
+						var z_msg = "",t_paysale=0;
 						for(var i=0;i<as.length;i++){
 							t_paysale = parseFloat(as[i].paysale.length==0?"0":as[i].paysale);
 							if(t_paysale!=0)
-                        		t_msg += String.fromCharCode(13)+'收款單號【'+as[i].noa+'】 '+FormatNumber(t_paysale);
+                        		z_msg += String.fromCharCode(13)+'收款單號【'+as[i].noa+'】 '+FormatNumber(t_paysale);
                        	}
-						if(t_msg.length>0){
-                       		alert('已沖帳:'+ t_msg);
+						if(z_msg.length>0){
+                       		alert('已沖帳:'+ z_msg);
                        		Unlock(1);
                        		return;
                        	}
@@ -552,7 +554,10 @@
         
         function q_stPost() {
             if (q_cur == 1 || q_cur == 2) {
-                abbm[q_recno]['accno'] = xmlString;   /// 存檔後， server 傳回 xmlString 
+            	var s2 = xmlString.split(';');
+            	abbm[q_recno]['accno'] = s2[0];
+            	abbm[q_recno]['invono'] = s2[1];
+                //abbm[q_recno]['accno'] = xmlString;   /// 存檔後， server 傳回 xmlString 
                 //$('#txtAccno').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
             }
         }

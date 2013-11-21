@@ -207,7 +207,7 @@
                 		
 		                //呼叫要匯入的資料
 						var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and len(outdate)=0 and len(suspdate)=0 and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
-						t_where=t_where+"and a.carno not in (select carno from trans"+r_accy+" where carno in(select noa from car2 where cartype='2') and datea='"+t_date+"' group by carno) and a.driverno!=''^^";
+						t_where=t_where+"and a.carno not in (select carno from trans"+r_accy+" where carno in(select noa from car2 where cartype='2') and datea='"+t_date+"' group by carno) and a.driverno!='' order by a.driverno^^";
 					    q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);
 			    	}
                 	if (q_cur == 4)   
