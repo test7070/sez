@@ -39,7 +39,7 @@
 				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], 
 				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], 
 				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx'],
-				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__', 'uccc_seek_b.aspx','95%','60%']
+				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight,spec', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__,txtSpec__', 'uccc_seek_b.aspx','95%','60%']
 			);
 			function distinct(arr1){
 				var uniArray = [];
@@ -206,6 +206,15 @@
 						tempArray.push($('#txtProductno2_' + j).val());
 				}
 				var TmpStr = distinct(tempArray).sort();
+				for(var k=0; k<TmpStr.length;k++){
+					var thisVal = trim(TmpStr[k]);
+					switch(thisVal){
+						case 'GP' : TmpStr[k]='GS'; break;
+						case 'GE' : TmpStr[k]='GS'; break;
+						case 'HP' : TmpStr[k]='HS'; break;
+						case 'HE' : TmpStr[k]='HS'; break;
+					}
+				}
 				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
 				return TmpStr;
 			}
