@@ -21,9 +21,9 @@
 			['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
 		);
 		$(document).ready(function () {
-			var Parent = window.parent.document;
-			if(Parent.getElementById('cmbKind')){
-				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
+			var Parent = window.parent;
+			if(Parent.$('#cmbKind').val()){
+				var t_cmbKind = Parent.$('#cmbKind').val().substr(0,1);
 				if(t_cmbKind=='A'){
 					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
@@ -143,19 +143,45 @@
 				maxAbbsCount = abbs.length;
 			}
 			_refresh();
-			var Parent = window.parent.document;
-			if(Parent.getElementById('cmbKind')){
-				var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
+			var w = window.parent;
+			if(w.$('#cmbKind').val() || w.q_name=='cub'){
+				var t_cmbKind = '';
+				if(w.$('#cmbKind').val())
+					t_cmbKind = w.$('#cmbKind').val().substr(0,1);
+				if(w.q_name=='cub'){
+					var w_href=q_getHref();
+					for(var k=0;k<w_href.length;k++){
+						if(w_href[k] && w_href[k+1] && w_href[k].toString().indexOf('kind') > -1){
+							t_cmbKind = w_href[k+1].toString().substr(0,1);
+							$('#combTypea').val(w_href[k+1].toString());
+							break;
+						}
+					}
+					if(t_cmbKind=='')
+						t_cmbKind = $('#combTypea').val().substr(0,1);
+				}
 				if(t_cmbKind=='A'){
 					$('#lblSize_st').text(q_getPara('sys.lblSizea'));
+					$('#lblSize_st').parent().css('width','18%');
+					$('#size_changeTd').css('width','18%');
 					$('input[id*="txtLengthb_"]').css('width','29%');
 					$('input[id*="txtWidth_"]').css('width','29%');
 					$('input[id*="txtDime_"]').css('width','29%');
 					$('input[id*="txtRadius_"]').remove();
 					$('span[id*="StrX1"]').remove();
+				}else if(t_cmbKind=='B'){
+					$('#lblSize_st').text(q_getPara('sys.lblSizeb'));
+					$('#lblSize_st').parent().css('width','18%');
+					$('#size_changeTd').css('width','18%');
+					$('input[id*="txtLengthb_"]').css('width','21%');
+					$('input[id*="txtWidth_"]').css('width','21%');
+					$('input[id*="txtDime_"]').css('width','21%');
+					$('input[id*="txtRadius_"]').css('width','21%');
+					//$('span[id*="StrX1"]').remove();
 				}else if((t_cmbKind !='A') && (t_cmbKind !='B')){
 					$('#lblSize_st').text(q_getPara('sys.lblSizec'));
 					$('#lblSize_st').parent().css('width','6%');
+					$('#size_changeTd').css('width','6%');
 					$('input[id*="txtLengthb_"]').css('width','95%');
 					$('input[id*="txtRadius_"]').remove();
 					$('input[id*="txtWidth_"]').remove();
@@ -253,7 +279,7 @@
 					<td align="center" style="width:6%;"><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td align="center" style="width:8%;"><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td align="center" style="width:4%;"><input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/></td>
-					<td align="center" style="width:18%;">
+					<td id="size_changeTd" align="center" style="width:18%;">
 						<input id="txtRadius.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
 						<span id="StrX1" class="StrX">x</span>
 						<input id="txtWidth.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
