@@ -484,6 +484,11 @@
                 }
             } //j
             _bbsAssign();
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+				$('.it').show();
+			}else{
+				$('.it').hide();
+			}
         }
 
         function btnIns() {
