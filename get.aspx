@@ -17,7 +17,7 @@
         }
         q_tables = 's';
         var q_name = "get";
-        var q_readonly = ['txtWorker'];
+        var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtTotal', 10, 1]];  // 允許 key 小數
         var bbsNum = [['txtSize1', 10, 3],['txtSize2', 10, 2],['txtSize3', 10, 3],['txtSize4', 10, 2],['txtRadius', 10, 3],['txtWidth', 10, 2],['txtDime', 10, 3],['txtLengthb', 10, 2],['txtMount', 10, 0],['txtWeight', 10, 1]];
@@ -451,16 +451,16 @@
        <tr class="tr3">
             <td class='td1'><span> </span><a id="lblCustno" class="lbl btn" > </a></td>
             <td class="td2" colspan="3"><input id="txtCustno" type="text" class="txt c2"/><input id="txtComp" type="text"  class="txt c3"/></td>
-       		<td class='td3'><span> </span><a id="lblVno" class="lbl"> </a></td>
-            <td class="td4"><input id="txtVno" type="text" class="txt c1"/></td>
-            <td class="td5"><input id="btnStk" type="button" /></td>
+            <!--<td class="td5"><input id="btnStk" type="button" /></td>-->
        </tr>
         <tr class="tr4">        
             <td class="td1"><span> </span><a id="lblStore" class="lbl btn"> </a></td>
             <td class="td2" colspan="3"><input id="txtStoreno" type="text" class="txt c2" /><input id="txtStore" type="text" class="txt c3"/></td> 
-            <td class='td3'><span> </span><a id="lblWaste" class="lbl"> </a></td>
+            <td class='td3'><span> </span><a id="lblVno" class="lbl"> </a></td>
+            <td class="td4"><input id="txtVno" type="text" class="txt c1"/></td>
+            <!--<td class='td3'><span> </span><a id="lblWaste" class="lbl"> </a></td>
             <td class="td4"><input id="txtWaste" type="text" class="txt c1"/></td>
-            <td class="td5"><input id="btnWaste" type="button" /> </td>
+            <td class="td5"><input id="btnWaste" type="button" /> </td>-->
         </tr>
         <tr class="tr5">
         	<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>

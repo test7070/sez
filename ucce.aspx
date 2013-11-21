@@ -31,7 +31,7 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            brwCount2= 3;
+            brwCount2= 5;
             q_brwCount();   
             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 
@@ -384,7 +384,7 @@
             <td class='td5'><span> </span><a id="lblKind" class="lbl"> </a></td>
             <td class='td6'><select id="cmbKind" class="txt c1"> </select></td>
         </tr>
-        <tr class="tr2">
+        <!--<tr class="tr2">
             <td class='td1'><span> </span><a id="lblStore" class="lbl btn"> </a></td>
             <td class='td2'  colspan='5'>
             	<input id="txtStoreno" type="text" class="txt c4"/>
@@ -401,7 +401,7 @@
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblWaste" class="lbl"> </a></td>
             <td class='td2'><input id="txtWaste"  type="text" class="txt c1"/></td>
-        </tr>
+        </tr>-->
         </table>
         </div>
         <div class='dbbs' > 
@@ -409,7 +409,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id='lblStoreno_s'> </a></td>
-                <td align="center" style="width:15%;"><a id='lblUno_s'> </a></td>
+                <!--<td align="center" style="width:15%;"><a id='lblUno_s'> </a></td>-->
                 <td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
                 <!--<td align="center"><a id='lblSpec_s'> </a></td>
                 <td align="center"><a id='lblDime_s'> </a></td>
@@ -432,7 +432,7 @@
                 		<input class="btn"  id="btnStoreno.*" type="button" value='.' style="width:5%;"  /><BR>
                 		<input class="txt c1" id="txtStore.*" type="text" />
                 </td>
-                <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
+                <!--<td ><input class="txt c1" id="txtUno.*" type="text" /></td>-->
                 <td ><input class="txt c3" id="txtProductno.*" type="text" />
                 		<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:5%;"  /><BR>
                 		<input class="txt c1" id="txtProduct.*" type="text" />
