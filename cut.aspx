@@ -581,7 +581,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['bno'] && !as['productno'] && !as['product'] && !as['spec'] && parseFloat(as['mount'].length==0?"0":as['mount'])==0) {
+				if (!as['bno'] && !as['style'] && !as['spec'] && parseFloat(as['mount'].length==0?"0":as['mount'])==0) {
 					as[bbsKey[1]] = '';
 					return;
 				}
