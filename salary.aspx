@@ -594,8 +594,9 @@
 		                    		}
 		                    	}
 		                    	//大昌用--加班費=本薪/30/8*加班時數
-		                    	as[i].addmoney=Math.round(dec(as[i].salary)/30/8*(dec(as[i].addh21)+dec(as[i].addh22)+dec(as[i].addh46_1)+dec(as[i].addh46_2)));
-		                    	
+		                    	if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+		                    		as[i].addmoney=Math.round(dec(as[i].salary)/30/8*(dec(as[i].addh21)+dec(as[i].addh22)+dec(as[i].addh46_1)+dec(as[i].addh46_2)));
+		                    	}
 		                    }
 						}//end for
 						
@@ -861,7 +862,17 @@
         		
         		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
         		
-        		if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
+        		if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+        			q_tr('txtTotal1_'+j,Math.round(dec($('#txtDaymoney_'+j).val())));
+        			q_tr('txtMtotal_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*dec($('#txtDay_'+j).val())+dec($('#txtPlus_'+j).val())));//給薪金額
+        			q_tr('txtTotal2_'+j,Math.round((dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()))+dec($('#txtMtotal_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
+        			q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+        			q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
+        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())));//應領總額=給付總額+加班費+免稅其他
+        			//福利金
+        			if(!($('#chkIswelfare_'+j)[0].checked))
+		        		q_tr('txtWelfare_'+j,0);
+        		}else if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
         			q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));
 	                q_tr('txtMi_person_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_person_'+j),0));
 	                q_tr('txtMi_nosalary_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_nosalary_'+j),0));
@@ -876,17 +887,7 @@
         			//福利金
         			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
-        		}else if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
-        			q_tr('txtTotal1_'+j,Math.round(dec($('#txtDaymoney_'+j).val())));
-        			q_tr('txtMtotal_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*dec($('#txtDay_'+j).val())+dec($('#txtPlus_'+j).val())));//給薪金額
-        			q_tr('txtTotal2_'+j,Math.round((dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()))/2+dec($('#txtMtotal_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
-        			q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-        			//q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
-        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())));//應領總額=給付總額+加班費+免稅其他
-        			//福利金
-        			if(!($('#chkIswelfare_'+j)[0].checked))
-		        		q_tr('txtWelfare_'+j,0);
-        		}else{//本月
+        		}else {//本月
         			//q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));
 	                //q_tr('txtMi_person_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_person_'+j),0));
 	                //q_tr('txtMi_nosalary_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_nosalary_'+j),0));
@@ -898,7 +899,10 @@
         			}
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
-        			q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*dec($('#txtAddh2_2_'+j).val())));//加班費
+        			q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
+        			if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*dec($('#txtAddh2_2_'+j).val())));//加班費
+        			}
         			//q_tr('txtTax6_'+j,Math.round((dec($('#txtTotal2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val())))*0.06));//所得稅
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
         			//福利金--本薪*0.5%
@@ -1081,6 +1085,7 @@
             	 $('#lblMi_total').show();
             	 $('#txtMi_total').show();
             	 //bbs
+            	 $('#hid_total1').show();
             	 $('#hid_money').show();
             	 $('#hid_daymoney').hide();
             	 $('#hid_day').hide();
@@ -1102,6 +1107,7 @@
             	 $('#hid_tax').show();
             	 $('#hid_tax5').show();
             	 for (var j = 0; j < q_bbsCount; j++) {
+            	 	$('#hid_total1_'+j).show();
             	 	 $('#hid_money_'+j).show();
             		 $('#hid_daymoney_'+j).hide();
 	            	 $('#hid_day_'+j).hide();
@@ -1134,6 +1140,7 @@
 	            	 $('#lblMi_total').hide();
 	            	 $('#txtMi_total').hide();
 	            	 //bbs
+	            	 $('#hid_total1').hide();
 	            	 $('#hid_money').hide();
             	 	 $('#hid_daymoney').show();
 	            	 $('#hid_day').show();
@@ -1155,6 +1162,7 @@
 	            	 $('#hid_tax').show();
 	            	 $('#hid_tax5').show();
             	 	for (var j = 0; j < q_bbsCount; j++) {
+            	 		$('#hid_total1_'+j).hide();
             	 		 $('#hid_money_'+j).hide();
             			 $('#hid_daymoney_'+j).show();
             	 		 $('#hid_day_'+j).show();
@@ -1188,6 +1196,7 @@
 	            	 $('#lblMi_total').show();
 	            	 $('#txtMi_total').show();
 	            	 //bbs
+	            	 $('#hid_total1').show();
 	            	 $('#hid_money').show();
             		 $('#hid_daymoney').hide();
 	            	 $('#hid_day').hide();
@@ -1209,6 +1218,7 @@
 	            	 $('#hid_tax').hide();
 	            	 $('#hid_tax5').hide();
             	 	for (var j = 0; j < q_bbsCount; j++) {
+            	 		$('#hid_total1_'+j).show();
             	 		 $('#hid_money_'+j).show();
             			 $('#hid_daymoney_'+j).hide();
             	 		 $('#hid_day_'+j).hide();
@@ -1644,7 +1654,7 @@
                 <td align="center" class="td2" id='hid_bo_special' style="width: 100px;"><a id='lblBo_specials'></a></td>
                 <td align="center" class="td2" id='hid_bo_oth' style="width: 100px;"><a id='lblBo_oths'></a></td>
                 <td align="center" class="td2" id='hid_plus' style="width: 100px;"><a id='lblPluss'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblTotal1s'></a></td>
+                <td align="center" class="td2" id='hid_total1' style="width: 100px;"><a id='lblTotal1s'></a></td>
                 <td align="center" class="td2" id='hid_day' style="width: 100px;"><a id='lblDays'></a></td>
                 <td align="center" class="td2" id='hid_mtotal' style="width: 100px;"><a id='lblMtotals'></a></td>
                 <td align="center" class="td2" id='hid_mi_saliday' style="width: 100px;"><a id='lblMi_salidays'></a></td>
@@ -1707,7 +1717,7 @@
                 <td id='hid_bo_special.*'><input class="txt num c1" id="txtBo_special.*" type="text"/></td>
                 <td id='hid_bo_oth.*'><input class="txt num c1" id="txtBo_oth.*" type="text" /></td>
                 <td id='hid_plus.*'><input class="txt num c1" id="txtPlus.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtTotal1.*" type="text" /></td>
+                <td id='hid_total1.*'><input class="txt num c1" id="txtTotal1.*" type="text" /></td>
                 <td id='hid_day.*'><input class="txt num c1" id="txtDay.*" type="text" /></td>
                 <td id='hid_mtotal.*'><input class="txt num c1" id="txtMtotal.*" type="text" /></td>
                 <td id='hid_mi_saliday.*'><input class="txt num c1" id="txtMi_saliday.*" type="text" /></td>

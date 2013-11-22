@@ -107,6 +107,9 @@
                 $('#txtTax').change(function() {
                     sum();
                 });
+                $('#txtMoney').change(function() {
+                    sum();
+                });
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
@@ -335,6 +338,13 @@
                         $('#txtTax').removeAttr('readonly');
                         t_tax = round(q_float('txtTax'), 0);
                         t_total = t_money + t_tax;
+                         if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+                        	$('#txtMoney').removeAttr('readonly');
+                        	t_money=dec($('#txtMoney').val());
+                        	 $('#txtTax').removeAttr('readonly');
+	                        t_tax = round(q_float('txtTax'), 0);
+	                        t_total = t_money + t_tax;
+                        }
                         break;
                     case '6':
                         // 作廢-清空資料
