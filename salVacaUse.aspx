@@ -103,15 +103,28 @@
 	            			$('#txtEtime').val(time);
 	            		}
 	            		var use_hr=0;
-	            		if($('#txtEtime').val()>='13:30'&&$('#txtBtime').val()<='12:00'){
-	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
-	            			use_hr=use_hr-1.5;//大昌休息時間從12點到13點半
-	            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:30' && $('#txtEtime').val()>='13:30'){
-	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
-	            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:30' && $('#txtBtime').val()>='12:00'){
-	            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            		if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+		            		if($('#txtEtime').val()>='13:30'&&$('#txtBtime').val()<='12:00'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            			use_hr=use_hr-1.5;//大昌休息時間從12點到13點半
+		            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:30' && $('#txtEtime').val()>='13:30'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
+		            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:30' && $('#txtBtime').val()>='12:00'){
+		            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}else{
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}
 	            		}else{
-	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            			if($('#txtEtime').val()>='13:00'&&$('#txtBtime').val()<='12:00'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            			use_hr=use_hr-1.0;
+		            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:00' && $('#txtEtime').val()>='13:00'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
+		            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:00' && $('#txtBtime').val()>='12:00'){
+		            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}else{
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}
 	            		}
 	            		
 	            		if($('#txtBdate').val()!=$('#txtEdate').val())
@@ -155,15 +168,28 @@
 	            			$('#txtEtime').val(time);
 	            		}
 	            		var use_hr=0;
-	            		if($('#txtEtime').val()>='13:30'&&$('#txtBtime').val()<='12:00'){
-	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
-	            			use_hr=use_hr-1.5;//大昌休息時間從12點到13點半
-	            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:30' && $('#txtEtime').val()>='13:30'){
-	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
-	            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:30' && $('#txtBtime').val()<='12:00'){
-	            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            		if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+		            		if($('#txtEtime').val()>='13:30'&&$('#txtBtime').val()<='12:00'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            			use_hr=use_hr-1.5;//大昌休息時間從12點到13點半
+		            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:30' && $('#txtEtime').val()>='13:30'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
+		            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:30' && $('#txtBtime').val()<='12:00'){
+		            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}else{
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}
 	            		}else{
-	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            			if($('#txtEtime').val()>='13:00'&&$('#txtBtime').val()<='12:00'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            			use_hr=use_hr-1.0;
+		            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:00' && $('#txtEtime').val()>='13:00'){
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
+		            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:00' && $('#txtBtime').val()<='12:00'){
+		            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}else{
+		            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+		            		}
 	            		}
 	            		if($('#txtBdate').val()!=$('#txtEdate').val())
 	            		{
