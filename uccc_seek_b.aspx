@@ -29,6 +29,10 @@
 					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
 				}
+			}else if(Parent.q_name == 'cub'){
+					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
+					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
+					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
 			}
 			main();
 		});		 /// end ready
@@ -39,8 +43,29 @@
 				dataErr = false;
 				return;
 			}
-			mainBrow(6, t_content);
 			var w = window.parent;
+			if(w.q_name=='cub' && w.b_seq >=0){
+					var w_href=q_getHref();
+					for(var k=0;k<w_href.length;k++){
+						if(w_href[k] && w_href[k].toString().indexOf('uno') > -1 && location.href.toString().indexOf('uno=') == -1){
+							var t_uno = w.$('#txtUno__'+w.b_seq).val();
+							if(t_uno){
+								var t_where = " 1=1 and uno='"+t_uno+"'";
+								if(location.href.toString().indexOf('kind')==-1){
+									t_where += " and kind='A1'";
+								}
+								seekData(t_where);
+								break;
+							}
+						}else{
+								if(location.href.toString().indexOf('kind')==-1){
+									seekData(" kind='A1'");
+								}
+						}
+					}
+			}
+
+			mainBrow(6, t_content);
 			w.$('#cboxTitle').text('若沒有找到相關資料，請注意類別的選取。').css('color','red').css('font-size','initial');
 			parent.$.fn.colorbox.resize({
 				height : "750px"
@@ -157,8 +182,11 @@
 							break;
 						}
 					}
-					if(t_cmbKind=='')
+					if(t_cmbKind==''){
+						if(abbs[0].kind)
+							t_cmbKind = abbs[0].kind.substr(0,1);
 						t_cmbKind = $('#combTypea').val().substr(0,1);
+					}
 				}
 				if(t_cmbKind=='A'){
 					$('#lblSize_st').text(q_getPara('sys.lblSizea'));
