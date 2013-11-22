@@ -98,6 +98,7 @@
 					return y-x;
 				});
 				_refresh();
+				size_change();
 			}
 			
             function q_gtPost(t_name) {

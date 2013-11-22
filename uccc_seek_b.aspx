@@ -51,18 +51,14 @@
 							var t_uno = w.$('#txtUno__'+w.b_seq).val();
 							if(t_uno){
 								var t_where = " 1=1 and uno='"+t_uno+"'";
-								if(location.href.toString().indexOf('kind')==-1){
-									t_where += " and kind='A1'";
-								}
 								seekData(t_where);
 								break;
 							}
-						}else{
-								if(location.href.toString().indexOf('kind')==-1){
-									seekData(" kind='A1'");
-								}
 						}
 					}
+					if(location.href.toString().indexOf('uno') ==-1 && location.href.toString().indexOf('kind')==-1){
+						seekData("kind='A1'");
+					} 
 			}
 
 			mainBrow(6, t_content);
@@ -217,6 +213,15 @@
 					$('span[id*="StrX1"]').remove();
 					$('span[id*="StrX2"]').remove();
 					$('span[id*="StrX3"]').remove();
+				}
+			}
+			var w = window.parent;
+			if(w.q_name=='cub' && w.b_seq >=0){
+				for(var k=0;k<q_bbsCount;k++){
+					var thisUno = trim($('#txtUno_'+k).val()).toUpperCase();
+					var t_uno = trim(w.$('#txtUno__'+w.b_seq).val()).toUpperCase();
+					if(thisUno==t_uno)
+						$('#radSel_'+k).prop('checked',true);
 				}
 			}
 			_readonly(true);
