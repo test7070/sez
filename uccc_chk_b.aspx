@@ -23,7 +23,7 @@
 						$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
 						$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
 					}
-				}else if(window.parent.q_name != 'cub' || window.parent.q_name == 'cub'){
+				}else if(window.parent.q_name == 'cub'){
 					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
 					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
