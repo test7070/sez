@@ -350,8 +350,8 @@
 							if (b_ret[0] != undefined) {
 								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
-								bbtAssign();
 								size_change();
+								bbtAssign();
 							}
 							sum();
 							b_ret = '';
@@ -398,6 +398,7 @@
 						}
 						break;
 				}
+				size_change();
 				b_pop = '';
 			}
 
@@ -463,7 +464,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['ordeno']) {
+				if (parseFloat(as['mount'].length==0?"0":as['mount'])==0 && parseFloat(as['weight'].length==0?"0":as['weight'])==0) {
 					as[bbsKey[1]] = '';
 					return;
 				}
