@@ -71,6 +71,10 @@
 							type : '0',//[15]
 							name : 'xucctype',
 							value : (q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)?q_getPara('ucc.typea_it'):q_getPara('ucc.typea')
+	                    },{
+							type : '0',//[16]
+							name : 'showprice',
+							value : (q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)&&r_rank<'8'?'0':'1'
 	                    }
                     ]
                 });
