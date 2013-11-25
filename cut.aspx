@@ -1325,9 +1325,7 @@
 					<td style="width:50px;" align="center" ><a id='lbltime'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lblProductno'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lblProduct_s'> </a></td>
-					<td style="width:50px;" align="center" ><a id='lblSpecs'> </a></td>
 					<td style="width:50px;" align="center">加工<br>單價</td>
-					<td style="width:100px;" align="center"><a id='lblSize'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblMweight'> </a></td>
 					<td style="width:120px;" align="center"><a id='lblOrdenos'> </a></td>
 					<td style="width:30px;" align="center" ><a id='lblNo2'> </a></td>
@@ -1374,9 +1372,7 @@
 					<td><input id="txtTime.*" type="text" class="txt c2"/></td>
 					<td><input id="txtProductno.*" type="text" class="txt c2"/></td>
 					<td><input id="txtProduct.*" type="text" class="txt c2"/></td>
-					<td><input id="txtSpec.*" type="text" class="txt c2"/></td>
 					<td><input id="txtWprice.*" type="text" class="txt c2 num"/></td>
-					<td><input id="txtSize.*" type="text" class="txt c2"/></td>
 					<td><input id="txtMweight.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtOrdeno.*" type="text" class="txt c2"/></td>
 					<td><input id="txtNo2.*" type="text" class="txt c2"/></td>
