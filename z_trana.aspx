@@ -29,10 +29,11 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_trana');
+                q_gt('carteam', '', 0, 0, 0, "init1");
+                
             });
             function q_gfPost() {
-                q_gt('carteam', '', 0, 0, 0, "init1");
+                initFinish();
             }
             function q_gtPost(t_name) {
                 switch (t_name) {
@@ -69,7 +70,8 @@
             				sssno+=as[i].noa+'.';
             			}
             			sssno=sssno.substr(0,sssno.length-1);
-            			initFinish();
+            			
+            			q_gf('', 'z_trana');
             			break;
                     default:
                     	break;
