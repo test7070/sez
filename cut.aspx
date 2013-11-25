@@ -464,6 +464,59 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+						$('#txtSize_'+j).change(function(e){
+							if ($.trim($(this).val()).length == 0)
+								return;
+							var n = $(this).attr('id').replace('txtSize_','');			
+							var data = tranSize($.trim($(this).val()));
+							$(this).val(tranSize($.trim($(this).val()),'getsize'));
+							$('#textSize1_'+n).val('');
+							$('#textSize2_'+n).val('');
+							$('#textSize3_'+n).val('');
+							$('#textSize4_'+n).val('');
+							if($('#cmbKind').val()=='A1'){//鋼捲鋼板
+								if(!(data.length==2 || data.length==3)){
+									alert(q_getPara('transize.error01'));
+									return;
+								}
+								$('#textSize1_'+n).val((data[0]!=undefined?(data[0].toString().length>0?(isNaN(parseFloat(data[0]))?0:parseFloat(data[0])):0):0));
+								$('#textSize2_'+n).val((data[1]!=undefined?(data[1].toString().length>0?(isNaN(parseFloat(data[1]))?0:parseFloat(data[1])):0):0));
+								$('#textSize3_'+n).val((data[2]!=undefined?(data[2].toString().length>0?(isNaN(parseFloat(data[2]))?0:parseFloat(data[2])):0):0));
+								sum();
+							}else if($('#cmbKind').val()=='A4'){//鋼胚
+								if(!(data.length==2 || data.length==3)){
+									alert(q_getPara('transize.error04'));
+									return;
+								}
+								$('#textSize1_'+n).val((data[0]!=undefined?(data[0].toString().length>0?(isNaN(parseFloat(data[0]))?0:parseFloat(data[0])):0):0));
+								$('#textSize2_'+n).val((data[1]!=undefined?(data[1].toString().length>0?(isNaN(parseFloat(data[1]))?0:parseFloat(data[1])):0):0));
+								$('#textSize3_'+n).val((data[2]!=undefined?(data[2].toString().length>0?(isNaN(parseFloat(data[2]))?0:parseFloat(data[2])):0):0));
+							}else if($('#cmbKind').val()=='B2'){//鋼管
+								if(!(data.length==3 || data.length==4)){
+									alert(q_getPara('transize.error02'));
+									return;
+								}
+								if(data.length==3){
+									$('#textSize1_'+n).val((data[0]!=undefined?(data[0].toString().length>0?(isNaN(parseFloat(data[0]))?0:parseFloat(data[0])):0):0));
+									$('#textSize3_'+n).val((data[1]!=undefined?(data[1].toString().length>0?(isNaN(parseFloat(data[1]))?0:parseFloat(data[1])):0):0));
+									$('#textSize4_'+n).val((data[2]!=undefined?(data[2].toString().length>0?(isNaN(parseFloat(data[2]))?0:parseFloat(data[2])):0):0));
+								}else{
+									$('#textSize1_'+n).val((data[0]!=undefined?(data[0].toString().length>0?(isNaN(parseFloat(data[0]))?0:parseFloat(data[0])):0):0));
+									$('#textSize2_'+n).val((data[1]!=undefined?(data[1].toString().length>0?(isNaN(parseFloat(data[1]))?0:parseFloat(data[1])):0):0));
+									$('#textSize3_'+n).val((data[2]!=undefined?(data[2].toString().length>0?(isNaN(parseFloat(data[2]))?0:parseFloat(data[2])):0):0));
+									$('#textSize4_'+n).val((data[3]!=undefined?(data[3].toString().length>0?(isNaN(parseFloat(data[3]))?0:parseFloat(data[3])):0):0));
+								}
+							}else if($('#cmbKind').val()=='C3'){//鋼筋
+								if(data.length!=1){
+									alert(q_getPara('transize.error03'));
+									return;
+								}
+								$('#textSize1_'+n).val((data[0]!=undefined?(data[0].toString().length>0?(isNaN(parseFloat(data[0]))?0:parseFloat(data[0])):0):0));
+							}else{
+								//nothing
+							}
+							sum();
+						});
 						$('#txtTheory_'+j).change(function(e){sum();});
 						$('#txtWeight_'+j).change(function(e){sum();});
 						$('#txtBno_' + j).change(function() {
@@ -856,6 +909,8 @@
 						$('#x1_' + j).show();
 						$('#x2_' + j).show();
 						$('#x3_' + j).hide();
+						$('*[id="Size"]').css('width', '220px');
+						$('#txtSpec_' + j).css('width', '220px');
 						$('#textSize1_' + j).val($('#txtDime_' + j).val());
 						$('#textSize2_' + j).val($('#txtWidth_' + j).val());
 						$('#textSize3_' + j).val($('#txtLengthb_' + j).val());
@@ -875,6 +930,8 @@
 						$('#x1_' + j).show();
 						$('#x2_' + j).show();
 						$('#x3_' + j).show();
+						$('*[id="Size"]').css('width', '300px');
+						$('#txtSpec_' + j).css('width', '300px');
 						$('#textSize1_' + j).val($('#txtRadius_' + j).val());
 						$('#textSize2_' + j).val($('#txtWidth_' + j).val());
 						$('#textSize3_' + j).val($('#txtDime_' + j).val());
@@ -893,7 +950,8 @@
 						$('#x1_' + j).hide();
 						$('#x2_' + j).hide();
 						$('#x3_' + j).hide();
-						//$('#txtSpec_' + j).css('width', '180px');
+						$('*[id="Size"]').css('width', '55px');
+						$('#txtSpec_' + j).css('width', '55px');
 						$('#textSize1_' + j).val(0);
 						$('#txtDime_' + j).val(0);
 						$('#textSize2_' + j).val(0);
@@ -1080,7 +1138,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2000px;
+				width: 2250px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -1253,7 +1311,8 @@
 					<td style="width:110px;" align="center"><a id='lblCustno'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblComps'> </a></td>
 					<td style="width:30px;" align="center"><a id='lblStyle'> </a></td>
-					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a></td>
+					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a><br><a id='lblSpecs'> </a></td>
+					<td align="center" style="width:240px;"><a id='lblSizea_st'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblMounts'> </a></td>
 					<td style="width:20px;" align="center"><a id='lblDivide'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblTheory'> </a></td>
@@ -1300,7 +1359,9 @@
 						<input id="txtWidth.*" type="text" style="display:none;"/>
 						<input id="txtDime.*" type="text" style="display:none;"/>
 						<input id="txtLengthb.*" type="text" style="display:none;"/>
+						<input id="txtSpec.*" type="text" style="float:left;"/>
 					</td>
+					<td><input class="txt " id="txtSize.*" type="text" style="width:95%;"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtDivide.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtTheory.*" type="text" class="txt c2 num"/></td>
