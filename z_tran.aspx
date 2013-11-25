@@ -36,10 +36,11 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_tran');
+                q_gt('carkind', '', 0, 0, 0, "");
+                
             });
             function q_gfPost() {
-            	q_gt('carkind', '', 0, 0, 0, "");
+            	loadFinish();
             }
 
             function q_gtPost(t_name) {
@@ -82,7 +83,8 @@
                         for ( i = 0; i < as.length; i++) {
                             t_data.data['acomp'] += ',' + as[i].acomp;
                         }
-                        loadFinish();
+                        q_gf('', 'z_tran');
+                        
                         break;
                 }
 
