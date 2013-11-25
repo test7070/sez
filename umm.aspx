@@ -14,7 +14,7 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
-            var q_readonlys = ['txtVccno', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2'];
+            var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2'];
             var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
             var bbmMask = [];
@@ -30,7 +30,8 @@
             	['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
             	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	, ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
-            	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
+            	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
+            	, ['txtVccno_', '', 'vcc', 'noa,comp,unpay,unpay', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_', 'ummacc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -711,6 +712,13 @@
                     });
                 }
                 _bbsAssign();
+                
+                 for (var i = 0; i < q_bbsCount; i++) {
+                 	if(emp($('#txtVccno_'+i).val()))
+                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+                 	else
+                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+                 }
             }
 
             function btnIns() {
@@ -730,6 +738,13 @@
              		return;
                Lock(1,{opacity:0});
                checkGqbStatus_btnModi(q_bbsCount-1);
+               
+               for (var i = 0; i < q_bbsCount; i++) {
+                 	if(emp($('#txtVccno_'+i).val()))
+                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+                 	else
+                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+                 }
             }
             function checkGqbStatus_btnModi(n){
             	if(n<0){
