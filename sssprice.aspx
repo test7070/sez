@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
-            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,saleprice', 'txtProductno_,txtProduct_,txtOprice_', 'uca_b.aspx']);
+            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit,,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtOprice_', 'uca_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -530,6 +530,7 @@
 					</td>
 					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblOprice_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblNotaxprice_s'> </a></td>
@@ -546,9 +547,8 @@
 						<input id="txtProductno.*" type="text" style="width: 80%;float:left;"/>
 						<input id="btnProductno.*" type="button" style="width: 1%;float:left;font-size: medium; font-weight: bold;" value="."/>
 					</td>
-					<td>
-						<input id="txtProduct.*" type="text" style="width: 98%;"/>
-					</td>
+					<td><input id="txtProduct.*" type="text" style="width: 98%;"/></td>
+					<td><input id="txtUnit.*" type="text" style="width: 98%;"/></td>
 					<td><input id="txtOprice.*" type="text" style="width: 98%;text-align: right;"/></td>
 					<td><input id="txtDiscount.*" type="text" style="width: 98%;text-align: right;"/></td>
 					<td><input id="txtNotaxprice.*" type="text" style="width: 98%;text-align: right;"/></td>
