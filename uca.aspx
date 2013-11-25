@@ -346,10 +346,12 @@
 				
 				//重新設定noq
 				for (var i = 0; i < q_bbsCount; i++) {
-					$('#txtNoq_'+i).val(('000'+(i+1)).substr(-3));
+					if(!emp($('#txtProductno_'+i).val()))
+						$('#txtNoq_'+i).val(('000'+(i+1)).substr(-3));
 				}
 				for (var i = 0; i < q_bbtCount; i++) {
-					$('#txtNoq__'+i).val(('000'+(i+1)).substr(-3));
+					if(!emp($('#txtProcessno__'+i).val()))
+						$('#txtNoq__'+i).val(('000'+(i+1)).substr(-3));
 				}
 	
 				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -699,9 +701,18 @@
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if(t_para){
-					$('#div_row').hide();
-					$('#div_assm').hide();
-				}
+	            	$('#div_row').hide();
+	            	$('#div_assm').hide();
+	            	//恢復滑鼠右鍵
+					document.oncontextmenu=function(){
+						return true;
+					}
+	            }else{
+	            	//防滑鼠右鍵
+					document.oncontextmenu=function(){
+						return false;
+					}	
+	            }
 			}
 	
 			function btnMinus(id) {
@@ -799,10 +810,6 @@
 				row_bbsbbt='';
 				row_b_seq='';
 			}
-			//防滑鼠右鍵
-			document.oncontextmenu=function(){
-					return false;
-			};
 		</script>
 	<style type="text/css">
 		#dmain {
