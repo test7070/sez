@@ -109,6 +109,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                 $("input[type='checkbox'][value!='']").attr('checked', true);
             }
 
             function q_boxClose(s2) {

@@ -31,15 +31,15 @@
         brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
        
-		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
-			['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-			['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
-			['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-			['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-			['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
-			['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
-			['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
-			['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_', '']
+		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp,txtCustno2', 'cust_b.aspx'],
+				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
+				['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
+	            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+	            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+	            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
+	            ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
+	            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtMount_', 'ucc_b.aspx'],
+	            ['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtMount_', '']
 		);
 	
               
@@ -90,19 +90,7 @@
             q_cmbParse("cmbCoin", q_getPara('sys.coin')); 
             q_cmbParse("combPay", q_getPara('vcc.paytype')); 
             q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-            
-             if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-			 	aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
-	                ['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-	                ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
-	                ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-	                ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-	                ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
-	                ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
-	                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucc_b.aspx'],
-	                ['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_', '']
-				);
-			}
+
             
             var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -154,8 +142,15 @@
 				}  
 			});
 			
+			$('#txtDatea').change(function() {
+				$('#txtMon').val($('#txtDatea').val().substr(0,6));
+			});
+			
 			$('#txtCustno').change(function(){
 				if(!emp($('#txtCustno').val())){
+					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+						
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
@@ -309,6 +304,22 @@
 						t_msg=t_msg+"<BR>平均成本："+costs_price;
 					}
 					q_msg( $('#txtMount_'+b_seq), t_msg);
+					break;
+				case 'cust':
+						var as = _q_appendData("cust", "", true);
+						if(as[0]!=undefined){
+							$('#txtPaytype').val(as[0].paytype);
+							$('#txtTel').val(as[0].tel);
+							$('#txtFax').val(as[0].fax);
+							$('#cmbTrantype').val(as[0].trantype);
+							$('#txtZipcode').val(as[0].zip_comp);
+							$('#txtAddr').val(as[0].addr_comp);
+							$('#txtSalesno').val(as[0].salesno);
+							$('#txtSales').val(as[0].sales);
+							$('#txtSalesno2').val(as[0].salesno);
+							$('#txtSales2').val(as[0].sales);
+                       }
+                       $('#txtCustno2').focus();
 					break;
             	case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
@@ -497,11 +508,13 @@
             $('#txtCno').val(z_cno);
             $('#txtAcomp').val(z_acomp);
             $('#txtDatea').val(q_date());
+            $('#txtMon').val($('#txtDatea').val().substr(0,6));
             $('#cmbTypea').val('1');
             $('#txtDatea').focus();
             
              if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 				$('.it').show();
+				$('#cmbTaxtype').val('3');
 			}else{
 				$('.it').hide();
 			}
@@ -644,8 +657,14 @@
 		        case 'txtCustno':
 		   			if(!emp($('#txtCustno').val())){
 						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+						q_gt('cust', t_where, 0, 0, 0, "");
+						
+						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
+		        break;
+		        case 'txtProductno_':
+		   			$('#txtUnit_'+b_seq).focus();
 		        break;
 		   	}
 		}
@@ -860,16 +879,26 @@
                 <td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td> 
             </tr>
             <tr>
-				<td class="td1"><span> </span><a id="lblCust2" class="lbl btn"> </a></td>
-				<td class="td2" colspan='2'>
-					<input id="txtCustno2" type="text" class="txt c2"/>
-					<input id="txtComp2" type="text" class="txt c3"/>
-				</td>
+                <td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
+                <td class="td5"><input id="txtSalesno" type="text" class="txt c1"/></td>                 
+                <td class="td6"><input id="txtSales" type="text" class="txt c1"/></td>
                 <td class="td3"><span> </span><a id="lblSales2" class="lbl btn"> </a></td>
 				<td class="td4" colspan='2'>
 					<input id="txtSalesno2" type="text" class="txt c2"/>
 					<input id="txtSales2" type="text" class="txt c3"/>
 				</td>
+                <td class="td7"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
+                <td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
+            </tr>
+            <tr>
+				<td class="td1"><span> </span><a id="lblCust2" class="lbl btn"> </a></td>
+				<td class="td2" colspan='2'>
+					<input id="txtCustno2" type="text" class="txt c2"/>
+					<input id="txtComp2" type="text" class="txt c3"/>
+				</td>
+				<td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
+                <td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>                 
+                <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td>
 				 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
                 <td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td> 
             </tr>
@@ -883,16 +912,6 @@
                 <td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c1"/></td>
                 <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
                 <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td> 
-            </tr>
-			<tr>
-                <td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
-                <td class="td5"><input id="txtSalesno" type="text" class="txt c1"/></td>                 
-                <td class="td6"><input id="txtSales" type="text" class="txt c1"/></td>
-                <td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-                <td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>                 
-                <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td>                    
-                <td class="td7"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-                <td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
             </tr>
 			<tr>
 				<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
@@ -913,7 +932,7 @@
             <tr>
 				<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 				<td class="td2" colspan='7'>
-					<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
+					<input id="txtMemo" type="text" class="txt c1"/>
 				</td>
             </tr>
         </table>

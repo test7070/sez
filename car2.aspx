@@ -26,7 +26,11 @@
             brwKey = 'noa';
             q_alias = 'a';
             brwCount2 = 20;
-            aPop = [['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+            aPop = [['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx']
+            , ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx']
+            , ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+            , ['textCarbrandno', '', 'carbrand', 'noa,brand', 'cmbCarbrandno', '']
+            ];
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -1138,7 +1142,10 @@
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblCarbrand" class="lbl"> </a></td>
-						<td><select id="cmbCarbrandno" class="txt c1"> </select></td>
+						<td>
+							<input id="textCarbrandno" type="text" class="txt" style="width: 22px"/>
+							<select id="cmbCarbrandno" class="txt" style="width: 80px"> </select>
+						</td>
 						<td><span> </span><a id="lblCarstyle" class="lbl"> </a></td>
 						<td><input id="txtCarstyleno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblChecktype" class="lbl"> </a></td>

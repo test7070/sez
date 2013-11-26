@@ -33,6 +33,26 @@
 
 			function refresh() {
 				_refresh();
+					
+				for (var j = 0; j < brwCount; j++) {
+			        if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
+						q_cmbParse("combTypea_"+j, q_getPara('ucc.typea_it'));	//IR
+					else
+						q_cmbParse("combTypea_"+j, q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
+			        
+			        if(!emp($('#txtTypea_'+j).val()))
+			        	$('#combTypea_'+j).val($('#txtTypea_'+j).val());
+			        else
+			        	$('#combTypea_'+j).text('');
+			        
+			        for (var k = 0; k < fbbs.length; k++) {
+			        	$('#'+fbbs[k]+'_'+j).attr('disabled', 'disabled');
+		            	$('#'+fbbs[k]+'_'+j).css('background', t_background2);
+					}
+					$('#combTypea_'+j).attr('disabled', 'disabled');
+		            $('#combTypea_'+j).css('background', t_background2);
+		        }
+					
 			}
 		</script>
 		<style type="text/css">
@@ -47,6 +67,7 @@
 					<th align="center" style='color:blue;'><a id='lblUno'> </a></th>
 					<th align="center" style='color:blue;'><a id='lblProduct'> </a></th>
 					<th align="center" style='color:blue;'><a id='lblUnit'> </a></th>
+					<th align="center" style='color:blue;'><a id='lblType'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -55,11 +76,15 @@
 					<td style="width:20%;">
 					<input class="txt" id="txtUno.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:63%;">
+					<td style="width:50%;">
 					<input class="txt" id="txtProduct.*" type="text" style="width:99%;"  readonly="readonly" />
 					</td>
 					<td style="width:8%;">
 					<input class="txt" id="txtUnit.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td style="width:15%;">
+					<input class="txt" id="txtTypea.*" type="hidden" style="width:98%;" />
+					<select id="combTypea.*" class="txt c1" style="width:98%;"  readonly="readonly"> </select>
 					</td>
 				</tr>
 			</table>
