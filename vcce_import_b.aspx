@@ -101,11 +101,11 @@
 				size_change();
 			}
 			
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'vcces' :
-                        var as = _q_appendData("vcces", "", true);
-                        if (as[0] != undefined){
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'vcces' :
+						var as = _q_appendData("vcces", "", true);
+						if (as[0] != undefined){
 							var w = window.parent;
 							if (maxAbbsCount < abbs.length) {
 								for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
@@ -121,15 +121,15 @@
 									}
 								}
 							}
-                        }
-                        toReabbs();
-                        break;
-                }  /// end switch
-            }
+						}
+						toReabbs();
+						break;
+				}  /// end switch
+			}
 			function size_change() {
 				var w = window.parent;
-                var t_kind = ((w.$('#cmbKind').val())?w.$('#cmbKind').val():'');
-                t_kind = t_kind.substr(0, 1);				
+				var t_kind = ((w.$('#cmbKind').val())?w.$('#cmbKind').val():'');
+				t_kind = t_kind.substr(0, 1);				
 				if (t_kind == 'A') {
 					$('*[id="sizeTd"]').css('width','208px');
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -186,8 +186,12 @@
 			}
 	</script>
 	<style type="text/css">
-		.seek_tr
-		{color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
+		.seek_tr {
+			color:white; 
+			text-align:center; 
+			font-weight:bold;
+			BACKGROUND-COLOR: #76a2fe
+		}
 		input[type="text"], input[type="button"] {
 			font-size: medium;
 		}
@@ -197,9 +201,9 @@
 		.c1 {
 			width:95%;
 		}
-			.num {
-				text-align: right;
-			}
+		.num {
+			text-align: right;
+		}
 	</style>
 </head>
 <body>
