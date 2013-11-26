@@ -567,11 +567,11 @@
                     Unlock(1);
                     return;
                 }
-                if ($.trim($('#txtCustno').val()) == 0) {
+               /*if ($.trim($('#txtCustno').val()) == 0) {
                     alert(m_empty + q_getMsg('lblCust'));
                     Unlock(1);
                     return false;
-                }
+                }*/
                 var t_money = 0, t_chgs = 0, t_paysale, t_mon = '';
                 for (var i = 0; i < q_bbsCount; i++) {
                 	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
@@ -590,6 +590,16 @@
                     alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
                     Unlock(1);
                     return false;
+                }
+                
+                for (var i = 0; i < q_bbsCount; i++) {
+                	if (emp($('#txtTablea_'+i).val())&&!emp($('#txtVccno_'+i).val())){
+                		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+							$('#txtTablea_'+i).val('vcc');
+                    	}else{
+                    		$('#txtTablea_'+i).val('vcc'+ q_getPara('sys.project'));
+                    	}
+                	}
                 }
 				
                 var t_opay = q_float('txtOpay');
