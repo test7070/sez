@@ -65,8 +65,15 @@
 						name : 'xyear'
 					}, {
                         type : '5', //[17]
-                        name : 'xgroupano',
+                        name : 'xuccgroupano',
                         value : uccgaItem.split(',')
+					}, {
+                        type : '6', //[18]
+                        name : 'xsalesgroupano'
+					}, {
+                        type : '5', //[19]
+                        name : 'custtype',
+                        value : q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1?(' @全部,'+q_getPara('cust.typea_it')).split(','):(' @全部,'+q_getPara('cust.typea')).split(',')
 					}]
 				});
 				q_popAssign();
@@ -84,7 +91,7 @@
 				$('#txtXbmon2').val(r_accy+'/12').mask('999/99');
 				$('#txtXemon1').val(r_accy+'/01').mask('999/99');
 				$('#txtXemon2').val(r_accy+'/12').mask('999/99');
-				$('#Xgroupano select').css('width','150px');
+				//$('#Xuccgroupano select').css('width','150px');
 			}
 
 			function q_boxClose(s2) {

@@ -27,7 +27,7 @@
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_vccit',
+					fileName : 'z_vccita',
 					options : [{
 						type : '0', //[1]
 						name : 'accy',
@@ -121,7 +121,7 @@
                         for ( i = 0; i < as.length; i++) {
                             uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
                         }
-						q_gf('', 'z_vccit');
+						q_gf('', 'z_vccita');
                         break;
 				}
 			}
