@@ -33,13 +33,14 @@
        
 		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp,txtCustno2', 'cust_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-				['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
+				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 	            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 	            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 	            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
 	            ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
 	            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtMount_', 'ucc_b.aspx'],
-	            ['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtMount_', '']
+	            ['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtMount_', ''],
+	            ['txtMemo', '', 'qphr', 'noa,phr', '0,txtMemo', '']
 		);
 	
               
@@ -150,7 +151,7 @@
 				if(!emp($('#txtCustno').val())){
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "");
-						
+					popcust=false;
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
@@ -318,7 +319,29 @@
 							$('#txtSales').val(as[0].sales);
 							$('#txtSalesno2').val(as[0].salesno);
 							$('#txtSales2').val(as[0].sales);
+                       }else{
+	                       	if(!popcust){
+								q_box("cust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , 'cust', "95%", "95%", q_getMsg('popCust'));
+								popcust=false;
+	                       }
                        }
+                       $('#txtCustno2').focus();
+					break;
+				case 'cust_pop':
+						var as = _q_appendData("cust", "", true);
+						if(as[0]!=undefined){
+							$('#txtPaytype').val(as[0].paytype);
+							$('#txtTel').val(as[0].tel);
+							$('#txtFax').val(as[0].fax);
+							$('#cmbTrantype').val(as[0].trantype);
+							$('#txtZipcode').val(as[0].zip_comp);
+							$('#txtAddr').val(as[0].addr_comp);
+							$('#txtSalesno').val(as[0].salesno);
+							$('#txtSales').val(as[0].sales);
+							$('#txtSalesno2').val(as[0].salesno);
+							$('#txtSales2').val(as[0].sales);
+                       }
+                       
                        $('#txtCustno2').focus();
 					break;
             	case 'custaddr':
@@ -651,13 +674,14 @@
         function btnCancel() {
             _btnCancel();
         }
-        
+        var popcust=false;
         function q_popPost(s1) {
 		   	switch (s1) {
 		        case 'txtCustno':
 		   			if(!emp($('#txtCustno').val())){
 						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
-						q_gt('cust', t_where, 0, 0, 0, "");
+						q_gt('cust', t_where, 0, 0, 0, "cust_pop");
+						popcust=true;
 						
 						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
