@@ -17,23 +17,33 @@
 		<script type="text/javascript">
             t_cno = '';
             t_isinit = false;
+            var z_cno=r_cno,z_acomp=r_comp;
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_vcca');
             });
+            
             function q_gfPost() {
-                q_gt('acomp', '', 0, 0, 0);
+                //q_gt('acomp', '', 0, 0, 0);
+                q_gt('acomp', 'stop=1 ', 0, 0, 0);
             }
-
+			
+			
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'acomp':
-                        t_cno = '';
                         var as = _q_appendData("acomp", "", true);
+                        /*t_cno = '';
                         for ( i = 0; i < as.length; i++) {
                             t_cno += (t_cno.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
                         }
-                        t_cno += ',checkAll@全選';
+                        t_cno += ',checkAll@全選';*/
+                       
+                       if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                	}
+                       
                         LoadFinish();
                         break;
                 }
@@ -73,19 +83,21 @@
                         name : 'xtype',
                         value : [' @全部','2@二聯','3@三聯']
                     }, {/*6 [12]*/
-                        type : '8',
-                        name : 'xcno',
-                        value : t_cno.split(',')
+                        type : '6',
+                        name : 'xcno'
                     }, {/*3 [13][14]*/
                         type : '2',
                         name : 'xtgg',
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
-                    }]
+                    }/*, {6 [12] 
+                        type : '8',
+                        name : 'xcno',
+                        value : t_cno.split(',')
+                    }*/]
                 });
-                q_popAssign();
-                q_langShow();
+                
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon2').mask('999/99');
                 $('#txtXdate1').mask('999/99/99');
@@ -113,8 +125,26 @@
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtXmon2').val(t_year + '/' + t_month);
+                
+                $('#Xcno').css("width","300px");
+                $('#txtXcno').css("width","90px");
+                
+                var tmp = document.getElementById("txtXcno");
+                var t_input = document.createElement("input");
+                t_input.id='txtXacomp'
+                t_input.type='text'
+                t_input.className = "c2 text";
+                t_input.disabled='disabled'
+                tmp.parentNode.appendChild(t_input,tmp);
+                aPop.push(['txtXcno','lblXcno','acomp','noa,acomp','txtXcno,txtXacomp','acomp_b.aspx']);
+                
+                $('#txtXcno').val(z_cno);
+                $('#txtXacomp').val(z_acomp);
+                
+                q_popAssign();
+                q_langShow();
 
-                $("input[type='checkbox'][value='checkAll']").click(function() {
+                /*$("input[type='checkbox'][value='checkAll']").click(function() {
                     if ($(this).next('span').text() == '全選') {
                         $("input[type='checkbox'][value!='']").attr('checked', true);
                         $(this).removeAttr('checked');
@@ -123,7 +153,7 @@
                         $("input[type='checkbox'][value!='']").removeAttr('checked');
                         $(this).next('span').text('全選');
                     }
-                });
+                });*/
             }
 
             function q_boxClose(s2) {

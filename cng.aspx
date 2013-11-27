@@ -410,9 +410,12 @@
             </td> 
         </tr>
         <tr class="tr3">
+            <td class='td1'><span> </span><a id="lblSssno" class="lbl btn"> </a></td>
+            <td class="td2" colspan="2"><input id="txtSssno" type="text"  class="txt c6"/>       
+            <input id="txtNamea" type="text"  class="txt c6"/></td>
             <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-            <td class="td2" colspan="3"><input id="txtTggno" type="text"  class="txt c4"/>       
-            <input id="txtTgg" type="text"  class="txt c5"/></td>
+            <td class="td2" colspan="2"><input id="txtTggno" type="text"  class="txt c2"/>       
+            <input id="txtTgg" type="text"  class="txt c3"/></td>
         </tr>
         <tr class="tr4">
         	<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
@@ -445,7 +448,7 @@
         </table>
         </div>
         </div>
-        <div class='dbbs' >
+        <div class='dbbs'  style="width: 1260px;">
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td style="width:1%;" align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>

@@ -310,7 +310,7 @@
 			if (q_cur > 0 && q_cur < 4)  // 1-3
 				return;
 
-			q_box('rc2_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+			q_box('rc2_s.aspx', q_name + '_s', "500px", "500px", q_getMsg("popSeek"));
 		}
 
 		function cmbPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
