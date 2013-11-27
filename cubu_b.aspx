@@ -358,9 +358,9 @@
 					<td align="center" style="width:260px;"><a id='lblSizea'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'></a></td>
 					<td align="center" style="width:120px;"><a id='lblWeight'></a></td>
-					<td align="center" style="width:120px;"><a id='lblInweight'></a></td>
-					<td align="center" style="width:80px;"><a id='lblWaste'></a></td>
-					<td align="center" style="width:80px;"><a id='lblGmount'></a></td>
+					<td align="center" style="width:120px;display:none;"><a id='lblInweight'></a></td>
+					<td align="center" style="width:80px;display:none;"><a id='lblWaste'></a></td>
+					<td align="center" style="width:80px;display:none;"><a id='lblGmount'></a></td>
 					<td align="center" style="width:220px;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr style="background:#cad3ff;font-size: 14px;">
@@ -403,9 +403,9 @@
 					</td>
 					<td><input type="text" id="txtMount.*" class="txt c1 num"/></td>
 					<td><input type="text" id="txtWeight.*" class="txt c1 num"/></td>
-					<td><input type="text" id="txtInweight.*" class="txt c1 num"/></td>
-					<td><input type="text" id="txtWaste.*" class="txt c1 num"/></td>
-					<td><input type="text" id="txtGmount.*" class="txt c1 num"/></td>
+					<td style="display:none;"><input type="text" id="txtInweight.*" class="txt c1 num"/></td>
+					<td style="display:none;"><input type="text" id="txtWaste.*" class="txt c1 num"/></td>
+					<td style="display:none;"><input type="text" id="txtGmount.*" class="txt c1 num"/></td>
 					<td><input type="text" id="txtMemo.*" class="txt c1"/></td>
 				</tr>
 			</table>
