@@ -73,7 +73,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
                 q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
 
@@ -149,6 +149,7 @@
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
 							alert("請檢查發票日期及公司有無設定，或發票已輸入。");
+							Unlock(1);
 						} else {
 			            	//3聯須輸入統編
 			            	if (as[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){					                	
