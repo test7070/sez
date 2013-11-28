@@ -264,7 +264,6 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 $('#txtNoa').attr('readonly', true);
                 //讓發票號碼不可修改
