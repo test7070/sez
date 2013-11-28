@@ -30,14 +30,17 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtComp,txtSerial,txtAddress', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtComp,txtSerial,txtAddress', 'tgg_b.aspx']
+            , ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress', 'road_b.aspx']
+            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
+            , ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
-                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
 
             function main() {
@@ -45,16 +48,108 @@
                     dataErr = false;
                     return;
                 }
-
                 mainForm(1);
             }
+			function sum() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                $('#txtTax').attr('readonly', 'readonly');
+                var t_mounts, t_prices, t_moneys, t_mount = 0, t_money = 0, t_taxrate, t_tax, t_total;
 
+                for (var k = 0; k < q_bbsCount; k++) {
+                    t_mounts = q_float('txtMount_' + k);
+                    t_prices = q_float('txtPrice_' + k);
+                    t_moneys = round(t_mounts * t_prices, 0);
+                    $('#txtMoney_' + k).val(t_moneys);
+                    t_money += t_moneys;
+                    t_mount += t_mounts;
+                }
+                t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
+                switch ($('#cmbTaxtype').val()) {
+                    case '1':
+                        // 應稅
+                        t_tax = round(t_money * t_taxrate, 0);
+                        t_total = t_money + t_tax;
+                        break;
+                    case '2':
+                        //零稅率
+                        t_tax = 0;
+                        t_total = t_money + t_tax;
+                        break;
+                    case '3':
+                        // 內含
+                        t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
+                        t_total = t_money;
+                        t_money = t_total - t_tax;
+                        break;
+                    case '4':
+                        // 免稅
+                        t_tax = 0;
+                        t_total = t_money + t_tax;
+                        break;
+                    case '5':
+                        // 自定
+                        $('#txtTax').removeAttr('readonly');
+                        t_tax = round(q_float('txtTax'), 0);
+                        t_total = t_money + t_tax;
+                         if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+                        	$('#txtMoney').removeAttr('readonly');
+                        	t_money=dec($('#txtMoney').val());
+                        	 $('#txtTax').removeAttr('readonly');
+	                        t_tax = round(q_float('txtTax'), 0);
+	                        t_total = t_money + t_tax;
+                        }
+                        break;
+                    case '6':
+                        // 作廢-清空資料
+                        t_money = 0,t_tax = 0, t_total = 0;
+                        $('#txtTggno').val('');
+                        //銷貨客戶
+                        $('#txtTggno').attr('readonly', true);
+                        $('#txtComp').val('');
+                        $('#txtComp').attr('readonly', true);
+                        $('#txtSerial').val('');
+                        //統一編號
+                        $('#txtSerial').attr('readonly', true);
+                        $('#txtMoney').val(0);
+                        //產品金額
+                        $('#txtMoney').attr('readonly', true);
+                        $('#txtMon').val('');
+                        //帳款月份
+                        $('#txtMon').attr('readonly', true);
+                        $('#txtTax').val(0);
+                        //營業稅
+                        $('#txtTax').attr('readonly', true);
+                        $('#txtTotal').val(0);
+                        //總計
+                        $('#txtTotal').attr('readonly', true);
+                        $('#txtChkno').val('');
+                        //檢查號碼
+                        $('#txtChkno').attr('readonly', true);
+                        $('#txtAccno').val('');
+                        //轉會計傳票編號
+                        $('#txtAccno').attr('readonly', true);
+                        $('#txtBuyerno').val('');
+                        //買受人
+                        $('#txtBuyerno').attr('readonly', true);
+                        $('#txtBuyer').val('');
+                        //
+                        $('#txtBuyer').attr('readonly', true);
+                        $('#txtMemo').val('');
+                        //發票備註
+                        break;
+                    default:
+                }
+                $('#txtMoney').val(t_money);
+                $('#txtTax').val(t_tax);
+                $('#txtTotal').val(t_total);
+            }
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
-                //q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
-                q_cmbParse("cmbTaxtype", ('').concat(new Array('應稅', '零稅率', '內含', '免稅', '自訂', '作廢')));
+                q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
+                
                 /* 若非本會計年度則無法存檔 */
                 $('#txtDatea').focusout(function() {
                     if ($(this).val().substr(0, 3) != r_accy) {
@@ -64,11 +159,33 @@
                         $('#btnOk').removeAttr('disabled');
                     }
                 });
+                
+                $('#cmbTaxtype').focus(function() {
+                    var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
+                    $("#cmbTaxtype").attr('size', len + "");
+                }).blur(function() {
+                    $("#cmbTaxtype").attr('size', '1');
+                }).change(function(e) {
+                    sum();
+                }).click(function(e) {
+                    sum();
+                });
+                $('#txtNoa').change(function(e) {
+                    $('#txtNoa').val($('#txtNoa').val().toUpperCase());
+                });
+                $('#txtTax').change(function() {
+                    sum();
+                });
+                $('#txtMoney').change(function() {
+                    sum();
+                });
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
-                var
-                ret;
+                var ret;
                 switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
@@ -136,16 +253,16 @@
                 }
                 $('#txtWorker').val(r_name);
                 sum();
-                q_gt('rc2a', "where=^^ noa='" + $.trim($('#txtNoa').val()) + "'^^", 0, 0, 0, 'checkRc2aNoa', r_accy);
+                if(q_cur==1)
+                	q_gt('rc2a', "where=^^ noa='" + $.trim($('#txtNoa').val()) + "'^^", 0, 0, 0, 'checkRc2aNoa', r_accy);
+            	else
+            		wrServer($('#txtNoa').val());
             }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
                 q_box('rc2a_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
-            }
-
-            function combPay_chg() {
             }
 
             function bbsAssign() {
@@ -179,7 +296,7 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                $('#txtNoa').attr('readonly', true);
+                $('#txtNoa').attr('readonly', true).css('color','green').css('background-color','rgb(237,237,237)');
             }
 
             function btnPrint() {
@@ -193,40 +310,17 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
-            function bbsSave(as) {
-                if (!as['noq']) {
+            function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
+                if (!as['productno'] && !as['product']) {//不存檔條件
                     as[bbsKey[1]] = '';
+                    /// no2 為空，不存檔
                     return;
                 }
 
                 q_nowf();
-                as['date'] = abbm2['date'];
 
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
-
-            function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
-                var t_money = 0;
-                for (var j = 0; j < q_bbsCount; j++) {
-                    t_money += dec($('#txtMoney_' + j).val());
-                    //金額合計
-                }// j
-                q_tr('txtMoney', t_money, 0);
-                //$('#txtTotal').val(t_money+t_tax);
-                calTax();
-            }
-
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
             function refresh(recno) {
                 _refresh(recno);

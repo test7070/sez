@@ -29,6 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             , ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,zip_invo,addr_invo,serial', 'txtBuyerno,txtBuyer,txtZip,txtAddress,txtSerial', 'cust_b.aspx']
             , ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
@@ -265,7 +266,7 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                $('#txtNoa').attr('readonly', true);
+                $('#txtNoa').attr('readonly', true).css('color','green').css('background-color','rgb(237,237,237)');
                 //讓發票號碼不可修改
 				sum();
             }
