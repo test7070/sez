@@ -40,7 +40,8 @@
                     $('#btnVccaxls').click(function(e) {
                     	if(!emp($('#textBmon').val()) &&!emp($('#textEmon').val())){
                     		var s1 = location.host;
-                    		q_func('qtxt.query','vccadcxls.txt,vccaxls,'+encodeURI(s1) + ';' + encodeURI($('#textBmon').val()) + ';' + encodeURI($('#textEmon').val()));
+                    		//q_func('qtxt.query','vccadcxls.txt,vccaxls,'+encodeURI(s1) + ';' + encodeURI($('#textBmon').val()) + ';' + encodeURI($('#textEmon').val()));
+                    		q_func( 'vccaxls.gen',$('#textBmon').val()+','+$('#textEmon').val());
                     	}
                 	});
                 	
@@ -79,7 +80,8 @@
             	//vccacno[x].page=window.open(t_path +'vccadc'+replaceAll(vccacno[x].noa,' ','')+'.xls', "_self", 'directories=no,location=no,menubar=no,resizable=no,scrollbars=no,status=0,toolbar=no,width=100,height=100;');
             	
             	var $ifrm = $("<iframe style='display:none' />");
-                        $ifrm.attr("src", t_path +'vccadc'+replaceAll(vccacno[x].noa,' ','')+'.xls');
+                        //$ifrm.attr("src", t_path +'vccadc'+replaceAll(vccacno[x].noa,' ','')+'.xls');
+                        $ifrm.attr("src", t_path +'vccadc'+replaceAll(vccacno[x].serial,' ','')+'.xls');
                         $ifrm.appendTo("body");
                         $ifrm.load(function () {
                             $("body").append(
