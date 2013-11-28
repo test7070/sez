@@ -14,6 +14,7 @@
 		var isBott = false;
 		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 		var i,s1;
+		var q_readonly = ['textProduct','textStore'];
 		brwCount = -1;
 		brwCount2 = 0;
 		aPop = new Array(
