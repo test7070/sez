@@ -150,9 +150,9 @@
 				for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
 					if(w.q_name == 'cub' || w.q_name == 'orde'){
 						for (var j = 0; j < w.q_bbtCount; j++) {
-							if (w.$('#txtUno__' + j).val() == abbs[i].uno) {
-								abbs[i].emount = dec(abbs[i].emount) + dec(w.$('#txtMount__'+j).val());
-								abbs[i].eweight = dec(abbs[i].eweight) + dec(w.$('#txtWeight__'+j).val());
+							if ((w.$('#txtUno__' + j).val() == abbs[i].uno) && (w.q_cur==2)) {
+								abbs[i].emount = dec(abbs[i].emount) + dec(w.$('#txtGmount__'+j).val());
+								abbs[i].eweight = dec(abbs[i].eweight) + dec(w.$('#txtGweight__'+j).val());
 							}
 						}
 					}
@@ -178,7 +178,7 @@
 							break;
 						}
 					}
-					if(t_cmbKind==''){
+					if(t_cmbKind=='' && abbs.length >0){
 						if(abbs[0].kind)
 							t_cmbKind = abbs[0].kind.substr(0,1);
 						t_cmbKind = $('#combTypea').val().substr(0,1);
