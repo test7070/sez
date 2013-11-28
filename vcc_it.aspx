@@ -151,6 +151,7 @@
 				if(!emp($('#txtCustno').val())){
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "");
+					post_custno=$('#txtCustno').val();
 					popcust=false;
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -206,6 +207,7 @@
 		var t_msg='';
 		var focus_addr='';
 		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
+		var post_custno='';//傳至cust.aspx
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {

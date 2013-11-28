@@ -271,8 +271,15 @@
 					$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 				}
 			}
+			
+			var vccitopen=true;
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if (vccitopen&&t_para&&window.parent.q_name == 'vcc' &&(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)) {
+						btnIns();
+						vccitopen=false;
+						$('#txtNoa').val(window.parent.post_custno);
+				}
 			}
 
 			function btnMinus(id) {
@@ -326,6 +333,25 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			function returnparent() {
+                if (window.parent.q_name == 'vcc' &&(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)) {
+                    var wParent = window.parent.document;
+                    wParent.getElementById("txtCustno").value = $('#txtNoa').val();
+                    wParent.getElementById("txtComp").value = $('#txtComp').val();
+                    wParent.getElementById("txtPaytype").value = $('#txtPaytype').val();
+                    wParent.getElementById("txtTel").value = $('#txtTel').val();
+                    wParent.getElementById("txtFax").value = $('#txtFax').val();
+                    wParent.getElementById("cmbTrantype").value = $('#cmbTrantype').val();
+                    wParent.getElementById("txtZipcode").value = $('#txtZip_comp').val();
+                    wParent.getElementById("txtAddr").value = $('#txtAddr_comp').val();
+                    wParent.getElementById("txtSalesno").value = $('#txtSalesno').val();
+                    wParent.getElementById("txtSales").value = $('#txtSales').val();
+                    wParent.getElementById("txtSalesno2").value = $('#txtSalesno').val();
+                    wParent.getElementById("txtSales2").value = $('#txtSales').val();
+                }
+            }
+			
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -444,7 +470,7 @@
 			}
 		</style>
 	</head>
-	<body ondragstart="return false" draggable="false"
+	<body onunload='returnparent()' ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
