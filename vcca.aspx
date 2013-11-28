@@ -251,9 +251,10 @@
                 var t_noa = trim($('#txtNoa').val());
                 var str = '00000000' + (parseInt(t_noa.substring(2, 10)) + 1);
                 str = str.substring(str.length - 8, str.length);
-                t_noa = t_noa.substring(0, 2) + str;
-                $('#txtNoa').val(t_noa);
-
+                if(!isNaN(parseFloat(str)) && isFinite(str)){
+                	t_noa = t_noa.substring(0, 2) + str;
+                	$('#txtNoa').val(t_noa);
+                }
                 $('#cmbTaxtype').val(1);
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
