@@ -29,6 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             , ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,zip_invo,addr_invo,serial', 'txtBuyerno,txtBuyer,txtZip,txtAddress,txtSerial', 'cust_b.aspx']
             , ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
@@ -251,9 +252,10 @@
                 var t_noa = trim($('#txtNoa').val());
                 var str = '00000000' + (parseInt(t_noa.substring(2, 10)) + 1);
                 str = str.substring(str.length - 8, str.length);
-                t_noa = t_noa.substring(0, 2) + str;
-                $('#txtNoa').val(t_noa);
-
+                if(!isNaN(parseFloat(str)) && isFinite(str)){
+                	t_noa = t_noa.substring(0, 2) + str;
+                	$('#txtNoa').val(t_noa);
+                }
                 $('#cmbTaxtype').val(1);
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
@@ -263,9 +265,8 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-                $('#txtNoa').attr('readonly', true);
+                $('#txtNoa').attr('readonly', true).css('color','green').css('background-color','rgb(237,237,237)');
                 //讓發票號碼不可修改
 				sum();
             }

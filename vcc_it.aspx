@@ -151,6 +151,7 @@
 				if(!emp($('#txtCustno').val())){
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "");
+					post_custno=$('#txtCustno').val();
 					popcust=false;
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -206,6 +207,7 @@
 		var t_msg='';
 		var focus_addr='';
 		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
+		var post_custno='';//傳至cust.aspx
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {
@@ -232,13 +234,13 @@
             		var quat_price=0;
 					if(as[0]!=undefined){
 						for ( var i = 0; i < as.length; i++) {
-							if(as[0].productno==$('#txtProductno_'+b_seq).val())
+							if(as[i].productno==$('#txtProductno_'+(b_seq.length==0?tb_seq:b_seq)).val())
 								quat_price=dec(as[i].price);
 						}
 					}
             		t_msg=t_msg+"最近報價單價："+quat_price+"<BR>";
             		//最新出貨單價
-					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+b_seq).val()+"' and price>0 ) ^^ stop=1";
+					var t_where = "where=^^ custno='"+$('#txtCustno').val()+"' and noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtProductno_'+(b_seq.length==0?tb_seq:b_seq)).val()+"' and price>0 ) ^^ stop=1";
 					q_gt('vcc', t_where , 0, 0, 0, "msg_vcc", r_accy);
             		break;
             	case 'msg_vcc':
@@ -246,12 +248,13 @@
 					var vcc_price=0;
 					if(as[0]!=undefined){
 						for ( var i = 0; i < as.length; i++) {
-							if(as[0].productno==$('#txtProductno_'+b_seq).val())
+							if(as[i].productno==$('#txtProductno_'+(b_seq.length==0?tb_seq:b_seq)).val())
 								vcc_price=dec(as[i].price);
 						}
 					}
 					t_msg=t_msg+"最近出貨單價："+vcc_price;
-					q_msg( $('#txtPrice_'+b_seq), t_msg);	
+					$('#txtPrice_'+(b_seq.length==0?tb_seq:b_seq)).val(vcc_price);
+					q_msg( $('#txtPrice_'+(b_seq.length==0?tb_seq:b_seq)), t_msg);	
 					break;
 				case 'acomp_stk':
 					var as  = _q_appendData("acomp", "", true);
@@ -260,7 +263,7 @@
 						storeno=storeno+','+as[i].noa;
 					}
 					storeno=storeno.substr(1,storeno.length);
-					var t_where = "where=^^ ['"+q_date()+"','"+storeno+"','') where productno='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+					var t_where = "where=^^ ['"+q_date()+"','"+storeno+"','') where productno='"+$('#txtProductno_'+(b_seq.length==0?tb_seq:b_seq)).val()+"' ^^";
 					q_gt('calstk', t_where , 0, 0, 0, "msg_stk", r_accy);
 				break;
             	case 'msg_stk':
@@ -272,7 +275,7 @@
             		}
             		t_msg="庫存量："+stkmount;
             		//平均成本
-					var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by datea desc ^^ stop=1";
+					var t_where = "where=^^ productno ='"+$('#txtProductno_'+(b_seq.length==0?tb_seq:b_seq)).val()+"' order by datea desc ^^ stop=1";
 					q_gt('wcost', t_where , 0, 0, 0, "msg_wcost", r_accy);
             		break;
 				case 'msg_wcost':
@@ -288,10 +291,10 @@
 					}
 					if(wcost_price!=undefined){
 						t_msg=t_msg+"<BR>平均成本："+wcost_price;
-						q_msg( $('#txtMount_'+b_seq), t_msg);	
+						q_msg( $('#txtMount_'+(b_seq.length==0?tb_seq:b_seq)), t_msg);	
 					}else{
 						//原料成本
-						var t_where = "where=^^ productno ='"+$('#txtProductno_'+b_seq).val()+"' order by mon desc ^^ stop=1";
+						var t_where = "where=^^ productno ='"+$('#txtProductno_'+(b_seq.length==0?tb_seq:b_seq)).val()+"' order by mon desc ^^ stop=1";
 						q_gt('costs', t_where , 0, 0, 0, "msg_costs", r_accy);
 					}
 					break;
@@ -304,7 +307,7 @@
 					if(costs_price!=undefined){
 						t_msg=t_msg+"<BR>平均成本："+costs_price;
 					}
-					q_msg( $('#txtMount_'+b_seq), t_msg);
+					q_msg( $('#txtMount_'+(b_seq.length==0?tb_seq:b_seq)), t_msg);
 					break;
 				case 'cust':
 						var as = _q_appendData("cust", "", true);
@@ -464,7 +467,9 @@
                 $('#txtZipcode').val($('#combAddr').find("option:selected").val());
             }
         }
-
+		
+		var tb_seq='';
+		
         function bbsAssign() {  /// 表身運算式
             for (var i = 0; i < q_bbsCount ; i++) {   // q_bbsCount 表身總列數
                 if (!$('#btnMinus_' + i).hasClass('isAssign')) {
@@ -483,6 +488,7 @@
 	                    	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
+		                    tb_seq=b_seq;
 	                    	if(!emp($('#txtProductno_'+b_seq).val())){
 	                    		//庫存
 	                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
@@ -500,6 +506,7 @@
 	                    	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
+		                    tb_seq=b_seq;
 	                    	if(!emp($('#txtProductno_'+b_seq).val())){
 	                    		//金額
 								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
@@ -688,7 +695,7 @@
 					}
 		        break;
 		        case 'txtProductno_':
-		   			$('#txtUnit_'+b_seq).focus();
+		   			$('#txtMount_'+b_seq).focus();
 		        break;
 		   	}
 		}
