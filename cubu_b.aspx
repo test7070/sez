@@ -33,6 +33,8 @@
 			aPop = new Array(
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtCustno_', 'btnCustno_', 'cust', 'noa,nick', 'txtCustno_,txtComp_', 'cust_b.aspx'],
+				['txtOrdeno_', 'btnOrdeno_', 'view_ordes', 'noa,no2,custno,cust,class,spec,productno,product,radius,dime,width,lengthb', 
+					'txtOrdeno_,txtNo2_,txtCustno_,txtComp_,txtClass_,txtSpec_,txtProductno_,txtProduct_,txtRadius_,txtDime_,txtWidth_,txtLengthb_', 'ordests_seek_b.aspx','95%','60%'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']			
 			);
 			$(document).ready(function() {
@@ -372,8 +374,9 @@
 					<td><input type="text" id="txtStyle.*" class="txt c1" style="text-align: center;"/></td>
 					<td><input type="text" id="txtUno.*" class="txt c1"/></td>
 					<td>
+						<input id="btnOrdeno.*" type="button" value="." class="txt btn" style="width:1%;"/>
 						<input type="text" id="txtOrdeno.*" class="txt" style="width:65%;"/>
-						<input type="text" id="txtNo2.*" class="txt" style="width:25%;"/>
+						<input type="text" id="txtNo2.*" class="txt" style="width:20%;"/>
 					</td>
 					<td>
 						<input id="btnCustno.*" type="button" value="." class="txt btn" style="width:1%;"/>
