@@ -168,7 +168,8 @@
 						break;
 					case 'txtProductno_':
 						$('input[id*="txtProduct_"]').each(function() {
-							$(this).attr('OldValue', $(this).val());
+							thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+		                	$(this).attr('OldValue',$('#txtProductno_'+thisId).val());
 						});
 						ProductAddStyle(b_seq);
 						//$('#txtStyle_' + b_seq).focus();
