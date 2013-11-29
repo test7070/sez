@@ -75,7 +75,7 @@
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("datea", t_bdate, t_edate)
 				+ q_sqlPara2("accno", t_accno)
-				+ q_sqlPara2("custno", t_custno);
+				+ q_sqlPara2("custno", t_custno)
 				+ q_sqlPara2("invono", t_invono);
 				
 				if (t_cust.length > 0)
