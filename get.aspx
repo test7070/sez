@@ -29,7 +29,7 @@
         ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
         //['txtUno_', 'btnUno_', 'uccc', 'uno', 'txtUno_', 'uccc_b.aspx'],
         ['txtUno_', 'btnUno_', 'view_uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
-        ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+        ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
         $(document).ready(function () {
@@ -143,6 +143,8 @@
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 	                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
+	                $('#txtMount_'+j).change(function() {sum();});
+					$('#txtPrice_'+j).change(function() {sum();});
 				}
             } //j
             _bbsAssign();
@@ -198,10 +200,10 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
+            var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
+            for(var j = 0; j < q_bbsCount; j++) {
+				$('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( $('#txtMount_' + j).val()), 0));
+			}  // j
         }
         function refresh(recno) {
             _refresh(recno);
@@ -494,20 +496,20 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <!--<td align="center" style="width:12%;"><a id='lblUno_st'> </a></td>-->
                 <td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
-                <td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
+                <td align="center" style="width:30%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblType_s'> </a></td>
+                <!--<td align="center" style="width:10%;"><a id='lblType_s'> </a></td>-->
                 <td align="center" id='Memo'><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <!--<td><input id="txtUno.*" type="text" style="width:75%;"/><input class="btn"  id="btnUno.*" type="button" value='...' style="width:15%;"  /></td>-->
-                <td><input id="txtProductno.*" type="text" style="width:75%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:15%;"  /></td>
+                <td><input id="txtProductno.*" type="text" style="width:80%;" /><input class="btn"  id="btnProductno.*" type="button" value='.' style="width:1%;"  /></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" /></td> 
                 <td><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
-                <td><input class="txt  c1" id="txtTypea.*" type="text"/></td>
+                <!--<td><input class="txt  c1" id="txtTypea.*" type="text"/></td>-->
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>

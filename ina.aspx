@@ -19,9 +19,9 @@
             q_tables = 's';
             var q_name = "ina";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = [];
-            var bbmNum = [['txtTotal', 10, 1, 1]];
-            var bbsNum = [['txtSize1', 10, 3, 1],['txtSize2', 10, 2, 1],['txtSize3', 10, 3, 1],['txtSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1]];
+            var q_readonlys = ['txtTotal'];
+            var bbmNum = [['txtTotal', 15, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -34,7 +34,7 @@
             ['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtComp','tgg_b.aspx'],
             //['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_seek_b.aspx','95%','60%'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-            ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']);
+            ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -146,7 +146,9 @@
 		                 });
 	                	//-------------------------------------------
 	                	*/
-						}
+	                	$('#txtMount_'+j).change(function() {sum();});
+						$('#txtPrice_'+j).change(function() {	sum();});
+					}
                 }
                 _bbsAssign();
             }
@@ -191,13 +193,12 @@
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-	                t_unit = $('#txtUnit_' + j).val();
-	                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
-	                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount), 0));
+                	t_total=t_total+round( $('#txtPrice_' + j).val() * dec( $('#txtMount_' + j).val()), 0);
+	                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( $('#txtMount_' + j).val()), 0));
                 }  // j
-
+                $('#txtTotal').val(t_total);
             }
 
             function refresh(recno) {
@@ -451,13 +452,13 @@
         	<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
         	<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
         	<td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
-        	<td class="td4"><input id="txtPrice" type="text" class="txt c1" /></td>
+        	<td class="td4"><input id="txtPrice" type="text" class="txt num c1" /></td>
         	<td class="td5"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
-        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1" /></td>
+        	<td class="td6"><input id="txtTranmoney" type="text" class="txt num c1" /></td>
         </tr>
         <tr class="tr8"> 
         	<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-        	<td class="td2"><input id="txtTotal" type="text" class="txt c1" /></td>
+        	<td class="td2"><input id="txtTotal" type="text" class="txt num c1" /></td>
         	<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
@@ -473,13 +474,13 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <!--<td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>-->
-                <td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
+                <td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
+                <td align="center" style="width:30%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
+                <td align="center" style="width:9%;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:9%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblTotal_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblType_s'> </a></td>
+                <!--<td align="center" style="width:10%;"><a id='lblType_s'> </a></td>-->
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -488,13 +489,13 @@
                 <td ><input class="txt c1" id="txtUno.*" type="text" style="width:80%;" />
                 	<input class="btn" id="btnUno.*" type="button" value='.' style="width:1%;"/></td>
                 -->
-                <td ><input  id="txtProductno.*" type="text" style="width:70%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
+                <td ><input  id="txtProductno.*" type="text" style="width:80%;" /><input class="btn"  id="btnProductno.*" type="button" value='.' style="width:1%;"  /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtTotal.*" type="text"  /></td>
-                <td ><input class="txt c1" id="txtTypea.*" type="text"/></td>
+                <!--<td ><input class="txt c1" id="txtTypea.*" type="text"/></td>-->
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
