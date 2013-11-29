@@ -295,7 +295,10 @@
 			}
 
 			function btnPrint() {
-				q_box('z_quatp.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
+					q_box('z_quatpit.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
+				else
+					q_box('z_quatp.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
 			}
 
 			function wrServer(key_value) {
