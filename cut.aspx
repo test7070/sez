@@ -200,8 +200,8 @@
                         	getUno();
                         }
                     	break;
-					case 'ordes':
-						ordes = _q_appendData("ordes", "", true);
+					case 'view_ordes':
+						ordes = _q_appendData("view_ordes", "", true);
 						if (ordes[0] == undefined)
 							alert("訂單不存在");
 						break;
@@ -564,14 +564,14 @@
 							var n = $(this).attr('id').replace('txtOrdeno_', '');
 							if (!emp($('#txtOrdeno_' + n)) && !emp($('#txtOrdeno_' + n))) {
 								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + n).val() + "' and no2 = '" + $('#txtNo2_' + n).val() + "' ^^";
-								q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
+								q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
 							}
 						});
 						$('#txtNo2_' + j).change(function() {
 							var n = $(this).attr('id').replace('txtNo2_', '');
 							if (!emp($('#txtOrdeno_' + n)) && !emp($('#txtOrdeno_' + n))) {
 								var t_where = "where=^^ noa = '" + $('#txtOrdeno_' + n).val() + "' and no2 = '" + $('#txtNo2_' + n).val() + "' ^^";
-								q_gt('ordes', t_where, 0, 0, 0, "", r_accy);
+								q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
 							}
 						});
 						$('#txtStyle_'+j).focus(function(){

@@ -35,6 +35,16 @@
                 $('#txtNoa').focus();
             }
 
+			function wbbsSearchStr(bbsField,value,bbmkey,bbskey){
+				var wbbsStr = '';
+				if(bbsField['length'] > 0){
+					wbbsStr = " and ((select count(*) from cubu"+r_accy+" ";
+					wbbsStr = wbbsStr + "where " + 'left( ' + bbsField + ',' + value.length + ")='" + value + "' and ";
+					wbbsStr = wbbsStr + bbskey + " = cub" + r_accy + '.' + bbskey + ")>0)";
+				}
+				return wbbsStr;
+			}
+
             function q_seekStr() {
             	t_typea = $.trim($('#cmbTypea').val());
                 t_noa = $.trim($('#txtNoa').val());
@@ -42,6 +52,7 @@
 		        t_mech = $.trim($('#txtMech').val());
 		        t_ordeno = $.trim($('#txtOrdeno').val());
 		        t_uno = $.trim($('#txtUno').val());
+		        t_inuno = $.trim($('#txtInuno').val());
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
 
@@ -49,7 +60,8 @@
 		        + q_sqlPara2("typea", t_typea)
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 		     
-		        + q_sqlPara2("mechno", t_mechno);
+		        + q_sqlPara2("mechno", t_mechno)
+		        + wbbsSearchStr('uno',t_inuno,'noa','noa');
 		        if (t_mech.length>0)
                     t_where += " and charindex('" + t_mech + "',mech)>0";
 		       	if(t_ordeno.length>0)
@@ -117,6 +129,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblUno'></a></td>
 					<td>
 					<input class="txt" id="txtUno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblInuno'></a></td>
+					<td>
+					<input class="txt" id="txtInuno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
