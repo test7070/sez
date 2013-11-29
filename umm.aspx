@@ -137,7 +137,15 @@
                 	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";
                 	var t_where2 = " where[2]=^^ 1=0 ^^";
                 	var t_where3 = " where[3]=^^ 1=0 ^^";
-                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+                	var t_where4 = " where[4]=^^ vccno=a.custno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
+                	var t_where5 = " where[5]=^^ a.custno='"+t_custno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
+                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
+                	
+                	/*1021129 PS.
+                	 		有買發票系統 要開發票的帳 稅金不能是應稅和自訂，只能在vcca上輸入
+							沒有發票系統 不限定
+					*/
+                	
                 	/*if(emp($('#txtDatea').val())){
                 		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
                 		return;
@@ -167,7 +175,15 @@
                 	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";
                 	var t_where2 = " where[2]=^^ a.custno='"+t_custno+"' and a.mon<='"+t_mon+"' ^^";
                 	var t_where3 = " where[3]=^^ vccno=a.custno+'-'+a.mon and noa!='"+t_noa+"' ^^";
-                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+                	var t_where4 = " where[4]=^^ vccno=a.custno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
+                	var t_where5 = " where[5]=^^ a.custno='"+t_custno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
+                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
+                	
+                	/*1021129 PS.
+                	 		有買發票系統 要開發票的帳 稅金不能是應稅和自訂，只能在vcca上輸入
+							沒有發票系統 不限定
+					*/
+					
                 	/*if(emp($('#txtDatea').val())){
                 		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
                 		return;
