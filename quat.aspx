@@ -132,7 +132,7 @@
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('vcc.stype')); 
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));	 
-				q_cmbParse("cmbPaytype", q_getPara('vcc.paytype'));  
+				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
 				q_cmbParse("cmbTrantype",q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
 				var t_where = "where=^^ 1=1  group by post,addr^^";
@@ -236,6 +236,12 @@
 			}
 
 			function combPay_chg() {
+				var cmb = document.getElementById("combPay")
+	            if (!q_cur)
+	                cmb.value = '';
+	            else
+	                $('#txtPaytype').val(cmb.value);
+	            cmb.value = '';
 			}
 			
 			function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -594,7 +600,7 @@
 				<td ><input id="txtComp"  type="text" class="txt c1"/></td>
 				<td class="label2"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 				<td ><input id="txtPaytype" type="text" class="txt c1" /></td> 
-				<td> <select id="cmbPaytype" class="txt c1"> </select></td> 
+				<td> <select id="combPaytype" class="txt c1" onchange='combPay_chg()'> </select></td> 
 				<td class="label3"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
 				<td><select id="cmbTrantype" class="txt c1" name="D1" > </select></td> 
 			</tr>
