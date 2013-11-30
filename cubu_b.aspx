@@ -98,6 +98,7 @@
 								var t_datea = $('#txtDatea_'+n);
 								if(trim($(this).val()) != ''){
 									$('#txtProductno_' + n).val(temp_bbt.productno);
+									$('#txtSpec_' + n).val(temp_bbt.spec);
 									if(trim(temp_bbt.productno) != '')
 										q_popsChange($('#txtProductno_' + n));
 									$('#txtDime_' + n).val(temp_bbt.dime);
