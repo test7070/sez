@@ -98,6 +98,7 @@
 								var t_datea = $('#txtDatea_'+n);
 								if(trim($(this).val()) != ''){
 									$('#txtProductno_' + n).val(temp_bbt.productno);
+									$('#txtSpec_' + n).val(temp_bbt.spec);
 									if(trim(temp_bbt.productno) != '')
 										q_popsChange($('#txtProductno_' + n));
 									$('#txtDime_' + n).val(temp_bbt.dime);
@@ -264,7 +265,8 @@
                 switch (s1) {
                     case 'txtProductno_':
 						$('input[id*="txtProduct_"]').each(function(){
-		                	$(this).attr('OldValue',$(this).val());
+							thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+		                	$(this).attr('OldValue',$('#txtProductno_'+thisId).val());
 		                });
 		                ProductAddStyle(b_seq);
 		                if(toFocusOrdeno == 1)

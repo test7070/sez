@@ -21,7 +21,7 @@
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwCount2=20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
 		//ajaxPath = ""; //  execute in Root
-		q_desc = 1;
+		
 		$(document).ready(function () {
 			bbmKey = ['noa'];
 			q_brwCount();
@@ -311,7 +311,7 @@
 		   <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'></a></td>				
-				<td align="center" style="width:15%"><a id='vewNoa'></a></td>								
+				<td align="center" style="width:15%"><a id='vewNoa'></a></td>
 				<td align="center" style="width:25%"><a id='vewNamea'></a></td>								
 			</tr>
 			 <tr>
