@@ -849,7 +849,7 @@
                    <td align="center" id='typea=vcc.typea'>~typea=vcc.typea</td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='comp,8'>~comp,8</td>
+                   <td align="center" id='comp,8' style="text-align: left;">~comp,8</td>
             </tr>
         </table>
         </div>
