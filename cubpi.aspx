@@ -212,15 +212,7 @@
 						tempArray.push($('#txtProductno2_' + j).val());
 				}
 				var TmpStr = distinct(tempArray).sort();
-				for(var k=0; k<TmpStr.length;k++){
-					var thisVal = trim(TmpStr[k]);
-					switch(thisVal){
-						case 'GP' : TmpStr[k]='GS'; break;
-						case 'GE' : TmpStr[k]='GS'; break;
-						case 'HP' : TmpStr[k]='HS'; break;
-						case 'HE' : TmpStr[k]='HS'; break;
-					}
-				}
+
 				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
 				return TmpStr;
 			}
