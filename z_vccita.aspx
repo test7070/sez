@@ -65,6 +65,9 @@
 						type : '5',
 						name : 'xstype', //[12]
 						value : [q_getPara('report.all')].concat(q_getPara('vcc.stype').split(','))
+	                }, {
+						type : '6',
+						name : 'commission' //[13]
 	                }]
 				});
 				q_popAssign();
@@ -107,6 +110,8 @@
 				$('#Xgroupano select').css('width','150px');
 				$('.q_report .report').css('width','420px');
 				$('.q_report .report div').css('width','200px');
+				
+				//$('#txtCommission').val(95).mask('99');
 				
 			}
 
