@@ -277,7 +277,7 @@
 					$('#txtWorker2').val(r_name);
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if(s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll('G' + $('#txtOdate').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ordc') + $('#txtOdate').val(), '/', ''));
 				else
 					wrServer(s1);
 			}
