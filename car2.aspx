@@ -139,7 +139,8 @@
 					q_box("carstyle.aspx", 'carstyle', "90%", "600px", q_getMsg("popCarstyle"));
 				});*/
 				$('#lblCarspec').click(function(e) {
-					q_box("carspec.aspx", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
+					if(q_cur==1 || q_cur==2)
+						q_box("carspec.aspx", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
 				});
 				
                 //--11/21大昌改管理費+公會費=行費

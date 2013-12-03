@@ -31,7 +31,7 @@
         brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
        
-		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtZipcode,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
+		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtPost,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
 			['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 			['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
 			['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
@@ -414,7 +414,7 @@
 		function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
             if (q_cur==1 || q_cur==2){
                 $('#txtAddr').val($('#combAddr').find("option:selected").text());
-                $('#txtZipcode').val($('#combAddr').find("option:selected").val());
+                $('#txtPost').val($('#combAddr').find("option:selected").val());
             }
         }
 
@@ -810,7 +810,7 @@
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
-				<td class="td2"><input id="txtZipcode" type="text" class="txt c1"/></td>
+				<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 				<td class="td3" colspan='4'>
 					<input id="txtAddr" type="text" class="txt c1" style="width: 412px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>

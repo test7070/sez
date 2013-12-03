@@ -316,7 +316,7 @@
 							$('#txtTel').val(as[0].tel);
 							$('#txtFax').val(as[0].fax);
 							$('#cmbTrantype').val(as[0].trantype);
-							$('#txtZipcode').val(as[0].zip_comp);
+							$('#txtPost').val(as[0].zip_comp);
 							$('#txtAddr').val(as[0].addr_comp);
 							$('#txtSalesno').val(as[0].salesno);
 							$('#txtSales').val(as[0].sales);
@@ -337,7 +337,7 @@
 							$('#txtTel').val(as[0].tel);
 							$('#txtFax').val(as[0].fax);
 							$('#cmbTrantype').val(as[0].trantype);
-							$('#txtZipcode').val(as[0].zip_comp);
+							$('#txtPost').val(as[0].zip_comp);
 							$('#txtAddr').val(as[0].addr_comp);
 							$('#txtSalesno').val(as[0].salesno);
 							$('#txtSales').val(as[0].sales);
@@ -464,7 +464,7 @@
 		function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
             if (q_cur==1 || q_cur==2){
                 $('#txtAddr').val($('#combAddr').find("option:selected").text());
-                $('#txtZipcode').val($('#combAddr').find("option:selected").val());
+                $('#txtPost').val($('#combAddr').find("option:selected").val());
             }
         }
 		
@@ -952,7 +952,7 @@
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
-				<td class="td2"><input id="txtZipcode" type="text" class="txt c1"/></td>
+				<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 				<td class="td3" colspan='4'>
 					<input id="txtAddr" type="text" class="txt c1" style="width: 412px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
