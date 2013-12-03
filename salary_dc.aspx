@@ -87,7 +87,7 @@
             
             $('#btnInput').click(function () {
             	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa!='Z001' and a.noa!='010132'^^";//後面是不要匯入軒威和董事長資料
-            	var t_where1 = "where[1]=^^ datea between '"+date_1+"' and '"+date_2+"' ^^";
+            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
             	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
             	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
             	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
