@@ -34,7 +34,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp,nick', 'txtCno,txtAcomp,txtNick', 'acomp_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
