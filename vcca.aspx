@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -9,12 +9,16 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-			q_desc=1
+			q_desc=1;
             q_tables = 's';
             var q_name = "vcca";
             var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker','txtTrdno'];
@@ -75,7 +79,6 @@
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
-                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
 
             function main() {
@@ -135,17 +138,26 @@
                 b_pop = '';
             }
 			
-			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'cno_acomp':
-                		var as = _q_appendData("acomp", "", true);
-                		if (as[0] != undefined) {
-	                		z_cno=as[0].noa;
-	                		z_acomp=as[0].acomp;
-	                		z_nick=as[0].nick;
-	                	}
-                		break;
+                	case 'getAcomp':
+						var as = _q_appendData("acomp", "", true);
+						if(as[0]!=undefined){
+							$('#txtCno').val(as[0].noa);
+							$('#txtAcomp').val(as[0].nick);
+						}
+						Unlock(1);
+						//發票號碼+1
+		                var t_noa = trim($('#txtNoa').val());
+		                var str = '00000000' + (parseInt(t_noa.substring(2, 10)) + 1);
+		                str = str.substring(str.length - 8, str.length);
+		                if(!isNaN(parseFloat(str)) && isFinite(str)){
+		                	t_noa = t_noa.substring(0, 2) + str;
+		                	$('#txtNoa').val(t_noa);
+		                }
+		                $('#txtDatea').val(q_date());
+		                $('#txtDatea').focus();
+		                break;
                 	case 'vccar':
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
@@ -243,22 +255,11 @@
                 curData.copy();
                 _btnIns();
                 curData.paste();
-                
-                if(emp($('#txtCno').val())){
-                	$('#txtCno').val(z_cno);
-            		$('#txtAcomp').val(z_acomp);
-				}
-                //發票號碼+1
-                var t_noa = trim($('#txtNoa').val());
-                var str = '00000000' + (parseInt(t_noa.substring(2, 10)) + 1);
-                str = str.substring(str.length - 8, str.length);
-                if(!isNaN(parseFloat(str)) && isFinite(str)){
-                	t_noa = t_noa.substring(0, 2) + str;
-                	$('#txtNoa').val(t_noa);
-                }
                 $('#cmbTaxtype').val(1);
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                Lock(1, {
+					opacity : 0
+				});
+                q_gt('acomp', '', 0, 0, 0, 'getAcomp', r_accy);
             }
 
             function btnModi() {
@@ -479,7 +480,7 @@
                 	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
                 	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
                		if(regex.test(str))
-               			return 4
+               			return 4;
                	}
                	return 0;//錯誤
             }

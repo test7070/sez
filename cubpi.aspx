@@ -18,7 +18,7 @@
 
 			q_tables = 't';
 			var q_name = "cub";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
 			var q_readonlys = [];
 			var q_readonlyt = [];
 			var bbmNum = [];
@@ -445,7 +445,11 @@
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					return;
 				}
-				$('#txtWorker').val(r_name);
+				if (q_cur == 1) {
+					$('#txtWorker').val(r_name);
+				} else {
+					$('#txtWorker2').val(r_name);
+				}
 
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
@@ -927,6 +931,12 @@
 						<td colspan="10"><input id="txtMemo" type="text" class="txt c1"/></td>
 						<td> </td>
 						<td><input type="button" id="btnCubuImport"></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl" > </a></td>
+						<td colspan="2"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl" > </a></td>
+						<td colspan="2"><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

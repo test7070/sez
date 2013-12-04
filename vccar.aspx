@@ -34,7 +34,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp,nick', 'txtCno,txtAcomp,txtNick', 'acomp_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -526,7 +526,7 @@
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="acomp,4" style="text-align: center;">~acomp,4</td>
+						<td id="nick" style="text-align: center;">~nick</td>
 						<td id="bdate" style="text-align: center;">~bdate</td>
 						<td id="binvono" style="text-align: center;">~binvono</td>
 					</tr>
@@ -550,6 +550,7 @@
 						<td colspan="3">
 							<input id="txtCno"  type="text"  style="float:left;width:25%;"/>
 							<input id="txtAcomp"  type="text" style="float:left;width:75%;"/>
+							<input id="txtNick"  type="text" style="display:none;"/>
 						</td>
 					</tr>
 					<tr>
