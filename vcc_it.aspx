@@ -143,6 +143,15 @@
 				}  
 			});
 			
+			$('#txtAddr2').change(function(){
+				var t_custno = trim($(this).val());
+				if(!emp(t_custno)){
+					focus_addr = $(this).attr('id');
+					var t_where = "where=^^ noa='" + t_custno + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}  
+			});
+			
 			$('#txtDatea').change(function() {
 				$('#txtMon').val($('#txtDatea').val().substr(0,6));
 			});
@@ -150,7 +159,7 @@
 			$('#txtCustno').change(function(){
 				if(!emp($('#txtCustno').val())){
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
-					q_gt('cust', t_where, 0, 0, 0, "");
+					q_gt('cust', t_where, 0, 0, 0, "cust_txt");
 					post_custno=$('#txtCustno').val();
 					popcust=false;
 					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
@@ -309,7 +318,7 @@
 					}
 					q_msg( $('#txtMount_'+(b_seq.length==0?tb_seq:b_seq)), t_msg);
 					break;
-				case 'cust':
+				case 'cust_txt':
 						var as = _q_appendData("cust", "", true);
 						if(as[0]!=undefined){
 							$('#txtPaytype').val(as[0].paytype);
@@ -463,8 +472,8 @@
 		
 		function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
             if (q_cur==1 || q_cur==2){
-                $('#txtAddr').val($('#combAddr').find("option:selected").text());
-                $('#txtPost').val($('#combAddr').find("option:selected").val());
+                $('#txtAddr2').val($('#combAddr').find("option:selected").text());
+                $('#txtPost2').val($('#combAddr').find("option:selected").val());
             }
         }
 		
@@ -953,13 +962,18 @@
             <tr>
 				<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
 				<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
-				<td class="td3" colspan='4'>
-					<input id="txtAddr" type="text" class="txt c1" style="width: 412px;"/>
-					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
-				</td>
+				<td class="td3" colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
                <td class="td7"><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
                 <td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td> 
             </tr>
+            <tr>
+				<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
+				<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
+				<td class="td3" colspan='4' >
+					<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
+					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+				</td>
+			</tr>
             <tr>
                 <td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
                 <td class="td5"><input id="txtSalesno" type="text" class="txt c1"/></td>                 
