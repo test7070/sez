@@ -526,7 +526,7 @@
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="acomp,4" style="text-align: center;">~acomp,4</td>
+						<td id="nick" style="text-align: center;">~nick</td>
 						<td id="bdate" style="text-align: center;">~bdate</td>
 						<td id="binvono" style="text-align: center;">~binvono</td>
 					</tr>
@@ -550,6 +550,7 @@
 						<td colspan="3">
 							<input id="txtCno"  type="text"  style="float:left;width:25%;"/>
 							<input id="txtAcomp"  type="text" style="float:left;width:75%;"/>
+							<input id="txtNick"  type="text" style="display:none;"/>
 						</td>
 					</tr>
 					<tr>
