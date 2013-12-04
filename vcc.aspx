@@ -902,7 +902,6 @@
                 </td>
                 <td style="width:15%;">
                 	<input id="txtProduct.*" type="text" class="txt c1" />
-                	<input id="txtSpec.*" type="text" class="txt c1 it" />
                 </td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
