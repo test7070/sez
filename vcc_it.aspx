@@ -43,7 +43,7 @@
 	            ['txtMemo', '', 'qphr', 'noa,phr', '0,txtMemo', '']
 		);
 	
-              
+        var isinvosystem=false;//購買發票系統
         $(document).ready(function () {
             q_desc = 1;
             bbmKey = ['noa'];
@@ -51,6 +51,8 @@
             q_brwCount(); 
             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy); 
             q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+            
+            q_gt('ucca', 'stop=1 ', 0, 0, 0, "ucca_invo");//判斷是否有買發票系統
         });
 
         //////////////////   end Ready
@@ -166,6 +168,9 @@
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
 			});
+			
+			if(isinvosystem)
+				$('#txtTax').hide();
         }
 
         function q_funcPost(t_func, result) {  
@@ -220,6 +225,15 @@
         function q_gtPost(t_name) {  
             var as;
             switch (t_name) {
+            	case 'ucca_invo':
+            		var as = _q_appendData("ucca", "", true);
+            		if (as[0] != undefined) {
+            			isinvosystem=true;
+            			$('#txtTax').hide();
+            		}else{
+            			isinvosystem=false;
+            		}
+            	break;
             	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
                 		if (as[0] != undefined) {
@@ -631,6 +645,8 @@
 			}else{
 				$('.it').hide();
 			}
+			if(isinvosystem)
+				$('#txtTax').hide();
         }
 
         function readonly(t_para, empty) {
@@ -729,7 +745,9 @@
 			for (var j = 0; j < q_bbsCount; j++) {
 				t_money+=q_float('txtTotal_' + j);
 			}
-			var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
+			t_total=t_money;
+			if(!isinvosystem){
+				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
                 switch ($('#cmbTaxtype').val()) {
                 	case '0':
                         // 無
@@ -769,10 +787,11 @@
                         t_money = 0, t_tax = 0, t_total = 0;
                         break;
                     default:
-                }
-                $('#txtMoney').val(FormatNumber(t_money));
-				$('#txtTax').val(FormatNumber(t_tax));
-				$('#txtTotal').val(FormatNumber(t_total));
+				}
+			}
+			$('#txtMoney').val(FormatNumber(t_money));
+			$('#txtTax').val(FormatNumber(t_tax));
+			$('#txtTotal').val(FormatNumber(t_total));
 		}
 		
     </script>
@@ -1018,8 +1037,10 @@
 				<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
 				<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1"/></td>
                 <td class="td4"><span> </span><a id='lblTax' class="lbl"> </a></td>
-                <td class="td5"><input id="txtTax" type="text" class="txt num c1"/></td>                 
-                <td class="td6"><select id="cmbTaxtype" style="width: 100%;" onchange="calTax();"> </select></td>                 
+                <td class="td5" colspan='2'>
+                	<input id="txtTax" type="text" class="txt num c1" style="width: 49%;"/>
+                	<select id="cmbTaxtype" style="width: 49%;" onchange="calTax();"> </select>
+				</td>                 
                 <td class="td7"><span> </span><a id='lblTotal' class="lbl"> </a></td>
                 <td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td> 
             </tr>
