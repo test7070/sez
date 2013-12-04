@@ -199,6 +199,7 @@
 
 			function btnOk() {
 				for(var i=0;i<q_bbsCount;i++){
+					$('#txtWorker_'+i).val(r_name);
 					var t_datea = trim($('#txtDatea_'+i).val());
 					var t_uno = trim($('#txtUno_'+i).val());
 					var t_ordeno = trim($('#txtOrdeno_'+i).val());
@@ -411,7 +412,10 @@
 					<td style="display:none;"><input type="text" id="txtInweight.*" class="txt c1 num"/></td>
 					<td style="display:none;"><input type="text" id="txtWaste.*" class="txt c1 num"/></td>
 					<td style="display:none;"><input type="text" id="txtGmount.*" class="txt c1 num"/></td>
-					<td><input type="text" id="txtMemo.*" class="txt c1"/></td>
+					<td>
+						<input type="text" id="txtMemo.*" class="txt c1"/>
+						<input type="text" id="txtWorker.*" style="display:none;"/>
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->
