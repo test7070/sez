@@ -731,6 +731,11 @@
 			}
 			var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
                 switch ($('#cmbTaxtype').val()) {
+                	case '0':
+                        // 無
+                        t_tax = 0;
+                        t_total = q_add(t_money,t_tax);
+                        break;
                     case '1':
                         // 應稅
                         t_tax = round(q_mul(t_money,t_taxrate), 0);
