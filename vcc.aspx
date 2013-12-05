@@ -160,7 +160,7 @@
 			});
 			
 			if(isinvosystem)
-				$('#txtTax').hide();
+				$('.istax').hide();
         }
 
         function q_funcPost(t_func, result) {  
@@ -218,7 +218,7 @@
 					var as = _q_appendData("ucca", "", true);
             		if (as[0] != undefined) {
             			isinvosystem=true;
-						$('#txtTax').hide();
+						$('.istax').hide();
             		}else{
             			isinvosystem=false;
             		}
@@ -560,6 +560,8 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno); 
+            if(isinvosystem)
+				$('.istax').hide();
         }
 
         function readonly(t_para, empty) {
@@ -926,11 +928,11 @@
 				<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1"/></td>
                 <td class="td4"><span> </span><a id='lblTax' class="lbl"> </a></td>
                 <td class="td5" colspan='2'>
-                	<input id="txtTax" type="text" class="txt num c1"  style="width: 49%;"/>
+                	<input id="txtTax" type="text" class="txt num c1 istax"  style="width: 49%;"/>
                 	<select id="cmbTaxtype" style="width: 49%;" onchange="calTax();"> </select>
                 </td>                 
-                <td class="td7"><span> </span><a id='lblTotal' class="lbl"> </a></td>
-                <td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td> 
+                <td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
+                <td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax"/></td> 
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
