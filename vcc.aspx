@@ -408,7 +408,10 @@
             if(emp($('#txtMon').val()))
 				$('#txtMon').val($('#txtDatea').val().substr(0,6));
 				
-            $('#txtWorker').val(r_name)
+           if (q_cur == 1)
+				$('#txtWorker').val(r_name);
+			else
+				$('#txtWorker2').val(r_name);
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
