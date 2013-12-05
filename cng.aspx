@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-        ['txtStorinno', 'lblStorein', 'store', 'noa,store', 'txtStorinno,txtStorin', 'store_b.aspx'],
+        ['txtStoreinno', 'lblStorein', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
         ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
         ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']);
@@ -145,7 +145,7 @@
             as['tggno'] = abbm2['tggno'];
             as['typea'] = abbm2['typea'];
             as['storeno'] = abbm2['storeno'];
-            as['storinno'] = abbm2['storinno'];
+            as['storeinno'] = abbm2['storeinno'];
             return true;
         }
 
@@ -375,13 +375,13 @@
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
                 <td align="center" style="width:20%"><a id='vewDatea'> </a></td>
                 <td align="center" style="width:20%"><a id='vewStore'> </a></td>
-                <td align="center" style="width:20%"><a id='vewStorin'> </a></td>
+                <td align="center" style="width:20%"><a id='vewStorein'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='store'>~store</td>
-                   <td align="center" id='storin'>~storin</td>
+                   <td align="center" id='storein'>~storein</td>
             </tr>
         </table>
         </div>
@@ -405,8 +405,8 @@
             </td>       
             <td class="td5"><span> </span><a id="lblStorein" class="lbl btn"> </a></td>
             <td class="td6">
-            	<input id="txtStorinno" type="text" class="txt c2"/>
-            	<input id="txtStorin" type="text" class="txt c3"/>
+            	<input id="txtStoreinno" type="text" class="txt c2"/>
+            	<input id="txtStorein" type="text" class="txt c3"/>
             </td> 
         </tr>
         <tr class="tr3">

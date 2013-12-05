@@ -36,14 +36,14 @@
         t_edate = $('#txtEdate').val();
         t_storeno = $('#txtStoreno').val();
         t_store = $('#txtStore').val();
-        t_storin = $('#txtStorin').val();
-        t_storinno = $('#txtStorinno').val();
+        t_storein = $('#txtStorein').val();
+        t_storeinno = $('#txtStoreinno').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)  + q_sqlPara2("datea", t_bdate, t_edate) +
-                           q_sqlPara2("storeno", t_storeno) + q_sqlPara2("store", t_store)+ q_sqlPara2("storin", t_storin)+ q_sqlPara2("storinno", t_storinno);
+                           q_sqlPara2("storeno", t_storeno) + q_sqlPara2("store", t_store)+ q_sqlPara2("storein", t_storein)+ q_sqlPara2("storeinno", t_storeinno);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -72,8 +72,8 @@
                 <td><input class="txt" id="txtStoreno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtStore" type="text" style="width:115px;font-size:medium;" /></td>
              </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblStorin'></a></td>
-                <td><input class="txt" id="txtStorinno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtStorin" type="text" style="width:115px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblStorein'></a></td>
+                <td><input class="txt" id="txtStoreinno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtStorein" type="text" style="width:115px; font-size:medium;" /></td>
              </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
