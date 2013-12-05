@@ -43,7 +43,7 @@
                     case 'acomp':
                         var t_acomp = '@全部';
                         var as = _q_appendData("acomp", "", true);
-                        for ( var i in as) {
+                        for (var i =0;i<as.length;i++) {
                             t_acomp += (t_acomp.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
                         }
                         q_cmbParse("cmbAcomp", t_acomp);
