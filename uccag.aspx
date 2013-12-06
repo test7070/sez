@@ -47,7 +47,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('uccag.typea'));
                 $('#lblAccno').click(function() {
@@ -71,7 +71,7 @@
 		       	});*/
             }
             function show_confirm(){
-                if(!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())){
+                if(!emp($('#txtBdate').val())){
 					var r=confirm("你確定要執行嗎?");
 					if (!r){
 						return;
@@ -107,9 +107,8 @@
             }
 						
             function btnOk() {
-            	if($('#txtMon').length>0){
-            		$('#txtBdate').val('');
-            		$('#txtEdate').val('');
+            	if($('#txtMon').val().length>0){
+            		$('#txtBdate').val('');        
             	}
             	
                 $('#txtWorker').val(r_name);
@@ -339,8 +338,8 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTypea'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:200px; color:black;" colspan="2"><a id='vewDate'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDate'> </a></td>
 					</tr>
 					<tr>
 						<td>
@@ -349,7 +348,6 @@
 						<td align="center" id='typea=uccag.typea'>~typea=uccag.typea</td>
 						<td align="center" id='mon'>~mon</td>
 						<td align="center" id='bdate'>~bdate</td>
-						<td align="center" id='edate'>~edate</td>
 					</tr>
 				</table>
 			</div>
@@ -381,11 +379,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
-						<td colspan="3">
-						<input id="txtBdate"  type="text" style="float:left; width:45%;"/>
-						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
-						<input id="txtEdate"  type="text" style="float:left; width:45%;"/>
-						</td>
+						<td><input id="txtBdate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>

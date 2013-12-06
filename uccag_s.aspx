@@ -26,7 +26,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtBdate', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", ' @全部,'+q_getPara('uccag.typea'));
                 $('#txtBdate').datepicker();
@@ -38,7 +38,6 @@
                 t_noa = $.trim($('#txtNoa').val());
                 t_accno = $.trim($('#txtAccno').val());
 		        t_bdate = $('#txtBdate').val();
-		        t_edate = $('#txtEdate').val();
 		        t_mon = $('#txtMon').val();
 
 		        var t_where = " 1=1 " 
@@ -46,8 +45,7 @@
 		        + q_sqlPara2("noa", t_noa)
 		        + q_sqlPara2("accno", t_accno)
 		        + q_sqlPara2("mon", t_mon) 
-		        + q_sqlPara2("bdate", t_bdate)
-		        + q_sqlPara2("edate", t_edate); 	     
+		        + q_sqlPara2("bdate", t_bdate); 	     
 		       	
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
@@ -80,11 +78,9 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDate'></a></td>
-					<td style="width:65%;  ">
-					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					<td class='seek'  style="width:20%;"><a id='lblDate'></a></td>
+					<td>
+					<input class="txt" id="txtBdate" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
