@@ -20,8 +20,8 @@
 		var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
 		var q_readonly = ['txtNoa','txtWorker','txtWorker2']; 
 		var q_readonlys= [];
-		var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtPrice', 10, 0, 1],['txtTotalus', 15, 0, 1],['txtFloata', 10, 2, 1]];  // 允許 key 小數
-		var bbsNum = [['txtMount', 15, 0, 1],['txtPrice', 15, 0, 1],['txtTotal', 15, 0, 1]];
+		var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtPrice', 10, 2, 1],['txtTotalus', 15, 0, 1],['txtFloata', 10, 2, 1]];  // 允許 key 小數
+		var bbsNum = [['txtMount', 15, 0, 1],['txtPrice', 15, 2, 1],['txtTotal', 15, 0, 1]];
 		var bbmMask = [];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
