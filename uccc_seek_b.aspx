@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		var q_name = 'view_uccc', t_content = ' field=accy,tablea,action,noa,datea,uno,productno,product,radius,dime,width,lengthb,spec,style,storeno,class,class2,typea,source,hard,waste,mount,weight,mweight,size,memo,descr,zinc,scolor,ucolor,unit,kind,eweight,emount,itype', bbsKey = ['uno'], as; 
+		var q_name = 'view_uccc', t_content = ' field=accy,tablea,action,noa,datea,uno,productno,product,radius,dime,width,lengthb,spec,style,storeno,class,class2,typea,source,hard,waste,mount,weight,mweight,size,memo,descr,zinc,scolor,ucolor,unit,kind,eweight,emount,itype,laststoreno', bbsKey = ['uno'], as; 
 		var isBott = false;
 		var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 		var i,s1;
@@ -284,12 +284,13 @@
 				<tr style='color:White; background:#003366;' >
 					<th align="center" style="width:2%;" > </th>
 					<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblProductno_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
 				</tr>
 			</table>
@@ -299,18 +300,19 @@
 				<tr style="display:none;">
 					<th align="center" style="width:2%;" > </th>
 					<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblProductno_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:18%;"><a id='lblSize_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:2%;"><input name="sel" id="radSel.*" type="radio" /></td>
 					<td align="center" style="width:10%;"><input id="txtUno.*" type="text" class="txt c2" readonly="readonly"/></td>
-					<td align="center" style="width:6%;"><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
+					<td align="center" style="width:4%;"><input id="txtProductno.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td align="center" style="width:8%;"><input id="txtProduct.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td align="center" style="width:4%;"><input id="txtSpec.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td id="size_changeTd" align="center" style="width:18%;">
@@ -324,6 +326,7 @@
 					</td>
 					<td align="center" style="width:4%;"><input id="txtEmount.*" type="text" class="txt c2 num" readonly="readonly"/></td>
 					<td style="width:6%;"><input id="txtEweight.*" type="text" class="txt c2 num" readonly="readonly"/></td>
+					<td style="width:4%;"><input id="txtLaststoreno.*" type="text" class="txt c2" readonly="readonly"/></td>
 					<td ><input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/></td>
 				</tr>
 			</table>

@@ -47,7 +47,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('uccag.typea'));
                 $('#lblAccno').click(function() {
@@ -60,7 +60,7 @@
 		       	}else{
 		       		$('#btnGen').click(function() {show_confirm();});
 		       	}
-		       	$('#txtMon').focusout(function(){
+		       	/*$('#txtMon').focusout(function(){
 		       		var t_Mon = trim($(this).val());
 		        	var myDate = new Date(dec(t_Mon.substr( 0,3))+1911,dec(t_Mon.substr( 4,5)),0);
 		        	var lastday=myDate.getDate();	//取當月最後一天
@@ -68,10 +68,10 @@
 		       			$('#txtBdate').val(t_Mon+'/01');
 		       			$('#txtEdate').val(t_Mon+'/'+lastday);
 		       		}
-		       	});
+		       	});*/
             }
             function show_confirm(){
-                if(!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())){
+                if(!emp($('#txtBdate').val())){
 					var r=confirm("你確定要執行嗎?");
 					if (!r){
 						return;
@@ -107,6 +107,10 @@
             }
 						
             function btnOk() {
+            	if($('#txtMon').val().length>0){
+            		$('#txtBdate').val('');        
+            	}
+            	
                 $('#txtWorker').val(r_name);
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
@@ -334,15 +338,16 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTypea'> </a></td>
-						<td align="center" style="width:200px; color:black;" colspan="2"><a id='vewDate'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDate'> </a></td>
 					</tr>
 					<tr>
 						<td>
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='typea=uccag.typea'>~typea=uccag.typea</td>
+						<td align="center" id='mon'>~mon</td>
 						<td align="center" id='bdate'>~bdate</td>
-						<td align="center" id='edate'>~edate</td>
 					</tr>
 				</table>
 			</div>
@@ -374,11 +379,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
-						<td colspan="3">
-						<input id="txtBdate"  type="text" style="float:left; width:45%;"/>
-						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
-						<input id="txtEdate"  type="text" style="float:left; width:45%;"/>
-						</td>
+						<td><input id="txtBdate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
