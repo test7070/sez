@@ -188,7 +188,8 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 		                    }
 		                    q_cmbParse("cmbChgpartno", t_item);
-		                    $("#cmbChgpartno").val(abbm[q_recno].chgpartno);
+		                    if(abbm[q_recno])
+		                    	$("#cmbChgpartno").val(abbm[q_recno].chgpartno);
 		                }
 		                break;
 		            case q_name:
