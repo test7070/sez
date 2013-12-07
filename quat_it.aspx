@@ -34,7 +34,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'ucaucc_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_fact',
 				 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
@@ -110,17 +110,10 @@
 			function sum() {
 				var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
 				for(var j = 0; j < q_bbsCount; j++) {
-					/*if($('#txtUnit_' + j).val().toUpperCase()=='KG'){
-						q_tr('txtTotal_'+j,q_mul(q_float('txtWeight_'+j),q_float('txtPrice_'+j)))
-					}else{
-						q_tr('txtTotal_'+j,q_mul(q_float('txtMount_'+j),q_float('txtPrice_'+j)))
-					}*/
 					q_tr('txtTotal_'+j,q_mul(q_float('txtMount_'+j),q_float('txtPrice_'+j)));
 					t_total=q_add( t_total,q_float('txtTotal_'+j));
-					//t_weight+=q_float('txtWeight_'+j);
 				}  // j
 				q_tr('txtMoney',t_total);
-				//q_tr('txtWeight',t_weight);
 				q_tr('txtTotal',t_total);
 				calTax();
 				q_tr('txtTotalus',q_mul( q_float('txtTotal'),q_float('txtFloata')));
@@ -163,6 +156,28 @@
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
+				
+				$('#cmbStype').change(function() {
+					if($('#cmbStype').val()=='4'){
+						$('#btnSample').show();
+					}else{
+						$('#btnSample').hide();
+					}
+					$('#div_sample').hide();
+				});
+				
+				$('#btnSample').mousedown(function(e) {
+			 		if(e.button==0){
+			 			////////////控制顯示位置
+						$('#div_sample').css('top',e.pageY);
+						$('#div_sample').css('left',e.pageX-$('#div_sample').width());
+						$('#div_sample').toggle();
+					}
+				 });
+				 
+				 $('#btnClose_div_sample').click(function() {
+				 	$('#div_sample').toggle();
+				 });
 			}
 
 			function q_boxClose(s2) {///	q_boxClose 2/4
@@ -221,6 +236,10 @@
 					alert(t_err);
 					return;
 				}
+				
+				var z_memo2=$('#textDivision').val()+'&&'+$('#textUnit').val()+'&&'+$('#textMode').val()+'&&'+
+				$('#textMount').val()+'&&'+$("#checkPhoto").prop("checked")+'&&'+$('#textTimea').val()+'&&'+$('#textApplication').val()+'&&'+$('#textMemo').val();
+				$('#txtMemo2').val(z_memo2);
 				
 				if(q_cur==1)
 					$('#txtWorker' ).val(r_name);
@@ -307,10 +326,7 @@
 			}
 
 			function btnPrint() {
-				if(q_getPara('sys.comp').indexOf('英特瑞')>-1)
-					q_box('z_quatpit.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
-				else
-					q_box('z_quatp.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
+				q_box('z_quatpit.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
 			}
 
 			function wrServer(key_value) {
@@ -334,14 +350,53 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				
+				if($('#cmbStype').val()=='4'){
+					$('#btnSample').show();
+				}else{
+					$('#btnSample').hide();
+				}
+				$('#div_sample').hide();
+				
+				//拆分txtmemo2代入div
+				var t_memo2 = replaceAll($('#txtMemo2').val(),'＆＆','&&').split('&&'); 
+				$('#textDivision').val(t_memo2[0]);
+				$('#textUnit').val(t_memo2[1]);
+				$('#textMode').val(t_memo2[2]);
+				$('#textMount').val(t_memo2[3]);
+				if(t_memo2[4]=='true')
+					$("#checkPhoto").prop("checked",true);
+				else
+					$("#checkPhoto").prop("checked",false);
+				$('#textTimea').val(t_memo2[5]);
+				$('#textApplication').val(t_memo2[6]);
+				$('#textMemo').val(t_memo2[7]);
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if(t_para){
 					$('#combAddr').attr('disabled','disabled');
+					
+					$('#textDivision').attr('disabled','disabled');
+					$('#textUnit').attr('disabled','disabled');
+					$('#textMode').attr('disabled','disabled');
+					$('#textMount').attr('disabled','disabled');
+					$('#checkPhoto').attr('disabled','disabled');
+					$('#textTimea').attr('disabled','disabled');
+					$('#textApplication').attr('disabled','disabled');
+					$('#textMemo').attr('disabled','disabled');
 				}else{
 					$('#combAddr').removeAttr('disabled');
+					
+					$('#textDivision').removeAttr('disabled');
+					$('#textUnit').removeAttr('disabled');
+					$('#textMode').removeAttr('disabled');
+					$('#textMount').removeAttr('disabled');
+					$('#checkPhoto').removeAttr('disabled');
+					$('#textTimea').removeAttr('disabled');
+					$('#textApplication').removeAttr('disabled');
+					$('#textMemo').removeAttr('disabled');
 				}
 			}
 
@@ -553,6 +608,39 @@
 	</style>
 </head>
 <body>
+	<div id="div_sample" style="position:absolute; top:300px; left:500px; display:none; width:600px; background-color: #ffffff; ">
+		<table id="table_sample"  class="table_row" style="width:100%;" border="1" cellpadding='1'  cellspacing='0'>
+			<tr>
+				<td align="center" width="25%"><a class="lbl">試用科別</a></td>
+				<td align="center" width="25%"><input id="textDivision" type="text"  class="txt  c1"/></td>
+				<td align="center" width="25%"><a class="lbl">試用單位</a></td>
+				<td align="center" width="25%"><input id="textUnit" type="text"  class="txt  c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">試用方式</a></td>
+				<td align="center" ><input id="textMode" type="text"  class="txt  c1"/></td>
+				<td align="center" ><a class="lbl">試用人數</a></td>
+				<td align="center" ><input id="textMount" type="text"  class="txt  c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">拍照</a></td>
+				<td align="center" ><input id="checkPhoto" type="checkbox"/></td>
+				<td align="center" ><a class="lbl">更換時間</a></td>
+				<td align="center" ><input id="textTimea" type="text"  class="txt  c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">申請理由</a></td>
+				<td align="center" colspan='3'><input id="textApplication" type="text"  class="txt c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" ><a class="lbl">備註</a></td>
+				<td align="center" colspan='3'><input id="textMemo" type="text"  class="txt c1"/></td>
+			</tr>
+			<tr>
+				<td align="center" colspan='4'><input id="btnClose_div_sample" type="button" value="關閉視窗"></td>
+			</tr>
+		</table>
+	</div>
 <!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;width: 1270px;">
 		<div class="dview" id="dview">
@@ -623,8 +711,7 @@
 				<td class="label1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 				<td ><input id="txtPost" type="text"  class="txt c1"></td>
 				<td colspan='4' ><input id="txtAddr" type="text"  class="txt c1" /></td>
-				<td align="right" >&nbsp;</td>
-				<td >&nbsp;</td> 
+				<td colspan='2' style="text-align: center;"><input type="button" id="btnSample" style='font-size: medium;' ></td>
 			</tr>
 			<tr class="tr6">
 				<td class="label1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
@@ -649,8 +736,6 @@
 			<tr class="tr8">
 				<td class="label1"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
 				<td colspan='2'><input id="txtTotalus"	type="text"  class="txt c1" style="text-align: right;" /></td> 
-				<!--<td class="label2"><span> </span><a id='lblWeight' class="lbl"> </a></td>
-				<td colspan='2' ><input id="txtWeight"  type="text"  class="txt c1" style="text-align: right;" /></td>-->
 				<td class="label3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 				<td ><input id="txtWorker"  type="text" class="txt c1" /></td>
 				<td ><input id="txtWorker2"  type="text" class="txt c1" /></td>
@@ -659,7 +744,11 @@
 			</tr>
 			<tr class="tr9">
 				<td align="right"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-				<td  colspan='7' ><input id="txtMemo"  type="text" style="width: 99%;"/></td></tr>
+				<td  colspan='7' >
+					<input id="txtMemo"  type="text" style="width: 99%;"/>
+					<input id="txtMemo2"  type="hidden"/>
+				</td>
+			</tr>
 		</table>
 		</div>
 		</div>

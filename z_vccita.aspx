@@ -38,9 +38,9 @@
 					}, {
 						type : '2',//[4][5]
 						name : 'sales',
-						dbf : 'cust',
-						index : 'noa,comp',
-						src : 'cust_b.aspx'
+						dbf : 'sss',
+						index : 'noa,namea',
+						src : 'sss_b.aspx'
 					}, {
 						type : '2',//[6][7]
 						name : 'cust',

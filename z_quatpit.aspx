@@ -33,7 +33,13 @@
                     },{
                         type : '6',
                         name : 'xnoa'
-                    }]
+                    }, {
+						type : '2',//[5][6]
+						name : 'sales',
+						dbf : 'sss',
+						index : 'noa,namea',
+						src : 'sss_b.aspx'
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
