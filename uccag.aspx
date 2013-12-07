@@ -71,7 +71,7 @@
 		       	});*/
             }
             function show_confirm(){
-                if(!emp($('#txtBdate').val())){
+                if($.trim($('#txtBdate').val()).length>0 || $.trim($('#txtMon').val()).length>0){
 					var r=confirm("你確定要執行嗎?");
 					if (!r){
 						return;

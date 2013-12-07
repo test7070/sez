@@ -35,7 +35,7 @@
 				['txtCustno_', 'btnCustno_', 'cust', 'noa,nick', 'txtCustno_,txtComp_', 'cust_b.aspx'],
 				['txtOrdeno_', 'btnOrdeno_', 'view_ordes', 'noa,no2,custno,cust,class,spec,productno,product,radius,dime,width,lengthb', 
 					'txtOrdeno_,txtNo2_,txtCustno_,txtComp_,txtClass_,txtSpec_,txtProductno_,txtProduct_,txtRadius_,txtDime_,txtWidth_,txtLengthb_', 'ordests_seek_b.aspx','95%','60%'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']			
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_', 'ucaucc_b.aspx']			
 			);
 			$(document).ready(function() {
 				bbmKey = [];
@@ -269,7 +269,8 @@
 							thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 		                	$(this).attr('OldValue',$('#txtProductno_'+thisId).val());
 		                });
-		                ProductAddStyle(b_seq);
+                        if(trim($('#txtStyle_' + b_seq).val()).length != 0)
+                        	ProductAddStyle(b_seq);
 		                if(toFocusOrdeno == 1)
 		                	$('#txtOrdeno_'+b_seq).focus();
 		                toFocusOrdeno = 0;

@@ -37,7 +37,7 @@
 			['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'], 
 			['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'], 
 			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-			['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+			['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_', 'ucaucc_b.aspx']
 			);
 			q_desc = 1;
 			brwCount2 = 11;
@@ -189,7 +189,8 @@
 							thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 		                	$(this).attr('OldValue',$('#txtProductno_'+thisId).val());
 						});
-						ProductAddStyle(b_seq);
+                        if(trim($('#txtStyle_' + b_seq).val()).length != 0)
+                        	ProductAddStyle(b_seq);
 						//$('#txtStyle_' + b_seq).focus();
 						break;
 				}
