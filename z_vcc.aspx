@@ -154,7 +154,7 @@
 				});
 				
 				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-					if(issale=='true'&&job.indexOf('經理')<0&&r_rank<='7'){//一般業務只能看到自己的業績
+					if(issale=='true'&&job.indexOf('經理')<0&&r_rank<='5'){//一般業務只能看到自己的業績
 						$('#txtSales1a').val(r_userno);
 						$('#txtSales1b').val(r_name);
 						$('#txtSales2a').val(r_userno);
@@ -165,7 +165,7 @@
 						$('#txtSales2a').attr('disabled','disabled');
 						$('#txtSalesgroup').val(sgroup)
 						$('#txtSalesgroup').attr('disabled','disabled');
-					}else if(issale=='true'&&job.indexOf('經理')>-1&&r_rank<='7'){
+					}else if(issale=='true'&&job.indexOf('經理')>-1&&r_rank<='5'){
 						$('#txtSales1a').val(r_userno);
 						$('#txtSales1b').val(r_name);
 						$('#txtSales2a').val(r_userno);

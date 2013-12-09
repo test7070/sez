@@ -30,18 +30,17 @@
                         options : []
                     });
                     q_popAssign();
+                    q_langShow();
 					
                     $('#textBmon').mask('999/99');
                     $('#textEmon').mask('999/99');
                     
-                    //讀出有開發票的公司
-                	q_gt('acomp', 'where=^^ noa in (select cno from vcca group by cno) ^^', 0, 0, 0, "", r_accy);
-                    
                     $('#btnVccaxls').click(function(e) {
+                    	/*window.open('file:///D:/vcca');
+                    	window.open("file:///C:/test.html");*/
                     	if(!emp($('#textBmon').val()) &&!emp($('#textEmon').val())){
-                    		var s1 = location.host;
-                    		//q_func('qtxt.query','vccadcxls.txt,vccaxls,'+encodeURI(s1) + ';' + encodeURI($('#textBmon').val()) + ';' + encodeURI($('#textEmon').val()));
-                    		q_func( 'vccaxls.gen',$('#textBmon').val()+','+$('#textEmon').val());
+                    		//讀取有統編的公司
+                			q_gt('acomp', "where=^^ noa in (select cno from vcca group by cno) and serial!='' ^^", 0, 0, 0, "", r_accy);
                     	}
                 	});
                 	
@@ -62,16 +61,19 @@
                 switch (t_name) {  
                 	case 'acomp':
 						vccacno = _q_appendData("acomp", "", true);
+						for ( i = 0; i < vccacno.length; i++) {
+							q_func( 'vccaxls.gen',vccacno[i].noa+','+$('#textBmon').val()+','+$('#textEmon').val());
+						}
 						break;
                 }
             }
             
             function q_funcPost(t_func, result) {
-                if (vccacno[0] != undefined) {
+                /*if (vccacno[0] != undefined) {
                 	for ( i = 0; i < vccacno.length; i++) {
                 		setTimeout('openpage('+i+')',1000);
                 	}
-                }
+                }*/
             }
             
             function openpage(x) {
