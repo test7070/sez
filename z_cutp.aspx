@@ -54,6 +54,15 @@
 					}]
 				});
 				q_popAssign();
+				var t_no = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
+                if (t_no.indexOf('noa=') >= 0) {
+                    t_no = t_no.replace('noa=', '');
+                    if (t_no.length > 0) {
+                        $('#txtNoa1').val(t_no);
+                        $('#txtNoa2').val(t_no);
+                    }
+                }
+                
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
@@ -79,11 +88,7 @@
 					t_day = t_date.getUTCDate();
 					t_day = t_day>9?t_day+'':'0'+t_day;
 					$('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                var t_key = q_getHref();
-	                if(t_key[1] != undefined){
-	                	$('#txtXnoa1').val(t_key[1]);
-	                	$('#txtXnoa2').val(t_key[1]);
-	                }
+	               
 			}
 
 			function q_boxClose(s2) {
