@@ -36,8 +36,6 @@
                     $('#textEmon').mask('999/99');
                     
                     $('#btnVccaxls').click(function(e) {
-                    	/*window.open('file:///D:/vcca');
-                    	window.open("file:///C:/test.html");*/
                     	if(!emp($('#textBmon').val()) &&!emp($('#textEmon').val())){
                     		//讀取有統編的公司
                 			q_gt('acomp', "where=^^ noa in (select cno from vcca group by cno) and serial!='' ^^", 0, 0, 0, "", r_accy);
@@ -64,6 +62,7 @@
 						for ( i = 0; i < vccacno.length; i++) {
 							q_func( 'vccaxls.gen',vccacno[i].noa+','+$('#textBmon').val()+','+$('#textEmon').val());
 						}
+						//openFileIIs('//NT1/vcca');
 						break;
                 }
             }
@@ -95,6 +94,27 @@
 			function q_boxClose(t_name) {
             }
             
+            function openFileIIs(command) {
+		    try {
+		        window.oldOnError = window.onerror;
+		        window._command = command;
+		        window.onerror = function (err) {
+		            if (err.indexOf('automation') != -1) {
+		                alert("命令" + window._command + "已经被用户禁止!");
+		                return true;
+		            }
+		            else return false;
+		        }
+		        var wsh = new ActiveXObject("WScript.Shell");
+		        if (wsh)
+		            wsh.Run(command);
+		        window.onerror = window.oldOnError;
+		    }
+		    catch (e) {
+		        //alert("附件文件夹不存在!");
+		        window.open("file:\\\NT1\vcca");
+		    }
+		}
 		</script>
 	</head>
 	
