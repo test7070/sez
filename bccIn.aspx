@@ -254,7 +254,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['bccno'] && !as['bccname']) {
+                if ( !as['bccname']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
