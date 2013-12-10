@@ -176,7 +176,7 @@
             }
 
             function btnPrint() {
-				q_box('z_vccb.aspx'+ "?;;;;" + ";noa="+ $('#txtNoa').val(), '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_vccb.aspx'+ "?;;" + ";noa='"+ $('#txtNoa').val()+"'", '', "95%", "95%", q_getMsg("popPrint"));
             }
 			function typea_chg(){
 				if($('#cmbTypea').val() == 1 || $('#cmbTypea').val() == 2){
@@ -502,8 +502,9 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:15px;"><a id='lblCobtype'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblInvono'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblIdate'> </a></td>
+					<td align="center" style="width:60px;"><a id='lblIdate'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:20px;"><a id='lblMount'> </a></td>
@@ -518,6 +519,7 @@
 						<input id="txtNoq.*"  style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input  id="txtCobtype.*" type="text" class="txt c1"/></td>
 					<td>
 						<input  id="txtInvono.*" type="text" class="txt c1"/>
 						<input  id="txtSerial.*" type="text" style="display:none;"/>

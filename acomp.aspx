@@ -594,6 +594,10 @@
 							<td colspan="3"><input id="txtAddr"  type="text" class="txt c1" />	</td>
 						</tr>
 						<tr>
+							<td><span> </span><a id='lblAddr_invo' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtAddr_invo"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
 							<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 							<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
 						</tr>

@@ -51,7 +51,7 @@
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
-            bbsMask = [['txtClass', r_picd]]; //102/10/31 製造業(醫療 食品)當成有效日
+           // bbsMask = [['txtClass', r_picd]]; //102/10/31 製造業(醫療 食品)當成有效日 12/10格式自己打
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('cng.typea'));
             q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
@@ -116,12 +116,24 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+            	$('.class_it').show();
+            }else{
+            	$('.class_it').hide();
+            }
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+            	$('.class_it').show();
+            }else{
+            	$('.class_it').hide();
+            }
         }
         function btnPrint() {
         	q_box('z_cngp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
@@ -151,6 +163,12 @@
 
         function refresh(recno) {
             _refresh(recno);
+            
+            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+            	$('.class_it').show();
+            }else{
+            	$('.class_it').hide();
+            }
        }
 
         function readonly(t_para, empty) {
@@ -456,7 +474,7 @@
                 <td style="width:25%;" align="center"><a id='lblProducts'> </a></td>
                 <td style="width:4%;" align="center"><a id='lblUnit'> </a></td>
                 <td style="width:8%;" align="center"><a id='lblMounts'> </a></td>
-                <td style="width:8%;" align="center"><a id='lblClass'> </a></td>
+                <td style="width:8%;" align="center" class="class_it"><a id='lblClass'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -466,7 +484,7 @@
                 <td><input class="txt c1" id="txtProduct.*" type="text"/></td>
                 <td><input class="txt c1" id="txtUnit.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
-                <td><input class="txt c1" id="txtClass.*" type="text"/></td>
+                <td class="class_it"><input class="txt c1" id="txtClass.*" type="text"/></td>
                 <td><input class="txt c1" id="txtMemo.*" type="text"/>
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>

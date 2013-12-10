@@ -30,6 +30,9 @@
                     }]
                 });
                 q_popAssign();
+                
+                if(q_getHref()[1]!=undefined)
+                	$('#txtXnoa').val(q_getHref()[1]);
 	        }
 
             function q_boxClose(s2) {

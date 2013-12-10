@@ -316,7 +316,7 @@
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-				q_gtnoa(q_name, replaceAll('I' + $('#txtDatea').val(), '/', ''));
+				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_rc2') + $('#txtDatea').val(), '/', ''));
 			else
 				wrServer(s1);
 		}

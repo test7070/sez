@@ -394,7 +394,10 @@
 		    }
 		    //...........................................零用金餘額查詢
 		    function cashorg() {
-		        var t_where = "where=^^ partno='" + $('#cmbChgpartno').val() + "'^^";
+		    	if($('#cmbChgpartno').val()==null&&abbm[0])
+		    		var t_where = "where=^^ chgpartno='" + abbm[0].chgpartno + "'^^";
+		    	else
+		        	var t_where = "where=^^ chgpartno='" + $('#cmbChgpartno').val() + "'^^";
 		        q_gt('chgcashorg', t_where, 0, 0, 0, "", r_accy);
 		    }
 
