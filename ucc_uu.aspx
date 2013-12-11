@@ -16,7 +16,7 @@
 		}
 		var decbbm = ['inprice', 'saleprice', 'reserve', 'beginmount','uweight','beginmoney','drcr','price2','days','stkmount','safemount','stkmoney'];
 		var q_name = "ucc";
-		var q_readonly = ['textUccprice','textStk','textSaleprice','textInprice','textCosta','textOrdemount','textPlanmount','textIntmount','textAvaistk'];
+		var q_readonly = ['txtUno'];
 		var bbmNum = [['txtSaleprice',10,2,1],['txtInprice',10,2,1]];	
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
@@ -84,6 +84,13 @@
 			q_gt('uccga', '', 0, 0, 0, "");
 			q_gt('uccgb', '', 0, 0, 0, "");
 			q_gt('uccgc', '', 0, 0, 0, "");
+			
+			if(q_getPara('sys.comp').indexOf('永勝')>-1){
+				$('#lblInprice').val('健保價');
+				$('#lblType').val('分類');
+				$('#lblTggno').val('原廠');
+				$('#lblSaleprice').val('建議售價');
+			}
 		}
 
 		function q_boxClose(s2) { 
@@ -97,6 +104,24 @@
 		
 		function q_gtPost(t_name) {	
 			switch (t_name) {
+				case 'getmaxuno'://找編號最大值
+					var as = _q_appendData("ucc", "", true);
+					var maxnumber=0;//目前最大值
+					var autonumber='0000';//流水編號
+					if (as[0] != undefined) {
+						for ( var i = 0; i < as.length; i++) {
+							if(maxnumber<parseInt(as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length)))
+								maxnumber=as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length)
+						}
+					}
+					
+					maxnumber=autonumber+(parseInt(maxnumber)+1);
+					maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length)
+					
+					$('#txtNoa').val($('#cmbTypea').val()+maxnumber);
+					wrServer($('#cmbTypea').val()+maxnumber);
+					
+					break;
 				case 'uccga'://大類
 					var as = _q_appendData("uccga", "", true);
 					if (as[0] != undefined) {
@@ -158,7 +183,8 @@
 			if($('#Copy').is(':checked')){
 				curData.paste();
 			}
-			$('#txtUno').focus();
+			
+			$('#txtUno').val('AUTO').focus();
 		}
 
 		function btnModi() {
@@ -179,13 +205,17 @@
 				alert(t_err);
 				return;
 			}
+			
+			$('#txtWorker' ).val(  r_name); 
 			var t_uno = trim($('#txtUno').val());
-			$('#txtNoa').val(t_uno);
-
-			if (t_uno.length == 0)	
-				q_gtnoa(q_name, t_uno);
-			else
+			if (t_uno.length == 0 || t_uno=='AUTO'){
+				//自動編號-找該類別最大數值
+				q_gt('ucc', "where=^^ left(uno,1)='"+$('#cmbTypea').val()+"'^^", 0, 0, 0, 'getmaxuno', r_accy);
+			}else{
+				$('#txtNoa').val(t_uno);
 				wrServer(t_uno);
+			}
+			
 		}
 
 		function wrServer(key_value) {
@@ -326,7 +356,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 95%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
@@ -410,8 +440,6 @@
 			</td>
 			<td class="td3"><input id="Copy" type="checkbox" /> <span> </span><a id="lblCopy"></a></td>
 			<td class="td4"> </td>
-			<td class="td5"> </td>
-			<td class="td6"> </td>
 		</tr>
 		<tr>
 			<td class="td1"><span> </span><a id='lblProduct' class="lbl"> </a></td>
@@ -426,54 +454,69 @@
 			<td class="td2" colspan='3'><input id="txtSpec"  type="text" class="txt c1" /></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblUnit'> </a></td>
-			<td><input	type="text" id="txtUnit" class="txt c1"/></td>
-			<td class="label2"><a id='lblInprice'> </a></td>
-			<td><input	type="text" id="txtInprice" class="txt num c2"/></td>			
+			<td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
+			<td class="td1"><input id="txtTggno"  type="text" class="txt c1" /></td>
+			<td class="td2" colspan='2'><input id="txtTgg"  type="text" class="txt c1" /></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblSafemount'> </a></td>
-			<td><input	type="text" id="txtSafemount" class="txt num c1"/></td>
-			<td class="label2"><a id='lblSaleprice'> </a></td>
-			<td><input	type="text" id="txtSaleprice"	class="txt num c2"/></td>
+			<td class="td1"><span> </span><a id='lblUnit' class="lbl"> </a></td>
+			<td class="td2"><input id="txtUnit"  type="text" class="txt c1" /></td>
+			<td class="td1"><span> </span><a id='lblInprice' class="lbl"> </a></td>
+			<td class="td2"><input id="txtInprice"  type="text" class="txt num c1" /></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblUweight'> </a></td>
-			<td><input	type="text" id="txtUweight"	class="txt num c1"/></td>
-			<td class="label2"><a id='lblCoin'> </a></td>
-			<td><select id="cmbCoin" class="txt c2"> </select></td>
+			<td class="td1"><span> </span><a id='lblSafemount' class="lbl"> </a></td>
+			<td class="td2"><input id="txtSafemount"  type="text" class="txt c1" /></td>
+			<td class="td1"><span> </span><a id='lblSaleprice' class="lbl"> </a></td>
+			<td class="td2"><input id="txtSaleprice"  type="text" class="txt num c1" /></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblType'> </a></td>
-			<td><select id="cmbTypea" class="txt c1"> </select></td>
-			<td class="label2"><a id='lblDays'> </a></td>
-			<td><input	type="text" id="txtDays" class="txt c2"/></td> 
+			<td class="td1"><span> </span><a id='lblUweight' class="lbl"> </a></td>
+			<td class="td2"><input id="txtUweight"  type="text" class="txt num c1" /></td>
+			<td class="td1"><span> </span><a id='lblCoin' class="lbl"> </a></td>
+			<td class="td2"><select id="cmbCoin" class="txt c1"> </select></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblArea'> </a></td>
-			<td><input	type="text" id="txtArea"	class="txt c1"/></td>
-			<td class="label2"><a id='lblTrantype'> </a></td>
-			<td><select id="cmbTrantype" class="txt c2"> </select></td> 
+			<td class="td1"><span> </span><a id='lblType' class="lbl"> </a></td>
+			<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
+			<td class="td1"><span> </span><a id='lblDays' class="lbl"> </a></td>
+			<td class="td2"><input id="txtDays"  type="text" class="txt c1" /></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblRc2acc'> </a></td>
-			<td><input	type="text" id="txtRc2acc" class="txt c1"/></td>
-			<td class="label2"><a id='lblVccacc'> </a></td>
-			<td><input	type="text" id="txtVccacc" class="txt c2"/></td>
+			<td class="td1"><span> </span><a id='lblArea' class="lbl"> </a></td>
+			<td class="td2"><input id="txtArea"  type="text" class="txt num c1" /></td>
+			<td class="td1"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
+			<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
 		</tr>
 		<tr>
-			<td class='label1'><a id='lblDate2'> </a></td>
-			<td class='column3'><input type="text" id="txtDate2" class="txt c1"/></td>
-			<td class="label2"><a id='lblWorker'> </a></td>
-			<td ><input id="txtWorker" type="text" class="txt c2" style='text-align:center;'/></td> 
+			<td class="td1"><span> </span><a id='lblRc2acc' class="lbl"> </a></td>
+			<td class="td2"><input id="txtRc2acc"  type="text" class="txt c1" /></td>
+			<td class="td1"><span> </span><a id='lblVccacc' class="lbl"> </a></td>
+			<td class="td2"><input id="txtVccacc"  type="text" class="txt c1" /></td>
+		</tr>
+		
+		<tr>
+			<td class="td1"><span> </span><a id='lblDate2' class="lbl"> </a></td>
+			<td class="td2"><input id="txtDate2"  type="text" class="txt c1" /></td>
+			<td class="td1"><span> </span><a id='lblHealthno' class="lbl"> </a></td>
+			<td class="td2"><input id="txtHealthno"  type="text" class="txt c1" /></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblGroupano'> </a></td>
-			<td><select id="cmbGroupano" class="txt c2"> </select></td> 
+			<td class="td1"><span> </span><a id='lblGroupano' class="lbl"> </a></td>
+			<td class="td2"><select id="cmbGroupano" class="txt c1"> </select></td>
+			<td class="td1"><span> </span><a id='lblGroupbno' class="lbl"> </a></td>
+			<td class="td2"><select id="cmbGroupbno" class="txt c1"> </select></td>
 		</tr>
 		<tr>
-			<td class="label1"><a id='lblMemo'> </a></td>
-			<td colspan='3'><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 127px;"> </textarea></td>
+			<td class="td1"><span> </span><a id='lblGroupcno' class="lbl"> </a></td>
+			<td class="td2"><select id="cmbGroupcno" class="txt c1"> </select></td>
+			<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+			<td class="td2"><input id="txtWorker"  type="text" class="txt c1" /></td>
+			
+		</tr>
+		<tr>
+			<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+			<td class="td2" colspan='3'><input id="txtMemo"  type="text" class="txt c1" /></td>
 		</tr>
 	</table>
 	</div>

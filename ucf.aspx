@@ -29,6 +29,7 @@
                         options : []
                     });
                     q_popAssign();
+                    q_langShow();
 					
                     $('#textBdate').mask('999/99/99');
                     $('#textEdate').mask('999/99/99');

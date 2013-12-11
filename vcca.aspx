@@ -584,7 +584,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1080px;
+                width: 1260px;
             }
             .tbbs a {
                 font-size: medium;
@@ -735,12 +735,12 @@
 					</td>
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:80px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblProduct'> </a></td>
-					<td align="center" style="width:30px;"><a id='lblUnit'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblPrice'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:20px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:70px;"><a id='lblMount'> </a></td>
+					<td align="center" style="width:70px;"><a id='lblPrice'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:200px;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
