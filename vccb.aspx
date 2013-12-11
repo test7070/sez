@@ -59,7 +59,7 @@
                 bbsMask = [['txtIdate', r_picd]];
                 q_mask(bbsMask);
                 q_cmbParse("cmbTypea", q_getPara('vccb.typea'));
-                q_cmbParse("cmbTaxtype", ' @ ,'+q_getPara('sys.taxtype'),'s');
+                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'),'s');
                 q_gt('acomp', '', 0, 0, 0, "");
                 typea_chg();
 	            $('#lblAccno').click(function () {
