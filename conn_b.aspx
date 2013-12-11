@@ -10,13 +10,14 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'conn', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+            var q_name = 'conn', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as;
             var t_sqlname = 'conn_load';
             t_postname = q_name;
             var isBott = false;
             var afield, t_htm;
             var i, s1;
-
+			brwCount2 = 0;
+			brwCount = -1;			
             var decbbs = [];
             var decbbm = [];
             var q_readonly = [];
@@ -82,6 +83,7 @@
                 for ( i = 0; i < abbsDele.length; i++) {
                     abbsDele[i][bbsKey[0]] = t_key[1];
                 }
+                $('#btnPlus').click();
             }
 
             function boxStore() {
