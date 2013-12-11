@@ -194,8 +194,9 @@
 		}
 
 		function btnPrint() {
-
+			q_box('z_uccp_uu.aspx', '', "95%", "95%", q_getMsg("popPrint"));
 		}
+		
 		function btnOk() {
 			var t_err = '';
 
