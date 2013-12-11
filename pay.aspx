@@ -1192,15 +1192,15 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
+					<td align="center" style="width:6%;"><a id='lblAcc1'></a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney'></a></td>
 					<td align="center" style="width:4%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:8%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
 					<td align="center" style="width:5%;"><a id='lblMemos'></a></td>
-					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
-					<td align="center" style="width:3%;"><a id='lblUnpay_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblPaysales'></a></td>
+					<td align="center" style="width:4%;"><a id='lblUnpay_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">

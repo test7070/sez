@@ -321,24 +321,6 @@
 				_btnCancel();
 			}
 			
-			function returnparent() {
-                if (window.parent.q_name == 'vcc' &&(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)) {
-                    var wParent = window.parent.document;
-                    wParent.getElementById("txtCustno").value = $('#txtNoa').val();
-                    wParent.getElementById("txtComp").value = $('#txtComp').val();
-                    wParent.getElementById("txtPaytype").value = $('#txtPaytype').val();
-                    wParent.getElementById("txtTel").value = $('#txtTel').val();
-                    wParent.getElementById("txtFax").value = $('#txtFax').val();
-                    wParent.getElementById("cmbTrantype").value = $('#cmbTrantype').val();
-                    wParent.getElementById("txtZipcode").value = $('#txtZip_comp').val();
-                    wParent.getElementById("txtAddr").value = $('#txtAddr_comp').val();
-                    wParent.getElementById("txtSalesno").value = $('#txtSalesno').val();
-                    wParent.getElementById("txtSales").value = $('#txtSales').val();
-                    wParent.getElementById("txtSalesno2").value = $('#txtSalesno').val();
-                    wParent.getElementById("txtSales2").value = $('#txtSales').val();
-                }
-            }
-			
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -457,7 +439,7 @@
 			}
 		</style>
 	</head>
-	<body onunload='returnparent()' ondragstart="return false" draggable="false"
+	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
