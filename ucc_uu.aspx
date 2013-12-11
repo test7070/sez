@@ -136,7 +136,7 @@
 					}
 					break;
 				case 'uccgb'://中類
-					var as = _q_appendData("uccga", "", true);
+					var as = _q_appendData("uccgb", "", true);
 					if (as[0] != undefined) {
 						var t_item = " @ ";
 						for ( i = 0; i < as.length; i++) {
@@ -149,7 +149,7 @@
 					}
 					break;
 				case 'uccgc'://小類
-					var as = _q_appendData("uccga", "", true);
+					var as = _q_appendData("uccgc", "", true);
 					if (as[0] != undefined) {
 						var t_item = " @ ";
 						for ( i = 0; i < as.length; i++) {
@@ -194,7 +194,7 @@
 		}
 
 		function btnPrint() {
-			q_box('z_uccp_uu.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+			
 		}
 		
 		function btnOk() {
