@@ -26,6 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 15;
+            
+            aPop = new Array( ['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
        
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -47,7 +49,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('bcc.type'));
 				q_cmbParse("cmbTaxtype", '含稅,自訂');
-				q_gt('store', '', 0, 0, 0, "");
+				//q_gt('store', '', 0, 0, 0, "");
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -88,6 +90,8 @@
 						}
 					}
                 });
+                if(q_getPara('sys.comp').indexOf('大昌')>-1)
+                	$('.acc').hide();
             }
             function sum(){
             	if(!(q_cur==1 || q_cur==2))
@@ -478,9 +482,14 @@
 						<td><span> </span><a id='lblExpirationdate' class="lbl"> </a></td>
 						<td><input id="txtExpirationdate" type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
 						<td><select id="cmbStoreno" class="txt c1"></td>
+					</tr>-->
+					<tr class="acc">
+						<td><span> </span><a id='lblAcc' class="lbl"> </a></td>
+						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>

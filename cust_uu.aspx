@@ -89,7 +89,7 @@
 			}///  end Main()
 
 			function mainPost() {
-				bbmMask = [['txtChkdate', r_picd], ['txtDuedate', r_picd]];
+				bbmMask = [['txtDuedate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('cust.typea_uu'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
@@ -445,8 +445,8 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:25%;"  >
+		<div id='dmain' style="overflow:hidden;width:1250px;">
+			<div class="dview" id="dview" style="float: left;  width:300px;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -460,7 +460,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 73%;float: left;">
+			<div class='dbbm' style="width: 900px;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
@@ -498,7 +498,7 @@
 						<td class="td4"><select id="cmbTypea" class="txt c1"></select></td>
 						<td class="td5"><span> </span><a id='lblTeam' class="lbl"></a></td>
 						<td class="td6"><input id="txtTeam"   type="text"  class="txt c1"/></td>
-						<td><input id="btnConn" type="button" /></td>
+						<td style="text-align:right;"><input id="btnConn" type="button" /></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
@@ -535,42 +535,40 @@
 						<td class="td3" colspan='4'><input id="txtAddr_home"  type="text" class="txt c7"/></td>
 					</tr>
 					<tr class="tr12">
-						<td class="td1"><span> </span><a class="lbl">E-mail</a></td>
+						<td class="td1"><span> </span><a id='lblEmail' class="lbl"></a></td>
 						<td class="td2" colspan='3'><input id="txtEmail"  type="text"  class="txt c7"/></td>
 					</tr>
 					<tr class="tr13">
-						<td class="td1"><span> </span><a id="lblCredit" class="lbl" ></a></td>
-						<td class="td2"><input id="txtCredit" type="text" class="txt c1 num"/></td>
 						<td class="td3"><span> </span><a id="lblSales" class="lbl btn"></a></td>
 						<td class="td4">
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales"	type="text" class="txt c6"/>
 						</td>
-					</tr>
-					<tr class="tr14">
-						<td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>
-						<td class="td2" colspan='3'><input id="txtChkstatus"  type="text"  class="txt c7" /></td>
-					</tr>
-					<tr class="tr15">
-						<td class="td1"><span> </span><a id='lblChkdate' class="lbl"></a></td>
-						<td class="td2"><input id="txtChkdate" type="text" class="txt c1" /></td>
+						<td class="td1"><span> </span><a id="lblCredit" class="lbl" ></a></td>
+						<td class="td2"><input id="txtCredit" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
 						<td><input id="txtStartdate" type="text" class="txt c1" />	</td>
 					</tr>
+					<tr class="tr14">
+						<td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>
+						<td class="td2"><input id="txtChkstatus"  type="text"  class="txt c1" /></td>
+						<td class="td1"><span> </span><a id='lblChkdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtChkdate" type="text" class="txt c1" /></td>
+					</tr>
 					<tr class="tr16">
-						<td><span> </span><a id='lblDueday' class="lbl"> </a></td>
-						<td><input id="txtDueday" type="text" class="txt num c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+						<td class="td4">
+							<input id="txtPaytype" type="text" class="txt" style="width: 125px;"/>
+							<select id="combPaytype" class="txt" style="width: 20px;"  onchange='combPaytype_chg()'></select>
+						</td>
 						<td class="td3"><span> </span><a id='lblGetdate' class="lbl"></a></td>
 						<td class="td4"><input id="txtGetdate" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr17">
 						<td class="td1"><span> </span><a id='lblTrantype' class="lbl"></a></td>
 						<td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
-						<td class="td3"><span> </span><a id='lblPaytype' class="lbl"></a></td>
-						<td class="td4">
-							<input id="txtPaytype" type="text" class="txt c6"/>
-							<select id="combPaytype" class="txt c6" onchange='combPaytype_chg()'></select>
-						</td>
+						<td><span> </span><a id='lblDueday' class="lbl"> </a></td>
+						<td><input id="txtDueday" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr18">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
