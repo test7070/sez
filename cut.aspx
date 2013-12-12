@@ -1163,12 +1163,14 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewUno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'> </a></td>
+						<td align="center" style="width:50px; color:black;"><a id='vewDime'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='uno'>~uno</td>
-						<td align="center" id='productno product,5'>~productno ~product,5</td>
+						<td align="center" id='product'>~product</td>
+						<td align="right" id='dime'>~dime</td>
 					</tr>
 				</table>
 			</div>
