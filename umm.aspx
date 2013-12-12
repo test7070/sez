@@ -31,7 +31,7 @@
             	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	, ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
             	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
-            	, ['txtVccno_', '', 'vcc', 'noa,comp,unpay,unpay', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_', 'ummacc_b.aspx']);
+            	, ['txtVccno_', '', 'vcc', 'noa,comp,unpay,unpay,typea', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_', 'ummacc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -910,6 +910,19 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function q_popPost(s1) {
+			   	switch (s1) {
+			        case 'txtVccno_':
+			   			if($('#textTypea_'+b_seq).val()=='2'){
+			   				$('#txtUnpayorg_'+b_seq).val(dec($('#txtUnpayorg_'+b_seq).val())*-1);
+			   				$('#txtUnpay_'+b_seq).val(dec($('#txtUnpay_'+b_seq).val())*-1);
+			   			}
+			   			
+			        break;
+			   	}
+			}
+			
             function tipShow(){
 				Lock(1);
 				tipInit();
@@ -1301,6 +1314,7 @@
 					<input type="text" id="txtVccno.*" style="width:97%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
 					<input type="text" id="txtAccy.*" style="display:none;" />
 					<input type="text" id="txtTablea.*" style="display:none;" />
+					<input type="text" id="textTypea.*" style="display:none;" />
 					</td>
 					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:97%;"/>
