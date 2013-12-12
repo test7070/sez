@@ -95,7 +95,11 @@
 	                }, {
                         type : '6', //[22]
                         name : 'paytype'
-                    }]
+                    },{
+						type : '0', //[23] //判斷vcc是內含或應稅
+						name : 'vcctax',
+						value : q_getPara('sys.d4taxtype')
+					}]
 				});
 				q_popAssign();
 				q_getFormat();

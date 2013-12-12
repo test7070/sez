@@ -118,13 +118,15 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
                 $('#lblTrdno').click(function() {
-                    q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
+                	if(q_getPara('sys.comp').indexOf('大昌')>-1)
+                    	q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
+                    else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
+                    	q_pop('txtTrdno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                     else if(q_getPara('sys.comp').indexOf('裕承隆')>-1)
+                    	q_pop('txtTrdno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                    else
+                    	q_pop('txtTrdno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
                 });
-                
-                if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-                	$('#lblTrdno').hide();
-                	$('#txtTrdno').hide();
-                }
                 
             }	
             function q_boxClose(s2) {
@@ -637,7 +639,14 @@
 			<div class="dbbm">
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td><td><td><td><td><td><td><td><td><td><td><td><td><td><td><td><td class="tdZ"><td>
+						<td class="tdZ"> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -652,13 +661,11 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-						<input id="txtNoa"  type="text" class="txt c1"/>
-						</td>
+						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td>
-						<input id="txtMon"  type="text" class="txt c1"/>
-						</td>
+						<td>	<input id="txtMon"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
+						<td><input id="txtChkno"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
@@ -709,10 +716,6 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
-						<td>
-						<input id="txtChkno"  type="text" class="txt c1" />
-						</td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td>
 						<input id="txtWorker"  type="text"  class="txt c1"/>
@@ -722,7 +725,7 @@
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
 						<td><span> </span><a id='lblTrdno' class="lbl btn"> </a></td>
-						<td colspan="2"><input id="txtTrdno"  type="text" class="txt c1"/>	</td>
+						<td><input id="txtTrdno"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
 			</div>
