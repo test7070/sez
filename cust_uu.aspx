@@ -365,10 +365,10 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
-				width: 2%;
+				/*width: 2%;*/
 			}
 			.tbbm tr td span {
 				float: right;
@@ -462,17 +462,22 @@
 			</div>
 			<div class='dbbm' style="width: 900px;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+					<tr style="height:1px;">
+						<td style="width: 150px;"> </td>
+						<td style="width: 150px;"> </td>
+						<td style="width: 150px;"> </td>
+						<td style="width: 150px;"> </td>
+						<td style="width: 150px;"> </td>
+						<td style="width: 150px;"> </td>
+					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblSerial' class="lbl"></a></td>
 						<td class="td4"><input id="txtSerial" type="text" class="txt c1"/></td>
 						<td class="td5">
-							<div style="float:left;">
-								<input id="Copy" type="checkbox" />
-								<span> </span><a id="lblCopy"></a>
-							</div>
-							<span> </span><a id='lblWorker' class="lbl"></a>
+							<div style="float:left;">	<input id="Copy" type="checkbox" />	<span> </span><a id="lblCopy"></a></div>
+							<span> </span><a id='lblWorker' class="lbl"> </a>
 						</td>
 						<td class="td6">
 							<input id="txtKdate" type="text" class="txt c6"/>
@@ -482,8 +487,8 @@
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblComp' class="lbl"></a></td>
 						<td class="td2" colspan='3'><input id="txtComp" type="text" class="txt c7"/></td>
-						<td class="td3"><span> </span><a id='lblNick' class="lbl"></a></td>
-						<td class="td4"><input id="txtNick" type="text"  class="txt c1"/></td>
+						<td class="td5"><span> </span><a id='lblNick' class="lbl"></a></td>
+						<td class="td6"><input id="txtNick" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblBoss' class="lbl"></a></td>
@@ -494,11 +499,11 @@
 						<td class="td6"><input id="txtStatus"   type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
-						<td class="td3"><span> </span><a id='lblType' class="lbl"></a></td>
-						<td class="td4"><select id="cmbTypea" class="txt c1"></select></td>
-						<td class="td5"><span> </span><a id='lblTeam' class="lbl"></a></td>
-						<td class="td6"><input id="txtTeam"   type="text"  class="txt c1"/></td>
-						<td style="text-align:right;"><input id="btnConn" type="button" /></td>
+						<td class="td1"><span> </span><a id='lblType' class="lbl"></a></td>
+						<td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
+						<td class="td3"><span> </span><a id='lblTeam' class="lbl"></a></td>
+						<td class="td4"><input id="txtTeam"   type="text"  class="txt c1"/></td>
+						<td class="td5" style="text-align:right;"><input id="btnConn" type="button" /></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
@@ -539,38 +544,36 @@
 						<td class="td2" colspan='3'><input id="txtEmail"  type="text"  class="txt c7"/></td>
 					</tr>
 					<tr class="tr13">
-						<td class="td3"><span> </span><a id="lblSales" class="lbl btn"></a></td>
-						<td class="td4">
+						<td class="td1"><span> </span><a id="lblSales" class="lbl btn"></a></td>
+						<td class="td2">
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales"	type="text" class="txt c6"/>
 						</td>
-						<td class="td1"><span> </span><a id="lblCredit" class="lbl" ></a></td>
-						<td class="td2"><input id="txtCredit" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
-						<td><input id="txtStartdate" type="text" class="txt c1" />	</td>
+						<td class="td3"><span> </span><a id="lblCredit" class="lbl" ></a></td>
+						<td class="td4"><input id="txtCredit" type="text" class="txt c1 num"/></td>
+						<td class="td5"><span> </span><a id='lblStartdate' class="lbl"> </a></td>
+						<td class="td6"><input id="txtStartdate" type="text" class="txt c1" />	</td>
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>
 						<td class="td2"><input id="txtChkstatus"  type="text"  class="txt c1" /></td>
-						<td class="td1"><span> </span><a id='lblChkdate' class="lbl"></a></td>
-						<td class="td2"><input id="txtChkdate" type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id='lblChkdate' class="lbl"></a></td>
+						<td class="td4"><input id="txtChkdate" type="text" class="txt c1" /></td>
+						<td class="td5"><span> </span><a id='lblTrantype' class="lbl"></a></td>
+						<td class="td6"><select id="cmbTrantype" class="txt c1"></select></td>
 					</tr>
-					<tr class="tr16">
-						<td class="td3"><span> </span><a id='lblPaytype' class="lbl"></a></td>
-						<td class="td4">
-							<input id="txtPaytype" type="text" class="txt" style="width: 125px;"/>
+					<tr class="tr15">
+						<td class="td1"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+						<td class="td2">
+							<input id="txtPaytype" type="text" class="txt" style="width: 129px;"/>
 							<select id="combPaytype" class="txt" style="width: 20px;"  onchange='combPaytype_chg()'></select>
 						</td>
 						<td class="td3"><span> </span><a id='lblGetdate' class="lbl"></a></td>
 						<td class="td4"><input id="txtGetdate" type="text" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id='lblDueday' class="lbl"> </a></td>
+						<td class="td6"><input id="txtDueday" type="text" class="txt num c1"/></td>
 					</tr>
-					<tr class="tr17">
-						<td class="td1"><span> </span><a id='lblTrantype' class="lbl"></a></td>
-						<td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
-						<td><span> </span><a id='lblDueday' class="lbl"> </a></td>
-						<td><input id="txtDueday" type="text" class="txt num c1"/></td>
-					</tr>
-					<tr class="tr18">
+					<tr class="tr16">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='5'>
 							<textarea id="txtMemo"  rows='5' cols='10' style="width:99%; height: 50px;"></textarea>

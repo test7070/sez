@@ -62,7 +62,7 @@
 						for ( i = 0; i < vccacno.length; i++) {
 							q_func( 'vccaxls.gen',vccacno[i].noa+','+$('#textBmon').val()+','+$('#textEmon').val());
 						}
-						//openFileIIs('//NT1/vcca');
+						alert("產生完畢，請至存放資料夾查看!!");
 						break;
                 }
             }
@@ -94,27 +94,6 @@
 			function q_boxClose(t_name) {
             }
             
-            function openFileIIs(command) {
-		    try {
-		        window.oldOnError = window.onerror;
-		        window._command = command;
-		        window.onerror = function (err) {
-		            if (err.indexOf('automation') != -1) {
-		                alert("命令" + window._command + "已经被用户禁止!");
-		                return true;
-		            }
-		            else return false;
-		        }
-		        var wsh = new ActiveXObject("WScript.Shell");
-		        if (wsh)
-		            wsh.Run(command);
-		        window.onerror = window.oldOnError;
-		    }
-		    catch (e) {
-		        //alert("附件文件夹不存在!");
-		        window.open("file:\\\NT1\vcca");
-		    }
-		}
 		</script>
 	</head>
 	
