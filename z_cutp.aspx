@@ -51,6 +51,15 @@
 						dbf : 'mech',
 						index : 'noa,mech',
 						src : 'mech_b.aspx'
+					},{
+						type : '0', //[11]
+						name : 's_typea2',
+						value : q_getPara('cut.type2')
+					},{
+						type : '0', //[12]
+						name : 's_typea2A',
+						value : q_getPara('cut.type2A')
+					},{
 					}]
 				});
 				q_popAssign();
