@@ -177,8 +177,12 @@
                 	}
                 	var t_where = " where=^^ 1=0 ^^";
                 	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";
-                	var t_where2 = " where[2]=^^ a.custno='"+t_custno+"' and a.mon<='"+t_mon+"' ^^";
-                	var t_where3 = " where[3]=^^ vccno=a.custno+'-'+a.mon and noa!='"+t_noa+"' ^^";
+                	
+                	var t_where2 = " where[2]=^^custno='"+t_custno+"' and mon<='"+t_mon+"' ^^";
+                	var t_where3 = " where[3]=^^vccno=a.custno+'-'+a.mon and noa!='"+t_noa+" ^^";
+                	//var t_where2 = " where[2]=^^ a.custno='"+t_custno+"' and a.mon<='"+t_mon+"' ^^";
+                	//var t_where3 = " where[3]=^^ vccno=a.custno+'-'+a.mon and noa!='"+t_noa+"' ^^";
+                	
                 	var t_where4 = " where[4]=^^ vccno=a.custno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
                 	var t_where5 = " where[5]=^^ "+q_getPara('sys.d4taxtype')+"!=3 and  a.custno='"+t_custno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
                 	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
