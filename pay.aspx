@@ -147,7 +147,7 @@
                 	}
                 	var t_where = " where=^^ 1=0 ^^";
                 	var t_where1 = " where[1]=^^ rc2no=a.noa and noa!='"+t_noa+"'^^";
-                	var t_where2 = " where[2]=^^ a.tggno='"+t_tggno+"' and a.mon<='"+t_mon+"' ^^";
+                	var t_where2 = " where[2]=^^ tggno='"+t_tggno+"' and mon<='"+t_mon+"' ^^";
                 	var t_where3 = " where[3]=^^ rc2no=a.tggno+'-'+a.mon and noa!='"+t_noa+"' ^^";
                 	var t_where4 = " where[4]=^^ rc2no=a.tggno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
                 	var t_where5 = " where[5]=^^ a.tggno='"+t_tggno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
