@@ -177,7 +177,7 @@
                 	}
                 	var t_where = " where=^^ 1=0 ^^";
                 	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";          	
-                	var t_where2 = " where[2]=^^custno='"+t_custno+"' and mon<='"+t_mon+"' ^^";
+                	var t_where2 = " where[2]=^^(case when custno2!='' then custno2 else custno end)='"+t_custno+"' and mon<='"+t_mon+"' ^^";
                 	var t_where3 = " where[3]=^^vccno=a.custno+'-'+a.mon and noa!='"+t_noa+"' ^^";
                 	var t_where4 = " where[4]=^^ vccno=a.custno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
                 	if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
