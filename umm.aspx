@@ -178,7 +178,7 @@
                 	var t_where = " where=^^ 1=0 ^^";
                 	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";
                 	
-                	var t_where2 = " where[2]=^^custno='"+t_custno+"' and case when mon!='' then mon else left(datea,6) end<='"+t_mon+"' ^^";
+                	var t_where2 = " where[2]=^^custno='"+t_custno+"' and mon<='"+t_mon+"' ^^";
                 	var t_where3 = " where[3]=^^vccno=a.custno+'-'+a.mon and noa!='"+t_noa+" ^^";
                 	//var t_where2 = " where[2]=^^ a.custno='"+t_custno+"' and a.mon<='"+t_mon+"' ^^";
                 	//var t_where3 = " where[3]=^^ vccno=a.custno+'-'+a.mon and noa!='"+t_noa+"' ^^";
