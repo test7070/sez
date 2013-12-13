@@ -148,7 +148,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
+                q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype')+',5@自訂');
                 
                 /* 若非本會計年度則無法存檔 */
                 $('#txtDatea').focusout(function() {

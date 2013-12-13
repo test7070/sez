@@ -21,7 +21,7 @@
 			q_desc=1;
             q_tables = 's';
             var q_name = "vcca";
-            var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker','txtTrdno'];
+            var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker','txtTrdno','txtVccno'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];
             var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
@@ -118,15 +118,22 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
                 $('#lblTrdno').click(function() {
-                	if(q_getPara('sys.comp').indexOf('大昌')>-1)
-                    	q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
-                    else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
-                    	q_pop('txtTrdno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-                     else if(q_getPara('sys.comp').indexOf('裕承隆')>-1)
-                    	q_pop('txtTrdno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-                    else
-                    	q_pop('txtTrdno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                    q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
                 });
+                $('#lblVccno').click(function() {
+                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
+                    	q_pop('txtVccno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                     else if(q_getPara('sys.comp').indexOf('裕承隆')>-1)
+                    	q_pop('txtVccno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                    else
+                    	q_pop('txtVccno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                });
+                
+                if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+                	$('#lblTrdno').hide();
+                	$('#txtTrdno').hide();
+                }
+                
                 
             }	
             function q_boxClose(s2) {
@@ -724,6 +731,8 @@
 						<td>
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
+						<td><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
+						<td><input id="txtVccno"  type="text" class="txt c1"/>	</td>
 						<td><span> </span><a id='lblTrdno' class="lbl btn"> </a></td>
 						<td><input id="txtTrdno"  type="text" class="txt c1"/>	</td>
 					</tr>
