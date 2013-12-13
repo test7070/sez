@@ -79,7 +79,15 @@
                     }, {
                         type : '6', //[20]
                         name : 'paytype'
-                    }]
+                    },{
+						type : '0', //[21] //判斷vcc是內含或應稅 內含不抓vcca
+						name : 'vcctax',
+						value : q_getPara('sys.d4taxtype')
+					}, {
+                        type : '8', //[22]
+                        name : 'showunpay', //只顯示未收
+                        value : "1@只顯示未收".split(',')
+	                }]
                 });
                 q_popAssign();
                 $('#txtDate1').mask('999/99/99');
