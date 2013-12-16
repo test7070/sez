@@ -184,15 +184,17 @@
 					});
 					$('#txtMount_' + j).change(function(){
 						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
-					    var t_ordeno = $('#txtOrdeno_'+n).val();
-					    var t_no2 = $('#txtNo2_'+n).val();
-						for(var i = 0;i<cubBBsArray.length;i++){
-							if(cubBBsArray[i].ordeno==t_ordeno && cubBBsArray[i].no2==t_no2){
-								var t_mount = dec($('#txtMount_'+n).val());
-								if(t_mount > dec(cubBBsArray[i].mount)){
-									alert('數量不可大於訂單數量!!');
-									$('#txtMount_'+n).val(dec(cubBBsArray[i].mount));
-									break;
+					    var t_ordeno = $.trim($('#txtOrdeno_'+n).val());
+					    var t_no2 = $.trim($('#txtNo2_'+n).val());
+					    if(t_ordeno.length > 0){
+							for(var i = 0;i<cubBBsArray.length;i++){
+								if(cubBBsArray[i].ordeno==t_ordeno && cubBBsArray[i].no2==t_no2){
+									var t_mount = dec($('#txtMount_'+n).val());
+									if(t_mount > dec(cubBBsArray[i].mount)){
+										alert('數量不可大於訂單數量!!');
+										$('#txtMount_'+n).val(dec(cubBBsArray[i].mount));
+										break;
+									}
 								}
 							}
 						}
