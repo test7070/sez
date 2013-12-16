@@ -67,7 +67,6 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
-                //t_mount = (!t_unit || emp(t_unit) || trim(t_unit).toLowerCase() == 'kg' ? q_float('txtWeight_' + j) : q_float('txtMount_' + j));  // 計價量
                 t_mount = q_float('txtMount_' + j);
                 $('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j),dec(t_mount)), 0));
                 t1 = q_add(t1 , dec(q_float('txtTotal_' + j)));
@@ -119,11 +118,7 @@
             $('#lblAccc').click(function () {
                 q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
             });
-            
-            /*$('#btnFunc').click(function () {
-                q_gt('trans', "where=^^datea='100/01/03'^^", 0, 0, 0, "", r_accy);
-            });*/
-			
+            		
             $('#lblInvono').click(function(){
 				t_where = '';
 				t_invo = $('#txtInvono').val();
@@ -132,6 +127,7 @@
                 	q_box("vcca.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcca', "95%", "95%", q_getMsg('lblInvono'));
                 }
             });
+            
             $('#txtFloata').change(function () {sum();});
             $('#txtPrice').change(function () {sum();});
 			$('#txtAddr').change(function(){
@@ -332,8 +328,8 @@
 	                   q_cmbParse("combAddr", t_item);
 					break;
             	case 'orde':
-            	var as = _q_appendData("orde", "", true);
-            	var t_memo=$('#txtMemo').val();
+	            	var as = _q_appendData("orde", "", true);
+	            	var t_memo=$('#txtMemo').val();
             		for ( i = 0; i < as.length; i++) {
             			t_memo=t_memo+(t_memo.length>0?'\n':'')+as[i].noa+':'+as[i].memo;
             		}
@@ -516,7 +512,7 @@
 			q_gt('umms', t_where, 0, 0, 0, 'btnModi',r_accy);
         }
         function btnPrint() {
-			q_box('z_vccp.aspx' + "?;;;noa="+trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+			q_box('z_vccpuu.aspx' + "?;;;noa="+trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {  
@@ -924,7 +920,7 @@
                 <td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>                 
                 <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td> 
                 <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-                <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td> 
+                <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
             </tr>
 			<tr>
 				<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
@@ -955,44 +951,51 @@
         </table>
         </div>
         </div>
-        <div class='dbbs' style="width: 1270px;">
+        <div class='dbbs' style="width: 1500px;">
         <table id="tbbs" class='tbbs'>
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;width:" /> </td>
-                <td align="center"><a id='lblProductno_s'> </a></td>
-                <td align="center"><a id='lblProduct_s'> </a></td>
-                <td align="center"><a id='lblUnit_s'> </a></td>
-                <td align="center"><a id='lblMount_s'> </a></td>
-                <td align="center"><a id='lblPrice_s'> </a></td>
-                <td align="center"><a id='lblTotal_s'> </a></td>
-                <td align="center"><a id='lblStore_s'> </a></td>
-                <td align="center"><a id='lblMemo_s'> </a></td>
-                <td align="center"><a id='lblRecord_s'> </a></td>
+                <td align="center" style="width:40px;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;" /> </td>
+                <td align="center" style="width:150px;"><a id='lblUno_s'> </a></td>
+                <td align="center" style="width:200px;"><a id='lblProductno_s'> </a>/<a id='lblProduct_s'> </a></td>
+                <td align="center" style="width:150px;"><a id='lblSpec_s'> </a></td>
+                <td align="center" style="width:50px;"><a id='lblUnit_s'> </a></td>
+                <td align="center" style="width:80px;"><a id='lblDime_s'> </a></td> <!--訂價-->
+                <td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:80px;"><a id='lblWidth_s'> </a></td> <!--折讓-->
+                <td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
+                <td align="center" style="width:90px;"><a id='lblTotal_s'> </a></td>
+                <td align="center" style="width:130px;"><a id='lblStore_s'> </a></td>
+                <td align="center" style="width:90px;"><a id='lblClass_s'> </a></td>
+                <td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
+                <td align="center" style="width:32px;"><a id='lblRecord_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:10%">
+                <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <td><input id="txtUno.*" type="text" class="txt c1" /></td>
+                <td>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
-                	<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
-                </td>
-                <td style="width:15%;">
+                	<input class="txt"  id="txtProductno.*" type="text" style="width:165px;" />
                 	<input id="txtProduct.*" type="text" class="txt c1" />
                 </td>
-                <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
-                <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
-                <td style="width:7%;"><input id="txtTotal.*" type="text" class="txt num c1"/></td>
-                <td style="width:8%;">
-                	<input id="txtStoreno.*" type="text" class="txt c1" style="width: 75%"/>
+                <td><input id="txtSpec.*" type="text" class="txt c1" /></td>
+                <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+                <td><input id="txtDime.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtMount.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtWidth.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
+                <td>
                 	<input class="btn"  id="btnStoreno.*" type="button" value='.' style=" font-weight: bold;" />
+                	<input id="txtStoreno.*" type="text" class="txt" style="width: 95px;"/>
                 	<input id="txtStore.*" type="text" class="txt c1"/>
                 </td>
-                <td style="width:10%;"><input id="txtMemo.*" type="text" class="txt c1"/>
+                <td><input id="txtClass.*" type="text" class="txt c1"/></td>
+                <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtOrdeno.*" type="text"  class="txt" style="width:70%;"/>
                 	<input id="txtNo2.*" type="text" class="txt" style="width:20%;"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
-                <td style="width:2%;" align="center"><input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
+                <td align="center"><input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
             </tr>
         </table>
         </div>
