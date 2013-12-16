@@ -35,8 +35,7 @@
 			brwKey = 'Datea';
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'ucaucc_b.aspx'],
-				['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_fact',
-				 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
+				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
 			);
@@ -153,6 +152,10 @@
 				$('#txtCustno').change(function(){
 					if(!emp($('#txtCustno').val())){
 						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+						q_gt('cust', t_where, 0, 0, 0, "cust_txt");
+						post_custno=$('#txtCustno').val();
+						popcust=false;
+						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
@@ -196,6 +199,40 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'cust_txt':
+						var as = _q_appendData("cust", "", true);
+						if(as[0]!=undefined){
+							$('#txtPaytype').val(as[0].paytype);
+							$('#txtTel').val(as[0].tel);
+							$('#txtFax').val(as[0].fax);
+							$('#cmbTrantype').val(as[0].trantype);
+							$('#txtPost').val(as[0].zip_comp);
+							$('#txtAddr').val(as[0].addr_comp);
+							$('#txtSalesno').val(as[0].salesno);
+							$('#txtSales').val(as[0].sales);
+                       }else{
+	                       	if(!popcust){
+								q_box("cust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , 'cust', "95%", "95%", q_getMsg('popCust'));
+								popcust=false;
+	                       }
+                       }
+                       $('#txtPost2').focus();
+					break;
+					case 'cust_pop':
+						var as = _q_appendData("cust", "", true);
+						if(as[0]!=undefined){
+							$('#txtPaytype').val(as[0].paytype);
+							$('#txtTel').val(as[0].tel);
+							$('#txtFax').val(as[0].fax);
+							$('#cmbTrantype').val(as[0].trantype);
+							$('#txtPost').val(as[0].zip_comp);
+							$('#txtAddr').val(as[0].addr_comp);
+							$('#txtSalesno').val(as[0].salesno);
+							$('#txtSales').val(as[0].sales);
+                       }
+                       
+                       $('#txtPost2').focus();
+					break;
 					case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
                 		if (as[0] != undefined) {
@@ -304,6 +341,7 @@
 				$('#chkIsproj').attr('checked',true);
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
+				$('#txtOdate').val(q_date());
 				$('#txtDatea').focus();
 				
 				$('#txtCno').val(z_cno);
@@ -454,14 +492,18 @@
 			function btnCancel() {
 				_btnCancel();
 			}
-			
+			var popcust=false;
 			function q_popPost(s1) {
 		    	switch (s1) {
 			        case 'txtCustno':
 		    			if(!emp($('#txtCustno').val())){
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							q_gt('cust', t_where, 0, 0, 0, "cust_pop");
+							popcust=true;
+							
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
-						}
+					}
 			        break;
 		    	}
 			}
