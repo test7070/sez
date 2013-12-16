@@ -35,6 +35,9 @@
 				_refresh();
 					
 				for (var j = 0; j < brwCount; j++) {
+					if($('#combTypea_'+j).length<1)
+						continue;
+					
 			        if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
 						q_cmbParse("combTypea_"+j, q_getPara('ucc.typea_it'));	//IR
 					else
