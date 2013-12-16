@@ -36,6 +36,7 @@
 					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
 				}
 				main();
+				setTimeout('parent.$.fn.colorbox.resize({innerHeight : "750px"})', 300);
 			});         /// end ready
 
 			function main() {
@@ -44,9 +45,7 @@
 					return;
 				}
 				mainBrow(6,t_content);
-				parent.$.fn.colorbox.resize({
-					height : "750px"
-				});
+				parent.$.fn.colorbox.resize({innerHeight : "750px"});
 				$('#btnTop').hide();
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
@@ -92,10 +91,7 @@
 				}
 				location.href = newUrlStr;
 			}
-			
-			function bbsAssign(){
-				
-			}
+			function bbsAssign(){}
 			
 			function SeekStr(){
 				t_ordeno = trim($('#textOrdeno').val());
@@ -160,19 +156,48 @@
 							$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 					});
 				});
-				var Parent = window.parent.document;
-				if(Parent.getElementById('cmbKind')){
-					var t_cmbKind = Parent.getElementById('cmbKind').value.substr(0,1);
+				var w = window.parent;
+				if(w.$('#cmbKind').val() || w.q_name=='cub'){
+					var t_cmbKind = '';
+					if(w.$('#cmbKind').val())
+						t_cmbKind = w.$('#cmbKind').val().substr(0,1);
+					if(w.q_name=='cub'){
+						var w_href=q_getHref();
+						for(var k=0;k<w_href.length;k++){
+							if(w_href[k] && w_href[k+1] && w_href[k].toString().indexOf('kind') > -1){
+								t_cmbKind = w_href[k+1].toString().substr(0,1);
+								$('#combTypea').val(w_href[k+1].toString());
+								break;
+							}
+						}
+						if(t_cmbKind=='' && abbs.length >0){
+							if(abbs[0].kind)
+								t_cmbKind = abbs[0].kind.substr(0,1);
+							t_cmbKind = $('#combTypea').val().substr(0,1);
+						}
+					}
 					if(t_cmbKind=='A'){
 						$('#lblSize_st').text(q_getPara('sys.lblSizea'));
+						$('#lblSize_st').parent().css('width','18%');
+						$('#size_changeTd').css('width','18%');
 						$('input[id*="txtLengthb_"]').css('width','29%');
 						$('input[id*="txtWidth_"]').css('width','29%');
 						$('input[id*="txtDime_"]').css('width','29%');
 						$('input[id*="txtRadius_"]').remove();
 						$('span[id*="StrX1"]').remove();
+					}else if(t_cmbKind=='B'){
+						$('#lblSize_st').text(q_getPara('sys.lblSizeb'));
+						$('#lblSize_st').parent().css('width','18%');
+						$('#size_changeTd').css('width','18%');
+						$('input[id*="txtLengthb_"]').css('width','21%');
+						$('input[id*="txtWidth_"]').css('width','21%');
+						$('input[id*="txtDime_"]').css('width','21%');
+						$('input[id*="txtRadius_"]').css('width','21%');
+						//$('span[id*="StrX1"]').remove();
 					}else if((t_cmbKind !='A') && (t_cmbKind !='B')){
 						$('#lblSize_st').text(q_getPara('sys.lblSizec'));
 						$('#lblSize_st').parent().css('width','6%');
+						$('#size_changeTd').css('width','6%');
 						$('input[id*="txtLengthb_"]').css('width','95%');
 						$('input[id*="txtRadius_"]').remove();
 						$('input[id*="txtWidth_"]').remove();
@@ -181,16 +206,10 @@
 						$('span[id*="StrX2"]').remove();
 						$('span[id*="StrX3"]').remove();
 					}
-				}else if(window.parent.q_name != 'cub' || window.parent.q_name == 'cub'){
-					$('#lblSize_st').text(q_getPara('sys.lblSizea'));
-					$('input[id*="txtLengthb_"]').css('width','29%');
-					$('input[id*="txtWidth_"]').css('width','29%');
-					$('input[id*="txtDime_"]').css('width','29%');
-					$('input[id*="txtRadius_"]').remove();
-					$('span[id*="StrX1"]').remove();
 				}
 				_readonly(true);
-			}	
+			}
+			
 		</script>
     	<style type="text/css">
 			#seekForm{
@@ -280,7 +299,7 @@
 					<td style="width:20%;"><input id="txtUno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td style="width:6%;"><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
 					<td style="width:8%;"><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
-					<td style="width:20%;">
+					<td id="size_changeTd" style="width:18%;">
 						<input id="txtRadius.*" type="text" style=" width: 20%;text-align: right;" readonly="readonly"/>
 						<span id="StrX1" class="StrX">x</span>
 						<input id="txtWidth.*" type="text" style=" width: 20%;text-align: right;" readonly="readonly"/>
