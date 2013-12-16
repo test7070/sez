@@ -295,7 +295,7 @@
                 q_gt('umms', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
             function btnPrint() {
-            	q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "650px", m_print);
+            	q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "95%", "95%", m_print);
             }
             function wrServer(key_value) {
                 var i;
