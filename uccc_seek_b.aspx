@@ -36,6 +36,7 @@
 					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
 			}
 			main();
+			setTimeout('parent.$.fn.colorbox.resize({innerHeight : "750px"})', 300);
 		});		 /// end ready
 		
 		
