@@ -64,8 +64,6 @@
 		    function mainPost() {
 		        bbmMask = [['txtTime', '99:99'], ['txtDatea', r_picd]];
 		        q_mask(bbmMask);
-		        //------------------------------------------------
-		        //�s�Ϊ��U�Ԧ��PTXT��J
 		        q_cmbParse("cmbDc", q_getPara('chgcash.typea'));
 		        q_gt('part', '', 0, 0, 0, "");
 		        //q_gt('carteam', '', 0, 0, 0, "");
@@ -179,7 +177,7 @@
 		                    }
 		                    q_cmbParse("cmbPartno", t_item, 's');
 
-		                    refresh(q_recno);  /// �Ĥ@���ݭn���s��J
+		                    refresh(q_recno);
 		                }
 		                break;
 		            case 'chgpart':
@@ -213,12 +211,12 @@
 		            $('#cmbCarteamno').val('');
 		        }
 		        if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
-		            alert(q_getMsg('lblDatea') + '��~�C');
+		            alert(q_getMsg('lblDatea') + '錯誤');
 		            return;
 		        }
 		        if($('#cmbDc').val() == 3){
 		        	if(($('#txtAcc1').val() == '') || ($('#txtAcc2').val() == '') || $('#txtAcc1').val().substring(0,4) !='1112'){
-		        		alert('�п�J' + q_getMsg('lblAcc1') + '�B��1112�}�Y' );
+		        		alert('錯誤：' + q_getMsg('lblAcc1') + '須為1112開頭' );
 		        		return;
 		        	}
 		        }
@@ -276,12 +274,10 @@
 		    function btnIns() {
 		        _btnIns();
 		        $('#txtNoa').val('AUTO');
-		        //�ӽФ���P�ɶ�
 		        var now = new Date();
 		        $('#txtDatea').val(q_date());
 		        $('#txtTime').val((now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes());
 
-		        //�ӽЪ��B��l
 		        $('#txtMoney').val(0);
 
 		        $('#txtDatea').focus();
@@ -384,7 +380,6 @@
 		    function btnCancel() {
 		        _btnCancel();
 		    }
-		    //...........................................�s�Ϊ��l�B�d��
 		    function cashorg() {
 		        var t_where = "where=^^ partno='" + $('#cmbChgpartno').val() + "'^^";
 		        q_gt('chgcashorg', t_where, 0, 0, 0, "", r_accy);
@@ -396,35 +391,6 @@
 		            return false;
 		        abbm[q_recno]['accno'] = xmlString;
 		        $('#txtAccno').val(xmlString);
-		    }
-		    function checkId(str) {
-		        if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//�����Ҧr��
-		            var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-		            var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-		            var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-		            if ((n % 10) == 0)
-		                return 1;
-		        } else if ((/^[0-9]{8}$/g).test(str)) {//�Τ@�s��
-		            var key = '12121241';
-		            var n = 0;
-		            var m = 0;
-		            for (var i = 0; i < 8; i++) {
-		                n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-		                m += Math.floor(n / 10) + n % 10;
-		            }
-		            if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-		                return 2;
-		        } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//�褸�~
-		            var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-		            if (regex.test(str))
-		                return 3;
-		        } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//����~
-		            str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
-		            var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-		            if (regex.test(str))
-		                return 4
-		        }
-		        return 0; //��~
 		    }
 		</script>
 		<style type="text/css">
@@ -697,4 +663,3 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
-
