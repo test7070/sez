@@ -66,6 +66,7 @@
 					}
                 });
                 $('#btnPrint').bind('contextmenu',function(e) {
+                	e.preventDefault();
                 	q_box("z_addr2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'z_addr2', "95%", "95%", q_getMsg("popPrint"));
            		});
             }
