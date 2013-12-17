@@ -19,7 +19,7 @@
         var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtMi_total', 15, 0, 1],['txtMtotal', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtAddmoney', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtPlus', 15, 0, 1],['txtMinus', 15, 0, 1]];  
-        var bbsNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtCh_labor1', 15, 0, 1],['txtCh_labor2', 15, 0, 1],['txtCh_health_insure', 15, 0, 1],['txtDay', 15, 4, 1],['txtMtotal', 15, 0, 1],['txtBo_born', 15, 0, 1],['txtBo_night', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtBo_duty', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtOstand', 15, 2, 1],['txtAddh2_1', 15, 1, 1],['txtAddh2_2', 15, 1, 1],['txtAddmoney', 15, 0, 1],['txtAddh100', 15, 1, 1],['txtAddh46_1', 15, 1, 1],['txtAddh46_2', 15, 1, 1],['txtTax_other2', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtChgcash', 15, 0, 1],['txtTax6', 15, 0, 1],['txtStay_tax', 15, 0, 1],['txtTax12', 15, 0, 1],['txtTax18', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtLodging_power_fee', 15, 0, 1],['txtTax', 15, 0, 1],['txtTax5', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtStay_money', 15, 0, 1],['txtRaise_num', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtLate', 15, 0, 1],['txtHr_sick', 15, 1, 1],['txtMi_sick', 15, 0, 1],['txtHr_person', 15, 1, 1],['txtMi_person', 15, 0, 1],['txtHr_nosalary', 15, 1, 1],['txtMi_nosalary', 15, 0, 1],['txtHr_leave', 15, 1, 1],['txtMi_leave', 15, 0, 1],['txtPlus', 15, 0, 1],['txtMinus', 15, 0, 1]];
+        var bbsNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtCh_labor1', 15, 0, 1],['txtCh_labor2', 15, 0, 1],['txtCh_health_insure', 15, 0, 1],['txtDay', 15, 4, 1],['txtMtotal', 15, 0, 1],['txtBo_born', 15, 0, 1],['txtBo_night', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtBo_duty', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtOstand', 15, 2, 1],['txtAddh2_1', 15, 1, 1],['txtAddh2_2', 15, 1, 1],['txtAddmoney', 15, 0, 1],['txtAddh100', 15, 1, 1],['txtAddh46_1', 15, 1, 1],['txtAddh46_2', 15, 1, 1],['txtTax_other2', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtChgcash', 15, 0, 1],['txtTax6', 15, 0, 1],['txtStay_tax', 15, 0, 1],['txtTax12', 15, 0, 1],['txtTax18', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtLodging_power_fee', 15, 0, 1],['txtTax', 15, 0, 1],['txtTax5', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtStay_money', 15, 0, 1],['txtRaise_num', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtHplus2', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtLate', 15, 0, 1],['txtHr_sick', 15, 1, 1],['txtMi_sick', 15, 0, 1],['txtHr_person', 15, 1, 1],['txtMi_person', 15, 0, 1],['txtHr_nosalary', 15, 1, 1],['txtMi_nosalary', 15, 0, 1],['txtHr_leave', 15, 1, 1],['txtMi_leave', 15, 0, 1],['txtPlus', 15, 0, 1],['txtMinus', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -194,6 +194,7 @@
 					$("#hid_ch_labor").hide();
 					$("#hid_ch_labor_self").hide();
 					$("#hid_ch_health").hide();
+					$("#hid_hplus2").hide();
 					$("#hid_tax").hide();
 					$("#hid_tax5").hide();
 					$("#hid_welfare").hide();
@@ -205,6 +206,7 @@
 		            	 $('#hid_ch_labor_'+j).hide();
 		            	 $('#hid_ch_labor_self_'+j).hide();
 		            	 $('#hid_ch_health_'+j).hide();
+		            	 $('#hid_hplus2_'+j).hide();
 		            	 $('#hid_tax_'+j).hide();
 		            	 $('#hid_tax5_'+j).hide();
 		            	 $('#hid_welfare_'+j).hide();
@@ -212,7 +214,7 @@
 		            	 $('#hid_raise_num_'+j).hide();
 		            	 $('#hid_minus_'+j).hide();
 	            	 }
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-926)+"px");
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-1026)+"px");
 	            	scroll("tbbs","box",1);
 					$("#btnHidetotal4").val("應扣詳細顯示");
 				}else{
@@ -220,6 +222,7 @@
 					$("#hid_ch_labor").show();
 					$("#hid_ch_labor_self").show();
 					$("#hid_ch_health").show();
+					$("#hid_hplus2").show();
 					$("#hid_tax").show();
 					$("#hid_tax5").show();
 					$("#hid_welfare").show();
@@ -231,6 +234,7 @@
 		            	 $('#hid_ch_labor_'+j).show();
 		            	 $('#hid_ch_labor_self_'+j).show();
 		            	 $('#hid_ch_health_'+j).show();
+		            	 $('#hid_hplus2_'+j).show();
 		            	 $('#hid_tax_'+j).show();
 		            	 $('#hid_tax5_'+j).show();
 		            	 $('#hid_welfare_'+j).show();
@@ -238,7 +242,7 @@
 		            	 $('#hid_raise_num_'+j).show();
 		            	 $('#hid_minus_'+j).show();
 	            	 }
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+926)+"px");
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+1026)+"px");
 	            	 scroll("tbbs","box",1);
 					$("#btnHidetotal4").val("應扣詳細隱藏");
 				}
@@ -728,6 +732,7 @@
            			$('#txtTax18_'+j).change(function () {sum();});
            			$('#txtStay_money_'+j).change(function () {sum();});
            			$('#txtCh_health_'+j).change(function () {sum();});
+           			$('#txtHplus2_'+j).change(function () {sum();});
            			$('#txtPlus_'+j).change(function () {sum();});
            			$('#txtMinus_'+j).change(function () {sum();});
            			$('#checkSel_' + j).click(function () {
@@ -1073,7 +1078,7 @@
         
         function table_change() {
         	getdtmp();
-        	$('#tbbs').css("width","5000px");
+        	$('#tbbs').css("width","5100px");
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
             	 $('#lblDaymoney').hide();
@@ -1185,7 +1190,7 @@
 		            	 $('#hid_tax5_'+j).show();
             	 	}
             }else{//外勞
-            		$('#tbbs').css("width","6000px");
+            		$('#tbbs').css("width","6100px");
             		//bbm
             	 	$('#lblDaymoney').hide();
 	            	 $('#txtDaymoney').hide();
@@ -1282,6 +1287,7 @@
 			$("#hid_ch_labor_comp").show();
 			$("#hid_ch_labor_self").show();
 			$("#hid_ch_health").show();
+			$("#hid_hplus2").show();
 			$("#hid_tax").show();
 			$("#hid_tax5").show();
 			$("#hid_welfare").show();
@@ -1331,6 +1337,7 @@
 			    $('#hid_ch_labor_comp_'+j).show();
 			    $('#hid_ch_labor_self_'+j).show();
 			    $('#hid_ch_health_'+j).show();
+			    $('#hid_hplus2_'+j).show();
 			    $('#hid_tax_'+j).show();
 			    $('#hid_tax5_'+j).show();
 			    $('#hid_welfare_'+j).show();
@@ -1688,6 +1695,7 @@
                 <td align="center" class="td2" id='hid_tax18' style="width: 100px;"><a id='lblTax18s'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor_self' style="width: 100px;"><a id='lblCh_labor_selfs'></a></td>
                 <td align="center" class="td2" id='hid_ch_health' style="width: 100px;"><a id='lblCh_healths'></a></td>
+                <td align="center" class="td2" id='hid_hplus2' style="width: 100px;"><a id='lblHplus2s'></a></td>
                 <td align="center" class="td2" id='hid_lodging_power_fee' style="width: 100px;"><a id='lblLodging_power_fees'></a></td>
                 <td align="center" class="td1" id='hid_tax' style="width: 100px;"><a id='lblTaxs'></a></td>
                 <td align="center" class="td1" id='hid_tax5' style="width: 100px;"><a id='lblTax5s'></a></td>
@@ -1755,6 +1763,7 @@
                 <td id='hid_tax18.*'><input class="txt num c1" id="txtTax18.*" type="text" /></td>
                 <td id='hid_ch_labor_self.*'><input class="txt num c1" id="txtCh_labor_self.*" type="text" /></td>
                 <td id='hid_ch_health.*'><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
+                <td id='hid_hplus2.*'><input class="txt num c1" id="txtHplus2.*" type="text" /></td>
                 <td id='hid_lodging_power_fee.*'><input class="txt num c1" id="txtLodging_power_fee.*" type="text" /></td>
                 <td id='hid_tax.*'><input class="txt num c1" id="txtTax.*" type="text" /></td>
                 <td id='hid_tax5.*'><input class="txt num c1" id="txtTax5.*" type="text" /></td>
