@@ -38,7 +38,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             function main() {
                 if (dataErr) {
@@ -65,6 +65,9 @@
 						}
 					}
                 });
+                $('#btnPrint').bind('contextmenu',function(e) {
+                	q_box("z_addr2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'z_addr2', "95%", "95%", q_getMsg("popPrint"));
+           		});
             }
 
             function q_funcPost(t_func, result) {
@@ -91,6 +94,14 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'z_addr':
+                		var as = _q_appendData("authority", "", true);
+                		if(as[0] != undefined && as[0].pr_run=="1"){
+                			q_box("z_addr.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'z_addr', "95%", "95%", q_getMsg("popPrint"));
+                			return;
+                		}
+                		q_box("z_addr2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'z_addr2', "95%", "95%", q_getMsg("popPrint"));
+                		break;
 					case 'checkAddrno_change':
                 		var as = _q_appendData("addr", "", true);
                         if (as[0] != undefined){
@@ -119,7 +130,7 @@
                 Unlock();
             }
             function btnOk() {
-                var t_date = ''
+                var t_date = '';
                 for (var i = 0; i < q_bbsCount; i++) {
                     if ($('#txtDatea_' + i).val() >= t_date) {
                         t_date = $('#txtDatea_' + i).val();
@@ -178,7 +189,13 @@
             }
 
             function btnPrint() {
-            	var flag = false;
+            	if(r_rank>8)
+            		q_box("z_addr.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'z_addr', "95%", "95%", q_getMsg("popPrint"));
+            	else
+            		q_gt('authority',"where=^^ a.noa='z_addr' and a.sssno='"+r_userno+"'^^", 0, 0, 0, "z_addr", r_accy);
+            	
+            	
+            	/*var flag = false;
             	for(var i = 0;i<q_auth.length;i++){
             		if(q_auth[i].split(',')[0]=='addr' && (/^(addr)\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[1]\u002c[0,1]\u002c[0,1]\u002c[0,1]\u002c[0,1]$/g).test(q_auth[i])){
             			flag = true;
@@ -276,7 +293,7 @@
 					.click(function(e){
 						$('#childForm2').hide();
 					});
-            	}
+            	}*/
             }
 
             function wrServer(key_value) {
