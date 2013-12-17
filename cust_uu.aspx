@@ -94,6 +94,7 @@
 				q_cmbParse("cmbTypea", q_getPara('cust.typea_uu'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
+				q_cmbParse("cmbTask",'0@否,1@是');
 				
 				 $('#btnConn').click(function() {
 				 	if(q_cur==1){
@@ -107,8 +108,8 @@
 					$(this).val($.trim($(this).val()).toUpperCase());		
 					if($(this).val().length>0){
 						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-							q_gt('cust', t_where, 0, 0, 0, "checkCustno_change", r_accy);
+							//t_where="where=^^ noa='"+$(this).val()+"'^^";
+							//q_gt('cust', t_where, 0, 0, 0, "checkCustno_change", r_accy);
 						}else{
 							Lock();
 							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
@@ -141,15 +142,39 @@
 							alert('已存在 '+as[0].noa+' '+as[0].comp);
 						}
 						break;
-					case 'checkCustno_btnOk':
+					case 'AutoCustno_btnOk_1'://新客戶
 						var as = _q_appendData("cust", "", true);
+						var maxnumber=0;//目前最大值
+						var autonumber='0000';//流水編號
 						if (as[0] != undefined){
-							alert('已存在 '+as[0].noa+' '+as[0].comp);
-							Unlock();
-							return;
-						}else{
-							wrServer($('#txtNoa').val());
+							for ( var i = 0; i < as.length; i++) {
+							if(maxnumber<parseInt(as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length)))
+								maxnumber=as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length)
+							}
 						}
+						maxnumber=autonumber+(parseInt(maxnumber)+1);
+						maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length);
+						
+						$('#txtNoa').val($('#txtNoa').val()+maxnumber);
+						
+						wrServer($('#txtNoa').val());
+						break;
+					case 'AutoCustno_btnOk_2'://新分店
+						var as = _q_appendData("cust", "", true);
+						var maxnumber=0;//目前最大值
+						var autonumber='000';//流水編號
+						if (as[0] != undefined){
+							for ( var i = 0; i < as.length; i++) {
+							if(maxnumber<parseInt(as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length)))
+								maxnumber=as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length)
+							}
+						}
+						maxnumber=autonumber+(parseInt(maxnumber)+1);
+						maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length);
+						
+						$('#txtNoa').val($('#txtNoa').val()+maxnumber);
+						
+						wrServer($('#txtNoa').val());
 						break;
 					case 'sss':
 						var as = _q_appendData("sss", "", true);
@@ -220,17 +245,40 @@
 					Unlock();
 					return;
 				}
-				
+				var t_err='';
 				if (dec($('#txtCredit').val()) > 9999999999)
 					t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
 
 				if (dec($('#txtGetdate').val()) > 31)
 					t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r';
-				$('#txtKdate').val(q_date());
-				 $('#txtWorker' ).val(r_name);
+					
+				if(t_err.length>0){
+					alert(t_err);
+					Unlock();
+					return;
+				}
+				
 				if(q_cur==1){
-					t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-					q_gt('cust', t_where, 0, 0, 0, "checkCustno_btnOk", r_accy);
+					$('#txtKdate').val(q_date());
+					$('#txtWorker').val(r_name);
+				}
+				
+				if(q_cur==1){
+					//分辨產生新客戶或分店
+					if($('#txtNoa').val().length==2){
+						t_where="where=^^ noa like '"+$('#txtNoa').val()+"%' and len(noa)=6 ^^";
+						q_gt('cust', t_where, 0, 0, 0, "AutoCustno_btnOk_1", r_accy);//新客戶
+					}else if($('#txtNoa').val().length==6){
+						t_where="where=^^ noa like '"+$('#txtNoa').val()+"%' and len(noa)>6^^";
+						q_gt('cust', t_where, 0, 0, 0, "AutoCustno_btnOk_2", r_accy);//新分店
+					}else{
+						var t_err="建立新客戶編號不正確\r"
+						t_err=t_err+"1.新客戶請輸入兩碼：第一碼為客戶類別；第二碼為區域別\r";
+						t_err=t_err+"2.新分店請輸入六碼：六碼為客戶(總店)編號"
+						alert(t_err);
+						Unlock();
+						return;
+					}					
 				}else{
 					wrServer($('#txtNoa').val());
 				}
@@ -518,6 +566,8 @@
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblInvoicetitle' class="lbl"> </a></td>
 						<td class="td2" colspan='3'><input id="txtInvoicetitle" type="text" class="txt c7"/></td>
+						<td class="td5"><span> </span><a id='lblTask' class="lbl"></a></td>
+						<td class="td6"><select id="cmbTask" class="txt c1"></select></td>
 					</tr>
 					<tr class="tr8">
 						<td class="td1"><span> </span><a id='lblAddr_fact' class="lbl"></a></td>

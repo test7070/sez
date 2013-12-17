@@ -20,7 +20,7 @@
         var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
         var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
-        var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
+        var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtLengthb', 9, 2, 1], ['txtWidth', 9, 2, 1], ['txtDime', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; 
@@ -67,15 +67,18 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
-                t_mount = q_float('txtMount_' + j);
-                $('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j),dec(t_mount)), 0));
+                t_mount = q_float('txtLengthb_' + j);
+                //總價=數量*單價-折讓
+                $('#txtTotal_' + j).val(q_sub(round(q_mul(q_float('txtPrice_' + j),dec(t_mount)), 0),q_float('txtDime_' + j)));
                 t1 = q_add(t1 , dec(q_float('txtTotal_' + j)));
+                //實際數量=數量+贈品
+           		$('#txtMount_'+j).val(q_add(q_float('txtLengthb_' + j),q_float('txtWidth_' + j)));
             }  // j
 
             $('#txtMoney').val(round(t1, 0));
-            if (!emp($('#txtPrice').val()))
+           /* if (!emp($('#txtPrice').val()))
                 $('#txtTranmoney').val(round(q_mul(t_weight,dec(q_float('txtPrice'))), 0));
-
+			*/
             calTax();
             q_tr('txtTotalus' ,round(q_mul(q_float('txtTotal'),q_float('txtFloata')),0));
         }
@@ -408,7 +411,9 @@
 				$('#txtWorker').val(r_name);
 			else
 				$('#txtWorker2').val(r_name);
+				
             sum();
+            
 
             var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
@@ -959,9 +964,9 @@
                 <td align="center" style="width:200px;"><a id='lblProductno_s'> </a>/<a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:150px;"><a id='lblSpec_s'> </a></td>
                 <td align="center" style="width:50px;"><a id='lblUnit_s'> </a></td>
-                <td align="center" style="width:80px;"><a id='lblDime_s'> </a></td> <!--訂價-->
-                <td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
-                <td align="center" style="width:80px;"><a id='lblWidth_s'> </a></td> <!--折讓-->
+                <td align="center" style="width:80px;"><a id='lblMount_s'> </a></td><!--數量隱藏用lengthb當數量當存檔時要將lengthb+width寫回mount-->
+                <td align="center" style="width:80px;"><a id='lblWidth_s'> </a></td> <!--贈品-->
+                <td align="center" style="width:80px;"><a id='lblDime_s'> </a></td> <!--折讓-->
                 <td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:90px;"><a id='lblTotal_s'> </a></td>
                 <td align="center" style="width:130px;"><a id='lblStore_s'> </a></td>
@@ -979,9 +984,11 @@
                 </td>
                 <td><input id="txtSpec.*" type="text" class="txt c1" /></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td><input id="txtDime.*" type="text" class="txt num c1"/></td>
-                <td><input id="txtMount.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtLengthb.*" type="text" class="txt num c1"/>
+                	<input id="txtMount.*" type="hidden" class="txt num c1"/>
+                </td>
                 <td><input id="txtWidth.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtDime.*" type="text" class="txt num c1"/></td>
                 <td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
                 <td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
                 <td>
