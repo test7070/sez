@@ -47,8 +47,10 @@
                 	
                     case 'sss':
                         	var as = _q_appendData('sss', '', true);
-                        	ssspartno=as[0].partno;
-                        	q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+                        	if(as[0]){
+                        		ssspartno=as[0].partno;
+                        		q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+                        	}
                         break;
                 }  /// end switch
             }
@@ -73,7 +75,7 @@
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("datea", t_bdate, t_edate)+ q_sqlPara2("sssno", t_sssno)
         + q_sqlPara2("namea", t_namea)+ q_sqlPara2("htype", t_htype)+ q_sqlPara2("hname", t_hname)
-        + q_sqlPara2("bdate", t_bhdate, t_ehdate)+ q_sqlPara2("bdate", t_bhdate, t_ehdate);
+        + q_sqlPara2("bdate", t_bhdate, t_ehdate)+ q_sqlPara2("edate", t_bhdate, t_ehdate);
 
         t_where = ' where=^^' + t_where + seekwhere+'^^ ';
         return t_where;
