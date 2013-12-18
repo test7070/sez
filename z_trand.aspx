@@ -28,36 +28,39 @@
 				$('#q_report').q_report({
 					fileName : 'z_trand',
 					options : [{
-						type : '0',
+						type : '0', //[1]
 						name : 'accy',
 						value : q_getId()[4]
 					}, {
-						type : '6',
+						type : '6', //[2]
 						name : 'mon'
 					}, {
-						type : '6',
+						type : '6', //[3]
 						name : 'xdate'
 					}, {
-						type : '6',
+						type : '6', //[4]
 						name : 'xcarno'
 					}, {
-						type : '1',
+						type : '1', //[5][6]
 						name : 'trandate'
 					}, {
-						type : '6',
+						type : '6', //[7]
 						name : 'xuccno'
                     }, {/*3*/
-                        type : '2',
+                        type : '2', //[8][9]
                         name : 'cust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
 					}, {
-						type : '6',
+						type : '6', //[10]
 						name : 'caseno'
 					}, {
-	                        type : '6',
+	                        type : '6', //[11]
 	                        name : 'xcarnos'
+					}, {
+	                        type : '6', //[12]
+	                        name : 'xyear'
 	                }]
 				});
 				q_popAssign();
@@ -65,9 +68,9 @@
 				$('#txtTrandate1').datepicker();
 				$('#txtTrandate2').mask('999/99/99');
 				$('#txtTrandate2').datepicker();
-				$('#txtMon').mask('99');
+				$('#txtMon').mask('999/99');
 				$('#txtXdate').mask('999/99/99');
-				
+				$('#txtXyear').mask('999');
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -78,7 +81,9 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtTrandate1').val(t_year + '/' + t_month + '/' + t_day);
-
+				$('#txtMon').val(t_year + '/' + t_month);
+				$('#txtXyear').val(t_year);
+				
 				t_date = new Date();
 				t_date.setDate(35);
 				t_date.setDate(0);
