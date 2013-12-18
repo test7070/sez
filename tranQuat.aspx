@@ -19,7 +19,7 @@
             var q_name = "tranquat";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv'];
             var q_readonlys = ['txtNoq'];
-            var bbmNum = new Array(['txtThirdprice', 10, 3], ['txtOil1', 5, 2], ['txtOil2', 5, 2]);
+            var bbmNum = new Array(['txtThirdprice', 10, 3], ['txtOil1', 10, 2], ['txtOil2', 10, 2]);
             var bbsNum = new Array(['txtMount', 10, 3], ['txtPrice', 10, 3]);
             var bbmMask = [];
             var bbsMask = [];
