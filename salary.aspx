@@ -55,9 +55,10 @@
             q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪','外勞')));
             q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
             q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
-             $('#txtDatea').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
+			
+			$('#txtDatea').focusout(function () {
+				q_cd( $(this).val() ,$(this));
+			});
             
             $('#cmbPerson').change(function () {
             	 table_change();
@@ -455,21 +456,7 @@
 		
         function q_boxClose(s2) { 
            var ret; 
-            switch (b_pop) {                   
-            	case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
+            switch (b_pop) {
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -547,8 +534,8 @@
 		                    
 		                    	//其他項目
 		                    		//應稅其他=應稅其他+生產獎金+夜班津貼+值班津貼
-		                    		/*if(!($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1))
-		                    			as[i].tax_other=dec(as[i].tax_other)+dec(as[i].bo_born)+dec(as[i].bo_night)+dec(as[i].bo_day);*/
+		                    		if(!($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1))
+		                    			as[i].tax_other=dec(as[i].tax_other)+dec(as[i].bo_born)+dec(as[i].bo_night)+dec(as[i].bo_day);
 		                   		//加班時數
 		                   		var t_fir =46,bef_fir01,bef_fir02;
 		                   		as[i].addh21=as[i].addh1;
@@ -597,22 +584,18 @@
 		                    			}	
 		                    		}
 		                    	}
-		                    	//大昌用--加班費=本薪/30/8*加班時數
-		                    	if (q_getPara('sys.comp').indexOf('大昌') > -1) {
-		                    		as[i].addmoney=Math.round(dec(as[i].salary)/30/8*(dec(as[i].addh21)+dec(as[i].addh22)+dec(as[i].addh46_1)+dec(as[i].addh46_2)));
-		                    	}
 		                    }
 						}//end for
 						
 						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtAddmoney'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtAddmoney,txtHplus2'
 															, as.length, as
-                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,addh21,addh22,addh100,addh46_1,addh46_2,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave,memo,plus,minus,borrow,bo_full,addmoney'
+                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,addh21,addh22,addh100,addh46_1,addh46_2,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave,memo,plus,minus,borrow,bo_full,addmoney,hplus2'
                                                            , '');
 						}else{
-                         	q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtMoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtMi_sick,txtMi_person,txtMi_nosalary,txtMi_leave,txtAddmoney'
+                         	q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtMoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtTax,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave,txtMemo,txtPlus,txtMinus,txtBorrow,txtBo_full,txtMi_sick,txtMi_person,txtMi_nosalary,txtMi_leave,txtAddmoney,txtHplus2'
 															, as.length, as
-                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,addh21,addh22,addh100,addh46_1,addh46_2,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave,memo,plus,minus,borrow,bo_full,mi_sick,mi_person,mi_nosalary,mi_leave,addmoney'
+                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,addh21,addh22,addh100,addh46_1,addh46_2,ch_labor,chgcash,ch_labor_comp,ch_labor_self,tax,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave,memo,plus,minus,borrow,bo_full,mi_sick,mi_person,mi_nosalary,mi_leave,addmoney,hplus2'
                                                            , '');
                         }
                         
@@ -626,8 +609,6 @@
 				                    			$('#chkIswelfare_'+j)[0].checked=true;
 				                    		else
 				                    			$('#chkIswelfare_'+j)[0].checked=false;
-				                    		if($('#chkIswelfare_'+j)[0].checked)
-				                    			q_tr('txtWelfare_'+j,100);
 				                    		break;
 				                    	}
 		                        }
@@ -645,10 +626,6 @@
                  		
                 	if (q_cur == 4)  
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -745,34 +722,14 @@
 		                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
 		                }
 	                });
-	                $('#txtHr_sick_'+j).change(function () {
-	                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                    q_bodyId($(this).attr('id'));
-	                    b_seq = t_IdSeq;
-	                    	
-	                	sum();
-	                });
-	                $('#txtHr_person_'+j).change(function () {
-	                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                    q_bodyId($(this).attr('id'));
-	                    b_seq = t_IdSeq;
-	                    
-	                	sum();
-	                });
-	                $('#txtHr_nosalary_'+j).change(function () {
-	                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                    q_bodyId($(this).attr('id'));
-	                    b_seq = t_IdSeq;
-	                    
-	                	sum();
-	                });
-	                $('#txtHr_leave_'+j).change(function () {
-	                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                    q_bodyId($(this).attr('id'));
-	                    b_seq = t_IdSeq;
-	                    
-	                	sum();
-	                });
+	                $('#txtHr_sick_'+j).change(function () {sum();});
+	                $('#txtHr_person_'+j).change(function () {sum();});
+	                $('#txtHr_nosalary_'+j).change(function () {sum();});
+	                $('#txtHr_leave_'+j).change(function () {sum();});
+	                $('#txtMi_sick_'+j).change(function () {sum();});
+	                $('#txtMi_person_'+j).change(function () {sum();});
+	                $('#txtMi_nosalary_'+j).change(function () {sum();});
+	                $('#txtMi_leave_'+j).change(function () {sum();});
             	}
             }
             _bbsAssign();
@@ -893,11 +850,7 @@
         			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
         		}else {//本月
-        			//q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));
-	                //q_tr('txtMi_person_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_person_'+j),0));
-	                //q_tr('txtMi_nosalary_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_nosalary_'+j),0));
-	                //q_tr('txtMi_leave_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_leave_'+j),0));
-        			//q_tr('txtMi_total_'+j,Math.round(dec($('#txtTotal1_'+j).val())/dtmp*dec($('#txtMi_saliday_'+j).val())));//扣薪金額
+        			//當有核取時扣薪時數和扣薪金額可以直接修改
         			if(!$('#checkSel_'+j)[0].checked){
         				q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
         				q_tr('txtMi_total_'+j,Math.round(dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));//扣薪金額=病假+事假+事假+曠工金額
@@ -905,17 +858,12 @@
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtBo_born_'+j).val())+dec($('#txtBo_night_'+j).val())+dec($('#txtBo_duty_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         			q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
-        			if (q_getPara('sys.comp').indexOf('大昌') > -1) {
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*dec($('#txtAddh2_2_'+j).val())));//加班費
-        			}
-        			//q_tr('txtTax6_'+j,Math.round((dec($('#txtTotal2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val())))*0.06));//所得稅
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
-        			//福利金--本薪*0.5%
         			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
         		}
-        		//應扣總額=借支+勞保費+零用金+勞退個人提繳+住宿電費+所得稅+所得稅5%+所得稅6%(外勞)+暫留稅10%(外勞)+所得稅12%(外勞)+所得稅18%(外勞)+福利金+暫留款+健保費+其他扣款
-				q_tr('txtTotal4_'+j,Math.round(dec($('#txtBorrow_'+j).val())+dec($('#txtCh_labor_'+j).val())+dec($('#txtChgcash_'+j).val())+dec($('#txtCh_labor_self_'+j).val())+dec($('#txtLodging_power_fee_'+j).val())+dec($('#txtTax_'+j).val())+dec($('#txtTax5_'+j).val())+dec($('#txtTax6_'+j).val())+dec($('#txtStay_tax_'+j).val())+dec($('#txtTax12_'+j).val())+dec($('#txtTax18_'+j).val())+dec($('#txtWelfare_'+j).val())+dec($('#txtStay_money_'+j).val())+dec($('#txtCh_health_'+j).val())+dec($('#txtMinus_'+j).val())));
+        		//應扣總額=借支+勞保費+二代健保+零用金+勞退個人提繳+住宿電費+所得稅(其他所得稅)+所得稅5%(薪資大於規定額度)+所得稅6%(外勞)+暫留稅10%(外勞)+所得稅12%(外勞)+所得稅18%(外勞)+福利金+暫留款+健保費+其他扣款
+				q_tr('txtTotal4_'+j,Math.round(dec($('#txtBorrow_'+j).val())+dec($('#txtCh_labor_'+j).val())+dec($('#txtChgcash_'+j).val())+dec($('#txtCh_labor_self_'+j).val())+dec($('#txtLodging_power_fee_'+j).val())+dec($('#txtTax_'+j).val())+dec($('#txtTax5_'+j).val())+dec($('#txtTax6_'+j).val())+dec($('#txtStay_tax_'+j).val())+dec($('#txtTax12_'+j).val())+dec($('#txtTax18_'+j).val())+dec($('#txtWelfare_'+j).val())+dec($('#txtStay_money_'+j).val())+dec($('#txtCh_health_'+j).val())+dec($('#txtHplus2_'+j).val())+dec($('#txtMinus_'+j).val())));
 				//實發金額=應領總額-應扣總額
         		q_tr('txtTotal5_'+j,Math.round(dec($('#txtTotal3_'+j).val())-dec($('#txtTotal4_'+j).val())));
         		

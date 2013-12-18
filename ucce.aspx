@@ -169,7 +169,7 @@
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];           
+            as['datea'] = abbm2['datea']; 
             return true;
         }
 
