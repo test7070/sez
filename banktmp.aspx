@@ -32,7 +32,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-			brwCount2 = 5;
+			brwCount2 = 6;
 			
             q_desc = 1;
             aPop = new Array();
@@ -368,12 +368,6 @@
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td>
 						<input id="txtDatea" type="text"  class="txt c1"/>
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblAccount" class="lbl"> </a></td>
-						<td>
-						<input id="txtAccount" type="text" class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr>
