@@ -22,11 +22,11 @@
             q_tables = 's';
             var q_name = "banktmp";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
-            var q_readonlys = [];
-            var bbmNum = new Array();
-            var bbsNum = new Array();
-            var bbmMask = new Array();
-            var bbsMask = new Array();
+            var q_readonlys = ['txtAccount','txtDatea','txtMemo','txtMoney1','txtMoney2','txtMoney3','txtTransbank','txtMemo2','txtTimea'];
+            var bbmNum = [];
+            var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
+            var bbmMask = [];
+            var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -311,7 +311,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1900px;
+                width: 1300px;
             }
             .tbbs a {
                 font-size: medium;
@@ -396,16 +396,16 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:120px;"><a>帳號</a></td>
-					<td align="center" style="width:120px;"><a>交易日 </a></td>
-					<td align="center" style="width:120px;"><a>摘要</a></td>
-					<td align="center" style="width:120px;"><a>提款金額</a></td>
-					<td align="center" style="width:120px;"><a>存款金額 </a></td>
-					<td align="center" style="width:120px;"><a>餘額</a></td>
-					<td align="center" style="width:120px;"><a>交易行庫 </a></td>
-					<td align="center" style="width:120px;"><a>備註</a></td>
-					<td align="center" style="width:120px;"><a>支票號碼</a></td>
-					<td align="center" style="width:120px;"><a>交易時間</a></td>
+					<td align="center" style="width:200px;"><a id="lblAccounts"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblDateas"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblMemos"> </a></td>
+					<td align="center" style="width:120px;"><a id="lblMoney1s"> </a></td>
+					<td align="center" style="width:120px;"><a id="lblMoney2s"> </a></td>
+					<td align="center" style="width:120px;"><a id="lblMoney3s"> </a></td>
+					<td align="center" style="width:90px;"><a id="lblTransbanks"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblMemo2s"> </a></td>
+					<td align="center" style="width:150px;"><a id="lblChecknos"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblTimeas"> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -424,16 +424,16 @@
 					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney1.*" style="width:95%;" />
+					<input type="text" id="txtMoney1.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney2.*" style="width:95%;" />
+					<input type="text" id="txtMoney2.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney3.*" style="width:95%;" />
+					<input type="text" id="txtMoney3.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-					<input type="text" id="txtTrandbankno.*" style="width:95%;" />
+					<input type="text" id="txtTransbank.*" style="width:95%;" />
 					</td>
 					<td>
 					<input type="text" id="txtMemo2.*" style="width:95%;" />
