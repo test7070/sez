@@ -21,7 +21,7 @@
 
             q_tables = 's';
             var q_name = "banktmp";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
+            var q_readonly = ['txtNoa', 'txtAccount', 'txtBankno', 'txtBank', 'txtWorker', 'txtWorker2'];
             var q_readonlys = ['txtAccount','txtDatea','txtMemo','txtMoney1','txtMoney2','txtMoney3','txtTransbank','txtMemo2','txtTimea'];
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
@@ -226,7 +226,7 @@
             }
             .dview {
                 float: left;
-                width: 150px;
+                width: 250px;
                 border-width: 0px;
             }
             .tview {
@@ -246,7 +246,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 600px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -356,8 +356,6 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td></td>
-						<td></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
@@ -371,8 +369,21 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblBank" class="lbl"> </a></td>
+						<td colspan="3">
+							<input id="txtBankno" type="text" style="float:left;width:40%;"/>
+							<input id="txtBank" type="text" style="float:left;width:60%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblAccount" class="lbl"> </a></td>
+						<td colspan="3">
+						<input id="txtAccount" type="text" class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="5">
+						<td colspan="3">
 						<input id="txtMemo" type="text" class="txt c1"/>
 						</td>
 					</tr>
