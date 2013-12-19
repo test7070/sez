@@ -32,7 +32,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-			brwCount2 = 6;
+			brwCount2 = 5;
 			
             q_desc = 1;
             aPop = new Array();
