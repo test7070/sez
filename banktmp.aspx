@@ -21,18 +21,19 @@
 
             q_tables = 's';
             var q_name = "banktmp";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
-            var q_readonlys = [];
-            var bbmNum = new Array();
-            var bbsNum = new Array();
-            var bbmMask = [['txtDatea', '999/99/99']];
-            var bbsMask = [['txtDatea', '999/99/99']];
+            var q_readonly = ['txtNoa', 'txtAccount', 'txtBankno', 'txtBank', 'txtWorker', 'txtWorker2'];
+            var q_readonlys = ['txtAccount','txtDatea','txtMemo','txtMoney1','txtMoney2','txtMoney3','txtTransbank','txtMemo2','txtTimea'];
+            var bbmNum = [];
+            var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
+            var bbmMask = [];
+            var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-
+			brwCount2 = 5;
+			
             q_desc = 1;
             aPop = new Array();
             $(document).ready(function() {
@@ -49,19 +50,21 @@
                 }
                 mainForm(0);
             }
-
-            function mainPost() {
-                q_mask(bbmMask);
-
+			function sum() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
             }
-
+            function mainPost() {
+            	bbmMask = [['txtDatea', r_picd]];
+           		bbsMask = [['txtDatea', r_picd]];
+                q_mask(bbmMask);
+            }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     default:
                         break;
                 }
             }
-
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
@@ -72,14 +75,12 @@
                         break;
                 }
             }
-
             function q_popPost(id) {
                 switch(id) {
                     default:
                         break;
                 }
             }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -89,11 +90,9 @@
                 }
                 b_pop = '';
             }
-
             function q_stPost() {
                 Unlock(1);
             }
-
             function btnOk() {
                 Lock(1, {
                     opacity : 0
@@ -139,26 +138,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                Lock(1, {
-                    opacity : 0
-                });
                 _btnModi();
-                check_btnModi(q_bbsCount - 1);
-            }
-
-            function check_btnModi(n) {
-                if (n < 0) {
-                    Unlock(1);
-                } else {
-                    var t_tranno = $.trim($('#txtTranno_' + n).val());
-                    var t_trannoq = $.trim($('#txtTrannoq_' + n).val());
-                    if (t_tranno.length > 0) {
-                        t_where = " where=^^ tranno='" + t_tranno + "' and trannoq='" + t_trannoq + "'^^";
-                        q_gt('view_trds', t_where, 0, 0, 0, "btnModi1_" + n, r_accy);
-                    } else {
-                        check_btnModi(n - 1);
-                    }
-                }
             }
 
             function btnPrint() {
@@ -179,49 +159,12 @@
                 q_nowf();
                 return true;
             }
-
-            function sum() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return;
-                var t_val, t_total = 0, t_mount = 0, t_total2 = 0, t_mount2 = 0;
-                for (var i = 0; i < q_bbsCount; i++) {
-                    $('#txtMount_' + i).val(FormatNumber(q_float('txtInmount_' + i).add(q_float('txtPton_' + i))));
-                    t_val = q_float('txtPrice_' + i).mul(q_float('txtMount_' + i)).round(0);
-                    t_mount += q_float('txtMount_' + i);
-                    t_total += t_val;
-                    $('#txtTotal_' + i).val(FormatNumber(t_val));
-                    $('#txtMount2_' + i).val(FormatNumber(q_float('txtOutmount_' + i).add(q_float('txtPton2_' + i))));
-                    t_val = (q_float('txtPrice2_' + i).add(q_float('txtPrice3_' + i))).mul(q_float('txtMount2_' + i)).mul(q_float('txtDiscount_' + i)).round(0);
-                    t_mount2 += q_float('txtMount2_' + i);
-                    t_total2 += t_val;
-                    $('#txtTotal2_' + i).val(FormatNumber(t_val));
-                    $('#txtMiles_' + i).val(q_float('txtEmiles_' + i) - q_float('txtBmiles_' + i));
-                }
-                $('#txtMount').val(FormatNumber(t_mount));
-                $('#txtMount2').val(FormatNumber(t_mount2));
-                $('#txtTotal').val(FormatNumber(t_total));
-                $('#txtTotal2').val(FormatNumber(t_total2));
-            }
-
             function refresh(recno) {
                 _refresh(recno);
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                $('#btnPlus').attr('disabled', 'disabled');
-                if (q_cur == 1) {
-                    $('#btn1').removeAttr('disabled');
-                } else {
-                    $('#btn1').attr('disabled', 'disabled');
-                    $('#divImport').hide();
-                }
-                if (q_cur == 1 || q_cur == 2) {
-                    $('#btn2').attr('disabled', 'disabled');
-                    $('#divExport').hide();
-                } else {
-                    $('#btn2').removeAttr('disabled');
-                }
             }
 
             function btnMinus(id) {
@@ -283,7 +226,7 @@
             }
             .dview {
                 float: left;
-                width: 150px;
+                width: 250px;
                 border-width: 0px;
             }
             .tview {
@@ -303,7 +246,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 600px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -368,7 +311,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1900px;
+                width: 1300px;
             }
             .tbbs a {
                 font-size: medium;
@@ -413,8 +356,6 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td></td>
-						<td></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
@@ -428,14 +369,21 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblBank" class="lbl"> </a></td>
+						<td colspan="3">
+							<input id="txtBankno" type="text" style="float:left;width:40%;"/>
+							<input id="txtBank" type="text" style="float:left;width:60%;"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblAccount" class="lbl"> </a></td>
-						<td>
-						<input id="txtAccount" type="text" class="txt c1 num"/>
+						<td colspan="3">
+						<input id="txtAccount" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="5">
+						<td colspan="3">
 						<input id="txtMemo" type="text" class="txt c1"/>
 						</td>
 					</tr>
@@ -459,16 +407,16 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:120px;"><a>帳號</a></td>
-					<td align="center" style="width:120px;"><a>交易日 </a></td>
-					<td align="center" style="width:120px;"><a>摘要</a></td>
-					<td align="center" style="width:120px;"><a>提款金額</a></td>
-					<td align="center" style="width:120px;"><a>存款金額 </a></td>
-					<td align="center" style="width:120px;"><a>餘額</a></td>
-					<td align="center" style="width:120px;"><a>交易行庫 </a></td>
-					<td align="center" style="width:120px;"><a>備註</a></td>
-					<td align="center" style="width:120px;"><a>支票號碼</a></td>
-					<td align="center" style="width:120px;"><a>交易時間</a></td>
+					<td align="center" style="width:200px;"><a id="lblAccounts"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblDateas"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblMemos"> </a></td>
+					<td align="center" style="width:120px;"><a id="lblMoney1s"> </a></td>
+					<td align="center" style="width:120px;"><a id="lblMoney2s"> </a></td>
+					<td align="center" style="width:120px;"><a id="lblMoney3s"> </a></td>
+					<td align="center" style="width:90px;"><a id="lblTransbanks"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblMemo2s"> </a></td>
+					<td align="center" style="width:150px;"><a id="lblChecknos"> </a></td>
+					<td align="center" style="width:100px;"><a id="lblTimeas"> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -487,16 +435,16 @@
 					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney1.*" style="width:95%;" />
+					<input type="text" id="txtMoney1.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney2.*" style="width:95%;" />
+					<input type="text" id="txtMoney2.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney3.*" style="width:95%;" />
+					<input type="text" id="txtMoney3.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-					<input type="text" id="txtTrandbankno.*" style="width:95%;" />
+					<input type="text" id="txtTransbank.*" style="width:95%;" />
 					</td>
 					<td>
 					<input type="text" id="txtMemo2.*" style="width:95%;" />
