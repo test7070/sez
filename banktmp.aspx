@@ -25,14 +25,15 @@
             var q_readonlys = [];
             var bbmNum = new Array();
             var bbsNum = new Array();
-            var bbmMask = [['txtDatea', '999/99/99']];
-            var bbsMask = [['txtDatea', '999/99/99']];
+            var bbmMask = new Array();
+            var bbsMask = new Array();
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-
+			brwCount2 = 5;
+			
             q_desc = 1;
             aPop = new Array();
             $(document).ready(function() {
@@ -49,19 +50,21 @@
                 }
                 mainForm(0);
             }
-
-            function mainPost() {
-                q_mask(bbmMask);
-
+			function sum() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
             }
-
+            function mainPost() {
+            	bbmMask = [['txtDatea', r_picd]];
+           		bbsMask = [['txtDatea', r_picd]];
+                q_mask(bbmMask);
+            }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     default:
                         break;
                 }
             }
-
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
@@ -72,14 +75,12 @@
                         break;
                 }
             }
-
             function q_popPost(id) {
                 switch(id) {
                     default:
                         break;
                 }
             }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -89,11 +90,9 @@
                 }
                 b_pop = '';
             }
-
             function q_stPost() {
                 Unlock(1);
             }
-
             function btnOk() {
                 Lock(1, {
                     opacity : 0
@@ -139,26 +138,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                Lock(1, {
-                    opacity : 0
-                });
                 _btnModi();
-                check_btnModi(q_bbsCount - 1);
-            }
-
-            function check_btnModi(n) {
-                if (n < 0) {
-                    Unlock(1);
-                } else {
-                    var t_tranno = $.trim($('#txtTranno_' + n).val());
-                    var t_trannoq = $.trim($('#txtTrannoq_' + n).val());
-                    if (t_tranno.length > 0) {
-                        t_where = " where=^^ tranno='" + t_tranno + "' and trannoq='" + t_trannoq + "'^^";
-                        q_gt('view_trds', t_where, 0, 0, 0, "btnModi1_" + n, r_accy);
-                    } else {
-                        check_btnModi(n - 1);
-                    }
-                }
             }
 
             function btnPrint() {
@@ -179,49 +159,12 @@
                 q_nowf();
                 return true;
             }
-
-            function sum() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return;
-                var t_val, t_total = 0, t_mount = 0, t_total2 = 0, t_mount2 = 0;
-                for (var i = 0; i < q_bbsCount; i++) {
-                    $('#txtMount_' + i).val(FormatNumber(q_float('txtInmount_' + i).add(q_float('txtPton_' + i))));
-                    t_val = q_float('txtPrice_' + i).mul(q_float('txtMount_' + i)).round(0);
-                    t_mount += q_float('txtMount_' + i);
-                    t_total += t_val;
-                    $('#txtTotal_' + i).val(FormatNumber(t_val));
-                    $('#txtMount2_' + i).val(FormatNumber(q_float('txtOutmount_' + i).add(q_float('txtPton2_' + i))));
-                    t_val = (q_float('txtPrice2_' + i).add(q_float('txtPrice3_' + i))).mul(q_float('txtMount2_' + i)).mul(q_float('txtDiscount_' + i)).round(0);
-                    t_mount2 += q_float('txtMount2_' + i);
-                    t_total2 += t_val;
-                    $('#txtTotal2_' + i).val(FormatNumber(t_val));
-                    $('#txtMiles_' + i).val(q_float('txtEmiles_' + i) - q_float('txtBmiles_' + i));
-                }
-                $('#txtMount').val(FormatNumber(t_mount));
-                $('#txtMount2').val(FormatNumber(t_mount2));
-                $('#txtTotal').val(FormatNumber(t_total));
-                $('#txtTotal2').val(FormatNumber(t_total2));
-            }
-
             function refresh(recno) {
                 _refresh(recno);
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                $('#btnPlus').attr('disabled', 'disabled');
-                if (q_cur == 1) {
-                    $('#btn1').removeAttr('disabled');
-                } else {
-                    $('#btn1').attr('disabled', 'disabled');
-                    $('#divImport').hide();
-                }
-                if (q_cur == 1 || q_cur == 2) {
-                    $('#btn2').attr('disabled', 'disabled');
-                    $('#divExport').hide();
-                } else {
-                    $('#btn2').removeAttr('disabled');
-                }
             }
 
             function btnMinus(id) {
