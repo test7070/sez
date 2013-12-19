@@ -38,7 +38,7 @@
 			['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 			['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
 			['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
-			['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+			['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_,txtLengthb_', 'ucc_b.aspx']
 		);
 	
         var isinvosystem=false;//購買發票系統
@@ -64,7 +64,7 @@
         } 
         
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t1 = 0, t_unit, t_mount=0, t_weight = 0,t_tmount=0;
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();   //  q_float() 傳回 textbox 數值
                 t_mount = q_float('txtLengthb_' + j);
@@ -73,12 +73,13 @@
                 t1 = q_add(t1 , dec(q_float('txtTotal_' + j)));
                 //實際數量=數量+贈品
            		$('#txtMount_'+j).val(q_add(q_float('txtLengthb_' + j),q_float('txtWidth_' + j)));
+           		t_tmount=q_add(t_tmount , dec(q_float('txtMount_' + j)));
             }  // j
 
-            $('#txtMoney').val(round(t1, 0));
-           /* if (!emp($('#txtPrice').val()))
-                $('#txtTranmoney').val(round(q_mul(t_weight,dec(q_float('txtPrice'))), 0));
-			*/
+			$('#txtMoney').val(round(t1, 0));
+			if (!emp($('#txtPrice').val()))
+				$('#txtTranmoney').val(round(q_mul(t_tmount,dec(q_float('txtPrice'))), 0));
+			
             calTax();
             q_tr('txtTotalus' ,round(q_mul(q_float('txtTotal'),q_float('txtFloata')),0));
         }
@@ -448,16 +449,14 @@
         function bbsAssign() {  /// 表身運算式
             for (var i = 0; i < q_bbsCount ; i++) {   // q_bbsCount 表身總列數
                 if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                    $('#txtUnit_' + i).focusout(function () { sum(); });
-                    //$('#txtWeight_' + i).focusout(function () { sum(); });
-                    $('#txtPrice_' + i).focusout(function () {
-                    	 sum(); 
-                    });
+                    $('#txtUnit_' + i).focusout(function () {sum();});
+                    $('#txtPrice_' + i).focusout(function () {sum();});
+                    $('#txtMount_' + i).focusout(function () {sum();})
                     
-                    $('#txtMount_' + i).focusout(function () { 
-                    	if(q_cur==1 ||q_cur==2 )
-                    		sum(); 
-                    })
+                    $('#txtDime_' + j).focusout(function () { sum(); });
+					$('#txtWidth_' + j).focusout(function () { sum(); });
+					$('#txtLengthb_' + j).focusout(function () { sum(); });
+                    
                     $('#txtMount_' + i).focusin (function() {
                     	if(q_cur==1 ||q_cur==2 ){
 	                    	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -638,6 +637,9 @@
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 		        break;
+		        case 'txtProductno_':
+					$('#txtLengthb_'+b_seq).focus();
+				break;
 		   	}
 		}
 		function FormatNumber(n) {
