@@ -42,6 +42,7 @@
                     		q_func('cost.genUccCost',$('#textBdate').val() + ',' + $('#textEdate').val());
                     		//cost.genUccCost(string t_bdate,string t_edate)
                     	}
+                    	$('#btnCost').attr('disabled','disabled').val('結轉中...');
                 	});
                 	
                 	$('#btnXauthority').click(function(e) {
@@ -57,6 +58,7 @@
             
             function q_funcPost(t_func, result) {
 				alert('結轉功能執行完畢!!');
+				$('#btnCost').removeAttr('disabled').val('結轉');
             }
             
                         
