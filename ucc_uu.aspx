@@ -21,8 +21,7 @@
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
 		//ajaxPath = ""; //	execute in Root
-		aPop = new Array();
-		//['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
+		aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
 		
 		$(document).ready(function () {
 			bbmKey = ['uno'];
@@ -194,7 +193,7 @@
 		}
 
 		function btnPrint() {
-			
+			q_box("z_uccp_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa=" + $('#txtNoa').val() + ";" + r_accy, 'sss', "95%", "95%", q_getMsg('popSss'));
 		}
 		
 		function btnOk() {
@@ -455,7 +454,7 @@
 			<td class="td2" colspan='3'><input id="txtSpec"  type="text" class="txt c1" /></td>
 		</tr>
 		<tr>
-			<td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
+			<td class="td1"><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
 			<td class="td1"><input id="txtTggno"  type="text" class="txt c1" /></td>
 			<td class="td2" colspan='2'><input id="txtTgg"  type="text" class="txt c1" /></td>
 		</tr>

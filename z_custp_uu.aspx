@@ -17,11 +17,11 @@
 		<script type="text/javascript">
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_sssp_uu');
+                q_gf('', 'z_custp_uu');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_sssp_uu',
+                    fileName : 'z_custp_uu',
                     options : [{//[1]
                         type : '0',
                         name : 'accy',
@@ -32,15 +32,11 @@
                         value : r_name
                     }, {/*1 [3],[4]*/
                         type : '2',
-                        name : 'sssno',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
+                        name : 'custno',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     }, {/*2-[5]*/
-                        type : '8',
-                        name : 'xoption01',
-                        value : q_getMsg('toption01').split('&')
-                    }, {/*3-[6]*/
                         type : '5',
                         name : 'xsort01',
                         value : q_getMsg('tsort01').split('&')
@@ -49,7 +45,6 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#chkXoption01').children('input').attr('checked', 'checked');
             }
 
             function q_boxClose(s2) {
