@@ -97,7 +97,7 @@
                 switch (t_name) {
                 	case 'z_addr':
                 		var as = _q_appendData("authority", "", true);
-                		if(as[0] != undefined && as[0].pr_run=="1"){
+                		if(as[0] != undefined && (as[0].pr_run=="1" || as[0].pr_run=="true")){
                 			q_box("z_addr.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'z_addr', "95%", "95%", q_getMsg("popPrint"));
                 			return;
                 		}
