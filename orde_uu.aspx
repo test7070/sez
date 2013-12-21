@@ -419,7 +419,7 @@
 			}
 		}
 		function btnPrint() {
-			q_box('z_ordep.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+			q_box('z_ordep_uu.aspx' + "?;;;noa="+trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 		}
 		
 		function wrServer( key_value) {
@@ -601,6 +601,18 @@
 			$('#txtMoney').val(FormatNumber(t_money));
 			$('#txtTax').val(FormatNumber(t_tax));
 			$('#txtTotal').val(FormatNumber(t_total));
+		}
+		
+		function FormatNumber(n) {
+            var xx = "";
+            if(n<0){
+            	n = Math.abs(n);
+            	xx = "-";
+			}     		
+			n += "";
+			var arr = n.split(".");
+			var re = /(\d{1,3})(?=(\d{3})+$)/g;
+			return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 		}
 	</script>
 	<style type="text/css">

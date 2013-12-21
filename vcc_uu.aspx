@@ -453,9 +453,9 @@
                     $('#txtPrice_' + i).focusout(function () {sum();});
                     $('#txtMount_' + i).focusout(function () {sum();})
                     
-                    $('#txtDime_' + j).focusout(function () { sum(); });
-					$('#txtWidth_' + j).focusout(function () { sum(); });
-					$('#txtLengthb_' + j).focusout(function () { sum(); });
+                    $('#txtDime_' + i).focusout(function () { sum(); });
+					$('#txtWidth_' + i).focusout(function () { sum(); });
+					$('#txtLengthb_' + i).focusout(function () { sum(); });
                     
                     $('#txtMount_' + i).focusin (function() {
                     	if(q_cur==1 ||q_cur==2 ){
