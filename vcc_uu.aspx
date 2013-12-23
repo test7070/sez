@@ -123,14 +123,14 @@
                 q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
             });
             		
-            $('#lblInvono').click(function(){
+            /*$('#lblInvono').click(function(){
 				t_where = '';
 				t_invo = $('#txtInvono').val();
                 if(t_invo.length > 0){
                 	t_where = "noa='" + t_invo + "'";
                 	q_box("vcca.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcca', "95%", "95%", q_getMsg('lblInvono'));
                 }
-            });
+            });*/
             
             $('#txtFloata').change(function () {sum();});
             $('#txtPrice').change(function () {sum();});
@@ -871,7 +871,7 @@
                 <td class="td7"><span> </span><a id='lblMon' class="lbl"> </a></td>
                 <td class="td8"><input id="txtMon" type="text" class="txt c1"/></td>        
 				<td class="td8"></td>
-                <td class="td7"><span> </span><a id='lblInvono' class="lbl btn"> </a></td>
+                <td class="td7"><span> </span><a id='lblInvono' class="lbl"> </a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td> 
             </tr>
             <tr>
@@ -958,13 +958,13 @@
         </table>
         </div>
         </div>
-        <div class='dbbs' style="width: 1500px;">
+        <div class='dbbs' style="width: 1410px;">
         <table id="tbbs" class='tbbs'>
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:40px;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;" /> </td>
                 <td align="center" style="width:150px;"><a id='lblUno_s'> </a></td>
                 <td align="center" style="width:200px;"><a id='lblProductno_s'> </a>/<a id='lblProduct_s'> </a></td>
-                <td align="center" style="width:150px;"><a id='lblSpec_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblSpec_s'> </a></td>
                 <td align="center" style="width:50px;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:80px;"><a id='lblMount_s'> </a></td><!--數量隱藏用lengthb當數量當存檔時要將lengthb+width寫回mount-->
                 <td align="center" style="width:80px;"><a id='lblWidth_s'> </a></td> <!--贈品-->

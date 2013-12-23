@@ -201,7 +201,11 @@
 			}
 
 			function btnPrint() {
-				q_box("z_label.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=" + $('#txtNoa').val() + ";" + r_accy, 'z_label', "95%", "95%", q_getMsg('popZ_label'));
+				if(q_getPara('sys.comp').indexOf('永勝')>-1){
+					
+				}else{
+					q_box("z_label.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=" + $('#txtNoa').val() + ";" + r_accy, 'z_label', "95%", "95%", q_getMsg('popZ_label'));
+				}
 			}
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
