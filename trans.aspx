@@ -176,7 +176,7 @@
         				}
         			}
             	}
-            }
+           };
             trans = new transData();
             	
 			$(document).ready(function() {
