@@ -12,7 +12,7 @@
 		<script type="text/javascript">
             var q_name = 'vccs', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,unit,mount,weight,noa,noq,ordeno,no2,price,theory,datea,custno,style,class,uno,total,memo", afilter = [], bbsKey = ['noa', 'noq'], as;
             //, t_where = '';
-            var t_sqlname = 'vccs_load';
+            var t_sqlname = 'vccs';
             t_postname = q_name;
             brwCount = -1;
             //brwCount2 = 10;
