@@ -34,6 +34,7 @@
             bbsKey = ['noa', 'noq'];
             q_brwCount();   
            q_gt(q_name, q_content, q_sqlCount, 1)  
+           q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
         });
 
         //////////////////   end Ready
@@ -51,6 +52,38 @@
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('ummb.typea')); 
              
+             
+             $('#btnVccs').click(function () {
+                var t_custno = trim($('#txtCustno').val());
+                var t_vbdate = trim($('#txtVbdate').val());
+                var t_vedate = trim($('#txtVedate').val());
+                var t_vccno = trim($('#txtVccno').val());
+	            var t_where = "1=1";
+	            if($('#cmbTypea').val()=='1'){
+					t_where+=(t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "")
+					+q_sqlPara2("datea", t_vbdate,t_vedate)
+					+(t_vccno.length > 0 ? q_sqlPara("noa", t_vccno): "")+"&& typea='1' ";
+	            }else if($('#cmbTypea').val()=='2'){
+	            	t_where+=(t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "")
+					+q_sqlPara2("datea", t_vbdate,t_vedate)
+					+(t_vccno.length > 0 ? q_sqlPara("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)=0) && typea='1' ";
+	            }else if($('#cmbTypea').val()=='4'){
+	            	t_where+=(t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "")
+					+q_sqlPara2("datea", t_vbdate,t_vedate)
+					+(t_vccno.length > 0 ? q_sqlPara("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)>0) && typea='1' ";
+	            }
+	            
+	            q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs', "95%", "95%", q_getMsg('popVccs'));
+            });
+            
+            $('#cmbTypea').change(function() {
+            	if($('#cmbTypea').val()=='3'){
+            		$('#btnVccs').hide()
+            	}else{
+            		$('#btnVccs').show()
+            	}
+			});
+            
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -63,10 +96,19 @@
             b_pop = '';
         }
 
-
+		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)   
+            	case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
+                case q_name: 
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -106,6 +148,8 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtCno').val(z_cno);
+            $('#txtAcomp').val(z_acomp);
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
         }
@@ -149,6 +193,12 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            
+            if($('#cmbTypea').val()=='3'){
+            	$('#btnVccs').hide()
+            }else{
+            	$('#btnVccs').show()
+            }
        }
 
         function readonly(t_para, empty) {

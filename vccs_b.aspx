@@ -10,11 +10,11 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,memo,comp,cuamount,ucahours,stationhours,stationgen", afilter = [], bbsKey = ['noa','no2'], as;
+            var q_name = 'vccs', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,unit,mount,weight,noa,noq,ordeno,no2,price,theory,datea,custno,style,class,uno,total,memo", afilter = [], bbsKey = ['noa', 'noq'], as;
             //, t_where = '';
-            var t_sqlname = 'ordes_load';
+            var t_sqlname = 'vccs_load';
             t_postname = q_name;
-            brwCount=-1;
+            brwCount = -1;
             //brwCount2 = 10;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
@@ -37,12 +37,9 @@
             function bbsAssign() {
                 _bbsAssign();
                 for (var j = 0; j < q_bbsCount; j++) {
-                    if (emp($('#txtCuamount_' + j).val()))
-                        $('#txtCuamount_' + j).val(0);
-
-                    //排程數量足夠，不再匯入
-                    /*if(dec($('#txtMount_' + j).val())<=dec($('#txtCuamount_' + j).val()))
-                     $('#chkSel_'+j).attr('disabled','disabled');*/
+					if(q_getPara('sys.comp').indexOf('永勝')>-1){
+						$('#txtMount_'+j).val($('#txtLengthb_'+j).val());
+					}
                 }
             }
 
@@ -52,20 +49,10 @@
 
             function refresh() {
                 _refresh();
-                $('#checkAllCheckbox').click(function() {
-                    $('input[type=checkbox][id^=chkSel]').each(function() {
-                        var t_id = $(this).attr('id').split('_')[1];
-                        if (!emp($('#txtProductno_' + t_id).val()) && dec($('#txtMount_' + t_id).val()) > dec($('#txtCuamount_' + t_id).val()))
-                            $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
-                    });
-                });
                 $('#btnTop').hide();
                 $('#btnPrev').hide();
                 $('#btnNext').hide();
                 $('#btnBott').hide();
-                if(q_getPara('sys.comp').indexOf('永勝')>-1){
-					$('.uu').hide();
-				}
             }
 
 		</script>
@@ -89,13 +76,9 @@
 					<input type="checkbox" id="checkAllCheckbox"/>
 					</td>
 					<td align="center"><a id='lblProductno'></a>/<a id='lblProduct'></a></td>
-					<!--<td align="center"><a id='lblSpec'></a></td>-->
 					<td align="center"><a id='lblUnit'></a></td>
 					<td align="center"><a id='lblMount'></a></td>
-					<!--<td align="center"><a id='lblWeight'></a></td>-->
 					<td align="center"><a id='lblPrice'></a></td>
-					<td align="center"><a id='lblNotv'></a></td>
-					<td align="center" class="uu"><a id='lblCuamount'></a></td>
 					<td align="center"><a id='lblNoa'></a></td>
 					<td align="center"><a id='lblCust'></a></td>
 					<td align="center"><a id='lblMemo'></a></td>
@@ -108,27 +91,19 @@
 					<input class="txt"  id="txtProductno.*" type="text" style="width:98%;" />
 					<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
 					</td>
-					<!--<td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
-					<input class="txt" id="txtDime.*" type="text"  style="width:25%;text-align:right;" />x
-					<input class="txt" id="txtWidth.*" type="text"  style="width:25%;text-align:right;" />x
-					<input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" /></td>-->
 					<td style="width:4%;">
 					<input class="txt" id="txtUnit.*" type="text" style="width:94%;"/>
 					</td>
 					<td style="width:8%;">
 					<input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/>
+					<input class="txt" id="txtLengthb.*" type="hidden" />
 					</td>
-					<!-- <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>-->
-					<td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
 					<td style="width:8%;">
-					<input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
-					<td style="width:8%;" class="uu">
-					<input class="txt" id="txtCuamount.*" type="text" style="width:96%; text-align:right;"/>
-					</td>
-					<td style="width:11%;">
+					<td style="width:13%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>
-					<input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/>
+					<input class="txt" id="txtNoq.*" type="text"  style="width:98%;"/>
 					</td>
 					<td style="width:15%;">
 					<input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/>
@@ -138,9 +113,6 @@
 					<input id="recno.*" type="hidden" />
 					<input id="txtTotal.*" type="hidden" />
 					<input id="txtDatea.*" type="hidden" />
-					<input id="txtUcahours.*" type="hidden" />
-					<input id="txtStationhours.*" type="hidden" />
-					<input id="txtStationgen.*" type="hidden" />
 					</td>
 				</tr>
 			</table>
