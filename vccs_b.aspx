@@ -49,6 +49,13 @@
 
             function refresh() {
                 _refresh();
+                
+                 $('#checkAllCheckbox').click(function() {
+                    $('input[type=checkbox][id^=chkSel]').each(function() {
+                            $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
+                    });
+                });
+                
                 $('#btnTop').hide();
                 $('#btnPrev').hide();
                 $('#btnNext').hide();

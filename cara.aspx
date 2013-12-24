@@ -186,7 +186,9 @@
 						}
                         break;
                     case q_name + '_s':
-                        q_boxClose2(s2);
+                       	var t_where=replaceAll(replaceAll(s2[1],'where=^^',''),'^^','');
+                    	location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
+                        //q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
                 }/// end Switch
@@ -201,7 +203,7 @@
                 		var as = _q_appendData("cara", "", true);
                 		if(as[0]!=undefined){
                 			alert('該車輛當月單據以存在!!!');
-                			location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+as[0].noa+"' order by noa desc -- ;"+r_accy;
+                			location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+as[0].noa+"' and mon<='"+as[0].mon+"' ;"+r_accy;
                 		}else{
                 			isbtnok=true;
 			                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -508,7 +510,7 @@
                 _bbsAssign();
                 
                 if(isbtnok){
-                	location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+$('#txtNoa').val()+"' order by noa desc -- ;"+r_accy;
+                	location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"' ;"+r_accy;
                 }
                 
                 //收款的資料禁止修改
@@ -823,7 +825,7 @@
             }
            	$(document).keydown(function(e) {
 				if ( e.keyCode=='116' ){
-				   location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+$('#txtNoa').val()+"' order by noa desc -- ;"+r_accy;
+				   location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"';"+r_accy;
 				   event.returnValue= false;
 				  }
 			});

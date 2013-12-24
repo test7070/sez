@@ -403,6 +403,7 @@
 			$('#txtAcomp').val(z_acomp);
 			$('#txtOdate').val(q_date());
 			$('#txtOdate').focus();
+			$('#cmbTaxtype').val('3');
 			
 			var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");

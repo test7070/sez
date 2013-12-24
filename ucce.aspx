@@ -89,7 +89,7 @@
             }
 
             $('#txtWorker').val(r_name);
-            sum();
+            //sum();
             
             if ($('#cmbKind').val() == '1') {
 				for (var j = 0; j < q_bbsCount; j++) {
@@ -126,10 +126,16 @@
         	for (var j = 0; j < q_bbsCount; j++) {
 				if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 					$('#txtMount_'+j).change(function() {
-						sum();
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						q_tr('txtTotal_'+b_seq,round(q_mul(q_float('txtPrice_'+b_seq),q_float('txtMount_'+b_seq)),0));
 					});
 					$('#txtPrice_'+j).change(function() {
-						sum();
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						q_tr('txtTotal_'+b_seq,round(q_mul(q_float('txtPrice_'+b_seq),q_float('txtMount_'+b_seq)),0));
 					});	
 				}
 			}
@@ -193,7 +199,7 @@
 
         function btnMinus(id) {
             _btnMinus(id);
-            sum();
+            //sum();
         }
 
         function btnPlus(org_htm, dest_tag, afield) {

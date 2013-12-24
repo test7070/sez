@@ -40,11 +40,12 @@
         var t_bmon = $('#txtBmon').val();
         var t_emon = $('#txtEmon').val();
         var t_carno = $('#txtCarno').val();
+        var t_carownerno = $('#txtCarownerno').val();
         var t_carowner = $('#txtCarowner').val();
         t_bmon = t_bmon.length > 0 && t_bmon.indexOf("_") > -1 ? t_bmon.substr(0, t_bmon.indexOf("_")) : t_bmon;  /// 100.  .
         t_emon = t_emon.length > 0 && t_emon.indexOf("_") > -1 ? t_emon.substr(0, t_emon.indexOf("_")) : t_emon;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("accno", t_accno) +q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("mon", t_bmon, t_emon);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("accno", t_accno)+q_sqlPara2("carownerno", t_carownerno) +q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("mon", t_bmon, t_emon);
 		if(!emp(t_carno))
 				t_where+= " and (carno='"+t_carno+"' or CHARINDEX('"+t_carno+"',STUFF(REPLACE((select ','+b.oldcarno from carChange b where cara.carno=b.noa FOR XML PATH('')),' ',''),1,1,''))>0) ";
 				

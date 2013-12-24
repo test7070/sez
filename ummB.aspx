@@ -48,40 +48,57 @@
         }
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtBkdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtBkdate',r_picd],['txtVccdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('ummb.typea')); 
              
              
              $('#btnVccs').click(function () {
+             	//換單 不匯入直接在BBM打單號和換單帳款月份
                 var t_custno = trim($('#txtCustno').val());
                 var t_vbdate = trim($('#txtVbdate').val());
                 var t_vedate = trim($('#txtVedate').val());
                 var t_vccno = trim($('#txtVccno').val());
 	            var t_where = "1=1";
-	            if($('#cmbTypea').val()=='1'){
-					t_where+=(t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "")
+	            if($('#cmbTypea').val()=='1'){//退貨--->建立 退貨單
+					t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
-					+(t_vccno.length > 0 ? q_sqlPara("noa", t_vccno): "")+"&& typea='1' ";
-	            }else if($('#cmbTypea').val()=='2'){
-	            	t_where+=(t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "")
+					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' ";
+					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_1', "95%", "95%", q_getMsg('popVccs'));
+	            }else if($('#cmbTypea').val()=='2'){//換貨--->匯入【未收】出貨單--->一次一張需整張處理完--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立 新出貨單
+	            	alert('請選擇同一出貨單號的產品!!');
+	            	t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
-					+(t_vccno.length > 0 ? q_sqlPara("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)=0) && typea='1' ";
-	            }else if($('#cmbTypea').val()=='4'){
-	            	t_where+=(t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "")
+					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)=0) && typea='1' ";
+					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_2', "95%", "95%", q_getMsg('popVccs'));
+	            }else if($('#cmbTypea').val()=='4'){//已收抵貨--->匯入【已收】出貨單--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立  新出貨單(歸已收款，不再有未收)
+	            	alert('請選擇同一出貨單號的產品!!');
+	            	t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
-					+(t_vccno.length > 0 ? q_sqlPara("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)>0) && typea='1' ";
+					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)>0) && typea='1' ";
+					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_4', "95%", "95%", q_getMsg('popVccs'));
 	            }
-	            
-	            q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs', "95%", "95%", q_getMsg('popVccs'));
             });
             
             $('#cmbTypea').change(function() {
             	if($('#cmbTypea').val()=='3'){
             		$('#btnVccs').hide()
+            		for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
             	}else{
             		$('#btnVccs').show()
+            		for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
             	}
+            	if($('#cmbTypea').val()=='1'){
+	            	for (var i = 0; i < q_bbsCount; i++) {
+	            		$('#txtSalemount_' + i).attr("disabled","disabled");
+						$('#txtSalemoney_' + i).attr("disabled","disabled");
+					}
+	            }else{
+	            	for (var i = 0; i < q_bbsCount; i++) {
+	            		$('#txtSalemount_' + i).removeAttr("disabled");
+						$('#txtSalemoney_' + i).removeAttr("disabled");
+					}
+	            }
 			});
             
         }
@@ -89,6 +106,77 @@
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
             switch (b_pop) {   
+            	case 'vccs_1':
+            	if (q_cur > 0 && q_cur < 4) {
+            		b_ret = getb_ret();
+					///  q_box() 執行後，選取的資料
+					if (!b_ret || b_ret.length == 0)
+						return;
+					//清空bbs
+					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
+					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
+					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
+					
+					for (var i = 0; i < q_bbsCount; i++) {
+						$('#txtSalemount_' + i).attr("disabled","disabled");
+						$('#txtSalemoney_' + i).attr("disabled","disabled");
+					}
+            	}
+            	break;
+            	case 'vccs_2':
+            	if (q_cur > 0 && q_cur < 4) {
+            		b_ret = getb_ret();
+					///  q_box() 執行後，選取的資料
+					if (!b_ret || b_ret.length == 0)
+						return;
+					var t_noa='';
+					for (var i = 0; i < b_ret.length; i++) {
+						if(t_noa.length>0){
+							if(t_noa!=b_ret[i].noa){
+								b_ret.splice(i, 1);
+								i--;
+							}
+						}else{
+							t_noa=b_ret[i].noa;
+						}
+					}
+					//清空bbs
+					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
+					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
+					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
+					for (var i = 0; i < q_bbsCount; i++) {
+						$('#txtSalemount_' + i).removeAttr("disabled");
+						$('#txtSalemoney_' + i).removeAttr("disabled");
+					}
+            	}
+            	break;
+            	case 'vccs_4':
+            	if (q_cur > 0 && q_cur < 4) {
+            		b_ret = getb_ret();
+					///  q_box() 執行後，選取的資料
+					if (!b_ret || b_ret.length == 0)
+						return;
+					var t_noa='';
+					for (var i = 0; i < b_ret.length; i++) {
+						if(t_noa.length>0){
+							if(t_noa!=b_ret[i].noa){
+								b_ret.splice(i, 1);
+								i--;
+							}
+						}else{
+							t_noa=b_ret[i].noa;
+						}
+					}
+					//清空bbs
+					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
+					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
+					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
+					for (var i = 0; i < q_bbsCount; i++) {
+						$('#txtSalemount_' + i).removeAttr("disabled");
+						$('#txtSalemoney_' + i).removeAttr("disabled");
+					}
+            	}
+            	break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -120,8 +208,21 @@
                 alert(t_err);
                 return;
             }
+            if($('#cmbTypea').val()=='1'&&emp($('#txtBkdate').val()))
+            	alert('請填入'+q_getMsg('lblBkdate'));
+            	
+            if(($('#cmbTypea').val()=='2'||$('#cmbTypea').val()=='4' )&&emp($('#txtBkdate').val())&&emp($('#txtVccdate').val()))
+            	alert('請填入'+q_getMsg('lblBkdate')+'、'+q_getMsg('lblVccdate'));
+            	
+            if($('#cmbTypea').val()=='3'&&emp($('#txtMon').val())&&emp($('#txtVccno').val()))
+            	alert('請填入'+q_getMsg('lblMon')+'、'+q_getMsg('lblVccno'));
 
-            $('#txtWorker').val(r_name)
+            if(q_cur ==1){
+				$('#txtWorker').val(r_name);
+			}else if(q_cur ==2){
+				$('#txtWorker2').val(r_name);
+			}
+			
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -142,6 +243,16 @@
         }
 
         function bbsAssign() {  
+        	for (var i = 0; i < q_bbsCount; i++) {
+	        	if ($('#btnMinus_' + i).hasClass('isAssign'))/// 重要
+					continue;
+				$('#txtVccno_'+i).bind('contextmenu',function(e) {
+					/*滑鼠右鍵*/
+					e.preventDefault();
+					q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, "vcc", "95%", "95%", q_getMsg("popVcc"));
+	
+				});
+			}
             _bbsAssign();
         }
 
@@ -152,12 +263,35 @@
             $('#txtAcomp').val(z_acomp);
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            if($('#cmbTypea').val()=='1'){
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		$('#txtSalemount_' + i).attr("disabled","disabled");
+					$('#txtSalemoney_' + i).attr("disabled","disabled");
+				}
+            }else{
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		$('#txtSalemount_' + i).removeAttr("disabled");
+					$('#txtSalemoney_' + i).removeAttr("disabled");
+				}
+            }
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
+            
+            if($('#cmbTypea').val()=='1'){
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		$('#txtSalemount_' + i).attr("disabled","disabled");
+					$('#txtSalemoney_' + i).attr("disabled","disabled");
+				}
+            }else{
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		$('#txtSalemount_' + i).removeAttr("disabled");
+					$('#txtSalemoney_' + i).removeAttr("disabled");
+				}
+            }
+            $('#txtCustno').focus();
         }
         function btnPrint() {
 
@@ -198,6 +332,17 @@
             	$('#btnVccs').hide()
             }else{
             	$('#btnVccs').show()
+            }
+            if($('#cmbTypea').val()=='1'){
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		$('#txtSalemount_' + i).attr("disabled","disabled");
+					$('#txtSalemoney_' + i).attr("disabled","disabled");
+				}
+            }else{
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		$('#txtSalemount_' + i).removeAttr("disabled");
+					$('#txtSalemoney_' + i).removeAttr("disabled");
+				}
             }
        }
 
@@ -427,20 +572,23 @@
 				<td class="td6"><input id="txtMon"  type="text"  class="txt c1"/></td> 
                 <td class="td5"><span> </span><a id='lblBkdate' class="lbl" > </a></td>
 				<td class="td6"><input id="txtBkdate"  type="text" class="txt c1"/></td>
-				<td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-				<td class="td6"><input id="txtWorker"  type="text"  class="txt c1"/></td>
+				<td class="td5"><span> </span><a id='lblVccdate' class="lbl" > </a></td>
+				<td class="td6"><input id="txtVccdate"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id='lblBkvccno' class="lbl" > </a></td>
 				<td class="td2"><input id="txtBkvccno"  type="text" class="txt c1"/></td>
 				<td class="td3"><span> </span><a id='lblSaleno' class="lbl" > </a></td>
 				<td class="td4"><input id="txtSaleno"  type="text" class="txt c1"/></td>	
-				<td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-				<td class="td8"><input id="txtWorker2"  type="text"  class="txt c1"/></td>
+				<td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+				<td class="td6"><input id="txtWorker"  type="text"  class="txt c1"/></td>
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-                <td class="td2" colspan='5' ><input id="txtMemo"  type="text"  style="width: 98%;"/></td></tr>
+                <td class="td2" colspan='3' ><input id="txtMemo"  type="text"  style="width: 98%;"/></td>
+                <td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+				<td class="td8"><input id="txtWorker2"  type="text"  class="txt c1"/></td>
+			</tr>
         </table>
         </div> 
         </div>       
