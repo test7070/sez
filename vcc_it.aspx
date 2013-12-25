@@ -771,7 +771,6 @@
 			for (var j = 0; j < q_bbsCount; j++) {
 				t_money+=q_float('txtTotal_' + j);
 			}
-			t_total=t_money;
 			if(!isinvosystem){
 				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
                 switch ($('#cmbTaxtype').val()) {
@@ -813,6 +812,14 @@
                         t_money = 0, t_tax = 0, t_total = 0;
                         break;
                     default:
+				}
+			}else{
+				if($('#cmbTaxtype').val()=='6'){
+					t_money=0	
+					t_tax=0
+					t_total=0
+				}else{
+					t_total=t_money;
 				}
 			}
 			$('#txtMoney').val(FormatNumber(t_money));
