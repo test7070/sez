@@ -45,6 +45,7 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+				q_gt('sss', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "sssissales");
 			});
 			
 			//////////////////	end Ready
@@ -194,11 +195,18 @@
 				}/// end Switch
 				b_pop = '';
 			}
-
+			
+			var issales='false';
 			var focus_addr='';
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'sssissales':
+					var as = _q_appendData("sss", "", true);
+                        if (as[0] != undefined) {
+                        	issales=as[0].issales;
+						}
+					break;
 					case 'cust_txt':
 						var as = _q_appendData("cust", "", true);
 						if(as[0]!=undefined){
@@ -353,6 +361,8 @@
 
 			function btnModi() {
 				if(emp($('#txtNoa').val()))
+					return;
+				if(issales=='true'&&$('#txtWorker').val()!=r_name)	
 					return;
 				_btnModi();
 				$('#txtProduct').focus();
