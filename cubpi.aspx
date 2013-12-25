@@ -340,7 +340,7 @@
 							for (var j = 0; j < b_ret.length; j++) {
 								for (var i = 0; i < q_bbtCount; i++) {
 									var t_uno = $('#txtUno__' + i).val();
-									if (b_ret[j] && b_ret[j].noa == t_uno) {
+									if (b_ret[j] && b_ret[j].uno == t_uno) {
 										b_ret.splice(j, 1);
 									}
 								}

@@ -17,7 +17,7 @@
 
             var q_name = "contdc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv', 'txtWorker2'];
-            var bbmNum = new Array(['txtOilbase', 5, 2, 1]);
+            var bbmNum = [['txtEarnest', 10, 0, 1],['txtOilbase', 5, 2, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -34,7 +34,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             function main() {
@@ -320,6 +320,7 @@
 		</script>
 		<style type="text/css">
             #dmain {
+            	width:1200px;
                 overflow: hidden;
             }
             .dview {
