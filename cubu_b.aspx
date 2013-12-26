@@ -200,6 +200,34 @@
 						}
 						getTheory(n);
 					});
+					$('#txtSize_' + j).change(function(e) {
+						if ($.trim($(this).val()).length == 0)
+						return;
+						var n = $(this).attr('id').replace('txtSize_', '');
+						var data = tranSize($.trim($(this).val()));
+						$(this).val(tranSize($.trim($(this).val()),'getsize'));
+						$('#txtRadius_' + n).val('');
+						$('#txtWidth_' + n).val('');
+						$('#txtDime_' + n).val('');
+						$('#txtLengthb_' + n).val('');
+						/*
+						if (!(data.length == 3 || data.length == 4)) {
+							alert(q_getPara('transize.error02'));
+							return;
+						}
+						*/
+						if (data.length == 3) {
+							$('#txtRadius_' + n).val((data[0] != undefined ? (data[0].toString().length > 0 ? (isNaN(parseFloat(data[0])) ? 0 : parseFloat(data[0])) : 0) : 0));
+							$('#txtDime_' + n).val((data[1] != undefined ? (data[1].toString().length > 0 ? (isNaN(parseFloat(data[1])) ? 0 : parseFloat(data[1])) : 0) : 0));
+							$('#txtLengthb_' + n).val((data[2] != undefined ? (data[2].toString().length > 0 ? (isNaN(parseFloat(data[2])) ? 0 : parseFloat(data[2])) : 0) : 0));
+						} else {
+							$('#txtRadius_' + n).val((data[0] != undefined ? (data[0].toString().length > 0 ? (isNaN(parseFloat(data[0])) ? 0 : parseFloat(data[0])) : 0) : 0));
+							$('#txtWidth_' + n).val((data[1] != undefined ? (data[1].toString().length > 0 ? (isNaN(parseFloat(data[1])) ? 0 : parseFloat(data[1])) : 0) : 0));
+							$('#txtDime_' + n).val((data[2] != undefined ? (data[2].toString().length > 0 ? (isNaN(parseFloat(data[2])) ? 0 : parseFloat(data[2])) : 0) : 0));
+							$('#txtLengthb_' + n).val((data[3] != undefined ? (data[3].toString().length > 0 ? (isNaN(parseFloat(data[3])) ? 0 : parseFloat(data[3])) : 0) : 0));
+						}
+						getTheory(n);
+					});
 				}
 			}
 
@@ -328,11 +356,14 @@
 			.c3{
 				width:71%;
 			}
+			.c4{
+				width:95%;
+			}
 			.num{
 				text-align: right;
 			}
 			#dbbs{
-				width:1900px;
+				width:2000px;
 			}
 			.btn{
 				font-weight: bold;
@@ -356,7 +387,8 @@
 					<td align="center" style="width:120px;"><a id='lblStoreno'></a></td>
 					<td align="center" style="width:80px;"><a id='lblClass'></a></td>
 					<td align="center" style="width:80px;"><a id='lblProductno'></a></td>
-					<td align="center" style="width:260px;"><a id='lblSizea'></a></td>
+					<td align="center" style="width:260px;"><a id='lblSizea'></a><br><a id='lblSpec'></a></td>
+					<td align="center" style="width:180px;"><a id='lblSize'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'></a></td>
 					<td align="center" style="width:120px;"><a id='lblWeight'></a></td>
 					<td align="center" style="width:120px;display:none;"><a id='lblInweight'></a></td>
@@ -374,7 +406,7 @@
 					<td><input type="text" id="txtUno.*" class="txt c1"/></td>
 					<td>
 						<input id="btnOrdeno.*" type="button" value="." class="txt btn" style="width:1%;"/>
-						<input type="text" id="txtOrdeno.*" class="txt" style="width:65%;"/>
+						<input type="text" id="txtOrdeno.*" class="txt" style="width:60%;"/>
 						<input type="text" id="txtNo2.*" class="txt" style="width:20%;"/>
 					</td>
 					<td>
@@ -390,19 +422,20 @@
 					</td>
 					<td>
 						<input type="text" id="txtClass.*" class="txt c1"/>
-						<input type="text" id="txtSpec.*" class="txt c1"/>
 					</td>
 					<td>
 						<input id="btnProductno.*" type="button" value="." class="txt btn" style="width:1%;"/>
-						<input type="text" id="txtProductno.*" class="txt c3"/>
-						<input type="text" id="txtProduct.*" class="txt c1"/>
+						<input type="text" id="txtProductno.*" style="width:65%;"/>
+						<input type="text" id="txtProduct.*" class="txt c4"/>
 					</td>
 					<td>
 						<input type="text" id="txtRadius.*" class="num" style="width:19%;"/>x
 						<input type="text" id="txtWidth.*" class="num" style="width:19%;"/>x
 						<input type="text" id="txtDime.*" class="num" style="width:19%;"/>x
 						<input type="text" id="txtLengthb.*" class="num" style="width:19%;"/>
+						<input type="text" id="txtSpec.*" class="txt c4"/>
 					</td>
+					<td><input type="text" id="txtSize.*" class="txt c4"/></td>
 					<td><input type="text" id="txtMount.*" class="txt c1 num"/></td>
 					<td><input type="text" id="txtWeight.*" class="txt c1 num"/></td>
 					<td style="display:none;"><input type="text" id="txtInweight.*" class="txt c1 num"/></td>
