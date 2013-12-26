@@ -17,7 +17,7 @@
         }
         var q_name="carpack";
         var q_readonly = ['txtNoa','txtDatea','txtWorker'];
-        var bbmNum = [['txtMoney',10,0,0,1],['txtMount',4,0,0,1]]; 
+        var bbmNum = [['txtMoney',10,0,1],['txtMount',4,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
