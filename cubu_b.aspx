@@ -135,13 +135,26 @@
 						});
 						$('#txtDatea_' + j).focusout(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
-							if($(this).val() == ''){
+							var thisVal = $.trim($(this).val());
+							var DatePati = /^[0-9][0-9][0-9]\/[0-1][0-9]\/[0-3][0-9]$/g;
+							if(thisVal == ''){
 								$(this).val(q_date());
+							}else{
+								if(DatePati.test(thisVal)){
+									var t_year = thisVal.substring(0,3);
+									var thisyear = q_date().substring(0,3);
+									if(t_year<(thisyear-1) || t_year>(thisyear+1)){
+										$(this).val('');
+										return;
+									}
+								}else{
+										$(this).val('');
+										return;
+								}
 							}
 							var oUno = trim($('#txtUno_'+n).val());
 							if(oUno.length == 0)
 								getUno(n,'',$(this).val());
-							
 						});
 						$('#txtPrt_' +j).focusout(function(){
 							var t_prt = trim($(this).val());
