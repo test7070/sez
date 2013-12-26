@@ -76,7 +76,17 @@
                     }, {
                         type : '6', //[13]
                       	 name : 'salesgroup'
-	                }]
+	                }, {
+                        type : '6', //[14]
+                        name : 'paytype'
+                    }, {
+                        type : '1', //[15][16]
+                        name : 'xmon'
+                    },{
+						type : '0', //[17] //判斷vcc是內含或應稅 內含不抓vcca
+						name : 'vcctax',
+						value : q_getPara('sys.d4taxtype')
+					}]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -86,6 +96,9 @@
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
 				$('#txtDate2').datepicker();
+				$('#txtXmon1').mask('999/99');
+                $('#txtXmon2').mask('999/99');
+				
 				 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -96,6 +109,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	               	$('#txtXmon1').val(t_year + '/' + t_month);
+                	$('#txtXmon2').val(t_year + '/' + t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -111,6 +126,21 @@
 				$('#Xgroupano select').css('width','150px');
 				$('.q_report .report').css('width','420px');
 				$('.q_report .report div').css('width','200px');
+				
+				var tmp = document.getElementById("txtPaytype");
+                var selectbox = document.createElement("select");
+                selectbox.id="combPay";
+                selectbox.style.cssText ="width:15px;font-size: medium;";
+                //selectbox.attachEvent('onchange',combPay_chg);
+                //selectbox.onchange="combPay_chg";
+                tmp.parentNode.appendChild(selectbox,tmp);
+                q_cmbParse("combPay", '全部,'+q_getPara('vcc.paytype')); 
+                $('#txtPaytype').val('全部');
+                
+                $('#combPay').change(function() {
+					var cmb = document.getElementById("combPay")
+		                $('#txtPaytype').val(cmb.value);
+				});
 				
 			
 				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
