@@ -293,7 +293,7 @@
                 	if(ordeno.length == 0)
                 		return;
                 	var t_where = "where=^^ noa='"+ordeno+"'^^";
-                	q_gt('view_tranorde', t_where, 0, 0, 0,'ddd_'+ordeno+'_'+sel, r_accy);
+                	q_gt('view_tranorde_dc', t_where, 0, 0, 0,'ddd_'+ordeno+'_'+sel, r_accy);
                 },
                 loadcaddr : function(ordeno){
                 	this.curCaddr = new Array();
@@ -302,7 +302,7 @@
                 	if(ordeno.length == 0)
                 		return;
                 	var t_where = "where=^^ noa='"+ordeno+"'^^";
-                	q_gt('view_tranorde', t_where, 0, 0, 0,'loadcaddr', r_accy);
+                	q_gt('view_tranorde_dc', t_where, 0, 0, 0,'loadcaddr', r_accy);
                 }
             };
             tranorde = new tranorde();
@@ -427,7 +427,7 @@
                     	t_where += (t_where.length>0?' and ':'') + "len(isnull(port2,''))>0";	
                     t_where="where=^^"+t_where+"^^";
                     Lock();
-                    q_gt('view_tranorde', t_where, 0, 0, 0,'aaa', r_accy);
+                    q_gt('view_tranorde_dc', t_where, 0, 0, 0,'aaa', r_accy);
                 });    
                 //自動載入訂單
                 $('#btnTranorde_refresh').click();   
@@ -467,7 +467,7 @@
                 			alert('資料異常:明細與資料庫個數不一致。'+t_count+','+q_bbsCount);
                 		break;
                 	case 'loadcaddr':
-                		var GG = _q_appendData("view_tranorde", "", true);
+                		var GG = _q_appendData("view_tranorde_dc", "", true);
                         if (GG[0] != undefined){
                         	tranorde.curCaddr.push({addrno:'',addr:''});
                         	var t_caddr = GG[0].caddr.split(',');
@@ -496,7 +496,7 @@
                         }
                 		break;
                     case 'aaa':
-                        var GG = _q_appendData("view_tranorde", "", true);
+                        var GG = _q_appendData("view_tranorde_dc", "", true);
                         if (GG[0] != undefined)
                             tranorde.init(GG);
                         else{
@@ -613,7 +613,7 @@
                     		var t_noa = t_name.split('_')[1];
                     		var t_ordeno = t_name.split('_')[2];
                     		var t_mount = parseFloat(t_name.split('_')[3]);
-                    		var GG = _q_appendData("view_tranorde", "", true);
+                    		var GG = _q_appendData("view_tranorde_dc", "", true);
 	                        if (GG[0] != undefined){
 	                        	t_vccecount = (GG[0]['vccecount']==undefined?"0":GG[0]['vccecount']);
 	                        	t_vccecount = (t_vccecount.length==0?"0":t_vccecount);
@@ -647,7 +647,7 @@
                     		//複製訂單資料
                     		var t_ordeno = t_name.split('_')[1];
                     		var sel = t_name.split('_')[2];
-	                    	var as = _q_appendData("view_tranorde", "", true);
+	                    	var as = _q_appendData("view_tranorde_dc", "", true);
 	                    	if (as[0] != undefined){
 	                            $('#txtMount_'+sel).val('1.0');
 	                            t_msg = '';
@@ -767,7 +767,7 @@
             		t_mount = $.trim($('#txtMount').val()).length ==0 ? '0':$.trim($('#txtMount').val());
             		t_where = "noa='"+t_ordeno+"'";
             		t_where="where=^^"+t_where+"^^";
-                    q_gt('view_tranorde', t_where, 0, 0, 0, "bbb_"+t_noa+"_"+t_ordeno+"_"+t_mount, r_accy);
+                    q_gt('view_tranorde_dc', t_where, 0, 0, 0, "bbb_"+t_noa+"_"+t_ordeno+"_"+t_mount, r_accy);
             	}else{ 
             		var t_carno = $.trim($('#txtCarno_'+n).val());
             		var t_senddate = q_date();
