@@ -1044,7 +1044,7 @@
 		<style type="text/css">
 			.dview {
 				float: left;
-				width: 350px;
+				width: 400px;
 				border-width: 0px;
 			}
 			.tview {
@@ -1164,6 +1164,7 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewUno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'> </a></td>
 						<td align="center" style="width:50px; color:black;"><a id='vewDime'> </a></td>
+						<td align="center" style="width:50px; color:black;"><a id='vewEweight'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -1171,6 +1172,7 @@
 						<td align="center" id='uno'>~uno</td>
 						<td align="center" id='product'>~product</td>
 						<td align="right" id='dime'>~dime</td>
+						<td align="right" id='eweight'>~eweight</td>
 					</tr>
 				</table>
 			</div>
