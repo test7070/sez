@@ -33,8 +33,13 @@
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
         t_year = $('#txtYear').val();
+        t_bdate = $('#txtBdate').val();
+        t_edate = $('#txtEdate').val();
+        
+        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
+        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 "  + q_sqlPara2("noa", t_noa) + q_sqlPara2("year", t_year);
+        var t_where = " 1=1 "  + q_sqlPara2("noa", t_noa) + q_sqlPara2("year", t_year)+q_sqlPara2("datea", t_bdate, t_edate) ;
 		
 		if(r_rank<8){
 			t_where+=" and workerno='"+q_getId()[0]+"' "
@@ -58,6 +63,12 @@
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblYear'></a></td>
                 <td><input class="txt" id="txtYear" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblDatea'></a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">～</span>
+                <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
