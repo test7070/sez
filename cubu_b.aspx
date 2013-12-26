@@ -141,13 +141,15 @@
 								$(this).val(q_date());
 							}else{
 								if(DatePati.test(thisVal)){
-									var t_year = thisVal.substring(0,3);
-									var thisyear = q_date().substring(0,3);
+									var t_year = dec(thisVal.substring(0,3));
+									var thisyear = dec(q_date().substring(0,3));
 									if(t_year<(thisyear-1) || t_year>(thisyear+1)){
+										q_msg( $(this),'日期差距太大');
 										$(this).val('');
 										return;
 									}
 								}else{
+										q_msg( $(this),'日期格式錯誤');
 										$(this).val('');
 										return;
 								}
