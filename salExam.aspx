@@ -89,7 +89,7 @@
 	            		if($('#checkIsall')[0].checked==true)
 	            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
 	            		else
-	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04')) and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04') or job='09') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
             		}
             	}else{
             		if($('#txtPartno').val()=='03')//財務部跟內帳部一起
@@ -164,7 +164,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('salexam_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
+            q_box('salexam_s.aspx', q_name + '_s', "500px", "350px", q_getMsg("popSeek"));
         }
 
         function bbsAssign() {  /// 表身運算式
