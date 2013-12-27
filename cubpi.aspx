@@ -21,7 +21,7 @@
 			var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
 			var q_readonlys = [];
 			var q_readonlyt = [];
-			var bbmNum = [];
+			var bbmNum = [['txtTotal',15,3,1]];
 			var bbsNum = [['txtWeight',10,3,1]];
 			var bbtNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1],['txtGweight',10,3,1],['txtWeight',10,3,1]];
 			var bbmMask = [];
@@ -404,6 +404,11 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#txtWeight_'+j).val(getTheory(j));
 				}
+				var t_gweight = 0;
+				for(var i=0;i<q_bbtCount;i++){
+					t_gweight +=dec($('#txtGweight__'+i).val());
+				}
+				$('#txtTotal').val(t_gweight);
 			}
 
 			function _btnSeek() {
@@ -551,6 +556,7 @@
 							} else {
 								q_tr('txtRadius__' + n, q_float('textSize1__' + n));
 							}
+							sum();
 						});
 						$('#textSize2__' + i).change(function() {
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -559,6 +565,7 @@
 							} else {
 								q_tr('txtWidth__' + n, q_float('textSize2__' + n));
 							}
+							sum();
 						});
 						$('#textSize3__' + i).change(function() {
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -567,6 +574,7 @@
 							} else {
 								q_tr('txtDime__' + n, q_float('textSize3__' + n));
 							}
+							sum();
 						});
 						$('#textSize4__' + i).change(function() {
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -575,6 +583,7 @@
 							} else {
 								q_tr('txtLengthb__' + n, q_float('textSize4__' + n));
 							}
+							sum();
 						});
 						$('#txtGmount__' + i).change(function() {
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -588,6 +597,10 @@
 								newVal = (isNaN(newVal)?0:newVal);
 								$('#txtGweight__'+n).val(round(q_mul(q_div(t_Weight,t_Mount),thisVal),0));
 							}
+							sum();
+						});
+						$('#txtGweight__' + i).change(function() {
+							sum();
 						});
 					}
 				}
@@ -937,6 +950,8 @@
 						<td colspan="2"><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl" > </a></td>
 						<td colspan="2"><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblTotal" class="lbl" > </a></td>
+						<td colspan="2"><input id="txtTotal" type="text" class="txt c1 num"/></td>
 					</tr>
 				</table>
 			</div>
