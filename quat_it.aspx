@@ -684,7 +684,7 @@
 				<td align="center" ><a class="lbl">申請理由</a></td>
 				<td align="center" colspan='3'><input id="textApplication" type="text"  class="txt c1"/></td>
 			</tr>
-			<tr>
+			<tr style="display: none;">
 				<td align="center" ><a class="lbl">備註</a></td>
 				<td align="center" colspan='3'><input id="textMemo" type="text"  class="txt c1"/></td>
 			</tr>
