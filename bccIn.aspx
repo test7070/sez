@@ -39,7 +39,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
             function main() {
                 if (dataErr) {
@@ -227,6 +227,7 @@
 
             function btnIns() {
                 _btnIns();
+                $('#cmbTaxtype').val(1);
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtMon').val(q_date().substr(0, 6));
