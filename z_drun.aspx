@@ -21,7 +21,7 @@
                 q_gf('', 'z_drun');
             });
             function q_gfPost() {
-            	var action_type = "insert@新增,delete@刪除,update@修改";
+            	var action_type = "insert@新增,delete@刪除,update@修改,apv@核准";
                 $('#q_report').q_report({
                     fileName : 'z_drun',
                     options : [{
@@ -40,6 +40,10 @@
                         type : '5', //select
                         name : 'xaction',
                         value : [q_getPara('report.all')].concat(action_type.split(','))
+					},{
+						type : '0',
+						name : 'action_type',
+						value : action_type
                     }]
                 });
                 q_popAssign();

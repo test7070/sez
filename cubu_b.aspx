@@ -9,7 +9,9 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'cubu', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], t_count = 0, as, brwCount2 = 10;
+			var q_name = 'cubu', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], t_count = 0, as,
+			brwCount = -1;
+			brwCount2 = 0;
 			var t_sqlname = 'cubu';
 			t_postname = q_name;
 			var isBott = false;
@@ -51,6 +53,13 @@
 					return;
 				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+				parent.$.fn.colorbox.resize({
+					height : "750px"
+				});
+				$('#btnTop').hide();
+				$('#btnPrev').hide();
+				$('#btnNext').hide();
+				$('#btnBott').hide();
 			}
 
 			function mainPost() {
