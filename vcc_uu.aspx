@@ -89,7 +89,7 @@
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];   
             q_mask(bbmMask); 
             q_cmbParse("cmbTypea", q_getPara('vcc.typea'));   
-            q_cmbParse("cmbStype", q_getPara('vcc.stype')); 
+            q_cmbParse("cmbStype", q_getPara('vcc.stype_uu')); 
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             q_cmbParse("cmbCoin", q_getPara('sys.coin')); 
             q_cmbParse("combPay", q_getPara('vcc.paytype')); 
