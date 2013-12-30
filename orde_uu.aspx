@@ -172,6 +172,23 @@
 		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
+				case 'getmaxnoa'://找編號最大值
+					var as = _q_appendData("orde", "", true);
+					var maxnumber=0;//目前最大值
+					var autonumber='0000';//流水編號
+					if (as[0] != undefined) {
+						for ( var i = 0; i < as.length; i++) {
+							if(maxnumber<parseInt(as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length)))
+								maxnumber=as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length)
+						}
+					}
+					
+					maxnumber=autonumber+(parseInt(maxnumber)+1);
+					maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length);
+					
+					wrServer(replaceAll($('#combworker').val()+ $('#txtOdate').val().substr(0,6), '/', '')+maxnumber);
+					//q_gtnoa(q_name, replaceAll($('#combworker').val()+ $('#txtOdate').val().substr(0,6), '/', ''));
+					break;
 				case 'cno_acomp':
                 	var as = _q_appendData("acomp", "", true);
                 	if (as[0] != undefined) {
@@ -317,9 +334,9 @@
 			sum();
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-			if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-				q_gtnoa(q_name, replaceAll($('#combworker').val()+ $('#txtOdate').val(), '/', ''));
-			else
+			if (s1.length == 0 || s1 == "AUTO"){   /// 自動產生編號
+				q_gt('orde', "where=^^ right(left(noa,6),5)='"+replaceAll($('#txtOdate').val().substr(0,6), '/', '')+"'^^", 0, 0, 0, 'getmaxnoa', r_accy);
+			}else
 				wrServer(s1);
 		}
 
@@ -470,7 +487,7 @@
 				browTicketForm($(this).get(0));
 			});
 			
-			$('#combAddr').val($('#txtNoa').val().substring(0,1));
+			$('#combworker').val($('#txtNoa').val().substring(0,1));
 		}
 
 		function readonly(t_para, empty) {
@@ -849,7 +866,7 @@
 				</tr>
 				<tr class="tr8">
 					<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
-					<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: center;"/></td> 
+					<td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1"/></td> 
 					<td class="td4"><span> </span><a id='lblTax' class="lbl"> </a></td>
 					<td class="td5"><input id="txtTax" type="text" class="txt num c1"/></td>
 					<td class="td6"><select id="cmbTaxtype" class="txt c1"  onchange='sum()' > </select></td>
