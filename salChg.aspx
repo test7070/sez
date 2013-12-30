@@ -74,10 +74,17 @@
             switch (t_name) {
             	case 'authority':
                         var as = _q_appendData('authority', '', true);
-                        if (as.length > 0 && as[0]["pr_dele"] == "true")
-                            q_content = "";
-                        else
-                            q_content = "where=^^sssno='" + r_userno + "'^^";
+                        if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	                        if (as.length > 0 && as[0]["pr_dele"] == "true")
+	                            q_content = "";
+	                        else
+	                            q_content = "where=^^sssno='" + r_userno + "'^^";
+						}else{
+							 if (r_rank>=9)
+	                            q_content = "";
+	                        else
+	                            q_content = "where=^^sssno='" + r_userno + "'^^";
+						}
 
                         q_gt(q_name, q_content, q_sqlCount, 1)
                         break;
