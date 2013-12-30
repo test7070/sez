@@ -65,13 +65,13 @@
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' ";
 					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_1', "95%", "95%", q_getMsg('popVccs'));
 	            }else if($('#cmbTypea').val()=='2'){//換貨--->匯入【未收】出貨單--->一次一張需整張處理完--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立 新出貨單
-	            	alert('請選擇同一出貨單號的產品!!');
+	            	//alert('請選擇同一出貨單號的產品!!');
 	            	t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)=0) && typea='1' ";
 					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_2', "95%", "95%", q_getMsg('popVccs'));
 	            }else if($('#cmbTypea').val()=='4'){//已收抵貨--->匯入【已收】出貨單--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立  新出貨單(歸已收款，不再有未收)
-	            	alert('請選擇同一出貨單號的產品!!');
+	            	//alert('請選擇同一出貨單號的產品!!');
 	            	t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)>0) && typea='1' ";
