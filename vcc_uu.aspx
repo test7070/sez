@@ -19,7 +19,7 @@
         var q_name = "vcc";
         var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
-        var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
+        var bbmNum = [ ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
         var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtLengthb', 9, 2, 1], ['txtWidth', 9, 2, 1], ['txtDime', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -910,25 +910,12 @@
 				</td>
 			</tr>
             <tr>
-				<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
-				<td class="td2" colspan='2'>
-					<input id="txtCardealno" type="text" class="txt c2"/>
-					<input id="txtCardeal" type="text" class="txt c3"/>
-				</td>
-                <td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-                <td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c1"/></td>
-				 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-                <td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td> 
-            </tr>
-            <tr>
 				<td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
                 <td class="td5"><input id="txtSalesno" type="text" class="txt c1"/></td>                 
                 <td class="td6"><input id="txtSales" type="text" class="txt c1"/></td>
                 <td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
                 <td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>                 
                 <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td> 
-                <td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-                <td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
             </tr>
 			<tr>
 				<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
@@ -959,11 +946,11 @@
         </table>
         </div>
         </div>
-        <div class='dbbs' style="width: 1410px;">
+        <div class='dbbs' style="width: 1260px;">
         <table id="tbbs" class='tbbs'>
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:40px;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;" /> </td>
-                <td align="center" style="width:150px;"><a id='lblUno_s'> </a></td>
+                <!--<td align="center" style="width:150px;"><a id='lblUno_s'> </a></td>-->
                 <td align="center" style="width:200px;"><a id='lblProductno_s'> </a>/<a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblSpec_s'> </a></td>
                 <td align="center" style="width:50px;"><a id='lblUnit_s'> </a></td>
@@ -973,13 +960,13 @@
                 <td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:90px;"><a id='lblTotal_s'> </a></td>
                 <td align="center" style="width:130px;"><a id='lblStore_s'> </a></td>
-                <td align="center" style="width:90px;"><a id='lblClass_s'> </a></td>
+                <!--<td align="center" style="width:90px;"><a id='lblClass_s'> </a></td>-->
                 <td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
                 <td align="center" style="width:32px;"><a id='lblRecord_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input id="txtUno.*" type="text" class="txt c1" /></td>
+                <!--<td><input id="txtUno.*" type="text" class="txt c1" /></td>-->
                 <td>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
                 	<input class="txt"  id="txtProductno.*" type="text" style="width:165px;" />
@@ -999,7 +986,7 @@
                 	<input id="txtStoreno.*" type="text" class="txt" style="width: 95px;"/>
                 	<input id="txtStore.*" type="text" class="txt c1"/>
                 </td>
-                <td><input id="txtClass.*" type="text" class="txt c1"/></td>
+                <!--<td><input id="txtClass.*" type="text" class="txt c1"/></td>-->
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtOrdeno.*" type="text"  class="txt" style="width:70%;"/>
                 	<input id="txtNo2.*" type="text" class="txt" style="width:20%;"/>

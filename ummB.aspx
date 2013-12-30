@@ -17,7 +17,7 @@
         q_tables = 's';
         var q_name = "ummb";
         var q_readonly = ['txtNoa','txtDatea','txtBkvccno','txtSaleno','txtWorker','txtWorker2'];
-        var q_readonlys = ['txtVccno','txtVccnoq','txtMount','txtPrice','txtTotal'];
+        var q_readonlys = ['txtVccno','txtVccnoq','txtMount','txtTotal'];
         var bbmNum = [];  
         var bbsNum = [['txtMount', 15, 0,1], ['txtPrice', 15, 2,1], ['txtTotal', 15, 0,1], ['txtBkmount', 15, 0,1], ['txtBkmoney', 15, 0,1], ['txtSalemount', 15, 0,1], ['txtSalemoney', 15, 0,1]];
         var bbmMask = [];
@@ -25,16 +25,14 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
         ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-        ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'],
-        ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
-        ['txtPartno_', 'btnPart_', 'part', 'noa,part', 'txtPartno_,txtPart_', 'part_b.aspx']);
+        ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();   
-           q_gt(q_name, q_content, q_sqlCount, 1)  
-           q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+			q_gt(q_name, q_content, q_sqlCount, 1)  
+			q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
         });
 
         //////////////////   end Ready
@@ -61,7 +59,8 @@
                 var t_vccno = trim($('#txtVccno').val());
 	            var t_where = "1=1";
 	            if($('#cmbTypea').val()=='1'){//退貨--->建立 退貨單
-					t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
+					t_where+=" isnull(cardeal,'') not in (select noa from ummb where typea='3') " //換單不可再退貨
+					+(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' ";
 					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_1', "95%", "95%", q_getMsg('popVccs'));
@@ -81,24 +80,8 @@
             });
             
             $('#cmbTypea').change(function() {
-            	if($('#cmbTypea').val()=='3'){
-            		$('#btnVccs').hide()
-            		for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
-            	}else{
-            		$('#btnVccs').show()
-            		for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
-            	}
-            	if($('#cmbTypea').val()=='1'){
-	            	for (var i = 0; i < q_bbsCount; i++) {
-	            		$('#txtSalemount_' + i).attr("disabled","disabled");
-						$('#txtSalemoney_' + i).attr("disabled","disabled");
-					}
-	            }else{
-	            	for (var i = 0; i < q_bbsCount; i++) {
-	            		$('#txtSalemount_' + i).removeAttr("disabled");
-						$('#txtSalemoney_' + i).removeAttr("disabled");
-					}
-	            }
+            	for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
+            	fieldsdisabled ();
 			});
             
         }
@@ -116,11 +99,7 @@
 					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
 					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
 					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
-					
-					for (var i = 0; i < q_bbsCount; i++) {
-						$('#txtSalemount_' + i).attr("disabled","disabled");
-						$('#txtSalemoney_' + i).attr("disabled","disabled");
-					}
+					fieldsdisabled ();
             	}
             	break;
             	case 'vccs_2':
@@ -144,10 +123,7 @@
 					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
 					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
 					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
-					for (var i = 0; i < q_bbsCount; i++) {
-						$('#txtSalemount_' + i).removeAttr("disabled");
-						$('#txtSalemoney_' + i).removeAttr("disabled");
-					}
+					fieldsdisabled ();
             	}
             	break;
             	case 'vccs_4':
@@ -171,10 +147,7 @@
 					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
 					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
 					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
-					for (var i = 0; i < q_bbsCount; i++) {
-						$('#txtSalemount_' + i).removeAttr("disabled");
-						$('#txtSalemoney_' + i).removeAttr("disabled");
-					}
+					fieldsdisabled ();
             	}
             	break;
                 case q_name + '_s':
@@ -208,15 +181,20 @@
                 alert(t_err);
                 return;
             }
-            if($('#cmbTypea').val()=='1'&&emp($('#txtBkdate').val()))
+            if($('#cmbTypea').val()=='1'&&emp($('#txtBkdate').val())){
             	alert('請填入'+q_getMsg('lblBkdate'));
+            	return;
+            }
             	
-            if(($('#cmbTypea').val()=='2'||$('#cmbTypea').val()=='4' )&&emp($('#txtBkdate').val())&&emp($('#txtVccdate').val()))
+            if(($('#cmbTypea').val()=='2'||$('#cmbTypea').val()=='4' )&&emp($('#txtBkdate').val())&&emp($('#txtVccdate').val())){
             	alert('請填入'+q_getMsg('lblBkdate')+'、'+q_getMsg('lblVccdate'));
+            	return;
+            }
             	
-            if($('#cmbTypea').val()=='3'&&emp($('#txtMon').val())&&emp($('#txtVccno').val()))
+            if($('#cmbTypea').val()=='3'&&emp($('#txtMon').val())&&emp($('#txtVccno').val())){
             	alert('請填入'+q_getMsg('lblMon')+'、'+q_getMsg('lblVccno'));
-
+            	return;	
+			}
             if(q_cur ==1){
 				$('#txtWorker').val(r_name);
 			}else if(q_cur ==2){
@@ -252,6 +230,33 @@
 					q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, "vcc", "95%", "95%", q_getMsg("popVcc"));
 	
 				});
+				
+				$('#txtPrice_' + i).change (function() {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+					q_tr('txtBkmoney_'+b_seq,q_mul(q_float('txtBkmount_'+b_seq),q_float('txtPrice_'+b_seq)));
+					q_tr('txtSalemoney_'+b_seq,q_mul(q_float('txtSalemount_'+b_seq),q_float('txtPrice_'+b_seq)));
+				});
+				
+				$('#txtBkmount_' + i).change (function() {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+					q_tr('txtBkmoney_'+b_seq,q_mul(q_float('txtBkmount_'+b_seq),q_float('txtPrice_'+b_seq)));
+				});
+				
+				$('#txtSalemount_' + i).change (function() {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+					q_tr('txtSalemoney_'+b_seq,q_mul(q_float('txtSalemount_'+b_seq),q_float('txtPrice_'+b_seq)));
+				});
+				
+				
 			}
             _bbsAssign();
         }
@@ -263,34 +268,14 @@
             $('#txtAcomp').val(z_acomp);
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-            if($('#cmbTypea').val()=='1'){
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtSalemount_' + i).attr("disabled","disabled");
-					$('#txtSalemoney_' + i).attr("disabled","disabled");
-				}
-            }else{
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtSalemount_' + i).removeAttr("disabled");
-					$('#txtSalemoney_' + i).removeAttr("disabled");
-				}
-            }
+            fieldsdisabled ();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
             
-            if($('#cmbTypea').val()=='1'){
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtSalemount_' + i).attr("disabled","disabled");
-					$('#txtSalemoney_' + i).attr("disabled","disabled");
-				}
-            }else{
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtSalemount_' + i).removeAttr("disabled");
-					$('#txtSalemoney_' + i).removeAttr("disabled");
-				}
-            }
+            fieldsdisabled ();
             $('#txtCustno').focus();
         }
         function btnPrint() {
@@ -327,23 +312,7 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-            
-            if($('#cmbTypea').val()=='3'){
-            	$('#btnVccs').hide()
-            }else{
-            	$('#btnVccs').show()
-            }
-            if($('#cmbTypea').val()=='1'){
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtSalemount_' + i).attr("disabled","disabled");
-					$('#txtSalemoney_' + i).attr("disabled","disabled");
-				}
-            }else{
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtSalemount_' + i).removeAttr("disabled");
-					$('#txtSalemoney_' + i).removeAttr("disabled");
-				}
-            }
+            fieldsdisabled ();
        }
 
         function readonly(t_para, empty) {
@@ -398,6 +367,54 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function fieldsdisabled () {
+            if($('#cmbTypea').val()=='3'){
+            	$('#btnVccs').hide();
+            }else{
+            	$('#btnVccs').show();
+            }
+           
+	       for (var i = 0; i < q_bbsCount; i++) {
+				if($('#cmbTypea').val()=='1'){
+					$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					$('#txtBkmount_' + i).css('color','black').css('background','white').removeAttr('readonly');
+					$('#txtBkmount_' + i).css('color','black').css('background','white').removeAttr('readonly');
+	           		$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+				}else if ($('#cmbTypea').val()=='2' || $('#cmbTypea').val()=='4'){
+					if(!emp($('#txtVccno_'+i).val())){
+	            		$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtBkmount_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtBkmount_' + i).css('color','black').css('background','white').removeAttr('readonly');
+	           			$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					}else{
+						$('#txtProductno_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtProduct_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtPrice_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtBkmount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtBkmoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+	           			$('#txtSalemount_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtSalemoney_' + i).css('color','black').css('background','white').removeAttr('readonly');
+					}
+	        	}else{
+	        		$('#txtProductno_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtBkmount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtBkmount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+	           			$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+	        	}
+			}
+        }
+        
     </script>
     <style type="text/css">
             #dmain {
