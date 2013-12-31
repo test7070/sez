@@ -87,13 +87,15 @@
             });
             
             $('#btnInput').click(function () {
-            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa!='Z001' and a.noa!='010132'^^";//後面是不要匯入軒威和董事長資料
-            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
-            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
-            	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
-            	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
-            	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
-		        q_gt('salarydc_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "", r_accy);
+            	if(q_cur==1 ||q_cur==2){
+	            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa!='Z001' and a.noa!='010132'^^";//後面是不要匯入軒威和董事長資料
+	            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
+	            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
+	            	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
+	            	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
+	            	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
+			        q_gt('salarydc_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "", r_accy);
+		        }
             });
             
             $('#btnBank').click(function() {
