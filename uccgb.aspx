@@ -75,6 +75,7 @@
 					if (as[0] != undefined){
 						alert('已存在 '+as[0].noa+' '+as[0].namea);
 					}
+					Unlock();
 					break;
 				case 'checkNoa_btnOk':
 					var as = _q_appendData("uccga", "", true);
@@ -84,6 +85,7 @@
 						return;
 					}else{
 						wrServer($('#txtNoa').val());
+						Unlock();
 					}
 					break;
 				case q_name: if (q_cur == 4)   

@@ -28,7 +28,7 @@
 		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,typea', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtLengthb_', 'ucc_b.aspx'],
 		['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-		['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact',
+		['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp',
 				'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx']);
 		$(document).ready(function () {
 			bbmKey = ['noa'];

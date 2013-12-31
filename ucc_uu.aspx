@@ -76,7 +76,7 @@
 
 
 		function mainPost() { 
-			q_cmbParse("cmbTypea", q_getPara('ucc.typea_uu'));	// 需在 main_form() 後執行，才會載入 系統參數
+			q_cmbParse("cmbTypea", q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
 			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	
 			
@@ -117,8 +117,8 @@
 					maxnumber=autonumber+(parseInt(maxnumber)+1);
 					maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length)
 					
-					$('#txtNoa').val($('#cmbTypea').val()+maxnumber);
-					wrServer($('#cmbTypea').val()+maxnumber);
+					$('#txtNoa').val($('#cmbGroupano').val()+maxnumber);
+					wrServer($('#cmbGroupano').val()+maxnumber);
 					
 					break;
 				case 'uccga'://大類
@@ -210,7 +210,7 @@
 			var t_uno = trim($('#txtUno').val());
 			if (t_uno.length == 0 || t_uno=='AUTO'){
 				//自動編號-找該類別最大數值
-				q_gt('ucc', "where=^^ left(uno,1)='"+$('#cmbTypea').val()+"'^^", 0, 0, 0, 'getmaxuno', r_accy);
+				q_gt('ucc', "where=^^ left(uno,1)='"+$('#cmbGroupano').val()+"'^^", 0, 0, 0, 'getmaxuno', r_accy);
 			}else{
 				$('#txtNoa').val(t_uno);
 				wrServer(t_uno);
