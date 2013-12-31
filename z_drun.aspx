@@ -21,7 +21,7 @@
                 q_gf('', 'z_drun');
             });
             function q_gfPost() {
-            	var action_type = "insert@新增,delete@刪除,update@修改,apv@核准";
+            	var action_type = "insert@新增,delete@刪除,update@修改,apv@核准,paper@報表,form@執行";
                 $('#q_report').q_report({
                     fileName : 'z_drun',
                     options : [{
