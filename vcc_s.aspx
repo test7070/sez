@@ -66,6 +66,7 @@
 				t_cust = $.trim($('#txtCust').val());
 				t_accno = $('#txtAccno').val();
 				t_invono = $('#txtInvono').val();
+				t_ordeno = $('#txtOrdeno').val();
 
 				var t_where = " 1=1 "
 				+ q_sqlPara2("cno", t_cno)
@@ -84,6 +85,10 @@
                 	t_where += " and unpay=0";
                 if(t_status=='N')
                 	t_where += " and unpay!=0";
+                	
+				if(t_ordeno.length>0)
+                	t_where += " and (noa in (select noa from view_vccs where ordeno='"+t_ordeno+"') or noa in (select noa from view_vcc where ordeno='"+t_ordeno+"'))";
+                	
 				t_where = ' where=^^ ' + t_where + ' ^^ ';
 				return t_where;
 			}
@@ -159,6 +164,10 @@
 				<tr class='seek_tr'>
 					<td><a id='lblAccno'> </a></td>
 					<td><input id="txtAccno" type="text"/></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblOrdeno'> </a></td>
+					<td><input id="txtOrdeno" type="text"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

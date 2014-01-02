@@ -28,8 +28,8 @@
 		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,typea', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtLengthb_', 'ucc_b.aspx'],
 		['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-		['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp',
-				'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx']);
+		['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp,salesno,sales',
+				'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtSalesno,txtSales', 'cust_b.aspx']);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
 			bbsKey = ['noa', 'no2'];
@@ -80,7 +80,7 @@
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
 			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-			q_cmbParse("combworker", 'O@業助1,L@業助2');
+			q_cmbParse("combworker", 'O@業助O,L@業助L');
 			q_cmbParse("cmbType", '@,'+q_getPara('ucc.typea_uu'),'s');
 			
 			var t_where = "where=^^ 1=1  group by post,addr^^";
