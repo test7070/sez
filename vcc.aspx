@@ -556,7 +556,8 @@
         
         function q_stPost() {
             if (q_cur == 1 || q_cur == 2) {
-                abbm[q_recno]['accno'] = xmlString;   /// 存檔後， server 傳回 xmlString 
+            	var s2 = xmlString.split(';');
+                abbm[q_recno]['accno'] = s2[0];   /// 存檔後， server 傳回 xmlString 
                 //$('#txtAccno').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
             }
         }

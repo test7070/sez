@@ -148,6 +148,9 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            if(q_getPara('sys.comp').indexOf('永勝')>-1){
+            	$('#cmbKind').val(2);
+            }
             product_change();
         }
         function btnModi() {
@@ -195,6 +198,9 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if(q_getPara('sys.comp').indexOf('永勝')>-1){
+            	$('#cmbKind').attr('disabled', 'disabled');
+            }
         }
 
         function btnMinus(id) {

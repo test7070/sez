@@ -17,9 +17,9 @@
         q_tables = 's';
         var q_name = "salaward";
         var q_readonly = ['txtNoa','txtDatea','txtWorker','txtTotal'];
-        var q_readonlys = ['txtTotal8'];
+        var q_readonlys = ['txtMoney','txtTotal7','txtTotal8'];
         var bbmNum = [['txtTotal',10,0,1]];  // 允許 key 小數
-        var bbsNum = [['txtAwardmon',2,0,0],['txtTotal4',10,0,1],['txtTotal5',10,0,1],['txtTotal6',10,0,1],['txtTotal7',10,0,1],['txtTotal8',14,0,1],['txtFirstmoney',14,0,1],['txtSecondmoney',14,0,1]];
+        var bbsNum = [['txtTotal1',10,0,1],['txtTotal2',10,0,1],['txtTotal3',10,0,1],['txtTotal4',10,0,1],['txtTotal5',10,0,1],['txtMoney',15,0,1],['txtTaxrate',5,2,1],['txtTax',10,0,1],['txtTotal6',10,0,1],['txtTotal7',10,0,1],['txtTotal8',14,0,1],['txtFirstmoney',14,0,1],['txtSecondmoney',14,0,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
@@ -55,6 +55,7 @@
             	var t_where = "where=^^ noa!='Z001' and isnull(outdate,'')='' ^^";
 	            q_gt('sss', t_where, 0, 0, 0, "", r_accy);
             });
+            
         }
         
         function q_funcPost(t_func, result) {	
@@ -75,9 +76,11 @@
             	case 'sss':
             		for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
             		var as = _q_appendData("sss", "", true);
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPartno,txtPart,txtJob'
-						, as.length, as, 'noa,namea,partno,part,job', '');
-            	
+            		for (var i = 0; i < as.length; i++) {
+            			as[i].taxrate=5;
+            		}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPartno,txtPart,txtJob,txtTaxrate'
+						, as.length, as, 'noa,namea,partno,part,job,taxrate', '');
             		break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
@@ -113,10 +116,14 @@
         function bbsAssign() {  /// 表身運算式
         	for(var j = 0; j < q_bbsCount; j++) {
            		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           			$('#txtTotal1_'+j).change(function() {sum();});
+           			$('#txtTotal2_'+j).change(function() {sum();});
+           			$('#txtTotal3_'+j).change(function() {sum();});
            			$('#txtTotal4_'+j).change(function() {sum();});
            			$('#txtTotal5_'+j).change(function() {sum();});
            			$('#txtTotal6_'+j).change(function() {sum();});
-           			$('#txtTotal7_'+j).change(function() {sum();});
+           			$('#txtTax_'+j).change(function() {sum();});
+           			$('#txtTaxrate_'+j).change(function() {sum();});
            			
            			$('#txtFirstmoney_'+j).change(function() {
            				t_IdSeq = -1;
@@ -130,6 +137,17 @@
 						b_seq = t_IdSeq;
            				q_tr('txtFirstmoney_'+b_seq,q_float('txtTotal8_'+b_seq)-q_float('txtSecondmoney_'+b_seq));
            			});
+           			
+           			$('#checkSel_' + j).click(function () {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if($('#checkSel_' +b_seq)[0].checked){	//判斷是否被選取
+							$('#trSel_'+ b_seq).addClass('chksel');//變色
+						}else{
+							$('#trSel_'+b_seq).removeClass('chksel');//取消變色
+						}
+					});
         		}
            	}
             _bbsAssign();
@@ -139,7 +157,7 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtYear').val(q_date().substr(0,3));
+            $('#txtYear').val(q_date().substr(0,6));
             $('#txtDatea').val(q_date());
             $('#txtYear').focus();
             table_change();
@@ -176,7 +194,11 @@
         function sum() {//只計算每個獎金金額合計(人工調整獎金用)
             var t_total= 0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	q_tr('txtTotal8_'+j,q_float('txtTotal4_'+j)+q_float('txtTotal5_'+j)+q_float('txtTotal6_'+j)+q_float('txtTotal7_'+j));
+            	q_tr('txtMoney_'+j,q_float('txtTotal1_'+j)+q_float('txtTotal2_'+j)+q_float('txtTotal3_'+j)+q_float('txtTotal4_'+j)+q_float('txtTotal5_'+j));
+            	q_tr('txtTax_'+j,round(q_div(q_mul(q_float('txtMoney_'+j),q_float('txtTaxrate_'+j)),100),0));
+            	q_tr('txtTotal7_'+j,q_float('txtTax_'+j)+q_float('txtTotal6_'+j));
+            	q_tr('txtTotal8_'+j,q_float('txtMoney_'+j)-q_float('txtTotal7_'+j));
+            	
             	//發放金額
             	q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
 				t_total+=dec($('#txtTotal8_'+j).val());
@@ -475,15 +497,22 @@
         </div>
         <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 1320px;background:#cad3ff;" >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 1886px;background:#cad3ff;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" style="width:26px;"><a id='vewChks'> </a></td>
                 <td align="center" style="width:80px;"><a id='lblSssno_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblNamea_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblPart_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblJob_s'> </a></td>
-                <td align="center" style="width:110px;"><a id='lblTotal4_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal1_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal2_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal3_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal4_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
+                <td align="center" style="width:50px;"><a id='lblTaxrate_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTax_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblTotal6_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblTotal7_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblTotal8_s'> </a></td>
@@ -493,12 +522,19 @@
             </tr>
             <tr id="trSel.*">
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td ><input id="checkSel.*" type="checkbox"/></td>
                 <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtPart.*" type="text" class="txt c1"/><input  id="txtPartno.*" type="hidden"/></td>
                 <td ><input  id="txtJob.*" type="text" class="txt c1"/><input  id="txtJobno.*" type="hidden"/></td>
+                <td ><input  id="txtTotal1.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal2.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal3.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMoney.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTaxrate.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTax.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal6.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal7.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal8.*" type="text" class="txt num c1" /></td>
