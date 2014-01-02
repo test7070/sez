@@ -537,13 +537,13 @@
 			                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 			                    	as[i].meals=1800;
 			                    	//如果請假每超過8小時要扣60(1800/30)
-			                    	if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].late))>=8){
-			                    		as[i].meals=1800-Math.floor((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].late))/8)*60
+			                    	if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))>=8){
+			                    		as[i].meals=1800-Math.floor((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8)*60
 			                    	}
 			                    }
 			                    
 			                    //只要有請假與遲到一律都沒有全勤獎金
-			                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].late))>0){
+			                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary)+dec(as[i].late))>0){
 			                    	as[i].bo_full=0;
 			                    }
 		                    
