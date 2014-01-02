@@ -75,8 +75,8 @@
             	case 'sss':
             		for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
             		var as = _q_appendData("sss", "", true);
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPart,txtJob'
-						, as.length, as, 'noa,namea,part,job', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPartno,txtPart,txtJob'
+						, as.length, as, 'noa,namea,partno,part,job', '');
             	
             		break;
                 case q_name: 
