@@ -112,10 +112,10 @@
 						return;
 				}							
 				
-				if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
+				/*if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
             		alert('登錄日期需與會計年度相同!');
             		return;
-            	}
+            	}*/
 				$('#txtWorker').val(r_name);
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 				if (t_err.length > 0) {
