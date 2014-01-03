@@ -8,46 +8,46 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
-        <link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = "ucc_s";
-			aPop = new Array(['txtNoa', '', 'ucc', 'noa,product', 'txtNoa,txtItem', "ucc_b.aspx"]);
-            $(document).ready(function() {
-                main();
-            });
-            /// end ready
+			var q_name = "ucc_s";
+			aPop = new Array(['txtNoa', '', 'ucc', 'noa,product', 'txtNoa,txtProduct', "ucc_b.aspx"]);
+			$(document).ready(function() {
+				main();
+			});
+			/// end ready
 
-            function main() {
-                mainSeek();
-                q_gf('', q_name);
-            }
+			function main() {
+				mainSeek();
+				q_gf('', q_name);
+			}
 
-            function q_gfPost() {
-                q_getFormat();
-                q_langShow();
-                $('#txtBdate').focus();
-            }
+			function q_gfPost() {
+				q_getFormat();
+				q_langShow();
+				$('#txtBdate').focus();
+			}
 
-            function q_seekStr() {
-                t_noa = $('#txtNoa').val();
-                t_product = $('#txtProduct').val();
-                t_barcode = $('#txtBarcode').val();
+			function q_seekStr() {
+				t_noa = $('#txtNoa').val();
+				t_product = $('#txtProduct').val();
+				t_barcode = $('#txtBarcode').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("barcode", t_barcode);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("barcode", t_barcode);
 				if (t_product.length > 0)
-                    t_where += " and patindex('%" + t_product + "%',product)>0";
-                    
-                t_where = ' where=^^' + t_where + '^^ ';
-                return t_where;
-            }
+					t_where += " and patindex('%" + t_product + "%',product)>0";
+
+				t_where = ' where=^^' + t_where + '^^ ';
+				return t_where;
+			}
 		</script>
 		<style type="text/css">
-            .seek_tr {
-                color: white;
-                text-align: center;
-                font-weight: bold;
-                background: #76a2fe;
-            }
+			.seek_tr {
+				color: white;
+				text-align: center;
+				font-weight: bold;
+				background: #76a2fe;
+			}
 		</style>
 	</head>
 	<body>
