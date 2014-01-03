@@ -30,11 +30,12 @@
 
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
-                t_item = $('#txtProduct').val();
+                t_product = $('#txtProduct').val();
+                t_barcode = $('#txtBarcode').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa);
-				if (t_item.length > 0)
-                    t_where += " and patindex('%" + t_item + "%',product)>0";
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("barcode", t_barcode);
+				if (t_product.length > 0)
+                    t_where += " and patindex('%" + t_product + "%',product)>0";
                     
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -52,6 +53,12 @@
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:150px;"><a id='lblBarcode'></a></td>
+					<td>
+					<input class="txt" id="txtBarcode" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:150px;"><a id='lblNoa'></a></td>
 					<td>

@@ -66,7 +66,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
-				q_box(q_name + '_af_s.aspx', q_name + '_af_s', "500px", "250px", q_getMsg("popSeek"));
+				q_box(q_name + '_af_s.aspx', q_name + '_af_s', "500px", "300px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
