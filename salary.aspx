@@ -492,6 +492,8 @@
 		                    			inday=dec(as[i].outdate.substr(7,2))-dec(t_date.substr(7,2))+1
 		                    		else
 		                    			inday=dec(date_2.substr(7,2))-dec(t_date.substr(7,2))+1
+		                    		
+		                    		if(inday>30) inday=30;
 		                    				                    		
 		                    		as[i].memo="新進員工(工作日:"+inday+")";
 		                    		as[i].bo_full=0;
@@ -502,6 +504,9 @@
 		                    	if(as[i].indate<date_1&&!emp(as[i].outdate)){
 		                    		var t_date=as[i].outdate,inday=0;
 		                    		inday=dec(t_date.substr(7,2))-dec(date_1.substr(7,2))+1
+		                    		
+		                    		if(inday>30) inday=30;
+		                    		
 		                    		as[i].memo="離職員工(工作日:"+inday+")";
 		                    		as[i].iswelfare='false';
 		                    		
