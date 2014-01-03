@@ -151,7 +151,7 @@
 				$('#btnCubu').click(function() {
 					if (q_cur == 0 || q_cur==4) {
 						var t_where = "noa='" + trim($('#txtNoa').val()) + "'";
-						q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cubu', "95%", "95%", q_getMsg('popCubu'));
+						q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";"+r_accy, 'cubu', "95%", "95%", q_getMsg('popCubu'));
 					}
 				});
 				$('#btnUccc_pi').click(function() {
