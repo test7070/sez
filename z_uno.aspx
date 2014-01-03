@@ -15,36 +15,40 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            $(document).ready(function() {
-                q_getId();
-                q_gf('', 'z_uno');
-            });
-            function q_gfPost(t_name) {
-                $('#q_report').q_report({
-                    fileName : 'z_uno',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : r_accy
-                    }, {/*1*/
-                        type : '6',
-                        name : 'xnoa'
-                    }]
-                });
-                q_langShow();
-                q_popAssign();
-                var t_noa = q_getId()[3];
-                if(t_noa.length>0){//used by z_uccstk
-                	$('#txtXnoa').val(t_noa);
-                	$('#btnOk').click();
-                }
-            }
+			$(document).ready(function() {
+				q_getId();
+				q_gf('', 'z_uno');
+			});
+			function q_gfPost(t_name) {
+				$('#q_report').q_report({
+					fileName : 'z_uno',
+					options : [{
+						type : '0', //[1]
+						name : 'accy',
+						value : r_accy
+					}, {/*1*/
+						type : '6', //[2]
+						name : 'xnoa'
+					}, {/*1*/
+						type : '0', //[3]
+						name : 'xcubtype',
+						value : q_getPara('cubpi.typea')
+					}]
+				});
+				q_langShow();
+				q_popAssign();
+				var t_noa = q_getId()[3];
+				if (t_noa.length > 0) {//used by z_uccstk
+					$('#txtXnoa').val(t_noa);
+					$('#btnOk').click();
+				}
+			}
 
-            function q_boxClose(s2) {
-            }
+			function q_boxClose(s2) {
+			}
 
-            function q_gtPost() {
-            }
+			function q_gtPost() {
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
