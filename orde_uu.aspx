@@ -17,9 +17,9 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "orde";
-		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales','txtOrdbno','txtOrdcno'];
+		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtSales','txtOrdbno','txtOrdcno'];
 		var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3','txtC1','txtNotv']; 
-		var bbmNum = [['txtTotal', 10,0,1],['txtMoney', 10, 0,1],['txtTax', 10, 0,1],['txtFloata', 10, 2,1],['txtTotalus', 15, 2,1]];  // 允許 key 小數
+		var bbmNum = [['txtTotal', 10,0,1],['txtMoney', 10, 0,1],['txtTax', 10, 0,1]];  // 允許 key 小數
 		var bbsNum = [['txtPrice', 12, 3,1], ['txtMount', 9, 2,1],['txtTotal', 10, 0,1],['txtC1', 10, 0,1],['txtNotv', 10, 0,1]];
 		var bbmMask = [];
 		var bbsMask = [];
@@ -67,7 +67,6 @@
 				$('#txtTranmoney').val(round(q_mul( t_tmount,dec($('#txtPrice').val())), 0));
 			
 			calTax();
-			q_tr('txtTotalus',q_mul( q_float('txtTotal'),q_float('txtFloata')));
 		}
 
 		function mainPost() { // 載入資料完，未 refresh 前
@@ -76,7 +75,7 @@
 			q_mask(bbmMask);			
 			bbsMask = [['txtDatea', r_picd ]];  
 			q_cmbParse("cmbStype", q_getPara('orde.stype_uu')); // 需在 main_form() 後執行，才會載入 系統參數  
-			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	 /// q_cmbParse 會加入 fbbm
+			//q_cmbParse("cmbCoin", q_getPara('sys.coin'));	 /// q_cmbParse 會加入 fbbm
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
 			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
@@ -85,7 +84,7 @@
 			
 			var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
-			$('#txtFloata').change(function () {sum();});
+			//$('#txtFloata').change(function () {sum();});
 			$('#txtTotal').change(function () {sum();});
 			$('#txtAddr').change(function(){
 				var t_custno = trim($(this).val());
@@ -290,8 +289,8 @@
 				case 'quat':
 					var as = _q_appendData("quat", "", true);
 					if(as[0]!=undefined ){
-						$('#txtFloata').val(as[0].floata);
-						$('#cmbCoin').val(as[0].coin);
+						//$('#txtFloata').val(as[0].floata);
+						//$('#cmbCoin').val(as[0].coin);
 						$('#txtPaytype').val(as[0].paytype);
 						$('#txtSalesno').val(as[0].salesno);
 						$('#txtSales').val(as[0].sales);
@@ -790,7 +789,7 @@
 					<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 					<td align="center" id='odate'>~odate</td>
 					<td align="center" id='noa'>~noa</td>
-					<td align="center" id='custno comp,4'>~custno ~comp,4</td>
+					<td align="center" id='custno comp,4' style="text-align: left;" >~custno ~comp,4</td>
 				</tr>
 			</table>
 		</div>
@@ -863,6 +862,8 @@
 						<input id="txtSalesno" type="text" class="txt c2"/> 
 						<input id="txtSales" type="text" class="txt c3"/>
 					</td> 
+					<td class="td7"><span> </span><a id="lblApv" class="lbl"> </a></td>
+					<td class="td8" ><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
 				</tr>
 				<tr class="tr8">
 					<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -872,15 +873,6 @@
 					<td class="td6"><select id="cmbTaxtype" class="txt c1"  onchange='sum()' > </select></td>
 					<td class="td7"><span> </span><a id='lblTotal' class="lbl"> </a></td>
 					<td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td> 
-				</tr>
-				<tr class="tr9">
-					<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-					<td class="td2"><select id="cmbCoin" class="txt c1"> </select></td>				
-					<td class="td3"><input id="txtFloata" type="text" class="txt num c1" /></td>
-					<td class="td4"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
-					<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
-					<td class="td7"><span> </span><a id="lblApv" class="lbl"> </a></td>
-					<td class="td8" ><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
 				</tr>
 				
 				<tr class="tr10">

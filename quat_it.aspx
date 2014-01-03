@@ -34,7 +34,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'ucaucc_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
@@ -707,7 +707,7 @@
 				<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 				<td align="center" id='datea'>~datea</td>
 				<td align="center" id='noa'>~noa</td>
-				<td align="center" id='custno comp,4'>~custno ~comp,4</td>
+				<td align="center" id='custno comp,4' style="text-align: left;">~custno ~comp,4</td>
 			</tr>
 		</table>
 		</div>
@@ -822,8 +822,8 @@
 			<tr  style='background:#cad3ff;'>
 				<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 				<td style="text-align:center">
-					<input id="txtProductno.*" type="text" class="txt" style="width:70%;" />
-					<input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
+					<input id="txtProductno.*" type="text" class="txt" style="width:80%;" />
+					<input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
 					<input id="txtNo3.*" type="text" class="txt c3" style="display:none;"/></td>
 				<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
 				<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
