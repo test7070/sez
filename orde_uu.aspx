@@ -25,7 +25,7 @@
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';brwCount2 = 11; 
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,typea', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtLengthb_', 'ucc_b.aspx'],
+		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,groupano', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtLengthb_', 'ucc_b.aspx'],
 		['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp,salesno,sales',
@@ -79,8 +79,8 @@
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
 			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+			q_gt('uccga', '', 0, 0, 0, "");
 			q_cmbParse("combworker", 'O@業助O,L@業助L');
-			q_cmbParse("cmbType", '@,'+q_getPara('ucc.typea_uu'),'s');
 			
 			var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -311,6 +311,18 @@
 					if(as[0]!=undefined && focus_addr !=''){
 						$('#'+focus_addr).val(as[0].addr_fact);
 						focus_addr = '';
+					}
+					break;
+				case 'uccga'://大類
+					var as = _q_appendData("uccga", "", true);
+					if (as[0] != undefined) {
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+						}
+						q_cmbParse("cmbType",t_item,'s');
+						
+						refresh(q_recno);						
 					}
 					break;
 				case q_name: if (q_cur == 4)   // 查詢

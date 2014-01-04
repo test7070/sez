@@ -17,7 +17,7 @@
         }
         q_tables = 's';
         var q_name = "vcc";
-        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal','txtWorker','txtWorker2'];
+        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal','txtWorker','txtWorker2','txtSales'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
         var bbmNum = [ ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1]];
         var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtLengthb', 9, 2, 1], ['txtWidth', 9, 2, 1], ['txtDime', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
