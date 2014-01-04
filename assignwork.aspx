@@ -98,11 +98,11 @@
 	        	});
              	$('#lblVccno').click(function() {
 		     		t_where = "noa='" + $('#txtVccno').val() + "'";
-            		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "95%", q_getMsg('popVcctran'));
+            		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+$('#txtVccno').val().substr(2,3), 'vcc', "95%", "95%", q_getMsg('popVcctran'));
              	});
              	$('#lblPaybno').click(function() {
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
-            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "95%", q_getMsg('popPaytran'));
+            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+$('#txtVccno').val().substr(2,3), 'pay', "95%", "95%", q_getMsg('popPaytran'));
              	});
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
