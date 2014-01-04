@@ -117,8 +117,8 @@
 					maxnumber=autonumber+(parseInt(maxnumber)+1);
 					maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length)
 					
-					$('#txtNoa').val($('#cmbGroupano').val()+maxnumber);
-					wrServer($('#cmbGroupano').val()+maxnumber);
+					$('#txtNoa').val(($('#cmbGroupano').val()=='N'?'D':$('#cmbGroupano').val())+maxnumber);
+					wrServer(($('#cmbGroupano').val()=='N'?'D':$('#cmbGroupano').val())+maxnumber);
 					
 					break;
 				case 'uccga'://大類
@@ -210,7 +210,7 @@
 			var t_uno = trim($('#txtUno').val());
 			if (t_uno.length == 0 || t_uno=='AUTO'){
 				//自動編號-找該類別最大數值
-				q_gt('ucc', "where=^^ left(uno,1)='"+$('#cmbGroupano').val()+"'^^", 0, 0, 0, 'getmaxuno', r_accy);
+				q_gt('ucc', "where=^^ left(uno,1)='"+($('#cmbGroupano').val()=='N'?'D':$('#cmbGroupano').val())+"'^^", 0, 0, 0, 'getmaxuno', r_accy);
 			}else{
 				$('#txtNoa').val(t_uno);
 				wrServer(t_uno);

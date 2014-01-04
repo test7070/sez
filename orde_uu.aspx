@@ -17,7 +17,7 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "orde";
-		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtSales','txtOrdbno','txtOrdcno'];
+		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtSales','txtOrdbno','txtOrdcno','txtQuatno'];
 		var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3','txtC1','txtNotv']; 
 		var bbmNum = [['txtTotal', 10,0,1],['txtMoney', 10, 0,1],['txtTax', 10, 0,1]];  // 允許 key 小數
 		var bbsNum = [['txtPrice', 12, 3,1], ['txtMount', 9, 2,1],['txtTotal', 10, 0,1],['txtC1', 10, 0,1],['txtNotv', 10, 0,1]];
@@ -160,7 +160,7 @@
 							q_box("ordc.aspx?;;;noa='" + noa + "';" + r_accy, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
 							break;
 						case 'quatno':
-							q_box("quat.aspx?;;;noa='" + noa + "';" + r_accy, 'quat', "95%", "95%", q_getMsg("popQuat"));
+							q_box("vcc.aspx?;;;noa='" + noa + "';" + r_accy, 'quat', "95%", "95%", q_getMsg("popVcc"));
 							break;
 					}
 				}
@@ -331,6 +331,11 @@
 			else
 				$('#txtWorker2').val(r_name);
 			sum();
+			
+			if($('#checkTotalus').prop("checked"))
+				$('#txtTotalus').val(1);
+			else
+				$('#txtTotalus').val(0);
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO"){   /// 自動產生編號
@@ -487,14 +492,21 @@
 			});
 			
 			$('#combworker').val($('#txtNoa').val().substring(0,1));
+				
+			if($('#txtTotalus').val()==1)
+				$("#checkTotalus").prop("checked",true);
+			else
+				$("#checkTotalus").prop("checked",false);
 		}
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
 			if(t_para){
 				$('#combAddr').attr('disabled','disabled');
+				$('#checkTotalus').attr('disabled','disabled');
 			}else{
 				$('#combAddr').removeAttr('disabled');
+				$('#checkTotalus').removeAttr('disabled');
 			}
 			if(q_cur==1){
 				$('#combworker').removeAttr('disabled');
@@ -844,7 +856,12 @@
 				<tr class="tr5">
 					<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 					<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
-					<td class="td3"colspan='4' ><input id="txtAddr"  type="text"  class="txt c1"/></td>
+					<td class="td3" colspan='4' ><input id="txtAddr"  type="text"  class="txt c1"/></td>
+					<td class="td7" colspan='2' >
+						<a id='lblTotalus' class="lbl" style="float: right;"> </a>
+						<input id="checkTotalus" type="checkbox" style="float: right;"/>
+						<input id="txtTotalus"  type="hidden" class="txt c1"/>
+					</td>
 				</tr>
 				<tr class="tr6">
 					<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
@@ -853,6 +870,8 @@
 						<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
 						<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 					</td>
+					<td class="td7"><span> </span><a id='lblQuatno' class="lbl"> </a></td>
+					<td class="td8"><input id="txtQuatno" type="text" class="txt c1"/></td>
 				</tr>
 				<tr class="tr7">
 					<td class="td1"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
