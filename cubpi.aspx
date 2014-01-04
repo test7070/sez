@@ -33,7 +33,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			q_desc = 1;
-			brwCount2 = 5;
+			brwCount2 = 6;
 			aPop = new Array(
 				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
 				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], 
@@ -151,7 +151,7 @@
 				$('#btnCubu').click(function() {
 					if (q_cur == 0 || q_cur==4) {
 						var t_where = "noa='" + trim($('#txtNoa').val()) + "'";
-						q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cubu', "95%", "95%", q_getMsg('popCubu'));
+						q_box("cubu_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";"+r_accy, 'cubu', "95%", "95%", q_getMsg('popCubu'));
 					}
 				});
 				$('#btnUccc_pi').click(function() {
@@ -704,7 +704,7 @@
 			}
 			.dview {
 				float: left;
-				width: 230px;
+				width: 300px;
 				border-width: 0px;
 			}
 			.tview {
@@ -858,13 +858,14 @@
 		<div style="overflow: auto;display:block;">
 			<!--#include file="../inc/toolbar.inc"-->
 		</div>
-		<div style="overflow: auto;display:block;width:1280px;">
+		<div style="overflow: auto;display:block;width:1300px;">
 			<div class="dview" id="dview"  >
 				<table class="tview" id="tview"	>
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewTypea'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -872,6 +873,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='typea=cubpi.typea'>~typea=cubpi.typea</td>
 					</tr>
 				</table>
 			</div>
