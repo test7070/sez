@@ -160,7 +160,7 @@
 							q_box("ordc.aspx?;;;noa='" + noa + "';" + r_accy, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
 							break;
 						case 'quatno':
-							q_box("vcc.aspx?;;;noa='" + noa + "';" + r_accy, 'quat', "95%", "95%", q_getMsg("popVcc"));
+							q_box("vcc_uu.aspx?;;;noa='" + noa + "';" + r_accy, 'quat', "95%", "95%", q_getMsg("popVcc"));
 							break;
 					}
 				}

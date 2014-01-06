@@ -15,10 +15,16 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			var gfrun = false;
+			var uccgaItem='';
+			
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_ordep_uu');
+                if(uccgaItem.length == 0){
+					q_gt('uccga', '', 0, 0, 0, "");
+				}
             });
+            
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_ordep_uu',
@@ -29,7 +35,7 @@
                     },{//[2]
                         type : '0',
                         name : 'typea',
-                        value : q_getPara('ucc.typea_uu')
+                        value : uccgaItem.split(',')
                     },{/*1 [3],[4]*/
                         type : '1',
                         name : 'date'
@@ -81,7 +87,20 @@
             function q_boxClose(s2) {
             }
 
-            function q_gtPost(s2) {
+            function q_gtPost(t_name) {
+            	switch (t_name) {
+					case 'uccga':
+                        var as = _q_appendData("uccga", "", true);
+                        uccgaItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
+                        }
+                        break;
+				}
+				if(uccgaItem.length>0&&!gfrun){
+					gfrun=true;
+					q_gf('', 'z_ordep_uu');
+				}
             }
 		</script>
 	</head>
