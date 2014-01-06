@@ -243,7 +243,9 @@
 			function getBBSWhere(objname) {
 				var tempArray = new Array();
 				for (var j = 0; j < q_bbsCount; j++) {
-					tempArray.push($('#txt' + objname + '_' + j).val());
+					var thisVal = $.trim($('#txt' + objname + '_' + j).val());
+					if(thisVal.length > 0)
+						tempArray.push($('#txt' + objname + '_' + j).val());
 				}
 				var TmpStr = distinct(tempArray).sort();
 				TmpStr = TmpStr.toString().replace(/,/g, "','").replace(/^/, "'").replace(/$/, "'");
@@ -264,7 +266,7 @@
 							//alert('無符合的訂單，檢查條件是否輸入有誤。');
 						}
 						sum();
-						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0 ^^';
+						var chkWhere = 'where=^^ a.noa in(' + getBBSWhere('Ordeno') + ') and (isnull(a.mount,0)-isnull(b.mount,0))>0 ^^';
 						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
 						break;
 					case 'cucs':
@@ -274,7 +276,7 @@
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtDate2', as.length, as, 'ordeno,no2,custno,productno,product,radius,width,dime,lengthb,mount,udate', '');
 						}
 						sum();
-						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0  ^^';
+						var chkWhere = 'where=^^ a.noa in(' + getBBSWhere('Ordeno') + ') and (isnull(a.mount,0)-isnull(b.mount,0))>0  ^^';
 						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
 						break;
 					case 'cub_ordechk':
@@ -327,7 +329,7 @@
 							//alert('無符合的訂單，檢查條件是否輸入有誤。');
 						}
 						sum();
-						var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') and mount>0 ^^';
+						var chkWhere = 'where=^^ a.noa in(' + getBBSWhere('Ordeno') + ') and (isnull(a.mount,0)-isnull(b.mount,0))>0 ^^';
 						q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
 						break;
 					case 'uccc':
@@ -536,8 +538,11 @@
 							sum();
 						});
 						$('#txtMount_' + i).change(function() {
-							var chkWhere = 'where=^^ ordeno in(' + getBBSWhere('Ordeno') + ') ^^';
-							q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
+							var getOrdeno = $.trim(getBBSWhere('Ordeno')).replace(/\'\'/, '');
+							if(getOrdeno.length != ''){
+								var chkWhere = 'where=^^ a.noa in(' + getOrdeno + ') ^^';
+								q_gt('cub_ordechk', chkWhere, 0, 0, 0, "", r_accy);
+							}
 						});
 					}
 				}
