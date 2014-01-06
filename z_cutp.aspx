@@ -34,29 +34,29 @@
 						name : 'accy',
 						value : r_accy
 					},{
-						type : '1', //[3][4]
-						name : 'noa'
+						type : '6', //[3]
+						name : 'xnoa'
 					},{
-						type : '1', //[5][6]
+						type : '1', //[4][5]
 						name : 'date'
 					},{
-						type : '2', //[7][8]
+						type : '2', //[6][7]
 						name : 'tggno',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
 					},{
-						type : '2', //[9][10]
+						type : '2', //[8][9]
 						name : 'mechno',
 						dbf : 'mech',
 						index : 'noa,mech',
 						src : 'mech_b.aspx'
 					},{
-						type : '0', //[11]
+						type : '0', //[10]
 						name : 's_typea2',
 						value : q_getPara('cut.type2')
 					},{
-						type : '0', //[12]
+						type : '0', //[11]
 						name : 's_typea2A',
 						value : q_getPara('cut.type2A')
 					},{
@@ -67,8 +67,7 @@
                 if (t_no.indexOf('noa=') >= 0) {
                     t_no = t_no.replace('noa=', '');
                     if (t_no.length > 0) {
-                        $('#txtNoa1').val(t_no);
-                        $('#txtNoa2').val(t_no);
+                        $('#txtXnoa').val(t_no);
                     }
                 }
                 
