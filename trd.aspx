@@ -100,6 +100,16 @@
                         Unlock(1);
                         return false;
                     }
+                    if ($.trim($('#txtDatea').val()) == 0) {
+                        alert('請輸入'+q_getMsg('lblDatea'));
+                        Unlock(1);
+                        return false;
+                    }
+                    if($('#txtDatea').val().substring(0,3)!=r_accy){
+                        alert('年度異常錯誤，請切換到【'+$('#txtDatea').val().substring(0,3)+'】年度再作業。');
+                        Unlock(1);
+                        return;
+                    }
                 	var t_noa = $.trim($('#txtNoa').val());
                 	var t_custno = $.trim($('#txtCustno').val());
                 	var t_bdate = $.trim($('#txtBdate').val());
