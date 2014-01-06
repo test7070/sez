@@ -369,8 +369,8 @@
 								return;
 							}
 							if (b_ret[0] != undefined) {
-								bbs_ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,mount,weight,radius,dime,width,lengthb', 'txtOrdeno,txtNo2');
-								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,mount,weight,radius,dime,width,lengthb', 'txtUno', '__');
+								bbs_ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,emount,eweight,radius,dime,width,lengthb', 'txtOrdeno,txtNo2');
+								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
 								for(var k=0;k<bbs_ret.length;k++){
 									$('#chkCut_'+bbs_ret[k]).attr('checked',b_ret[k].cut+''=='true');
