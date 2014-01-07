@@ -21,22 +21,14 @@
 			['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'],
 			['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']
 		);
+		isLoadGt = 0;
 		$(document).ready(function () {
-			var Parent = window.parent;
-			if(Parent.$('#cmbKind').val()){
-				var t_cmbKind = Parent.$('#cmbKind').val().substr(0,1);
-				if(t_cmbKind=='A'){
-					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
-					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
-					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
-				}
-			}else if(Parent.q_name == 'cub'){
-					$('#dbbs').html($('#dbbs').html().replace(/txtWidth/g,'txtWA1'));
-					$('#dbbs').html($('#dbbs').html().replace(/txtDime/g,'txtWidth'));
-					$('#dbbs').html($('#dbbs').html().replace(/txtWA1/g,'txtDime'));
-			}
+			setDefaultValue();
+			t_content = 'where=^^ ' + SeekStr() + ' ^^';
 			main();
-			setTimeout('parent.$.fn.colorbox.resize({innerHeight : "750px"})', 300);
+			$('#btnToSeek').click(function(){
+				seekData(SeekStr());
+			});
 		});		 /// end ready
 		
 		
@@ -46,23 +38,6 @@
 				return;
 			}
 			var w = window.parent;
-			if(w.q_name=='cub' && w.b_seq >=0){
-					var w_href=q_getHref();
-					for(var k=0;k<w_href.length;k++){
-						if(w_href[k] && w_href[k].toString().indexOf('uno') > -1 && location.href.toString().indexOf('uno=') == -1){
-							var t_uno = w.$('#txtUno__'+w.b_seq).val();
-							if(t_uno){
-								var t_where = " 1=1 and uno='"+t_uno+"'";
-								seekData(t_where);
-								break;
-							}
-						}
-					}
-					if(location.href.toString().indexOf('uno') ==-1 && location.href.toString().indexOf('kind')==-1){
-						seekData("kind='A1'");
-					} 
-			}
-
 			mainBrow(6, t_content);
 			w.$('#cboxTitle').text('若沒有找到相關資料，請注意類別的選取。').css('color','red').css('font-size','initial');
 			parent.$.fn.colorbox.resize({
@@ -72,14 +47,12 @@
 			$('#btnPrev').hide();
 			$('#btnNext').hide();
 			$('#btnBott').hide();
-			$('#btnToSeek').click(function(){
-				SeekStr();
-			});
 		}
 		var SeekF = new Array();
 		function mainPost(){
 			q_getFormat();
 			q_cmbParse("combTypea", q_getPara('sys.stktype'));
+			setDefaultValue();
 			$('#textProductno').focus(function(){
 				q_cur=1;
 			}).blur(function(){
@@ -101,19 +74,49 @@
 			});
 		}
 		
-		function q_gtPost(s1) {
+		function setDefaultValue(){
+			var w = window.parent;
+			var t_deli = '_';
+			if(w.q_name=='cub')  t_deli = '__';
+			var t_productno = w.$('#txtProductno'+t_deli+w.b_seq).val();
+			t_productno = (t_productno?t_productno:'');
+			var t_radius = dec(w.$('#txtRadius'+t_deli+w.b_seq).val());
+			var t_dime = dec(w.$('#txtDime'+t_deli+w.b_seq).val());
+			var t_width = dec(w.$('#txtWidth'+t_deli+w.b_seq).val());
+			var t_lengthb = dec(w.$('#txtLengthb'+t_deli+w.b_seq).val());
+			var t_kind = '';
+			if(w.$('#cmbKind').val()){t_kind=$.trim(w.$('#cmbKind').val());}
+			if(w.q_name=='cub'){
+				if(w.$('#cmbTypea').find("option:selected").text() == '製管'){
+					t_kind='A1';
+				}else{
+					t_kind='B2';
+				}
+			}
+			$('#combTypea').val(t_kind);
+			$('#textProductno').val(t_productno);
+			$('#textRadius').val(t_radius);
+			$('#textDime').val(t_dime);
+			$('#textWidth').val(t_width);
+			$('#textLengthb').val(t_lengthb);
 		}
 		
-		function seekData(seekStr){
-			var newUrl = location.href.split(';');
-			var newUrlStr = '';
-			newUrl[3] = seekStr;
-			for(var i = 0;i<newUrl.length;i++){
-				newUrlStr += newUrl[i];
-				if(i < newUrl.length-1)
-					newUrlStr += ';';
+		function q_gtPost(t_name) {
+			switch (t_name) {
+				case q_name:
+					if(isLoadGt == 1){
+						abbs =_q_appendData(q_name, "", true);
+						isLoadGt = 0;
+						refresh();
+					}
+				break;
 			}
-			location.href = newUrlStr;
+		}
+		
+		
+		function seekData(seekStr){
+			isLoadGt = 1;
+			q_gt(q_name,  'where=^^ '+seekStr+' ^^', 0, 0, 0, "", r_accy);
 		}
 		
 		function bbsAssign(){
@@ -125,11 +128,11 @@
 			t_productno = trim($('#textProductno').val());
 			t_storeno = trim($('#textStoreno').val());
 			t_class = trim($('#textClass').val());
-			t_radius = trim($('#textRadius').val());
-			t_dime = trim($('#textDime').val());
-			t_width = trim($('#textWidth').val());
-			t_lengthb = trim($('#textLengthb').val());
-			t_weight = trim($('#textWeight').val());
+			t_radius = (dec($('#textRadius').val())==0?'':dec($('#textRadius').val()));
+			t_dime = (dec($('#textDime').val())==0?'':dec($('#textDime').val()));
+			t_width = (dec($('#textWidth').val())==0?'':dec($('#textWidth').val()));
+			t_lengthb = (dec($('#textLengthb').val())==0?'':dec($('#textLengthb').val()));
+			t_weight = (dec($('#textWeight').val())==0?'':dec($('#textWeight').val()));
 			t_kind = trim($('#combTypea').val());
 			var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno)
 								 + q_sqlPara2("productno", t_productno)
@@ -141,7 +144,7 @@
 								 + q_sqlPara2("lengthb", t_lengthb)
 								 + q_sqlPara2("weight", t_weight)
 								 + q_sqlPara2("kind", t_kind);
-			seekData(t_where);
+			return t_where;
 		}
 
 		var maxAbbsCount = 0;
@@ -166,57 +169,37 @@
 				maxAbbsCount = abbs.length;
 			}
 			_refresh();
-			var w = window.parent;
-			if(w.$('#cmbKind').val() || w.q_name=='cub'){
 				var t_cmbKind = '';
-				if(w.$('#cmbKind').val())
-					t_cmbKind = w.$('#cmbKind').val().substr(0,1);
-				if(w.q_name=='cub'){
-					var w_href=q_getHref();
-					for(var k=0;k<w_href.length;k++){
-						if(w_href[k] && w_href[k+1] && w_href[k].toString().indexOf('kind') > -1){
-							t_cmbKind = w_href[k+1].toString().substr(0,1);
-							$('#combTypea').val(w_href[k+1].toString());
-							break;
-						}
-					}
-					if(t_cmbKind=='' && abbs.length >0){
-						if(abbs[0].kind)
-							t_cmbKind = abbs[0].kind.substr(0,1);
-						t_cmbKind = $('#combTypea').val().substr(0,1);
-					}
-				}
+				t_cmbKind = $('#combTypea').val().substr(0,1);
 				if(t_cmbKind=='A'){
-					$('#lblSize_st').text(q_getPara('sys.lblSizea'));
-					$('#lblSize_st').parent().css('width','18%');
-					$('#size_changeTd').css('width','18%');
-					$('input[id*="txtLengthb_"]').css('width','29%');
-					$('input[id*="txtWidth_"]').css('width','29%');
-					$('input[id*="txtDime_"]').css('width','29%');
-					$('input[id*="txtRadius_"]').remove();
-					$('span[id*="StrX1"]').remove();
+					$('#lblSize_st').text(q_getPara('sys.lblSizea')).show();
+					$('#lblSize_st').parent().css('width','18%').show();
+					$('#size_changeTd').css('width','18%').show();
+					$('input[id*="txtLengthb_"]').css('width','29%').show();
+					$('input[id*="txtWidth_"]').css('width','29%').show();
+					$('input[id*="txtDime_"]').css('width','29%').show();
+					$('input[id*="txtRadius_"]').hide();
+					$('span[id*="StrX1"]').hide();
 				}else if(t_cmbKind=='B'){
-					$('#lblSize_st').text(q_getPara('sys.lblSizeb'));
-					$('#lblSize_st').parent().css('width','18%');
-					$('#size_changeTd').css('width','18%');
-					$('input[id*="txtLengthb_"]').css('width','21%');
-					$('input[id*="txtWidth_"]').css('width','21%');
-					$('input[id*="txtDime_"]').css('width','21%');
-					$('input[id*="txtRadius_"]').css('width','21%');
-					//$('span[id*="StrX1"]').remove();
+					$('#lblSize_st').text(q_getPara('sys.lblSizeb')).show();
+					$('#lblSize_st').parent().css('width','18%').show();
+					$('#size_changeTd').css('width','18%').show();
+					$('input[id*="txtLengthb_"]').css('width','21%').show();
+					$('input[id*="txtWidth_"]').css('width','21%').show();
+					$('input[id*="txtDime_"]').css('width','21%').show();
+					$('input[id*="txtRadius_"]').css('width','21%').show();
 				}else if((t_cmbKind !='A') && (t_cmbKind !='B')){
 					$('#lblSize_st').text(q_getPara('sys.lblSizec'));
 					$('#lblSize_st').parent().css('width','6%');
 					$('#size_changeTd').css('width','6%');
 					$('input[id*="txtLengthb_"]').css('width','95%');
-					$('input[id*="txtRadius_"]').remove();
-					$('input[id*="txtWidth_"]').remove();
-					$('input[id*="txtDime_"]').remove();
-					$('span[id*="StrX1"]').remove();
-					$('span[id*="StrX2"]').remove();
-					$('span[id*="StrX3"]').remove();
+					$('input[id*="txtRadius_"]').hide();
+					$('input[id*="txtWidth_"]').hide();
+					$('input[id*="txtDime_"]').hide();
+					$('span[id*="StrX1"]').hide();
+					$('span[id*="StrX2"]').hide();
+					$('span[id*="StrX3"]').hide();
 				}
-			}
 			var w = window.parent;
 			if(w.q_name=='cub' && w.b_seq >=0){
 				for(var k=0;k<q_bbsCount;k++){
