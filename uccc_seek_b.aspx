@@ -180,6 +180,9 @@
 					$('input[id*="txtDime_"]').css('width','29%').show();
 					$('input[id*="txtRadius_"]').hide();
 					$('span[id*="StrX1"]').hide();
+					for(var k=0;k<q_bbsCount;k++){
+						exchange($('#txtWidth_'+k),$('#txtDime_'+k));
+					}
 				}else if(t_cmbKind=='B'){
 					$('#lblSize_st').text(q_getPara('sys.lblSizeb')).show();
 					$('#lblSize_st').parent().css('width','18%').show();
@@ -211,6 +214,15 @@
 			}
 			_readonly(true);
 		}
+		var exchange = function(a,b){
+			try{
+				var tmpTop = a.offset().top;
+				var tmpLeft = a.offset().left;
+				a.offset({top:b.offset().top,left:b.offset().left});
+				b.offset({top:tmpTop,left:tmpLeft});
+			}catch(e){
+			}
+		};
 	</script>
 	<style type="text/css">
 		#seekForm{
