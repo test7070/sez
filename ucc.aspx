@@ -21,8 +21,8 @@
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
 		//ajaxPath = ""; //	execute in Root
-		aPop = new Array();
-		//['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
+		aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+		
 		
 		$(document).ready(function () {
 			bbmKey = ['uno'];
@@ -133,6 +133,32 @@
 						q_cmbParse("cmbGroupano", t_item);
 						if (abbm[q_recno] != undefined) {
 							$("#cmbGroupano").val(abbm[q_recno].groupano);
+						}
+					}
+					break;
+				case 'uccgb'://中類
+					var as = _q_appendData("uccgb", "", true);
+					if (as[0] != undefined) {
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa+' . '+as[i].namea;
+						}
+						q_cmbParse("cmbGroupbno", t_item);
+						if (abbm[q_recno] != undefined) {
+							$("#cmbGroupbno").val(abbm[q_recno].groupbno);
+						}
+					}
+					break;
+				case 'uccgc'://小類
+					var as = _q_appendData("uccgc", "", true);
+					if (as[0] != undefined) {
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa+' . '+as[i].namea;
+						}
+						q_cmbParse("cmbGroupcno", t_item);
+						if (abbm[q_recno] != undefined) {
+							$("#cmbGroupcno").val(abbm[q_recno].groupcno);
 						}
 					}
 					break;
@@ -491,12 +517,17 @@
 		<tr>
 			<td class="label1"><a id='lblEngpro'> </a></td>
 			<td colspan='3' ><input	type="text" id="txtEngpro" class="txt c1"/></td>
-			<td><input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/></td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblSpec'> </a></td>
 			<td colspan='3'><input	type="text" id="txtSpec"	class="txt c1"/></td>
 			<td><input id="btnCust" type="button" style='width: auto; font-size: medium;'	/></td>
+		</tr>
+		<tr>
+			<td class="label1"><a id='lblTggno'> </a></td>
+			<td><input id="txtTggno" type="text" class="txt c1"/></td>
+			<td colspan='2'><input id="txtTgg"	type="text" style="width: 97%;"/></td>
+			<td><input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/></td>
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblUnit'> </a></td>
@@ -523,11 +554,6 @@
 			<td class="label2"><a id='lblCoin'> </a></td>
 			<td><select id="cmbCoin" class="txt c2"> </select></td>
 		</tr>
-		<!--<tr>
-			<td class="label1"><input id="btnTgg" type="button" style='width: auto; font-size: medium;'	/></td>
-			<td><input id="txtTggno" type="text" class="txt c1"/></td>
-			<td colspan='2'><input id="txtTgg"	type="text" style="width: 97%;"/></td>
-		</tr>-->				
 		<tr>
 			<td class="label1"><a id='lblType'> </a></td>
 			<td><select id="cmbTypea" class="txt c1"> </select></td>
@@ -555,6 +581,12 @@
 		<tr>
 			<td class="label1"><a id='lblGroupano'> </a></td>
 			<td><select id="cmbGroupano" class="txt c2"> </select></td> 
+			<td class="label1"><a id='lblGroupbno'> </a></td>
+			<td><select id="cmbGroupbno" class="txt c2"> </select></td> 
+		</tr>
+		<tr>
+			<td class="label1"><a id='lblGroupcno'> </a></td>
+			<td><select id="cmbGroupcno" class="txt c2"> </select></td> 
 		</tr>
 		<tr>
 			<td class="label1"><a id='lblMemo'> </a></td>

@@ -51,7 +51,7 @@
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
-            bbsMask = [['txtClockin', '99:99'],['txtClockout', '99:99']];
+            bbsMask = [['txtClockin', '99:99:99'],['txtClockout', '99:99:99']];
             q_mask(bbsMask);
             
              $('#chkHoliday').click(function () {

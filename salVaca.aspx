@@ -183,7 +183,7 @@
             $('#txtSssno_0').focus();
         }
         function btnPrint() {
-
+			q_box("z_salvacap.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'salvaca', "95%", "95%", q_getMsg("popSalvaca"));
         }
 
         function wrServer(key_value) {

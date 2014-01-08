@@ -252,6 +252,22 @@
             _btnCancel();
         }
         function product_change() {
+        	if(q_cur==1 ||q_cur==2){
+        		if ($('#cmbKind').val() == '1') {
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#txtProductno_' + j).val($('#txtProductno1_' + j).val());
+					}
+				} else if ($('#cmbKind').val() == '2') {
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#txtProductno_' + j).val($('#txtProductno2_' + j).val());
+					}
+				} else {
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#txtProductno_' + j).val($('#txtProductno3_' + j).val());
+					}
+				}
+        	}
+
                 if ($('#cmbKind').val() == '1') {
                     for (var j = 0; j < q_bbsCount; j++) {
                         $('#btnProduct1_' + j).show();

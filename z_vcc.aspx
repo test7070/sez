@@ -99,6 +99,10 @@
 						type : '0', //[23] //判斷vcc是內含或應稅
 						name : 'vcctax',
 						value : q_getPara('sys.d4taxtype')
+					},{
+						type : '0', //[23] //判斷vcc是內含或應稅
+						name : 'vcctax',
+						value : q_getPara('sys.d4taxtype')
 					}]
 				});
 				q_popAssign();
