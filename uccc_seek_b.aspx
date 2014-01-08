@@ -25,6 +25,7 @@
 				main();
 				$('#btnToSeek').click(function() {
 					seekData(SeekStr());
+					Lock();
 				});
 			});
 			/// end ready
@@ -204,6 +205,7 @@
 					}
 				}
 				_readonly(true);
+				Unlock();
 			}
 
 			var exchange = function(a, b) {
