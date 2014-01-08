@@ -160,6 +160,7 @@
 					}
 					maxAbbsCount = abbs.length;
 				}
+				q_bbsCount = (abbs.length==0?1:abbs.length);
 				_refresh();
 				var t_cmbKind = '';
 				t_cmbKind = $('#combTypea').val().substr(0, 1);
