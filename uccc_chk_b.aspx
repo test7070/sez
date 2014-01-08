@@ -166,6 +166,7 @@
 					}
 					maxAbbsCount = abbs.length;
 				}
+				q_bbsCount = (abbs.length==0?1:abbs.length);
 				_refresh();
 				$('#checkAllCheckbox').click(function() {
 					$('input[type=checkbox][id^=chkSel]').each(function() {
