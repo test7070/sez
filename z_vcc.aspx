@@ -36,9 +36,7 @@
                 }
                 
                 $('#q_report').click(function(e) {
-					if(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-	                	$('#Xshowinvono').show();
-	                }else{
+					if(q_getPara('sys.comp').indexOf('永勝') > -1){//沒有發票系統
 	                	$('#Xshowinvono').hide();
 	                }
 				});
@@ -189,11 +187,9 @@
                 $('#chkXshowinvono').css('width', '220px').css('margin-top', '5px');
                 $('#chkXshowinvono span').css('width','180px')
                 
-                if(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-                	$('#Xshowinvono').show();
-                }else{
-                	$('#Xshowinvono').hide();
-                }
+                if(q_getPara('sys.comp').indexOf('永勝') > -1){//沒有發票系統
+	                $('#Xshowinvono').hide();
+				}
             }
 
             function q_boxClose(s2) {

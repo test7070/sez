@@ -737,6 +737,7 @@
             _btnCancel();
         }
         var popcust=false;
+        var uno_pno='',uno_product='',uno_spec='',uno_unit='',uno_uno=true;
         function q_popPost(s1) {
 		   	switch (s1) {
 		        case 'txtCustno':
@@ -752,8 +753,25 @@
 		        case 'txtProductno_':
 		   			$('#txtMount_'+b_seq).focus();
 		        break;
+		        case 'txtUno_':
+		        	if(uno_uno){
+		        		uno_pno=$('#txtProductno_'+b_seq).val();
+		        		uno_product=$('#txtProduct_'+b_seq).val();
+		        		uno_spec=$('#txtSpec_'+b_seq).val();
+		        		uno_unit=$('#txtUnit_'+b_seq).val();
+		        		uno_uno=false;
+		        	}else{
+		        		uno_uno=true;
+		        		$('#txtProductno_'+b_seq).val(uno_pno);
+		        		$('#txtProduct_'+b_seq).val(uno_product);
+		        		$('#txtSpec_'+b_seq).val(uno_spec);
+		        		$('#txtUnit_'+b_seq).val(uno_unit);
+		        	}
+		   			
+		        break;
 		   	}
 		}
+		
 		function FormatNumber(n) {
             var xx = "";
             if(n<0){
