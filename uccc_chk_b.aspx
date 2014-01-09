@@ -135,7 +135,16 @@
 				t_lengthb = (dec($('#textLengthb').val()) == 0 ? '' : dec($('#textLengthb').val()));
 				t_weight = (dec($('#textWeight').val()) == 0 ? '' : dec($('#textWeight').val()));
 				t_kind = trim($('#combTypea').val());
-				var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno) + q_sqlPara2("productno", t_productno) + q_sqlPara2("storeno", t_storeno) + q_sqlPara2("class", t_class) + q_sqlPara2("radius", t_radius) + q_sqlPara2("dime", t_dime) + q_sqlPara2("width", t_width) + q_sqlPara2("lengthb", t_lengthb) + q_sqlPara2("weight", t_weight) + q_sqlPara2("kind", t_kind);
+				var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno) + 
+							q_sqlPara2("productno", t_productno) + 
+							q_sqlPara2("storeno", t_storeno) + 
+							q_sqlPara2("class", t_class) + 
+							(t_radius>0?' and radius='+t_radius+' ':'') + 
+							(t_dime>0?' and dime='+t_dime+' ':'') + 
+							(t_width>0?' and width='+t_width+' ':'') + 
+							(t_lengthb>0?' and lengthb='+t_lengthb+' ':'') + 
+							(t_weight>0?' and weight='+t_weight+' ':'') + 
+							q_sqlPara2("kind", t_kind);
 				return t_where;
 			}
 
