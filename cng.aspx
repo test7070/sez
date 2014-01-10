@@ -18,7 +18,7 @@
         var q_name = "cng";
         var q_readonly = ['txtNoa','txtWorker'];
         var q_readonlys = [];
-        var bbmNum = [['txtTax',10,0,1],['txtMoney',15,0,1],['txtPrice',10,0,1],['txtTotal',15,0,1]];  
+        var bbmNum = [['txtPrice',10,0,1],['txtTranmoney',15,0,1]];  
         var bbsNum = [['txtMount',10,0,1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -61,8 +61,6 @@
             q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
             
             $('#txtPrice').change(function () {sum()});
-            $('#txtMoney').change(function () {sum2()});
-            $('#txtTax').change(function () {sum2()});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -232,11 +230,7 @@
         	for(var j = 0;j < q_bbsCount;j++){
 				total+=dec($('#txtMount_'+j).val());
             }
-            q_tr('txtMoney',total*dec($('#txtPrice').val()))
-            q_tr('txtTotal',dec($('#txtMoney').val())+dec($('#txtTax').val()))
-		}
-		function sum2() {
-            q_tr('txtTotal',dec($('#txtMoney').val())+dec($('#txtTax').val()))
+            q_tr('txtTranmoney',total*dec($('#txtPrice').val()))
 		}
         
     </script>
@@ -449,16 +443,9 @@
         <tr class="tr5">
         	<td class='td1'><span> </span><a id="lblPrice" class="lbl" > </a></td>
             <td class="td2"><input id="txtPrice"   type="text" class="txt c1 num"/></td>
-            <td class='td3'><span> </span><a id="lblMoney" class="lbl" > </a></td>
-            <td class="td4"><input id="txtMoney" type="text" class="txt c1 num"/></td>
-           
-        </tr>
-        <tr class="tr6">
-        	<td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
-        	<td class="td2"><input id="txtTax" type="text" class="txt c1 num"/></td>
-            <td class='td3'><span> </span><a id="lblTotal" class="lbl" > </a></td>
-            <td class="td4"><input id="txtTotal"   type="text" class="txt c1 num"/></td>
-            <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+            <td class='td3'><span> </span><a id="lblTranmoney" class="lbl" > </a></td>
+            <td class="td4"><input id="txtTranmoney" type="text" class="txt c1 num"/></td>
+           <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
 			<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
         <tr class="tr7">
