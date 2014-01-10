@@ -36,7 +36,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             //////////////////   end Ready
@@ -63,7 +63,8 @@
                 });
 
                 $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                    var t_accy = $('#txtNoa').val().replace(/^[A-Z]*([0-9]{3})[0-9]*$/,'$1');
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                     //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^");
                 });
                 //........................託收匯入
@@ -137,7 +138,7 @@
             		}
             		t_money = parseFloat($('#txtMoney_' + i).val().length==0?'0':$('#txtMoney_' + i).val().replace(',',''));
             		if(t_money!=0){
-            			t_cmoney += ','+t_money+','
+            			t_cmoney += ','+t_money+',';
             		}
 		        }
 		        $('#txtCheckno').val(t_checkno);
@@ -153,7 +154,7 @@
                 }else if(q_cur ==2){
                 	$('#txtWorker2').val(r_name);
                 }else{
-                	alert("error: btnok!")
+                	alert("error: btnok!");
                 }
 				Lock();
                 var t_noa = trim($('#txtNoa').val());
@@ -175,7 +176,7 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#chkSel_' + i).click(function() {
                         sum();
-                    })
+                    });
                     $('#chkSel_' + i).hover(function() {
                         t_IdSeq = -1;
                         /// 要先給  才能使用 q_bodyId()
@@ -198,7 +199,7 @@
                     });
                 }//end for
                 _bbsAssign();
-                ChecknoReadonly()
+                ChecknoReadonly();
             }
 
             function btnIns() {
@@ -258,7 +259,7 @@
                         money_total += dec($('#txtMoney_' + j).val());
                     //兌現金額總計
                 }// j
-                q_tr('txtMoney', money_total, 2)
+                q_tr('txtMoney', money_total, 2);
             }
 
             function q_stPost() {
