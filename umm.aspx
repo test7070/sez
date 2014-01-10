@@ -619,7 +619,9 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	if (emp($('#txtTablea_'+i).val())&&!emp($('#txtVccno_'+i).val())){
                 		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-							$('#txtTablea_'+i).val('vcc');
+							$('#txtTablea_'+i).val('vcc_it');
+                    	}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
+							$('#txtTablea_'+i).val('vcc_uu');
                     	}else{
                     		$('#txtTablea_'+i).val('vcc'+ q_getPara('sys.project'));
                     	}
@@ -699,11 +701,7 @@
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
                     	if(t_tablea.length>0){
-                    		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-                    			t_tablea = t_tablea+'_it';
-                    		}else{
-                    			t_tablea = t_tablea + q_getPara('sys.project');
-                    		}
+                    		//t_tablea = t_tablea + q_getPara('sys.project');
                     		//q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "'", t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
                     		q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
                     	}
