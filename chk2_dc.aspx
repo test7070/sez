@@ -55,7 +55,7 @@
                 q_mask(bbmMask);
 
                 $('#btnGqb').click(function() {
-                    t_where = "where=^^ len(isnull(tbankno,''))=0 and a.typea='1' and isnull(b.sel,0)=0 ^^";
+                    t_where = "where=^^ (len(isnull(tbankno,''))=0 and a.typea='1' and isnull(b.sel,0)=0) or (c.noa is not null and c.noa='"+$.trim($('#txtNoa').val())+"') ^^";
                     Lock();
                     q_gt('chk2_gqb', t_where, 0, 0, 0, "", r_accy);
                 });
@@ -81,7 +81,7 @@
                     case 'chk2_gqb':
                         var as = _q_appendData("gqb", "", true);
                         //if(as.length>q_bbsCount)
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp', as.length, as, 'gqbno,bank,bankno,account,indate,money,tcompno,tcomp', '');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'chkSel,txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp', as.length, as, 'sel,gqbno,bank,bankno,account,indate,money,tcompno,tcomp', '');
                         Unlock();
                         break;
                     case q_name:
