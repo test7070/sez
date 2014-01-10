@@ -401,6 +401,7 @@
 			$('#txtAcomp').val(z_acomp);
 			$('#txtDatea').val(q_date());
 			$('#txtDatea').focus();
+			$('#cmbTaxtype').val(1);
 			
 			var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -749,7 +750,7 @@
 				   <td align="center" id='typea=rc2.typea'>~typea=rc2.typea</td>
 				   <td align="center" id='datea'>~datea</td>
 				   <td align="center" id='noa'>~noa</td>
-				   <td align="center" id='tggno tgg,4'>~tggno ~tgg,4</td>
+				   <td align="center" id='tggno tgg,4' style="text-align: left;">~tggno ~tgg,4</td>
 			</tr>
 		</table>
 		</div>
