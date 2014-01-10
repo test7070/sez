@@ -271,7 +271,7 @@
                 	//瀏覽訂單
                 	var noa = $.trim($(obj).html());
                 	if(noa.length>0)
-                		q_box("tranorde.aspx?;;;noa='" + noa + "';"+r_accy, 'tranorde', "95%", "95%", q_getMsg("popTranorde"));
+            	       q_gt("view_tranorde", "where=^^ noa='"+noa+"'^^", 0, 0, 0, 'getTranordeAccy_'+noa, r_accy);
                 },
                 paste : function() {
                 	//複製資料
@@ -516,7 +516,15 @@
                             q_Seek_gtPost();
                         break;
                     default:
-                    	if(t_name.substring(0,19)=='transvcces_lasttime'){
+                        if(t_name.substring(0,15)=='getTranordeAccy'){
+                            var t_noa = t_name.split('_')[1];
+                            var GG = _q_appendData("view_tranorde", "", true);
+                            if(GG[0]!=undefined){
+                                q_box("tranorde.aspx?;;;noa='" + t_noa + "';"+GG[0].accy, 'tranorde', "95%", "95%", q_getMsg("popTranorde"));
+                            }else{
+                                alert('查無訂單。');
+                            }
+                    	}else if(t_name.substring(0,19)=='transvcces_lasttime'){
                     		var t_senddate = t_name.split('_')[2];
                     		var n = parseInt(t_name.split('_')[3]);
                     		var t_sendid;
