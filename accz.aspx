@@ -100,7 +100,7 @@
 				$('#Changeaccno').toggle();
 			});
 			$('#btnAccza').click(function() {
-				q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'accza', "40%", "430px", q_getMsg('popAccza'));
+				q_box("accza_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;"+r_accy, 'accza', "40%", "430px", q_getMsg('popAccza'));
 			});
 			$('#btnAcczs').click(function () {
 				q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";acczno='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "95%", q_getMsg('popAcczs'));
