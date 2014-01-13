@@ -403,11 +403,11 @@
                 	Unlock(1);
                 	return;
                 }
-            	if($('#txtTrandate').val().substring(0,3)!=r_accy){
+            	/*if($('#txtTrandate').val().substring(0,3)!=r_accy){
 					alert('年度異常錯誤，請切換到【'+$('#txtTrandate').val().substring(0,3)+'】年度再作業。');
 					Unlock(1);
             		return;
-				}
+				}*/
             	for (var i = 0; i < q_bbsCount; i++) {
             		if($.trim($('#txtCarno_'+i).val()).length>0){
             			$('#txtCarno').val($.trim($('#txtCarno_'+i).val()));
