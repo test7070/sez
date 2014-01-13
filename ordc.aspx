@@ -778,7 +778,7 @@
 				<td class="td4"><span> </span><a id='lblImportno' class="lbl"> </a></td>
 				<td class="td5" colspan="2"><input id="txtImportno"  type="text"	class="txt c1 lef"/></td>	
 				<td class="td7"> </td>
-				<td class="td8"><input id="btnSi" type="button"/></td>
+				<td class="td8"><!--<input id="btnSi" type="button"/>--></td>
 			</tr>
 			<tr class="tr8 import">
 				<td class="td1"><span> </span><a id='lblEtd' class="lbl"> </a></td>
