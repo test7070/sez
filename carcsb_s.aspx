@@ -80,9 +80,9 @@
 				+ q_sqlPara2("tranno", t_tranno)
 				+ q_sqlPara2("custno", t_custno);
 				if (t_carno.length>0)
-                    t_where += " and patindex('%" + t_carno + "%',carno)>0";
+                    t_where += " and charindex('" + t_carno + "',carno)>0";
                 if (t_comp.length>0)
-                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                    t_where += " and charindex('" + t_comp + "',comp)>0";
                 if(t_tran=='Y')
                 	t_where += " and len(isnull(tranno,''))>0";
                 if(t_tran=='N')
