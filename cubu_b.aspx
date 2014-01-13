@@ -95,6 +95,7 @@
 			var toFocusOrdeno = 0;
 			function bbsAssign() {
 				_bbsAssign();
+				SetBBsReadonly(ReadOnlyUno);
 				for(var j = 0;j<q_bbsCount;j++){
 					if(Parent.q_name && Parent.q_name== 'cub'){
 						$('#txtUno_'+j).change(function(){
