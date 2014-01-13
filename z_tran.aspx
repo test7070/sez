@@ -235,6 +235,10 @@
                         type : '5',
                         name : 'ysort22',
                         value : q_getMsg('tsort22').split('&')
+                    }, {/*35-[43] 其他設定*/
+                        type : '8',
+                        name : 'yoption28',
+                        value : q_getMsg('toption28').split('&')
                     }]
                 });
                 q_popAssign();
@@ -558,6 +562,7 @@
                 $('#chkXcarkind').children('input').attr('checked', 'checked');
                 $('#chkXcalctypes').children('input').attr('checked', 'checked');
                 $('#chkXfield05').children('input').attr('checked', 'checked');
+                $('#chkYoption28').children('input').attr('checked', 'checked');
             }
 
 		</script>

@@ -289,14 +289,51 @@
 				if (!t_key)
 					return;
 				_btnModi(1);
+				SetBBsReadonly(ReadOnlyUno);
+			}
+			
+			function SetBBsReadonly(UnoArr){
+				for(var j = 0;j<UnoArr.length;j++){
+					var thisUno = $.trim(UnoArr[j]);
+					for(var k=0;k<q_bbsCount;k++){
+						var bbsUno = $.trim($('#txtUno_'+k).val());
+						if(thisUno==bbsUno){
+							$('#btnMinus_'+k).attr('disabled','disabled');
+							$('#txtUno_'+k).attr('readonly',true).css({'color':t_color2,'background':t_background2});
+						}
+					}
+				}
+			}
+			
+			function GetBBsUno(){
+				var ReturnStr = '';
+				var TmpArr = [];
+				for(var i = 0;i<q_bbsCount;i++){
+					var thisVal = $.trim($('#txtUno_'+i).val());
+					if(thisVal.length > 0){
+						TmpArr.push(thisVal);
+					}
+				}
+				if(TmpArr.length > 0){
+					ReturnStr = "'" + TmpArr.toString().replace(/\,/g,"','")+"'";
+					return ReturnStr;
+				}else{
+					return '';
+				}
 			}
 
 			function refresh() {
 				_refresh();
 				q_popPost('txtProductno_');
+				var UnoList = $.trim(GetBBsUno());
+				if(UnoList.length > 0){
+					var t_where = 'where=^^ (1=1) and (uno in('+UnoList+'))^^';
+					q_gt('uccy', t_where, 0, 0, 0, 'deleUccy', r_accy);
+				}
 			}
 			var StyleList = '';
 			var t_uccArray = new Array;
+			var ReadOnlyUno = [];
 			function q_gtPost(t_postname) { 
 				switch (t_postname) {
 					case 'style' :
@@ -304,6 +341,18 @@
 						StyleList = new Array();
 						StyleList = as;
 					break;
+					case 'deleUccy':
+						var as = _q_appendData("uccy", "", true);
+						if (as[0] != undefined) {
+							ReadOnlyUno = new Array;
+							for (var i = 0; i < as.length; i++) {
+								var asUno = $.trim(as[i].uno);
+								if (dec(as[i].gweight) > 0) {
+									ReadOnlyUno.push(asUno);
+								}
+							}
+						}
+						break;					
 					case q_name:
 						t_uccArray = _q_appendData("ucc", "", true);
 						break;
