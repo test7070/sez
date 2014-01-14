@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title></title>
@@ -8,13 +7,13 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "addime_s";
 			$(document).ready(function() {
 				main();
 			});
-			/// end ready
 
 			function main() {
 				mainSeek();
@@ -36,16 +35,12 @@
 				t_style = $('#cmbStyle').val();
 				t_productno = $('#txtProductno').val();
 				t_product = $('#txtProduct').val();
-
-				/* t_bdate = $('#txtBdate').val();
-				 t_edate = $('#txtEdate').val();
-				 t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
-				 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
-
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("mon", t_mon) + q_sqlPara2("productno", t_productno) + q_sqlPara2("product", t_product);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
+										q_sqlPara2("mon", t_mon) + 
+										q_sqlPara2("productno", t_productno) + 
+										q_sqlPara2("product", t_product);
 				if (t_style != '全部')
 					t_where += q_sqlPara2("style", t_style);
-
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -57,42 +52,36 @@
 				font-weight: bold;
 				BACKGROUND-COLOR: #76a2fe
 			}
+			.txt{
+				font-size:medium;
+			}
 		</style>
 	</head>
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
-			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblMon'> </a></td>
-					<td>
-					<input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td class='seek' style="width:20%;"><a id='lblMon'> </a></td>
+					<td><input class="txt" id="txtMon" type="text" style="width:215px;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
-					<td>
-					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td class='seek' style="width:20%;"><a id='lblNoa'> </a></td>
+					<td><input class="txt" id="txtNoa" type="text" style="width:215px;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblStyle'> </a></td>
-					<td><select id="cmbStyle" style="width:215px; font-size:medium;"></select></td>
+					<td class='seek' style="width:20%;"><a id='lblStyle'> </a></td>
+					<td><select id="cmbStyle" style="width:215px;"></select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblProductno'> </a></td>
-					<td>
-					<input class="txt" id="txtProductno" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td class='seek' style="width:20%;"><a id='lblProductno'> </a></td>
+					<td><input class="txt" id="txtProductno" type="text" style="width:215px;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblProduct'> </a></td>
-					<td>
-					<input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td class='seek' style="width:20%;"><a id='lblProduct'> </a></td>
+					<td><input class="txt" id="txtProduct" type="text" style="width:215px;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
 	</body>
 </html>
-
