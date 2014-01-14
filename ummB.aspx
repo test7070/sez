@@ -83,6 +83,16 @@
             	for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
             	fieldsdisabled ();
 			});
+			
+			$('#txtBkvccno').click(function() {
+				if($('#txtBkvccno').val().length>0)
+            		q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + $('#txtDatea').val().substr(0,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
+			});
+			
+			$('#txtSaleno').click(function() {
+				if($('#txtSaleno').val().length>0)
+            		q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + $('#txtDatea').val().substr(0,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
+			});
             
         }
 
@@ -227,7 +237,7 @@
 				$('#txtVccno_'+i).bind('contextmenu',function(e) {
 					/*滑鼠右鍵*/
 					e.preventDefault();
-					q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, "vcc", "95%", "95%", q_getMsg("popVcc"));
+					q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + $('#txtDatea').val().substr(0,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
 	
 				});
 				
