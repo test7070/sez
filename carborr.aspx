@@ -257,7 +257,7 @@
             }
 
             function btnPrint() {
-                q_box('z_carborr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_carborr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "90%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
