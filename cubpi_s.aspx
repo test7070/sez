@@ -22,6 +22,10 @@
             function main() {
                 mainSeek();
                 q_gf('', q_name);
+                $('#txtDime').val(0);
+                $('#txtWidth').val(0);
+                $('#txtLengthb').val(0);
+                $('#txtRadius').val(0);
             }
 
             function q_gfPost() {
@@ -55,7 +59,35 @@
 		        t_inuno = $.trim($('#txtInuno').val());
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
-
+		        t_dime = $('#txtDime').val();
+                t_width = $('#txtWidth').val();
+                t_lengthb = $('#txtLengthb').val();
+                t_radius = $('#txtRadius').val();
+		        try{
+		            t_dime = parseFloat(t_dime);
+		        }catch(e){
+		            $('#txtDime').val(0);
+		            t_dime = 0;
+		        }
+		        try{
+                    t_width = parseFloat(t_width);
+                }catch(e){
+                    $('#txtWidth').val(0);
+                    t_width = 0;
+                }
+                try{
+                    t_lengthb = parseFloat(t_lengthb);
+                }catch(e){
+                    $('#txtLengthb').val(0);
+                    t_lengthb = 0;
+                }
+                try{
+                    t_radius = parseFloat(t_radius);
+                }catch(e){
+                    $('#txtRadius').val(0);
+                    t_radius = 0;
+                }
+		        
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("typea", t_typea)
 		        + q_sqlPara2("noa", t_noa) 
@@ -69,6 +101,14 @@
 		       		t_where += " and exists(select noa from cubt"+r_accy+" where cubt"+r_accy+".noa=cub"+r_accy+".noa and cubt"+r_accy+".uno='"+t_uno+"')";
 		       	if(t_inuno.length>0)
                     t_where += " and exists(select noa from cubu"+r_accy+" where cubu"+r_accy+".noa=cub"+r_accy+".noa and cubu"+r_accy+".uno='"+t_inuno+"')";
+		        if(t_dime!=0 && !isNaN(t_dime))
+                    t_where += " and exists(select noa from cubt"+r_accy+" where cubt"+r_accy+".noa=cub"+r_accy+".noa and cubt"+r_accy+".dime="+t_dime+")";
+                if(t_width!=0 && !isNaN(t_width))
+                    t_where += " and exists(select noa from cubt"+r_accy+" where cubt"+r_accy+".noa=cub"+r_accy+".noa and cubt"+r_accy+".width="+t_width+")";
+		        if(t_lengthb!=0 && !isNaN(t_lengthb))
+                    t_where += " and exists(select noa from cubt"+r_accy+" where cubt"+r_accy+".noa=cub"+r_accy+".noa and cubt"+r_accy+".lengthb="+t_lengthb+")";
+                if(t_radius!=0 && !isNaN(t_radius))
+                    t_where += " and exists(select noa from cubt"+r_accy+" where cubt"+r_accy+".noa=cub"+r_accy+".noa and cubt"+r_accy+".radius="+t_radius+")";    
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
@@ -137,6 +177,30 @@
 					<input class="txt" id="txtInuno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
+				<tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblDime'></a></td>
+                    <td>
+                    <input class="txt" id="txtDime" type="text" style="width:215px; font-size:medium;text-align: right;" />
+                    </td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblWidth'></a></td>
+                    <td>
+                    <input class="txt" id="txtWidth" type="text" style="width:215px; font-size:medium;text-align: right;" />
+                    </td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblLengthb'></a></td>
+                    <td>
+                    <input class="txt" id="txtLengthb" type="text" style="width:215px; font-size:medium;text-align: right;" />
+                    </td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblRadius'></a></td>
+                    <td>
+                    <input class="txt" id="txtRadius" type="text" style="width:215px; font-size:medium;text-align: right;" />
+                    </td>
+                </tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
