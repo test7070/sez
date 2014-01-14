@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ucc', t_content = ' field=uno,product,unit,vccacc1,vccacc2', bbsKey = ['uno'], as;
+			var q_name = 'ucc', t_content = ' field=uno,product,unit,vccacc1,vccacc2,saleprice', bbsKey = ['uno'], as;
 			var isBott = false;
 			/// 是否已按過 最後一頁
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';

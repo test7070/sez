@@ -34,7 +34,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount_', 'ucc_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
@@ -185,8 +185,13 @@
 			}
 
 			function q_boxClose(s2) {///	q_boxClose 2/4
-				var
-				ret;
+				var ret;
+				switch (s2[0]) {
+					case 'ucc':
+						$('#txtMount_'+t_IdSeq).focus();
+						break;
+				}/// end Switch
+				
 				switch (b_pop) {
 					case q_name + '_s':
 						q_boxClose2(s2);

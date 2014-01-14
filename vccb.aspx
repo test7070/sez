@@ -40,6 +40,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
+                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
@@ -79,7 +80,8 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			
+			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'acomp':
@@ -95,6 +97,14 @@
                             }
                         }
                         break;
+                    case 'cno_acomp':
+                		var as = _q_appendData("acomp", "", true);
+                		if (as[0] != undefined) {
+	                		z_cno=as[0].noa;
+	                		z_acomp=as[0].acomp;
+	                		z_nick=as[0].nick;
+	                	}
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -165,6 +175,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                $("#cmbCno").val(z_cno);
             }
 
             function btnModi() {
@@ -205,6 +216,8 @@
                 }
 
                 q_nowf();
+                as['cno'] = abbm2['cno'];
+                as['datea'] = abbm2['datea'];
                 return true;
             }
 
