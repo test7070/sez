@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
-            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit,,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtOprice_', 'uca_b.aspx']);
+            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtOprice_', 'uca_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
