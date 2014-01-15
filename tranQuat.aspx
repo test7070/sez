@@ -425,9 +425,19 @@
 							<td> </td>
 							<td><span> </span><a id="lblCar_conn" class="lbl btn"> </a></td>
 							<td><input id="txtCar_conn"  type="text"  class="txt c1"/>	</td>
-							<td><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
-							<td><input id="txtDisatcher"  type="text"  class="txt c1"/></td>
+							<td><span> </span><a id="lblTela" class="lbl"> </a></td>
+                            <td><input id="txtTela"  type="text"  class="txt c1"/>  </td>
 						</tr>
+						<tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
+                            <td><input id="txtDisatcher"  type="text"  class="txt c1"/></td>
+                            <td><span> </span><a id="lblTelb" class="lbl"> </a></td>
+                            <td><input id="txtTelb"  type="text"  class="txt c1"/>  </td>
+                        </tr>
 						<tr>
 							<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 							<td colspan="3">
