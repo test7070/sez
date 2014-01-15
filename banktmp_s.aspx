@@ -14,6 +14,7 @@
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
         <script type="text/javascript">
             var q_name = "banktmp_s";
+            aPop = new Array(['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno', "bank_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy]);
             $(document).ready(function() {
                 main();
             });
@@ -34,6 +35,7 @@
 
             function q_seekStr() {
                 t_noa = $.trim($('#txtNoa').val());
+                t_bankno = $.trim($('#txtBankno').val());
                 t_datea = $.trim($('#txtDatea').val());
                 t_memo = $.trim($('#txtMemo').val());
                 t_memo2 = $.trim($('#txtMemo2').val());
@@ -55,7 +57,8 @@
                 }
                 
                 var t_where = " 1=1 " 
-                + q_sqlPara2("noa", t_noa);
+                + q_sqlPara2("noa", t_noa)
+                + q_sqlPara2("bankno", t_bankno);
                 if(t_datea.length>0)
                     t_where += " and exists(select noa from banktmps where banktmps.noa=banktmp.noa and banktmps.datea='"+t_datea+"')";
                 if(t_memo.length>0)
@@ -92,6 +95,12 @@
                     <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                     <td>
                     <input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+                    </td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblBankno'></a></td>
+                    <td>
+                    <input class="txt" id="txtBankno" type="text" style="width:215px; font-size:medium;" />
                     </td>
                 </tr>
                 <tr class='seek_tr'>
