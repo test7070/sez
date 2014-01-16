@@ -25,7 +25,7 @@
 				q_langShow();
 				q_gt('add2', '', 0, 0, 0, "");
 				q_cmbParse("cmbStyle", ('全部' + ',').concat(q_getPara('adsss.stype').split(',')));
-				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
+				q_cmbParse("cmbTrantype", ('全部' + ',').concat(q_getPara('sys.tran').split(',')));
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
 				$('#txtMon').focus();
