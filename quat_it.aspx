@@ -356,6 +356,7 @@
 				$('#txtDatea').val(q_date());
 				$('#txtOdate').val(q_date());
 				$('#txtDatea').focus();
+				$('#cmbTaxtype').val('3');
 				
 				$('#txtCno').val(z_cno);
 				$('#txtAcomp').val(z_acomp);
@@ -521,6 +522,69 @@
 					}
 			        break;
 		    	}
+			}
+			
+			function calTax(){
+				var t_money=0,t_tax=0,t_total=0;
+				for (var j = 0; j < q_bbsCount; j++) {
+					t_money+=q_float('txtTotal_' + j);
+				}
+				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
+				switch ($('#cmbTaxtype').val()) {
+	               	case '0':
+						// 無
+						t_tax = 0;
+						t_total = q_add(t_money,t_tax);
+						break;
+					case '1':
+						// 應稅
+						t_tax = round(q_mul(t_money,t_taxrate), 0);
+						t_total = q_add(t_money,t_tax);
+						break;
+					case '2':
+						//零稅率
+						t_tax = 0;
+						t_total = q_add(t_money,t_tax);
+						break;
+					case '3':
+						// 內含
+						t_tax = round(q_mul(q_div(t_money,q_add(1,t_taxrate)),t_taxrate), 0);
+						t_total = t_money;
+						t_money = q_sub(t_total,t_tax);
+						break;
+					case '4':
+						// 免稅
+						t_tax = 0;
+						t_total = q_add(t_money,t_tax);
+						break;
+					case '5':
+						// 自定
+						$('#txtTax').attr('readonly', false);
+						$('#txtTax').css('background-color', 'white').css('color', 'black');
+						t_tax = round(q_float('txtTax'), 0);
+						t_total = q_add(t_money,t_tax);
+						break;
+					case '6':
+						// 作廢-清空資料
+						t_money = 0, t_tax = 0, t_total = 0;
+						break;
+					default:
+				}
+				$('#txtMoney').val(FormatNumber(t_money));
+				$('#txtTax').val(FormatNumber(t_tax));
+				$('#txtTotal').val(FormatNumber(t_total));
+			}
+			
+			function FormatNumber(n) {
+	            var xx = "";
+	            if(n<0){
+	            	n = Math.abs(n);
+	            	xx = "-";
+				}     		
+				n += "";
+				var arr = n.split(".");
+				var re = /(\d{1,3})(?=(\d{3})+$)/g;
+				return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 			}
 		</script> 
 	<style type="text/css">
