@@ -25,6 +25,8 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
         ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+        ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+        ['txtVccno', '', 'vcc', 'noa,salesno,sales', 'txtVccno,txtSalesno,txtSales', ''],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
         $(document).ready(function () {
@@ -46,7 +48,7 @@
         }
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtMon', r_picd],['txtBkdate',r_picd],['txtVccdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtChgdate', r_picd],['txtBkdate',r_picd],['txtVccdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('ummb.typea')); 
              
@@ -205,8 +207,8 @@
             	return;
             }
             	
-            if($('#cmbTypea').val()=='3'&&(emp($('#txtMon').val()) || emp($('#txtVccno').val()))){
-            	alert('請填入'+q_getMsg('lblMon')+'、'+q_getMsg('lblVccno'));
+            if($('#cmbTypea').val()=='3'&&(emp($('#txtChgdate').val()) || emp($('#txtVccno').val()))){
+            	alert('請填入'+q_getMsg('lblChgdate')+'、'+q_getMsg('lblVccno'));
             	return;	
 			}
             if(q_cur ==1){
@@ -606,8 +608,13 @@
 				<td class="td6"><input id="btnVccs" type="button"/></td>
              </tr>
              <tr>
-            	<td class="td5"><span> </span><a id='lblMon' class="lbl"> </a></td>
-				<td class="td6"><input id="txtMon"  type="text"  class="txt c1"/></td> 
+            	<td class="td1"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
+                <td class="td2"><input id="txtSalesno"  type="text" class="txt c1"/></td>
+                <td class="td2"><input id="txtSales"  type="text" class="txt c1"/></td>
+            </tr>
+             <tr>
+            	<td class="td5"><span> </span><a id='lblChgdate' class="lbl"> </a></td>
+				<td class="td6"><input id="txtChgdate"  type="text"  class="txt c1"/></td> 
                 <td class="td5"><span> </span><a id='lblBkdate' class="lbl" > </a></td>
 				<td class="td6"><input id="txtBkdate"  type="text" class="txt c1"/></td>
 				<td class="td5"><span> </span><a id='lblVccdate' class="lbl" > </a></td>
