@@ -59,6 +59,10 @@
 						type : '0', //[11]
 						name : 's_typea2A',
 						value : q_getPara('cut.type2A')
+                    }, {
+                        type : '8', //[12]
+                        name : 'xprintsize', 
+                        value : "1@".split(',')
 					},{
 					}]
 				});
