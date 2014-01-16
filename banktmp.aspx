@@ -22,9 +22,9 @@
             q_tables = 's';
             var q_name = "banktmp";
             var q_readonly = ['txtNoa', 'txtAccount', 'txtBankno', 'txtBank', 'txtWorker', 'txtWorker2'];
-            var q_readonlys = ['txtAccount','txtDatea','txtMemo','txtMoney1','txtMoney2','txtMoney3','txtTransbank','txtMemo2','txtTimea'];
+            var q_readonlys = ['txtAccount','txtDatea','txtMemo','txtMoney1','txtMoney2','txtMoney3','txtMoney4','txtTransbank','txtMemo2','txtTimea'];
             var bbmNum = [];
-            var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1]];
+            var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1],['txtMoney3',10,0,1],['txtMoney4',10,0,1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -413,6 +413,7 @@
 					<td align="center" style="width:120px;"><a id="lblMoney1s"> </a></td>
 					<td align="center" style="width:120px;"><a id="lblMoney2s"> </a></td>
 					<td align="center" style="width:120px;"><a id="lblMoney3s"> </a></td>
+					<td align="center" style="width:120px;"><a id="lblMoney4s"> </a></td>
 					<td align="center" style="width:90px;"><a id="lblTransbanks"> </a></td>
 					<td align="center" style="width:100px;"><a id="lblMemo2s"> </a></td>
 					<td align="center" style="width:150px;"><a id="lblChecknos"> </a></td>
@@ -443,6 +444,9 @@
 					<td>
 					<input type="text" id="txtMoney3.*" style="width:95%;text-align: right;" />
 					</td>
+					<td>
+                    <input type="text" id="txtMoney4.*" style="width:95%;text-align: right;" />
+                    </td>
 					<td>
 					<input type="text" id="txtTransbank.*" style="width:95%;" />
 					</td>
