@@ -29,7 +29,7 @@
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];
-				brwCount2 = 20
+				brwCount2 = 20;
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
@@ -326,9 +326,9 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:250px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:150px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewStyle'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewStyle'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewProductno'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewPrice'> </a></td>
 						<td align="center" style="width:300px; color:black;"><a id='vewAgent'> </a></td>
@@ -338,7 +338,7 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td id='noa' style="text-align: center;">~noa</td>
-						<td id='mon' style="text-align: left;">~mon</td>
+						<td id='mon' style="text-align: center;">~mon</td>
 						<td id='style=adsss.stype' style="text-align: center;">~style=adsss.stype</td>
 						<td id='productno' style="text-align: left;">~productno</td>
 						<td id='price' style="text-align: right;">~price</td>

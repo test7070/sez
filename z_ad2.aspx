@@ -29,6 +29,10 @@
 					}, {
 						type : '6', //[2]
 						name : 'xdate'
+					}, {
+						type : '5', //[3]
+						name : 'xstyle',
+						value : q_getPara('adsss.stype').split(',')
 					}]
 				});
 				q_popAssign();

@@ -28,10 +28,10 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			brwCount2 = 20;
-
+			q_desc = 1;
 			$(document).ready(function() {
 				bbmKey = ['noa'];
-				brwCount2 = 20
+				brwCount2 = 20;
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
 			});

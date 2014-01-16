@@ -27,6 +27,7 @@
 			brwKey = 'noa';
 			brwCount2 = 20;
 			q_xchg = 1;
+			q_desc = 1;
 			aPop = new Array(
 				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 				['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']
@@ -34,7 +35,7 @@
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];
-				brwCount2 = 20
+				brwCount2 = 20;
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
 			});

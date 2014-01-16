@@ -37,7 +37,7 @@
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
+				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
 			aPop = new Array(
 				['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
@@ -218,7 +218,7 @@
 			}
 			.dview {
 				float: left;
-				width: 300px;
+				width: 450px;
 				border-width: 0px;
 			}
 			.tview {
@@ -333,9 +333,9 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:30%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:30%"><a id='vewCardeal'></a></td>
+						<td align="center" style="width:45%"><a id='vewCardeal'></a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
