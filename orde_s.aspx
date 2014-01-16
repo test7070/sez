@@ -11,7 +11,7 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "orde_s";
-    var aPop = new Array(['txtCustno','','cust','noa,comp','txtCustno,txtComp','cust_b.aspx'],
+    var aPop = new Array(['txtCustno','','cust','noa,nick','txtCustno,txtComp','cust_b.aspx'],
             			 ['txtSalesno', '', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
     $(document).ready(function () {
         main();
@@ -28,6 +28,10 @@
 
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
+       if(q_getPara('sys.comp').indexOf('永勝') > -1)
+        	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype_uu'));
+        else
+        	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype_uu'));
 
         $('#txtBdate').focus();
     }
@@ -39,12 +43,16 @@
         t_custno = $('#txtCustno').val();
         t_salesno = $('#txtSalesno').val();
         t_comp = $('#txtComp').val();
+        t_stype = $('#cmbStype').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("datea", t_bdate, t_edate) +
-                           q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno);
+        var t_where = " 1=1 "
+        		+ q_sqlPara2("datea", t_bdate, t_edate) 
+        		+ q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) 
+        		 +q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)
+        		 +q_sqlPara2("stype", t_stype);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -64,6 +72,10 @@
                 <span style="display:inline-block; vertical-align:middle">～</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblStype'></a></td>
+                <td><select id="cmbStype" class="txt c1" style="font-size:medium;"> </select></td>
+             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
                 <td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtComp" type="text" style="width:115px;font-size:medium;" /></td>

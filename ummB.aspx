@@ -46,7 +46,7 @@
         }
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtBkdate',r_picd],['txtVccdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtMon', r_picd],['txtBkdate',r_picd],['txtVccdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('ummb.typea')); 
              
@@ -86,7 +86,11 @@
 			
 			$('#txtBkvccno').click(function() {
 				if($('#txtBkvccno').val().length>0)
-            		q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + $('#txtDatea').val().substr(0,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
+            		q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $(this).val() +"')>0;" + $('#txtVccno').val().substr(1,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
+			});
+			$('#txtVccno').click(function() {
+				if($('#txtVccno').val().length>0 && q_cur!=1 && q_cur!=2)
+            		q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $(this).val() +"')>0;" + $('#txtVccno').val().substr(1,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
 			});
 			
 			$('#txtSaleno').click(function() {
@@ -379,53 +383,56 @@
         }
         
         function fieldsdisabled () {
+        	
             if($('#cmbTypea').val()=='3'){
             	$('#btnVccs').hide();
             }else{
             	$('#btnVccs').show();
             }
+            if(q_cur==1 || q_cur==2){
            
-	       for (var i = 0; i < q_bbsCount; i++) {
-				if($('#cmbTypea').val()=='1'){
-					$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtBkmount_' + i).css('color','black').css('background','white').removeAttr('readonly');
-					$('#txtBkmoney_' + i).css('color','black').css('background','white').removeAttr('readonly');
-	           		$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtMemo_' + i).css('color','black').css('background','white').removeAttr('readonly');
-				}else if ($('#cmbTypea').val()=='2' || $('#cmbTypea').val()=='4'){
-					if(!emp($('#txtVccno_'+i).val())){
-	            		$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+		       for (var i = 0; i < q_bbsCount; i++) {
+					if($('#cmbTypea').val()=='1'){
+						$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtBkmount_' + i).css('color','black').css('background','white').removeAttr('readonly');
 						$('#txtBkmoney_' + i).css('color','black').css('background','white').removeAttr('readonly');
-	           			$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+		           		$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtMemo_' + i).css('color','black').css('background','white').removeAttr('readonly');
-					}else{
-						$('#txtProductno_' + i).css('color','black').css('background','white').removeAttr('readonly');
-						$('#txtProduct_' + i).css('color','black').css('background','white').removeAttr('readonly');
-						$('#txtPrice_' + i).css('color','black').css('background','white').removeAttr('readonly');
+					}else if ($('#cmbTypea').val()=='2' || $('#cmbTypea').val()=='4'){
+						if(!emp($('#txtVccno_'+i).val())){
+		            		$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtBkmount_' + i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtBkmoney_' + i).css('color','black').css('background','white').removeAttr('readonly');
+		           			$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtMemo_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						}else{
+							$('#txtProductno_' + i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtProduct_' + i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtPrice_' + i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtBkmount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtBkmoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+		           			$('#txtSalemount_' + i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtSalemoney_' + i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtMemo_' + i).css('color','black').css('background','white').removeAttr('readonly');
+						}
+		        	}else{
+		        		$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtBkmount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtBkmoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-	           			$('#txtSalemount_' + i).css('color','black').css('background','white').removeAttr('readonly');
-						$('#txtSalemoney_' + i).css('color','black').css('background','white').removeAttr('readonly');
-						$('#txtMemo_' + i).css('color','black').css('background','white').removeAttr('readonly');
-					}
-	        	}else{
-	        		$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtProductno_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtProduct_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtPrice_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtBkmount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtBkmoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-	           		$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-					$('#txtMemo_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-	        	}
+		           		$('#txtSalemount_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtSalemoney_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtMemo_' + i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+		        	}
+				}
 			}
         }
         

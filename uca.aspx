@@ -1217,7 +1217,7 @@
 				
 				<td align="center" style="width:11%;"><a id='lblProductno'></a></td>
 				<td align="center" style="width:20%;"><a id='lblProducts'></a></td>
-				<td align="center" style="width:4%;"><a id='lblUnit'></a></td>
+				<td align="center" style="width:4%;"><a id='lblUnit_s'></a></td>
 				<td align="center" style="width:5%;"><a id='lblMount'></a></td>
 				<!--<td align="center" style="width:8%;"><a id='lblWeights'></a></td>-->
 				<td align="center" style="width:8%;"><a id='lblMtype_s'></a></td>

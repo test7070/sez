@@ -46,7 +46,7 @@
                         type : '2',
                         name : 'custno',
                         dbf : 'cust',
-                        index : 'noa,cust',
+                        index : 'noa,nick',
                         src : 'cust_b.aspx'
                     }]
                 });
