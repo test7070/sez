@@ -23,34 +23,55 @@
 				$('#q_report').q_report({
 					fileName : 'z_salaward_it',
 					options : [{
-						type : '0',
+						type : '0', //[1]
 						name : 'accy',
 						value : q_getId()[4]
 					}, {
-						type : '6',
+						type : '6', //[2]
 						name : 'xyear'
-                    }, {/*3*/
-                        type : '2',
-                        name : 'sss',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
-					},{
-                        type : '2',
-                        name : 'part',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                    },{
-                        type : '5',
-                        name : 'xorder',
-                        value : (('').concat(new Array("員工編號","部門"))).split(',')
-                    }]
+					}, {
+						type : '1', //[3][4]
+						name : 'xmon'
+					}, {/*3*/
+						type : '2', //[5][6]
+						name : 'sss',
+						dbf : 'sss',
+						index : 'noa,namea',
+						src : 'sss_b.aspx'
+					}, {
+						type : '2', //[7][8]
+						name : 'part',
+						dbf : 'part',
+						index : 'noa,part',
+						src : 'part_b.aspx'
+					}, {
+						type : '5', //[9]
+						name : 'xorder',
+						value : (('').concat(new Array("員工編號", "部門"))).split(',')
+					}]
 				});
 				q_popAssign();
 				$('#txtXyear').mask(r_picm);
-				$('#txtXyear').val(q_date().substr(0,6));
+				$('#txtXmon1').val(q_date().substr(0, 6)).mask(r_picm);
+				$('#txtXmon2').val(q_date().substr(0, 6)).mask(r_picm);
+				$('#txtXyear').val(q_date().substr(0, 6));
 			}
+
+			var exchange = function(a, b) {
+				try {
+					var tmpTop = a.offset().top;
+					var tmpLeft = a.offset().left;
+					a.offset({
+						top : b.offset().top,
+						left : b.offset().left
+					});
+					b.offset({
+						top : tmpTop,
+						left : tmpLeft
+					});
+				} catch(e) {
+				}
+			};
 
 			function q_boxClose(s2) {
 			}

@@ -88,12 +88,8 @@
 						name : 'showunpay', //只顯示未收
 						value : "1@只顯示未收".split(',')
 					}, {
-						type : '8', //[22]
-						name : 'showunpay', //只顯示未收
-						value : "1@只顯示未收".split(',')
-                    }, {
-                        type : '6', //[23]
-                        name : 'salesgroup'
+						type : '6', //[23]
+						name : 'salesgroup'
 					}]
 				});
 				q_popAssign();
