@@ -33,7 +33,7 @@
 			var bbsMask = [];
 			var bbtMask = [];
 			q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
-			q_desc = 1;
+			//q_desc = 1;
 			//ajaxPath = ""; // 只在根目錄執行，才需設定
 			
 			aPop = new Array(
@@ -246,8 +246,10 @@
 							$('#textCostd').val(dec($('#txtPrice').val()));
 							ucsa_cost=0;
 							 for (var i = 0; i < q_bbsCount; i++) {
-							 	var t_where = "where=^^ productno ='"+$('#txtProductno_'+i).val()+"' order by mon desc ^^ stop=1 ";
-								q_gt('costs', t_where , 0, 0, 0, "ucascost_"+i, r_accy);
+							 	if($('#txtProductno_'+i).val()!=undefined){
+							 		var t_where = "where=^^ productno ='"+$('#txtProductno_'+i).val()+"' order by mon desc ^^ stop=1 ";
+									q_gt('costs', t_where , 0, 0, 0, "ucascost_"+i, r_accy);
+								}
 							}
 						}
 						break;
