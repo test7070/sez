@@ -34,6 +34,10 @@
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
+                    }, {
+                        type : '8',
+                        name : 'xoption01',
+                        value : q_getMsg('toption01').split('&')
                     }]
                 });
                 q_popAssign();
