@@ -71,7 +71,7 @@
 
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
-			bbmMask = [['txtOdate', r_picd ]];  
+			bbmMask = [['txtOdate', r_picd ],['txtMon', r_picm ]];  
 			q_mask(bbmMask);			
 			bbsMask = [['txtDatea', r_picd ]];  
 			q_cmbParse("cmbStype", q_getPara('orde.stype_uu')); // 需在 main_form() 後執行，才會載入 系統參數  
@@ -362,15 +362,31 @@
 			q_box('orde_s.aspx', q_name + '_s', "500px", "380px", q_getMsg("popSeek"));
 		}
 
-		function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+		function changeMon(paytype){
+			var thisVal = $.trim(paytype);
+			if(thisVal.substring(0,2)=='月結'){
+				thisVal = thisVal.replace(/[月結|票據|現金|天]/g,'');
+				thisVal = dec(thisVal);
+				var thisDatea = $.trim($('#txtOdate').val());
+				thisDatea = (dec(thisDatea.substring(0,3))+1911) +thisDatea.substr(3); 
+				var d=new Date(thisDatea);
+				d.setDate(d.getDate()+thisVal);
+				var newMon = (dec(d.getFullYear())-1911)+'/'+padL((1+d.getMonth()),'0',2);
+				$('#txtMon').val(newMon);
+			}				
+		}
+		function combPay_chg() {/// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
 			var cmb = document.getElementById("combPaytype");
-			if (!q_cur) 
+			if (!q_cur){
 				cmb.value = '';
-			else
+			}else{
+				var thisVal = $.trim(cmb.value);
+				changeMon(thisVal);
 				$('#txtPaytype').val(cmb.value);
+			}
 			cmb.value = '';
 		}
-		
+	
 		function combAddr_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
             if (q_cur==1 || q_cur==2){
                 $('#txtAddr2').val($('#combAddr').find("option:selected").text());
@@ -585,6 +601,7 @@
 						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
+					changeMon($.trim($('#txtPaytype').val()));
 					break;
 				case 'txtProductno_':
 					$('#txtLengthb_'+b_seq).focus();
@@ -845,8 +862,8 @@
 					<td class="td3" colspan="2"><input id="txtAcomp" type="text" class="txt c1"/></td>
 					<td class="td5"><span> </span><a id='lblPostname' class="lbl"> </a></td>
 					<td class="td6"><input id="txtPostname" type="text" class="txt c1"/></td> 
-					<td class="td7" ><span> </span><a id='lblContract' class="lbl"> </a></td>
-					<td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td>
+					<td class="td7" ><span> </span><a id='lblMon' class="lbl"> </a></td>
+					<td class="td8"><input id="txtMon"  type="text" class="txt c1"/></td>
 				</tr>
 
 				<tr class="tr3">
@@ -855,15 +872,17 @@
 					<td class="td3" colspan="2"><input id="txtComp"  type="text" class="txt c1"/></td>
 					<td class="td5"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 					<td class="td6"><input id="txtPaytype" type="text" class="txt c1"/></td> 
-					<td class="td7"><select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' > </select></td> 
+					<td class="td7"><select id="combPaytype" class="txt c1" onchange='combPay_chg()' > </select></td> 
 					<td class="td8" align="center"><input id="btnCredit" type="button" value='' /></td>
 				</tr>
 				
 				<tr class="tr4">
 					<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
 					<td class="td2" colspan='3'><input id="txtTel" type="text" class="txt c1"/></td>
-					<td class="td5"><span> </span><a id='lblFax' class="lbl"> </a></td>
-					<td class="td6" colspan="3"><input id="txtFax" type="text" class="txt c1" /></td>
+					<td class="td3"><span> </span><a id='lblFax' class="lbl"> </a></td>
+					<td class="td4"><input id="txtFax" type="text" class="txt c1" /></td>
+					<td class="td7" ><span> </span><a id='lblContract' class="lbl"> </a></td>
+					<td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td>
 				</tr>
 				<tr class="tr5">
 					<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
