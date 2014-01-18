@@ -46,6 +46,7 @@
 					<th align="center" ></th>
 					<th align="center" style='color:Blue;' ><a id='lblNoa'> </a></th>
 					<th align="center" style='color:Blue;' ><a id='lblComp'> </a></th>
+					<th align="center" style='color:Blue;' ><a id='lblSerial'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -54,9 +55,12 @@
 					<td style="width:20%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:75%;">
+					<td style="width:60%;">
 					<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
+					<td style="width:15%;">
+                    <input class="txt" id="txtSerial.*" type="text" style="width:98%;"  readonly="readonly" />
+                    </td>
 				</tr>
 			</table>
 			<!--#include file="../inc/brow_ctrl.inc"-->
