@@ -39,7 +39,7 @@
                     
                     $('#btnCost').click(function(e) {
                     	if(!emp($('#textBdate').val()) &&!emp($('#textEdate').val())){
-                    		q_func('cost.genUccCost',$('#textBdate').val() + ',' + $('#textEdate').val());
+                    		q_func('ucf.gen',$('#textBdate').val() + ',' + $('#textEdate').val());
                     		//cost.genUccCost(string t_bdate,string t_edate)
                     	}
                     	$('#btnCost').attr('disabled','disabled').val('結轉中...');
