@@ -51,13 +51,19 @@
 						dbf : 'mech',
 						index : 'noa,mech',
 						src : 'mech_b.aspx'
-					}]
+					},{
+                        type : '1', //[11][12]
+                        name : 'xmon'
+                    }]
 				});
 				q_popAssign();
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
 				$('#txtDate2').datepicker();  
+				$('#txtXmon1').mask('999/99');
+				$('#txtXmon2').mask('999/99');
+				
 				var t_date,t_year,t_month,t_day;
 					t_date = new Date();
 					t_date.setDate(1);
@@ -68,6 +74,7 @@
 					t_day = t_date.getUTCDate();
 					t_day = t_day>9?t_day+'':'0'+t_day;
 					$('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+					$('#txtXmon1').val(t_year+'/'+t_month);
 					
 					t_date = new Date();
 					t_date.setDate(35);
@@ -79,6 +86,7 @@
 					t_day = t_date.getUTCDate();
 					t_day = t_day>9?t_day+'':'0'+t_day;
 					$('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+					$('#txtXmon2').val(t_year+'/'+t_month);
 			}
 
 			function q_boxClose(s2) {
