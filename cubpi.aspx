@@ -39,7 +39,7 @@
 				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], 
 				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], 
 				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx'],
-				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight,spec', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__,txtSpec__', 'uccc_seek_b.aspx?;;;1=0','95%','60%']
+				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight,spec,class', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__,txtSpec__,txtClass__', 'uccc_seek_b.aspx?;;;1=0','95%','60%']
 			);
 			function distinct(arr1){
 				var uniArray = [];
@@ -348,7 +348,7 @@
 								}
 							}
 							if (b_ret[0] != undefined) {
-								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb,spec', 'txtUno', '__');
+								ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb,txtSpec,txtClass', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb,spec,class', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
 								size_change();
 								bbtAssign();
@@ -370,7 +370,7 @@
 							}
 							if (b_ret[0] != undefined) {
 								bbs_ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtNo2,txtCustno,txtProductno,txtProduct,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'ordeno,no2,custno,productno,product,emount,eweight,radius,dime,width,lengthb', 'txtOrdeno,txtNo2');
-								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb', 'txtUno', '__');
+								bbt_ret = q_gridAddRow(bbtHtm, 'tbbt', 'txtProductno,txtUno,txtMount,txtWeight,txtRadius,txtDime,txtWidth,txtLengthb,txtClass', b_ret.length, b_ret, 'productno,uno,emount,eweight,radius,dime,width,lengthb,class', 'txtUno', '__');
 								/// 最後 aEmpField 不可以有【數字欄位】
 								for(var k=0;k<bbs_ret.length;k++){
 									$('#chkCut_'+bbs_ret[k]).attr('checked',b_ret[k].cut+''=='true');
@@ -833,7 +833,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1200px;
+				width: 1320px;
 			}
 			#tbbt {
 				margin: 0;
@@ -1051,6 +1051,7 @@
 					<td style="width:20px;"> </td>
 					<td style="width:250px; text-align: center;">原料批號</td>
 					<td style="width:120px; text-align: center;">材質</td>
+					<td style="width:120px; text-align: center;">等級</td>
 					<td align="center" id='Size'><a id='lblSize_help'> </a>
 					<BR>
 					<a id='lblSize_st'> </a></td>
@@ -1071,6 +1072,7 @@
 						<input id="txtUno..*" type="text" style="width:80%;"/>
 					</td>
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
+					<td><input id="txtClass..*" type="text" class="txt c1"/></td>
 					<td>
 						<input class="txt num c8" id="textSize1..*" type="text" disabled="disabled"/>
 						<div id="x1..*" style="float: left">x</div>
