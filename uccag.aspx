@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Noa';
-            aPop = new Array();
+            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno', 'tgg_b.aspx']);
             brwCount2 = 8;
 
             $(document).ready(function() {
@@ -59,6 +59,10 @@
 		       		}
 		       	}else{
 		       		$('#btnGen').click(function() {show_confirm();});
+		       	}
+		       	if(q_getPara('sys.comp').substring(0,3)=='裕承隆'){
+		       	    $('#lblTgg').css('display','');
+		       	    $('#txtTggno').css('display','');
 		       	}
 		       	/*$('#txtMon').focusout(function(){
 		       		var t_Mon = trim($(this).val());
@@ -380,6 +384,8 @@
 					<tr>
 						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
 						<td><input id="txtBdate" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblTgg' class="lbl" style="display:none;"> </a></td>
+                        <td><input id="txtTggno" type="text" class="txt" style="display:none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
