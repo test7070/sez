@@ -502,6 +502,7 @@
             $('#txtDatea').val(q_date());
             $('#cmbTypea').val('1');
             $('#txtDatea').focus();
+            $('#cmbTaxtype').val('1');
             
             var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");

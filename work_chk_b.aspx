@@ -31,6 +31,7 @@
 				return;
 			}
 			mainBrow(6, t_content, t_sqlname, t_postname , r_accy );
+		
 		 }
 		 
 		 function bbsAssign() {  
@@ -45,30 +46,36 @@
 				}
 				if(!emp($('#txtState_'+j).val()))
 					$('#chkSel_'+j).attr('disabled','disabled');
+				else
+					q_gt('view_works', "noa='"+$('#txtNoa_'+j).val()+"'", 0, 0, 0, "view_works", r_accy);
 			}
 		}
 
-		function q_gtPost() {  ///  for   store2 
+		function q_gtPost(t_name) {  ///  for   store2 
 			var aspxnamea=window.parent.q_name;
-		 	var works = _q_appendData("works", "", true);
-		 	if(works[0]==undefined)
-		 		return;
-		 	if(aspxnamea=='workb' || aspxnamea=='workd'){
-		 		for (var j = 0; j < q_bbsCount; j++) {
-		 			if(!emp($('#txtNoa_'+j).val()) && emp($('#txtState_'+j).val())){
-		 				var t_gmount=0;//領料數
-			 			for (var i = 0; i < works.length; i++) {
-			 				if($('#txtNoa_'+j).val()==works[i].noa)
-			 					t_gmount+=dec(works[i].gmount);
-			 			}
-			 			if(t_gmount==0){
-			 				$('#txtState_'+j).val('未領料');
-							$('#chkSel_'+j).attr('disabled','disabled');
-			 			}
-			 		}
+			switch (t_name) {
+				case 'view_works':
+				var works = _q_appendData("view_works", "", true);
+			 	if(works[0]==undefined)
+			 		return;
+			 	if(aspxnamea=='workb' || aspxnamea=='workd'){
+			 		for (var j = 0; j < q_bbsCount; j++) {
+			 			if(!emp($('#txtNoa_'+j).val()) && emp($('#txtState_'+j).val())){
+			 				var t_gmount=0;//領料數
+				 			for (var i = 0; i < works.length; i++) {
+				 				if($('#txtNoa_'+j).val()==works[i].noa)
+				 					t_gmount+=dec(works[i].gmount);
+				 			}
+				 			if(t_gmount==0){
+				 				$('#txtState_'+j).val('未領料');
+								$('#chkSel_'+j).attr('disabled','disabled');
+				 			}
+				 		}
+					}
 				}
 			}
 		}
+		
 		function refresh() {
 			_refresh();
 			$('#checkAllCheckbox').click(function(){

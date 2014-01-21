@@ -19,7 +19,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "cug";
-            var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = ['txtProcess','txtProductno','txtProduct','txtHours','txtDays','txtMount','txtWorkno'];
             var bbmNum = [];
             var bbsNum = [];
@@ -61,9 +61,9 @@
                 		return;
                 	}else{
                 		if(!emp($('#txtProcessno').val()))
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs) order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
                 		else
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from cugs"+r_accy+") order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs) order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
 						q_gt('cug_work', t_where, 0, 0, 0, "", r_accy);
                 	}
                 });
@@ -89,6 +89,7 @@
 							}
                 			for ( var i = 0; i < as.length; i++) {
                 				as[i].noq=('0000'+(i+1)).substr(-4);	
+                				as[i].days=round(as[i].hours/24,0)
                 			}
                 			q_gridAddRow(bbsHtm, 'tbbs'
 							,'txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtMount,txtHours,txtDays,txtCuadate,txtUindate,txtWorkno', as.length, as,

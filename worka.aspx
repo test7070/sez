@@ -81,19 +81,19 @@
 			//1020729 顯示未完全入庫
 			$('#btnOrdes').click(function(){
 				if(!emp($('#txtStationno').val())){
-					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where  (a.tggno is null or a.tggno='') and a.stationno='"+$('#txtStationno').val()+"' and a.mount>a.inmount  group by a.ordeno,a.no2) ";
+					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where  (a.tggno is null or a.tggno='') and a.stationno='"+$('#txtStationno').val()+"' and a.mount>a.inmount  group by a.ordeno,a.no2) ";
 				}else{
-					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where  (a.tggno is null or a.tggno='') and a.mount>a.inmount  group by a.ordeno,a.no2) ";
+					var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where  (a.tggno is null or a.tggno='') and a.mount>a.inmount  group by a.ordeno,a.no2) ";
 				}
                 q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 			});
 			//1020729 顯示未完全入庫,0816取消但會顯示狀態
 			$('#btnWork').click(function(){
 				if(!emp($('#txtStationno').val())){
-					//var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount>a.inmount)";
+					//var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where a.mount>a.inmount)";
 					var t_where = "enda!=1 and (tggno is null or tggno='') and stationno='"+$('#txtStationno').val()+"'";
 				}else{
-					//var t_where = "enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount>a.inmount)";
+					//var t_where = "enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where a.mount>a.inmount)";
 					var t_where = "enda!=1 and (tggno is null or tggno='')";
 				}
                 q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
@@ -587,7 +587,8 @@
 	</style>
 </head>
 <body>
-<!--#include file="../inc/toolbar.inc"-->
+	<div id="dmain" style="width: 1260px;">
+	<!--#include file="../inc/toolbar.inc"-->
 		<div class="dview" id="dview" style="float: left;  width:32%;"  >
 		   <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
@@ -649,9 +650,9 @@
 			<td colspan='3'><input id="txtProduct" type="text"  style="width: 99%;"/></td>
 		</tr>-->
 		<tr>
-			<td></td>
+			<td> </td>
 			<td><input type="button" id="btnOrdes"></td>
-			<td></td>
+			<td> </td>
 			<td><input type="button" id="btnWork"></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
@@ -662,28 +663,28 @@
 		</tr>
 		</table>
 		</div>
-	
-		<div class='dbbs'>
+	 	</div>
+		<div class='dbbs' style="width: 1260px;">
 		<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 			<tr style='color:White; background:#003366;' >
 				<td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-				<td align="center"><a id='lblProductnos'></a></td>
-				<td align="center"><a id='lblProduct_s'></a></td>
-				<td align="center"><a id='lblUnit'></a></td>
-				<td align="center"><a id='lblMounts'></a></td>
-				<td align="center"><a id='lblStores'></a></td>
+				<td align="center"><a id='lblProductnos'> </a></td>
+				<td align="center"><a id='lblProduct_s'> </a></td>
+				<td align="center"><a id='lblUnit'> </a></td>
+				<td align="center"><a id='lblMounts'> </a></td>
+				<td align="center"><a id='lblStores'> </a></td>
 				<!--<td align="center"><a id='lblWeights'></a></td>-->
 				<!--<td align="center"><a id='lblTypes'></a></td>-->
 				<!--<td align="center"><a id='lblMechno'></a></td>
 				<td align="center"><a id='lblMech'></a></td>-->
-				<td align="center"><a id='lblMemos'></a></td>
-				<td align="center"><a id='lblWorknos'></a></td>
-				<td align="center"><a id='lblStks'></a></td>
+				<td align="center"><a id='lblMemos'> </a></td>
+				<td align="center"><a id='lblWorknos'> </a></td>
+				<td align="center"><a id='lblStks'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏-->
 				<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-				<td style="width:10%;">
-					<input class="txt"  id="txtProductno.*" type="text" style="width:80%;" />
+				<td style="width:14%;">
+					<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
 					<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:10%;"  />
 				</td>
 				<td style="width:18%;">

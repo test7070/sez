@@ -90,9 +90,9 @@
 			$('#btnOrdes').click(function(){
 				if(q_cur==1 || q_cur==2){
 					if(!emp($('#txtTggno').val())){
-						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.tggno!='' and a.tggno='"+$('#txtTggno').val()+"' and (a.mount>a.inmount and b.gmount>0)) ";
+						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and a.tggno='"+$('#txtTggno').val()+"' and (a.mount>a.inmount and b.gmount>0)) ";
 					}else{
-						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where a.tggno!='' and (a.mount>a.inmount and b.gmount>0)) ";
+						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and (a.mount>a.inmount and b.gmount>0)) ";
 					}
 	                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
                }
@@ -103,10 +103,10 @@
 			//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 			$('#btnWork').click(function(){
 				if(!emp($('#txtTggno').val())){
-					//var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
+					//var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 					var t_where = "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"'";
 				}else{
-					//var t_where = "enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
+					//var t_where = "enda!=1 and tggno!='' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 					var t_where = "enda!=1 and tggno!=''";
 				}
                 q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
@@ -310,7 +310,7 @@
             $('#txtDatea').val(q_date());
             $('#txtMon').val(q_date().substr(0,6));
             $('#txtDatea').focus();
-
+			$('#cmbTaxtype').val('1');
          }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -348,17 +348,11 @@
 				t_mount = dec($('#txtMount_' + j).val());
 				t_weight = dec($('#txtWeight_' + j).val());
 				t_price = dec($('#txtPrice_' + j).val());
-				//if($('#txtUnit_' + j).val().toUpperCase()!='KG') 
-					$('#txtTotal_' + j).val(round(t_mount*t_price,0));
-					t_total+=dec($('#txtTotal_' + j).val())
-				//else
-					//$('#txtTotal_' + j).val(round(t_weight*t_price,0));
+				$('#txtTotal_' + j).val(round(t_mount*t_price,0));
+				t_total+=dec($('#txtTotal_' + j).val())
             }  // j
             q_tr('txtMoney',t_total);
-            var m_Money = dec($('#txtMoney').val());
-			var m_Tax = dec($('#txtTax').val());
-			$('#txtTotal').val(m_Money + m_Tax);
-			$('#txtTotal').focusout();
+            calTax();
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
@@ -428,10 +422,76 @@
 			}
 		}
 		function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                abbm[q_recno]['accno'] = xmlString.split(";")[0];
-            }
+			if (!(q_cur == 1 || q_cur == 2))
+				return false;
+			abbm[q_recno]['accno'] = xmlString.split(";")[0];
+		}
+		
+		function FormatNumber(n) {
+            var xx = "";
+            if(n<0){
+            	n = Math.abs(n);
+            	xx = "-";
+			}     		
+			n += "";
+			var arr = n.split(".");
+			var re = /(\d{1,3})(?=(\d{3})+$)/g;
+			return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+		}
+		
+		function calTax(){
+			var t_money=0,t_tax=0,t_total=0;
+			for (var j = 0; j < q_bbsCount; j++) {
+				t_money+=q_float('txtTotal_' + j);
+			}
+			t_total=t_money;
+				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
+                switch ($('#cmbTaxtype').val()) {
+                	case '0':
+                        // 無
+                        t_tax = 0;
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '1':
+                        // 應稅
+                        t_tax = round(q_mul(t_money,t_taxrate), 0);
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '2':
+                        //零稅率
+                        t_tax = 0;
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '3':
+                        // 內含
+                        t_tax = round(q_mul(q_div(t_money,q_add(1,t_taxrate)),t_taxrate), 0);
+                        t_total = t_money;
+                        t_money = q_sub(t_total,t_tax);
+                        break;
+                    case '4':
+                        // 免稅
+                        t_tax = 0;
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '5':
+                        // 自定
+                        $('#txtTax').attr('readonly', false);
+                        $('#txtTax').css('background-color', 'white').css('color', 'black');
+                        t_tax = round(q_float('txtTax'), 0);
+                        t_total = q_add(t_money,t_tax);
+                        break;
+                    case '6':
+                        // 作廢-清空資料
+                        t_money = 0, t_tax = 0, t_total = 0;
+                        break;
+                    default:
+                }
+			
+			$('#txtMoney').val(FormatNumber(t_money));
+			$('#txtTax').val(FormatNumber(t_tax));
+			$('#txtTotal').val(FormatNumber(t_total));
+		}
+		
     </script>
     <style type="text/css">
         .tview

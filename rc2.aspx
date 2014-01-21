@@ -28,6 +28,7 @@
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
 		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,nick,tel,zip_invo,addr_comp,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
 		 ['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
+		 ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp,addr','txtCno,txtAcomp,txtAddr','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 		 ['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0','95%','60%'],
@@ -159,11 +160,12 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						var i, j = 0;
-						$('#txtOrdeno').val(b_ret[0].noa);
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdcno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
+						$('#txtOrdcno').val(b_ret[0].noa);
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
 														   , 'uno,productno,product,unit,mount,noa,no2,price,total,memo'
 														   , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
+						sum();
 					}
 					break;
 				
@@ -269,9 +271,9 @@
 			var t_where='';
 			if (t_tggno.length > 0) {
 				if (t_ordeno.length > 0) 
-					t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");  ////  sql AND 語法，請用 &&
+					t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");  ////  sql AND 語法，請用 &&
 				else
-					t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&
+					t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&
 				t_where = t_where;
 			}
 			else {
@@ -784,7 +786,7 @@
 				<td class="td2"><input id="txtTggno" type="text" class="txt c1" /></td>
 				<td class="td3"><input id="txtTgg"  type="text" class="txt c1"/></td>
 				<td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
-				<td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/><select id="combPaytype" class="txt c2" onchange='combPaytype_chg()'></select></td> 
+				<td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/><select id="combPaytype" class="txt c2" onchange='cmbPaytype_chg()'></select></td> 
 				<td class="td7"><span> </span><a id='lblOrdc' class="lbl btn"></a></td>
 				<td class="td8"><input id="txtOrdcno"  type="text"  class="txt c1"/></td> 
 			</tr>

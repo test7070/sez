@@ -26,7 +26,7 @@
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
-            brwCount2 = 10;
+            brwCount2 = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
@@ -107,12 +107,7 @@
             function btnOk() {
             	 Lock(); 
            $('#txtNoa').val($.trim($('#txtNoa').val()));   	
-           	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-				Unlock();
-			return;
-			} 
+           
 			if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                     q_gt('station', t_where, 0, 0, 0, "checkStationno_btnOk", r_accy);

@@ -26,7 +26,7 @@
         var q_readonly = ['txtWorker','txtNoa'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtWorkno'];
         var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1],['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1],['txtWmount', 15, 2, 1]];
+        var bbsNum = [['txtMount', 15, 2,1], ['txtBorn', 15, 0,1],['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1],['txtWmount', 15, 2, 1]];
         var bbmMask = [];
         var bbsMask = [['txtTimea','99:99']];
         

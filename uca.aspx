@@ -35,7 +35,7 @@
 			q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
 			//q_desc = 1;
 			//ajaxPath = ""; // 只在根目錄執行，才需設定
-			
+			brwCount2 = 7;
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
@@ -1093,14 +1093,14 @@
 			</tr>
 			</table>
 		</div>
-		
+	<div id='dmain' style="overflow:hidden; width: 1260px;">
 	<!--#include file="../inc/toolbar.inc"-->
-	<div class="dview" id="dview" style="float: left;  width:32%;"  >
+	<div class="dview" id="dview" style="float: left;  width:400px;"  >
 		<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
-				<td align="center" style="width:5%"><a id='vewChk'></a></td>
-				<td align="center" style="width:25%"><a id='vewNoa'></a></td>
-				<td align="center" style="width:25%"><a id='vewProduct'></a></td>
+				<td align="center" style="width:40px"><a id='vewChk'></a></td>
+				<td align="center" style="width:150px"><a id='vewNoa'></a></td>
+				<td align="center" style="width:210px"><a id='vewProduct'></a></td>
 			</tr>
 			 <tr>
 				   <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -1109,8 +1109,8 @@
 			</tr>
 		</table>
 		</div>
-		<div class='dbbm' style="width: 68%;float: left;">
-		<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+		<div class='dbbm' style="width: 850px;float: left;">
+		<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0' >
 			<tr class="tr1">
 				<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 				<td class="td2"><input id="txtNoa" type="text"  class="txt"/></td>
@@ -1212,7 +1212,8 @@
 			<input id="text_Noq" type="hidden" />
 		</table>
 		</div>
-		<div class='dbbs' >
+	</div>
+		<div class='dbbs' style="width: 1260px;">
 		<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 		   <tr style='color:White; background:#003366;' >
 				<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>

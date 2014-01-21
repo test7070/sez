@@ -77,11 +77,11 @@
 	               			var t_where = "where=^^ ['"+q_date()+"','','') where productno=a.productno ^^";
 	               			
 	               			if(!emp($('#txtProductno').val()))
-	               				var t_where1 = "where[1]=^^a.productno='"+$('#txtProductno').val()+"' and a.enda!='1' and (a.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,(select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')))=0  group by productno ^^";
+	               				var t_where1 = "where[1]=^^a.productno='"+$('#txtProductno').val()+"' and a.enda!='1' and (a.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')),''))=0  group by productno ^^";
 	               			else
-	               				var t_where1 = "where[1]=^^a.enda!='1' and (a.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,(select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')))=0 group by productno ^^";
+	               				var t_where1 = "where[1]=^^a.enda!='1' and (a.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')),''))=0 group by productno ^^";
 								               				
-	               			var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,(select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')))=0 ^^";
+	               			var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from workgs"+r_accy+" FOR XML PATH('')),''))=0 ^^";
 	               			var t_where3 ="where[3]=^^ (c.datea between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
 	               			var t_where4 ="where[4]=^^ (c.datea < '"+$('#txtBdate').val()+"' and c.datea >= '"+q_date()+"') and c.productno=a.productno and c.enda!='1' ^^"
 							q_gt('workg_orde', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);
@@ -104,9 +104,11 @@
                 				worked=true;
                 		}
                 		if(worked&&t_gmount>0)
-                			alert('製令單已產生過!!。');
-                		else
+                			alert('製令單已領料-禁止重新產生製令單!!');
+                		else{
                 			q_func('workg.genWork', r_accy+','+$('#txtNoa').val()+','+r_name);
+                			$('#btnWork').val('產生中...').attr('disabled','disabled');
+                		}
 					}
 	            });
 	            $('#btnCuap').click(function(){
@@ -149,8 +151,10 @@
 								//提前天數
 								var preday=0;
 								preday=preday+dec(as[i].pretime) //前置時間
-								if(dec(as[i].stationhours)*dec(as[i].stationgen)!=0)//加上預計生產日數=(數量*需時*耗損率)/(工作中心工時*產能)
-									preday=preday+Math.ceil((dec(t_mount)*dec(as[i].ucahours)*dec(as[i].badperc))/(dec(as[i].stationhours)*dec(as[i].stationgen)));
+								//103/1/20 日產能=station.gen/uca.hours
+								if(dec(as[i].stationhours)*dec(as[i].stationgen)!=0)//103/1/20更正(數量*耗損率)/(工作中心產能/製成品需時)//(原)加上預計生產日數=(數量*需時*耗損率)/(工作中心工時*產能)
+									//preday=preday+Math.ceil((dec(t_mount)*dec(as[i].ucahours)*(1+dec(as[i].badperc)))/(dec(as[i].stationhours)*dec(as[i].stationgen)));
+									preday=preday+Math.ceil((dec(t_mount)*(1+dec(as[i].badperc)))/(dec(as[i].stationgen)/dec(as[i].ucahours)));
 								
 								var t_date=emp(as[i].datea)?q_date():as[i].datea;//預交日
 								//跳過週休和假日
@@ -425,6 +429,7 @@
             			$('#txtWorkno_'+j).val(workno[j+1]);
             		}
 		        	alert('製令產出執行完畢!!');
+		        	$('#btnWork').val('製令產出').removeAttr('disabled');
 		        }
 		    } //endfunction
 		</script>
