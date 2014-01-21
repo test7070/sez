@@ -26,7 +26,7 @@
 		    function q_gfPost() {
 		        q_getFormat();
 		        q_langShow();
-		       q_cmbParse("cmbTypea", q_getPara('uca.typea')); // 需在 main_form() 後執行，才會載入 系統參數
+		       q_cmbParse("cmbTypea", '@全部,'+q_getPara('uca.typea')); // 需在 main_form() 後執行，才會載入 系統參數
 		
 		        $('#txtNoa').focus();
 		    }

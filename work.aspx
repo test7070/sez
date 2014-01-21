@@ -30,6 +30,7 @@
         var bbsMask = [['txtCuadate','999/99/99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea'; q_desc = 1;
         //ajaxPath = ""; // 只在根目錄執行，才需設定
+        brwCount2 = 7;
         
         aPop = new Array(
         	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],

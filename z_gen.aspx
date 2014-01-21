@@ -65,7 +65,7 @@
                         name : 'xdate'
                     },{
                         type : '1',
-                        name : 'mon'
+                        name : 'xmon'
                     }]
                     });
                 q_popAssign();

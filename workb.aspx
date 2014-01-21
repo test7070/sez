@@ -587,7 +587,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 120%;
+         	width: 1500px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -685,7 +685,7 @@
                 <!--<td align="center" style="width:8%;"><a id='lblErrmount'></a></td>-->
                 <td align="center" style="width:12%;"><a id='lblStores'></a></td>
                 <td align="center" style="width:10%;"><a id='lblMemos'></a></td>
-                <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblEnda'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblWorknos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'><!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
