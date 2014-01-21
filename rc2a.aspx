@@ -150,16 +150,6 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype')+',5@自訂');
                 
-                /* 若非本會計年度則無法存檔 */
-                $('#txtDatea').focusout(function() {
-                    if ($(this).val().substr(0, 3) != r_accy) {
-                        $('#btnOk').attr('disabled', 'disabled');
-                        alert(q_getMsg('lblDatea') + '非本會計年度。');
-                    } else {
-                        $('#btnOk').removeAttr('disabled');
-                    }
-                });
-                
                 $('#cmbTaxtype').focus(function() {
                     var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
                     $("#cmbTaxtype").attr('size', len + "");

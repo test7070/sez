@@ -15,71 +15,59 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			aPop = new Array(
+				['txtXcarno', '', 'cicar', 'a.noa,cust', 'txtXcarno', 'cicar_b.aspx'],
+				['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
+				['txtXinsurerno', '', 'ciinsucomp', 'noa,insurer', 'txtXinsurerno', 'ciinsucomp_b.aspx'],
+				['txtXsales', '', 'cisale', 'noa,namea', 'txtXsales', 'cisale_b.aspx']
+			);
+			if (location.href.indexOf('?') < 0) {
+				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
+			}
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_salaward_it');
+				q_gf('', 'z_sssp_it');
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_salaward_it',
+					fileName : 'z_sssp_it',
 					options : [{
 						type : '0', //[1]
-						name : 'accy',
-						value : q_getId()[4]
+						name : 'xsss',
+						value : r_userno
 					}, {
 						type : '6', //[2]
-						name : 'xyear'
-					}, {
-						type : '1', //[3][4]
 						name : 'xmon'
-					}, {/*3*/
-						type : '2', //[5][6]
-						name : 'sss',
-						dbf : 'sss',
-						index : 'noa,namea',
-						src : 'sss_b.aspx'
 					}, {
-						type : '2', //[7][8]
-						name : 'part',
-						dbf : 'part',
-						index : 'noa,part',
-						src : 'part_b.aspx'
+						type : '5', //[3]
+						name : 'xkind',
+						value : (('').concat(new Array("本月", "上期", "下期"))).split(',')
 					}, {
-						type : '5', //[9]
-						name : 'xorder',
-						value : (('').concat(new Array("員工編號", "部門"))).split(',')
+						type : '6', //[4]
+						name : 'xyear'
 					}]
 				});
+				q_langShow();
 				q_popAssign();
-				$('#txtXyear').mask(r_picm);
-				$('#txtXmon1').val(q_date().substr(0, 6)).mask(r_picm);
-				$('#txtXmon2').val(q_date().substr(0, 6)).mask(r_picm);
-				$('#txtXyear').val(q_date().substr(0, 6));
-			}
 
-			var exchange = function(a, b) {
-				try {
-					var tmpTop = a.offset().top;
-					var tmpLeft = a.offset().left;
-					a.offset({
-						top : b.offset().top,
-						left : b.offset().left
-					});
-					b.offset({
-						top : tmpTop,
-						left : tmpLeft
-					});
-				} catch(e) {
-				}
-			};
+				$('#txtXmon').mask('999/99');
+				$('#txtXyear').mask('999');
 
-			function q_boxClose(s2) {
-			}
+				var t_date = q_date();
+				var nextdate = new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2)));
+				nextdate.setDate(nextdate.getDate() - 30);
+				t_date = '' + (nextdate.getFullYear() - 1911) + '/';
+				//月份
+				if (nextdate.getMonth() + 1 < 10)
+					t_date = t_date + '0' + (nextdate.getMonth() + 1);
+				else
+					t_date = t_date + (nextdate.getMonth() + 1);
 
-			function q_gtPost(s2) {
+				$('#txtXmon').val(t_date);
+				$('#txtXyear').val(t_date.substr(0, 3));
+
 			}
 		</script>
-
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
@@ -96,4 +84,3 @@
 		</div>
 	</body>
 </html>
-
