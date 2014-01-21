@@ -534,7 +534,8 @@
             		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
             	else{
             		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
-            		q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            		if(!((dec($('#txtSecondmoney_'+j).val()) == 0) && (q_cur==2)))
+            			q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
             	}
 				t_total+=dec($('#txtTotal8_'+j).val());
             }  // j
@@ -557,7 +558,8 @@
             		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
             	else{
             		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
-            		q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            		if(!((dec($('#txtSecondmoney_'+j).val()) == 0) && (q_cur==2)))
+            			q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
             	}
 				t_total+=dec($('#txtTotal8_'+j).val());
             }  // j
@@ -571,7 +573,8 @@
             		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
             	else{
             		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
-            		q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            		if(!((dec($('#txtSecondmoney_'+j).val()) == 0) && (q_cur==2)))
+            			q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
             	}
 				t_total+=dec($('#txtTotal8_'+j).val());
             }  // j
