@@ -79,8 +79,8 @@
 	             $('#txtOrdeno2').css('width','100px'); 
 	             $('#txtCuano1').css('width','100px'); 
 	             $('#txtCuano2').css('width','100px'); 
-	             $('#txtMon1').mask('999/99');
-	             $('#txtMon2').mask('999/99');
+	             $('#txtXmon1').mask('999/99');
+	             $('#txtXmon2').mask('999/99');
 	             
 	             
 	             for(var i = 0;i < aPop.length;i++){
@@ -100,7 +100,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                //$('#txtMon1').val(t_year+'/'+t_month);
+	                $('#txtXmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -112,7 +112,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                //$('#txtMon2').val(t_year+'/'+t_month);
+	                $('#txtXmon2').val(t_year+'/'+t_month);
 	                $('#txtXdate').val(q_date());
               
             }
