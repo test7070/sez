@@ -145,7 +145,7 @@
 				            }else if(q_cur ==2){
 				            	$('#txtWorker2').val(r_name);
 				            }else{
-				            	alert("error: btnok!")
+				            	alert("error: btnok!");
 				            }
                         	var t_noa = trim($('#txtNoa').val());
 			                var t_date = trim($('#txtDatea').val());
@@ -180,6 +180,11 @@
             }
             function btnOk() {
             	Lock();
+            	if($.trim($('#txtSssno').val()).length == 0){
+            		alert(q_getMsg('lblSss') + '禁止為空。');
+                    Unlock();
+                    return;
+            	}
             	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     Unlock();
