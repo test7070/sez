@@ -38,11 +38,17 @@
                         dbf : 'uca',
                         index : 'noa,product',
                         src : 'uca_b.aspx'
+                    },{
+                        type : '6',
+                        name : 'xmon'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
+                $('#txtXmon').mask('999/99');
+                $('#txtXmon').val(q_date().substr(0,6));
             }
 
             function q_boxClose(s2) {
