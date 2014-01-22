@@ -399,6 +399,8 @@
                                 $('#txtMemo2_' + i).val('');
                             }
                         }
+                        
+                        
                         /*var as = _q_appendData("umms", "", true);
                         for (var i = 0; i < as.length; i++) {
                             if (as[i].total - as[i].payed == 0) {
@@ -409,6 +411,14 @@
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,memo,unpay,unpay,part2', 'txtVccno', '');
                         */
                         var as = _q_appendData("umm_mon", "", true);
+                        for (var i = 0; i < as.length; i++) {
+							if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
+								as[i].tablea='vcc_it'
+							else if(q_getPara('sys.comp').indexOf('永勝')>-1)
+								as[i].tablea='vcc_uu'
+							else
+								as[i].tablea='vcc'+ q_getPara('sys.project')
+                        }
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtAccy,txtTablea,txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'accy,tablea,noa,memo,unpay,unpay,part', 'txtVccno', '');
                         sum();
                         break;
