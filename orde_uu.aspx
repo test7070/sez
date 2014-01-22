@@ -25,7 +25,7 @@
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';brwCount2 = 11; 
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,groupano', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtLengthb_', 'ucc_b.aspx'],
+		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,groupano,saleprice', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtPrice_,txtLengthb_', 'ucc_b.aspx'],
 		['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp,salesno,sales',
