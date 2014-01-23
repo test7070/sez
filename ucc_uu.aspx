@@ -110,12 +110,12 @@
 					if (as[0] != undefined) {
 						for ( var i = 0; i < as.length; i++) {
 							if(maxnumber<parseInt(as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length)))
-								maxnumber=as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length)
+								maxnumber=as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length);
 						}
 					}
 					
 					maxnumber=autonumber+(parseInt(maxnumber)+1);
-					maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length)
+					maxnumber=maxnumber.substring(maxnumber.length-autonumber.length,maxnumber.length);
 					
 					$('#txtNoa').val(($('#cmbGroupano').val()=='N'?'D':$('#cmbGroupano').val())+maxnumber);
 					wrServer(($('#cmbGroupano').val()=='N'?'D':$('#cmbGroupano').val())+maxnumber);
@@ -137,6 +137,7 @@
 				case 'uccgb'://中類
 					var as = _q_appendData("uccgb", "", true);
 					if (as[0] != undefined) {
+						as.sort(function(x,y){return x.noa-y.noa;});
 						var t_item = " @ ";
 						for ( i = 0; i < as.length; i++) {
 							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa+' . '+as[i].namea;

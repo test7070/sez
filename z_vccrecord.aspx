@@ -53,11 +53,9 @@
                 	$('#txtProduct1a').val(q_getHref()[3]);
                 	$('#txtProduct2a').val(q_getHref()[3]);
                 }
-                	
-                var t_where = r_accy+ ';' + $('#txtCust1a').val() + ';' + $('#txtCust2a').val()+ ';' + $('#txtProduct1a').val() + ';' + $('#txtProduct2a').val() ;
-						
-					var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
-				    q_gtx('z_vccrecord1', t_where + ";;" + t_para + ";;z_vccrecord;;" + q_getMsg('qTitle'));
+				if(!emp($.trim($('#txtCust1a').val())) || !emp($.trim($('#txtCust2a').val())) || !emp($.trim($('#txtProduct1a').val())) || !emp($.trim($('#txtProduct2a').val()))){
+					$('#btnOk').click();
+				}
             }
 
             function q_boxClose(s2) {

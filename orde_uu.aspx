@@ -25,7 +25,7 @@
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';brwCount2 = 11; 
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,groupano', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtLengthb_', 'ucc_b.aspx'],
+		aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,groupano,saleprice', 'txtProductno_,txtProduct_,txtUnit_,cmbType_,txtRadius_,txtLengthb_', 'ucc_b.aspx'],
 		['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 		['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp,salesno,sales',
@@ -419,6 +419,7 @@
 		                   	}
 	                    }
 					});
+					/*
 					$('#txtPrice_' + j).focusin (function() {
 						if(q_cur==1 ||q_cur==2 ){
 		                   	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -431,7 +432,7 @@
 		                    }
 	                    }
 					});
-					
+					*/
 					$('#btnVccrecord_' + j).click(function () {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 						q_bodyId($(this).attr('id'));
@@ -960,6 +961,7 @@
 				<td align="center" style="width:6%;"><a id='lblWidth_s'> </a></td><!--贈品-->
 				<td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
 				<td align="center" style="width:6%;"><a id='lblDime_s'> </a></td> <!--折讓-->
+				<td align="center" style="width:6%;"><a id='lblRadius_s'> </a></td><!--建議售價-->
 				<td align="center" style="width:8%;"><a id='lblTotal_s'> </a></td>
 				<td align="center" style="width:8%;"><a id='lblGemounts'> </a></td>
 				<td align="center" style="width:12%;"><a id='lblMemos'> </a></td>
@@ -970,8 +972,8 @@
 			<tr style='background:#cad3ff;'>
 				<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 				<td>
-					<input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width: 1%" />
-					<input class="txt c7"  id="txtProductno.*" maxlength='30'type="text" style="width:80%;" />
+					<input class="btn"  id="btnProduct.*" type="button" value='.' style="float:left;font-weight: bold;width: 1%" />
+					<input class="txt c7"  id="txtProductno.*" maxlength='30'type="text" style="width:75%;" />
 					<input class="txt c7"  id="txtNo2.*" type="text" />
 				</td>
 				<td>	<input class="txt c7" id="txtProduct.*" type="text" /></td>
@@ -984,6 +986,7 @@
 				<td><input id="txtWidth.*" type="text" class="txt num c7"/></td>
 				<td><input class="txt num c7" id="txtPrice.*" type="text"  /></td>
 				<td><input id="txtDime.*" type="text" class="txt num c7"/></td>
+				<td><input id="txtRadius.*" type="text" class="txt num c7"/></td>
 				<td><input class="txt num c7" id="txtTotal.*" type="text" /></td>
 				<td>
 					<input class="txt num c1" id="txtC1.*" type="text" />
