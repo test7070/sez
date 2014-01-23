@@ -804,7 +804,7 @@
                 var t_ordeno = $.trim($('#txtOrdeno').val());
                 if(t_ordeno.length>0){
                 	Lock();
-                	var t_where = "where=^^ noa='"+t_ordeno+"' and not exists(select c.* from transvcce"+r_accy+" b left join transvcces102 c on b.noa=c.noa where b.ordeno=a.noa and isnull(c.caseno,'')=a.caseno) ^^";
+                	var t_where = "where=^^ noa='"+t_ordeno+"' and not exists(select c.* from view_transvcce"+r_accy+" b left join view_transvcces"+r_accy+" c on b.noa=c.noa where b.ordeno=a.noa and isnull(c.caseno,'')=a.caseno) ^^";
                 	q_gt('view_tranordes', t_where, 0, 0, 0, "LoadCaseno", r_accy);
                 }
                 
