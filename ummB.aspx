@@ -60,24 +60,25 @@
                 var t_vedate = trim($('#txtVedate').val());
                 var t_vccno = trim($('#txtVccno').val());
 	            var t_where = "1=1";
-	            if($('#cmbTypea').val()=='1'){//退貨--->建立 退貨單
-					t_where+="&& noa not in (select noa from view_vcc where isnull(cardeal,'') in (select noa from ummb where typea='3')) " //換單不可再退貨
-					+(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
+	            if($('#cmbTypea').val()=='1'){//退貨--->建立 退貨單 
+	            	//1030124永勝林先生換單還是可以退貨
+					//"&& noa not in (select noa from view_vcc where isnull(cardeal,'') in (select noa from ummb where typea='3')) " //換單不可再退貨
+					t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' && noa not in (select noa from view_vcc where unpay=0)";
-					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_1', "95%", "95%", q_getMsg('popVccs'));
+					q_box("vccs_ummb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_1', "95%", "95%", q_getMsg('popVccs'));
 	            }else if($('#cmbTypea').val()=='2'){//換貨--->匯入【未收】出貨單--->一次一張需整張處理完--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立 新出貨單
 	            	//alert('請選擇同一出貨單號的產品!!');
 	            	t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)=0) && typea='1' ";
-					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_2', "95%", "95%", q_getMsg('popVccs'));
+					q_box("vccs_ummb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_2', "95%", "95%", q_getMsg('popVccs'));
 	            }else if($('#cmbTypea').val()=='4'){//已收抵貨--->匯入【已收】出貨單--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立  新出貨單(歸已收款，不再有未收)
 	            	//alert('請選擇同一出貨單號的產品!!');
 	            	t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno) : "")+" && noa in (select noa from view_vcc where isnull(payed,0)>0) && typea='1' ";
-					q_box("vccs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_4', "95%", "95%", q_getMsg('popVccs'));
+					q_box("vccs_ummb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_4', "95%", "95%", q_getMsg('popVccs'));
 	            }
             });
             
@@ -88,7 +89,7 @@
 			
 			$('#txtBkvccno').click(function() {
 				if($('#txtBkvccno').val().length>0)
-            		q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $(this).val() +"')>0;" + $('#txtVccno').val().substr(1,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
+            		q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $(this).val() +"')>0;" + $('#txtDatea').val().substr(0,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
 			});
 			$('#txtVccno').click(function() {
 				if($('#txtVccno').val().length>0 && q_cur!=1 && q_cur!=2)
@@ -243,7 +244,7 @@
 				$('#txtVccno_'+i).bind('contextmenu',function(e) {
 					/*滑鼠右鍵*/
 					e.preventDefault();
-					q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + $('#txtDatea').val().substr(0,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
+					q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + $(this).val().substr(1,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
 	
 				});
 				
