@@ -38,7 +38,7 @@
 	            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 	            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
 	            ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
-	            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtMount_', 'ucc_b.aspx'],
+	            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,engpro,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtMemo_,txtUnit_,txtMount_', 'ucc_b.aspx'],
 	            ['txtUno_', '', 'vccs_it', 'uno,productno,product,spec,unit', '0txtUno_,txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtMount_', ''],
 	            ['txtMemo', '', 'qphr', 'noa,phr', '0,txtMemo', '']
 		);
