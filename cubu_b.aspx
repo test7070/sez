@@ -51,9 +51,6 @@
 					return;
 				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
-				parent.$.fn.colorbox.resize({
-					height : "750px"
-				});
 				$('#btnTop').hide();
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
@@ -64,6 +61,9 @@
 				bbmMask = [];
 				bbsMask = [['txtDatea', r_picd], ['txtStyle', 'A']];
 				q_mask(bbmMask);
+				parent.$.fn.colorbox.resize({
+					height : "750px"
+				});
 			}
 
 			function getTheory(b_seq) {
