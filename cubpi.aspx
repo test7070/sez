@@ -473,7 +473,7 @@
 			}
 
 			function bbsSave(as) {
-				if (parseFloat(as['mount'].length==0?"0":as['mount'])==0 && parseFloat(as['weight'].length==0?"0":as['weight'])==0) {
+				if ( as['cut']+""!="true" && as['slit']+""!="true" && as['sale']+""!="true" && as['ordc']+""!="true" && parseFloat(as['mount'].length==0?"0":as['mount'])==0 && parseFloat(as['weight'].length==0?"0":as['weight'])==0) {
 					as[bbsKey[1]] = '';
 					return;
 				}
