@@ -26,7 +26,7 @@
         aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
         ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-        ['txtVccno', '', 'vcc', 'noa,salesno,sales', 'txtVccno,txtSalesno,txtSales', ''],
+        ['txtVccno', '', 'view_vcc', 'noa,salesno,sales', 'txtVccno,txtSalesno,txtSales', ''],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
         $(document).ready(function () {
