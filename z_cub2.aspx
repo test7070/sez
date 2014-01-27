@@ -35,7 +35,7 @@
 					}, {
 						type : '5', //[4]
 						name : 'xchgsprice',
-						value : '1@成本單價,2@單價'.split(',')
+						value : '1@成本單價,2@進貨單價'.split(',')
 					}]
 				});
 				q_popAssign();
