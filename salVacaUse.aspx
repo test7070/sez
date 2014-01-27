@@ -133,6 +133,12 @@
                             var t_date = $('#txtBdate').val();
                             var count = 0;
                             while (t_date < $('#txtEdate').val()) {
+                            	if (new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 0 || new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 6) {
+                                    //六日不算
+                                } else {
+                                    count++;
+                                }
+                            	
                                 //日期加一天
                                 var nextdate = new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2)));
                                 nextdate.setDate(nextdate.getDate() + 1)
@@ -147,11 +153,6 @@
                                     t_date = t_date + '0' + (nextdate.getDate());
                                 else
                                     t_date = t_date + (nextdate.getDate());
-                                if (new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 0 || new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 6) {
-                                    //六日不算
-                                } else {
-                                    count++;
-                                }
                             }
 
                             use_hr = use_hr +(8* count);
@@ -197,6 +198,13 @@
                             var t_date = $('#txtBdate').val();
                             var count = 0;
                             while (t_date < $('#txtEdate').val()) {
+                            	
+                            	if (new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 0 || new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 6) {
+                                    //六日不算
+                                } else {
+                                    count++;
+                                }
+                            	
                                 //日期加一天
                                 var nextdate = new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2)));
                                 nextdate.setDate(nextdate.getDate() + 1)
@@ -211,11 +219,6 @@
                                     t_date = t_date + '0' + (nextdate.getDate());
                                 else
                                     t_date = t_date + (nextdate.getDate());
-                                if (new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 0 || new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 6) {
-                                    //六日不算
-                                } else {
-                                    count++;
-                                }
                             }
 
                             use_hr = use_hr +(8* count);
