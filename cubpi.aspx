@@ -511,7 +511,7 @@
                 		$("#"+WantDisabledArray[k]).attr('disabled','disabled');
                 	}
                 }
-				if (q_cur == 0 && trim($('#txtNoa').val()) != '')
+				if ((q_cur == 0 || q_cur == 4) && trim($('#txtNoa').val()) != '')
 					$('#btnCubu').removeAttr('disabled');
 				else
 					$('#btnCubu').attr('disabled', 'disabled');
