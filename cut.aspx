@@ -128,7 +128,7 @@
 						var t_productno = trim($('#txtProductno').val());
 						var t_custno = trim($('#txtCustno').val());
 						t_edime = (t_edime == 0 ? 999 : t_edime);
-						var t_where = " 1=1 and isnull(enda,0)='0'";
+						var t_where = " 1=1 and isnull(enda,0)!=1";
 						t_where += q_sqlPara2('dime', t_bdime, t_edime);
 						if(t_width!=0)
 							t_where += q_sqlPara2('width', 0, t_width+11);
