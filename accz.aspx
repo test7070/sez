@@ -16,7 +16,7 @@
 		}
 		var q_name="accz";
 		var q_readonly = ['txtNoa'];
-		var bbmNum = [['txtMount',10, 0, 1],['txtEcount',10, 0, 1],['txtRate',3, 2, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtEndvalue',14, 0, 1]]; 
+		var bbmNum = [['txtMount',10, 0, 1],['txtRate',3, 2, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtEndvalue',14, 0, 1]]; 
 		//var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'acc1';
 		//ajaxPath = ""; //  execute in Root
@@ -295,8 +295,6 @@
 				$('#txtAcc1').focus();
 				return;
 			};
-			if(q_cur == 1 && (dec($('#txtEcount').val()) == 0))
-				$('#txtEcount').val($('#txtMount').val());
 			wrServer( t_noa);
 		}
 
@@ -568,8 +566,6 @@
 					<td class="td2"><input id="txtMount"  type="text" class="txt num c1"/></td>
 					<td class="td3"><span> </span><a id='lblUnit' class="lbl"> </a></td>
 					<td class="td4"><input id="txtUnit"  type="text" class="txt c1" /></td>
-					<td class="td5"><span> </span><a id='lblEcount' class="lbl"> </a></td>
-					<td class="td6"><input id="txtEcount"  type="text"  class="txt num c1" /></td>
 				</tr>
 				<tr>
 					<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
