@@ -17,7 +17,7 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "orde";
-		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales','txtOrdbno','txtOrdcno'];
+		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales','txtOrdbno','txtOrdcno','txtQuatno'];
 		var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3','txtC1','txtNotv']; 
 		var bbmNum = [['txtTotal', 10,0,1],['txtMoney', 10, 0,1],['txtTax', 10, 0,1],['txtFloata', 10, 2,1],['txtTotalus', 15, 2,1]];  // 允許 key 小數
 		var bbsNum = [['txtPrice', 12, 2,1], ['txtMount', 9, 0,1],['txtTotal', 10, 0,1],['txtC1', 10, 0,1],['txtNotv', 10, 0,1]];
@@ -338,7 +338,7 @@
 		function _btnSeek() {
 			if (q_cur > 0 && q_cur < 4)  // 1-3
 				return;
-			q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+			q_box('orde_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
 		}
 
 		function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -877,7 +877,9 @@
 					<td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
 					<td class="td4"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 					<td class="td5"><input id="txtWorker" type="text" class="txt c1" /></td>
-					<td class="td7"><input id="txtWorker2" type="text" class="txt c1" /></td> 
+					<td class="td6"><input id="txtWorker2" type="text" class="txt c1" /></td> 
+					<td class="td7"><span> </span><a id='lblQuatno' class="lbl"> </a></td>
+					<td class="td8"><input id="txtQuatno" type="text" class="txt c1"/></td> 
 				</tr>
 				<tr class="tr11">
 					<td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>

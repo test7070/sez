@@ -31,7 +31,7 @@
        if(q_getPara('sys.comp').indexOf('永勝') > -1)
         	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype_uu'));
         else
-        	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype_uu'));
+        	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype'));
 
         $('#txtBdate').focus();
     }
@@ -44,6 +44,8 @@
         t_salesno = $('#txtSalesno').val();
         t_comp = $('#txtComp').val();
         t_stype = $('#cmbStype').val();
+        t_quatno = $('#txtQuatno').val();
+        t_contract = $('#txtContract').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
@@ -51,8 +53,8 @@
         var t_where = " 1=1 "
         		+ q_sqlPara2("datea", t_bdate, t_edate) 
         		+ q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) 
-        		 +q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)
-        		 +q_sqlPara2("stype", t_stype);
+        		 +q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)+ q_sqlPara2("quatno", t_quatno)
+        		 +q_sqlPara2("stype", t_stype)+ q_sqlPara2("contract", t_contract);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -89,6 +91,14 @@
                 <td><input class="txt" id="txtSalesno" type="text" style="width:90px; font-size:medium;" />&nbsp;
                 	<input class="txt" id="txtSales" type="text" style="width:115px; font-size:medium;" /></td>
              </tr>
+             <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblQuatno'></a></td>
+                <td><input class="txt" id="txtQuatno" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblContract'></a></td>
+                <td><input class="txt" id="txtContract" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>

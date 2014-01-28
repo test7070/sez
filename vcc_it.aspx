@@ -123,7 +123,7 @@
             });
             
             $('#lblZipname').click(function () { 
-            	q_pop('txtZipname', "quit_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtZipname').val()+"')>0;" + r_accy + '_' + r_cno, 'quit', 'noa', '', "92%", "1024px", q_getMsg('lblZipname'), true); 
+            	q_pop('txtZipname', "quat_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtZipname').val()+"')>0;" + r_accy + '_' + r_cno, 'quat', 'noa', '', "92%", "1024px", q_getMsg('lblZipname'), true); 
             });
             
             /*$('#btnFunc').click(function () {
