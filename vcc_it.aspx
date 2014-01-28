@@ -17,7 +17,7 @@
         }
         q_tables = 's';
         var q_name = "vcc";
-        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2','txtSales','txtSales2'];
+        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2','txtSales','txtSales2','txtZipname'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
         var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
         var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
@@ -115,11 +115,15 @@
             });
 
             $('#lblOrdeno').click(function () { 
-            	q_pop('txtOrdeno', "orde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtOrdeno').val()+"')>0;" + r_accy + '_' + r_cno, 'orde', 'noa', '', "92%", "1024px", q_getMsg('lblOrdeno'), true); 
+            	q_pop('txtOrdeno', "orde_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtOrdeno').val()+"')>0;" + r_accy + '_' + r_cno, 'orde', 'noa', '', "92%", "1024px", q_getMsg('lblOrdeno'), true); 
             });
             
             $('#lblAccc').click(function () {
                 q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
+            });
+            
+            $('#lblZipname').click(function () { 
+            	q_pop('txtZipname', "quit_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtZipname').val()+"')>0;" + r_accy + '_' + r_cno, 'quit', 'noa', '', "92%", "1024px", q_getMsg('lblZipname'), true); 
             });
             
             /*$('#btnFunc').click(function () {
@@ -498,7 +502,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('vcc_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
+            q_box('vcc_it_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -1048,6 +1052,8 @@
 					<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
+				<td class="td7"><span> </span><a id='lblZipname' class="lbl btn"> </a></td>
+                <td class="td8"><input id="txtZipname" type="text" class="txt c1"/></td> 
 			</tr>
             <tr>
                 <td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
