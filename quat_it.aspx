@@ -19,7 +19,7 @@
 			var q_name = "quat";
 			var decbbs = ['price', 'weight', 'mount', 'total','dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price','totalus'];
-			var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales','txtWorker2'];
+			var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales','txtWorker2','txtPostname'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
 						  ['txtFloata', 15, 3, 1]];
@@ -307,7 +307,7 @@
 				if(q_cur > 0 && q_cur < 4)// 1-3
 					return;
 
-				q_box('quat_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+				q_box('quat_it_s.aspx', q_name + '_s', "500px", "410px", q_getMsg("popSeek"));
 			}
 
 			function combPay_chg() {
@@ -841,8 +841,8 @@
 					<input id="txtAddr2"  type="text"  class="txt c1" style="width: 412px;"/> 
 					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 				</td>
-				<td align="right" >&nbsp;</td>
-				<td >&nbsp;</td> 
+				<td class="label3"><span> </span><a id='lblPostname' class="lbl"> </a></td>
+				<td ><input id="txtPostname"  type="text"  class="txt c1"/></td>
 			</tr>
 			<tr class="tr7">
 				<td class="label1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
