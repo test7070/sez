@@ -52,10 +52,11 @@
 						t_where3 = " where[3]=^^ (c.noa='" + x_custno + "' ";
 						t_where5 = " where[5]=^^(((a.custno='" + x_custno + "' ";
 						
-						if(!emp(x_datea))
+						/*if(!emp(x_datea))
 							t_where4 = " where[4]=^^ mon='"+x_datea.substr(0,6)+"' ^^";
 						else
-							t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+							t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";*/
+						t_where4 = " where[4]=^^ carownerno+'_'+carno+'_'+mon in(select carownerno+'_'+carno+'_'+MAX(mon) from cara group by carownerno,carno) ^^";
 						
                         if (!emp(x_custno2)) {
                             var t_custno2 = (x_custno2).split(",");
@@ -94,7 +95,8 @@
                         t_where2 = " where[2]=^^ 1=1 ^^";
                         t_where3 = " where[3]=^^ 1=0 ^^";
                         t_where5 = " where[5]=^^ 1=0 order by noa ^^";
-                        t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+                        //t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+                        t_where4 = " where[4]=^^ carownerno+'_'+carno+'_'+mon in(select carownerno+'_'+carno+'_'+MAX(mon) from cara group by carownerno,carno) ^^";
                         t_where7 = " where[7]=^^ 1=1 ^^";
                     }
                 
