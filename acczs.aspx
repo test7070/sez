@@ -66,7 +66,7 @@
 						} else {
 							Buy_money = Math.round((dec(acczMoney) / dec(canSaleMount)) * dec($(this).val()));
 							$('#txtBuy_money').val(Buy_money);
-							var t_where = "where=^^ noa='" + $('#txtAcczno').val() + "' ^^";
+							var t_where = "where=^^ acc1='" + $('#txtAcczno').val() + "' ^^";
 							q_gt('view_acczt', t_where, 0, 1, 0, "", r_accy + '_' + r_cno);
 						}
 					}
@@ -134,8 +134,9 @@
 						canSaleMount = dec($('#txtMount').val());
 						acczMoney = dec($('#txtBuy_money').val());
 						accumulat = dec($('#txtAccumulat').val());
-						var t_where = "where=^^ noa='" + $('#txtAcczno').val() + "' ^^";
+						var t_where = "where=^^ acc1='" + $('#txtAcczno').val() + "' ^^";
 						q_gt('view_acczt', t_where, 0, 1, 0, "", r_accy + '_' + r_cno);
+						$('#txtSale_money').focus();
 						break;
 				}
 			}
