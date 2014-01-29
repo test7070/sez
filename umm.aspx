@@ -610,8 +610,8 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
                 	
-                    t_money = q_float('txtMoney_' + i);
-                    t_chgs = q_float('txtChgs_' + i);
+                    t_money += q_float('txtMoney_' + i);
+                    t_chgs += q_float('txtChgs_' + i);
                     if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money + t_chgs > 0) {
                         t_err = true;
                         break;
@@ -641,7 +641,7 @@
                 var t_opay = q_float('txtOpay');
                 var t_unopay = q_float('txtUnopay');
                 var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
-                var t2 = q_float('txtTotal') + t_chgs;
+                var t2 = t_money + t_chgs;
                 if (t1 != t2) {
                     alert('收款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
                    	Unlock(1);
@@ -930,8 +930,10 @@
 			   				$('#txtUnpayorg_'+b_seq).val(dec($('#txtUnpayorg_'+b_seq).val())*-1);
 			   				$('#txtUnpay_'+b_seq).val(dec($('#txtUnpay_'+b_seq).val())*-1);
 			   			}
-			   			
-			        break;
+			   			break;
+			   		case 'txtCustno':
+                    	getOpay();
+			        	break;
 			   	}
 			}
 			
