@@ -412,12 +412,14 @@
                         */
                         var as = _q_appendData("umm_mon", "", true);
                         for (var i = 0; i < as.length; i++) {
-							if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
-								as[i].tablea='vcc_it'
-							else if(q_getPara('sys.comp').indexOf('永勝')>-1)
-								as[i].tablea='vcc_uu'
-							else
-								as[i].tablea='vcc'+ q_getPara('sys.project')
+							if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+								as[i].tablea='vcc_it';
+							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
+								as[i].tablea='vcc_uu';
+								as[i].memo=as[i].memo+as[i].invono;
+							}else{
+								as[i].tablea='vcc'+ q_getPara('sys.project');
+							}
                         }
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtAccy,txtTablea,txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'accy,tablea,noa,memo,unpay,unpay,part', 'txtVccno', '');
                         sum();
@@ -610,8 +612,8 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
                 	
-                    t_money += q_float('txtMoney_' + i);
-                    t_chgs += q_float('txtChgs_' + i);
+                    t_money = q_float('txtMoney_' + i);
+                    t_chgs = q_float('txtChgs_' + i);
                     if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money + t_chgs > 0) {
                         t_err = true;
                         break;
@@ -624,6 +626,14 @@
                     alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
                     Unlock(1);
                     return false;
+                }
+                
+                t_money=0,t_chgs=0;
+                for (var i = 0; i < q_bbsCount; i++) {
+                	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
+                	
+                    t_money += q_float('txtMoney_' + i);
+                    t_chgs += q_float('txtChgs_' + i);
                 }
                 
                 for (var i = 0; i < q_bbsCount; i++) {

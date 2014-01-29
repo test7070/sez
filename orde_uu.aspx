@@ -359,7 +359,7 @@
 		function _btnSeek() {
 			if (q_cur > 0 && q_cur < 4)  // 1-3
 				return;
-			q_box('orde_s.aspx', q_name + '_s', "500px", "380px", q_getMsg("popSeek"));
+			q_box('orde_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
 		}
 
 		function changeMon(paytype){
