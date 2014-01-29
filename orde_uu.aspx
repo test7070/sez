@@ -341,6 +341,7 @@
 				alert(t_err);
 				return;
 			}
+			changeMon();
 			if(q_cur==1)
 				$('#txtWorker').val(r_name);
 			else
