@@ -155,6 +155,10 @@
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
+				
+				$('#txtPaytype').change(function(){
+					changeMon();
+				});
 
 				if (isinvosystem)
 					$('.istax').hide();
@@ -403,7 +407,7 @@
 				}
 
 				if (emp($('#txtMon').val()))
-					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
+					changeMon();
 
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
@@ -426,28 +430,55 @@
 				q_box('vcc_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
 			}
 
-			function changeMon(paytype){
-				var thisVal = $.trim(paytype);
-				if(thisVal.substring(0,2)=='月結'){
-					thisVal = thisVal.replace(/[月結|票據|現金|天]/g,'');
+		function changeMon(){
+			var pati1 = /[0-9]{1,}(天)$/g; //判斷輸入的單位是否為天
+			var pati2 = /[0-9]{1,}(月|個月)$/g; //判斷輸入的單位是否為月
+			var pati3 = /[0-9]{1,}/g; //判斷是否有數字
+			var thisVal = '';
+			var thisdatea = $.trim($('#txtDatea').val());
+			var txtVal = $.trim($('#txtPaytype').val());
+			var newMon = '';
+			thisVal = txtVal;
+			if(!pati3.test(thisVal)){
+				if(thisVal.length == 0){
+					thisdatea = (dec(thisdatea.substring(0,3))+1911) +thisdatea.substr(3); 
+					var d=new Date(thisdatea);
+					d.setMonth(d.getMonth() + 6);
+					newMon = (dec(d.getFullYear())-1911)+'/'+padL((1+d.getMonth()),'0',2);
+				}else{
+					newMon = $.trim(thisdatea).substring(0,6);
+				}
+			}else{
+				if(thisVal.match(pati1) != null){
+					thisVal = thisVal.match(pati1)[0];
+					thisVal = thisVal.replace(/天/g);
 					thisVal = dec(thisVal);
-					var thisDatea = $.trim($('#txtDatea').val());
-					thisDatea = (dec(thisDatea.substring(0,3))+1911) +thisDatea.substr(3); 
-					var d=new Date(thisDatea);
+					thisdatea = (dec(thisdatea.substring(0,3))+1911) +thisdatea.substr(3); 
+					var d=new Date(thisdatea);
 					d.setDate(d.getDate()+thisVal);
-					var newMon = (dec(d.getFullYear())-1911)+'/'+padL((1+d.getMonth()),'0',2);
-					$('#txtMon').val(newMon);
-				}				
+					newMon = (dec(d.getFullYear())-1911)+'/'+padL((1+d.getMonth()),'0',2);
+				}else if(thisVal.match(pati2) != null){
+					thisVal = thisVal.match(pati2)[0];
+					thisVal = thisVal.replace(/[月|個月]/g);
+					thisVal = dec(thisVal);
+					thisdatea = (dec(thisdatea.substring(0,3))+1911) +thisdatea.substr(3); 
+					var d=new Date(thisdatea);
+					d.setMonth(d.getMonth() + thisVal);
+					newMon = (dec(d.getFullYear())-1911)+'/'+padL((1+d.getMonth()),'0',2);
+				}else{
+					newMon = $.trim(thisdatea).substring(0,6);
+				}
 			}
+			$('#txtMon').val(newMon);
+		}
 
 			function combPay_chg() {/// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
 				var cmb = document.getElementById("combPay");
 				if (!q_cur){
 					cmb.value = '';
 				}else{
-					var thisVal = $.trim(cmb.value);
-					changeMon(thisVal);
 					$('#txtPaytype').val(cmb.value);
+					changeMon();
 				}
 				cmb.value = '';
 			}
@@ -677,7 +708,7 @@
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
-						changeMon($.trim($('#txtPaytype').val()));
+						changeMon();
 						break;
 					case 'txtProductno_':
 						$('#txtLengthb_' + b_seq).focus();
@@ -880,18 +911,20 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:5%"><a id='vewType'></a></td>
+						<td align="center" style="width:15%"><a id='vewStype'></a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:25%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:40%"><a id='vewComp'></a></td>
+						<td align="center" style="width:25%"><a id='vewComp'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='typea=vcc.typea'>~typea=vcc.typea</td>
+						<td align="center" id='stype=vcc.stype_uu'>~stype=vcc.stype_uu</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='custno comp,4' style="text-align: left;">~custno ~comp,4</td>
+						<td align="center" id='comp,4' style="text-align: left;">~comp,4</td>
 					</tr>
 				</table>
 			</div>
