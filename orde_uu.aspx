@@ -386,7 +386,6 @@
 				}
 			}else{
 				if(thisVal.match(pati1) != null){
-					console.log(1);
 					thisVal = thisVal.match(pati1)[0];
 					thisVal = thisVal.replace(/天/g);
 					thisVal = dec(thisVal);
@@ -395,7 +394,6 @@
 					d.setDate(d.getDate()+thisVal);
 					newMon = (dec(d.getFullYear())-1911)+'/'+padL((1+d.getMonth()),'0',2);
 				}else if(thisVal.match(pati2) != null){
-					console.log(2);
 					thisVal = thisVal.match(pati2)[0];
 					thisVal = thisVal.replace(/[月|個月]/g);
 					thisVal = dec(thisVal);
@@ -404,7 +402,6 @@
 					d.setMonth(d.getMonth() + thisVal);
 					newMon = (dec(d.getFullYear())-1911)+'/'+padL((1+d.getMonth()),'0',2);
 				}else{
-					console.log(3);
 					newMon = $.trim(thisdatea).substring(0,6);
 				}
 			}
