@@ -1107,6 +1107,8 @@
                 <td class="td4"><span> </span><a id="lblWorker" class="lbl"> </a></td>
                 <td class="td5"><input id="txtWorker" type="text" class="txt c1"/></td>             
                 <td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
+                <td class="td7"><span> </span><a id='lblZipcode' class="lbl"> </a></td>
+                <td class="td8"><input id="txtZipcode" type="text" class="txt c1"/></td> 
             </tr>
             <tr>
 				<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>

@@ -199,8 +199,10 @@
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
+                abbm[q_recno]['accno'] = xmlString.split(";")[0];
+                abbm[q_recno]['chkno'] = xmlString.split(";")[1];
+                $('#txtAccno').val(xmlString.split(";")[0]);
+                $('#txtChkno').val(xmlString.split(";")[1]);
                 Unlock(1);
             }
             function btnOk() {

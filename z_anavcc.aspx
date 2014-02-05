@@ -74,6 +74,10 @@
                         type : '5', //[19]
                         name : 'custtype',
                         value : q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1?(' @全部,'+q_getPara('cust.typea_it')).split(','):(' @全部,'+q_getPara('cust.typea')).split(',')
+					},{
+                        type : '5', //[20]
+                        name : 'vccstype',
+                        value : q_getPara('sys.comp').indexOf('永勝')>-1?(' @全部,'+q_getPara('vcc.stype_uu')).split(','):(' @全部,'+q_getPara('vcc.stype')).split(',')
 					}]
 				});
 				q_popAssign();
