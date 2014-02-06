@@ -285,10 +285,13 @@
             }
 
             function btnPrint() {
-            	if(q_getPara('sys.comp').indexOf('大昌')>-1)
+            	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 					q_box('z_vccadc.aspx?;;;'+r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-				else
+				}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+					q_box('z_vccap_it.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+				}else{
 					q_box('z_vcca.aspx?;;;'+r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}
             }
 
             function wrServer(key_value) {
