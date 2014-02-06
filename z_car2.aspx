@@ -107,9 +107,9 @@
             });
             
             function q_gfPost() {
-                 q_gt('carteam', '', 0, 1, 0, "");
+                 q_gt('carteam', '', 0, 0, 0, "");
                  q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);
-                 q_gt('cardeal', '', 0, 1, 0, "");
+                 q_gt('cardeal', '', 0, 0, 0, "");
             }
 
             function q_boxClose(s2) {
