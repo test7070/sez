@@ -172,11 +172,11 @@
 					var as = _q_appendData("orde", "", true);
                         if (as[0] != undefined){
                         	alert('已存在 '+as[0].noa+' '+as[0].part);
-                            Unlock();
                             return;
                         }else{
                         	wrServer($('#txtNoa').val());
                         }
+                        Unlock();
                 		break;
 					break;
 				case 'cno_acomp':
@@ -338,6 +338,8 @@
 			else
 				$('#txtWorker2').val(r_name);
 			sum();
+			
+			var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 			
 			if(q_cur==1){
 				if (s1.length == 0 || s1 == "AUTO") {
