@@ -32,10 +32,11 @@
                 q_brwCount();
                 //q_gt(q_name, q_content, q_sqlCount, 1)
                 //$('#txtNoa').focus
-                if (r_rank < 7)
-                    q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
-                else
-                    q_gt(q_name, q_content, q_sqlCount, 1)
+               if (r_rank < 8){
+					q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 1);
+                }else{
+                    q_gt(q_name, q_content, q_sqlCount, 1);
+                  }
             });
 
             //////////////////   end Ready
@@ -52,6 +53,11 @@
             var insed = false;
             //判斷員工是否重覆請假
             function mainPost() {
+            	if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+            		$('#lblId').hide();
+                   	$('#txtId').hide();
+                   	aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,job,jobno', 'txtSssno,txtNamea,txtPartno,txtPart,txtJob,txtJobno', 'sss_b.aspx'], ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']);
+            	}
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99']];
                 q_mask(bbmMask);
@@ -66,7 +72,7 @@
                         var t_where = "where=^^ datea ='" + $('#txtDatea').val() + "' and sssno='" + $('#txtSssno').val() + "' ^^";
                         q_gt('salvacause', t_where, 0, 0, 0, "", r_accy);
                     }
-                });
+				});
 
                 $('#txtDatea').blur(function() {
                     if (!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())) {
@@ -274,30 +280,54 @@
                 b_pop = '';
             }
 
-            var ssspartno = '';
+            var ssspartno = '',sssgroup='',sssjob='';
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as[0] != undefined) {
-                            if (r_rank >= 7)
-                                q_content = "";
-                            else if (as.length > 0 && as[0]["pr_modi"] == "true")
-                                q_content = "where=^^partno='" + ssspartno + "'^^";
-                            else
-                                q_content = "where=^^sssno='" + r_userno + "'^^";
+                        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	                            if (r_rank >= 7)
+	                                q_content = "";
+	                            else if (as.length > 0 && as[0]["pr_modi"] == "true")
+	                                q_content = "where=^^partno='" + ssspartno + "'^^";
+	                            else
+	                                q_content = "where=^^sssno='" + r_userno + "'^^";
+							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+								if (r_rank >= 8)
+	                                q_content = "";
+	                             else if (as.length > 0 && as[0]["pr_ins"] == "true"&&sssjob.indexOf('經理')>-1)
+	                             	q_content = "where=^^ charindex(sssno,'"+sssgroup+"')>0^^";
+	                             else
+	                             	q_content = "where=^^sssno='" + r_userno + "'^^";
+							}else{
+								if (r_rank >= 8)
+	                                q_content = "";
+	                            else
+	                                q_content = "where=^^sssno='" + r_userno + "'^^";
+							}
                         }
                         q_gt(q_name, q_content, q_sqlCount, 1)
                         break;
-
                     case 'sss':
                         var as = _q_appendData('sss', '', true);
                         if (as[0] != undefined) {
                             ssspartno = as[0].partno;
-                            q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+                            sssjob=as[0].job;
+                            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+    	                        q_gt('sss', "where=^^ salesgroup='" + as[0].salesgroup + "'^^", 0, 0, 0, "sss_salesgroup");
+                            }else{
+	                            q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
+                            }
                         }
                         break;
-
+					case 'sss_salesgroup':
+                        var as = _q_appendData('sss', '', true);
+                        for ( i = 0; i < as.length; i++) {
+                            sssgroup = sssgroup + as[i].noa;
+                        }
+                        q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
+                        break;
                     case 'salvaca':
                         if (q_cur == 1) {
                             var as = _q_appendData("salvaca", "", true);

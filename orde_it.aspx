@@ -17,7 +17,7 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "orde";
-		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales','txtOrdbno','txtOrdcno','txtQuatno'];
+		var q_readonly = ['txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtSales','txtOrdbno','txtOrdcno','txtQuatno'];
 		var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3','txtC1','txtNotv']; 
 		var bbmNum = [['txtTotal', 10,0,1],['txtMoney', 10, 0,1],['txtTax', 10, 0,1],['txtFloata', 10, 2,1],['txtTotalus', 15, 2,1]];  // 允許 key 小數
 		var bbsNum = [['txtPrice', 12, 2,1], ['txtMount', 9, 0,1],['txtTotal', 10, 0,1],['txtC1', 10, 0,1],['txtNotv', 10, 0,1]];
@@ -168,6 +168,17 @@
 		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
+				case 'checkOrde_btnOk':
+					var as = _q_appendData("orde", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].part);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
+					break;
 				case 'cno_acomp':
                 	var as = _q_appendData("acomp", "", true);
                 	if (as[0] != undefined) {
@@ -327,12 +338,18 @@
 			else
 				$('#txtWorker2').val(r_name);
 			sum();
-
-			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-			if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-				q_gtnoa(q_name, replaceAll(q_getPara('sys.key_orde') + $('#txtOdate').val(), '/', ''));
-			else
-				wrServer(s1);
+			
+			if(q_cur==1){
+				if (s1.length == 0 || s1 == "AUTO") {
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_orde') + $('#txtOdate').val(), '/', ''));
+				}else{
+					Lock(); 
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+					q_gt('orde', t_where, 0, 0, 0, "checkOrde_btnOk", r_accy);
+				}
+			}else{
+				wrServer($('#txtNoa').val());
+			}
 		}
 
 		function _btnSeek() {
@@ -420,6 +437,7 @@
 
 		function btnIns() {
 			_btnIns();
+			refreshBbm();
 			$('#chkIsproj').attr('checked',true);
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtCno').val(z_cno);
@@ -435,6 +453,7 @@
 			if (emp($('#txtNoa').val()))
 				return;
 			_btnModi();
+			refreshBbm();
 			$('#txtOdate').focus();
 			
 			if(!emp($('#txtCustno').val())){
@@ -493,6 +512,7 @@
 			$('input[id*="txt"]').click(function(){
 				browTicketForm($(this).get(0));
 			});
+			refreshBbm();
 		}
 
 		function readonly(t_para, empty) {
@@ -628,6 +648,14 @@
 			var re = /(\d{1,3})(?=(\d{3})+$)/g;
 			return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 		}
+		
+		function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
 	</script>
 	<style type="text/css">
 		#dmain {
@@ -778,7 +806,7 @@
 			<table class="tview" id="tview">
 				<tr>
 					<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-					<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+					<td align="center" style="width:25%"><a id='vewOdate'> </a></td>
 					<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
 					<td align="center" style="width:40%"><a id='vewComp'> </a></td>
 				</tr>
