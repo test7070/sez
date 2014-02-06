@@ -311,7 +311,7 @@
 			}
 
 			function combPay_chg() {
-				var cmb = document.getElementById("combPay")
+				var cmb = document.getElementById("combPaytype");
 	            if (!q_cur)
 	                cmb.value = '';
 	            else
