@@ -84,8 +84,9 @@
 			}
 
 			function _btnSeek() {
-				if (q_cur > 0 && q_cur < 4)// 1-3
+				if (q_cur > 0 && q_cur < 4)
 					return;
+				q_box('model_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
 			}
 
 			function bbsAssign() {
