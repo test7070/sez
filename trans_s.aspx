@@ -109,7 +109,7 @@
 		       	if(t_tre=='Y'){
 		       		t_where +="and( exists(select view_tres"+r_accy+".noa from view_tres"+r_accy+ 
 					" left join calctypes on calctypes.noa+calctypes.noq= trans"+r_accy+".calctype"+
-					" where calctypes.isoutside=1 and view_tres102.tranno=trans"+r_accy+".noa)"+
+					" where calctypes.isoutside=1 and view_tres"+r_accy+".tranno=trans"+r_accy+".noa)"+
 					" or exists(select carsal.noa from carsal"+
 					" left join calctypes on calctypes.noa+calctypes.noq= trans"+r_accy+".calctype"+
 					" where calctypes.isoutside=0 and carsal.noa=left(trans"+r_accy+".datea,6) and carsal.lock=1) )";
