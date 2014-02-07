@@ -57,7 +57,7 @@
                     }, {
                         type : '5', //[12]
                         name : 'xstype',
-                        value : [q_getPara('report.all')].concat(q_getPara('ordc.stype').split(','))
+                        value : [q_getPara('report.all')].concat(q_getPara('orde.stype').split(','))
                     }, {
                         type : '5', //[13]
                         name : 'xtran',

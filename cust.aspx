@@ -586,7 +586,7 @@
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales"	type="text" class="txt c6"/>
 						</td>
-						<td class="td5"><input id="btnUcam" type="button"  /></td>
+						<td class="td5"><input id="btnUcam" type="button" style="float: right;" /></td>
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>

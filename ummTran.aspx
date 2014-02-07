@@ -87,9 +87,9 @@
                     var t_money = 0 + q_float('txtUnopay');
                     for (var i = 0; i < q_bbsCount; i++) {
                     	//$('#txtAcc1_' + i).val().indexOf('2121') == 0 ||
-                        if ( $('#txtAcc1_' + i).val().indexOf('7149') == 0 || $('#txtAcc1_' + i).val().indexOf('7044') == 0)
+                        /*if ( $('#txtAcc1_' + i).val().indexOf('7149') == 0 || $('#txtAcc1_' + i).val().indexOf('7044') == 0)
                             t_money -= q_float('txtMoney_' + i);
-                        else
+                        else*/
                             t_money += q_float('txtMoney_' + i);
 
                         t_money += q_float('txtChgs_' + i);
@@ -281,9 +281,9 @@
                 var t_money = 0, t_pay = 0, t_sale = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
                 	//$('#txtAcc1_' + j).val().indexOf('2121') == 0 ||
-                    if ( $('#txtAcc1_' + j).val().indexOf('7149') == 0 || $('#txtAcc1_' + j).val().indexOf('7044') == 0)
+                    /*if ( $('#txtAcc1_' + j).val().indexOf('7149') == 0 || $('#txtAcc1_' + j).val().indexOf('7044') == 0)
                         t_money -= q_float('txtMoney_' + j);
-                    else
+                    else*/
                         t_money += q_float('txtMoney_' + j);
                     t_money += q_float('txtChgs_' + j);
                     t_sale += q_float('txtUnpayorg_' + j);
@@ -948,7 +948,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' >
+		<div id='dmain' style="width: 1260px;">
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
@@ -1092,7 +1092,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' >
+		<div class='dbbs' style="width: 1260px;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:1%;">
@@ -1118,9 +1118,9 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtAcc1.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtAcc1.*"  style="width:75%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtAcc2.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtAcc2.*"  style="width:97%; float:left;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
@@ -1135,9 +1135,9 @@
 					</td>
 					<td>
 						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtBankno.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtBankno.*"  style="width:75%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtBank.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtBank.*"  style="width:97%; float:left;"/>
 					</td>
 					<td>
 					<input type="text" id="txtIndate.*" style="width:95%;" />
