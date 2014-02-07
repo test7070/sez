@@ -498,7 +498,7 @@
 	<table class="tbbm"	id="tbbm"	border="0" cellpadding='2'	cellspacing='0'>
 		<tr>
 			<td class="label1"><a id='lblUno'> </a></td>
-			<td class='column1'>
+			<td class='column1' colspan="3">
 				<input type="text" id="txtUno" class="txt c3"/>
 				<input type="text" id="txtNoa" style="display:none;"/>
 				<div style="float:left;">
@@ -506,9 +506,6 @@
 					<span> </span><a id="lblCopy"></a>
 				</div>
 			</td>
-			<td class="label2"><!--<a id='lblDatea'> </a>--></td>
-			<td class='column2'><!--<input	type="text" id="txtDatea" class="txt c2"/>--></td>
-			<td class="label3"> </td>
 		</tr>
 		<tr><td class="label1"><a id='lblProduct'> </a></td>
 			<td colspan='3'><input	type="text" id="txtProduct" class="txt c1"/></td>
