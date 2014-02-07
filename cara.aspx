@@ -56,7 +56,7 @@
                 mainForm(1);
             }
             			
-			var dateimport=false;
+			//var dateimport=false;
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtPdate', r_picd]];
@@ -69,7 +69,7 @@
                 
                 q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);	
                 
-                $('#btnImport').click(function () {
+                /*$('#btnImport').click(function () {
                 	if(emp($('#txtCarno').val())){
                 		alert('車牌號碼請先輸入!!');
                 		$('#txtCarno').focus();
@@ -84,7 +84,7 @@
                 	//上期欠款
 		            var t_where = "where=^^ carno ='"+$('#txtCarno').val()+"' ^^ top=1";
 			        q_gt('cara', t_where , 0, 0, 0, "", r_accy);
-		     	});
+		     	});*/
                 $('#cmbIsource').change(function () {sum();});
                 //速查
                 /*$('#textCarseek').change(function () {
@@ -221,6 +221,11 @@
                 			unpay+=dec(as[i].unpay);
                 		}
                 		q_tr('textUnpay',unpay);
+                		if(refresh_modi2){
+                			refresh_modi2=false;
+                			_refresh(q_recno);
+                			btnModi();
+                		}
                 	break;
                 	case 'sss':
             			var as = _q_appendData("sss", "", true);
@@ -230,7 +235,7 @@
             			sssno=sssno.substr(0,sssno.length-1);
             		break;
                 	case 'car2':
-                		if(dateimport){
+                		/*if(dateimport){
                 			var as = _q_appendData("car2", "", true);
                 			if(as[0]!=undefined){
                 				as[0]._datea=q_date();
@@ -299,7 +304,7 @@
                 			//保險費
 					        var t_where = "where=^^ noa ='"+$('#txtCarno').val()+"' and inmon='"+$('#txtMon').val()+"' ^^";
 					        q_gt('carinsure', t_where , 0, 0, 0, "", r_accy);
-					    }
+					    }*/
                 		break;
                 	case 'carinsure':
                 		var as = _q_appendData("carinsure", "", true);
@@ -328,7 +333,7 @@
                     		sum();
                 		break;
                     case q_name:
-                    	if(dateimport){
+                    	/*if(dateimport){
                     		var as = _q_appendData("cara", "", true);
                     		if(as[0]!=undefined){
                     			//上月息額取上一張累計息額並判斷來源
@@ -349,6 +354,10 @@
 					        var t_where = "where=^^ a.noa ='"+$('#txtCarno').val()+"' ^^";
 					        q_gt('car2', t_where , 0, 0, 0, "", r_accy);
 					        
+                    	}*/
+                    	if(refresh_modi){
+                    		_refresh(q_recno);
+                    		refresh_modi2=true;
                     	}
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -546,7 +555,12 @@
                 $('#txtMon').val(q_date().substr(0,6));
                 $('#txtCarno').focus();
             }
-
+			
+			var refresh_modi=false;
+			var refresh_modi2=false;
+			function refreshModi() {
+				q_gt(q_name, q_content, q_sqlCount, 1);
+			}
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
@@ -556,6 +570,15 @@
                     return;
                 }
                 _btnModi();
+                if(!refresh_modi){
+            		refresh_modi=true;
+            		btnCancel();
+            		refreshModi();
+            		//return;
+            	}else{
+            		refresh_modi=false;
+            	}
+                
 				//禁止修改
 				$('#txtCarowner').attr('disabled', 'disabled');
 				$('#txtCarownerno').attr('disabled', 'disabled');
@@ -755,13 +778,13 @@
 		            //$('#textCarseek').removeAttr('disabled');
 		            $('#btnNextmon').removeAttr('disabled');
 		            //$('#btnPxextmon').removeAttr('disabled');
-		            $('#btnImport').attr('disabled', 'disabled');
+		            //$('#btnImport').attr('disabled', 'disabled');
 		        }
 		        else {
 		        	//$('#textCarseek').attr('disabled', 'disabled');
 		        	$('#btnNextmon').attr('disabled', 'disabled');
 		        	//$('#btnPnxtmon').attr('disabled', 'disabled');
-		        	$('#btnImport').removeAttr('disabled');
+		        	//$('#btnImport').removeAttr('disabled');
 		        }
             }
 
