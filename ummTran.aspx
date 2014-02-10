@@ -948,7 +948,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="width: 1260px;">
+		<div id='dmain'>
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
@@ -1092,7 +1092,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:1%;">
@@ -1118,7 +1118,7 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtAcc1.*"  style="width:75%; float:left;"/>
+                        <input type="text" id="txtAcc1.*"  style="width:85%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtAcc2.*"  style="width:97%; float:left;"/>
 					</td>
@@ -1135,7 +1135,7 @@
 					</td>
 					<td>
 						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtBankno.*"  style="width:75%; float:left;"/>
+                        <input type="text" id="txtBankno.*"  style="width:85%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtBank.*"  style="width:97%; float:left;"/>
 					</td>

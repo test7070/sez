@@ -56,7 +56,14 @@
 							t_where4 = " where[4]=^^ mon='"+x_datea.substr(0,6)+"' ^^";
 						else
 							t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";*/
-						t_where4 = " where[4]=^^ carownerno+'_'+carno+'_'+mon in(select carownerno+'_'+carno+'_'+MAX(mon) from cara group by carownerno,carno) ^^";
+						//1030210  cara 超過6個月且帳歸0的帳不帶入
+						var t_mon=window.parent.q_date();
+						var nextdate=new Date(dec(t_mon.substr(0,3))+1911,dec(t_mon.substr(4,2))-1,dec(t_mon.substr(7,2)));
+						nextdate.setMonth(nextdate.getMonth() -6)
+						t_mon=''+(nextdate.getFullYear()-1911)+'/';
+						//月份
+						t_mon=t_mon+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)):((nextdate.getMonth()+1)));
+						t_where4 = " where[4]=^^ carownerno+'_'+carno+'_'+mon in(select carownerno+'_'+carno+'_'+MAX(mon) from cara group by carownerno,carno) and (total!=0 or mon>='"+t_mon+"') ^^";
 						
                         if (!emp(x_custno2)) {
                             var t_custno2 = (x_custno2).split(",");
@@ -96,7 +103,14 @@
                         t_where3 = " where[3]=^^ 1=0 ^^";
                         t_where5 = " where[5]=^^ 1=0 order by noa ^^";
                         //t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
-                        t_where4 = " where[4]=^^ carownerno+'_'+carno+'_'+mon in(select carownerno+'_'+carno+'_'+MAX(mon) from cara group by carownerno,carno) ^^";
+		               //1030210  cara 超過6個月且帳歸0的帳不帶入
+						var t_mon=window.parent.q_date();
+						var nextdate=new Date(dec(t_mon.substr(0,3))+1911,dec(t_mon.substr(4,2))-1,dec(t_mon.substr(7,2)));
+						nextdate.setMonth(nextdate.getMonth() -6)
+						t_mon=''+(nextdate.getFullYear()-1911)+'/';
+						//月份
+						t_mon=t_mon+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)):((nextdate.getMonth()+1)));
+						t_where4 = " where[4]=^^ carownerno+'_'+carno+'_'+mon in(select carownerno+'_'+carno+'_'+MAX(mon) from cara group by carownerno,carno) and (total!=0 or mon>='"+t_mon+"') ^^";
                         t_where7 = " where[7]=^^ 1=1 ^^";
                     }
                 
