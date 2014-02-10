@@ -572,6 +572,12 @@
 				if (emp($('#txtNoa').val()))
 					return;
 
+				//0207權限小於8, 隔月不能修改刪除
+				if(r_rank<8 && $('#txtDatea').val().substr(0,6)<q_date().substr(0,6)){
+					alert("隔月出貨單禁止修改!!");
+					return;
+				}
+
 				Lock(1, {
 					opacity : 0
 				});
@@ -688,11 +694,19 @@
 			}
 
 			function btnDele() {
-				if (q_chkClose())
+				/*if (q_chkClose())
 					return;
+				*/
+				//0207權限小於8, 隔月不能修改刪除
+				if(r_rank<8 && $('#txtDatea').val().substr(0,6)<q_date().substr(0,6)){
+					alert("隔月出貨單禁止刪除!!");
+					return;
+				}
+					
 				Lock(1, {
 					opacity : 0
 				});
+				
 				var t_where = " where=^^ vccno='" + $('#txtNoa').val() + "'^^";
 				q_gt('umms', t_where, 0, 0, 0, 'btnDele', r_accy);
 			}

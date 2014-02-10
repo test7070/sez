@@ -493,6 +493,12 @@
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
 				return;
+			//0207權限小於8, 隔月不能修改刪除
+			if(r_rank<8 && $('#txtOdate').val().substr(0,6)<q_date().substr(0,6)){
+				alert("隔月訂單禁止修改!!");
+				return;
+			}
+			
 			_btnModi();
 			$('#txtOdate').focus();
 			
@@ -620,6 +626,11 @@
 		}
 
 		function btnDele() {
+			//0207權限小於8, 隔月不能修改刪除
+			if(r_rank<8 && $('#txtOdate').val().substr(0,6)<q_date().substr(0,6)){
+				alert("隔月訂單禁止刪除!!");
+				return;
+			}
 			_btnDele();
 		}
 
