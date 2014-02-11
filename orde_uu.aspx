@@ -539,7 +539,8 @@
 				return;
 			//0207權限小於8, 隔月不能修改刪除
 			//0210 因業務離職所以暫時先開放給劉小姐修改
-			if(r_rank<8 && $('#txtOdate').val().substr(0,6)<q_date().substr(0,6)&&r_userno!='13'){
+			//0211 只要鎖定銷貨→表示已賣出
+			if(r_rank<8 && $('#txtOdate').val().substr(0,6)<q_date().substr(0,6)&&r_userno!='13' && $('#cmbStype').val()=='1'){
 				alert("隔月訂單禁止修改!!");
 				return;
 			}
