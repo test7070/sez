@@ -177,6 +177,43 @@
 		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'btnDele':
+						var as = _q_appendData("umms", "", true);
+						if (as[0] != undefined) {
+							var z_msg = "", t_paysale = 0;
+							for (var i = 0; i < as.length; i++) {
+								t_paysale = parseFloat(as[i].paysale.length == 0 ? "0" : as[i].paysale);
+								if (t_paysale != 0)
+									z_msg += String.fromCharCode(13) + '收款單號【' + as[i].noa + '】 ' + FormatNumber(t_paysale);
+							}
+							if (z_msg.length > 0) {
+								alert('已沖帳:' + z_msg);
+								Unlock(1);
+								return;
+							}
+						}
+						_btnDele();
+						Unlock(1);
+						break;
+            	case 'btnModi':
+						var as = _q_appendData("umms", "", true);
+						if (as[0] != undefined) {
+							var z_msg = "", t_paysale = 0;
+							for (var i = 0; i < as.length; i++) {
+								t_paysale = parseFloat(as[i].paysale.length == 0 ? "0" : as[i].paysale);
+								if (t_paysale != 0)
+									z_msg += String.fromCharCode(13) + '收款單號【' + as[i].noa + '】 ' + FormatNumber(t_paysale);
+							}
+							if (z_msg.length > 0) {
+								alert('已沖帳:' + z_msg);
+								Unlock(1);
+								return;
+							}
+						}
+						_btnModi();
+		            	fieldsdisabled();
+		            	$('#txtCustno').focus();
+						break;
             	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
                 		if (as[0] != undefined) {
@@ -290,10 +327,17 @@
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-            _btnModi();
-            
-            fieldsdisabled ();
-            $('#txtCustno').focus();
+			if($('#cmbTypea').val()=='1' || $('#cmbTypea').val()=='2'){
+				Lock(1, {
+					opacity : 0
+				});
+				var t_where = " where=^^ charindex(vccno,'" + $('#txtBkvccno').val()+','+$('#txtSaleno').val()+ "' )>0 ^^";
+				q_gt('umms', t_where, 0, 0, 0, 'btnModi', r_accy);
+			}else{
+            	_btnModi();
+            	fieldsdisabled();
+            	$('#txtCustno').focus();
+           }
         }
         function btnPrint() {
 
@@ -378,12 +422,32 @@
         }
 
         function btnDele() {
-            _btnDele();
+        	if($('#cmbTypea').val()=='1' || $('#cmbTypea').val()=='2'){
+				Lock(1, {
+					opacity : 0
+				});
+				var t_where = " where=^^ charindex(vccno,'" + $('#txtBkvccno').val()+','+$('#txtSaleno').val()+ "' )>0 ^^";
+				q_gt('umms', t_where, 0, 0, 0, 'btnDele', r_accy);
+			}else{
+            	_btnDele();
+           }
         }
 
         function btnCancel() {
             _btnCancel();
         }
+        
+        function FormatNumber(n) {
+				var xx = "";
+				if (n < 0) {
+					n = Math.abs(n);
+					xx = "-";
+				}
+				n += "";
+				var arr = n.split(".");
+				var re = /(\d{1,3})(?=(\d{3})+$)/g;
+				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+			}
         
         function fieldsdisabled () {
         	

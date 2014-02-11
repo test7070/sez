@@ -22,7 +22,7 @@
             var q_readonly = ['txtNoa', 'txtDatea','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtOprice', 10, 2, 1],['txtPrice', 10, 2, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 2, 1]];
+            var bbsNum = [['txtOprice', 10, 3, 1],['txtPrice', 10, 3, 1],['txtDiscount', 10, 2, 1],['txtTaxrate', 5, 2, 1],['txtNotaxprice', 10, 3, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;

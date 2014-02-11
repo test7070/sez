@@ -573,7 +573,8 @@
 					return;
 
 				//0207權限小於8, 隔月不能修改刪除
-				if(r_rank<8 && $('#txtDatea').val().substr(0,6)<q_date().substr(0,6)){
+				//0210 因業務離職所以暫時先開放給劉小姐修改
+				if(r_rank<8 && $('#txtDatea').val().substr(0,6)<q_date().substr(0,6)&&r_userno!='13'){
 					alert("隔月出貨單禁止修改!!");
 					return;
 				}

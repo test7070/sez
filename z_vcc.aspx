@@ -116,6 +116,10 @@
                         type : '8', //[20]//顯示發票號碼//400
                         name : 'xshowinvono',
                         value : "1@顯示發票資料".split(',')
+                    }, {
+                        type : '5',
+                        name : 'vcctypea', //[21]//800
+                        value : [q_getPara('report.all')].concat(q_getPara('vcc.typea').split(','))
                     }]
                 });
                 q_popAssign();

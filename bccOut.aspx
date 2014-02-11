@@ -30,7 +30,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,cmbPartno', 'sss_b.aspx']
+            aPop = new Array(['txtSno', 'lblSname', 'sssall', 'noa,namea,partno,part', 'txtSno,txtSname,cmbPartno', 'sss_b.aspx']
             ,['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
 
             $(document).ready(function() {
