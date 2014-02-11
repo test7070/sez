@@ -548,9 +548,12 @@
 						break;
 					case '3':
 						// 內含
-						t_tax = round(q_mul(q_div(t_money,q_add(1,t_taxrate)),t_taxrate), 0);
-						t_total = t_money;
-						t_money = q_sub(t_total,t_tax);
+						 t_tax=0,t_total=0,t_money=0;
+						for (var j = 0; j < q_bbsCount; j++) {
+							t_tax += round(q_mul(q_div(q_float('txtTotal_' + j), q_add(1, t_taxrate)), t_taxrate), 0);
+							t_total += q_float('txtTotal_' + j);
+							t_money = q_sub(t_total, t_tax);
+						}
 						break;
 					case '4':
 						// 免稅
