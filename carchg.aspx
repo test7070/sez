@@ -141,9 +141,9 @@
 							var now_acc2 = $('#txtAcc2').val();
 							$('#txtAcc1').val(now_acc1 + as[0].carownerno);
 							$('#txtAcc2').val(now_acc2 + '-' + as[0].carowner);*/
-							var t_acc1 = '1123.'+as[0].carownerno
+							var t_acc1 = '1123.'+as[0].carownerno;
 							$('#txtAcc1').val(t_acc1);
-							var t_where = "where=^^ acc1='"+t_acc1+"' ^^"
+							var t_where = "where=^^ acc1='"+t_acc1+"' ^^";
 							q_gt('acc', t_where , 0, 0, 0, "", r_accy+'_1');
 						}						
 						break;
@@ -156,11 +156,14 @@
 					case 'carteam':
 						var as = _q_appendData("carteam", "", true);
 						var t_item = "@";
-						for ( i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+						if(as[0]!=undefined){
+    						for ( i = 0; i < as.length; i++) {
+    							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+    						}
+    						q_cmbParse("cmbCarteamno", t_item);
 						}
-						q_cmbParse("cmbCarteamno", t_item);
-						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
+						if(abbm[q_recno]!=undefined)
+					       $("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
 						break;
 					case q_name:
