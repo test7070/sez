@@ -425,31 +425,35 @@
 						break;
 					case 'transInit_1':
 						var as = _q_appendData("carteam", "", true);
-						var t_item = "";
-						for ( i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+						if (as[0] != undefined) {
+    						var t_item = "";
+    						for ( i = 0; i < as.length; i++) {
+    							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+    						}
+    						q_cmbParse("cmbCarteamno", t_item);
+    						if(abbm[q_recno]!=undefined)
+    							$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						}
-						q_cmbParse("cmbCarteamno", t_item);
-						if(abbm[q_recno]!=undefined)
-							$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						q_gt('calctype2', '', 0, 0, 0, 'transInit_2');
 						break;
 					case 'transInit_2':
 						var as = _q_appendData("calctypes", "", true);
 						var t_item = "";
-						for ( i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
-							trans.calctype.push({
-								noa : as[i].noa + as[i].noq,
-								typea : as[i].typea,
-								discount : as[i].discount,
-								discount2 : as[i].discount2,
-								isoutside : as[i].isoutside.length == 0 ? false : (as[i].isoutside == "false" || as[i].isoutside == "0" || as[i].isoutside == "undefined" ? false : true)
-							});
+						if (as[0] != undefined) {
+    						for ( i = 0; i < as.length; i++) {
+    							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
+    							trans.calctype.push({
+    								noa : as[i].noa + as[i].noq,
+    								typea : as[i].typea,
+    								discount : as[i].discount,
+    								discount2 : as[i].discount2,
+    								isoutside : as[i].isoutside.length == 0 ? false : (as[i].isoutside == "false" || as[i].isoutside == "0" || as[i].isoutside == "undefined" ? false : true)
+    							});
+    						}
+    						q_cmbParse("cmbCalctype", t_item);
+    						if(abbm[q_recno]!=undefined)
+    							$("#cmbCalctype").val(abbm[q_recno].calctype);
 						}
-						q_cmbParse("cmbCalctype", t_item);
-						if(abbm[q_recno]!=undefined)
-							$("#cmbCalctype").val(abbm[q_recno].calctype);
 						trans.isInit = true;
 						trans.refresh();
 						Unlock(1);
