@@ -65,7 +65,8 @@
 					//"&& noa not in (select noa from view_vcc where isnull(cardeal,'') in (select noa from ummb where typea='3')) " //換單不可再退貨
 					t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
-					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' && noa not in (select noa from view_vcc where unpay=0 and stype!='2')";
+					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' && noa not in (select noa from view_vcc where unpay>=0 and payed>0)"
+					+" && lengthb-isnull((select SUM(bkmount)-SUM(salemount) from ummbs where vccno=a.noa and vccnoq=a.noq),0)!=0 ";
 					q_box("vccs_ummb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_1', "95%", "95%", q_getMsg('popVccs'));
 	            }else if($('#cmbTypea').val()=='2'){//換貨--->匯入【未收】出貨單--->一次一張需整張處理完--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立 新出貨單
 	            	//alert('請選擇同一出貨單號的產品!!');
