@@ -190,6 +190,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
+                $('#chkIselectric').prop('checked',true);
                 $('#txtNoa').focus();
             }
 
@@ -578,6 +579,10 @@
 							<input class="btn"  id="btnSeq" type="button"/>
 							<input id="txtSeq" type="text" style="display:none;"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblIselectric" class="lbl"> </a></td>
+						<td><input id="chkIselectric"  type="checkbox" style="float:left;" /></td>
 					</tr>
 				</table>
 			</div>

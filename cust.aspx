@@ -23,7 +23,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			brwCount2 = 20;
+			brwCount2 = 25;
 			//ajaxPath = ""; //  execute in Root
 			aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 			, ['txtAddr_fact', '', 'view_road', 'memo,zipcode', '0txtAddr_fact,txtZip_fact', 'road_b.aspx']
@@ -97,6 +97,7 @@
 					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
+				q_cmbParse("cmbStatus", q_getPara('cust.status'));
 				
 				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 					$('#btnUcam').hide();
@@ -375,6 +376,9 @@
 				text-align: center;
 				border: 1px black solid;
 			}
+			.tview tr {
+				height:26px;
+			}
 			.dbbm {
 				float: left;
 				width: 60%;
@@ -522,7 +526,7 @@
 						<td class="td3"><span> </span><a id='lblHead' class="lbl"></a></td>
 						<td class="td4"><input id="txthead" type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id='lblStatus' class="lbl"></a></td>
-						<td class="td6"><input id="txtStatus"   type="text"  class="txt c1"/></td>
+						<td class="td6"><select id="cmbStatus" class="txt c1"></select></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td3"><span> </span><a id='lblType' class="lbl"></a></td>

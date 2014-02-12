@@ -475,7 +475,9 @@
 						</tr>
 						<tr>
 							<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-							<td colspan='7'><input id="txtMemo"  type="text" class="txt c1"/></td>
+							<td colspan='7'>
+								<textarea id="txtMemo" class="txt c1" style="height:100px;"> </textarea>
+							</td>
 						</tr>
 						<tr>
 							<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
