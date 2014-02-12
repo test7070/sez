@@ -98,7 +98,7 @@
                     var t_unpay, t_pay = 0;
                     for (var i = 0; i < q_bbsCount; i++) {
                         if (q_float('txtUnpay_' + i) != 0) {
-                            t_unpay = q_float('txtUnpayorg_' + i)
+                            t_unpay = q_float('txtUnpayorg_' + i);
                             if (t_money >= t_unpay) {
                                 q_tr('txtPaysale_' + i, t_unpay);
                                 $('#txtUnpay_' + i).val(0);
@@ -637,6 +637,16 @@
 	                    $(this).val($(this).val().replace(patt,"$1.$2"));
                         sum();
                     });
+                    $('#txtVccno_'+i).bind('contextmenu',function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace('txtVccno_','');
+                        var t_accy = $('#txtAccy_'+n).val();
+                        var t_tablea = $('#txtTablea_'+n).val();
+                        if(t_tablea.length>0){
+                            q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
+                        }
+                    });
                     $('#txtMoney_' + i).change(function(e) {
                         sum();
                     });
@@ -705,7 +715,7 @@
             			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
             			q_gt('chk2s', t_where, 0, 0, 0, "gqb_status1_"+n+"_"+t_checkno, r_accy);
             		}else{
-            			checkGqbStatus_btnModi(n-1)
+            			checkGqbStatus_btnModi(n-1);
             		}
             	}
             }
@@ -719,7 +729,7 @@
             			var t_where = " where=^^ checkno='"+t_checkno+"'^^";
             			q_gt('chk2s', t_where, 0, 0, 0, "gqb_statusA_"+n+"_"+t_checkno, r_accy);
             		}else{
-            			checkGqbStatus_btnDele(n-1)
+            			checkGqbStatus_btnDele(n-1);
             		}
             	}
             }
@@ -1150,6 +1160,8 @@
 					<td>
 					<input type="text" id="txtMemo2.*" style="width:95%;"/>
 					<input type="text" id="txtVccno.*" style="width:95%;" />
+					<input type="text" id="txtTablea.*" style="display:none;" />
+					<input type="text" id="txtAccy.*" style="display:none;" />
 					</td>
 					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
