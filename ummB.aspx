@@ -214,6 +214,7 @@
 						_btnModi();
 		            	fieldsdisabled();
 		            	$('#txtCustno').focus();
+		            	Unlock(1);
 						break;
             	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
