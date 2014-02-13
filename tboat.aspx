@@ -170,6 +170,12 @@
 						$('#txtTotal_'+j).change(function(){
 							sum();
 						});
+						$('#txtCaseno_'+j).change(function(){
+							$(this).val($.trim($(this).val().toUpperCase()));
+						});
+						$('#txtCaseno2_'+j).change(function(){
+							$(this).val($.trim($(this).val().toUpperCase()));
+						});
 					}
 				}
 				_bbsAssign();
@@ -192,7 +198,6 @@
 
 			function wrServer(key_value) {
 				var i;
-
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
@@ -202,9 +207,7 @@
 					as[bbsKey[1]] = '';
 					return;
 				}
-
 				q_nowf();
-
 				return true;
 			}
 
@@ -488,10 +491,10 @@
 						<td style="width:110px;"><a id='lblBoatname_s'> </a></td>
 						<td style="width:80px;"><a id='lblShip_s'> </a></td>
 						<td style="width:80px;"><a id='lblSpec_s'> </a></td>
-						<td style="width:150px;"><a id='lblStraddrno_s'> </a></td>
-						<td style="width:80px;"><a id='lblCaseno_s'> </a></td>
-						<td style="width:150px;"><a id='lblEndaddrno_s'> </a></td>
-						<td style="width:80px;"><a id='lblCaseno2_s'> </a></td>
+						<td style="width:130px;"><a id='lblStraddrno_s'> </a></td>
+						<td style="width:100px;"><a id='lblCaseno_s'> </a></td>
+						<td style="width:130px;"><a id='lblEndaddrno_s'> </a></td>
+						<td style="width:100px;"><a id='lblCaseno2_s'> </a></td>
 						<td style="width:60px;"><a id='lblMount_s'> </a></td>
 						<td style="width:60px;"><a id='lblPrice_s'> </a></td>
 						<td style="width:80px;"><a id='lblTotal_s'> </a></td>
@@ -508,13 +511,13 @@
 						<td>
 							<input type="button" id="btnStraddrno.*" value="." style="width:1%;float:left;">
 							<input id="txtStraddrno.*" type="text" style="width: 25%;float:left;"/>
-							<input id="txtStraddr.*" type="text" style="width: 60%;float:left;"/>
+							<input id="txtStraddr.*" type="text" style="width: 55%;float:left;"/>
 						</td>
 						<td><input type="text" id="txtCaseno.*" class="txt c1"/></td>
 						<td>
 							<input type="button" id="btnEndaddrno.*" value="." style="width:1%;float:left;">
 							<input id="txtEndaddrno.*" type="text" style="width: 25%;float:left;"/>
-							<input id="txtEndaddr.*" type="text" style="width: 60%;float:left;"/>
+							<input id="txtEndaddr.*" type="text" style="width: 55%;float:left;"/>
 						</td>
 						<td><input type="text" id="txtCaseno2.*" class="txt c1"/></td>
 						<td><input type="text" id="txtMount.*" class="txt num c1"/></td>
