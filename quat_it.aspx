@@ -381,7 +381,7 @@
 					return;
 				//1030213 高小姐轉出立帳單後禁止修改
 				if(r_rank<8 && !emp($('#txtPostname').val())){
-					alert('已轉成出貨丹或訂單!!');
+					alert('已轉成出貨單或訂單!!');
 					return;
 				}
 				
