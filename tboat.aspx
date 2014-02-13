@@ -17,10 +17,10 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = [];
-			var q_readonlys = [];
-			var bbmNum = [];
-			var bbsNum = [];
+			var q_readonly = ['txtNoa','txtCust','txtMount','txtMoney','txtTax','txtTotal','txtWorker','txtWorker2'];
+			var q_readonlys = ['txtStraddr','txtEndaddr','txtTotal'];
+			var bbmNum = [['txtMount',10,0,1],['txtMoney',10,0,1],['txtTax',10,0,1],['txtTotal',10,0,1]];
+			var bbsNum = [['txtMount',10,0,1],['txtPrice',10,0,1],['txtTotal',10,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -28,7 +28,13 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Noa';
-			brwCount2 = 5;
+			brwCount2 = 8;
+			
+			aPop = new Array(
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtNick', 'cust_b.aspx'],
+				['txtStraddrno_', 'btnStraddrno_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx'],
+				['txtEndaddrno_', 'btnEndaddrno_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
+			);
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -36,6 +42,56 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
+
+			function sum(){
+				var t_mount=0,t_money=0,t_tax=0,t_total=0;
+				var t_mounts=0,t_prices=0,t_totals=0;
+				var t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
+				$('#txtTax').attr('readonly', true);
+				$('#txtTax').css('background-color', 'rgb(237,237,238)').css('color', 'green');
+				for(var j=0;j<q_bbsCount;j++){
+					t_mounts = dec($('#txtMount_'+j).val());
+					t_prices = dec($('#txtPrice_'+j).val());
+					t_totals = dec($('#txtTotal_'+j).val());
+					t_mount = q_add(t_mount,t_mounts);
+					t_totals = round(q_mul(t_mounts,t_prices),0);
+					switch($.trim(($('#cmbTaxtype').val()))){
+						case '1': // 應稅
+							t_tax = q_add(t_tax,round(q_mul(t_totals,t_taxrate), 0));
+							t_money = q_add(t_money,t_totals);
+							break;
+						case '2': //零稅率
+							t_tax = 0;
+							t_money = q_add(t_money,t_totals);
+							break;
+						case '3': // 內含
+							t_tax = q_add(t_tax,q_sub(t_totals,round(q_div(t_totals, q_add(1, t_taxrate)), 0)));
+							t_money = q_add(t_money,q_sub(t_totals,q_sub(t_totals,round(q_div(t_totals, q_add(1, t_taxrate)), 0))));
+							break;
+						case '4': // 免稅
+							t_tax = 0;
+							t_money = q_add(t_money,t_totals);
+							break;
+						case '5': // 自定
+							$('#txtTax').attr('readonly', false);
+							$('#txtTax').css('background-color', 'white').css('color', 'black');
+							t_tax = round(dec($('#txtTax').val()),0);
+							t_money = q_add(t_money,t_totals);
+							break;
+						case '6': // 作廢-清空資料
+							t_money = 0, t_tax = 0;
+							break;
+						default:
+							break;
+					}
+					$('#txtTotal_'+j).val(t_totals);
+				}
+				t_total = q_add(t_money,t_tax);
+				$('#txtMount').val(t_mount);
+				$('#txtMoney').val(t_money);
+				$('#txtTax').val(t_tax);
+				$('#txtTotal').val(t_total);
+			}
 
 			function main() {
 				if (dataErr) {
@@ -47,14 +103,27 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [];
+				bbmMask = [['txtDatea',r_picd],['txtInvodate',r_picd]];
+				bbsMask = [['txtTrandate',r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				q_cmbParse("cmbTypea", q_getPara('tboat.type'));
+				$('#cmbTaxtype').change(function(){
+					sum();
+				});
+				$('#txtMount').change(function(){
+					sum();
+				});
+				$('#txtMoney').change(function(){
+					sum();
+				});
+				$('#txtTax').change(function(){
+					sum();
+				});
 			}
 
 			function q_boxClose(s2) {
-				var
-				ret;
+				var ret;
 				switch (b_pop) {
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -72,7 +141,8 @@
 					alert(t_err);
 					return;
 				}
-				if(q_cur==1)
+				sum();
+				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
 					$('#txtWorker2').val(r_name);
@@ -91,6 +161,15 @@
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtMount_'+j).change(function(){
+							sum();
+						});
+						$('#txtPrice_'+j).change(function(){
+							sum();
+						});
+						$('#txtTotal_'+j).change(function(){
+							sum();
+						});
 					}
 				}
 				_bbsAssign();
@@ -119,7 +198,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['datea']) {
+				if (!as['trandate']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -207,6 +286,9 @@
 				color: blue;
 				width: 100%;
 			}
+			.tview tr {
+				height:26px;
+			}
 			.tview td {
 				padding: 2px;
 				text-align: center;
@@ -284,7 +366,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1300px;
+				width: 1260px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -326,9 +408,7 @@
 						<td style="width:120px; color:black;"><a id='vewNick'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 					</tr>
@@ -342,21 +422,21 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
+						<td></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td>
-							<input id="txtDatea" type="text" class="txt" style="width:55%;"/>
-							<span style="float:left;display:block;width:10px;"> </span>
-							<select id="cmbTypea" style="float:left;width:40%;" > </select>
-						</td>
+						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td><select id="cmbTypea" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
-						<td colspan="3">
+						<td colspan="5">
 							<input id="txtCustno" type="text" class="txt" style="width:30%;"/>
 							<input id="txtCust" type="text" class="txt"  style="width:69%;" />
 							<input id="txtNick" type="text" class="txt"  style="display:none;" />
@@ -367,26 +447,28 @@
 						<td><input id="txtInvono" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblInvodate" class="lbl"> </a></td>
 						<td><input id="txtInvodate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblTaxtype" class="lbl"> </a></td>
+						<td><select id="cmbTaxtype" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td><input id="txtMount" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id="lblTaxtype" class="lbl"> </a></td>
-						<td>
-							<select id="cmbTaxtype" style="float:left;width:50%;" > </select>
-							<span style="float:left;display:block;width:10px;"> </span>
-							<input id="txtTax" type="text" class="txt num" style="width:45%;"/>
-						</td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
+						<td><input id="txtTax" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="3"><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td colspan="5"><input id="txtMemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
@@ -402,16 +484,16 @@
 						<td style="width:20px;">
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:80px;"><a id='lblTrandate_s'> </a></td>
-						<td style="width:120px;"><a id='lblBoatname_s'> </a></td>
+						<td style="width:70px;"><a id='lblTrandate_s'> </a></td>
+						<td style="width:110px;"><a id='lblBoatname_s'> </a></td>
 						<td style="width:80px;"><a id='lblShip_s'> </a></td>
 						<td style="width:80px;"><a id='lblSpec_s'> </a></td>
 						<td style="width:150px;"><a id='lblStraddrno_s'> </a></td>
 						<td style="width:80px;"><a id='lblCaseno_s'> </a></td>
 						<td style="width:150px;"><a id='lblEndaddrno_s'> </a></td>
 						<td style="width:80px;"><a id='lblCaseno2_s'> </a></td>
-						<td style="width:80px;"><a id='lblMount_s'> </a></td>
-						<td style="width:80px;"><a id='lblPrice_s'> </a></td>
+						<td style="width:60px;"><a id='lblMount_s'> </a></td>
+						<td style="width:60px;"><a id='lblPrice_s'> </a></td>
 						<td style="width:80px;"><a id='lblTotal_s'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
