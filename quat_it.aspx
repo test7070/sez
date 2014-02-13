@@ -206,6 +206,13 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'payaccount':
+					var as = _q_appendData("sss", "", true);
+                        if (as[0] != undefined) {
+                        	issales=as[0].issales;
+                        	$('#txtPay').val(as[0].account);
+						}
+					break;
 					case 'sssissales':
 					var as = _q_appendData("sss", "", true);
                         if (as[0] != undefined) {
@@ -363,11 +370,21 @@
 				
 				var t_where = "where=^^ 1=1  group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
+				//付款帳號預設抓員工1000的銀行帳號
+				var t_where = "where=^^ noa='1000' ^^";
+				q_gt('sss', t_where, 0, 0, 0, "payaccount");
 			}
 
 			function btnModi() {
 				if(emp($('#txtNoa').val()))
 					return;
+				//1030213 高小姐轉出立帳單後禁止修改
+				if(r_rank<8 && !emp($('#txtPostname').val())){
+					alert('已轉成出貨丹或訂單!!');
+					return;
+				}
+				
 				if(issales=='true'&&$('#txtWorker').val()!=r_name)	
 					return;
 				_btnModi();
@@ -451,6 +468,10 @@
 					$('#textTimea').removeAttr('disabled');
 					$('#textApplication').removeAttr('disabled');
 					$('#textMemo').removeAttr('disabled');
+					
+					if(r_rank<8){ //權限小於8不能修改
+						$('#txtPay').attr('disabled','disabled');
+					}
 				}
 			}
 
@@ -795,10 +816,7 @@
 				<td class="td3" style="width: 108px;"><input id="txtOdate" type="text"  class="txt c1"/></td>
 				<td class="td4"  style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 				<td class="td5" style="width: 108px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
-						<td>
-						<input id="chkIsproj" type="checkbox"/>
-						<span> </span><a id='lblIsproj'> </a>
-						</td>
+				<td> </td>
 				<td class="td7" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 				<td class="td8" style="width: 108px;"><input id="txtNoa" type="text" class="txt c1"/></td> 
 			</tr>	
@@ -863,8 +881,8 @@
 				<td class="label3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 				<td ><input id="txtWorker"  type="text" class="txt c1" /></td>
 				<td ><input id="txtWorker2"  type="text" class="txt c1" /></td>
-				<td style="text-align: right;">	<span> </span><a id='lblEnda'> </a></td>
-				<td><input id="chkEnda" type="checkbox"/></td>
+				<td class="label3"><span> </span><a id='lblPay' class="lbl"> </a></td>
+				<td ><input id="txtPay"  type="text"  class="txt c1"/></td>
 			</tr>
 			<tr class="tr9">
 				<td align="right"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -872,6 +890,14 @@
 					<input id="txtMemo"  type="text" style="width: 99%;"/>
 					<input id="txtMemo2"  type="hidden"/>
 				</td>
+				<!--<td>
+					<input id="chkIsproj" type="checkbox"/>
+					<span> </span><a id='lblIsproj'> </a>
+				</td>
+				<td>
+					<input id="chkEnda" type="checkbox"/>
+					<span> </span><a id='lblEnda'> </a>
+				</td>-->
 			</tr>
 		</table>
 		</div>

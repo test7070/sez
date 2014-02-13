@@ -455,6 +455,12 @@
                     _btnModi();
 					Unlock(1);
 					$('#txtDatea').focus();
+					
+					if(r_rank<8){ //1030213 王小姐 不能讓其他人去修改
+						$('#chkIsgenvcca').attr('disabled','disabled');
+						$('#txtInvono').attr('disabled','disabled');
+					}
+					
             
 					if(!emp($('#txtCustno').val())){
 						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
