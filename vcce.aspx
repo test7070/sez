@@ -32,7 +32,7 @@
 			aPop = new Array(
 				['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,fax,trantype,zip_comp,addr_comp', 'txtCustno,txtComp,txtTel,txtFax,txtTrantype,txtZip_post,txtAddr_post', 'cust_b.aspx'],
 				['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,fax,addr2,salesno,sales,cno,acomp,paytype', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtFax,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp,txtPaytype', ''],
-				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
@@ -217,7 +217,23 @@
 					alert(t_err);
 					return;
 				}
-
+				if(showRack()){
+					var t_rackErr = '';
+					for(var j=0;j<q_bbsCount;j++){
+						var thisProductno = $.trim($('#txtProductno_'+j).val());
+						var thisStoreno = $.trim($('#txtStoreno_'+j).val());
+						var thisRackno = $.trim($('#txtRackno_'+j).val());
+						if(thisProductno.length >0){
+							if(thisStoreno.length == 0 || thisRackno.length == 0){
+								t_rackErr += '表身第 ' + (j+1) + " 筆 倉庫或料架編號未填寫!! \n";
+							}
+						}
+					}
+					if($.trim(t_rackErr).length > 0){
+						alert(t_rackErr);
+						return;
+					}
+				}
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
@@ -336,6 +352,7 @@
 				}else{
 					$('.isRack').hide();
 				}
+				return isRack;
 			}
 
 			function readonly(t_para, empty) {
@@ -719,6 +736,7 @@
 					<tr style='background:#cad3ff;'>
 						<td style="width:1%;">
 							<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+							<input id="txtNoq.*" type="text" style="display:none;"/>
 						</td>
 						<td><input class="txt c1" id="txtOrdeno.*" type="text" /></td>
 						<td><input class="txt c1" id="txtNo2.*" type="text" /></td>

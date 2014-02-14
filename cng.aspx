@@ -92,6 +92,20 @@
 					alert(t_err);
 					return;
 				}
+				if(showRack()){
+					var thisRackno = $.trim($('#txtRackno').val());
+					var thisStoreno = $.trim($('#txtStoreno').val());
+					var thisRackinno = $.trim($('#txtRackinno').val());
+					var thisStoreinno = $.trim($('#txtStoreinno').val());
+					if(thisStoreno.length > 0 && thisRackno.length ==0){
+						alert(q_chkEmpField([['txtRackno', q_getMsg('lblRackno')]]));
+						return;
+					}
+					if(thisStoreinno.length > 0 && thisRackinno.length ==0){
+						alert(q_chkEmpField([['txtRackinno', q_getMsg('lblRackinno')]]));
+						return;
+					}
+				}
 				$('#txtWorker').val(r_name);
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
@@ -191,6 +205,7 @@
 				}else{
 					$('.isRack').hide();
 				}
+				return isRack;
 			}
 
 			function readonly(t_para, empty) {

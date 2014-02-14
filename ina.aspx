@@ -63,8 +63,7 @@
 			}
 
 			function q_boxClose(s2) {
-				var
-				ret;
+				var ret;
 				switch (b_pop) {
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -87,6 +86,14 @@
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
+				}
+				if(showRack()){
+					var thisRackno = $.trim($('#txtRackno').val());
+					var thisStoreno = $.trim($('#txtStoreno').val());
+					if(thisStoreno.length > 0 && thisRackno.length ==0){
+						alert('請輸入料架編號!!');
+						return;
+					}
 				}
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
@@ -178,6 +185,7 @@
 				}else{
 					$('.isRack').hide();
 				}
+				return isRack;
 			}
 
 			function readonly(t_para, empty) {
