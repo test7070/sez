@@ -19,7 +19,7 @@
 			var q_readonly = ['txtNoa'];
 			var bbmNum = [
 				['txtMount', 10, 0, 1], ['txtRate', 3, 2, 1], ['txtMoney', 14, 0, 1],
-				['txtFixmoney', 14, 0, 1], ['txtAccumulat', 14, 0, 1], ['txtEndvalue', 14, 0, 1]
+				['txtFixmoney', 14, 0, 1], ['txtAccumulat', 14, 0, 1], ['txtEndvalue', 14, 0, 1],['txtYear',10,0,1]
 			];
 			q_sqlCount = 6;
 			brwCount = 6;
