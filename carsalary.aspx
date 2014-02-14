@@ -102,12 +102,12 @@
 							b_seq = t_IdSeq;
 							if(b_seq>'0'){
 								for(var k=0;k<fbbs.length;k++){
-									if(fbbs[k]!='txtYear')
+									if(fbbs[k]!='txtYear' && fbbs[k]!='txtNoq')
 										$('#'+fbbs[k]+'_'+b_seq).val($('#'+fbbs[k]+'_0').val());
 								}
 							}
 							//搜尋資料庫有重複輸入跳出警告
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"'^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "carsalary_yeay");
            				});
            				/////////////////////////////////////////////////
@@ -129,7 +129,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtJan_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jan !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jan !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtFeb_'+j).change(function () {
@@ -150,7 +150,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtFeb_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and feb !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and feb !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtMar_'+j).change(function () {
@@ -171,7 +171,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtMar_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and mar !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and mar !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtApr_'+j).change(function () {
@@ -192,7 +192,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtApr_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and apr !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and apr !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtMay_'+j).change(function () {
@@ -213,7 +213,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtMay_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and may !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and may !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtJun_'+j).change(function () {
@@ -234,7 +234,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtJun_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jun !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jun !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtJul_'+j).change(function () {
@@ -255,7 +255,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtJul_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jul !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jul !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtAug_'+j).change(function () {
@@ -276,7 +276,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtAug_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and aug !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and aug !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtSep_'+j).change(function () {
@@ -297,7 +297,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtSep_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and sep !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and sep !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtOct_'+j).change(function () {
@@ -318,7 +318,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtOct_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and oct !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and oct !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtNov_'+j).change(function () {
@@ -339,7 +339,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtNov_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and nov !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and nov !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            				$('#txtDec_'+j).change(function () {
@@ -360,7 +360,7 @@
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtDec_';
-							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and dec !=0 ^^";
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and dec !=0 and noa!='"+q_getHref()[1]+"' ^^";
 							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            			}

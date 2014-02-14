@@ -91,7 +91,11 @@
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
-                    }/*, {6 [12] 
+                    }, {
+						type : '5',
+						name : 'vccbtypea', //[15]
+						value : [q_getPara('report.all')].concat(q_getPara('vccb.typea').split(','))
+					}/*, {6 [12] 
                         type : '8',
                         name : 'xcno',
                         value : t_cno.split(',')
