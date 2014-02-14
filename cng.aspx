@@ -458,7 +458,6 @@
 						<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCardealno" type="text"  class="txt c1"/></td>
 						<td class="td2"><input id="txtCardeal" type="text"  class="txt c1"/></td>
-						</td>
 						<td class='td5'><span> </span><a id="lblCarno" class="lbl" > </a></td>
 						<td class="td6"><input id="txtCarno" type="text" class="txt c1"/></td>
 					</tr>
