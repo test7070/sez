@@ -63,8 +63,7 @@
 			}
 
 			function q_boxClose(s2) {
-				var
-				ret;
+				var ret;
 				switch (b_pop) {
 					case q_name + '_s':
 						q_boxClose2(s2);
