@@ -115,6 +115,9 @@
 				});
 				
 				$('#btnCarsalary').click(function(e) {
+					if(!emp($('#txtOutdate').val()) || !emp($('#txtEnddate').val()) || !emp($('#txtWastedate').val()) || !emp($('#txtSuspdate').val()))
+						alert('該車已遷出、報廢、繳銷或報停!!填寫投保薪資時請注意!!');
+					
 					q_box("carsalary.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carsalary', "90%", "95%", q_getMsg("popCarsalary"));
 				});
 				$('#btnCarinsurance').click(function(e) {
