@@ -88,6 +88,14 @@
 					alert(t_err);
 					return;
 				}
+				if(showRack()){
+					var thisRackno = $.trim($('#txtRackno').val());
+					var thisStoreno = $.trim($('#txtStoreno').val());
+					if(thisStoreno.length > 0 && thisRackno.length ==0){
+						alert('請輸入料架編號!!');
+						return;
+					}
+				}
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ina') + $('#txtDatea').val(), '/', ''));
@@ -178,6 +186,7 @@
 				}else{
 					$('.isRack').hide();
 				}
+				return isRack;
 			}
 
 			function readonly(t_para, empty) {

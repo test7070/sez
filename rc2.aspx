@@ -295,7 +295,23 @@
 				}
 				if (emp($('#txtMon').val()))
 					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
-
+				if(showRack()){
+					var t_rackErr = '';
+					for(var j=0;j<q_bbsCount;j++){
+						var thisProductno = $.trim($('#txtProductno_'+j).val());
+						var thisStoreno = $.trim($('#txtStoreno_'+j).val());
+						var thisRackno = $.trim($('#txtRackno_'+j).val());
+						if(thisProductno.length >0){
+							if(thisStoreno.length == 0 || thisRackno.length == 0){
+								t_rackErr += '表身第 ' + (j+1) + " 筆 倉庫或料架編號未填寫!! \n";
+							}
+						}
+					}
+					if($.trim(t_rackErr).length > 0){
+						alert(t_rackErr);
+						return;
+					}
+				}
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')], ['txtCno', q_getMsg('lblAcomp')]]);
 				// 檢查空白
 				if (t_err.length > 0) {
@@ -464,6 +480,7 @@
 				}else{
 					$('.isRack').hide();
 				}
+				return isRack;
 			}
 
 			function readonly(t_para, empty) {
