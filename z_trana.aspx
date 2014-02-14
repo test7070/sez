@@ -177,7 +177,7 @@
                         value : ('車主,金額').split(',')
                 	}, {/*23-[31][32]-帳款月份*/
 						type : '1',
-						name : 'mon'
+						name : 'xxmon'
 					}, {/*24[33]-請款單號*//*06*/
 						type : '6',
 						name : 'xtrdno'
