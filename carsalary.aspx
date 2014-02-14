@@ -24,10 +24,10 @@
             var q_readonlys = [];
             var bbmNum = [];
             //var bbmNum_comma = [];
-            var bbsNum = [['txtJan', 10, 0, 1],['txtFeb', 10, 0, 1],['txtMar', 10, 0, 1],['txtApr', 10, 0, 1],['txtMay', 10, 0, 1],['txtJun', 10, 0, 1],['txtJul', 10, 0, 1],['txtAug', 10, 0, 1],['txtSep', 10, 0, 1],['txtOct', 10, 0, 1],['txtNov', 10, 0, 1],['txtDec', 10, 0, 1]];
+            var bbsNum = [['txtJan', 10, 0, 1],['txtFeb', 10, 0, 1],['txtMar', 10, 0, 1],['txtApr', 10, 0, 1],['txtMay', 10, 0, 1],['txtJun', 10, 0, 1],['txtJul', 10, 0, 1],['txtAug', 10, 0, 1],['txtSep', 10, 0, 1],['txtOct', 10, 0, 1],['txtNov', 10, 0, 1],['txtDec', 10, 0, 1],['txtYear', 3, 0, 0]];
             //var bbsNum_comma = ['txtMoney'];
             var bbmMask = [];
-            var bbsMask = [['txtYear', '999']];
+            var bbsMask = [];
             aPop = [['txtNamea_', '', 'carowner_carsalary', 'namea,idno,addr_home', '0txtNamea_,txtId_,txtAddr_', ''],
             ['txtId_', '', 'carowner_carsalary', 'idno,namea,addr_home', '0txtId_,txtNamea_,txtAddr_', '']];
 
@@ -66,6 +66,28 @@
 	            			}
 	            		}
             		break;
+            		case 'carsalary_yeay':
+            	  		if(q_cur==2){
+	            			var as = _q_appendData("carsalary", "", true);
+	            			if(as[0]!=undefined){
+	            				for(var i=0;i<as.length;i++){
+		            				if(as[i].jan>0) $('#txtJan_'+b_seq).val(0);
+		            				if(as[i].feb>0) $('#txtFeb_'+b_seq).val(0);
+		            				if(as[i].mar>0) $('#txtMar_'+b_seq).val(0);
+		            				if(as[i].apr>0) $('#txtApr_'+b_seq).val(0);
+		            				if(as[i].may>0) $('#txtMay_'+b_seq).val(0);
+		            				if(as[i].jun>0) $('#txtJun_'+b_seq).val(0);
+		            				if(as[i].jul>0) $('#txtJul_'+b_seq).val(0);
+		            				if(as[i].aug>0) $('#txtAug_'+b_seq).val(0);
+		            				if(as[i].sep>0) $('#txtSep_'+b_seq).val(0);
+		            				if(as[i].oct>0) $('#txtOct_'+b_seq).val(0);
+		            				if(as[i].nov>0) $('#txtNov_'+b_seq).val(0);
+		            				if(as[i].dec>0) $('#txtDec_'+b_seq).val(0);
+		            			}
+	            				alert('此人該年度已投保過薪資!!');
+	            			}
+	            		}
+            		break;
                   }
             }
 			
@@ -73,6 +95,22 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
            			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           				///1030214 打上年度 複製去年資料
+           				$('#txtYear_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(b_seq>'0'){
+								for(var k=0;k<fbbs.length;k++){
+									if(fbbs[k]!='txtYear')
+										$('#'+fbbs[k]+'_'+b_seq).val($('#'+fbbs[k]+'_0').val());
+								}
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"'^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "carsalary_yeay");
+           				});
+           				/////////////////////////////////////////////////
            				$('#txtJan_'+j).change(function () {
            					t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -150,7 +188,7 @@
 								$('#txtApr_'+b_seq).val(0);
 								alert('請先輸入'+q_getMsg('lblYear'));
 								$('#txtYear_'+b_seq).focus();
-								return;v
+								return;
 							}
 							//搜尋資料庫有重複輸入跳出警告
 							txtmon='#txtApr_';
