@@ -17,6 +17,7 @@
 		<script type="text/javascript">
             var gfrun = false;
             var uccgaItem = '';
+            var partItem = '';
             var sss_state = false;
             var issale = '0';
             var job = '';
@@ -30,6 +31,9 @@
                 q_getId();
                 if (uccgaItem.length == 0) {
                     q_gt('uccga', '', 0, 0, 0, "");
+                }
+                if (partItem.length == 0) {
+                    q_gt('part', '', 0, 0, 0, "");
                 }
                 if (!sss_state) {
                     q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "");
@@ -112,14 +116,18 @@
                     }, {
                         type : '6', //[19]//200
                         name : 'salesgroup'
-                    },{
-                        type : '8', //[20]//顯示發票號碼//400
-                        name : 'xshowinvono',
-                        value : "1@顯示發票資料".split(',')
                     }, {
                         type : '5',
-                        name : 'vcctypea', //[21]//800
+                        name : 'vcctypea', //[20]//400
                         value : [q_getPara('report.all')].concat(q_getPara('vcc.typea').split(','))
+                    },{
+                        type : '5', //[21]//800
+                        name : 'xpartno',
+                        value : partItem.split(',')
+                    },{
+                        type : '8', //[22]//顯示發票號碼//1000
+                        name : 'xshowinvono',
+                        value : "1@顯示發票資料".split(',')
                     }]
                 });
                 q_popAssign();
@@ -198,7 +206,18 @@
 
             function q_boxClose(s2) {
             }
-
+            
+			//交換div位置
+			var exchange = function(a,b){
+				try{
+					var tmpTop = a.offset().top;
+					var tmpLeft = a.offset().left;
+					a.offset({top:b.offset().top,left:b.offset().left});
+					b.offset({top:tmpTop,left:tmpLeft});
+				}catch(e){
+				}
+			};
+			
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'sss':
@@ -217,8 +236,15 @@
                             uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
                         }
                         break;
+                     case 'part':
+                        var as = _q_appendData("part", "", true);
+                        partItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            partItem = partItem + (partItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].part;
+                        }
+                        break;   
                 }
-                if (uccgaItem.length > 0 && sss_state && !gfrun) {
+                if (uccgaItem.length > 0 && partItem.length > 0 && sss_state && !gfrun) {
                     gfrun = true;
                     q_gf('', 'z_vcc');
                 }
