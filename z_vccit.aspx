@@ -33,7 +33,7 @@
 					q_gt('sss', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "");
 				}
 			});
-			function q_gfPost() {
+			function q_gfPost() {///要改裡面條件，請告知經理。(發送email用)
 				$('#q_report').q_report({
 					fileName : 'z_vccit',
 					options : [{
