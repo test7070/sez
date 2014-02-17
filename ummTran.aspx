@@ -248,7 +248,7 @@
                                 $('#txtPart2_' + i).val('');
                             }
 
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo2,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,partno', '');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtAccy,txtTablea,txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo2,cmbPartno', b_ret.length, b_ret, 'accy,tablea,noa,paysale,_unpay,_unpay,part,partno,part,memo,partno', '');
   
                             /// 最後 aEmpField 不可以有【數字欄位】
                             sum();
@@ -644,7 +644,8 @@
                         var t_accy = $('#txtAccy_'+n).val();
                         var t_tablea = $('#txtTablea_'+n).val();
                         if(t_tablea.length>0){
-                            q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
+                            var t_form = (t_tablea=='vcc'?'vcctran':t_tablea);
+                            q_box(t_form+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
                         }
                     });
                     $('#txtMoney_' + i).change(function(e) {
