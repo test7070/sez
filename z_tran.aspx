@@ -239,6 +239,22 @@
                         type : '8',
                         name : 'yoption28',
                         value : q_getMsg('toption28').split('&')
+                    },{/*36-[44][45]交運月份*/
+                        type : '1',
+                        name : 'wmon'
+                    }, {/*37-[46][47]司機*/
+                        type : '2',
+                        name : 'wdriver',
+                        dbf : 'driver',
+                        index : 'noa,namea',
+                        src : 'driver_b.aspx'
+                    }, {/*38-[48]車牌*/
+                        type : '6',
+                        name : 'wcarno'
+                    }, {/*39-[49]車種*/
+                        type : '8',
+                        name : 'wcarkind',
+                        value : t_data.data['carkind'].split(',')
                     }]
                 });
                 q_popAssign();
@@ -312,9 +328,13 @@
                             }
                             break;
                         case 2:
-                            //營運月報表-車號司機
+                            /*//營運月報表-車號司機
                             if (msg_datea.length > 0) {
                                 alert(msg_datea);
+                                return false;
+                            }*/
+                            if($.trim($('#txtWmon1').val()).length==0 || $.trim($('#txtWmon1').val()).length==0){
+                                alert('請輸入'+q_getMsg('lblWmon'));
                                 return false;
                             }
                             break;
@@ -519,8 +539,12 @@
                             break;
                         case 22:
                             //營運月報表-司機
-                            if (msg_datea.length > 0) {
+                            /*if (msg_datea.length > 0) {
                                 alert(msg_datea);
+                                return false;
+                            }*/
+                            if($.trim($('#txtWmon1').val()).length==0 || $.trim($('#txtWmon1').val()).length==0){
+                                alert('請輸入'+q_getMsg('lblWmon'));
                                 return false;
                             }
                             break;
@@ -543,7 +567,7 @@
                             }
                             break;
                         default:
-                            alert('Undefin,radio');
+                            alert('Undefined,radio');
                             break;
                     }
                     $('#btnOk').click();
@@ -556,6 +580,9 @@
                 $('#txtTrandate2').mask('999/99/99');
                 $('#txtTrandate1').datepicker();
                 $('#txtTrandate2').datepicker();
+                
+                $('#txtWmon1').mask('999/99');
+                $('#txtWmon2').mask('999/99');
 
                 $('#chkXoption2').children('input').attr('checked', 'checked');
                 $('#chkXcarteam').children('input').attr('checked', 'checked');
@@ -563,6 +590,38 @@
                 $('#chkXcalctypes').children('input').attr('checked', 'checked');
                 $('#chkXfield05').children('input').attr('checked', 'checked');
                 $('#chkYoption28').children('input').attr('checked', 'checked');
+                
+                $('#chkWcarkind').children('input').attr('checked', 'checked');
+                
+                $('#txtBBmon').mask('999/99');
+                $('#txtEEmon').mask('999/99');
+                $('#textMon').mask('999/99');
+                $('#btnTrans_sum').click(function(e) {
+                    $('#divExport').toggle();
+                });
+                $('#btnDivexport').click(function(e) {
+                    $('#divExport').hide();
+                });
+                $('#btnExport').click(function(e) {
+                    var t_mon = $('#textMon').val();
+                    if (t_mon.length > 0) {
+                        Lock(1, {
+                            opacity : 0
+                        });
+                        q_func('qtxt.query.trans', 'trans.txt,tran_sum,' + encodeURI(t_mon));
+                    } else
+                        alert('請輸入交運月份。');
+                });
+            }
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.trans':
+                        alert('結轉完成。');
+                        Unlock(1);
+                        break;
+                    default:
+                        break;
+                }
             }
 
 		</script>
@@ -574,6 +633,7 @@
 	>
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
+		    <input type="button" id="btnTrans_sum" value="分析表資料結轉"/>
 			<div id="container">
 				<div id="q_report"></div>
 			</div>
@@ -582,5 +642,29 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
+		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:120px;background:RGB(237,237,237);">
+            <table style="border:4px solid gray; width:100%; height: 100%;">
+                <tr style="height:1px;background-color: pink;">
+                    <td style="width:25%;"></td>
+                    <td style="width:25%;"></td>
+                    <td style="width:25%;"></td>
+                    <td style="width:25%;"></td>
+                </tr>
+                <tr>
+                    <td style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;color: blue;"><a>交運月份</a></td>
+                    <td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
+                    <input type="text" id="textMon" style="float:left;width:40%;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center" style="background-color: pink;">
+                    <input type="button" id="btnExport" value="結轉"/>
+                    </td>
+                    <td colspan="2" align="center" style=" background-color: pink;">
+                    <input type="button" id="btnDivexport" value="關閉"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
 	</body>
 </html>
