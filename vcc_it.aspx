@@ -20,7 +20,7 @@
         var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2','txtSales','txtSales2','txtZipname'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
         var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
-        var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
+        var bbsNum = [['txtPrice', 12, 3,1], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; 
