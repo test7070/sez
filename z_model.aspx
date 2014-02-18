@@ -21,12 +21,12 @@
 
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_mo');
+				q_gf('', 'z_model');
 			});
 
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_mo',
+					fileName : 'z_model',
 					options : [{
 						type : '0',
 						name : 'accy',
