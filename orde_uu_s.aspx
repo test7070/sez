@@ -11,8 +11,10 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "orde_s";
+    var q_readonly = ['txtComp','txtSales','txtProduct'];
     var aPop = new Array(['txtCustno','','cust','noa,nick','txtCustno,txtComp','cust_b.aspx'],
-            			 ['txtSalesno', '', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
+            			 ['txtSalesno', '', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            			 ['txtProductno', '', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -32,6 +34,10 @@
         	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype_uu'));
         else
         	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype'));
+        	
+        $('#txtComp').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+        $('#txtSales').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+        $('#txtProduct').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 
         $('#txtBdate').focus();
     }
@@ -42,20 +48,23 @@
         t_edate = $('#txtEdate').val();
         t_custno = $('#txtCustno').val();
         t_salesno = $('#txtSalesno').val();
-        t_comp = $('#txtComp').val();
         t_stype = $('#cmbStype').val();
         t_quatno = $('#txtQuatno').val();
         t_contract = $('#txtContract').val();
         t_postname = $('#txtPostname').val();
+        t_productno = $('#txtProductno').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
         var t_where = " 1=1 "
         		+ q_sqlPara2("datea", t_bdate, t_edate) 
-        		+ q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) 
+        		+ q_sqlPara2("noa", t_noa)  
         		 +q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)+ q_sqlPara2("quatno", t_quatno)
         		 +q_sqlPara2("stype", t_stype)+ q_sqlPara2("contract", t_contract)+ q_sqlPara2("postname", t_postname);
+        		 
+       	if(t_productno.length>0)
+       		t_where=t_where+" and noa in (select noa from view_ordes where productno='"+t_productno+"')";
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -104,6 +113,11 @@
                 <td class='seek'  style="width:20%;"><a id='lblContract'></a></td>
                 <td><input class="txt" id="txtContract" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblProductno'></a></td>
+                <td><input class="txt" id="txtProductno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtProduct" type="text" style="width:115px; font-size:medium;" /></td>
+             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>
