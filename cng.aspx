@@ -136,7 +136,7 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1) {
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
 					$('.class_it').show();
 				} else {
 					$('.class_it').hide();
@@ -148,7 +148,7 @@
 					return;
 				_btnModi();
 				$('#txtProduct').focus();
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1) {
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
 					$('.class_it').show();
 				} else {
 					$('.class_it').hide();
@@ -182,8 +182,9 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1) {
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
 					$('.class_it').show();
+					$('.it').css('text-align','left');
 				} else {
 					$('.class_it').hide();
 				}
@@ -426,14 +427,14 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:20%"><a id='vewStore'> </a></td>
-						<td align="center" style="width:20%"><a id='vewStorein'> </a></td>
+						<td align="center" style="width:30%"><a id='vewStore'> </a></td>
+						<td align="center" style="width:30%"><a id='vewStorein'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='store'>~store</td>
-						<td align="center" id='storein'>~storein</td>
+						<td align="center" id='store' class="it">~store</td>
+						<td align="center" id='storein' class="it">~storein</td>
 					</tr>
 				</table>
 			</div>
