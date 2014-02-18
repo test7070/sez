@@ -408,6 +408,9 @@
 
 				if (emp($('#txtMon').val()))
 					changeMon();
+					
+				if(emp($('#txtSalesno').val()))
+					$('#txtSales').val('');
 
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
