@@ -260,6 +260,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
+					$('.it').css('text-align','left');
             }
 
             function readonly(t_para, empty) {
@@ -477,7 +479,7 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='bdate'>~bdate</td>
-						<td align="center" id='namea'>~namea</td>
+						<td align="center" id='namea' class="it">~namea</td>
 					</tr>
 				</table>
 			</div>

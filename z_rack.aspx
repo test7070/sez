@@ -46,15 +46,17 @@
 						index : 'noa,rack',
 						src : 'rack_b.aspx'
 					}, {
-						type : '6', //[8]
-						name : 'xenddatea'
+						type : '1', //[8][9]
+						name : 'xdatea'
 					}]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXenddatea').mask('999/99/99');
-				$('#txtXenddatea').val(q_date());
+				$('#txtXdatea1').mask('999/99/99');
+				$('#txtXdatea1').val(q_date().substring(0,3)+'/01/01');
+				$('#txtXdatea2').mask('999/99/99');
+				$('#txtXdatea2').val(q_date());
 			}
 
 			function q_boxClose(s2) {
