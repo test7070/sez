@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part,comp,memo  order=odate ", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'view_trd', t_bbsTag = 'tbbs', t_content = " field=accy,tablea,noa,paysale,total,part,comp,memo  order=odate ", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'umm_trd_load';
             t_postname = q_name;
@@ -309,6 +309,8 @@
 					</td>
 					<td>
 					<input id="txtNoa.*" type="text" class="txt c1" />
+					<input id="txtAccy.*" type="text" style="display:none;" />
+					<input id="txtTablea.*" type="text" style="display:none;" />
 					</td>
 					<td>
 					<input id="txtTotal.*" type="text" class="txt num c1"/>
