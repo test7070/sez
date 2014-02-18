@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'car2', t_bbsTag = 'tbbs', t_content = ' field=noa,driverno,driver order=odate', afilter = [], bbsKey = ['noa'], as;//, t_where = '';
+            var q_name = 'car2', t_bbsTag = 'tbbs', t_content = ' field=noa,carownerno,carowner,driverno,driver order=odate', afilter = [], bbsKey = ['noa'], as;//, t_where = '';
             var t_sqlname = 'car2_load'; t_postname = q_name; brwCount2 = 0;
             	brwCount = -1;
             var isBott = false;
@@ -50,12 +50,14 @@
 				<tr style='color:White; background:#003366;'>
 					<th align="center" ></th>
 					<th align="center"><a id='lblNoa'></a></th>
+					<th align="center"><a id='lblCarowner'></a></th>
 					<th align="center"><a id='lblDriver'></a></th>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:2%;">	<input class="chk"  id="chkSel.*" type="checkbox" name="chkSel"/></td>
-					<td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-					<td style="width:75%;"><input class="txt" id="txtDriver.*" type="text" style="width:98%;"  readonly="readonly" />	</td>
+					<td style="width:25%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+					<td style="width:35%;"><input class="txt" id="txtCarowner.*" type="text" style="width:98%;"  readonly="readonly" />	</td>
+					<td style="width:35%;"><input class="txt" id="txtDriver.*" type="text" style="width:98%;"  readonly="readonly" />	</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"--> 
