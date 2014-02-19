@@ -157,11 +157,15 @@
             }
 
             function btnIns() {
+            	var t_bbscounts=q_bbsCount;
             	if($('#Copy').is(':checked')){
 					curData.copy();
 				}
                 _btnIns();
                 if($('#Copy').is(':checked')){
+					while(t_bbscounts>=q_bbsCount){
+						q_bbs_addrow('bbs',0,0);
+					}
 					curData.paste();
 				}
                 $('#txtNoa').val('AUTO');
