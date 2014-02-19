@@ -605,6 +605,19 @@
 						$('#txtGweight__' + i).change(function() {
 							sum();
 						});
+						$('#txtPrt__' + i).focusout(function() {
+							var t_prt = trim($(this).val());
+							if (t_prt == '1')
+								$(this).val('早班');
+							else if (t_prt == '2')
+								$(this).val('中班');
+							else if (t_prt == '3')
+								$(this).val('晚班');
+							else if (t_prt == '4')
+								$(this).val('加班');
+							else
+								$(this).val(t_prt);
+						});
 					}
 				}
 				_bbtAssign();
@@ -831,7 +844,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1320px;
+				width: 1390px;
 			}
 			#tbbt {
 				margin: 0;
@@ -1047,6 +1060,7 @@
 					<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 					</td>
 					<td style="width:20px;"> </td>
+					<td style="width:60px; text-align: center;">班別</td>
 					<td style="width:250px; text-align: center;">原料批號</td>
 					<td style="width:120px; text-align: center;">材質</td>
 					<td style="width:120px; text-align: center;">等級</td>
@@ -1065,6 +1079,7 @@
 						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 					</td>
 					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input id="txtPrt..*" type="text" style="text-align:center;" class="txt c1"/></td>
 					<td>
 						<input id="btnUno..*" type="button" value="." style="width:5%;"/>
 						<input id="txtUno..*" type="text" style="width:80%;"/>
