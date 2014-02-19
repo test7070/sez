@@ -96,7 +96,7 @@
 				_bbsAssign();
 				SetBBsReadonly(ReadOnlyUno);
 				for (var j = 0; j < q_bbsCount; j++) {
-					$('#lblNo_'+j).text((j+1));
+					$('#lblNo_' + j).text((j + 1));
 					if (Parent.q_name && Parent.q_name == 'cub') {
 						$('#txtUno_' + j).change(function() {
 							var thisuno = trim($(this).val());
@@ -276,8 +276,32 @@
 					alert(t_errMsg);
 					return;
 				}
+				bbsReSort();
 				t_key = q_getHref();
 				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+			}
+
+			function bbsReSort() {
+				var a_productno = new Array();
+				for (var i = 0; i < q_bbsCount; i++) {
+					var thisProductno = $.trim($('#txtProductno_' + i).val());
+					var valArray = new Array();
+					for (var j = 0; j < fbbs.length; j++) {
+						valArray[fbbs[j]] = $('#' + fbbs[j] + '_' + i).val();
+					}
+					a_productno.push([i, thisProductno, valArray]);
+				}
+				a_productno.sort(function(a, b) {
+					return a[1].charCodeAt() - b[1].charCodeAt();
+				});
+				for (var k = 0; k < q_bbsCount; k++) {
+					$('#btnMinus_' + k).click();
+				};
+				for (var s = 0; s < a_productno.length; s++) {
+					for (var key in a_productno[s][2]) {
+						$('#' + key + '_' + s).val(a_productno[s][2][key]);
+					}
+				}
 			}
 
 			function bbsSave(as) {
@@ -295,8 +319,8 @@
 					return;
 				_btnModi(1);
 				SetBBsReadonly(ReadOnlyUno);
-				$('#btnOk').before($('#btnOk').clone().attr('id','btnOk2').show()).hide();
-				$('#btnOk2').click(function(){
+				$('#btnOk').before($('#btnOk').clone().attr('id', 'btnOk2').show()).hide();
+				$('#btnOk2').click(function() {
 					var t_errMsg = '';
 					for (var i = 0; i < q_bbsCount; i++) {
 						$('#txtWorker_' + i).val(r_name);
@@ -483,7 +507,7 @@
 			.btn {
 				font-weight: bold;
 			}
-			#lblNo{
+			#lblNo {
 				font-size: medium;
 			}
 		</style>
@@ -498,7 +522,7 @@
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:15px;"> </td>
+					<td align="center" style="width:15px;"></td>
 					<td align="center" style="width:45px;"><a id='lblPrt'></a></td>
 					<td align="center" style="width:30px;"><a id='lblStyle'></a></td>
 					<td align="center" style="width:250px;"><a id='lblUno'></a></td>
@@ -555,21 +579,24 @@
 						<input type="text" id="txtProduct.*" class="txt c4"/>
 					</td>
 					<td>
-						<input type="text" id="txtRadius.*" class="num" style="width:19%;"/>
-						x
-						<input type="text" id="txtWidth.*" class="num" style="width:19%;"/>
-						x
-						<input type="text" id="txtDime.*" class="num" style="width:19%;"/>
-						x
+						<input type="text" id="txtRadius.*" class="num" style="width:19%;"/>x
+						<input type="text" id="txtWidth.*" class="num" style="width:19%;"/>x
+						<input type="text" id="txtDime.*" class="num" style="width:19%;"/>x
 						<input type="text" id="txtLengthb.*" class="num" style="width:19%;"/>
 						<input type="text" id="txtSpec.*" class="txt c4"/>
 					</td>
 					<td><input type="text" id="txtSize.*" class="txt c4"/></td>
 					<td><input type="text" id="txtMount.*" class="txt c1 num"/></td>
 					<td><input type="text" id="txtWeight.*" class="txt c1 num"/></td>
-					<td style="display:none;"><input type="text" id="txtInweight.*" class="txt c1 num"/></td>
-					<td style="display:none;"><input type="text" id="txtWaste.*" class="txt c1 num"/></td>
-					<td style="display:none;"><input type="text" id="txtGmount.*" class="txt c1 num"/></td>
+					<td style="display:none;">
+						<input type="text" id="txtInweight.*" class="txt c1 num"/>
+					</td>
+					<td style="display:none;">
+						<input type="text" id="txtWaste.*" class="txt c1 num"/>
+					</td>
+					<td style="display:none;">
+						<input type="text" id="txtGmount.*" class="txt c1 num"/>
+					</td>
 					<td>
 						<input type="text" id="txtMemo.*" class="txt c1"/>
 						<input type="text" id="txtWorker.*" style="display:none;"/>
