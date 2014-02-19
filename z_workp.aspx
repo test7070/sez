@@ -49,6 +49,8 @@
                 q_langShow();
                 $('#txtXdate1').datepicker().mask('999/99/99');
                 $('#txtXdate2').datepicker().mask('999/99/99');
+                $('#txtXnoa1').css('width','160px');
+                $('#txtXnoa2').css('width','160px');
                 var t_key = q_getHref();
                 //抓製令單號
                 if(window.parent.q_name=='workg'){
