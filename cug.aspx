@@ -401,7 +401,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 1460px;
             }
             .tbbs a {
                 font-size: medium;
@@ -483,9 +483,9 @@
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblHours_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblDays_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblWorkdate_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblEnddate_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblWorkno_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblWorkdate_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblEnddate_s'> </a></td>
+					<td align="center" style="width:12%;"><a id='lblWorkno_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
