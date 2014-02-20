@@ -338,15 +338,8 @@
 			}
 
 			function showRack(){
-				var hasRackComp = ['佳飾'];
-				var thisComp = r_comp;
-				var isRack = false;
-				for(var j = 0;j<hasRackComp.length;j++){
-					if(thisComp.indexOf(hasRackComp[j]) > -1){
-						isRack = true;
-						break;
-					}
-				}
+				var hasRackComp = q_getPara('sys.rack');
+				var isRack = (hasRackComp==1?true:false);
 				if(isRack== true){
 					$('.isRack').show();
 				}else{

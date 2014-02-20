@@ -654,8 +654,10 @@
 						<td></td>
 						<td><input type="button" id="btnOrdes"></td>
 						<td><input type="button" id="btnWork" style="float:right;"></td>
-						<td><input id="textWorkno" type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td colspan="2">
+							<input id="textWorkno" type="text"  class="txt" style="float:left; width:150px;"/>
+							<div style="float:right;"><span> </span><a id='lblWorker' class="lbl"> </a></div>
+						</td>
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>

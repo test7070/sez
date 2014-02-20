@@ -39,7 +39,7 @@
 				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], 
 				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], 
 				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx'],
-				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,mount,weight,spec,class', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__,txtSpec__,txtClass__', 'uccc_seek_b.aspx?;;;1=0','95%','60%']
+				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,emount,eweight,spec,class', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__,txtSpec__,txtClass__', 'uccc_seek_b.aspx?;;;1=0','95%','60%']
 			);
 			function distinct(arr1){
 				var uniArray = [];
@@ -433,6 +433,43 @@
 				_btnModi();
 				size_change();
 				$('#txtDatea').focus();
+			}
+
+			function q_popPost(s1) {
+				switch (s1) {
+					case 'txtUno__':
+						var thisSeq = dec(b_seq);
+						if(!isNaN(thisSeq)){
+							var t_Mount = dec($('#txtMount__'+thisSeq).val());
+							var t_Weight = dec($('#txtWeight__'+thisSeq).val());
+							var t_uno = $.trim($('#txtUno__'+thisSeq).val());
+							for(var k=0;k<abbtNow.length;k++){
+								var k_uno =  $.trim(abbtNow[k].uno);
+								if(k_uno==t_uno){
+									t_Mount = q_add(t_Mount,dec(abbtNow[k].gmount));
+									t_Weight = q_add(t_Weight,dec(abbtNow[k].gweight));
+								}
+							}
+							for(var j=0;j<q_bbtCount;j++){
+								var thisUno = $.trim($('#txtUno__'+j).val());
+								if(dec(j) != thisSeq){
+									if(thisUno == t_uno){
+										var thisMount = dec($('#txtGmount__'+j).val());
+										var thisWeight = dec($('#txtGweight__'+j).val());
+										t_Mount = q_sub(t_Mount,thisMount);
+										t_Weight = q_sub(t_Weight,thisWeight);
+									}
+								}
+							}
+							if(t_Mount <=0 || t_Weight <=0){
+								$('#btnMinut__'+thisSeq).click();
+							}else{
+								$('#txtMount__'+thisSeq).val(t_Mount);
+								$('#txtWeight__'+thisSeq).val(t_Weight);
+							}
+						}
+						break;
+				}
 			}
 
 			function btnPrint() {
