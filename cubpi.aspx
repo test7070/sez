@@ -435,6 +435,32 @@
 				$('#txtDatea').focus();
 			}
 
+			function q_popPost(s1) {
+				switch (s1) {
+					case 'txtUno__':
+						var thisSeq = dec(b_seq);
+						if(!isNaN(thisSeq)){
+							var t_Mount = dec($('#txtMount__'+thisSeq).val());
+							var t_Weight = dec($('#txtWeight__'+thisSeq).val());
+							for(var j=0;j<q_bbtCount;j++){
+								if(dec(j) != thisSeq){
+									var thisMount = dec($('#txtGmount__'+j).val());
+									var thisWeight = dec($('#txtGweight__'+j).val());
+									t_Mount = q_sub(t_Mount,thisMount);
+									t_Weight = q_sub(t_Weight,thisWeight);
+								}
+							}
+							if(t_Mount <=0 || t_Weight <=0){
+								$('#btnMinut__'+thisSeq).click();
+							}else{
+								$('#txtMount__'+thisSeq).val(t_Mount);
+								$('#txtWeight__'+thisSeq).val(t_Weight);
+							}
+						}
+						break;
+				}
+			}
+
 			function btnPrint() {
 				q_box('z_cubpip.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 			}
