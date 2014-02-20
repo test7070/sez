@@ -539,8 +539,10 @@
 						<input id="txtTgg" type="text"  class="txt c2"/>
 					</td>
 					<td><input type="button" id="btnWork" style="float:right;"></td>
-					<td><input id="textWorkno" type="text" class="txt c1"/></td>
-					<td><input type="button" id="btnOrdes"></td>
+					<td colspan="2">
+						<input id="textWorkno" type="text" class="txt" style="display:left;width:150px;"/>
+						<input type="button" id="btnOrdes" style="display:right;">
+					</td>
 				</tr>
 				<tr>
 					<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
