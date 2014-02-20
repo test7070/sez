@@ -10,7 +10,10 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "station_s";
-			aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno', 'acomp_b.aspx']);
+			aPop = new Array(
+				['txtNoa', '', 'station', 'noa,station', 'txtNoa,txtStation', 'station_b.aspx'],
+				['txtFactoryno', '', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx']
+			);
 			$(document).ready(function() {
 				main();
 			});
