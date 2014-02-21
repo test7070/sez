@@ -35,7 +35,7 @@
 			brwKey = 'Datea';
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,saleprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount_', 'ucc_b.aspx'],
-				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+				['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
 			);

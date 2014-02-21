@@ -431,7 +431,7 @@
 	                        	
 	                        	//計算製程的長度
 	                        	//一天總時數
-	                        	var totalgen=dec(s_data.shours);
+	                        	var totalgen=dec(s_data.gen);
 	                        	//-------平均
 	                        	//計算該製程開工日包含其他同一天開工的製程數量(含該製程)
                         		/*for(var j=0;j<s_data.detail.length;j++){

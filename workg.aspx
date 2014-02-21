@@ -657,8 +657,8 @@
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
-						<td style="width:120px;"><a id='lblProductno_s'> </a></td>
-						<td style="width:200px;"><a id='lblProduct_s'> </a></td>
+						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
+						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
 						<td style="width:100px;"><a id='lblUnmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblPlanmount_s'> </a></td>
@@ -699,9 +699,9 @@
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 						<td>
-							<input id="txtStationno.*" type="text" class="txt c1" style="width: 25%"/>
+							<input id="txtStationno.*" type="text" class="txt c1" style="width: 35%"/>
 							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
-							<input id="txtStation.*" type="text" class="txt c1" style="width: 60%"/>
+							<input id="txtStation.*" type="text" class="txt c1" style="width: 50%"/>
 						</td>
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>

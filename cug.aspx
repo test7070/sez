@@ -61,9 +61,9 @@
                 		return;
                 	}else{
                 		if(!emp($('#txtProcessno').val()))
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs) order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs where noa !='"+$('#txtNoa').val()+"') order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
                 		else
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs) order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
+                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs where noa !='"+$('#txtNoa').val()+"') order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
 						q_gt('cug_work', t_where, 0, 0, 0, "", r_accy);
                 	}
                 });
@@ -89,7 +89,7 @@
 							}
                 			for ( var i = 0; i < as.length; i++) {
                 				as[i].noq=('0000'+(i+1)).substr(-4);	
-                				as[i].days=round(as[i].hours/24,0)
+                				//as[i].days=round(as[i].hours/24,0)
                 			}
                 			q_gridAddRow(bbsHtm, 'tbbs'
 							,'txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtMount,txtHours,txtDays,txtCuadate,txtUindate,txtWorkno', as.length, as,
@@ -186,6 +186,35 @@
 								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
 							}
 		                });
+		                $('#txtCuadate_'+i).blur(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtCuadate_' + b_seq).val()) && !emp($('#txtUindate_' + b_seq).val()) && (q_cur == 1 || q_cur == 2)){
+								if($('#txtCuadate_' + b_seq).val()>$('#txtUindate_' + b_seq).val()){
+									alert(q_getMsg('lblWorkdate_s')+'大於'+q_getMsg('lblEnddate_s'));
+									$('#txtCuadate_' + b_seq).val('').focusin();
+									return;
+								}
+								
+								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
+							}
+		                });
+		                $('#txtUindate_'+i).blur(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtCuadate_' + b_seq).val()) && !emp($('#txtUindate_' + b_seq).val()) && (q_cur == 1 || q_cur == 2)){
+								if($('#txtCuadate_' + b_seq).val()>$('#txtUindate_' + b_seq).val()){
+									alert(q_getMsg('lblWorkdate_s')+'大於'+q_getMsg('lblEnddate_s'));
+									$('#txtUindate_' + b_seq).val('').focusin();
+									return;
+								}
+								
+								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
+							}
+		                });
+		                
                     }
                 }
                 _bbsAssign();
@@ -271,6 +300,16 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function  DateDiff(beginDate,  endDate){    //beginDate和endDate都是2007-8-10格式
+		       var  arrbeginDate,  Date1,  Date2, arrendDate,  iDays  
+		       arrbeginDate=  beginDate.split("/")  
+		       Date1=  new  Date( arrbeginDate[1]+  '-'  +  arrbeginDate[2]  +  '-'  +  (dec(arrbeginDate[0])+1911))    //轉換為2007-8-10格式
+		       arrendDate=  endDate.split("/")  
+		       Date2=  new  Date(arrendDate[1]  +  '-'  +  arrendDate[2]  +  '-'  +  (dec(arrendDate[0])+1911))  
+		       iDays  =  parseInt(Math.abs(Date1-  Date2)  /  1000  /  60  /  60  /24)    //轉換為天數 
+		       return  iDays  
+		   }
 
 		</script>
 		<style type="text/css">
@@ -401,7 +440,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 1460px;
             }
             .tbbs a {
                 font-size: medium;
@@ -483,9 +522,9 @@
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblHours_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblDays_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblWorkdate_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblEnddate_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblWorkno_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblWorkdate_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblEnddate_s'> </a></td>
+					<td align="center" style="width:12%;"><a id='lblWorkno_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
