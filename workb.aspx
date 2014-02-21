@@ -124,6 +124,10 @@
 					}
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
+				
+				$('#btnClose_div_stk').click(function() {
+					$('#div_stk').toggle();
+				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -202,6 +206,42 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'msg_stk_all':
+						var as = _q_appendData("stkucc", "", true);
+						var rowslength=document.getElementById("table_stk").rows.length-3;
+							for (var j = 1; j < rowslength; j++) {
+								document.getElementById("table_stk").deleteRow(3);
+							}
+						stk_row=0;
+						
+						var stkmount = 0;
+						for (var i = 0; i < as.length; i++) {
+							//倉庫庫存
+							if(dec(as[i].mount)!=0){
+								var tr = document.createElement("tr");
+								tr.id = "bbs_"+j;
+								tr.innerHTML = "<td id='assm_tdStoreno_"+stk_row+"'><input id='assm_txtStoreno_"+stk_row+"' type='text' class='txt c1' value='"+as[i].storeno+"' disabled='disabled'/></td>";
+								tr.innerHTML+="<td id='assm_tdStore_"+stk_row+"'><input id='assm_txtStore_"+stk_row+"' type='text' class='txt c1' value='"+as[i].store+"' disabled='disabled' /></td>";
+								tr.innerHTML+="<td id='assm_tdMount_"+stk_row+"'><input id='assm_txtMount_"+stk_row+"' type='text' class='txt c1 num' value='"+as[i].mount+"' disabled='disabled'/></td>";
+								var tmp = document.getElementById("stk_close");
+								tmp.parentNode.insertBefore(tr,tmp);
+								stk_row++;
+							}
+							//庫存總計
+							stkmount = stkmount + dec(as[i].mount);
+						}
+						var tr = document.createElement("tr");
+						tr.id = "bbs_"+j;
+						tr.innerHTML="<td colspan='2' id='assm_tdStore_"+stk_row+"'><input id='assm_txtStore_"+stk_row+"' type='text' class='txt c1' value='倉庫總計' disabled='disabled' /></td>";
+						tr.innerHTML+="<td id='assm_tdMount_"+stk_row+"'><input id='assm_txtMount_"+stk_row+"' type='text' class='txt c1 num' value='"+stkmount+"' disabled='disabled'/></td>";
+						var tmp = document.getElementById("stk_close");
+						tmp.parentNode.insertBefore(tr,tmp);
+						stk_row++;
+						
+						$('#div_stk').css('top',mouse_point.pageY-parseInt($('#div_stk').css('height')));
+						$('#div_stk').css('left',mouse_point.pageX-parseInt($('#div_stk').css('width')));
+						$('#div_stk').toggle();
+						break;
 					case 'work':
 						var as = _q_appendData("work", "", true);
 						var t_stationno = '', t_station = '';
@@ -327,7 +367,8 @@
 
 			function combPay_chg() {
 			}
-
+			
+			var mouse_point;
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
@@ -338,6 +379,19 @@
 
 							var t_where = "where=^^ noa='" + $('#txtProductno_' + b_seq).val() + "' ^^";
 							q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
+						});
+						$('#btnStk_' + i).mousedown(function(e) {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if (!emp($('#txtProductno_' + b_seq).val()) && !$("#div_assm").is(":hidden")) {
+								mouse_point=e;
+								document.getElementById("stk_productno").innerHTML = $('#txtProductno_' + b_seq).val();
+								document.getElementById("stk_product").innerHTML = $('#txtProduct_' + b_seq).val();
+								//庫存
+								var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "') ^^";
+								q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
+							}
 						});
 					}
 				}
@@ -606,6 +660,28 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="div_stk" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_stk" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">產品編號</td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'> </td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">產品名稱</td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_product'> </td>
+				</tr>
+				<tr id='stk_top'>
+					<td align="center" style="width: 30%;">倉庫編號</td>
+					<td align="center" style="width: 45%;">倉庫名稱</td>
+					<td align="center" style="width: 25%;">倉庫數量</td>
+				</tr>
+				<tr id='stk_close'>
+					<td align="center" colspan='3'>
+						<input id="btnClose_div_stk" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div class="dview" id="dview">
 			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -678,6 +754,7 @@
 					<td align="center" style="width:10%;"><a id='lblMemos'></a></td>
 					<td align="center" style="width:3%;"><a id='lblEnda'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblWorknos'></a></td>
+					<td align="center" style="width:2%;"><a id='lblStks'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
@@ -706,6 +783,9 @@
 					</td>
 					<td><input id="chkEnda.*" type="checkbox"/></td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+					<td align="center">
+						<input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  />
+					</td>
 				</tr>
 			</table>
 		</div>
