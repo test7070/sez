@@ -212,7 +212,7 @@
 							for (var j = 1; j < rowslength; j++) {
 								document.getElementById("table_stk").deleteRow(3);
 							}
-						stk_row=0;
+						var stk_row=0;
 						
 						var stkmount = 0;
 						for (var i = 0; i < as.length; i++) {
@@ -220,9 +220,9 @@
 							if(dec(as[i].mount)!=0){
 								var tr = document.createElement("tr");
 								tr.id = "bbs_"+j;
-								tr.innerHTML = "<td id='assm_tdStoreno_"+stk_row+"'><input id='assm_txtStoreno_"+stk_row+"' type='text' class='txt c1' value='"+as[i].storeno+"' disabled='disabled'/></td>";
-								tr.innerHTML+="<td id='assm_tdStore_"+stk_row+"'><input id='assm_txtStore_"+stk_row+"' type='text' class='txt c1' value='"+as[i].store+"' disabled='disabled' /></td>";
-								tr.innerHTML+="<td id='assm_tdMount_"+stk_row+"'><input id='assm_txtMount_"+stk_row+"' type='text' class='txt c1 num' value='"+as[i].mount+"' disabled='disabled'/></td>";
+								tr.innerHTML = "<td id='stk_tdStoreno_"+stk_row+"'><input id='stk_txtStoreno_"+stk_row+"' type='text' class='txt c1' value='"+as[i].storeno+"' disabled='disabled'/></td>";
+								tr.innerHTML+="<td id='stk_tdStore_"+stk_row+"'><input id='stk_txtStore_"+stk_row+"' type='text' class='txt c1' value='"+as[i].store+"' disabled='disabled' /></td>";
+								tr.innerHTML+="<td id='stk_tdMount_"+stk_row+"'><input id='stk_txtMount_"+stk_row+"' type='text' class='txt c1 num' value='"+as[i].mount+"' disabled='disabled'/></td>";
 								var tmp = document.getElementById("stk_close");
 								tmp.parentNode.insertBefore(tr,tmp);
 								stk_row++;
@@ -232,8 +232,8 @@
 						}
 						var tr = document.createElement("tr");
 						tr.id = "bbs_"+j;
-						tr.innerHTML="<td colspan='2' id='assm_tdStore_"+stk_row+"'><input id='assm_txtStore_"+stk_row+"' type='text' class='txt c1' value='倉庫總計' disabled='disabled' /></td>";
-						tr.innerHTML+="<td id='assm_tdMount_"+stk_row+"'><input id='assm_txtMount_"+stk_row+"' type='text' class='txt c1 num' value='"+stkmount+"' disabled='disabled'/></td>";
+						tr.innerHTML="<td colspan='2' id='stk_tdStore_"+stk_row+"' style='text-align: right;'><span id='stk_txtStore_"+stk_row+"' class='txt c1' >倉庫總計：</span></td>";
+						tr.innerHTML+="<td id='stk_tdMount_"+stk_row+"'><span id='stk_txtMount_"+stk_row+"' type='text' class='txt c1 num' > "+stkmount+"</span></td>";
 						var tmp = document.getElementById("stk_close");
 						tmp.parentNode.insertBefore(tr,tmp);
 						stk_row++;
@@ -384,7 +384,7 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if (!emp($('#txtProductno_' + b_seq).val()) && !$("#div_assm").is(":hidden")) {
+							if (!emp($('#txtProductno_' + b_seq).val()) && !$("#div_stk").is(":hidden")) {
 								mouse_point=e;
 								document.getElementById("stk_productno").innerHTML = $('#txtProductno_' + b_seq).val();
 								document.getElementById("stk_product").innerHTML = $('#txtProduct_' + b_seq).val();
