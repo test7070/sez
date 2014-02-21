@@ -18,7 +18,10 @@
 			var decbbm = ['inprice', 'saleprice', 'reserve', 'beginmount', 'uweight', 'beginmoney', 'drcr', 'price2', 'days', 'stkmount', 'safemount', 'stkmoney'];
 			var q_name = "ucc";
 			var q_readonly = ['txtWorker','txtDate2','textUccprice', 'textStk', 'textSaleprice', 'textInprice', 'textCosta', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk'];
-			var bbmNum = [['txtSaleprice', 10, 2, 1], ['txtInprice', 10, 2, 1], ['txtStdmount', 10, 2, 1]];
+			var bbmNum = [
+				['txtSaleprice', 10, 2, 1], ['txtInprice', 10, 2, 1], ['txtStdmount', 10, 2, 1],
+				['txtUweight', 15, 3, 1],['txtSafemount', 15, 2, 1],['txtDays', 10, 0, 1]
+			];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -549,7 +552,7 @@
 					<td><a id='lblSafemount' class="lbl"> </a></td>
 					<td><input	type="text" id="txtSafemount" class="txt num c1"/></td>
 					<td><a id='lblDays' class="lbl"> </a></td>
-					<td><input	type="text" id="txtDays" class="txt c1"/></td>
+					<td><input	type="text" id="txtDays" class="txt c1 num"/></td>
 				</tr>
 				<tr>
 					<td><a id='lblCoin' class="lbl"> </a></td>
