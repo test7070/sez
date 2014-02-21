@@ -14,7 +14,7 @@
 			this.errorHandler = null;
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
-			}
+	fffff		}
 
 			q_tables = 's';
 			var q_name = "vcc";
