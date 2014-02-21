@@ -191,6 +191,12 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							if(!emp($('#txtCuadate_' + b_seq).val()) && !emp($('#txtUindate_' + b_seq).val()) && (q_cur == 1 || q_cur == 2)){
+								if($('#txtCuadate_' + b_seq).val()>$('#txtUindate_' + b_seq).val()){
+									alert(q_getMsg('lblWorkdate_s')+'大於'+q_getMsg('lblEnddate_s'));
+									$('#txtCuadate_' + b_seq).val('').focusin();
+									return;
+								}
+								
 								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
 							}
 		                });
@@ -199,6 +205,12 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							if(!emp($('#txtCuadate_' + b_seq).val()) && !emp($('#txtUindate_' + b_seq).val()) && (q_cur == 1 || q_cur == 2)){
+								if($('#txtCuadate_' + b_seq).val()>$('#txtUindate_' + b_seq).val()){
+									alert(q_getMsg('lblWorkdate_s')+'大於'+q_getMsg('lblEnddate_s'));
+									$('#txtUindate_' + b_seq).val('').focusin();
+									return;
+								}
+								
 								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
 							}
 		                });
@@ -294,7 +306,7 @@
 		       arrbeginDate=  beginDate.split("/")  
 		       Date1=  new  Date( arrbeginDate[1]+  '-'  +  arrbeginDate[2]  +  '-'  +  (dec(arrbeginDate[0])+1911))    //轉換為2007-8-10格式
 		       arrendDate=  endDate.split("/")  
-		       Date2=  new  Date(arrbeginDate[1]  +  '-'  +  arrendDate[2]  +  '-'  +  (dec(arrbeginDate[0])+1911))  
+		       Date2=  new  Date(arrendDate[1]  +  '-'  +  arrendDate[2]  +  '-'  +  (dec(arrendDate[0])+1911))  
 		       iDays  =  parseInt(Math.abs(Date1-  Date2)  /  1000  /  60  /  60  /24)    //轉換為天數 
 		       return  iDays  
 		   }
