@@ -518,7 +518,7 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
+				<tr> 
 					<td><a id='lblProduct' class="lbl"> </a></td>
 					<td colspan='5'><input	type="text" id="txtProduct" class="txt c1"/></td>
 					<td><input type="button" id="btnUcctd" style='width: auto; font-size: medium;' ></td>
