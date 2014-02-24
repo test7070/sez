@@ -148,6 +148,8 @@
 								
 								if(t_mount<0) t_mount=0;
 								
+								//1030224由後端傳回，初值空白
+								/*
 								//提前天數
 								var preday=0;
 								preday=preday+dec(as[i].pretime) //前置時間
@@ -181,7 +183,9 @@
 									preday=preday-1;
 								}
 								
-								as[i].rworkdate=t_date;	
+								as[i].rworkdate=t_date;
+								*/
+								as[i].rworkdate='';
 								as[i].ordeno=as[i].ordeno.substr(0,as[i].ordeno.length-1);
 							}
 							q_gridAddRow(bbsHtm, 'tbbs'
@@ -425,8 +429,10 @@
             	if(t_func=='workg.genWork'){
             		var workno=result.split(';')
             		for(var j = 0;j < q_bbsCount;j++){
-            			abbsNow[j][workno]=workno[j+1];
-            			$('#txtWorkno_'+j).val(workno[j+1]);
+            			abbsNow[j]['workno']=workno[(j*2)+1];
+            			$('#txtWorkno_'+j).val(workno[(j*2)+1]);
+            			abbsNow[j]['rworkdate']=workno[(j*2)+2];
+            			$('#txtRworkdate_'+j).val(workno[(j*2)+2]);
             		}
 		        	alert('製令產出執行完畢!!');
 		        	$('#btnWork').val('製令產出').removeAttr('disabled');

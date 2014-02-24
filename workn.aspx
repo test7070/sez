@@ -34,8 +34,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtWorkno', 'lblWorkno', 'work'
-            , 'noa,cuadate,mount,productno,workdate,unit,product,uindate,inmount,stationno,station,enddate,rmount,tggno,comp,rank,wmount,processno,process,modelno,model,price,wages,makes,hours,wages_fee,makes_fee,memo'
-            , 'txtWorkno,txtCuadate,txtMount,txtProductno,txtWorkdate,txtUnit,txtProduct,txtUindate,txtInmount,txtStationno,txtStation,txtEnddate,txtRmount,txtTggno,txtComp,txtRank,txtWmount,txtProcessno,txtProcess,txtModelno,txtModel,txtPrice,txtWages,txtMakes,txtHours,txtWages_fee,txtMakes_fee,txtMemo'
+            , 'noa,cuadate,mount,productno,workdate,unit,product,uindate,inmount,stationno,station,enddate,rmount,tggno,comp,rank,wmount,processno,process,modelno,model,price,hours,memo'
+            , 'txtWorkno,txtCuadate,txtMount,txtProductno,txtWorkdate,txtUnit,txtProduct,txtUindate,txtInmount,txtStationno,txtStation,txtEnddate,txtRmount,txtTggno,txtComp,txtRank,txtWmount,txtProcessno,txtProcess,txtModelno,txtModel,txtPrice,txtHours,txtMemo'
             , 'work_b.aspx','95%']
             ,['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']
             ,['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx']);
