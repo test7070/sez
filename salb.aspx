@@ -33,7 +33,8 @@
 			brwKey = 'Datea';
 			
 			aPop = new Array(
-				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']
+				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'],
+				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,id,addr_conn,sex', 'txtSssno_,txtNamea_,txtId_,txtAddr_,cmbSex_,txtMount_', 'sss_b.aspx']
 			);
 			
 			$(document).ready(function() {
@@ -55,6 +56,7 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtCucdate', r_picd]];
 				q_mask(bbmMask);
+				q_cmbParse("cmbSex", q_getPara('sss.sex'),'s');
 			}
 
 			function q_boxClose(s2) {
@@ -429,7 +431,7 @@
 					<td><input id="txtCh_meal.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtMi_money.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtSex.*" type="text" class="txt c1"/></td>
+					<td><select id="cmbSex.*" class="txt c1"> </select></td>
 					<td><input id="txtComp.*" type="text" class="txt c1"/></td>
 					<td>
 						<input id="txtAddr.*" type="text" class="txt c1"/>
