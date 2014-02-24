@@ -516,8 +516,8 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
 					<td align="center" style="width:4%;"><a id='lblNoq_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblProcess_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:9%;"><a id='lblProcess_s'> </a></td>
+					<td align="center" style="width:11%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblHours_s'> </a></td>

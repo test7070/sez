@@ -183,7 +183,21 @@
 				 
 				 $('#btnClose_div_stkcost').click(function() {
 				 	$('#div_stkcost').toggle();
+				 	$('#div_stk').hide();
 				 });
+				 
+				$('#btnStk').click(function() {
+					if (!emp($('#txtNoa').val()) && $("#div_stk").is(":hidden")) {
+						//document.getElementById("stk_productno").innerHTML = $('#txtNoa' ).val();
+						//document.getElementById("stk_product").innerHTML = $('#txtProduct').val();
+						//庫存
+						var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtNoa').val() + "') ^^";
+						q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
+					}
+				});
+				$('#btnClose_div_stk').click(function() {
+					$('#div_stk').toggle();
+				});
 			}
 			
 			var t_td='';
@@ -285,6 +299,33 @@
 						$('#textIntmount').val(t_intmount);//在途
 						//可用庫存=庫存+在途-訂單(+計畫??)
 						$('#textAvaistk').val(q_float('textStk')+q_float('textIntmount')-q_float('textOrdemount'));
+						break;
+					case 'msg_stk_all':
+						var as = _q_appendData("stkucc", "", true);
+						var rowslength=document.getElementById("table_stk").rows.length-1;
+							for (var j = 1; j < rowslength; j++) {
+								document.getElementById("table_stk").deleteRow(1);
+							}
+						var stk_row=0;
+						
+						var stkmount = 0;
+						for (var i = 0; i < as.length; i++) {
+							//倉庫庫存
+							if(dec(as[i].mount)!=0){
+								var tr = document.createElement("tr");
+								tr.id = "bbs_"+j;
+								tr.innerHTML = "<td id='stk_tdStoreno_"+stk_row+"'><input id='stk_txtStoreno_"+stk_row+"' type='text' class='txt c1' value='"+as[i].storeno+"' disabled='disabled'/></td>";
+								tr.innerHTML+="<td id='stk_tdStore_"+stk_row+"'><input id='stk_txtStore_"+stk_row+"' type='text' class='txt c1' value='"+as[i].store+"' disabled='disabled' /></td>";
+								tr.innerHTML+="<td id='stk_tdMount_"+stk_row+"'><input id='stk_txtMount_"+stk_row+"' type='text' class='txt c1 num' value='"+as[i].mount+"' disabled='disabled'/></td>";
+								var tmp = document.getElementById("stk_close");
+								tmp.parentNode.insertBefore(tr,tmp);
+								stk_row++;
+							}
+						}
+												
+						$('#div_stk').css('top',$('#div_stkcost').offset().top);
+						$('#div_stk').css('left',$('#div_stkcost').offset().left-parseInt($('#div_stk').css('width')));
+						$('#div_stk').toggle();
 						break;
 					case q_name: 
 						if (q_cur == 4)   // 查詢
@@ -678,6 +719,9 @@
 			///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
 			function refresh(recno) {
 				_refresh(recno);
+				$('#div_stk').hide();
+				$('#div_stkcost').hide();
+				
 				//原料、人工、製造
 				var t_where = "where=^^ productno ='"+$('#txtNoa').val()+"' order by datea desc ^^";
 				q_gt('wcost', t_where , 0, 0, 0, "", r_accy);
@@ -1055,7 +1099,7 @@
 				<td align="center" ><input id="textIntmount" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr style="background-color: #CDFFCE;">
-				<td align="center" ><a class="lbl">庫存量</a></td>
+				<td align="center" ><a class="lbl">庫存量</a>(<a id="btnStk" class="lbl btn" style="color: #4297D7;">詳細</a>)</td>
 				<td align="center" ><input id="textStk" type="text"  class="txt num c1"/></td>
 			</tr>
 			<tr style="background-color: #CDFFCE;">
@@ -1091,6 +1135,28 @@
 					<input id="bbt_b_seq" type="hidden"/>
 				</td>
 			</tr>
+			</table>
+		</div>
+		<div id="div_stk" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE;">
+			<table id="table_stk" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+				<!--<tr>
+					<td style="background-color: #f8d463;" align="center">產品編號</td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'> </td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">產品名稱</td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_product'> </td>
+				</tr>-->
+				<tr id='stk_top'>
+					<td align="center" style="width: 30%;">倉庫編號</td>
+					<td align="center" style="width: 45%;">倉庫名稱</td>
+					<td align="center" style="width: 25%;">倉庫數量</td>
+				</tr>
+				<tr id='stk_close'>
+					<td align="center" colspan='3'>
+						<input id="btnClose_div_stk" type="button" value="關閉視窗">
+					</td>
+				</tr>
 			</table>
 		</div>
 	<div id='dmain' style="overflow:hidden; width: 1260px;">
