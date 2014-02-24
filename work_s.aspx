@@ -18,6 +18,8 @@
     });         /// end ready
 	aPop = new Array(
         	['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
+        	['txtStationno', 'lblStationno', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+        	['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
         	['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
         	);
     function main() {
@@ -43,6 +45,10 @@
         t_product = $('#txtProduct').val();
         t_ordeno = $('#txtOrdeno').val();
         t_cuano = $('#txtCuano').val();
+        t_stationno = $('#txtStationno').val();
+        t_station = $('#txtStation').val();
+        t_tggno = $('#txtTggno').val();
+        t_comp = $('#txtComp').val();
 
         t_bcuadate = t_bcuadate.length > 0 && t_bcuadate.indexOf("_") > -1 ? t_bcuadate.substr(0, t_bcuadate.indexOf("_")) : t_bcuadate;  /// 100.  .
         t_ecuadate = t_ecuadate.length > 0 && t_ecuadate.indexOf("_") > -1 ? t_ecuadate.substr(0, t_ecuadate.indexOf("_")) : t_ecuadate;  /// 100.  .
@@ -50,6 +56,10 @@
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)
         + q_sqlPara2("productno", t_productno) 
         + q_sqlPara2("product", t_product)
+        + q_sqlPara2("stationno", t_stationno) 
+        + q_sqlPara2("station", t_station)
+        + q_sqlPara2("tggno", t_tggno) 
+        + q_sqlPara2("comp", t_comp)
         + q_sqlPara2("cuadate", t_bcuadate, t_ecuadate)
         /*+ q_sqlPara2("ordeno", t_ordeno)
         + q_sqlPara2("cuano", t_cuano)*/
@@ -88,6 +98,20 @@
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblCuano'></a></td>
                 <td><input class="txt" id="txtCuano" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblStationno'></a></td>
+                <td>
+                	<input class="txt" id="txtStationno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtStation" type="text" style="width:115px; font-size:medium;" />
+                </td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblTggno'></a></td>
+                <td>
+                	<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+                </td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblProductno'></a></td>
