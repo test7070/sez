@@ -17,7 +17,7 @@
 
             var q_name = "etc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtCurmoney','txtCustno'];
-            var bbmNum = new Array(['txtMoney', 10, 0], ['txtCurmoney', 10, 2]);
+            var bbmNum = new Array(['txtMoney', 10, 0, 1], ['txtCurmoney', 10, 0, 1], ['txtMoneyx', 10, 2, 1], ['txtMoneyy', 10, 2, 1], ['txtDiscount1', 10, 2, 1], ['txtDiscount2', 10, 2, 1], ['txtDiscount3', 10, 2, 1], ['txtDiscount4', 10, 2, 1]);
             var bbmMask = [['txtDatea', '999/99/99'], ['txtMon', '999/99'], ['txtTimea', '99:99:99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -544,7 +544,10 @@
 						<td class="td2">
 						<input id="txtCarno"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"></td>
+						<td class="td1"><span> </span><a id='lblStation' class="lbl"> </a></td>
+                        <td class="td2">
+                        <input id="txtStation"  type="text"  class="txt c1"/>
+                        </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"> </a></td>
@@ -552,16 +555,8 @@
 						<input id="txtDriverno"  type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblStation' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtStation"  type="text"  class="txt c1"/>
-						</td>
-					</tr>
-					<tr>
 						<td class="td1"><span> </span><a id='lblArrow' class="lbl"> </a></td>
-						<td class="td2"><select id="cmbArrow" class="txt c1"></select></td>
+                        <td class="td2"><select id="cmbArrow" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblTypea' class="lbl"> </a></td>
@@ -571,6 +566,30 @@
 						<input id="txtMon"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
+					<tr>
+                        <td><span> </span><a id='lblMoneyx' class="lbl"> </a></td>
+                        <td><input id="txtMoneyx"  type="text"  class="txt num c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id='lblDiscount1' class="lbl"> </a></td>
+                        <td><input id="txtDiscount1"  type="text"  class="txt num c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id='lblDiscount2' class="lbl"> </a></td>
+                        <td><input id="txtDiscount2"  type="text"  class="txt num c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id='lblDiscount3' class="lbl"> </a></td>
+                        <td><input id="txtDiscount3"  type="text"  class="txt num c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id='lblDiscount4' class="lbl"> </a></td>
+                        <td><input id="txtDiscount4"  type="text"  class="txt num c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id='lblMoneyy' class="lbl"> </a></td>
+                        <td><input id="txtMoneyy"  type="text"  class="txt num c1"/></td>
+                    </tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td class="td2">
