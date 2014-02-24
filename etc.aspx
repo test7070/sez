@@ -490,6 +490,12 @@
 						<td align="center" style="width:60px; color:black;"><a id='vewStation'> </a></td>
 						<td align="center" style="width:40px; color:black;"><a id='vewArrow'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTypea'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMoneyx'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewDiscount1'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewDiscount2'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewDiscount3'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewDiscount4'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMoneyy'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMon'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMemo'> </a></td>
@@ -505,6 +511,12 @@
 						<td id='station' style="text-align: center;">~station</td>
 						<td id='arrow' style="text-align: center;">~arrow</td>
 						<td id='typea=cmbTypea' style="text-align: center;">~typea=cmbTypea</td>
+						<td id='moneyx' style="text-align: right;">~moneyx</td>
+						<td id='discount1' style="text-align: right;">~discount1</td>
+						<td id='discount2' style="text-align: right;">~discount2</td>
+						<td id='discount3' style="text-align: right;">~discount3</td>
+						<td id='discount4' style="text-align: right;">~discount4</td>
+						<td id='moneyy' style="text-align: right;">~moneyy</td>
 						<td id='money' style="text-align: right;">~money</td>
 						<td id='mon' style="text-align: center;">~mon</td>
 						<td id='memo' style="text-align: center;">~memo</td>
