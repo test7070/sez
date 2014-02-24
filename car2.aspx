@@ -66,6 +66,9 @@
                 	$(".btns").hide();
                 }
                 
+                if (q_getPara('sys.comp').indexOf('菱揚') > -1) {
+                	$('#btnCartax').hide();
+                
                 q_gt('carbrand', '', 0, 0, 0, "");
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
@@ -147,7 +150,7 @@
 				});
 				
                 //--11/21大昌改管理費+公會費=行費
-                if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+                
                     $('#divGuile').hide();
                     $('#lblGuile').hide();
                     $('#txtGuile').hide();

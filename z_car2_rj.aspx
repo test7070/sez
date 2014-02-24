@@ -24,44 +24,8 @@
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_car2_rj');
-                $('#cartax').hide();
                 $('#carnotice').hide();
-                
-                q_cmbParse("combTax", ('').concat(new Array( '01@上期牌照稅','02@下期牌照稅','03@春季燃料稅','04@夏季燃料稅','05@秋季燃料稅','06@冬季燃料稅')));
-                		
-                $('#btnMontax').click(function() {
-                	if(!emp($('#textYear').val())){
-                		var montaxhtml='1=1';
-                		switch ($('#combTax').val()) {
-                			case '01':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                			break;
-                			case '02':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                			break;
-                			case '03':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                			break;
-                			case '04':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                			break;
-                			case '05':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                			break;
-                			case '06':
-                				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                			break;
-                		}
-                		q_box((montaxhtml), 'cartax', "90%", "600px", q_getMsg("popCartax"));
-                	}
-                });
-                
+                                
                 $('#btnNotice').click(function() {
                 	var xbdate=!emp($('#textBdate').val())?$('#textBdate').val():'';
                 	var xedate=!emp($('#textEdate').val())?$('#textEdate').val():'999/99/99';
@@ -86,30 +50,24 @@
 		            else
 		            	sss_sql+="and sssno='"+xsssno+"'"
 		            	
-					//婉容說不要顯示報停20130603
+					//不顯示報停
                 	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(a.checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and (a.enddate='' or a.enddate is null) and (a.outdate='' or a.outdate is null) and (a.wastedate='' or a.wastedate is null) and (a.suspdate='' or a.suspdate is null);"+r_accy,
                 		 'car2', "90%", "600px", q_getMsg("popNotice"));
                 });
                 
                 $('#q_report').click(function(e) {
-                	if($(".select")[0].nextSibling.innerText=='監理稅金收單表'){
-                		$('#cartax').show();
-                	}else{
-                		$('#cartax').hide();
-                	}
                 	if($(".select")[0].nextSibling.innerText=='驗車查詢'){
                 		$('#carnotice').show();
                 	}else{
                 		$('#carnotice').hide();
                 	}
-                	
                 });
             });
             
             function q_gfPost() {
-                 q_gt('carteam', '', 0, 0, 0, "");
-                 q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);
-                 q_gt('cardeal', '', 0, 0, 0, "");
+                 //q_gt('carteam', '', 0, 0, 0, "");
+                 q_gt('sss', "where=^^ noa in (select sssno from car2) ^^" , 0, 0, 0, "", r_accy);
+                 //q_gt('cardeal', '', 0, 0, 0, "");
             }
 
             function q_boxClose(s2) {
@@ -132,32 +90,24 @@
 				b_pop = '';
             }
             var iscarno=0;
-			var sssno='',xcardealno='';
+			var sssno='';
             function q_gtPost(t_name) {
             	  switch (t_name) {
             	  	case 'sss':
             			var as = _q_appendData("sss", "", true);
-            			for (var i = 0; i < as.length; i++) {
-            				sssno+=as[i].noa+'.';
+            			if (as[0]!=undefined){
+            				for (var i = 0; i < as.length; i++) {
+            					sssno+=as[i].noa+'.';
+	            			}
+	            			sssno=sssno.substr(0,sssno.length-1);
+            			}else{
+            				sssno='無管理人員';
             			}
-            			sssno=sssno.substr(0,sssno.length-1);
+            			
             			$('#textSSSno').val(sssno);
             		break;
-            		case 'cardeal':
-                        var as = _q_appendData("cardeal", "", true);
-                        for( i = 0; i < as.length; i++) {
-                            xcardealno = xcardealno + (xcardealno.length>0?',':'') + as[i].noa +'@' + as[i].comp;
-                        }
-                        q_cmbParse("combCardealno", xcardealno);
-                        break;
-                    case 'carteam':
-                        var as = _q_appendData("carteam", "", true);
-                        for( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
-                        }    
-                        break;
                   }
-                     if(t_item.length>0 &&xcardealno.length>0&&sssno.length>0){
+                  if(sssno.length>0){//
 	                $('#q_report').q_report({
 	                    fileName : 'z_car2_rj',
                         options : [{/*1-[1][2]-月份*/
@@ -184,43 +134,43 @@
                             dbf : 'driver',
                             index : 'noa,namea',
                             src : 'driver_b.aspx'
-                        }, {/*6-[15]-截止日期*/
+                        }, {/*6-[11]-截止日期*/
                             type : '6',
                             name : 'enddate'
-                        }, {/*7-[16][17]-車牌號碼*/
+                        }, {/*7-[12][13]-車牌號碼*/
                             type : '1',
                             name : 'Tcarno'
-                        },{/*8-[19][20]-保險公司*/
+                        },{/*8-[14][15]-保險公司*/
                             type : '2',
                             name : 'carinsurer',
                             dbf : 'insurer',
                             index : 'noa,comp',
                             src : 'insurer_b.aspx'
-                        },{/*9-[21][22]-車種樣式*/
+                        },{/*9-[16][17]-車種樣式*/
                             type : '2',
                             name : 'carspec',
                             dbf : 'carspec',
                             index : 'noa,spec',
                             src : 'carspec_b.aspx'
-                        }, {/*10-[23]-列印*/
+                        }, {/*10-[18]-列印*/
 	                        type : '8', //select
 	                        name : 'pdate',
 	                        value : ('遷出,報廢,繳銷,報停').split(',')
-	                    }, {/*11-[24]-管理帳號*/
+	                    }, {/*11-[19]-管理帳號*/
 	                        type : '8', //select
 	                        name : 'sssno',
 	                        value : (sssno).split('.')
-	                    }, {/*12-[25]-多車*/
+	                    }, {/*12-[20]-多車*/
 	                        type : '6',
 	                        name : 'xcarnos'
-	                    }, {/*13-[31]-排序依車行、車主、驗車日期*/
+	                    }, {/*13-[21]-排序依車行、車主、驗車日期*/
 	                        type : '5', //select
 	                        name : 'yorder',
 	                        value : ('車行,車主,驗車日期').split(',')
-                    	}, {/*14-[34]-年度*/
+                    	}, {/*14-[22]-年度*/
                             type : '6',
                             name : 'xyear'
-                        }, {/*15-[38]車種種類*/
+                        }, {/*15-[23]車種種類*/
                             type : '6',
                             name : 'xspecno'
                         }]
@@ -228,7 +178,6 @@
                     q_getFormat();
 	                q_langShow();
 	                q_popAssign();
-	                $('#textYear').mask('999');
 	            	$('#textBdate').mask('999/99/99');
 	                $('#textEdate').mask('999/99/99');
 					$('#txtMon1').mask('999/99');
@@ -239,12 +188,9 @@
 	                $('#txtDate2').mask('999/99/99');
 	                $('#txtDate2').datepicker(); 
 	                t_item = "";
-	                $('#chkXcarteamno').children('input').attr('checked','checked')
 	                $('#txtEnddate').mask('999/99/99');
 	                $('#txtEnddate').datepicker(); 
 	                $('#txtEnddate').val(q_date());
-	                $('#txtXmoney1').val(-99999999);
-	                $('#txtXmoney2').val(99999999);
 	                $('#txtXyear').mask('999');
 					$('#txtXyear').val(q_date().substr(0,3));
 					
@@ -301,92 +247,7 @@
 	                $('#textEdate').val(t_year+'/'+t_month+'/'+t_day);
 	                
 	                $('#chkSssno').children('input').attr('checked', 'checked');
-	                
-	                //---------------------------車行
-	                $('#txtCardeal1a').blur(function() {
-                    	if(emp($('#txtCardeal1a').val())){
-                    		$('#txtCardeal1b').val('');
-                    	}
-                    	//if(emp($('#txtCardeal2a').val())&&!emp($('#txtCardeal1a').val())){
-                    		$('#txtCardeal2a').val($('#txtCardeal1a').val());
-                    		$('#txtCardeal2b').val($('#txtCardeal1b').val());
-                    	//}
-                	});
-                	$('#txtCardeal2a').blur(function() {
-                    	if(emp($('#txtCardeal2a').val())){
-                    		$('#txtCardeal2b').val('');
-                    	}
-                	});
-                	//---------------------------
-                	//---------------------------車主
-                	$('#txtCarowner1a').blur(function() {
-                    	if(emp($('#txtCarowner1a').val())){
-                    		$('#txtCarowner1b').val('');
-                    	}
-                    	//if(!emp($('#txtCarowner1a').val())){
-                    		$('#txtCarowner2a').val($('#txtCarowner1a').val());
-                    		$('#txtCarowner2b').val($('#txtCarowner1b').val());
-                    	//}
-                	});
-                	$('#txtCarowner2a').blur(function() {
-                    	if(emp($('#txtCarowner2a').val())){
-                    		$('#txtCarowner2b').val('');
-                    	}
-                	});
-                	//---------------------------
-                	//---------------------------車種樣式
-                	$('#txtCarspec1a').blur(function() {
-                    	if(emp($('#txtCarspec1a').val())){
-                    		$('#txtCarspec1b').val('');
-                    	}
-                    	//if(emp($('#txtCarspec2a').val())&&!emp($('#txtCarspec1a').val())){
-                    		$('#txtCarspec2a').val($('#txtCarspec1a').val());
-                    		$('#txtCarspec2b').val($('#txtCarspec1b').val());
-                    	//}
-                	});
-                	$('#txtCarspec2a').blur(function() {
-                    	if(emp($('#txtCarspec2a').val())){
-                    		$('#txtCarspec2b').val('');
-                    	}
-                	});
-                	//---------------------------
-                	//---------------------------保險公司
-                	$('#txtCarinsurer1a').blur(function() {
-                    	if(emp($('#txtCarinsurer1a').val())){
-                    		$('#txtCarinsurer1b').val('');
-                    	}
-                    	//if(emp($('#txtCarinsurer2a').val())&&!emp($('#txtCarinsurer1a').val())){
-                    		$('#txtCarinsurer2a').val($('#txtCarinsurer1a').val());
-                    		$('#txtCarinsurer2b').val($('#txtCarinsurer1b').val());
-                    	//}
-                	});
-                	$('#txtCarinsurer2a').blur(function() {
-                    	if(emp($('#txtCarinsurer2a').val())){
-                    		$('#txtCarinsurer2b').val('');
-                    	}
-                	});
-                	$('#txtTcarno1').blur(function() {
-                    	//if(emp($('#txtTcarno2').val())){
-                    		$('#txtTcarno2').val($('#txtTcarno1').val());
-                    	//}
-                	});
-					//---------------------------
-					//---------------------------科目名稱
-                	$('#txtCaritemno1a').blur(function() {
-                    	if(emp($('#txtCaritemno1a').val())){
-                    		$('#txtCaritemno1b').val('');
-                    	}
-                    	//if(emp($('#txtCarspec2a').val())&&!emp($('#txtCarspec1a').val())){
-                    		$('#txtCaritemno2a').val($('#txtCaritemno1a').val());
-                    		$('#txtCaritemno2b').val($('#txtCaritemno1b').val());
-                    	//}
-                	});
-                	$('#txtCaritemno2a').blur(function() {
-                    	if(emp($('#txtCaritemno2a').val())){
-                    		$('#txtCaritemnosb').val('');
-                    	}
-                	});
-                	//---------------------------
+
             	//----------------多車欄位設定----------------
             	$('#Xcarnos').css("width","410px");
             	$('#txtXcarnos').css("width","320px");
@@ -401,9 +262,6 @@
             	$('#txtXmemo').css("width","320px");
             	//-----------------------------
             	}
-            	
-                $('#textYear').val(q_date().substr(0,3));
-                $('#btnMontax').val('監理稅金收單作業');
                 
                 $('#btnNotice').val('驗車通知作業');
                 if(iscarno<3){
@@ -431,27 +289,6 @@
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="q_report"> </div>
-			</div>
-			<div id="cartax">
-				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
-					<tr>
-						<td align="center" style="width:35%"><a id="lblxYear" class="lbl">年度</a></td>
-						<td align="left" style="width:65%"><input id="textYear"  type="text"  class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td align="center" style="width:35%"><a id="lblxTax" class="lbl">稅金</a></td>
-						<td align="left" style="width:65%"><select id="combTax" class="txt c1"> </select></td>
-					</tr>
-					<tr>
-						<td align="center" style="width:35%"><a id="lblxCardealno" class="lbl">車行</a></td>
-						<td align="left" style="width:65%"><select id="combCardealno" class="txt c1"> </select></td>
-					</tr>
-					<tr>
-						<td align="center" colspan="2">
-							<input id="btnMontax" type="button" />
-						</td>
-					</tr>
-				</table>
 			</div>
 			<div id="carnotice">
 				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
