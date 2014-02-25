@@ -30,7 +30,7 @@
             brwKey = 'Datea';
             q_desc=1;
 			//q_alias='a';
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.carownerno,b.carowner,a.sssno', 'txtCarno,txtCarownerno,txtCarowner,txtSssno', "car2_b.aspx"],
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.carownerno,a.carowner,a.sssno', 'txtCarno,txtCarownerno,txtCarowner,txtSssno', "car2_b.aspx"],
 				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
