@@ -49,6 +49,16 @@
                 
                 $('#txtXmon').mask('999/99');
                 $('#txtXmon').val(q_date().substr(0,6));
+                
+                if(window.parent.q_name=='uca'){
+	                var wParent = window.parent.document;
+	                $('#txtSpno1a').val(wParent.getElementById("txtNoa").value);
+					$('#txtSpno2a').val(wParent.getElementById("txtNoa").value);
+					$('#txtSpno1b').val(wParent.getElementById("txtProduct").value);
+					$('#txtSpno2b').val(wParent.getElementById("txtProduct").value);
+					$('#txtXproductno').val(wParent.getElementById("txtNoa").value);
+				}
+                
             }
 
             function q_boxClose(s2) {
