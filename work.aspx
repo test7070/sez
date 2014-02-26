@@ -25,10 +25,7 @@
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtComp', 'txtProduct', 'txtStation'];
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtTproductno', 'txtTproduct'];
-			var bbmNum = [
-				['txtPrice', 10, 2, 1], ['txtWmount', 10, 0, 1], ['txtWages_fee', 15, 2, 1],
-				['txtMakes_fee', 15, 2, 1]
-			];
+			var bbmNum = [['txtPrice', 10, 2, 1], ['txtWmount', 10, 0, 1]];
 			var bbsNum = [
 				['txtMount', 15, 2, 1], ['txtGmount', 15, 2, 1], ['txtEmount', 15, 2, 1],
 				['txtCost', 15, 0, 1], ['txtPrice', 15, 0, 1]
@@ -64,19 +61,28 @@
 				}
 				q_mask(bbmMask);
 				mainForm(1);
-				$('#txtDatea').focus();
+				$('#txtKdate').focus();
 			}
 
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [
-					['txtDatea', r_picd], ['txtWorkdate', r_picd], ['txtUindate', r_picd],
+					['txtKdate', r_picd], ['txtWorkdate', r_picd], ['txtUindate', r_picd],
 					['txtCuadate', r_picd], ['txtEnddate', r_picd]
 				];
 				q_mask(bbmMask);
 				$('#txtProductno').change(function() {
 					var t_where = "where=^^ noa ='" + $('#txtProductno').val() + "' ^^";
 					q_gt('uca', t_where, 0, 0, 0, "", r_accy);
+				});
+				
+				$('#btnUnfreeze').click(function() {
+					if($('#chkIsfreeze').prop('checked')){
+						q_func('qtxt.query','workunfreeze.txt,unfreeze,'+ encodeURI($('#txtNoa').val()));
+						abbm[q_recno].isfreeze='false';
+						$('#chkIsfreeze').prop('checked',false);
+					}else
+						alert('此製令無凍結!!');
 				});
 			}
 
@@ -122,7 +128,7 @@
 				}
 				$('#txtWorker').val(r_name)
 				sum();
-				var t_date = $('#txtDatea').val();
+				var t_date = $('#txtKdate').val();
 				var s1 = $('#txt' + bbmKey[0][0].toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_work') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
@@ -172,7 +178,7 @@
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
-				$('#txtDatea').val(q_date()).focus();
+				$('#txtKdate').val(q_date()).focus();
 				$('#txtCuano').attr('disabled', 'disabled');
 			}
 
@@ -223,10 +229,16 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#btnTproductno_' + j).hide();
 				}
+				
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if (t_para) {
+					$('#btnUnfreeze').removeAttr('disabled');
+				}else {
+					$('#btnUnfreeze').attr('disabled', 'disabled');
+				}
 			}
 
 			function btnMinus(id) {
@@ -283,6 +295,10 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			function q_funcPost(t_func, result) {
+		        alert('凍結已取消!!');
+		    } //endfunction
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -437,9 +453,9 @@
 						<td class="td6"><input id="txtMount" type="text" class="txt num"/></td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblKdate" class="lbl"> </a></td>
 						<td class="td2">
-							<input id="txtDatea" type="text" class="txt" style="width: 50%"/></br>
+							<input id="txtKdate" type="text" class="txt" style="width: 50%"/></br>
 							<input id="chkEnda" type="checkbox" style="float: left;" />
 							<span> </span><a id="lblEnda" class="lbl" style="float: left;"> </a>
 							<input id="chkIsrework" type="checkbox" style="float: left;" />
@@ -511,19 +527,24 @@
 						</td>
 					</tr>
 					<tr class="tr9">
-						<td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>
+						<!--<td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>
 						<td class="td2"><input id="txtWages" type="text" class="txt num"/></td>
 						<td class="td3"><span> </span><a id="lblMakes" class="lbl"> </a></td>
-						<td class="td4"><input id="txtMakes" type="text" class="txt num"/></td>
-						<td class="td5"><span> </span><a id="lblHours" class="lbl"> </a></td>
-						<td class="td6"><input id="txtHours" type="text" class="txt num"/></td>
+						<td class="td4"><input id="txtMakes" type="text" class="txt num"/></td>-->
+						<td class="td1"><span> </span><a id="lblHours" class="lbl"> </a></td>
+						<td class="td2"><input id="txtHours" type="text" class="txt num"/></td>
+						<td class="td3"><span> </span><a id="lblIsfreeze" class="lbl"> </a></td>
+						<td class="td4">
+							<input id="chkIsfreeze" type="checkbox"/>
+							<input id="btnUnfreeze" type="button" value="取消凍結" style="float: inherit;" />
+						</td>
 					</tr>
-					<tr class="tr8">
+					<!--<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblWages_fee" class="lbl"> </a></td>
 						<td class="td2"><input id="txtWages_fee" type="text" class="txt num"/></td>
 						<td class="td3"><span> </span><a id="lblMakes_fee" class="lbl"> </a></td>
 						<td class="td4"><input id="txtMakes_fee" type="text" class="txt num"/></td>
-					</tr>
+					</tr>-->
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan='5'>
@@ -564,7 +585,7 @@
 					</td>
 					<td>
 						<input id="txtProductno.*" type="text" class="txt" style="width: 75%;"/>
-						<input class="btn" id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
+						<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
 						<input id="txtProduct.*" type="text" class="txt c1"/>
 					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
@@ -575,7 +596,7 @@
 					<td align="center">
 						<!--<input id="txtTd.*" type="text" class="txt c1"/>-->
 						<input id="chkIstd.*" type="checkbox"/>
-						<input class="btn" id="btnTproductno.*" type="button" value='...' style=" font-weight: bold;" />
+						<input class="btn" id="btnTproductno.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
 					<!--<td>//1020629將替代品直接取代品名欄位不需要在寫入下面欄位
 					<input id="txtTproductno.*" type="text" class="txt c1"/>
