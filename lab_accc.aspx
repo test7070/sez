@@ -17,7 +17,7 @@
 			q_desc=1;
             q_tables = 's';
             var q_name = "lab_accc";
-            var q_readonly = ['txtNoa', 'txtSales','txtPart', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno'];
+            var q_readonly = ['txtNoa', 'txtSales','txtPart', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno','txtMemo'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -114,10 +114,14 @@
   					{alert("取消執行");}
 				}
             function q_funcPost(t_func, result) {	//後端傳回
+            	abbm[q_recno]['accno'] = result.split(';')[0];
 				$('#txtAccno').val(result.split(';')[0]);
+				abbm[q_recno]['bvccno'] = result.split(';')[1];
 				$('#txtBvccno').val(result.split(';')[1]);
+				abbm[q_recno]['evccno'] = result.split(';')[2];
 				$('#txtEvccno').val(result.split(';')[2]);
-				/*$('#txtPaybno').val(result.split(';')[3]);*/
+				abbm[q_recno]['memo'] = result.split(';')[3];
+				$('#txtMemo').val(result.split(';')[3]);
 				alert('作業完畢');
 		    }
 
@@ -556,6 +560,10 @@
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td><input id="btnGen" type="button" /></td>
 						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size:medium;"> </a></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
