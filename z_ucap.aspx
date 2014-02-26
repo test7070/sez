@@ -55,7 +55,7 @@
 						name : 'xgroupano',
 						value : uccgaItem.split(',')
 					}, {
-						type : '0', //[7]/
+						type : '0', //[8]/
 						name : 'worker',
 						value : r_name
 					}]
