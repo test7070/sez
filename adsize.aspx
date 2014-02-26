@@ -13,7 +13,7 @@
 			this.errorHandler = null;
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
-			} 
+			}
 
 			var q_name = "adsize";
 			var q_readonly = ['txtNoa'];
