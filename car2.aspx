@@ -17,7 +17,10 @@
 
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
-            var bbmNum = [['txtInmoney', 10, 0],['txtInvoicemoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 6, 3], ["txtRrate", 6, 3], ["txtOrate", 6, 3], ["txtIrate", 6, 3], ["txtPrate", 6, 3], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0,1], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2, 0, 0, 0]];
+            var bbmNum = [['txtInmoney', 10, 0,1],['txtInvoicemoney', 10, 0,1], ['txtOutmoney', 10, 0,1], ['txtIrange', 10, 0,1], ['txtManage', 10, 0,1], ['txtReserve', 10, 0,1], ['txtHelp', 10, 0,1],
+             ['txtVrate', 6, 3,1], ['txtRrate', 6, 3,1], ['txtOrate', 6, 3,1], ['txtIrate', 6, 3,1], ['txtPrate', 6, 3,1], ['txtUlicense', 10, 0,1], ['txtDlicense', 10, 0,1], ['txtSpring', 10, 0,1], ['txtSummer', 10, 0,1],
+             ['txtFalla', 10, 0,1], ['txtWinter', 10, 0,1], ['txtCylinder', 2, 0,1], ['txtSalemoney', 10, 0,1], ['txtImprovemoney1', 10, 0,1], ['txtImprovemoney2', 10, 0,1], ['txtImprovemoney3', 10, 0,1], 
+             ['txtDiscountmoney', 10, 0,1], ["txtDurableyear", 2, 0, 1]];
             var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"],["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"], ["txtSigndate", "999/99/99"]];
             q_sqlCount = 6;
             brwCount = 6;
