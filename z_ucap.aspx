@@ -15,13 +15,17 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			var uccgaItem = '';
+			var firstRun = false;
 			aPop = new Array(
 				['txtXproductno', '', 'uca', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
 			);
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
-				q_gf('', 'z_ucap');
+				if (uccgaItem.length == 0) {
+					q_gt('uccga', '', 0, 0, 0, "");
+				}
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
@@ -43,9 +47,17 @@
 						type : '6', //[5]
 						name : 'xmon'
 					}, {
-						type : '8', //[6]
-						name : 'isprice',
-						value : '1@顯示單價'.split(',')
+						type : '5', //[6]
+						name : 'xtypea',
+						value : [q_getPara('report.all')].concat(q_getPara('uca.typea').split(','))
+					}, {
+						type : '5', //[7]/
+						name : 'xgroupano',
+						value : uccgaItem.split(',')
+					}, {
+						type : '0', //[7]/
+						name : 'worker',
+						value : r_name
 					}]
 				});
 				q_popAssign();
@@ -61,12 +73,26 @@
 					$('#txtSpno2b').val(wParent.getElementById("txtProduct").value);
 					$('#txtXproductno').val(wParent.getElementById("txtNoa").value);
 				}
+				firstRun = false;
 			}
 
 			function q_boxClose(s2) {
 			}
 
-			function q_gtPost(s2) {
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'uccga':
+						var as = _q_appendData("uccga", "", true);
+						uccgaItem = "#non@全部";
+						for ( i = 0; i < as.length; i++) {
+							uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
+						firstRun = true;
+						break;
+				}
+				if ((uccgaItem.length > 0) && firstRun) {
+					q_gf('', 'z_ucap');
+				}
 			}
 		</script>
 	</head>
