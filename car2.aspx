@@ -54,7 +54,7 @@
                 mainForm(0);
             }
 
-            function mainPost() {
+			function mainPost() {
                 q_mask(bbmMask);
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
@@ -66,17 +66,21 @@
                 	$(".btns").hide();
                 }
                 
-                if (q_getPara('sys.comp').indexOf('菱揚') > -1) {
+                 if(q_getPara('sys.comp').indexOf('菱揚') > -1){
+                	$(".btns").show();
                 	$('#btnCartax').hide();
+                }
                 
                 q_gt('carbrand', '', 0, 0, 0, "");
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
                 //q_gt('carstyle', '', 0, 0, 0, "");
                 q_gt('cardeal', '', 0, 0, 0, "");
-				
+
+
 				$(".carowner").hide();
-				
+
+
 				$("#btnCarowner").val("＋");
 				$("#btnCarowner").toggle(function(e) {
 					$(".carowner").show();
@@ -89,7 +93,8 @@
 					if(e.which==13)
 						$('#txtIndate').focus();
 				});
-				
+
+
 				$("#btnCarowneredit").val("車主新增/修改");
 				$('#btnCarowneredit').click(function(e) {
 					if(emp($('#txtCarownerno').val()))
@@ -97,7 +102,8 @@
 					else
 						q_box("carowner.aspx?;;;noa='" + $('#txtCarownerno').val() + "'", 'carowner', "90%", "600px", q_getMsg("popCarowner"));
 				});
-				
+
+
 				$(".carexpense").hide();
 				$("#btnCarexpense").toggle(function(e) {
 					$(".carexpense").show();
@@ -116,11 +122,13 @@
 				}, function(e) {
 					$(".carnocchange").hide();
 				});
-				
+
+
 				$('#btnCarsalary').click(function(e) {
 					if(!emp($('#txtOutdate').val()) || !emp($('#txtEnddate').val()) || !emp($('#txtWastedate').val()) || !emp($('#txtSuspdate').val()))
 						alert('該車已遷出、報廢、繳銷或報停!!填寫投保薪資時請注意!!');
-					
+
+
 					q_box("carsalary.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carsalary', "90%", "95%", q_getMsg("popCarsalary"));
 				});
 				$('#btnCarinsurance').click(function(e) {
@@ -148,13 +156,15 @@
 					if(q_cur==1 || q_cur==2)
 						q_box("carspec.aspx", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
 				});
-				
+
+
                 //--11/21大昌改管理費+公會費=行費
-                
+                if (q_getPara('sys.comp').indexOf('大昌') > -1) {
                     $('#divGuile').hide();
                     $('#lblGuile').hide();
                     $('#txtGuile').hide();
                 }
+
 
                 $('#txtInvoicemoney').change(function() {
                     if (!emp($('#txtInvoicemoney').val())) {
@@ -292,7 +302,8 @@
 						q_gt('car2', t_where, 0, 0, 0, "");
 					}
 				});
-				
+
+
 				$('#txtSssno').blur(function() {
                     $('#txtManage').focus();
                 });
@@ -368,31 +379,38 @@
                 $("#cmbCardealno").change(function() {
                 	sendsignmemo();
 				});
-				
+
+
 				$("#txtOutdate").blur(function() {
                 	sendsignmemo();
 				});
-				
+
+
 				$("#txtEnddate").blur(function() {
                 	sendsignmemo();
 				});
-				
+
+
 				$("#txtWastedate").blur(function() {
                 	sendsignmemo();
 				});
-				
+
+
 				$("#txtOutplace").change(function() {
                 	sendsignmemo();
 				});
-				
+
+
 				$("#txtSigndate").blur(function() {
                 	sendsignmemo();
 				});
-				
+
+
 				$("#txtCarownerno").change(function() {
                 	sendsignmemo();
 				});
-				
+
+
 				//1020904 車牌新增時判斷是否已存在
 				$('#txtNoa').change(function() {
                     var t_where = "where=^^ a.noa ='"+$('#txtNoa').val()+"' ^^";
