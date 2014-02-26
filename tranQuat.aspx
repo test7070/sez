@@ -69,7 +69,7 @@
                     Lock(1, {
                         opacity : 0
                     });
-                    q_func('qtxt.query.conform', 'orde.txt,conform,'+ encodeURI(r_userno) + ';' + encodeURI($('#txtNoa').val()));
+                    q_func('qtxt.query.conform', 'tranquat.txt,conform,'+ encodeURI(r_userno) + ';' + encodeURI($('#txtNoa').val()));
                 });
             }
 
@@ -529,7 +529,7 @@
 							<td> </td>
 							<td><span> </span><a id='lblConform' class="lbl"> </a></td>
                             <td>
-                                <input id="btnConform" type="button" style="width:70%;float:right;" value="簽回"/>
+                                <input id="btnConform" type="button" style="width:70%;float:right;" value="確認"/>
                                 <input id="txtConform"  type="text" style="display:none;" />
                             </td>
 						</tr>
