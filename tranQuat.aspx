@@ -404,12 +404,14 @@
 							<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 							<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
 					        <td align="center" style="width:40px; color:black;"><a id="vewConform"> </a></td>
+					        <td align="center" style="display:none;"><a id="vewNoa"> </a></td>
 						</tr>
 						<tr>
 							<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 							<td id='datea' style="text-align: center;">~datea</td>
 							<td id='nick' style="text-align: center;">~nick</td>
 							<td id="conform" style="text-align: center;">~conform</td>
+							<td id="noa" style="display:none;">~noa</td>
 						</tr>
 					</table>
 				</div>
