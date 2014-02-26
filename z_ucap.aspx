@@ -51,13 +51,17 @@
 						name : 'xtypea',
 						value : [q_getPara('report.all')].concat(q_getPara('uca.typea').split(','))
 					}, {
-						type : '5', //[7]/
+						type : '5', //[7]
 						name : 'xgroupano',
 						value : uccgaItem.split(',')
 					}, {
-						type : '0', //[8]/
+						type : '0', //[8]
 						name : 'worker',
 						value : r_name
+					}, {
+						type : '8', //[9]
+						name : 'isprice',
+						value : '1@顯示單價'.split(',')
 					}]
 				});
 				q_popAssign();
