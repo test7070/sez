@@ -105,15 +105,7 @@
                         default:
                             alert('錯誤：未定義報表');
                     }
-
                 });
-                $("#btnNext").click(function(e) {
-                    $('#' + $(this).data('chart')).data('info').next($('#' + $(this).data('chart')));
-                });
-                $("#btnPrevious").click(function(e) {
-                    $('#' + $(this).data('chart')).data('info').previous($('#' + $(this).data('chart')));
-                });
-				
 			}
 
             function q_boxClose(s2) {
