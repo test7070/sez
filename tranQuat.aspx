@@ -65,6 +65,12 @@
                 }).blur(function() {
                     $("#cmbStype").attr('size', '1');
                 });
+                $('#btnConform').click(function(e){
+                    Lock(1, {
+                        opacity : 0
+                    });
+                    q_func('qtxt.query.conform', 'orde.txt,conform,'+ encodeURI(r_userno) + ';' + encodeURI($('#txtNoa').val()));
+                });
             }
 
             function q_boxClose(s2) {
@@ -76,6 +82,39 @@
                         break;
                 }/// end Switch
                 b_pop = '';
+            }
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.conform':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if(as[0]!=undefined){
+                            var err = as[0].err;
+                            var msg = as[0].msg;
+                            var quatno = as[0].quatno;  
+                            var userno = as[0].userno;  
+                            var namea = '*';//as[0].namea;
+                            if(err=='1'){
+                                $('#txtConform').val(namea);
+                                for(var i=0;i<abbm.length;i++){
+                                    if(abbm[i].noa==quatno){
+                                        abbm[i].conform=namea;
+                                        break;
+                                    }
+                                }
+                                var obj = $('#tview').find('#noa');
+                                for(var i=0;i<obj.length;i++){
+                                    if(obj.eq(i).html()==quatno){
+                                        $('#tview').find('#conform').eq(i).html(namea);
+                                        break;                                      
+                                    }
+                                }
+                            }else{
+                                alert(msg); 
+                            }
+                        }
+                        Unlock(1);
+                        break;
+                }
             }
 
             function q_gtPost(t_name) {
@@ -233,7 +272,7 @@
             }
             .dview {
                 float: left;
-                width: 210px; 
+                width: 270px; 
                 border-width: 0px; 
             }
             .tview {
@@ -253,7 +292,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 750px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -364,11 +403,13 @@
 							<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 							<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 							<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
+					        <td align="center" style="width:40px; color:black;"><a id="vewConform"> </a></td>
 						</tr>
 						<tr>
 							<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 							<td id='datea' style="text-align: center;">~datea</td>
 							<td id='nick' style="text-align: center;">~nick</td>
+							<td id="conform" style="text-align: center;">~conform</td>
 						</tr>
 					</table>
 				</div>
@@ -484,6 +525,13 @@
 							<td><input id="txtWorker"  type="text" class="txt c1" /></td>
 							<td><span> </span><a id='lblApv' class="lbl"> </a></td>
 							<td><input id="txtApv"  type="text" class="txt c1" /></td>
+							<td> </td>
+							<td> </td>
+							<td><span> </span><a id='lblConform' class="lbl"> </a></td>
+                            <td>
+                                <input id="btnConform" type="button" style="width:70%;float:right;" value="簽回"/>
+                                <input id="txtConform"  type="text" style="display:none;" />
+                            </td>
 						</tr>
 					</table>
 				</div>
