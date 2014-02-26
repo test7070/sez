@@ -1233,10 +1233,8 @@
 							<input id="txtModel" type="text" class="txt" style="width: 45%;"/>
 						</td>
 						<td class="td3">
-							<div style="float:right;width:70%;">
-								<input type="checkbox" id="chkIsoutsource">
-								<span> </span><a id="lblTgg" class="lbl btn"> </a>
-							</div>
+							<span> </span><a id="lblTgg" class="lbl btn"> </a>
+							<input type="checkbox" id="chkIsoutsource" style="float:right;">
 						</td>
 						<td class="td4">
 							<input id="txtTggno" type="text" class="txt" style="width: 45%;"/>
