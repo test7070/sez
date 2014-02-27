@@ -255,6 +255,10 @@
                         type : '8',
                         name : 'wcarkind',
                         value : t_data.data['carkind'].split(',')
+                    }, {/*40-[50]明細*/
+                        type : '8',
+                        name : 'wdetail',
+                        value : ['detail@明細']
                     }]
                 });
                 q_popAssign();
@@ -532,8 +536,12 @@
                             break;
                         case 21:
                             //營運月報表-車號
-                            if (msg_datea.length > 0) {
+                            /*if (msg_datea.length > 0) {
                                 alert(msg_datea);
+                                return false;
+                            }*/
+                            if($.trim($('#txtWmon1').val()).length==0 || $.trim($('#txtWmon1').val()).length==0){
+                                alert('請輸入'+q_getMsg('lblWmon'));
                                 return false;
                             }
                             break;
