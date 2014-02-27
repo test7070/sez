@@ -140,13 +140,14 @@
 									$('#btnMinus_'+i).click();
 								}
 							}
-							//計算
+							//計算//1030226將計畫生產移到後面
 							for ( var i = 0; i < as.length; i++) {
 								var t_mount=0;
-								t_mount=dec(as[i].unmount)+dec(as[i].ordemount)+dec(as[i].planmount)-dec(as[i].stkmount)//-dec(as[i].inmount)-dec(as[i].purmount)
-								as[i].availmount=-1*t_mount;
+								//t_mount=dec(as[i].unmount)+dec(as[i].ordemount)+dec(as[i].planmount)-dec(as[i].stkmount);
+								t_mount=dec(as[i].stkmount)-dec(as[i].unmount)-dec(as[i].ordemount);
+								as[i].availmount=t_mount;
 								
-								if(t_mount<0) t_mount=0;
+								//if(t_mount<0) t_mount=0;
 								
 								//1030224由後端傳回，初值空白
 								/*
@@ -343,11 +344,33 @@
 								q_box("orde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
 							}
 						});
+						
+						$('#txtUnmount_' + i).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; bbssum(b_seq);	});
+						$('#txtOrdemount_' + i).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; bbssum(b_seq);	});
+						$('#txtPlanmount_' + i).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; bbssum(b_seq);	});
+						$('#txtStkmount_' + i).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; bbssum(b_seq);	});
+						$('#txtIntmount_' + i).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; bbssum(b_seq);	});
+						$('#txtPurmount_' + i).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; bbssum(b_seq);	});
+						$('#txtSalemount_' + i).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; bbssum(b_seq);	});
+						
                 	}
                 }
                 _bbsAssign();
             }
-			
+			function bbssum(seq) {
+				if(!emp(seq)){
+					//計算//1030226將計畫生產移到後面
+					
+					var t_availmount=q_float('txtStkmount_'+seq)-q_float('txtUnmount_'+seq)-q_float('txtOrdemount_'+seq);
+					$('#txtAvailmount_'+seq).val(t_availmount);
+					var t_opmount=t_availmount+q_float('txtIntmount_'+seq)+q_float('txtPurmount_'+seq)-q_float('txtSalemount_'+seq)-q_float('txtPlanmount_'+seq);
+					
+					if(t_opmount<0)
+						$('#txtMount_'+seq).val((t_opmount*-1));
+					else
+						$('#txtMount_'+seq).val(0);
+				}
+			}
 
             function bbtAssign() {
                 for (var i = 0; i < q_bbtCount; i++) {
@@ -667,13 +690,13 @@
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
 						<td style="width:100px;"><a id='lblUnmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblOrdemount_s'> </a></td>
-						<td style="width:80px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblIntmount_s'> </a></td>
  						<td style="width:80px;"><a id='lblPurmount_s'> </a></td>
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
 						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
+						<td style="width:100px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblMount_s'> </a></td>
 						<td style="width:80px;"><a id='lblCuadate_s'> </a></td>
 						<td style="width:250px;"><a id='lblStation_s'> </a></td>
@@ -696,13 +719,13 @@
 						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
 						<td><input id="txtUnmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtAvailmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtIntmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtPurmount.*" type="text" class="txt c1 num"/></td>
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 						<td>
