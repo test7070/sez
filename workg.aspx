@@ -18,7 +18,7 @@
 
             q_tables = 't';
             var q_name = "workg";
-            var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2','txtOrdbno'];
             var q_readonlys = ['txtWorkno','txtIndate','txtInmount','txtWmount','txtOrdeno'];
             var q_readonlyt = [];
             var bbmNum = [];

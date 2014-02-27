@@ -809,14 +809,18 @@
 			<tr class="tr1">
 				<td class="td1" style="width: 108px;">
 					<input id="checkCopy" type="checkbox" style="float:left;"/>
-					<span> </span><a id='lblCopy' class="lbl" style="float:left;"> </a>					
+					<span> </span><a id='lblCopy' class="lbl" style="float:left;"> </a>
 					<span> </span><a id='lblStype' class="lbl"> </a>
 				</td>
 				<td class="td2" style="width: 108px;"><select id="cmbStype" class="txt c1"> </select></td>
 				<td class="td3" style="width: 108px;"><input id="txtOdate" type="text"  class="txt c1"/></td>
 				<td class="td4"  style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 				<td class="td5" style="width: 108px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
-				<td> </td>
+				<td>
+					<span style="float: left;"> </span>
+					<a id='lblSignprocess' class="lbl" style="float:left;"> </a>
+					<input id="chkSignprocess" type="checkbox"/>
+				</td>
 				<td class="td7" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 				<td class="td8" style="width: 108px;"><input id="txtNoa" type="text" class="txt c1"/></td> 
 			</tr>	
