@@ -111,9 +111,15 @@
                 		}
 					}
 	            });
-	            $('#btnCuap').click(function(){
+	            //針對全部的物料需求
+	            /*$('#btnCuap').click(function(){
                 	q_box('z_cuap.aspx'+ "?;;;;"+r_accy+";", 'cup', "95%", "95%", q_getMsg("popPrint"));
+                });*/
+               //針對workg的物料需求
+               $('#btnWorkg2ordb').click(function(){
+                	q_box('z_workg2ordb.aspx'+ "?;;;;"+r_accy+";", 'cup', "95%", "95%", q_getMsg("popPrint"));
                 });
+               
                 $('#btnWorkPrint').click(function(){
                 	q_box('z_workp.aspx'+ "?;;;noa='"+$('#txtNoa').val()+"';"+r_accy+";", '', "95%", "95%", q_getMsg("popPrint"));
                 });
@@ -654,8 +660,7 @@
 							<a style="float: left;">~</a>
 							<input id="txtEdate"  type="text" class="txt c2"/>
 						</td>
-						<td><input id="btnCuap" type="button" /></td>
-						<td><input id="btnWorkPrint" type="button" /></td>
+						
 						<!--<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text" class="txt c1"/></td>-->
 					</tr>
@@ -665,17 +670,23 @@
 								<input id="txtProduct"  type="text" class="txt c4"/>
 						</td>
 						<td><input id="btnOrde" type="button"/></td>
-						<td><input id="btnWork" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>  
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblOrdbno" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtOrdbno"  type="text" class="txt c1"/></td>
+						<td><input id="btnWorkg2ordb" type="button" /></td>
+						<td><input id="btnWorkPrint" type="button" /></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
+						<td><input id="btnWork" type="button"/></td>
 					</tr>
 				</table>
 			</div>
