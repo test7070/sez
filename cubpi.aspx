@@ -39,7 +39,7 @@
 				['txtProductno', 'lblProductno_pi', 'ucaucc', 'noa,product', 'txtProductno', 'ucaucc_b.aspx'], 
 				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'], 
 				['txtProductno2_', '', 'ucaucc', 'noa,product', 'txtProductno2_,txtProduct2_', 'ucaucc_b.aspx'],
-				['txtUno__', 'btnUno__', 'view_uccc_nostore', 'uno,productno,radius,dime,width,lengthb,emount,eweight,spec,class', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__,txtSpec__,txtClass__', 'uccc_seek_b.aspx?;;;1=0','95%','60%']
+				['txtUno__', 'btnUno__', 'view_uccc', 'uno,productno,radius,dime,width,lengthb,emount,eweight,spec,class', 'txtUno__,txtProductno__,txtRadius__,txtDime__,txtWidth__,txtLengthb__,txtMount__,txtWeight__,txtSpec__,txtClass__', 'uccc_seek_b.aspx?;;;1=0','95%','60%']
 			);
 			function distinct(arr1){
 				var uniArray = [];
