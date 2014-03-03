@@ -42,6 +42,29 @@
 			}
 
 			function bbsAssign() {
+				for(var j=0;j<q_bbsCount;j++){
+					$('#txtModelno_'+j).change(function(){
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						var thisVal = $.trim($(this).val());
+						if(thisVal.length == 0){
+							$('#txtModel_'+n).val('');
+						}
+					});
+					$('#txtStationno_'+j).change(function(){
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						var thisVal = $.trim($(this).val());
+						if(thisVal.length == 0){
+							$('#txtStation_'+n).val('');
+						}
+					});
+					$('#txtTggno_'+j).change(function(){
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						var thisVal = $.trim($(this).val());
+						if(thisVal.length == 0){
+							$('#txtTgg_'+n).val('');
+						}
+					});
+				}
 				_bbsAssign();
 			}
 			
@@ -140,5 +163,6 @@
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->
 		</div>
+		<input id="q_sys" type="hidden" />
 	</body>
 </html>
