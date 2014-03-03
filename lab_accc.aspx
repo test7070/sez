@@ -103,16 +103,16 @@
 					hiddenField();
 				});
             }
-            function show_confirm()
-				{
-					var r=confirm("你確定要執行嗎?");
-					if (r==true)
-  					{alert("確定執行");
+            function show_confirm(){
+				var r=confirm("你確定要執行嗎?");
+				if (r==true){
+  					//alert("確定執行");
   					if(!emp($('#txtNoa').val()))
-						q_func('lab_accc.gen', $('#txtNoa').val());}
-					else
-  					{alert("取消執行");}
+						q_func('lab_accc.gen', $('#txtNoa').val());
+				}else{
+					alert("取消執行");
 				}
+			}
             function q_funcPost(t_func, result) {	//後端傳回
             	abbm[q_recno]['accno'] = result.split(';')[0];
 				$('#txtAccno').val(result.split(';')[0]);
@@ -120,8 +120,8 @@
 				$('#txtBvccno').val(result.split(';')[1]);
 				abbm[q_recno]['evccno'] = result.split(';')[2];
 				$('#txtEvccno').val(result.split(';')[2]);
-				abbm[q_recno]['memo'] = result.split(';')[3];
-				$('#txtMemo').val(result.split(';')[3]);
+				abbm[q_recno]['memo'] = result.split(';')[4];
+				$('#txtMemo').val(result.split(';')[4]);
 				alert('作業完畢');
 		    }
 
