@@ -191,6 +191,10 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				$('#btnModel').click(function(){
+					var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
+					q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", q_getMsg('btnUcab'));
+				});
 			}
 
 			var t_td = '';
@@ -1252,6 +1256,7 @@
 						<td class="td5"><input id="btnUcap" type="button" /></td>
 						<!--<td class="td6"><input id="btnUcam" type="button" /></td>-->
 						<td class="td6"><input id="btnStkcost" type="button" /></td>
+						<td class="td7"><input id="btnModel" type="button" /></td>
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
