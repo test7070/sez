@@ -29,7 +29,7 @@
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBhdate', r_picd], ['txtEhdate', r_picd]];
         q_mask(bbmMask);
         $('#txtBdate').focus();
-        q_gt('sss', "where=^^noa='" + q_getId()[0] + "'^^", q_sqlCount, 1)
+        q_gt('sss', "where=^^noa='" + q_getId()[0] + "'^^", 0, 0,0,"");
          
     }
     var ssspartno='';
@@ -49,7 +49,7 @@
                         	var as = _q_appendData('sss', '', true);
                         	if(as[0]){
                         		ssspartno=as[0].partno;
-                        		q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+                        		q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", 0, 0,0,"");
                         	}
                         break;
                 }  /// end switch
