@@ -29,8 +29,7 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			aPop = new Array(
-	        	['txtBproductno', 'lblBproductno', 'uca', 'noa,product', 'txtBproductno,txtBproduct', 'uca_b.aspx'],
-	        	['txtEproductno', 'lblEproductno', 'uca', 'noa,product', 'txtEproductno,txtEproduct', 'uca_b.aspx'],
+	        	['txtProductno', 'lblProductno', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
 	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,mtype,processno,process,loss,memo',
 	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_', 'ucas_b.aspx'],
 	        	['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
@@ -348,22 +347,15 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBproductno' class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input id="txtBproductno"  type="text" class="txt" style="width:30%;"/>
-							<input id="txtBproduct"  type="text" class="txt" style="width:65%;"/>
-						</td>
-					</tr>  
-					<tr>
-						<td><span> </span><a id='lblEproductno' class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input id="txtEproductno"  type="text" class="txt" style="width:30%;"/>
-							<input id="txtEproduct"  type="text" class="txt" style="width:65%;"/>
+						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtProductno"  type="text" class="txt" style="width:30%;"/>
+							<input id="txtProduct"  type="text" class="txt" style="width:68%;"/>
 						</td>
 					</tr>  
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtMemo"  type="text" class="txt" style="width: 98%;" /></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt" style="width: 98%;" /></td>
 						<td><input id="btnUcachgDo"  type="button"/></td>
 					</tr>
 					<tr>
@@ -396,17 +388,17 @@
 						</td>
 						<td>
 							<input id="txtOrgproductno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnOrgproductno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input class="btn" id="btnOrgproductno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtOrgproduct.*" type="text" class="txt c1"/>
 						</td>
 						<td>
 							<input id="txtOrgprocessno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnOrgprocessno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input class="btn" id="btnOrgprocessno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtOrgprocess.*" type="text" class="txt c1"/>
 						</td>
 						<td>
 							<input id="txtProductno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtProduct.*" type="text" class="txt c1"/>
 						</td>
 						<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
@@ -414,7 +406,7 @@
 						<td><select id="cmbMtype.*" class="txt c1"> </select></td>
 						<td>
 							<input id="txtProcessno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnProcessno.*" type="button" value='...' style=" font-weight: bold;" />
+							<input class="btn" id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtProcess.*" type="text" class="txt c1"/>
 						</td>
 						<td><input id="txtLoss.*" type="text" class="txt num c1" /></td>
