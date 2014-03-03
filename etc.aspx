@@ -18,7 +18,7 @@
             var q_name = "etc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtCurmoney','txtCustno'];
             var bbmNum = new Array(['txtMoney', 10, 0, 1], ['txtCurmoney', 10, 0, 1], ['txtMoneyx', 10, 2, 1], ['txtMoneyy', 10, 2, 1], ['txtDiscount1', 10, 2, 1], ['txtDiscount2', 10, 2, 1], ['txtDiscount3', 10, 2, 1], ['txtDiscount4', 10, 2, 1]);
-            var bbmMask = [['txtDatea', '999/99/99'], ['txtMon', '999/99'], ['txtTimea', '99:99:99']];
+            var bbmMask = [['txtDatea', '999/99/99'],['txtDatea2', '999/99/99'], ['txtMon', '999/99'], ['txtTimea', '99:99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -31,8 +31,6 @@
 
             function currentData() {
             }
-
-
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
@@ -357,7 +355,7 @@
             }
             .dview {
                 float: left;
-                width: 1080px; 
+                width: 100%; 
                 border-width: 0px; 
             }
             .tview {
@@ -484,6 +482,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea2'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTimea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDriver'> </a></td>
@@ -505,6 +504,7 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='datea2' style="text-align: center;">~datea2</td>
 						<td id='timea' style="text-align: center;">~timea</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
@@ -535,15 +535,21 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDatea"  type="text"  class="txt c1"/>
+						<td><span> </span><a id='lblDatea2' class="lbl"> </a></td>
+						<td>
+						<input id="txtDatea2"  type="text"  class="txt c1"/>
 						</td>
 						<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
 						<td>
 						<input id="txtTimea"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
+					<tr>
+                        <td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+                        <td>
+                        <input id="txtDatea"  type="text"  class="txt c1"/>
+                        </td>
+                    </tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
