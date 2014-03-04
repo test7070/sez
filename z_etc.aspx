@@ -26,21 +26,24 @@
                     fileName : 'z_etc',
                     options : [{/*1*/
                         type : '1',
-                        name : 'date'
-                    }, {/*2*/
+                        name : 'trandate'
+                    },{/*2*/
+                        type : '1',
+                        name : 'etcdate'
+                    }, {/*3*/
                         type : '6',
                         name : 'xcarno'
-                    }, {/*3*/
+                    }, {/*4*/
                         type : '2',
                         name : 'driver',
                         dbf : 'driver',
                         index : 'noa,namea',
                         src : 'driver_b.aspx'
-                    }, {/*4*/
+                    }, {/*5*/
                         type : '8',
                         name : 'xtypea',
                         value : q_getPara('etc.typea').split(',')
-                    }, {/*5*/
+                    }, {/*6*/
                         type : '5', //select
                         name : 'xsort01',
                         value : q_getMsg('sort01').split('&')
@@ -52,10 +55,15 @@
 
                 $('#chkXtypea').children('input').attr('checked', 'checked');
 
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
+                $('#txtTrandate1').mask('999/99/99');
+                $('#txtTrandate1').datepicker();
+                $('#txtTrandate2').mask('999/99/99');
+                $('#txtTrandate2').datepicker();
+                
+                $('#txtEtcdate1').mask('999/99/99');
+                $('#txtEtcdate1').datepicker();
+                $('#txtEtcdate2').mask('999/99/99');
+                $('#txtEtcdate2').datepicker();
 
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();
@@ -66,7 +74,7 @@
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+                $('#txtEtcdate1').val(t_year + '/' + t_month + '/' + t_day);
 
                 t_date = new Date();
                 t_date.setDate(35);
@@ -77,7 +85,7 @@
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+                $('#txtEtcdate2').val(t_year + '/' + t_month + '/' + t_day);
             }
 
             function q_boxClose(s2) {
