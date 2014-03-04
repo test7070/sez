@@ -830,8 +830,8 @@
 							<input id="txtSalesno" type="text" class="txt c2"/>
 							<input id="txtSales" type="text" class="txt c3"/>
 						</td>
-						<td class="td7"><span> </span><a id='lblEnda' class="lbl"> </a></td>
-						<td class="td8"><input id="chkEnda" type="checkbox"/></td>
+						<td class="td7"><span> </span><a id='lblCustorde' class="lbl"> </a></td>
+						<td class="td8"><input id="txtCustorde" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr8">
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -858,9 +858,11 @@
 						<td class="td2" colspan='2'><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td class="td4"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td class="td6" colspan='2'><input id="txtWorker2" type="text" class="txt c1" /></td>
-						<td>
+						<td colspan="2">
 							<input id="chkIsproj" type="checkbox"/>
 							<span> </span><a id='lblIsproj'> </a>
+							<input id="chkEnda" type="checkbox"/>
+							<span> </span><a id='lblEnda'> </a>
 						</td>
 					</tr>
 					<tr class="tr11">
