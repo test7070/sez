@@ -16,11 +16,11 @@
 			}
 			q_tables = 's';
 			var q_name = "ucachg";
-			var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+			var q_readonly = ['txtNoa','txtKdate','txtWorker','txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [];
 			var bbmMask = [];
-			var bbsNum = [['txtMount', 15, 0, 1],['txtGmount', 15, 0, 1],['txtEmount', 15, 0, 1]];
+			var bbsNum = [['txtMount', 15, 0, 1],['txtLoss', 15, 2, 1]];
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -54,8 +54,8 @@
 	
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea',r_picd]];
-				bbsMask = [['txtCuadate',r_picd]];
+				bbmMask = [['txtDatea',r_picd],['txtKdate',r_picd]];
+				bbsMask = [];
 				q_mask(bbmMask);
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
 				$('#btnUcachgDo').click(function(){
@@ -96,6 +96,7 @@
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
+				$('#txtKdate').val(q_date());
 				$('#txtDatea').val(q_date()).focus();
 			}
 	
@@ -124,7 +125,7 @@
 				var t_noa = trim($('#txtNoa').val());
 				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")   
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ucachg') + $('#txtDatea').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ucachg') + $('#txtKdate').val(), '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -341,10 +342,10 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblKdate" class="lbl"> </a></td>
+						<td><input id="txtKdate"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
-						<td></td>
-						<td></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
@@ -356,6 +357,8 @@
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo"  type="text" class="txt" style="width: 98%;" /></td>
+						<td><span> </span><a id="lblApv" class="lbl"> </a></td>
+						<td><input id="txtApv"  type="text"  class="txt c1"/></td>
 						<td><input id="btnUcachgDo"  type="button"/></td>
 					</tr>
 					<tr>

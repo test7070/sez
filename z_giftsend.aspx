@@ -53,9 +53,9 @@
                     }, {
                         type : '2',
                         name : 'giftno',
-                        dbf : 'bcc',
+                        dbf : 'gift',
                         index : 'noa,product',
-                        src : 'bcc_b.aspx'
+                        src : 'gift_b.aspx'
                     }, {/*6*/
                             type : '5',
                             name : 'tsendmemo',

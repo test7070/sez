@@ -69,9 +69,9 @@
 						}, {/*2*/
                             type : '2',
                             name : 'bcc',
-                            dbf : 'bcc',
+                            dbf : 'gift',
                             index : 'noa,product',
-                            src : 'bcc_b.aspx'
+                            src : 'gift_b.aspx'
                         },{/*3*/
 							type : '5',
 							name : 'xstore',
