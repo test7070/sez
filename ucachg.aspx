@@ -359,7 +359,7 @@
 						<td colspan="3"><input id="txtMemo"  type="text" class="txt" style="width: 98%;" /></td>
 						<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td><input id="txtApv"  type="text"  class="txt c1"/></td>
-						<td><input id="btnUcachgDo"  type="button"/></td>
+						<!--<td><input id="btnUcachgDo"  type="button"/></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>

@@ -612,6 +612,11 @@
 								as[i].addmoney = Math.round(dec(as[i].salary) / 30 / 8 * (dec(as[i].addh21) + dec(as[i].addh22)));
 								//大昌員工假日加班不算加班費//1030124直接將假日加班時數拿掉
 								as[i].addh100 = 0;
+								//103/03/04 出勤要顯示加班時數，薪資不要匯入
+								as[i].addh21 = 0;
+								as[i].addh22 = 0;
+								as[i].addh46_1 = 0;
+								as[i].addh46_2 = 0;
 							}
 						}//end for
 
