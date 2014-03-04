@@ -106,7 +106,7 @@
 				case 'getmaxuno'://找編號最大值
 					var as = _q_appendData("ucc", "", true);
 					var maxnumber=0;//目前最大值
-					var autonumber='0000';//流水編號
+					var autonumber='000';//流水編號
 					if (as[0] != undefined) {
 						for ( var i = 0; i < as.length; i++) {
 							if(maxnumber<parseInt(as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length)))
