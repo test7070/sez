@@ -10,7 +10,8 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "vcc_s";
-            aPop = new Array( ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx']);
+            aPop = new Array( ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx']
+            , ['txtSalesno', '', 'sss', 'noa,namea', 'txtSalesno', 'sss_b.aspx']);
 			$(document).ready(function() {
 				main();
 			});
@@ -63,11 +64,11 @@
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_custno = $.trim($('#txtCustno').val());
-				t_cust = $.trim($('#txtCust').val());
 				t_accno = $('#txtAccno').val();
 				t_invono = $('#txtInvono').val();
 				t_ordeno = $('#txtOrdeno').val();
-
+				t_salesno = $('#txtSalesno').val();
+				
 				var t_where = " 1=1 "
 				+ q_sqlPara2("cno", t_cno)
 				+ q_sqlPara2("partno", t_partno)
@@ -79,8 +80,9 @@
 				+ q_sqlPara2("custno", t_custno)
 				+ q_sqlPara2("invono", t_invono);
 				
-				if (t_cust.length > 0)
-                    t_where += " and patindex('%" + t_cust + "%',comp)>0";
+				if(t_salesno.length>0)
+					t_where += " and (salesno='"+t_salesno+"' or salesno2='"+t_salesno+"') ";
+				
                 if(t_status=='Y')
                 	t_where += " and unpay=0";
                 if(t_status=='N')
@@ -154,8 +156,8 @@
 					<td><input id="txtCustno" type="text"/></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td><a id='lblCust'> </a></td>
-					<td><input id="txtCust" type="text"/></td>
+					<td><a id='lblSalesno'> </a></td>
+					<td><input id="txtSalesno" type="text"/></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td><a id='lblInvono'> </a></td>

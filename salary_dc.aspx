@@ -17,7 +17,7 @@
 
 			q_tables = 's';
 			var q_name = "salary";
-			var q_readonly = ['txtNoa', 'txtAccno', 'txtWorker'];
+			var q_readonly = ['txtNoa', 'txtAccno', 'txtWorker', 'txtAccno2'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtDaymoney', 15, 0, 1], ['txtPubmoney', 15, 0, 1], ['txtBo_admin', 15, 0, 1], ['txtBo_traffic', 15, 0, 1], ['txtBo_special', 15, 0, 1], ['txtBo_oth', 15, 0, 1], ['txtTax_other', 15, 0, 1], ['txtMi_total', 15, 0, 1], ['txtMtotal', 15, 0, 1], ['txtBo_full', 15, 0, 1], ['txtAddmoney', 15, 0, 1], ['txtBorrow', 15, 0, 1], ['txtCh_labor', 15, 0, 1], ['txtCh_health', 15, 0, 1], ['txtCh_labor_comp', 15, 0, 1], ['txtCh_labor_self', 15, 0, 1], ['txtWelfare', 15, 0, 1], ['txtTotal3', 15, 0, 1], ['txtTotal4', 15, 0, 1], ['txtTotal5', 15, 0, 1], ['txtPlus', 15, 0, 1], ['txtMinus', 15, 0, 1]];
 			var bbsNum = [['txtMoney', 15, 0, 1], ['txtDaymoney', 15, 0, 1], ['txtPubmoney', 15, 0, 1], ['txtBo_admin', 15, 0, 1], ['txtBo_traffic', 15, 0, 1], ['txtBo_special', 15, 0, 1], ['txtBo_oth', 15, 0, 1], ['txtTotal1', 15, 0, 1], ['txtCh_labor1', 15, 0, 1], ['txtCh_labor2', 15, 0, 1], ['txtCh_health_insure', 15, 0, 1], ['txtDay', 15, 4, 1], ['txtMtotal', 15, 0, 1], ['txtBo_born', 15, 0, 1], ['txtBo_night', 15, 0, 1], ['txtBo_full', 15, 0, 1], ['txtBo_duty', 15, 0, 1], ['txtTax_other', 15, 0, 1], ['txtTotal2', 15, 0, 1], ['txtOstand', 15, 2, 1], ['txtAddh2_1', 15, 1, 1], ['txtAddh2_2', 15, 1, 1], ['txtAddmoney', 15, 0, 1], ['txtAddh100', 15, 1, 1], ['txtAddh46_1', 15, 1, 1], ['txtAddh46_2', 15, 1, 1], ['txtTax_other2', 15, 0, 1], ['txtTotal3', 15, 0, 1], ['txtBorrow', 15, 0, 1], ['txtCh_labor', 15, 0, 1], ['txtChgcash', 15, 0, 1], ['txtTax6', 15, 0, 1], ['txtStay_tax', 15, 0, 1], ['txtTax12', 15, 0, 1], ['txtTax18', 15, 0, 1], ['txtCh_labor_comp', 15, 0, 1], ['txtCh_labor_self', 15, 0, 1], ['txtLodging_power_fee', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTax5', 15, 0, 1], ['txtWelfare', 15, 0, 1], ['txtStay_money', 15, 0, 1], ['txtRaise_num', 15, 0, 1], ['txtCh_health', 15, 0, 1], ['txtTotal4', 15, 0, 1], ['txtTotal5', 15, 0, 1], ['txtLate', 15, 0, 1], ['txtHr_sick', 15, 1, 1], ['txtMi_sick', 15, 0, 1], ['txtHr_person', 15, 1, 1], ['txtMi_person', 15, 0, 1], ['txtHr_nosalary', 15, 1, 1], ['txtMi_nosalary', 15, 0, 1], ['txtHr_leave', 15, 1, 1], ['txtMi_leave', 15, 0, 1], ['txtPlus', 15, 0, 1], ['txtMinus', 15, 0, 1]];
@@ -370,6 +370,9 @@
 				});
 				$('#lblAccno').click(function(){
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtMon').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
+				});
+				$('#lblAccno2').click(function(){
+					q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtMon').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc2'), true);
 				});
 			}
 
@@ -1794,6 +1797,8 @@
 						<td class="td6"><input id="txtPlus"  type="text" class="txt num c1"/></td>
 						<td class="td7"><span> </span><a id="lblMinus" class="lbl"> </a></td>
 						<td class="td8"><input id="txtMinus"  type="text" class="txt num c1"/></td>
+						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td class="td10"><input id="txtAccno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblCh_health" class="lbl"> </a></td>
@@ -1807,8 +1812,8 @@
 							<input id="txtWelfare"  type="text" class="txt num c1"/>
 							<input id="txtCh_labor_comp"  type="hidden" class="txt num c1"/>
 						</td>
-						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-						<td class="td10"><input id="txtAccno" type="text" class="txt c1"/></td>
+						<td class="td9"><span> </span><a id="lblAccno2" class="lbl btn"> </a></td>
+						<td class="td10"><input id="txtAccno2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblTotal3" class="lbl"> </a></td>
