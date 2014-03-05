@@ -23,7 +23,7 @@
 			var decbbs = ['weight', 'uweight', 'price'];
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes', 'mechs', 'trans', 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
-			var q_readonly = ['textCosta', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk'];
+			var q_readonly = ['textCosta', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2, 1]];
@@ -217,6 +217,9 @@
 							}
 						}
 						break;
+					case 'ucab':
+						getMolds();
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -227,6 +230,17 @@
 			var ucsa_cost = 0;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'ucamodel_cost':
+						var as = _q_appendData("ucamodel_cost", "", true);
+						if (as[0] != undefined) {
+							var newVal = 0;
+							for(var j=0;j<as.length;j++){
+								newVal = q_add(newVal,dec(as[j].cost));
+							}
+							newVal = round(newVal,0);
+							$('#txtMolds').val(newVal);
+						}
+						break;
 					case 'uccga':
 						var as = _q_appendData("uccga", "", true);
 						if (as[0] != undefined) {
@@ -711,8 +725,17 @@
 
 			}
 
+			function getMolds(){
+				var thisNoa = $.trim($('#txtNoa').val());
+				if((thisNoa.length>0)){
+					var t_where = "where=^^ a.noa=N'"+thisNoa+"' ^^";
+					q_gt('ucamodel_cost', t_where, 0, 0, 0, "");
+				}
+			}
+			
 			function refresh(recno) {
 				_refresh(recno);
+				getMolds();
 				$('#div_stk').hide();
 				$('#div_stkcost').hide();
 
@@ -1260,11 +1283,11 @@
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
-						<td class="td4"><input id="txtHours" type="text" class="txt num"/></td>
+						<td class="td4"><input id="txtHours" type="text" class="txt c1 num"/></td>
 						<td class="td5"><span> </span><a id="lblPretime" class="lbl"> </a></td>
-						<td class="td6"><input id="txtPretime" type="text" class="txt num"/></td>
+						<td class="td6"><input id="txtPretime" type="text" class="txt c1 num"/></td>
 						<td class="td1"><span> </span><a id="lblBadperc" class="lbl"> </a></td>
-						<td class="td2"><input id="txtBadperc" type="text" class="txt num"/></td>
+						<td class="td2"><input id="txtBadperc" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -1274,7 +1297,7 @@
 					</tr>
 					<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblMechs" class="lbl" style="font-size: 14px;"> </a></td>
-						<td class="td2"><input id="txtMechs" type="text" class="txt num"/></td>
+						<td class="td2"><input id="txtMechs" type="text" class="txt c1 num"/></td>
 						<td class="td3"><span> </span><a id="lblMakes" class="lbl" style="font-size: 14px;"></a></td>
 						<td class="td4"><input id="txtMakes" type="text" class="txt c1 num"/></td>
 						<td class="td5"><span> </span><a id="lblPacks" class="lbl"> </a></td>
