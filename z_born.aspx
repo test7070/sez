@@ -33,16 +33,37 @@
                     },{
                         type : '6',
                         name : 'xnoq'
+                    },{
+                        type : '6',
+                        name : 'xworkgnoa'
+                    },{
+                        type : '6',
+                        name : 'xworkgnoq'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                
-                if(q_getHref()[1]!=undefined)
-                	$('#txtXnoa').val(q_getHref()[1]);
-                if(q_getHref()[3]!=undefined)
-                	$('#txtXnoq').val(q_getHref()[3]);
+                var hrefList = q_getHref();
+				for(var k=0;k<hrefList.length;k++){
+					var thisVal = $.trim(q_getHref()[k]).toLowerCase();
+					if(thisVal!=''){
+						switch(thisVal){
+							case 'noa':
+								$('#txtXnoa').val(q_getHref()[k+1]);
+								break;
+							case 'no2':
+								$('#txtXnoq').val(q_getHref()[k+1]);
+								break;
+							case 'workgnoa':
+								$('#txtXworkgnoa').val(q_getHref()[k+1]);
+								break;
+							case 'workgnoq':
+								$('#txtXworkgnoq').val(q_getHref()[k+1]);
+								break;
+						}
+					}
+				}
                 $('#btnOk').click();
             }
 
@@ -52,6 +73,11 @@
             function q_gtPost(s2) {
             }
 		</script>
+		<style type="text/css">
+			.q_report .option div .c6 {
+				width: 100px;
+			}
+		</style>
 	</head>
 	<body id="z_accc" ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
