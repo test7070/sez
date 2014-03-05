@@ -745,6 +745,7 @@
 						<td><a id='lblMemo_s'> </a></td>
 						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 						<td style="width:50px;"><a id='lblIsfreeze_s'> </a></td>
+						<td style="width:40px;"><a id='lblBorn_s'> </a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
 						<td align="center">
@@ -778,6 +779,9 @@
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 						<td><input id="txtOrdeno.*" type="text" class="txt c1"/></td>
 						<td><input id="chkIsfreeze.*" type="checkbox"/></td>
+						<td align="center">
+							<input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />
+						</td>
 					</tr>
 				</table>
 			</div>
