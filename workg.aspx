@@ -395,7 +395,22 @@
 							b_seq = t_IdSeq;
 							bbssum(b_seq);
 						});
+						$('#btnBorn_' + i).click(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var orde_deli = q_getPara('sys.key_orde');
+							var thisOrdeno = $.trim($('#txtOrdeno_'+n).val());
+							var t_ordeno = '';
+							var t_no2 = '';
+							if(thisOrdeno.length > 0){
+								if(thisOrdeno.substring(0,1)==orde_deli){
+									t_ordeno = thisOrdeno.substring(0,thisOrdeno.length-4);
+									t_no2 = thisOrdeno.substr(t_ordeno.length+1);
+									var t_where = "noa='" + t_ordeno + "' and no2='" + t_no2 + "'";
+									q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
 
+								}
+							}
+						});
 					}
 				}
 				_bbsAssign();
