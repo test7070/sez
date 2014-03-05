@@ -384,7 +384,7 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if (!emp($('#txtProductno_' + b_seq).val()) && !$("#div_stk").is(":hidden")) {
+							if (!emp($('#txtProductno_' + b_seq).val()) && $("#div_stk").is(":hidden")) {
 								mouse_point=e;
 								document.getElementById("stk_productno").innerHTML = $('#txtProductno_' + b_seq).val();
 								document.getElementById("stk_product").innerHTML = $('#txtProduct_' + b_seq).val();

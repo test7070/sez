@@ -84,6 +84,12 @@
                         dbf : 'process',
                         index : 'noa,process',
                         src : 'process_b.aspx'
+                    },{
+                        type : '6',
+                        name : 'xcuano'
+                    },{
+                        type : '6',
+                        name : 'xworkno'
                     }]
                 });
                 q_popAssign();
