@@ -66,6 +66,7 @@
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picm]];
 				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd]];
 				q_mask(bbmMask);
+				q_cmbParse("cmbStype", q_getPara('workg.stype'));
 
 				$('#btnOrde').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
@@ -530,7 +531,7 @@
 			.dview {
 				float: left;
 				border-width: 0px;
-				width: 35%;
+				width: 42%;
 			}
 			.tview {
 				border: 5px solid gray;
@@ -550,7 +551,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 65%;
+				width: 58%;
 				border-radius: 5px;
 			}
 			.tbbm {
@@ -620,6 +621,13 @@
 				margin: -1px;
 				float: left;
 			}
+			
+			.tbbm select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				font-size:medium;
+			}
 			input[type="text"], input[type="button"] {
 				font-size: medium;
 			}
@@ -677,14 +685,16 @@
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview" >
 					<tr>
-						<td style="width:1%; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:24%; color:black;"><a id='vewNoa'> </a></td>
-						<td style="width:38%; color:black;"><a id='vewProduct'> </a></td>
-						<td style="width:37%; color:black;"><a id='vewRang'> </a></td>
+						<td style="width:24px; color:black;"><a id='vewChk'> </a></td>
+						<td style="width:102px; color:black;"><a id='vewNoa'> </a></td>
+						<td style="width:80px; color:black;"><a id='vewStype'> </a></td>
+						<td style="color:black;"><a id='vewProduct'> </a></td>
+						<td style="width:150px; color:black;"><a id='vewRang'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
+						<td align="center" id='stype=workg.stype'>~stype=workg.stype</td>
 						<td id='product' style="text-align: center;">~product</td>
 						<td id='bdate edate' style="text-align: center;">~bdate - ~edate</td>
 					</tr>
@@ -693,6 +703,8 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr>
+						<td><span> </span><a id='lblStype' class="lbl"> </a></td>
+						<td><select id="cmbStype" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
@@ -719,11 +731,11 @@
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td><input id="btnWorkg2ordb" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblOrdbno" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtOrdbno" type="text" class="txt c1"/></td>
-						<td><input id="btnWorkg2ordb" type="button" /></td>
+						<td colspan="4"><input id="txtOrdbno" type="text" class="txt c1"/></td>
 						<td><input id="btnWorkPrint" type="button" /></td>
 					</tr>
 					<tr>
@@ -731,6 +743,7 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td> </td>
 						<td><input id="btnWork" type="button"/></td>
 					</tr>
 				</table>
