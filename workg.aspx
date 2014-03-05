@@ -402,13 +402,17 @@
 							var t_ordeno = '';
 							var t_no2 = '';
 							if(thisOrdeno.length > 0){
-								if(thisOrdeno.substring(0,1)==orde_deli){
+								if(thisOrdeno.substring(0,orde_deli.length)==orde_deli){
 									t_ordeno = thisOrdeno.substring(0,thisOrdeno.length-4);
 									t_no2 = thisOrdeno.substr(t_ordeno.length+1);
 									var t_where = "noa='" + t_ordeno + "' and no2='" + t_no2 + "'";
 									q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
-
 								}
+							}else{
+								var t_noa = $.trim($('#txtNoa').val());
+								var t_noq = padL((dec(n)+1), '0', 3);
+								var t_where = "workgnoa='" + t_noa + "' and workgnoq='" + t_noq + "'";
+								q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
 							}
 						});
 					}
