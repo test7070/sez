@@ -170,8 +170,29 @@
 						////////////控制顯示位置
 						$('#div_stkcost').css('top', e.pageY);
 						$('#div_stkcost').css('left', e.pageX - $('#div_stkcost').width());
-						$('#div_stkcost').toggle();
+						//$('#div_stkcost').toggle();
 					}
+					
+					//包裝、運輸
+					$('#textCostp').val($('#txtPacks').val());
+					$('#textCostt').val($('#txtTrans').val());
+					//原料、人工、製造
+					var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by datea desc ^^";
+					q_gt('wcost', t_where, 0, 0, 0, "", r_accy);
+					//依序執行下面
+					//報廢、模具
+					//var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
+					//q_gt('costs', t_where, 0, 0, 0, "", r_accy);
+					//庫存
+					//var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
+					//q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
+					//訂單、在途量、計畫
+					//var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
+					//var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
+					//var t_where2 = "where[2]=^^1=0^^";
+					//var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
+					//var t_where4 = "where[4]=^^ 1=0 ^^";
+					//q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 				});
 
 				$('#btnClose_div_stkcost').click(function() {
@@ -277,6 +298,11 @@
 								}
 							}
 						}
+						
+						//報廢、模具
+						var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
+						q_gt('costs', t_where, 0, 0, 0, "", r_accy);
+						
 						break;
 					case 'costs':
 						var as = _q_appendData("costs", "", true);
@@ -286,6 +312,11 @@
 							$('#textCostw').val(round(dec(as[0].wastemoney) / dec(as[0].bornmount), 0));
 							$('#textCostm').val(round(dec(as[0].modelmoney) / dec(as[0].bornmount), 0));
 						}
+						
+						//庫存
+						var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
+						q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
+						
 						break;
 					case 'calstk':
 						var as = _q_appendData("stkucc", "", true);
@@ -296,6 +327,15 @@
 						$('#textStk').val(stkmount);
 						//可用庫存=庫存+在途-訂單(+計畫??)
 						$('#textAvaistk').val(q_float('textStk') + q_float('textIntmount') - q_float('textOrdemount'));
+						
+						//訂單、在途量、計畫
+						var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
+						var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
+						var t_where2 = "where[2]=^^1=0^^";
+						var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
+						var t_where4 = "where[4]=^^ 1=0 ^^";
+						q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
+						
 						break;
 					case 'workg_orde':
 						var t_ordemount = 0, t_planmount = 0, t_intmount = 0;
@@ -313,6 +353,8 @@
 						//在途
 						//可用庫存=庫存+在途-訂單(+計畫??)
 						$('#textAvaistk').val(q_float('textStk') + q_float('textIntmount') - q_float('textOrdemount'));
+						
+						$('#div_stkcost').toggle();
 						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
@@ -739,25 +781,6 @@
 				$('#div_stk').hide();
 				$('#div_stkcost').hide();
 
-				//原料、人工、製造
-				var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by datea desc ^^";
-				q_gt('wcost', t_where, 0, 0, 0, "", r_accy);
-				//報廢、模具
-				var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^ stop=1 ";
-				q_gt('costs', t_where, 0, 0, 0, "", r_accy);
-				//包裝、運輸
-				$('#textCostp').val($('#txtPacks').val());
-				$('#textCostt').val($('#txtTrans').val());
-				//庫存
-				var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
-				q_gt('calstk', t_where, 0, 0, 0, "", r_accy);
-				//訂單、在途量、計畫
-				var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
-				var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
-				var t_where2 = "where[2]=^^1=0^^";
-				var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
-				var t_where4 = "where[4]=^^ 1=0 ^^";
-				q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 				//format();
 			}
 
@@ -924,7 +947,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -1214,15 +1237,23 @@
 			</div>
 			<div class='dbbm' style="width: 850px;float: left;">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0' >
+					<tr style="height:1px;">
+						<td style="width:100px;"> </td>
+						<td style="width:200px;"> </td>
+						<td style="width:100px;"> </td>
+						<td style="width:200px;"> </td>
+						<td style="width:100px;"> </td>
+						<td style="width:150px;"> </td>
+					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt"/></td>
 						<td class="td3"><span> </span><a id="lblKdate" class="lbl"> </a></td>
 						<td class="td4">
-							<input id="txtKdate" type="text" class="txt" style="width:55%;"/>
+							<input id="txtKdate" type="text" class="txt" style="width:65%;"/>
 							<div style="float:left;">
 								<input id="Copy" type="checkbox" />
-								<span> </span><a id="lblCopy"></a>
+								<span> </span><a id="lblCopy"> </a>
 							</div>
 						</td>
 						<td class="td5"><span> </span><a id="lblWdate" class="lbl"> </a></td>
@@ -1246,7 +1277,7 @@
 						<td class="td1"><span> </span><a id="lblProcess" class="lbl btn"> </a></td>
 						<td class="td2">
 							<input id="txtProcessno" type="text" class="txt" style="width: 45%;"/>
-							<input id="txtProcess" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtProcess" type="text" class="txt" style="width: 53%;"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblSpec" class="lbl"> </a></td>
 						<td class="td4"><input id="txtSpec" type="text" class="txt c1"/></td>
@@ -1257,7 +1288,7 @@
 						<td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
 						<td class="td2">
 							<input id="txtModelno" type="text" class="txt" style="width: 45%;"/>
-							<input id="txtModel" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtModel" type="text" class="txt" style="width: 53%;"/>
 						</td>
 						<td class="td3">
 							<span> </span><a id="lblTgg" class="lbl btn"> </a>
@@ -1274,12 +1305,14 @@
 						<td class="td1"><span> </span><a id="lblStation" class="lbl btn"> </a></td>
 						<td class="td2">
 							<input id="txtStationno" type="text" class="txt" style="width: 45%;"/>
-							<input id="txtStation" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtStation" type="text" class="txt" style="width: 53%;"/>
 						</td>
-						<td class="td5"><input id="btnUcap" type="button" /></td>
+						<td class="td5" colspan="3">
+							<span style="float: left;"> </span><input id="btnUcap" type="button" />
+							<span style="float: left;"> </span><input id="btnStkcost" type="button" />
+							<span style="float: left;"> </span><input id="btnModel" type="button" />
+						</td>
 						<!--<td class="td6"><input id="btnUcam" type="button" /></td>-->
-						<td class="td6"><input id="btnStkcost" type="button" /></td>
-						<td class="td7"><input id="btnModel" type="button" /></td>
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
@@ -1291,7 +1324,7 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td class="td2" colspan='3'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
 						<td class="td3"><span> </span><a id="lblGroupano" class="lbl"> </a></td>
 						<td class="td4"><select id="cmbGroupano" class="txt c1" style="font-size: medium;"></select></td>
 					</tr>
