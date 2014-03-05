@@ -152,8 +152,10 @@
             }
 			
 			function q_funcPost(t_func, result) {
-		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
+		        //location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
 		        alert('結轉功能執行完畢!!');
+		        var s2=new Array('cara_s',"where=^^carno='"+$('#txtCarno').val()+" ^^ ");
+                q_boxClose2(s2);
 		    } //endfunction
 			
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -187,8 +189,8 @@
                         break;
                     case q_name + '_s':
                        	var t_where=replaceAll(replaceAll(s2[1],'where=^^',''),'^^','');
-                    	location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
-                        //q_boxClose2(s2);
+                    	//location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
+                        q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
                 }/// end Switch
@@ -203,7 +205,9 @@
                 		var as = _q_appendData("cara", "", true);
                 		if(as[0]!=undefined){
                 			alert('該車輛當月單據以存在!!!');
-                			location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+as[0].noa+"' and mon<='"+as[0].mon+"' ;"+r_accy;
+                			//location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+as[0].noa+"' and mon<='"+as[0].mon+"' ;"+r_accy;
+                			var s2=new Array('cara_s',"where=^^carno='"+as[0].noa+"' and mon<='"+as[0].mon+"' ^^ ");
+		                	q_boxClose2(s2);
                 		}else{
                 			isbtnok=true;
 			                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -519,7 +523,7 @@
                 _bbsAssign();
                 
                 if(isbtnok){
-                	location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"' ;"+r_accy;
+                	//location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"' ;"+r_accy;
                 }
                 
                 //收款的資料禁止修改
@@ -848,8 +852,10 @@
             }
            	$(document).keydown(function(e) {
 				if ( e.keyCode=='116' ){
-				   location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"';"+r_accy;
+				   //location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"';"+r_accy;
 				   event.returnValue= false;
+				   var s2=new Array('cara_s',"where=^^carno='"+$('#txtCarno').val()+"' and mon<='"+$('#txtMon').val()+"' ^^ ");
+                	q_boxClose2(s2);
 				  }
 			});
             
