@@ -90,6 +90,10 @@
                     },{
                         type : '6',
                         name : 'xworkno'
+                    },{
+                        type : '5',
+                        name : 'xorder',
+						value : ('1@依子件,2@依上一階製品,3@依製成品').split(',')
                     }]
                 });
                 q_popAssign();
@@ -102,6 +106,7 @@
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
                 
+                $("#lblXcuano").css("font-size","13px");
             }
 
             function q_boxClose(s2) {

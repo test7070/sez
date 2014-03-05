@@ -83,6 +83,9 @@
 		                q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 					}
 	            });
+	            
+	            $('.q_report .option div .c3').css("width","180px");
+	            $('.q_report .option div .c6').css("width","110px");
             }
 
             function q_boxClose(s2) {
