@@ -893,7 +893,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 950px;
+				width: 1100px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -1121,7 +1121,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'></a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewCust'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewCust'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewStrdate'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDldate'></a></td>
@@ -1130,6 +1130,8 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'></a></td>
 						<td align="center" style="width:50px; color:black;"><a id='vewUnit'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTweight2'></a></td>
+						<td align="center" style="width:50px; color:black;"><a id='vewTtrannumber'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -1145,6 +1147,8 @@
 						<td id='product' style="text-align: left;">~product</td>
 						<td id='mount' style="text-align: right;">~mount</td>
 						<td id='unit' style="text-align: center;">~unit</td>
+						<td id='tweight2' style="text-align: right;">~tweight2</td>
+						<td id='ttrannumber' style="text-align: right;">~ttrannumber</td>
 					</tr>
 				</table>
 			</div>
