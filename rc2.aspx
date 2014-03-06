@@ -40,7 +40,7 @@
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtRackno_', 'btnRackno_', 'rack', 'noa,rack,storeno,store', 'txtRackno_', 'rack_b.aspx'],
 				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr', 'acomp_b.aspx'],
+				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0', '95%', '60%'],
 				['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']
@@ -131,16 +131,25 @@
 				});
 				$('#txtTggno').change(function() {
 					if (!emp($('#txtTggno').val())) {
-						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
 
 				$('#txtAddr').change(function() {
+					var t_tggno = trim($(this).val());
+					if (!emp(t_tggno)) {
+						focus_addr = $(this).attr('id');
+						zip_fact = $('#txtPost').attr('id');
+						var t_where = "where=^^ noa='" + t_tggno + "' ^^";
+						q_gt('tgg', t_where, 0, 0, 0, "");
+					}
+				});
+				$('#txtAddr2').change(function() {
 					var t_custno = trim($(this).val());
 					if (!emp(t_custno)) {
 						focus_addr = $(this).attr('id');
-						zip_fact = $('#txtPost').attr('id');
+						zip_fact = $('#txtPost2').attr('id');
 						var t_where = "where=^^ noa='" + t_custno + "' ^^";
 						q_gt('cust', t_where, 0, 0, 0, "");
 					}
@@ -205,6 +214,15 @@
 						document.all.combAddr.options.length = 0;
 						q_cmbParse("combAddr", t_item);
 						break;
+					case 'tgg':
+						var as = _q_appendData("tgg", "", true);
+						if (as[0] != undefined && focus_addr != '') {
+							$('#' + zip_fact).val(as[0].zip_fact);
+							$('#' + focus_addr).val(as[0].addr_fact);
+							zip_fact = '';
+							focus_addr = '';
+						}
+						break;
 					case 'cust':
 						var as = _q_appendData("cust", "", true);
 						if (as[0] != undefined && focus_addr != '') {
@@ -251,7 +269,7 @@
 						Unlock(1);
 						$('#txtDatea').focus();
 						if (!emp($('#txtTggno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						break;
@@ -346,8 +364,8 @@
 
 			function combAddr_chg() {
 				if (q_cur == 1 || q_cur == 2) {
-					$('#txtAddr').val($('#combAddr').find("option:selected").text());
-					$('#txtPost').val($('#combAddr').find("option:selected").val());
+					$('#txtAddr2').val($('#combAddr').find("option:selected").text());
+					$('#txtPost2').val($('#combAddr').find("option:selected").val());
 				}
 			}
 
@@ -795,7 +813,14 @@
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td class="td2"><input id="txtPost"  type="text"  class="txt c1"/></td>
 						<td class="td3" colspan='4' >
-							<input id="txtAddr"  type="text" class="txt" style="width: 95%;"/>
+							<input id="txtAddr"  type="text" class="txt" style="width: 98%;"/>
+						</td>
+					</tr>
+					<tr class="tr5">
+						<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
+						<td class="td2"><input id="txtPost2"  type="text"  class="txt c1"/></td>
+						<td class="td3" colspan='4' >
+							<input id="txtAddr2"  type="text" class="txt" style="width: 95%;"/>
 							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 						</td>
 						<td class="td4"><span> </span><a id='lblTrantype' class="lbl"> </a></td>

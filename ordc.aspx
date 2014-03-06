@@ -32,7 +32,7 @@
 							,['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
 							,['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx']
 							,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-							,['txtCno','lblAcomp','acomp','noa,acomp,addr','txtCno,txtAcomp,txtAddr','acomp_b.aspx']
+							,['txtCno','lblAcomp','acomp','noa,acomp,addr','txtCno,txtAcomp,txtAddr2','acomp_b.aspx']
 							,['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -120,7 +120,7 @@
 						alert('請輸入' + q_getMsg('lblTgg'));
 						return;
 					}
-					q_box('ordbs_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
+					q_box('ordbs_b.aspx', 'ordbs' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
 				 });
 				 
 				$('#txtFloata').change(function () {sum();});
@@ -128,16 +128,26 @@
 				
 				$('#txtTggno').change(function(){
 					if(!emp($('#txtTggno').val())){
-						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
 				
 				$('#txtAddr').change(function(){
+					var t_tggno = trim($(this).val());
+					if(!emp(t_tggno)){
+						focus_addr = $(this).attr('id');
+						zip_fact=$('#txtPost').attr('id');
+						var t_where = "where=^^ noa='" + t_tggno + "' ^^";
+						q_gt('tgg', t_where, 0, 0, 0, "");
+					}  
+				});
+				
+				$('#txtAddr2').change(function(){
 					var t_custno = trim($(this).val());
 					if(!emp(t_custno)){
 						focus_addr = $(this).attr('id');
-						zip_fact=$('#txtPost').attr('id');
+						zip_fact=$('#txtPost2').attr('id');
 						var t_where = "where=^^ noa='" + t_custno + "' ^^";
 						q_gt('cust', t_where, 0, 0, 0, "");
 					}  
@@ -167,15 +177,15 @@
 				ret;
 				switch (b_pop) {
 					case 'ordbs':
-					if (q_cur > 0 && q_cur < 4) {
-						b_ret = getb_ret();
-						if (!b_ret || b_ret.length == 0)
-							return;
-						$('#txtOrdbno').val(b_ret[0].noa);
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
-															, 'productno,product,noa,no3,price,mount,total,memo,unit'
-															, 'txtProductno,txtProduct');	/// 最後 aEmpField 不可以有【數字欄位】
-						bbsAssign();
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+								return;
+							$('#txtOrdbno').val(b_ret[0].noa);
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
+																, 'productno,product,noa,no3,price,mount,total,memo,unit'
+																, 'txtProductno,txtProduct');	/// 最後 aEmpField 不可以有【數字欄位】
+							bbsAssign();
 						}
 					break;
 					case q_name + '_s':
@@ -209,6 +219,15 @@
 						document.all.combAddr.options.length = 0; 
 						q_cmbParse("combAddr", t_item);
 					break;
+					case 'tgg':
+						var as = _q_appendData("tgg", "", true);
+						if(as[0]!=undefined && focus_addr !=''){
+							$('#'+zip_fact).val(as[0].zip_fact);
+							$('#'+focus_addr).val(as[0].addr_fact);
+							zip_fact = '';
+							focus_addr = '';
+						}
+					break;
 					case 'cust':
 						var as = _q_appendData("cust", "", true);
 						if(as[0]!=undefined && focus_addr !=''){
@@ -224,8 +243,8 @@
 						{
 							$('#combPaytype').val(ordb[0].paytype);
 							$('#txtPaytype').val(ordb[0].pay);
-							$('#txtPost').val(ordb[0].post);
-							$('#txtAddr').val(ordb[0].addr);
+							$('#txtPost2').val(ordb[0].post);
+							$('#txtAddr2').val(ordb[0].addr);
 							var ordbs = _q_appendData("ordbs", "", true);
 							if(ordbs[0]!=undefined)
 							{
@@ -300,8 +319,8 @@
 			
 			function combAddr_chg() {	/// 只有 comb 開頭，才需要寫 onChange()	，其餘 cmb 連結資料庫
 				if (q_cur==1 || q_cur==2){
-					$('#txtAddr').val($('#combAddr').find("option:selected").text());
-					$('#txtPost').val($('#combAddr').find("option:selected").val());
+					$('#txtAddr2').val($('#combAddr').find("option:selected").text());
+					$('#txtPost2').val($('#combAddr').find("option:selected").val());
 				}
 			}
 
@@ -348,7 +367,7 @@
 				product_change();
 				
 				if(!emp($('#txtTggno').val())){
-					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
 			}
@@ -525,7 +544,7 @@
 				switch (s1) {
 					case 'txtTggno':
 						if(!emp($('#txtTggno').val())){
-							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
+							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 					break;
@@ -748,11 +767,18 @@
 				<td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
 				<td class="td2"><input id="txtPost"  type="text"	class="txt c1 lef"/></td>
 				<td class="td3" colspan='4' >
-					<input id="txtAddr"  type="text"  class="txt c1 lef" style="width: 412px;"/>
-					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+					<input id="txtAddr"  type="text"  class="txt c1 lef" style="width: 98%;"/>
 				</td>
 				<td class="td1"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
 				<td class="td2"><input id="txtOrdbno"  type="text" class="txt c1 lef" /></td>
+			</tr>
+			<tr class="tr5">
+				<td class="td1"><span> </span><a id='lblAddr2' class="lbl"></a></td>
+				<td class="td2"><input id="txtPost2"  type="text"	class="txt c1 lef"/></td>
+				<td class="td3" colspan='4' >
+					<input id="txtAddr2"  type="text"  class="txt c1 lef" style="width: 412px;"/>
+					<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+				</td>
 			</tr>
 			<tr class="tr6">
 				<td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
