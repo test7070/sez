@@ -33,7 +33,7 @@
 				['txtRackno', 'lblRackno', 'rack', 'noa,rack,storeno,store', 'txtRackno', 'rack_b.aspx'],
 				['txtStoreinno', 'lblStorein', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
 				['txtRackinno', 'lblRackinno', 'rack', 'noa,rack,storeno,store', 'txtRackinno', 'rack_b.aspx'],
-				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
+				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtMemo', '', 'qphr', 'noa,phr', '0,txtMemo', ''], ['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
@@ -415,23 +415,25 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="width: 1260px;">
-			<div class="dview" id="dview" style="float: left;  width:390px;"  >
+			<div class="dview" id="dview" style="float: left;  width:500px;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:30%"><a id='vewStore'> </a></td>
-						<td align="center" style="width:30%"><a id='vewStorein'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:25%"><a id='vewStore'> </a></td>
+						<td align="center" style="width:25%"><a id='vewStorein'> </a></td>
+						<td align="center" style="width:25%"><a id='vewTgg'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='store' class="it">~store</td>
-						<td align="center" id='storein' class="it">~storein</td>
+						<td align="center" id='store,8' class="it">~store,8</td>
+						<td align="center" id='storein,8' class="it">~storein,8</td>
+						<td align="center" id='tgg,8' class="it">~tgg,8</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 852px;float:left">
+			<div class='dbbm' style="width: 760px;float:left">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 					<tr class="tr1">
 						<td class='td1'><span> </span><a id="lblType" class="lbl" > </a></td>
@@ -444,29 +446,28 @@
 					<tr class="tr2">
 						<td class='td3'><span> </span><a id="lblStore" class="lbl btn"> </a></td>
 						<td class="td4"><input id="txtStoreno" type="text"  class="txt c1"/></td>
-						<td class="td4"><input id="txtStore" type="text" class="txt c1"/></td>
+						<td class="td4" colspan="2"><input id="txtStore" type="text" class="txt c1"/></td>
 						<td class='td3 isRack'><span> </span><a id="lblRackno" class="lbl btn"> </a></td>
 						<td class="td4 isRack"><input id="txtRackno" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td5"><span> </span><a id="lblStorein" class="lbl btn"> </a></td>
 						<td class="td6"><input id="txtStoreinno" type="text" class="txt c1"/></td>
-						<td class="td6"><input id="txtStorein" type="text" class="txt c1"/></td>
+						<td class="td6" colspan="2"><input id="txtStorein" type="text" class="txt c1"/></td>
 						<td class='td3 isRack'><span> </span><a id="lblRackinno" class="lbl btn"> </a></td>
 						<td class="td4 isRack"><input id="txtRackinno" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtTggno" type="text"  class="txt c1"/></td>
-						<td class="td2"><input id="txtTgg" type="text"  class="txt c1"/></td>
-						</td>
+						<td class="td2" colspan="2"><input id="txtTgg" type="text"  class="txt c1"/></td>
 						<td class='td1'><span> </span><a id="lblTrantype" class="lbl" > </a></td>
 						<td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
 					</tr>
 					<tr class="tr4">
 						<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCardealno" type="text"  class="txt c1"/></td>
-						<td class="td2"><input id="txtCardeal" type="text"  class="txt c1"/></td>
+						<td class="td2" colspan="2"><input id="txtCardeal" type="text"  class="txt c1"/></td>
 						<td class='td5'><span> </span><a id="lblCarno" class="lbl" > </a></td>
 						<td class="td6"><input id="txtCarno" type="text" class="txt c1"/></td>
 					</tr>

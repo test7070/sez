@@ -151,7 +151,7 @@
 
 				$('#txtCustno').change(function() {
 					if (!emp($('#txtCustno').val())) {
-						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+						var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr ^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
@@ -189,7 +189,7 @@
 								if (t_oredeno.indexOf(b_ret[i].noa) == -1)
 									t_oredeno = t_oredeno + (t_oredeno.length > 0 ? (',' + b_ret[i].noa) : b_ret[i].noa);
 							}
-							//取得訂單備註
+							//取得訂單備註 + 指定地址
 							if (t_oredeno.length > 0) {
 								var t_where = "where=^^ charindex(noa,'" + t_oredeno + "')>0 ^^";
 								q_gt('orde', t_where, 0, 0, 0, "", r_accy);
@@ -368,11 +368,17 @@
 					case 'orde':
 						var as = _q_appendData("orde", "", true);
 						var t_memo = $('#txtMemo').val();
+						var t_post2 = '';
+						var t_addr2 = '';
 						for ( i = 0; i < as.length; i++) {
 							t_memo = t_memo + (t_memo.length > 0 ? '\n' : '') + as[i].noa + ':' + as[i].memo;
+							t_post2 = t_post2+(t_post2.length>0?';':'')+as[i].post2;
+							t_addr2 = t_addr2+(t_addr2.length>0?';':'')+as[i].addr;
 						}
 						$('#txtMemo').val(t_memo);
-						break;
+						$('#txtPost2').val(t_post2);
+						$('#txtAddr2').val(t_addr2);
+						
 						break;
 					case 'cust':
 						var as = _q_appendData("cust", "", true);
@@ -419,7 +425,7 @@
 						$('#txtDatea').focus();
 
 						if (!emp($('#txtCustno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						break;
@@ -714,7 +720,7 @@
 				switch (s1) {
 					case 'txtCustno':
 						if (!emp($('#txtCustno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						break;
