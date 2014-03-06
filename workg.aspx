@@ -128,6 +128,10 @@
 				$('#btnWorkPrint').click(function() {
 					q_box('z_workp.aspx' + "?;;;noa='" + $('#txtNoa').val() + "';" + r_accy + ";", '', "95%", "95%", q_getMsg("popPrint"));
 				});
+				
+				$('#lblOrdbno').click(function() {
+					q_box('ordb.aspx' + "?;;;charindex(noa,'" + $('#txtOrdbno').val() + "')>0;" + r_accy + ";", '', "95%", "95%", q_getMsg("lblOrdbno"));
+				});
 			}
 
 			var t_work, t_works, t_gmount = 0;
@@ -354,47 +358,54 @@
 							}
 						});
 
-						$('#txtUnmount_' + i).change(function() {
+						$('#txtUnmount_' + i).blur(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							bbssum(b_seq);
+							if(q_cur==1||q_cur==2)
+								bbssum(b_seq);
 						});
-						$('#txtOrdemount_' + i).change(function() {
+						$('#txtOrdemount_' + i).blur(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							bbssum(b_seq);
+							if(q_cur==1||q_cur==2)
+								bbssum(b_seq);
 						});
-						$('#txtPlanmount_' + i).change(function() {
+						$('#txtPlanmount_' + i).blur(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							bbssum(b_seq);
+							if(q_cur==1||q_cur==2)
+								bbssum(b_seq);
 						});
-						$('#txtStkmount_' + i).change(function() {
+						$('#txtStkmount_' + i).blur(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							bbssum(b_seq);
+							if(q_cur==1||q_cur==2)
+								bbssum(b_seq);
 						});
-						$('#txtIntmount_' + i).change(function() {
+						$('#txtIntmount_' + i).blur(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							bbssum(b_seq);
+							if(q_cur==1||q_cur==2)
+								bbssum(b_seq);
 						});
-						$('#txtPurmount_' + i).change(function() {
+						$('#txtPurmount_' + i).blur(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							bbssum(b_seq);
+							if(q_cur==1||q_cur==2)
+								bbssum(b_seq);
 						});
-						$('#txtSalemount_' + i).change(function() {
+						$('#txtSalemount_' + i).blur(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							bbssum(b_seq);
+							if(q_cur==1||q_cur==2)
+								bbssum(b_seq);
 						});
 						$('#btnBorn_' + i).click(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -422,7 +433,7 @@
 			}
 
 			function bbssum(seq) {
-				if (!emp(seq)) {
+				if (seq>-1) {
 					//計算//1030226將計畫生產移到後面
 					var t_availmount = q_float('txtStkmount_' + seq) - q_float('txtUnmount_' + seq) - q_float('txtOrdemount_' + seq);
 					$('#txtAvailmount_' + seq).val(t_availmount);
@@ -432,6 +443,9 @@
 						$('#txtMount_' + seq).val((t_opmount * -1));
 					else
 						$('#txtMount_' + seq).val(0);
+					//沒有訂單號碼指定開工日寫入明天的日期
+					if(emp($('#txtOrdeno_' + seq).val())&&q_float('txtMount_'+ seq)>0)
+						$('#txtCuadate_' + seq).val(q_cdn(q_date(),1));
 				}
 			}
 
@@ -531,7 +545,7 @@
 			.dview {
 				float: left;
 				border-width: 0px;
-				width: 42%;
+				width: 525px;
 			}
 			.tview {
 				border: 5px solid gray;
@@ -551,7 +565,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 58%;
+				width: 735px;
 				border-radius: 5px;
 			}
 			.tbbm {
@@ -593,11 +607,11 @@
 				color: #FF8F19;
 			}
 			.txt.c1 {
-				width: 95%;
+				width: 99%;
 				float: left;
 			}
 			.txt.c2 {
-				width: 47.5%;
+				width: 46%;
 				float: left;
 			}
 			.txt.c3 {
@@ -681,7 +695,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain'>
+		<div id='dmain' style="width: 1260px;">
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview" >
 					<tr>
@@ -703,14 +717,14 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr>
-						<td><span> </span><a id='lblStype' class="lbl"> </a></td>
-						<td><select id="cmbStype" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblStype' class="lbl"> </a></td>
+						<td><select id="cmbStype" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblBdate" class="lbl"> </a></td>
 						<td colspan="2">
 							<input id="txtBdate" type="text" class="txt c2"/>
@@ -722,7 +736,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProduct" class="lbl btn"> </a></td>
-						<td colspan="2">
+						<td colspan="4">
 							<input id="txtProductno" type="text" class="txt c3"/>
 							<input id="txtProduct" type="text" class="txt c4"/>
 						</td>
@@ -734,7 +748,7 @@
 						<td><input id="btnWorkg2ordb" type="button" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblOrdbno" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOrdbno" class="lbl btn"> </a></td>
 						<td colspan="4"><input id="txtOrdbno" type="text" class="txt c1"/></td>
 						<td><input id="btnWorkPrint" type="button" /></td>
 					</tr>
