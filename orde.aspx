@@ -152,21 +152,22 @@
 					for (var i = 0; i < maxline; i++) {
 						var tr = document.createElement("tr");
 						tr.id = "bbs_"+i;
-						tr.innerHTML = "<td id='addr2_tdBtn2_"+i+"'><input class='btn' id='btnAddr_minus_"+i+"' type='button' value='-' style='width: 30px' onClick=minus_addr("+i+") /></td>";
-						tr.innerHTML+= "<td id='addr2_tdPost2_"+i+"'><input id='addr2_txtPost2_"+i+"' type='text' class='txt c1' value='"+t_post2[i]+"' style='width: 70px'/></td>";
-						tr.innerHTML+="<td id='addr2_tdAddr2_"+i+"'><input id='addr2_txtAddr2_"+i+"' type='text' class='txt c1' value='"+t_addr2[i]+"'  /></td>";
+						tr.innerHTML = "<td id='addr2_tdBtn2_"+i+"'><input class='btn addr2' id='btnAddr_minus_"+i+"' type='button' value='-' style='width: 30px' onClick=minus_addr2("+i+") /></td>";
+						tr.innerHTML+= "<td id='addr2_tdPost2_"+i+"'><input id='addr2_txtPost2_"+i+"' type='text' class='txt addr2' value='"+t_post2[i]+"' style='width: 70px'/></td>";
+						tr.innerHTML+="<td id='addr2_tdAddr2_"+i+"'><input id='addr2_txtAddr2_"+i+"' type='text' class='txt c1 addr2' value='"+t_addr2[i]+"'  /></td>";
 						var tmp = document.getElementById("addr2_close");
 						tmp.parentNode.insertBefore(tr,tmp);
 					}
+					readonly_addr2();
 					$('#div_addr2').show();
 				});
 				$('#btnAddr_plus').click(function() {
 					var rowslength=document.getElementById("table_addr2").rows.length-2;
 					var tr = document.createElement("tr");
 						tr.id = "bbs_"+rowslength;
-						tr.innerHTML = "<td id='addr2_tdBtn2_"+rowslength+"'><input class='btn' id='btnAddr_minus_"+rowslength+"' type='button' value='-' style='width: 30px' onClick=minus_addr("+rowslength+") /></td>";
-						tr.innerHTML+= "<td id='addr2_tdPost2_"+rowslength+"'><input id='addr2_txtPost2_"+rowslength+"' type='text' class='txt' value='' style='width: 70px' /></td>";
-						tr.innerHTML+="<td id='addr2_tdAddr2_"+rowslength+"'><input id='addr2_txtAddr2_"+rowslength+"' type='text' class='txt c1' value=''  /></td>";
+						tr.innerHTML = "<td id='addr2_tdBtn2_"+rowslength+"'><input class='btn addr2' id='btnAddr_minus_"+rowslength+"' type='button' value='-' style='width: 30px' onClick=minus_addr2("+rowslength+") /></td>";
+						tr.innerHTML+= "<td id='addr2_tdPost2_"+rowslength+"'><input id='addr2_txtPost2_"+rowslength+"' type='text' class='txt addr2' value='' style='width: 70px' /></td>";
+						tr.innerHTML+="<td id='addr2_tdAddr2_"+rowslength+"'><input id='addr2_txtAddr2_"+rowslength+"' type='text' class='txt c1 addr2' value=''  /></td>";
 						var tmp = document.getElementById("addr2_close");
 						tmp.parentNode.insertBefore(tr,tmp);
 				});
@@ -188,10 +189,21 @@
 				});
 			}
 			
-			function minus_addr(seq) {
+			//addr2控制事件vvvvvv-------------------
+			function minus_addr2(seq) {	
 				$('#addr2_txtPost2_'+seq).val('');
 				$('#addr2_txtAddr2_'+seq).val('');
 			}
+			
+			function readonly_addr2() {
+				if(q_cur==1||q_cur==2){
+					$('.addr2').removeAttr('disabled');
+				}else{
+					$('.addr2').attr('disabled', 'disabled');
+				}
+			}
+			
+			//addr2控制事件^^^^^^--------------------
 
 			function q_boxClose(s2) {
 				var ret;
@@ -611,6 +623,8 @@
 					$('#btnOrdei').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
 				}
+				$('#div_addr2').hide();
+				readonly_addr2();
 			}
 
 			function btnMinus(id) {
@@ -797,7 +811,7 @@
 			<table id="table_addr2" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
 				<tr>
 					<td style="width:30px;background-color: #f8d463;" align="center">
-						<input class="btn" id="btnAddr_plus" type="button" value='＋' style="width: 30px" />
+						<input class="btn addr2" id="btnAddr_plus" type="button" value='＋' style="width: 30px" />
 					</td>
 					<td style="width:70px;background-color: #f8d463;" align="center">郵遞區號</td>
 					<td style="width:430px;background-color: #f8d463;" align="center">指送地址</td>
