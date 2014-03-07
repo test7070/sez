@@ -17,7 +17,7 @@
 		q_desc = 1;
 		q_tables = 's';
 		var q_name = "orde";
-		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtSales','txtOrdbno','txtOrdcno','txtQuatno'];
+		var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtSales','txtOrdbno','txtOrdcno','txtQuatno','textStatus'];
 		var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3','txtC1','txtNotv']; 
 		var bbmNum = [['txtTotal', 10,0,1],['txtMoney', 10, 0,1],['txtTax', 10, 0,1]];  // 允許 key 小數
 		var bbsNum = [['txtPrice', 12, 3,1], ['txtMount', 9, 2,1],['txtTotal', 10, 0,1],['txtC1', 10, 0,1],['txtNotv', 10, 0,1]];
@@ -174,6 +174,25 @@
 		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
+				case 'umms':
+						var as = _q_appendData("umms", "", true);
+						var z_msg = "", t_paysale = 0,t_tpaysale=0;
+						if (as[0] != undefined) {
+							for (var i = 0; i < as.length; i++) {
+								t_paysale = parseFloat(as[i].paysale.length == 0 ? "0" : as[i].paysale);
+								t_tpaysale+= parseFloat(as[i].paysale.length == 0 ? "0" : as[i].paysale);
+								if (t_paysale != 0)
+									z_msg += (as[i].noa+';');
+							}
+							
+							if (z_msg.length > 0) {
+								z_msg='已收款：'+FormatNumber(t_tpaysale)+'，收款單號【'+z_msg.substr(0,z_msg.length-1)+ '】。 '
+							}
+						}else{
+							z_msg='未收款。'
+						}
+						$('#textStatus').val(z_msg);
+						break;
 				case 'btnModi':
 						var as = _q_appendData("umms", "", true);
 						if (as[0] != undefined) {
@@ -392,10 +411,12 @@
 				$('#txtWorker2').val(r_name);
 			sum();
 			
-			if($('#checkTotalus').prop("checked"))
+			if($('#checkTotalus').prop("checked")){
 				$('#txtTotalus').val(1);
-			else
+				$('#chkEnda').prop("checked",false);
+			}else{
 				$('#txtTotalus').val(0);
+			}
 
 			var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 			if (s1.length == 0 || s1 == "AUTO"){   /// 自動產生編號
@@ -613,6 +634,11 @@
 			$('input[id*="txt"]').click(function(){
 				browTicketForm($(this).get(0));
 			});
+			
+			if(!emp($('#txtQuatno').val())){
+				var t_where = " where=^^ vccno='" + $('#txtQuatno').val() + "'^^";
+				q_gt('umms', t_where, 0, 0, 0, '', r_accy);
+			}
 			
 			$('#combworker').val($('#txtNoa').val().substring(0,1));
 				
@@ -1059,6 +1085,10 @@
 					<td class="td2" colspan='7'>
 						<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 					</td> 
+				</tr>
+				<tr class="tr12">
+					<td class="td1"><span> </span><a class="lbl">收款情況</a></td>
+					<td class="td2" colspan='7'><input id="textStatus" type="text" class="txt c1"/></td> 
 				</tr>
 			</table>
 		</div>
