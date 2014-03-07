@@ -197,7 +197,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_workp.aspx' + "?;;;;" + r_accy + ";", '', "95%", "95%", q_getMsg("popPrint"));
+				q_box("z_workp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa=" + $.trim($('#txtNoa').val()) + ";" + r_accy, 'z_workp', "95%", "95%", q_getMsg('popPrint'));
 			}
 
 			function wrServer(key_value) {
