@@ -168,7 +168,10 @@
 								b_pop = '';
 								return;
 							}
-							var i, j = 0;
+							//取得採購的資料
+							var t_where = "where=^^ noa='" + b_ret[0].noa + "' ^^";
+							q_gt('ordc', t_where, 0, 0, 0, "", r_accy);
+							
 							$('#txtOrdcno').val(b_ret[0].noa);
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,product,unit,mount,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							bbsAssign();
@@ -273,6 +276,17 @@
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						break;
+					case 'ordc':
+                        var ordc = _q_appendData("ordc", "", true);
+                        if (ordc[0] != undefined) {
+                            $('#combPaytype').val(ordc[0].paytype);
+                            $('#txtPaytype').val(ordc[0].pay);
+                            $('#cmbTrantype').val(ordc[0].trantype);
+                            $('#cmbCoin').val(ordc[0].coin);
+                            $('#txtPost2').val(ordc[0].post2);
+                            $('#txtAddr2').val(ordc[0].addr2);
+                        }
+                        break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();

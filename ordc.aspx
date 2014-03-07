@@ -248,6 +248,8 @@
                         if (ordb[0] != undefined) {
                             $('#combPaytype').val(ordb[0].paytype);
                             $('#txtPaytype').val(ordb[0].pay);
+                            $('#cmbTrantype').val(ordb[0].trantype);
+                            $('#cmbCoin').val(ordb[0].coin);
                             $('#txtPost2').val(ordb[0].post);
                             $('#txtAddr2').val(ordb[0].addr);
                             /*var ordbs = _q_appendData("ordbs", "", true);
