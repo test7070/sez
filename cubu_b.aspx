@@ -320,7 +320,6 @@
 						alert(t_errMsg);
 						return;
 					}
-					
 					//檢查批號
                     for (var i = 0; i < q_bbsCount; i++) {
                         for (var j = i + 1; j < q_bbsCount; j++) {
@@ -331,10 +330,11 @@
                             }
                         }
                     }
+                    //parent.$('#txtNoa').val()
                     var t_where = '';
                     for (var i = 0; i < q_bbsCount; i++) {
                         if ($.trim($('#txtUno_' + i).val()).length > 0)
-                            t_where += (t_where.length > 0 ? ' or ' : '') + "(uno='" + $.trim($('#txtUno_' + i).val()) + "' and not(accy='" + r_accy + "' and tablea='rc2s' and noa='" + $.trim($('#txtNoa_'+i).val()) + "'))";
+                            t_where += (t_where.length > 0 ? ' or ' : '') + "(uno='" + $.trim($('#txtUno_' + i).val()) + "' and not(accy='" + r_accy + "' and tablea='cubu' and noa='" + $.trim($('#txtNoa_'+i).val()) + "'))";
                     }
                     if (t_where.length > 0)
                         q_gt('view_uccb', "where=^^" + t_where + "^^", 0, 0, 0, 'btnOk_checkuno');
