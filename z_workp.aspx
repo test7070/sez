@@ -59,8 +59,10 @@
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
 					}
 				}else{
-					if(t_key[1] != undefined)
-                	$('#txtXnoa1').val(t_key[1]);
+					if(t_key[1] != undefined){
+						$('#txtXnoa1').val(t_key[1]);
+						$('#txtXnoa2').val(t_key[1]);
+					}
 				}
             }
 
