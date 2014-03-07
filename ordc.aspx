@@ -749,21 +749,19 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
-						<td class="td2" colspan="4">
+						<td class="td2" colspan="5">
 							<input id="txtCno"  type="text" class="txt c4 lef"/>
 							<input id="txtAcomp"type="text" class="txt c5 lef" />
 						</td>
-						<td class="td6"> </td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td8"><input id="txtNoa"	type="text" class="txt c1 lef"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-						<td class="td2" colspan="4">
+						<td class="td2" colspan="5">
 							<input id="txtTggno" type="text" class="txt c4 lef"/>
 							<input id="txtTgg"  type="text" class="txt c5 lef"/>
 						</td>
-						<td class="td6"> </td>
 						<td class="td7"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
 						<td class="td8"><select id="cmbTrantype" class="txt c1 lef" name="D1" > </select></td>
 					</tr>
