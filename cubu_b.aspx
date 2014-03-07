@@ -252,35 +252,10 @@
 			}
 
 			function btnOk() {
-				var t_errMsg = '';
-				for (var i = 0; i < q_bbsCount; i++) {
-					$('#txtWorker_' + i).val(r_name);
-					var t_datea = trim($('#txtDatea_' + i).val());
-					var t_uno = trim($('#txtUno_' + i).val());
-					var t_ordeno = trim($('#txtOrdeno_' + i).val());
-					var t_mount = dec($('#txtMount_' + i).val());
-					var t_weight = dec($('#txtWeight_' + i).val());
-					if (t_datea.length != 9) {
-						if ($.trim(Parent.$('#txtDatea').val()) != '')
-							$('#txtDatea_' + i).val($.trim(Parent.$('#txtDatea').val()));
-						else
-							$('#txtDatea_' + i).val(q_date());
-					}
-					//不存檔提示!!
-					if ((t_mount > 0) && (t_weight <= 0))
-						t_errMsg += '第 ' + (i + 1) + " 筆重量小於等於0。\n";
-					if ((t_mount > 0) && (t_uno.length == 0))
-						t_errMsg += '第 ' + (i + 1) + " 筆批號為空。\n";
-				}
-				if ($.trim(t_errMsg).length > 0) {
-					alert(t_errMsg);
-					return;
-				}
-				bbsReSort();
-				t_key = q_getHref();
-				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+			    bbsReSort();
+                t_key = q_getHref();
+                _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
-
 			function bbsReSort() {
 				var a_productno = new Array();
 				for (var i = 0; i < q_bbsCount; i++) {
@@ -345,8 +320,28 @@
 						alert(t_errMsg);
 						return;
 					}
-					qbtnOk();
-					parent.$.fn.colorbox.close();
+					//檢查批號
+                    for (var i = 0; i < q_bbsCount; i++) {
+                        for (var j = i + 1; j < q_bbsCount; j++) {
+                            if ($.trim($('#txtUno_' + i).val()).length > 0 && $.trim($('#txtUno_' + i).val()) == $.trim($('#txtUno_' + j).val())) {
+                                alert('【' + $.trim($('#txtUno_' + i).val()) + '】' + q_getMsg('lblUno_st') + '重覆。\n' + (i + 1) + ', ' + (j + 1));
+                                Unlock(1);
+                                return;
+                            }
+                        }
+                    }
+                    //parent.$('#txtNoa').val()
+                    var t_where = '';
+                    for (var i = 0; i < q_bbsCount; i++) {
+                        if ($.trim($('#txtUno_' + i).val()).length > 0)
+                            t_where += (t_where.length > 0 ? ' or ' : '') + "(uno='" + $.trim($('#txtUno_' + i).val()) + "' and not(accy='" + r_accy + "' and tablea='cubu' and noa='" + $.trim($('#txtNoa_'+i).val()) + "'))";
+                    }
+                    if (t_where.length > 0)
+                        q_gt('view_uccb', "where=^^" + t_where + "^^", 0, 0, 0, 'btnOk_checkuno');
+                    else{
+                        qbtnOk();
+                        parent.$.fn.colorbox.close();
+                    }
 				});
 			}
 
@@ -398,6 +393,21 @@
 			var ReadOnlyUno = [];
 			function q_gtPost(t_postname) {
 				switch (t_postname) {
+				    case 'btnOk_checkuno':
+                        var as = _q_appendData("view_uccb", "", true);
+                        if (as[0] != undefined) {
+                            var msg = '';
+                            for (var i = 0; i < as.length; i++) {
+                                msg += (msg.length > 0 ? '\n' : '') + as[i].uno + ' 此批號已存在!!\n【' + as[i].action + '】單號：' + as[i].noa;
+                            }
+                            alert(msg);
+                            Unlock(1);
+                            return;
+                        } else {
+                            qbtnOk();
+                            parent.$.fn.colorbox.close();
+                        }
+                        break;
 					case 'style' :
 						var as = _q_appendData("style", "", true);
 						StyleList = new Array();
