@@ -370,10 +370,10 @@
 							$('#txtTel').val(as[0].tel);
 							$('#txtFax').val(as[0].fax);
 							$('#txtPost').val(as[0].post);
-							$('#txtAddr').val(as[0].fax);
+							$('#txtAddr').val(as[0].addr);
 							$('#txtPost2').val(as[0].post2);
-							$('#txtAddr2').val(as[0].fax);
-							$('#cmbTaxtype').val(as[0].tel);
+							$('#txtAddr2').val(as[0].addr2);
+							$('#cmbTaxtype').val(as[0].taxtype);
 							sum();
 						}
 						break;

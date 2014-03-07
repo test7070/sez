@@ -21,10 +21,8 @@
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price','totalus'];
 			var q_readonly = ['txtWorker','txtComp', 'txtAcomp','txtSales','txtWorker2'];
 			var q_readonlys = [];
-			var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
-						  ['txtFloata', 15, 3, 1]];
-			var bbsNum = [['txtMount', 10, 0, 1],
-						  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1]];
+			var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],['txtFloata', 15, 3, 1]];
+			var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -35,7 +33,7 @@
 			brwKey = 'Datea';
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
-				['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype,trantype,tel,fax,zip_comp,addr_fact',
+				['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact',
 				 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx'],
 				 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
@@ -284,7 +282,8 @@
 	                curData.paste();
 				$('#chkIsproj').attr('checked',true);
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-				$('#txtDatea').val(q_date());
+				$('#txtOdate').val(q_date());
+				$('#txtDatea').val(q_cdn(q_date(),3));
 				$('#txtDatea').focus();
 				
 				$('#txtCno').val(z_cno);
