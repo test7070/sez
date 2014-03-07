@@ -11,10 +11,12 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     var q_name = 'view_ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,unit,mount,weight,noa,no2,price,total,memo,notv,trandate  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
-    var t_sqlname = 'ordcs_load2'; t_postname = q_name; brwCount2 = 12;
+    var t_sqlname = 'ordcs_load2'; t_postname = q_name; //brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
     var i, s1;
+    
+    brwCount=-1;
 
     $(document).ready(function () {
         main();
@@ -44,6 +46,10 @@
 					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 			});
 		});
+		$('#btnTop').hide();
+		$('#btnPrev').hide();
+		$('#btnNext').hide();
+		$('#btnBott').hide();
     }
 </script>
 <style type="text/css">

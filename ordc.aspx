@@ -119,7 +119,7 @@
                         alert('請輸入' + q_getMsg('lblTgg'));
                         return;
                     }
-                    q_box('ordbs_b.aspx', 'ordbs' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
+                    q_box("ordbs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordbs', "95%", "95%", q_getMsg('popOrdbs'));
                 });
 
                 $('#txtFloata').change(function() {
@@ -184,6 +184,10 @@
                             b_ret = getb_ret();
                             if (!b_ret || b_ret.length == 0)
                                 return;
+							//取得請購的資料
+							var t_where = "where=^^ noa='" + b_ret[0].noa + "' ^^";
+							q_gt('ordb', t_where, 0, 0, 0, "", r_accy);
+						
                             $('#txtOrdbno').val(b_ret[0].noa);
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret, 'productno,product,noa,no3,price,mount,total,memo,unit', 'txtProductno,txtProduct');
                             /// 最後 aEmpField 不可以有【數字欄位】
@@ -244,12 +248,14 @@
                         if (ordb[0] != undefined) {
                             $('#combPaytype').val(ordb[0].paytype);
                             $('#txtPaytype').val(ordb[0].pay);
+                            $('#cmbTrantype').val(ordb[0].trantype);
+                            $('#cmbCoin').val(ordb[0].coin);
                             $('#txtPost2').val(ordb[0].post);
                             $('#txtAddr2').val(ordb[0].addr);
-                            var ordbs = _q_appendData("ordbs", "", true);
+                            /*var ordbs = _q_appendData("ordbs", "", true);
                             if (ordbs[0] != undefined) {
                                 q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtTotal,txtMemo,txtOrdbno,txtNo3', as.length, as, 'productno,product,unit,mount,price,total,memo,noa,no3', '');
-                            }
+                            }*/
                         }
                         break;
                     case q_name:
@@ -714,7 +720,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain'>
+		<div id='dmain' style="overflow:hidden;width: 1260px;">
 			<div class="dview" >
 				<table class="tview" id="tview">
 					<tr>
@@ -736,7 +742,7 @@
 					<tr class="tr1">
 						<td class="td1" style="width: 108px;"><span> </span><a id='lblKind' class="lbl"> </a></td>
 						<td class="td2" style="width: 108px;"><select id="cmbKind" class="txt c1 lef"> </select></td>
-						<td class="td3" style="width: 108px;">	<input id="btnImport" type="button"/>	</td>
+						<td class="td3" style="width: 108px;">	</td>
 						<td class="td3" style="width: 108px;"><span> </span><a id='lblOdate' class="lbl"> </a></td>
 						<td class="td4" style="width: 108px;">	<input id="txtOdate" type="text" class="txt c1 lef"/>	</td>
 						<td style="width: 108px;"> </td>
@@ -745,30 +751,35 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
-						<td class="td2" colspan="2">
+						<td class="td2" colspan="5">
 							<input id="txtCno"  type="text" class="txt c4 lef"/>
 							<input id="txtAcomp"type="text" class="txt c5 lef" />
-						</td>
-						<td class="td4"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
-						<td class="td5" colspan="2">
-							<input id="txtSalesno" type="text" class="txt c2 lef"/>
-							<input id="txtSales" type="text" class="txt c7 lef"/>
 						</td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td8"><input id="txtNoa"	type="text" class="txt c1 lef"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-						<td class="td2" colspan="2">
+						<td class="td2" colspan="5">
 							<input id="txtTggno" type="text" class="txt c4 lef"/>
 							<input id="txtTgg"  type="text" class="txt c5 lef"/>
+						</td>
+						<td class="td7"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
+						<td class="td8"><select id="cmbTrantype" class="txt c1 lef" name="D1" > </select></td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtSalesno" type="text" class="txt c2 lef"/>
+							<input id="txtSales" type="text" class="txt c7 lef"/>
 						</td>
 						<td class="td4"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td class="td5" colspan='2'>
 							<input id="txtPaytype" type="text" class="txt c8 lef"/>
-							<select id="combPaytype" class="txt c8 lef" onchange='combPaytype_chg()'> </select></td>
-						<td class="td7"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
-						<td class="td8"><select id="cmbTrantype" class="txt c1 lef" name="D1" > </select></td>
+							<select id="combPaytype" class="txt c8 lef" onchange='combPaytype_chg()'> </select>
+						</td>
+						<td class="td7">	</td>
+						<td class="td8">	<input id="btnImport" type="button"/>	</td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
