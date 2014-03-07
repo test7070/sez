@@ -276,9 +276,31 @@
 					alert(t_errMsg);
 					return;
 				}
-				bbsReSort();
-				t_key = q_getHref();
-				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+				//檢查批號
+                for (var i = 0; i < q_bbsCount; i++) {
+                    for (var j = i + 1; j < q_bbsCount; j++) {
+                        if ($.trim($('#txtUno_' + i).val()).length > 0 && $.trim($('#txtUno_' + i).val()) == $.trim($('#txtUno_' + j).val())) {
+                            alert('【' + $.trim($('#txtUno_' + i).val()) + '】' + q_getMsg('lblUno_st') + '重覆。\n' + (i + 1) + ', ' + (j + 1));
+                            Unlock(1);
+                            return;
+                        }
+                    }
+                }
+                var t_where = '';
+                for (var i = 0; i < q_bbsCount; i++) {
+                    if ($.trim($('#txtUno_' + i).val()).length > 0)
+                        t_where += (t_where.length > 0 ? ' or ' : '') + "(uno='" + $.trim($('#txtUno_' + i).val()) + "' and not(accy='" + r_accy + "' and tablea='rc2s' and noa='" + $.trim($('#txtNoa_'+i).val()) + "'))";
+                }
+                if (t_where.length > 0)
+                    q_gt('view_uccb', "where=^^" + t_where + "^^", 0, 0, 0, 'btnOk_checkuno');
+				else{
+				    save();
+				}
+			}
+			function save(){
+			    bbsReSort();
+                t_key = q_getHref();
+                _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
 
 			function bbsReSort() {
@@ -398,6 +420,20 @@
 			var ReadOnlyUno = [];
 			function q_gtPost(t_postname) {
 				switch (t_postname) {
+				    case 'btnOk_checkuno':
+                        var as = _q_appendData("view_uccb", "", true);
+                        if (as[0] != undefined) {
+                            var msg = '';
+                            for (var i = 0; i < as.length; i++) {
+                                msg += (msg.length > 0 ? '\n' : '') + as[i].uno + ' 此批號已存在!!\n【' + as[i].action + '】單號：' + as[i].noa;
+                            }
+                            alert(msg);
+                            Unlock(1);
+                            return;
+                        } else {
+                            save();
+                        }
+                        break;
 					case 'style' :
 						var as = _q_appendData("style", "", true);
 						StyleList = new Array();
