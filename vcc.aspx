@@ -17,7 +17,7 @@
  
 			q_tables = 's';
 			var q_name = "vcc";
-			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2'];
+			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp','txtCardeal','txtSales', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2'];
 			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2'];
 			var bbmNum = [
 				['txtPrice', 10, 3, 1], ['txtTranmoney', 11, 2, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],
@@ -1004,10 +1004,8 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
-						<td class="td2" colspan='2'>
-							<input id="txtCno" type="text" class="txt c2"/>
-							<input id="txtAcomp" type="text" class="txt c3"/>
-						</td>
+						<td class="td2"><input id="txtCno" type="text" class="txt c1"/></td>
+						<td class="td2"><input id="txtAcomp" type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td class="td8"><input id="txtMon" type="text" class="txt c1"/></td>
 						<td class="td8"> </td>
@@ -1016,10 +1014,8 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
-						<td class="td2" colspan='2'>
-							<input id="txtCustno" type="text" class="txt c2"/>
-							<input id="txtComp" type="text" class="txt c3"/>
-						</td>
+						<td class="td2"><input id="txtCustno" type="text" class="txt c1"/></td>
+						<td class="td2"><input id="txtComp" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblPay' class="lbl"> </a></td>
 						<td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td>
 						<td class="td6"><select id="combPay" style="width: 100%;" onchange='combPay_chg()'> </select></td>
@@ -1043,16 +1039,14 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
 						<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
-						<td class="td3" colspan='4' >
+						<td class="td3" colspan='4'>
 						<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
 						<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
-						<td class="td2" colspan='2'>
-							<input id="txtCardealno" type="text" class="txt c2"/>
-							<input id="txtCardeal" type="text" class="txt c3"/>
-						</td>
+						<td class="td2"><input id="txtCardealno" type="text" class="txt c1"/></td>
+						<td class="td2"><input id="txtCardeal" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td5"><input id="txtCarno" type="text" class="txt c1"/></td>
 						<td class="td5"><select id="cmbTranstyle" style="width: 100%;"> </select></td>
