@@ -44,7 +44,7 @@
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-				['txtWorkno', 'lblWorkno', 'work', 'noa', 'txtWorkno', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
+				/*['txtWorkno', 'lblWorkno', 'work', 'noa', 'txtWorkno', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],*/
 				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 			);
@@ -69,33 +69,19 @@
 			
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-				$('#btnImport').click(function() {
-					//20130513改為用inbs匯入
-					//q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'workas', "95%", "95%", q_getMsg('popWorkas'));
-					q_box("inbs_b.aspx?;;;enda=0;" + r_accy, 'inbs', "95%", "95%", q_getMsg("popInbs"));
-				});
-				$('#btnCert').click(function() {
-					t_where = '';
-					t_bno = $('#txtBno').val();
-					btnCert_Seq = -2;
-					if (t_bno.length > 0) {
-						t_where = "left(noa," + t_bno.length + ")='" + t_bno + "'";
-						q_box("cert_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cert', "95%", "95%", q_getMsg('popCert'));
-					}
-				});
 
-				$('#txtWorkno').change(function() {
+				/*$('#txtWorkno').change(function() {
 					var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 					q_gt('work', t_where, 0, 0, 0, "", r_accy);
-				});
+				});*/
 
-				$('#lblWorkno').click(function() {
+				/*$('#lblWorkno').click(function() {
 					var t_where = "enda!=1 ";
 					t_where += emp($('#txtWorkno').val()) ? '' : "and charindex ('" + $('#txtWorkno').val() + "',noa)>0 ";
 					q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
-				});
+				});*/
 
 				//1020729 排除已完全入庫&&完全未領料的成品
 				$('#btnOrdes').click(function() {
@@ -121,6 +107,13 @@
 					var workno = $.trim($('#textWorkno').val());
 					if(workno.length > 0 ){
 						t_where += " and noa=N'"+workno+"'";
+					}
+					//1030310 加入應完工日的條件
+					var t_bdate = $.trim($('#txtBdate').val());
+					var t_edate = $.trim($('#txtEdate').val());
+					if(t_bdate.length > 0 || t_edate.length>0){
+						if(t_edate.length == 0) t_edate='999/99/99'
+						t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
 					}
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
@@ -553,7 +546,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -682,61 +675,83 @@
 				</tr>
 			</table>
 		</div>
-		<!--#include file="../inc/toolbar.inc"-->
-		<div class="dview" id="dview">
-			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
-				<tr>
-					<td align="center" style="width:5%"><a id='vewChk'></a></td>
-					<td align="center" style="width:20%"><a id='vewDatea'></a></td>
-					<td align="center" style="width:40%"><a id='vewNoa'></a></td>
-				</tr>
-				<tr>
-					<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
-					<td align="center" id='datea'>~datea</td>
-					<td align="center" id='noa'>~noa</td>
-				</tr>
-			</table>
-		</div>
-		<div class='dbbm'>
-			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-				<tr>
-					<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-					<td><input id="txtDatea" type="text" class="txt c1"/></td>
-					<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-					<td><input id="txtNoa" type="text" class="txt c1"/></td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
-					<td>
-						<input id="txtStationno" type="text" class="txt c2"/>
-						<input id="txtStation" type="text" class="txt c3"/>
-					</td>
-					<td><input type="button" id="btnWork" style="float:right;"></td>
-					<td><input id="textWorkno" type="text" class="txt c1"/></td>
-					<td><input type="button" id="btnOrdes"></td>
-				</tr>
-				<tr>
-					<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
-					<td>
-						<input id="txtStoreno" type="text" class="txt c2"/>
-						<input id="txtStore" type="text" class="txt c3"/>
-					</td>
-					<td><span> </span><a id='lblMechno' class="lbl btn"> </a></td>
-					<td>
-						<input id="txtMechno" type="text" class="txt c2"/>
-						<input id="txtMech" type="text" class="txt c3"/>
-					</td>
-				</tr>
-				<tr>
-					<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-					<td><input id="txtWorker" type="text" class="txt c1"/></td>
-				</tr>
-				<tr>
-					<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-					<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
-				</tr>
-			</table>
+		<div id="dmain" style="width: 1260px;">
+			<!--#include file="../inc/toolbar.inc"-->
+			<div class="dview" id="dview">
+				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+					<tr>
+						<td align="center" style="width:5%"><a id='vewChk'></a></td>
+						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:40%"><a id='vewNoa'></a></td>
+					</tr>
+					<tr>
+						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='noa'>~noa</td>
+					</tr>
+				</table>
+			</div>
+			<div class='dbbm'>
+				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+					<tr style="height: 1px;">
+						<td width="133px"> </td>
+						<td width="241px"> </td>
+						<td width="133px"> </td>
+						<td width="241px"> </td>
+						<td width="135px"> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa" type="text" class="txt c1"/></td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtStationno" type="text" class="txt c2"/>
+							<input id="txtStation" type="text" class="txt c3"/>
+						</td>
+						
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtStoreno" type="text" class="txt c2"/>
+							<input id="txtStore" type="text" class="txt c3"/>
+						</td>
+						<td><span> </span><a id='lblMechno' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtMechno" type="text" class="txt c2"/>
+							<input id="txtMech" type="text" class="txt c3"/>
+						</td>
+						<td><input type="button" id="btnOrdes"></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
+						<td>
+							<input id="txtBdate" type="text"  class="txt c3" style="width: 113px;"/>
+							<a style="float: left;">~</a>
+							<input id="txtEdate" type="text"  class="txt c3" style="width: 113px;"/>
+						</td>
+						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+						<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
+						<td><input type="button" id="btnWork"></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >

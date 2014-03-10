@@ -106,7 +106,7 @@
 			<tr style='color:White; background:#003366;'>
 				<th align="center"><input type="checkbox" id="checkAllCheckbox"/></th>
 				<th align="center"><a id='lblState'></a></th>
-				<th align="center"><a id='lblNoa'></a> / <a id='lblCuadate'></a></th>
+				<th align="center"><a id='lblNoa'></a> / <a id='lblCuadate'>/ <a id='lblUindate'></a></th>
 				<!--<th align="center"  ><a id='lblDatea'></a></th>-->
 				<th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
 				<th align="center"><a id='lblMount'></a></th>
@@ -127,7 +127,6 @@
 					<input class="chk" id="chkSel.*" type="checkbox"/>
 					<input id="txtDatea.*" type="hidden" />
 					<input id="txtWorkdate.*" type="hidden" />
-					<input id="txtUindate.*" type="hidden" />
 					<input id="txtRmount.*" type="hidden" />
 					<input id="txtWmount.*" type="hidden" />
 					<input id="txtWsgmount.*" type="hidden" />
@@ -135,7 +134,8 @@
 				<td style="width:8%;"><input class="txt" id="txtState.*" type="text" style="width:98%;"  readonly="readonly" /></td>
 				<td style="width:15%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
-					<input class="txt" id="txtCuadate.*" type="text" style="width:50%;"  readonly="readonly" />
+					<input class="txt" id="txtCuadate.*" type="text" style="width:48%;"  readonly="readonly" />
+					<input class="txt" id="txtUindate.*" type="text" style="width:48%;"  readonly="readonly" />
 				</td>
 				<!--<td style="width:6%;"><input class="txt" id="txtDatea.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
 				<td style="width:14%;">
