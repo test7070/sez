@@ -41,8 +41,7 @@
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx', '95%'],
-				['txtOrdeno', 'lblOrdeno', 'ordes', 'noa,no2,productno,product', 'txtOrdeno,txtNo2,txtProductno,txtProduct', 'ordes_b.aspx', '95%'],
-				['txtWorkno', 'lblWorkno', 'work', 'noa,processno,process,modelno,model,ordeno,no2,productno,product', 'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
+				['txtOrdeno', 'lblOrdeno', 'ordes', 'noa,no2,productno,product', 'txtOrdeno,txtNo2,txtProductno,txtProduct', 'ordes_b.aspx', '95%']
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -66,21 +65,10 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd], ['txtTimea', '99:99']];
+				bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd], ['txtTimea', '99:99'], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('worka.typea'));
 
-				$('#btnWorkimport').click(function() {
-					if (emp($('#txtWorkno').val())) {
-						alert('請輸入' + q_getMsg('lblWorkno'));
-						return;
-					}
-					var t_where = '';
-					var workno = $('#txtWorkno').val();
-					if (workno.length > 0)
-						t_where = "noa='" + workno + "'";
-					q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
-				});
 				//1020729 顯示未完全入庫
 				$('#btnOrdes').click(function() {
 					if (!emp($('#txtStationno').val())) {
@@ -100,14 +88,21 @@
 						//var t_where = "and enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where a.mount>a.inmount)";
 						t_where += "and enda!=1 and (tggno is null or tggno='') ";
 					}
-					var workno = $.trim($('#textWorkno').val());
+					var workno = $.trim($('#txtWorkno').val());
 					if(workno.length > 0 ){
 						t_where += " and noa=N'"+workno+"'";
+					}
+					//1030310 加入應開工日的條件
+					var t_bdate = $.trim($('#txtBdate').val());
+					var t_edate = $.trim($('#txtEdate').val());
+					if(t_bdate.length > 0 || t_edate.length>0){
+						if(t_edate.length == 0) t_edate='999/99/99'
+						t_where += " and cuadate between '"+t_bdate+"' and '"+t_edate+"'";
 					}
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
 
-				$('#txtWorkno').change(function() {
+				/*$('#txtWorkno').change(function() {
 					var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 					q_gt('works', t_where, 0, 0, 0, "", r_accy);
 				});
@@ -115,7 +110,7 @@
 					var t_where = "enda!=1 ";
 					t_where += emp($('#txtWorkno').val()) ? '' : "and charindex ('" + $('#txtWorkno').val() + "',noa)>0 ";
 					q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
-				});
+				});*/
 				
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
@@ -420,9 +415,11 @@
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if (t_para) {
-					$('#btnWorkimport').attr('disabled', 'disabled');
+					$('#btnWork').attr('disabled', 'disabled');
+					$('#btnOrdes').attr('disabled', 'disabled');
 				} else {
-					$('#btnWorkimport').removeAttr('disabled');
+					$('#btnWork').removeAttr('disabled');
+					$('#btnOrdes').removeAttr('disabled');
 				}
 			}
 
@@ -534,7 +531,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -661,12 +658,12 @@
 		</div>
 		<div id="dmain" style="width: 1260px;">
 			<!--#include file="../inc/toolbar.inc"-->
-			<div class="dview" id="dview" style="float: left;  width:32%;"  >
+			<div class="dview" id="dview" style="float: left;  width:23%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:25%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:40%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:55%"><a id='vewNoa'></a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' ' /></td>
@@ -675,8 +672,16 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 68%;float:left">
+			<div class='dbbm' style="width: 77%;float:left">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+					<tr style="height: 1px;">
+						<td width="120px"> </td>
+						<td width="203px"> </td>
+						<td width="120px"> </td>
+						<td width="203px"> </td>
+						<td width="120px"> </td>
+						<td width="203px"> </td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1"></select></td>
@@ -717,18 +722,22 @@
 						</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td><input type="button" id="btnOrdes"></td>
-						<td><input type="button" id="btnWork" style="float:right;"></td>
-						<td colspan="2">
-							<input id="textWorkno" type="text"  class="txt" style="float:left; width:150px;"/>
-							<div style="float:right;"><span> </span><a id='lblWorker' class="lbl"> </a></div>
+						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
+						<td>
+							<input id="txtBdate" type="text"  class="txt c3" style="width: 95px;"/>
+							<a style="float: left;">~</a>
+							<input id="txtEdate" type="text"  class="txt c3" style="width: 95px;"/>
 						</td>
-						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+						<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
+						<td><input type="button" id="btnWork"></td>
+						<td><input type="button" id="btnOrdes"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan='5'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
+						<td colspan='3'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
