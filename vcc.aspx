@@ -37,11 +37,13 @@
 				['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtPost,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtRackno_', 'btnRackno_', 'rack', 'noa,rack,storeno,store', 'txtRackno_', 'rack_b.aspx'],
-				['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'],
+				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
 				['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
+				['txtPost', 'lblAddr', 'addr', 'post,addr', 'txtPost,txtAddr', 'addr_b.aspx'],
+				['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
 			);
 
@@ -85,6 +87,7 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
 				q_cmbParse("cmbStype", q_getPara('vcc.stype'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
@@ -93,7 +96,18 @@
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				var t_where = "where=^^ 1=1  group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
-				
+				$('#txtPost').change(function(){
+					GetTranPrice();
+				});
+				$('#txtPost2').change(function(){
+					GetTranPrice();
+				});
+				$('#txtCardealno').change(function(){
+					GetTranPrice();
+				});
+				$('#cmbTranstyle').change(function(){
+					GetTranPrice();
+				});
 				$('#btnOrdes').click(function() {
 					var t_custno = trim($('#txtCustno').val());
 					var t_where = '';
@@ -164,6 +178,19 @@
 					$('.istax').hide();
 			}
 
+			function GetTranPrice(){
+				var Post2 = $.trim($('#txtPost2').val());
+				var Post = $.trim($('#txtPost').val()); 
+				var Cardealno = $.trim($('#txtCardealno').val()); 
+				var TranStyle = $.trim($('#cmbTranstyle').val());
+				var t_where = 'where=^^ 1=1 ';
+				t_where += " and post=N'" + (Post2.length>0?Post2:Post) + "' ";
+				t_where += " and cardealno=N'" + Cardealno + "' ";
+				t_where += " and transtyle=N'" + TranStyle + "' ";
+				t_where += ' ^^';
+				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
+			}
+			
 			function q_funcPost(t_func, result) {
 				if (result.substr(0, 5) == '<Data') {
 					var Asss = _q_appendData('sss', '', true);
@@ -212,6 +239,14 @@
 			function q_gtPost(t_name) {
 				var as;
 				switch (t_name) {
+					case 'GetTranPrice' :
+						var as = _q_appendData("addr", "", true);
+						if (as[0] != undefined) {
+							$('#txtPrice').val(as[0].driverprice2);
+						}else{
+							$('#txtPrice').val(0);
+						}
+						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
 						var rowslength=document.getElementById("table_stk").rows.length-3;
@@ -724,6 +759,12 @@
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						break;
+					case 'txtPost2':
+						GetTranPrice();
+						break;
+					case 'txtPost':
+						GetTranPrice();
+						break;
 				}
 			}
 
@@ -1013,7 +1054,8 @@
 							<input id="txtCardeal" type="text" class="txt c3"/>
 						</td>
 						<td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td class="td5"><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td class="td5"><select id="cmbTranstyle" style="width: 100%;"> </select></td>
 						<td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>

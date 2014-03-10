@@ -29,6 +29,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
+				['txtPost', 'lblPost', 'addr', 'post,addr', 'txtPost', 'addr_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtRackno', 'lblRackno', 'rack', 'noa,rack,storeno,store', 'txtRackno', 'rack_b.aspx'],
 				['txtStoreinno', 'lblStorein', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
@@ -60,10 +61,20 @@
 				bbmMask = [['txtDatea', r_picd]];
 				// bbsMask = [['txtClass', r_picd]]; //102/10/31 製造業(醫療 食品)當成有效日 12/10格式自己打
 				q_mask(bbmMask);
+				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('cng.typea'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				$('#txtPrice').change(function() {
 					sum();
+				});
+				$('#txtPost').change(function(){
+					GetTranPrice();
+				});
+				$('#txtCardealno').change(function(){
+					GetTranPrice();
+				});
+				$('#cmbTranstyle').change(function(){
+					GetTranPrice();
 				});
 			}
 
@@ -76,9 +87,38 @@
 				}
 				b_pop = '';
 			}
+			
+			function q_popPost(s1) {
+				switch (s1) {
+					case 'txtPost':
+						GetTranPrice();
+						break;
+				}
+			}
 
+			function GetTranPrice(){
+				var Post = $.trim($('#txtPost').val()); 
+				var Cardealno = $.trim($('#txtCardealno').val()); 
+				var TranStyle = $.trim($('#cmbTranstyle').val());
+				var t_where = 'where=^^ 1=1 ';
+				t_where += " and post=N'" + Post + "' ";
+				t_where += " and cardealno=N'" + Cardealno + "' ";
+				t_where += " and transtyle=N'" + TranStyle + "' ";
+				t_where += ' ^^';
+				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
+			}
+			
+			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetTranPrice' :
+						var as = _q_appendData("addr", "", true);
+						if (as[0] != undefined) {
+							$('#txtPrice').val(as[0].driverprice2);
+						}else{
+							$('#txtPrice').val(0);
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -468,14 +508,24 @@
 						<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtCardealno" type="text"  class="txt c1"/></td>
 						<td class="td2" colspan="2"><input id="txtCardeal" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td class='td5'><span> </span><a id="lblCarno" class="lbl" > </a></td>
 						<td class="td6"><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td class='td5'><span> </span><a id="lblTranstyle" class="lbl" > </a></td>
+						<td class="td6"><select id="cmbTranstyle" style="width: 100%;"> </select></td>
 					</tr>
 					<tr class="tr5">
+						<td class='td1'><span> </span><a id="lblPost" class="lbl btn" > </a></td>
+						<td class="td2"><input id="txtPost"   type="text" class="txt c1"/></td>
 						<td class='td1'><span> </span><a id="lblPrice" class="lbl" > </a></td>
 						<td class="td2"><input id="txtPrice"   type="text" class="txt c1 num"/></td>
 						<td class='td3'><span> </span><a id="lblTranmoney" class="lbl" > </a></td>
 						<td class="td4"><input id="txtTranmoney" type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr class="tr7">
+						<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
 					</tr>
 					<tr class="tr5">
 						<td class='td1'><span> </span><a id="lblSssno" class="lbl btn"> </a></td>
@@ -483,10 +533,6 @@
 						<td class="td2"><input id="txtNamea" type="text"  class="txt c1"/></td>
 						<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
-					</tr>
-					<tr class="tr7">
-						<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
 					</tr>
 				</table>
 			</div>

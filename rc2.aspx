@@ -39,6 +39,7 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick,tel,zip_invo,addr_comp,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtRackno_', 'btnRackno_', 'rack', 'noa,rack,storeno,store', 'txtRackno_', 'rack_b.aspx'],
+				['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
 				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
@@ -90,6 +91,7 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
 					q_cmbParse("cmbStype", q_getPara('rc2.stype_it'));
@@ -154,8 +156,33 @@
 						q_gt('cust', t_where, 0, 0, 0, "");
 					}
 				});
+				$('#txtPost').change(function(){
+					GetTranPrice();
+				});
+				$('#txtPost2').change(function(){
+					GetTranPrice();
+				});
+				$('#txtCardealno').change(function(){
+					GetTranPrice();
+				});
+				$('#cmbTranstyle').change(function(){
+					GetTranPrice();
+				});
 				if (isinvosystem)
 					$('.istax').hide();
+			}
+			
+			function GetTranPrice(){
+				var Post2 = $.trim($('#txtPost2').val());
+				var Post = $.trim($('#txtPost').val()); 
+				var Cardealno = $.trim($('#txtCardealno').val()); 
+				var TranStyle = $.trim($('#cmbTranstyle').val());
+				var t_where = 'where=^^ 1=1 ';
+				t_where += " and post=N'" + (Post2.length>0?Post2:Post) + "' ";
+				t_where += " and cardealno=N'" + Cardealno + "' ";
+				t_where += " and transtyle=N'" + TranStyle + "' ";
+				t_where += ' ^^';
+				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
 			}
 
 			function q_boxClose(s2) {
@@ -189,6 +216,14 @@
 			var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetTranPrice' :
+						var as = _q_appendData("addr", "", true);
+						if (as[0] != undefined) {
+							$('#txtPrice').val(as[0].driverprice2);
+						}else{
+							$('#txtPrice').val(0);
+						}
+						break;
 					case 'ucca_invo':
 						var as = _q_appendData("ucca", "", true);
 						if (as[0] != undefined) {
@@ -578,6 +613,12 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
+					case 'txtPost2':
+						GetTranPrice();
+						break;
+					case 'txtPost':
+						GetTranPrice();
+						break;
 					case 'txtTggno':
 						if (!emp($('#txtTggno').val())) {
 							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
@@ -831,7 +872,7 @@
 						</td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblAddr2' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost2"  type="text"  class="txt c1"/></td>
 						<td class="td3" colspan='4' >
 							<input id="txtAddr2"  type="text" class="txt" style="width: 95%;"/>
@@ -859,7 +900,8 @@
 							<input id="txtCardeal"  type="text" class="txt c3"/>
 						</td>
 						<td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td5" colspan='2'><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td class="td5"><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td><select id="cmbTranstyle" style="width: 100%;"> </select></td>
 						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td>
 					</tr>
