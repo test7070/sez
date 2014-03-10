@@ -38,8 +38,8 @@
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-				['txtWorkno', 'lblWorkno', 'work', 'noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp,price', 'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,txtPrice', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']/*,
+				['txtWorkno', 'lblWorkno', 'work', 'noa,processno,process,modelno,model,ordeno,no2,productno,product,tggno,comp,price', 'txtWorkno,txtProcessno,txtProcess,txtMoldno,txtMold,txtOrdeno,txtNo2,txtProductno,txtProduct,txtTggno,txtTgg,txtPrice', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]*/
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -60,7 +60,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('worka.typea'));
 				$('#btnImportWorka').click(function() {
@@ -486,7 +486,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm tr td span {
 				float: right;
@@ -514,7 +514,7 @@
 				width: 98%;
 			}
 			.txt.c2 {
-				width: 46%;
+				width: 47.5%;
 			}
 			.num {
 				text-align: right;
@@ -557,6 +557,7 @@
 				</tr>
 			</table>
 		</div>
+		<div id="dmain" style="width: 1260px;">
 		<!--#include file="../inc/toolbar.inc"-->
 		<div class="dview" id="dview" style="float: left;  width:30%;"  >
 			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -576,6 +577,14 @@
 		</div>
 		<div class='dbbm' style="width: 70%;float:left">
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+				<tr style="height: 1px;">
+					<td width="120px"> </td>
+					<td width="203px"> </td>
+					<td width="120px"> </td>
+					<td width="203px"> </td>
+					<td width="120px"> </td>
+					<td width="203px"> </td>
+				</tr>
 				<tr>
 					<td><span> </span><a id='lblType' class="lbl"> </a></td>
 					<td><select id="cmbTypea" class="txt c1"></select></td>
@@ -590,25 +599,28 @@
 						<input id="txtStoreno" type="text" class="txt c2"/>
 						<input id="txtStore" type="text" class="txt c2"/>
 					</td>
-					<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
-					<td><input id="txtCuadate" type="text" class="txt c1"/></td>
+					<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+					<td>
+						<input id="txtTggno" type="text" class="txt c2"/>
+						<input id="txtTgg" type="text"  class="txt c2"/>
+					</td>
 					<td><span> </span><a id='lblMold' class="lbl"> </a></td>
 					<td>
 						<input id="txtMoldno" type="text" class="txt c2"/>
 						<input id="txtMold" type="text" class="txt c2"/>
 					</td>
 				</tr>
-				<tr>
-					<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+				<tr>					
+					<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 					<td>
-						<input id="txtTggno" type="text" class="txt c2"/>
-						<input id="txtTgg" type="text"  class="txt c2"/>
+						<input id="txtBdate" type="text"  class="txt c3" style="width: 82px;"/>
+						<a style="float: left;">~</a>
+						<input id="txtEdate" type="text"  class="txt c3" style="width: 82px;"/>
 					</td>
-					<td><input type="button" id="btnWork" style="float:right;"></td>
-					<td colspan="2">
-						<input id="textWorkno" type="text" class="txt" style="display:left;width:150px;"/>
-						<input type="button" id="btnOrdes" style="display:right;">
-					</td>
+					<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+					<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
+					<td><input type="button" id="btnWork"></td>
+					<td><input type="button" id="btnOrdes"></td>
 				</tr>
 				<tr>
 					<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -618,7 +630,7 @@
 				</tr>
 			</table>
 		</div>
-
+	</div>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >

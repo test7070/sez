@@ -30,8 +30,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
-            ['txtCno2', 'lblCno2', 'acomp', 'noa,acomp', 'txtCno2,txtAcomp2', 'Acomp_b.aspx'],
+            aPop = new Array(/*['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
+            ['txtCno2', 'lblCno2', 'acomp', 'noa,acomp', 'txtCno2,txtAcomp2', 'Acomp_b.aspx'],*/
             ['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'Acomp_b.aspx'],
             ['txtCustno', 'lblCustno', 'giftCust', 'noa,custnamea', 'txtCustno,txtNamea', 'giftcust_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
@@ -598,8 +598,8 @@
 					</td>
 					<td><input id="txtJob.*" type="text" style="width: 95%;"/></td>
 					<td><input class="btn"  id="btnComp.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
-						<input type="text" id="txtCustno2.*"  style="display: none;"/>
+						<input type="text" id="txtCustno2.*" style="width:85%; float:left;"/>
+						<input type="text" id="txtComp.*"  style="width:95%; float:left;"/>
 						<input type="text" id="txtNick.*"  style="display: none;"/>
 					</td>
 					<td><select id="cmbAddr.*" class="txt c1"> </select></td>

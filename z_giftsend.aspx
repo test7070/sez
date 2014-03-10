@@ -50,21 +50,33 @@
                         dbf : 'giftcust',
                         index : 'noa,namea',
                         src : 'giftcust_b.aspx'
-                    }, {
+                    },{
+                        type : '2',
+                        name : 'cno',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
+                    },{
+                        type : '2',
+                        name : 'salesno',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                    },{
                         type : '2',
                         name : 'giftno',
                         dbf : 'gift',
                         index : 'noa,product',
                         src : 'gift_b.aspx'
                     }, {/*6*/
-                            type : '5',
-                            name : 'tsendmemo',
-                            value : [q_getPara('report.all')].concat(t_giftsendt.split(','))
-						}, {/*6*/
-                            type : '6',
-                            name : 'xnoa'
-						}]
-                    });
+						type : '5',
+						name : 'tsendmemo',
+						value : [q_getPara('report.all')].concat(t_giftsendt.split(','))
+					}, {/*6*/
+						type : '6',
+						name : 'xnoa'
+					}]
+				});
                 q_popAssign();
                 q_langShow();
                 

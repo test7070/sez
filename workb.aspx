@@ -713,20 +713,11 @@
 							<input id="txtStationno" type="text" class="txt c2"/>
 							<input id="txtStation" type="text" class="txt c3"/>
 						</td>
-						
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
-						<td>
-							<input id="txtStoreno" type="text" class="txt c2"/>
-							<input id="txtStore" type="text" class="txt c3"/>
-						</td>
 						<td><span> </span><a id='lblMechno' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtMechno" type="text" class="txt c2"/>
 							<input id="txtMech" type="text" class="txt c3"/>
 						</td>
-						<td><input type="button" id="btnOrdes"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
@@ -740,15 +731,18 @@
 						<td><input type="button" id="btnWork"></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtStoreno" type="text" class="txt c2"/>
+							<input id="txtStore" type="text" class="txt c3"/>
+						</td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td><input type="button" id="btnOrdes"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td colspan='3'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
 					</tr>
 				</table>
 			</div>
