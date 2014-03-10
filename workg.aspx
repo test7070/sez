@@ -17,7 +17,7 @@
 			this.errorHandler = null;
 			q_tables = 't';
 			var q_name = "workg";
-			var q_readonly = ['txtNoa', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno'];
+			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno'];
 			var q_readonlys = ['txtWorkno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno'];
 			var q_readonlyt = [];
 			var bbmNum = [];
@@ -37,8 +37,9 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			q_desc = 1;
-			brwCount2 = 5;
+			brwCount2 = 6;
 			aPop = new Array(
+				['txtFactno', 'lblFactno', 'factory', 'noa,factory', 'txtFactno,txtFact', 'factory_b.aspx'],
 				['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
 				['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx'],
 				['txtStationno_', 'btnStation_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx'],
@@ -741,6 +742,13 @@
 							<input id="txtProduct" type="text" class="txt c4"/>
 						</td>
 						<td><input id="btnOrde" type="button"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblFactno" class="lbl btn"> </a></td>
+						<td colspan="4">
+							<input id="txtFactno" type="text" class="txt c3"/>
+							<input id="txtFact" type="text" class="txt c4"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
