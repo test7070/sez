@@ -318,8 +318,9 @@
 							as[0].mount=as[0].mount+abbsNow[j].mount;
 						}
 					}
-					if()abbsNow
-					
+					//判斷同一產品全部領料
+					for (var i = 0; i < q_bbsCount; i++) {
+					}
 					stkchkcount2++;
 					if(stkchkcount==stkchkcount2)
 						btnok_bbsstkchk=true;
