@@ -106,7 +106,7 @@
 			<tr style='color:White; background:#003366;'>
 				<th align="center"><input type="checkbox" id="checkAllCheckbox"/></th>
 				<th align="center"><a id='lblState'></a></th>
-				<th align="center"><a id='lblNoa'></a> / <a id='lblCuadate'>/ <a id='lblUindate'></a></th>
+				<th align="center"><a id='lblNoa'></a> <BR><a id='lblCuadate'></a>/ <a id='lblUindate'></a></th>
 				<!--<th align="center"  ><a id='lblDatea'></a></th>-->
 				<th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
 				<th align="center"><a id='lblMount'></a></th>
