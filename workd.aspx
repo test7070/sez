@@ -450,6 +450,13 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if (t_para) {
+					$('#btnWork').attr('disabled', 'disabled');
+					$('#btnOrdes').attr('disabled', 'disabled');
+				} else {
+					$('#btnWork').removeAttr('disabled');
+					$('#btnOrdes').removeAttr('disabled');
+				}
 			}
 
 			function btnMinus(id) {
