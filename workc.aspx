@@ -63,26 +63,17 @@
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('worka.typea'));
-				$('#btnImportWorka').click(function() {
-					var t_workno = $.trim($('#txtWorkno').val());
-					if (!emp(t_workno)) {
-						t_where = "workno='" + t_workno + "'";
-						q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workas', "95%", "95%", q_getMsg('popWorkas'));
-					} else {
-						alert('請輸入【' + q_getMsg('lblWorkno') + '】');
-					}
-				});
-
+				
 				$('#txtWorkno').change(function() {
 					var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 					q_gt('works', t_where, 0, 0, 0, "", r_accy);
 				});
-				$('#lblWorkno').click(function() {
+				/*$('#lblWorkno').click(function() {
 					var t_where = "enda!=1 ";
 					t_where += emp($('#txtWorkno').val()) ? '' : " and charindex ('" + $('#txtWorkno').val() + "',noa)>0 ";
 					t_where += emp($('#txtTggno').val()) ? '' : " and charindex ('" + $('#txtTggno').val() + "',tggno)>0 ";
 					q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
-				});
+				});*/
 				//1020729 顯示未完全入庫
 				$('#btnOrdes').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
@@ -104,10 +95,19 @@
 						//var t_where += "and enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount<a.inmount)";
 						t_where += "and enda!=1 and tggno!='' ";
 					}
-					var workno = $.trim($('#textWorkno').val());
+					var workno = $.trim($('#txtWorkno').val());
 					if(workno.length > 0 ){
 						t_where += " and noa=N'"+workno+"'";
 					}
+					
+					//1030310 加入應開工日的條件
+					var t_bdate = $.trim($('#txtBdate').val());
+					var t_edate = $.trim($('#txtEdate').val());
+					if(t_bdate.length > 0 || t_edate.length>0){
+						if(t_edate.length == 0) t_edate='999/99/99'
+						t_where += " and cuadate between '"+t_bdate+"' and '"+t_edate+"'";
+					}
+					
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
 				

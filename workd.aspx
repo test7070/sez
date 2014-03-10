@@ -39,8 +39,8 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
-				['txtWorkno', 'lblWorkno', 'work', 'noa,productno,product,tggno,comp', 'txtWorkno,txtProductno,txtProduct,txtTggno,txtTgg,', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+				/*,['txtWorkno', 'lblWorkno', 'work', 'noa,productno,product,tggno,comp', 'txtWorkno,txtProductno,txtProduct,txtTggno,txtTgg,', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]*/
 			);
 
 			$(document).ready(function() {
@@ -60,10 +60,10 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-				$('#btnImportWorkc').click(function() {
+				/*$('#btnImportWorkc').click(function() {
 					var t_tggno = $.trim($('#txtTggno').val());
 					var t_workcno = $.trim($('#txtWorkcno').val());
 					var t_where = "where=^^ tggno='" + t_tggno + "'";
@@ -75,23 +75,23 @@
 					} else {
 						alert('請輸入【' + q_getMsg('lblTgg') + '】');
 					}
-				});
+				});*/
 
-				$('#txtWorkno').change(function() {
+				/*$('#txtWorkno').change(function() {
 					var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 					q_gt('work', t_where, 0, 0, 0, "", r_accy);
-				});
+				});*/
 
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 				});
 
-				$('#lblWorkno').click(function() {
+				/*$('#lblWorkno').click(function() {
 					var t_where = "enda!=1 ";
 					t_where += emp($('#txtWorkno').val()) ? '' : " and charindex ('" + $('#txtWorkno').val() + "',noa)>0 ";
 					t_where += emp($('#txtTggno').val()) ? '' : " and charindex ('" + $('#txtTggno').val() + "',tggno)>0 ";
 					q_box('work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'work', "95%", "95%", q_getMsg('popWork'));
-				});
+				});*/
 				//1020729 排除已完全入庫&&完全未領料的成品
 				$('#btnOrdes').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
@@ -124,6 +124,15 @@
 					if(workno.length > 0 ){
 						t_where += " and noa=N'"+workno+"'";
 					}
+					
+					//1030310 加入應完工日的條件
+					var t_bdate = $.trim($('#txtBdate').val());
+					var t_edate = $.trim($('#txtEdate').val());
+					if(t_bdate.length > 0 || t_edate.length>0){
+						if(t_edate.length == 0) t_edate='999/99/99'
+						t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
+					}
+					
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
 				
@@ -238,7 +247,7 @@
 						}
 						sum();
 						break;
-					case 'view_workcs':
+					/*case 'view_workcs':
 						var as = _q_appendData("view_workcs", "", true);
 						if (as[0] != undefined) {
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtPrice,txtOrdeno,txtNo2,txtMemo', as.length, as, 'productno,product,unit,mount,price,ordeno,no2,memo', 'txtProductno');
@@ -246,7 +255,7 @@
 							sum();
 						}
 
-						break;
+						break;*/
 
 					case 'work_pick':
 						var pickerror = '';
@@ -608,9 +617,9 @@
 			.tbbm tr {
 				height: 35px;
 			}
-			.tbbm tr td {
+			/*.tbbm tr td {
 				width: 9%;
-			}
+			}*/
 			.tbbm tr td span {
 				float: right;
 				display: block;
@@ -674,6 +683,7 @@
 				</tr>
 			</table>
 		</div>
+		<div id="dmain" style="width: 1260px;">
 		<!--#include file="../inc/toolbar.inc"-->
 		<div class="dview" id="dview" style="float: left;  width:32%;"  >
 			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -693,6 +703,13 @@
 		</div>
 		<div class='dbbm' style="width: 68%;float:left">
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+				<tr style="height: 1px;">
+					<td width="120px"> </td>
+					<td width="203px"> </td>
+					<td width="120px"> </td>
+					<td width="203px"> </td>
+					<td width="120px"> </td>
+				</tr>
 				<tr>
 					<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 					<td><input id="txtDatea" type="text" class="txt c1"/></td>
@@ -712,25 +729,30 @@
 					</td>
 				</tr>
 				<tr>
-					<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
-					<td><input id="txtWorkcno" type="text" class="txt c1"/></td>
+					<!--<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
+					<td><input id="txtWorkcno" type="text" class="txt c1"/></td>-->
+					<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 					<td>
-						<input type="button" id="btnOrdes">
-						<input type="button" id="btnWork" style="float:right;">
+						<input id="txtBdate" type="text"  class="txt c3" style="width: 98px;"/>
+						<a style="float: left;">~</a>
+						<input id="txtEdate" type="text"  class="txt c3" style="width: 98px;"/>
 					</td>
-					<td><input id="textWorkno" type="text" class="txt c1"/></td>
+					<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+					<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
+					<td><input type="button" id="btnWork"></td>
 				</tr>
 				<tr>
 					<td><span> </span><a id='lblInvono' class="lbl"> </a></td>
 					<td><input id="txtInvono" type="text" class="txt c1"/></td>
 					<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 					<td><input id="txtMon" type="text" class="txt c1"/></td>
+					<td><input type="button" id="btnOrdes"> </td>
 				</tr>
 				<tr>
 					<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 					<td>
 						<select id="cmbTaxtype" class="txt" onchange="calTax()"> </select>
-						<input id="txtTax" type="text" class="txt c2 num"/>
+						<input id="txtTax" type="text" class="txt c2 num" style="width: 60%;"/>
 					</td>
 					<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 					<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
@@ -752,6 +774,7 @@
 					<td colspan='4'><input id="txtMemo" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
+		</div>
 		</div>
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>

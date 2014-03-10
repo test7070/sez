@@ -104,7 +104,7 @@
 						//var t_where += "and enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 						t_where += "and enda!=1 and (tggno is null or tggno='')";
 					}
-					var workno = $.trim($('#textWorkno').val());
+					var workno = $.trim($('#txtWorkno').val());
 					if(workno.length > 0 ){
 						t_where += " and noa=N'"+workno+"'";
 					}
