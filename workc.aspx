@@ -109,6 +109,13 @@
 					}
 					
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+					
+					//1030310讀取倉庫
+					if(!emp($('#txtStoreno').val()))
+						var t_where = "where=^^ ['" + q_date() + "','"+$('#txtStoreno').val()+"','') group by productno order by productno^^";
+					else
+						var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
+					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 				});
 				
 				$('#btnClose_div_stk').click(function() {
@@ -178,7 +185,8 @@
 				}/// end Switch
 				b_pop = '';
 			}
-
+			
+			var work_stk;//儲存目前倉庫庫存
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'msg_stk':
@@ -244,21 +252,73 @@
 							}
 						}
 						var as = _q_appendData("works", "", true);
-						for ( i = 0; i < as.length; i++) {
-							/*if(as[i].istd=='true'){
-							 as[i].productno=as[i].tproductno
-							 as[i].product=as[i].tproduct
-							 }*/
-
-							/*if(as[i].unit.toUpperCase()=='KG'){
-							 as[i].xmount=0;
-							 as[i].xweight=as[i].mount;
-							 }else{
-							 as[i].xmount=as[i].mount;
-							 as[i].xweight=0;
-							 }*/
+						var t_msg='',t_worksno='';
+						//判斷庫存量足夠
+						for (var  i = 0; i < as.length; i++) {
+							for (var j=0;j< work_stk.length;j++){
+								if(as[i].productno==work_stk[j].productno){
+									if(dec(work_stk[j].mount)-dec(as[i].mount)<0){
+										if(t_worksno!=as[i].noa){
+											if(t_worksno='')
+												t_msg+="製令單："+as[i].noa+"\n";
+											else
+												t_msg+="\n製令單："+as[i].noa+"\n";
+											t_worksno=as[i].noa;
+										}
+										t_msg+="原料："+as[i].product+"，不足數量："+(-1*(dec(work_stk[j].mount)-dec(as[i].mount))).toString()+"\n";
+										as.splice(i, 1);
+                                    	i--;
+                                   }else{
+                                   		work_stk[j].mount=dec(work_stk[j].mount)-dec(as[i].mount);
+                                   }
+                                   break;
+								}
+							}
 						}
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno', as.length, as, 'productno,product,unit,mount,memo,processno,process,noa', '');
+						alert(t_msg);
+						break;
+					case 'work_stk':
+						work_stk = _q_appendData("stkucc", "", true);
+						break;
+					case 'btnOK_bbsstkchk':
+							var bbs_seq=t_name.substr('btnOK_bbsstkchk_'.length,t_name.length)
+							var as = _q_appendData("stkucc", "", true);
+							//將之前領料的加回去
+							for (var j = 0; j < abbsNow.length; j++) {
+								if(abbsNow[j].productno==as[0].productno){
+									as[0].mount=dec(as[0].mount)+dec(abbsNow[j].mount);
+								}
+							}
+							//判斷同一產品全部領料
+							for (var i = 0; i < q_bbsCount; i++) {
+								if($('#txtProductno_'+i).val()==as[0].productno){
+									as[0].mount=dec(as[0].mount)-dec($('#txtMount_'+i).val())
+								}
+							}
+							
+							//寫入訊息
+							if(as[0].mount<0){
+								btnok_msg+=as[0].product+"數量不足："+(-1*dec(as[0].mount)).toString()+"\n";
+							}
+							
+							stkchkcount2++;
+							if(stkchkcount==stkchkcount2)
+								btnok_bbsstkchk=true;
+								
+							if(btnok_bbsstkchk && btnok_msg.length==0){
+								$('#txtWorker').val(r_name);
+								sum();
+								var t_date = $('#txtDatea').val();
+								var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+								if (s1.length == 0 || s1 == "AUTO")
+									q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workc') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+								else
+									wrServer(s1);
+							}
+							if(btnok_bbsstkchk&&btnok_msg.length>0){
+								alert(btnok_msg);
+							}
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -266,7 +326,8 @@
 						break;
 				}
 			}
-
+			
+			var btnok_bbsstkchk=false,stkchkcount=0,stkchkcount2=0,btnok_msg='';
 			function btnOk() {
 				t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')]]);
@@ -274,24 +335,45 @@
 					alert(t_err);
 					return;
 				}
-
-				$('#txtWorker').val(r_name);
-				sum();
-
+				
 				//如果表身倉庫沒填，表頭倉庫帶入
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (emp($('#txtStoreno_' + i).val())) {
-						$('#txtStoreno_' + i).val($('#txtStoreno').val());
-						$('#txtStore_' + i).val($('#txtStore').val());
+						if(!emp($('#txtProductno_' + i).val())){
+							$('#txtStoreno_' + i).val($('#txtStoreno').val());
+							$('#txtStore_' + i).val($('#txtStore').val());
+						}
 					}
 				}
-
-				var t_date = $('#txtDatea').val();
-				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workc') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(s1);
+				
+				//判斷庫存是否足夠
+				btnok_bbsstkchk=false;
+				stkchkcount=0,stkchkcount2=0,btnok_msg='';
+				var bbs_tmp=new Array();
+				
+				var bbs_repeat=false;
+				for (var i = 0; i < q_bbsCount; i++) {
+					bbs_repeat=false;
+					for (var j = 0; j < bbs_tmp.length; j++) {
+						if(bbs_tmp[j].productno==$('#txtProductno_' + i).val()&&bbs_tmp[j].storeno==$('#txtStoreno_' + i).val()){
+							bbs_repeat=true;
+						}
+						if(emp($('#txtProductno_' + i).val()))
+							bbs_repeat=true;
+					}
+					if(!bbs_repeat){
+						bbs_tmp.push({
+							productno:$('#txtProductno_'+i).val(),
+							storeno:$('#txtStoreno_'+i).val()
+						});
+					}
+				}
+				
+				for (var i = 0; i < bbs_tmp.length; i++) {
+					var t_where = "where=^^ ['" + q_date() + "','"+bbs_tmp[i].storeno+"','" +bbs_tmp[i].productno + "') ^^";
+					q_gt('calstk', t_where, 0, 0, 0, "btnOK_bbsstkchk", r_accy);
+					stkchkcount++;
+				}
 			}
 
 			function _btnSeek() {
