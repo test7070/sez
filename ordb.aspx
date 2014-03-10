@@ -262,6 +262,7 @@
                                     break;
                                 }else{
                                     obj.eq(i+1).focus();
+                                    break;
                                 }                            
                             }
                         }
@@ -325,6 +326,7 @@
                                     break;
                                 }else{
                                     obj.eq(i+1).focus();
+                                    break;
                                 }                            
                             }
                         }
