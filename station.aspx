@@ -38,7 +38,8 @@
 			});
 			aPop = new Array(
 				['txtFactoryno', 'lblFactory', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx'],
-				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech,gen', 'txtMechno_,txtMech_,txtGen_', 'mech_b.aspx']
+				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech,gen', 'txtMechno_,txtMech_,txtGen_', 'mech_b.aspx'],
+				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']
 			);
 			function main() {
 				if (dataErr) {
@@ -317,11 +318,11 @@
 				float: left;
 			}
 			.txt.c2 {
-				width: 25%;
+				width: 30%;
 				float: left;
 			}
 			.txt.c3 {
-				width: 74%;
+				width: 69%;
 				float: left;
 			}
 
@@ -407,6 +408,15 @@
 						<td class="td2" colspan="2">
 							<input id="txtFactoryno"  type="text" class="txt c2"/>
 							<input id="txtFactory"  type="text" class="txt c3"/>
+						</td>
+						<td class="td3"></td>
+						<td class="td4"></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblStoreno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtStoreno"  type="text" class="txt c2"/>
+							<input id="txtStore"  type="text" class="txt c3"/>
 						</td>
 						<td class="td3"></td>
 						<td class="td4"></td>
