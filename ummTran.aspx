@@ -559,6 +559,26 @@
                     if (t_money != 0 || i == 0)
                         t_mon = $('#txtVccno_' + i).val();
                 }
+                
+                //檢查票據是否重複
+                var checkno_repeat=false;
+                for (var i = 0; i < q_bbsCount; i++) {
+                	for (var j = i+1; j < q_bbsCount; j++) {
+                	 	if($('#txtCheckno_'+i).val()==$('#txtCheckno_'+j).val()&&$('#txtAcc1_'+j).val().substring(0,4)!='1121'){
+                	 		checkno_repeat=true;
+                	 		alert('票據號碼：'+$('#txtCheckno_'+j).val()+'重複輸入!!');
+                	 		break;
+                	 	}
+					}	 
+					if(checkno_repeat)
+                	 	break;
+				}
+				
+				if(checkno_repeat){
+					Unlock(1);
+                    return false;
+				}
+                
                 sum();
                 if (t_err) {
                     alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
