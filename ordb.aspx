@@ -46,6 +46,12 @@
             , ['textTggno_a4', '', 'tgg', 'noa,nick', 'textTggno_a4,textTgg_a4', 'tgg_b.aspx']
             , ['textTggno_a5', '', 'tgg', 'noa,nick', 'textTggno_a5,textTgg_a5', 'tgg_b.aspx']
             , ['textTggno_a6', '', 'tgg', 'noa,nick', 'textTggno_a6,textTgg_a6', 'tgg_b.aspx']
+            , ['textTggno_b1', '', 'tgg', 'noa,nick', 'textTggno_b1,textTgg_b1', 'tgg_b.aspx']
+            , ['textTggno_b2', '', 'tgg', 'noa,nick', 'textTggno_b2,textTgg_b2', 'tgg_b.aspx']
+            , ['textTggno_b3', '', 'tgg', 'noa,nick', 'textTggno_b3,textTgg_b3', 'tgg_b.aspx']
+            , ['textTggno_b4', '', 'tgg', 'noa,nick', 'textTggno_b4,textTgg_b4', 'tgg_b.aspx']
+            , ['textTggno_b5', '', 'tgg', 'noa,nick', 'textTggno_b5,textTgg_b5', 'tgg_b.aspx']
+            , ['textTggno_b6', '', 'tgg', 'noa,nick', 'textTggno_b6,textTgg_b6', 'tgg_b.aspx']
             );
             var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             $(document).ready(function() {
@@ -302,6 +308,8 @@
                                $('#txtMount__'+i).val($('#textMount_b'+j).val());
                                $('#txtPrice__'+i).val($('#textPrice_b'+j).val());
                                $('#txtMemo__'+i).val($('#textMemo_b'+j).val());
+                               $('#txtTggno__'+i).val($('#textTggno_b'+j).val());
+                               $('#txtTgg__'+i).val($('#textTgg_b'+j).val());
                                j++;
                             } 
                             if(j==7)
@@ -598,6 +606,8 @@
                             for(var i=0;i<q_bbtCount;i++){
                                 if($('#txtNo3__'+i).val()==t_no3 && $('#txtTypea__'+i).val()=='議價'){
                                     $('#textDatea_b'+j).val($('#txtDatea__'+i).val());
+                                    $('#textTggno_b'+j).val($('#txtTggno__'+i).val());
+                                    $('#textTgg_b'+j).val($('#txtTgg__'+i).val());
                                     $('#textMount_b'+j).val($('#txtMount__'+i).val());
                                     $('#textPrice_b'+j).val($('#txtPrice__'+i).val());
                                     $('#textMemo_b'+j).val($('#txtMemo__'+i).val());    
@@ -856,8 +866,8 @@
                 <tr>
                     <td align="center">日期</td>
                     <td align="center">廠商</td>
-                    <td align="center">單價</td>
                     <td align="center">數量</td>
+                    <td align="center">單價</td>
                     <td align="center">備註</td>
                 </tr>
                 <tr>
@@ -866,8 +876,8 @@
                         <input id="textTggno_a1" type="text" style="width:45%;"/>
                         <input id="textTgg_a1" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textPrice_a1" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMount_a1" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_a1" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_a1" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
@@ -876,8 +886,8 @@
                         <input id="textTggno_a2" type="text" style="width:45%;"/>
                         <input id="textTgg_a2" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textPrice_a2" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMount_a2" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_a2" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_a2" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
@@ -886,8 +896,8 @@
                         <input id="textTggno_a3" type="text" style="width:45%;"/>
                         <input id="textTgg_a3" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textPrice_a3" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMount_a3" type="text" style="width:95%; text-align: right;"/></td>
+                    <td><input id="textPrice_a3" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMemo_a3" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
@@ -896,8 +906,8 @@
                         <input id="textTggno_a4" type="text" style="width:45%;"/>
                         <input id="textTgg_a4" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textPrice_a4" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMount_a4" type="text" style="width:95%; text-align: right;"/></td>
+                    <td><input id="textPrice_a4" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMemo_a4" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
@@ -906,8 +916,8 @@
                         <input id="textTggno_a5" type="text" style="width:45%;"/>
                         <input id="textTgg_a5" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textPrice_a5" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMount_a5" type="text" style="width:95%; text-align: right;"/></td>
+                    <td><input id="textPrice_a5" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMemo_a5" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
@@ -916,8 +926,8 @@
                         <input id="textTggno_a6" type="text" style="width:45%;"/>
                         <input id="textTgg_a6" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textPrice_a6" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMount_a6" type="text" style="width:95%; text-align: right;"/></td>
+                    <td><input id="textPrice_a6" type="text" style="width:95%; text-align: right;"/></td>
                     <td><input id="textMemo_a6" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
@@ -933,53 +943,80 @@
             <table style="width:100%;height:100%;border: 2px white double;">
                 <tr style="height:1px;">
                     <td style="width:20%;"> </td>
-                    <td style="width:15%;"> </td>
-                    <td style="width:15%;"> </td>
-                    <td style="width:40%;"> </td>
+                    <td style="width:30%;"> </td>
+                    <td style="width:10%;"> </td>
+                    <td style="width:10%;"> </td>
+                    <td style="width:30%;"> </td>
                 </tr>
                 <tr>
                     <td align="center" style="color:white;">日期</td>
-                    <td align="center" style="color:white;">單價</td>
+                    <td align="center" style="color:white;">廠商</td>
                     <td align="center" style="color:white;">數量</td>
+                    <td align="center" style="color:white;">單價</td>
                     <td align="center" style="color:white;">備註</td>
                 </tr>
                 <tr>
                     <td><input id="textDatea_b1" type="text" style="width:95%;"/></td>
-                    <td><input id="textPrice_b1" type="text" style="width:95%;text-align: right;"/></td>
+                    <td>
+                        <input id="textTggno_b1" type="text" style="width:45%;"/>
+                        <input id="textTgg_b1" type="text" style="width:45%;"/>
+                    </td>
                     <td><input id="textMount_b1" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_b1" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_b1" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
                     <td><input id="textDatea_b2" type="text" style="width:95%;"/></td>
-                    <td><input id="textPrice_b2" type="text" style="width:95%;text-align: right;"/></td>
+                    <td>
+                        <input id="textTggno_b2" type="text" style="width:45%;"/>
+                        <input id="textTgg_b21" type="text" style="width:45%;"/>
+                    </td>
                     <td><input id="textMount_b2" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_b2" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_b2" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
                     <td><input id="textDatea_b3" type="text" style="width:95%;"/></td>
-                    <td><input id="textPrice_b3" type="text" style="width:95%;text-align: right;"/></td>
+                    <td>
+                        <input id="textTggno_b3" type="text" style="width:45%;"/>
+                        <input id="textTgg_b3" type="text" style="width:45%;"/>
+                    </td>
                     <td><input id="textMount_b3" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_b3" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_b3" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
                     <td><input id="textDatea_b4" type="text" style="width:95%;"/></td>
-                    <td><input id="textPrice_b4" type="text" style="width:95%;text-align: right;"/></td>
+                    <td>
+                        <input id="textTggno_b4" type="text" style="width:45%;"/>
+                        <input id="textTgg_b4" type="text" style="width:45%;"/>
+                    </td>
                     <td><input id="textMount_b4" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_b4" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_b4" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
                     <td><input id="textDatea_b5" type="text" style="width:95%;"/></td>
-                    <td><input id="textPrice_b5" type="text" style="width:95%;text-align: right;"/></td>
+                    <td>
+                        <input id="textTggno_b5" type="text" style="width:45%;"/>
+                        <input id="textTgg_b5" type="text" style="width:45%;"/>
+                    </td>
                     <td><input id="textMount_b5" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_b5" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_b5" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
                     <td><input id="textDatea_b6" type="text" style="width:95%;"/></td>
-                    <td><input id="textPrice_b6" type="text" style="width:95%;text-align: right;"/></td>
+                    <td>
+                        <input id="textTggno_b6" type="text" style="width:45%;"/>
+                        <input id="textTgg_b6" type="text" style="width:45%;"/>
+                    </td>
                     <td><input id="textMount_b6" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textPrice_b6" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textMemo_b6" type="text" style="width:95%;"/></td>
                 </tr>
                 <tr>
+                    <td> </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
