@@ -362,6 +362,7 @@
 				}
 				if (emp($('#txtMon').val()))
 					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
+				/*
 				if(showRack()){
 					var t_rackErr = '';
 					for(var j=0;j<q_bbsCount;j++){
@@ -379,6 +380,7 @@
 						return;
 					}
 				}
+				*/
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')], ['txtCno', q_getMsg('lblAcomp')]]);
 				// 檢查空白
 				if (t_err.length > 0) {

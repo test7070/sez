@@ -479,6 +479,7 @@
 					alert(t_err);
 					return;
 				}
+				/*
 				if(showRack()){
 					var t_rackErr = '';
 					for(var j=0;j<q_bbsCount;j++){
@@ -496,6 +497,7 @@
 						return;
 					}
 				}
+				*/
 				if (emp($('#txtMon').val()))
 					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
 				if (q_cur == 1)
