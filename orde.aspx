@@ -965,8 +965,8 @@
 					<td align="center" style="width:1%;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:10%;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:11%;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:14%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
@@ -976,7 +976,7 @@
 					<td align="center" style="width:6%;"><a id='lblDateas'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblEndas'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblBorn'> </a></td>
-					<td align="center" style="width:3%;"><a id='lblNeed'> </a></td>
+					<!--<td align="center" style="width:3%;"><a id='lblNeed'> </a></td>-->
 					<td align="center" style="width:3%;"><a id='lblVccrecord'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -1008,9 +1008,9 @@
 					<td align="center">
 						<input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
-					<td align="center">
+					<!--<td align="center">
 						<input class="btn" id="btnNeed.*" type="button" value='.' style=" font-weight: bold;" />
-					</td>
+					</td>-->
 					<td align="center">
 						<input class="btn" id="btnVccrecord.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
