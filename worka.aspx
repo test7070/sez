@@ -856,13 +856,13 @@
 					<td style="width:1%;">
 						<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
 					</td>
-					<td style="width:14%;">
+					<td style="width:19%;">
 						<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:10%;"  />
 					</td>
 					<td style="width:18%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
 					<td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
-					<td style="width:10%;"><input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/></td>
+					<td style="width:7%;"><input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/></td>
 					<td style="width:14%;">
 						<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
 						<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
@@ -873,7 +873,7 @@
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>
-					<td style="width:15%;"><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+					<td style="width:13%;"><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td align="center" style="width:4%;">
 						<input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  />
 					</td>

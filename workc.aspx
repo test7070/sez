@@ -251,6 +251,16 @@
 								$('#txtTgg').val(t_tgg);
 							}
 						}
+						
+						//將目前領料的數量加回目前庫存
+						for (var i = 0; i < abbsNow.length; i++) {
+							for (var j=0;j< work_stk.length;j++){
+								if(abbsNow[i].productno==work_stk[j].productno){
+									work_stk[j].mount=dec(work_stk[j].mount)+dec(abbsNow[i].mount);
+								}
+							}							
+						}
+						
 						var as = _q_appendData("works", "", true);
 						var t_msg='',t_worksno='';
 						//判斷庫存量足夠
@@ -276,7 +286,8 @@
 							}
 						}
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno', as.length, as, 'productno,product,unit,mount,memo,processno,process,noa', '');
-						alert(t_msg);
+						if(t_msg.length>0)
+							alert(t_msg);
 						break;
 					case 'work_stk':
 						work_stk = _q_appendData("stkucc", "", true);
@@ -648,7 +659,7 @@
 		</div>
 		<div id="dmain" style="width: 1260px;">
 		<!--#include file="../inc/toolbar.inc"-->
-		<div class="dview" id="dview" style="float: left;  width:30%;"  >
+		<div class="dview" id="dview" style="float: left;  width:25%;"  >
 			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 				<tr>
 					<td align="center" style="width:4%"><a id='vewChk'></a></td>
@@ -664,7 +675,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class='dbbm' style="width: 70%;float:left">
+		<div class='dbbm' style="width: 75%;float:left">
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 				<tr style="height: 1px;">
 					<td width="120px"> </td>
@@ -702,9 +713,9 @@
 				<tr>					
 					<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 					<td>
-						<input id="txtBdate" type="text"  class="txt c3" style="width: 82px;"/>
+						<input id="txtBdate" type="text"  class="txt c3" style="width: 88px;"/>
 						<a style="float: left;">~</a>
-						<input id="txtEdate" type="text"  class="txt c3" style="width: 82px;"/>
+						<input id="txtEdate" type="text"  class="txt c3" style="width: 88px;"/>
 					</td>
 					<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 					<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
@@ -720,26 +731,26 @@
 			</table>
 		</div>
 	</div>
-		<div class='dbbs'>
+		<div class='dbbs' style="width: 1400px;">
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
 					<td style="width:1%;" align="center">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
 					<td style="width:13%;" align="center"><a id='lblProductnos'> </a></td>
-					<td style="width:15%;" align="center"><a id='lblProducts'> </a></td>
+					<td style="width:18%;" align="center"><a id='lblProducts'> </a></td>
 					<td style="width:4%;" align="center"><a id='lblUnit'></a> </td>
-					<td style="width:10%;" align="center"><a id='lblMounts'> </a></td>
-					<td style="width:15%;" align="center"><a id='lblStores'> </a></td>
-					<td style="width:15%;" align="center"><a id='lblProcesss'> </a></td>
+					<td style="width:7%;" align="center"><a id='lblMounts'> </a></td>
+					<td style="width:14%;" align="center"><a id='lblStores'> </a></td>
+					<td style="width:13%;" align="center"><a id='lblProcesss'> </a></td>
 					<td align="center"><a id='lblMemos'> </a></td>
-					<td style="width:13%;" align="center"><a id='lblWorknos'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblStks'> </a></td>
+					<td style="width:12%;" align="center"><a id='lblWorknos'> </a></td>
+					<td align="center" style="width:3%;"><a id='lblStks'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td>
-						<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
+						<input class="txt" id="txtProductno.*" type="text" style="width:85%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;"  />
 					</td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
