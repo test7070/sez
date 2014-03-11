@@ -43,7 +43,19 @@
                         type : '8', //checkbox
                         name : 'merger',
                         value : '合併原料'.split(',')
-                    }]
+                    }, {
+						type : '2',
+						name : 'xstoreno',
+						dbf : 'store',
+						index : 'noa,store',
+						src : 'store_b.aspx'
+					}, {
+						type : '2',
+						name : 'xproductno',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
+					}]
                 });
                 q_popAssign();
                 q_getFormat();

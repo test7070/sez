@@ -416,7 +416,7 @@
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-						$('#txtMount_' + i).focusin(function() {
+						/*$('#txtMount_' + i).focusin(function() {
 							if (q_cur == 1 || q_cur == 2) {
 								t_IdSeq = -1;
 								q_bodyId($(this).attr('id'));
@@ -427,7 +427,7 @@
 									q_gt('calstk', t_where, 0, 0, 0, "msg_stk", r_accy);
 								}
 							}
-						});
+						});*/
 						$('#btnStk_' + i).mousedown(function(e) {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
