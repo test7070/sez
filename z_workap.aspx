@@ -2,77 +2,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            $(document).ready(function() {
-                _q_boxClose();
-                q_getId();
-                q_gf('', 'z_workap');
-            });
-            function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_workap',
-                    options : [{
+			$(document).ready(function() {
+				_q_boxClose();
+				q_getId();
+				q_gf('', 'z_workap');
+			});
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_workap',
+					options : [{
 						type : '0',
 						name : 'accy',
-                        value : q_getId()[4] //[1]
-                    },{
-                        type : '1',
-                        name : 'date'
-                    },{
-                        type : '6',
-                        name : 'xnoa'
-                    }, {
-                        type : '8', //checkbox
-                        name : 'merger',
-                        value : '合併原料'.split(',')
-                    },{
-                        type : '1',
-                        name : 'xdate'
-                    }, {
+						value : q_getId()[4] //[1]
+					}, {
+						type : '1',
+						name : 'date'
+					}, {
+						type : '6',
+						name : 'xnoa'
+					}, {
+						type : '8', //checkbox
+						name : 'xmerger',
+						value : '合併原料'.split(',')
+					}, {
+						type : '1',
+						name : 'xdate'
+					}, {
 						type : '2',
-						name : 'stationno',
+						name : 'xstationno',
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
 					}, {
 						type : '2',
-						name : 'storeno',
+						name : 'xstoreno',
 						dbf : 'store',
 						index : 'noa,store',
 						src : 'store_b.aspx'
-					},{
+					}, {
 						type : '2',
-						name : 'productno',
+						name : 'xproductno',
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
 					}]
-                });
-                q_popAssign();
-                q_getFormat();
-                q_langShow();
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate2').datepicker();
-                
-                var t_date, t_year, t_month, t_day;
+				});
+				q_popAssign();
+				q_getFormat();
+				q_langShow();
+				$('#txtDate1').mask('999/99/99');
+				$('#txtDate1').datepicker();
+				$('#txtDate2').mask('999/99/99');
+				$('#txtDate2').datepicker();
+				$('#txtXdate1').mask('999/99/99');
+				$('#txtXdate1').datepicker();
+				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate2').datepicker();
+
+				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
 				t_year = t_date.getUTCFullYear() - 1911;
@@ -83,7 +83,7 @@
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
 				$('#txtXdate1').val(t_year + '/' + t_month + '/' + t_day);
-				
+
 				t_date = new Date();
 				t_date.setDate(35);
 				t_date.setDate(0);
@@ -95,27 +95,27 @@
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
 				$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
-                
-                var t_key = q_getHref();
-                if(t_key != undefined)
-                	$('#txtXnoa').val(t_key[1]);
-            }
 
-            function q_boxClose(s2) {
-            }
+				var t_key = q_getHref();
+				if (t_key != undefined)
+					$('#txtXnoa').val(t_key[1]);
+			}
 
-            function q_gtPost(s2) {
-            }
+			function q_boxClose(s2) {
+			}
+
+			function q_gtPost(s2) {
+			}
 		</script>
 	</head>
 	<body id="z_accc" ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"> </div>
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"> </div>
+				<div id="q_report"></div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
