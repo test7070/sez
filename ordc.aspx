@@ -53,7 +53,6 @@
 					dataErr = false;
 					return;
 				}
-
 				mainForm(1);
 			}
 
@@ -81,7 +80,6 @@
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				$('#cmbKind').change(function() {
@@ -90,7 +88,6 @@
 					}
 					product_change();
 				});
-
 				$('#lblOrdb').click(function() {
 					var t_tggno = trim($('#txtTggno').val());
 					var t_ordbno = trim($('#txtOrdbno').val());
@@ -107,21 +104,18 @@
 					}
 					q_box("ordbs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordbs', "95%", "95%", q_getMsg('popOrdbs'));
 				});
-
 				$('#txtFloata').change(function() {
 					sum();
 				});
 				$('#txtTotal').change(function() {
 					sum();
 				});
-
 				$('#txtTggno').change(function() {
 					if (!emp($('#txtTggno').val())) {
 						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
-
 				$('#txtAddr').change(function() {
 					var t_tggno = trim($(this).val());
 					if (!emp(t_tggno)) {
@@ -131,7 +125,6 @@
 						q_gt('tgg', t_where, 0, 0, 0, "");
 					}
 				});
-
 				$('#txtAddr2').change(function() {
 					var t_custno = trim($(this).val());
 					if (!emp(t_custno)) {
@@ -141,7 +134,6 @@
 						q_gt('cust', t_where, 0, 0, 0, "");
 					}
 				});
-
 				$('#btnImport').click(function() {
 					if ($('#btnImport').val() == '進口欄位顯示') {
 						$('.import').show();
@@ -160,8 +152,7 @@
 			}
 
 			function q_boxClose(s2) {
-				var
-				ret;
+				var ret;
 				switch (b_pop) {
 					case 'ordbs':
 						if (q_cur > 0 && q_cur < 4) {
@@ -171,7 +162,6 @@
 							//取得請購的資料
 							var t_where = "where=^^ noa='" + b_ret[0].noa + "' ^^";
 							q_gt('ordb', t_where, 0, 0, 0, "", r_accy);
-
 							$('#txtOrdbno').val(b_ret[0].noa);
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret, 'productno,product,noa,no3,price,mount,total,memo,unit', 'txtProductno,txtProduct');
 							bbsAssign();
@@ -254,7 +244,6 @@
 					alert(q_getMsg('lblOdate') + '錯誤。');
 					return;
 				}
-
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
@@ -288,7 +277,6 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-
 				q_box('ordc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
 			}
 
@@ -346,7 +334,6 @@
 				$('#txtCno').val(z_cno);
 				$('#txtAcomp').val(z_acomp);
 				product_change();
-
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
@@ -357,7 +344,6 @@
 				_btnModi();
 				$('#txtProduct').focus();
 				product_change();
-
 				if (!emp($('#txtTggno').val())) {
 					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -370,7 +356,6 @@
 
 			function wrServer(key_value) {
 				var i;
-
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
@@ -392,7 +377,6 @@
 			function refresh(recno) {
 				_refresh(recno);
 				product_change();
-
 				if (!emp($('#txtLcno').val())) {
 					$('.import').show();
 					$('#btnImport').val('進口欄位隱藏');
@@ -589,9 +573,6 @@
 			.tbbm tr {
 				height: 35px;
 			}
-			.tbbm tr td {
-				/*width: 9%;*/
-			}
 			.tbbm .tdZ {
 				width: 2%;
 			}
@@ -613,6 +594,24 @@
 			}
 			.tbbm tr td .lbl.btn:hover {
 				color: #FF8F19;
+			}
+			.tbbm td {
+				margin: 0 -1px;
+				padding: 0;
+			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+			}
+			.tbbm td input[type="button"] {
+				float: left;
+			}
+			.tbbm select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				font-size: medium;
 			}
 			.txt.c1 {
 				width: 98%;
@@ -648,35 +647,17 @@
 			.txt.num {
 				text-align: right;
 			}
-			.tbbm td {
-				margin: 0 -1px;
-				padding: 0;
-			}
-			.tbbm td input[type="text"] {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-			}
-			.tbbm td input[type="button"] {
-				float: left;
-			}
-			.tbbm select {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-				font-size: medium;
-			}
 			.dbbs {
 				width: 100%;
 			}
 			.tbbs a {
 				font-size: medium;
 			}
-			.num {
-				text-align: right;
-			}
 			.tbbs tr.error input[type="text"] {
 				color: red;
+			}
+			.num {
+				text-align: right;
 			}
 			input[type="text"], input[type="button"] {
 				font-size: medium;
