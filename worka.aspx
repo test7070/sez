@@ -298,8 +298,13 @@
 											t_worksno=as[i].noa;
 										}
 										t_msg+="原料："+as[i].product+"，不足數量："+(-1*(dec(work_stk[j].mount)-dec(as[i].mount))).toString()+"\n";
-										as.splice(i, 1);
-                                    	i--;
+										if(dec(work_stk[j].mount)>0){
+											as[i].mount=work_stk[j].mount;
+											work_stk[i].mount=0;
+										}else{
+											as.splice(i, 1);
+                                    		i--;
+                                    	}
                                    }else{
                                    		work_stk[j].mount=dec(work_stk[j].mount)-dec(as[i].mount);
                                    }
