@@ -391,6 +391,9 @@
 				
 				var bbs_repeat=false;
 				for (var i = 0; i < q_bbsCount; i++) {
+					if(emp($('#txtProductno_' + i).val()))
+						continue;
+					
 					bbs_repeat=false;
 					for (var j = 0; j < bbs_tmp.length; j++) {
 						if(bbs_tmp[j].productno==$('#txtProductno_' + i).val()&&bbs_tmp[j].storeno==$('#txtStoreno_' + i).val()){
@@ -408,9 +411,20 @@
 				}
 				
 				for (var i = 0; i < bbs_tmp.length; i++) {
-						var t_where = "where=^^ ['" + q_date() + "','"+bbs_tmp[i].storeno+"','" +bbs_tmp[i].productno + "') ^^";
+						var t_where = "where=^^ ['" + q_date() + "','','" +bbs_tmp[i].productno + "')  where storeno='"+bbs_tmp[i].storeno+"' ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "btnOK_bbsstkchk", r_accy);
 						stkchkcount++;
+				}
+				
+				if(stkchkcount==0){
+					$('#txtWorker').val(r_name);
+					sum();
+					var t_date = $('#txtDatea').val();
+					var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+					if (s1.length == 0 || s1 == "AUTO")
+						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_worka') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+					else
+						wrServer(s1);
 				}
 			}
 			
