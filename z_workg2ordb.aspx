@@ -66,7 +66,7 @@
                 $('#btnOk').click();
                 
                 $('#btnOrdb').click(function(){
-                	if(confirm("確定要轉至請款單?"))
+                	if(confirm("確定要轉至請購單?"))
 					{
 						var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
                 		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
