@@ -273,6 +273,15 @@
 								$('#txtStation').val(t_station);
 							}
 						}
+						
+						//將目前領料的數量加回目前庫存
+						for (var i = 0; i < abbsNow.length; i++) {
+							for (var j=0;j< work_stk.length;j++){
+								if(abbsNow[i].productno==work_stk[j].productno){
+									work_stk[j].mount=dec(work_stk[j].mount)+dec(abbsNow[i].mount);
+								}
+							}							
+						}
 
 						var as = _q_appendData("works", "", true);
 						var t_msg='',t_worksno='';
@@ -299,7 +308,8 @@
 							}
 						}
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno', as.length, as, 'productno,product,unit,mount,memo,noa', '');
-						alert(t_msg);
+						if(t_msg.length>0)
+							alert(t_msg);
 						break;
 					case 'work_stk':
 						work_stk = _q_appendData("stkucc", "", true);
@@ -410,7 +420,7 @@
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-						$('#txtMount_' + i).focusin(function() {
+						/*$('#txtMount_' + i).focusin(function() {
 							if (q_cur == 1 || q_cur == 2) {
 								t_IdSeq = -1;
 								q_bodyId($(this).attr('id'));
@@ -421,7 +431,7 @@
 									q_gt('calstk', t_where, 0, 0, 0, "msg_stk", r_accy);
 								}
 							}
-						});
+						});*/
 						$('#btnStk_' + i).mousedown(function(e) {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
