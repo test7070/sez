@@ -574,7 +574,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 1800px;
+				width: 2180px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -746,14 +746,18 @@
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
-					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
+					<td style="width:100px;;" align="center"><a id='lblBwmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
+					<td style="width:100px;" align="center"><a id='lblBkmount_s'></a></td>
+					<td style="width:100px;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
 					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
+					<td style="width:100px;" align="center"><a id='lblQcworker'></a></td>
+					<td style="width:80px;" align="center"><a id='lblQctime'></a></td>
 					<td style="width:30px;" align="center"><a id='lblStks'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -772,11 +776,13 @@
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
-					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtBwmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
 					<td>
 						<input class="txt c1 num" id="txtErrmount.*" type="text"/>
 						<input class="txt c1" id="txtErrmemo.*" type="text"/>
@@ -789,6 +795,8 @@
 						<input id="recno.*" type="hidden" />
 					</td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+					<td><input id="txtQcworker.*" type="text" class="txt c1"/></td>
+					<td><input id="txtQctime.*" type="text" class="txt c1"/></td>
 					<td align="center">
 						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
