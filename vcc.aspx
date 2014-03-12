@@ -104,6 +104,10 @@
 				});
 				$('#txtCardealno').change(function(){
 					GetTranPrice();
+					//取得車號下拉式選單
+					var thisVal = $(this).val();
+					var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
+					q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
 				});
 				$('#cmbTranstyle').change(function(){
 					GetTranPrice();
@@ -239,6 +243,23 @@
 			function q_gtPost(t_name) {
 				var as;
 				switch (t_name) {
+					case 'getCardealCarno' :
+						var as = _q_appendData("cardeals", "", true);
+						var t_item = " @ ";
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].carno + '@' + as[i].carno;
+							}
+						}
+						document.all.combCarno.options.length = 0;
+						q_cmbParse("combCarno", t_item);
+						$('#combCarno').unbind('change').change(function(){
+							if (q_cur == 1 || q_cur == 2) {
+								$('#txtCarno').val($('#combCarno').find("option:selected").text());
+								
+							}
+						});
+						break;
 					case 'GetTranPrice' :
 						var as = _q_appendData("addr", "", true);
 						if (as[0] != undefined) {
@@ -618,6 +639,10 @@
 				Lock(1, {
 					opacity : 0
 				});
+				//取得車號下拉式選單
+				var thisVal = $('#txtCardealno').val();
+				var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
+				q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
 				var t_where = " where=^^ vccno='" + $('#txtNoa').val() + "'^^";
 				q_gt('umms', t_where, 0, 0, 0, 'btnModi', r_accy);
 			}
@@ -755,6 +780,12 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
+					case 'txtCardealno':
+						//取得車號下拉式選單
+						var thisVal = $('#txtCardealno').val();
+						var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
+						q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
+						break;
 					case 'txtCustno':
 						if (!emp($('#txtCustno').val())) {
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr ^^";
@@ -1050,7 +1081,10 @@
 						<td class="td2"><input id="txtCardealno" type="text" class="txt c1"/></td>
 						<td class="td2"><input id="txtCardeal" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td5"><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td class="td5">
+							<input id="txtCarno"  type="text" class="txt" style="width:75%;"/>
+							<select id="combCarno" style="width: 20%;"> </select>
+						</td>
 						<td class="td5"><select id="cmbTranstyle" style="width: 100%;"> </select></td>
 						<td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td>
