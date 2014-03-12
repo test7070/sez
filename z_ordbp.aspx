@@ -26,35 +26,53 @@
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {
+					}, {/*1*/
 						type : '1',
 						name : 'xnoa'
-					}, {
+					}, {/*2*/
 						type : '5',
 						name : 'xkind',
 						value : [q_getPara('report.all')].concat(q_getPara('ordb.kind').split(','))
-					}, {/*1*/
+					}, {/*3*/
 						type : '1',
 						name : 'xdate'
-					}, {
+					}, {/*4*/
 						type : '2',
 						name : 'xcno',
 						dbf : 'acomp',
 						index : 'noa,acomp',
 						src : 'acomp_b.aspx'
-					}, {
+					}, {/*5*/
 						type : '2',
 						name : 'xtggno',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
-					}, {
+					}, {/*6*/
 						type : '2',
 						name : 'xproductno',
 						dbf : 'bcc',
 						index : 'noa,product',
 						src : 'bcc_b.aspx'
-					}]
+					}, {/*7*/
+                        type : '1',
+                        name : 'yodate'
+                    }, {/*8*/
+                        type : '2',
+                        name : 'yproductno',
+                        dbf : 'ucc',
+                        index : 'noa,product',
+                        src : 'ucc_b.aspx'
+                    }, {/*9*/
+                        type : '6',
+                        name : 'yordbno'
+                    }, {/*10*/
+                        type : '6',
+                        name : 'yordeno'
+                    }, {/*11*/
+                        type : '6',
+                        name : 'yworkgno'
+                    }]
 				});
 				q_popAssign();
 
@@ -62,6 +80,20 @@
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate2').datepicker();
+				
+				$('#txtYodate1').mask('999/99/99');
+                $('#txtYodate1').datepicker();
+                $('#txtYodate2').mask('999/99/99');
+                $('#txtYodate2').datepicker();
+                
+                var t_no = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
+                if (t_no.indexOf('noa=') >= 0) {
+                    t_no = t_no.replace('noa=', '');
+                    if (t_no.length > 0) {
+                        $('#txtYordbno').val(t_no);
+                    }
+                }
+                
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);

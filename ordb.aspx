@@ -432,7 +432,7 @@
                 sum();
             }
             function btnPrint() {
-                q_box('z_ordbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa=" + $('#txtNoa').val() + ";" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
             }
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -969,7 +969,7 @@
                     <td><input id="textDatea_b2" type="text" style="width:95%;"/></td>
                     <td>
                         <input id="textTggno_b2" type="text" style="width:45%;"/>
-                        <input id="textTgg_b21" type="text" style="width:45%;"/>
+                        <input id="textTgg_b2" type="text" style="width:45%;"/>
                     </td>
                     <td><input id="textMount_b2" type="text" style="width:95%;text-align: right;"/></td>
                     <td><input id="textPrice_b2" type="text" style="width:95%;text-align: right;"/></td>
