@@ -523,6 +523,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				$('#div_stk').hide();
 			}
 
 			function readonly(t_para, empty) {
