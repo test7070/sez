@@ -167,6 +167,10 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getWorkfs':
+						var as = _q_appendData("view_workfs", "", true);
+						console.log(as);
+						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
 						var rowslength = document.getElementById("table_stk").rows.length - 3;
@@ -474,6 +478,13 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
+					case 'txtTggno':
+						var thisVal = $.trim($('#txtTggno').val());
+						if(thisVal.length > 0){
+							var t_where = "where=^^ tggno=N'"+thisVal+"' and (born>0) and (len(qcworker)=0) ^^";
+							q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
+						}
+						break;
 					case 'txtWorkno':
 						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);

@@ -386,6 +386,7 @@
 			}
 
 			function sum() {
+				
 				var t_mount = 0;
 				t_price = 0;
 				var t_total = 0;
@@ -393,7 +394,7 @@
 					t_mount = dec($('#txtMount_' + j).val());
 					t_weight = dec($('#txtWeight_' + j).val());
 					t_price = dec($('#txtPrice_' + j).val());
-					$('#txtTotal_' + j).val(round(t_mount * t_price, 0));
+					/*$('#txtTotal_' + j).val(round(t_mount * t_price, 0));*/
 					t_total += dec($('#txtTotal_' + j).val());
 				}// j
 				q_tr('txtMoney', t_total);
