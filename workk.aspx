@@ -55,7 +55,8 @@
                 bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('workk.typea'));
+                //0313當撥料時同時做調撥和領料動作
+                //q_cmbParse("cmbTypea", q_getPara('workk.typea'));
                 
                 $('#lblWorkno').click(function() {
 					if(!emp($('#txtWorkno').val())){
@@ -226,10 +227,10 @@
 
             function btnOk() {
                 var t_err = '';
-                if($('#cmbTypea').val()=='1')	//調撥
-                	t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtStationno', q_getMsg('lblStation')],['txtStoreno', q_getMsg('lblStoreno')],['txtStoreinno', q_getMsg('lblStoreinno')]]);
-                else //抵扣料
-                	t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtStationno', q_getMsg('lblStation')],['txtStoreno', q_getMsg('lblStoreno')]]);
+                //if($('#cmbTypea').val()=='1')	//調撥
+                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtStationno', q_getMsg('lblStation')],['txtStoreno', q_getMsg('lblStoreno')],['txtStoreinno', q_getMsg('lblStoreinno')]]);
+                //else //抵扣料
+                //	t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtStationno', q_getMsg('lblStation')],['txtStoreno', q_getMsg('lblStoreno')]]);
                 	
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -593,10 +594,10 @@
 						<td width="255px"> </td>
 						<td width="130px"> </td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1"></select></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
