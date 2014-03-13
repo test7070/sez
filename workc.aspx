@@ -302,13 +302,13 @@
 							var as = _q_appendData("stkucc", "", true);
 							//將之前領料的加回去
 							for (var j = 0; j < abbsNow.length; j++) {
-								if(abbsNow[j].productno==as[0].productno){
+								if(abbsNow[j].productno==as[0].productno&&abbsNow[j].storeno==as[0].storeno){
 									as[0].mount=dec(as[0].mount)+dec(abbsNow[j].mount);
 								}
 							}
 							//判斷同一產品全部領料
 							for (var i = 0; i < q_bbsCount; i++) {
-								if($('#txtProductno_'+i).val()==as[0].productno){
+								if($('#txtProductno_'+i).val()==as[0].productno&&$('#txtStoreno_'+i).val()==as[0].storeno){
 									as[0].mount=dec(as[0].mount)-dec($('#txtMount_'+i).val())
 								}
 							}

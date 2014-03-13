@@ -20,7 +20,7 @@
 			var q_name = "worka";
 			var decbbs = ['mount', 'weight'];
 			var decbbm = ['mount'];
-			var q_readonly = ['txtWorker'];
+			var q_readonly = ['txtWorker','','txtStore','txtStation','txtProcess','txtMech'];
 			var q_readonlys = ['txtWorkno'];
 			var bbmNum = [];
 			// 允許 key 小數
@@ -58,9 +58,7 @@
 				}
 
 				mainForm(1);
-
 				$('#txtDatea').focus();
-
 			}
 
 			function mainPost() {
@@ -324,13 +322,13 @@
 							var as = _q_appendData("stkucc", "", true);
 							//將之前領料的加回去
 							for (var j = 0; j < abbsNow.length; j++) {
-								if(abbsNow[j].productno==as[0].productno){
+								if(abbsNow[j].productno==as[0].productno&&abbsNow[j].storeno==as[0].storeno){
 									as[0].mount=dec(as[0].mount)+dec(abbsNow[j].mount);
 								}
 							}
 							//判斷同一產品全部領料
 							for (var i = 0; i < q_bbsCount; i++) {
-								if($('#txtProductno_'+i).val()==as[0].productno){
+								if($('#txtProductno_'+i).val()==as[0].productno&&$('#txtStoreno_'+i).val()==as[0].storeno){
 									as[0].mount=dec(as[0].mount)-dec($('#txtMount_'+i).val())
 								}
 							}
@@ -477,6 +475,7 @@
 
 			function btnIns() {
 				_btnIns();
+				refreshBbm();
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
@@ -486,6 +485,31 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
+				//判斷是否由撥料作業轉來>>鎖定欄位
+				if(!emp($('#txtWorkkno').val())){
+					$('#cmbTypea').attr('disabled', 'disabled');
+					$('#txtDatea').attr('disabled', 'disabled');
+					$('#txtStoreno').attr('disabled', 'disabled');
+					$('#txtStationno').attr('disabled', 'disabled');
+					$('#lblStorek').css('display', 'inline').text($('#lblStore').text());
+					$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
+					$('#lblStore').css('display','none');
+					$('#lblStation').css('display','none');
+					
+					$('#btnPlus').attr('disabled', 'disabled');
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#btnMinus_'+j).attr('disabled', 'disabled');
+						$('#txtProductno_'+j).attr('disabled', 'disabled');
+						$('#btnProductno_'+j).attr('disabled', 'disabled');
+						$('#txtProduct_'+j).attr('disabled', 'disabled');
+						$('#txtUnit_'+j).attr('disabled', 'disabled');
+						$('#txtMount_'+j).attr('disabled', 'disabled');
+						$('#btnStore_'+j).attr('disabled', 'disabled');
+						$('#txtStoreno_'+j).attr('disabled', 'disabled');
+						$('#txtStore_'+j).attr('disabled', 'disabled');
+					}
+				}
+				refreshBbm();
 				$('#txtProduct').focus();
 			}
 
@@ -524,7 +548,20 @@
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
+				refreshBbm();
+				$('#lblStore').css('display','inline');
+				$('#lblStation').css('display','inline');
+				$('#lblStorek').css('display', 'none');
+				$('#lblStationk').css('display', 'none');
 			}
+			
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
@@ -585,6 +622,10 @@
 			}
 
 			function btnDele() {
+				if(!emp($('#txtWorkkno').val())){
+					alert("該領料單由撥料作業("+$('#txtWorkkno').val()+")轉來，請至撥料作業刪除!!!")
+					return;
+				}
 				_btnDele();
 			}
 
@@ -805,12 +846,16 @@
 						<td><input id="txtNoa"   type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblStore' class="lbl btn"> </a>
+							<a id='lblStorek' class="lbl btn"> </a>
+						</td>
 						<td>
 							<input id="txtStoreno"  type="text" class="txt c2"/>
 							<input id="txtStore" type="text" class="txt c3"/>
 						</td>
-						<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblStation' class="lbl btn"> </a>
+							<a id='lblStationk' class="lbl btn"> </a>
+						</td>
 						<td>
 							<input id="txtStationno" type="text" class="txt c2"/>
 							<input id="txtStation" type="text" class="txt c3"/>
@@ -849,7 +894,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan='3'><input id="txtMemo" type="text"  style="width: 99%;"/></td>
+						<td colspan='3'><input id="txtMemo" type="text"  style="width: 99%;"/><input id="txtWorkkno" type="hidden" /></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 					</tr>

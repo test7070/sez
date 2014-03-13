@@ -20,7 +20,7 @@
 			var q_readonly = ['txtNoa','txtTgg','txtCardeal','txtStorein','txtStore','txtNamea', 'txtWorker'];
 			var q_readonlys = [];
 			var bbmNum = [['txtPrice', 10, 0, 1], ['txtTranmoney', 15, 0, 1]];
-			var bbsNum = [['txtMount', 10, 0, 1]];
+			var bbsNum = [['txtMount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -57,6 +57,9 @@
 			}
 
 			function mainPost() {
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1|| q_getPara('sys.comp').indexOf('永勝')>-1) {
+					bbsNum = [['txtMount', 15, 0, 1]];
+				}
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd]];
 				// bbsMask = [['txtClass', r_picd]]; //102/10/31 製造業(醫療 食品)當成有效日 12/10格式自己打
@@ -214,6 +217,28 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
+				//判斷是否由撥料作業轉來>>鎖定欄位
+				if(!emp($('#txtWorkkno').val())){
+					$('#cmbTypea').attr('disabled', 'disabled');
+					$('#txtDatea').attr('disabled', 'disabled');
+					$('#txtStoreno').attr('disabled', 'disabled');
+					$('#txtStoreinno').attr('disabled', 'disabled');
+					$('#lblStorek').css('display', 'inline').text($('#lblStore').text());
+					$('#lblStoreink').css('display', 'inline').text($('#lblStorein').text());
+					$('#lblStore').css('display','none');
+					$('#lblStorein').css('display','none');
+					
+					$('#btnPlus').attr('disabled', 'disabled');
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#btnMinus_'+j).attr('disabled', 'disabled');
+						$('#txtProductno_'+j).attr('disabled', 'disabled');
+						$('#btnProductno_'+j).attr('disabled', 'disabled');
+						$('#txtProduct_'+j).attr('disabled', 'disabled');
+						$('#txtUnit_'+j).attr('disabled', 'disabled');
+						$('#txtMount_'+j).attr('disabled', 'disabled');
+					}
+				}
+				
 				$('#txtProduct').focus();
 				//取得車號下拉式選單
 				var thisVal = $('#txtCardealno').val();
@@ -253,6 +278,11 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				$('#lblStore').css('display','inline');
+				$('#lblStorein').css('display','inline');
+				$('#lblStorek').css('display', 'none');
+				$('#lblStoreink').css('display', 'none');
+				
 				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
 					$('.class_it').show();
 					$('.it').css('text-align','left');
@@ -322,6 +352,10 @@
 			}
 
 			function btnDele() {
+				if(!emp($('#txtWorkkno').val())){
+					alert("該調撥單由撥料作業("+$('#txtWorkkno').val()+")轉來，請至撥料作業刪除!!!")
+					return;
+				}
 				_btnDele();
 			}
 
@@ -515,14 +549,19 @@
 						<td class="td6"><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr2">
-						<td class='td3'><span> </span><a id="lblStore" class="lbl btn"> </a></td>
+						<td class='td3'>
+							<span> </span><a id="lblStore" class="lbl btn"> </a>
+							<a id="lblStorek" class="lbl btn" style="display: none"> </a>
+						</td>
 						<td class="td4"><input id="txtStoreno" type="text"  class="txt c1"/></td>
 						<td class="td4" colspan="2"><input id="txtStore" type="text" class="txt c1"/></td>
 						<td class='td3 isRack'><span> </span><a id="lblRackno" class="lbl btn"> </a></td>
 						<td class="td4 isRack"><input id="txtRackno" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td5"><span> </span><a id="lblStorein" class="lbl btn"> </a></td>
+						<td class="td5"><span> </span><a id="lblStorein" class="lbl btn"> </a>
+							<a id="lblStoreink" class="lbl btn" style="display: none"> </a>
+						</td>
 						<td class="td6"><input id="txtStoreinno" type="text" class="txt c1"/></td>
 						<td class="td6" colspan="2"><input id="txtStorein" type="text" class="txt c1"/></td>
 						<td class='td3 isRack'><span> </span><a id="lblRackinno" class="lbl btn"> </a></td>
@@ -559,7 +598,9 @@
 					</tr>
 					<tr class="tr7">
 						<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
+						<td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
+							<input id="txtWorkkno" type="hidden" />
+						</td>
 					</tr>
 					<tr class="tr5">
 						<td class='td1'><span> </span><a id="lblSssno" class="lbl btn"> </a></td>

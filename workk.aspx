@@ -58,10 +58,16 @@
                 //0313當撥料時同時做調撥和領料動作
                 //q_cmbParse("cmbTypea", q_getPara('workk.typea'));
                 
-                $('#lblWorkno').click(function() {
-					if(!emp($('#txtWorkno').val())){
-						t_where = "noa='"+$('#txtWorkno').val()+"'";
-						q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+                $('#txtCngno').click(function() {
+					if(!emp($('#txtCngno').val())){
+						t_where = "noa='"+$('#txtCngno').val()+"'";
+						q_box("cng.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cng', "95%", "95%", q_getMsg('PopCng'));
+					}
+                });
+                $('#txtWorkano').click(function() {
+					if(!emp($('#txtWorkano').val())){
+						t_where = "noa='"+$('#txtWorkano').val()+"'";
+						q_box("worka.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'worka', "95%", "95%", q_getMsg('PopWorka'));
 					}
                 });
                 
@@ -213,6 +219,50 @@
 						$('#div_stk').css('left',mouse_point.pageX-parseInt($('#div_stk').css('width')));
 						$('#div_stk').toggle();
 						break;
+					case 'btnOK_bbsstkchk':
+							var bbs_seq=t_name.substr('btnOK_bbsstkchk_'.length,t_name.length)
+							var as = _q_appendData("stkucc", "", true);
+							//將之前領料的加回去
+							for (var j = 0; j < abbsNow.length; j++) {
+								if(abbsNow[j].productno==as[0].productno){
+									as[0].mount=dec(as[0].mount)+dec(abbsNow[j].mount);
+								}
+							}
+							//判斷同一產品全部領料
+							for (var i = 0; i < q_bbsCount; i++) {
+								if($('#txtProductno_'+i).val()==as[0].productno){
+									as[0].mount=dec(as[0].mount)-dec($('#txtMount_'+i).val())
+								}
+							}
+							
+							//寫入訊息
+							if(as[0].mount<0){
+								btnok_msg+=as[0].product+"數量不足："+(-1*dec(as[0].mount)).toString()+"\n";
+							}
+							
+							stkchkcount2++;
+							if(stkchkcount==stkchkcount2)
+								btnok_bbsstkchk=true;
+								
+							if(btnok_bbsstkchk && btnok_msg.length==0){
+								sum();
+				                if (q_cur == 1)
+				                    $('#txtWorker').val(r_name);
+				                else
+				                    $('#txtWorker2').val(r_name);
+				
+				                var t_noa = trim($('#txtNoa').val());
+				                var t_date = trim($('#txtDatea').val());
+				
+				                if (t_noa.length == 0 || t_noa == "AUTO")
+				                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workk') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				                else
+				                    wrServer(t_noa);
+							}
+							if(btnok_bbsstkchk&&btnok_msg.length>0){
+								alert(btnok_msg);
+							}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -224,32 +274,65 @@
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
             }
-
+			
+			var btnok_bbsstkchk=false,stkchkcount=0,stkchkcount2=0,btnok_msg='';
             function btnOk() {
                 var t_err = '';
-                //if($('#cmbTypea').val()=='1')	//調撥
                 t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtStationno', q_getMsg('lblStation')],['txtStoreno', q_getMsg('lblStoreno')],['txtStoreinno', q_getMsg('lblStoreinno')]]);
-                //else //抵扣料
-                //	t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtStationno', q_getMsg('lblStation')],['txtStoreno', q_getMsg('lblStoreno')]]);
                 	
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
-                                
-                sum();
-                if (q_cur == 1)
-                    $('#txtWorker').val(r_name);
-                else
-                    $('#txtWorker2').val(r_name);
+                
+                //判斷庫存是否足夠
+				btnok_bbsstkchk=false;
+				stkchkcount=0,stkchkcount2=0,btnok_msg='';
+				var bbs_tmp=new Array();
 
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workk') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
+				var bbs_repeat=false;
+				for (var i = 0; i < q_bbsCount; i++) {
+					if(emp($('#txtProductno_' + i).val()))
+						continue;
+					
+					bbs_repeat=false;
+					for (var j = 0; j < bbs_tmp.length; j++) {
+						if(bbs_tmp[j].productno==$('#txtProductno_' + i).val()&&bbs_tmp[j].storeno==$('#txtStoreno').val()){
+							bbs_repeat=true;
+						}
+						if(emp($('#txtProductno_' + i).val()))
+							bbs_repeat=true;
+					}
+					if(!bbs_repeat){
+						bbs_tmp.push({
+							productno:$('#txtProductno_'+i).val(),
+							storeno:$('#txtStoreno').val()
+						});
+					}
+				}
+				
+				for (var i = 0; i < bbs_tmp.length; i++) {
+						var t_where = "where=^^ ['" + q_date() + "','','" +bbs_tmp[i].productno + "')  where storeno='"+bbs_tmp[i].storeno+"' ^^";
+						q_gt('calstk', t_where, 0, 0, 0, "btnOK_bbsstkchk", r_accy);
+						stkchkcount++;
+				}
+				
+				if(stkchkcount==0){
+					sum();
+	                if (q_cur == 1)
+	                    $('#txtWorker').val(r_name);
+	                else
+	                    $('#txtWorker2').val(r_name);
+	
+	                var t_noa = trim($('#txtNoa').val());
+	                var t_date = trim($('#txtDatea').val());
+	
+	                if (t_noa.length == 0 || t_noa == "AUTO")
+	                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workk') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+	                else
+	                    wrServer(t_noa);
+				}
+                
             }
 
             function _btnSeek() {
@@ -283,6 +366,13 @@
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+                
+                if(q_cur==1)
+                	q_func('qtxt.query.c0','workk.txt,post,'+r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+                else{
+                	//處理worka內容
+                	q_func('worka_post.post.a1',r_accy+','+$('#txtWorkano').val()+',0');
+                }
             }
 			
 			var mouse_point;
@@ -392,15 +482,52 @@
             function q_brwAssign(s1) {
                 _q_brwAssign(s1);
             }
-
+			
             function btnDele() {
-                _btnDele();
+                //_btnDele();
+                if(!confirm(mess_dele))
+                	return;
+                q_cur=3;
+                //處理worka內容
+                q_func('worka_post.post.a2',r_accy+','+$('#txtWorkano').val()+',0');
             }
 
             function btnCancel() {
                 _btnCancel();
             }
-
+			
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'worka_post.post.a1':
+						//呼叫workk.post
+                		q_func('qtxt.query.c0','workk.txt,post,'+r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'worka_post.post.a2':
+						//呼叫workk.post
+                		q_func('qtxt.query.c2','workk.txt,post,'+r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'qtxt.query.c0':
+						q_func('qtxt.query.c1','workk.txt,post,'+r_accy + ';' + encodeURI($('#txtNoa').val()) + ';1');
+						break;
+					case 'qtxt.query.c1':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['cngno'] = as[0].cngno;
+							abbm[q_recno]['workano'] = as[0].workano;
+							$('#txtCngno').val(as[0].cngno);
+							$('#txtWorkano').val(as[0].workano);
+						}
+						//處理worka內容
+						q_func('worka_post.post',r_accy+','+$('#txtWorkano').val()+',1');
+						break;
+					case 'qtxt.query.c2':
+						_btnOk($('#txtNoa').val(),bbmKey[0],(bbsHtm?bbsKey[1]:''),'',3)
+						break;
+					default:
+						break;
+				}
+			}
+			
 		</script>
 		<style type="text/css">
             #dmain {
