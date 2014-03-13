@@ -14,13 +14,14 @@
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
 			}
+
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "workq";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
@@ -81,13 +82,14 @@
 				$('#txtTax').change(function() {
 					sum();
 				});
-
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 				$('#btnWork').click(function() {
 					var t_where = '1=1 ';
 					if (!emp($('#txtTggno').val())) {
+						//var t_where += "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 						t_where += "and enda!=1 and tggno!='' and tggno='" + $('#txtTggno').val() + "'";
 					} else {
+						//var t_where += "enda!=1 and tggno!='' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 						t_where += "and enda!=1 and tggno!=''";
 					}
 					var workno = $.trim($('#textWorkno').val());
@@ -102,6 +104,7 @@
 							t_edate = '999/99/99'
 						t_where += " and uindate between '" + t_bdate + "' and '" + t_edate + "'";
 					}
+
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
 
@@ -124,9 +127,10 @@
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();
-
-							if (!b_ret || b_ret.length == 0)
+							if (!b_ret || b_ret.length == 0){
+								b_pop = '';
 								return;
+							}
 							if (q_cur == 1 || q_cur == 2) {
 								for (var i = 0; i < q_bbsCount; i++) {
 									$('#btnMinus_' + i).click();
@@ -135,7 +139,6 @@
 									var t_where = "where=^^ ordeno ='" + b_ret[i].noa + "' and no2='" + b_ret[i].no2 + "' and tggno!='' and left(tggno,1)!='Z' ";
 									if (!emp($('#txtTggno').val()))
 										t_where += " and tggno='" + $('#txtTggno').val() + "'";
-
 									t_where += "^^";
 									q_gt('work', t_where, 0, 0, 0, "", r_accy);
 								}
@@ -144,12 +147,13 @@
 						break;
 					case 'work':
 						b_ret = getb_ret();
-						if (!b_ret || b_ret.length == 0)
+						if (!b_ret || b_ret.length == 0){
+							b_pop = '';
 							return;
+						}
 						if (b_ret && (q_cur == 1 || q_cur == 2)) {
 							$('#txtTggno').val(b_ret[0].tggno);
 							$('#txtTgg').val(b_ret[0].comp);
-
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						}
@@ -163,6 +167,10 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getWorkfs':
+						var as = _q_appendData("view_workfs", "", true);
+						console.log(as);
+						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
 						var rowslength = document.getElementById("table_stk").rows.length - 3;
@@ -170,7 +178,6 @@
 							document.getElementById("table_stk").deleteRow(3);
 						}
 						var stk_row = 0;
-
 						var stkmount = 0;
 						for (var i = 0; i < as.length; i++) {
 							//倉庫庫存
@@ -369,7 +376,6 @@
 			function wrServer(key_value) {
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
 
@@ -378,7 +384,6 @@
 					as[bbsKey[1]] = '';
 					return;
 				}
-
 				q_nowf();
 				as['datea'] = abbm2['datea'];
 				as['tggno'] = abbm2['tggno'];
@@ -395,13 +400,14 @@
 					t_price = dec($('#txtPrice_' + j).val());
 					$('#txtTotal_' + j).val(round(t_mount * t_price, 0));
 					t_total += dec($('#txtTotal_' + j).val());
-				}// j
+				}
 				q_tr('txtMoney', t_total);
 				calTax();
 			}
 
 			function refresh(recno) {
 				_refresh(recno);
+				$('#div_stk').hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -472,6 +478,13 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
+					case 'txtTggno':
+						var thisVal = $.trim($('#txtTggno').val());
+						if(thisVal.length > 0){
+							var t_where = "where=^^ tggno=N'"+thisVal+"' and (born>0) and (len(qcworker)=0) ^^";
+							q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
+						}
+						break;
 					case 'txtWorkno':
 						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
@@ -505,46 +518,38 @@
 				t_total = t_money;
 				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
 				switch ($('#cmbTaxtype').val()) {
-					case '0':
-						// 無
+					case '0': // 無
 						t_tax = 0;
 						t_total = q_add(t_money, t_tax);
 						break;
-					case '1':
-						// 應稅
+					case '1': // 應稅
 						t_tax = round(q_mul(t_money, t_taxrate), 0);
 						t_total = q_add(t_money, t_tax);
 						break;
-					case '2':
-						//零稅率
+					case '2': //零稅率
 						t_tax = 0;
 						t_total = q_add(t_money, t_tax);
 						break;
-					case '3':
-						// 內含
+					case '3': // 內含
 						t_tax = round(q_mul(q_div(t_money, q_add(1, t_taxrate)), t_taxrate), 0);
 						t_total = t_money;
 						t_money = q_sub(t_total, t_tax);
 						break;
-					case '4':
-						// 免稅
+					case '4': // 免稅
 						t_tax = 0;
 						t_total = q_add(t_money, t_tax);
 						break;
-					case '5':
-						// 自定
+					case '5': // 自定
 						$('#txtTax').attr('readonly', false);
 						$('#txtTax').css('background-color', 'white').css('color', 'black');
 						t_tax = round(q_float('txtTax'), 0);
 						t_total = q_add(t_money, t_tax);
 						break;
-					case '6':
-						// 作廢-清空資料
+					case '6': // 作廢-清空資料
 						t_money = 0, t_tax = 0, t_total = 0;
 						break;
 					default:
 				}
-
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
@@ -568,13 +573,12 @@
 				border-collapse: collapse;
 				background: #cad3ff;
 			}
-
 			.tbbs {
 				FONT-SIZE: 12pt;
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 2180px;
+				width: 1800px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -638,7 +642,7 @@
 				</tr>
 				<tr id='stk_close'>
 					<td align="center" colspan='3'>
-						<input id="btnClose_div_stk" type="button" value="關閉視窗">
+					<input id="btnClose_div_stk" type="button" value="關閉視窗">
 					</td>
 				</tr>
 			</table>
@@ -746,18 +750,15 @@
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
-					<td style="width:100px;;" align="center"><a id='lblBwmounts'></a></td>
+					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblBkmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
 					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
-					<td style="width:100px;" align="center"><a id='lblQcworker'></a></td>
-					<td style="width:80px;" align="center"><a id='lblQctime'></a></td>
+					<td style="width:200px;" align="center"><a id='lblWorkfnos'></a></td>
 					<td style="width:30px;" align="center"><a id='lblStks'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -776,13 +777,11 @@
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
-					<td><input class="txt c1 num" id="txtBwmount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
 					<td>
 						<input class="txt c1 num" id="txtErrmount.*" type="text"/>
 						<input class="txt c1" id="txtErrmemo.*" type="text"/>
@@ -795,8 +794,7 @@
 						<input id="recno.*" type="hidden" />
 					</td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
-					<td><input id="txtQcworker.*" type="text" class="txt c1"/></td>
-					<td><input id="txtQctime.*" type="text" class="txt c1"/></td>
+					<td><input id="txtWorkfno.*" type="text" class="txt c1"/></td>
 					<td align="center">
 						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
