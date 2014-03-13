@@ -4,13 +4,11 @@
 	<comment></comment>
 	<projects>
 	</projects>
-	<buildSpec>
+	<buildSpec>		
 		<buildCommand>
 			<name>com.aptana.ide.core.unifiedBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
-	<natures>
-	</natures>
 </projectDescription>

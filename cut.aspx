@@ -356,9 +356,9 @@
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					t_err += q_getMsg('lblDatea') + '錯誤。\n';
 				}
-				if ($('#txtDatea').val().substring(0, 3) != r_accy) {
+				/*if ($('#txtDatea').val().substring(0, 3) != r_accy) {
 					t_err += '年度異常錯誤，請切換到【' + $('#txtDatea').val().substring(0, 3) + '】年度再作業。\n';
-				}
+				}*/
 				if (emp($('#txtUno').val())) {
 					t_err += "批號不可為空白\n";
 				}
