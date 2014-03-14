@@ -47,7 +47,7 @@
 			function mainPost(){
 				//alert(q_getHref()[1]);
 				$('#txtNoa').val(q_getHref()[1]);
-				q_cmbParse("combUsage", q_getPara('ordem.usage'));
+				//q_cmbParse("combUsage", q_getPara('ordem.usage'));
 			}
 
 			function bbsAssign() {  /// 表身運算式
@@ -100,7 +100,7 @@
 			function q_gtPost(t_postname) {
 			}
 
-			function combUsage_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+			/*function combUsage_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
 				var cmb = document.getElementById("combUsage")
 				if (!q_cur)
 					cmb.value = '';
@@ -108,7 +108,7 @@
 					$('#txtUsage').val(cmb.value);
 
 				cmb.value = '';
-			}
+			}*/
 
 			function refresh(recno) {
 				_refresh(recno);
@@ -167,24 +167,8 @@
 			<div class='dbbm' style="width: 68%;float: left;">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr>
-						<td class="lable1" align="right"><a id='lblUsage'></a></td>
-						<td class="column1">
-							<input id="txtUsage" maxlength='30' type="text"  style='width:50%;'/>
-							<select id="combUsage" style="width:40%;" onchange="combUsage_chg();"> </select>
-						</td>
-						<td class="label2" align="right" ><a id='lblProductno'></a></td>
-						<td class="column2"><input id="txtProductno" type="text" style='width:100%;'/></td>
-						<td class="label3" align="right"><a id='lblOrdcno'></a></td>
-						<td class="column3" ><input id="txtOrdcno" type="text" style='width:85%;'/></td> 
-					</tr>
-					<tr>
-						<td class="label1" align="right"><a id='lblModel'></a></td>
-						<td class="column1"><input id="txtModel" type="text" style='width:100%;'/></td>
-						<td class="label2" align="right" ><a id='lblRdate'></a></td>
-						<td class="column2"><input id="txtRdate" type="text" style='width:100%;'/></td>
-						<td class="label3" align="right"><a id='lblPacks'></a></td>
+						<td class="lable1" align="right"><a id='lblNoa'> </a></td>
 						<td class="column3" >
-							<input id="txtPacks" type="text" style='width:85%;'/>
 							<input id="txtNoa" type="text" style='width:85%;'/>
 						</td>
 					</tr>

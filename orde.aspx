@@ -187,6 +187,9 @@
 					}
 					$('#div_addr2').hide();
 				});
+				 $('#btnOrdem').click(function() {
+                    q_box("ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordem', "95%", "95%", q_getMsg('popOrdem'));
+                });
 			}
 			
 			//addr2控制事件vvvvvv-------------------
@@ -948,6 +951,7 @@
 							<span> </span><a id='lblIsproj'> </a>
 							<input id="chkEnda" type="checkbox"/>
 							<span> </span><a id='lblEnda'> </a>
+							<input id="btnOrdem" type="button"/>
 						</td>
 					</tr>
 					<tr class="tr11">
