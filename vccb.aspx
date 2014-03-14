@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "vccb";
             var q_readonly = ['txtNoa','txtAccno','txtVccno','txtWorker','txtMoney','txtTax','txtTotal'];
-            var q_readonlys = ['txtTotal'];
+            var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTax', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1], ['txtTax', 10, 0, 1]];
             var bbmMask = [];
@@ -69,6 +69,21 @@
                	$('#lblVccno').click(function() {
                     q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + $('#txtDatea').val().substring(0,3), 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
                 });
+                
+                $('#cmbTypea').change(function() {
+                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
+	                	if($('#cmbTypea').val()=='1' || $('#cmbTypea').val()=='3'){
+		                	for (var j = 0; j < q_bbsCount; j++) {
+		                		$('#txtTotal_'+j).attr('disabled', 'disabled');
+		                	}
+	                	}else{
+	                		for (var j = 0; j < q_bbsCount; j++) {
+	                			$('#txtTotal_'+j).removeAttr('disabled');
+	                		}
+	                	}
+	                }
+                });
+                
             }
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var ret;
@@ -157,9 +172,26 @@
                 	$('#lblNo_'+j).text(j+1);	
                 	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
                 		$('#txtMount_' + j).change(function(e){
+                			t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var t_mount = q_float('txtMount_'+b_seq);
+							var t_price = q_float('txtPrice_'+b_seq);
+							var t_money = round(t_mount * t_price,0);
+							$('#txtTotal_'+b_seq).val(t_money);
                 			sum();
                 		});
                 		$('#txtPrice_' + j).change(function(e){
+                			t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+                			var t_mount = q_float('txtMount_'+b_seq);
+							var t_price = q_float('txtPrice_'+b_seq);
+							var t_money = round(t_mount * t_price,0);
+							$('#txtTotal_'+b_seq).val(t_money);
+                			sum();
+                		});
+                		$('#txtTotal_' + j).change(function(e){
                 			sum();
                 		});
                 		$('#txtTax_' + j).change(function(e){
@@ -176,6 +208,13 @@
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 $("#cmbCno").val(z_cno);
+                if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
+                	if($('#cmbTypea').val()=='1' || $('#cmbTypea').val()=='3'){
+	                	for (var j = 0; j < q_bbsCount; j++) {
+	                		$('#txtTotal_'+j).attr('disabled', 'disabled');
+	                	}
+                	}
+                }
             }
 
             function btnModi() {
@@ -183,7 +222,13 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                sum();
+                if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
+                	if($('#cmbTypea').val()=='1' || $('#cmbTypea').val()=='3'){
+	                	for (var j = 0; j < q_bbsCount; j++) {
+	                		$('#txtTotal_'+j).attr('disabled', 'disabled');
+	                	}
+                	}
+                }
             }
 
             function btnPrint() {
@@ -225,10 +270,7 @@
                 var t_mount,t_price,t_money,t_tax;
                 var tot_money=0,tot_tax=0;
                 for (var j = 0; j < q_bbsCount; j++) {
-					t_mount = q_float('txtMount_'+j);
-					t_price = q_float('txtPrice_'+j);
-					t_money = round(t_mount * t_price,0);
-					$('#txtTotal_'+j).val(t_money);
+					t_money = q_float('txtTotal_'+j);
 					t_tax = q_float('txtTax_'+j);
 					tot_money += t_money;
 					tot_tax += t_tax;
@@ -255,6 +297,13 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
+                if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
+                	if($('#cmbTypea').val()=='1' || $('#cmbTypea').val()=='3'){
+	                	for (var j = 0; j < q_bbsCount; j++) {
+	                		$('#txtTotal_'+j).attr('disabled', 'disabled');
+	                	}
+                	}
+                }
             }
 
             function q_appendData(t_Table) {

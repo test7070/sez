@@ -18,18 +18,19 @@
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
 			}
-
+			
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "workb";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtWorker', 'txtNoa'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
 				['txtMount', 15, 2, 1], ['txtBorn', 15, 0, 1], ['txtLengthb', 15, 0, 1],
-				['txtTheory', 15, 2, 1], ['txtWmount', 15, 2, 1]
+				['txtTheory', 15, 2, 1], ['txtWmount', 15, 2, 1],
+				['txtWk_mount', 15, 2, 1], ['txtWk_inmount', 15, 2, 1], ['txtWk_unmount', 15, 2, 1],
 			];
 			var bbmMask = [];
 			var bbsMask = [['txtTimea', '99:99']];
@@ -239,13 +240,14 @@
 						var as = _q_appendData("work", "", true);
 						var t_stationno = '', t_station = '';
 						for ( i = 0; i < as.length; i++) {
-
 							if (as[i].stationno != '') {
 								t_stationno = as[i].stationno;
 								t_station = as[i].station;
 							}
+							
+							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2', as.length, as, 'productno,product,unit,mount,memo,noa,ordeno,no2', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount', as.length, as, 'productno,product,unit,smount,memo,noa,ordeno,no2,mount,inmount', '');
 						if (t_stationno.length != 0 || t_station.length != 0) {
 							$('#txtStationno').val(t_stationno);
 							$('#txtStation').val(t_station);
@@ -341,6 +343,20 @@
 							$('#txtStore_' + i).val($('#txtStore').val());
 						}
 					}
+					
+					//檢查是否多入庫
+					var err_mess='';
+					for (var i = 0; i < q_bbsCount; i++) {
+						var unmount=q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i)-q_float('txtMount_'+i);
+						if(unmount<0){
+							err_mess+=$('#txtProduct_'+i).val()+"多入"+-1*unmount+'\n';
+						}
+					}
+					
+					if(err_mess.length>0){
+						alert(err_mess);
+						return;
+					}
 
 					var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 					var t_date = $('#txtDatea').val();
@@ -385,6 +401,13 @@
 								var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "') ^^";
 								q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 							}
+						});
+						$('#txtMount_' + i).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							$('#txtWk_unmount_'+b_seq).val(q_float('txtWk_mount_'+b_seq)-q_float('txtWk_inmount_'+b_seq)-q_float('txtMount_'+b_seq))
 						});
 					}
 				}
@@ -747,23 +770,26 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs' style="width: 1700px;">
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
-					<td align="center" style="width:1%;">
+					<td align="center" style="width:43px;">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:18%;"><a id='lblProductnos'></a></td>
-					<td align="center" style="width:20%;"><a id='lblProducts'></a></td>
-					<td align="center" style="width:4%;"><a id='lblUnit'></a></td>
-					<td align="center" style="width:6%;"><a id='lblMounts'></a></td>
+					<td align="center" style="width:226px;"><a id='lblProductnos'></a></td>
+					<td align="center" style="width:251px;"><a id='lblProducts'></a></td>
+					<td align="center" style="width:50px;"><a id='lblUnit'></a></td>
+					<td align="center" style="width:80px;"><a id='lblWk_mounts'></a></td>
+					<td align="center" style="width:80px"><a id='lblWk_inmounts'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMounts'></a></td>
+					<td align="center" style="width:80px;"><a id='lblWk_unmounts'></a></td>
 					<!--<td align="center" style="width:7%;"><a id='lblTheory'></a></td>-->
-					<td align="center" style="width:6%;"><a id='lblWmount'></a></td>
-					<td align="center" style="width:12%;"><a id='lblStores'></a></td>
+					<td align="center" style="width:80px;"><a id='lblWmount'></a></td>
+					<td align="center" style="width:200px;"><a id='lblStores'></a></td>
 					<td align="center" ><a id='lblMemos'></a></td>
-					<td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
-					<td align="center" style="width:13%;"><a id='lblWorknos'></a></td>
-					<td align="center" style="width:2%;"><a id='lblStks'> </a></td>
+					<td align="center" style="width:45px;"><a id='lblEnda'> </a></td>
+					<td align="center" style="width:163px;"><a id='lblWorknos'></a></td>
+					<td align="center" style="width:30px;"><a id='lblStks'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
@@ -775,17 +801,20 @@
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td style="display: none;"><input id="txtLengthb.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWk_inmount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWk_unmount.*" type="text" class="txt c1 num"/></td>
 					<!--<td><input id="txtTheory.*" type="text" class="txt c1 num"/></td>-->
 					<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 					<td>
 						<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
-						<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
+						<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 33%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
 					<td>
 						<input id="txtMemo.*" type="text" class="txt c1"/>
-						<input id="txtOrdeno.*" type="text" style="width:70%;"/>
+						<input id="txtOrdeno.*" type="text" style="width:73%;"/>
 						<input id="txtNo2.*" type="text" style="width:20%;"/>
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
