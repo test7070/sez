@@ -502,8 +502,24 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 				abbm[q_recno]['accno'] = xmlString.split(";")[0];
+				var t_noa = $.trim($('#txtNoa').val());
+				if((t_noa.length>0) && (r_name.length > 0)){
+					Lock();
+					q_func('qtxt.query.workq', 'workq.txt,workqsave,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
+				}
 			}
 
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.workq':
+						var t_noa = $.trim($('#txtNoa').val());
+						q_func('workd.post',r_accy+','+t_noa+',0');
+						q_func('workd.post',r_accy+','+t_noa+',1');
+						Unlock();
+						break;
+				}
+			}
+			
 			function FormatNumber(n) {
 				var xx = "";
 				if (n < 0) {
