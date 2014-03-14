@@ -25,7 +25,7 @@
 				['txtOrdemount', 15, 0, 1], ['txtPlanmount', 15, 0, 1], ['txtStkmount', 15, 0, 1],
 				['txtIntmount', 15, 0, 1], ['txtPurmount', 15, 0, 1], ['txtAvailmount', 15, 0, 1],
 				['txtBornmount', 15, 0, 1], ['txtSalemount', 15, 0, 1], ['txtMount', 15, 0, 1],
-				['txtInmount', 15, 0, 1], ['txtWmount', 15, 0, 1], ['txtSaleforecast', 15, 0, 1]
+				['txtInmount', 15, 0, 1], ['txtWmount', 15, 0, 1], ['txtSaleforecast', 15, 0, 1], ['txtForecastprepare', 15, 0, 1]
 			];
 			var bbtNum = [];
 			var bbmMask = [];
@@ -84,11 +84,11 @@
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
 
 							if (!emp($('#txtProductno').val()))
-								var t_where1 = "where[1]=^^a.productno='" + $('#txtProductno').val() + "' and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from workgs" + r_accy + " FOR XML PATH('')),''))=0 group by productno ^^";
+								var t_where1 = "where[1]=^^a.productno='" + $('#txtProductno').val() + "' and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 group by productno ^^";
 							else
-								var t_where1 = "where[1]=^^a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from workgs" + r_accy + " FOR XML PATH('')),''))=0 group by productno ^^";
+								var t_where1 = "where[1]=^^a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 group by productno ^^";
 
-							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from workgs" + r_accy + " FOR XML PATH('')),''))=0 ^^";
+							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "' and c.datea >= '" + q_date() + "') and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfbmon').val()+"') ^^"
@@ -126,6 +126,25 @@
 				
 				$('#lblOrdbno').click(function() {
 					q_box('ordb.aspx' + "?;;;charindex(noa,'" + $('#txtOrdbno').val() + "')>0;" + r_accy + ";", '', "95%", "95%", q_getMsg("lblOrdbno"));
+				});
+				
+				$('#txtSfbmon').blur(function() {
+					if(q_cur==1 || q_cur==2){
+						if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
+							$('.sf').show();
+						}else{
+							$('.sf').hide();
+						}
+					}
+				});
+				$('#txtSfemon').blur(function() {
+					if(q_cur==1 || q_cur==2){
+						if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
+							$('.sf').show();
+						}else{
+							$('.sf').hide();
+						}
+					}
 				});
 			}
 
@@ -199,7 +218,7 @@
 								as[i].rworkdate = '';
 								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation', as.length, as, 'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station', 'txtProductno');
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast', as.length, as, 'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast', 'txtProductno');
 							if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
 								$('.sf').show();
 							}else{
@@ -329,6 +348,11 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
+					$('.sf').show();
+				}else{
+					$('.sf').hide();
+				}
 			}
 
 			function btnMinus(id) {
@@ -808,6 +832,7 @@
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblSaleforecast_s'> </a></td>
+						<td style="width:90px;" class="sf"><a id='lblForecastprepare_s'> </a></td>
 						<td style="width:100px;"><a id='lblUnmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
@@ -839,6 +864,7 @@
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
 						<td class="sf"><input id="txtSaleforecast.*" type="text" class="txt c1 num"/></td>
+						<td class="sf"><input id="txtForecastprepare.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtUnmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
