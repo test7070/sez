@@ -358,6 +358,16 @@
 								q_box("orde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
 							}
 						});
+						
+						$('#btnScheduled_' + i).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if (!emp($('#txtProductno_' + b_seq).val())) {
+								t_where = "noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
+								q_box("z_scheduled.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
+							}
+						});
 
 						$('#txtUnmount_' + i).blur(function() {
 							t_IdSeq = -1;
@@ -647,7 +657,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 2600px;
+				width: 2700px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -783,7 +793,7 @@
 						<td style="width:100px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
-						<td style="width:80px;"><a id='lblIntmount_s'> </a></td>
+						<td style="width:110px;"><a id='lblIntmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblPurmount_s'> </a></td>
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
 						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
@@ -795,7 +805,7 @@
 						<td style="width:50px;"><a id='lblRank_s'> </a></td>
 						<td style="width:80px;"><a id='lblIndate_s'> </a></td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
-						<td style="width:80px;"><a id='lblWmount_s'> </a></td>
+						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>
 						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 						<td style="width:50px;"><a id='lblIsfreeze_s'> </a></td>
@@ -813,7 +823,10 @@
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtAvailmount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtIntmount.*" type="text" class="txt c1 num"/></td>
+						<td>
+							<input id="txtIntmount.*" type="text" class="txt c1 num" style="width: 80px;"/>
+							<input class="btn" id="btnScheduled.*" type="button" value='.' style=" font-weight: bold;" />
+						</td>
 						<td><input id="txtPurmount.*" type="text" class="txt c1 num"/></td>
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num"/></td>
