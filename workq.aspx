@@ -20,8 +20,8 @@
 			var q_name = "workq";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtTgg','txtStore'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
@@ -169,7 +169,13 @@
 				switch (t_name) {
 					case 'getWorkfs':
 						var as = _q_appendData("view_workfs", "", true);
-						console.log(as);
+						q_gridAddRow(
+							bbsHtm, 'tbbs',
+							'txtProductno,txtProduct,txtUnit,txtBorn,txtStoreno,txtStore,txtWmount,txtPrice,txtTotal,txtInmount,txtOutmount,txtErrmount,txtErrmemo,txtMemo,txtOrdeno,txtNo2,txtWorkno,txtWorkfno,txtWorkfnoq',
+							as.length, as,
+							'productno,product,unit,born,storeno,store,wmount,price,total,inmount,outmount,errmount,errmemo,memo,ordeno,no2,workno,noa,noq',
+							''
+						);
 						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
@@ -794,7 +800,10 @@
 						<input id="recno.*" type="hidden" />
 					</td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
-					<td><input id="txtWorkfno.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtWorkfno.*" type="text" class="txt" style="width:68%;"/>
+						<input id="txtWorkfnoq.*" type="text" class="txt" style="width:23%;"/>
+					</td>
 					<td align="center">
 						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
