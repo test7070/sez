@@ -21,10 +21,10 @@
 			var decbbs = ['mount', 'weight'];
 			var decbbm = ['mount'];
 			var q_readonly = ['txtWorker','','txtStore','txtStation','txtProcess','txtMech'];
-			var q_readonlys = ['txtWorkno'];
+			var q_readonlys = ['txtWorkno','txtWk_mount','txtWk_gmount','txtWk_emount'];
 			var bbmNum = [];
 			// 允許 key 小數
-			var bbsNum = [['txtMount', 12, 2, 1], ['txtWeight', 15, 2, 1]];
+			var bbsNum = [['txtMount', 12, 2, 1], ['txtWeight', 15, 2, 1], ['txtWk_mount', 15, 2, 1], ['txtWk_gmount', 15, 2, 1], ['txtWk_emount', 15, 2, 1]];
 			var bbmMask = [['txtTimea', '99:99']];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -461,6 +461,13 @@
 								var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "') ^^";
 								q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 							}
+						});
+						$('#txtMount_' + i).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							$('#txtWk_emount_'+b_seq).val(q_float('txtWk_mount_'+b_seq)-q_float('txtWk_gmount_'+b_seq)-q_float('txtMount_'+b_seq))
 						});
 					}
 				}
@@ -901,34 +908,38 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs' style="width: 1600px;">
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
-					<td align="center">
+					<td align="center" style="width:45px;">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center"><a id='lblProductnos'> </a></td>
-					<td align="center"><a id='lblProduct_s'> </a></td>
-					<td align="center"><a id='lblUnit'> </a></td>
-					<td align="center"><a id='lblMounts'> </a></td>
-					<td align="center"><a id='lblStores'> </a></td>
+					<td align="center" style="width:240px;"><a id='lblProductnos'> </a></td>
+					<td align="center" style="width:240px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:50px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblWk_mounts'></a></td>
+					<td align="center" style="width:80px"><a id='lblWk_gmounts'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMounts'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblWk_emounts'></a></td>
+					<td align="center" style="width:200px;"><a id='lblStores'> </a></td>
 					<td align="center"><a id='lblMemos'> </a></td>
-					<td align="center"><a id='lblWorknos'> </a></td>
-					<td align="center"><a id='lblStks'> </a></td>
+					<td align="center" style="width:165px;"><a id='lblWorknos'> </a></td>
+					<td align="center" style="width:45px;"><a id='lblStks'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏-->
-					<td style="width:1%;">
-						<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
-					</td>
-					<td style="width:19%;">
+					<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td>
 						<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:10%;"  />
 					</td>
-					<td style="width:18%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
-					<td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
-					<td style="width:7%;"><input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/></td>
-					<td style="width:14%;">
+					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWk_gmount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/></td>
+					<td><input id="txtWk_emount.*" type="text" class="txt c1 num"/></td>
+					<td>
 						<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
 						<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
@@ -938,10 +949,8 @@
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>
-					<td style="width:13%;"><input id="txtWorkno.*" type="text" class="txt c1"/></td>
-					<td align="center" style="width:4%;">
-						<input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  />
-					</td>
+					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
+					<td align="center"><input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  /></td>
 				</tr>
 			</table>
 		</div>
