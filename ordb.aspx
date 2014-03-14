@@ -40,18 +40,12 @@
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick,paytype', 'txtTggno,txtTgg,txtNick,txtPaytype', 'tgg_b.aspx']
-            , ['textTggno_a1', '', 'tgg', 'noa,nick', 'textTggno_a1,textTgg_a1', 'tgg_b.aspx']
-            , ['textTggno_a2', '', 'tgg', 'noa,nick', 'textTggno_a2,textTgg_a2', 'tgg_b.aspx']
-            , ['textTggno_a3', '', 'tgg', 'noa,nick', 'textTggno_a3,textTgg_a3', 'tgg_b.aspx']
-            , ['textTggno_a4', '', 'tgg', 'noa,nick', 'textTggno_a4,textTgg_a4', 'tgg_b.aspx']
-            , ['textTggno_a5', '', 'tgg', 'noa,nick', 'textTggno_a5,textTgg_a5', 'tgg_b.aspx']
-            , ['textTggno_a6', '', 'tgg', 'noa,nick', 'textTggno_a6,textTgg_a6', 'tgg_b.aspx']
-            , ['textTggno_b1', '', 'tgg', 'noa,nick', 'textTggno_b1,textTgg_b1', 'tgg_b.aspx']
-            , ['textTggno_b2', '', 'tgg', 'noa,nick', 'textTggno_b2,textTgg_b2', 'tgg_b.aspx']
-            , ['textTggno_b3', '', 'tgg', 'noa,nick', 'textTggno_b3,textTgg_b3', 'tgg_b.aspx']
-            , ['textTggno_b4', '', 'tgg', 'noa,nick', 'textTggno_b4,textTgg_b4', 'tgg_b.aspx']
-            , ['textTggno_b5', '', 'tgg', 'noa,nick', 'textTggno_b5,textTgg_b5', 'tgg_b.aspx']
-            , ['textTggno_b6', '', 'tgg', 'noa,nick', 'textTggno_b6,textTgg_b6', 'tgg_b.aspx']
+            , ['textTggno_1', '', 'tgg', 'noa,nick', 'textTggno_1,textTgg_1', 'tgg_b.aspx']
+            , ['textTggno_2', '', 'tgg', 'noa,nick', 'textTggno_2,textTgg_2', 'tgg_b.aspx']
+            , ['textTggno_3', '', 'tgg', 'noa,nick', 'textTggno_3,textTgg_3', 'tgg_b.aspx']
+            , ['textTggno_4', '', 'tgg', 'noa,nick', 'textTggno_4,textTgg_4', 'tgg_b.aspx']
+            , ['textTggno_5', '', 'tgg', 'noa,nick', 'textTggno_5,textTgg_5', 'tgg_b.aspx']
+            , ['textTggno_6', '', 'tgg', 'noa,nick', 'textTggno_6,textTgg_6', 'tgg_b.aspx']
             );
             var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             $(document).ready(function() {
@@ -145,8 +139,10 @@
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]
-                ,['textDatea_a1',r_picd],['textDatea_a2',r_picd],['textDatea_a3',r_picd],['textDatea_a4',r_picd],['textDatea_a5',r_picd],['textDatea_a6',r_picd]
-                ,['textDatea_b1',r_picd],['textDatea_b2',r_picd],['textDatea_b3',r_picd],['textDatea_b4',r_picd],['textDatea_b5',r_picd],['textDatea_b6',r_picd]];
+                ,['textEdate_1',r_picd],['textEdate_2',r_picd],['textEdate_3',r_picd],['textEdate_4',r_picd],['textEdate_5',r_picd],['textEdate_6',r_picd]
+                ,['textRdate_1',r_picd],['textRdate_2',r_picd],['textRdate_3',r_picd],['textRdate_4',r_picd],['textRdate_5',r_picd],['textRdate_6',r_picd]
+                ,['textFdate_1',r_picd],['textFdate_2',r_picd],['textFdate_3',r_picd],['textFdate_4',r_picd],['textFdate_5',r_picd],['textFdate_6',r_picd]
+                ];
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", q_getPara('ordb.kind'));
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));
@@ -209,41 +205,44 @@
                     loadCustAddr($.trim($(this).val()));
                 });
                 //------------------------------------------------------------------
-                $('#btnSave_a').click(function(e){
+                $('#btnSave').click(function(e){
                     if( q_cur!=1 && q_cur!=2){
-                        $('#Inquiry').hide();
+                        $('#tmp').hide();
                         return;
                     }
-                    var t_no3 = $('#Inquiry').data('info').no3;
+                    var t_no3 = $('#tmp').data('info').no3;
+                    alert(t_no3);
                     for(var i=0;i<q_bbtCount;i++){                  
-                        if($('#txtNo3__'+i).val()==t_no3 && $('#txtTypea__'+i).val()=='詢價'){
+                        if($('#txtNo3__'+i).val()==t_no3){
                            $('#txtNo3__'+i).val('');
                            $('#txtNo4__'+i).val('');
-                           $('#txtTypea__'+i).val(''); 
-                           $('#txtDatea__'+i).val('');
-                           $('#txtTimea__'+i).val('');
-                           $('#txtProductno__'+i).val('');
-                           $('#txtProduct__'+i).val('');
-                           $('#txtMount__'+i).val('');
-                           $('#txtPrice__'+i).val('');
-                           $('#txtMoney__'+i).val('');
-                           $('#txtMemo__'+i).val('');
-                           $('#txtTggno__'+i).val('');
-                           $('#txtTgg__'+i).val('');
+                           $('#txtTggno__'+j).val('');
+                            $('#txtTgg__'+j).val('');
+                            $('#txtEdate__'+j).val('');
+                            $('#txtPack__'+j).val('');
+                            $('#txtPrice__'+j).val('');
+                            $('#txtRprice__'+j).val('');
+                            $('#txtRdate__'+j).val('');
+                            $('#txtIprice__'+j).val('');
+                            $('#txtFdate__'+j).val('');
+                            $('#txtFprice__'+j).val('');
                         }
                     }
                     var j=1,m=0;
                     while(true){
                         for(var i=0;i<q_bbtCount;i++){
                             if($('#txtNo3__'+i).val().length==0){
-                               $('#txtNo3__'+i).val(t_no3);
-                               $('#txtTypea__'+i).val('詢價'); 
-                               $('#txtDatea__'+i).val($('#textDatea_a'+j).val());
-                               $('#txtMount__'+i).val($('#textMount_a'+j).val());
-                               $('#txtPrice__'+i).val($('#textPrice_a'+j).val());
-                               $('#txtMemo__'+i).val($('#textMemo_a'+j).val());
-                               $('#txtTggno__'+i).val($('#textTggno_a'+j).val());
-                               $('#txtTgg__'+i).val($('#textTgg_a'+j).val());
+                               $('#txtNo3__'+i).val(t_no3); 
+                               $('#txtTggno__'+i).val($('#textTggno_'+j).val());
+                               $('#txtTgg__'+i).val($('#textTgg_'+j).val());
+                               $('#txtEdate__'+i).val($('#textEdate_'+j).val());
+                               $('#txtPack__'+i).val($('#textPack_'+j).val());
+                               $('#txtPrice__'+i).val($('#textPrice_'+j).val());
+                               $('#txtRprice__'+i).val($('#textRprice_'+j).val());
+                               $('#txtRdate__'+i).val($('#textRdate_'+j).val());
+                               $('#txtIprice__'+i).val($('#textIprice_'+j).val());
+                               $('#txtFdate__'+i).val($('#textFdate_'+j).val());
+                               $('#txtFprice__'+i).val($('#textFprice_'+j).val());
                                j++;
                             } 
                             if(j==7)
@@ -256,15 +255,16 @@
                             $('#btnPlut').click();
                         }
                     } 
-                    $('#Inquiry').hide();
+                    $('#tmp').hide();
                 });
-                $('#Inquiry').find('input[type="text"]').keydown(function(e) {
-                    if(e.which==13){
-                        var obj=$('#Inquiry').find('input[type="text"]');
+                    
+                $('#tmp').find('input[type="text"]').keydown(function(e) {
+                    if(e.which==13 ){  
+                        var obj=$('#tmp').find('input[type="text"]');
                         for(var i=0;i<obj.length;i++){
                             if($(this).attr('id')==obj.eq(i).attr('id')){
                                 if(i==obj.length-1){
-                                    $('#btnSave_a').focus();
+                                    $('#btnSave').focus();
                                     break;
                                 }else{
                                     obj.eq(i+1).focus();
@@ -274,72 +274,7 @@
                         }
                     }
                 });
-                //---------------------------------------------Bargain
-                $('#btnSave_b').click(function(e){
-                    if( q_cur!=1 && q_cur!=2){
-                        $('#Bargain').hide();
-                        return;
-                    }
-                    var t_no3 = $('#Bargain').data('info').no3;
-                    for(var i=0;i<q_bbtCount;i++){                  
-                        if($('#txtNo3__'+i).val()==t_no3 && $('#txtTypea__'+i).val()=='議價'){
-                           $('#txtNo3__'+i).val('');
-                           $('#txtNo4__'+i).val('');
-                           $('#txtTypea__'+i).val(''); 
-                           $('#txtDatea__'+i).val('');
-                           $('#txtTimea__'+i).val('');
-                           $('#txtProductno__'+i).val('');
-                           $('#txtProduct__'+i).val('');
-                           $('#txtMount__'+i).val('');
-                           $('#txtPrice__'+i).val('');
-                           $('#txtMoney__'+i).val('');
-                           $('#txtMemo__'+i).val('');
-                           $('#txtTggno__'+i).val('');
-                           $('#txtTgg__'+i).val('');
-                        }
-                    }
-                    var j=1,m=0;
-                    while(true){
-                        for(var i=0;i<q_bbtCount;i++){
-                            if($('#txtNo3__'+i).val().length==0){
-                               $('#txtNo3__'+i).val(t_no3);
-                               $('#txtTypea__'+i).val('議價'); 
-                               $('#txtDatea__'+i).val($('#textDatea_b'+j).val());
-                               $('#txtMount__'+i).val($('#textMount_b'+j).val());
-                               $('#txtPrice__'+i).val($('#textPrice_b'+j).val());
-                               $('#txtMemo__'+i).val($('#textMemo_b'+j).val());
-                               $('#txtTggno__'+i).val($('#textTggno_b'+j).val());
-                               $('#txtTgg__'+i).val($('#textTgg_b'+j).val());
-                               j++;
-                            } 
-                            if(j==7)
-                                break;
-                        }
-                        if(j==7)
-                            break;
-                        else{
-                            m=q_bbtCount;
-                            $('#btnPlut').click();
-                        }
-                    } 
-                    $('#Bargain').hide();
-                });
-                $('#Bargain').find('input[type="text"]').keydown(function(e) {
-                    if(e.which==13){
-                        var obj=$('#Bargain').find('input[type="text"]');
-                        for(var i=0;i<obj.length;i++){
-                            if($(this).attr('id')==obj.eq(i).attr('id')){
-                                if(i==obj.length-1){
-                                    $('#btnSave_b').focus();
-                                    break;
-                                }else{
-                                    obj.eq(i+1).focus();
-                                    break;
-                                }                            
-                            }
-                        }
-                    }
-                });
+             
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
@@ -441,10 +376,8 @@
             }
             function btnOk() {
                 Lock(1,{opacity:0});
-                if($('#Inquiry').is(":visible"))
-                    $('#btnSave_a').click();
-                if($('#Bargain').is(":visible"))
-                    $('#btnSave_b').click();
+                if($('#tmp').is(":visible"))
+                    $('#btnSave').click();
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     Unlock(1);
@@ -514,12 +447,10 @@
                 _readonly(t_para, empty);
                 if (t_para) {
                     $('#combAddr').attr('disabled', 'disabled');
-                    $('#Inquiry').find("input[type='text']").attr('disabled', 'disabled');
-                    $('#Bargain').find("input[type='text']").attr('disabled', 'disabled');
+                    $('#tmp').find("input[type='text']").attr('disabled', 'disabled');
                 } else {
                     $('#combAddr').removeAttr('disabled');
-                    $('#Inquiry').find("input[type='text']").removeAttr('disabled');
-                    $('#Bargain').find("input[type='text']").removeAttr('disabled');
+                    $('#tmp').find("input[type='text']").removeAttr('disabled');
                 }
             }
             function btnMinus(id) {
@@ -550,9 +481,9 @@
                             t_where = "tgg='" + $('#txtTggno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
                             q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2record', "95%", "95%", q_getMsg('lblRc2record'));
                         });
-                        $('#btnInquiryrecord_'+j).click(function(e){
-                            var n = replaceAll($(this).attr('id'),'btnInquiryrecord_','');
-                            $('#Inquiry').find("input[type='text']").val(''); 
+                        $('#btnTmprecord_'+j).click(function(e){
+                            var n = replaceAll($(this).attr('id'),'btnTmprecord_','');
+                            $('#tmp').find("input[type='text']").val(''); 
                             
                             var t_no3 = $.trim($('#txtNo3_'+n).val()); 
                             var aa=0,bb=0;
@@ -570,53 +501,25 @@
                             }
                             var j=1;
                             for(var i=0;i<q_bbtCount;i++){
-                                if($('#txtNo3__'+i).val()==t_no3 && $('#txtTypea__'+i).val()=='詢價'){
-                                    $('#textDatea_a'+j).val($('#txtDatea__'+i).val());
-                                    $('#textTggno_a'+j).val($('#txtTggno__'+i).val());
-                                    $('#textTgg_a'+j).val($('#txtTgg__'+i).val());
-                                    $('#textMount_a'+j).val($('#txtMount__'+i).val());
-                                    $('#textPrice_a'+j).val($('#txtPrice__'+i).val());
-                                    $('#textMemo_a'+j).val($('#txtMemo__'+i).val());    
+                                if($('#txtNo3__'+i).val()==t_no3){
+                                    $('#textTggno_'+j).val($('#txtTggno__'+i).val());
+                                    $('#textTgg_'+j).val($('#txtTgg__'+i).val());
+                                    $('#textEdate_'+j).val($('#txtEdate__'+i).val());
+                                    $('#textPack_'+j).val($('#txtPack__'+i).val());
+                                    $('#textPrice_'+j).val($('#txtPrice__'+i).val());
+                                    $('#textRprice_'+j).val($('#txtRpirce__'+i).val());
+                                    $('#textRdate_'+j).val($('#txtRdate__'+i).val());
+                                    $('#textIprice_'+j).val($('#txtIprice__'+i).val());
+                                    $('#textFdate_'+j).val($('#txtFdate__'+i).val());
+                                    $('#textFprice_'+j).val($('#txtFprice__'+i).val());
                                     j++;
                                 }
                             }
-                            $('#Inquiry').data('info',{no3:t_no3});    
-                            $('#Inquiry').show();
+                            $('#tmp').data('info',{no3:t_no3});    
+                            $('#tmp').show();
                             
                         });
-                        $('#btnBargainrecord_'+j).click(function(e){
-                            var n = replaceAll($(this).attr('id'),'btnBargainrecord_','');
-                            $('#Bargain').find("input[type='text']").val(''); 
-                            
-                            var t_no3 = $.trim($('#txtNo3_'+n).val()); 
-                            var aa=0,bb=0;
-                            if(t_no3.length==0){
-                                t_no3='000';
-                                for(var i=0;i<q_bbsCount;i++){
-                                    aa = parseFloat($('#txtNo3_'+i).val().length==0?"0":$('#txtNo3_'+i).val());             
-                                    bb = parseFloat(t_no3.length==0?"0":t_no3);
-                                    if(aa>bb)
-                                        t_no3 = $.trim($('#txtNo3_'+i).val());                                  
-                                }
-                                t_no3 = '000'+( parseFloat(t_no3.length==0?"0":t_no3) +1);
-                                t_no3 = t_no3.substring(t_no3.length-3);
-                                $('#txtNo3_'+n).val(t_no3);
-                            }
-                            var j=1;
-                            for(var i=0;i<q_bbtCount;i++){
-                                if($('#txtNo3__'+i).val()==t_no3 && $('#txtTypea__'+i).val()=='議價'){
-                                    $('#textDatea_b'+j).val($('#txtDatea__'+i).val());
-                                    $('#textTggno_b'+j).val($('#txtTggno__'+i).val());
-                                    $('#textTgg_b'+j).val($('#txtTgg__'+i).val());
-                                    $('#textMount_b'+j).val($('#txtMount__'+i).val());
-                                    $('#textPrice_b'+j).val($('#txtPrice__'+i).val());
-                                    $('#textMemo_b'+j).val($('#txtMemo__'+i).val());    
-                                    j++;
-                                }
-                            }
-                            $('#Bargain').data('info',{no3:t_no3});              
-                            $('#Bargain').show();
-                        });
+                        
                     }
                 }
                 _bbsAssign();
@@ -854,176 +757,127 @@
     ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
     ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
     >
-        <div id="Inquiry" style="background:pink;display:none; position: absolute;top:100px;left:100px;width:500px;height:300px;"> 
+        <div id="tmp" style="background:pink;display:none; position: absolute;top:200px;left:100px;width:800px;height:300px;"> 
             <table style="width:100%;height:100%;border: 2px white double;">
                 <tr style="height:1px;">
                     <td style="width:20%;"> </td>
-                    <td style="width:30%;"> </td>
                     <td style="width:10%;"> </td>
                     <td style="width:10%;"> </td>
-                    <td style="width:30%;"> </td>
+                    <td style="width:10%;"> </td>
+                    <td style="width:10%;"> </td>
+                    <td style="width:10%;"> </td>
+                    <td style="width:10%;"> </td>
+                    <td style="width:10%;"> </td>
+                    <td style="width:10%;"> </td>
                 </tr>
                 <tr>
-                    <td align="center">日期</td>
                     <td align="center">廠商</td>
-                    <td align="center">數量</td>
-                    <td align="center">單價</td>
-                    <td align="center">備註</td>
+                    <td align="center">有效日期</td>
+                    <td align="center">包裝方式</td>
+                    <td align="center">期望單價</td>
+                    <td align="center">廠商<br>回報價</td>
+                    <td align="center">回報日期</td>
+                    <td align="center">議價單價</td>
+                    <td align="center">成交日期</td>
+                    <td align="center">成交價</td>
                 </tr>
                 <tr>
-                    <td><input id="textDatea_a1" type="text" style="width:95%;"/></td>
                     <td>
-                        <input id="textTggno_a1" type="text" style="width:45%;"/>
-                        <input id="textTgg_a1" type="text" style="width:45%;"/>
+                        <input id="textTggno_1" type="text" style="width:45%;"/>
+                        <input id="textTgg_1" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textMount_a1" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_a1" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_a1" type="text" style="width:95%;"/></td>
+                    <td><input id="textEdate_1" type="text" style="width:95%;"/></td>
+                    <td><input id="textPack_1" type="text" style="width:95%;"/></td>
+                    <td><input id="textPrice_1" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRprice_1" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRdate_1" type="text" style="width:95%;"/></td>
+                    <td><input id="textIprice_1" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textFdate_1" type="text" style="width:95%;"/></td>
+                    <td><input id="textFprice_1" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
-                    <td><input id="textDatea_a2" type="text" style="width:95%;"/></td>
                     <td>
-                        <input id="textTggno_a2" type="text" style="width:45%;"/>
-                        <input id="textTgg_a2" type="text" style="width:45%;"/>
+                        <input id="textTggno_2" type="text" style="width:45%;"/>
+                        <input id="textTgg_2" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textMount_a2" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_a2" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_a2" type="text" style="width:95%;"/></td>
+                    <td><input id="textEdate_2" type="text" style="width:95%;"/></td>
+                    <td><input id="textPack_2" type="text" style="width:95%;"/></td>
+                    <td><input id="textPrice_2" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRprice_2" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRdate_2" type="text" style="width:95%;"/></td>
+                    <td><input id="textIprice_2" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textFdate_2" type="text" style="width:95%;"/></td>
+                    <td><input id="textFprice_2" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
-                    <td><input id="textDatea_a3" type="text" style="width:95%;"/></td>
                     <td>
-                        <input id="textTggno_a3" type="text" style="width:45%;"/>
-                        <input id="textTgg_a3" type="text" style="width:45%;"/>
+                        <input id="textTggno_3" type="text" style="width:45%;"/>
+                        <input id="textTgg_3" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textMount_a3" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textPrice_a3" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textMemo_a3" type="text" style="width:95%;"/></td>
+                    <td><input id="textEdate_3" type="text" style="width:95%;"/></td>
+                    <td><input id="textPack_3" type="text" style="width:95%;"/></td>
+                    <td><input id="textPrice_3" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRprice_3" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRdate_3" type="text" style="width:95%;"/></td>
+                    <td><input id="textIprice_3" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textFdate_3" type="text" style="width:95%;"/></td>
+                    <td><input id="textFprice_3" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
-                    <td><input id="textDatea_a4" type="text" style="width:95%;"/></td>
                     <td>
-                        <input id="textTggno_a4" type="text" style="width:45%;"/>
-                        <input id="textTgg_a4" type="text" style="width:45%;"/>
+                        <input id="textTggno_4" type="text" style="width:45%;"/>
+                        <input id="textTgg_4" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textMount_a4" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textPrice_a4" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textMemo_a4" type="text" style="width:95%;"/></td>
+                    <td><input id="textEdate_4" type="text" style="width:95%;"/></td>
+                    <td><input id="textPack_4" type="text" style="width:95%;"/></td>
+                    <td><input id="textPrice_4" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRprice_4" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRdate_4" type="text" style="width:95%;"/></td>
+                    <td><input id="textIprice_4" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textFdate_4" type="text" style="width:95%;"/></td>
+                    <td><input id="textFprice_4" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
-                    <td><input id="textDatea_a5" type="text" style="width:95%;"/></td>
                     <td>
-                        <input id="textTggno_a5" type="text" style="width:45%;"/>
-                        <input id="textTgg_a5" type="text" style="width:45%;"/>
+                        <input id="textTggno_5" type="text" style="width:45%;"/>
+                        <input id="textTgg_5" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textMount_a5" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textPrice_a5" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textMemo_a5" type="text" style="width:95%;"/></td>
+                    <td><input id="textEdate_5" type="text" style="width:95%;"/></td>
+                    <td><input id="textPack_5" type="text" style="width:95%;"/></td>
+                    <td><input id="textPrice_5" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRprice_5" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRdate_5" type="text" style="width:95%;"/></td>
+                    <td><input id="textIprice_5" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textFdate_5" type="text" style="width:95%;"/></td>
+                    <td><input id="textFprice_5" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
-                    <td><input id="textDatea_a6" type="text" style="width:95%;"/></td>
                     <td>
-                        <input id="textTggno_a6" type="text" style="width:45%;"/>
-                        <input id="textTgg_a6" type="text" style="width:45%;"/>
+                        <input id="textTggno_6" type="text" style="width:45%;"/>
+                        <input id="textTgg_6" type="text" style="width:45%;"/>
                     </td>
-                    <td><input id="textMount_a6" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textPrice_a6" type="text" style="width:95%; text-align: right;"/></td>
-                    <td><input id="textMemo_a6" type="text" style="width:95%;"/></td>
+                    <td><input id="textEdate_6" type="text" style="width:95%;"/></td>
+                    <td><input id="textPack_6" type="text" style="width:95%;"/></td>
+                    <td><input id="textPrice_6" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRprice_6" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textRdate_6" type="text" style="width:95%;"/></td>
+                    <td><input id="textIprice_6" type="text" style="width:95%;text-align: right;"/></td>
+                    <td><input id="textFdate_6" type="text" style="width:95%;"/></td>
+                    <td><input id="textFprice_6" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
                     <td> </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td> <input id="btnSave_a" type="button" style="width:95%;" value="關閉"/></td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> <input id="btnSave" type="button" style="width:95%;" value="關閉"/></td>
                 </tr>
             </table>
         </div>
-        <div id="Bargain" style="background:#0B615E;display:none; position: absolute;top:100px;left:120px;width:500px;height:300px;"> 
-            <table style="width:100%;height:100%;border: 2px white double;">
-                <tr style="height:1px;">
-                    <td style="width:20%;"> </td>
-                    <td style="width:30%;"> </td>
-                    <td style="width:10%;"> </td>
-                    <td style="width:10%;"> </td>
-                    <td style="width:30%;"> </td>
-                </tr>
-                <tr>
-                    <td align="center" style="color:white;">日期</td>
-                    <td align="center" style="color:white;">廠商</td>
-                    <td align="center" style="color:white;">數量</td>
-                    <td align="center" style="color:white;">單價</td>
-                    <td align="center" style="color:white;">備註</td>
-                </tr>
-                <tr>
-                    <td><input id="textDatea_b1" type="text" style="width:95%;"/></td>
-                    <td>
-                        <input id="textTggno_b1" type="text" style="width:45%;"/>
-                        <input id="textTgg_b1" type="text" style="width:45%;"/>
-                    </td>
-                    <td><input id="textMount_b1" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_b1" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_b1" type="text" style="width:95%;"/></td>
-                </tr>
-                <tr>
-                    <td><input id="textDatea_b2" type="text" style="width:95%;"/></td>
-                    <td>
-                        <input id="textTggno_b2" type="text" style="width:45%;"/>
-                        <input id="textTgg_b2" type="text" style="width:45%;"/>
-                    </td>
-                    <td><input id="textMount_b2" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_b2" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_b2" type="text" style="width:95%;"/></td>
-                </tr>
-                <tr>
-                    <td><input id="textDatea_b3" type="text" style="width:95%;"/></td>
-                    <td>
-                        <input id="textTggno_b3" type="text" style="width:45%;"/>
-                        <input id="textTgg_b3" type="text" style="width:45%;"/>
-                    </td>
-                    <td><input id="textMount_b3" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_b3" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_b3" type="text" style="width:95%;"/></td>
-                </tr>
-                <tr>
-                    <td><input id="textDatea_b4" type="text" style="width:95%;"/></td>
-                    <td>
-                        <input id="textTggno_b4" type="text" style="width:45%;"/>
-                        <input id="textTgg_b4" type="text" style="width:45%;"/>
-                    </td>
-                    <td><input id="textMount_b4" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_b4" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_b4" type="text" style="width:95%;"/></td>
-                </tr>
-                <tr>
-                    <td><input id="textDatea_b5" type="text" style="width:95%;"/></td>
-                    <td>
-                        <input id="textTggno_b5" type="text" style="width:45%;"/>
-                        <input id="textTgg_b5" type="text" style="width:45%;"/>
-                    </td>
-                    <td><input id="textMount_b5" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_b5" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_b5" type="text" style="width:95%;"/></td>
-                </tr>
-                <tr>
-                    <td><input id="textDatea_b6" type="text" style="width:95%;"/></td>
-                    <td>
-                        <input id="textTggno_b6" type="text" style="width:45%;"/>
-                        <input id="textTgg_b6" type="text" style="width:45%;"/>
-                    </td>
-                    <td><input id="textMount_b6" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textPrice_b6" type="text" style="width:95%;text-align: right;"/></td>
-                    <td><input id="textMemo_b6" type="text" style="width:95%;"/></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> <input id="btnSave_b" type="button" style="width:95%;" value="關閉"/></td>
-                </tr>
-            </table>
-        </div>
+        
         <div style="overflow: auto;display:block;">
             <!--#include file="../inc/toolbar.inc"-->
         </div>
@@ -1049,14 +903,15 @@
             <div class="dbbm">
                 <table class="tbbm"  id="tbbm">
                     <tr style="height:1px;">
-                        <td style="100px;"></td>
-                        <td style="100px;"></td>
-                        <td style="100px;"></td>
-                        <td style="100px;"></td>
-                        <td style="100px;"></td>
-                        <td style="100px;"></td>
-                        <td style="100px;"></td>
-                        <td style="100px;"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="tdZ"></td>
                     </tr>
                     <tr>
                         <td class="td1"><span> </span><a id='lblKind' class="lbl"> </a></td>
@@ -1181,6 +1036,10 @@
                         <td>
                         <input id="txtApv" type="text"  class="txt c1" disabled="disabled"/>
                         </td>
+                        <td></td>
+                        <td>
+                            <input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" />
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -1201,7 +1060,6 @@
                     <td align="center" style="width:100px;">已採購量<br>未採購量</td>
                     <td align="center" style="width:200px;">備註<br>訂單號碼/訂序</a></td>
                     <td align="center" style="width:60px;">詢價<br>記錄</td>
-                    <td align="center" style="width:60px;">議價<br>記錄</td>
                     <td align="center" style="width:60px;">進貨<br>記錄</td>
                 </tr>
                 <tr style='background:#cad3ff;'>
@@ -1244,10 +1102,7 @@
                     <input id="txtNo2.*" type="text" style="float:left;width:40px;" />
                     </td>
                     <td align="center">
-                    <input class="btn"  id="btnInquiryrecord.*" type="button" value='.' style=" font-weight: bold;" />
-                    </td>
-                    <td align="center">
-                    <input class="btn"  id="btnBargainrecord.*" type="button" value='.' style=" font-weight: bold;" />
+                    <input class="btn"  id="btnTmprecord.*" type="button" value='.' style=" font-weight: bold;" />
                     </td>
                     <td align="center">
                     <input class="btn"  id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
@@ -1266,16 +1121,15 @@
                         <td style="width:20px;"> </td>
                         <td style="width:100px; text-align: center;">NO3</td>
                         <td style="width:100px; text-align: center;">NO4</td>
-                        <td style="width:200px; text-align: center;">類型</td>
-                        <td style="width:200px; text-align: center;">日期</td>
                         <td style="width:200px; text-align: center;">廠商</td>
-                        <td style="width:200px; text-align: center;">時間</td>
-                        <td style="width:200px; text-align: center;">品號</td>
-                        <td style="width:200px; text-align: center;">品名</td>
-                        <td style="width:200px; text-align: center;">數量</td>
-                        <td style="width:200px; text-align: center;">單價</td>
-                        <td style="width:200px; text-align: center;">金額</td>
-                        <td style="width:200px; text-align: center;">備註</td>
+                        <td style="width:200px; text-align: center;">有效日期</td>
+                        <td style="width:200px; text-align: center;">包裝方式</td>
+                        <td style="width:200px; text-align: center;">期望單價</td>
+                        <td style="width:200px; text-align: center;">廠商回報價</td>
+                        <td style="width:200px; text-align: center;">回報日期</td>
+                        <td style="width:200px; text-align: center;">議價單價</td>
+                        <td style="width:200px; text-align: center;">成交價</td>
+                        <td style="width:200px; text-align: center;">成交日期</td>
                     </tr>
                     <tr>
                         <td>
@@ -1289,36 +1143,17 @@
                         <input id="txtNo4..*" type="text" style="width:95%;"/>
                         </td>
                         <td>
-                        <input id="txtTypea..*" type="text" style="width:95%;"/>
-                        </td>
-                        <td>
-                        <input id="txtDatea..*" type="text" style="width:95%;"/>
-                        </td>
-                        <td>
                             <input id="txtTggno..*"  type="text" style="width:45%;float:left;"/>
                             <input id="txtTgg..*"  type="text" style="width:45%;float:left;"/>
                         </td>
-                        <td>
-                        <input id="txtTimea..*" type="text" style="width:95%;"/>
-                        </td>
-                        <td>
-                        <input id="txtProductno..*"  type="text" style="width:95%;"/>
-                        </td>
-                        <td>
-                        <input id="txtProduct..*"  type="text" style="width:95%;"/>
-                        </td>
-                        <td>
-                        <input id="txtMount..*"  type="text" style="width:95%; text-align: right;"/>
-                        </td>
-                        <td>
-                        <input id="txtPrice..*"  type="text" style="width:95%; text-align: right;"/>
-                        </td>
-                        <td>
-                        <input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/>
-                        </td>
-                        <td>
-                        <input id="txtMemo..*"  type="text" style="width:95%; text-align: right;"/>
-                        </td>
+                        <td><input id="txtEdate..*" type="text" style="width:95%;text-align: right;"/></td>
+                        <td><input id="txtPack..*" type="text" style="width:95%;text-align: right;"/></td>
+                        <td><input id="txtPrice..*" type="text" style="width:95%;text-align: right;"/></td>
+                        <td><input id="txtRprice..*" type="text" style="width:95%;text-align: right;"/></td>
+                        <td><input id="txtRdate..*" type="text" style="width:95%;text-align: right;"/></td> 
+                        <td><input id="txtIprice..*" type="text" style="width:95%;text-align: right;"/></td>    
+                        <td><input id="txtFdate..*" type="text" style="width:95%;text-align: right;"/></td>  
+                        <td><input id="txtFprice..*" type="text" style="width:95%;text-align: right;"/></td>  
                     </tr>
                 </tbody>
             </table>
