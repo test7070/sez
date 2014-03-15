@@ -145,21 +145,16 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 						$('#btnTproductno_' + j).click(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							//t_where = "CHARINDEX(noa,(select td from uca a left join ucas b on a.noa=b.noa where a.noa='"+$('#txtProductno').val()+"' and b.productno='"+$('#txtProductno_'+b_seq).val()+"'))>0";
-							t_where = "noa='" + $('#txtProductno_' + b_seq).val() + "'";
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							t_where = "noa='" + $('#txtProductno_' + n).val() + "'";
 							q_box("ucctd_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'td', "95%", "650px", q_getMsg('popTd'));
 						});
 						$('#chkIstd_' + j).click(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if ($('#chkIstd_'+b_seq)[0].checked == true && (q_cur > 0 && q_cur < 3)) {
-								$('#btnTproductno_' + b_seq).show();
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							if ($('#chkIstd_'+n)[0].checked == true && (q_cur > 0 && q_cur < 3)) {
+								$('#btnTproductno_' + n).show();
 							} else {
-								$('#btnTproductno_' + b_seq).hide();
+								$('#btnTproductno_' + n).hide();
 							}
 						});
 					}
@@ -391,19 +386,8 @@
 				float: left;
 				width: auto;
 			}
-			.tbbm select {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-			}
 			.tbbs a {
 				font-size: medium;
-			}
-			.tbbs a {
-				font-size: medium;
-			}
-			.tbbs tr.error input[type="text"] {
-				color: red;
 			}
 			.tbbs {
 				FONT-SIZE: medium;
@@ -425,7 +409,7 @@
 		<div id="dmain" style="width: 1260px;">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div class="dview" id="dview" style="float: left; width:30%;" >
-				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
+				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0'>
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:25%"><a id='vewNoa'></a></td>
@@ -490,8 +474,6 @@
 						<td class="td4"><input id="txtRank" type="text" class="txt"/></td>
 						<td class="td5"><span> </span><a id="lblWmount" class="lbl"> </a></td>
 						<td class="td6"><input id="txtWmount" type="text" class="txt num"/></td>
-						<!--<td class="td5"><span> </span><a id="lblErrmount" class="lbl"> </a></td>
-						<td class="td6"><input id="txtErrmount" type="text" class="txt num"/></td>-->
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblTggno" class="lbl btn"> </a></td>
@@ -525,10 +507,6 @@
 						</td>
 					</tr>
 					<tr class="tr9">
-						<!--<td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>
-						<td class="td2"><input id="txtWages" type="text" class="txt num"/></td>
-						<td class="td3"><span> </span><a id="lblMakes" class="lbl"> </a></td>
-						<td class="td4"><input id="txtMakes" type="text" class="txt num"/></td>-->
 						<td class="td1"><span> </span><a id="lblHours" class="lbl"> </a></td>
 						<td class="td2"><input id="txtHours" type="text" class="txt num"/></td>
 						<td class="td3"><span> </span><a id="lblIsfreeze" class="lbl"> </a></td>
@@ -537,12 +515,6 @@
 							<input id="btnUnfreeze" type="button" value="取消凍結" style="float: inherit;" />
 						</td>
 					</tr>
-					<!--<tr class="tr8">
-						<td class="td1"><span> </span><a id="lblWages_fee" class="lbl"> </a></td>
-						<td class="td2"><input id="txtWages_fee" type="text" class="txt num"/></td>
-						<td class="td3"><span> </span><a id="lblMakes_fee" class="lbl"> </a></td>
-						<td class="td4"><input id="txtMakes_fee" type="text" class="txt num"/></td>
-					</tr>-->
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan='5'>
@@ -567,7 +539,6 @@
 					<td align="center" style="width:8%;"><a id='lblGmount'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblEmount'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblTd'> </a></td>
-					<!--<td align="center" style="width:17%;"><a id='lblTproduct_s'> </a></td>-->
 					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblCosts'> </a></td>
 					<td align="center"><a id='lblMemos'> </a></td>
@@ -592,14 +563,9 @@
 					<td><input id="txtGmount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtEmount.*" type="text" class="txt c1 num"/></td>
 					<td align="center">
-						<!--<input id="txtTd.*" type="text" class="txt c1"/>-->
 						<input id="chkIstd.*" type="checkbox"/>
 						<input class="btn" id="btnTproductno.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
-					<!--<td>//1020629將替代品直接取代品名欄位不需要在寫入下面欄位
-					<input id="txtTproductno.*" type="text" class="txt c1"/>
-					<input id="txtTproduct.*" type="text" class="txt c1"/>
-					</td>-->
 					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtCost.*" type="text" class="txt c1 num"/></td>
 					<td>
