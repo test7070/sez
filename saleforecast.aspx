@@ -411,8 +411,8 @@
 			<tr style='color:White; background:#003366;' >
 				<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
 				<!--<td align="center" style="width:16%;" colspan='2'><a id="lblBdate_s" > </a></td>-->
-				<td align="center" style="width:12%;"><a id='lblProductno_s'> </a></td>
-				<td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
+				<td align="center" style="width:18%;"><a id='lblProductno_s'> </a></td>
+				<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
 				<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
 				<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
 				<td align="center" style="width:8%;"><a id='lblPrice_s'> </a></td>

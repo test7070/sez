@@ -111,13 +111,19 @@
 						}
 
 						if (!emp($('#txtSfbmon').val()) && !emp($('#txtSfemon').val())) {
-							if (!emp($('#txtProductno').val()))
-								var t_where = "where=^^b.productno='" + $('#txtProductno').val() + "' and  (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
-							else
-								var t_where = "where=^^ (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
-
+							var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
+							
 							var t_where1 = "where[1]=^^ wb.productno=b.productno and (wa.sfemon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
-							q_gt('workg_saleforecast', t_where + t_where1 , 0, 0, 0, "", r_accy);
+							var t_where2 = "where[2]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then left(d.odate,6) else left(c.datea,6) end < '"+$('#txtSfbmon').val()+"') and c.enda!='1' and d.enda!='1' and charindex(d.noa+'-'+c.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0^^"
+							var t_where3 = "where[3]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then left(d.odate,6) else left(c.datea,6) end between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and c.enda!='1' and d.enda!='1' and charindex(d.noa+'-'+c.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0^^"
+							var t_where4 = "where[4]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then left(d.odate,6) else left(c.datea,6) end between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and c.enda!='1' and d.enda!='1' and charindex(d.noa+'-'+c.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0^^"
+							
+							if (!emp($('#txtProductno').val()))
+								var t_where5 = "where[5]=^^b.productno='" + $('#txtProductno').val() + "' and  (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
+							else
+								var t_where5 = "where[5]=^^ (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
+							
+							q_gt('workg_saleforecast', t_where + t_where1 + t_where2 + t_where3 + t_where4 + t_where5 , 0, 0, 0, "", r_accy);
 						}
 					}
 				});
@@ -266,9 +272,15 @@
 									$('#btnMinus_' + i).click();
 								}
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSaleforecast,txtPrepare,txtUnprepare'
+							for (var i = 0; i < as.length; i++) {
+								var t_mount = 0;
+								t_mount = dec(as[i].stkmount) - dec(as[i].unmount) - dec(as[i].ordemount);
+								as[i].availmount = t_mount;
+								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
+							}
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
 							, as.length, as
-							, 'productno,product,saleforecast,prepare,unprepare', 'txtProductno');
+							, 'productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
 							if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
 								$('.sf').show();
 							}else{
@@ -635,10 +647,12 @@
 				if (t_func == 'workg.genWork') {
 					var workno = result.split(';')
 					for (var j = 0; j < q_bbsCount; j++) {
-						abbsNow[j]['workno'] = workno[(j * 2) + 1];
-						$('#txtWorkno_' + j).val(workno[(j * 2) + 1]);
-						abbsNow[j]['rworkdate'] = workno[(j * 2) + 2];
-						$('#txtRworkdate_' + j).val(workno[(j * 2) + 2]);
+						abbsNow[j]['workno'] = workno[(j * 3) + 1];
+						$('#txtWorkno_' + j).val(workno[(j * 3) + 1]);
+						abbsNow[j]['rworkdate'] = workno[(j * 3) + 2];
+						$('#txtRworkdate_' + j).val(workno[(j * 3) + 2]);
+						abbsNow[j]['workhno'] = workno[(j * 3) + 3];
+						$('#txtWorkhno_' + j).val(workno[(j * 3) + 3]);
 					}
 					alert('製令產出執行完畢!!');
 					$('#btnWork').val('製令產出').removeAttr('disabled');
