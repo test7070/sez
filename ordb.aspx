@@ -563,7 +563,7 @@
                                     $('#textEdate_'+j).val($('#txtEdate__'+i).val());
                                     $('#textPack_'+j).val($('#txtPack__'+i).val());
                                     $('#textPrice_'+j).val($('#txtPrice__'+i).val());
-                                    $('#textRprice_'+j).val($('#txtRpirce__'+i).val());
+                                    $('#textRprice_'+j).val($('#txtRprice__'+i).val());
                                     $('#textRdate_'+j).val($('#txtRdate__'+i).val());
                                     $('#textIprice_'+j).val($('#txtIprice__'+i).val());
                                     $('#textFdate_'+j).val($('#txtFdate__'+i).val());
