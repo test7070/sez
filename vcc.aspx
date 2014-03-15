@@ -182,6 +182,29 @@
 					$('.istax').hide();
 			}
 
+			function bbsGetOrdeList(){
+				var t_custno = $.trim($('#txtCustno').val());
+				if(t_custno.length > 0){
+					var PnoArray = [];
+					for(var j=0;j<q_bbsCount;j++){
+						var t_productno = $.trim($('#txtProductno_'+j).val());
+						var t_ordeno = $.trim($('#txtOrdeno_'+j).val());
+						var t_no2 = $.trim($('#txtNo2_'+j).val());
+						if((t_productno.length > 0) && (t_ordeno.length==0) && (t_no2.length==0)){
+							PnoArray.push("'"+t_productno+"'");
+						}
+					}
+					if(PnoArray.length > 0){
+						var t_where = 'where=^^ 1=1 ';
+						t_where += "and ((select enda from view_orde where noa=view_ordes.noa)='0') ";//BBM未結案
+						t_where += "and (enda='0') ";//BBS未結案
+						t_where += "and (custno=N'"+t_custno+"')";
+						t_where += "and (productno in (" +PnoArray.toString()+ "))";
+						q_gt('view_ordes', t_where, 0, 0, 0, "GetOrdeList");
+					}
+				}
+			}
+			
 			function GetTranPrice(){
 				var Post2 = $.trim($('#txtPost2').val());
 				var Post = $.trim($('#txtPost').val()); 
@@ -243,6 +266,22 @@
 			function q_gtPost(t_name) {
 				var as;
 				switch (t_name) {
+					case 'GetOrdeList':
+						var as = _q_appendData("view_ordes", "", true);
+						for(var k=0;k<q_bbsCount;k++){
+							var thisPno = $.trim($('#txtProductno_'+k).val());
+							if(thisPno.length > 0){
+								$('#combOrdelist_'+k+' option').remove();
+								$('#combOrdelist_'+k).append($("<option></option>").attr("value",'').text('')); 
+								for(var j=0;j<as.length;j++){
+									if(as[j].productno==thisPno){
+										var FullOrdeno = $.trim(as[j].noa) + '-' + $.trim(as[j].no2);
+										$('#combOrdelist_'+k).append($("<option></option>").attr("value",FullOrdeno).text(FullOrdeno)); 
+									}
+								}
+							}
+						}
+						break;
 					case 'getCardealCarno' :
 						var as = _q_appendData("cardeals", "", true);
 						var t_item = " @ ";
@@ -256,7 +295,6 @@
 						$('#combCarno').unbind('change').change(function(){
 							if (q_cur == 1 || q_cur == 2) {
 								$('#txtCarno').val($('#combCarno').find("option:selected").text());
-								
 							}
 						});
 						break;
@@ -495,7 +533,7 @@
 			}
 
 			function btnOk() {
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('lblAcomp')]]);
+				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCust')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -560,6 +598,16 @@
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+						$('#combOrdelist_'+i).change(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							var ValArray = thisVal.split('-');
+							if(ValArray[0] && ValArray[1]){
+								$('#txtOrdeno_' + n).val(ValArray[0]);
+								$('#txtNo2_' + n).val(ValArray[1]);
+							}
+							$(this).val('');
+						});
 						$('#txtUnit_' + i).focusout(function() {
 							sum();
 						});
@@ -645,6 +693,7 @@
 				q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
 				var t_where = " where=^^ vccno='" + $('#txtNoa').val() + "'^^";
 				q_gt('umms', t_where, 0, 0, 0, 'btnModi', r_accy);
+				bbsGetOrdeList();
 			}
 
 			function btnPrint() {
@@ -721,6 +770,8 @@
 
 			function btnMinus(id) {
 				_btnMinus(id);
+				var n=id.split('_')[id.split('_').length-1];
+				$('#combOrdelist_'+n+' option').remove();
 				sum();
 			}
 
@@ -791,12 +842,16 @@
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
+						bbsGetOrdeList();
 						break;
 					case 'txtPost2':
 						GetTranPrice();
 						break;
 					case 'txtPost':
 						GetTranPrice();
+						break;
+					case 'txtProductno_':
+						bbsGetOrdeList();
 						break;
 				}
 			}
@@ -1126,7 +1181,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1300px;">
+		<div class='dbbs' style="width: 1500px;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center">
@@ -1152,7 +1207,7 @@
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
 						<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
 					</td>
-					<td style="width:15%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
+					<td style="width:12%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
 					<td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
@@ -1168,11 +1223,12 @@
 					</td>
 					<td style="width:10%;">
 						<input id="txtMemo.*" type="text" class="txt c1"/>
-						<input id="txtOrdeno.*" type="text"  class="txt" style="width:70%;"/>
-						<input id="txtNo2.*" type="text" class="txt" style="width:20%;"/>
+						<select id="combOrdelist.*" style="width: 10%;"> </select>
+						<input id="txtOrdeno.*" type="text"  class="txt" style="width:60%;"/>
+						<input id="txtNo2.*" type="text" class="txt" style="width:18%;"/>
 						<input id="txtNoq.*" type="hidden" />
 					</td>
-					<td style="width:3%;" align="center">
+					<td style="width:2%;" align="center">
 						<input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
 					<td align="center" style="width:2%;"><input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  /></td>
