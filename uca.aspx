@@ -192,6 +192,7 @@
 					//var t_where2 = "where[2]=^^1=0^^";
 					//var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
 					//var t_where4 = "where[4]=^^ 1=0 ^^";
+					//var t_where5 = "where[5]=^^ 1=0 ^^"
 					//q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 				});
 
@@ -334,7 +335,9 @@
 						var t_where2 = "where[2]=^^1=0^^";
 						var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
 						var t_where4 = "where[4]=^^ 1=0 ^^";
-						q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
+						var t_where5 = "where[5]=^^ 1=0 ^^"
+						var t_where6 = "where[6]=^^ 1=0 ^^"
+						q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+ t_where5+ t_where6, 0, 0, 0, "", r_accy);
 						
 						break;
 					case 'workg_orde':

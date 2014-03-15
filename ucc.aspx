@@ -334,7 +334,9 @@
 				var t_where2 = "where[2]=^^1=0^^";
 				var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
 				var t_where4 = "where[4]=^^ 1=0 ^^";
-				q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
+				var t_where5 = "where[5]=^^ 1=0 ^^"
+				var t_where6 = "where[6]=^^ 1=0 ^^"
+				q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
 			}
 
 			function readonly(t_para, empty) {
@@ -547,16 +549,16 @@
 					<td><input	type="text" id="txtStdmount" class="txt num c1"/></td>
 				</tr>
 				<tr>
-					<td><a id='lblType' class="lbl"> </a></td>
-					<td><select id="cmbTypea" class="txt c1"></select></td>
+					<td><a id='lblStyle' class="lbl"> </a></td>
+					<td><input	type="text" id="txtStyle" class="txt c1"/></td>
 					<td><a id='lblSafemount' class="lbl"> </a></td>
 					<td><input	type="text" id="txtSafemount" class="txt num c1"/></td>
 					<td><a id='lblDays' class="lbl"> </a></td>
 					<td><input	type="text" id="txtDays" class="txt c1 num"/></td>
 				</tr>
 				<tr>
-					<td><a id='lblCoin' class="lbl"> </a></td>
-					<td><select id="cmbCoin" class="txt c1"> </select></td>
+					<td><a id='lblType' class="lbl"> </a></td>
+					<td><select id="cmbTypea" class="txt c1"> </select></td>
 					<td><a id='lblInprice' class="lbl"> </a></td>
 					<td><input	type="text" id="txtInprice" class="txt num c1"/></td>
 					<td><a id='lblSaleprice' class="lbl"> </a></td>
@@ -564,6 +566,8 @@
 					<td class="td5"><input id="btnStkcost" type="button"  /></td>
 				</tr>
 				<tr>
+					<td><a id='lblCoin' class="lbl"> </a></td>
+					<td><select id="cmbCoin" class="txt c1"> </select></td>
 					<td><a id='lblArea' class="lbl"> </a></td>
 					<td><input	type="text" id="txtArea"	class="txt c1"/></td>
 					<td><a id='lblTrantype' class="lbl"> </a></td>
