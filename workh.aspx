@@ -120,7 +120,7 @@
 			}
 
 			function btnOk() {
-				t_err = ''
+				var t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
@@ -295,8 +295,8 @@
 			}
 			
 			function q_funcPost(t_func, result) {
-		        alert('凍結已取消!!');
-		    } //endfunction
+				alert('凍結已取消!!');
+			}
 		</script>
 		<style type="text/css">
 			#dmain {
