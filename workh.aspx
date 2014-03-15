@@ -427,7 +427,7 @@
 			}
 			
 			function _btnSeek() {
-				if (q_cur > 0 && q_cur < 4)
+				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
 			}
 			
