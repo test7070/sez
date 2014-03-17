@@ -326,6 +326,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
+				q_box('workq_s.aspx', q_name + '_s', "510px", "380px", q_getMsg("popSeek"));
 			}
 
 			var mouse_point;
