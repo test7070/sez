@@ -116,7 +116,7 @@
                             $('#txtYordbno').val(t_no);
                         }
                     }else if(t_para[i]=='action=z_ordbp06'){
-                        $('#q_report').find('span.radio').eq(6).parent().click();
+                        $('#q_report').find('span.radio').eq(5).parent().click();
                         $('#q_report').data('info').execute($('#q_report'));
                     }    
                 } 
