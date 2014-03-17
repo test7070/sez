@@ -305,8 +305,14 @@
                 switch(t_func) {
                     case 'qtxt.query.ordb':
                         var as = _q_appendData("tmp0", "", true, true);
-                        if (as[0] != undefined) {                           
-                            alert(as[0].memo);
+                        if (as[0] != undefined) {  
+                            var t_msg = '';
+                            for(var i=0;i<as.length;i++){
+                                t_msg += (t_msg.length>0?'\r\n':'') + as[i].memo;
+                            }                         
+                            alert(t_msg);
+                            if(as.length>1)
+                                q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";action=z_ordbp06;" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
                         } else {
                             alert('無資料!');
                             
@@ -515,12 +521,8 @@
                             sum();
                         });
                         $('#btnRc2record_' + j).click(function() {
-                            t_IdSeq = -1;
-                            /// 要先給  才能使用 q_bodyId()
-                            q_bodyId($(this).attr('id'));
-                            b_seq = t_IdSeq;
-                            t_where = "tgg='" + $('#txtTggno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
-                            q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2record', "95%", "95%", q_getMsg('lblRc2record'));
+                            var n = replaceAll($(this).attr('id'),'btnRc2record_','');
+                            q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=&product="+$('#txtProductno_' + n).val()+";" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));    
                         });
                         $('#btnOrdc_'+j).click(function(e){
                             var n = replaceAll($(this).attr('id'),'btnOrdc_','');

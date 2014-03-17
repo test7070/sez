@@ -277,7 +277,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('ordc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+				q_box('ordc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
 			}
 
 			function combPaytype_chg() {
@@ -312,11 +312,8 @@
 							sum();
 						});
 						$('#btnRc2record_' + j).click(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							t_where = "tgg='" + $('#txtTggno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
-							q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2record', "95%", "95%", q_getMsg('lblRc2record'));
+							var n = replaceAll($(this).attr('id'),'btnRc2record_','');
+                            q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=&product="+$('#txtProductno_' + n).val()+";" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));    
 						});
 					}
 				}

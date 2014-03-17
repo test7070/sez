@@ -20,7 +20,7 @@
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
@@ -38,7 +38,7 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,price', 'txtProductno_,txtProduct_,txtPrice_', 'ucaucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -313,6 +313,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
+				q_box('workf_s.aspx', q_name + '_s', "510px", "380px", q_getMsg("popSeek"));
 			}
 
 			var mouse_point;
@@ -364,6 +365,7 @@
 			}
 
 			function btnPrint() {
+				q_box('z_workfp.aspx' + "?;;;noa=" + $.trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", m_print);
 			}
 
 			function wrServer(key_value) {
@@ -745,13 +747,13 @@
 					<td style="width:120px;" align="center"><a id='lblProduct_s'></a></td>
 					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
-					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBwmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
+					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBkmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
@@ -759,7 +761,6 @@
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:100px;" align="center"><a id='lblQcworker'></a></td>
 					<td style="width:80px;" align="center"><a id='lblQctime'></a></td>
-					<td style="width:30px;" align="center"><a id='lblStks'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
@@ -771,7 +772,6 @@
 					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
@@ -782,6 +782,7 @@
 					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
 					<td>
@@ -798,9 +799,6 @@
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtQcworker.*" type="text" class="txt c1"/></td>
 					<td><input id="txtQctime.*" type="text" class="txt c1"/></td>
-					<td align="center">
-						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
-					</td>
 				</tr>
 			</table>
 		</div>

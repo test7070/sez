@@ -26,7 +26,7 @@
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
 				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 2, 1], ['txtWmount', 15, 2, 1],
-				['txtOutmount', 15, 2, 1], ['txtInmount', 15, 2, 1]
+				['txtOutmount', 15, 2, 1], ['txtInmount', 15, 2, 1], ['txtBkmount', 15, 2, 1]
 			];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -326,6 +326,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
+				q_box('workq_s.aspx', q_name + '_s', "510px", "380px", q_getMsg("popSeek"));
 			}
 
 			var mouse_point;
@@ -600,7 +601,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 1800px;
+				width: 1900px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -766,12 +767,13 @@
 					<td style="width:30px;" align="center">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td style="width:120px;" align="center"><a id='lblProductnos'></a></td>
+					<td style="width:150px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:120px;" align="center"><a id='lblProduct_s'></a></td>
 					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
+					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
@@ -799,6 +801,7 @@
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
+					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>

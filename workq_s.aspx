@@ -10,11 +10,12 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = "workd_s";
+			var q_name = "workq_s";
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']
 			);
+			
 			$(document).ready(function() {
 				main();
 			});
@@ -39,13 +40,12 @@
 				t_tggno = $('#txtTggno').val();
 				t_workno = $('#txtWorkno').val();
 				t_storeno = $('#txtStoreno').val();
-
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
 				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) +
-										q_sqlPara2("noa", t_noa) +
-										q_sqlPara2("tggno", t_tggno) +
-										q_sqlPara2("workno", t_workno) +
+										q_sqlPara2("noa", t_noa) + 
+										q_sqlPara2("tggno", t_tggno) + 
+										q_sqlPara2("workno", t_workno) + 
 										q_sqlPara2("storeno", t_storeno);
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -65,7 +65,7 @@
 			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblDatea'> </a></td>
-					<td style="width:65%;">
+					<td style="width:65%; ">
 						<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 						<span style="display:inline-block; vertical-align:middle">&sim;</span>
 						<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
@@ -73,13 +73,13 @@
 				</tr>
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblNoa'> </a></td>
-					<td style="width:65%;">
+					<td style="width:65%; ">
 						<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" >
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblWorkno'> </a></td>
-					<td style="width:65%;">
+					<td style="width:65%; ">
 						<input class="txt" id="txtWorkno" type="text" style="width:215px; font-size:medium;" >
 					</td>
 				</tr>

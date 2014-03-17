@@ -89,6 +89,23 @@
 							});
 						}
 					}
+					for (var i in fbbs) {
+						for(var j = 0; j < q_bbsCount; j++) {
+							var isExcludes = false;
+							for (var k in this.excludes) {
+								if (fbbs[i] == this.excludes[k] ) {
+									isExcludes = true;
+									break;
+								}
+							}
+							if (!isExcludes ) {
+								this.data.push({
+									field : fbbs[i]+'_'+j,
+									value : $('#' + fbbs[i]+'_'+j).val()
+								});
+							}
+						}
+					}
 				},
 				/*貼上資料*/
 				paste : function() {

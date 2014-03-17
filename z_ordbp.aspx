@@ -86,14 +86,7 @@
                 $('#txtYodate2').mask('999/99/99');
                 $('#txtYodate2').datepicker();
                 
-                var t_no = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
-                if (t_no.indexOf('noa=') >= 0) {
-                    t_no = t_no.replace('noa=', '');
-                    if (t_no.length > 0) {
-                        $('#txtYordbno').val(t_no);
-                    }
-                }
-                
+                         
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -115,6 +108,18 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+				var t_para = (typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3]).split('&');
+                for(var i=0;i<t_para.length;i++){
+                    if(t_para[i].indexOf('noa=') >= 0){
+                        t_no = t_para[i].replace('noa=', '');
+                        if (t_no.length > 0) {
+                            $('#txtYordbno').val(t_no);
+                        }
+                    }else if(t_para[i]=='action=z_ordbp06'){
+                        $('#q_report').find('span.radio').eq(5).parent().click();
+                        $('#q_report').data('info').execute($('#q_report'));
+                    }    
+                } 
 			}
 
 			function q_boxClose(s2) {
