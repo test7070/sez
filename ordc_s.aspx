@@ -29,7 +29,7 @@
                 q_langShow();
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbKind", q_getPara('ordc.kind'));
+                q_cmbParse("cmbKind", '@全部,'+q_getPara('ordc.kind'));
                 $('#txtBdate').datepicker();
                 $('#txtEdate').datepicker(); 
                 $('#txtNoa').focus();
@@ -45,14 +45,15 @@
                 t_edate = $('#txtEdate').val();
                 
                 var t_where = " 1=1 " 
-                + q_sqlPara2("kind", t_kind)
                 + q_sqlPara2("noa", t_noa) 
                 + q_sqlPara2("datea", t_bdate, t_edate)              
                 + q_sqlPara2("tggno", t_tggno);
+                if (t_kind.length>0)
+                    t_where += " and kind='"+t_kind+"'";
                 if (t_comp.length>0)
                     t_where += " and charindex('" + t_comp + "',tgg)>0";
                 if(t_ordbno.length>0)
-                    t_where += " and exists(select noa from orbcs"+r_accy+" where orbcs"+r_accy+".noa=orbc"+r_accy+".noa and orbcs"+r_accy+".ordbno='"+t_ordbno+"')";
+                    t_where += " and exists(select noa from ordcs"+r_accy+" where ordcs"+r_accy+".noa=ordc"+r_accy+".noa and ordcs"+r_accy+".ordbno='"+t_ordbno+"')";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
