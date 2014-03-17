@@ -766,7 +766,7 @@
 					<td style="width:30px;" align="center">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td style="width:120px;" align="center"><a id='lblProductnos'></a></td>
+					<td style="width:150px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:120px;" align="center"><a id='lblProduct_s'></a></td>
 					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
