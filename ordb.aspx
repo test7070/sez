@@ -18,10 +18,10 @@
             q_tables = 't';
             var q_name = "ordb";
             var q_readonly = ['txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtTotal','txtTotalus'];
-            var q_readonlys = ['txtNo3','txtNo2','txtTotal', 'txtC1', 'txtNotv'];
+            var q_readonlys = ['txtNo3','txtNo2','txtTotal', 'txtC1', 'txtNotv','txtOmount'];
             var q_readonlyt = [];
             var bbmNum = [['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]];
-            var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1], ['txtC1', 10, 2, 1], ['txtNotv', 10, 2, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtOmount', 10, 0, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 10, 0, 1], ['txtC1', 10, 2, 1], ['txtNotv', 10, 2, 1]];
             var bbtNum = [];
             var bbmMask = [];
             var bbsMask = [];
@@ -142,7 +142,12 @@
                 ,['textEdate_1',r_picd],['textEdate_2',r_picd],['textEdate_3',r_picd],['textEdate_4',r_picd],['textEdate_5',r_picd],['textEdate_6',r_picd]
                 ,['textRdate_1',r_picd],['textRdate_2',r_picd],['textRdate_3',r_picd],['textRdate_4',r_picd],['textRdate_5',r_picd],['textRdate_6',r_picd]
                 ,['textFdate_1',r_picd],['textFdate_2',r_picd],['textFdate_3',r_picd],['textFdate_4',r_picd],['textFdate_5',r_picd],['textFdate_6',r_picd]
-                ];
+                ,['textDatea_a',r_picd],['textBedate_a',r_picd],['textEedate_a',r_picd],['textBfdate_a',r_picd],['textEfdate_a',r_picd]];
+                $('#textDatea_a').datepicker();
+                $('#textBedate_a').datepicker();
+                $('#textEedate_a').datepicker();
+                $('#textBfdate_a').datepicker();
+                $('#textEfdate_a').datepicker();
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", q_getPara('ordb.kind'));
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));
@@ -211,7 +216,6 @@
                         return;
                     }
                     var t_no3 = $('#tmp').data('info').no3;
-                    alert(t_no3);
                     for(var i=0;i<q_bbtCount;i++){                  
                         if($('#txtNo3__'+i).val()==t_no3){
                            $('#txtNo3__'+i).val('');
@@ -274,10 +278,43 @@
                         }
                     }
                 });
-             
+                //----------------------------------------------------
+                $('#btnOrdc').click(function(e){
+                    $('#exportordc').toggle();
+                });
+                $('#btnExport_a').click(function(e){
+                    var t_datea = $('#textDatea_a').val();
+                    var t_bedate = $('#textBedate_a').val();
+                    var t_eedate = $('#textEedate_a').val();
+                    var t_bfdate = $('#textBfdate_a').val();
+                    var t_efdate = $('#textEfdate_a').val();
+                    if (t_datea.length > 0) {
+                        Lock(1, {
+                            opacity : 0
+                        });
+                        q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno)+ ';' + encodeURI(r_name)+ ';' + encodeURI(q_getPara('key_ordc'))+ ';' 
+                        + encodeURI(t_datea)+ ';' + encodeURI(t_bedate)+ ';' + encodeURI(t_eedate)+ ';' + encodeURI(t_bfdate)+ ';' + encodeURI(t_efdate));
+                    } else
+                        alert('請輸入採購日期。');
+                });
+                $('#btnClose_a').click(function(e){
+                    $('#exportordc').toggle();
+                });
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                    case 'qtxt.query.ordb':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {                           
+                            alert(as[0].memo);
+                        } else {
+                            alert('無資料!');
+                            
+                        }
+                        Unlock(1);
+                        break;
+                    default:
+                        break;
                 }
             }
             function q_gtPost(t_name) {
@@ -383,6 +420,10 @@
                     Unlock(1);
                     return;
                 }
+                for(var i=0;i<q_bbsCount;i++){
+                    if(q_cur==1 || (q_cur!=1 && q_float('txtOmount_'+i)==0))
+                        $('#txtOmount_'+i).val($('#txtMount_'+i).val());
+                }
                 sum();
                 if ($('#cmbKind').val() == '1') {
                     for (var j = 0; j < q_bbsCount; j++) {
@@ -481,6 +522,21 @@
                             t_where = "tgg='" + $('#txtTggno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
                             q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2record', "95%", "95%", q_getMsg('lblRc2record'));
                         });
+                        $('#btnOrdc_'+j).click(function(e){
+                            var n = replaceAll($(this).attr('id'),'btnOrdc_','');
+                            t_where = "productno='" + $('#txtProductno_'+n).val() + "'";
+                            if($('#txtProductno_'+n).val().length>0)
+                                q_box("ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctgg', "95%", "95%", '採購建議量');
+                        });
+                        $('#btnRecord_'+j).click(function(e){
+                            var n = replaceAll($(this).attr('id'),'btnRecord_','');
+                            t_where = "b.noa is not null" 
+                                +" and c.noa is not null"
+                                +" and isnull(a.rprice,0)!=0"
+                                +" and c.productno='" + $('#txtProductno_'+n).val() + "'";
+                            if($('#txtProductno_'+n).val().length>0)
+                                q_box("ordbt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctgg', "95%", "95%", '歷史詢價記錄');
+                        });
                         $('#btnTmprecord_'+j).click(function(e){
                             var n = replaceAll($(this).attr('id'),'btnTmprecord_','');
                             $('#tmp').find("input[type='text']").val(''); 
@@ -507,7 +563,7 @@
                                     $('#textEdate_'+j).val($('#txtEdate__'+i).val());
                                     $('#textPack_'+j).val($('#txtPack__'+i).val());
                                     $('#textPrice_'+j).val($('#txtPrice__'+i).val());
-                                    $('#textRprice_'+j).val($('#txtRpirce__'+i).val());
+                                    $('#textRprice_'+j).val($('#txtRprice__'+i).val());
                                     $('#textRdate_'+j).val($('#txtRdate__'+i).val());
                                     $('#textIprice_'+j).val($('#txtIprice__'+i).val());
                                     $('#textFdate_'+j).val($('#txtFdate__'+i).val());
@@ -877,6 +933,38 @@
                 </tr>
             </table>
         </div>
+        <div id="exportordc" style="background:pink;display:none; position: absolute;top:200px;left:400px;width:400px;height:300px;"> 
+            <table style="width:100%;height:100%;border: 2px white double;">
+                <tr style="height:1px;">
+                    <td style="width:40%;"> </td>
+                    <td style="width:60%;"> </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>採購日期</a></td>
+                    <td><input id="textDatea_a" type="text" style="width:40%;"/></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>有效日期</a></td>
+                    <td>
+                        <input id="textBedate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEedate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>成交日期</a></td>
+                    <td>
+                        <input id="textBfdate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEfdate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"> <input id="btnExport_a" type="button" style="width:100px;" value="匯出採購"/></td>
+                    <td align="center"> <input id="btnClose_a" type="button" style="width:100px;" value="關閉"/></td>
+                </tr>
+            </table>
+        </div>
         
         <div style="overflow: auto;display:block;">
             <!--#include file="../inc/toolbar.inc"-->
@@ -1055,11 +1143,14 @@
                     <td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
                     <td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
+                    <td align="center" style="width:100px;"><a id='lblOmount_st'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
                     <td align="center" style="width:100px;">已採購量<br>未採購量</td>
                     <td align="center" style="width:200px;">備註<br>訂單號碼/訂序</a></td>
                     <td align="center" style="width:60px;">詢價<br>記錄</td>
+                    <td align="center" style="width:60px;">歷史詢<br>價記錄</td>
+                    <td align="center" style="width:60px;">採購詢<br>建議量</td>
                     <td align="center" style="width:60px;">進貨<br>記錄</td>
                 </tr>
                 <tr style='background:#cad3ff;'>
@@ -1087,6 +1178,9 @@
                     <input id="txtMount.*" type="text" style="float:left;width:95%;text-align: right;"/>
                     </td>
                     <td>
+                    <input id="txtOmount.*" type="text" style="float:left;width:95%;text-align: right;"/>
+                    </td>
+                    <td>
                     <input id="txtPrice.*" type="text" style="float:left;width:95%;text-align: right;"/>
                     </td>
                     <td>
@@ -1103,6 +1197,12 @@
                     </td>
                     <td align="center">
                     <input class="btn"  id="btnTmprecord.*" type="button" value='.' style=" font-weight: bold;" />
+                    </td>
+                    <td align="center">
+                    <input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" />
+                    </td>
+                    <td align="center">
+                    <input class="btn"  id="btnOrdc.*" type="button" value='.' style=" font-weight: bold;" />
                     </td>
                     <td align="center">
                     <input class="btn"  id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
