@@ -312,11 +312,8 @@
 							sum();
 						});
 						$('#btnRc2record_' + j).click(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							t_where = "tgg='" + $('#txtTggno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
-							q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2record', "95%", "95%", q_getMsg('lblRc2record'));
+							var n = replaceAll($(this).attr('id'),'btnRc2record_','');
+                            q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=&product="+$('#txtProductno_' + n).val()+";" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));    
 						});
 					}
 				}
