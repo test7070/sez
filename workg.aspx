@@ -99,6 +99,37 @@
 					}
 				});
 				
+				$('#btnWorkg').click(function() {
+					if (q_cur == 1 || q_cur == 2) {
+						if (emp($('#txtBdate').val()) && emp($('#txtEdate').val())) {
+							alert(q_getMsg('lblBdate') + '請先填寫。');
+							return;
+						}
+						if ((!emp($('#txtBdate').val()) && emp($('#txtEdate').val())) || (emp($('#txtBdate').val()) && !emp($('#txtEdate').val()))) {
+							alert(q_getMsg('lblBdate') + '錯誤!!。');
+							return;
+						}
+
+						if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
+							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
+							
+							var t_bbspno="1=0";
+							for (var i = 0; i < q_bbsCount; i++) {
+								if(!emp($('#txtProductno_'+i).val())){
+									t_bbspno+=" or a.productno='"+$('#txtProductno_'+i).val()+"'";
+								}
+							}
+							var t_where1 = "where[1]=^^ (" +t_bbspno+ ") and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 group by productno ^^";
+							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 ^^";
+							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
+							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "' and c.datea >= '" + q_date() + "') and c.productno=a.productno and c.enda!='1' ^^"
+							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
+							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
+							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "workg_bbs", r_accy);
+						}
+					}
+				});
+				
 				$('#btnSaleforecast').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
 						if (emp($('#txtSfbmon').val()) && emp($('#txtSfemon').val())) {
@@ -161,22 +192,14 @@
 				});
 				
 				$('#txtSfbmon').blur(function() {
-					if(q_cur==1 || q_cur==2){
-						if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
-							$('.sf').show();
-						}else{
-							$('.sf').hide();
-						}
-					}
+					change_field();
 				});
 				$('#txtSfemon').blur(function() {
-					if(q_cur==1 || q_cur==2){
-						if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
-							$('.sf').show();
-						}else{
-							$('.sf').hide();
-						}
-					}
+					change_field();
+				});
+				
+				$('#cmbStype').blur(function() {
+					change_field();
 				});
 			}
 
@@ -193,7 +216,6 @@
 						break;
 					case 'workg_orde':
 						var as = _q_appendData("view_ordes", "", true);
-						var holiday = q_holiday;
 						if (as[0] != undefined) {
 							//清空bbs資料
 							if (q_cur == 1) {
@@ -208,63 +230,58 @@
 								t_mount = dec(as[i].stkmount) - dec(as[i].unmount) - dec(as[i].ordemount);
 								as[i].availmount = t_mount;
 
-								//if(t_mount<0) t_mount=0;
-
-								//1030224由後端傳回，初值空白
-								/*
-								 //提前天數
-								 var preday=0;
-								 preday=preday+dec(as[i].pretime) //前置時間
-								 //103/1/20 日產能=station.gen/uca.hours
-								 if(dec(as[i].stationhours)*dec(as[i].stationgen)!=0)//103/1/20更正(數量*耗損率)/(工作中心產能/製成品需時)//(原)加上預計生產日數=(數量*需時*耗損率)/(工作中心工時*產能)
-								 //preday=preday+Math.ceil((dec(t_mount)*dec(as[i].ucahours)*(1+dec(as[i].badperc)))/(dec(as[i].stationhours)*dec(as[i].stationgen)));
-								 preday=preday+Math.ceil((dec(t_mount)*(1+dec(as[i].badperc)))/(dec(as[i].stationgen)/dec(as[i].ucahours)));
-
-								 var t_date=emp(as[i].datea)?q_date():as[i].datea;//預交日
-								 //跳過週休和假日
-								 var six=q_getPara('sys.saturday');//週六休假,1有休0沒休
-								 while(preday>0){
-								 //轉換日期
-								 var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-								 nextdate.setDate(nextdate.getDate() - 1);//日期往前1天
-								 t_date=''+(nextdate.getFullYear()-1911)+'/';//年
-								 t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));//月
-								 t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));//日
-								 if(six==1 && new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6) continue;//禮拜六
-								 if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0) continue;//禮拜日
-								 //假日
-								 var isholiday=false;
-								 for(var j=0;j<holiday.length;j++){
-								 if(holiday[j]==t_date){
-								 isholiday=true;
-								 break;
-								 }
-								 }
-								 if(isholiday) continue;
-
-								 preday=preday-1;
-								 }
-
-								 as[i].rworkdate=t_date;
-								 */
 								as[i].rworkdate = '';
 								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
 							}
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
 							, as.length, as
 							, 'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
-							if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
-								$('.sf').show();
-							}else{
-								$('.sf').hide();
-							}
+							change_field();
 						} else {
 							alert('無訂單資料!!。');
 						}
 						break;
+					case 'workg_bbs':
+						var as = _q_appendData("view_ordes", "", true);
+						
+						if (as[0] != undefined) {
+							for (var i = 0; i < as.length; i++) {
+								var t_mount = 0;
+								t_mount = dec(as[i].stkmount) - dec(as[i].unmount) - dec(as[i].ordemount);
+								as[i].availmount = t_mount;
+								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
+							}
+							
+							for (var i = 0; i < q_bbsCount; i++) {
+								for (var j = 0; j < as.length; j++) {
+									if($('#txtProductno_' + i).val()==as[j].productno)
+									{
+										//重新帶入資料
+										$('#txtUnmount_' + i).val(as[j].unmount);
+										$('#txtOrdemount_' + i).val(as[j].ordemount);
+										$('#txtPlanmount_' + i).val(as[j].planmount);
+										$('#txtStkmount_' + i).val(as[j].stkmount);
+										$('#txtIntmount_' + i).val(as[j].inmount);
+										$('#txtPurmount_' + i).val(as[j].purmount);
+										$('#txtAvailmount_' + i).val(as[j].availmount);
+										$('#txtMount_' + i).val(as[j].bornmount);
+										$('#txtOrdeno_' + i).val(as[j].ordeno);
+										$('#txtStationno_' + i).val(as[j].stationno);
+										$('#txtStation_' + i).val(as[j].station);
+										$('#txtSaleforecast_' + i).val(as[j].saleforecast);
+										$('#txtPrepare_' + i).val(as[j].prepare);
+										$('#txtUnprepare_' + i).val(as[j].unprepare);
+										break;	
+									}
+								}
+							}
+							change_field();
+						} else {
+							alert('無排產資料!!。');
+						}
+						break;
 					case 'workg_saleforecast':
 						var as = _q_appendData("view_workg", "", true);
-						var holiday = q_holiday;
 						if (as[0] != undefined) {
 							//清空bbs資料
 							if (q_cur == 1) {
@@ -281,11 +298,7 @@
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
 							, as.length, as
 							, 'productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
-							if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
-								$('.sf').show();
-							}else{
-								$('.sf').hide();
-							}
+							change_field();
 						} else {
 							alert('無預測資料!!。');
 						}
@@ -401,29 +414,45 @@
 				var t_where = "where=^^ cuano ='" + $('#txtNoa').val() + "' ^^";
 				q_gt('work', t_where, 0, 0, 0, "", r_accy);
 				
-				if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
+				change_field();
+								
+			}
+			
+			function change_field () {
+				if($('#cmbStype').val()=='3'){
 					$('.sf').show();
+					if(q_cur==1||q_cur==2){
+						$('#btnOrde').attr('disabled', 'disabled');
+						$('.safo').removeAttr('disabled');
+						$('.orde').attr('disabled', 'disabled').val('');
+					}
 				}else{
 					$('.sf').hide();
+					if(q_cur==1||q_cur==2){
+						$('#btnOrde').removeAttr('disabled');
+						$('.orde').removeAttr('disabled');
+						$('.safo').attr('disabled', 'disabled').val('');
+					}
 				}
-								
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				if (t_para) {
 					$('#btnOrde').attr('disabled', 'disabled');
-					$('#btnSaleforecast').attr('disabled', 'disabled');
+					$('#btnWorkg').attr('disabled', 'disabled');
+					$('#btnWorkg2ordb').removeAttr('disabled');
+					$('#btnWorkPrint').removeAttr('disabled');
+					$('#btnWork').removeAttr('disabled');
 				} else {
 					$('#btnOrde').removeAttr('disabled');
-					$('#btnSaleforecast').removeAttr('disabled');
+					$('#btnWorkg').removeAttr('disabled');
+					$('#btnWorkg2ordb').attr('disabled', 'disabled');
+					$('#btnWorkPrint').attr('disabled', 'disabled');
+					$('#btnWork').attr('disabled', 'disabled');
 				}
 				
-				if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
-					$('.sf').show();
-				}else{
-					$('.sf').hide();
-				}
+				change_field();
 			}
 
 			function btnMinus(id) {
@@ -448,6 +477,15 @@
 							if (!emp($('#txtWorkno_' + b_seq).val())) {
 								t_where = "cuano='" + $('#txtNoa').val() + "' and cuanoq='" + $('#txtNoq_' + b_seq).val() + "'";
 								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+							}
+						});
+						$('#txtWorkhno_' + i).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if (!emp($('#txtWorkno_' + b_seq).val())) {
+								t_where = "cuano='" + $('#txtNoa').val() + "' and cuanoq='" + $('#txtNoq_' + b_seq).val() + "'";
+								q_box("workh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workh', "95%", "95%", q_getMsg('PopWorkh'));
 							}
 						});
 						$('#txtOrdeno_' + i).click(function() {
@@ -542,13 +580,7 @@
 					}
 				}
 				_bbsAssign();
-				if(q_cur==1 || q_cur==2){
-					if(!emp($('#txtSfbmon').val()) || !emp($('#txtSfemon').val())){
-						$('.sf').show();
-					}else{
-						$('.sf').hide();
-					}
-				}
+				change_field();
 			}
 
 			function bbssum(seq) {
@@ -863,7 +895,8 @@
 							<a style="float: left;">~</a>
 							<input id="txtSfemon" type="text" class="txt c2"/>
 						</td>
-						<td><input id="btnSaleforecast" type="button"/></td>
+						<td><input id="btnWorkg" type="button"/></td>
+						<!--<td><input id="btnSaleforecast" type="button"/></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblProduct" class="lbl btn"> </a></td>
@@ -943,23 +976,23 @@
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
-						<td class="sf"><input id="txtSaleforecast.*" type="text" class="txt c1 num"/></td>
-						<td class="sf"><input id="txtPrepare.*" type="text" class="txt c1 num"/></td>
-						<td class="sf"><input id="txtUnprepare.*" type="text" class="txt c1 num"/></td>
-						<td class="sf"><input id="txtForecastprepare.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtUnmount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtOrdemount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtStkmount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtAvailmount.*" type="text" class="txt c1 num"/></td>
+						<td class="sf"><input id="txtSaleforecast.*" type="text" class="txt c1 num safo"/></td>
+						<td class="sf"><input id="txtPrepare.*" type="text" class="txt c1 num safo"/></td>
+						<td class="sf"><input id="txtUnprepare.*" type="text" class="txt c1 num safo"/></td>
+						<td class="sf"><input id="txtForecastprepare.*" type="text" class="txt c1 num safo"/></td>
+						<td><input id="txtUnmount.*" type="text" class="txt c1 num orde"/></td>
+						<td><input id="txtOrdemount.*" type="text" class="txt c1 num orde"/></td>
+						<td><input id="txtStkmount.*" type="text" class="txt c1 num orde"/></td>
+						<td><input id="txtAvailmount.*" type="text" class="txt c1 num orde"/></td>
 						<td>
-							<input id="txtIntmount.*" type="text" class="txt c1 num" style="width: 80px;"/>
+							<input id="txtIntmount.*" type="text" class="txt c1 num orde" style="width: 80px;"/>
 							<input class="btn" id="btnScheduled.*" type="button" value='.' style=" font-weight: bold;" />
 						</td>
-						<td><input id="txtPurmount.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtPurmount.*" type="text" class="txt c1 num orde"/></td>
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
-						<td><input id="txtSalemount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtPlanmount.*" type="text" class="txt c1 num"/></td>
-						<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+						<td><input id="txtSalemount.*" type="text" class="txt c1 num orde"/></td>
+						<td><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
+						<td><input id="txtMount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 						<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 35%"/>
@@ -973,7 +1006,7 @@
 						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
-						<td><input id="txtOrdeno.*" type="text" class="txt c1"/></td>
+						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde"/></td>
 						<td><input id="chkIsfreeze.*" type="checkbox"/></td>
 						<td align="center">
 							<input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />

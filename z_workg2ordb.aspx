@@ -19,6 +19,20 @@
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_workg2ordb');
+                
+                $('#q_report').click(function(e) {
+										
+					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
+						if($('.radio.select').next().text()==$('#q_report').data().info.reportData[i].reportName){
+							//下面註解取得q_lang的z_xxxxx
+							var txtreport=$('#q_report').data().info.reportData[i].report;
+						}
+					}
+					if(txtreport=='z_workg2ordb1')
+						$('#btnOrdb').show();
+					else
+						$('#btnOrdb').hide();
+				});
             });
             function q_gfPost() {
                 $('#q_report').q_report({
