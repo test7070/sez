@@ -645,8 +645,11 @@
 					return;
 				}
 				$('#txtCaddr').val();
-				var t_caddr = '',t_item,t_str;
+				var t_addr='',t_caddr = '',t_item,t_str;
 				for(var i=1;i<=5;i++){
+				    if($('#textAddr'+i).val().length>0){
+                        t_addr += (t_addr.length>0?'<br>':'')+$('#textAddr'+i).val();
+                    }
 					if($.trim($('#textAddr'+i).val()).length==0){
 						$('#textAddrno'+i).val('');
 						$('#textAddr'+i).val('');
@@ -666,6 +669,7 @@
 					t_caddr += ','+t_item;
 				}
 				$('#txtCaddr').val(t_caddr);
+				$('#txtAddr').val(t_addr);
 				sum();
 				$('#txtTranordet').val(SaveTranOrdetStr());
 				if(q_cur ==1){
@@ -869,11 +873,11 @@
 		</script>
 		<style type="text/css">
 			#dmain {
-				overflow: hidden;
+				overflow: auto;
 			}
 			.dview {
 				float: left;
-				width: 950px;
+				width: 1400px;
 				border-width: 0px;
 			}
 			.tview {
@@ -1125,6 +1129,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewStrdate'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDldate'></a></td>
+						<td align="center" style="width:250px; color:black;"><a id='vewAddr'></a></td>
 						<td align="center" style="width:120px; color:black;"><a id='vewDeliveryno'></a></td>
 						<td align="center" style="width:120px; color:black;"><a id='vewPo'></a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'></a></td>
@@ -1142,6 +1147,7 @@
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='strdate' style="text-align: center;">~strdate</td>
 						<td id='dldate' style="text-align: center;">~dldate</td>
+						<td id='addr' style="text-align: left;">~addr</td>
 						<td id='deliveryno' style="text-align: left;">~deliveryno</td>
 						<td id='po' style="text-align: left;">~po</td>
 						<td id='product' style="text-align: left;">~product</td>
@@ -1235,6 +1241,7 @@
 						</td>
 						<td>
 						<input type="button" id="btnAddr" style="width:100px;" value="起迄地點"/>
+						<input type="text" id="txtAddr" class="txt" style="display:none;" />
 						</td>
 					</tr>
 					<tr>
