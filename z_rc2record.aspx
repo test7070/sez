@@ -24,18 +24,14 @@
                 $('#q_report').q_report({
                     fileName : 'z_rc2record',
                     options : [{
-						type : '0',
-						name : 'accy',
-                        value : q_getId()[4] //[1]
-                    }, {
 						type : '2',
-						name : 'tgg',
+						name : 'xtgg',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
 					}, {
 						type : '2',
-						name : 'product',
+						name : 'xproduct',
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
@@ -45,19 +41,20 @@
                 q_getFormat();
                 q_langShow();
                 
-                if(q_getHref()[1]!=undefined){
-                	$('#txtTgg1a').val(q_getHref()[1]);
-                	$('#txtTgg2a').val(q_getHref()[1]);
+                var t_no = typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3];
+                if(t_no.length>0){
+                    var tmp = t_no.split('&');
+                    for(var i in tmp){
+                        if (tmp[i].indexOf('tgg=') >= 0) {
+                            $('#txtXtgg1a').val(tmp[i].replace('tgg=', ''));
+                            $('#txtXtgg2a').val(tmp[i].replace('tgg=', ''));
+                        }else if (tmp[i].indexOf('product=') >= 0){
+                            $('#txtXproduct1a').val(tmp[i].replace('product=', ''));
+                            $('#txtXproduct2a').val(tmp[i].replace('product=', ''));
+                        }
+                    }
+                    $('#btnOk').click();
                 }
-                if(q_getHref()[3]!=undefined){
-                	$('#txtProduct1a').val(q_getHref()[3]);
-                	$('#txtProduct2a').val(q_getHref()[3]);
-                }
-                	
-                var t_where = r_accy+ ';' + $('#txtTgg1a').val() + ';' + $('#txtTgg2a').val()+ ';' + $('#txtProduct1a').val() + ';' + $('#txtProduct2a').val() ;
-						
-					var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
-				    q_gtx('z_rc2record1', t_where + ";;" + t_para + ";;z_rc2record;;" + q_getMsg('qTitle'));
             }
 
             function q_boxClose(s2) {
