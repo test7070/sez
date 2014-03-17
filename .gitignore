@@ -3,3 +3,5 @@
 *.pyo
 *.project
 *.pydevproject
+.git
+git
