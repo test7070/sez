@@ -45,6 +45,8 @@
                     <th align="center" style='color:blue;' ><a id='lblTgg'> </a></th>
                     <th align="center" style='color:blue;' ><a id='lblRdate'> </a></th>
                     <th align="center" style='color:blue;' ><a id='lblRprice'> </a></th>
+                    <th align="center" style='color:blue;' ><a id='lblFdate'> </a></th>
+                    <th align="center" style='color:blue;' ><a id='lblFprice'> </a></th>
                 </tr>
                 <tr>
                     <td style="width:2%;">
@@ -64,6 +66,12 @@
                     </td>
                     <td style="width:10%;">
                     <input class="txt" id="txtRprice.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" />
+                    </td>
+                    <td style="width:10%;">
+                    <input class="txt" id="txtFdate.*" type="text" style="width:98%;"  readonly="readonly" />
+                    </td>
+                    <td style="width:10%;">
+                    <input class="txt" id="txtFprice.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" />
                     </td>
                 </tr>
             </table>
