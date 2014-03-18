@@ -77,7 +77,12 @@
                 var btn = document.getElementById('btnOk');
                 btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='轉至請購單'>");
                 
-                $('#btnOk').click();
+                
+                if (window.parent.q_name == 'workg') {
+					var wParent = window.parent.document;
+					if(wParent.getElementById("txtOrdbno").value.length==0)
+						$('#btnOk').click();	
+				}
                 
                 $('#btnOrdb').click(function(){
                 	if(confirm("確定要轉至請購單?"))
