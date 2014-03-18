@@ -22,56 +22,60 @@
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_ordbp',
-					options : [{/*1*/
+					options : [{/* [1]*/
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {/*1*/
+					}, {/*1 [2][3]*/
 						type : '1',
 						name : 'xnoa'
-					}, {/*2*/
+					}, {/*2 [4]*/
 						type : '5',
 						name : 'xkind',
 						value : [q_getPara('report.all')].concat(q_getPara('ordb.kind').split(','))
-					}, {/*3*/
+					}, {/*3 [5][6]*/
 						type : '1',
 						name : 'xdate'
-					}, {/*4*/
+					}, {/*4 [7][8]*/
 						type : '2',
 						name : 'xcno',
 						dbf : 'acomp',
 						index : 'noa,acomp',
 						src : 'acomp_b.aspx'
-					}, {/*5*/
+					}, {/*5 [9][10]*/
 						type : '2',
 						name : 'xtggno',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
-					}, {/*6*/
+					}, {/*6 [11][12]*/
 						type : '2',
 						name : 'xproductno',
 						dbf : 'bcc',
 						index : 'noa,product',
 						src : 'bcc_b.aspx'
-					}, {/*7*/
+					}, {/*7 [13][14]*/
                         type : '1',
                         name : 'yodate'
-                    }, {/*8*/
+                    }, {/*8 [15][16]*/
                         type : '2',
                         name : 'yproductno',
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
-                    }, {/*9*/
+                    }, {/*9 [17]*/
                         type : '6',
                         name : 'yordbno'
-                    }, {/*10*/
+                    }, {/*10 [18]*/
                         type : '6',
                         name : 'yordeno'
-                    }, {/*11*/
+                    }, {/*11 [19]*/
                         type : '6',
                         name : 'yworkgno'
+                    },{/*12 [20]*/
+                        type : '0',
+                        name : 'ykind',
+                        value : q_getPara('ordb.kind')
                     }]
 				});
 				q_popAssign();
@@ -114,6 +118,8 @@
                         t_no = t_para[i].replace('noa=', '');
                         if (t_no.length > 0) {
                             $('#txtYordbno').val(t_no);
+                            $('#txtXnoa1').val(t_no);
+                            $('#txtXnoa2').val(t_no);
                         }
                     }else if(t_para[i]=='action=z_ordbp06'){
                         $('#q_report').find('span.radio').eq(5).parent().click();

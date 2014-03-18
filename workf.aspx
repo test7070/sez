@@ -19,7 +19,7 @@
 			var q_name = "workf";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno'];
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
@@ -388,19 +388,19 @@
 			}
 
 			function sum() {
-				
-				var t_mount = 0;
-				t_price = 0;
-				var t_total = 0;
-				for (var j = 0; j < q_bbsCount; j++) {
-					t_mount = dec($('#txtMount_' + j).val());
-					t_weight = dec($('#txtWeight_' + j).val());
-					t_price = dec($('#txtPrice_' + j).val());
-					/*$('#txtTotal_' + j).val(round(t_mount * t_price, 0));*/
-					t_total += dec($('#txtTotal_' + j).val());
-				}// j
-				q_tr('txtMoney', t_total);
-				calTax();
+				var t_money=0,t_total=0,t_tax=0;
+				var t_mounts=0,t_prices=0,t_totals=0;
+				for(var k=0;k<q_bbsCount;k++){
+					t_mounts = dec($('#txtBorn_'+k).val());
+					t_prices = dec($('#txtPrice_'+k).val());
+					t_totals = q_mul(t_mounts,t_prices);
+					$('#txtTotal_'+k).val(t_totals);
+					t_money = q_add(t_money,t_totals);
+				}
+				t_tax = dec($('#txtTax').val());
+				t_total = q_add(t_money,t_tax);
+				$('#txtMoney').val(t_money);
+				$('#txtTotal').val(t_total);
 			}
 
 			function refresh(recno) {
