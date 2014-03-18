@@ -315,7 +315,6 @@
                                 q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";action=z_ordbp06;" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
                         } else {
                             alert('無資料!');
-                            
                         }
                         Unlock(1);
                         break;
