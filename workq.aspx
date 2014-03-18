@@ -479,9 +479,14 @@
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.workq':
-						var t_noa = $.trim($('#txtNoa').val());
-						q_func('workd.post',r_accy+','+t_noa+',0');
-						q_func('workd.post',r_accy+','+t_noa+',1');
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							var workdno = $.trim(as[0].workdno);
+							if(workdno.length > 0){
+								q_func('workd_post.post',r_accy+','+workdno+',0');
+								q_func('workd_post.post',r_accy+','+workdno+',1');
+							}
+						}
 						Unlock();
 						break;
 				}
