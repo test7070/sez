@@ -14,19 +14,19 @@
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
 			}
-
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "workd";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
 				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 2, 1], ['txtWmount', 15, 2, 1],
-				['txtOutmount', 15, 2, 1], ['txtInmount', 15, 2, 1]
+				['txtOutmount', 15, 2, 1], ['txtInmount', 15, 2, 1],['txtWk_mount', 15, 2, 1],
+				['txtWk_inmount', 15, 2, 1], ['txtWk_unmount', 15, 2, 1]
 			];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -40,7 +40,6 @@
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
-				/*,['txtWorkno', 'lblWorkno', 'work', 'noa,productno,product,tggno,comp', 'txtWorkno,txtProductno,txtProduct,txtTggno,txtTgg,', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy]*/
 			);
 
 			$(document).ready(function() {
@@ -345,7 +344,7 @@
 					sum();
 					var t_date = $('#txtDatea').val();
 					var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-					if (s1.length == 0 || s1 == "AUTO")/// 自動產生編號
+					if (s1.length == 0 || s1 == "AUTO")
 						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 					else
 						wrServer(s1);
@@ -359,7 +358,7 @@
 			}
 			
 			var mouse_point;
-			function bbsAssign() {/// 表身運算式
+			function bbsAssign() {
 				_bbsAssign();
 				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 					$('#btnMinus_' + j).click(function() {
@@ -387,7 +386,7 @@
 							q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 						}
 					});
-				} //j
+				}
 			}
 
 			function btnIns() {
@@ -619,15 +618,12 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 1800px;
+				width: 2200px;
 				height: 98%;
 			}
 			.tbbm tr {
 				height: 35px;
 			}
-			/*.tbbm tr td {
-				width: 9%;
-			}*/
 			.tbbm tr td span {
 				float: right;
 				display: block;
@@ -670,7 +666,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<div id="div_stk" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray;">
-			<table id="table_stk" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+			<table id="table_stk" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品編號</td>
 					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'> </td>
@@ -693,8 +689,8 @@
 		</div>
 		<div id="dmain" style="width: 1260px;">
 		<!--#include file="../inc/toolbar.inc"-->
-		<div class="dview" id="dview" style="float: left;  width:32%;"  >
-			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		<div class="dview" id="dview" style="float: left; width:32%;" >
+			<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 				<tr>
 					<td align="center" style="width:5%"><a id='vewChk'></a></td>
 					<td align="center" style="width:18%"><a id='vewDatea'></a></td>
@@ -710,7 +706,7 @@
 			</table>
 		</div>
 		<div class='dbbm' style="width: 68%;float:left">
-			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+			<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 				<tr style="height: 1px;">
 					<td width="120px"> </td>
 					<td width="203px"> </td>
@@ -728,7 +724,7 @@
 					<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
 					<td>
 						<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
-						<input id="txtTgg" type="text" class="txt"  style='width:48%;'/>
+						<input id="txtTgg" type="text" class="txt" style='width:48%;'/>
 					</td>
 					<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 					<td>
@@ -741,12 +737,12 @@
 					<td><input id="txtWorkcno" type="text" class="txt c1"/></td>-->
 					<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 					<td>
-						<input id="txtBdate" type="text"  class="txt c3" style="width: 98px;"/>
+						<input id="txtBdate" type="text" class="txt c3" style="width: 98px;"/>
 						<a style="float: left;">~</a>
-						<input id="txtEdate" type="text"  class="txt c3" style="width: 98px;"/>
+						<input id="txtEdate" type="text" class="txt c3" style="width: 98px;"/>
 					</td>
 					<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-					<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
+					<td ><input id="txtWorkno" type="text" class="txt c1"/></td>
 					<td><input type="button" id="btnWork"></td>
 				</tr>
 				<tr>
@@ -767,7 +763,7 @@
 				</tr>
 				<tr>
 					<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-					<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+					<td><input id="txtAccno" type="text" class="txt c1"/></td>
 					<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 					<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 				</tr>
@@ -785,16 +781,19 @@
 		</div>
 		</div>
 		<div class='dbbs'>
-			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
+			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td style="width:30px;" align="center">
-						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
+						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td style="width:120px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:120px;" align="center"><a id='lblProduct_s'></a></td>
 					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
-					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
+					<td style="width:80px" align="center"><a id='lblWk_inmounts'></a></td>
+					<td style="width:80px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:80px;" align="center"><a id='lblWk_unmounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
@@ -806,20 +805,23 @@
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:30px;" align="center"><a id='lblStks'> </a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td>
 						<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
-						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:16%;"  />
+						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:16%;" />
 					</td>
 					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
+					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWk_inmount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtWk_unmount.*" type="text" class="txt c1 num"/></td>
 					<td>
-						<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
-						<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 30%;"/>
+						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
+						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
 					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
@@ -840,7 +842,7 @@
 					</td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td align="center">
-						<input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  />
+						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
 				</tr>
 			</table>
