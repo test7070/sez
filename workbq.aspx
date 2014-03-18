@@ -470,12 +470,10 @@
 					return false;
 				abbm[q_recno]['accno'] = xmlString.split(";")[0];
 				var t_noa = $.trim($('#txtNoa').val());
-				/*
 				if((t_noa.length>0) && (r_name.length > 0)){
 					Lock();
 					q_func('qtxt.query.workbq', 'workbq.txt,workbqsave,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
 				}
-				*/
 			}
 
 			function q_funcPost(t_func, result) {
