@@ -569,6 +569,12 @@
 			input[type="text"], input[type="button"], select {
 				font-size: medium;
 			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				float: left;
+			}
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
