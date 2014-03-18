@@ -20,9 +20,9 @@
 			var q_name = "workq";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtTgg','txtStore'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtTgg','txtStore','txtAccno'];
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore'];
-			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
+			var bbmNum = [];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
 				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 2, 1], ['txtWmount', 15, 2, 1],
@@ -61,7 +61,6 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 				});
@@ -75,12 +74,6 @@
 						}
 						q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 					}
-				});
-				$('#txtMoney').change(function() {
-					sum();
-				});
-				$('#txtTax').change(function() {
-					sum();
 				});
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 				$('#btnWork').click(function() {
@@ -226,7 +219,6 @@
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
 						}
-						sum();
 						break;
 					case 'work_pick':
 						var pickerror = '';
@@ -313,7 +305,6 @@
 						$('#txtWorker').val(r_name);
 					else
 						$('#txtWorker2').val(r_name);
-					sum();
 					var t_date = $('#txtDatea').val();
 					var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 					if (s1.length == 0 || s1 == "AUTO")
@@ -335,15 +326,6 @@
 				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 					$('#btnMinus_' + j).click(function() {
 						btnMinus($(this).attr('id'));
-					});
-					$('#txtMount_' + j).change(function() {
-						sum();
-					});
-					$('#txtPrice_' + j).change(function() {
-						sum();
-					});
-					$('#txtTotal_' + j).change(function() {
-						sum();
 					});
 					$('#btnStk_' + j).mousedown(function(e) {
 						t_IdSeq = -1;
@@ -397,21 +379,6 @@
 				return true;
 			}
 
-			function sum() {
-				var t_mount = 0;
-				t_price = 0;
-				var t_total = 0;
-				for (var j = 0; j < q_bbsCount; j++) {
-					t_mount = dec($('#txtMount_' + j).val());
-					t_weight = dec($('#txtWeight_' + j).val());
-					t_price = dec($('#txtPrice_' + j).val());
-					$('#txtTotal_' + j).val(round(t_mount * t_price, 0));
-					t_total += dec($('#txtTotal_' + j).val());
-				}
-				q_tr('txtMoney', t_total);
-				calTax();
-			}
-
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
@@ -430,7 +397,6 @@
 
 			function btnMinus(id) {
 				_btnMinus(id);
-				sum();
 			}
 
 			function btnPlus(org_htm, dest_tag, afield) {
@@ -531,51 +497,6 @@
 				var arr = n.split(".");
 				var re = /(\d{1,3})(?=(\d{3})+$)/g;
 				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
-			}
-
-			function calTax() {
-				var t_money = 0, t_tax = 0, t_total = 0;
-				for (var j = 0; j < q_bbsCount; j++) {
-					t_money += q_float('txtTotal_' + j);
-				}
-				t_total = t_money;
-				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
-				switch ($('#cmbTaxtype').val()) {
-					case '0': // 無
-						t_tax = 0;
-						t_total = q_add(t_money, t_tax);
-						break;
-					case '1': // 應稅
-						t_tax = round(q_mul(t_money, t_taxrate), 0);
-						t_total = q_add(t_money, t_tax);
-						break;
-					case '2': //零稅率
-						t_tax = 0;
-						t_total = q_add(t_money, t_tax);
-						break;
-					case '3': // 內含
-						t_tax = round(q_mul(q_div(t_money, q_add(1, t_taxrate)), t_taxrate), 0);
-						t_total = t_money;
-						t_money = q_sub(t_total, t_tax);
-						break;
-					case '4': // 免稅
-						t_tax = 0;
-						t_total = q_add(t_money, t_tax);
-						break;
-					case '5': // 自定
-						$('#txtTax').attr('readonly', false);
-						$('#txtTax').css('background-color', 'white').css('color', 'black');
-						t_tax = round(q_float('txtTax'), 0);
-						t_total = q_add(t_money, t_tax);
-						break;
-					case '6': // 作廢-清空資料
-						t_money = 0, t_tax = 0, t_total = 0;
-						break;
-					default:
-				}
-				$('#txtMoney').val(FormatNumber(t_money));
-				$('#txtTax').val(FormatNumber(t_tax));
-				$('#txtTotal').val(FormatNumber(t_total));
 			}
 
 		</script>
@@ -727,32 +648,11 @@
 						<td><input type="button" id="btnWork"></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblInvono' class="lbl"> </a></td>
-						<td><input id="txtInvono" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td><input id="txtMon" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnOrdes"></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
-						<td>
-							<select id="cmbTaxtype" class="txt" onchange="calTax()"></select>
-							<input id="txtTax" type="text" class="txt c2 num" style="width: 60%;"/>
-						</td>
-						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-						<td><input id="txtAccno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
-						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnOrdes"></td>						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -775,8 +675,6 @@
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
@@ -803,8 +701,6 @@
 					</td>
 					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
 					<td>
