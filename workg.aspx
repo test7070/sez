@@ -97,13 +97,13 @@
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
 
 							if (!emp($('#txtProductno').val()))
-								var t_where1 = "where[1]=^^a.productno='" + $('#txtProductno').val() + "' and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 group by productno ^^";
+								var t_where1 = "where[1]=^^a.productno='" + $('#txtProductno').val() + "' and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by productno ^^";
 							else
-								var t_where1 = "where[1]=^^a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 group by productno ^^";
+								var t_where1 = "where[1]=^^a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by productno ^^";
 
-							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 ^^";
+							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
-							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "' and c.datea >= '" + q_date() + "') and c.productno=a.productno and c.enda!='1' ^^"
+							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "') and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+sbmon+"' and '"+semon+"') ^^"
 							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+sbmon+"' and '"+semon+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
@@ -144,10 +144,10 @@
 									t_bbspno+=" or a.productno='"+$('#txtProductno_'+i).val()+"'";
 								}
 							}
-							var t_where1 = "where[1]=^^ (" +t_bbspno+ ") and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 group by productno ^^";
-							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 ^^";
+							var t_where1 = "where[1]=^^ (" +t_bbspno+ ") and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca)  group by productno ^^";
+							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
-							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "' and c.datea >= '" + q_date() + "') and c.productno=a.productno and c.enda!='1' ^^"
+							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "') and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+sbmon+"' and '"+semon+"') ^^"
 							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+sbmon+"' and '"+semon+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "workg_bbs", r_accy);
@@ -302,30 +302,68 @@
 							}
 							change_field();
 						} else {
-							alert('無排產資料!!。');
+							//alert('無排產資料!!。');
+							var sbmon='',semon='';
+							if (emp($('#txtSfbmon').val())) {
+								sbmon=q_date().substr(0,6);
+							}else{
+								sbmon=$('#txtSfbmon').val();
+							}
+							var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
+							var t_where1 = "where[1]=^^ wb.productno=b.productno and (wa.sfemon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
+							var t_where2 = "where[2]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end < '"+$('#txtBdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
+							var t_where3 = "where[3]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
+							var t_where4 = "where[4]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
+							
+							var t_bbspno="1=0";
+							for (var i = 0; i < q_bbsCount; i++) {
+								if(!emp($('#txtProductno_'+i).val())){
+									t_bbspno+=" or b.productno='"+$('#txtProductno_'+i).val()+"'";
+								}
+							}
+							
+							var t_where5 = "where[5]=^^ ("+t_bbspno+") and (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
+							
+							q_gt('workg_saleforecast', t_where + t_where1 + t_where2 + t_where3 + t_where4 + t_where5 , 0, 0, 0, "", r_accy);
+							
 						}
 						break;
 					case 'workg_saleforecast':
 						var as = _q_appendData("view_workg", "", true);
 						if (as[0] != undefined) {
-							//清空bbs資料
-							if (q_cur == 1) {
-								for (var i = 0; i < q_bbsCount; i++) {
-									$('#btnMinus_' + i).click();
-								}
-							}
 							for (var i = 0; i < as.length; i++) {
 								var t_mount = 0;
 								t_mount = dec(as[i].stkmount) - dec(as[i].unmount) - dec(as[i].ordemount);
 								as[i].availmount = t_mount;
 								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
-							, as.length, as
-							, 'productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
+							
+							for (var i = 0; i < q_bbsCount; i++) {
+								for (var j = 0; j < as.length; j++) {
+									if($('#txtProductno_' + i).val()==as[j].productno)
+									{
+										//重新帶入資料
+										$('#txtUnmount_' + i).val(as[j].unmount);
+										$('#txtOrdemount_' + i).val(as[j].ordemount);
+										$('#txtPlanmount_' + i).val(as[j].planmount);
+										$('#txtStkmount_' + i).val(as[j].stkmount);
+										$('#txtIntmount_' + i).val(as[j].inmount);
+										$('#txtPurmount_' + i).val(as[j].purmount);
+										$('#txtAvailmount_' + i).val(as[j].availmount);
+										$('#txtMount_' + i).val(as[j].bornmount);
+										$('#txtOrdeno_' + i).val(as[j].ordeno);
+										$('#txtStationno_' + i).val(as[j].stationno);
+										$('#txtStation_' + i).val(as[j].station);
+										$('#txtSaleforecast_' + i).val(as[j].saleforecast);
+										$('#txtPrepare_' + i).val(as[j].prepare);
+										$('#txtUnprepare_' + i).val(as[j].unprepare);
+										break;	
+									}
+								}
+							}
 							change_field();
 						} else {
-							alert('無預測資料!!。');
+							alert('無排產資料!!。');
 						}
 						break;
 						
@@ -533,6 +571,21 @@
 								t_where = "noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
 								q_box("z_scheduled.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
 							}
+						});
+						
+						$('#btnUnordemount_' + i).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							t_where = "title='前期未交訂單' and bdate='"+$('#txtBdate').val()+"' and edate='"+$('#txtEdate').val()+"' and noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
+							q_box("z_workgorde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
+						});
+						$('#btnOrdemount_' + i).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							t_where = "title='本期訂單' and bdate='"+$('#txtBdate').val()+"' and edate='"+$('#txtEdate').val()+"' and noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
+							q_box("z_workgorde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
 						});
 
 						$('#txtUnmount_' + i).blur(function() {
@@ -972,8 +1025,8 @@
 						<td style="width:90px;" class="sf"><a id='lblPrepare_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblUnprepare_s'> </a></td>
 						<td style="width:120px;" class="sf"><a id='lblForecastprepare_s'> </a></td>
-						<td style="width:100px;"><a id='lblUnmount_s'> </a></td>
-						<td style="width:100px;"><a id='lblOrdemount_s'> </a></td>
+						<td style="width:110px;"><a id='lblUnmount_s'> </a></td>
+						<td style="width:110px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblAvailmount_s'> </a></td>
 						<td style="width:110px;"><a id='lblIntmount_s'> </a></td>
@@ -1007,8 +1060,14 @@
 						<td class="sf"><input id="txtPrepare.*" type="text" class="txt c1 num safo"/></td>
 						<td class="sf"><input id="txtUnprepare.*" type="text" class="txt c1 num safo"/></td>
 						<td class="sf"><input id="txtForecastprepare.*" type="text" class="txt c1 num safo sam"/></td>
-						<td><input id="txtUnmount.*" type="text" class="txt c1 num orde"/></td>
-						<td><input id="txtOrdemount.*" type="text" class="txt c1 num orde"/></td>
+						<td>
+							<input id="txtUnmount.*" type="text" class="txt c1 num orde" style="width: 80px;"/>
+							<input class="btn" id="btnUnordemount.*" type="button" value='.' style=" font-weight: bold;" />
+						</td>
+						<td>
+							<input id="txtOrdemount.*" type="text" class="txt c1 num orde" style="width: 80px;"/>
+							<input class="btn" id="btnOrdemount.*" type="button" value='.' style=" font-weight: bold;" />
+						</td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtAvailmount.*" type="text" class="txt c1 num orde"/></td>
 						<td>
@@ -1033,7 +1092,7 @@
 						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
-						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde"/></td>
+						<td><input id="txtOrdeno.*" type="text" class="txt c1 orde odm"/></td>
 						<td><input id="chkIsfreeze.*" type="checkbox"/></td>
 						<td align="center">
 							<input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />
