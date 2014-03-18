@@ -349,6 +349,17 @@
 				$('#txtDatea').focus();
 			}
 
+			function q_popPost(id) {
+				switch (id) {
+					case 'txtStationno':
+						$('#txtBdate').focus();
+						break;
+					default:
+						break;
+				}
+			}
+			
+			
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
