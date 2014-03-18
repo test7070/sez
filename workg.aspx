@@ -80,6 +80,18 @@
 							alert(q_getMsg('lblBdate') + '錯誤!!。');
 							return;
 						}
+						
+						var sbmon='',semon='';
+						if (emp($('#txtSfbmon').val())) {
+							sbmon=q_date().substr(0,6);
+						}else{
+							sbmon=$('#txtSfbmon').val();
+						}
+						if (emp($('#txtSfemon').val())) {
+							semon='999/99';
+						}else{
+							semon=$('#txtSfemon').val();
+						}
 
 						if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
@@ -92,8 +104,8 @@
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "' and c.datea >= '" + q_date() + "') and c.productno=a.productno and c.enda!='1' ^^"
-							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
-							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
+							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+sbmon+"' and '"+semon+"') ^^"
+							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+sbmon+"' and '"+semon+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
 						}
 					}
@@ -109,6 +121,19 @@
 							alert(q_getMsg('lblBdate') + '錯誤!!。');
 							return;
 						}
+						
+						var sbmon='',semon='';
+						if (emp($('#txtSfbmon').val())) {
+							sbmon=q_date().substr(0,6);
+						}else{
+							sbmon=$('#txtSfbmon').val();
+						}
+						if (emp($('#txtSfemon').val())) {
+							semon='999/99';
+						}else{
+							semon=$('#txtSfemon').val();
+						}
+						
 
 						if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
@@ -123,8 +148,8 @@
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "' and c.datea >= '" + q_date() + "') and c.productno=a.productno and c.enda!='1' ^^"
-							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
-							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
+							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+sbmon+"' and '"+semon+"') ^^"
+							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+sbmon+"' and '"+semon+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "workg_bbs", r_accy);
 						}
 					}
@@ -424,14 +449,16 @@
 					if(q_cur==1||q_cur==2){
 						$('#btnOrde').attr('disabled', 'disabled');
 						$('.safo').removeAttr('disabled');
-						$('.orde').attr('disabled', 'disabled').val('');
+						$('.orde').attr('disabled', 'disabled');
+						$('.odm').val('');
 					}
 				}else{
 					$('.sf').hide();
 					if(q_cur==1||q_cur==2){
 						$('#btnOrde').removeAttr('disabled');
 						$('.orde').removeAttr('disabled');
-						$('.safo').attr('disabled', 'disabled').val('');
+						$('.safo').attr('disabled', 'disabled');
+						$('.sam').val('');
 					}
 				}
 			}
@@ -979,7 +1006,7 @@
 						<td class="sf"><input id="txtSaleforecast.*" type="text" class="txt c1 num safo"/></td>
 						<td class="sf"><input id="txtPrepare.*" type="text" class="txt c1 num safo"/></td>
 						<td class="sf"><input id="txtUnprepare.*" type="text" class="txt c1 num safo"/></td>
-						<td class="sf"><input id="txtForecastprepare.*" type="text" class="txt c1 num safo"/></td>
+						<td class="sf"><input id="txtForecastprepare.*" type="text" class="txt c1 num safo sam"/></td>
 						<td><input id="txtUnmount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtOrdemount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtStkmount.*" type="text" class="txt c1 num orde"/></td>
@@ -992,7 +1019,7 @@
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
-						<td><input id="txtMount.*" type="text" class="txt c1 num orde"/></td>
+						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
 						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 						<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 35%"/>
