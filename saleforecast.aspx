@@ -19,7 +19,7 @@
 			q_tables = 's';
 			var q_name = "saleforecast";
 			var q_readonly = ['txtNoa','txtDatea'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtNoq'];
 			var bbmNum = [];
 			var bbsNum = [['txtMount', 15, 2, 1]];
 			var bbmMask = [];
@@ -54,7 +54,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtMon', r_picm],['txtDatea', r_picd]];
-				bbsMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
+				bbsMask = [['txtDatea', r_picd]];
 				q_mask(bbmMask);
 				
 			}
@@ -413,26 +413,31 @@
 				<!--<td align="center" style="width:16%;" colspan='2'><a id="lblBdate_s" > </a></td>-->
 				<td align="center" style="width:18%;"><a id='lblProductno_s'> </a></td>
 				<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
+				<td align="center" style="width:8%;"><a id='lblStyle_s'> </a></td>
 				<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
 				<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
 				<td align="center" style="width:8%;"><a id='lblPrice_s'> </a></td>
+				<td align="center" style="width:8%;"><a id='lblDatea_s'> </a></td>
 				<td align="center"><a id='lblMemo_s'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 				<!--<td ><input id="txtBdate.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtEdate.*" type="text" class="txt c1"/></td>-->
-				<td >
-					<input id="txtProductno.*" type="text" style="width:80%;" />
-					<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
+				<td align="center">
+					<input id="txtProductno.*" type="text" class="txt c1" />
+					<input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
+					<input id="txtNoq.*" type="text" style="width:50px;"/>
 				</td>
 				<td >
 					<input id="txtProduct.*" type="text" class="txt c1"/>
 					<input id="txtSpec.*" type="text" class="txt c1"/>
 				</td>
+				<td ><input id="txtStyle.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtUnit.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 				<td ><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
+				<td ><input id="txtDatea.*" type="text" class="txt c1"/></td>
 				<td ><input id="txtMemo.*" type="text" class="txt c1"/><input id="txtNoq.*" type="hidden" /></td>
 			</tr>
 		</table>

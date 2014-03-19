@@ -65,7 +65,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbmon', r_picm], ['txtSfemon', r_picm]];
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd]];
 				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('workg.stype'));
@@ -81,16 +81,16 @@
 							return;
 						}
 						
-						var sbmon='',semon='';
-						if (emp($('#txtSfbmon').val())) {
-							sbmon=q_date().substr(0,6);
+						var sbdate='',sedate='';
+						if (emp($('#txtSfbdate').val())) {
+							sbdate=q_date();
 						}else{
-							sbmon=$('#txtSfbmon').val();
+							sbdate=$('#txtSfbdate').val();
 						}
-						if (emp($('#txtSfemon').val())) {
-							semon='999/99';
+						if (emp($('#txtSfedate').val())) {
+							sedate='999/99/99';
 						}else{
-							semon=$('#txtSfemon').val();
+							sedate=$('#txtSfedate').val();
 						}
 
 						if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
@@ -104,8 +104,8 @@
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "') and c.productno=a.productno and c.enda!='1' ^^"
-							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+sbmon+"' and '"+semon+"') ^^"
-							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+sbmon+"' and '"+semon+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
+							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sb.datea between '"+sbdate+"' and '"+sedate+"') ^^"
+							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfedate between '"+sbdate+"' and '"+sedate+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
 						}
 					}
@@ -122,16 +122,16 @@
 							return;
 						}
 						
-						var sbmon='',semon='';
-						if (emp($('#txtSfbmon').val())) {
-							sbmon=q_date().substr(0,6);
+						var sbdate='',sedate='';
+						if (emp($('#txtSfbdate').val())) {
+							sbdate=q_date();
 						}else{
-							sbmon=$('#txtSfbmon').val();
+							sbdate=$('#txtSfbdate').val();
 						}
-						if (emp($('#txtSfemon').val())) {
-							semon='999/99';
+						if (emp($('#txtSfedate').val())) {
+							sedate='999/99/99';
 						}else{
-							semon=$('#txtSfemon').val();
+							sedate=$('#txtSfedate').val();
 						}
 						
 
@@ -148,41 +148,13 @@
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "') and c.productno=a.productno and c.enda!='1' ^^"
-							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sa.mon between '"+sbmon+"' and '"+semon+"') ^^"
-							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfemon between '"+sbmon+"' and '"+semon+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
+							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sb.datea between '"+sbdate+"' and '"+sedate+"') ^^"
+							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfedate between '"+sbdate+"' and '"+sedate+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "workg_bbs", r_accy);
 						}
 					}
 				});
 				
-				$('#btnSaleforecast').click(function() {
-					if (q_cur == 1 || q_cur == 2) {
-						if (emp($('#txtSfbmon').val()) && emp($('#txtSfemon').val())) {
-							alert(q_getMsg('lblSfmon') + '請先填寫。');
-							return;
-						}
-						if ((!emp($('#txtSfbmon').val()) && emp($('#txtSfemon').val())) || (emp($('#txtSfbmon').val()) && !emp($('#txtSfemon').val()))) {
-							alert(q_getMsg('lblSfmon') + '錯誤!!。');
-							return;
-						}
-
-						if (!emp($('#txtSfbmon').val()) && !emp($('#txtSfemon').val())) {
-							var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
-							
-							var t_where1 = "where[1]=^^ wb.productno=b.productno and (wa.sfemon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
-							var t_where2 = "where[2]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then left(d.odate,6) else left(c.datea,6) end < '"+$('#txtSfbmon').val()+"') and c.enda!='1' and d.enda!='1' and charindex(d.noa+'-'+c.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0^^"
-							var t_where3 = "where[3]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then left(d.odate,6) else left(c.datea,6) end between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and c.enda!='1' and d.enda!='1' and charindex(d.noa+'-'+c.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0^^"
-							var t_where4 = "where[4]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then left(d.odate,6) else left(c.datea,6) end between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and c.enda!='1' and d.enda!='1' and charindex(d.noa+'-'+c.no2,isnull((select ordeno+',' from view_workgs FOR XML PATH('')),''))=0^^"
-							
-							if (!emp($('#txtProductno').val()))
-								var t_where5 = "where[5]=^^b.productno='" + $('#txtProductno').val() + "' and  (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
-							else
-								var t_where5 = "where[5]=^^ (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
-							
-							q_gt('workg_saleforecast', t_where + t_where1 + t_where2 + t_where3 + t_where4 + t_where5 , 0, 0, 0, "", r_accy);
-						}
-					}
-				});
 				
 				$('#btnWork').click(function() {
 					if (q_cur != 1 && q_cur != 2) {
@@ -303,14 +275,19 @@
 							change_field();
 						} else {
 							//alert('無排產資料!!。');
-							var sbmon='',semon='';
-							if (emp($('#txtSfbmon').val())) {
-								sbmon=q_date().substr(0,6);
+							var sbdate='',sedate='';
+							if (emp($('#txtSfbdate').val())) {
+								sbdate=q_date();
 							}else{
-								sbmon=$('#txtSfbmon').val();
+								sbdate=$('#txtSfbdate').val();
+							}
+							if (emp($('#txtSfedate').val())) {
+								sedate='999/99/99';
+							}else{
+								sedate=$('#txtSfedate').val();
 							}
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
-							var t_where1 = "where[1]=^^ wb.productno=b.productno and (wa.sfemon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') ^^"
+							var t_where1 = "where[1]=^^ wb.productno=b.productno and (wa.sfedate between '"+sbdate+"' and '"+sedate+"') ^^"
 							var t_where2 = "where[2]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end < '"+$('#txtBdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
 							var t_where3 = "where[3]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
@@ -322,7 +299,7 @@
 								}
 							}
 							
-							var t_where5 = "where[5]=^^ ("+t_bbspno+") and (a.mon between '"+$('#txtSfbmon').val()+"' and '"+$('#txtSfemon').val()+"') and b.productno in (select noa from uca)^^";
+							var t_where5 = "where[5]=^^ ("+t_bbspno+") and (b.datea between '"+sbdate+"' and '"+sedate+"') and b.productno in (select noa from uca)^^";
 							
 							q_gt('workg_saleforecast', t_where + t_where1 + t_where2 + t_where3 + t_where4 + t_where5 , 0, 0, 0, "", r_accy);
 							
@@ -969,11 +946,11 @@
 					<tr>
 						<td> </td>
 						<td> </td>
-						<td><span> </span><a id="lblSfmon" class="lbl"> </a></td>
+						<td><span> </span><a id="lblSfdate" class="lbl"> </a></td>
 						<td colspan="2">
-							<input id="txtSfbmon" type="text" class="txt c2"/>
+							<input id="txtSfbdate" type="text" class="txt c2"/>
 							<a style="float: left;">~</a>
-							<input id="txtSfemon" type="text" class="txt c2"/>
+							<input id="txtSfedate" type="text" class="txt c2"/>
 						</td>
 						<td><input id="btnWorkg" type="button"/></td>
 						<!--<td><input id="btnSaleforecast" type="button"/></td>-->
