@@ -17,7 +17,7 @@
             this.errorHandler = null;
             q_tables = 't';
             var q_name = "ordb";
-            var q_readonly = ['txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtTotal','txtTotalus'];
+            var q_readonly = ['txtWorkgno','txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2','txtMoney','txtTotal','txtTotalus'];
             var q_readonlys = ['txtNo3','txtNo2','txtTotal', 'txtC1', 'txtNotv','txtOmount'];
             var q_readonlyt = [];
             var bbmNum = [['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]];
@@ -143,6 +143,27 @@
                 ,['textRdate_1',r_picd],['textRdate_2',r_picd],['textRdate_3',r_picd],['textRdate_4',r_picd],['textRdate_5',r_picd],['textRdate_6',r_picd]
                 ,['textFdate_1',r_picd],['textFdate_2',r_picd],['textFdate_3',r_picd],['textFdate_4',r_picd],['textFdate_5',r_picd],['textFdate_6',r_picd]
                 ,['textDatea_a',r_picd],['textBedate_a',r_picd],['textEedate_a',r_picd],['textBfdate_a',r_picd],['textEfdate_a',r_picd]];
+               
+                bbsMask = [['txtLdate', r_picd]];
+                $('#textEdate_1').datepicker();
+                $('#textRdate_1').datepicker();
+                $('#textFdate_1').datepicker();
+                $('#textEdate_2').datepicker();
+                $('#textRdate_2').datepicker();
+                $('#textFdate_2').datepicker();
+                $('#textEdate_3').datepicker();
+                $('#textRdate_3').datepicker();
+                $('#textFdate_3').datepicker();
+                $('#textEdate_4').datepicker();
+                $('#textRdate_4').datepicker();
+                $('#textFdate_4').datepicker();
+                $('#textEdate_5').datepicker();
+                $('#textRdate_5').datepicker();
+                $('#textFdate_5').datepicker();
+                $('#textEdate_6').datepicker();
+                $('#textRdate_6').datepicker();
+                $('#textFdate_6').datepicker();
+                
                 $('#textDatea_a').datepicker();
                 $('#textBedate_a').datepicker();
                 $('#textEedate_a').datepicker();
@@ -300,6 +321,13 @@
                 $('#btnClose_a').click(function(e){
                     $('#exportordc').toggle();
                 });
+                //--------------------------------------------------------
+                var t_para = (typeof (q_getId()[5]) == 'undefined' ? '' : q_getId()[5]).split('&');
+                for(var i=0;i<t_para.length;i++){
+                    if(t_para[i]=='report=z_ordbp06'){
+                        q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";action=z_ordbp06;" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
+                    }
+                }
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
@@ -312,10 +340,12 @@
                             }                         
                             alert(t_msg);
                             if(as.length>1)
-                                q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";action=z_ordbp06;" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
+                                location.replace("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";;" + r_accy+";report=z_ordbp06");
+                            else
+                                location.replace("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";;" + r_accy);                              
                         } else {
                             alert('無資料!');
-                        }
+                        }                  
                         Unlock(1);
                         break;
                     default:
@@ -817,6 +847,7 @@
         <div id="tmp" style="background:pink;display:none; position: absolute;top:200px;left:100px;width:800px;height:300px;"> 
             <table style="width:100%;height:100%;border: 2px white double;">
                 <tr style="height:1px;">
+                    <td style="width:1%;"> </td>
                     <td style="width:20%;"> </td>
                     <td style="width:10%;"> </td>
                     <td style="width:10%;"> </td>
@@ -828,8 +859,9 @@
                     <td style="width:10%;"> </td>
                 </tr>
                 <tr>
+                    <td> </td>
                     <td align="center">廠商</td>
-                    <td align="center">有效日期</td>
+                    <td align="center">合約<br>有效日</td>
                     <td align="center">包裝方式</td>
                     <td align="center">期望單價</td>
                     <td align="center">廠商<br>回報價</td>
@@ -839,6 +871,7 @@
                     <td align="center">成交價</td>
                 </tr>
                 <tr>
+                    <td>1</td>
                     <td>
                         <input id="textTggno_1" type="text" style="width:45%;"/>
                         <input id="textTgg_1" type="text" style="width:45%;"/>
@@ -853,6 +886,7 @@
                     <td><input id="textFprice_1" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
+                    <td>2</td>
                     <td>
                         <input id="textTggno_2" type="text" style="width:45%;"/>
                         <input id="textTgg_2" type="text" style="width:45%;"/>
@@ -867,6 +901,7 @@
                     <td><input id="textFprice_2" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
+                    <td>3</td>
                     <td>
                         <input id="textTggno_3" type="text" style="width:45%;"/>
                         <input id="textTgg_3" type="text" style="width:45%;"/>
@@ -881,6 +916,7 @@
                     <td><input id="textFprice_3" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
+                    <td>4</td>
                     <td>
                         <input id="textTggno_4" type="text" style="width:45%;"/>
                         <input id="textTgg_4" type="text" style="width:45%;"/>
@@ -895,6 +931,7 @@
                     <td><input id="textFprice_4" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
+                    <td>5</td>
                     <td>
                         <input id="textTggno_5" type="text" style="width:45%;"/>
                         <input id="textTgg_5" type="text" style="width:45%;"/>
@@ -909,6 +946,7 @@
                     <td><input id="textFprice_5" type="text" style="width:95%;text-align: right;"/></td>
                 </tr>
                 <tr>
+                    <td>6</td>
                     <td>
                         <input id="textTggno_6" type="text" style="width:45%;"/>
                         <input id="textTgg_6" type="text" style="width:45%;"/>
@@ -941,11 +979,14 @@
                     <td style="width:60%;"> </td>
                 </tr>
                 <tr>
+                    <td colspan="2" style="text-align:center; color:darkblue;"><a>已匯出至採購單的,須先刪除採購單才可重新匯出</a> </td>         
+                </tr>
+                <tr>
                     <td style="text-align: center;"><a>採購日期</a></td>
                     <td><input id="textDatea_a" type="text" style="width:40%;"/></td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;"><a>有效日期</a></td>
+                    <td style="text-align: center;"><a>合約有效日期</a></td>
                     <td>
                         <input id="textBedate_a" type="text" style="width:40%; float:left;"/>
                         <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
@@ -959,6 +1000,10 @@
                         <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
                         <input id="textEfdate_a" type="text" style="width:40%; float:left;"/>
                     </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>轉來</a></td>
+                    <td><input id="textWorkgno" type="text" style="width:80%;"/></td>
                 </tr>
                 <tr>
                     <td align="center"> <input id="btnExport_a" type="button" style="width:100px;" value="匯出採購"/></td>
@@ -1108,8 +1153,12 @@
                     </tr>
                     <tr>
                         <td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-                        <td colspan="7">
+                        <td colspan="4">
                         <input id="txtMemo" type="text" class="txt c1"/>
+                        </td>
+                        <td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
+                        <td colspan="2">
+                        <input id="txtWorkgno" type="text" class="txt c1"/>
                         </td>
                     </tr>
                     <tr>
@@ -1149,6 +1198,7 @@
                     <td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
                     <td align="center" style="width:100px;">已採購量<br>未採購量</td>
                     <td align="center" style="width:200px;">備註<br>訂單號碼/訂序</a></td>
+                    <td align="center" style="width:120px;"><a id='lblLdates'> </a></td>
                     <td align="center" style="width:60px;">詢價<br>記錄</td>
                     <td align="center" style="width:60px;">歷史詢<br>價記錄</td>
                     <td align="center" style="width:60px;">採購詢<br>建議量</td>
@@ -1195,6 +1245,9 @@
                     <input id="txtMemo.*" type="text" style="float:left;width:195px;"/>
                     <input id="txtOrdeno.*" type="text" style="float:left;width:145px;" />
                     <input id="txtNo2.*" type="text" style="float:left;width:40px;" />
+                    </td>
+                    <td>
+                    <input id="txtLdate.*" type="text" style="float:left;width:95%;"/>
                     </td>
                     <td align="center">
                     <input class="btn"  id="btnTmprecord.*" type="button" value='.' style=" font-weight: bold;" />
