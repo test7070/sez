@@ -1012,7 +1012,7 @@
 						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
 						<td style="width:100px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblMount_s'> </a></td>
-						<td style="width:80px;"><a id='lblCuadate_s'> </a></td>
+						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
 						<td style="width:250px;"><a id='lblStation_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkhno_s'> </a></td>
@@ -1056,7 +1056,7 @@
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
 						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
-						<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
+						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
 						<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 35%"/>
 							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
