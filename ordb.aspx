@@ -309,12 +309,13 @@
                     var t_eedate = $('#textEedate_a').val();
                     var t_bfdate = $('#textBfdate_a').val();
                     var t_efdate = $('#textEfdate_a').val();
+                    var t_workgno = $('#textWorkgno_a').val();
                     if (t_datea.length > 0) {
                         Lock(1, {
                             opacity : 0
                         });
                         q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno)+ ';' + encodeURI(r_name)+ ';' + encodeURI(q_getPara('key_ordc'))+ ';' 
-                        + encodeURI(t_datea)+ ';' + encodeURI(t_bedate)+ ';' + encodeURI(t_eedate)+ ';' + encodeURI(t_bfdate)+ ';' + encodeURI(t_efdate));
+                        + encodeURI(t_datea)+ ';' + encodeURI(t_bedate)+ ';' + encodeURI(t_eedate)+ ';' + encodeURI(t_bfdate)+ ';' + encodeURI(t_efdate)+ ';' + encodeURI(t_workgno));
                     } else
                         alert('請輸入採購日期。');
                 });
@@ -1003,7 +1004,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: center;"><a>轉來</a></td>
-                    <td><input id="textWorkgno" type="text" style="width:80%;"/></td>
+                    <td><input id="textWorkgno_a" type="text" style="width:80%;"/></td>
                 </tr>
                 <tr>
                     <td align="center"> <input id="btnExport_a" type="button" style="width:100px;" value="匯出採購"/></td>
