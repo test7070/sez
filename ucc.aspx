@@ -75,12 +75,15 @@
 					dataErr = false;
 					return;
 				}
-				q_mask(bbmMask);
 				mainForm(0);
 				$('#txtUno').focus();
 			}
 
 			function mainPost() {
+				q_getFormat();
+				bbmMask = [['txtCdate', r_picd]];
+				q_mask(bbmMask);
+				
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
 					q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));
 				//IR
@@ -549,16 +552,16 @@
 					<td><input	type="text" id="txtStdmount" class="txt num c1"/></td>
 				</tr>
 				<tr>
-					<td><a id='lblStyle' class="lbl"> </a></td>
-					<td><input	type="text" id="txtStyle" class="txt c1"/></td>
+					<td><a id='lblType' class="lbl"> </a></td>
+					<td><select id="cmbTypea" class="txt c1"> </select></td>
 					<td><a id='lblSafemount' class="lbl"> </a></td>
 					<td><input	type="text" id="txtSafemount" class="txt num c1"/></td>
 					<td><a id='lblDays' class="lbl"> </a></td>
 					<td><input	type="text" id="txtDays" class="txt c1 num"/></td>
 				</tr>
 				<tr>
-					<td><a id='lblType' class="lbl"> </a></td>
-					<td><select id="cmbTypea" class="txt c1"> </select></td>
+					<td><a id='lblStyle' class="lbl"> </a></td>
+					<td><input	type="text" id="txtStyle" class="txt c1"/></td>
 					<td><a id='lblInprice' class="lbl"> </a></td>
 					<td><input	type="text" id="txtInprice" class="txt num c1"/></td>
 					<td><a id='lblSaleprice' class="lbl"> </a></td>
@@ -572,6 +575,10 @@
 					<td><input	type="text" id="txtArea"	class="txt c1"/></td>
 					<td><a id='lblTrantype' class="lbl"> </a></td>
 					<td><select id="cmbTrantype" class="txt c1"></select></td>
+				</tr>
+				<tr>
+					<td><a id='lblCdate' class="lbl"> </a></td>
+					<td><input	type="text" id="txtCdate"	class="txt c1"/></td>
 				</tr>
 				<tr>
 					<td><a id='lblGroupano' class="lbl"> </a></td>
