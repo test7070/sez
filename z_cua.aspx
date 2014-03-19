@@ -36,6 +36,7 @@
 					}]
                 });
                 q_popAssign();
+				q_langShow();
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate2').mask('999/99/99');
                	/* 終止日預設為起始日之月份最後一日*/
