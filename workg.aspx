@@ -287,7 +287,7 @@
 								sedate=$('#txtSfedate').val();
 							}
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
-							var t_where1 = "where[1]=^^ wb.productno=b.productno and (wa.sfedate between '"+sbdate+"' and '"+sedate+"') ^^"
+							var t_where1 = "where[1]=^^ wb.productno=b.productno and (wa.sfedate between '"+sbdate+"' and '"+sedate+"') and wa.noa!='"+$('#txtNoa').val()+"'^^"
 							var t_where2 = "where[2]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end < '"+$('#txtBdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
 							var t_where3 = "where[3]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
