@@ -25,7 +25,7 @@
 			var decbbs = ['weight', 'uweight', 'mount', 'gmount', 'emount', 'hours'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtWorkno', 'txtComp', 'txtProduct', 'txtStation'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtTproductno', 'txtTproduct'];
+			var q_readonlys = ['btnMinus','txtOrdeno', 'txtNo2', 'txtNoq', 'txtTproductno', 'txtTproduct'];
 			var q_readonlyt = ['txtLabelname','txtFieldname','txtOldvalue','txtNewvalue','txtNamea','txtDatea','txtTimea'];
 			var bbmNum = [['txtPrice', 10, 2, 1], ['txtWmount', 10, 0, 1]];
 			var bbsNum = [
