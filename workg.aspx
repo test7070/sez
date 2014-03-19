@@ -525,7 +525,7 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if (!emp($('#txtWorkno_' + b_seq).val())) {
+							if (!emp($('#txtWorkhno_' + b_seq).val())) {
 								t_where = "cuano='" + $('#txtNoa').val() + "' and cuanoq='" + $('#txtNoq_' + b_seq).val() + "'";
 								q_box("workh.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workh', "95%", "95%", q_getMsg('PopWorkh'));
 							}
