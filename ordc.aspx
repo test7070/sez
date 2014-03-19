@@ -74,6 +74,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd], ['txtTrandate', r_picd], ['txtEtd', r_picd], ['txtEta', r_picd], ['txtOnboarddate', r_picd]];
+				bbsMask = [['txtTrandate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbKind", q_getPara('ordc.kind'));
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
@@ -249,7 +250,9 @@
 					alert(t_err);
 					return;
 				}
+				
 				sum();
+				
 				if ($('#cmbKind').val() == '1') {
 					for (var j = 0; j < q_bbsCount; j++) {
 						$('#txtProductno_' + j).val($('#txtProductno1_' + j).val());
@@ -263,10 +266,20 @@
 						$('#txtProductno_' + j).val($('#txtProductno3_' + j).val());
 					}
 				}
+				
+				if(emp($('#txtTrandate').val())){
+					$('#txtTrandate').val(q_cdn(q_date(),10));
+				}
+				for (var j = 0; j < q_bbsCount; j++) {
+					if(!emp($('#txtProductno_' + j).val())&&emp($('#txtTrandate_'+j).val()))
+						$('#txtTrandate_'+j).val($('#txtTrandate').val());
+				}
+				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
 					$('#txtWorker2').val(r_name);
+					
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ordc') + $('#txtOdate').val(), '/', ''));
@@ -645,7 +658,7 @@
 				text-align: right;
 			}
 			.dbbs {
-				width: 100%;
+				width: 1300px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -822,12 +835,13 @@
 					<td align="center" style="width:1%;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:10%;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:15%;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:13%;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:18%;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblTrandates'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblGemounts'> </a></td>
 					<td align="center" style="width:15%;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblRc2record'> </a></td>
@@ -849,6 +863,7 @@
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtTrandate.*" type="text" class="txt c1"/></td>
 					<td>
 						<input class="txt num c1" id="txtC1.*" type="text" />
 						<input class="txt num c1" id="txtNotv.*" type="text" />
