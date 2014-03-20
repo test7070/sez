@@ -238,6 +238,8 @@
 								t_tggno = as[i].tggno;
 								t_tgg = as[i].comp;
 							}
+							//未入庫量=排程數量-已入庫量
+							as[i].mount=dec(as[i].mount)-dec(as[i].inmount)
 						}
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa', '');
 						if (t_tggno.length != 0 || t_tgg.length != 0) {

@@ -145,6 +145,7 @@
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#lblNo_' + i).text(i + 1);
 						$('#btnTproductno_' + j).click(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -561,6 +562,7 @@
 					<td align="center" style="width:1%;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:10%;"><a id='lblProcesss'> </a></td>
 					<td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
@@ -570,14 +572,15 @@
 					<td align="center" style="width:8%;"><a id='lblEmount'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblTd'> </a></td>
 					<!--<td align="center" style="width:17%;"><a id='lblTproduct_s'> </a></td>-->
-					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblCosts'> </a></td>
+					<td align="center" style="width:9%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:9%;"><a id='lblCosts'> </a></td>
 					<td align="center"><a id='lblMemos'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
 						<input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input id="txtProcessno.*" type="text" class="txt c5"/>
 						<input class="btn" id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
