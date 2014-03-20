@@ -35,7 +35,19 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
-					}]
+					}, {
+                        type : '6',
+                        name : 'xordbno',
+                    }, {
+                        type : '6',
+                        name : 'xordbnoq',
+                    }, {
+                        type : '6',
+                        name : 'xordcno',
+                    }, {
+                        type : '6',
+                        name : 'xordcnoq',
+                    }]
                 });
                 q_popAssign();
                 q_getFormat();
@@ -51,6 +63,14 @@
                         }else if (tmp[i].indexOf('product=') >= 0){
                             $('#txtXproduct1a').val(tmp[i].replace('product=', ''));
                             $('#txtXproduct2a').val(tmp[i].replace('product=', ''));
+                        }else if (tmp[i].indexOf('ordbno=') >= 0){
+                            $('#txtXordbno').val(tmp[i].replace('ordbno=', ''));
+                        }else if (tmp[i].indexOf('no3=') >= 0){
+                            $('#txtXordbnoq').val(tmp[i].replace('no3=', ''));
+                        }else if (tmp[i].indexOf('ordbno=') >= 0){
+                            $('#txtXordcno').val(tmp[i].replace('ordcno=', ''));
+                        }else if (tmp[i].indexOf('no3=') >= 0){
+                            $('#txtXordcnoq').val(tmp[i].replace('no2=', ''));
                         }
                     }
                     $('#btnOk').click();
