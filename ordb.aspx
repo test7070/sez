@@ -560,6 +560,12 @@
                             if($('#txtProductno_'+n).val().length>0)
                                 q_box("ucctgg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctgg', "95%", "95%", '採購建議量');
                         });
+                        $('#btnOrdc2_'+j).click(function(e){
+                            var n = replaceAll($(this).attr('id'),'btnOrdc2_','');
+                            t_where = "productno='" + $('#txtProductno_'+n).val() + "' and product='"+$('#txtProduct_'+n).val()+"'";
+                            if($('#txtProductno_'+n).val().length>0)
+                                q_box("z_ordbordc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordbordc', "95%", "95%", '採購統計');
+                        });
                         $('#btnRecord_'+j).click(function(e){
                             var n = replaceAll($(this).attr('id'),'btnRecord_','');
                             t_where = "b.noa is not null" 
@@ -790,7 +796,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 1280px;
+                width: 1610px;
             }
             .dbbs .tbbs {
                 margin: 0;
@@ -1189,7 +1195,6 @@
                     <td  align="center" style="width:30px;">
                     <input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
                     </td>
-                    <td align="center" style="width:20px;"></td>
                     <td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
                     <td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
                     <td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
@@ -1199,26 +1204,26 @@
                     <td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
                     <td align="center" style="width:100px;">已採購量<br>未採購量</td>
                     <td align="center" style="width:200px;">備註<br>訂單號碼/訂序</a></td>
-                    <td align="center" style="width:120px;"><a id='lblLdates'> </a></td>
-                    <td align="center" style="width:60px;">詢價<br>記錄</td>
-                    <td align="center" style="width:60px;">歷史詢<br>價記錄</td>
-                    <td align="center" style="width:60px;">採購詢<br>建議量</td>
-                    <td align="center" style="width:60px;">進貨<br>記錄</td>
+                    <td align="center" style="width:100px;"><a id='lblLdates'> </a></td>
+                    <td align="center" style="width:50px;">詢價<br>記錄</td>
+                    <td align="center" style="width:50px;">歷史詢<br>價記錄</td>
+                    <td align="center" style="width:50px;">採購詢<br>建議量</td>
+                    <td align="center" style="width:50px;">採購<br>統計</td>
+                    <td align="center" style="width:50px;">進貨<br>記錄</td>
                 </tr>
                 <tr style='background:#cad3ff;'>
                     <td align="center">
                     <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-                    <input id="txtNo3.*" type="text" style="display: none;" />
                     </td>
-                    <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                    <td>
-                    <input id="btnProduct1.*" type="button" value='.' style="float:left;width:1%;" />
-                    <input id="btnProduct2.*" type="button" value='.' style="float:left;width:1%;" />
-                    <input id="btnProduct3.*" type="button" value='.' style="float:left;width:1%;" />
-                    <input id="txtProductno1.*" type="text" style="float:left;width:80%;"/>
-                    <input id="txtProductno2.*" type="text" style="float:left;width:80%;"/>
-                    <input id="txtProductno3.*" type="text" style="float:left;width:80%;"/>
-                    <input id="txtProductno.*" style="display:none;" />
+                    <td align="center">
+	                    <input id="txtProductno1.*" type="text" class="txt c1" style="width:97%;float:left;"/>
+	                    <input id="txtProductno2.*" type="text" class="txt c1" style="width:97%;float:left;"/>
+	                    <input id="txtProductno3.*" type="text" class="txt c1" style="width:97%;float:left;"/>
+	                    <input id="txtProductno.*" style="display:none;" />
+	                    <input id="txtNo3.*" type="text" style="width:80px;float:left;"/>
+	                    <input id="btnProduct1.*" type="button" value='...' style="font-weight: bold;float:left;" />
+	                    <input id="btnProduct2.*" type="button" value='...' style="font-weight: bold;float:left;" />
+	                    <input id="btnProduct3.*" type="button" value='...' style="font-weight: bold;float:left;" />
                     </td>
                     <td>
                     <input id="txtProduct.*" type="text" style="float:left;width:95%;"/>
@@ -1258,6 +1263,9 @@
                     </td>
                     <td align="center">
                     <input class="btn"  id="btnOrdc.*" type="button" value='.' style=" font-weight: bold;" />
+                    </td>
+                    <td align="center">
+                    <input class="btn"  id="btnOrdc2.*" type="button" value='.' style=" font-weight: bold;" />
                     </td>
                     <td align="center">
                     <input class="btn"  id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
