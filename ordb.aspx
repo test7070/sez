@@ -552,7 +552,7 @@
                         });
                         $('#btnRc2record_' + j).click(function() {
                             var n = replaceAll($(this).attr('id'),'btnRc2record_','');
-                            q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";tgg=&product="+$('#txtProductno_' + n).val()+";" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));    
+                            q_box("z_rc2record.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";ordbno="+$('#txtNoa').val()+"&no3="+$('#txtNo3_' + n).val()+";" + r_accy, 'z_rc2record', "95%", "95%", q_getMsg('popPrint'));    
                         });
                         $('#btnOrdc_'+j).click(function(e){
                             var n = replaceAll($(this).attr('id'),'btnOrdc_','');
