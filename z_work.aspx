@@ -99,6 +99,14 @@
 						type : '5', //[19]
 						name : 'xgroupano',
 						value : xgroupanoStr.split(',')
+					}, {
+						type : '8', //[20]
+						name : 'xshowdiff',
+						value : ('1@僅顯示差異>+-0.5').split(',')
+					}, {
+						type : '5', //[21]
+						name : 'xenda',
+						value : '0@未完工,1@已完工'.split(',')
 					}]
 				});
 				q_popAssign();
