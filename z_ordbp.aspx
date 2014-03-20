@@ -72,11 +72,31 @@
                     }, {/*11 [19]*/
                         type : '6',
                         name : 'yworkgno'
-                    },{/*12 [20]*/
+                    },{/* [20]*/
                         type : '0',
                         name : 'ykind',
                         value : q_getPara('ordb.kind')
-                    }]
+                    }
+                    //---追蹤表用----------------------------------------------------------
+                   , {/*12 [21][22]*/
+                        type : '1',
+                        name : 'zdatea'
+                    }, {/*13 [23][24]*/
+                        type : '1',
+                        name : 'zldate'
+                    }, {/*14 [25][26]*/
+                        type : '2',
+                        name : 'zproductno',
+                        dbf : 'ucc',
+                        index : 'noa,product',
+                        src : 'ucc_b.aspx'
+                    },{/*15 [27]*/
+                        type : '5',
+                        name : 'zordc',
+                        value : [q_getPara('report.all')].concat('1@已採購,2@未採購'.split(','))
+                    }
+                    //---追蹤表用----------------------------------------------------------
+                    ]
 				});
 				q_popAssign();
 
@@ -89,6 +109,16 @@
                 $('#txtYodate1').datepicker();
                 $('#txtYodate2').mask('999/99/99');
                 $('#txtYodate2').datepicker();
+                
+                $('#txtZdatea1').mask('999/99/99');
+                $('#txtZdatea1').datepicker();
+                $('#txtZdatea2').mask('999/99/99');
+                $('#txtZdatea2').datepicker();
+                
+                $('#txtZldate1').mask('999/99/99');
+                $('#txtZldate1').datepicker();
+                $('#txtZldate2').mask('999/99/99');
+                $('#txtZldate2').datepicker();
                 
                          
 				var t_date, t_year, t_month, t_day;
