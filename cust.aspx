@@ -49,7 +49,7 @@
 			currentData.prototype = {
 				data : [],
 				/*排除的欄位,新增時不複製*/
-				exclude : [],
+				exclude : ['txtUacc1','txtUacc2','txtUacc3'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
