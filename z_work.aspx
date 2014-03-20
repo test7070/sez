@@ -46,74 +46,91 @@
 						name : 'accy',
 						value : q_getId()[4]
 					}, {
-						type : '6', //[2]
+						type : '6', //[2]    1
 						name : 'xnoa'
 					}, {
-						type : '1', //[3][4]
+						type : '1', //[3][4]  2
 						name : 'xdate'
 					}, {
-						type : '2', //[5][6]
+						type : '2', //[5][6]  3
 						name : 'tgg',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
 					}, {
-						type : '2', //[7] [8]
+						type : '2', //[7] [8]  4
 						name : 'xstation',
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
 					}, {
-						type : '2', //[9] [10]
+						type : '2', //[9] [10] 5
 						name : 'xstoreno',
 						dbf : 'store',
 						index : 'noa,store',
 						src : 'store_b.aspx'
 					}, {
-						type : '2', //[11] [12]
+						type : '2', //[11] [12] 6
 						name : 'xproductno',
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
 					}, {
-						type : '8', //[13]
+						type : '8', //[13] 7
 						name : 'aberrant',
 						value : ('異常').split(',')
 					}, {
-						type : '2', //[14] [15]
+						type : '2', //[14] [15] 8
 						name : 'xprocess',
 						dbf : 'process',
 						index : 'noa,process',
 						src : 'process_b.aspx'
 					}, {
-						type : '6', //[16]
+						type : '6', //[16] 9
 						name : 'xcuano'
 					}, {
-						type : '6', //[17]
+						type : '6', //[17] 10
 						name : 'xworkno'
 					}, {
-						type : '5', //[18]
+						type : '5', //[18] 11
 						name : 'xorder',
 						value : ('1@依子件,2@依上一階製品,3@依製成品').split(',')
 					}, {
-						type : '5', //[19]
+						type : '5', //[19] 12
 						name : 'xgroupano',
 						value : xgroupanoStr.split(',')
 					}, {
-						type : '8', //[20]
+						type : '8', //[20] 13
 						name : 'xshowdiff',
 						value : ('1@僅顯示差異>+-0.5').split(',')
 					}, {
-						type : '5', //[21]
+						type : '5', //[21] 14
 						name : 'xenda',
 						value : '0@未完工,1@已完工'.split(',')
-					}]
+					}, {
+                        type : '1', //[22][23] 15
+                        name : 'ydate'
+                    }, {
+                        type : '2', //[24] [25] 16
+                        name : 'ystation',
+                        dbf : 'station',
+                        index : 'noa,station',
+                        src : 'station_b.aspx'
+                    }, {
+                        type : '8', //[26] 17
+                        name : 'xdetail',
+                        value : ('detail@明細').split(',')
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
+				$('#txtYdate1').mask('999/99/99');
+                $('#txtYdate2').mask('999/99/99');
+                $('#txtYdate1').datepicker();
+                $('#txtYdate2').datepicker();
 				$('#txtXdate1').val('102/01/01');
 				//$('#txtXdate1').val(q_date().substring(0,7)+'01');
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
