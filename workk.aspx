@@ -379,7 +379,7 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 
-				if (q_cur == 1)
+				if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkano').val()))
 					q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 				else {
 					//處理worka內容
