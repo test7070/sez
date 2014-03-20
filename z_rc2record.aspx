@@ -67,9 +67,9 @@
                             $('#txtXordbno').val(tmp[i].replace('ordbno=', ''));
                         }else if (tmp[i].indexOf('no3=') >= 0){
                             $('#txtXordbnoq').val(tmp[i].replace('no3=', ''));
-                        }else if (tmp[i].indexOf('ordbno=') >= 0){
+                        }else if (tmp[i].indexOf('ordcno=') >= 0){
                             $('#txtXordcno').val(tmp[i].replace('ordcno=', ''));
-                        }else if (tmp[i].indexOf('no3=') >= 0){
+                        }else if (tmp[i].indexOf('no2=') >= 0){
                             $('#txtXordcnoq').val(tmp[i].replace('no2=', ''));
                         }
                     }
