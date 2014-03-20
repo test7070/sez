@@ -380,6 +380,7 @@
 			var mouse_point;
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 						$('#txtLengthb_' + i).change(function() {
 							t_IdSeq = -1;
@@ -776,6 +777,7 @@
 					<td align="center" style="width:43px;">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:226px;"><a id='lblProductnos'></a></td>
 					<td align="center" style="width:251px;"><a id='lblProducts'></a></td>
 					<td align="center" style="width:50px;"><a id='lblUnit'></a></td>
@@ -794,6 +796,7 @@
 				<tr  style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
 					<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
 						<input id="txtProductno.*" type="text" style="width:76%;"/>

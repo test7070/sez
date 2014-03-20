@@ -18,7 +18,7 @@
 			q_tables = 't';
 			var q_name = "workg";
 			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno'];
-			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno'];
+			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno','txtNoq'];
 			var q_readonlyt = [];
 			var bbmNum = [];
 			var bbsNum = [
@@ -856,7 +856,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 3200px;
+				width: 3260px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -995,6 +995,7 @@
 						<td style="width:20px;">
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
+						<td style="width:60px;"><a id='lblNoq_s'> </a></td>
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
@@ -1028,7 +1029,9 @@
 					<tr style='background:#cad3ff;'>
 						<td align="center">
 							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-							<input id="txtNoq.*" type="text" style="display: none;"/>
+						</td>
+						<td align="center">
+							<input id="txtNoq.*" type="text" class="txt c1"/>
 						</td>
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>

@@ -436,6 +436,7 @@
 			var mouse_point;
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 						/*$('#txtMount_' + i).focusin(function() {
 							if (q_cur == 1 || q_cur == 2) {
@@ -908,12 +909,13 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1600px;">
+		<div class='dbbs' style="width: 1620px;">
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:240px;"><a id='lblProductnos'> </a></td>
 					<td align="center" style="width:240px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblUnit'> </a></td>
@@ -929,6 +931,7 @@
 				<tr  style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏-->
 					<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:10%;"  />

@@ -415,6 +415,7 @@
 			var mouse_point;
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 						/*$('#txtMount_' + i).focusin(function() {
 						 if (q_cur == 1 || q_cur == 2) {
@@ -749,14 +750,15 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1500px;">
+		<div class='dbbs' style="width: 1720px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
-					<td style="width:1%;" align="center">
+					<td style="width:43px;" align="center">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td style="width:150px;" align="center"><a id='lblProductnos'> </a></td>
-					<td style="width:130px;" align="center"><a id='lblProducts'> </a></td>
+					<td align="center" style="width:20px;"> </td>
+					<td style="width:180px;" align="center"><a id='lblProductnos'> </a></td>
+					<td style="width:200px;" align="center"><a id='lblProducts'> </a></td>
 					<td style="width:60px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:80px" align="center"><a id='lblWk_gmounts'></a></td>
@@ -770,6 +772,7 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="txt" id="txtProductno.*" type="text" style="width:85%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />
