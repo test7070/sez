@@ -186,6 +186,7 @@
 
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
+                	$('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                     	$('#txtWorkno_'+i).click(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -412,7 +413,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 1450px;
+                width: 1500px;
             }
             .tbbs a {
                 font-size: medium;
@@ -517,6 +518,7 @@
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:160px;"><a id='lblWorkno_s'> </a></td>
 					<td align="center" style="width:173px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:230px;"><a id='lblProduct_s'> </a></td>
@@ -527,13 +529,14 @@
 					<td align="center" style="width:90px;"><a id='lblHours_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblCuadate_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblUindate_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="hidden" class="txt c1"/>
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>

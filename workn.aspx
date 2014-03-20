@@ -196,6 +196,7 @@
 
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
+                	$('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                     	$('#txtMount_'+i).change(function() {
                     		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -466,7 +467,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 1300px;
             }
             .tbbs a {
                 font-size: medium;
@@ -600,6 +601,7 @@
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:8%;"><a id='lblCuadate_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblUindate_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
@@ -614,6 +616,7 @@
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="hidden" class="txt c1"/>
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>

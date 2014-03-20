@@ -322,6 +322,9 @@
 
 			var mouse_point;
 			function bbsAssign() {
+				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
+				}
 				_bbsAssign();
 				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 					$('#btnMinus_' + j).click(function() {
@@ -527,7 +530,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 1900px;
+				width: 1930px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -672,9 +675,10 @@
 					<td style="width:30px;" align="center">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td style="width:150px;" align="center"><a id='lblProductnos'></a></td>
-					<td style="width:120px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
+					<td align="center" style="width:20px;"> </td>
+					<td style="width:180px;" align="center"><a id='lblProductnos'></a></td>
+					<td style="width:200px;" align="center"><a id='lblProduct_s'></a></td>
+					<td style="width:40px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
@@ -691,6 +695,7 @@
 				<tr style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:16%;" />
