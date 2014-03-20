@@ -302,6 +302,8 @@
                 //----------------------------------------------------
                 $('#btnOrdc').click(function(e){
                     $('#exportordc').toggle();
+                    $('#textBno_a').val($('#txtNoa').val());
+                    $('#textEno_a').val($('#txtNoa').val());
                 });
                 $('#btnExport_a').click(function(e){
                     var t_datea = $('#textDatea_a').val();
@@ -310,12 +312,14 @@
                     var t_bfdate = $('#textBfdate_a').val();
                     var t_efdate = $('#textEfdate_a').val();
                     var t_workgno = $('#textWorkgno_a').val();
+                    var t_bno = $('#textBno_a').val();
+                    var t_eno = $('#textEno_a').val();
                     if (t_datea.length > 0) {
                         Lock(1, {
                             opacity : 0
                         });
                         q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno)+ ';' + encodeURI(r_name)+ ';' + encodeURI(q_getPara('key_ordc'))+ ';' 
-                        + encodeURI(t_datea)+ ';' + encodeURI(t_bedate)+ ';' + encodeURI(t_eedate)+ ';' + encodeURI(t_bfdate)+ ';' + encodeURI(t_efdate)+ ';' + encodeURI(t_workgno));
+                        + encodeURI(t_datea)+ ';' + encodeURI(t_bedate)+ ';' + encodeURI(t_eedate)+ ';' + encodeURI(t_bfdate)+ ';' + encodeURI(t_efdate)+ ';' + encodeURI(t_workgno)+ ';' + encodeURI(t_bno)+ ';' + encodeURI(t_eno));
                     } else
                         alert('請輸入採購日期。');
                 });
@@ -979,7 +983,7 @@
                 </tr>
             </table>
         </div>
-        <div id="exportordc" style="background:pink;display:none; position: absolute;top:200px;left:400px;width:400px;height:300px;"> 
+        <div id="exportordc" style="background:pink;display:none; position: absolute;top:200px;left:400px;width:600px;height:300px;"> 
             <table style="width:100%;height:100%;border: 2px white double;">
                 <tr style="height:1px;">
                     <td style="width:40%;"> </td>
@@ -991,6 +995,14 @@
                 <tr>
                     <td style="text-align: center;"><a>採購日期</a></td>
                     <td><input id="textDatea_a" type="text" style="width:40%;"/></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>請購單號</a></td>
+                    <td>
+                        <input id="textBno_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEno_a" type="text" style="width:40%; float:left;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td style="text-align: center;"><a>合約有效日期</a></td>
