@@ -99,6 +99,10 @@
 						type : '5', //[19]
 						name : 'xgroupano',
 						value : xgroupanoStr.split(',')
+					}, {
+						type : '8', //[20]
+						name : 'xshowdiff',
+						value : ('1@僅顯示差異>+-0.5').split(',')
 					}]
 				});
 				q_popAssign();
