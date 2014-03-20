@@ -279,7 +279,9 @@
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
 			function btnOk() {
 				var t_err = '';
-				t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')], ['txtTggno', q_getMsg('lblTgg')], ['txtStoreno', q_getMsg('lblStoreno')], ['txtStoreinno', q_getMsg('lblStoreinno')]]);
+				t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')], ['txtTggno', q_getMsg('lblTgg')]
+				, ['txtBdate', q_getMsg('lblBdate')], ['txtEdate', q_getMsg('lblBdate')]
+				, ['txtStoreno', q_getMsg('lblStoreno')], ['txtStoreinno', q_getMsg('lblStoreinno')]]);
 
 				if (t_err.length > 0) {
 					alert(t_err);
@@ -346,6 +348,8 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
+				$('#txtBdate').val(q_date());
+				$('#txtEdate').val(q_cdn(q_date(),10));
 				$('#txtDatea').focus();
 			}
 
