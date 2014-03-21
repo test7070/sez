@@ -112,140 +112,62 @@
                         } else {
                             var n = -1;
                             t_data = new Array();
-                            s_data = new Array();
                             for (var i in as) {
-                                if (as[i].stationno != undefined) {
+                                if (as[i].productno != undefined) {
                                     n = -1;
                                     m = -1;
                                     for (var j = 0; j < t_data.length; j++)
-                                        if (t_data[j].stationno == as[i].stationno) {
+                                        if (t_data[j].productno == as[i].productno) {
                                             n = j;
-                                            for (var k = 0; k < t_data[j].process.length; k++)
-                                                if (t_data[j].process[k].processno == as[i].processno)
+                                            for (var k = 0; k < t_data[j].mon.length; k++)
+                                                if (t_data[j].mon[k].mon == as[i].mon)
                                                     m = k;
                                         }
 
                                     if (n == -1) {
                                         t_data.push({
-                                            stationno : as[i].stationno,
-                                            station : as[i].station,
-                                            shours : as[i].shours,
-                                            gen : as[i].gen,
-                                            process : new Array({
-                                                processno : as[i].processno,
-                                                process : as[i].process,
+                                            prodcutno : as[i].prodcutno,
+                                            prodcut : as[i].prodcut,
+                                            mon : new Array({
+                                                mon : as[i].mon,
                                                 detail : new Array({
-                                                    productno : as[i].productno,
-                                                    product : as[i].product,
-                                                    noq : as[i].noq,
                                                     mount : as[i].mount,
-                                                    hours : as[i].hours,
-                                                    days : as[i].days,
-                                                    cuadate : as[i].cuadate,
-                                                    uindate : as[i].uindate,
-                                                    workno : as[i].workno,
-                                                    memo : as[i].memo,
-                                                    custno : as[i].custno,
-                                                    comp : as[i].comp
+                                                    orde : as[i].orde,
+                                                    stk : as[i].stk,
+                                                    sch : as[i].sch,
+                                                    safem : as[i].safem
                                                 })
                                             })
                                         });
-                                        s_data.push({
-                                            stationno : as[i].stationno,
-                                            station : as[i].station,
-                                            shours : as[i].shours,
-                                            gen : as[i].gen,
-                                            detail : new Array({
-                                                processno : as[i].processno,
-                                                process : as[i].process,
-                                                productno : as[i].productno,
-                                                product : as[i].product,
-                                                noq : as[i].noq,
-                                                mount : as[i].mount,
-                                                hours : as[i].hours,
-                                                days : as[i].days,
-                                                cuadate : as[i].cuadate,
-                                                uindate : as[i].uindate,
-                                                workno : as[i].workno,
-                                                memo : as[i].memo,
-                                                custno : as[i].custno,
-                                                comp : as[i].comp
-                                            })
-                                        });
+                                       
                                     } else if (m == -1) {
-                                        t_data[n].process.push({
-                                            processno : as[i].processno,
-                                            process : as[i].process,
+                                        t_data[n].mon.push({
+                                            mon : as[i].mon,
                                             detail : new Array({
-                                                noq : as[i].noq,
-                                                productno : as[i].productno,
-                                                product : as[i].product,
                                                 mount : as[i].mount,
-                                                hours : as[i].hours,
-                                                days : as[i].days,
-                                                cuadate : as[i].cuadate,
-                                                uindate : as[i].uindate,
-                                                workno : as[i].workno,
-                                                memo : as[i].memo,
-                                                custno : as[i].custno,
-                                                comp : as[i].comp
+												orde : as[i].orde,
+												stk : as[i].stk,
+												sch : as[i].sch,
+												safem : as[i].safem
                                             })
                                         });
-                                        s_data[n].detail.push({
-                                            processno : as[i].processno,
-                                            process : as[i].process,
-                                            productno : as[i].productno,
-                                            product : as[i].product,
-                                            noq : as[i].noq,
-                                            mount : as[i].mount,
-                                            hours : as[i].hours,
-                                            days : as[i].days,
-                                            cuadate : as[i].cuadate,
-                                            uindate : as[i].uindate,
-                                            workno : as[i].workno,
-                                            memo : as[i].memo,
-                                            custno : as[i].custno,
-                                            comp : as[i].comp
-                                        });
+                                        
                                     } else {
-                                        t_data[n].process[m].detail.push({
-                                            noq : as[i].noq,
-                                            productno : as[i].productno,
-                                            product : as[i].product,
+                                        t_data[n].mon[m].detail.push({
                                             mount : as[i].mount,
-                                            hours : as[i].hours,
-                                            days : as[i].days,
-                                            cuadate : as[i].cuadate,
-                                            uindate : as[i].uindate,
-                                            workno : as[i].workno,
-                                            memo : as[i].memo,
-                                            custno : as[i].custno,
-                                            comp : as[i].comp
+											orde : as[i].orde,
+											stk : as[i].stk,
+											sch : as[i].sch,
+											safem : as[i].safem
                                         });
-                                        s_data[n].detail.push({
-                                            processno : as[i].processno,
-                                            process : as[i].process,
-                                            productno : as[i].productno,
-                                            product : as[i].product,
-                                            noq : as[i].noq,
-                                            mount : as[i].mount,
-                                            hours : as[i].hours,
-                                            days : as[i].days,
-                                            cuadate : as[i].cuadate,
-                                            uindate : as[i].uindate,
-                                            workno : as[i].workno,
-                                            memo : as[i].memo,
-                                            custno : as[i].custno,
-                                            comp : as[i].comp
-                                        });
+                                        
                                     }
                                 }
                             }
                             $('#Loading').hide();
                             Unlock();
                             $('#chart01').barChart01({
-                                data : t_data,
-                                data2 : s_data
+                                data : t_data
                             });
 
                             $('#txtTotPage').val(t_data.length);
