@@ -74,7 +74,7 @@
                                 t_where5 += " or a.custno ='" + t_custno2[i] + "'"
                             }
                         }
-                        t_where+=") and (a.unpay+isnull(b.paysale,0))!=0 ";
+                        t_where+=") and isnull(a.total,0)!=isnull(b.[money],0) ";
                         t_where6+=") and (a.unpay+isnull(b.paysale,0))!=0 and (CHARINDEX('會計',kind)=0 or a.datea<'102/04/01')";//1020410會計部從102/04/01開始用明細匯入
                         t_where1 = " where[1]=^^ a.noa='" + x_noa + "' and a.paysale!=0 ";
 						
