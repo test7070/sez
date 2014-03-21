@@ -62,6 +62,7 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				q_cmbParse("cmbTypea", q_getPara('workd.typea'));
 				/*$('#btnImportWorkc').click(function() {
 					var t_tggno = $.trim($('#txtTggno').val());
 					var t_workcno = $.trim($('#txtWorkcno').val());
@@ -718,6 +719,10 @@
 					<td width="120px"> </td>
 					<td width="203px"> </td>
 					<td width="120px"> </td>
+				</tr>
+				<tr>
+					<td><span> </span><a id='lblType' class="lbl"> </a></td>
+					<td><select id="cmbTypea" class="txt c1"> </select></td>
 				</tr>
 				<tr>
 					<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
