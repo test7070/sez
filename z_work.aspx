@@ -108,8 +108,8 @@
 						name : 'xenda',
 						value : '0@未完工,1@已完工'.split(',')
 					}, {
-                        type : '1', //[22][23] 15
-                        name : 'ydate'
+						type : '1', //[22][23] 15
+						name : 'ydate'
 					}, {
 						type : '2', //[24] [25] 16
 						name : 'ystation',
@@ -136,6 +136,8 @@
 				$('#txtXmon').val(q_date().substring(0,6));
                 $('#txtYdate1').datepicker();
                 $('#txtYdate2').datepicker();
+                $('#txtYdate1').val(q_date());
+                $('#txtYdate2').val(q_date());
 				$('#txtXdate1').val('102/01/01');
 				//$('#txtXdate1').val(q_date().substring(0,7)+'01');
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
