@@ -83,12 +83,12 @@
                         case 'z_workgv1':
                             $('#Loading').Loading();
                             Lock();
-                            q_func('qtxt.query', 'z_workgv.txt,' + txtreport + ',' + t_xmon + ';' + t_bpno + ';' + t_epno);
+                            q_func('qtxt.query.z_workgv1', 'z_workgv.txt,' + txtreport + ',' + t_xmon + ';' + t_bpno + ';' + t_epno);
                             break;
                         case 'z_workgv2':
                             $('#Loading').Loading();
                             Lock();
-                            q_func('qtxt.query', 'z_workgv.txt,' + txtreport + ',' + t_xmon + ';' + t_bpno + ';' + t_epno);
+                            q_func('qtxt.query.z_workgv2', 'z_workgv.txt,' + txtreport + ',' + t_xmon + ';' + t_bpno + ';' + t_epno);
                             break;
                         default:
                             alert('錯誤：未定義報表');
@@ -104,7 +104,7 @@
 
             function q_funcPost(t_func, result) {
                 switch(t_func) {
-                    case 'qtxt.query':
+                    case 'qtxt.query.z_workgv1':
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] == undefined) {
                             $('#Loading').hide();
