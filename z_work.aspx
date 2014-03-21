@@ -110,17 +110,20 @@
 					}, {
                         type : '1', //[22][23] 15
                         name : 'ydate'
-                    }, {
-                        type : '2', //[24] [25] 16
-                        name : 'ystation',
-                        dbf : 'station',
-                        index : 'noa,station',
-                        src : 'station_b.aspx'
-                    }, {
-                        type : '8', //[26] 17
-                        name : 'xdetail',
-                        value : ('detail@明細').split(',')
-                    }]
+					}, {
+						type : '2', //[24] [25] 16
+						name : 'ystation',
+						dbf : 'station',
+						index : 'noa,station',
+						src : 'station_b.aspx'
+					}, {
+						type : '8', //[26] 17
+						name : 'xdetail',
+						value : ('detail@明細').split(',')
+					}, {
+						type : '6', //[27]
+						name : 'xmon'
+					}]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -129,6 +132,8 @@
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtYdate1').mask('999/99/99');
                 $('#txtYdate2').mask('999/99/99');
+                $('#txtXmon').mask('999/99');
+				$('#txtXmon').val(q_date().substring(0,6));
                 $('#txtYdate1').datepicker();
                 $('#txtYdate2').datepicker();
 				$('#txtXdate1').val('102/01/01');
