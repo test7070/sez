@@ -45,68 +45,6 @@
 					btnAuthority(q_name);
 				});
 				$("#btnRun").click(function(){
-					var t_index = $('#q_report').data('info').radioIndex;
-					txtreport = $('#q_report').data('info').reportData[t_index].report;
-					if(emp($('#txtXbmon1').val()))
-						$('#txtXbmon1').val(r_accy+'/01');
-					if(emp($('#txtXbmon2').val()))
-						$('#txtXbmon2').val(r_accy+'/12');
-					if(emp($('#txtXemon1').val()))
-						$('#txtXemon1').val(r_accy+'/01');
-					if(emp($('#txtXemon2').val()))
-						$('#txtXemon2').val(r_accy+'/12');
-					var t_bdate='#non',t_edate='#non',t_bmon='#non',t_emon='#non',t_bcustno='#non',t_ecustno='#non';
-					var t_bsalesno='#non',t_esalesno='#non',t_bproductno='#non',t_eproductno='#non';
-					var t_xbbmon='#non',t_xbemon='#non',t_xebmon='#non',t_xeemon='#non';
-					var t_xbyear='#non',t_xeyear='#non';
-					if(!emp($('#txtCust1a').val()))
-						t_bcustno=encodeURI($('#txtCust1a').val());
-					if(!emp($('#txtCust2a').val()))
-						t_ecustno=encodeURI($('#txtCust2a').val());
-					if(!emp($('#txtSales1a').val()))
-						t_bsalesno=encodeURI($('#txtSales1a').val());
-					if(!emp($('#txtSales2a').val()))
-						t_esalesno=encodeURI($('#txtSales2a').val());
-					if(!emp($('#txtProduct1a').val()))
-						t_bproductno=encodeURI($('#txtProduct1a').val());
-					if(!emp($('#txtProduct2a').val()))
-						t_eproductno=encodeURI($('#txtProduct2a').val());
-					if(txtreport=='z_anavcc2_1' ||txtreport=='z_anavcc2_2' ||txtreport=='z_anavcc2_3'){
-						if(!emp($('#txtDate1').val()))
-							t_bdate=encodeURI($('#txtDate1').val());
-						if(!emp($('#txtDate2').val()))
-							t_edate=encodeURI($('#txtDate2').val());
-						if(!emp($('#txtXmon1').val()))
-							t_bmon=encodeURI($('#txtXmon1').val());
-						if(!emp($('#txtXmon2').val()))
-							t_emon=encodeURI($('#txtXmon2').val());
-						q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
-						t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
-						t_bproductno + ';' + t_eproductno + ';'
-						);
-					}else if(txtreport=='z_anavcc2_Compare1' ||txtreport=='z_anavcc2_Compare2'){
-						if(!emp($('#txtXbmon1').val()))
-							t_xbbmon=encodeURI($('#txtXbmon1').val());
-						if(!emp($('#txtXbmon2').val()))
-							t_xbemon=encodeURI($('#txtXbmon2').val());
-						if(!emp($('#txtXemon1').val()))
-							t_xebmon=encodeURI($('#txtXemon1').val());
-						if(!emp($('#txtXemon2').val()))
-							t_xeemon=encodeURI($('#txtXemon2').val());
-						q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbbmon + ';' + t_xbemon + ';' +
-						t_xebmon + ';' + t_xeemon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
-						t_bproductno + ';' + t_eproductno + ';'
-						);
-					}else if(txtreport=='z_anavcc2_Custyear'||txtreport=='z_anavcc2_Productyear'){
-						if(!emp($('#txtXyear1').val()))
-							t_xbyear=encodeURI($('#txtXyear1').val());
-						if(!emp($('#txtXyear2').val()))
-							t_xeyear=encodeURI($('#txtXyear2').val());
-							if(txtreport=='z_anavcc2_Custyear')
-								q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bcustno + ';' + t_ecustno + ';');
-							else
-								q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_xbyear + ';' + t_xeyear + ';' + t_bproductno + ';' + t_eproductno + ';');
-					}
 				});
 			}
 
@@ -121,7 +59,7 @@
 					case 'qtxt.query':
 						var as = _q_appendData('tmp0','',true,true);
 						if (as[0] == undefined) {
-							alert('沒有資料!!');
+							console.log(as);
 						}else{
 						}
 						break;
