@@ -40,6 +40,7 @@
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick,paytype', 'txtTggno,txtTgg,txtNick,txtPaytype', 'tgg_b.aspx']
+            , ['textTggno_a', '', 'tgg', 'noa,nick', 'textTggno_a,textTgg_a', 'tgg_b.aspx']
             , ['textTggno_1', '', 'tgg', 'noa,nick', 'textTggno_1,textTgg_1', 'tgg_b.aspx']
             , ['textTggno_2', '', 'tgg', 'noa,nick', 'textTggno_2,textTgg_2', 'tgg_b.aspx']
             , ['textTggno_3', '', 'tgg', 'noa,nick', 'textTggno_3,textTgg_3', 'tgg_b.aspx']
@@ -307,6 +308,7 @@
                     $('#textEno_a').val($('#txtNoa').val());
                 });
                 $('#btnExport_a').click(function(e){
+                    var t_tggno = $('#textTggno_a').val();
                     var t_datea = $('#textDatea_a').val();
                     var t_bedate = $('#textBedate_a').val();
                     var t_eedate = $('#textEedate_a').val();
@@ -320,7 +322,7 @@
                             opacity : 0
                         });
                         q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno)+ ';' + encodeURI(r_name)+ ';' + encodeURI(q_getPara('key_ordc'))+ ';' 
-                        + encodeURI(t_datea)+ ';' + encodeURI(t_bedate)+ ';' + encodeURI(t_eedate)+ ';' + encodeURI(t_bfdate)+ ';' + encodeURI(t_efdate)+ ';' + encodeURI(t_workgno)+ ';' + encodeURI(t_bno)+ ';' + encodeURI(t_eno));
+                        + encodeURI(t_datea)+ ';'+ encodeURI(t_tggno)+ ';' + encodeURI(t_bedate)+ ';' + encodeURI(t_eedate)+ ';' + encodeURI(t_bfdate)+ ';' + encodeURI(t_efdate)+ ';' + encodeURI(t_workgno)+ ';' + encodeURI(t_bno)+ ';' + encodeURI(t_eno));
                     } else
                         alert('請輸入採購日期。');
                 });
@@ -996,6 +998,13 @@
                 <tr>
                     <td style="text-align: center;"><a>採購日期</a></td>
                     <td><input id="textDatea_a" type="text" style="width:40%;"/></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>廠商</a></td>
+                    <td>
+                        <input id="textTggno_a" type="text" style="width:45%;float:left;"/>
+                        <input id="textTgg_a" type="text" style="width:45%;float:left;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td style="text-align: center;"><a>請購單號</a></td>
