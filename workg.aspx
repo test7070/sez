@@ -179,6 +179,10 @@
 				$('#btnWorkg2ordb').click(function() {
 					q_box('z_workg2ordb.aspx' + "?;;;;" + r_accy + ";", 'cup', "95%", "95%", q_getMsg("popPrint"));
 				});
+				
+				$('#btnWorkgv').click(function() {
+					q_box('z_workgv.aspx' + "?;;;;" + r_accy + ";", 'workgv', "95%", "95%", q_getMsg("popPrint"));
+				});
 
 				$('#btnWorkPrint').click(function() {
 					q_box('z_workp.aspx' + "?;;;noa='" + $('#txtNoa').val() + "';" + r_accy + ";", '', "95%", "95%", q_getMsg("popPrint"));
@@ -968,6 +972,7 @@
 							<input id="txtFactno" type="text" class="txt c3"/>
 							<input id="txtFact" type="text" class="txt c4"/>
 						</td>
+						<td><input id="btnWorkgv" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>

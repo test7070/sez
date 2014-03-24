@@ -8,7 +8,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'works', t_bbsTag = 'tbbs', t_content = " field=productno,product,process,unit,cuadate,mount,gmount,emount,istd,tproductno,tproduct,memo ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'works', t_bbsTag = 'tbbs', t_content = " field=noa,productno,product,processno,process,unit,cuadate,mount,gmount,emount,istd,tproductno,tproduct,memo ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'works_load'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;

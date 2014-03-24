@@ -121,6 +121,40 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				
+				
+				$('#btnWorks').click(function() {
+					var t_where = '1=1 ';
+					if (!emp($('#txtTggno').val())) {
+						t_where += "and noa in ( select noa from view_work where enda!=1 and tggno!='' and tggno='" + $('#txtTggno').val() + "')";
+					} else {
+						t_where += "and noa in(select noa from view_work where enda!=1 and tggno!='')";
+					}
+					var workno = $.trim($('#txtWorkno').val());
+					if (workno.length > 0) {
+						t_where += " and noa=N'" + workno + "'";
+					}
+
+					//1030310 加入應開工日的條件
+					var t_bdate = $.trim($('#txtBdate').val());
+					var t_edate = $.trim($('#txtEdate').val());
+					if (t_bdate.length > 0 || t_edate.length > 0) {
+						if (t_edate.length == 0)
+							t_edate = '999/99/99'
+						t_where += " and cuadate between '" + t_bdate + "' and '" + t_edate + "'";
+					}
+					
+					t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"
+					
+					q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
+
+					//1030310讀取倉庫
+					if (!emp($('#txtStoreno').val()))
+						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreno').val() + "','') group by productno order by productno^^";
+					else
+						var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
+					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
+				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -167,6 +201,55 @@
 
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						}
+						break;
+					case 'works':
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+								return;
+							//將目前領料的數量加回目前庫存
+							for (var i = 0; i < abbsNow.length; i++) {
+								for (var j = 0; j < work_stk.length; j++) {
+									if (abbsNow[i].productno == work_stk[j].productno) {
+										work_stk[j].mount = dec(work_stk[j].mount) + dec(abbsNow[i].mount);
+									}
+								}
+							}
+							for (var i = 0; i < b_ret.length; i++) { 
+								b_ret[i].mount=dec(b_ret[i].mount)-dec(b_ret[i].gmount)
+							}
+							var t_msg = '', t_worksno = '';
+							//判斷庫存量足夠
+							for (var i = 0; i < b_ret.length; i++) {
+								for (var j = 0; j < work_stk.length; j++) {
+									if (b_ret[i].productno == work_stk[j].productno) {
+										if (dec(work_stk[j].mount) - dec(b_ret[i].mount) < 0) {
+											if (t_worksno != b_ret[i].noa) {
+												if ( t_worksno == '')
+													t_msg += "製令單：" + b_ret[i].noa + "\n";
+												else
+													t_msg += "\n製令單：" + b_ret[i].noa + "\n";
+												t_worksno = b_ret[i].noa;
+											}
+											t_msg += "原料：" + b_ret[i].product + "，不足數量：" + (-1 * (dec(work_stk[j].mount) - dec(b_ret[i].mount))).toString() + "\n";
+											if (dec(work_stk[j].mount) > 0) {
+												b_ret[i].mount = work_stk[j].mount;
+												work_stk[i].mount = 0;
+											} else {
+												b_ret.splice(i, 1);
+												i--;
+											}
+										} else {
+											work_stk[j].mount = dec(work_stk[j].mount) - dec(b_ret[i].mount);
+										}
+										break;
+									}
+								}
+							}
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno', b_ret.length, b_ret, 'productno,product,unit,mount,memo,processno,process,noa', '');
+							if (t_msg.length > 0)
+								alert(t_msg);
 						}
 						break;
 					case 'workas':
@@ -270,7 +353,7 @@
 								if (as[i].productno == work_stk[j].productno) {
 									if (dec(work_stk[j].mount) - dec(as[i].mount) < 0) {
 										if (t_worksno != as[i].noa) {
-											if ( t_worksno = '')
+											if ( t_worksno == '')
 												t_msg += "製令單：" + as[i].noa + "\n";
 											else
 												t_msg += "\n製令單：" + as[i].noa + "\n";
@@ -507,9 +590,11 @@
 				_readonly(t_para, empty);
 				if (t_para) {
 					$('#btnWork').attr('disabled', 'disabled');
+					$('#btnWorks').attr('disabled', 'disabled');
 					$('#btnOrdes').attr('disabled', 'disabled');
 				} else {
 					$('#btnWork').removeAttr('disabled');
+					$('#btnWorks').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
 				}
 			}
@@ -736,8 +821,11 @@
 						</td>
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnWork"></td>
-						<td><input type="button" id="btnOrdes"></td>
+						<td colspan='2'>
+							<input type="button" id="btnWork">
+							<input type="button" id="btnWorks">
+							<input type="button" id="btnOrdes">
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
