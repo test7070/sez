@@ -39,6 +39,8 @@
 				q_getFormat();
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate1').val(q_date());
+				$('#txtXdate2').val(q_cdn(q_date(),15));
 				$('#btnXXX').click(function(e) {
 					btnAuthority(q_name);
 				});
