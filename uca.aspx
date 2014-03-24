@@ -26,7 +26,7 @@
 			var q_readonly = ['textCosta', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
-			var bbmNum = [['txtPrice', 12, 2, 1],['txtHours', 10, 2, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMechs', 15, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtTrans', 15, 2, 1]];
+			var bbmNum = [['txtPrice', 12, 2, 1],['txtHours', 10, 2, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMechs', 15, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1],['txtTrans', 15, 2, 1],['txtSafemount', 15, 2, 1]];
 			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
 			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 2, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
 			var bbmMask = [];
@@ -1293,9 +1293,7 @@
 						<!--<td class="td1"><span> </span><a id="lblEngprono" class="lbl"> </a></td>
 						<td class="td2"><input id="txtEngprono" type="text" class="txt"/></td>-->
 						<td class="td1"><span> </span><a id="lblEngpro" class="lbl"> </a></td>
-						<td class="td2" colspan='3'><input id="txtEngpro" type="text" class="txt c1"/></td>
-						<td class="td5"><span> </span><a id="lblStyle" class="lbl"> </a></td>
-						<td class="td6"><input id="txtStyle" type="text" class="txt c1"/></td>
+						<td class="td2" colspan='5'><input id="txtEngpro" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblProcess" class="lbl btn"> </a></td>
@@ -1341,6 +1339,14 @@
 						<td class="td2"><input id="txtUweight" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id="lblStyle" class="lbl"> </a></td>
+						<td class="td2"><input id="txtStyle" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id="lblGroupano" class="lbl"> </a></td>
+						<td class="td4"><select id="cmbGroupano" class="txt c1" style="font-size: medium;"> </select></td>
+						<td class="td5"><span> </span><a id="lblSafemount" class="lbl"> </a></td>
+						<td class="td6"><input id="txtSafemount" type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr>
 						<td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
 						<td class="td4"><input id="txtHours" type="text" class="txt c1 num"/></td>
 						<td class="td5"><span> </span><a id="lblPretime" class="lbl"> </a></td>
@@ -1350,9 +1356,7 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='3'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
-						<td class="td3"><span> </span><a id="lblGroupano" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbGroupano" class="txt c1" style="font-size: medium;"></select></td>
+						<td class="td2" colspan='5'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
 					</tr>
 					<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblMechs" class="lbl" style="font-size: 14px;"> </a></td>
