@@ -165,6 +165,7 @@
                 $('#textFdate_6').datepicker();
                 
                 $('#textDatea_a').datepicker();
+                $('#textDatea_a').val(q_date);
                 $('#textBedate_a').datepicker();
                 $('#textEedate_a').datepicker();
                 $('#textBfdate_a').datepicker();
