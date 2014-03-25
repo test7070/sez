@@ -475,8 +475,10 @@
 						<td><input id="txtboss" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblHead' class="lbl"> </a></td>
 						<td><input id="txthead" type="text" class="txt c1"/></td>
+						<!--
 						<td><span> </span><a id='lblStatus' class="lbl"> </a></td>
 						<td><input id="txtStatus" type="text" class="txt c1"/></td>
+						-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>

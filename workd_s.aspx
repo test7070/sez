@@ -15,6 +15,7 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']
 			);
+			
 			$(document).ready(function() {
 				main();
 			});
@@ -45,8 +46,10 @@
 				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) +
 										q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("tggno", t_tggno) +
-										q_sqlPara2("workno", t_workno) +
+										/*q_sqlPara2("workno", t_workno) +*/
 										q_sqlPara2("storeno", t_storeno);
+                if(t_workno.length>0)
+                    t_where += " and exists(select workno from workds"+r_accy+" where workds"+r_accy+".noa=workd"+r_accy+".noa and workds"+r_accy+".workno='"+t_workno+"')";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -66,35 +69,35 @@
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblDatea'> </a></td>
 					<td style="width:65%;">
-						<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-						<span style="display:inline-block; vertical-align:middle">&sim;</span>
-						<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblNoa'> </a></td>
 					<td style="width:65%;">
-						<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" >
+					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" >
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblWorkno'> </a></td>
 					<td style="width:65%;">
-						<input class="txt" id="txtWorkno" type="text" style="width:215px; font-size:medium;" >
+					<input class="txt" id="txtWorkno" type="text" style="width:215px; font-size:medium;" >
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblTggno'> </a></td>
 					<td style="width:65%;">
-						<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" >
-						<input class="txt" id="txtTgg" type="text" style="width:115px; font-size:medium;" >
+					<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" >
+					<input class="txt" id="txtTgg" type="text" style="width:115px; font-size:medium;" >
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblStoreno'> </a></td>
 					<td style="width:65%;">
-						<input class="txt" id="txtStoreno" type="text" style="width:90px; font-size:medium;" >
-						<input class="txt" id="txtStore" type="text" style="width:115px; font-size:medium;">
+					<input class="txt" id="txtStoreno" type="text" style="width:90px; font-size:medium;" >
+					<input class="txt" id="txtStore" type="text" style="width:115px; font-size:medium;">
 					</td>
 				</tr>
 			</table>

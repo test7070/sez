@@ -953,7 +953,7 @@
 						</td>
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
-						<td colspan='2'>>
+						<td colspan='2'>
 							<input type="button" id="btnWork">
 							<input type="button" id="btnWorks">
 							<input type="button" id="btnOrdes">

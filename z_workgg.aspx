@@ -82,7 +82,7 @@
 							t_TableStr = t_TableStr + '<td class="tTitle tWidth">日工時</td>';
 							t_TableStr = t_TableStr + '<td class="tTitle tWidth">稼動率</td>';
 							for(var j=1;j<=maxCount;j++){
-								t_TableStr = t_TableStr + '<td class="tTitle tWidth">' + q_cdn($('#txtXdate1').val(),(j-1)) + '</td>';
+								t_TableStr = t_TableStr + '<td class="tTitle tWidth">' + q_cdn($('#txtXdate1').val(),(j-1)).substr(4) + '</td>';
 							}
 							t_TableStr = t_TableStr + '<td class="tTitle tWidth">合計</td>';
 							t_TableStr = t_TableStr + '</tr>';
