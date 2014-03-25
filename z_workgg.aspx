@@ -56,6 +56,7 @@
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
 						t_xedate=encodeURI($('#txtXdate2').val());
+					Lock();
 					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';');
 				});
 			}
@@ -78,12 +79,15 @@
 							//產生標題<<Start>>
 							t_TableStr = t_TableStr + '<tr>';
 							t_TableStr = t_TableStr + '<td class="tTitle" colspan="2">工作中心</td>';
+							t_TableStr = t_TableStr + '<td class="tTitle tWidth">日工時</td>';
+							t_TableStr = t_TableStr + '<td class="tTitle tWidth">稼動率</td>';
 							for(var j=1;j<=maxCount;j++){
 								t_TableStr = t_TableStr + '<td class="tTitle tWidth">' + q_cdn($('#txtXdate1').val(),(j-1)) + '</td>';
 							}
 							t_TableStr = t_TableStr + '<td class="tTitle tWidth">合計</td>';
 							t_TableStr = t_TableStr + '</tr>';
 							//產生標題<<End>>
+							//產生值<<Start>>
 							for(var k=0;k<as.length;k++){
 								var t_gno = as[k].gno;
 								t_TableStr = t_TableStr + '<tr>';
@@ -93,12 +97,16 @@
 									if(t_gno=='0'){
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stationno'] + '</td>';//列出工作站
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stations'] + '</td>';//列出工作站
+										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['hours']) + '</td>';//列出工作站
+										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['rate']) + '%</td>';//列出工作站
 										for(var j=1;j<=maxCount;j++){
 											var thisVal = dec(as[k]['v'+padL(j,'0',2)]);
 											t_TableStr = t_TableStr + '<td class="num">' + round(thisVal,3) + '</td>';
 										}
 									}else if(t_gno=='1'){
 										t_TableStr = t_TableStr + '<td class="tTotal" colspan="2">總計：</td>';
+										t_TableStr = t_TableStr + '<td class="tTotal num">'+dec(as[k]['hours'])+'</td>';
+										t_TableStr = t_TableStr + '<td class="tTotal num">'+dec(as[k]['rate'])+'%</td>';
 										for(var j=1;j<=maxCount;j++){
 											var thisVal = dec(as[k]['v'+padL(j,'0',2)]);
 											t_TableStr = t_TableStr + '<td class="tTotal num">' + round(thisVal,3) + '</td>';
@@ -108,13 +116,15 @@
 									t_TableStr = t_TableStr + '</tr>';
 								}
 							}
+							//產生值<<END>>
 							t_TableStr = t_TableStr + "</table>";
 							var t_totalWidth = 0;
-							t_totalWidth = ((100+2)*(2))+((70+2)*(maxCount+1))+10;
+							t_totalWidth = ((100+2)*(2))+((70+2)*(maxCount+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(t_TableStr);
 						}
 						break;
 				}
+				Unlock();
 			}
 		</script>
 		<style type="text/css">
