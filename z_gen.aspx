@@ -66,8 +66,12 @@
                     },{
                         type : '1',
                         name : 'xmon'
-                    }]
-                    });
+                    }, {
+						type : '5',
+						name : 'outtypea', //[17]
+						value : ('all@全部,out@委外,notout@非委外').split(',')
+					}]
+				});
                 q_popAssign();
                 $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
