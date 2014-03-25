@@ -28,7 +28,7 @@
                 $('#q_report').q_report({
                     fileName : 'z_workgv',
                     options : [{
-                        type : '6',
+                        type : '1',
                         name : 'xmon'
                     }, {
                         type : '2',
@@ -36,12 +36,33 @@
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
+                    },{
+                        type : '8', //[5]
+                        name : 'showworkg',
+                        value : "1@只顯示需排產".split(',')
+                    },{
+                        type : '8', //[6]
+                        name : 'showordb',
+                        value : "1@只顯示需備料".split(',')
                     }]
                 });
                 q_popAssign();
-                $('#txtXmon').mask('999/99');
-                $('#txtXmon').val(q_date().substr(0, 6));
-
+                $('#txtXmon1').mask('999/99');
+                $('#txtXmon1').val(q_date().substr(0, 6));
+                
+                
+                var t_date, t_year, t_month, t_day;
+				t_date = new Date();
+				t_date.setMonth(13);
+				t_year = t_date.getUTCFullYear() - 1911;
+				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+				t_month = t_date.getUTCMonth() + 1;
+				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+				$('#txtXmon2').val(t_year + '/' + t_month );
+                
+                $('#txtXmon2').mask('999/99');
             }
 
             function q_boxClose(s2) {
