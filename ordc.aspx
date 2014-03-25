@@ -18,12 +18,12 @@
 			q_tables = 's';
 			var q_name = "ordc";
 			var q_readonly = ['txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2'];
-			var q_readonlys = ['txtNo2', 'txtC1', 'txtNotv'];
+			var q_readonlys = ['txtNo2', 'txtC1', 'txtNotv','txtOmount'];
 			var bbmNum = [
 				['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],
 				['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]
 			];
-			var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1]];
+			var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1], ['txtOmount', 10, 0, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -658,7 +658,7 @@
 				text-align: right;
 			}
 			.dbbs {
-				width: 1300px;
+				width: 1500px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -832,19 +832,20 @@
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
-					<td align="center" style="width:1%;">
+					<td align="center" style="width:43px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:13%;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:18%;"><a id='lblProduct_st'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblUnit'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMount_st'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblPrices'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblTrandates'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblGemounts'> </a></td>
-					<td align="center" style="width:15%;"><a id='lblMemos'> </a></td>
-					<td align="center" style="width:3%;"><a id='lblRc2record'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:60px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblMount_st'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblOmounts'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblPrices'> </a></td>
+					<td align="center" style="width:130px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblTrandates'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblGemounts'> </a></td>
+					<td align="center" ><a id='lblMemos'> </a></td>
+					<td align="center" style="width:45px;"><a id='lblRc2record'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -861,6 +862,7 @@
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtOmount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTrandate.*" type="text" class="txt c1"/></td>
@@ -870,7 +872,7 @@
 					</td>
 					<td>
 						<input id="txtMemo.*" type="text" class="txt c1"/>
-						<input class="txt" id="txtOrdbno.*" type="text" style="width:73%;" />
+						<input class="txt" id="txtOrdbno.*" type="text" style="width:70%;" />
 						<input class="txt" id="txtNo3.*" type="text" style="width:20%;" />
 						<input id="recno.*" type="hidden" />
 					</td>
