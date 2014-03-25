@@ -752,6 +752,9 @@
 					<td style="width:200px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:220px;" align="center"><a id='lblProduct_s'></a></td>
 					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
+					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
+					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
+					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBwmounts'></a></td>
@@ -759,9 +762,6 @@
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTmount'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBkmount_s'></a></td>
@@ -782,6 +782,9 @@
 					</td>
 					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtWk_mount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtWk_inmount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
@@ -793,9 +796,6 @@
 					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWk_mount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWk_inmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtTmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
