@@ -56,7 +56,7 @@
                      },{
                         type : '8', //[8]
                         name : 'workgall',
-                        value : "1@全部未請購生產計畫".split(',')
+                        value : "1@全部未請購排產計畫".split(',')
                     }]
                 });
                 q_popAssign();
