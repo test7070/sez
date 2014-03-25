@@ -56,6 +56,7 @@
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
 						t_xedate=encodeURI($('#txtXdate2').val());
+					Lock();
 					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';');
 				});
 			}
@@ -86,6 +87,7 @@
 							t_TableStr = t_TableStr + '<td class="tTitle tWidth">合計</td>';
 							t_TableStr = t_TableStr + '</tr>';
 							//產生標題<<End>>
+							//產生值<<Start>>
 							for(var k=0;k<as.length;k++){
 								var t_gno = as[k].gno;
 								t_TableStr = t_TableStr + '<tr>';
@@ -114,6 +116,7 @@
 									t_TableStr = t_TableStr + '</tr>';
 								}
 							}
+							//產生值<<END>>
 							t_TableStr = t_TableStr + "</table>";
 							var t_totalWidth = 0;
 							t_totalWidth = ((100+2)*(2))+((70+2)*(maxCount+1+2))+10;
@@ -121,6 +124,7 @@
 						}
 						break;
 				}
+				Unlock();
 			}
 		</script>
 		<style type="text/css">
