@@ -96,7 +96,11 @@
                         value : [q_getPara('report.all')].concat('1@已採購,2@未採購'.split(','))
                     }
                     //---追蹤表用----------------------------------------------------------
-                    ]
+                    ,{/*16 [28]*/
+                        type : '5',
+                        name : 'showquat',
+                        value : '#non@未詢價且未議價,1@未詢價,2@未議價'.split(',')
+                    }]
 				});
 				q_popAssign();
 
@@ -120,7 +124,6 @@
                 $('#txtZldate2').mask('999/99/99');
                 $('#txtZldate2').datepicker();
                 
-                         
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -156,6 +159,7 @@
                         $('#q_report').data('info').execute($('#q_report'));
                     }    
                 } 
+                $('.c4').css("width","120px")
 			}
 
 			function q_boxClose(s2) {
