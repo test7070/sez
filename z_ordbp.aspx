@@ -148,8 +148,8 @@
                         t_no = t_para[i].replace('noa=', '');
                         if (t_no.length > 0) {
                             $('#txtYordbno').val(t_no);
-                            $('#txtXnoa1').val(t_no);
-                            $('#txtXnoa2').val(t_no);
+                            //$('#txtXnoa1').val(t_no);
+                            //$('#txtXnoa2').val(t_no);
                         }
                     }else if(t_para[i]=='action=z_ordbp06'){
                         $('#q_report').find('span.radio').eq(5).parent().click();
