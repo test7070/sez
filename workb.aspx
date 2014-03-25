@@ -283,7 +283,8 @@
 										var works_rate = works_gmounts / works_mounts;
 										//領料比率
 										if (work_rate - works_rate > 0.01) {//誤差相差0.01
-											pickerror = $('#txtProduct_' + i).val();
+											pickerror = $('#txtProductno_' + i).val()+"【"+$('#txtProduct_' + i).val()+"】入庫與領料比例不符!!";
+											pickerror += "\n最大可入庫數："+FormatNumber(round(work_mount*works_rate,2));
 										}
 									}
 									if (pickerror.length > 0) {
@@ -299,7 +300,7 @@
 							checkok = true;
 							btnOk();
 						} else {
-							alert(pickerror + ' 入庫與領料比例不符!!');
+							alert(pickerror);
 						}
 						break;
 					case q_name:
@@ -524,6 +525,18 @@
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						break;
 				}
+			}
+			
+			function FormatNumber(n) {
+				var xx = "";
+				if (n < 0) {
+					n = Math.abs(n);
+					xx = "-";
+				}
+				n += "";
+				var arr = n.split(".");
+				var re = /(\d{1,3})(?=(\d{3})+$)/g;
+				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 			}
 		</script>
 		<style type="text/css">
@@ -789,7 +802,7 @@
 					<td align="center" style="width:80px;"><a id='lblWmount'></a></td>
 					<td align="center" style="width:200px;"><a id='lblStores'></a></td>
 					<td align="center" ><a id='lblMemos'></a></td>
-					<td align="center" style="width:45px;"><a id='lblEnda'> </a></td>
+					<!--<td align="center" style="width:45px;"><a id='lblEnda'> </a></td>-->
 					<td align="center" style="width:163px;"><a id='lblWorknos'></a></td>
 					<td align="center" style="width:30px;"><a id='lblStks'> </a></td>
 				</tr>
@@ -822,7 +835,7 @@
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>
-					<td><input id="chkEnda.*" type="checkbox"/></td>
+					<!--<td><input id="chkEnda.*" type="checkbox"/></td>-->
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td align="center">
 						<input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  />
