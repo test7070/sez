@@ -280,7 +280,8 @@
 										var works_rate = works_gmounts / works_mounts;
 										//領料比率
 										if (work_rate - works_rate > 0.01) {//誤差相差0.01
-											pickerror = $('#txtProduct_' + i).val();
+											pickerror = $('#txtProductno_' + i).val()+"【"+$('#txtProduct_' + i).val()+"】入庫與領料比例不符!!";
+											pickerror += "\n最大可入庫數："+FormatNumber(round(work_mount*works_rate,2));
 										}
 									}
 									if (pickerror.length > 0) {
@@ -296,7 +297,7 @@
 							checkok = true;
 							btnOk();
 						} else {
-							alert(pickerror + ' 入庫與領料比例不符!!');
+							alert(pickerror);
 						}
 						break;
 
