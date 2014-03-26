@@ -274,7 +274,7 @@
 							bbsHtm, 'tbbs',
 							'txtProductno,txtProduct,txtOrdeno,txtNo2,txtUnit,txtBorn,txtWk_mount,txtWk_inmount,txtWk_unmount,txtMemo,txtPrice,txtWorkno',
 							as.length, as,
-							'productno,product,ordeno,no2,unit,xmount,mount,inmount,smount,memo,price,noa',''
+							'productno,product,ordeno,no2,unit,xmount,mount,inmount,xmount,memo,price,noa',''
 						);
 						
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
