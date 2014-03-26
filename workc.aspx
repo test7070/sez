@@ -19,7 +19,7 @@
 			var q_name = "workc";
 			var decbbs = ['weight', 'mount'];
 			var decbbm = ['mount', 'price'];
-			var q_readonly = ['txtNoa', 'txtWorker'];
+			var q_readonly = ['txtNoa', 'txtWorker','txtStore','txtTgg'];
 			var q_readonlys = ['txtWorkno', 'txtWk_mount', 'txtWk_gmount', 'txtWk_emount'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -144,7 +144,7 @@
 						t_where += " and cuadate between '" + t_bdate + "' and '" + t_edate + "'";
 					}
 					
-					t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"
+					//t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"
 					
 					q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 
@@ -216,12 +216,17 @@
 									}
 								}
 							}
-							for (var i = 0; i < b_ret.length; i++) { 
-								b_ret[i].mount=dec(b_ret[i].mount)-dec(b_ret[i].gmount)
-							}
 							var t_msg = '', t_worksno = '';
 							//判斷庫存量足夠
 							for (var i = 0; i < b_ret.length; i++) {
+								//應領料數量
+								for (var j = 0; j < abbsNow.length; j++) {
+									if(b_ret[i].noa==abbsNow[j].workno){
+										b_ret[i].gmount=dec(b_ret[i].gmount)-dec(abbsNow[j].mount)
+									}
+								}
+								b_ret[i].xmount=dec(b_ret[i].mount)-dec(b_ret[i].gmount);
+								b_ret[i].smount=dec(b_ret[i].mount)-dec(b_ret[i].gmount);
 								for (var j = 0; j < work_stk.length; j++) {
 									if (b_ret[i].productno == work_stk[j].productno) {
 										if (dec(work_stk[j].mount) - dec(b_ret[i].mount) < 0) {
@@ -247,7 +252,8 @@
 									}
 								}
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno', b_ret.length, b_ret, 'productno,product,unit,mount,memo,processno,process,noa', '');
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', b_ret.length, b_ret
+							, 'productno,product,unit,smount,memo,processno,process,noa,mount,gmount,xmount', '');
 							if (t_msg.length > 0)
 								alert(t_msg);
 						}
@@ -348,33 +354,42 @@
 						var as = _q_appendData("works", "", true);
 						var t_msg = '', t_worksno = '';
 						//判斷庫存量足夠
-						for (var i = 0; i < as.length; i++) {
-							for (var j = 0; j < work_stk.length; j++) {
-								if (as[i].productno == work_stk[j].productno) {
-									if (dec(work_stk[j].mount) - dec(as[i].mount) < 0) {
-										if (t_worksno != as[i].noa) {
-											if ( t_worksno == '')
-												t_msg += "製令單：" + as[i].noa + "\n";
+						for (var  i = 0; i < as.length; i++) {
+							//應領料數量
+							for (var j = 0; j < abbsNow.length; j++) {
+								if(as[i].noa==abbsNow[j].workno){
+									as[i].gmount=dec(as[i].gmount)-dec(abbsNow[j].mount)
+								}
+							}
+							as[i].xmount=dec(as[i].mount)-dec(as[i].gmount);
+							as[i].smount=dec(as[i].mount)-dec(as[i].gmount);
+							for (var j=0;j< work_stk.length;j++){
+								if(as[i].productno==work_stk[j].productno){
+									if(dec(work_stk[j].mount)-dec(as[i].smount)<0){
+										if(t_worksno!=as[i].noa){
+											if(t_worksno='')
+												t_msg+="製令單："+as[i].noa+"\n";
 											else
-												t_msg += "\n製令單：" + as[i].noa + "\n";
-											t_worksno = as[i].noa;
+												t_msg+="\n製令單："+as[i].noa+"\n";
+											t_worksno=as[i].noa;
 										}
-										t_msg += "原料：" + as[i].product + "，不足數量：" + (-1 * (dec(work_stk[j].mount) - dec(as[i].mount))).toString() + "\n";
-										if (dec(work_stk[j].mount) > 0) {
-											as[i].mount = work_stk[j].mount;
-											work_stk[i].mount = 0;
-										} else {
+										t_msg+="原料："+as[i].product+"，不足數量："+(-1*(dec(work_stk[j].mount)-dec(as[i].smount))).toString()+"\n";
+										if(dec(work_stk[j].mount)>0){
+											as[i].smount=work_stk[j].mount;
+											work_stk[i].mount=0;
+										}else{
 											as.splice(i, 1);
-											i--;
-										}
-									} else {
-										work_stk[j].mount = dec(work_stk[j].mount) - dec(as[i].mount);
-									}
-									break;
+                                    		i--;
+                                    	}
+                                   }else{
+                                   		work_stk[j].mount=dec(work_stk[j].mount)-dec(as[i].smount);
+                                   }
+                                   break;
 								}
 							}
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno', as.length, as, 'productno,product,unit,mount,memo,processno,process,noa', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', as.length, as
+						, 'productno,product,unit,smount,memo,processno,process,noa,mount,gmount,xmount', '');
 						if (t_msg.length > 0)
 							alert(t_msg);
 						break;
@@ -547,6 +562,32 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
+				//判斷是否由workb作業轉來>>鎖定欄位//0325改為workbno
+				if(!emp($('#txtWorkfno').val())){
+					$('#cmbTypea').attr('disabled', 'disabled');
+					$('#txtDatea').attr('disabled', 'disabled');
+					$('#txtStoreno').attr('disabled', 'disabled');
+					$('#txtTggno').attr('disabled', 'disabled');
+					$('#lblStorek').css('display', 'inline').text($('#lblStore').text());
+					$('#lblTggk').css('display', 'inline').text($('#lblTgg').text());
+					$('#lblStore').css('display','none');
+					$('#lblTgg').css('display','none');
+					$('#btnWork').attr('disabled', 'disabled');
+					$('#btnWorks').attr('disabled', 'disabled');
+					$('#btnOrdes').attr('disabled', 'disabled');
+					$('#btnPlus').attr('disabled', 'disabled');
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#btnMinus_'+j).attr('disabled', 'disabled');
+						$('#txtProductno_'+j).attr('disabled', 'disabled');
+						$('#btnProductno_'+j).attr('disabled', 'disabled');
+						$('#txtProduct_'+j).attr('disabled', 'disabled');
+						$('#txtUnit_'+j).attr('disabled', 'disabled');
+						$('#txtMount_'+j).attr('disabled', 'disabled');
+						$('#btnStore_'+j).attr('disabled', 'disabled');
+						$('#txtStoreno_'+j).attr('disabled', 'disabled');
+						$('#txtStore_'+j).attr('disabled', 'disabled');
+					}
+				}
 				$('#txtProduct').focus();
 			}
 
@@ -584,6 +625,10 @@
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
+				$('#lblStore').css('display','inline');
+				$('#lblStation').css('display','inline');
+				$('#lblStorek').css('display', 'none');
+				$('#lblStationk').css('display', 'none');
 			}
 
 			function readonly(t_para, empty) {
@@ -647,6 +692,10 @@
 			}
 
 			function btnDele() {
+				if(!emp($('#txtWorkfno').val())){
+					alert("該領料單由委外廠入庫作業("+$('#txtWorkfno').val()+")轉來，請至委外廠入庫作業刪除!!!")
+					return;
+				}
 				_btnDele();
 			}
 
@@ -796,12 +845,16 @@
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblStore' class="lbl btn"> </a>
+							<a id='lblStorek' class="lbl btn"> </a>
+						</td>
 						<td>
 							<input id="txtStoreno" type="text" class="txt c2"/>
 							<input id="txtStore" type="text" class="txt c2"/>
 						</td>
-						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblTgg' class="lbl btn"> </a>
+							<a id='lblTggk' class="lbl btn"> </a>
+						</td>
 						<td>
 							<input id="txtTggno" type="text" class="txt c2"/>
 							<input id="txtTgg" type="text" class="txt c2"/>
@@ -820,7 +873,10 @@
 							<input id="txtEdate" type="text" class="txt c3" style="width: 88px;"/>
 						</td>
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtWorkno" type="text" class="txt c1"/>
+							<input id="txtWorkfno" type="hidden" />
+						</td>
 						<td colspan='2'>
 							<input type="button" id="btnWork">
 							<input type="button" id="btnWorks">
