@@ -515,7 +515,7 @@
 				_btnCancel();
 			}
 			
-			//0325 拿掉 workano
+			//0325 拿掉 workano 不產生領料
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					/*case 'worka_post.post.a1':

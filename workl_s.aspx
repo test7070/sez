@@ -10,13 +10,13 @@
     <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    var q_name = "workk_s";
+    var q_name = "workl_s";
 	
     $(document).ready(function () {
         main();
     });         /// end ready
 	
-	aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']);
+	aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx']);
 	
     function main() {
         mainSeek();
@@ -29,7 +29,7 @@
 
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
-        //q_cmbParse("cmbTypea", '@全部,'+q_getPara('workk.typea'));
+        //q_cmbParse("cmbTypea", '@全部,'+q_getPara('workl.typea'));
 
         $('#txtBdate').focus();
     }
@@ -41,7 +41,7 @@
         //t_workano = $('#txtWorkano').val();
         t_cuano = $('#txtCuano').val();
         //t_typea = $('#cmbTypea').val();
-        t_stationno = $('#txtStationno').val();
+        t_tggno = $('#txtTggno').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
@@ -51,7 +51,7 @@
         + q_sqlPara2("cuano", t_cuano) 
         + q_sqlPara2("datea", t_bdate, t_edate)
         //+q_sqlPara2("typea", t_typea)
-        + q_sqlPara2("stationno",t_stationno)
+        + q_sqlPara2("tggno",t_tggno)
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -80,10 +80,10 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td style="width:35%;" ><a id='lblStation'> </a></td>
+                <td style="width:35%;" ><a id='lblTgg'> </a></td>
                 <td style="width:65%;">
-                	<input class="txt" id="txtStationno" type="text" style="width:90px; font-size:medium;" >
-                	<input class="txt" id="txtStation" type="text" style="width:115px; font-size:medium;" >
+                	<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" >
+                	<input class="txt" id="txtTgg" type="text" style="width:115px; font-size:medium;" >
                 </td>
             </tr>
             <tr class='seek_tr'>
