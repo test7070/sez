@@ -524,6 +524,16 @@
 							
 							$('#txtWk_emount_'+b_seq).val(q_float('txtWk_mount_'+b_seq)-q_float('txtWk_gmount_'+b_seq)-q_float('txtMount_'+b_seq))
 						});
+						
+						$('#txtWorkno_' + i).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if (!emp($('#txtWorkno_' + b_seq).val())) {
+								t_where = "noa='" + $('#txtWorkno_' + b_seq).val() + "'";
+								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'bbs_work', "95%", "95%", q_getMsg('PopWork'));
+							}
+						});
 					}
 				}
 				_bbsAssign();
@@ -547,8 +557,8 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				//判斷是否由撥料作業轉來>>鎖定欄位//0325拿掉
-				/*if(!emp($('#txtWorkkno').val())){
+				//判斷是否由workb作業轉來>>鎖定欄位//0325改為workbno
+				if(!emp($('#txtWorkbno').val())){
 					$('#cmbTypea').attr('disabled', 'disabled');
 					$('#txtDatea').attr('disabled', 'disabled');
 					$('#txtStoreno').attr('disabled', 'disabled');
@@ -570,7 +580,7 @@
 						$('#txtStoreno_'+j).attr('disabled', 'disabled');
 						$('#txtStore_'+j).attr('disabled', 'disabled');
 					}
-				}*/
+				}
 				refreshBbm();
 				$('#txtProduct').focus();
 			}
@@ -686,10 +696,10 @@
 			}
 
 			function btnDele() {
-				/*if(!emp($('#txtWorkkno').val())){
-					alert("該領料單由撥料作業("+$('#txtWorkkno').val()+")轉來，請至撥料作業刪除!!!")
+				if(!emp($('#txtWorkbno').val())){
+					alert("該領料單由撥料作業("+$('#txtWorkbno').val()+")轉來，請至撥料作業刪除!!!")
 					return;
-				}*/
+				}
 				_btnDele();
 			}
 
@@ -963,7 +973,7 @@
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='3'>
 							<input id="txtMemo" type="text"  style="width: 99%;"/>
-							<!--<input id="txtWorkkno" type="hidden" />-->
+							<input id="txtWorkbno" type="hidden" />
 						</td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
