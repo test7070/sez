@@ -65,14 +65,11 @@
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 				});
 				//1020729 排除已完全入庫&&完全未領料的成品
-				$('#btnOrdes').click(function() {
-					if (q_cur == 1 || q_cur == 2) {
-						if (!emp($('#txtTggno').val())) {
-							var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and (a.mount>a.inmount and b.gmount>0)) ";
-						} else {
-							var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and (a.mount>a.inmount and b.gmount>0)) ";
-						}
-						q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
+				$('#btnWorkf').click(function() {
+					var thisVal = $.trim($('#txtWorkfno').val());
+					if(thisVal.length > 0){
+						var t_where = "where=^^ noa=N'" + thisVal + "'";
+						q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
 					}
 				});
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
@@ -167,6 +164,13 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetTggno':
+						var as = _q_appendData("workf", "", true);
+						if(as[0] != undefined){
+							$('#txtTggno').val(as[0].tggno);
+							$('#txtTgg').val(as[0].tgg);
+						}
+						break;
 					case 'getWorkfs':
 						var as = _q_appendData("view_workfs", "", true);
 						q_gridAddRow(
@@ -183,6 +187,11 @@
 							}
 							var t_where = "where=^^ noa in(" + NewArray.toString() + ")^^";
 							q_gt('view_work', t_where, 0, 0, 0, "GetMount", r_accy);
+						}
+						if(as[0] != undefined){
+							var workfno = as[0].noa;
+							t_where = "where=^^ noa='"+workfno+"'^^"; 
+							q_gt('workf', t_where, 0, 0, 0, "GetTggno", r_accy);
 						}
 						break;
 					case 'GetMount':
@@ -682,7 +691,7 @@
 						<td style="display:none;"><input type="button" id="btnWork"></td>
 						<td><span> </span><a id='lblWorkfno' class="lbl"> </a></td>
 						<td><input id="txtWorkfno" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnOrdes"></td>
+						<td><input type="button" id="btnWorkf"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
