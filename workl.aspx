@@ -122,6 +122,13 @@
 			//儲存目前倉庫庫存
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetStoreno':
+						var as = _q_appendData("store", "", true);
+						if(as[0] != undefined){
+							$('#txtStoreinno').val(as[0].noa);
+							$('#txtStorein').val(as[0].store);
+						}
+						break;
 					case 'work_stk':
 						work_stk = _q_appendData("stkucc", "", true);
 						break;
@@ -357,6 +364,9 @@
 				switch (id) {
 					case 'txtTggno':
 						$('#txtBdate').focus();
+						var t_tggno = $.trim($('#txtTggno').val());
+						var t_where = "where=^^ tggno=N'" + t_tggno + "' ^^";
+						q_gt('store', t_where, 0, 0, 0, "GetStoreno", r_accy);
 						break;
 					default:
 						break;
