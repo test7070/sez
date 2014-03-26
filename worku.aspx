@@ -384,6 +384,13 @@
 							q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 						}
 					});
+					$('#txtWorkno_'+j).click(function(){
+						var thisVal = $.trim($(this).val());
+						if(thisVal.length > 0){
+							var t_where = "noa='" + thisVal + "'"
+							q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+						}
+					});
 				}
 			}
 
