@@ -446,7 +446,7 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							
-							$('#txtWk_unmount_'+b_seq).val(q_float('txtWk_mount_'+b_seq)-q_float('txtWk_inmount_'+b_seq)-q_float('txtMount_'+b_seq))
+							//$('#txtWk_unmount_'+b_seq).val(q_float('txtWk_mount_'+b_seq)-q_float('txtWk_inmount_'+b_seq)-q_float('txtMount_'+b_seq))
 						});
 						
 						$('#txtWorkno_' + i).click(function() {
