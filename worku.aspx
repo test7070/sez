@@ -182,15 +182,15 @@
 								NewArray.push("'" + as[i].workno + "'");
 							}
 							var t_where = "where=^^ noa in(" + NewArray.toString() + ")^^";
-							q_gt('view_works', t_where, 0, 0, 0, "GetMount", r_accy);
+							q_gt('view_work', t_where, 0, 0, 0, "GetMount", r_accy);
 						}
 						break;
 					case 'GetMount':
-						var as = _q_appendData("view_works", "", true);
+						var as = _q_appendData("view_work", "", true);
 						for(var k=0;k<as.length;k++){
 							var thisNoa = $.trim(as[k].noa);
 							var Wk_mount = dec(as[k].mount);
-							var Wk_inmount = dec(as[k].gmount);
+							var Wk_inmount = dec(as[k].inmount);
 							for(var j=0;j<q_bbsCount;j++){
 								var bbsWorkno = $.trim($('#txtWorkno_'+j).val());
 								if(thisNoa==bbsWorkno){
@@ -245,7 +245,17 @@
 								t_tgg = as[i].comp;
 							}
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa', '');
+						var ret = q_gridAddRow(
+							bbsHtm, 'tbbs',
+							'txtProductno,txtProduct,txtUnit,txtMount,txtWk_mount,txtWk_inmount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
+							as.length, as,
+							'productno,product,unit,mount,mount,inmount,ordeno,no2,memo,price,noa', ''
+						);
+						for(var k=0;k<ret.length;k++){
+							var Wk_Mount = dec($('#txtWk_mount_'+ret[k]).val());
+							var Wk_Inount = dec($('#txtWk_inmount_'+ret[k]).val());
+							$('#txtWk_unmount_'+ret[k]).val(q_sub(Wk_Mount,Wk_Inount));
+						}
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
