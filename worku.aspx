@@ -104,6 +104,13 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				$('#txtWorkfno').change(function(){
+					var thisVal = $.trim($(this).val());
+					if(thisVal.length > 0){
+						var t_where = "where=^^ noa=N'" + thisVal + "'";
+						q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
+					}
+				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -169,6 +176,30 @@
 							'productno,product,unit,born,storeno,store,workno,noa,noq',
 							''
 						);
+						if(as.length > 0 && as[0].workno != undefined){
+							var NewArray = new Array();
+							for (var i = 0; i < as.length; i++) {
+								NewArray.push("'" + as[i].workno + "'");
+							}
+							var t_where = "where=^^ noa in(" + NewArray.toString() + ")^^";
+							q_gt('view_works', t_where, 0, 0, 0, "GetMount", r_accy);
+						}
+						break;
+					case 'GetMount':
+						var as = _q_appendData("view_works", "", true);
+						for(var k=0;k<as.length;k++){
+							var thisNoa = $.trim(as[k].noa);
+							var Wk_mount = dec(as[k].mount);
+							var Wk_inmount = dec(as[k].gmount);
+							for(var j=0;j<q_bbsCount;j++){
+								var bbsWorkno = $.trim($('#txtWorkno_'+j).val());
+								if(thisNoa==bbsWorkno){
+									$('#txtWk_mount_'+j).val(Wk_mount);
+									$('#txtWk_inmount_'+j).val(Wk_inmount);
+									$('#txtWk_unmount_'+j).val(q_sub(Wk_mount,Wk_inmount));
+								}
+							}
+						}
 						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
@@ -656,9 +687,13 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblWorkfno' class="lbl"> </a></td>
+						<td><input id="txtWorkfno" type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnOrdes"></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnOrdes"></td>						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -680,7 +715,6 @@
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
@@ -698,7 +732,6 @@
 					<td><input class="txt c1 num" id="txtWk_mount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_inmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />

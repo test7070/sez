@@ -760,7 +760,7 @@
             	$('#txtMemo2').val(t_string);
             	var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
+                if (t_noa.length == 0 || t_noa == "AUTO" || q_cur==1)
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
@@ -847,7 +847,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['carno'] && parseFloat(as['mount'].length==0?'0':as['mount'])==0) {
+                if (!as['carno'] ) {
                     as[bbsKey[1]] = '';
                     return;
                 }
