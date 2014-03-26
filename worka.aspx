@@ -547,8 +547,8 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				//判斷是否由撥料作業轉來>>鎖定欄位
-				if(!emp($('#txtWorkkno').val())){
+				//判斷是否由撥料作業轉來>>鎖定欄位//0325拿掉
+				/*if(!emp($('#txtWorkkno').val())){
 					$('#cmbTypea').attr('disabled', 'disabled');
 					$('#txtDatea').attr('disabled', 'disabled');
 					$('#txtStoreno').attr('disabled', 'disabled');
@@ -570,7 +570,7 @@
 						$('#txtStoreno_'+j).attr('disabled', 'disabled');
 						$('#txtStore_'+j).attr('disabled', 'disabled');
 					}
-				}
+				}*/
 				refreshBbm();
 				$('#txtProduct').focus();
 			}
@@ -686,10 +686,10 @@
 			}
 
 			function btnDele() {
-				if(!emp($('#txtWorkkno').val())){
+				/*if(!emp($('#txtWorkkno').val())){
 					alert("該領料單由撥料作業("+$('#txtWorkkno').val()+")轉來，請至撥料作業刪除!!!")
 					return;
-				}
+				}*/
 				_btnDele();
 			}
 
@@ -961,7 +961,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan='3'><input id="txtMemo" type="text"  style="width: 99%;"/><input id="txtWorkkno" type="hidden" /></td>
+						<td colspan='3'>
+							<input id="txtMemo" type="text"  style="width: 99%;"/>
+							<!--<input id="txtWorkkno" type="hidden" />-->
+						</td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 					</tr>
