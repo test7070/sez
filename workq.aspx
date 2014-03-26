@@ -21,7 +21,7 @@
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtTgg','txtStore','txtAccno'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
+			var q_readonlys = ['txtBorn','txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
@@ -148,7 +148,8 @@
 							$('#txtTggno').val(b_ret[0].tggno);
 							$('#txtTgg').val(b_ret[0].comp);
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
-							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+							//q_gt('work', t_where, 0, 0, 0, "", r_accy);
+							q_gt('works', t_where, 0, 0, 0, "", r_accy);
 						}
 						break;
 					case q_name + '_s':
@@ -160,16 +161,6 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'getWorkfs':
-						var as = _q_appendData("view_workfs", "", true);
-						q_gridAddRow(
-							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtBorn,txtStoreno,txtStore,txtWmount,txtPrice,txtTotal,txtInmount,txtOutmount,txtErrmount,txtErrmemo,txtMemo,txtOrdeno,txtNo2,txtWorkno,txtWorkfno,txtWorkfnoq',
-							as.length, as,
-							'productno,product,unit,born,storeno,store,wmount,price,total,inmount,outmount,errmount,errmemo,memo,ordeno,no2,workno,noa,noq',
-							''
-						);
-						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
 						var rowslength = document.getElementById("table_stk").rows.length - 3;
@@ -215,6 +206,26 @@
 							}
 						}
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa', '');
+						if (t_tggno.length != 0 || t_tgg.length != 0) {
+							$('#txtTggno').val(t_tggno);
+							$('#txtTgg').val(t_tgg);
+						}
+						break;
+					case 'works':
+						var as = _q_appendData("works", "", true);
+						var t_tggno = '', t_tgg = '';
+						for ( i = 0; i < as.length; i++) {
+							if (as[i].tggno != '') {
+								t_tggno = as[i].tggno;
+								t_tgg = as[i].comp;
+							}
+						}
+						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno,txtWk_mount,txtWk_inmount', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa,mount,gmount', '');
+						for(var k=0;k<ret.length;k++){
+							var Wk_Mount = dec($('#txtWk_mount_'+ret[k]).val());
+							var Wk_Inmount = dec($('#txtWk_inmount_'+ret[k]).val());
+							$('#txtWk_unmount_'+ret[k]).val(q_sub(Wk_Mount,Wk_Inmount));
+						}
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
@@ -454,16 +465,9 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
-					case 'txtTggno':
-						var thisVal = $.trim($('#txtTggno').val());
-						if(thisVal.length > 0){
-							var t_where = "where=^^ tggno=N'"+thisVal+"' and (born>0) and (len(qcworker)=0) ^^";
-							q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
-						}
-						break;
 					case 'txtWorkno':
 						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
-						q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						q_gt('works', t_where, 0, 0, 0, "", r_accy);
 						break;
 				}
 			}
@@ -530,7 +534,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 2300px;
+				width: 2500px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -684,6 +688,7 @@
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:150px;" align="center"><a id='lblQcresult'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
@@ -710,6 +715,7 @@
 					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
+					<td><input class="txt c1" id="txtQcresult.*" type="text"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
