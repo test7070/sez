@@ -34,6 +34,7 @@
 		
 		 }
 		 
+		 //1030325 應流程由入庫產生領料所以不判斷是否以領料才能匯入
 		 function bbsAssign() {  
 			_bbsAssign();
 			for (var j = 0; j < q_bbsCount; j++) {
@@ -46,15 +47,15 @@
 				}
 				if(!emp($('#txtState_'+j).val()))
 					$('#chkSel_'+j).attr('disabled','disabled');
-				else
-					q_gt('view_works', "noa='"+$('#txtNoa_'+j).val()+"'", 0, 0, 0, "view_works", r_accy);
+				//else
+				//	q_gt('view_works', "noa='"+$('#txtNoa_'+j).val()+"'", 0, 0, 0, "view_works", r_accy);
 			}
 		}
 
 		function q_gtPost(t_name) {  ///  for   store2 
 			var aspxnamea=window.parent.q_name;
 			switch (t_name) {
-				case 'view_works':
+				/*case 'view_works':
 				var works = _q_appendData("view_works", "", true);
 			 	if(works[0]==undefined)
 			 		return;
@@ -73,6 +74,7 @@
 				 		}
 					}
 				}
+				break;*/
 			}
 		}
 		
