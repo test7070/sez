@@ -138,6 +138,9 @@
 						if(t_edate.length == 0) t_edate='999/99/99'
 						t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
 					}
+					
+					t_where += " or noa in (select workno from view_workbs where noa='" + $('#txtNoa').val() + "')";
+					
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
 				
@@ -275,7 +278,7 @@
 							
 							//扣掉本入庫單以入庫的數量
 							for (var j = 0; j < abbsNow.length; j++) {
-								if (abbsNow[j].workno == as[0].noa) {
+								if (abbsNow[j].workno == as[i].noa) {
 									as[i].inmount = dec(as[i].inmount) - dec(abbsNow[j].mount);
 								}
 							}
@@ -283,12 +286,9 @@
 							//本次入庫量
 							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
 						}
-						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount', as.length, as, 'productno,product,unit,smount,memo,noa,ordeno,no2,mount,inmount', '');
-						for(var k=0;k<ret.length;k++){
-							var Wk_mount = dec($('#txtWk_mount_'+ret[k]).val());
-							var Wk_inmount = dec($('#txtWk_inmount_'+ret[k]).val());
-							$('#txtWk_unmount_'+ret[k]).val(q_sub(Wk_mount,Wk_inmount));
-						}
+						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount,txtWk_unmount', as.length, as
+						, 'productno,product,unit,smount,memo,noa,ordeno,no2,mount,inmount,smount', '');
+
 						if (t_stationno.length != 0 || t_station.length != 0) {
 							$('#txtStationno').val(t_stationno);
 							$('#txtStation').val(t_station);

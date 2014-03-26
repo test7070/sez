@@ -115,10 +115,10 @@
 					var t_where = '1=1 ';
 					if (!emp($('#txtTggno').val())) {
 						//var t_where += "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
-						t_where += "and enda!=1 and tggno!='' and tggno='" + $('#txtTggno').val() + "'";
+						t_where += "and enda!=1 and tggno!='' and tggno='" + $('#txtTggno').val() + "' ";
 					} else {
 						//var t_where += "enda!=1 and tggno!='' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
-						t_where += "and enda!=1 and tggno!=''";
+						t_where += "and enda!=1 and tggno!='' ";
 					}
 					var workno = $.trim($('#textWorkno').val());
 					if(workno.length > 0 ){
@@ -132,6 +132,8 @@
 						if(t_edate.length == 0) t_edate='999/99/99'
 						t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
 					}
+					
+					t_where += " or noa in (select workno from view_workds where noa='" + $('#txtNoa').val() + "')";
 					
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
@@ -181,6 +183,12 @@
 						if (b_ret && (q_cur == 1 || q_cur == 2)) {
 							$('#txtTggno').val(b_ret[0].tggno);
 							$('#txtTgg').val(b_ret[0].comp);
+							
+							//清空表身資料
+							for (var i = 0; i < q_bbsCount; i++) {
+								$('#btnMinus_' + i).click();
+							}
+							
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						}
@@ -238,20 +246,21 @@
 								t_tggno = as[i].tggno;
 								t_tgg = as[i].comp;
 							}
+							
+							//扣掉本入庫單以入庫的數量
+							for (var j = 0; j < abbsNow.length; j++) {
+								if (abbsNow[j].workno == as[i].noa) {
+									as[i].inmount = dec(as[i].inmount) - dec(abbsNow[j].mount);
+								}
+							}
+							as[i].smount = dec(as[i].mount) - dec(as[i].inmount);
 						}
 						var ret = q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtMount,txtWk_mount,txtWk_inmount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
+							'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno,txtWk_mount,txtWk_inmount,txtWk_unmount',
 							as.length, as,
-							'productno,product,unit,mount,mount,inmount,ordeno,no2,memo,price,noa', ''
+							'productno,product,unit,smount,ordeno,no2,memo,price,noa,mount,inmount,smount', ''
 						);
-						for(k=0;k<ret.length;k++){
-							var mount = dec($('#txtMount_'+ret[k]).val());
-							var Wk_mount = dec($('#txtWk_mount_'+ret[k]).val());
-							var Wk_inmount = dec($('#txtWk_inmount_'+ret[k]).val());
-							$('#txtMount_'+ret[k]).val(q_sub(mount,Wk_inmount));
-							$('#txtWk_unmount_'+ret[k]).val(q_sub(Wk_mount,Wk_inmount));							
-						}
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
@@ -400,6 +409,15 @@
 							//庫存
 							var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "') ^^";
 							q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
+						}
+					});
+					$('#txtWorkno_' + j).click(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if (!emp($('#txtWorkno_' + b_seq).val())) {
+							t_where = "noa='" + $('#txtWorkno_' + b_seq).val() + "'";
+							q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'bbs_work', "95%", "95%", q_getMsg('PopWork'));
 						}
 					});
 				}

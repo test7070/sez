@@ -45,8 +45,13 @@
 						$('#txtState_'+j).val('入庫完成');
 					}
 				}
-				if(!emp($('#txtState_'+j).val()))
-					$('#chkSel_'+j).attr('disabled','disabled');
+				var aspxnamea=window.parent.q_name;
+				
+				if(!emp($('#txtState_'+j).val())){
+					if(!(aspxnamea=='workb' || aspxnamea=='workd')){
+						$('#chkSel_'+j).attr('disabled','disabled');
+					}
+				}
 				//else
 				//	q_gt('view_works', "noa='"+$('#txtNoa_'+j).val()+"'", 0, 0, 0, "view_works", r_accy);
 			}
