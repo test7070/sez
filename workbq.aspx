@@ -527,7 +527,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 1900px;
+				width: 2100px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -680,22 +680,23 @@
 					</td>
 					<td style="width:150px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:120px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
+					<td style="width:40px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
-					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:120px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:150px;" align="center"><a id='lblQcresult'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
+					<td style="width:150px;" align="center"><a id='lblErrmount'></a></td>
 					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorkfnos'></a></td>
-					<td style="width:30px;" align="center"><a id='lblStks'> </a></td>
+					<td style="width:40px;" align="center"><a id='lblStks'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
@@ -711,6 +712,7 @@
 					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
+					<td><input class="txt c1" id="txtQcresult.*" type="text"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
