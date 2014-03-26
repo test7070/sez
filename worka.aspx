@@ -126,7 +126,7 @@
 						t_where += " and cuadate between '"+t_bdate+"' and '"+t_edate+"'";
 					}
 					
-					t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"
+					//t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"
 					
 					q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 					
@@ -217,15 +217,21 @@
 									}
 								}
 							}
-							for (var i = 0; i < b_ret.length; i++) { 
-								b_ret[i].mount=dec(b_ret[i].mount)-dec(b_ret[i].gmount)
-							}
 							var t_msg = '', t_worksno = '';
 							//判斷庫存量足夠
 							for (var i = 0; i < b_ret.length; i++) {
+								//應領料數量
+								for (var j = 0; j < abbsNow.length; j++) {
+									if(b_ret[i].noa==abbsNow[j].workno){
+										b_ret[i].gmount=dec(b_ret[i].gmount)-dec(abbsNow[j].mount)
+									}
+								}
+								b_ret[i].xmount=dec(b_ret[i].mount)-dec(b_ret[i].gmount);
+								b_ret[i].smount=dec(b_ret[i].mount)-dec(b_ret[i].gmount);
+								
 								for (var j = 0; j < work_stk.length; j++) {
 									if (b_ret[i].productno == work_stk[j].productno) {
-										if (dec(work_stk[j].mount) - dec(b_ret[i].mount) < 0) {
+										if (dec(work_stk[j].mount) - dec(b_ret[i].smount) < 0) {
 											if (t_worksno != b_ret[i].noa) {
 												if ( t_worksno == '')
 													t_msg += "製令單：" + b_ret[i].noa + "\n";
@@ -233,22 +239,23 @@
 													t_msg += "\n製令單：" + b_ret[i].noa + "\n";
 												t_worksno = b_ret[i].noa;
 											}
-											t_msg += "原料：" + b_ret[i].product + "，不足數量：" + (-1 * (dec(work_stk[j].mount) - dec(b_ret[i].mount))).toString() + "\n";
+											t_msg += "原料：" + b_ret[i].product + "，不足數量：" + (-1 * (dec(work_stk[j].mount) - dec(b_ret[i].smount))).toString() + "\n";
 											if (dec(work_stk[j].mount) > 0) {
-												b_ret[i].mount = work_stk[j].mount;
+												b_ret[i].smount = work_stk[j].mount;
 												work_stk[i].mount = 0;
 											} else {
 												b_ret.splice(i, 1);
 												i--;
 											}
 										} else {
-											work_stk[j].mount = dec(work_stk[j].mount) - dec(b_ret[i].mount);
+											work_stk[j].mount = dec(work_stk[j].mount) - dec(b_ret[i].smount);
 										}
 										break;
 									}
 								}
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno', b_ret.length, b_ret, 'productno,product,unit,mount,memo,noa', '');
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', b_ret.length, b_ret
+							, 'productno,product,unit,smount,memo,noa,mount,gmount,xmount', '');
 							if (t_msg.length > 0)
 								alert(t_msg);
 						}
@@ -339,9 +346,17 @@
 						var t_msg='',t_worksno='';
 						//判斷庫存量足夠
 						for (var  i = 0; i < as.length; i++) {
+							//應領料數量
+							for (var j = 0; j < abbsNow.length; j++) {
+								if(as[i].noa==abbsNow[j].workno){
+									as[i].gmount=dec(as[i].gmount)-dec(abbsNow[j].mount)
+								}
+							}
+							as[i].xmount=dec(as[i].mount)-dec(as[i].gmount);
+							as[i].smount=dec(as[i].mount)-dec(as[i].gmount);
 							for (var j=0;j< work_stk.length;j++){
 								if(as[i].productno==work_stk[j].productno){
-									if(dec(work_stk[j].mount)-dec(as[i].mount)<0){
+									if(dec(work_stk[j].mount)-dec(as[i].smount)<0){
 										if(t_worksno!=as[i].noa){
 											if(t_worksno='')
 												t_msg+="製令單："+as[i].noa+"\n";
@@ -349,22 +364,23 @@
 												t_msg+="\n製令單："+as[i].noa+"\n";
 											t_worksno=as[i].noa;
 										}
-										t_msg+="原料："+as[i].product+"，不足數量："+(-1*(dec(work_stk[j].mount)-dec(as[i].mount))).toString()+"\n";
+										t_msg+="原料："+as[i].product+"，不足數量："+(-1*(dec(work_stk[j].mount)-dec(as[i].smount))).toString()+"\n";
 										if(dec(work_stk[j].mount)>0){
-											as[i].mount=work_stk[j].mount;
+											as[i].smount=work_stk[j].mount;
 											work_stk[i].mount=0;
 										}else{
 											as.splice(i, 1);
                                     		i--;
                                     	}
                                    }else{
-                                   		work_stk[j].mount=dec(work_stk[j].mount)-dec(as[i].mount);
+                                   		work_stk[j].mount=dec(work_stk[j].mount)-dec(as[i].smount);
                                    }
                                    break;
 								}
 							}
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno', as.length, as, 'productno,product,unit,mount,memo,noa', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', as.length, as
+						, 'productno,product,unit,smount,memo,noa,mount,gmount,xmount', '');
 						if(t_msg.length>0)
 							alert(t_msg);
 						break;
@@ -567,6 +583,9 @@
 					$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
 					$('#lblStore').css('display','none');
 					$('#lblStation').css('display','none');
+					$('#btnWork').attr('disabled', 'disabled');
+					$('#btnWorks').attr('disabled', 'disabled');
+					$('#btnOrdes').attr('disabled', 'disabled');
 					
 					$('#btnPlus').attr('disabled', 'disabled');
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -697,7 +716,7 @@
 
 			function btnDele() {
 				if(!emp($('#txtWorkbno').val())){
-					alert("該領料單由撥料作業("+$('#txtWorkbno').val()+")轉來，請至撥料作業刪除!!!")
+					alert("該領料單由入庫作業("+$('#txtWorkbno').val()+")轉來，請至入庫作業刪除!!!")
 					return;
 				}
 				_btnDele();
