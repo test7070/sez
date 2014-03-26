@@ -85,6 +85,7 @@
 						//var t_where += "enda!=1 and tggno!='' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 						t_where += "and enda!=1 and tggno!=''";
 					}
+					t_where += "and (mount-inmount-(select sum(mount) from view_workqs where workno=work"+r_accy+".noa)) > 0";
 					var workno = $.trim($('#textWorkno').val());
 					if (workno.length > 0) {
 						t_where += " and noa=N'" + workno + "'";
