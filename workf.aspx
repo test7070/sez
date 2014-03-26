@@ -160,7 +160,7 @@
 				}
 				b_pop = '';
 			}
-
+			var work_as;
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'msg_stk_all':
@@ -201,6 +201,7 @@
 						break;
 					case 'work':
 						var as = _q_appendData("work", "", true);
+						work_as = as;
 						var t_tggno = '', t_tgg = '';
 						for ( i = 0; i < as.length; i++) {
 							if (as[i].tggno != '') {
@@ -210,10 +211,34 @@
 							//未入庫量=排程數量-已入庫量
 							as[i].mount=dec(as[i].mount)-dec(as[i].inmount)
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa', '');
+						var t_where = "where=^^ noa in(" + getInStr(as) + ")^^";
+						q_gt('works', t_where, 0, 0, 0, "", r_accy);
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
+						}
+						sum();
+						break;
+					case 'works':
+						var as = _q_appendData("works", "", true);
+						var ret = q_gridAddRow(
+							bbsHtm, 'tbbs',
+							'txtProductno,txtProduct,txtUnit,txtBorn,txtWk_mount,txtWk_inmount,txtWk_unmount,txtMemo,txtPrice,txtWorkno',
+							as.length, as,
+							'productno,product,unit,mount,mount,gmount,emount,memo,price,noa',''
+						);
+						for(var k=0;k<ret.length;k++){
+							var workno = $.trim($('#txtWorkno_'+ret[k]).val());
+							var wk_mount = dec($('#txtWk_mount_'+ret[k]).val());
+							var wk_inmount = dec($('#txtWk_inmount_'+ret[k]).val());
+							$('#txtWk_unmount_'+ret[k]).val(q_sub(wk_mount,wk_inmount));
+							for(var j=0;j<work_as.length;j++){
+								if(workno==work_as[j].noa){
+									$('#txtOrdeno_'+ret[k]).val(work_as[j].ordeno);
+									$('#txtNo2_'+ret[k]).val(work_as[j].no2);
+									break;
+								}
+							}
 						}
 						sum();
 						break;
@@ -582,7 +607,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 2600px;
+				width: 2800px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -763,10 +788,11 @@
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTmount'></a></td>
-					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblBkmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblWmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
+					<td style="width:120px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:150px;" align="center"><a id='lblQcresult'></a></td>
+					<td style="width:120px;" align="center"><a id='lblBkmount_s'></a></td>
+					<td style="width:120px;" align="center"><a id='lblWmounts'></a></td>
+					<td style="width:150px;" align="center"><a id='lblErrmount'></a></td>
 					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:100px;" align="center"><a id='lblQcworker'></a></td>
@@ -798,6 +824,7 @@
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtTmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
+					<td><input class="txt c1" id="txtQcresult.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
 					<td>
