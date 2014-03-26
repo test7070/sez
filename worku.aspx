@@ -495,13 +495,6 @@
 
 			function q_popPost(s1) {
 				switch (s1) {
-					case 'txtTggno':
-						var thisVal = $.trim($('#txtTggno').val());
-						if(thisVal.length > 0){
-							var t_where = "where=^^ tggno=N'"+thisVal+"' and (born>0) and (len(qcworker)=0) ^^";
-							q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
-						}
-						break;
 					case 'txtWorkno':
 						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
@@ -677,11 +670,12 @@
 							<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtTgg" type="text" class="txt" style='width:48%;'/>
 						</td>
-						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
-						<td>
-							<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
-							<input id="txtStore" type="text" class="txt" style='width:48%;'/>
-						</td>
+						<td style="display:none;"><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+						<td style="display:none;"><input id="txtWorkno" type="text" class="txt c1"/></td>
+						<td style="display:none;"><input type="button" id="btnWork"></td>
+						<td><span> </span><a id='lblWorkfno' class="lbl"> </a></td>
+						<td><input id="txtWorkfno" type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnOrdes"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
@@ -690,18 +684,10 @@
 							<a style="float: left;">~</a>
 							<input id="txtEdate" type="text" class="txt c3" style="width: 98px;"/>
 						</td>
-						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnWork"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblWorkfno' class="lbl"> </a></td>
-						<td><input id="txtWorkfno" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnOrdes"></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>

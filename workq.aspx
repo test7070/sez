@@ -148,8 +148,7 @@
 							$('#txtTggno').val(b_ret[0].tggno);
 							$('#txtTgg').val(b_ret[0].comp);
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
-							//q_gt('work', t_where, 0, 0, 0, "", r_accy);
-							q_gt('works', t_where, 0, 0, 0, "", r_accy);
+							q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						}
 						break;
 					case q_name + '_s':
@@ -205,22 +204,12 @@
 								t_tgg = as[i].comp;
 							}
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa', '');
-						if (t_tggno.length != 0 || t_tgg.length != 0) {
-							$('#txtTggno').val(t_tggno);
-							$('#txtTgg').val(t_tgg);
-						}
-						break;
-					case 'works':
-						var as = _q_appendData("works", "", true);
-						var t_tggno = '', t_tgg = '';
-						for ( i = 0; i < as.length; i++) {
-							if (as[i].tggno != '') {
-								t_tggno = as[i].tggno;
-								t_tgg = as[i].comp;
-							}
-						}
-						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno,txtWk_mount,txtWk_inmount', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa,mount,gmount', '');
+						var ret = q_gridAddRow(
+							bbsHtm, 'tbbs',
+							'txtProductno,txtProduct,txtUnit,txtMount,txtWk_mount,txtWk_inmount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
+							as.length, as,
+							'productno,product,unit,mount,mount,inmount,ordeno,no2,memo,price,noa', ''
+						);
 						for(var k=0;k<ret.length;k++){
 							var Wk_Mount = dec($('#txtWk_mount_'+ret[k]).val());
 							var Wk_Inmount = dec($('#txtWk_inmount_'+ret[k]).val());
@@ -546,6 +535,12 @@
 				width: 5px;
 				height: 10px;
 			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				float: left;
+			}
 			.tbbm tr td .lbl {
 				float: right;
 				color: blue;
@@ -664,7 +659,6 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnOrdes"></td>						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
