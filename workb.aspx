@@ -80,10 +80,10 @@
 					}
 				});
 
-				/*$('#txtWorkno').change(function() {
+				$('#txtWorkno').change(function() {
 					var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 					q_gt('work', t_where, 0, 0, 0, "", r_accy);
-				});*/
+				});
 
 				/*$('#lblWorkno').click(function() {
 					var t_where = "enda!=1 ";
@@ -283,8 +283,12 @@
 							//本次入庫量
 							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount', as.length, as, 'productno,product,unit,smount,memo,noa,ordeno,no2,mount,inmount', '');
-						
+						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount', as.length, as, 'productno,product,unit,smount,memo,noa,ordeno,no2,mount,inmount', '');
+						for(var k=0;k<ret.length;k++){
+							var Wk_mount = dec($('#txtWk_mount_'+ret[k]).val());
+							var Wk_inmount = dec($('#txtWk_inmount_'+ret[k]).val());
+							$('#txtWk_unmount_'+ret[k]).val(q_sub(Wk_mount,Wk_inmount));
+						}
 						if (t_stationno.length != 0 || t_station.length != 0) {
 							$('#txtStationno').val(t_stationno);
 							$('#txtStation').val(t_station);
