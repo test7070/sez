@@ -77,10 +77,10 @@
 					}
 				});*/
 
-				/*$('#txtWorkno').change(function() {
+				$('#txtWorkno').change(function() {
 					var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 					q_gt('work', t_where, 0, 0, 0, "", r_accy);
-				});*/
+				});
 
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
@@ -181,7 +181,6 @@
 						if (b_ret && (q_cur == 1 || q_cur == 2)) {
 							$('#txtTggno').val(b_ret[0].tggno);
 							$('#txtTgg').val(b_ret[0].comp);
-
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						}
@@ -239,10 +238,20 @@
 								t_tggno = as[i].tggno;
 								t_tgg = as[i].comp;
 							}
-							//未入庫量=排程數量-已入庫量
-							as[i].mount=dec(as[i].mount)-dec(as[i].inmount)
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno', as.length, as, 'productno,product,unit,mount,ordeno,no2,memo,price,noa', '');
+						var ret = q_gridAddRow(
+							bbsHtm, 'tbbs',
+							'txtProductno,txtProduct,txtUnit,txtMount,txtWk_mount,txtWk_inmount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
+							as.length, as,
+							'productno,product,unit,mount,mount,inmount,ordeno,no2,memo,price,noa', ''
+						);
+						for(k=0;k<ret.length;k++){
+							var mount = dec($('#txtMount_'+ret[k]).val());
+							var Wk_mount = dec($('#txtWk_mount_'+ret[k]).val());
+							var Wk_inmount = dec($('#txtWk_inmount_'+ret[k]).val());
+							$('#txtMount_'+ret[k]).val(q_sub(mount,Wk_inmount));
+							$('#txtWk_unmount_'+ret[k]).val(q_sub(Wk_mount,Wk_inmount));							
+						}
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
