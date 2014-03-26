@@ -19,7 +19,7 @@
 			var q_name = "workf";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno','txtWorkcno'];
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount','txtWk_mount','txtWk_inmount','txtWk_unmount','txtTmount'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
@@ -37,6 +37,7 @@
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+				['txtStoreoutno', 'lblStoreout', 'store', 'noa,store', 'txtStoreoutno,txtStoreout', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,price', 'txtProductno_,txtProduct_,txtPrice_', 'ucaucc_b.aspx']
 			);
@@ -67,6 +68,13 @@
 				//1020729 排除已完全入庫&&完全未領料的成品
 				$('#btnOrdes').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
+						var t_err = '';
+						t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);
+						// 檢查空白
+						if (t_err.length > 0) {
+							alert(t_err);
+							return;
+						}
 						if (!emp($('#txtTggno').val())) {
 							var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and (a.mount>a.inmount and b.gmount>0)) ";
 						} else {
@@ -78,12 +86,27 @@
 				$('#txtMoney').change(function() {
 					sum();
 				});
+				
 				$('#txtTax').change(function() {
 					sum();
+				});
+				
+				$('#txtTggno').change(function() {
+					if(!emp($('#txtTggno').val())){
+						var t_where = "where=^^ tggno ='" + $('#txtTggno').val() + "' ^^";
+						q_gt('store', t_where, 0, 0, 0, "", r_accy);
+					}
 				});
 
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 				$('#btnWork').click(function() {
+					var t_err = '';
+					t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);
+					// 檢查空白
+					if (t_err.length > 0) {
+						alert(t_err);
+						return;
+					}
 					var t_where = '1=1 ';
 					if (!emp($('#txtTggno').val())) {
 						t_where += "and enda!=1 and tggno!='' and tggno='" + $('#txtTggno').val() + "'";
@@ -149,6 +172,11 @@
 						if (b_ret && (q_cur == 1 || q_cur == 2)) {
 							$('#txtTggno').val(b_ret[0].tggno);
 							$('#txtTgg').val(b_ret[0].comp);
+							
+							//清空表身資料
+							for (var i = 0; i < q_bbsCount; i++) {
+								$('#btnMinus_' + i).click();
+							}
 
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
@@ -162,6 +190,15 @@
 			}
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'store':
+						var as = _q_appendData("store", "", true);
+						if (as[0] != undefined) {
+							if(emp($('#txtStoreoutno').val())){
+								$('#txtStoreoutno').val(as[0].noa);
+								$('#txtStoreout').val(as[0].store);
+							}
+						}
+						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
 						var rowslength = document.getElementById("table_stk").rows.length - 3;
@@ -206,21 +243,24 @@
 								t_tggno = as[i].tggno;
 								t_tgg = as[i].comp;
 							}
-							//未入庫量=排程數量-已入庫量
-							as[i].mount=dec(as[i].mount)-dec(as[i].inmount)
+							
+							//扣掉本入庫單以入庫的數量
+							for (var j = 0; j < abbsNow.length; j++) {
+								if (abbsNow[j].workno == as[0].noa) {
+									as[i].inmount = dec(as[i].inmount) - dec(abbsNow[j].mount);
+								}
+							}
+							
+							//本次入庫量
+							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
 						}
 						var ret = q_gridAddRow(
 							bbsHtm, 'tbbs',
 							'txtProductno,txtProduct,txtOrdeno,txtNo2,txtUnit,txtBorn,txtWk_mount,txtWk_inmount,txtMemo,txtPrice,txtWorkno',
 							as.length, as,
-							'productno,product,ordeno,no2,unit,mount,mount,inmount,memo,price,noa',''
+							'productno,product,ordeno,no2,unit,smount,mount,inmount,memo,price,noa',''
 						);
-						for(var k=0;k<ret.length;k++){
-							var workno = $.trim($('#txtWorkno_'+ret[k]).val());
-							var wk_mount = dec($('#txtWk_mount_'+ret[k]).val());
-							var wk_inmount = dec($('#txtWk_inmount_'+ret[k]).val());
-							$('#txtWk_unmount_'+ret[k]).val(q_sub(wk_mount,wk_inmount));
-						}
+						
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
@@ -275,8 +315,8 @@
 				}
 			}
 
-			//檢查領料是否等比例
-			var checkok = false;
+			//檢查領料是否等比例//1030325流程變成入庫後產生領料單因此檢查領料比例拿掉
+			var checkok = true;//要判斷改回false
 			function btnOk() {
 				t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')]]);
@@ -300,7 +340,7 @@
 					var t_where1 = "where[1]=^^ noa='" + $('#txtNoa').val() + "' and productno=a.productno and workno=a.noa ^^";
 					q_gt('work_pick', t_where + t_where1, 0, 0, 0, "", r_accy);
 				} else {
-					checkok = false;
+					checkok = true;//要判斷改回false
 					//如果表身倉庫沒填，表頭倉庫帶入
 					for (var i = 0; i < q_bbsCount; i++) {
 						if (emp($('#txtStoreno_' + i).val())) {
@@ -308,6 +348,21 @@
 							$('#txtStore_' + i).val($('#txtStore').val());
 						}
 					}
+					
+					//檢查是否多入庫
+					var err_mess='';
+					for (var i = 0; i < q_bbsCount; i++) {
+						var unmount=q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i)-q_float('txtMount_'+i);
+						if(unmount<0){
+							err_mess+=$('#txtProduct_'+i).val()+"多入"+-1*unmount+'\n';
+						}
+					}
+					
+					if(err_mess.length>0){
+						alert(err_mess);
+						return;
+					}
+					
 					if (q_cur == 1)
 						$('#txtWorker').val(r_name);
 					else
@@ -360,6 +415,16 @@
 							q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 						}
 					});
+					
+					$('#txtWorkno_' + i).click(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if (!emp($('#txtWorkno_' + b_seq).val())) {
+							t_where = "noa='" + $('#txtWorkno_' + b_seq).val() + "'";
+							q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'bbs_work', "95%", "95%", q_getMsg('PopWork'));
+						}
+					});
 				}
 			}
 
@@ -386,8 +451,14 @@
 			function wrServer(key_value) {
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+				
+				if (q_cur == 1 || emp($('#txtWorkcno').val()))
+					q_func('qtxt.query.c0', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				else {
+					//處理workc內容
+					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+				}
 			}
 
 			function bbsSave(as) {
@@ -481,7 +552,12 @@
 			}
 
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				//處理workc內容
+				q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
 			}
 
 			function btnCancel() {
@@ -493,6 +569,12 @@
 					case 'txtWorkno':
 						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						break;
+					case 'txtTggno':
+						if(!emp($('#txtTggno').val())){
+							var t_where = "where=^^ tggno ='" + $('#txtTggno').val() + "' ^^";
+							q_gt('store', t_where, 0, 0, 0, "", r_accy);
+						}
 						break;
 				}
 			}
@@ -566,6 +648,36 @@
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
+			}
+			
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'workc_post.post.a1':
+						//呼叫workf.post
+						q_func('qtxt.query.c0', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'workc_post.post.a2':
+						//呼叫workf.post
+						q_func('qtxt.query.c2', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'qtxt.query.c0':
+						q_func('qtxt.query.c1', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';1');
+						break;
+					case 'qtxt.query.c1':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['workcno'] = as[0].workcno;
+							$('#txtWorkcno').val(as[0].workcno);
+							//處理workc內容
+							q_func('workc_post.post', r_accy + ',' + $('#txtWorkcno').val() + ',1');
+						}
+						break;
+					case 'qtxt.query.c2':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
+					default:
+						break;
+				}
 			}
 
 		</script>
@@ -700,6 +812,19 @@
 							<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtTgg" type="text" class="txt" style='width:48%;'/>
 						</td>
+						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
+						<td>
+							<input id="txtBdate" type="text" class="txt c3" style="width: 98px;"/>
+							<a style="float: left;">~</a>
+							<input id="txtEdate" type="text" class="txt c3" style="width: 98px;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStoreout' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtStoreoutno" type="text" class="txt" style='width:45%;'/>
+							<input id="txtStoreout" type="text" class="txt" style='width:48%;'/>
+						</td>
 						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
@@ -707,12 +832,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
-						<td>
-							<input id="txtBdate" type="text" class="txt c3" style="width: 98px;"/>
-							<a style="float: left;">~</a>
-							<input id="txtEdate" type="text" class="txt c3" style="width: 98px;"/>
-						</td>
+						<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
+						<td><input id="txtWorkcno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
 						<td><input type="button" id="btnWork"></td>
