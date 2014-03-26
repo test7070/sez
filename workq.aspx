@@ -85,7 +85,7 @@
 						//var t_where += "enda!=1 and tggno!='' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 						t_where += "and enda!=1 and tggno!=''";
 					}
-					t_where += "and (mount-inmount-(select sum(mount) from view_workqs where workno=work"+r_accy+".noa)) > 0";
+					t_where += "and (mount-isnull((select sum(mount) from view_workqs where (workno=work"+r_accy+".noa) and (noa!='"+$.trim($('#txtNoa').val())+"')),0)) > 0";
 					var workno = $.trim($('#textWorkno').val());
 					if (workno.length > 0) {
 						t_where += " and noa=N'" + workno + "'";
@@ -225,6 +225,7 @@
 						break;
 					case 'GetBorn':
 						var as = _q_appendData("view_workfs", "", true);
+						var WorkNoStr = new Array();
 						for(var j=0;j<as.length;j++){
 							var t_Born = dec(as[j].born);
 							var t_workno = $.trim(as[j].workno);
@@ -236,6 +237,26 @@
 									$('#txtBorn_'+k).val(t_Born);
 								}
 							}
+						}
+						for(var i=0;i<q_bbsCount;i++){
+							var t_workno = $.trim($('#txtWorkno_'+i).val());
+							WorkNoStr.push("'"+t_workno+"'");
+						}
+						var t_where = "where=^^ workno in ("+WorkNoStr.toString()+") ^^";
+						q_gt('view_workqs', t_where, 0, 0, 0, "GetMount", r_accy);
+						break;
+					case 'GetMount':
+						var as = _q_appendData("view_workqs", "", true);
+						for(var k=0;k<q_bbsCount;k++){
+							var t_workno = $.trim($('#txtWorkno_'+k).val());
+							var t_mount = dec($('#txtMount_'+k).val());
+							for(var j=0;j<as.length;j++){
+								var as_workno = $.trim(as[j].workno);
+								if(as_workno==t_workno){
+									t_mount = q_sub(t_mount,dec(as[j].mount));
+								}
+							}
+							$('#txtMount_'+k).val(t_mount);
 						}
 						break;
 					case 'work_pick':
@@ -359,6 +380,14 @@
 							//庫存
 							var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "') ^^";
 							q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
+						}
+					});
+					$('#txtMount_'+j).change(function(){
+						var n=$(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						var thisVal = dec($(this).val());
+						var born = dec($('#txtBorn_'+n).val());
+						if(thisVal>born){
+							$(this).val(born);
 						}
 					});
 				}
