@@ -256,7 +256,7 @@
 									t_mount = q_sub(t_mount,dec(as[j].mount));
 								}
 							}
-							$('#txtMount_'+k).val(t_mount);
+							$('#txtMount_'+k).attr('maxValue',t_mount).val(t_mount);
 						}
 						break;
 					case 'work_pick':
@@ -385,10 +385,10 @@
 					$('#txtMount_'+j).change(function(){
 						var n=$(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 						var thisVal = dec($(this).val());
-						var born = dec($('#txtBorn_'+n).val());
-						if(thisVal>born){
-							$(this).val(born);
-						}
+						var MaxVal = dec($(this).attr('maxValue'));
+						if(thisVal>MaxVal){
+							$(this).val(MaxVal);
+						};
 					});
 				}
 			}
