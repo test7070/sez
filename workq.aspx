@@ -215,9 +215,26 @@
 							var Wk_Inmount = dec($('#txtWk_inmount_'+ret[k]).val());
 							$('#txtWk_unmount_'+ret[k]).val(q_sub(Wk_Mount,Wk_Inmount));
 						}
+						var t_where = "where=^^ (workno in ("+ getInStr(as) +")) and len(isnull(qcworker,''))=0 ^^";
+						q_gt('view_workfs', t_where, 0, 0, 0, "GetBorn", r_accy);
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
 							$('#txtTgg').val(t_tgg);
+						}
+						break;
+					case 'GetBorn':
+						var as = _q_appendData("view_workfs", "", true);
+						for(var j=0;j<as.length;j++){
+							var t_Born = dec(as[j].born);
+							var t_workno = $.trim(as[j].workno);
+							var t_productno = $.trim(as[j].productno);
+							for(var k=0;k<q_bbsCount;k++){
+								var bbsWorkno = $.trim($('#txtWorkno_'+k).val());
+								var bbsProductno = $.trim($('#txtProductno_'+k).val());
+								if(t_workno==bbsWorkno && t_productno==t_productno){
+									$('#txtBorn_'+k).val(t_Born);
+								}
+							}
 						}
 						break;
 					case 'work_pick':

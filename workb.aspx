@@ -293,7 +293,6 @@
 							$('#txtStationno').val(t_stationno);
 							$('#txtStation').val(t_station);
 						}
-						
 						break;
 					case 'ucc':
 						var as = _q_appendData("ucc", "", true);
