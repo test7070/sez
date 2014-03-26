@@ -133,6 +133,13 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				
+				$('#txtWorkcno').click(function() {
+					if (!emp($('#txtWorkcno').val())) {
+						t_where = "noa='" + $('#txtWorkcno').val() + "'";
+						q_box("workc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workc', "95%", "95%", q_getMsg('PopWorkc'));
+					}
+				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -259,7 +266,8 @@
 							
 							for ( j = 0; j < t_workfs.length; j++) {
 								if(as[i].noa==t_workfs[j].workno)
-									as[i].xmount=as[i].xmount-t_workfs[j].born
+									as[i].xmount=dec(as[i].xmount)-dec(t_workfs[j].born);
+									as[i].inmount=dec(t_workfs[j].born);
 							}
 						}
 						var ret = q_gridAddRow(
