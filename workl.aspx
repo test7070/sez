@@ -383,12 +383,12 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 
-				if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkcno').val()))
-					q_func('qtxt.query.c0', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-				else {
+				//if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkcno').val()))
+				q_func('qtxt.query.c0', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				/*else {
 					//處理workc內容
 					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
-				}
+				}*/
 			}
 
 			var mouse_point;
@@ -507,23 +507,25 @@
 					return;
 				q_cur = 3;
 				//處理workc內容
-				q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+				//q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+				q_func('qtxt.query.c2', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 			}
 
 			function btnCancel() {
 				_btnCancel();
 			}
-
+			
+			//0325 拿掉 workcno 不產生領料
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'workc_post.post.a1':
+					/*case 'workc_post.post.a1':
 						//呼叫workl.post
 						q_func('qtxt.query.c0', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 						break;
 					case 'workc_post.post.a2':
 						//呼叫workl.post
 						q_func('qtxt.query.c2', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-						break;
+						break;*/
 					case 'qtxt.query.c0':
 						q_func('qtxt.query.c1', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';1');
 						break;
@@ -531,12 +533,12 @@
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
 							abbm[q_recno]['cngno'] = as[0].cngno;
-							abbm[q_recno]['workcno'] = as[0].workcno;
+							//abbm[q_recno]['workcno'] = as[0].workcno;
 							$('#txtCngno').val(as[0].cngno);
-							$('#txtWorkcno').val(as[0].workcno);
+							//$('#txtWorkcno').val(as[0].workcno);
 						}
 						//處理workc內容
-						q_func('workc_post.post', r_accy + ',' + $('#txtWorkcno').val() + ',1');
+						//q_func('workc_post.post', r_accy + ',' + $('#txtWorkcno').val() + ',1');
 						break;
 					case 'qtxt.query.c2':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
@@ -767,15 +769,20 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblCngno' class="lbl"> </a></td>
 						<td class="td2"><input id="txtCngno" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorkcno" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td class="td4">
+							<input id="txtWorker" type="text" class="txt c1" style="width: 49%;"/>
+							<input id="txtWorker2" type="text" class="txt c1" style="width: 49%;"/>
+						</td>
+						<!--<td class="td3"><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
+						<td class="td4"><input id="txtWorkcno" type="text" class="txt c1"/></td>-->
 					</tr>
-					<tr>
+					<!--<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
-					</tr>
+					</tr>-->
 				</table>
 			</div>
 		</div>
