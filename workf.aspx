@@ -126,6 +126,8 @@
 						t_where += " and uindate between '" + t_bdate + "' and '" + t_edate + "'";
 					}
 					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+					
+					
 				});
 
 				$('#btnClose_div_stk').click(function() {
@@ -177,9 +179,10 @@
 							for (var i = 0; i < q_bbsCount; i++) {
 								$('#btnMinus_' + i).click();
 							}
-
-							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
-							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+							
+							//抓已入送驗數量
+							var t_where = "where=^^ workno in(" + getInStr(b_ret) + ") and noa !='"+$('#txtNoa').val()+"'^^";
+							q_gt('view_workfs', t_where, 0, 0, 0, "", r_accy);
 						}
 						break;
 					case q_name + '_s':
@@ -188,8 +191,15 @@
 				}
 				b_pop = '';
 			}
+			
+			var t_workfs='';
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'view_workfs':
+						t_workfs = _q_appendData("view_workfs", "", true);
+						var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
+						q_gt('work', t_where, 0, 0, 0, "", r_accy);
+					break;
 					case 'store':
 						var as = _q_appendData("store", "", true);
 						if (as[0] != undefined) {
@@ -243,22 +253,20 @@
 								t_tggno = as[i].tggno;
 								t_tgg = as[i].comp;
 							}
-							
-							//扣掉本入庫單以入庫的數量
-							for (var j = 0; j < abbsNow.length; j++) {
-								if (abbsNow[j].workno == as[0].noa) {
-									as[i].inmount = dec(as[i].inmount) - dec(abbsNow[j].mount);
-								}
-							}
-							
 							//本次入庫量
 							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
+							as[i].xmount=as[i].smount;
+							
+							for ( j = 0; j < t_workfs.length; j++) {
+								if(as[i].noa==t_workfs[j].workno)
+									as[i].xmount=as[i].xmount-t_workfs[j].born
+							}
 						}
 						var ret = q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtOrdeno,txtNo2,txtUnit,txtBorn,txtWk_mount,txtWk_inmount,txtMemo,txtPrice,txtWorkno',
+							'txtProductno,txtProduct,txtOrdeno,txtNo2,txtUnit,txtBorn,txtWk_mount,txtWk_inmount,txtWk_unmount,txtMemo,txtPrice,txtWorkno',
 							as.length, as,
-							'productno,product,ordeno,no2,unit,smount,mount,inmount,memo,price,noa',''
+							'productno,product,ordeno,no2,unit,xmount,mount,inmount,smount,memo,price,noa',''
 						);
 						
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
@@ -416,7 +424,7 @@
 						}
 					});
 					
-					$('#txtWorkno_' + i).click(function() {
+					$('#txtWorkno_' + j).click(function() {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
