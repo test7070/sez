@@ -260,9 +260,9 @@
 								t_tggno = as[i].tggno;
 								t_tgg = as[i].comp;
 							}
-							//本次入庫量
-							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
-							as[i].xmount=as[i].smount;
+							
+							as[i].xmount=dec(as[i].mount)
+							as[i].inmount=0;
 							
 							for ( j = 0; j < t_workfs.length; j++) {
 								if(as[i].noa==t_workfs[j].workno)

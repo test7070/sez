@@ -831,8 +831,8 @@
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:80px" align="center"><a id='lblWk_inmounts'></a></td>
-					<td style="width:80px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_unmounts'></a></td>
+					<td style="width:80px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
@@ -857,8 +857,8 @@
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_inmount.*" type="text" class="txt c1 num"/></td>
-					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_unmount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>

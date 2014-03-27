@@ -173,21 +173,24 @@
 						break;
 					case 'getWorkfs':
 						var as = _q_appendData("view_workfs", "", true);
+						for (var i = 0; i < as.length; i++) {
+							as[i].xmount=dec(as[i].wk_mount)-dec(as[i].tmount);
+						}
 						q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtBorn,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq',
+							'txtProductno,txtProduct,txtUnit,txtMount,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq,txtWk_mount,txtWk_inmount,txtWk_unmount',
 							as.length, as,
-							'productno,product,unit,born,storeno,store,workno,noa,noq',
+							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount',
 							''
 						);
-						if(as.length > 0 && as[0].workno != undefined){
+						/*if(as.length > 0 && as[0].workno != undefined){
 							var NewArray = new Array();
 							for (var i = 0; i < as.length; i++) {
 								NewArray.push("'" + as[i].workno + "'");
 							}
 							var t_where = "where=^^ noa in(" + NewArray.toString() + ")^^";
 							q_gt('view_work', t_where, 0, 0, 0, "GetMount", r_accy);
-						}
+						}*/
 						if(as[0] != undefined){
 							var workfno = as[0].noa;
 							t_where = "where=^^ noa='"+workfno+"'^^"; 

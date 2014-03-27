@@ -906,8 +906,8 @@
 					<td style="width:60px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:80px" align="center"><a id='lblWk_gmounts'></a></td>
-					<td style="width:90px;" align="center"><a id='lblMounts'> </a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_emounts'></a></td>
+					<td style="width:90px;" align="center"><a id='lblMounts'> </a></td>
 					<td style="width:180px;" align="center"><a id='lblStores'> </a></td>
 					<td style="width:180px;" align="center"><a id='lblProcesss'> </a></td>
 					<td style="width:200px;" align="center"><a id='lblMemos'> </a></td>
@@ -925,8 +925,8 @@
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_gmount.*" type="text" class="txt c1 num"/></td>
-					<td><input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/></td>
 					<td><input id="txtWk_emount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
