@@ -1247,8 +1247,8 @@
 					<tr>
 						<td class="td1"><span> </span><a id="lblOrdcno" class="lbl"> </a></td>
 						<td class="td2" colspan="4"><input id="txtOrdcno" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtWorkgno" type="text" class="txt c1"/></td>
+						<td></td>
+						<td><input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -1261,8 +1261,8 @@
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblApv" class="lbl"> </a></td>
 						<td><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>
-						<td></td>
-						<td><input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" /></td>
+						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
+                        <td><input id="txtWorkgno" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

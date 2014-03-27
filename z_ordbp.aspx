@@ -100,6 +100,9 @@
                         type : '5',
                         name : 'showquat',
                         value : '#non@未詢價且未議價,1@未詢價,2@未議價'.split(',')
+                    }, {/*17 [29]*/
+                        type : '6',
+                        name : 'zordbno'
                     }]
 				});
 				q_popAssign();
@@ -150,7 +153,7 @@
                     if(t_para[i].indexOf('noa=') >= 0){
                         t_no = t_para[i].replace('noa=', '');
                         if (t_no.length > 0) {
-                            $('#txtYordbno').val(t_no);
+                            $('#txtZordbno').val(t_no);
                             //$('#txtXnoa1').val(t_no);
                             //$('#txtXnoa2').val(t_no);
                         }
