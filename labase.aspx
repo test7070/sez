@@ -404,7 +404,7 @@
 		            								if(labor1_edate!=''){//退保
 		            									q_tr('txtLa_person',0);
 		            								}else{//還在加保
-		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_disaster').val())/100));
 		            								}
 		            								t_la_person=dec($('#txtLa_person').val());
 		            								q_tr('txtLa_comp',0);
@@ -416,7 +416,7 @@
 		            								}else{//還在加保
 			            								q_tr('txtLa_person',labsals[i].lself);
 			            								t_la_person=dec(labsals[i].lself);
-			            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+			            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_disaster').val())/100));
 		            								}
 		            							}
 	            						}
@@ -437,7 +437,7 @@
 		            								if(labor1_edate!=''){//退保
 		            									q_tr('txtLa_person',0);
 		            								}else{//還在加保
-		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_disaster').val())/100));
 		            								}
 		            								t_la_person=dec($('#txtLa_person').val());
 		            								q_tr('txtLa_comp',0);
@@ -450,7 +450,7 @@
 		            								}else{//還在加保
 			            								q_tr('txtLa_person',labsals[i].lself);
 			            								t_la_person=dec(labsals[i].lself);
-			            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+			            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSa_labor').val())*dec($('#txtInsur_disaster').val())/100));
 		            								}
 		            							}
 	            							}
