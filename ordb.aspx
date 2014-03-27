@@ -1339,8 +1339,8 @@
 						<td style="width:200px; text-align: center;">廠商回報價</td>
 						<td style="width:200px; text-align: center;">回報日期</td>
 						<td style="width:200px; text-align: center;">議價單價</td>
-						<td style="width:200px; text-align: center;">成交價</td>
 						<td style="width:200px; text-align: center;">成交日期</td>
+						<td style="width:200px; text-align: center;">成交價</td>
 					</tr>
 					<tr>
 						<td>
