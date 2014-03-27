@@ -344,12 +344,12 @@
 					$('#exportordc').toggle();
 				});
 				//--------------------------------------------------------
-				var t_para = ( typeof (q_getId()[5]) == 'undefined' ? '' : q_getId()[5]).split('&');
+				/*var t_para = ( typeof (q_getId()[5]) == 'undefined' ? '' : q_getId()[5]).split('&');
 				for (var i = 0; i < t_para.length; i++) {
 					if (t_para[i] == 'report=z_ordbp06') {
 						q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";action=z_ordbp06;" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
 					}
-				}
+				}*/
 			}
 
 			function q_funcPost(t_func, result) {
@@ -363,9 +363,8 @@
 							}
 							alert(t_msg);
 							if (as.length > 1)
-								location.replace("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";;" + r_accy + ";report=z_ordbp06");
-							else
-								location.replace("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";;" + r_accy);
+							    window.open("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";action=z_ordbp06;" + r_accy);
+							location.replace("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";;" + r_accy);
 						} else {
 							alert('無資料!');
 						}
@@ -490,8 +489,23 @@
 				Lock(1, {
 					opacity : 0
 				});
+				//重要!!要先執行
 				if ($('#tmp').is(":visible"))
-					$('#btnSave').click();
+                    $('#btnSave').click();
+                    
+				var t_finish=0;
+				for(var i=0;i<q_bbsCount;i++){
+				    if($('#txtNo3_'+i).val().length>0)
+    				    for(var j=0;j<q_bbtCount;j++){
+    				        if($('#txtNo3_'+i).val()==$('#txtNo3__'+j).val() && $('#txtFdate__'+j).val().length>0 && $('#txtTggno__'+j).val().length>0){
+    				            t_finish++;
+    				            break;
+    				        }
+    				        
+    				    }  
+				}
+				$('#txtFinish').val(t_finish>0?t_finish+'/'+q_bbsCount:'');
+				
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					Unlock(1);
@@ -1118,6 +1132,7 @@
 						<td align="center" style="width:100px"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:100px"><a id='vewTgg'> </a></td>
 						<td align="center" style="width:100px"><a id='vewTggt'> </a></td>
+						<td align="center" style="width:100px"><a>成交</a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -1125,13 +1140,14 @@
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='nick'>~nick</td>
 						<td align="center" id='tggt,2'>~tggt,2</td>
+						<td align="center" id='finish'>~finish</td>
 					</tr>
 				</table>
 			</div>
 			<div class="dbbm">
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
+						<td><input id="txtFinish" type="text" style="display:none;"/></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -1230,9 +1246,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblOrdcno" class="lbl"> </a></td>
-						<td class="td2"><input id="txtOrdcno" type="text" class="txt c1" /></td>
-						<td></td>
-						<td colspan="2"></td>
+						<td class="td2" colspan="4"><input id="txtOrdcno" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtWorkgno" type="text" class="txt c1"/></td>
 					</tr>
