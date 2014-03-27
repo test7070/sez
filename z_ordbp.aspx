@@ -103,6 +103,9 @@
                     }, {/*17 [29]*/
                         type : '6',
                         name : 'zordbno'
+                    }, {/*18 [30][31]*/
+                        type : '1',
+                        name : 'znoa'
                     }]
 				});
 				q_popAssign();
@@ -154,15 +157,15 @@
                         t_no = t_para[i].replace('noa=', '');
                         if (t_no.length > 0) {
                             $('#txtZordbno').val(t_no);
-                            //$('#txtXnoa1').val(t_no);
-                            //$('#txtXnoa2').val(t_no);
+                            $('#txtZnoa1').val(t_no);
+                            $('#txtZnoa2').val(t_no);
                         }
                     }else if(t_para[i]=='action=z_ordbp06'){
                         $('#q_report').find('span.radio').eq(5).parent().click();
                         $('#q_report').data('info').execute($('#q_report'));
                     }    
                 } 
-                $('.c4').css("width","120px")
+                $('.c4').css("width","120px");
 			}
 
 			function q_boxClose(s2) {
