@@ -759,7 +759,7 @@
 			.dview {
 				float: left;
 				border-width: 0px;
-				width: 525px;
+				width: 675px;
 			}
 			.tview {
 				border: 5px solid gray;
@@ -779,7 +779,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 745px;
+				width: 595px;
 				border-radius: 5px;
 			}
 			.tbbm {
@@ -918,6 +918,8 @@
 						<td style="width:80px; color:black;"><a id='vewStype'> </a></td>
 						<td style="color:black;"><a id='vewProduct'> </a></td>
 						<td style="width:150px; color:black;"><a id='vewRang'> </a></td>
+						<td style="width:50px; color:black;"><a id='vewUnwork'> </a></td>
+						<td style="width:50px; color:black;"><a id='vewUnordb'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -925,16 +927,18 @@
 						<td align="center" id='stype=workg.stype'>~stype=workg.stype</td>
 						<td id='product' style="text-align: center;">~product</td>
 						<td id='bdate edate' style="text-align: center;">~bdate - ~edate</td>
+						<td id='unwork' style="text-align: center;">~unwork</td>
+						<td id='unordb' style="text-align: center;">~unordb</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStype' class="lbl"> </a></td>
