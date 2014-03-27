@@ -776,7 +776,7 @@
 			}
 			.dview {
 				float: left;
-				width: 300px;
+				width: 400px;
 				border-width: 0px;
 			}
 			.tview {
@@ -796,7 +796,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 950px;
+				width: 850px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -1116,14 +1116,15 @@
 						<td align="center" style="width:25px"><a id='vewChk'> </a></td>
 						<td align="center" style="width:70px"><a id='vewOdate'> </a></td>
 						<td align="center" style="width:100px"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:40%"><a id='vewTgg'> </a></td>
-						<td align="center" style="width:40%"><a id='vewTgg'> </a></td>
+						<td align="center" style="width:100px"><a id='vewTgg'> </a></td>
+						<td align="center" style="width:100px"><a id='vewTggt'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='odate'>~odate</td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='nick'>~nick</td>
+						<td align="center" id='tggt,2'>~tggt,2</td>
 					</tr>
 				</table>
 			</div>
