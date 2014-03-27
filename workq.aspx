@@ -20,7 +20,7 @@
 			var q_name = "workq";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtTgg','txtStore','txtAccno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtTgg','txtStore','txtAccno','txtWorkdno'];
 			var q_readonlys = ['txtBorn','txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -104,6 +104,13 @@
 
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
+				});
+				$('#txtWorkdno').click(function(){
+					var thisVal = $.trim($(this).val());
+					if(thisVal.length > 0){
+						var t_where = "noa='" + thisVal + "'";
+						q_box("workd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workd', "95%", "95%", q_getMsg('popWorkd'));
+					}					
 				});
 			}
 
@@ -700,6 +707,12 @@
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
 						<td><input type="button" id="btnWork"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td><span> </span><a id='lblWorkdno' class="lbl"> </a></td>
+						<td><input id="txtWorkdno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
