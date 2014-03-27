@@ -350,6 +350,15 @@
 						q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";action=z_ordbp06;" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
 					}
 				}*/
+				$('#lblOrdcno').click(function(e){
+                    var t_where = "1!=1";
+                    var t_ordcno = $('#txtOrdcno').val().split(',');
+                    for(var i in t_ordcno){
+                        if(t_ordcno[i].length>0)
+                            t_where += " or noa='"+t_ordcno[i]+"'";
+                    }
+                    q_box("ordc.aspx?"+ r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
+                });
 			}
 
 			function q_funcPost(t_func, result) {
@@ -1129,15 +1138,13 @@
 					<tr>
 						<td align="center" style="width:25px"><a id='vewChk'> </a></td>
 						<td align="center" style="width:70px"><a id='vewOdate'> </a></td>
-						<td align="center" style="width:100px"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:100px"><a id='vewTgg'> </a></td>
-						<td align="center" style="width:100px"><a id='vewTggt'> </a></td>
+						<td align="center" style="width:150px"><a id='vewTgg'> </a></td>
+						<td align="center" style="width:150px"><a id='vewTggt'> </a></td>
 						<td align="center" style="width:100px"><a>成交</a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='odate'>~odate</td>
-						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='nick'>~nick</td>
 						<td align="center" id='tggt,2'>~tggt,2</td>
 						<td align="center" id='finish'>~finish</td>
@@ -1245,10 +1252,13 @@
 						<td colspan="2"><input id="txtTotalus" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblOrdcno" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblOrdcno" class="lbl btn"> </a></td>
 						<td class="td2" colspan="4"><input id="txtOrdcno" type="text" class="txt c1" /></td>
 						<td></td>
 						<td><input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" /></td>
+						<td><span> </span><a id="lblApv" class="lbl" style="width:40%;float:left;"> </a>
+						    <input id="txtApv" type="text" class="txt c1" disabled="disabled" style="width:40%;float:left;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -1259,10 +1269,9 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblApv" class="lbl"> </a></td>
-						<td><input id="txtApv" type="text" class="txt c1" disabled="disabled"/></td>
+						
 						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
-                        <td><input id="txtWorkgno" type="text" class="txt c1"/></td>
+                        <td colspan="3"><input id="txtWorkgno" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
