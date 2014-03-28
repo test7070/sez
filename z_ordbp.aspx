@@ -106,6 +106,14 @@
                     }, {/*18 [30][31]*/
                         type : '1',
                         name : 'znoa'
+                    },{/*19 [32]*/
+                        type : '5',
+                        name : 'sort08',
+                        value : 'p@物品,pm@物品+月份,pd@物品+三旬,tp@廠商+物品,tpm@廠商+物品+月份,tpd@廠商+物品+三旬'.split(',')
+                    },{/*20[33]*/
+                        type : '5',
+                        name : 'option08',
+                        value : 'ordb@請購量,ordc@已採購量'.split(',')
                     }]
 				});
 				q_popAssign();
