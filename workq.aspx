@@ -111,12 +111,21 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				
 				$('#txtWorkdno').click(function(){
 					var thisVal = $.trim($(this).val());
 					if(thisVal.length > 0){
 						var t_where = "noa='" + thisVal + "'";
 						q_box("workd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workd', "95%", "95%", q_getMsg('popWorkd'));
 					}					
+				});
+				
+				$('#btnWorkf').click(function() {
+					var thisVal = $.trim($('#txtWorkfno').val());
+					if(thisVal.length > 0){
+						t_where = "noa='" + $('#txtWorkfno').val() + "'";
+						q_box("workfs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workfs', "95%", "95%", q_getMsg('PopWorkfs'));
+					}
 				});
 			}
 
@@ -131,6 +140,30 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop ) {
+					case 'workfs':
+					if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0){
+								b_pop = '';
+								return;
+							}
+						q_gridAddRow(
+							bbsHtm, 'tbbs',
+							'txtProductno,txtProduct,txtUnit,txtWk_mount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq',
+							b_ret.length, b_ret,
+							'productno,product,unit,wk_mount,born,ordeno,no2,memo,price,storeno,store,workno,noa,noq', ''
+						);
+						
+						//取得已送驗入庫的數量
+						var WorkNoStr = new Array();
+						for(var i=0;i<q_bbsCount;i++){
+							var t_workno = $.trim($('#txtWorkno_'+i).val());
+							WorkNoStr.push("'"+t_workno+"'");
+						}
+						var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and workno in ("+WorkNoStr.toString()+") ^^";
+						q_gt('view_workqs', t_where, 0, 0, 0, "GetMount", r_accy);
+					}
+					break;
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();
@@ -209,7 +242,7 @@
 						$('#div_stk').css('left', mouse_point.pageX - parseInt($('#div_stk').css('width')));
 						$('#div_stk').toggle();
 						break;
-					case 'work':
+					/*case 'work':
 						var as = _q_appendData("work", "", true);
 						var t_tggno = '', t_tgg = '';
 						for ( i = 0; i < as.length; i++) {
@@ -254,7 +287,7 @@
 						}
 						var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and workno in ("+WorkNoStr.toString()+") ^^";
 						q_gt('view_workqs', t_where, 0, 0, 0, "GetMount", r_accy);
-						break;
+						break;*/
 					case 'GetMount':
 						var as = _q_appendData("view_workqs", "", true);
 						for(var i=0;i<q_bbsCount;i++){
@@ -395,14 +428,14 @@
 							q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 						}
 					});
-					$('#txtMount_'+j).change(function(){
+					/*$('#txtMount_'+j).change(function(){
 						var n=$(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 						var thisVal = dec($(this).val());
 						var MaxVal = dec($(this).attr('maxValue'));
 						if(thisVal>MaxVal){
 							$(this).val(MaxVal);
 						};
-					});
+					});*/
 				}
 			}
 
@@ -710,13 +743,16 @@
 							<a style="float: left;">~</a>
 							<input id="txtEdate" type="text" class="txt c3" style="width: 98px;"/>
 						</td>
-						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
+						<!--<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnWork"></td>
+						<td><input type="button" id="btnWork"></td>-->
+						<td><span> </span><a id='lblWorkfno' class="lbl"> </a></td>
+						<td><input id="txtWorkfno" type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnWorkf"></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
+						<td> </td>
+						<td> </td>
 						<td><span> </span><a id='lblWorkdno' class="lbl"> </a></td>
 						<td><input id="txtWorkdno" type="text" class="txt c1"/></td>
 					</tr>

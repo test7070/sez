@@ -38,7 +38,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			q_desc = 1;
-			brwCount2 = 6;
+			//brwCount2 = 6;//03/28自動
 			aPop = new Array(
 				['txtFactno', 'lblFactno', 'factory', 'noa,factory', 'txtFactno,txtFact', 'factory_b.aspx'],
 				['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
