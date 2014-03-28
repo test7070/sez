@@ -1118,14 +1118,14 @@
 						<td class="td5"><select id="cmbTrantype" style="width: 100%;"> </select></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 						<td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblAddr2' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4'>
 						<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
@@ -1184,54 +1184,56 @@
 		<div class='dbbs' style="width: 1500px;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:White; background:#003366;' >
-					<td align="center">
+					<td align="center" style="width:30px;">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;width:" />
 					</td>
-					<td align="center"><a id='lblProductno_s'> </a></td>
-					<td align="center"><a id='lblProduct_s'> </a></td>
-					<td align="center"><a id='lblUnit_s'> </a></td>
-					<td align="center"><a id='lblMount_s'> </a></td>
-					<td align="center"><a id='lblPrice_s'> </a></td>
-					<td align="center"><a id='lblTotal_s'> </a></td>
-					<td align="center"><a id='lblStore_s'> </a></td>
-					<td align="center" class="isRack"><a id='lblRackno_s'> </a></td>
-					<td align="center"><a id='lblMemo_s'> </a></td>
-					<td align="center"><a id='lblRecord_s'> </a></td>
-					<td align="center"><a id='lblStk_s'> </a></td>
+					<td align="center" style="width:180px"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
+					<td align="center" style="width:120px;">車型</td>
+					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblStore_s'> </a></td>
+					<td align="center" style="width:150px;" class="isRack"><a id='lblRackno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblStk_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td style="width:1%;">
+					<td>
 						<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
 					</td>
-					<td style="width:10%">
+					<td>
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
 						<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
 					</td>
-					<td style="width:12%;"><input id="txtProduct.*" type="text" class="txt c1" /></td>
-					<td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
-					<td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c1"/></td>
-					<td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c1"/></td>
-					<td style="width:7%;"><input id="txtTotal.*" type="text" class="txt num c1"/></td>
-					<td style="width:8%;">
+					<td><input id="txtProduct.*" type="text" class="txt c1" /></td>
+					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td><input id="txtStyle.*" type="text" class="txt c1"/></td>
+					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
+					<td>
 						<input id="txtStoreno.*" type="text" class="txt c1" style="width: 75%"/>
 						<input class="btn"  id="btnStoreno.*" type="button" value='.' style=" font-weight: bold;" />
 						<input id="txtStore.*" type="text" class="txt c1"/>
 					</td>
-					<td class="isRack" style="width:8%;">
+					<td class="isRack">
 						<input class="btn"  id="btnRackno.*" type="button" value='.' style="float:left;" />
 						<input id="txtRackno.*" type="text" class="txt c1" style="width: 70%"/>
 					</td>
-					<td style="width:10%;">
+					<td>
 						<input id="txtMemo.*" type="text" class="txt c1"/>
 						<select id="combOrdelist.*" style="width: 10%;"> </select>
 						<input id="txtOrdeno.*" type="text"  class="txt" style="width:60%;"/>
 						<input id="txtNo2.*" type="text" class="txt" style="width:18%;"/>
 						<input id="txtNoq.*" type="hidden" />
 					</td>
-					<td style="width:2%;" align="center">
+					<td align="center">
 						<input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
-					<td align="center" style="width:2%;"><input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  /></td>
+					<td align="center"><input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  /></td>
 				</tr>
 			</table>
 		</div>

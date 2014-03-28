@@ -856,23 +856,24 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs' style="width: 1500px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
-					<td align="center" style="width:1%;">
+					<td align="center" style="width:30px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:8%;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblProduct'> </a></td>
-					<td align="center" style="width:3%;"><a id='lblUnit'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblMount'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblWeight_ras'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblStore_s'> </a></td>
-					<td align="center" style="width:8%;" class="isRack"><a id='lblRackno_s'> </a></td>
-					<td align="center" style="width:12%;"><a id='lblMemos'> </a></td>
-					<td align="center" style="width:2%;"><a id='lblRecord_s'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:120px;">車型</td>
+					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblWeight_ras'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblStore_s'> </a></td>
+					<td align="center" style="width:150px;" class="isRack"><a id='lblRackno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -885,6 +886,7 @@
 						<span style="display:block; width:1%;float:left;"> </span>
 					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtWeight.*" type="text" class="txt num c1" /></td>
