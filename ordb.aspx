@@ -157,6 +157,8 @@
 					['textRdate_5', r_picd], ['textRdate_6', r_picd], ['textFdate_1', r_picd],
 					['textFdate_2', r_picd], ['textFdate_3', r_picd], ['textFdate_4', r_picd],
 					['textFdate_5', r_picd], ['textFdate_6', r_picd], ['textDatea_a', r_picd],
+					['textBodate_a', r_picd], ['textEodate_a', r_picd],
+					['textBldate_a', r_picd], ['textEldate_a', r_picd],
 					['textBedate_a', r_picd], ['textEedate_a', r_picd], ['textBfdate_a', r_picd],
 					['textEfdate_a', r_picd]
 				];
@@ -182,6 +184,10 @@
 
 				$('#textDatea_a').datepicker();
 				$('#textDatea_a').val(q_date);
+				$('#textBodate_a').datepicker();
+                $('#textEodate_a').datepicker();
+				$('#textBldate_a').datepicker();
+                $('#textEldate_a').datepicker();
 				$('#textBedate_a').datepicker();
 				$('#textEedate_a').datepicker();
 				$('#textBfdate_a').datepicker();
@@ -329,6 +335,12 @@
 					var t_eedate = $('#textEedate_a').val();
 					var t_bfdate = $('#textBfdate_a').val();
 					var t_efdate = $('#textEfdate_a').val();
+					var t_bodate = $('#textBodate_a').val();
+                    var t_eodate = $('#textEodate_a').val();
+                    var t_bldate = $('#textBldate_a').val();
+                    var t_eldate = $('#textEldate_a').val();
+					var t_bproductno = $('#textBproductno_a').val();
+                    var t_eproductno = $('#textEproductno_a').val();
 					var t_workgno = $('#textWorkgno_a').val();
 					var t_bno = $('#textBno_a').val();
 					var t_eno = $('#textEno_a').val();
@@ -336,7 +348,11 @@
 						Lock(1, {
 							opacity : 0
 						});
-						q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) + ';' + encodeURI(t_bedate) + ';' + encodeURI(t_eedate) + ';' + encodeURI(t_bfdate) + ';' + encodeURI(t_efdate) + ';' + encodeURI(t_workgno) + ';' + encodeURI(t_bno) + ';' + encodeURI(t_eno));
+						q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) 
+						+ ';' + encodeURI(t_bedate) + ';' + encodeURI(t_eedate) + ';' + encodeURI(t_bfdate) + ';' + encodeURI(t_efdate) + ';' + encodeURI(t_workgno) + ';' + encodeURI(t_bno) + ';' + encodeURI(t_eno)
+						+ ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate) +
+                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate) +
+                        + ';' + encodeURI(t_bproductno) + ';' + encodeURI(t_eproductno));
 					} else
 						alert('請輸入採購日期。');
 				});
@@ -1070,7 +1086,7 @@
 				</tr>
 			</table>
 		</div>
-		<div id="exportordc" style="background:pink;display:none; position: absolute;top:200px;left:400px;width:600px;height:300px;">
+		<div id="exportordc" style="background:pink;display:none; position: absolute;top:200px;left:400px;width:600px;height:400px;">
 			<table style="width:100%;height:100%;border: 2px white double;">
 				<tr style="height:1px;">
 					<td style="width:40%;"></td>
@@ -1098,6 +1114,30 @@
 						<input id="textEno_a" type="text" style="width:40%; float:left;"/>
 					</td>
 				</tr>
+				<tr>
+                    <td style="text-align: center;"><a>請購日期</a></td>
+                    <td>
+                        <input id="textBodate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEodate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+				<tr>
+                    <td style="text-align: center;"><a>最慢需求日</a></td>
+                    <td>
+                        <input id="textBldate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEldate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>物品編號</a></td>
+                    <td>
+                        <input id="textBproductno_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEproductno_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
 				<tr>
 					<td style="text-align: center;"><a>合約有效日期</a></td>
 					<td>
