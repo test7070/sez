@@ -963,7 +963,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1400px;">
+		<div class='dbbs' style="width: 1600px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">
@@ -971,7 +971,7 @@
 					</td>
 					<td align="center" style="width:160px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:85px;"><a id='lblStyles'> </a></td>
+					<td align="center" style="width:120px;">車型</td>
 					<td align="center" style="width:55px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblPrices'> </a></td>

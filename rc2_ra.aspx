@@ -20,7 +20,7 @@
 			var decbbs = ['money', 'total', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
 			var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
 			var q_readonly = ['txtNoa','txtAcomp','txtTgg', 'txtWorker', 'txtWorker2'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtNoq'];
 			var bbmNum = [
 				['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1], ['txtPrice', 10, 2, 1],
 				['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1]
@@ -856,26 +856,31 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs' style="width: 1500px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
-					<td align="center" style="width:1%;">
+					<td align="center" style="width:30px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:8%;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblProduct'> </a></td>
-					<td align="center" style="width:3%;"><a id='lblUnit'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblMount'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblWeight_ras'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblStore_s'> </a></td>
-					<td align="center" style="width:8%;" class="isRack"><a id='lblRackno_s'> </a></td>
-					<td align="center" style="width:12%;"><a id='lblMemos'> </a></td>
-					<td align="center" style="width:2%;"><a id='lblRecord_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblNoq'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:120px;">車型</td>
+					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblWeight_ras'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblStore_s'> </a></td>
+					<td align="center" style="width:150px;" class="isRack"><a id='lblRackno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td>
+						<input id="txtNoq.*" type="text" class="txt c1"/>
+					</td>
 					<td>
 						<input class="btn" id="btnProductno.*" type="button" value='...' style=" font-weight: bold; width: 16%;" />
 						<input id="txtProductno.*" type="text" style="width: 75%;"/>
@@ -885,6 +890,7 @@
 						<span style="display:block; width:1%;float:left;"> </span>
 					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtWeight.*" type="text" class="txt num c1" /></td>
@@ -902,7 +908,6 @@
 						<input id="txtMemo.*" type="text" class="txt c1"/>
 						<input id="txtOrdeno.*" type="text" class="txt" style="width:65%;" />
 						<input id="txtNo2.*" type="text" class="txt" style="width:25%;" />
-						<input id="txtNoq.*" style="display:none;"/>
 						<input id="recno.*" style="display:none;"/>
 					</td>
 					<td align="center"><input class="btn" id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
