@@ -903,7 +903,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 1610px;
+				width: 1710px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1325,6 +1325,7 @@
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblStyles'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblOmount_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
@@ -1354,6 +1355,7 @@
 					</td>
 					<td><input id="txtProduct.*" type="text" class="txt c2"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c2"/></td>
+					<td><input id="txtStyle.*" type="text" class="txt c2"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtOmount.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt c2 num"/></td>
