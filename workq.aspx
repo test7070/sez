@@ -219,7 +219,7 @@
 							'productno,product,unit,mount,ordeno,no2,memo,price,noa', ''
 						);
 
-						var t_where = "where=^^ (workno in ("+ getInStr(as) +")) and len(isnull(qcworker,''))=0 ^^";
+						var t_where = "where=^^ (workno in ("+ getInStr(as) +")) ^^";//and len(isnull(qcworker,''))=0
 						q_gt('view_workfs', t_where, 0, 0, 0, "GetBorn", r_accy);
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
@@ -228,40 +228,42 @@
 						break;
 					case 'GetBorn':
 						var as = _q_appendData("view_workfs", "", true);
-						var WorkNoStr = new Array();
-						for(var j=0;j<as.length;j++){
-							var t_Born = dec(as[j].born);
-							var t_workno = $.trim(as[j].workno);
-							var t_productno = $.trim(as[j].productno);
-							for(var k=0;k<q_bbsCount;k++){
-								var bbsWorkno = $.trim($('#txtWorkno_'+k).val());
-								var bbsProductno = $.trim($('#txtProductno_'+k).val());
-								if(t_workno==bbsWorkno && t_productno==t_productno){
-									$('#txtBorn_'+k).val(t_Born);
-									$('#txtWk_inmount_'+k).val(dec(as[j].mount));
-									$('#txtWk_unmount_'+k).val(q_float('txtWk_mount_'+k)-dec(as[j].mount));
+						for(var i=0;i<q_bbsCount;i++){
+							var t_born=0
+							if(!emp($('#txtWorkno_'+i).val())){
+								for(var j=0;j<as.length;j++){
+									if($('#txtWorkno_'+i).val()==as[j].workno){
+										t_born+=dec(as[j].born);
+									}
 								}
 							}
+							$('#txtBorn_'+i).val(t_born);//取得workf送驗數量
 						}
+						
+						//取得已送驗入庫的數量
+						var WorkNoStr = new Array();
 						for(var i=0;i<q_bbsCount;i++){
 							var t_workno = $.trim($('#txtWorkno_'+i).val());
 							WorkNoStr.push("'"+t_workno+"'");
 						}
-						//var t_where = "where=^^ workno in ("+WorkNoStr.toString()+") ^^";
-						//q_gt('view_workqs', t_where, 0, 0, 0, "GetMount", r_accy);
+						var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and workno in ("+WorkNoStr.toString()+") ^^";
+						q_gt('view_workqs', t_where, 0, 0, 0, "GetMount", r_accy);
 						break;
 					case 'GetMount':
 						var as = _q_appendData("view_workqs", "", true);
-						for(var k=0;k<q_bbsCount;k++){
-							var t_workno = $.trim($('#txtWorkno_'+k).val());
-							var t_mount = dec($('#txtMount_'+k).val());
-							for(var j=0;j<as.length;j++){
-								var as_workno = $.trim(as[j].workno);
-								if(as_workno==t_workno){
-									t_mount = q_sub(t_mount,dec(as[j].mount));
+						for(var i=0;i<q_bbsCount;i++){
+							var t_mount=0,t_born=0;
+							if(!emp($('#txtWorkno_'+i).val())){
+								for(var j=0;j<as.length;j++){
+									if($('#txtWorkno_'+i).val()==as[j].workno){
+										t_mount+=dec(as[j].mount);
+										t_born+=dec(as[j].born);
+									}
 								}
 							}
-							$('#txtMount_'+k).attr('maxValue',t_mount).val(t_mount);
+							$('#txtBorn_'+i).val(q_float('txtBorn_'+i)-t_born);
+							$('#txtWk_inmount_'+i).val(t_mount);
+							$('#txtWk_unmount_'+i).val(q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i));
 						}
 						break;
 					case 'work_pick':

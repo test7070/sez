@@ -173,44 +173,42 @@
 						break;
 					case 'getWorkfs':
 						var as = _q_appendData("view_workfs", "", true);
-						for (var i = 0; i < as.length; i++) {
-							as[i].xmount=dec(as[i].wk_mount)-dec(as[i].tmount);
-						}
+						
 						q_gridAddRow(
 							bbsHtm, 'tbbs',
 							'txtProductno,txtProduct,txtUnit,txtMount,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq,txtWk_mount,txtWk_inmount,txtWk_unmount',
 							as.length, as,
-							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount',
-							''
-						);
-						/*if(as.length > 0 && as[0].workno != undefined){
-							var NewArray = new Array();
-							for (var i = 0; i < as.length; i++) {
-								NewArray.push("'" + as[i].workno + "'");
-							}
-							var t_where = "where=^^ noa in(" + NewArray.toString() + ")^^";
-							q_gt('view_work', t_where, 0, 0, 0, "GetMount", r_accy);
-						}*/
+							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount','');
+							
+						var t_worknos = new Array();
+						for (var i = 0; i < as.length; i++) {
+							t_worknos.push("'" + as[i].workno + "'");
+						}
+						
+						//03/27 讓暫收可以收兩次以上
+						var t_where = "where=^^ noa!=N'" + $('#txtNoa').val() + "' and workno in ("+t_worknos.toString()+") ";
+						q_gt('view_workus', t_where, 0, 0, 0, "", r_accy);
+						
 						if(as[0] != undefined){
 							var workfno = as[0].noa;
 							t_where = "where=^^ noa='"+workfno+"'^^"; 
 							q_gt('workf', t_where, 0, 0, 0, "GetTggno", r_accy);
 						}
 						break;
-					case 'GetMount':
-						var as = _q_appendData("view_work", "", true);
-						for(var k=0;k<as.length;k++){
-							var thisNoa = $.trim(as[k].noa);
-							var Wk_mount = dec(as[k].mount);
-							var Wk_inmount = dec(as[k].inmount);
-							for(var j=0;j<q_bbsCount;j++){
-								var bbsWorkno = $.trim($('#txtWorkno_'+j).val());
-								if(thisNoa==bbsWorkno){
-									$('#txtWk_mount_'+j).val(Wk_mount);
-									$('#txtWk_inmount_'+j).val(Wk_inmount);
-									$('#txtWk_unmount_'+j).val(q_sub(Wk_mount,Wk_inmount));
+					case 'view_workus':
+						var as = _q_appendData("view_workus", "", true);
+						for (var i = 0; i < q_bbsCount; i++) {
+							if(!emp($('#txtWorkno_'+i).val())){
+								var t_mount=0
+								for (var j = 0; j < as.length; j++) {
+									if($('#txtWorkno_'+i).val()==as[j].workno){
+										t_mount+=dec(as[j].mount);
+									}
 								}
+								$('#txtWk_inmount_'+i).val(t_mount);
 							}
+							$('#txtWk_unmount_'+i).val(q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i));
+							$('#txtMount_'+i).val(q_float('txtMount_'+i)-q_float('txtWk_inmount_'+i));
 						}
 						break;
 					case 'msg_stk_all':
