@@ -730,6 +730,11 @@
 						<td class="td4"><input id="txtMakes" type="text" class="txt num"/></td>-->
 						<td class="td1"><span> </span><a id="lblHours" class="lbl"> </a></td>
 						<td class="td2"><input id="txtHours" type="text" class="txt num"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+						<td class="td5"><span> </span><a id="lblApv" class="lbl"> </a></td>
+						<td class="td6"><input id="txtApv" type="text" class="txt"/></td>
+						
 					</tr>
 					<!--<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblWages_fee" class="lbl"> </a></td>

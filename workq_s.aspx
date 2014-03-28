@@ -47,6 +47,10 @@
 										q_sqlPara2("tggno", t_tggno) + 
 										q_sqlPara2("workno", t_workno) + 
 										q_sqlPara2("storeno", t_storeno);
+										
+				if(r_outs!='1')
+					t_where+=" and tggno = '"+r_userno+"' ";
+				
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
