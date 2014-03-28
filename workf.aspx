@@ -436,7 +436,7 @@
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						if (!emp($('#txtWorkno_' + b_seq).val())) {
+						if (!emp($('#txtWorkno_' + b_seq).val())&& r_outs!='1' ) {
 							t_where = "noa='" + $('#txtWorkno_' + b_seq).val() + "'";
 							q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'bbs_work', "95%", "95%", q_getMsg('PopWork'));
 						}
@@ -955,8 +955,8 @@
 					</td>
 					<td>
 						<input class="txt c1" id="txtMemo.*" type="text"/>
-						<input class="txt" id="txtOrdeno.*" type="text" style="width:70%;"/>
-						<input class="txt" id="txtNo2.*" type="text" style="width:20%;"/>
+						<input class="txt" id="txtOrdeno.*" type="hidden" style="width:70%;"/>
+						<input class="txt" id="txtNo2.*" type="hidden" style="width:20%;"/>
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>
