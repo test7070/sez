@@ -113,7 +113,7 @@
                     },{/*20[33]*/
                         type : '5',
                         name : 'option08',
-                        value : 'ordb@請購量,ordc@已採購量'.split(',')
+                        value : ' @全部,ordb@未採購量,ordc@已採購量'.split(',')
                     }]
 				});
 				q_popAssign();
@@ -174,6 +174,8 @@
                     }    
                 } 
                 $('.c4').css("width","120px");
+                $('#Sort08 select').val('tpm');
+                $('#Option08 select').val('ordb');
 			}
 
 			function q_boxClose(s2) {
