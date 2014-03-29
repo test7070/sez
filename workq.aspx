@@ -24,9 +24,9 @@
 			var q_readonlys = ['txtBorn','txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
-				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
-				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 2, 1], ['txtWmount', 15, 2, 1],
-				['txtOutmount', 15, 2, 1], ['txtInmount', 15, 2, 1], ['txtBkmount', 15, 2, 1]
+				['txtBorn', 15, 0, 1], ['txtMount', 15, 0, 1], ['txtPrice', 15, 0, 1],
+				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 0, 1], ['txtWmount', 15, 0, 1],
+				['txtOutmount', 15, 0, 1], ['txtInmount', 15, 0, 1], ['txtBkmount', 15, 0, 1]
 			];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -318,16 +318,18 @@
 					case 'GetMount':
 						var as = _q_appendData("view_workqs", "", true);
 						for(var i=0;i<q_bbsCount;i++){
-							var t_mount=0,t_born=0;
+							var t_mount=0,t_born=0,t_bkmount=0,t_wmount=0;
 							if(!emp($('#txtWorkno_'+i).val())){
 								for(var j=0;j<as.length;j++){
 									if($('#txtWorkno_'+i).val()==as[j].workno){
 										t_mount+=dec(as[j].mount);
 										t_born+=dec(as[j].born);
+										t_bkmount+=dec(as[j].bkmount);
+										t_wmount+=dec(as[j].wmount);
 									}
 								}
 							}
-							$('#txtBorn_'+i).val(q_float('txtBorn_'+i)-t_born);
+							$('#txtBorn_'+i).val(q_float('txtBorn_'+i)-t_mount-t_bkmount-t_wmount);
 							$('#txtWk_inmount_'+i).val(t_mount);
 							$('#txtWk_unmount_'+i).val(q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i));
 						}

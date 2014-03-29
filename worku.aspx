@@ -24,9 +24,9 @@
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
-				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
-				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 2, 1], ['txtWmount', 15, 2, 1],
-				['txtOutmount', 15, 2, 1], ['txtInmount', 15, 2, 1], ['txtBkmount', 15, 2, 1]
+				['txtBorn', 15, 0, 1], ['txtMount', 15, 0, 1], ['txtPrice', 15, 0, 1],
+				['txtTotal', 15, 0, 1], ['txtErrmount', 15, 0, 1], ['txtWmount', 15, 0, 1],
+				['txtOutmount', 15, 0, 1], ['txtInmount', 15, 0, 1], ['txtBkmount', 15, 0, 1]
 			];
 			var bbmMask = [];
 			var bbsMask = [];
