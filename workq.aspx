@@ -122,9 +122,18 @@
 				
 				$('#btnWorkf').click(function() {
 					var thisVal = $.trim($('#txtWorkfno').val());
+					var t_where='1=1';
 					if(thisVal.length > 0){
 						t_where = "noa='" + $('#txtWorkfno').val() + "'";
-						q_box("workfs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workfs', "95%", "95%", q_getMsg('PopWorkfs'));
+					}
+					q_box("workfs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workfs', "95%", "95%", q_getMsg('PopWorkfs'));
+				});
+				
+				$('#txtWorkfno').change(function() {
+					var thisVal = $.trim($('#txtWorkfno').val());
+					if(thisVal.length > 0){
+						var t_where = "where=^^ noa=N'" + thisVal + "'";
+						q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
 					}
 				});
 			}
@@ -207,6 +216,24 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getWorkfs':
+						var as = _q_appendData("view_workfs", "", true);
+						q_gridAddRow(
+							bbsHtm, 'tbbs',
+							'txtProductno,txtProduct,txtUnit,txtWk_mount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq',
+							as.length, as,
+							'productno,product,unit,wk_mount,born,ordeno,no2,memo,price,storeno,store,workno,noa,noq', ''
+						);
+						
+						//取得已送驗入庫的數量
+						var WorkNoStr = new Array();
+						for(var i=0;i<q_bbsCount;i++){
+							var t_workno = $.trim($('#txtWorkno_'+i).val());
+							WorkNoStr.push("'"+t_workno+"'");
+						}
+						var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and workno in ("+WorkNoStr.toString()+") ^^";
+						q_gt('view_workqs', t_where, 0, 0, 0, "GetMount", r_accy);
+					break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
 						var rowslength = document.getElementById("table_stk").rows.length - 3;
