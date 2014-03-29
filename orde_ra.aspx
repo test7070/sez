@@ -973,6 +973,7 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:120px;">車型</td>
 					<td align="center" style="width:55px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblTotal_s'> </a></td>
@@ -994,8 +995,9 @@
 						<input class="txt c6" id="txtNo2.*" type="text" />
 					</td>
 					<td><input class="txt c7" id="txtProduct.*" type="text" /></td>
-					<td align="center"><input class="txt c7" id="txtStyle.*" type="text"/></td>
+					<td><input class="txt c7" id="txtStyle.*" type="text"/></td>
 					<td align="center"><input class="txt c7" id="txtUnit.*" type="text"/></td>
+					<td><input class="txt c7" id="txtSpec.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtMount.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtPrice.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtTotal.*" type="text" /></td>

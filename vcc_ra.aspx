@@ -1181,7 +1181,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1500px;">
+		<div class='dbbs' style="width: 1700px;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:30px;">
@@ -1192,6 +1192,7 @@
 					<td align="center" style="width:180px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:120px;">車型</td>
+					<td align="center" style="width:200px;"><a id='lblSpec_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
@@ -1215,6 +1216,7 @@
 					<td><input id="txtProduct.*" type="text" class="txt c1" /></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtStyle.*" type="text" class="txt c1"/></td>
+					<td><input id="txtSpec.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
