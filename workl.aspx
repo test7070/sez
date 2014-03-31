@@ -88,7 +88,15 @@
 					var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
 					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 				});
-
+				$('#btnUcas').click(function(){
+					var tggno = $.trim($('#txtTggno').val());
+					if(emp(tggno)){
+						alert(q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]));
+						return;
+					}else{
+						var t_where = '';
+					}
+				});
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
@@ -811,12 +819,14 @@
 						</td>
 						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td2"><input id="txtCarno" type="text" class="txt c5"/></td>
+						<td class="td2"><input id="btnUcas" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td2"><input id="txtPrice" type="text" class="txt c5 num"/></td>
 						<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td2"><input id="txtTranmoney" type="text" class="txt c5 num"/></td>
+						<td class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
