@@ -88,7 +88,15 @@
 					var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
 					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 				});
-
+				$('#btnUcas').click(function(){
+					var tggno = $.trim($('#txtTggno').val());
+					if(emp(tggno)){
+						alert(q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]));
+						return;
+					}else{
+						var t_where = '';
+					}
+				});
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
