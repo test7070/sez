@@ -847,6 +847,7 @@
 					<td align="center" style="width:120px;"><a id='lblGemounts'> </a></td>
 					<td align="center" ><a id='lblMemos'> </a></td>
 					<td align="center" style="width:45px;"><a id='lblRc2record'> </a></td>
+					<td align="center" style="width:45px;"><a id='lblCancels'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -881,6 +882,7 @@
 					<td align="center">
 						<input class="btn" id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
+					<td align="center"><input class="btn" id="chkCancel.*" type="checkbox"/></td>
 				</tr>
 			</table>
 		</div>
