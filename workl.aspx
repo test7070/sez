@@ -811,12 +811,14 @@
 						</td>
 						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td2"><input id="txtCarno" type="text" class="txt c5"/></td>
+						<td class="td2"><input id="btnUcas" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td2"><input id="txtPrice" type="text" class="txt c5 num"/></td>
 						<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td2"><input id="txtTranmoney" type="text" class="txt c5 num"/></td>
+						<td class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
