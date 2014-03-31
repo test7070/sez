@@ -1339,6 +1339,7 @@
 					<td align="center" style="width:50px;">採購詢<br>建議量</td>
 					<td align="center" style="width:50px;">採購<br>統計</td>
 					<td align="center" style="width:50px;">進貨<br>記錄</td>
+					<td align="center" style="width:50px;">未成交</td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
@@ -1386,6 +1387,9 @@
 					<td align="center">
 						<input class="btn" id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
+					<td align="center">
+                        <input class="btn" id="chkIsnotdeal.*" type="checkbox"/>
+                    </td>
 				</tr>
 			</table>
 		</div>
