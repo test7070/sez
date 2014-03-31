@@ -523,13 +523,14 @@
 				    if($('#txtNo3_'+i).val().length>0)
     				    for(var j=0;j<q_bbtCount;j++){
     				        if($('#txtNo3_'+i).val()==$('#txtNo3__'+j).val() && $('#txtFdate__'+j).val().length>0 && $('#txtTggno__'+j).val().length>0){
-    				            t_finish++;
+    				            //t_finish++;
+    				            $('#txtFinish').val($('#txtFdate__'+j).val());
     				            break;
     				        }
     				        
     				    }  
 				}
-				$('#txtFinish').val(t_finish>0?t_finish+'/'+q_bbsCount:'');
+				//$('#txtFinish').val(t_finish>0?t_finish+'/'+q_bbsCount:'');
 				
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
