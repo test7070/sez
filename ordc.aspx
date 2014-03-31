@@ -827,7 +827,7 @@
 						</td>
 						<td class="td8" align="right">
                             <input id="chkCancel" type="checkbox"/>
-                            <a id='lblCancel' style="width: 50%;"> </a><span> </span>
+                            <a id='lblCancel' style="width: 50%;">取消</a><span> </span>
                         </td>
 					</tr>
 				</table>
@@ -843,13 +843,13 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblStyles'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblMount_st'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblOmounts'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblPrices'> </a></td>
-					<td align="center" style="width:130px;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblTrandates'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblGemounts'> </a></td>
-					<td align="center" ><a id='lblMemos'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblOmounts'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTrandates'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblGemounts'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:45px;"><a id='lblRc2record'> </a></td>
 					<td align="center" style="width:45px;"><a id='lblCancels'> </a></td>
 				</tr>
