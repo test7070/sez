@@ -12,7 +12,7 @@
 		<script type="text/javascript">
 		    var q_name = "uca_s";
 			aPop = new Array(['txtNoa', '', 'uca', 'noa,product', 'txtNoa,txtProduct', "uca_b.aspx"],
-			['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+			['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
 			['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
 		    $(document).ready(function () {
 		        main();
@@ -41,7 +41,13 @@
 				t_comp = $('#txtComp').val();
 				
 		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("product", t_product) +q_sqlPara2("processno", t_processno)
-		        					  + q_sqlPara2("process", t_process) +q_sqlPara2("typea", t_typea) +q_sqlPara2("tggno", t_tggno) +q_sqlPara2("comp", t_comp);
+		        					  +q_sqlPara2("typea", t_typea) +q_sqlPara2("tggno", t_tggno);
+		        					  
+				if (t_process.length>0)
+                    t_where += " and charindex('" + t_process + "',process)>0";
+                    
+                if (t_comp.length>0)
+                    t_where += " and charindex('" + t_comp + "',comp)>0";
 		
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
