@@ -822,9 +822,13 @@
 					</tr>
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan='7'>
+						<td class="td2" colspan='5'>
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 						</td>
+						<td class="td8" align="right">
+                            <input id="chkCancel" type="checkbox"/>
+                            <a id='lblCancel' style="width: 50%;"> </a><span> </span>
+                        </td>
 					</tr>
 				</table>
 			</div>
