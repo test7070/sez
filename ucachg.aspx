@@ -461,6 +461,8 @@
 							<input id="txtMemo.*" type="text" class="txt c1"/>
 							<input id="txtOrgdata.*" type="hidden"/>
 							<input id="txtUcanoq.*" type="hidden"/>
+							<input id="txtNoq.*" type="hidden" />
+							<input id="recno.*" type="hidden" />
 						</td>
 					</tr>
 				</table>
