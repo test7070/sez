@@ -573,7 +573,10 @@
 					return;
 				q_cur = 3;
 				//處理workc內容
-				q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+				if(emp($('#txtWorkcno').val()))
+					q_func('qtxt.query.c2', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				else
+					q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
 			}
 
 			function btnCancel() {
@@ -685,7 +688,8 @@
 							abbm[q_recno]['workcno'] = as[0].workcno;
 							$('#txtWorkcno').val(as[0].workcno);
 							//處理workc內容
-							q_func('workc_post.post', r_accy + ',' + $('#txtWorkcno').val() + ',1');
+							if(!emp(as[0].workcno))
+								q_func('workc_post.post', r_accy + ',' + $('#txtWorkcno').val() + ',1');
 						}
 						break;
 					case 'qtxt.query.c2':
