@@ -708,8 +708,8 @@
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
             	//檢查BBS個數是否和DBF一致
-            	//var t_noa = $.trim($('#txtNoa').val());
-            	//q_gt('view_transvcces', "where=^^ noa='"+t_noa+"'^^", 0, 0, 0, "checkBbsCount", r_accy);
+            	var t_noa = $.trim($('#txtNoa').val());
+            	q_gt('view_transvcces', "where=^^ noa='"+t_noa+"'^^", 0, 0, 0, "checkBbsCount", r_accy);
 
                 Unlock();
             }
