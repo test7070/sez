@@ -19,10 +19,10 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "workl";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtCngno', 'txtWorkcno','txtTgg','txtStorein','txtStore'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtCngno', 'txtWorkcno','txtTgg','txtStorein','txtStore','txtCardeal'];
 			var q_readonlys = ['txtWorkno'];
-			var bbmNum = [];
-			var bbsNum = [['txtMount', 12, 2, 1]];
+			var bbmNum = [['txtPrice', 12, 2, 1],['txtTranmoney', 12, 2, 1]];
+			var bbsNum = [['txtMount', 12, 2, 1],['txtWeight', 12, 2, 1],['txtTheory', 12, 2, 1],['txtDiffweight', 12, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -34,7 +34,8 @@
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreinno', 'lblStoreinno', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -626,7 +627,7 @@
 				color: #FF8F19;
 			}
 			.txt.c1 {
-				width: 98%;
+				width: 96%;
 				float: left;
 			}
 			.txt.c2 {
@@ -773,6 +774,21 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblCardealno' class="lbl btn"> </a></td>
+						<td class="td2">
+							<input id="txtCardealno" type="text" class="txt c2"/>
+							<input id="txtCardeal" type="text" class="txt c3"/>
+						</td>
+						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td2"><input id="txtCarno" type="text" class="txt c5"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td class="td2"><input id="txtPrice" type="text" class="txt c5 num"/></td>
+						<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+						<td class="td2"><input id="txtTranmoney" type="text" class="txt c5 num"/></td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan="3"><input id="txtMemo" type="text" class="txt c5"/></td>
 					</tr>
@@ -799,16 +815,19 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:1%;">
+					<td align="center" style="width:30px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:19%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:25%;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
-					<td align="center"><a id='lblMemo_s'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblStk_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:250px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:250px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblStk_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTheory_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblDiffweight_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
@@ -829,6 +848,9 @@
 					<td align="center">
 						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
+					<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtTheory.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtDiffweight.*" type="text" class="txt c1 num"/></td>
 				</tr>
 			</table>
 		</div>
