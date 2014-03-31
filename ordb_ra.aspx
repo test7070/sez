@@ -887,7 +887,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 2000px;
+				width: 1800px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1286,7 +1286,6 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:120px;">車型</td>
-					<td align="center" style="width:200px;"><a id='lblSpec_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblOmount_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
@@ -1314,10 +1313,12 @@
 						<input id="btnProduct2.*" type="button" value='...' style="font-weight: bold;float:left;" />
 						<input id="btnProduct3.*" type="button" value='...' style="font-weight: bold;float:left;" />
 					</td>
-					<td><input id="txtProduct.*" type="text" class="txt c2"/></td>
+					<td>
+						<input id="txtProduct.*" type="text" class="txt c2"/>
+						<input id="txtSpec.*" type="text" class="txt c2"/>
+					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c2"/></td>
 					<td><input id="txtStyle.*" type="text" class="txt c2"/></td>
-					<td><input id="txtSpec.*" type="text" class="txt c2"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtOmount.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt c2 num"/></td>

@@ -70,7 +70,7 @@
 						q_box("workc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workc', "95%", "95%", q_getMsg('PopWorkc'));
 					}
 				});
-
+				q_gt('style', '', 0, 0, 0, '');
 				$('#btnWork').click(function() {
 					var t_where = "1=1 and enda!=1 and isnull(tggno,'')=''";
 					if (!emp($('#txtTggno').val())) {
@@ -120,6 +120,7 @@
 			}
 
 			var work_stk;
+			var StyleList = '';
 			//儲存目前倉庫庫存
 			function q_gtPost(t_name) {
 				switch (t_name) {
@@ -129,6 +130,12 @@
 							$('#txtStoreinno').val(as[0].noa);
 							$('#txtStorein').val(as[0].store);
 						}
+						break;
+					case 'style' :
+						var as = _q_appendData("style", "", true);
+						StyleList = new Array();
+						StyleList = as;
+						q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 						break;
 					case 'work_stk':
 						work_stk = _q_appendData("stkucc", "", true);
@@ -429,6 +436,29 @@
 								var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "') ^^";
 								q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 							}
+						});
+						$('#txtMemo_' + i + ' , #txtMount_'+i).change(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var SizeArray = tranSize($.trim($('#txtMemo_'+n).val()));
+							var theory_setting = {
+								calc : StyleList,
+								radius : 0,
+								dime : (SizeArray[0]?dec(SizeArray[0]):0),
+								width : (SizeArray[1]?dec(SizeArray[1]):0),
+								lengthb : (SizeArray[2]?dec(SizeArray[2]):0),
+								mount : dec($('#txtMount_'+n).val()),
+								style : 'S',
+								round : 3
+							};
+							$('#txtTheory_' + n).val(theory_st(theory_setting));
+						});
+						$('#txtWeight_'+i).change(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							$('#txtDiffweight_'+n).val(q_sub(dec($('#txtWeight_'+n).val()),dec($('#txtTheory_'+n).val())));
+						});
+						$('#txtTheory_'+i).change(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							$('#txtDiffweight_'+n).val(q_sub(dec($('#txtWeight_'+n).val()),dec($('#txtTheory_'+n).val())));
 						});
 					}
 				}
