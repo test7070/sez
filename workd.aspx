@@ -141,6 +141,19 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				
+				$('#btnWorkq').click(function() {
+					//var t_where="1=1";
+					var t_where="1=1 and bkmount-isnull((select sum(mount) from view_workds where noa!='"+$('#txtNoa').val()+"' and workqno=view_workqs.noa),0)>0";
+					if (!emp($('#txtTggno').val())) {
+						t_where+=" and tggno ='"+$('#txtTggno').val()+"'";
+					}
+					t_where = t_where+" ^^";
+					var t_where1="where[1]=^^ noa!='"+$('#txtNoa').val()+"' and workqno=view_workqs.noa ^^";
+					
+					
+					q_box("workqs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'workqs', "95%", "95%", q_getMsg('popWorkqs'));
+				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -154,6 +167,19 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop ) {
+					case 'workqs':
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+								return;
+							var ret = q_gridAddRow(
+								bbsHtm, 'tbbs',
+								'txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtMemo,txtWorkno,txtStoreno,txtStore,txtWorkqno',
+								b_ret.length, b_ret,
+								'productno,product,unit,bkmount2,ordeno,no2,memo,workno,storeno,store,noa', ''
+							);
+						}
+						break;
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();
@@ -487,9 +513,11 @@
 				if (t_para) {
 					$('#btnWork').attr('disabled', 'disabled');
 					$('#btnOrdes').attr('disabled', 'disabled');
+					$('#btnWorkq').attr('disabled', 'disabled');
 				} else {
 					$('#btnWork').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
+					$('#btnWorkq').removeAttr('disabled');
 				}
 			}
 
@@ -798,6 +826,7 @@
 					</td>
 					<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 					<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
+					<td><input type="button" id="btnWorkq"> </td>
 				</tr>
 				<tr>
 					<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
@@ -879,6 +908,7 @@
 						<input class="txt" id="txtNo2.*" type="text" style="width:20%;"/>
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
+						<input id="txtWorkqno.*" type="hidden" />
 					</td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td align="center">
