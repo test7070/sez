@@ -20,7 +20,7 @@
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno','txtWorkcno'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount','txtWk_mount','txtWk_inmount','txtWk_unmount','txtTmount'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount','txtWk_mount','txtWk_inmount','txtWk_unmount','txtTmount','txtTdate','txtQcdate'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 0, 1], ['txtMount', 15, 0, 1], ['txtPrice', 15, 0, 1],
@@ -725,7 +725,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 2800px;
+				width: 3050px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -907,7 +907,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:200px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:220px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
+					<td style="width:40px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
@@ -919,7 +919,9 @@
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTmount'></a></td>
+					<td style="width:100px;" align="center"><a id='lblTdate'></a></td>
 					<td style="width:120px;" align="center"><a id='lblMounts'></a></td>
+					<td style="width:100px;" align="center"><a id='lblQcdate'></a></td>
 					<td style="width:150px;" align="center"><a id='lblQcresult'></a></td>
 					<td style="width:120px;" align="center"><a id='lblBkmount_s'></a></td>
 					<td style="width:120px;" align="center"><a id='lblWmounts'></a></td>
@@ -954,7 +956,9 @@
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtTmount.*" type="text"/></td>
+					<td><input class="txt c1" id="txtTdate.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
+					<td><input class="txt c1" id="txtQcdate.*" type="text"/></td>
 					<td><input class="txt c1" id="txtQcresult.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
