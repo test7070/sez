@@ -32,11 +32,11 @@
                 q_brwCount();
                 //q_gt(q_name, q_content, q_sqlCount, 1)
                 //$('#txtNoa').focus
-               if (r_rank < 8){
+               if (r_rank < 8 && q_content==''){
 					q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 1);
                 }else{
                     q_gt(q_name, q_content, q_sqlCount, 1);
-                  }
+				}
             });
 
             //////////////////   end Ready

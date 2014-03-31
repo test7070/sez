@@ -17,10 +17,10 @@
 			q_tables = 's';
 			var q_name = "ucachg";
 			var q_readonly = ['txtNoa','txtKdate','txtWorker','txtWorker2'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtOrgproductno','txtOrgproduct','txtOrgprocessno','txtOrgprocess'];
 			var bbmNum = [];
 			var bbmMask = [];
-			var bbsNum = [['txtMount', 15, 0, 1],['txtLoss', 15, 2, 1]];
+			var bbsNum = [['txtMount', 15, 0, 1],['txtLoss', 15, 2, 1],['txtDividea', 15, 0, 1],['txtMul', 15, 2, 1]];
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -30,11 +30,11 @@
 			q_desc = 1;
 			aPop = new Array(
 	        	['txtProductno', 'lblProductno', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
-	        	['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,mtype,processno,process,loss,memo',
-	        	 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_', 'ucas_b.aspx'],
-	        	['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
+	        	//['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,mtype,processno,process,loss,memo',
+	        	// 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_', 'ucas_b.aspx'],
+	        	//['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
 	        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
-	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
 			);
 			$(document).ready(function () {
 				bbmKey = ['noa'];
@@ -59,24 +59,56 @@
 				q_mask(bbmMask);
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
 				$('#btnUcachgDo').click(function(){
-                	var t_noa = trim($('#txtNoa').val());
+                	//var t_noa = trim($('#txtNoa').val());
 					//q_func('qtxt.query.ucachg','ucachg.txt,ucachg,'+r_accy + ';' + t_noa + ';'+ r_name);
+				});
+				
+				$('#txtProductno').change(function(){
+                	//清空表身資料
+					for (var i = 0; i < q_bbsCount; i++) {
+						$('#btnMinus_' + i).click();
+					}
 				});
 			}
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query.ucachg':
+					/*case 'qtxt.query.ucachg':
 						alert('作業完畢');
-					break;
+					break;*/
 				}
 			}
 			function q_boxClose(s2) {
 				var ret;
-				switch (b_pop) {   
+				switch (b_pop) {
+					case 'ucas':
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+								return;
+							//寫入資料
+							$('#txtOrgproductno_'+b_seq).val(b_ret[0].productno);
+							$('#txtOrgproduct_'+b_seq).val(b_ret[0].product);
+							$('#txtOrgprocessno_'+b_seq).val(b_ret[0].processno);
+							$('#txtOrgprocess_'+b_seq).val(b_ret[0].process);
+							$('#txtUnit_'+b_seq).val(b_ret[0].unit);
+							$('#txtMount_'+b_seq).val(b_ret[0].mount);
+							$('#cmbMtype_'+b_seq).val(b_ret[0].mtype);
+							$('#txtLoss_'+b_seq).val(b_ret[0].loss);
+							$('#txtUcanoq_'+b_seq).val(b_ret[0].noq);
+							//紀錄當時ucas的資料
+							var t_orgdata=b_ret[0].noa+'&&'+b_ret[0].noq+'&&'+b_ret[0].productno+'&&'+b_ret[0].product+'&&'
+							+b_ret[0].processno+'&&'+b_ret[0].process+'&&'+b_ret[0].unit+'&&'+b_ret[0].mount+'&&'
+							+b_ret[0].mtype+'&&'+b_ret[0].loss+'&&'+b_ret[0].dividea+'&&'+b_ret[0].mul+'&&'+b_ret[0].memo;
+							
+							$('#txtOrgdata_'+b_seq).val(t_orgdata);
+							
+						}
+						break;
 					case q_name + '_s':
-						  q_boxClose2(s2); ///   q_boxClose 3/4
-						  break;
+						q_boxClose2(s2); ///   q_boxClose 3/4
+						break;
 				}
+				b_pop = '';
 			}
 			
 			function q_gtPost(t_name) { 
@@ -113,7 +145,7 @@
 
 			function btnOk() {
 				var t_err = '';
-				t_err = q_chkEmpField(['txtNoa', q_getMsg('lblNoa')]);
+				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtProductno', q_getMsg('lblProductno')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -137,16 +169,24 @@
 			}
 			
 			function bbsAssign() {  /// 表身運算式
-				for(var j = 0; j < q_bbsCount; j++) {
-					$('#btnOrgproductno_' + j).click(function(){
-						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						var t_where = ' 1=1 ';
-						var t_productno = trim($('#txtOrgproductno_' + j).val());
-						t_where += q_sqlPara2('productno',t_productno);
-						q_box("ucas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "80%", q_getMsg('popUcas'));
-					});
+				for(var i = 0; i < q_bbsCount; i++) {
+					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+						$('#btnOrgproductno_' + i).click(function(){
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var t_err = '';
+							t_err = q_chkEmpField([['txtProductno', q_getMsg('lblProductno')]]);
+							if (t_err.length > 0) {
+								alert(t_err);
+								return;
+							}
+							var t_where = ' 1=1 ';
+							var t_productno = trim($('#txtProductno').val());
+							t_where += q_sqlPara2('noa',t_productno);
+							q_box("ucas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "80%", q_getMsg('popUcas'));
+						});
+					}
 				}
 				_bbsAssign();
 			}
@@ -383,24 +423,26 @@
 						<td align="center" style="width:8%;"><a id='lblMtype_s'></a></td>
 						<td align="center" style="width:12%;"><a id='lblProcessno_s'></a></td>
 						<td align="center" style="width:6%;"><a id='lblLoss_s'></a></td>
-						<td align="center" style="width:15%;"><a id='lblMemo_s'></a></td>
+						<td align="center" style="width:6%;"><a id='lblDividea_s'></a></td>
+						<td align="center" style="width:6%;"><a id='lblMul_s'></a></td>
+						<td align="center" ><a id='lblMemo_s'></a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
 						<td>
 							<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
 						</td>
 						<td>
-							<input id="txtOrgproductno.*" type="text" class="txt" style="width: 75%;"/>
+							<input id="txtOrgproductno.*" type="text" class="txt" style="width: 79%;"/>
 							<input class="btn" id="btnOrgproductno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtOrgproduct.*" type="text" class="txt c1"/>
 						</td>
 						<td>
-							<input id="txtOrgprocessno.*" type="text" class="txt" style="width: 75%;"/>
-							<input class="btn" id="btnOrgprocessno.*" type="button" value='.' style=" font-weight: bold;" />
+							<input id="txtOrgprocessno.*" type="text" class="txt c1"/>
+							<!--<input class="btn" id="btnOrgprocessno.*" type="button" value='.' style=" font-weight: bold;" />-->
 							<input id="txtOrgprocess.*" type="text" class="txt c1"/>
 						</td>
 						<td>
-							<input id="txtProductno.*" type="text" class="txt" style="width: 75%;"/>
+							<input id="txtProductno.*" type="text" class="txt" style="width: 79%;"/>
 							<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtProduct.*" type="text" class="txt c1"/>
 						</td>
@@ -408,12 +450,18 @@
 						<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 						<td><select id="cmbMtype.*" class="txt c1"> </select></td>
 						<td>
-							<input id="txtProcessno.*" type="text" class="txt" style="width: 75%;"/>
+							<input id="txtProcessno.*" type="text" class="txt" style="width: 79%;"/>
 							<input class="btn" id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
 							<input id="txtProcess.*" type="text" class="txt c1"/>
 						</td>
 						<td><input id="txtLoss.*" type="text" class="txt num c1" /></td>
-						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
+						<td><input id="txtDividea.*" type="text" class="txt num c1" /></td>
+						<td><input id="txtMul.*" type="text" class="txt num c1" /></td>
+						<td>
+							<input id="txtMemo.*" type="text" class="txt c1"/>
+							<input id="txtOrgdata.*" type="hidden"/>
+							<input id="txtUcanoq.*" type="hidden"/>
+						</td>
 					</tr>
 				</table>
 			</div>

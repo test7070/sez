@@ -8,7 +8,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ucas', t_content = ' field=noa,noq,spec,productno,product,unit,mount,weight,mtype,processno,process,loss,memo', bbsKey = ['noa'], as;
+			var q_name = 'ucas', t_content = ' field=noa,noq,spec,productno,product,unit,mount,weight,mtype,processno,process,loss,memo,dividea,mul', bbsKey = ['noa'], as;
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i, s1;
@@ -65,7 +65,9 @@
 					<th align="center" style="width:8%;"><a id='lblMtype_s'></a></th>
 					<th align="center" style="width:15%;"><a id='lblProcessno_s'></a></th>
 					<th align="center" style="width:6%;"><a id='lblLoss_s'></a></th>
-					<th align="center"><a id='lblMemos'></a></th>
+					<th align="center" style="width:6%;"><a id='lblDividea_s'></a></th>
+					<th align="center" style="width:6%;"><a id='lblMul_s'></a></th>
+					<th align="center"><a id='lblMemo_s'></a></th>
 				</tr>
 				<tr style="background: #cad3ff;">
 					<td><input name="sel" id="radSel.*" type="radio" /></td>
@@ -86,6 +88,8 @@
 	                	<input id="txtProcess.*" type="text" style="width: 65%;"/>
 	                </td>
 	                <td><input id="txtLoss.*" type="text" class="txt num c1"/></td>
+	                <td><input id="txtDividea.*" type="text" class="txt num c1"/></td>
+	                <td><input id="txtMul.*" type="text" class="txt num c1"/></td>
 	                <td>
 	                	<input id="txtMemo.*" type="text" class="txt c1"/>
 	                	<input id="txtNoq.*" type="hidden" />
