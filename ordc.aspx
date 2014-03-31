@@ -822,9 +822,13 @@
 					</tr>
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan='7'>
+						<td class="td2" colspan='5'>
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 						</td>
+						<td class="td8" align="right">
+                            <input id="chkCancel" type="checkbox"/>
+                            <a id='lblCancel' style="width: 50%;">取消</a><span> </span>
+                        </td>
 					</tr>
 				</table>
 			</div>
@@ -839,14 +843,15 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblStyles'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblMount_st'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblOmounts'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblPrices'> </a></td>
-					<td align="center" style="width:130px;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblTrandates'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblGemounts'> </a></td>
-					<td align="center" ><a id='lblMemos'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblOmounts'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTrandates'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblGemounts'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:45px;"><a id='lblRc2record'> </a></td>
+					<td align="center" style="width:45px;"><a id='lblCancels'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -881,6 +886,7 @@
 					<td align="center">
 						<input class="btn" id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
+					<td align="center"><input class="btn" id="chkCancel.*" type="checkbox"/></td>
 				</tr>
 			</table>
 		</div>

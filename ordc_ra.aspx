@@ -658,7 +658,7 @@
 				text-align: right;
 			}
 			.dbbs {
-				width: 1900px;
+				width: 1500px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -839,14 +839,13 @@
 					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:120px;">車型</td>
-					<td align="center" style="width:200px;"><a id='lblSpec_st'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblMount_st'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblOmounts'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblPrices'> </a></td>
-					<td align="center" style="width:130px;"><a id='lblTotals'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblOmounts'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblTrandates'> </a></td>
-					<td align="center" style="width:120px;"><a id='lblGemounts'> </a></td>
-					<td align="center" ><a id='lblMemos'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblGemounts'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:45px;"><a id='lblRc2record'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -861,10 +860,12 @@
 						<input class="btn" id="btnProduct2.*" type="button" value='...' style=" font-weight: bold;" />
 						<input class="btn" id="btnProduct3.*" type="button" value='...' style=" font-weight: bold;" />
 					</td>
-					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtProduct.*" type="text" class="txt c1"/>
+						<input id="txtSpec.*" type="text" class="txt c1"/>
+					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtStyle.*" type="text" class="txt c1"/></td>
-					<td><input id="txtSpec.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtOmount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>

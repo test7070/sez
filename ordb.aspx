@@ -1181,7 +1181,7 @@
 						<td align="center" style="width:70px"><a id='vewOdate'> </a></td>
 						<td align="center" style="width:150px"><a id='vewTgg'> </a></td>
 						<td align="center" style="width:150px"><a id='vewTggt'> </a></td>
-						<td align="center" style="width:100px"><a>成交</a></td>
+						<td align="center" style="width:100px"><a>成交日期</a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -1244,15 +1244,19 @@
 							<input id="txtPaytype" type="text" style="float:left; width:90%;"/>
 							<select id="combPaytype" style="float:left; width:10%;"></select>
 						</td>
-						<td class="td8" align="center">
-							<input id="btnOrde" type="button" style="text-align: center;"/>
-						</td>
+						<td class="td8" align="right">
+                            <input id="chkCancel" type="checkbox"/>
+                            <a id='lblCancel' style="width: 50%;"> </a><span> </span>
+                        </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
 						<td class="td2" colspan="3"><input id="txtTel" type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id='lblFax' class="lbl"> </a></td>
-						<td class="td6" colspan="3"><input id="txtFax" type="text" class="txt c1"/></td>
+						<td class="td6" colspan="2"><input id="txtFax" type="text" class="txt c1"/></td>
+					   <td class="td8" align="center">
+                            <input id="btnOrde" type="button" style="text-align: center;"/>
+                        </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
@@ -1340,6 +1344,7 @@
 					<td align="center" style="width:50px;">採購<br>統計</td>
 					<td align="center" style="width:50px;">進貨<br>記錄</td>
 					<td align="center" style="width:50px;">未成交</td>
+					<td align="center" style="width:50px;">取消</td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
@@ -1388,7 +1393,10 @@
 						<input class="btn" id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
 					<td align="center">
-                        <input class="btn" id="chkIsnotdeal.*" type="checkbox"/>
+                        <input id="chkIsnotdeal.*" type="checkbox"/>
+                    </td>
+                    <td align="center">
+                        <input id="chkCancel.*" type="checkbox"/>
                     </td>
 				</tr>
 			</table>
