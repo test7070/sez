@@ -1181,7 +1181,7 @@
 						<td align="center" style="width:70px"><a id='vewOdate'> </a></td>
 						<td align="center" style="width:150px"><a id='vewTgg'> </a></td>
 						<td align="center" style="width:150px"><a id='vewTggt'> </a></td>
-						<td align="center" style="width:100px"><a>成交</a></td>
+						<td align="center" style="width:100px"><a>成交日期</a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
