@@ -21,7 +21,7 @@
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtTgg','txtStore','txtAccno'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount','txtWk_uindate'];
 			var bbmNum = [];
 			var bbsNum = [
 				['txtBorn', 15, 0, 1], ['txtMount', 15, 0, 1], ['txtPrice', 15, 0, 1],
@@ -176,9 +176,9 @@
 						
 						q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtMount,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq,txtWk_mount,txtWk_inmount,txtWk_unmount',
+							'txtProductno,txtProduct,txtUnit,txtMount,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq,txtWk_mount,txtWk_inmount,txtWk_unmount,txtWk_uindate',
 							as.length, as,
-							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount','');
+							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount,wk_uindate','');
 							
 						var t_worknos = new Array();
 						for (var i = 0; i < as.length; i++) {
@@ -257,9 +257,9 @@
 						}
 						var ret = q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtMount,txtWk_mount,txtWk_inmount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
+							'txtProductno,txtProduct,txtUnit,txtMount,txtWk_mount,txtWk_inmount,txtWk_uindate,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
 							as.length, as,
-							'productno,product,unit,mount,mount,inmount,ordeno,no2,memo,price,noa', ''
+							'productno,product,unit,mount,mount,inmount,uindate,ordeno,no2,memo,price,noa', ''
 						);
 						for(var k=0;k<ret.length;k++){
 							var Wk_Mount = dec($('#txtWk_mount_'+ret[k]).val());
@@ -516,7 +516,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 1500px;
+				width: 1600px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -673,6 +673,7 @@
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
+					<td style="width:100px;" align="center"><a id='lblWk_uindates'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorkfnos'></a></td>
 				</tr>
@@ -694,6 +695,7 @@
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
+					<td><input id="txtWk_uindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td>
 						<input id="txtWorkfno.*" type="text" class="txt" style="width:68%;"/>
