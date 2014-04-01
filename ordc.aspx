@@ -18,7 +18,7 @@
 			q_tables = 's';
 			var q_name = "ordc";
 			var q_readonly = ['txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2'];
-			var q_readonlys = ['txtNo2', 'txtC1', 'txtNotv','txtOmount'];
+			var q_readonlys = ['txtNo2', 'txtC1', 'txtNotv','txtOmount','chkEnda'];
 			var bbmNum = [
 				['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],
 				['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]
@@ -854,6 +854,7 @@
 					<td align="center" style="width:150px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:45px;"><a id='lblRc2record'> </a></td>
 					<td align="center" style="width:45px;"><a id='lblCancels'> </a></td>
+					<td align="center" style="width:45px;"><a id='lblEndas'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -890,6 +891,7 @@
 						<input class="btn" id="btnRc2record.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
 					<td align="center"><input class="btn" id="chkCancel.*" type="checkbox"/></td>
+					<td align="center"><input class="btn" id="chkEnda.*" type="checkbox"/></td>
 				</tr>
 			</table>
 		</div>

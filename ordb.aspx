@@ -18,7 +18,7 @@
 			q_tables = 't';
 			var q_name = "ordb";
 			var q_readonly = ['txtOrdcno','txtWorkgno', 'txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus'];
-			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','txtCancel','txtEnda'];
+			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','chkIsnotdeal','chkEnda'];
 			var q_readonlyt = [];
 			var bbmNum = [
 				['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],
