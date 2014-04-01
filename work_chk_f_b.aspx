@@ -15,7 +15,8 @@
 		var isBott = false;  /// 是否已按過 最後一頁
 		var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
 		var i, s1;
-		brwCount2 = 10;
+		brwCount = -1;
+		//brwCount2 = -1;
 		q_desc=1;
 		$(document).ready(function () {
 			 if (!q_paraChk())
@@ -38,20 +39,11 @@
 		 function bbsAssign() {  
 			_bbsAssign();
 			for (var j = 0; j < q_bbsCount; j++) {
-				if(!emp($('#txtNoa_'+j).val())){
-					if(dec($('#txtMount_'+j).val())<=0){
-						$('#txtState_'+j).val('數量錯誤');
-					}else if(dec($('#txtInmount_'+j).val())>=dec($('#txtMount_'+j).val())){
-						$('#txtState_'+j).val('入庫完成');
-					}
-				}
-				var aspxnamea=window.parent.q_name;
-				
-				if(!emp($('#txtState_'+j).val())){
-					$('#chkSel_'+j).attr('disabled','disabled');
-				}
-				
 				q_gt('view_workfs', "where=^^workno='"+$('#txtNoa_'+j).val()+"'^^", 0, 0, 0, "view_workfs_"+j, r_accy);
+			}
+			for (var j = 0; j < q_bbsCount; j++) {
+				$('#textBorn2_'+j).removeAttr('readonly');
+				$('#textBorn2_'+j).removeAttr('disabled');
 			}
 		}
 
@@ -63,20 +55,30 @@
 				for (i = 0; i < as.length; i++) {
 					t_born+=dec(as[i].born);
 				}
-				$('#textBorn_'+seq).val(t_born);
+				$('#textInmount2_'+seq).val(t_born);
 			}
 		}
 		
 		function refresh() {
 			_refresh();
-			$('#checkAllCheckbox').click(function(){
+			/*$('#checkAllCheckbox').click(function(){
 				$('input[type=checkbox][id^=chkSel]').each(function(){
 					var t_id = $(this).attr('id').split('_')[1];
 					if(emp($('#txtState_'+t_id).val()) && !emp($('#txtNoa_'+t_id).val()))
 						$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 				});
-			});
+			});*/
+			for (var j = 0; j < q_bbsCount; j++) {
+				$('#textBorn2_'+j).removeAttr('readonly');
+				$('#textBorn2_'+j).removeAttr('disabled');
+			}
+			
+			$('#btnTop').hide();
+			$('#btnPrev').hide();
+			$('#btnNext').hide();
+			$('#btnBott').hide();
 	    }
+	    
 	</script>
 	<style type="text/css">
 	.seek_tr {
@@ -95,29 +97,31 @@
 <div id="dbbs">
 	   <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'>
 			<tr style='color:White; background:#003366;'>
-				<th align="center"><input type="checkbox" id="checkAllCheckbox"/></th>
-				<th align="center"><a id='lblState'></a></th>
+				<!--<th align="center"><input type="checkbox" id="checkAllCheckbox"/></th>-->
+				<th align="center"><a id='lblTggno'></a></th>
+				<th align="center"><a id='lblProcess'></a></th>
 				<th align="center"><a id='lblNoa'></a> <BR><a id='lblCuadate'></a>/ <a id='lblUindate'></a></th>
 				<th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
 				<th align="center"><a id='lblMount'></a></th>
 				<th align="center"><a id='lblInmount'></a></th>
-				<th align="center"><a id='lblBorn_f'></a></th>
-				<th align="center"><a id='lblTggno'></a></th>
-				<th align="center"><a id='lblProcess'></a></th>
-				<th align="center"><a id='lblHours'></a></th>
+				<th align="center"><a id='lblInmount2_f'></a></th>
+				<th align="center"><a id='lblBorn2_f'></a></th>
+				<th align="center"><a id='lblStore2_f'></a></th>
 				<th align="center"><a id='lblMemo'></a></th>
 			</tr>
 			<tr style='background:#cad3ff;'>
-				<td style="width:2%;">
-					<input class="chk" id="chkSel.*" type="checkbox"/>
+				<td style="width:9%;">
+					<input class="txt" id="txtTggno.*" type="text" style="width:98%;"  readonly="readonly" />
+					<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
+				</td>
+				<td style="width:7%;"><input class="txt" id="txtProcess.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+				<td style="width:15%;">
+					<input class="chk" id="chkSel.*" type="checkbox" style="display: none;"/>
 					<input id="txtDatea.*" type="hidden" />
 					<input id="txtWorkdate.*" type="hidden" />
 					<input id="txtRmount.*" type="hidden" />
 					<input id="txtWmount.*" type="hidden" />
 					<input id="txtWsgmount.*" type="hidden" />
-				</td>
-				<td style="width:8%;"><input class="txt" id="txtState.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-				<td style="width:15%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtCuadate.*" type="text" style="width:48%;"  readonly="readonly" />
 					<input class="txt" id="txtUindate.*" type="text" style="width:48%;"  readonly="readonly" />
@@ -126,15 +130,14 @@
 					<input class="txt" id="txtProductno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>
-				<td style="width:6%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
-				<td style="width:6%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
-				<td style="width:6%;"><input class="txt" id="textBorn.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
-				<td style="width:9%;">
-					<input class="txt" id="txtTggno.*" type="text" style="width:98%;"  readonly="readonly" />
-					<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
+				<td style="width:7%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
+				<td style="width:7%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
+				<td style="width:7%;"><input class="txt" id="textInmount2.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
+				<td style="width:7%;"><input class="txt" id="textBorn2.*" type="text" style="width:98%; text-align: right;"  /></td>
+				<td style="width:12%;">
+					<input class="txt" id="textStoreno2.*" type="text" style="width:98%;"  />
+					<input class="txt" id="textStore2.*" type="text" style="width:98%;"/>
 				</td>
-				<td style="width:7%;"><input class="txt" id="txtProcess.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-				<td style="width:5%;"><input class="txt" id="txtHours.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
 				<td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" />
 						<input class="txt" id="txtStationno.*" type="hidden" style="width:98%;"  readonly="readonly" />
 						<input class="txt" id="txtStation.*" type="hidden" style="width:98%;"  readonly="readonly" />

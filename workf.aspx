@@ -92,10 +92,10 @@
 				});
 				
 				$('#txtTggno').change(function() {
-					/*if(!emp($('#txtTggno').val())){
+					if(!emp($('#txtTggno').val())){
 						var t_where = "where=^^ tggno ='" + $('#txtTggno').val() + "' ^^";
 						q_gt('store', t_where, 0, 0, 0, "", r_accy);
-					}*/
+					}
 				});
 
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
@@ -211,8 +211,8 @@
 						var as = _q_appendData("store", "", true);
 						if (as[0] != undefined) {
 							if(emp($('#txtStoreoutno').val())){
-								$('#txtStoreoutno').val(as[0].noa);
-								$('#txtStoreout').val(as[0].store);
+								$('#txtStoreno').val(as[0].noa);
+								$('#txtStore').val(as[0].store);
 							}
 						}
 						break;

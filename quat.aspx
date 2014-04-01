@@ -653,8 +653,14 @@
 				<td class="label3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 				<td ><input id="txtWorker"  type="text" class="txt c1" /></td>
 				<td ><input id="txtWorker2"  type="text" class="txt c1" /></td>
-				<td style="text-align: right;">	<span> </span><a id='lblEnda'> </a></td>
-				<td><input id="chkEnda" type="checkbox"/></td>
+				<td colspan="2"><span> </span>
+						<input id="chkEnda" type="checkbox"/>
+						<span> </span><a id='lblEnda'> </a>
+						<input id="chkCancel" type="checkbox"/>
+						<span> </span><a id='lblCancel'> </a>
+				</td>
+				
+				
 			</tr>
 			<tr class="tr9">
 				<td align="right"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -675,6 +681,7 @@
 				<td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
 				<td align="center" style="width:12%;"><a id='lblMemos'> </a></td>
 				<td align="center" style="width:3%;"><a id='lblEnda_s'> </a></td>
+				<td align="center" style="width:3%;"><a id='lblCancels'> </a></td>
 				<td align="center" style="width:3%;"><a id='lblVccrecord'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
@@ -696,6 +703,7 @@
 					<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
 				</td>
 				<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
+				<td align="center"><input id="chkCancel.*" type="checkbox"/></td>
 				<td align="center"><input class="btn"  id="btnVccrecord.*" type="button" value='.' style=" font-weight: bold;" /></td>
 			</tr>
 		</table>

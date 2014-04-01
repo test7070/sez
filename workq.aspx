@@ -154,6 +154,18 @@
 						q_gt('store', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
+				
+				$('#cmbQcresult').change(function() {
+					for(var i=0;i<q_bbsCount;i++){
+						if(!emp($('#txtProductno_'+i).val())){
+							$('#cmbQcresult_'+i).val($('#cmbQcresult').val())
+							if($('#cmbQcresult_'+i).val()=='AC')
+								$('#txtMount_'+i).val($('#txtBorn_'+i).val())
+							else
+								$('#txtMount_'+i).val(0)
+						}
+					}
+				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -448,8 +460,8 @@
 					
 					var t_error='';
 					for (var i = 0; i < q_bbsCount; i++) {
-						if (!emp($('#txtProductno_' + i).val())&&q_float('txtBorn_'+i)<q_float('txtMount_'+i)) {
-							t_error+=$('#txtProduct_' + i).val()+"【"+q_getMsg('lblMounts')+"】大於【"+q_getMsg('lblBorn')+"】\n"
+						if (!emp($('#txtProductno_' + i).val())&&q_float('txtBorn_'+i)<(q_float('txtMount_'+i)+q_float('txtBkmount_'+i)+q_float('txtWmount_'+i))) {
+							t_error+=$('#txtProduct_' + i).val()+"【"+q_getMsg('lblMounts')+"】大於【"+q_getMsg('lblBorn')+"+"+q_getMsg('lblBkmounts')+"+"+q_getMsg('lblWmounts')+"】\n"
 						}
 					}
 					
@@ -508,6 +520,26 @@
 							$(this).val(MaxVal);
 						};
 					});*/
+					
+					$('#txtWorkno_' + j).click(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if (!emp($('#txtWorkno_' + b_seq).val())&& r_outs!='1' ) {
+							t_where = "noa='" + $('#txtWorkno_' + b_seq).val() + "'";
+							q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'bbs_work', "95%", "95%", q_getMsg('PopWork'));
+						}
+					});
+					
+					$('#cmbQcresult_' + j).click(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if($('#cmbQcresult_'+b_seq).val()=='AC')
+							$('#txtMount_'+b_seq).val($('#txtBorn_'+b_seq).val())
+						else
+							$('#txtMount_'+b_seq).val(0)
+					});
 				}
 			}
 
@@ -911,8 +943,8 @@
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
 					<td style="width:70px;" align="center"><a id='lblQcresults'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
-					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a></td>
-					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
+					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a>/原因</td>
+					<td style="width:100px;;" align="center"><a id='lblWmounts'></a>/原因</td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
 					<!--<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>-->
