@@ -1324,9 +1324,10 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:30px;">
-						<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
-					</td>
+					<td  align="center" style="width:30px;">
+                        <input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+                    </td>
+                    <td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
@@ -1350,6 +1351,7 @@
 					<td align="center">
 						<input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td align="center">
 						<input id="txtProductno1.*" type="text" class="txt c1" style="width:97%;float:left;"/>
 						<input id="txtProductno2.*" type="text" class="txt c1" style="width:97%;float:left;"/>
