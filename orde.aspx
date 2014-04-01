@@ -862,6 +862,7 @@
 						<td class="td4"><select id="cmbStype" class="txt c1"></select></td>
 						<td class="td5"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td6" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
+						<td class="td8" align="center"><input id="btnOrdei" type="button" /></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
@@ -869,7 +870,7 @@
 						<td class="td3" colspan="2"><input id="txtAcomp" type="text" class="txt c1"/></td>
 						<td class="td5" ><span> </span><a id='lblContract' class="lbl"> </a></td>
 						<td class="td6"colspan="2"><input id="txtContract" type="text" class="txt c1"/></td>
-						<td class="td8" align="center"><input id="btnOrdei" type="button" /></td>
+						<td class="td8" align="center"><input id="btnOrdem" type="button"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
@@ -951,7 +952,8 @@
 							<span> </span><a id='lblIsproj'> </a>
 							<input id="chkEnda" type="checkbox"/>
 							<span> </span><a id='lblEnda'> </a>
-							<input id="btnOrdem" type="button"/>
+							<input id="chkCancel" type="checkbox"/>
+							<span> </span><a id='lblCancel'> </a>
 						</td>
 					</tr>
 					<tr class="tr11">
@@ -980,6 +982,7 @@
 					<td align="center" style="width:175px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblDateas'> </a></td>
 					<td align="center" style="width:43px;"><a id='lblEndas'> </a></td>
+					<td align="center" style="width:43px;"><a id='lblCancels'> </a></td>
 					<td align="center" style="width:43px;"><a id='lblBorn'> </a></td>
 					<td align="center" style="width:43px;"><a id='lblNeed'> </a></td>
 					<td align="center" style="width:43px;"><a id='lblVccrecord'> </a></td>
@@ -1011,6 +1014,7 @@
 					</td>
 					<td><input class="txt c7" id="txtDatea.*" type="text" /></td>
 					<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
+					<td align="center"><input id="chkCancel.*" type="checkbox"/></td>
 					<td align="center">
 						<input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
