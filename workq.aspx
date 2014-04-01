@@ -67,6 +67,8 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
+				q_cmbParse("cmbQcresult", q_getPara('workq.qcresult'));
+				q_cmbParse("cmbQcresult", q_getPara('workq.qcresult'),'s');
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 				});
@@ -318,19 +320,22 @@
 					case 'GetMount':
 						var as = _q_appendData("view_workqs", "", true);
 						for(var i=0;i<q_bbsCount;i++){
-							var t_mount=0,t_born=0,t_bkmount=0,t_wmount=0;
+							var  x_mount=0,t_mount=0,t_born=0,t_bkmount=0,t_wmount=0;
 							if(!emp($('#txtWorkno_'+i).val())){
 								for(var j=0;j<as.length;j++){
-									if($('#txtWorkno_'+i).val()==as[j].workno){
+									if($('#txtWorkno_'+i).val()==as[j].workno&&$('#txtWorkfno_'+i).val()==as[j].workfno&&$('#txtWorkfnoq_'+i).val()==as[j].workfnoq){
 										t_mount+=dec(as[j].mount);
 										t_born+=dec(as[j].born);
 										t_bkmount+=dec(as[j].bkmount);
 										t_wmount+=dec(as[j].wmount);
 									}
+									if($('#txtWorkno_'+i).val()==as[j].workno){
+										x_mount+=dec(as[j].mount);
+									}
 								}
 							}
 							$('#txtBorn_'+i).val(q_float('txtBorn_'+i)-t_mount-t_bkmount-t_wmount);
-							$('#txtWk_inmount_'+i).val(t_mount);
+							$('#txtWk_inmount_'+i).val(x_mount);
 							$('#txtWk_unmount_'+i).val(q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i));
 						}
 						break;
@@ -415,6 +420,19 @@
 							$('#txtStore_' + i).val($('#txtStore').val());
 						}
 					}
+					
+					var t_error='';
+					for (var i = 0; i < q_bbsCount; i++) {
+						if (!emp($('#txtProductno_' + i).val())&&q_float('txtBorn_'+i)<q_float('txtMount_'+i)) {
+							t_error+=$('#txtProduct_' + i).val()+"【"+q_getMsg('lblMounts')+"】大於【"+q_getMsg('lblBorn')+"】\n"
+						}
+					}
+					
+					if(t_error.length>0){
+						alert(t_error);
+						return;
+					}
+					
 					if (q_cur == 1)
 						$('#txtWorker').val(r_name);
 					else
@@ -780,8 +798,8 @@
 						<td><input type="button" id="btnWorkf"></td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id='lblQcresult' class="lbl"> </a></td>
+						<td><select id="cmbQcresult" class="txt"> </select></td>
 						<td><span> </span><a id='lblWorkdno' class="lbl"> </a></td>
 						<td><input id="txtWorkdno" type="text" class="txt c1"/></td>
 					</tr>
@@ -813,7 +831,7 @@
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'></a></td>
-					<td style="width:150px;" align="center"><a id='lblQcresult'></a></td>
+					<td style="width:70px;" align="center"><a id='lblQcresults'></a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
@@ -840,7 +858,7 @@
 					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
-					<td><input class="txt c1" id="txtQcresult.*" type="text"/></td>
+					<td><select id="cmbQcresult.*" class="txt c1"> </select></td>
 					<td>
 						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>

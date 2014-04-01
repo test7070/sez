@@ -125,7 +125,7 @@
 							t_edate = '999/99/99'
 						t_where += " and uindate between '" + t_bdate + "' and '" + t_edate + "'";
 					}
-					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 					
 					
 				});
@@ -265,9 +265,10 @@
 							as[i].inmount=0;
 							
 							for ( j = 0; j < t_workfs.length; j++) {
-								if(as[i].noa==t_workfs[j].workno)
+								if(as[i].noa==t_workfs[j].workno){
 									as[i].xmount=dec(as[i].xmount)-dec(t_workfs[j].born);
-									as[i].inmount=dec(t_workfs[j].born);
+									as[i].inmount=as[i].inmount+dec(t_workfs[j].born);
+								}
 							}
 						}
 						var ret = q_gridAddRow(
@@ -868,7 +869,7 @@
 						<td><input id="txtInvono" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnOrdes"></td>
+						<!--<td><input type="button" id="btnOrdes"></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>

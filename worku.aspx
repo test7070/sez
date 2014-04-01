@@ -182,7 +182,7 @@
 							
 						var t_worknos = new Array();
 						for (var i = 0; i < as.length; i++) {
-							t_worknos.push("'" + as[i].workno + "'");
+							t_worknos.push("'" + as[i].workno +"'");
 						}
 						
 						//03/27 讓暫收可以收兩次以上
@@ -199,16 +199,20 @@
 						var as = _q_appendData("view_workus", "", true);
 						for (var i = 0; i < q_bbsCount; i++) {
 							if(!emp($('#txtWorkno_'+i).val())){
-								var t_mount=0
+								var t_mount=0,x_mount=0;
 								for (var j = 0; j < as.length; j++) {
 									if($('#txtWorkno_'+i).val()==as[j].workno){
 										t_mount+=dec(as[j].mount);
 									}
+									if($('#txtWorkno_'+i).val()==as[j].workno&&$('#txtWorkfno_'+i).val()==as[j].workfno&&$('#txtWorkfnoq_'+i).val()==as[j].workfnoq){
+										x_mount+=dec(as[j].mount);
+									}
 								}
 								$('#txtWk_inmount_'+i).val(t_mount);
+								$('#txtWk_unmount_'+i).val(q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i));
+								$('#txtMount_'+i).val(q_float('txtMount_'+i)-x_mount);
 							}
-							$('#txtWk_unmount_'+i).val(q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i));
-							$('#txtMount_'+i).val(q_float('txtMount_'+i)-q_float('txtWk_inmount_'+i));
+							
 						}
 						break;
 					case 'msg_stk_all':
