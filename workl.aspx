@@ -89,12 +89,29 @@
 					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 				});
 				$('#btnUcas').click(function(){
-					var tggno = $.trim($('#txtTggno').val());
-					if(emp(tggno)){
-						alert(q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]));
-						return;
-					}else{
-						var t_where = '';
+					if(q_cur==1 || q_cur==2){
+						var tggno = $.trim($('#txtTggno').val());
+						if(emp(tggno)){
+							alert(q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]));
+							return;
+						}else{
+							var t_where = '1=1 ';
+							t_where += " and (noa in (select noa from uca where tggno='"+tggno+"')) ";
+							t_where += ' ';
+							q_box("ucas_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "95%", q_getMsg('PopUcas'));
+						}
+					}
+				});
+				$('#btnStoreImport').click(function(){
+					if(q_cur==1 || q_cur==2){
+						var storeno = $.trim($('#txtStoreno').val());
+						if(emp(storeno)){
+							alert(q_chkEmpField([['txtStoreno', q_getMsg('lblStoreno')]]));
+							return;
+						}else{
+							var t_where = "['"+q_date()+"','"+storeno+"','') where (mount>0)";
+							q_box("calstk_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'StoreImport', "95%", "95%", q_getMsg('PopStkucc'));
+						}
 					}
 				});
 				$('#btnClose_div_stk').click(function() {
@@ -105,11 +122,37 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'StoreImport':
+						b_ret = getb_ret();
+						if((b_ret != undefined) && (b_ret.length > 0)){
+							var ret = q_gridAddRow(bbsHtm, 'tbbs',
+								'txtProductno,txtProduct,txtUnit,txtMount',
+								b_ret.length, b_ret,
+								'productno,product,unit,mount', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
+							);
+							for(var k=0;k<ret.length;k++){
+								$('#txtMount_'+ret[k]).change();
+							}
+						}
+						break;
 					case 'work':
 						b_ret = getb_ret();
 						if (b_ret && (q_cur == 1 || q_cur == 2)) {
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						}
+						break;
+					case 'ucas':
+						b_ret = getb_ret();
+						if((b_ret != undefined) && (b_ret.length > 0)){
+							var ret = q_gridAddRow(bbsHtm, 'tbbs',
+								'txtProductno,txtProduct,txtUnit,txtMount,txtMemo',
+								b_ret.length, b_ret,
+								'productno,product,unit,mount,memo', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
+							);
+							for(var k=0;k<ret.length;k++){
+								$('#txtMount_'+ret[k]).change();
+							}
 						}
 						break;
 					case q_name + '_s':
@@ -127,8 +170,8 @@
 				return NewArray.toString();
 			}
 
-			var work_stk;
 			var StyleList = '';
+			var work_stk;
 			//儲存目前倉庫庫存
 			function q_gtPost(t_name) {
 				switch (t_name) {
@@ -285,6 +328,7 @@
 						}
 						if (btnok_bbsstkchk && btnok_msg.length > 0) {
 							alert(btnok_msg);
+							Unlock();
 						}
 						break;
 					case q_name:
@@ -295,12 +339,14 @@
 			}
 
 			function q_stPost() {
+				Unlock();
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 			}
 
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
 			function btnOk() {
+				Lock();
 				var t_err = '';
 				t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')], ['txtTggno', q_getMsg('lblTgg')]
 				, ['txtBdate', q_getMsg('lblBdate')], ['txtEdate', q_getMsg('lblBdate')]
@@ -308,6 +354,7 @@
 
 				if (t_err.length > 0) {
 					alert(t_err);
+					Unlock()
 					return;
 				}
 
@@ -445,28 +492,17 @@
 								q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 							}
 						});
-						$('#txtMemo_' + i + ' , #txtMount_'+i).change(function(){
-							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
-							var SizeArray = tranSize($.trim($('#txtMemo_'+n).val()));
-							var theory_setting = {
-								calc : StyleList,
-								radius : 0,
-								dime : (SizeArray[0]?dec(SizeArray[0]):0),
-								width : (SizeArray[1]?dec(SizeArray[1]):0),
-								lengthb : (SizeArray[2]?dec(SizeArray[2]):0),
-								mount : dec($('#txtMount_'+n).val()),
-								style : 'S',
-								round : 3
-							};
-							$('#txtTheory_' + n).val(theory_st(theory_setting));
+						$('#txtMount_' + i).change(function(){
+							sum();
+						});
+						$('#txtMemo_' + i).change(function(){
+							sum();
 						});
 						$('#txtWeight_'+i).change(function(){
-							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
-							$('#txtDiffweight_'+n).val(q_sub(dec($('#txtWeight_'+n).val()),dec($('#txtTheory_'+n).val())));
+							sum();
 						});
 						$('#txtTheory_'+i).change(function(){
-							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
-							$('#txtDiffweight_'+n).val(q_sub(dec($('#txtWeight_'+n).val()),dec($('#txtTheory_'+n).val())));
+							sum();
 						});
 					}
 				}
@@ -490,9 +526,23 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount = 0, t_hours = 0;
-				for (var j = 0; j < q_bbsCount; j++) {
-
+				for(var n=0;n<q_bbsCount;n++){
+					var t_memo = $.trim($('#txtMemo_'+n).val());
+					if(t_memo.length > 0){
+						var SizeArray = tranSize(t_memo);
+						var theory_setting = {
+							calc : StyleList,
+							radius : 0,
+							dime : (SizeArray[0]?dec(SizeArray[0]):0),
+							width : (SizeArray[1]?dec(SizeArray[1]):0),
+							lengthb : (SizeArray[2]?dec(SizeArray[2]):0),
+							mount : dec($('#txtMount_'+n).val()),
+							style : 'S',
+							round : 3
+						};
+						$('#txtTheory_' + n).val(theory_st(theory_setting));
+					}
+					$('#txtDiffweight_'+n).val(q_sub(dec($('#txtWeight_'+n).val()),dec($('#txtTheory_'+n).val())));
 				}
 			}
 
