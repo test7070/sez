@@ -19,8 +19,8 @@
 			var q_name = "workf";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno','txtWorkcno'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount','txtWk_mount','txtWk_inmount','txtWk_unmount','txtTmount','txtTdate','txtQcdate'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount','txtWk_mount','txtWk_inmount','txtWk_unmount','txtTmount','txtTdate','txtQcdate','txtBkrea','txtWrea'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 0, 1], ['txtMount', 15, 0, 1], ['txtPrice', 15, 0, 1],
@@ -92,10 +92,10 @@
 				});
 				
 				$('#txtTggno').change(function() {
-					if(!emp($('#txtTggno').val())){
+					/*if(!emp($('#txtTggno').val())){
 						var t_where = "where=^^ tggno ='" + $('#txtTggno').val() + "' ^^";
 						q_gt('store', t_where, 0, 0, 0, "", r_accy);
-					}
+					}*/
 				});
 
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
@@ -134,12 +134,12 @@
 					$('#div_stk').toggle();
 				});
 				
-				$('#txtWorkcno').click(function() {
+				/*$('#txtWorkcno').click(function() {
 					if (!emp($('#txtWorkcno').val())) {
 						t_where = "noa='" + $('#txtWorkcno').val() + "'";
 						q_box("workc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workc', "95%", "95%", q_getMsg('PopWorkc'));
 					}
-				});
+				});*/
 			}
 
 			function getInStr(HasNoaArray) {
@@ -471,12 +471,12 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 				
-				if (q_cur == 1 || emp($('#txtWorkcno').val()))
+				/*if (q_cur == 1 || emp($('#txtWorkcno').val()))
 					q_func('qtxt.query.c0', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 				else {
 					//處理workc內容
 					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
-				}
+				}*/
 			}
 
 			function bbsSave(as) {
@@ -570,15 +570,15 @@
 			}
 
 			function btnDele() {
-				//_btnDele();
-				if (!confirm(mess_dele))
+				_btnDele();
+				/*if (!confirm(mess_dele))
 					return;
 				q_cur = 3;
 				//處理workc內容
 				if(emp($('#txtWorkcno').val()))
 					q_func('qtxt.query.c2', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 				else
-					q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+					q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');*/
 			}
 
 			function btnCancel() {
@@ -673,7 +673,7 @@
 			
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'workc_post.post.a1':
+					/*case 'workc_post.post.a1':
 						//呼叫workf.post
 						q_func('qtxt.query.c0', 'workf.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 						break;
@@ -696,7 +696,7 @@
 						break;
 					case 'qtxt.query.c2':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
-						break;
+						break;*/
 					default:
 						break;
 				}
@@ -726,7 +726,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 3050px;
+				width: 2850px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -846,20 +846,18 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblStoreout' class="lbl btn"> </a></td>
+						<!--<td><span> </span><a id='lblStoreout' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtStoreoutno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtStoreout" type="text" class="txt" style='width:48%;'/>
-						</td>
+						</td>-->
 						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtStore" type="text" class="txt" style='width:48%;'/>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
-						<td><input id="txtWorkcno" type="text" class="txt c1"/></td>
+						<!--<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
+						<td><input id="txtWorkcno" type="text" class="txt c1"/></td>-->
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
 						<td><input type="button" id="btnWork"></td>
@@ -919,16 +917,16 @@
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblTmount'></a></td>
-					<td style="width:100px;" align="center"><a id='lblTdate'></a></td>
-					<td style="width:120px;" align="center"><a id='lblMounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblQcdate'></a></td>
+					<td style="width:100px;" align="center"><a id='lblTmount'></a>/<br><a id='lblTdate'></a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblTdate'></a></td>-->
+					<td style="width:120px;" align="center"><a id='lblMounts'></a>/<br><a id='lblQcdate'></a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblQcdate'></a></td>-->
 					<td style="width:150px;" align="center"><a id='lblQcresult'></a></td>
-					<td style="width:120px;" align="center"><a id='lblBkmount_s'></a></td>
-					<td style="width:120px;" align="center"><a id='lblWmounts'></a></td>
-					<td style="width:150px;" align="center"><a id='lblErrmount'></a></td>
-					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
-					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
+					<td style="width:110px;" align="center"><a id='lblBkmount_s'></a></td>
+					<td style="width:110px;" align="center"><a id='lblWmounts'></a></td>
+					<!--<td style="width:150px;" align="center"><a id='lblErrmount'></a></td>-->
+					<td align="center"><a id='lblMemos'></a></td>
+					<td style="width:180px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:100px;" align="center"><a id='lblQcworker'></a></td>
 					<td style="width:80px;" align="center"><a id='lblQctime'></a></td>
 				</tr>
@@ -956,17 +954,27 @@
 					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtTmount.*" type="text"/></td>
-					<td><input class="txt c1" id="txtTdate.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
-					<td><input class="txt c1" id="txtQcdate.*" type="text"/></td>
-					<td><input class="txt c1" id="txtQcresult.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
 					<td>
+						<input class="txt c1 num" id="txtTmount.*" type="text"/>
+						<input class="txt c1" id="txtTdate.*" type="text"/>
+					</td>
+					<td>
+						<input class="txt c1 num" id="txtMount.*" type="text"/>
+						<input class="txt c1" id="txtQcdate.*" type="text"/>
+					</td>
+					<td><input class="txt c1" id="txtQcresult.*" type="text"/></td>
+					<td>
+						<input class="txt c1 num" id="txtBkmount.*" type="text"/>
+						<input class="txt c1" id="txtBkrea.*" type="text"/>
+					</td>
+					<td>
+						<input class="txt c1 num" id="txtWmount.*" type="text"/>
+						<input class="txt c1" id="txtWrea.*" type="text"/>
+					</td>
+					<!--<td>
 						<input class="txt c1 num" id="txtErrmount.*" type="text"/>
 						<input class="txt c1" id="txtErrmemo.*" type="text"/>
-					</td>
+					</td>-->
 					<td>
 						<input class="txt c1" id="txtMemo.*" type="text"/>
 						<input class="txt" id="txtOrdeno.*" type="hidden" style="width:70%;"/>

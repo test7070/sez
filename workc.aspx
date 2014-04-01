@@ -562,8 +562,8 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				//判斷是否由workb作業轉來>>鎖定欄位//0325改為workbno
-				if(!emp($('#txtWorkfno').val())){
+				//判斷是否由workf作業轉來>>鎖定欄位//0401改為workqno
+				if(!emp($('#txtWorkqno').val())){
 					$('#cmbTypea').attr('disabled', 'disabled');
 					$('#txtDatea').attr('disabled', 'disabled');
 					$('#txtStoreno').attr('disabled', 'disabled');
@@ -692,8 +692,8 @@
 			}
 
 			function btnDele() {
-				if(!emp($('#txtWorkfno').val())){
-					alert("該領料單由委外廠入庫作業("+$('#txtWorkfno').val()+")轉來，請至委外廠入庫作業刪除!!!")
+				if(!emp($('#txtWorkqno').val())){
+					alert("該領料單由委外廠QC作業("+$('#txtWorkqno').val()+")轉來，請至委外廠QC作業刪除!!!")
 					return;
 				}
 				_btnDele();
@@ -876,6 +876,7 @@
 						<td>
 							<input id="txtWorkno" type="text" class="txt c1"/>
 							<input id="txtWorkfno" type="hidden" />
+							<input id="txtWorkqno" type="hidden" />
 						</td>
 						<td colspan='2'>
 							<input type="button" id="btnWork">
