@@ -176,6 +176,43 @@
                 $('.c4').css("width","120px");
                 $('#Sort08 select').val('tpm');
                 $('#Option08 select').val('ordb');
+                //-------------------------------------------------------------------------------
+                $('#btnOrdc').click(function(e) {
+                    $('#exportordc').toggle();
+                    $('#textBno_a').val($('#txtNoa').val());
+                    $('#textEno_a').val($('#txtNoa').val());
+                });
+                $('#btnExport_a').click(function(e) {
+                    var t_tggno = $('#textTggno_a').val();
+                    var t_datea = $('#textDatea_a').val();
+                    var t_bedate = $('#textBedate_a').val();
+                    var t_eedate = $('#textEedate_a').val();
+                    var t_bfdate = $('#textBfdate_a').val();
+                    var t_efdate = $('#textEfdate_a').val();
+                    var t_bodate = $('#textBodate_a').val();
+                    var t_eodate = $('#textEodate_a').val();
+                    var t_bldate = $('#textBldate_a').val();
+                    var t_eldate = $('#textEldate_a').val();
+                    var t_bproductno = $('#textBproductno_a').val();
+                    var t_eproductno = $('#textEproductno_a').val();
+                    var t_workgno = $('#textWorkgno_a').val();
+                    var t_bno = $('#textBno_a').val();
+                    var t_eno = $('#textEno_a').val();
+                    if (t_datea.length > 0) {
+                        Lock(1, {
+                            opacity : 0
+                        });
+                        q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) 
+                        + ';' + encodeURI(t_bedate) + ';' + encodeURI(t_eedate) + ';' + encodeURI(t_bfdate) + ';' + encodeURI(t_efdate) + ';' + encodeURI(t_workgno) + ';' + encodeURI(t_bno) + ';' + encodeURI(t_eno)
+                        + ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate) +
+                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate) +
+                        + ';' + encodeURI(t_bproductno) + ';' + encodeURI(t_eproductno));
+                    } else
+                        alert('請輸入採購日期。');
+                });
+                $('#btnClose_a').click(function(e) {
+                    $('#exportordc').toggle();
+                });
 			}
 
 			function q_boxClose(s2) {
@@ -194,9 +231,92 @@
 			<div id="container">
 				<div id="q_report"></div>
 			</div>
+			<input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" />
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
+		<div id="exportordc" style="background:pink;display:none; position: absolute;top:100px;left:200px;width:600px;height:400px;">
+            <table style="width:100%;height:100%;border: 2px white double;">
+                <tr style="height:1px;">
+                    <td style="width:40%;"></td>
+                    <td style="width:60%;"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center; color:darkblue;"><a>已匯出至採購單的,須先刪除採購單才可重新匯出</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>採購日期</a></td>
+                    <td><input id="textDatea_a" type="text" style="width:40%;"/></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>廠商</a></td>
+                    <td>
+                        <input id="textTggno_a" type="text" style="width:45%;float:left;"/>
+                        <input id="textTgg_a" type="text" style="width:45%;float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>請購單號</a></td>
+                    <td>
+                        <input id="textBno_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEno_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>請購日期</a></td>
+                    <td>
+                        <input id="textBodate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEodate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>最慢需求日</a></td>
+                    <td>
+                        <input id="textBldate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEldate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>物品編號</a></td>
+                    <td>
+                        <input id="textBproductno_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEproductno_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>合約有效日期</a></td>
+                    <td>
+                        <input id="textBedate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEedate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>成交日期</a></td>
+                    <td>
+                        <input id="textBfdate_a" type="text" style="width:40%; float:left;"/>
+                        <a style="float:left;">&nbsp;&nbsp;~&nbsp;&nbsp;</a>
+                        <input id="textEfdate_a" type="text" style="width:40%; float:left;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><a>轉來</a></td>
+                    <td><input id="textWorkgno_a" type="text" style="width:80%;"/></td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <input id="btnExport_a" type="button" style="width:100px;" value="匯出採購"/>
+                    </td>
+                    <td align="center">
+                        <input id="btnClose_a" type="button" style="width:100px;" value="關閉"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
 	</body>
 </html>
