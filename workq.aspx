@@ -20,7 +20,7 @@
 			var q_name = "workq";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtTgg','txtStore','txtAccno','txtWorkdno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtTgg','txtStore','txtAccno','txtWorkdno','txtWorkcno'];
 			var q_readonlys = ['txtBorn','txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -38,6 +38,7 @@
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+				['txtStoreoutno', 'lblStoreout', 'store', 'noa,store', 'txtStoreoutno,txtStoreout', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
 			);
@@ -122,6 +123,14 @@
 					}					
 				});
 				
+				$('#txtWorkcno').click(function(){
+					var thisVal = $.trim($(this).val());
+					if(thisVal.length > 0){
+						var t_where = "noa='" + thisVal + "'";
+						q_box("workc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workc', "95%", "95%", q_getMsg('popWorkc'));
+					}					
+				});
+				
 				$('#btnWorkf').click(function() {
 					var thisVal = $.trim($('#txtWorkfno').val());
 					var t_where='1=1 and tmount>0 ';
@@ -136,6 +145,13 @@
 					if(thisVal.length > 0){
 						var t_where = "where=^^ noa=N'" + thisVal + "' and tmount>0";
 						q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
+					}
+				});
+				
+				$('#txtTggno').change(function() {
+					if(!emp($('#txtTggno').val())){
+						var t_where = "where=^^ tggno ='" + $('#txtTggno').val() + "' ^^";
+						q_gt('store', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
 			}
@@ -218,6 +234,15 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'store':
+						var as = _q_appendData("store", "", true);
+						if (as[0] != undefined) {
+							if(emp($('#txtStoreoutno').val())){
+								$('#txtStoreoutno').val(as[0].noa);
+								$('#txtStoreout').val(as[0].store);
+							}
+						}
+						break;
 					case 'getWorkfs':
 						var as = _q_appendData("view_workfs", "", true);
 						q_gridAddRow(
@@ -509,6 +534,13 @@
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+				
+				if (q_cur == 1 || emp($('#txtWorkcno').val()))
+					q_func('qtxt.query.c0', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				else {
+					//處理workc內容
+					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+				}
 			}
 
 			function bbsSave(as) {
@@ -585,7 +617,15 @@
 			}
 
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				//處理workc內容
+				if(emp($('#txtWorkcno').val()))
+					q_func('qtxt.query.c2', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				else
+					q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
 			}
 
 			function btnCancel() {
@@ -625,6 +665,31 @@
 						}
 						Unlock();
 						break;
+					case 'workc_post.post.a1':
+						//呼叫workf.post
+						q_func('qtxt.query.c0', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'workc_post.post.a2':
+						//呼叫workf.post
+						q_func('qtxt.query.c2', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'qtxt.query.c0':
+						q_func('qtxt.query.c1', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';1');
+						break;
+					case 'qtxt.query.c1':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['workcno'] = as[0].workcno;
+							$('#txtWorkcno').val(as[0].workcno);
+							//處理workc內容
+							if(!emp(as[0].workcno))
+								q_func('workc_post.post', r_accy + ',' + $('#txtWorkcno').val() + ',1');
+						}
+						break;
+					case 'qtxt.query.c2':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
+						
 				}
 			}
 			
@@ -701,7 +766,7 @@
 				width: 95%;
 			}
 			.txt.c2 {
-				width: 50%;
+				width: 49%;
 			}
 			.num {
 				text-align: right;
@@ -777,6 +842,15 @@
 							<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtTgg" type="text" class="txt" style='width:48%;'/>
 						</td>
+						<td><span> </span><a id='lblQcresult' class="lbl"> </a></td>
+						<td><select id="cmbQcresult" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+					<td><span> </span><a id='lblStoreout' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtStoreoutno" type="text" class="txt" style='width:45%;'/>
+							<input id="txtStoreout" type="text" class="txt" style='width:48%;'/>
+						</td>
 						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
@@ -798,16 +872,20 @@
 						<td><input type="button" id="btnWorkf"></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblQcresult' class="lbl"> </a></td>
-						<td><select id="cmbQcresult" class="txt"> </select></td>
+						<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
+						<td><input id="txtWorkcno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorkdno' class="lbl"> </a></td>
 						<td><input id="txtWorkdno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtWorker" type="text" class="txt c1"/>
+						</td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtWorker2" type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -837,7 +915,7 @@
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>-->
 					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorkfnos'></a></td>
@@ -864,14 +942,20 @@
 						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 30%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
-					<td><input class="txt c1 num" id="txtBkmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWmount.*" type="text"/></td>
+					<td>
+						<input class="txt c1 num" id="txtBkmount.*" type="text"/>
+						<input class="txt c1" id="txtBkrea.*" type="text"/>
+					</td>
+					<td>
+						<input class="txt c1 num" id="txtWmount.*" type="text"/>
+						<input class="txt c1" id="txtWrea.*" type="text"/>
+					</td>
 					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
-					<td>
+					<!--<td>
 						<input class="txt c1 num" id="txtErrmount.*" type="text"/>
 						<input class="txt c1" id="txtErrmemo.*" type="text"/>
-					</td>
+					</td>-->
 					<td>
 						<input class="txt c1" id="txtMemo.*" type="text"/>
 						<input class="txt" id="txtOrdeno.*" type="text" style="width:70%;"/>
