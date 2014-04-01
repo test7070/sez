@@ -18,7 +18,7 @@
 			q_tables = 't';
 			var q_name = "ordb";
 			var q_readonly = ['txtOrdcno','txtWorkgno', 'txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus'];
-			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount'];
+			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','txtCancel','txtEnda'];
 			var q_readonlyt = [];
 			var bbmNum = [
 				['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],
@@ -1346,6 +1346,7 @@
 					<td align="center" style="width:50px;">進貨<br>記錄</td>
 					<td align="center" style="width:50px;">未成交</td>
 					<td align="center" style="width:50px;">取消</td>
+					<td align="center" style="width:50px;">結案</td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
@@ -1399,6 +1400,9 @@
                     </td>
                     <td align="center">
                         <input id="chkCancel.*" type="checkbox"/>
+                    </td>
+                    <td align="center">
+                        <input id="chkEnda.*" type="checkbox"/>
                     </td>
 				</tr>
 			</table>
