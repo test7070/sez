@@ -689,7 +689,7 @@
                 }
                 var json = JSON.stringify(t_array);
                 $.ajax({
-                    url: 'test2.aspx',
+                    url: 'SendCommand.aspx',
                     type: 'POST',
                     data: json,
                     dataType: 'json',
