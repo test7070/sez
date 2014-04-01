@@ -998,14 +998,14 @@
 					<td align="center" style="width:1%;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:180px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblStore_s'> </a></td>
-					<td align="center" style="width:150px;" class="isRack"><a id='lblRackno_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblStore_s'> </a></td>
+					<td align="center" style="width:100px;" class="isRack"><a id='lblRackno_s'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
 				</tr>
