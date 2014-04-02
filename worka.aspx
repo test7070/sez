@@ -40,7 +40,7 @@
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtCuano', 'lblCuano', 'inb', 'noa,datea', 'txtCuano,txtCuadate', 'inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec', 'ucaucc_b.aspx'],
 				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx', '95%'],
 				['txtOrdeno', 'lblOrdeno', 'ordes', 'noa,no2,productno,product', 'txtOrdeno,txtNo2,txtProductno,txtProduct', 'ordes_b.aspx', '95%']
@@ -249,7 +249,7 @@
 									}
 								}
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', b_ret.length, b_ret, 'productno,product,unit,smount,memo,noa,mount,gmount,xmount', '');
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtMemo,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', b_ret.length, b_ret, 'productno,product,unit,spec,smount,memo,noa,mount,gmount,xmount', '');
 							if (t_msg.length > 0)
 								alert(t_msg);
 						}
@@ -374,7 +374,7 @@
 								}
 							}
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', as.length, as, 'productno,product,unit,smount,memo,noa,mount,gmount,xmount', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtMemo,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', as.length, as, 'productno,product,unit,spec,smount,memo,noa,mount,gmount,xmount', '');
 						if (t_msg.length > 0)
 							alert(t_msg);
 						break;
@@ -591,6 +591,7 @@
 						$('#btnProductno_' + j).attr('disabled', 'disabled');
 						$('#txtProduct_' + j).attr('disabled', 'disabled');
 						$('#txtUnit_' + j).attr('disabled', 'disabled');
+						$('#txtSpec_' + j).attr('disabled', 'disabled');
 						$('#txtMount_' + j).attr('disabled', 'disabled');
 						$('#btnStore_' + j).attr('disabled', 'disabled');
 						$('#txtStoreno_' + j).attr('disabled', 'disabled');

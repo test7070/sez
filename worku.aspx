@@ -39,7 +39,7 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -186,9 +186,9 @@
 						
 						q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtMount,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq,txtWk_mount,txtWk_inmount,txtWk_unmount,txtWk_uindate',
+							'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq,txtWk_mount,txtWk_inmount,txtWk_unmount,txtWk_uindate',
 							as.length, as,
-							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount,wk_uindate','txtProductno');
+							'productno,product,unit,spec,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount,wk_uindate','txtProductno');
 							
 						var t_worknos = new Array();
 						for (var i = 0; i < as.length; i++) {
@@ -287,9 +287,9 @@
 						}
 						var ret = q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtMount,txtWk_mount,txtWk_inmount,txtWk_uindate,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
+							'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtWk_mount,txtWk_inmount,txtWk_uindate,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno',
 							as.length, as,
-							'productno,product,unit,mount,mount,inmount,uindate,ordeno,no2,memo,price,noa', ''
+							'productno,product,unit,txtSpec,mount,mount,inmount,uindate,ordeno,no2,memo,price,noa', ''
 						);
 						for(var k=0;k<ret.length;k++){
 							var Wk_Mount = dec($('#txtWk_mount_'+ret[k]).val());

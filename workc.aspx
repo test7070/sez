@@ -41,7 +41,7 @@
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx']
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -250,7 +250,7 @@
 									}
 								}
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', b_ret.length, b_ret, 'productno,product,unit,smount,memo,processno,process,noa,mount,gmount,xmount', '');
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', b_ret.length, b_ret, 'productno,product,unit,spec,smount,memo,processno,process,noa,mount,gmount,xmount', '');
 							if (t_msg.length > 0)
 								alert(t_msg);
 						}
@@ -261,7 +261,7 @@
 							if (!b_ret || b_ret.length == 0)
 								return;
 							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtTypea', b_ret.length, b_ret, 'productno,product,unit,mount,typea', 'txtProductno');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtMount,txtTypea', b_ret.length, b_ret, 'productno,product,spec,unit,mount,typea', 'txtProductno');
 							bbsAssign();
 						}
 						break;
@@ -385,7 +385,7 @@
 								}
 							}
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', as.length, as, 'productno,product,unit,smount,memo,processno,process,noa,mount,gmount,xmount', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', as.length, as, 'productno,product,spec,unit,smount,memo,processno,process,noa,mount,gmount,xmount', '');
 						if (t_msg.length > 0)
 							alert(t_msg);
 						break;
@@ -578,6 +578,7 @@
 						$('#btnProductno_' + j).attr('disabled', 'disabled');
 						$('#txtProduct_' + j).attr('disabled', 'disabled');
 						$('#txtUnit_' + j).attr('disabled', 'disabled');
+						$('#txtSpec_' + j).attr('disabled', 'disabled');
 						$('#txtMount_' + j).attr('disabled', 'disabled');
 						$('#btnStore_' + j).attr('disabled', 'disabled');
 						$('#txtStoreno_' + j).attr('disabled', 'disabled');

@@ -47,7 +47,7 @@
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				/*['txtWorkno', 'lblWorkno', 'work', 'noa', 'txtWorkno', 'work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],*/
 				['txtMechno', 'lblMechno', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -190,7 +190,7 @@
 							if (!b_ret || b_ret.length == 0)
 								return;
 							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2,txtBorn,txtBweight', b_ret.length, b_ret, 'productno,product,unit,ordeno,no2,mount,weight', 'txtProductno');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtOrdeno,txtNo2,txtBorn,txtBweight', b_ret.length, b_ret, 'productno,product,unit,spec,ordeno,no2,mount,weight', 'txtProductno');
 							/// 最後 aEmpField 不可以有【數字欄位】
 
 							bbsAssign();
@@ -202,7 +202,7 @@
 							if (!b_ret || b_ret.length == 0)
 								return;
 							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtBweight', b_ret.length, b_ret, 'productno,product,unit,mount,weight', 'txtProductno');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtBorn,txtBweight', b_ret.length, b_ret, 'productno,product,unit,spec,mount,weight', 'txtProductno');
 							/// 最後 aEmpField 不可以有【數字欄位】
 							bbsAssign();
 						}
@@ -286,8 +286,8 @@
 							//本次入庫量
 							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
 						}
-						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount,txtWk_unmount', as.length, as
-						, 'productno,product,unit,smount,memo,noa,ordeno,no2,mount,inmount,smount', '');
+						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount,txtWk_unmount', as.length, as
+						, 'productno,product,unit,spec,smount,memo,noa,ordeno,no2,mount,inmount,smount', '');
 
 						if (t_stationno.length != 0 || t_station.length != 0) {
 							$('#txtStationno').val(t_stationno);

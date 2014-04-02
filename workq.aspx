@@ -40,7 +40,7 @@
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreoutno', 'lblStoreout', 'store', 'noa,store', 'txtStoreoutno,txtStoreout', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -188,9 +188,9 @@
 							}
 						q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtWk_mount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq',
+							'txtProductno,txtProduct,txtUnit,txtSpec,txtWk_mount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq',
 							b_ret.length, b_ret,
-							'productno,product,unit,wk_mount,born,ordeno,no2,memo,price,storeno,store,workno,noa,noq', ''
+							'productno,product,unit,spec,wk_mount,born,ordeno,no2,memo,price,storeno,store,workno,noa,noq', ''
 						);
 						
 						//取得已送驗入庫的數量
@@ -259,9 +259,9 @@
 						var as = _q_appendData("view_workfs", "", true);
 						q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtWk_mount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq',
+							'txtProductno,txtProduct,txtUnit,txtSpec,txtWk_mount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq',
 							as.length, as,
-							'productno,product,unit,wk_mount,born,ordeno,no2,memo,price,storeno,store,workno,noa,noq', ''
+							'productno,product,unit,spec,wk_mount,born,ordeno,no2,memo,price,storeno,store,workno,noa,noq', ''
 						);
 						
 						//取得已送驗入庫的數量
