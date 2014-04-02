@@ -36,7 +36,7 @@
 				['txtRackinno', 'lblRackinno', 'rack', 'noa,rack,storeno,store', 'txtRackinno', 'rack_b.aspx'],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtMemo', '', 'qphr', 'noa,phr', '0,txtMemo', ''], ['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
 			);
 
@@ -235,6 +235,7 @@
 						$('#btnProductno_'+j).attr('disabled', 'disabled');
 						$('#txtProduct_'+j).attr('disabled', 'disabled');
 						$('#txtUnit_'+j).attr('disabled', 'disabled');
+						$('#txtSpec_'+j).attr('disabled', 'disabled');
 						$('#txtMount_'+j).attr('disabled', 'disabled');
 					}
 				}

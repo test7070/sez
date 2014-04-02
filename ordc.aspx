@@ -34,7 +34,7 @@
 			brwKey = 'Odate';
 			aPop = new Array(
 				['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
-				['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno2_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
@@ -164,7 +164,7 @@
 							var t_where = "where=^^ noa='" + b_ret[0].noa + "' ^^";
 							q_gt('ordb', t_where, 0, 0, 0, "", r_accy);
 							$('#txtOrdbno').val(b_ret[0].noa);
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret, 'productno,product,noa,no3,price,mount,total,memo,unit', 'txtProductno,txtProduct');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit,txtSpec', b_ret.length, b_ret, 'productno,product,noa,no3,price,mount,total,memo,unit,txtSpec', 'txtProductno,txtProduct');
 							bbsAssign();
 						}
 						break;

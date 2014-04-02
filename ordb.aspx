@@ -42,7 +42,7 @@
 			brwCount2 = 10;
 			aPop = new Array(
 				['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
-				['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno2_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
@@ -449,7 +449,7 @@
 								$('#btnMinus_' + j).click();
 							}
 							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret, 'productno,product,unit,mount,price,noa,no2', 'txtOrdeno,txtNo2');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret, 'productno,product,unit,spec,mount,price,noa,no2', 'txtOrdeno,txtNo2');
 							sum();
 						}
 						break;
