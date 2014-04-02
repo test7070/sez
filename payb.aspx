@@ -88,8 +88,7 @@
 					var t_tggno = $.trim($('#txtTggno').val());
 					var t_mon = $.trim($('#txtMon').val());				
 					if(t_tggno.length>0 && t_mon.length>0){
-						var t_where = "where=^^ (a.[money]!=0 or a.tax!=0 or a.discount!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"'))" ;
-                    	+ " and a.tggno='"+t_tggno+"' and a.mon='"+t_mon+"' ^^";
+						var t_where = "where=^^ (a.[money]!=0 or a.tax!=0 or a.discount!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"')) and a.tggno='"+t_tggno+"' and a.mon='"+t_mon+"' ^^";
                     	var t_where1 = " where[1]=^^ (a.plusmoney!=0) and ((b.noa is null) or (b.noa is not null and b.noa='"+t_noa+"')) and a.tggno='"+t_tggno+"' ^^";
                     	q_gt('payb_fix', t_where+t_where1, 0, 0, 0, "", r_accy);
 					}else{

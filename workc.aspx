@@ -625,6 +625,10 @@
 				$('#lblStation').css('display', 'inline');
 				$('#lblStorek').css('display', 'none');
 				$('#lblStationk').css('display', 'none');
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function readonly(t_para, empty) {
