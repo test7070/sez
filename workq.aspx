@@ -357,7 +357,7 @@
 					case 'GetMount':
 						var as = _q_appendData("view_workqs", "", true);
 						for(var i=0;i<q_bbsCount;i++){
-							var  x_mount=0,t_mount=0,t_born=0,t_bkmount=0,t_wmount=0;
+							var x_mount=0,t_mount=0,t_born=0,t_bkmount=0,t_wmount=0;
 							if(!emp($('#txtWorkno_'+i).val())){
 								for(var j=0;j<as.length;j++){
 									if($('#txtWorkno_'+i).val()==as[j].workno&&$('#txtWorkfno_'+i).val()==as[j].workfno&&$('#txtWorkfnoq_'+i).val()==as[j].workfnoq){
@@ -936,6 +936,7 @@
 					<td style="width:180px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblProduct_s'></a></td>
 					<td style="width:40px;" align="center"><a id='lblUnit'></a></td>
+					<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
@@ -961,8 +962,12 @@
 						<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:16%;" />
 					</td>
-					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
+					<td>
+						<input class="txt c1" id="txtProduct.*" type="text"/>
+						<input class="txt c1 isSpec" id="txtSpec.*" type="text"/>
+					</td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
+					<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_mount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_inmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>

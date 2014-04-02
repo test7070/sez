@@ -557,6 +557,10 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -778,7 +782,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 2850px;
+				width: 3000px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -978,6 +982,7 @@
 					<td style="width:200px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:220px;" align="center"><a id='lblProduct_s'></a></td>
 					<td style="width:40px;" align="center"><a id='lblUnit'></a></td>
+					<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
@@ -1009,8 +1014,12 @@
 						<input class="txt" id="txtProductno.*" type="text" style="width:88%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />
 					</td>
-					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
+					<td>
+						<input class="txt c1" id="txtProduct.*" type="text"/>
+						<input class="txt c1 isSpec" id="txtSpec.*" type="text"/>
+					</td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
+					<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_mount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_inmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_unmount.*" type="text"/></td>
