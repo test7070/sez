@@ -105,7 +105,7 @@
 						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where (a.tggno is null or a.tggno='') and a.stationno='" + $('#txtStationno').val() + "' and (a.mount>a.inmount and b.gmount>0)) ";
 					} else {
 						//var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from work102 a left join works102 b on a.noa=b.noa where (a.tggno is null or a.tggno='') and (a.mount>a.inmount and b.gmount>0)) ";
-						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where  (a.tggno is null or a.tggno='') and a.mount>a.inmount  group by a.ordeno,a.no2) ";
+						var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where (a.tggno is null or a.tggno='') and a.mount>a.inmount group by a.ordeno,a.no2) ";
 					}
 					q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 				});
@@ -347,7 +347,7 @@
 						if (q_cur == 4)// 查詢
 							q_Seek_gtPost();
 						break;
-				}  /// end switch
+				}
 			}
 
 			//檢查領料是否等比例 //1030325流程變成入庫後產生領料單因此檢查領料比例拿掉
@@ -717,26 +717,6 @@
 				width: 60%;
 				float: left;
 			}
-			.txt.c4 {
-				width: 18%;
-				float: left;
-			}
-			.txt.c5 {
-				width: 90%;
-				float: left;
-			}
-			.txt.c6 {
-				width: 50%;
-				float: left;
-			}
-			.txt.c7 {
-				float: left;
-				width: 22%;
-			}
-			.txt.c8 {
-				float: left;
-				width: 65px;
-			}
 			.txt.num {
 				text-align: right;
 			}
@@ -788,7 +768,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<div id="div_stk" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray;">
-			<table id="table_stk" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+			<table id="table_stk" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品編號</td>
 					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'> </td>
@@ -812,7 +792,7 @@
 		<div id="dmain" style="width: 1260px;">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div class="dview" id="dview">
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
@@ -826,7 +806,7 @@
 				</table>
 			</div>
 			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr style="height: 1px;">
 						<td width="133px"> </td>
 						<td width="241px"> </td>
@@ -856,12 +836,12 @@
 					<tr>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 						<td>
-							<input id="txtBdate" type="text"  class="txt c3" style="width: 113px;"/>
+							<input id="txtBdate" type="text" class="txt c3" style="width: 113px;"/>
 							<a style="float: left;">~</a>
-							<input id="txtEdate" type="text"  class="txt c3" style="width: 113px;"/>
+							<input id="txtEdate" type="text" class="txt c3" style="width: 113px;"/>
 						</td>
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
-						<td ><input id="txtWorkno" type="text"  class="txt c1"/></td>
+						<td ><input id="txtWorkno" type="text" class="txt c1"/></td>
 						<td><input type="button" id="btnWork"></td>
 					</tr>
 					<tr>
@@ -885,16 +865,17 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1700px;">
-			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
+		<div class='dbbs' style="width: 1800px;">
+			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:43px;">
-						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
+						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:226px;"><a id='lblProductnos'></a></td>
 					<td align="center" style="width:251px;"><a id='lblProducts'></a></td>
 					<td align="center" style="width:50px;"><a id='lblUnit'></a></td>
+					<td align="center" style="width:120px;" class="isStyle"><a id='lblStyle'></a></td>
 					<td align="center" style="width:80px;"><a id='lblWk_mounts'></a></td>
 					<td align="center" style="width:80px"><a id='lblWk_inmounts'></a></td>
 					<td align="center" style="width:80px;"><a id='lblWk_unmounts'></a></td>
@@ -907,16 +888,20 @@
 					<td align="center" style="width:163px;"><a id='lblWorknos'></a></td>
 					<td align="center" style="width:30px;"><a id='lblStks'> </a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
-					<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
+						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:8%;" />
 						<input id="txtProductno.*" type="text" style="width:76%;"/>
 					</td>
-					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtProduct.*" type="text" class="txt c1"/>
+						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
+					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td style="display: none;"><input id="txtLengthb.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_inmount.*" type="text" class="txt c1 num"/></td>
@@ -925,8 +910,8 @@
 					<!--<td><input id="txtTheory.*" type="text" class="txt c1 num"/></td>-->
 					<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 					<td>
-						<input class="btn"  id="btnStore.*" type="button" value='.' style="width:1%;float: left;"  />
-						<input id="txtStoreno.*"  type="text" class="txt c2" style="width: 33%;"/>
+						<input class="btn" id="btnStore.*" type="button" value='.' style="width:1%;float: left;" />
+						<input id="txtStoreno.*" type="text" class="txt c2" style="width: 33%;"/>
 						<input id="txtStore.*" type="text" class="txt c3" style="width: 50%;"/>
 					</td>
 					<td>
@@ -939,7 +924,7 @@
 					<!--<td><input id="chkEnda.*" type="checkbox"/></td>-->
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td align="center">
-						<input class="btn"  id="btnStk.*" type="button" value='.' style="width:1%;"  />
+						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
 				</tr>
 			</table>
