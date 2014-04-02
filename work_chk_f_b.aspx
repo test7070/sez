@@ -14,10 +14,14 @@
 		var t_sqlname = 'work_load'; t_postname = q_name;
 		var isBott = false;  /// 是否已按過 最後一頁
 		var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
+		var bbsNum = [['textBorn2', 15, 0, 1]];
 		var i, s1;
 		brwCount = -1;
 		//brwCount2 = -1;
 		q_desc=1;
+		
+		aPop = new Array(['textStoreno2_', 'btnStore2_', 'store', 'noa,store', 'textStoreno2_,textStore2_', 'store_b.aspx']);
+		
 		$(document).ready(function () {
 			 if (!q_paraChk())
 				return;
@@ -40,10 +44,6 @@
 			_bbsAssign();
 			for (var j = 0; j < q_bbsCount; j++) {
 				q_gt('view_workfs', "where=^^workno='"+$('#txtNoa_'+j).val()+"'^^", 0, 0, 0, "view_workfs_"+j, r_accy);
-			}
-			for (var j = 0; j < q_bbsCount; j++) {
-				$('#textBorn2_'+j).removeAttr('readonly');
-				$('#textBorn2_'+j).removeAttr('disabled');
 			}
 		}
 
@@ -68,16 +68,24 @@
 						$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 				});
 			});*/
-			for (var j = 0; j < q_bbsCount; j++) {
-				$('#textBorn2_'+j).removeAttr('readonly');
-				$('#textBorn2_'+j).removeAttr('disabled');
-			}
-			
+						
 			$('#btnTop').hide();
 			$('#btnPrev').hide();
 			$('#btnNext').hide();
 			$('#btnBott').hide();
 	    }
+	    
+		function readonly(t_para) {
+			_readonly(t_para);
+			for (var j = 0; j < q_bbsCount; j++) {
+				$('#textBorn2_'+j).removeAttr('readonly').css('background-color','');
+				$('#textStoreno2_'+j).removeAttr('readonly').css('background-color','');
+				$('#textStore2_'+j).removeAttr('readonly').css('background-color','');
+				
+				$('#chkSel_'+j).attr('checked','true');
+			}
+			q_cur=2;
+		}
 	    
 	</script>
 	<style type="text/css">
@@ -135,7 +143,8 @@
 				<td style="width:7%;"><input class="txt" id="textInmount2.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
 				<td style="width:7%;"><input class="txt" id="textBorn2.*" type="text" style="width:98%; text-align: right;"  /></td>
 				<td style="width:12%;">
-					<input class="txt" id="textStoreno2.*" type="text" style="width:98%;"  />
+					<input class="txt" id="textStoreno2.*" type="text" style="width:78%;"  />
+					<input class="btn" id="btnStore2.*" type="button" value='.' style="width:1%;float: left;" />
 					<input class="txt" id="textStore2.*" type="text" style="width:98%;"/>
 				</td>
 				<td><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" />

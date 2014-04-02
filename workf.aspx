@@ -36,6 +36,7 @@
 			brwKey = '';
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
+				['tgg_txtTggno', '', 'tgg', 'noa,comp', 'tgg_txtTggno,tgg_txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreoutno', 'lblStoreout', 'store', 'noa,store', 'txtStoreoutno,txtStoreout', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
@@ -126,12 +127,16 @@
 						t_where += " and uindate between '" + t_bdate + "' and '" + t_edate + "'";
 					}
 					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
-					
-					
 				});
 
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
+				});
+				
+				$('#btnClose_div_tgg').click(function() {
+					$('#div_tgg').toggle();
+					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "'";
+					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
 				
 				/*$('#txtWorkcno').click(function() {
@@ -175,7 +180,9 @@
 						}
 						break;
 					case 'work':
-						b_ret = getb_ret();
+						_btnChange(0);
+						q_cur==0;
+						/*b_ret = getb_ret();
 						if (!b_ret || b_ret.length == 0)
 							return;
 						if (b_ret && (q_cur == 1 || q_cur == 2)) {
@@ -190,7 +197,7 @@
 							//抓已入送驗數量
 							var t_where = "where=^^ workno in(" + getInStr(b_ret) + ") and noa !='"+$('#txtNoa').val()+"'^^";
 							q_gt('view_workfs', t_where, 0, 0, 0, "", r_accy);
-						}
+						}*/
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -446,13 +453,23 @@
 			}
 
 			function btnIns() {
-				_btnIns();
+				/*_btnIns();
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtTimea').val(padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2));
 				$('#txtMon').val(q_date().substr(0, 6));
 				$('#txtDatea').focus();
-				$('#cmbTaxtype').val('1');
+				$('#cmbTaxtype').val('1');*/
+				q_cur==1;
+				if(r_outs=='1'){
+					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + r_userno + "'";
+					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+				}else{
+					$('#div_tgg').show();	
+				}
+				_btnChange(1);
+				$('#btnOk').attr('disabled', 'disabled');
+				$('#btnCancel').attr('disabled', 'disabled');
 			}
 
 			function btnModi() {
@@ -773,6 +790,25 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="div_tgg" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_tgg" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+				<tr>
+					<td style="background-color: #f8d463;" align="left">
+						廠商編號：<input id='tgg_txtTggno' type='text' class='txt' style="float:none;width: 150px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;" align="left">
+						廠商名稱：<input id='tgg_txtTgg' type='text' class='txt' style="float:none;width: 300px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td align="center">
+						<input id="btnClose_div_tgg" type="button" value="確定">
+					</td>
+				</tr>
+			</table>
+		</div>
 		<div id="div_stk" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_stk" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
