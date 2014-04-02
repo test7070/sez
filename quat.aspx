@@ -21,7 +21,7 @@
 			var decbbs = ['price', 'weight', 'mount', 'total', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
 			var q_readonly = ['txtWorker', 'txtComp', 'txtAcomp', 'txtSales', 'txtWorker2'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtNo3'];
 			var bbmNum = [
 				['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],
 				['txtTotalus', 15, 2, 1], ['txtFloata', 15, 3, 1]
@@ -712,10 +712,10 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-					<td style="text-align:center">
-						<input id="txtProductno.*" type="text" class="txt" style="width:70%;" />
+					<td align="center">
+						<input id="txtProductno.*" type="text" class="txt c1" />
 						<input class="btn" id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
-						<input id="txtNo3.*" type="text" class="txt c3" style="display:none;"/>
+						<input id="txtNo3.*" type="text" class="txt c6" />
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1"/>
@@ -732,7 +732,7 @@
 					<td>
 						<input id="txtMemo.*" type="text" class="txt c1"/>
 						<input class="txt" id="txtOrdeno.*" type="text"style="width:65%;" />
-						<input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
+						<input class="txt" id="txtNo2.*" type="text" style="width:25%;" />
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>
