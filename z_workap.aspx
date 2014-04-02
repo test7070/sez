@@ -28,36 +28,39 @@
 						name : 'accy',
 						value : q_getId()[4] //[1]
 					}, {
-						type : '1',
+						type : '1', //[2][3]
 						name : 'date'
 					}, {
-						type : '6',
+						type : '6', //[4]
 						name : 'xnoa'
 					}, {
-						type : '8', //checkbox
+						type : '8', //[5]
 						name : 'xmerger',
 						value : '合併原料'.split(',')
 					}, {
-						type : '1',
+						type : '1', //[6][7]
 						name : 'xdate'
 					}, {
-						type : '2',
+						type : '2', //[8][9]
 						name : 'xstationno',
 						dbf : 'station',
 						index : 'noa,station',
 						src : 'station_b.aspx'
 					}, {
-						type : '2',
+						type : '2', //[10][11]
 						name : 'xstoreno',
 						dbf : 'store',
 						index : 'noa,store',
 						src : 'store_b.aspx'
 					}, {
-						type : '2',
+						type : '2', //[12][13]
 						name : 'xproductno',
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					}, {
+						type : '1', //[14][15]
+						name : 'tnoa'
 					}]
 				});
 				q_popAssign();
@@ -97,8 +100,11 @@
 				$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
 
 				var t_key = q_getHref();
-				if (t_key != undefined)
+				if (t_key != undefined){
 					$('#txtXnoa').val(t_key[1]);
+					$('#txtTnoa1').val(t_key[1]);
+					$('#txtTnoa2').val(t_key[1]);
+				}
 			}
 
 			function q_boxClose(s2) {
