@@ -497,6 +497,7 @@
 				}else{
 					q_cur=1;
 					$('#div_tgg').show();	
+					$('#tgg_txtTggno').focus();
 				}
 				_btnChange(1);
 				$('#btnOk').attr('disabled', 'disabled').css("font-weight","").css("color","");
