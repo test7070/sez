@@ -530,7 +530,12 @@
     				        
     				    }  
 				}
-				//$('#txtFinish').val(t_finish>0?t_finish+'/'+q_bbsCount:'');
+				//未成交
+				/*if($('#txtTggno').val().length>0){
+				    for(var i=0;i<q_bbsCount;i++){
+				        $('#chkIsnotdeal').prop("checked",q_float('txtPrice_'+i)!=0);
+				    }
+				}*/
 				
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
