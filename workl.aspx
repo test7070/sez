@@ -19,10 +19,10 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "workl";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtCngno', 'txtWorkcno','txtTgg','txtStorein','txtStore','txtCardeal'];
-			var q_readonlys = ['txtWorkno'];
-			var bbmNum = [['txtPrice', 12, 2, 1],['txtTranmoney', 12, 2, 1]];
-			var bbsNum = [['txtMount', 12, 2, 1],['txtWeight', 12, 2, 1],['txtTheory', 12, 2, 1],['txtDiffweight', 12, 2, 1]];
+			var q_readonly = ['txtNoa','txtTheory','txtDiffweight', 'txtWorker', 'txtWorker2', 'txtCngno', 'txtWorkcno','txtTgg','txtStorein','txtStore','txtCardeal'];
+			var q_readonlys = ['txtWorkno','txtTheory'];
+			var bbmNum = [['txtPrice', 12, 2, 1],['txtTranmoney', 12, 2, 1],['txtWeight', 12, 2, 1],['txtTheory', 12, 2, 1],['txtDiffweight', 12, 2, 1]];
+			var bbsNum = [['txtMount', 12, 2, 1],['txtTheory', 12, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -117,6 +117,9 @@
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
 				});
+				$('#txtWeight').change(function(){
+					sum();
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -146,9 +149,9 @@
 						b_ret = getb_ret();
 						if((b_ret != undefined) && (b_ret.length > 0)){
 							var ret = q_gridAddRow(bbsHtm, 'tbbs',
-								'txtProductno,txtProduct,txtUnit,txtMount,txtMemo',
+								'txtProductno,txtProduct,txtUnit,txtMemo',
 								b_ret.length, b_ret,
-								'productno,product,unit,mount,memo', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
+								'productno,product,unit,memo', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
 							);
 							for(var k=0;k<ret.length;k++){
 								$('#txtMount_'+ret[k]).change();
@@ -498,9 +501,6 @@
 						$('#txtMemo_' + i).change(function(){
 							sum();
 						});
-						$('#txtWeight_'+i).change(function(){
-							sum();
-						});
 						$('#txtTheory_'+i).change(function(){
 							sum();
 						});
@@ -526,6 +526,9 @@
 			}
 
 			function sum() {
+				var t_theory=0;t_weight=0;t_diffweight=0;
+				var t_theorys=0;
+				t_weight = dec($('#txtWeight').val());
 				for(var n=0;n<q_bbsCount;n++){
 					var t_memo = $.trim($('#txtMemo_'+n).val());
 					if(t_memo.length > 0){
@@ -538,12 +541,16 @@
 							lengthb : (SizeArray[2]?dec(SizeArray[2]):0),
 							mount : dec($('#txtMount_'+n).val()),
 							style : 'S',
-							round : 3
+							round : 2
 						};
-						$('#txtTheory_' + n).val(theory_st(theory_setting));
+						t_theorys = theory_st(theory_setting);
+						t_theory = q_add(t_theory,t_theorys);
+						$('#txtTheory_'+n).val(t_theorys);
 					}
-					$('#txtDiffweight_'+n).val(q_sub(dec($('#txtWeight_'+n).val()),dec($('#txtTheory_'+n).val())));
 				}
+				t_diffweight = q_sub(t_weight,t_theory);
+				$('#txtTheory').val(t_theory);
+				$('#txtDiffweight').val(t_diffweight);
 			}
 
 			function refresh(recno) {
@@ -879,17 +886,26 @@
 						<td class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblWeight' class="lbl"> </a></td>
+						<td class="td2"><input id="txtWeight" type="text" class="txt c5 num"/></td>
+						<td class="td1"><span> </span><a id='lblTheory' class="lbl"> </a></td>
+						<td class="td2"><input id="txtTheory" type="text" class="txt c5 num"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblDiffweight' class="lbl"> </a></td>
+						<td class="td2"><input id="txtDiffweight" type="text" class="txt c5 num"/></td>
+						<td class="td1"><span> </span><a id='lblCngno' class="lbl"> </a></td>
+						<td class="td2"><input id="txtCngno" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan="3"><input id="txtMemo" type="text" class="txt c5"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCngno' class="lbl"> </a></td>
-						<td class="td2"><input id="txtCngno" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td4">
-							<input id="txtWorker" type="text" class="txt c1" style="width: 49%;"/>
-							<input id="txtWorker2" type="text" class="txt c1" style="width: 49%;"/>
-						</td>
+						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<!--<td class="td3"><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorkcno" type="text" class="txt c1"/></td>-->
 					</tr>
@@ -915,9 +931,7 @@
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:250px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblStk_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTheory_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblDiffweight_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
@@ -938,9 +952,7 @@
 					<td align="center">
 						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
-					<td><input id="txtWeight.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtTheory.*" type="text" class="txt c1 num"/></td>
-					<td><input id="txtDiffweight.*" type="text" class="txt c1 num"/></td>
 				</tr>
 			</table>
 		</div>

@@ -559,6 +559,10 @@
 				if (isinvosystem)
 					$('.istax').hide();
 				showRack();
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function showRack() {
@@ -1001,6 +1005,7 @@
 					<td align="center" style="width:220px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:220px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:100px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
@@ -1018,10 +1023,11 @@
 						<input id="txtProductno.*" type="text" style="width: 75%;"/>
 					</td>
 					<td>
-						<input type="text" id="txtProduct.*" style="width:98%; float:left;"/>
-						<span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtProduct.*" class="txt c1"/>
+						<input type="text" id="txtSpec.*" class="txt c1 isSpec"/>
 					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1" /></td>

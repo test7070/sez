@@ -154,7 +154,7 @@
 						tr.id = "bbs_"+i;
 						tr.innerHTML = "<td id='addr2_tdBtn2_"+i+"'><input class='btn addr2' id='btnAddr_minus_"+i+"' type='button' value='-' style='width: 30px' onClick=minus_addr2("+i+") /></td>";
 						tr.innerHTML+= "<td id='addr2_tdPost2_"+i+"'><input id='addr2_txtPost2_"+i+"' type='text' class='txt addr2' value='"+t_post2[i]+"' style='width: 70px'/></td>";
-						tr.innerHTML+="<td id='addr2_tdAddr2_"+i+"'><input id='addr2_txtAddr2_"+i+"' type='text' class='txt c1 addr2' value='"+t_addr2[i]+"'  /></td>";
+						tr.innerHTML+="<td id='addr2_tdAddr2_"+i+"'><input id='addr2_txtAddr2_"+i+"' type='text' class='txt c1 addr2' value='"+t_addr2[i]+"' /></td>";
 						var tmp = document.getElementById("addr2_close");
 						tmp.parentNode.insertBefore(tr,tmp);
 					}
@@ -167,7 +167,7 @@
 						tr.id = "bbs_"+rowslength;
 						tr.innerHTML = "<td id='addr2_tdBtn2_"+rowslength+"'><input class='btn addr2' id='btnAddr_minus_"+rowslength+"' type='button' value='-' style='width: 30px' onClick=minus_addr2("+rowslength+") /></td>";
 						tr.innerHTML+= "<td id='addr2_tdPost2_"+rowslength+"'><input id='addr2_txtPost2_"+rowslength+"' type='text' class='txt addr2' value='' style='width: 70px' /></td>";
-						tr.innerHTML+="<td id='addr2_tdAddr2_"+rowslength+"'><input id='addr2_txtAddr2_"+rowslength+"' type='text' class='txt c1 addr2' value=''  /></td>";
+						tr.innerHTML+="<td id='addr2_tdAddr2_"+rowslength+"'><input id='addr2_txtAddr2_"+rowslength+"' type='text' class='txt c1 addr2' value='' /></td>";
 						var tmp = document.getElementById("addr2_close");
 						tmp.parentNode.insertBefore(tr,tmp);
 				});
@@ -187,9 +187,9 @@
 					}
 					$('#div_addr2').hide();
 				});
-				 $('#btnOrdem').click(function() {
-                    q_box("ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordem', "95%", "95%", q_getMsg('popOrdem'));
-                });
+				$('#btnOrdem').click(function() {
+					q_box("ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordem', "95%", "95%", q_getMsg('popOrdem'));
+				});
 			}
 			
 			//addr2控制事件vvvvvv-------------------
@@ -615,6 +615,10 @@
 					browTicketForm($(this).get(0));
 				});
 				$('#div_addr2').hide();
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -811,7 +815,7 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="div_addr2" style="position:absolute; top:244px; left:500px; display:none; width:530px; background-color: #CDFFCE; border: 5px solid gray;">
-			<table id="table_addr2" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
+			<table id="table_addr2" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
 					<td style="width:30px;background-color: #f8d463;" align="center">
 						<input class="btn addr2" id="btnAddr_plus" type="button" value='＋' style="width: 30px" />
@@ -965,7 +969,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1400px;">
+		<div class='dbbs' style="width: 1600px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">
@@ -974,6 +978,7 @@
 					<td align="center" style="width:160px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:120px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblTotal_s'> </a></td>
@@ -995,8 +1000,14 @@
 						<input class="btn" id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
 						<input class="txt c6" id="txtNo2.*" type="text" />
 					</td>
-					<td><input class="txt c7" id="txtProduct.*" type="text" /></td>
+					<td>
+						<input class="txt c7" id="txtProduct.*" type="text" />
+						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
+					</td>
 					<td align="center"><input class="txt c7" id="txtUnit.*" type="text"/></td>
+					<td class="isStyle">
+						<input id="txtStyle.*" type="text" class="txt c1"/>
+					</td>
 					<td><input class="txt num c7" id="txtMount.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtPrice.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtTotal.*" type="text" /></td>
