@@ -18,7 +18,7 @@
 			q_tables = 's';
 			var q_name = "vcc";
 			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp','txtCardeal','txtSales', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2'];
-			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2'];
+			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2','txtNoq'];
 			var bbmNum = [
 				['txtPrice', 10, 3, 1], ['txtTranmoney', 11, 2, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],
 				['txtTotal', 15, 0, 1], ['txtTotalus', 15, 0, 1]
@@ -999,7 +999,9 @@
 				width: 49%;
 				float: left;
 			}
-
+			.txt.c6 {
+				width: 25%;
+			}
 			.txt.num {
 				text-align: right;
 			}
@@ -1208,9 +1210,10 @@
 					<td>
 						<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
 					</td>
-					<td>
+					<td align="center">
+						<input class="txt c1"  id="txtProductno.*" type="text" />
+						<input id="txtNoq.*" type="text" class="txt c6"/>
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
-						<input class="txt"  id="txtProductno.*" type="text" style="width:75%;" />
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1" />
@@ -1235,7 +1238,6 @@
 						<select id="combOrdelist.*" style="width: 10%;"> </select>
 						<input id="txtOrdeno.*" type="text"  class="txt" style="width:60%;"/>
 						<input id="txtNo2.*" type="text" class="txt" style="width:18%;"/>
-						<input id="txtNoq.*" type="hidden" />
 					</td>
 					<td align="center">
 						<input class="btn"  id="btnRecord.*" type="button" value='.' style=" font-weight: bold;" />
