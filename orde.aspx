@@ -615,6 +615,10 @@
 					browTicketForm($(this).get(0));
 				});
 				$('#div_addr2').hide();
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -965,7 +969,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1400px;">
+		<div class='dbbs' style="width: 1600px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">
@@ -974,6 +978,7 @@
 					<td align="center" style="width:160px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:120px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblTotal_s'> </a></td>
@@ -995,8 +1000,14 @@
 						<input class="btn" id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
 						<input class="txt c6" id="txtNo2.*" type="text" />
 					</td>
-					<td><input class="txt c7" id="txtProduct.*" type="text" /></td>
+					<td>
+						<input class="txt c7" id="txtProduct.*" type="text" />
+						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
+					</td>
 					<td align="center"><input class="txt c7" id="txtUnit.*" type="text"/></td>
+					<td class="isStyle">
+						<input id="txtStyle.*" type="text" class="txt c1"/>
+					</td>
 					<td><input class="txt num c7" id="txtMount.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtPrice.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtTotal.*" type="text" /></td>
