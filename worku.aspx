@@ -174,20 +174,46 @@
 					case 'getWorkfs':
 						var as = _q_appendData("view_workfs", "", true);
 						
+						for (var i = 0; i < as.length; i++) {
+							for (var j = 0; j < q_bbsCount; j++) {
+								if(as[i].noa==$('#txtWorkfno_'+j).val()&&as[i].noq==$('#txtWorkfnoq_'+j).val()){
+									as.splice(i, 1);
+                                    i--;
+                                    break;
+								}
+							}
+						}
+						
 						q_gridAddRow(
 							bbsHtm, 'tbbs',
 							'txtProductno,txtProduct,txtUnit,txtMount,txtStoreno,txtStore,txtWorkno,txtWorkfno,txtWorkfnoq,txtWk_mount,txtWk_inmount,txtWk_unmount,txtWk_uindate',
 							as.length, as,
-							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount,wk_uindate','');
+							'productno,product,unit,born,storeno,store,workno,noa,noq,wk_mount,wk_inmount,wk_unmount,wk_uindate','txtProductno');
 							
 						var t_worknos = new Array();
 						for (var i = 0; i < as.length; i++) {
 							t_worknos.push("'" + as[i].workno +"'");
 						}
-						
-						//03/27 讓暫收可以收兩次以上
-						var t_where = "where=^^ noa!=N'" + $('#txtNoa').val() + "' and workno in ("+t_worknos.toString()+") ";
-						q_gt('view_workus', t_where, 0, 0, 0, "", r_accy);
+						if(t_worknos.length!=0){
+							//避免重新計算暫收有問題加入BBS的workno
+							for (var i = 0; i < q_bbsCount; i++) {
+								var t_exist=false;
+								for (var j = 0; j < t_worknos.length; j++) {
+									if($('#txtWorkno_'+i).val()==t_worknos[j]){
+										t_exist=true;
+										break;
+									}
+								}
+								
+								if(!t_exist){
+									t_worknos.push("'" + $('#txtWorkno_'+i).val() +"'");
+								}
+							}
+							
+							//03/27 讓暫收可以收兩次以上
+							var t_where = "where=^^ noa!=N'" + $('#txtNoa').val() + "' and workno in ("+t_worknos.toString()+") ";
+							q_gt('view_workus', t_where, 0, 0, 0, "", r_accy);
+						}
 						
 						if(as[0] != undefined){
 							var workfno = as[0].noa;
