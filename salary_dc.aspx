@@ -1214,6 +1214,17 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+				var s2 = xmlString.split(';');
+                abbm[q_recno]['accno'] = s2[0];
+                abbm[q_recno]['accno2'] = s2[1];
+                $('#txtAccno').val(s2[0]);
+                $('#txtAccno2').val(s2[1]);
+                Unlock(1);
+            }
 
 			function getdtmp() {
 				var myDate = new Date(dec($('#txtMon').val().substr(0, 3)) + 1911, dec($('#txtMon').val().substr(4, 5)), 0);

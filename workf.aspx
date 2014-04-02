@@ -135,8 +135,13 @@
 				
 				$('#btnClose_div_tgg').click(function() {
 					$('#div_tgg').toggle();
-					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "'";
-					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+					if(!emp($('#tgg_txtTggno').val())){
+						var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' and mount>isnull((select SUM(born) from view_workfs where workno=work"+r_accy+".noa),0)";
+						q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
+					}else{
+						_btnChange(0);
+						q_cur=0;
+					}
 				});
 				
 				/*$('#txtWorkcno').click(function() {
@@ -180,12 +185,37 @@
 						}
 						break;
 					case 'work':
-						_btnChange(0);
-						q_cur==0;
-						/*b_ret = getb_ret();
+						b_ret = getb_ret();
+						if(q_cur==1){
+							if (!b_ret || b_ret.length == 0){
+								_btnChange(0);
+								q_cur=0;
+								return;	
+							}
+							//全部傳入 之後 txt 以同一個倉庫新增一張入庫單
+							var t_workno='',t_born='',t_storeno='';
+							for (var i = 0; i < b_ret.length; i++) {
+								if(dec(b_ret[i].tBorn2)>0){//本次送驗量>0
+									t_workno=t_workno+b_ret[i].noa+'&&';
+									t_born=t_born+b_ret[i].tBorn2+'&&';
+									t_storeno=t_storeno+b_ret[i].tStoreno2+'&&';
+								}
+							}
+							if(t_workno.length>0&&t_born.length>0){
+								//去除最後的資料區隔符號
+								t_workno=t_workno.substr(0,t_workno.length-2);
+								t_born=t_born.substr(0,t_born.length-2);
+								t_storeno=t_storeno.substr(0,t_storeno.length-2);
+								//執行txt 進行 ins
+								q_func('qtxt.query.ins', 'workf.txt,ins,' + r_accy + ';' + r_name + ';' + encodeURI(t_workno)+ ';' + encodeURI(t_born)+ ';' + encodeURI(t_storeno));
+							}
+							_btnChange(0);
+							q_cur=0;
+						}
+						
 						if (!b_ret || b_ret.length == 0)
 							return;
-						if (b_ret && (q_cur == 1 || q_cur == 2)) {
+						if (b_ret && q_cur == 2) {
 							$('#txtTggno').val(b_ret[0].tggno);
 							$('#txtTgg').val(b_ret[0].comp);
 							
@@ -197,7 +227,7 @@
 							//抓已入送驗數量
 							var t_where = "where=^^ workno in(" + getInStr(b_ret) + ") and noa !='"+$('#txtNoa').val()+"'^^";
 							q_gt('view_workfs', t_where, 0, 0, 0, "", r_accy);
-						}*/
+						}
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -460,15 +490,16 @@
 				$('#txtMon').val(q_date().substr(0, 6));
 				$('#txtDatea').focus();
 				$('#cmbTaxtype').val('1');*/
-				q_cur==1;
+				//4001改由txt新增
 				if(r_outs=='1'){
-					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + r_userno + "'";
+					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + r_userno + "' and mount>isnull((select SUM(born) from view_workfs where workno=work"+r_accy+".noa),0)";
 					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				}else{
+					q_cur=1;
 					$('#div_tgg').show();	
 				}
 				_btnChange(1);
-				$('#btnOk').attr('disabled', 'disabled');
+				$('#btnOk').attr('disabled', 'disabled').css("font-weight","").css("color","");
 				$('#btnCancel').attr('disabled', 'disabled');
 			}
 
@@ -714,6 +745,10 @@
 					case 'qtxt.query.c2':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;*/
+					case 'qtxt.query.ins':
+							//重新整理
+							location.href=location.href;
+						break;
 					default:
 						break;
 				}
