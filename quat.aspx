@@ -671,18 +671,20 @@
 		<div class='dbbs' style="width: 1270px;">
 		<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 			  <tr style='color:White; background:#003366;' >
-				<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-				<td align="center" style="width:10%;"><a id='lblProductno'> </a></td>
-				<td align="center" style="width:20%;"><a id='lblUno'> </a></td>
-				<td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
-				<td align="center" style="width:5%;"><a id='lblMount'> </a></td>
+				<td align="center" style="width:40px;">
+					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
+				</td>
+				<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
+				<td align="center" style="width:230px;"><a id='lblUno'> </a></td>
+				<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
 				<!--<td align="center"><a id='lblWeights'></a></td>-->
-				<td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
-				<td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
-				<td align="center" style="width:12%;"><a id='lblMemos'> </a></td>
-				<td align="center" style="width:3%;"><a id='lblEnda_s'> </a></td>
-				<td align="center" style="width:3%;"><a id='lblCancels'> </a></td>
-				<td align="center" style="width:3%;"><a id='lblVccrecord'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblTotals'> </a></td>
+				<td align="center" style="width:150px;"><a id='lblMemos'> </a></td>
+				<td align="center" style="width:40px;"><a id='lblEnda_s'> </a></td>
+				<td align="center" style="width:40px;"><a id='lblCancels'> </a></td>
+				<td align="center" style="width:40px;"><a id='lblVccrecord'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
