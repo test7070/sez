@@ -177,6 +177,27 @@
                 $('#Sort08 select').val('tpm');
                 $('#Option08 select').val('ordb');
                 //-------------------------------------------------------------------------------
+                $('#textDatea_a').mask(r_picd);
+                $('#textBodate_a').mask(r_picd);
+                $('#textEodate_a').mask(r_picd);
+                $('#textBldate_a').mask(r_picd);
+                $('#textEldate_a').mask(r_picd);
+                $('#textBedate_a').mask(r_picd);
+                $('#textEedate_a').mask(r_picd);
+                $('#textBfdate_a').mask(r_picd);
+                $('#textEfdate_a').mask(r_picd);
+                
+                $('#textDatea_a').datepicker();
+                $('#textDatea_a').val(q_date);
+                $('#textBodate_a').datepicker();
+                $('#textEodate_a').datepicker();
+                $('#textBldate_a').datepicker();
+                $('#textEldate_a').datepicker();
+                $('#textBedate_a').datepicker();
+                $('#textEedate_a').datepicker();
+                $('#textBfdate_a').datepicker();
+                $('#textEfdate_a').datepicker();
+                
                 $('#btnOrdc').click(function(e) {
                     $('#exportordc').toggle();
                     $('#textBno_a').val($('#txtNoa').val());
@@ -202,11 +223,13 @@
                         Lock(1, {
                             opacity : 0
                         });
-                        q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) 
-                        + ';' + encodeURI(t_bedate) + ';' + encodeURI(t_eedate) + ';' + encodeURI(t_bfdate) + ';' + encodeURI(t_efdate) + ';' + encodeURI(t_workgno) + ';' + encodeURI(t_bno) + ';' + encodeURI(t_eno)
-                        + ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate) +
-                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate) +
-                        + ';' + encodeURI(t_bproductno) + ';' + encodeURI(t_eproductno));
+                        q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + r_userno + ';' + encodeURI(r_name) 
+                        + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) 
+                        + ';' + t_bedate + ';' + t_eedate + ';' + t_bfdate + ';' + t_efdate 
+                        + ';' + t_workgno + ';' + t_bno + ';' + t_eno
+                        + ';' + t_bodate + ';' + t_eodate
+                        + ';' + t_bldate + ';' + t_eldate 
+                        + ';' + t_bproductno + ';' + t_eproductno);
                     } else
                         alert('請輸入採購日期。');
                 });
@@ -220,6 +243,27 @@
 
 			function q_gtPost(s2) {
 			}
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.ordb':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            var t_msg = '';
+                            for (var i = 0; i < as.length; i++) {
+                                t_msg += (t_msg.length > 0 ? '\r\n' : '') + as[i].memo;
+                            }
+                            alert(t_msg);
+                            if (as.length > 1)
+                                window.open("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";action=z_ordbp06;" + r_accy);
+                        } else {
+                            alert('無資料!');
+                        }
+                        Unlock(1);
+                        break;
+                    default:
+                        break;
+                }
+            }
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -228,10 +272,10 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
+		    <input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" />
 			<div id="container">
 				<div id="q_report"></div>
 			</div>
-			<input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" />
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
