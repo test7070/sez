@@ -1320,7 +1320,7 @@
 						<td class="td1"><span> </span><a id="lblOrdcno" class="lbl btn"> </a></td>
 						<td class="td2" colspan="4"><input id="txtOrdcno" type="text" class="txt c1" /></td>
 						<td></td>
-						<td><input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" /></td>
+						<td><input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" style="display:none;" /></td>
 						<td><span> </span><a id="lblApv" class="lbl" style="width:40%;float:left;"> </a>
 						    <input id="txtApv" type="text" class="txt c1" disabled="disabled" style="width:40%;float:left;"/>
 						</td>

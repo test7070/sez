@@ -177,6 +177,30 @@
                 $('#Sort08 select').val('tpm');
                 $('#Option08 select').val('ordb');
                 //-------------------------------------------------------------------------------
+                $('#textDatea').mask('999/99/99');
+                $('#textDatea').datepicker();
+                $('#textDatea').val(q_date);
+                $('#q_report .report').find('.radio').click(function(e){
+                    $('#lblDatea').hide();   
+                    $('#textDatea').hide();   
+                    $('#btnOrdc').hide();    
+                });
+                $('#q_report .report').find('.text').click(function(e){
+                    $('#lblDatea').hide();   
+                    $('#textDatea').hide();
+                    $('#btnOrdc').hide();    
+                });
+                $('#q_report .report').find('.radio').eq(7).click(function(e){
+                    $('#lblDatea').show();   
+                    $('#textDatea').show();
+                    $('#btnOrdc').show();    
+                });
+                $('#q_report .report').find('.text').eq(7).click(function(e){
+                    $('#lblDatea').show();   
+                    $('#textDatea').show();
+                    $('#btnOrdc').show();    
+                });
+                //-------------------------------------------------------------------------------
                 $('#textDatea_a').mask(r_picd);
                 $('#textBodate_a').mask(r_picd);
                 $('#textEodate_a').mask(r_picd);
@@ -198,10 +222,42 @@
                 $('#textBfdate_a').datepicker();
                 $('#textEfdate_a').datepicker();
                 
-                $('#btnOrdc').hide().click(function(e) {
-                    $('#exportordc').toggle();
+                $('#btnOrdc').click(function(e) {
+                    var t_datea = $('#textDatea').val();
+                    var t_kind = $('#Xkind select').val();
+                    var t_btggno = $('#txtXtggno1a').val();
+                    var t_etggno = $('#txtXtggno2a').val();
+                    var t_bproductno =$('#txtXproductno1a').val();
+                    var t_eproductno =$('#txtXproductno2a').val();
+                    var t_bodate = $('#txtYodate1').val();
+                    var t_eodate = $('#txtYodate2').val();
+                    var t_ordbno = $('#txtYordbno').val();
+                    var t_bldate = $('#txtZldate1').val();
+                    var t_eldate = $('#txtZldate2').val();
+                    var t_option = $('#Option08 select').val();
+
+                    if (t_datea.length > 0) {
+                        Lock(1, {
+                            opacity : 0
+                        });
+                        q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + r_userno + ';' + encodeURI(r_name) 
+                        + ';' + encodeURI(q_getPara('key_ordc')) 
+                        + ';' + encodeURI(t_datea) 
+                        + ';' + encodeURI(t_kind) 
+                        + ';' + encodeURI(t_btggno) + ';' + encodeURI(t_etggno) 
+                        + ';' + encodeURI(t_bproductno) + ';' + encodeURI(t_eproductno)
+                        + ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate)
+                        + ';' + encodeURI(t_ordbno)
+                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate)
+                        + ';' + encodeURI(t_option)  
+                        );
+                    } else
+                        alert('請輸入採購日期。');
+                    
+                    
+                    /*$('#exportordc').toggle();
                     $('#textBno_a').val($('#txtNoa').val());
-                    $('#textEno_a').val($('#txtNoa').val());
+                    $('#textEno_a').val($('#txtNoa').val());*/
                 });
                 $('#btnExport_a').click(function(e) {
                     var t_tggno = $('#textTggno_a').val();
@@ -272,7 +328,9 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
-		    <input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" />
+		    <a id="lblDatea" style="display:none;">採購日期</a>
+		    <input id="textDatea" type="text" class="txt c1" style="display:none;width:120px;"/>
+		    <input id="btnOrdc" type="button" class="txt c1" style="display:none;" value="批次轉採購單" />
 			<div id="container">
 				<div id="q_report"></div>
 			</div>
