@@ -198,7 +198,7 @@
                 $('#textBfdate_a').datepicker();
                 $('#textEfdate_a').datepicker();
                 
-                $('#btnOrdc').click(function(e) {
+                $('#btnOrdc').hide().click(function(e) {
                     $('#exportordc').toggle();
                     $('#textBno_a').val($('#txtNoa').val());
                     $('#textEno_a').val($('#txtNoa').val());
