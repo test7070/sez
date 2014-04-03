@@ -48,6 +48,10 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+				$('.q_report .option:first').css('width','700px')
+				$('#Product').css('width','690px');
+				$('#Product .c2').css('width','130px');
+				$('#Product .c3').css('width','130px');
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
                 	$('#txtXnoa').val(t_key[1]);

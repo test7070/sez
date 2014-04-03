@@ -49,9 +49,11 @@
                 q_popAssign();
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon1').val(q_date().substr(0, 6));
-                
-                
-                var t_date, t_year, t_month, t_day;
+ 				$('.q_report .option:first').css('width','700px')
+				$('#Xproduct').css('width','690px');
+				$('#Xproduct .c2').css('width','130px');
+				$('#Xproduct .c3').css('width','130px');
+				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setMonth(13);
 				t_year = t_date.getUTCFullYear() - 1911;

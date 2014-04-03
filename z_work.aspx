@@ -140,6 +140,10 @@
                 $('#txtYdate2').val(q_date());
 				$('#txtXdate1').val('102/01/01');
 				//$('#txtXdate1').val(q_date().substring(0,7)+'01');
+				$('.q_report .option:first').css('width','700px')
+				$('#Xproductno').css('width','690px');
+				$('#Xproductno .c2').css('width','130px');
+				$('#Xproductno .c3').css('width','130px');
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
 				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
 

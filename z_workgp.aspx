@@ -54,6 +54,10 @@
 					var t_noa= wParent.getElementById("txtNoa").value;
 					$('#txtXnoa').val(t_noa);
 				}*/
+				$('.q_report .option:first').css('width','700px')
+				$('#Xproduct').css('width','690px');
+				$('#Xproduct .c2').css('width','130px');
+				$('#Xproduct .c3').css('width','130px');
 				$('#txtXdate').datepicker();
 				$('#txtXdate').mask('999/99/99');
 				//$('#txtXdate').val(q_date());

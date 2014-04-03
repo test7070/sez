@@ -23,14 +23,18 @@
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_ordcp',
-                    options : [{
+                    options : [{/* [1]*/
 						type : '0',
 						name : 'accy',
-                        value : q_getId()[4] //[1]
-                    },{
+                        value : q_getId()[4] 
+                    },{/* [2]*/
+                        type : '0',
+                        name : 'xkind',
+                        value : q_getPara('ordc.kind')
+                    },{/*1 [3][4]*/
                         type : '1',
-                        name : 'date'
-                    },{
+                        name : 'xdate'
+                    },{/*2 [5][6]*/
                         type : '1',
                         name : 'xnoa'
                     }]
@@ -38,14 +42,20 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-                var t_key = q_getHref();
-                if(t_key[1] != undefined)
-                	$('#txtXnoa1').val(t_key[1]);
-                	$('#txtXnoa2').val(t_key[1]);
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate1').datepicker();
+                $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate2').datepicker();
+                var t_para = (typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3]).split('&');
+                for(var i=0;i<t_para.length;i++){
+                    if(t_para[i].indexOf('noa=') >= 0){
+                        t_no = t_para[i].replace('noa=', '');
+                        if (t_no.length > 0) {
+                            $('#txtXnoa1').val(t_no);
+                            $('#txtXnoa2').val(t_no);
+                        }
+                    }    
+                } 
             }
 
             function q_boxClose(s2) {

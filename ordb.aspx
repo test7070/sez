@@ -350,8 +350,8 @@
 						});
 						q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) 
 						+ ';' + encodeURI(t_bedate) + ';' + encodeURI(t_eedate) + ';' + encodeURI(t_bfdate) + ';' + encodeURI(t_efdate) + ';' + encodeURI(t_workgno) + ';' + encodeURI(t_bno) + ';' + encodeURI(t_eno)
-						+ ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate) +
-                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate) +
+						+ ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate) 
+                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate) 
                         + ';' + encodeURI(t_bproductno) + ';' + encodeURI(t_eproductno));
 					} else
 						alert('請輸入採購日期。');
@@ -501,7 +501,7 @@
 			}
 
 			function btnPrint() {
-				q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa=" + $('#txtNoa').val() + ";" + r_accy, 'z_vccstp', "95%", "95%", q_getMsg('popPrint'));
+				q_box("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa=" + $('#txtNoa').val() + ";" + r_accy, 'z_ordbp', "95%", "95%", q_getMsg('popPrint'));
 			}
 
 			function q_stPost() {
