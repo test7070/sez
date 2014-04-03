@@ -39,7 +39,13 @@
                     }, {
                         type : '1',
                         name : 'xdate'
-                    },{
+                    }, {
+						type : '2',
+						name : 'product',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
+					},{
 						type : '8',
 						name : 'needmount',
 						value : ('需求量大於0').split(',')
@@ -53,10 +59,21 @@
                 $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate2').datepicker();
                 
-                if(q_getHref()[1]!=undefined)
-                	$('#txtXnoa').val(q_getHref()[1]);
-                if(q_getHref()[3]!=undefined)
-                	$('#txtXno2').val(q_getHref()[3]);
+                //if(q_getHref()[1]!=undefined)
+                //	$('#txtXnoa').val(q_getHref()[1]);
+                //if(q_getHref()[3]!=undefined)
+                //	$('#txtXno2').val(q_getHref()[3]);
+                
+                if(q_getHref()[1]!=undefined){
+                	$('#txtProduct1a').val(q_getHref()[1]);
+                	$('#txtProduct2a').val(q_getHref()[1]);
+                }
+                if(q_getHref()[3]!=undefined){
+                	$('#txtProduct1b').val(q_getHref()[3]);
+                	$('#txtProduct2b').val(q_getHref()[3]);
+                }
+                
+                
             }
 
             function q_boxClose(s2) {
