@@ -552,6 +552,12 @@
 			$('#txtOdate').focus();
 			$('#cmbTaxtype').val('3');
 			
+			//0403 如果是葉小姐 代O 劉小姐 代L
+			if(r_userno=='06')
+				$('#combworker').val('O');
+			if(r_userno=='13')
+				$('#combworker').val('L');
+				
 			var t_where = "where=^^ 1=1  group by post,addr^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
 		}

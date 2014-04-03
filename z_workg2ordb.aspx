@@ -28,10 +28,13 @@
 							var txtreport=$('#q_report').data().info.reportData[i].report;
 						}
 					}
-					if(txtreport=='z_workg2ordb1')
+					if(txtreport=='z_workg2ordb1'){
 						$('#btnOrdb').show();
-					else
+						$('#btnOrda').show();
+					}else{
 						$('#btnOrdb').hide();
+						$('#btnOrda').hide();
+					}
 				});
             });
             function q_gfPost() {
@@ -75,6 +78,7 @@
 				}
                 
                 var btn = document.getElementById('btnOk');
+                btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
                 btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='轉至請購單'>");
                 
                 
