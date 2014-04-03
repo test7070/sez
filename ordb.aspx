@@ -531,11 +531,22 @@
     				    }  
 				}
 				//未成交
-				/*if($('#txtTggno').val().length>0){
+				if($('#txtTggno').val().length>0){
 				    for(var i=0;i<q_bbsCount;i++){
-				        $('#chkIsnotdeal').prop("checked",q_float('txtPrice_'+i)!=0);
+				        $('#chkIsnotdeal_'+i).prop("checked",q_float('txtPrice_'+i)==0);
 				    }
-				}*/
+				}else{
+				    for(var i=0;i<q_bbsCount;i++){
+                        t_no3 = $('#txtNo3_'+i).val();
+                        t_isdeal = false;
+                        for(var j=0;j<q_bbtCount;j++){
+                            if($('#txtNo3__'+j).val()==t_no3){
+                                t_isdeal = t_isdeal |($('#txtTggno__'+j).val().length>0 && $('#txtFdate__'+j).val().length>0 && q_float('txtFprice__'+j)!=0);
+                            }
+                        }
+                        $('#chkIsnotdeal_'+i).prop("checked",!t_isdeal);
+                    }
+				}
 				
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
@@ -1338,7 +1349,7 @@
                     </td>
                     <td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:200px;"><a id='lblProduct_st'> </a></td>
+					<td align="center" style="width:200px;">品名<br>規格</td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:100px;" class="isStyle"><a id='lblStyles'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
