@@ -54,7 +54,10 @@
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate2').datepicker();
-
+				$('.q_report .option:first').css('width','700px')
+				$('#Xproductno').css('width','690px');
+				$('#Xproductno .c2').css('width','130px');
+				$('#Xproductno .c3').css('width','130px');
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
