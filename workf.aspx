@@ -20,7 +20,7 @@
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno'];
-			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount','txtWk_mount','txtWk_inmount','txtWk_unmount','txtTmount','txtTdate','txtQcdate','txtBkrea','txtWrea'];
+			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtQcworker','txtQctime','txtPrice','txtMount','txtBkmount','txtWmount','txtWk_mount','txtWk_inmount','txtWk_unmount','txtTmount','txtTdate','txtQcdate','txtBkrea','txtWrea','txtQcresult'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 0, 1], ['txtMount', 15, 0, 1], ['txtPrice', 15, 0, 1],
@@ -136,7 +136,7 @@
 				$('#btnClose_div_tgg').click(function() {
 					$('#div_tgg').toggle();
 					if(!emp($('#tgg_txtTggno').val())){
-						var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' and mount>isnull((select SUM(born) from view_workfs where workno=work"+r_accy+".noa),0)";
+						var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=work"+r_accy+".noa),0)";
 						q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 					}else{
 						_btnChange(0);
@@ -303,7 +303,7 @@
 							
 							for ( j = 0; j < t_workfs.length; j++) {
 								if(as[i].noa==t_workfs[j].workno){
-									as[i].xmount=dec(as[i].xmount)-dec(t_workfs[j].born);
+									as[i].xmount=dec(as[i].xmount)-dec(t_workfs[j].born)-dec(t_workfs[j].bkmount)-dec(t_workfs[j].wmount);
 									as[i].inmount=as[i].inmount+dec(t_workfs[j].born);
 								}
 							}
@@ -492,7 +492,7 @@
 				$('#cmbTaxtype').val('1');*/
 				//4001改由txt新增
 				if(r_outs=='1'){
-					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + r_userno + "' and mount>isnull((select SUM(born) from view_workfs where workno=work"+r_accy+".noa),0)";
+					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + r_userno + "' and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=work"+r_accy+".noa),0)";
 					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				}else{
 					q_cur=1;
@@ -783,7 +783,7 @@
 				COLOR: blue;
 				TEXT-ALIGN: left;
 				BORDER: 1PX LIGHTGREY SOLID;
-				width: 3000px;
+				width: 2600px;
 				height: 98%;
 			}
 			.tbbm tr {
@@ -812,7 +812,7 @@
 				float: left;
 			}
 			.txt.c1 {
-				width: 95%;
+				width: 97%;
 			}
 			.txt.c2 {
 				width: 50%;
@@ -912,7 +912,7 @@
 						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtTggno" type="text" class="txt" style='width:45%;'/>
-							<input id="txtTgg" type="text" class="txt" style='width:48%;'/>
+							<input id="txtTgg" type="text" class="txt" style='width:50%;'/>
 						</td>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 						<td>
@@ -930,13 +930,13 @@
 						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 						<td>
 							<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
-							<input id="txtStore" type="text" class="txt" style='width:48%;'/>
+							<input id="txtStore" type="text" class="txt" style='width:50%;'/>
 						</td>
 						<!--<td><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
 						<td><input id="txtWorkcno" type="text" class="txt c1"/></td>-->
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnWork"></td>
+						<!--<td><input type="button" id="btnWork"></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblInvono' class="lbl"> </a></td>
@@ -948,8 +948,8 @@
 					<tr>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td>
-							<select id="cmbTaxtype" class="txt" onchange="calTax()"></select>
-							<input id="txtTax" type="text" class="txt c2 num" style="width: 60%;"/>
+							<select id="cmbTaxtype" class="txt" onchange="calTax()" style='width:45%;'></select>
+							<input id="txtTax" type="text" class="txt c2 num" style="width: 52%;"/>
 						</td>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
@@ -968,7 +968,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan='4'><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td colspan='3'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
 					</tr>
 				</table>
 			</div>
@@ -992,20 +992,19 @@
 					<td style="width:100px;;" align="center"><a id='lblBwmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
+					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>-->
 					<td style="width:100px;" align="center"><a id='lblTmount'></a>/<br><a id='lblTdate'></a></td>
 					<!--<td style="width:100px;" align="center"><a id='lblTdate'></a></td>-->
 					<td style="width:120px;" align="center"><a id='lblMounts'></a>/<br><a id='lblQcdate'></a></td>
 					<!--<td style="width:100px;" align="center"><a id='lblQcdate'></a></td>-->
-					<td style="width:150px;" align="center"><a id='lblQcresult'></a></td>
+					<td style="width:100px;" align="center"><a id='lblQcresult'></a></td>
 					<td style="width:110px;" align="center"><a id='lblBkmount_s'></a></td>
 					<td style="width:110px;" align="center"><a id='lblWmounts'></a></td>
 					<!--<td style="width:150px;" align="center"><a id='lblErrmount'></a></td>-->
 					<td align="center"><a id='lblMemos'></a></td>
 					<td style="width:180px;" align="center"><a id='lblWorknos'></a></td>
-					<td style="width:100px;" align="center"><a id='lblQcworker'></a></td>
-					<td style="width:80px;" align="center"><a id='lblQctime'></a></td>
+					<td style="width:100px;" align="center"><a id='lblQcworker'></a>/<a id='lblQctime'></a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<!--1020702製造業通常只用到數量，所以重量隱藏，並將生產數量改為報廢數量-->
@@ -1033,8 +1032,8 @@
 					<td><input class="txt c1 num" id="txtBwmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtPrice.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtTotal.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
+					<!--<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>-->
 					<td>
 						<input class="txt c1 num" id="txtTmount.*" type="text"/>
 						<input class="txt c1" id="txtTdate.*" type="text"/>
@@ -1064,8 +1063,10 @@
 						<input id="recno.*" type="hidden" />
 					</td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
-					<td><input id="txtQcworker.*" type="text" class="txt c1"/></td>
-					<td><input id="txtQctime.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtQcworker.*" type="text" class="txt c1"/>
+						<input id="txtQctime.*" type="text" class="txt c1"/>
+					</td>
 				</tr>
 			</table>
 		</div>

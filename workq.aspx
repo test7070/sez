@@ -461,7 +461,7 @@
 					var t_error='';
 					for (var i = 0; i < q_bbsCount; i++) {
 						if (!emp($('#txtProductno_' + i).val())&&q_float('txtBorn_'+i)<(q_float('txtMount_'+i)+q_float('txtBkmount_'+i)+q_float('txtWmount_'+i))) {
-							t_error+=$('#txtProduct_' + i).val()+"【"+q_getMsg('lblMounts')+"】大於【"+q_getMsg('lblBorn')+"+"+q_getMsg('lblBkmounts')+"+"+q_getMsg('lblWmounts')+"】\n"
+							t_error+=$('#txtProduct_' + i).val()+"\n【"+q_getMsg('lblBorn')+"】："+$('#txtBorn_'+i).val()+" 小於\n【"+q_getMsg('lblMounts')+"+"+q_getMsg('lblBkmounts')+"+"+q_getMsg('lblWmounts')+"】："+(q_float('txtMount_'+i)+q_float('txtBkmount_'+i)+q_float('txtWmount_'+i))+"\n"
 						}
 					}
 					
@@ -512,6 +512,7 @@
 							q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 						}
 					});
+					
 					/*$('#txtMount_'+j).change(function(){
 						var n=$(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 						var thisVal = dec($(this).val());
@@ -697,6 +698,8 @@
 							if(workdno.length > 0){
 								q_func('workd_post.post',r_accy+','+workdno+',0');
 								q_func('workd_post.post',r_accy+','+workdno+',1');
+								abbm[q_recno]['workdno'] = as[0].workdno;
+								$('#txtWorkdno').val(as[0].workdno);
 							}
 						}
 						Unlock();
@@ -950,9 +953,9 @@
 					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBkmounts'></a>/原因</td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'></a>/原因</td>
-					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
+					<!--<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
-					<!--<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>-->
+					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>-->
 					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblWorkfnos'></a></td>
@@ -991,9 +994,9 @@
 						<input class="txt c1 num" id="txtWmount.*" type="text"/>
 						<input class="txt c1" id="txtWrea.*" type="text"/>
 					</td>
-					<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
+					<!--<td><input class="txt c1 num" id="txtInmount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtOutmount.*" type="text"/></td>
-					<!--<td>
+					<td>
 						<input class="txt c1 num" id="txtErrmount.*" type="text"/>
 						<input class="txt c1" id="txtErrmemo.*" type="text"/>
 					</td>-->
