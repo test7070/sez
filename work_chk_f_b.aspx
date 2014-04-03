@@ -43,9 +43,8 @@
 		 function bbsAssign() {  
 			_bbsAssign();
 			for (var j = 0; j < q_bbsCount; j++) {
-				//q_gt('view_workfs', "where=^^workno='"+$('#txtNoa_'+j).val()+"'^^", 0, 0, 0, "view_workfs_"+j, r_accy);
+				q_gt('view_workfs', "where=^^workno='"+$('#txtNoa_'+j).val()+"'^^", 0, 0, 0, "view_workfs_"+j, r_accy);
 				$('#textUnborn2_'+j).val(q_float('txtMount_'+j)-q_float('txtInmount_'+j));
-				
 				
 				$('#textBorn2_' + j).change(function() {
 					t_IdSeq = -1;
@@ -60,15 +59,16 @@
 		}
 
 		function q_gtPost(t_name) {  ///  for   store2 
-			/*if(t_name.substring(0,12)=='view_workfs_'){
+			if(t_name.substring(0,12)=='view_workfs_'){
 				var seq = t_name.split('_')[2];
 				var as = _q_appendData("view_workfs", "", true);
 				var t_born=0
 				for (i = 0; i < as.length; i++) {
-					t_born+=dec(as[i].born);
+					t_born+=dec(as[i].born)-dec(as[i].bkmount)-dec(as[i].wmount);
 				}
 				$('#textInmount2_'+seq).val(t_born);
-			}*/
+				$('#textUnborn2_'+seq).val(q_float('txtMount_'+seq)-q_float('textInmount2_'+seq));
+			}
 		}
 		
 		function refresh() {
@@ -123,7 +123,7 @@
 				<th align="center"><a id='lblNoa'></a> <BR><a id='lblCuadate'></a>/ <a id='lblUindate'></a></th>
 				<th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
 				<th align="center"><a id='lblMount'></a></th>
-				<th align="center"><a id='lblInmount'></a></th>
+				<th align="center"><a id='lblInmount2_f'></a></th>
 				<th align="center"><a id='lblUnborn2_f'></a></th>
 				<th align="center"><a id='lblBorn2_f'></a></th>
 				<th align="center"><a id='lblStore2_f'></a></th>
@@ -151,7 +151,7 @@
 					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>
 				<td style="width:7%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
-				<td style="width:7%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
+				<td style="width:7%;"><input class="txt" id="textInmount2.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
 				<td style="width:7%;"><input class="txt" id="textUnborn2.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
 				<td style="width:7%;"><input class="txt" id="textBorn2.*" type="text" style="width:98%; text-align: right;"  /></td>
 				<td style="width:12%;">

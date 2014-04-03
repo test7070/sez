@@ -987,8 +987,8 @@
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
-					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
+					<td style="width:100px;" align="center"><a id='lblBorn' style="color: red;"></a></td>
+					<td style="width:150px;" align="center"><a id='lblStores' style="color: red;"></a></td>
 					<td style="width:100px;;" align="center"><a id='lblBwmounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
 					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
