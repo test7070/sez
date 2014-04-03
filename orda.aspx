@@ -30,7 +30,7 @@
 			brwNowPage = 0;
 			brwKey = 'odate';
 			//brwCount2 = 4;
-			aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']);
+			aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']);
 			
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -401,9 +401,8 @@
 					<td align="center" style="width:45px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td align="center" style="width:55px;"><a id='lblNoq_s'> </a></td>
 					<td align="center" style="width:160px;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblGmount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblStkmount_s'> </a></td>
@@ -417,12 +416,15 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-					<td align="center"><input class="txt c1" id="txtNoq.*" type="text" /></td>
 					<td align="center">
-						<input class="txt c1" id="txtProductno.*" type="text" style="width:80%;" />
+						<input class="txt c1" id="txtProductno.*" type="text" />
 						<input class="btn" id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width: 1%;" />
+						<input class="txt c6" id="txtNoq.*" type="text" />
 					</td>
-					<td><input class="txt c1" id="txtProduct.*" type="text" /></td>
+					<td>
+						<input class="txt c1" id="txtProduct.*" type="text" />
+						<input class="txt c1" id="txtSpec.*" type="text" />
+					</td>
 					<td align="center"><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt num c1" id="txtGmount.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtStkmount.*" type="text" /></td>
