@@ -683,16 +683,18 @@
                             sendid : t_sendid,
                             CarId: encodeURI(t_carno),
                             Message : encodeURI('回傳代碼:'+t_sendid+'.'+t_msg),
-                            StatusCode : 1                 
+                            StatusCode : "1"                 
                         });
                     }    
                 }
+                
                 var json = JSON.stringify(t_array);
                 $.ajax({
                     url: 'SendCommand.aspx',
                     type: 'POST',
                     data: json,
                     dataType: 'json',
+                    timeout: 300000,
                     success: function(data){
                         for(var i=0;i<data.length;i++){
                             if(data[i]['SendCommandResult']=="true")
@@ -712,7 +714,7 @@
                     complete: function(){                    
                     },
                     error: function(jqXHR, exception) {
-                        var errmsg = this.carno+'資料傳送異常。\n';
+                        var errmsg = '資料傳送異常。\n';
                         if (jqXHR.status === 0) {
                             alert(errmsg+'Not connect.\n Verify Network.');
                         } else if (jqXHR.status == 404) {
