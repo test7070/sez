@@ -462,7 +462,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('ordb_s.aspx', q_name + '_s', "520px", "520px", q_getMsg("popSeek"));
+				q_box('ordb_s.aspx', q_name + '_s', "490px", "380px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
