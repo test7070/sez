@@ -97,14 +97,14 @@
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
                 		q_gt('workg', "isnull(ordbno,'')='' and isnull(ordano,'')=''", 0, 0, 0, "", r_accy);
                 	else
-                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "", r_accy);
+                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "ordb", r_accy);
 	            });
 	            
 	           $('#btnOrda').click(function(){
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
                 		q_gt('workg', "isnull(ordbno,'')='' and isnull(ordano,'')=''", 0, 0, 0, "", r_accy);
                 	else
-                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "", r_accy);
+                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda", r_accy);
 	            });
 	            
 	            $('.q_report .option div .c3').css("width","180px");
@@ -116,7 +116,7 @@
 
             function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'workg':
+					case 'ordb':
 						var as = _q_appendData("workg", "", true);
 						if (as[0] != undefined) {
 							if(confirm("確定要轉至"+ordx+"?"))
@@ -134,6 +134,29 @@
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+							}
+						}else{
+							alert('已產生'+ordx+'。');
+						}
+						break;
+					case 'orda':
+						var as = _q_appendData("workg", "", true);
+						if (as[0] != undefined) {
+							if(confirm("確定要轉至"+ordx+"?"))
+							{
+								var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
+		                		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
+		                		var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
+		                		var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
+								var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
+		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
+		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                		
+		                		
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+r_userno+';'+q_getPara('sys.key_orda');
+								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
+				                q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
 						}else{
 							alert('已產生'+ordx+'。');
