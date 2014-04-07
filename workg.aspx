@@ -748,6 +748,14 @@
 					}
 					alert('製令產出執行完畢!!');
 					$('#btnWork').val('製令產出').removeAttr('disabled');
+					var obj = $('#tview').find('#noa');
+					var t_noa=$.trim($('#txtNoa').val());
+					for(var i=0;i<obj.length;i++){
+						if(obj.eq(i).html()==t_noa){
+							$('#tview').find('#unordb').eq(i).html('v');
+							break;                                      
+						}
+					}
 				}
 			}
 		</script>
@@ -937,6 +945,7 @@
 						<td style="display:none;">
 							<input type="text" style="display:none;" id="txtUnwork">
 							<input type="text" style="display:none;" id="txtUnordb">
+							<input type="text" style="display:none;" id="txtUnorda">
 						</td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
