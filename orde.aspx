@@ -416,6 +416,9 @@
 					alert(t_err);
 					return;
 				}
+				for(var k=0;k<q_bbsCount;k++){
+					$('#txtDatea_'+k).val(q_cdn($.trim($('#txtDatea').val()),15))
+				}
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
