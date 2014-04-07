@@ -125,8 +125,8 @@
 				<th align="center"><a id='lblMount'></a></th>
 				<th align="center"><a id='lblInmount2_f'></a></th>
 				<th align="center"><a id='lblUnborn2_f'></a></th>
-				<th align="center"><a id='lblBorn2_f'></a></th>
-				<th align="center"><a id='lblStore2_f'></a></th>
+				<th align="center"><a id='lblBorn2_f' style="color: red;"></a></th>
+				<th align="center"><a id='lblStore2_f' style="color: red;"></a></th>
 				<th align="center"><a id='lblMemo'></a></th>
 			</tr>
 			<tr style='background:#cad3ff;'>
@@ -153,8 +153,8 @@
 				<td style="width:7%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
 				<td style="width:7%;"><input class="txt" id="textInmount2.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
 				<td style="width:7%;"><input class="txt" id="textUnborn2.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
-				<td style="width:7%;"><input class="txt" id="textBorn2.*" type="text" style="width:98%; text-align: right;"  /></td>
-				<td style="width:12%;">
+				<td style="width:9%;"><input class="txt" id="textBorn2.*" type="text" style="width:98%; text-align: right;"  /></td>
+				<td style="width:10%;">
 					<input class="txt" id="textStoreno2.*" type="text" style="width:78%;"  />
 					<input class="btn" id="btnStore2.*" type="button" value='.' style="width:1%;float: left;" />
 					<input class="txt" id="textStore2.*" type="text" style="width:98%;"/>
