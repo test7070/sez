@@ -115,7 +115,14 @@
 	                    t_IdSeq = -1; 
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-                    	q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popVcc'));
+	                    if($('#txtVccno_' + b_seq).val().substr(0,2)=='BK')
+	                    	q_box("carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popCarchg'));
+	                    else if($('#txtVccno_' + b_seq).val().substr(0,2)=='FA')
+	                    	q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popVcc'));	                    
+	                    else if($('#txtVccno_' + b_seq).val().indexOf("-")>-1)
+	                    	q_box("cara.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popCara'));
+	                    else
+                    		q_box("salchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popSalchg'));
                       });
                       
                       $('#txtMon_' + j).change(function(){

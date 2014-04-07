@@ -388,10 +388,10 @@
 									}
 								}
 							}
-							if(q_float('txtWorkfno_' + i)>worku_mount)
-								workuerror+=$('txtProduct_'+i).val()+"的\n【"+q_getMsg('lblMounts')+"+"+q_getMsg('lblBkmounts')+"+"+q_getMsg('lblWmounts')+"】大於【暫收數量】\n";
+							if((q_float('txtMount_' + i)+q_float('txtBkmount_' + i)+q_float('txtWmount_' + i))>worku_mount)
+								workuerror+=$('#txtProduct_'+i).val()+"的\n【"+q_getMsg('lblMounts')+"+"+q_getMsg('lblBkmounts')+"+"+q_getMsg('lblWmounts')+"】："+(q_float('txtMount_' + i)+q_float('txtBkmount_' + i)+q_float('txtWmount_' + i))+"\n大於【暫收數量】："+worku_mount+"\n";
 						}
-						if (pickerror.length == 0) {
+						if (workuerror.length == 0) {
 							checkok = true;
 							btnOk();
 						} else {
