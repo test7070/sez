@@ -265,7 +265,6 @@
 				}
 				b_pop = '';
 			}
-
 			var ucsa_cost = 0;
 			function q_gtPost(t_name) {
 				switch (t_name) {
@@ -403,8 +402,9 @@
 						$('#div_stk').toggle();
 						break;
 					case q_name:
-						if (q_cur == 4)
+						if (q_cur == 4){
 							q_Seek_gtPost();
+						}
 						break;
 				}
 

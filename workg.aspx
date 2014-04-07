@@ -934,6 +934,10 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr>
+						<td style="display:none;">
+							<input type="text" style="display:none;" id="txtUnwork">
+							<input type="text" style="display:none;" id="txtUnordb">
+						</td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -1044,7 +1048,10 @@
 						</td>
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
-						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtProduct.*" type="text" class="txt c1"/>
+							<input id="txtSpec.*" type="text" class="txt c1"/>
+						</td>
 						<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text"/></td>
 						<td class="sf"><input id="txtSaleforecast.*" type="text" class="txt c1 num safo"/></td>
 						<td class="sf"><input id="txtPrepare.*" type="text" class="txt c1 num safo"/></td>

@@ -379,8 +379,10 @@
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblWorkgno' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtWorkgno" type="text" class="txt c1"/></td>
+						<!--
 						<td class="td3"><span> </span><a id='lblApv' class="lbl"> </a></td>
 						<td class="td4"><input id="txtApv" type="text" class="txt c1"/></td>
+						-->
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -411,7 +413,7 @@
 					<td align="center" style="width:90px;"><a id='lblNetmount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblFdate_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblFmount_s'> </a></td>
-					<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>
+					<!--<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>-->
 					<td align="center"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -433,7 +435,7 @@
 					<td><input class="txt num c1" id="txtNetmount.*" type="text" /></td>
 					<td><input class="txt c1" id="txtFdate.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtFmount.*" type="text" /></td>
-					<td><input class="txt num c1" id="txtMount.*" type="text" /></td>
+					<!--<td><input class="txt num c1" id="txtMount.*" type="text" /></td>-->
 					<td><input class="txt c1" id="txtMemo.*" type="text" /></td>
 				</tr>
 			</table>

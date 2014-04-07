@@ -947,7 +947,10 @@
 						<input class="txt" id="txtProductno.*" type="text" style="width:85%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />
 					</td>
-					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="txtProduct.*" type="text" class="txt c1"/>
+						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
+					</td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>

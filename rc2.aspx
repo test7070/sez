@@ -354,9 +354,9 @@
 				var t_where = '';
 				if (t_tggno.length > 0) {
 					if (t_ordeno.length > 0)
-						t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
 					else
-						t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
 					t_where = t_where;
 				} else {
 					alert(q_getMsg('msgTggEmp'));
@@ -519,7 +519,12 @@
 			}
 
 			function btnPrint() {
-				q_box("z_rc2p.aspx?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				var hasStyle = q_getPara('sys.isstyle');
+				if(hasStyle=='1'){
+					q_box("z_rc2_ra.aspx?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}else{
+					q_box("z_rc2p.aspx?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}
 			}
 
 			function wrServer(key_value) {
@@ -1000,7 +1005,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs' style="width: 1300px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:1%;">
@@ -1015,7 +1020,7 @@
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblStore_s'> </a></td>
 					<td align="center" style="width:80px;" class="isRack"><a id='lblRackno_s'> </a></td>
-					<td align="center" style="width:140px;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
