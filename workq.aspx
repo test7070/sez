@@ -552,8 +552,9 @@
 				if (q_cur == 1 || emp($('#txtWorkcno').val()))
 					q_func('qtxt.query.c0', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 				else {
-					//處理workc內容
+					//處理workc d內容
 					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+					q_func('workd_post.post.a1', r_accy + ',' + $('#txtWorkdno').val() + ',0');
 				}
 			}
 
@@ -642,8 +643,10 @@
 				//處理workc內容
 				if(emp($('#txtWorkcno').val()))
 					q_func('qtxt.query.c2', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-				else
+				else{
 					q_func('workc_post.post.a2', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+					q_func('workd_post.post.a2', r_accy + ',' + $('#txtWorkdno').val() + ',0');
+				}
 			}
 
 			function btnCancel() {
@@ -662,17 +665,17 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				abbm[q_recno]['accno'] = xmlString.split(";")[0];
-				var t_noa = $.trim($('#txtNoa').val());
-				if((t_noa.length>0) && (r_name.length > 0)){
+				//abbm[q_recno]['accno'] = xmlString.split(";")[0];
+				//var t_noa = $.trim($('#txtNoa').val());
+				/*if((t_noa.length>0) && (r_name.length > 0)){
 					Lock();
 					q_func('qtxt.query.workq', 'workq.txt,workqsave,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
-				}
+				}*/
 			}
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query.workq':
+					/*case 'qtxt.query.workq':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
 							var workdno = $.trim(as[0].workdno);
@@ -684,7 +687,7 @@
 							}
 						}
 						Unlock();
-						break;
+						break;*/
 					case 'workc_post.post.a1':
 						//呼叫workf.post
 						q_func('qtxt.query.c0', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
@@ -701,9 +704,13 @@
 						if (as[0] != undefined) {
 							abbm[q_recno]['workcno'] = as[0].workcno;
 							$('#txtWorkcno').val(as[0].workcno);
+							abbm[q_recno]['workdno'] = as[0].workdno;
+							$('#txtWorkdno').val(as[0].workdno);
 							//處理workc內容
 							if(!emp(as[0].workcno))
 								q_func('workc_post.post', r_accy + ',' + $('#txtWorkcno').val() + ',1');
+							if(!emp(as[0].workdno))
+								q_func('workd_post.post', r_accy + ',' + $('#txtWorkdno').val() + ',1');
 						}
 						break;
 					case 'qtxt.query.c2':
