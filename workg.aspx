@@ -42,9 +42,9 @@
 			aPop = new Array(
 				['txtFactno', 'lblFactno', 'factory', 'noa,factory', 'txtFactno,txtFact', 'factory_b.aspx'],
 				['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
-				['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'uca', 'noa,product,style', 'txtProductno_,txtProduct_,txtStyle_', 'uca_b.aspx'],
 				['txtStationno_', 'btnStation_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx'],
-				['txtProductno__', 'btnProduct__', 'uca', 'noa,product', 'txtProductno__,txtProduct__', 'uca_b.aspx']
+				['txtProductno__', 'btnProduct__', 'uca', 'noa,product,style', 'txtProductno__,txtProduct__,txtStyle__', 'uca_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -234,9 +234,9 @@
 								as[i].rworkdate = '';
 								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
 							, as.length, as
-							, 'rworkdate,productno,product,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
+							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
 							change_field();
 						} else {
 							alert('無訂單資料!!。');
@@ -459,6 +459,9 @@
 				q_gt('work', t_where, 0, 0, 0, "", r_accy);
 				
 				change_field();
+				
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 								
 			}
 			
@@ -860,7 +863,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 3260px;
+				width: 3360px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -881,7 +884,7 @@
 				border: 2px lightgrey double;
 			}
 			#dbbt {
-				width: 800px;
+				width: 900px;
 			}
 			#tbbt {
 				margin: 0;
@@ -1008,6 +1011,7 @@
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
+						<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle_s'></a></td>
 						<td style="width:90px;" class="sf"><a id='lblSaleforecast_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblPrepare_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblUnprepare_s'> </a></td>
@@ -1045,6 +1049,7 @@
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+						<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text"/></td>
 						<td class="sf"><input id="txtSaleforecast.*" type="text" class="txt c1 num safo"/></td>
 						<td class="sf"><input id="txtPrepare.*" type="text" class="txt c1 num safo"/></td>
 						<td class="sf"><input id="txtUnprepare.*" type="text" class="txt c1 num safo"/></td>
@@ -1102,6 +1107,7 @@
 					<td style="width:40px; text-align: center;"><a id='lblNo2_t'> </a></td>
 					<td style="width:120px; text-align: center;"><a id='lblProductno_t'> </a></td>
 					<td style="width:180px; text-align: center;"><a id='lblProduct_t'> </a></td>
+					<td style="width:100px; text-align: center;" class="isStyle"><a id='lblStyle_t'> </a></td>
 					<td style="width:100px; text-align: center;"><a id='lblSalemount_t'> </a></td>
 				</tr>
 				<tr>
@@ -1114,6 +1120,7 @@
 					<td><input id="txtNo2..*" type="text" class="txt c1"/></td>
 					<td><input id="txtProductno..*" type="text" class="txt c1"/></td>
 					<td><input id="txtProduct..*" type="text" class="txt c1"/></td>
+					<td class="isStyle"><input id="txtStyle..*" type="text" class="txt c1"/></td>
 					<td><input id="txtSalemount..*" type="text" class="txt c1 num"/></td>
 				</tr>
 			</table>
