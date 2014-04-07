@@ -376,44 +376,26 @@
 							$('#txtWk_unmount_'+i).val(q_float('txtWk_mount_'+i)-q_float('txtWk_inmount_'+i));
 						}
 						break;
-					case 'work_pick':
-						var pickerror = '';
-						var as = _q_appendData("workbs", "", true);
-						//檢查每一筆入庫是否合領料比例
+					case 'view_workus':
+						var workuerror = '';
+						var as = _q_appendData("view_workus", "", true);
 						for (var i = 0; i < q_bbsCount; i++) {
-							if (!emp($('#txtWorkno_' + i).val())) {
+							var worku_mount=0;
+							if (!emp($('#txtWorkfno_' + i).val())) {
 								for (var j = 0; j < as.length; j++) {
-									if ($('#txtWorkno_' + i).val() == as[j].noa) {
-										var work_mount = dec(as[j].mount);
-										//work需求數量
-										var work_inmount = dec(as[j].inmount) + dec($('#txtMount_' + i).val()) + dec($('#txtInmount_' + i).val()) - dec($('#txtOutmount_' + i).val());
-										//work已入庫數量+要入庫的數量+移入-移出數量
-										var works_mounts = dec(as[j].mounts);
-										//works領料需求數量
-										var works_gmounts = dec(as[j].gmounts);
-										//works已領料數量
-										var work_rate = work_inmount / work_mount;
-										//入庫比率
-										var works_rate = works_gmounts / works_mounts;
-										//領料比率
-										if (work_rate - works_rate > 0.01) {//誤差相差0.01
-											pickerror = $('#txtProduct_' + i).val();
-										}
-									}
-									if (pickerror.length > 0) {
-										break;
+									if ($('#txtWorkfno_' + i).val() == as[j].workfno&&$('#txtWorkfnoq_' + i).val() == as[j].workfnoq) {
+										worku_mount += dec(as[j].mount);
 									}
 								}
 							}
-							if (pickerror.length > 0) {
-								break;
-							}
+							if(q_float('txtWorkfno_' + i)>worku_mount)
+								workuerror+=$('txtProduct_'+i).val()+"的\n【"+q_getMsg('lblMounts')+"+"+q_getMsg('lblBkmounts')+"+"+q_getMsg('lblWmounts')+"】大於【暫收數量】\n";
 						}
 						if (pickerror.length == 0) {
 							checkok = true;
 							btnOk();
 						} else {
-							alert(pickerror + ' 入庫與領料比例不符!!');
+							alert(workuerror);
 						}
 						break;
 
@@ -437,17 +419,16 @@
 					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
 
 				if (!checkok) {
-					var word_where = '';
+					var workf_where = '';
 					for (var i = 0; i < q_bbsCount; i++) {
-						if (!emp($('#txtWorkno_' + i).val()))
-							word_where += "a.noa='" + $('#txtWorkno_' + i).val() + "' or ";
+						if (!emp($('#txtWorkfno_' + i).val()))
+							workf_where += "workfno='" + $('#txtWorkfno_' + i).val() + "' or ";
 					}
-					if (word_where.length > 0)
-						word_where = "and (" + word_where.substr(0, word_where.length - 3) + ")";
+					if (workf_where.length > 0)
+						workf_where = "and (" + workf_where.substr(0, workf_where.length - 3) + ")";
 
-					var t_where = "where=^^ 1=1 " + word_where + "^^";
-					var t_where1 = "where[1]=^^ noa='" + $('#txtNoa').val() + "' and productno=a.productno and workno=a.noa ^^";
-					q_gt('work_pick', t_where + t_where1, 0, 0, 0, "", r_accy);
+					var t_where = "where=^^ 1=1 " + workf_where + "^^";
+					q_gt('view_workus', t_where, 0, 0, 0, "", r_accy);
 				} else {
 					checkok = false;
 					//如果表身倉庫沒填，表頭倉庫帶入

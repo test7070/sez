@@ -400,6 +400,9 @@
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+				
+				var t_noa = $.trim($('#txtNoa').val());
+				q_func('qtxt.query.worku0', 'worku.txt,workusave,' + encodeURI(t_noa) + ';' + '0');
 			}
 
 			function bbsSave(as) {
@@ -480,7 +483,12 @@
 			}
 
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				var t_noa = $.trim($('#txtNoa').val());
+				q_func('qtxt.query.worku3', 'worku.txt,workusave,' + encodeURI(t_noa) + ';' + '0');
 			}
 
 			function btnCancel() {
@@ -499,19 +507,17 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				//abbm[q_recno]['accno'] = xmlString.split(";")[0];
-				var t_noa = $.trim($('#txtNoa').val());
-				if((t_noa.length>0) && (r_name.length > 0)){
-					Lock();
-					q_func('qtxt.query.worku', 'worku.txt,workusave,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
-				}
 			}
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query.worku':
-						Unlock();
+					case 'qtxt.query.worku0':
+						var t_noa = $.trim($('#txtNoa').val());
+						q_func('qtxt.query.worku1', 'worku.txt,workusave,' + encodeURI(t_noa) + ';' + '1');
 						break;
+					case 'qtxt.query.worku3':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+					break;
 				}
 			}
 			
