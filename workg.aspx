@@ -945,6 +945,7 @@
 						<td style="display:none;">
 							<input type="text" style="display:none;" id="txtUnwork">
 							<input type="text" style="display:none;" id="txtUnordb">
+							<input type="text" style="display:none;" id="txtUnorda">
 						</td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
