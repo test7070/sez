@@ -354,9 +354,9 @@
 				var t_where = '';
 				if (t_tggno.length > 0) {
 					if (t_ordeno.length > 0)
-						t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
 					else
-						t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
 					t_where = t_where;
 				} else {
 					alert(q_getMsg('msgTggEmp'));
