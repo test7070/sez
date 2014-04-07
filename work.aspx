@@ -230,8 +230,6 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#btnTproductno_' + j).hide();
 				}
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -241,6 +239,8 @@
 				}else {
 					$('#btnUnfreeze').attr('disabled', 'disabled');
 				}
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 			}
 
 			function btnMinus(id) {

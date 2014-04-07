@@ -612,10 +612,6 @@
 			function refresh(recno) {
 				_refresh(recno);
 				product_change();
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
-				var hasSpec = q_getPara('sys.isspec');
-				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function loadCustAddr(t_tggno) {
@@ -636,6 +632,10 @@
 					$('#combAddr').removeAttr('disabled');
 					$('#tmp').find("input[type='text']").removeAttr('disabled');
 				}
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function btnMinus(id) {

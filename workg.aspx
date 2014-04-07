@@ -457,12 +457,7 @@
 				_refresh(recno);
 				var t_where = "where=^^ cuano ='" + $('#txtNoa').val() + "' ^^";
 				q_gt('work', t_where, 0, 0, 0, "", r_accy);
-				
 				change_field();
-				
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
-								
 			}
 			
 			function change_field () {
@@ -500,8 +495,9 @@
 					$('#btnWorkPrint').attr('disabled', 'disabled');
 					$('#btnWork').attr('disabled', 'disabled');
 				}
-				
 				change_field();
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 			}
 
 			function btnMinus(id) {

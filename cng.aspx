@@ -291,10 +291,6 @@
 					$('.class_it').hide();
 				}
 				showRack();
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
-				var hasSpec = q_getPara('sys.isspec');
-				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function showRack(){
@@ -310,6 +306,11 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
+				showRack();
 			}
 
 			function btnMinus(id) {
