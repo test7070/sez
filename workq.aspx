@@ -424,8 +424,8 @@
 				}
 			}
 
-			//檢查領料是否等比例
-			var checkok = true;
+			//檢查入庫和暫收
+			var checkok = false;
 			function btnOk() {
 				t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')]]);
@@ -449,7 +449,7 @@
 					var t_where1 = "where[1]=^^ noa='" + $('#txtNoa').val() + "' and productno=a.productno and workno=a.noa ^^";
 					q_gt('work_pick', t_where + t_where1, 0, 0, 0, "", r_accy);
 				} else {
-					checkok = true;
+					checkok = false;
 					//如果表身倉庫沒填，表頭倉庫帶入
 					for (var i = 0; i < q_bbsCount; i++) {
 						if (emp($('#txtStoreno_' + i).val())) {
