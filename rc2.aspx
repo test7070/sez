@@ -1000,7 +1000,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1260px;">
+		<div class='dbbs' style="width: 1300px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:1%;">
@@ -1015,7 +1015,7 @@
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblStore_s'> </a></td>
 					<td align="center" style="width:80px;" class="isRack"><a id='lblRackno_s'> </a></td>
-					<td align="center" style="width:140px;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
