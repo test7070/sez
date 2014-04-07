@@ -590,10 +590,6 @@
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
-				var hasSpec = q_getPara('sys.isspec');
-				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -605,6 +601,10 @@
 					$('#btnWork').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
 				}
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function btnMinus(id) {
