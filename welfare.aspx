@@ -123,8 +123,9 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                 return;
-                if (q_chkClose())
-             	return;
+                //04/03取消超過3日就鎖單的限制
+                //if (q_chkClose())
+             	//return;
             _btnModi();
             $('#txtBdate').focus();
             }
@@ -258,8 +259,9 @@
             }
 
             function btnDele() {
-            	if (q_chkClose())
-             		return;
+            	//04/03取消超過3日就鎖單的限制
+            	//if (q_chkClose())
+             	//	return;
                 _btnDele();
             }
 
