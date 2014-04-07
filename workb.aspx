@@ -202,7 +202,7 @@
 							if (!b_ret || b_ret.length == 0)
 								return;
 							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtBorn,txtBweight', b_ret.length, b_ret, 'productno,product,unit,spec,mount,weight', 'txtProductno');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtStyle,txtUnit,txtSpec,txtBorn,txtBweight', b_ret.length, b_ret, 'productno,product,style,unit,spec,mount,weight', 'txtProductno');
 							/// 最後 aEmpField 不可以有【數字欄位】
 							bbsAssign();
 						}
@@ -286,8 +286,8 @@
 							//本次入庫量
 							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
 						}
-						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount,txtWk_unmount', as.length, as
-						, 'productno,product,unit,spec,smount,memo,noa,ordeno,no2,mount,inmount,smount', '');
+						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtStyle,txtUnit,txtSpec,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount,txtWk_unmount', as.length, as
+						, 'productno,product,style,unit,spec,smount,memo,noa,ordeno,no2,mount,inmount,smount', '');
 
 						if (t_stationno.length != 0 || t_station.length != 0) {
 							$('#txtStationno').val(t_stationno);

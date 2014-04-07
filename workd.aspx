@@ -174,9 +174,9 @@
 								return;
 							var ret = q_gridAddRow(
 								bbsHtm, 'tbbs',
-								'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtWorkno,txtStoreno,txtStore,txtWorkqno',
+								'txtProductno,txtProduct,txtStyle,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtWorkno,txtStoreno,txtStore,txtWorkqno',
 								b_ret.length, b_ret,
-								'productno,product,unit,spec,bkmount2,ordeno,no2,memo,workno,storeno,store,noa', ''
+								'productno,product,style,unit,spec,bkmount2,ordeno,no2,memo,workno,storeno,store,noa', ''
 							);
 						}
 						break;
@@ -283,9 +283,9 @@
 						}
 						var ret = q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno,txtWk_mount,txtWk_inmount,txtWk_unmount',
+							'txtProductno,txtProduct,txtStyle,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno,txtWk_mount,txtWk_inmount,txtWk_unmount',
 							as.length, as,
-							'productno,product,unit,spec,smount,ordeno,no2,memo,price,noa,mount,inmount,smount', ''
+							'productno,product,txtStyle,unit,spec,smount,ordeno,no2,memo,price,noa,mount,inmount,smount', ''
 						);
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
