@@ -1351,8 +1351,8 @@
 						<td class="td4"><input id="txtHours" type="text" class="txt c1 num"/></td>
 						<td class="td5"><span> </span><a id="lblPretime" class="lbl"> </a></td>
 						<td class="td6"><input id="txtPretime" type="text" class="txt c1 num"/></td>
-						<td class="td1"><span> </span><a id="lblPreday" class="lbl"> </a></td>
-						<td class="td2"><input id="txtPreday" type="text" class="txt c1 num"/></td>
+						<td class="td1" style="display:none;"><span> </span><a id="lblPreday" class="lbl"> </a></td>
+						<td class="td2" style="display:none;"><input id="txtPreday" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
