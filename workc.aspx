@@ -261,7 +261,7 @@
 							if (!b_ret || b_ret.length == 0)
 								return;
 							var i, j = 0;
-							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtMount,txtTypea', b_ret.length, b_ret, 'productno,product,spec,unit,mount,typea', 'txtProductno');
+							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtStyle,txtSpec,txtUnit,txtMount,txtTypea', b_ret.length, b_ret, 'productno,product,style,spec,unit,mount,typea', 'txtProductno');
 							bbsAssign();
 						}
 						break;
@@ -899,8 +899,8 @@
 					<td align="center" style="width:20px;"></td>
 					<td style="width:180px;" align="center"><a id='lblProductnos'> </a></td>
 					<td style="width:200px;" align="center"><a id='lblProducts'> </a></td>
-					<td style="width:60px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:120px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
+					<td style="width:60px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:80px" align="center"><a id='lblWk_gmounts'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_emounts'></a></td>
@@ -924,8 +924,8 @@
 						<input id="txtProduct.*" type="text" class="txt c1"/>
 						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
 					</td>
-					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_gmount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_emount.*" type="text" class="txt c1 num"/></td>

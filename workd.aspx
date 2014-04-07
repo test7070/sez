@@ -174,9 +174,9 @@
 								return;
 							var ret = q_gridAddRow(
 								bbsHtm, 'tbbs',
-								'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtWorkno,txtStoreno,txtStore,txtWorkqno',
+								'txtProductno,txtProduct,txtStyle,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtWorkno,txtStoreno,txtStore,txtWorkqno',
 								b_ret.length, b_ret,
-								'productno,product,unit,spec,bkmount2,ordeno,no2,memo,workno,storeno,store,noa', ''
+								'productno,product,style,unit,spec,bkmount2,ordeno,no2,memo,workno,storeno,store,noa', ''
 							);
 						}
 						break;
@@ -283,9 +283,9 @@
 						}
 						var ret = q_gridAddRow(
 							bbsHtm, 'tbbs',
-							'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno,txtWk_mount,txtWk_inmount,txtWk_unmount',
+							'txtProductno,txtProduct,txtStyle,txtUnit,txtSpec,txtMount,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno,txtWk_mount,txtWk_inmount,txtWk_unmount',
 							as.length, as,
-							'productno,product,unit,spec,smount,ordeno,no2,memo,price,noa,mount,inmount,smount', ''
+							'productno,product,txtStyle,unit,spec,smount,ordeno,no2,memo,price,noa,mount,inmount,smount', ''
 						);
 						if (t_tggno.length != 0 || t_tgg.length != 0) {
 							$('#txtTggno').val(t_tggno);
@@ -860,8 +860,8 @@
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:200px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:220px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
+					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:80px" align="center"><a id='lblWk_inmounts'></a></td>
@@ -890,8 +890,8 @@
 						<input class="txt c1" id="txtProduct.*" type="text"/>
 						<input class="txt c1 isSpec" id="txtSpec.*" type="text"/>
 					</td>
-					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text"/></td>
+					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_inmount.*" type="text" class="txt c1 num"/></td>

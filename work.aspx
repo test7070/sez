@@ -230,7 +230,8 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#btnTproductno_' + j).hide();
 				}
-				
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -521,11 +522,8 @@
 							<input id="txtModelno" type="text" class="txt" style="width: 45%"/>
 							<input id="txtModel" type="text" class="txt" style="width: 45%"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
-						<td class="td6">
-							<input id="txtCuano" type="text" class="txt" style="width: 70%"/>
-							<input id="txtCuanoq" type="text" class="txt" style="width: 20%"/>
-						</td>
+						<td class="td3"><span> </span><a id="lblStyle" class="lbl isStyle"> </a></td>
+						<td class="td4"><input id="txtStyle" type="text" class="txt isStyle"/></td>
 					</tr>
 					<tr class="tr9">
 						<!--<td class="td1"><span> </span><a id="lblWages" class="lbl"> </a></td>
@@ -538,6 +536,11 @@
 						<td class="td4">
 							<input id="chkIsfreeze" type="checkbox"/>
 							<input id="btnUnfreeze" type="button" value="取消凍結" style="float: inherit;" />
+						</td>
+						<td class="td5"><span> </span><a id="lblCuano" class="lbl"> </a></td>
+						<td class="td6">
+							<input id="txtCuano" type="text" class="txt" style="width: 70%"/>
+							<input id="txtCuanoq" type="text" class="txt" style="width: 20%"/>
 						</td>
 					</tr>
 					<!--<tr class="tr8">
