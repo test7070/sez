@@ -416,6 +416,9 @@
 					alert(t_err);
 					return;
 				}
+				for(var k=0;k<q_bbsCount;k++){
+					$('#txtDatea_'+k).val(q_cdn($.trim($('#txtDatea').val()),15))
+				}
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
@@ -977,8 +980,8 @@
 					</td>
 					<td align="center" style="width:160px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit'> </a></td>
-					<td align="center" style="width:120px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblTotal_s'> </a></td>
@@ -1004,10 +1007,8 @@
 						<input class="txt c7" id="txtProduct.*" type="text" />
 						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
 					</td>
+					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td align="center"><input class="txt c7" id="txtUnit.*" type="text"/></td>
-					<td class="isStyle">
-						<input id="txtStyle.*" type="text" class="txt c1"/>
-					</td>
 					<td><input class="txt num c7" id="txtMount.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtPrice.*" type="text" /></td>
 					<td><input class="txt num c7" id="txtTotal.*" type="text" /></td>

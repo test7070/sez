@@ -923,7 +923,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:180px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:200px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
+					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
 					<td style="width:40px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'></a></td>

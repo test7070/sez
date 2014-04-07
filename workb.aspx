@@ -878,7 +878,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:226px;"><a id='lblProductnos'></a></td>
 					<td align="center" style="width:251px;"><a id='lblProducts'></a></td>
-					<td align="center" style="width:120px;" class="isStyle"><a id='lblStyle'></a></td>
+					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'></a></td>
 					<td align="center" style="width:50px;"><a id='lblUnit'></a></td>
 					<td align="center" style="width:80px;"><a id='lblWk_mounts'></a></td>
 					<td align="center" style="width:80px"><a id='lblWk_inmounts'></a></td>

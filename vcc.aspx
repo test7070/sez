@@ -1195,8 +1195,8 @@
 					</td>
 					<td align="center" style="width:180px"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:120px;" class="isStyle"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
@@ -1219,8 +1219,8 @@
 						<input id="txtProduct.*" type="text" class="txt c1" />
 						<input id="txtSpec.*" type="text" class="txt c1 isSpec" />
 					</td>
-					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1"/></td>

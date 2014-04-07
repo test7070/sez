@@ -980,7 +980,7 @@
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:240px;"><a id='lblProductnos'> </a></td>
 					<td align="center" style="width:240px;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:120px;" class="isStyle"><a id='lblStyle'> </a></td>
+					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblWk_mounts'></a></td>
 					<td align="center" style="width:80px"><a id='lblWk_gmounts'></a></td>

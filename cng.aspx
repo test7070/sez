@@ -627,7 +627,7 @@
 					<td style="width:200px;" align="center"><a id='lblProductnos'> </a></td>
 					<td style="width:230px;" align="center"><a id='lblProducts'> </a></td>
 					<td style="width:40px;" align="center"><a id='lblUnit'> </a></td>
-					<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle'> </a></td>
+					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'> </a></td>
 					<td style="width:100px;" align="center"><a id='lblMounts'> </a></td>
 					<td style="width:100px;" align="center" class="class_it"><a id='lblClass'> </a></td>
 					<td style="width:400px;"align="center"><a id='lblMemos'> </a></td>
