@@ -899,7 +899,7 @@
 					<td align="center" style="width:20px;"></td>
 					<td style="width:180px;" align="center"><a id='lblProductnos'> </a></td>
 					<td style="width:200px;" align="center"><a id='lblProducts'> </a></td>
-					<td style="width:120px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
+					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
 					<td style="width:60px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:80px" align="center"><a id='lblWk_gmounts'></a></td>

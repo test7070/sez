@@ -1350,8 +1350,8 @@
                     <td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:200px;">品名<br>規格</td>
+					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyles'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
-					<td align="center" style="width:100px;" class="isStyle"><a id='lblStyles'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblOmount_st'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrices'> </a></td>
@@ -1387,8 +1387,8 @@
 						<input id="txtProduct.*" type="text" class="txt c2"/>
 						<input id="txtSpec.*" type="text" class="txt c2 isSpec"/>
 					</td>
-					<td><input id="txtUnit.*" type="text" class="txt c2"/></td>
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c2"/></td>
+					<td><input id="txtUnit.*" type="text" class="txt c2"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtOmount.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtPrice.*" type="text" class="txt c2 num"/></td>

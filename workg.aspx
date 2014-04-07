@@ -1007,7 +1007,7 @@
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
-						<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle_s'></a></td>
+						<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle_s'></a></td>
 						<td style="width:90px;" class="sf"><a id='lblSaleforecast_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblPrepare_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblUnprepare_s'> </a></td>
@@ -1103,7 +1103,7 @@
 					<td style="width:40px; text-align: center;"><a id='lblNo2_t'> </a></td>
 					<td style="width:120px; text-align: center;"><a id='lblProductno_t'> </a></td>
 					<td style="width:180px; text-align: center;"><a id='lblProduct_t'> </a></td>
-					<td style="width:100px; text-align: center;" class="isStyle"><a id='lblStyle_t'> </a></td>
+					<td style="width:95px; text-align: center;" class="isStyle"><a id='lblStyle_t'> </a></td>
 					<td style="width:100px; text-align: center;"><a id='lblSalemount_t'> </a></td>
 				</tr>
 				<tr>
