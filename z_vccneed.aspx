@@ -58,7 +58,11 @@
                 $('#txtXdate1').datepicker();
                 $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate2').datepicker();
-                
+ 				$('.q_report .option:first').css('width','700px')
+				$('#Product').css('width','690px');
+				$('#Product .c2').css('width','130px');
+				$('#Product .c3').css('width','130px');
+               
                 //if(q_getHref()[1]!=undefined)
                 //	$('#txtXnoa').val(q_getHref()[1]);
                 //if(q_getHref()[3]!=undefined)
