@@ -556,6 +556,10 @@
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 			function readonly(t_para, empty) {
@@ -927,6 +931,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:250px;"><a id='lblProduct_s'> </a></td>
+					<td style="width:120px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:250px;"><a id='lblMemo_s'> </a></td>
@@ -943,6 +948,7 @@
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />
 					</td>
 					<td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<td>

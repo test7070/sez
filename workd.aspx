@@ -860,8 +860,8 @@
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:200px;" align="center"><a id='lblProductnos'></a></td>
 					<td style="width:220px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
+					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
 					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
 					<td style="width:80px" align="center"><a id='lblWk_inmounts'></a></td>
@@ -890,8 +890,8 @@
 						<input class="txt c1" id="txtProduct.*" type="text"/>
 						<input class="txt c1 isSpec" id="txtSpec.*" type="text"/>
 					</td>
-					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text"/></td>
+					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtBorn.*" type="text"/></td>
 					<td><input id="txtWk_mount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtWk_inmount.*" type="text" class="txt c1 num"/></td>
