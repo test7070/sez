@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			this.errorHandler = null;
-			q_tables = 't';
+			q_tables = 's';
 			var q_name = "ordb";
 			var q_readonly = ['txtOrdcno','txtWorkgno', 'txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus'];
 			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','chkIsnotdeal','chkEnda'];
@@ -1447,48 +1447,5 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" style="display:none;">
-			<table id="tbbt">
-				<tbody>
-					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:90px;">
-							<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
-						</td>
-						<td style="width:20px;"></td>
-						<td style="width:100px; text-align: center;">NO3</td>
-						<td style="width:100px; text-align: center;">NO4</td>
-						<td style="width:200px; text-align: center;">廠商</td>
-						<td style="width:200px; text-align: center;">有效日期</td>
-						<td style="width:200px; text-align: center;">包裝方式</td>
-						<td style="width:200px; text-align: center;">期望單價</td>
-						<td style="width:200px; text-align: center;">廠商回報價</td>
-						<td style="width:200px; text-align: center;">回報日期</td>
-						<td style="width:200px; text-align: center;">議價單價</td>
-						<td style="width:200px; text-align: center;">成交日期</td>
-						<td style="width:200px; text-align: center;">成交價</td>
-					</tr>
-					<tr>
-						<td>
-							<input id="btnMinut..*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-						</td>
-						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input id="txtNo3..*" type="text" class="txt c2"/></td>
-						<td><input id="txtNo4..*" type="text" class="txt c2"/></td>
-						<td>
-							<input id="txtTggno..*" type="text" style="width:45%;float:left;"/>
-							<input id="txtTgg..*" type="text" style="width:45%;float:left;"/>
-						</td>
-						<td><input id="txtEdate..*" type="text" class="txt c2 num"/></td>
-						<td><input id="txtPack..*" type="text" class="txt c2 num"/></td>
-						<td><input id="txtPrice..*" type="text" class="txt c2 num"/></td>
-						<td><input id="txtRprice..*" type="text" class="txt c2 num"/></td>
-						<td><input id="txtRdate..*" type="text" class="txt c2 num"/></td>
-						<td><input id="txtIprice..*" type="text" class="txt c2 num"/></td>
-						<td><input id="txtFdate..*" type="text" class="txt c2 num"/></td>
-						<td><input id="txtFprice..*" type="text" class="txt c2 num"/></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 	</body>
 </html>

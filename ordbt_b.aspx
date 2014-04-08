@@ -115,20 +115,11 @@
 			.c1 {
 				width: 90%;
 			}
-			.c2 {
-				width: 85%;
-			}
-			.c3 {
-				width: 71%;
-			}
-			.c4 {
-				width: 95%;
-			}
 			.num {
 				text-align: right;
 			}
 			#dbbs {
-				width: 2000px;
+				width: 100%;
 			}
 			.btn {
 				font-weight: bold;
@@ -140,47 +131,47 @@
 
     </head>
     <body>
-        <div  id="dbbs" >
-            <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
-                <tr>
-                    <th align="center" > </th>
-                    <th align="center" style='color:blue;' ><a id='lblNoa'> </a></th>
-                    <th align="center" style='color:blue;' ><a id='lblTggno'> </a></th>
-                    <th align="center" style='color:blue;' ><a id='lblTgg'> </a></th>
-                    <th align="center" style='color:blue;' ><a id='lblRdate'> </a></th>
-                    <th align="center" style='color:blue;' ><a id='lblRprice'> </a></th>
-                    <th align="center" style='color:blue;' ><a id='lblFdate'> </a></th>
-                    <th align="center" style='color:blue;' ><a id='lblFprice'> </a></th>
+		<div id="dbbs">
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: medium;'>
+				<tr style='color:White; background:#003366;' >
+                    <td align="center" >
+						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"/>
+					</td>
+                    <td align="center" style='display:none;' ><a id='lblNoa'> </a></td>
+					<td style="width:200px; text-align: center;">廠商</td>
+					<td style="width:200px; text-align: center;">有效日期</td>
+					<td style="width:200px; text-align: center;">包裝方式</td>
+					<td style="width:200px; text-align: center;">期望單價</td>
+					<td style="width:200px; text-align: center;">廠商回報價</td>
+					<td style="width:200px; text-align: center;">回報日期</td>
+					<td style="width:200px; text-align: center;">議價單價</td>
+					<td style="width:200px; text-align: center;">成交日期</td>
+					<td style="width:200px; text-align: center;">成交價</td>
                 </tr>
-                <tr>
-                    <td style="width:2%;">
-                    <input name="sel"  id="radSel.*" type="radio" />
+				<tr style="background:#cad3ff;font-size: 14px;">
+                    <td align="center" style="width:2%;">
+						<input class="btn"  id="btnMinus.*" type="button" value="－" style="font-weight: bold;"/>
                     </td>
-                    <td style="width:20%;">
-                    <input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
+                    <td style="width:20%;display:none;">
+						<input class="txt" id="txtNoa.*" type="text" style="width:98%;" />
+						<input class="txt" id="txtNo3.*" type="text" style="width:98%;" />
+						<input class="txt" id="txtNo4.*" type="text" style="width:98%;" />
                     </td>
-                    <td style="width:10%;">
-                    <input class="txt" id="txtTggno.*" type="text" style="width:98%;"  readonly="readonly" />
-                    </td>
-                    <td style="width:20%;">
-                    <input class="txt" id="txtTgg.*" type="text" style="width:98%;"  readonly="readonly" />
-                    </td>
-                    <td style="width:10%;">
-                    <input class="txt" id="txtRdate.*" type="text" style="width:98%;"  readonly="readonly" />
-                    </td>
-                    <td style="width:10%;">
-                    <input class="txt" id="txtRprice.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" />
-                    </td>
-                    <td style="width:10%;">
-                    <input class="txt" id="txtFdate.*" type="text" style="width:98%;"  readonly="readonly" />
-                    </td>
-                    <td style="width:10%;">
-                    <input class="txt" id="txtFprice.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" />
-                    </td>
-                </tr>
+					<td>
+						<input id="txtTggno.*" type="text" style="width:45%;float:left;"/>
+						<input id="txtTgg.*" type="text" style="width:45%;float:left;"/>
+					</td>
+					<td><input id="txtEdate.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtPack.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtPrice.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtRprice.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtRdate.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtIprice.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtFdate.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtFprice.*" type="text" class="txt c1 num"/></td>
+				</tr>
             </table>
             <!--#include file="../inc/pop_modi.inc"-->
         </div>
-
     </body>
 </html>
