@@ -578,6 +578,20 @@
 				} else {
 					alert("error: btnok!");
 				}
+				//寫入詢價廠商<<Start>>
+				var bbtSortArray = [];
+				for(var k=0;k<q_bbtCount;k++){
+					var thisFdate = $.trim($('#txtFdate__'+k).val());
+					if((thisFdate.length > 0)){
+						bbtSortArray.push([k,thisFdate]);
+					}
+				}
+				bbtSortArray.sort(function(a,b){return a[1] > b[1]?-1:1;});
+				if(bbtSortArray[0] != undefined){
+					$('#txtTggtno').val($('#txtTggno__'+bbtSortArray[0][0]).val());
+					$('#txtTggt').val($('#txtTgg__'+bbtSortArray[0][0]).val());
+				}
+				//寫入詢價廠商<<End>>
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
@@ -1258,6 +1272,8 @@
 							<input id="txtTggno" type="text" style="float:left;width:30%;"/>
 							<input id="txtTgg" type="text" style="float:left;width:70%;"/>
 							<input id="txtNick" type="text" style="display:none;"/>
+							<input id="txtTggtno" type="text" style="display:none;"/>
+							<input id="txtTggt" type="text" style="display:none;"/>
 						</td>
 						<td class="td5"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td class="td6" colspan="2">
