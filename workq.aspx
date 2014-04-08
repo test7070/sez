@@ -133,9 +133,14 @@
 				
 				$('#btnWorkf').click(function() {
 					var thisVal = $.trim($('#txtWorkfno').val());
-					var t_where='1=1 and tmount>0 ';
+					var t_where='1=1 and tmount>0  and (tmount-mount-bkmount-wmount)>0 ';
 					if(thisVal.length > 0){
 						t_where += " and noa='" + $('#txtWorkfno').val() + "'";
+					}
+					
+					for(var i=0;i<q_bbsCount;i++){
+						if(!emp($('#txtWorkfno_'+i).val()))
+						t_where += " or noa='" + $('#txtWorkfno_'+i).val() + "'"
 					}
 					q_box("workfs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workfs', "95%", "95%", q_getMsg('PopWorkfs'));
 				});

@@ -17,7 +17,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "orda";
-			var q_readonly = ['txtNoa','txtDatea','txtWorker', 'txtWorker2', 'txtWorkgno'];
+			var q_readonly = ['txtNoa','txtDatea','txtWorker', 'txtWorker2', 'txtWorkgno','txtOrdbno'];
 			var q_readonlys = ['txtNoq'];
 			var bbmNum = [];
 			var bbsNum = [['txtGmount', 15, 2, 1],['txtStkmount', 15, 2, 1],['txtSchmount', 15, 2, 1],['txtSafemount', 15, 2, 1],
@@ -379,10 +379,8 @@
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblWorkgno' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtWorkgno" type="text" class="txt c1"/></td>
-						<!--
-						<td class="td3"><span> </span><a id='lblApv' class="lbl"> </a></td>
-						<td class="td4"><input id="txtApv" type="text" class="txt c1"/></td>
-						-->
+						<td class="td3"><span> </span><a id='lblOrdbno' class="lbl"> </a></td>
+						<td class="td4"><input id="txtOrdbno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
