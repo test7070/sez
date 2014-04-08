@@ -728,7 +728,11 @@
 			function refresh(recno) {
 				_refresh(recno);
 				size_change();
-				q_popPost('txtProductno_');
+				//q_popPost('txtProductno_');
+				$('input[id*="txtProduct_"]').each(function() {
+					thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+		              	$(this).attr('OldValue',$('#txtProductno_'+thisId).val());
+				});
 			}
 
 			function readonly(t_para, empty) {
