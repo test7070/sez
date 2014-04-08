@@ -113,8 +113,8 @@
 						t_where4 = " where[4]=^^ carownerno+'_'+carno+'_'+mon in(select carownerno+'_'+carno+'_'+MAX(mon) from cara group by carownerno,carno) and (total!=0 or mon>='"+t_mon+"') ^^";
                         t_where7 = " where[7]=^^ 1=1 ^^";
                     }
-                
-                t_content=t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6+t_where7
+                t_where8 = "where[8]=^^ tablea='trd' and noa!='"+x_noa+"' ^^";
+                t_content=t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6+t_where7+t_where8;
                 
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
                 
