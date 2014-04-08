@@ -31,12 +31,25 @@
 							var txtreport=$('#q_report').data().info.reportData[i].report;
 						}
 					}
+										
 					if(txtreport=='z_workg2ordb1'){
-						$('#btnOrdb').show();
-						$('#btnOrda').show();
+						if(isorda){
+							$('#btnOrdb').hide();
+							$('#btnOrda').show();
+							$('#btnOrda2ordb').hide();
+						}else{
+							$('#btnOrdb').show();
+							$('#btnOrda').hide();
+							$('#btnOrda2ordb').hide();
+						}
 					}else{
 						$('#btnOrdb').hide();
 						$('#btnOrda').hide();
+						if(isorda){
+							$('#btnOrda2ordb').show();
+						}else{
+							$('#btnOrda2ordb').hide();
+						}
 					}
 				});
             });
@@ -62,7 +75,7 @@
                      },{
                         type : '8', //[8]
                         name : 'workgall',
-                        value : "1@全部未"+ordx+"的排產計畫".split(',')
+                        value : ("1@全部未"+ordx+"的排產計畫").split(',')
                     }]
                 });
                 q_popAssign();
@@ -81,30 +94,42 @@
 				}
                 
                 var btn = document.getElementById('btnOk');
-                if(isorda)
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda2ordb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核轉請購'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
-                else
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='轉至請購單'>");
                 
+                if(isorda){
+					$('#btnOrdb').hide();
+					$('#btnOrda').show();
+					$('#btnOrda2ordb').hide();
+				}else{
+					$('#btnOrdb').show();
+					$('#btnOrda').hide();
+					$('#btnOrda2ordb').hide();
+				}
                 
                 if (window.parent.q_name == 'workg') {
 					var wParent = window.parent.document;
-					if(wParent.getElementById("txtOrdbno").value.length==0)
+					if(wParent.getElementById("txtOrdbno").value.length==0&&wParent.getElementById("txtOrdano").value.length==0)
 						$('#btnOk').click();	
 				}
                 
                 $('#btnOrdb').click(function(){
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
-                		q_gt('workg', "isnull(ordbno,'')='' and isnull(ordano,'')=''", 0, 0, 0, "", r_accy);
+                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "ordb", r_accy);
                 	else
                 		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "ordb", r_accy);
 	            });
 	            
 	           $('#btnOrda').click(function(){
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
-                		q_gt('workg', "isnull(ordbno,'')='' and isnull(ordano,'')=''", 0, 0, 0, "", r_accy);
+                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "orda", r_accy);
                 	else
                 		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda", r_accy);
+	            });
+	            
+	            $('#btnOrda2ordb').click(function(){
+                	q_gt('orda', "where=^^isnull(workgno,'')!='' and isnull(ordbno,'')='' and signend='Y' and noa in (select ordano from view_workg where noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"') ^^ ", 0, 0, 0, "orda2ordb", r_accy);
 	            });
 	            
 	            $('.q_report .option div .c3').css("width","180px");
@@ -153,13 +178,34 @@
 		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
 		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
 		                		
-		                		
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+r_userno+';'+q_getPara('sys.key_orda');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
 						}else{
 							alert('已產生'+ordx+'。');
+						}
+						break;
+					case 'orda2ordb':
+						var as = _q_appendData("orda", "", true);
+						if (as[0] != undefined) {
+							if(confirm("確定將簽核轉至請購?"))
+							{
+								var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
+		                		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
+		                		var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
+		                		var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
+								var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
+		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
+		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                		
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
+				                q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+							}
+						}else{
+							alert('無簽核未請購資料。');
 						}
 						break;
 				}

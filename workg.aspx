@@ -997,7 +997,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblOrdbno" class="lbl btn"> </a></td>
-						<td colspan="4"><input id="txtOrdbno" type="text" class="txt c1"/></td>
+						<td colspan="4">
+							<input id="txtOrdbno" type="text" class="txt c1"/>
+							<input id="txtOrdano" type="text" class="txt c1" style="display: none;"/>
+						</td>
 						<td><input id="btnWorkPrint" type="button" /></td>
 					</tr>
 					<tr>
