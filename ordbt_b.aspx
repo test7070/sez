@@ -119,7 +119,7 @@
 				text-align: right;
 			}
 			#dbbs {
-				width: 100%;
+				width: 1300px;
 			}
 			.btn {
 				font-weight: bold;
@@ -134,19 +134,19 @@
 		<div id="dbbs">
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: medium;'>
 				<tr style='color:White; background:#003366;' >
-                    <td align="center" >
+                    <td align="center" style="width:40px;">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"/>
 					</td>
                     <td align="center" style='display:none;' ><a id='lblNoa'> </a></td>
 					<td style="width:200px; text-align: center;">廠商</td>
-					<td style="width:200px; text-align: center;">有效日期</td>
+					<td style="width:120px; text-align: center;">有效日期</td>
 					<td style="width:200px; text-align: center;">包裝方式</td>
-					<td style="width:200px; text-align: center;">期望單價</td>
+					<td style="width:100px; text-align: center;">期望單價</td>
 					<td style="width:200px; text-align: center;">廠商回報價</td>
-					<td style="width:200px; text-align: center;">回報日期</td>
-					<td style="width:200px; text-align: center;">議價單價</td>
-					<td style="width:200px; text-align: center;">成交日期</td>
-					<td style="width:200px; text-align: center;">成交價</td>
+					<td style="width:120px; text-align: center;">回報日期</td>
+					<td style="width:100px; text-align: center;">議價單價</td>
+					<td style="width:120px; text-align: center;">成交日期</td>
+					<td style="width:100px; text-align: center;">成交價</td>
                 </tr>
 				<tr style="background:#cad3ff;font-size: 14px;">
                     <td align="center" style="width:2%;">
