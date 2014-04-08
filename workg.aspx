@@ -395,6 +395,7 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
+				$('#txtUnorda').val('v');
 				$('#txtBdate').focus();
 			}
 
@@ -927,6 +928,7 @@
 						<td style="width:150px; color:black;"><a id='vewRang'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnwork'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnordb'> </a></td>
+						<td style="width:50px; color:black;"><a id='vewUnorda'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -936,6 +938,7 @@
 						<td id='bdate edate' style="text-align: center;">~bdate - ~edate</td>
 						<td id='unwork' style="text-align: center;">~unwork</td>
 						<td id='unordb' style="text-align: center;">~unordb</td>
+						<td id='unorda' style="text-align: center;">~unorda</td>
 					</tr>
 				</table>
 			</div>

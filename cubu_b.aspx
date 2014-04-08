@@ -380,7 +380,11 @@
 
 			function refresh() {
 				_refresh();
-				q_popPost('txtProductno_');
+				//q_popPost('txtProductno_');
+				$('input[id*="txtProduct_"]').each(function() {
+					thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
+					$(this).attr('OldValue', $('#txtProductno_' + thisId).val());
+				});
 				var UnoList = $.trim(GetBBsUno());
 				if (UnoList.length > 0) {
 					var t_where = 'where=^^ (1=1) and (uno in(' + UnoList + '))^^';
