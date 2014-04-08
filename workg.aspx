@@ -647,14 +647,15 @@
 			function bbssum(seq) {
 				if (seq>-1) {
 					//計算//1030226將計畫生產移到後面
-					var t_availmount = q_float('txtStkmount_' + seq) - q_float('txtUnmount_' + seq) - q_float('txtOrdemount_' + seq);
+					//0408計算拿掉由使用者自行輸入
+					/*var t_availmount = q_float('txtStkmount_' + seq) - q_float('txtUnmount_' + seq) - q_float('txtOrdemount_' + seq);
 					$('#txtAvailmount_' + seq).val(t_availmount);
 					var t_opmount = t_availmount + q_float('txtIntmount_' + seq) + q_float('txtPurmount_' + seq) - q_float('txtSalemount_' + seq) - q_float('txtPlanmount_' + seq);
 
 					if (t_opmount < 0)
 						$('#txtMount_' + seq).val((t_opmount * -1));
 					else
-						$('#txtMount_' + seq).val(0);
+						$('#txtMount_' + seq).val(0);*/
 					//沒有訂單號碼指定開工日寫入明天的日期
 					if(emp($('#txtOrdeno_' + seq).val())&&q_float('txtMount_'+ seq)>0)
 						$('#txtCuadate_' + seq).val(q_cdn(q_date(),1));
