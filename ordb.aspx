@@ -539,7 +539,7 @@
 							var n = replaceAll($(this).attr('id'), 'btnRecord_', '');
 							t_where = "b.noa is not null" + " and c.noa is not null" + " and isnull(a.rprice,0)!=0" + " and c.productno='" + $('#txtProductno_' + n).val() + "'";
 							if ($('#txtProductno_' + n).val().length > 0)
-								q_box("ordbt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctgg', "95%", "95%", '歷史詢價記錄');
+								q_box("ordbt_view_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordbt_view', "95%", "95%", '歷史詢價記錄');
 						});
 						$('#btnTmprecord_' + j).click(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
