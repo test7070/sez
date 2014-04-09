@@ -19,7 +19,6 @@
 			var q_name = "ordb";
 			var q_readonly = ['txtOrdcno','txtWorkgno', 'txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus'];
 			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','chkIsnotdeal','chkEnda'];
-			var q_readonlyt = [];
 			var bbmNum = [
 				['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],
 				['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]
@@ -31,7 +30,6 @@
 			var bbtNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
-			var bbtMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -46,21 +44,13 @@
 				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick,paytype', 'txtTggno,txtTgg,txtNick,txtPaytype', 'tgg_b.aspx'],
-				['textTggno_a', '', 'tgg', 'noa,nick', 'textTggno_a,textTgg_a', 'tgg_b.aspx'],
-				['textTggno_1', '', 'tgg', 'noa,nick', 'textTggno_1,textTgg_1', 'tgg_b.aspx'],
-				['textTggno_2', '', 'tgg', 'noa,nick', 'textTggno_2,textTgg_2', 'tgg_b.aspx'],
-				['textTggno_3', '', 'tgg', 'noa,nick', 'textTggno_3,textTgg_3', 'tgg_b.aspx'],
-				['textTggno_4', '', 'tgg', 'noa,nick', 'textTggno_4,textTgg_4', 'tgg_b.aspx'],
-				['textTggno_5', '', 'tgg', 'noa,nick', 'textTggno_5,textTgg_5', 'tgg_b.aspx'],
-				['textTggno_6', '', 'tgg', 'noa,nick', 'textTggno_6,textTgg_6', 'tgg_b.aspx']
+				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick,paytype', 'txtTggno,txtTgg,txtNick,txtPaytype', 'tgg_b.aspx']
 			);
 			
 			var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'no3'];
-				bbtKey = ['noa', 'no4'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
@@ -150,48 +140,9 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [
-					['txtDatea', r_picd], ['txtOdate', r_picd], ['textEdate_1', r_picd],
-					['textEdate_2', r_picd], ['textEdate_3', r_picd], ['textEdate_4', r_picd],
-					['textEdate_5', r_picd], ['textEdate_6', r_picd], ['textRdate_1', r_picd],
-					['textRdate_2', r_picd], ['textRdate_3', r_picd], ['textRdate_4', r_picd],
-					['textRdate_5', r_picd], ['textRdate_6', r_picd], ['textFdate_1', r_picd],
-					['textFdate_2', r_picd], ['textFdate_3', r_picd], ['textFdate_4', r_picd],
-					['textFdate_5', r_picd], ['textFdate_6', r_picd], ['textDatea_a', r_picd],
-					['textBodate_a', r_picd], ['textEodate_a', r_picd],
-					['textBldate_a', r_picd], ['textEldate_a', r_picd],
-					['textBedate_a', r_picd], ['textEedate_a', r_picd], ['textBfdate_a', r_picd],
-					['textEfdate_a', r_picd]
+					['txtDatea', r_picd], ['txtOdate', r_picd]
 				];
 				bbsMask = [['txtLdate', r_picd]];
-				$('#textEdate_1').datepicker();
-				$('#textRdate_1').datepicker();
-				$('#textFdate_1').datepicker();
-				$('#textEdate_2').datepicker();
-				$('#textRdate_2').datepicker();
-				$('#textFdate_2').datepicker();
-				$('#textEdate_3').datepicker();
-				$('#textRdate_3').datepicker();
-				$('#textFdate_3').datepicker();
-				$('#textEdate_4').datepicker();
-				$('#textRdate_4').datepicker();
-				$('#textFdate_4').datepicker();
-				$('#textEdate_5').datepicker();
-				$('#textRdate_5').datepicker();
-				$('#textFdate_5').datepicker();
-				$('#textEdate_6').datepicker();
-				$('#textRdate_6').datepicker();
-				$('#textFdate_6').datepicker();
-
-				$('#textDatea_a').datepicker();
-				$('#textDatea_a').val(q_date);
-				$('#textBodate_a').datepicker();
-                $('#textEodate_a').datepicker();
-				$('#textBldate_a').datepicker();
-                $('#textEldate_a').datepicker();
-				$('#textBedate_a').datepicker();
-				$('#textEedate_a').datepicker();
-				$('#textBfdate_a').datepicker();
-				$('#textEfdate_a').datepicker();
 				q_mask(bbmMask);
 				q_cmbParse("cmbKind", q_getPara('ordb.kind'));
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
@@ -253,76 +204,6 @@
 				$('#txtTggno').change(function() {
 					loadCustAddr($.trim($(this).val()));
 				});
-				//------------------------------------------------------------------
-				$('#btnSave').click(function(e) {
-					if (q_cur != 1 && q_cur != 2) {
-						$('#tmp').hide();
-						return;
-					}
-					var t_no3 = $('#tmp').data('info').no3;
-					for (var i = 0; i < q_bbtCount; i++) {
-						if ($('#txtNo3__' + i).val() == t_no3) {
-							$('#txtNo3__' + i).val('');
-							$('#txtNo4__' + i).val('');
-							$('#txtTggno__' + j).val('');
-							$('#txtTgg__' + j).val('');
-							$('#txtEdate__' + j).val('');
-							$('#txtPack__' + j).val('');
-							$('#txtPrice__' + j).val('');
-							$('#txtRprice__' + j).val('');
-							$('#txtRdate__' + j).val('');
-							$('#txtIprice__' + j).val('');
-							$('#txtFdate__' + j).val('');
-							$('#txtFprice__' + j).val('');
-						}
-					}
-					var j = 1, m = 0;
-					while (true) {
-						for (var i = 0; i < q_bbtCount; i++) {
-							if ($('#txtNo3__' + i).val().length == 0) {
-								$('#txtNo3__' + i).val(t_no3);
-								$('#txtTggno__' + i).val($('#textTggno_' + j).val());
-								$('#txtTgg__' + i).val($('#textTgg_' + j).val());
-								$('#txtEdate__' + i).val($('#textEdate_' + j).val());
-								$('#txtPack__' + i).val($('#textPack_' + j).val());
-								$('#txtPrice__' + i).val($('#textPrice_' + j).val());
-								$('#txtRprice__' + i).val($('#textRprice_' + j).val());
-								$('#txtRdate__' + i).val($('#textRdate_' + j).val());
-								$('#txtIprice__' + i).val($('#textIprice_' + j).val());
-								$('#txtFdate__' + i).val($('#textFdate_' + j).val());
-								$('#txtFprice__' + i).val($('#textFprice_' + j).val());
-								j++;
-							}
-							if (j == 7)
-								break;
-						}
-						if (j == 7)
-							break;
-						else {
-							m = q_bbtCount;
-							$('#btnPlut').click();
-						}
-					}
-					$('#tmp').hide();
-				});
-
-				$('#tmp').find('input[type="text"]').keydown(function(e) {
-					if (e.which == 13) {
-						var obj = $('#tmp').find('input[type="text"]');
-						for (var i = 0; i < obj.length; i++) {
-							if ($(this).attr('id') == obj.eq(i).attr('id')) {
-								if (i == obj.length - 1) {
-									$('#btnSave').focus();
-									break;
-								} else {
-									obj.eq(i + 1).focus();
-									break;
-								}
-							}
-						}
-					}
-				});
-				//----------------------------------------------------
 				$('#btnOrdc').click(function(e) {
 					$('#exportordc').toggle();
 					$('#textBno_a').val($('#txtNoa').val());
@@ -514,39 +395,6 @@
 				Lock(1, {
 					opacity : 0
 				});
-				//重要!!要先執行
-				if ($('#tmp').is(":visible"))
-                    $('#btnSave').click();
-                    
-				var t_finish=0;
-				for(var i=0;i<q_bbsCount;i++){
-				    if($('#txtNo3_'+i).val().length>0)
-    				    for(var j=0;j<q_bbtCount;j++){
-    				        if($('#txtNo3_'+i).val()==$('#txtNo3__'+j).val() && $('#txtFdate__'+j).val().length>0 && $('#txtTggno__'+j).val().length>0){
-    				            //t_finish++;
-    				            $('#txtFinish').val($('#txtFdate__'+j).val());
-    				            break;
-    				        }
-    				        
-    				    }  
-				}
-				//未成交
-				if($('#txtTggno').val().length>0){
-				    for(var i=0;i<q_bbsCount;i++){
-				        $('#chkIsnotdeal_'+i).prop("checked",q_float('txtPrice_'+i)==0);
-				    }
-				}else{
-				    for(var i=0;i<q_bbsCount;i++){
-                        t_no3 = $('#txtNo3_'+i).val();
-                        t_isdeal = false;
-                        for(var j=0;j<q_bbtCount;j++){
-                            if($('#txtNo3__'+j).val()==t_no3){
-                                t_isdeal = t_isdeal |($('#txtTggno__'+j).val().length>0 && $('#txtFdate__'+j).val().length>0 && q_float('txtFprice__'+j)!=0);
-                            }
-                        }
-                        $('#chkIsnotdeal_'+i).prop("checked",!t_isdeal);
-                    }
-				}
 				
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
@@ -578,20 +426,6 @@
 				} else {
 					alert("error: btnok!");
 				}
-				//寫入詢價廠商<<Start>>
-				var bbtSortArray = [];
-				for(var k=0;k<q_bbtCount;k++){
-					var thisFdate = $.trim($('#txtFdate__'+k).val());
-					if((thisFdate.length > 0)){
-						bbtSortArray.push([k,thisFdate]);
-					}
-				}
-				bbtSortArray.sort(function(a,b){return a[1] > b[1]?-1:1;});
-				if(bbtSortArray[0] != undefined){
-					$('#txtTggtno').val($('#txtTggno__'+bbtSortArray[0][0]).val());
-					$('#txtTggt').val($('#txtTgg__'+bbtSortArray[0][0]).val());
-				}
-				//寫入詢價廠商<<End>>
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
@@ -697,46 +531,16 @@
 							if ($('#txtProductno_' + n).val().length > 0)
 								q_box("ordbt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctgg', "95%", "95%", '歷史詢價記錄');
 						});
-						$('#btnTmprecord_' + j).click(function(e) {
-							var n = replaceAll($(this).attr('id'), 'btnTmprecord_', '');
-							$('#tmp').find("input[type='text']").val('');
-
-							var t_no3 = $.trim($('#txtNo3_' + n).val());
-							var aa = 0, bb = 0;
-							if (t_no3.length == 0) {
-								t_no3 = '000';
-								for (var i = 0; i < q_bbsCount; i++) {
-									aa = parseFloat($('#txtNo3_' + i).val().length == 0 ? "0" : $('#txtNo3_' + i).val());
-									bb = parseFloat(t_no3.length == 0 ? "0" : t_no3);
-									if (aa > bb)
-										t_no3 = $.trim($('#txtNo3_' + i).val());
-								}
-								t_no3 = '000' + (parseFloat(t_no3.length == 0 ? "0" : t_no3) + 1);
-								t_no3 = t_no3.substring(t_no3.length - 3);
-								$('#txtNo3_' + n).val(t_no3);
+						$('#btnTmprecord_' + j).click(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var t_pno = $.trim($('#txtProductno_'+n).val());
+							var t_no3 = $.trim($('#txtNo3_'+n).val());
+							var t_noa = $.trim($('#txtNoa').val());
+							if((t_pno.length>0) && (t_no3.length>0) && (t_noa.length>0) && (t_noa != 'AUTO')){
+								var t_where = "noa='" + t_noa + "' and no3='" + t_no3 + "' ";
+								q_box("ordbt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordbt', "95%", "95%", '詢價紀錄');
 							}
-							var j = 1;
-							for (var i = 0; i < q_bbtCount; i++) {
-								if ($('#txtNo3__' + i).val() == t_no3) {
-									$('#textTggno_' + j).val($('#txtTggno__' + i).val());
-									$('#textTgg_' + j).val($('#txtTgg__' + i).val());
-									$('#textEdate_' + j).val($('#txtEdate__' + i).val());
-									$('#textPack_' + j).val($('#txtPack__' + i).val());
-									$('#textPrice_' + j).val($('#txtPrice__' + i).val());
-									$('#textRprice_' + j).val($('#txtRprice__' + i).val());
-									$('#textRdate_' + j).val($('#txtRdate__' + i).val());
-									$('#textIprice_' + j).val($('#txtIprice__' + i).val());
-									$('#textFdate_' + j).val($('#txtFdate__' + i).val());
-									$('#textFprice_' + j).val($('#txtFprice__' + i).val());
-									j++;
-								}
-							}
-							$('#tmp').data('info', {
-								no3 : t_no3
-							});
-							$('#tmp').show();
 						});
-
 					}
 				}
 				_bbsAssign();
@@ -993,134 +797,6 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="tmp" style="background:pink;display:none; position: absolute;top:200px;left:100px;width:800px;height:300px;">
-			<table style="width:100%;height:100%;border: 2px white double;">
-				<tr style="height:1px;">
-					<td style="width:1%;"></td>
-					<td style="width:20%;"></td>
-					<td style="width:10%;"></td>
-					<td style="width:10%;"></td>
-					<td style="width:10%;"></td>
-					<td style="width:10%;"></td>
-					<td style="width:10%;"></td>
-					<td style="width:10%;"></td>
-					<td style="width:10%;"></td>
-					<td style="width:10%;"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td align="center">廠商</td>
-					<td align="center">合約<br>有效日</td>
-					<td align="center">包裝方式</td>
-					<td align="center">期望單價</td>
-					<td align="center">廠商<br>回報價</td>
-					<td align="center">回報日期</td>
-					<td align="center">議價單價</td>
-					<td align="center">成交日期</td>
-					<td align="center">成交價</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>
-						<input id="textTggno_1" type="text" style="width:45%;"/>
-						<input id="textTgg_1" type="text" style="width:45%;"/>
-					</td>
-					<td><input id="textEdate_1" type="text" class="txt c2"/></td>
-					<td><input id="textPack_1" type="text" class="txt c2"/></td>
-					<td><input id="textPrice_1" type="text" class="txt c2 num"/></td>
-					<td><input id="textRprice_1" type="text" class="txt c2 num"/></td>
-					<td><input id="textRdate_1" type="text" class="txt c2"/></td>
-					<td><input id="textIprice_1" type="text" class="txt c2 num"/></td>
-					<td><input id="textFdate_1" type="text" class="txt c2"/></td>
-					<td><input id="textFprice_1" type="text" class="txt c2 num"/></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>
-						<input id="textTggno_2" type="text" style="width:45%;"/>
-						<input id="textTgg_2" type="text" style="width:45%;"/>
-					</td>
-					<td><input id="textEdate_2" type="text" class="txt c2"/></td>
-					<td><input id="textPack_2" type="text" class="txt c2"/></td>
-					<td><input id="textPrice_2" type="text" class="txt c2 num"/></td>
-					<td><input id="textRprice_2" type="text" class="txt c2 num"/></td>
-					<td><input id="textRdate_2" type="text" class="txt c2"/></td>
-					<td><input id="textIprice_2" type="text" class="txt c2 num"/></td>
-					<td><input id="textFdate_2" type="text" class="txt c2"/></td>
-					<td><input id="textFprice_2" type="text" class="txt c2 num"/></td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>
-						<input id="textTggno_3" type="text" style="width:45%;"/>
-						<input id="textTgg_3" type="text" style="width:45%;"/>
-					</td>
-					<td><input id="textEdate_3" type="text" class="txt c2"/></td>
-					<td><input id="textPack_3" type="text" class="txt c2"/></td>
-					<td><input id="textPrice_3" type="text" class="txt c2 num"/></td>
-					<td><input id="textRprice_3" type="text" class="txt c2 num"/></td>
-					<td><input id="textRdate_3" type="text" class="txt c2"/></td>
-					<td><input id="textIprice_3" type="text" class="txt c2 num"/></td>
-					<td><input id="textFdate_3" type="text" class="txt c2"/></td>
-					<td><input id="textFprice_3" type="text" class="txt c2 num"/></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>
-						<input id="textTggno_4" type="text" style="width:45%;"/>
-						<input id="textTgg_4" type="text" style="width:45%;"/>
-					</td>
-					<td><input id="textEdate_4" type="text" class="txt c2"/></td>
-					<td><input id="textPack_4" type="text" class="txt c2"/></td>
-					<td><input id="textPrice_4" type="text" class="txt c2 num"/></td>
-					<td><input id="textRprice_4" type="text" class="txt c2 num"/></td>
-					<td><input id="textRdate_4" type="text" class="txt c2"/></td>
-					<td><input id="textIprice_4" type="text" class="txt c2 num"/></td>
-					<td><input id="textFdate_4" type="text" class="txt c2"/></td>
-					<td><input id="textFprice_4" type="text" class="txt c2 num"/></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>
-						<input id="textTggno_5" type="text" style="width:45%;"/>
-						<input id="textTgg_5" type="text" style="width:45%;"/>
-					</td>
-					<td><input id="textEdate_5" type="text" class="txt c2"/></td>
-					<td><input id="textPack_5" type="text" class="txt c2"/></td>
-					<td><input id="textPrice_5" type="text" class="txt c2 num"/></td>
-					<td><input id="textRprice_5" type="text" class="txt c2 num"/></td>
-					<td><input id="textRdate_5" type="text" class="txt c2"/></td>
-					<td><input id="textIprice_5" type="text" class="txt c2 num"/></td>
-					<td><input id="textFdate_5" type="text" class="txt c2"/></td>
-					<td><input id="textFprice_5" type="text" class="txt c2 num"/></td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>
-						<input id="textTggno_6" type="text" style="width:45%;"/>
-						<input id="textTgg_6" type="text" style="width:45%;"/>
-					</td>
-					<td><input id="textEdate_6" type="text" class="txt c2"/></td>
-					<td><input id="textPack_6" type="text" class="txt c2"/></td>
-					<td><input id="textPrice_6" type="text" class="txt c2 num"/></td>
-					<td><input id="textRprice_6" type="text" class="txt c2 num"/></td>
-					<td><input id="textRdate_6" type="text" class="txt c2"/></td>
-					<td><input id="textIprice_6" type="text" class="txt c2 num"/></td>
-					<td><input id="textFdate_6" type="text" class="txt c2"/></td>
-					<td><input id="textFprice_6" type="text" class="txt c2 num"/></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><input id="btnSave" type="button" class="txt c2" value="關閉"/></td>
-				</tr>
-			</table>
-		</div>
 		<div id="exportordc" style="background:pink;display:none; position: absolute;top:200px;left:400px;width:600px;height:400px;">
 			<table style="width:100%;height:100%;border: 2px white double;">
 				<tr style="height:1px;">
