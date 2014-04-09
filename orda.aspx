@@ -65,6 +65,11 @@
 					if(!emp($('#txtWorkgno').val()))
 					q_box("workg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $('#txtWorkgno').val() + "')>0;" + r_accy + ";" + q_cur, 'workg', "95%", "95%", q_getMsg('popWorkg'));
 				});
+				
+				$('#lblOrdbno').click(function() {
+					if(!emp($('#txtOrdbno').val()))
+					q_box("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $('#txtOrdbno').val() + "')>0;" + r_accy + ";" + q_cur, 'ordb', "95%", "95%", q_getMsg('popOrdb'));
+				});
 			}
 			
 			function q_boxClose(s2) {
@@ -379,7 +384,7 @@
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblWorkgno' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtWorkgno" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblOrdbno' class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id='lblOrdbno' class="lbl btn"> </a></td>
 						<td class="td4"><input id="txtOrdbno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
@@ -395,7 +400,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1500px;">
+		<div class='dbbs' style="width: 1400px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">

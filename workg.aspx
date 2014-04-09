@@ -411,6 +411,7 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
+				q_func('qtxt.query', 'workg.txt,freeze,' +encodeURI($('#txtNoa').val()));
 			}
 
 			function q_boxClose(s2) {
@@ -450,7 +451,7 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				$('#txtBdate').focus();
+				$('#txtProductno').focus();
 				for (var i = 0; i < q_bbsCount; i++) {
 					var t_where = "where=^^ cuano ='" + $('#txtNoa').val() + "' and cuanoq='" + $('#txtNoq_' + i).val() + "'^^";
 					q_gt('work', t_where, 0, 0, 0, "modiwork_" + i, r_accy);
@@ -822,6 +823,7 @@
 					}
 				}
 			}
+
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -1031,8 +1033,7 @@
 					</tr>
 					<tr>
 						<td> </td>
-						<td> </td>
-						<td><span> </span><a id="lblSfdate" class="lbl"> </a></td>
+						<td colspan="2"><span> </span><a id="lblSfdate" class="lbl"> </a></td>
 						<td colspan="2">
 							<input id="txtSfbdate" type="text" class="txt c2"/>
 							<a style="float: left;">~</a>
