@@ -279,6 +279,32 @@
 							focus_addr = '';
 						}
 						break;
+					case 'cust_btnok':
+						var as = _q_appendData("cust", "", true);
+						if(as[0]!=undefined){
+							$('#txtComp').val(as[0].nick);
+							
+							var z_memo2=$('#textDivision').val()+'&&'+$('#textUnit').val()+'&&'+$('#textMode').val()+'&&'+
+							$('#textMount').val()+'&&'+$("#checkPhoto").prop("checked")+'&&'+$('#textTimea').val()+'&&'+$('#textApplication').val()+'&&'+$('#textMemo').val();
+							$('#txtMemo2').val(z_memo2);
+							
+							if(q_cur==1)
+								$('#txtWorker' ).val(r_name);
+							if(q_cur==2)
+								$('#txtWorker2' ).val(r_name);
+							
+							var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+							if(s1.length == 0 || s1 == "AUTO")
+								q_gtnoa(q_name, replaceAll(q_getPara('sys.key_quat') + $('#txtOdate').val(), '/', ''));
+							else
+								wrServer(s1);
+							
+                       }else{
+	                       	alert('客戶編號輸入錯誤，請重新輸入!!');
+							return;
+                       }
+                       $('#txtCustno').focus();
+					break;
 					case q_name:
 						if(q_cur == 4)
 							q_Seek_gtPost();
@@ -294,20 +320,10 @@
 					return;
 				}
 				
-				var z_memo2=$('#textDivision').val()+'&&'+$('#textUnit').val()+'&&'+$('#textMode').val()+'&&'+
-				$('#textMount').val()+'&&'+$("#checkPhoto").prop("checked")+'&&'+$('#textTimea').val()+'&&'+$('#textApplication').val()+'&&'+$('#textMemo').val();
-				$('#txtMemo2').val(z_memo2);
+				//0409 檢查客戶是否存在，避免出現打到中文
+				var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+				q_gt('cust', t_where, 0, 0, 0, "cust_btnok");
 				
-				if(q_cur==1)
-					$('#txtWorker' ).val(r_name);
-				if(q_cur==2)
-					$('#txtWorker2' ).val(r_name);
-				
-				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-				if(s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_quat') + $('#txtOdate').val(), '/', ''));
-				else
-					wrServer(s1);
 			}
 
 			function _btnSeek() {

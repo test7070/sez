@@ -190,7 +190,7 @@
 				});*/
 				//針對workg的物料需求
 				$('#btnWorkg2ordb').click(function() {
-					q_box('z_workg2ordb.aspx' + "?;;;;" + r_accy + ";", 'cup', "95%", "95%", q_getMsg("popPrint"));
+					q_box('z_workg2ordb.aspx' + "?;;;;" + r_accy + ";", 'workg2ordb', "95%", "95%", q_getMsg("popPrint"));
 				});
 				
 				$('#btnWorkgv').click(function() {
@@ -360,7 +360,32 @@
 							alert('無排產資料!!。');
 						}
 						break;
-						
+					case 'check_view':
+						var as = _q_appendData("workg", "", true);
+						if (as[0] != undefined) {
+							for (var i = 0; i < brwCount; i++) {
+								if($('#vtnoa_'+i).text()!=''){
+									for (var j = 0; j < as.length; j++) {
+										if($('#vtnoa_'+i).text()==as[j].noa){
+											if(as[j].ordbno!=''){
+												$('#vtunordb_'+i).text('');
+											}
+											if(as[j].ordano!=''){
+												$('#vtunorda_'+i).text('');
+											}
+										}
+									}
+								}
+							}
+							
+							for (var j = 0; j < as.length; j++) {
+								if($('#txtNoa').val()==as[j].noa){
+									$('#txtOrdbno').val(as[j].ordbno);
+									$('#txtOrdano').val(as[j].ordano);
+								}
+							}
+						}
+					break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -391,6 +416,15 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'workg2ordb':
+						//檢查是否有簽核和請購
+						var endnoa=''
+						for (var i = 0; i < brwCount; i++) {
+							if($('#vtnoa_'+i).text()!='')
+								endnoa=$('#vtnoa_'+i).text();
+						}
+						q_gt('workg', "where=^^ noa between '"+endnoa+"' and '"+$('#vtnoa_0').text()+"' ^^" , 0, 0, 0, "check_view", r_accy);
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -469,6 +503,12 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				if(q_cur==1){
+					//預設vew的未展排未請購未送簽
+					$('#vtunwork_0').text('v');
+					$('#vtunordb_0').text('v');
+					$('#vtunorda_0').text('v');					
+				}
 				var t_where = "where=^^ cuano ='" + $('#txtNoa').val() + "' ^^";
 				q_gt('work', t_where, 0, 0, 0, "", r_accy);
 				change_field();
@@ -770,6 +810,7 @@
 						$('#txtWorkhno_' + j).val(workno[(j * 3) + 3]);
 					}
 					alert('製令產出執行完畢!!');
+					$('#vtunwork_'+q_recno).text('');
 					$('#btnWork').val('製令產出').removeAttr('disabled');
 					var obj = $('#tview').find('#noa');
 					var t_noa=$.trim($('#txtNoa').val());
