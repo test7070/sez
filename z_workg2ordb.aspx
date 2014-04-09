@@ -16,8 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 		
-		var isorda=false; //選擇要產生orde還是orda 要產生orda=ture,要產生orde=false
-		var ordx=isorda?'簽核':'請購';
+		var isorda=true; //選擇要產生orde還是orda 要產生orda=ture,要產生orde=false
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -33,7 +32,7 @@
 					}
 										
 					if(txtreport=='z_workg2ordb1'){
-						if(isorda){
+						/*if(isorda){
 							$('#btnOrdb').hide();
 							$('#btnOrda').show();
 							$('#btnOrda2ordb').hide();
@@ -49,7 +48,7 @@
 							$('#btnOrda2ordb').show();
 						}else{
 							$('#btnOrda2ordb').hide();
-						}
+						}*/
 					}
 				});
             });
@@ -75,7 +74,10 @@
                      },{
                         type : '8', //[8]
                         name : 'workgall',
-                        value : ("1@全部未"+ordx+"的排產計畫").split(',')
+                        value : ("1@全部未請購的排產計畫").split(',')
+                    },{
+                        type : '6', //[9]
+                        name : 'enddate'
                     }]
                 });
                 q_popAssign();
@@ -86,6 +88,9 @@
                 $('#txtOdate1').datepicker();
                 $('#txtOdate2').mask('999/99/99');
                 $('#txtOdate2').datepicker();
+                $('#txtEnddate').mask('999/99/99');
+                $('#txtEnddate').datepicker();
+                $('#txtEnddate').val(q_date());
                 
                 if (window.parent.q_name == 'workg') {
 					var wParent = window.parent.document;
@@ -94,11 +99,11 @@
 				}
                 
                 var btn = document.getElementById('btnOk');
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='無簽核轉請購'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda2ordb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核轉請購'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
-                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='轉至請購單'>");
                 
-                if(isorda){
+                /*if(isorda){
 					$('#btnOrdb').hide();
 					$('#btnOrda').show();
 					$('#btnOrda2ordb').hide();
@@ -106,7 +111,7 @@
 					$('#btnOrdb').show();
 					$('#btnOrda').hide();
 					$('#btnOrda2ordb').hide();
-				}
+				}*/
                 
                 if (window.parent.q_name == 'workg') {
 					var wParent = window.parent.document;
@@ -129,11 +134,14 @@
 	            });
 	            
 	            $('#btnOrda2ordb').click(function(){
-                	q_gt('orda', "where=^^isnull(workgno,'')!='' and isnull(ordbno,'')='' and signend='Y' and noa in (select ordano from view_workg where noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"') ^^ ", 0, 0, 0, "orda2ordb", r_accy);
+                	q_gt('orda', "where=^^isnull(workgno,'')!='' and isnull(ordbno,'')='' and noa in (select zno from sign where enda='Y' and left(zno2,4)='orda') and noa in (select ordano from view_workg where noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"') ^^ ", 0, 0, 0, "orda2ordb", r_accy);
 	            });
 	            
 	            $('.q_report .option div .c3').css("width","180px");
 	            $('.q_report .option div .c6').css("width","110px");
+	            $('#Workgall .c6').css('width','0px');
+	            $('#chkWorkgall').css('width','290px');
+	            $('#Workgall').css('width','300px');
             }
 
             function q_boxClose(s2) {
@@ -144,7 +152,7 @@
 					case 'ordb':
 						var as = _q_appendData("workg", "", true);
 						if (as[0] != undefined) {
-							if(confirm("確定要轉至"+ordx+"?"))
+							if(confirm("確定要轉至請購?"))
 							{
 								var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
 		                		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
@@ -161,13 +169,13 @@
 				                q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
 						}else{
-							alert('已產生'+ordx+'。');
+							alert('已產生簽核或請購。');
 						}
 						break;
 					case 'orda':
 						var as = _q_appendData("workg", "", true);
 						if (as[0] != undefined) {
-							if(confirm("確定要轉至"+ordx+"?"))
+							if(confirm("確定要轉至簽核?"))
 							{
 								var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
 		                		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
@@ -183,7 +191,7 @@
 				                q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
 						}else{
-							alert('已產生'+ordx+'。');
+							alert('已產生簽核。');
 						}
 						break;
 					case 'orda2ordb':

@@ -68,7 +68,7 @@
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd]];
 				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd]];
 				q_mask(bbmMask);
-				q_cmbParse("cmbStype", q_getPara('workg.stype'));
+				q_cmbParse("cmbStype", q_getPara('workg.stype'));	
 
 				$('#btnOrde').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
@@ -113,14 +113,27 @@
 				
 				$('#btnWorkg').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
-						if (emp($('#txtBdate').val()) && emp($('#txtEdate').val())) {
+						//0408拿掉判斷訂單預交日
+						/*if (emp($('#txtBdate').val()) && emp($('#txtEdate').val())) {
 							alert(q_getMsg('lblBdate') + '請先填寫。');
 							return;
 						}
 						if ((!emp($('#txtBdate').val()) && emp($('#txtEdate').val())) || (emp($('#txtBdate').val()) && !emp($('#txtEdate').val()))) {
 							alert(q_getMsg('lblBdate') + '錯誤!!。');
 							return;
+						}*/
+						var bdate='',edate='';
+						if (emp($('#txtBdate').val())) {
+							bdate=q_date();
+						}else{
+							bdate=$('#txtBdate').val();
 						}
+						if (emp($('#txtEdate').val())) {
+							edate='999/99/99';
+						}else{
+							edate=$('#txtEdate').val();
+						}
+						
 						
 						var sbdate='',sedate='';
 						if (emp($('#txtSfbdate').val())) {
@@ -135,7 +148,7 @@
 						}
 						
 
-						if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
+						//if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
 							
 							var t_bbspno="1=0";
@@ -144,14 +157,14 @@
 									t_bbspno+=" or a.productno='"+$('#txtProductno_'+i).val()+"'";
 								}
 							}
-							var t_where1 = "where[1]=^^ (" +t_bbspno+ ") and a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca)  group by productno ^^";
-							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
-							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
+							var t_where1 = "where[1]=^^ (" +t_bbspno+ ") and a.enda!='1' and (a.datea between '" + bdate + "' and '" + edate + "') and a.productno in (select noa from uca)  group by productno ^^";
+							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + bdate + "' and '" + edate + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
+							var t_where3 = "where[3]=^^ (c.datea between '" + bdate + "' and '" + edate + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ (c.datea < '" + $('#txtBdate').val() + "') and c.productno=a.productno and c.enda!='1' ^^"
 							var t_where5 = "where[5]=^^ sb.productno=a.productno and (sb.datea between '"+sbdate+"' and '"+sedate+"') ^^"
 							var t_where6 = "where[6]=^^ wb.productno=a.productno and (wa.sfedate between '"+sbdate+"' and '"+sedate+"') and wa.noa!='"+$('#txtNoa').val()+"' ^^"
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "workg_bbs", r_accy);
-						}
+						//}
 					}
 				});
 				
@@ -489,12 +502,20 @@
 					$('#btnWorkg2ordb').removeAttr('disabled');
 					$('#btnWorkPrint').removeAttr('disabled');
 					$('#btnWork').removeAttr('disabled');
+					$('#txtBdate').datepicker( 'destroy' );
+					$('#txtEdate').datepicker( 'destroy' );
+					$('#txtSfbdate').datepicker( 'destroy' );
+					$('#txtSfbdate').datepicker( 'destroy' );
 				} else {
 					$('#btnOrde').removeAttr('disabled');
 					$('#btnWorkg').removeAttr('disabled');
 					$('#btnWorkg2ordb').attr('disabled', 'disabled');
 					$('#btnWorkPrint').attr('disabled', 'disabled');
 					$('#btnWork').attr('disabled', 'disabled');
+					$('#txtBdate').datepicker();
+					$('#txtEdate').datepicker();
+					$('#txtSfbdate').datepicker();
+					$('#txtSfedate').datepicker();
 				}
 				change_field();
 				var hasStyle = q_getPara('sys.isstyle');
