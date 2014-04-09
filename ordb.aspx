@@ -283,6 +283,12 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetTggt':
+						var as = _q_appendData("ordb", "", true);
+						if (as[0] != undefined) {
+							$('#vttggt2_'+q_recno).text((as[0].tggt).substr(0,2));
+						}
+						break;
 					case 'cno_acomp':
 						var as = _q_appendData("acomp", "", true);
 						if (as[0] != undefined) {
@@ -321,6 +327,10 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'ordbt':
+						var t_noa = $.trim($('#txtNoa').val());
+						q_gt('ordb', "where=^^ noa='" + t_noa + "' ^^", 0, 0, 0, "GetTggt",r_accy);
+						break;
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();

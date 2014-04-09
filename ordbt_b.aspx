@@ -19,7 +19,7 @@
 			var q_readonly = [];
 			var q_readonlys = [];
 			var bbmNum = [];
-			var bbsNum = [['txtPrice', 10, 2, 1],['txtRprice', 10, 2, 1],['txtIprice', 10, 2, 1],['txtFprice', 10, 2, 1],];
+			var bbsNum = [['txtPrice', 10, 2, 1],['txtRprice', 10, 2, 1],['txtIprice', 10, 2, 1],['txtFprice', 10, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			aPop = new Array(
@@ -140,7 +140,6 @@
 				font-size: medium;
 			}
 		</style>
-
     </head>
     <body>
 		<div id="dbbs">
