@@ -102,7 +102,9 @@
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='無簽核轉請購'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda2ordb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核轉請購'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnCheck' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='查詢'>");
                 
+                $('#btnOk').hide();
                 /*if(isorda){
 					$('#btnOrdb').hide();
 					$('#btnOrda').show();
@@ -137,6 +139,13 @@
                 	q_gt('orda', "where=^^isnull(workgno,'')!='' and isnull(ordbno,'')='' and noa in (select zno from sign where enda='Y' and left(zno2,4)='orda') and noa in (select ordano from view_workg where noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"') ^^ ", 0, 0, 0, "orda2ordb", r_accy);
 	            });
 	            
+	            $('#btnCheck').click(function(){
+	            	if($('#chkWorkgall [type]=checkbox').prop('checked'))
+	            		q_gt('workg', "where=^^ isnull(ordano,'')='' and isnull(ordbno,'')='' ^^", 0, 0, 0, "check", r_accy);
+	            	else
+	            		q_gt('workg', "where=^^ isnull(ordano,'')='' and isnull(ordbno,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"'^^", 0, 0, 0, "check", r_accy);
+	            });
+	            
 	            $('.q_report .option div .c3').css("width","180px");
 	            $('.q_report .option div .c6').css("width","110px");
 	            $('#Workgall .c6').css('width','0px');
@@ -149,6 +158,37 @@
 
             function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'check':
+						var as = _q_appendData("workg", "", true);
+						if (as[0] != undefined) {
+							var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
+		                	var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
+		                	var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
+		                	var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
+							var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
+		                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+		                	var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                	var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
+		                	
+							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
+							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
+							q_gtx("z_workg2ordb1", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+						}else{
+							var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
+		                	var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
+		                	var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
+		                	var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
+							var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
+		                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+		                	var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                	var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
+		                	
+							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
+							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
+							q_gtx("z_workg2ordb3", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+						}
+						
+						break;
 					case 'ordb':
 						var as = _q_appendData("workg", "", true);
 						if (as[0] != undefined) {
@@ -162,9 +202,9 @@
 		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
 		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
 		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
 		                		
-		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
@@ -185,8 +225,9 @@
 		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
 		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
 		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+r_userno+';'+q_getPara('sys.key_orda');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_orda');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
@@ -207,8 +248,9 @@
 		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
 		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
 		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
