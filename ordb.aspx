@@ -287,6 +287,7 @@
 						var as = _q_appendData("ordb", "", true);
 						if (as[0] != undefined) {
 							$('#vttggt2_'+q_recno).text((as[0].tggt).substr(0,2));
+							$('#vtfinish_'+q_recno).text((as[0].finish));
 						}
 						break;
 					case 'cno_acomp':
@@ -915,7 +916,7 @@
 			<div class="dbbm">
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td><input id="txtFinish" type="text" style="display:none;"/></td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
