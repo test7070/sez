@@ -287,6 +287,7 @@
 						var as = _q_appendData("ordb", "", true);
 						if (as[0] != undefined) {
 							$('#vttggt2_'+q_recno).text((as[0].tggt).substr(0,2));
+							$('#vtfinish_'+q_recno).text((as[0].finish));
 						}
 						break;
 					case 'cno_acomp':
@@ -915,7 +916,7 @@
 			<div class="dbbm">
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td><input id="txtFinish" type="text" style="display:none;"/></td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -1023,9 +1024,6 @@
 						<td class="td2" colspan="4"><input id="txtOrdcno" type="text" class="txt c1" /></td>
 						<td></td>
 						<td><input id="btnOrdc" type="button" class="txt c1" value="批次轉採購單" style="display:none;" /></td>
-						<td><span> </span><a id="lblApv" class="lbl" style="width:40%;float:left;"> </a>
-						    <input id="txtApv" type="text" class="txt c1" disabled="disabled" style="width:40%;float:left;"/>
-						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
