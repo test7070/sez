@@ -285,6 +285,7 @@
 				switch (t_name) {
 					case 'GetTggt':
 						var as = _q_appendData("ordb", "", true);
+						console.log(as);
 						if (as[0] != undefined) {
 							$('#vttggt2_'+q_recno).text((as[0].tggt).substr(0,2));
 							$('#vtfinish_'+q_recno).text((as[0].finish));
@@ -329,8 +330,10 @@
 				var ret;
 				switch (b_pop) {
 					case 'ordbt':
-						var t_noa = $.trim($('#txtNoa').val());
-						q_gt('ordb', "where=^^ noa='" + t_noa + "' ^^", 0, 0, 0, "GetTggt",r_accy);
+						setTimeout(function(){
+							var t_noa = $.trim($('#txtNoa').val());
+							q_gt('ordb', "where=^^ noa='" + t_noa + "' ^^", 0, 0, 0, "GetTggt",r_accy);
+						},800)
 						break;
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
