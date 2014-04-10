@@ -527,6 +527,7 @@
 						$('.orde').attr('disabled', 'disabled');
 						$('.odm').val('');
 					}
+					$('.dbbs').css('width','3300px');
 				}else{
 					$('.sf').hide();
 					if(q_cur==1||q_cur==2){
@@ -535,6 +536,7 @@
 						$('.safo').attr('disabled', 'disabled');
 						$('.sam').val('');
 					}
+					$('.dbbs').css('width','2850px');
 				}
 			}
 
@@ -936,7 +938,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 3360px;
+				width: 3200px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1109,7 +1111,7 @@
 						<td style="width:100px;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblMount_s'> </a></td>
 						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
-						<td style="width:250px;"><a id='lblStation_s'> </a></td>
+						<td style="width:130px;"><a id='lblStation_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkhno_s'> </a></td>
 						<td style="width:50px;"><a id='lblRank_s'> </a></td>
@@ -1160,9 +1162,9 @@
 						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
 						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
 						<td>
-							<input id="txtStationno.*" type="text" class="txt c1" style="width: 35%"/>
+							<input id="txtStationno.*" type="text" class="txt c1" style="width: 70%"/>
 							<input id="btnStation.*" type="button" style="float:left;font-size: medium; font-weight: bold;" value="."/>
-							<input id="txtStation.*" type="text" class="txt c1" style="width: 50%"/>
+							<input id="txtStation.*" type="text" class="txt c1"/>
 						</td>
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtWorkhno.*" type="text" class="txt c1"/></td>
