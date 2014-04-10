@@ -96,6 +96,8 @@
 					var wParent = window.parent.document;
 					$('#txtWorkgno1').val(wParent.getElementById("txtNoa").value);
 					$('#txtWorkgno2').val(wParent.getElementById("txtNoa").value);
+					if(wParent.getElementById("txtEdate").value!='')
+					$('#txtEnddate').val(wParent.getElementById("txtEdate").value);
 				}
                 
                 var btn = document.getElementById('btnOk');

@@ -75,8 +75,25 @@
 					/*case 'qtxt.query.ucachg':
 						alert('作業完畢');
 					break;*/
+					case 'qtxt.query.u1':
+						//呼叫workf.post
+						q_func('qtxt.query.u2', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';1');//新增,修改
+						break;
+					case 'qtxt.query.u3':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
 				}
 			}
+			
+			function q_stPost() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return false;
+				if(q_cur == 2)
+					q_func('qtxt.query.u1', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';0');//修改
+				else
+					q_func('qtxt.query.u2', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';1');//新增,修改
+			}
+			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -151,9 +168,10 @@
 					return;
 				}
 				if(q_cur==1)
-						$('#txtWorker').val(r_name);
-					else
-						$('#txtWorker2').val(r_name);
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
+					
 				var t_noa = trim($('#txtNoa').val());
 				var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")   
@@ -192,7 +210,7 @@
 			}
 
 			function bbsSave(as) {
-				if(!as['productno']) {
+				if(!as['productno']&&!as['orgproductno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -255,7 +273,12 @@
 			}
 	
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				//處理workc內容
+				q_func('qtxt.query.u3', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';0');//刪除
 			}
 	
 			function btnCancel() {

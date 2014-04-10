@@ -468,7 +468,10 @@
 					return;
 				}
 				sum();
-				$('#txtWorker').val(r_name);
+				if(q_cur==1)
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
