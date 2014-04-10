@@ -8,7 +8,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ucas', t_content = ' field=productno,product,unit,spec,mount,weight,mtype,processno,process,loss,dividea,mul,memo', bbsKey = ['noa'], as;
+			var q_name = 'ucas_distinct', t_content = ' field=productno,product,unit,spec,mount,weight,mtype,processno,process,loss,dividea,mul,memo', bbsKey = ['noa'], as;
 			var t_sqlname = 'ucas_distinct_load';
             t_postname = q_name;
 			var isBott = false;
@@ -39,7 +39,7 @@
 				$('#checkAllCheckbox').click(function() {
 					$('input[type=checkbox][id^=chkSel]').each(function() {
 						var t_id = $(this).attr('id').split('_')[1];
-						if (!emp($('#txtNoa_' + t_id).val())){
+						if (!emp($('#txtProductno_' + t_id).val())){
 							abbs[t_id]['sel'] = "true";
 							$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 						}

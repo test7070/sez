@@ -8,7 +8,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'calstk', t_content = ' field=storeno,store,productno,product,unit,mount,weight', bbsKey = ['storeno','productno'], as;
+			var q_name = 'calstk', t_content = ' field=storeno,store,productno,product,unit,mount,weight,style,spec', bbsKey = ['storeno','productno'], as;
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i, s1;
@@ -90,7 +90,10 @@
 					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtMount.*" type="text"/></td>
-					<td><input class="txt c1 num" id="txtWeight.*" type="text"/></td>
+					<td><input class="txt c1 num" id="txtWeight.*" type="text"/>
+						<input class="txt c1" id="txtSpec.*" type="hidden"/>
+						<input class="txt c1" id="txtStyle.*" type="hidden"/>
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->

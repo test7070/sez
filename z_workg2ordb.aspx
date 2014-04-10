@@ -231,10 +231,11 @@
 		                		
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_orda');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
-				                q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+				                //q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+				                q_func('qtxt.query.sign', 'orda.txt,sign,' + t_where);
 							}
 						}else{
-							alert('已產生簽核。');
+							alert('已產生過簽核。');
 						}
 						break;
 					case 'orda2ordb':
@@ -257,10 +258,21 @@
 				                q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
 						}else{
-							alert('無簽核未請購資料。');
+							alert('簽核未核准。');
 						}
 						break;
 				}
+			}
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.sign':
+                		var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							q_func('sign.q_signForm', 'orda,,'+  as[0].ordano);
+							alert('簽核送出。');
+						}
+                	break;
+                }
 			}
 		</script>
 	</head>

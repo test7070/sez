@@ -98,7 +98,7 @@
 							var t_where = '1=1 ';
 							t_where += " and (noa in (select noa from uca where tggno='"+tggno+"')) ";
 							t_where += ' ';
-							q_box("ucas_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "95%", q_getMsg('PopUcas'));
+							q_box("ucas_dist_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "95%", q_getMsg('PopUcas'));
 						}
 					}
 				});
@@ -129,9 +129,9 @@
 						b_ret = getb_ret();
 						if((b_ret != undefined) && (b_ret.length > 0)){
 							var ret = q_gridAddRow(bbsHtm, 'tbbs',
-								'txtProductno,txtProduct,txtUnit,txtMount',
+								'txtProductno,txtProduct,txtUnit,txtMount,txtSpec,txtStyle',
 								b_ret.length, b_ret,
-								'productno,product,unit,mount', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
+								'productno,product,unit,mount,spec,style', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
 							);
 							for(var k=0;k<ret.length;k++){
 								$('#txtMount_'+ret[k]).change();
@@ -149,9 +149,9 @@
 						b_ret = getb_ret();
 						if((b_ret != undefined) && (b_ret.length > 0)){
 							var ret = q_gridAddRow(bbsHtm, 'tbbs',
-								'txtProductno,txtProduct,txtUnit,txtMemo',
+								'txtProductno,txtProduct,txtUnit,txtMemo,txtSpec',
 								b_ret.length, b_ret,
-								'productno,product,unit,memo', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
+								'productno,product,unit,memo,spec', 'txtProductno,txtProduct,txtUnit,txtMount,txtMemo'
 							);
 							for(var k=0;k<ret.length;k++){
 								$('#txtMount_'+ret[k]).change();
