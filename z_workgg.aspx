@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			var isSaturday = '0';
 			if(location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;100";
 			}
@@ -37,6 +38,7 @@
 				q_langShow();
 				q_popAssign();
 				q_getFormat();
+				isSaturday = (q_getPara('sys.saturday').toString()=='1'?'1':'0');
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate1').val(q_date());
@@ -57,7 +59,7 @@
 					if(!emp($('#txtXdate2').val()))
 						t_xedate=encodeURI($('#txtXdate2').val());
 					Lock();
-					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';');
+					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';');
 				});
 			}
 
@@ -79,10 +81,23 @@
 							//產生標題<<Start>>
 							t_TableStr = t_TableStr + '<tr>';
 							t_TableStr = t_TableStr + '<td class="tTitle" colspan="2">工作中心</td>';
-							t_TableStr = t_TableStr + '<td class="tTitle tWidth">日工時</td>';
+							t_TableStr = t_TableStr + '<td class="tTitle tWidth">日產能</td>';
 							t_TableStr = t_TableStr + '<td class="tTitle tWidth">稼動率</td>';
+							var dateCount = 0;
 							for(var j=1;j<=maxCount;j++){
-								t_TableStr = t_TableStr + '<td class="tTitle tWidth">' + q_cdn($('#txtXdate1').val(),(j-1)).substr(4) + '</td>';
+								dateCount++;
+								while(1==1){
+									var t_date = q_cdn($('#txtXdate1').val(),(dateCount-1));
+									var t_Addate = (parseInt(t_date.substring(0,3))+1911)+t_date.substring(3);
+									var thisDate = new Date(t_Addate);
+									var thisDate_day = thisDate.getDay();
+									if(((isSaturday=='1') || (isSaturday!='1' && thisDate_day!=6)) && (thisDate_day != 0)){
+										t_TableStr = t_TableStr + '<td class="tTitle tWidth">' + t_date.substr(4) + '</td>';
+										break;
+									}else{
+										dateCount++;
+									}
+								}
 							}
 							t_TableStr = t_TableStr + '<td class="tTitle tWidth">合計</td>';
 							t_TableStr = t_TableStr + '</tr>';
