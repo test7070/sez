@@ -84,10 +84,7 @@
 				</tr>
 				<tr style="background: #cad3ff;">
 					<td><input name="chk" id="chkSel.*" type="checkbox" /></td>
-	                <td>
-	                	<input id="txtNoa.*" type="hidden"/>
-	                	<input id="txtProductno.*" type="text" class="txt c1"/>
-	                </td>
+	                <td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 	                <td>
 	                	<input id="txtProduct.*" type="text" class="txt c1"/>
 	                	<input id="txtSpec.*" type="text" class="txt c1"/>
@@ -103,10 +100,7 @@
 	                <td><input id="txtLoss.*" type="text" class="txt num c1"/></td>
 	                <td><input id="txtDividea.*" type="text" class="txt num c1"/></td>
 	                <td><input id="txtMul.*" type="text" class="txt num c1"/></td>
-	                <td>
-	                	<input id="txtMemo.*" type="text" class="txt c1"/>
-	                	<input id="txtNoq.*" type="hidden" />
-	                </td>
+	                <td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->
