@@ -17,7 +17,7 @@
  
 			q_tables = 's';
 			var q_name = "vcc";
-			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp','txtCardeal','txtSales', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2'];
+			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp','txtCardeal','txtSales', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2','txtTranstart'];
 			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2','txtNoq'];
 			var bbmNum = [
 				['txtPrice', 10, 3, 1], ['txtTranmoney', 11, 2, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],
@@ -44,7 +44,8 @@
 				['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
 				['txtPost', 'lblAddr', 'addr', 'post,addr', 'txtPost,txtAddr', 'addr_b.aspx'],
 				['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
+				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx']
 			);
 
 			var isinvosystem = false;
@@ -1156,12 +1157,12 @@
 						<td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td class="td4"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
-						<td class="td5"><input id="txtSalesno" type="text" class="txt c1"/></td>
-						<td class="td6"><input id="txtSales" type="text" class="txt c1"/></td>
-						<td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>
-						<td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td>
+						<td class="td1"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtSalesno" type="text" class="txt c1"/></td>
+						<td class="td3"><input id="txtSales" type="text" class="txt c1"/></td>
+						<td class="td4"><span> </span><a id='lblTranstart' class="lbl btn"> </a></td>
+						<td class="td5"><input id="txtTranstartno" type="text" class="txt c1"/></td>
+						<td class="td6"><input id="txtTranstart" type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
 					</tr>
@@ -1177,13 +1178,18 @@
 						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
-						<td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
-						<td class="td4"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td5"><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
-						<td class="td7"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-						<td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbCoin" style="width: 100%;"> </select></td>
+						<td class="td3"><input id="txtFloata" type="text" class="txt num c1"/></td>
+						<td class="td4"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
+						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="td3"><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td class="td4"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
+						<td class="td5" colspan='2'><input id="txtAccno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
