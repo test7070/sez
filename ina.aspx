@@ -17,9 +17,9 @@
 
 			q_tables = 's';
 			var q_name = "ina";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtNoa','txtStation','txtComp','txtStore','txtCardeal','txtAddr','txtTranstart','txtWorker','txtWorker2','txtTotal'];
 			var q_readonlys = ['txtTotal'];
-			var bbmNum = [['txtTotal', 15, 0, 1]];
+			var bbmNum = [['txtTotal', 15, 0, 1], ['txtPrice', 10, 2, 1], ['txtTranmoney', 15, 0, 1]];
 			var bbsNum = [['txtMount', 10, 0, 1], ['txtPrice', 10, 2, 1], ['txtTotal', 15, 0, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -29,7 +29,9 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtPost', 'lblPost', 'addr', 'post,addr', 'txtPost', 'addr_b.aspx'],
+				//['txtPost', 'lblPost', 'addr', 'post,addr', 'txtPost', 'addr_b.aspx'],
+				['txtPost', 'lblPost', 'addr2', 'noa,post', 'txtPost,txtAddr', 'addr2_b.aspx'],
+				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtRackno', 'lblRackno', 'rack', 'noa,rack,storeno,store', 'txtRackno', 'rack_b.aspx'],
@@ -65,6 +67,9 @@
 				$('#txtPost').change(function(){
 					GetTranPrice();
 				});
+				$('#txtTranstartno').change(function(){
+					GetTranPrice();
+				});
 				$('#txtCardealno').change(function(){
 					GetTranPrice();
 					//取得車號下拉式選單
@@ -97,15 +102,20 @@
 					case 'txtPost':
 						GetTranPrice();
 						break;
+					case 'txtTranstartno':
+						GetTranPrice();
+						break;	
 				}
 			}
 
 			function GetTranPrice(){
 				var Post = $.trim($('#txtPost').val()); 
+				var Transtartno = $.trim($('#txtTranstartno').val()); 
 				var Cardealno = $.trim($('#txtCardealno').val()); 
 				var TranStyle = $.trim($('#cmbTranstyle').val());
 				var t_where = 'where=^^ 1=1 ';
 				t_where += " and post=N'" + Post + "' ";
+				t_where += " and transtartno=N'" + Transtartno + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
 				t_where += ' ^^';
@@ -456,13 +466,9 @@
 						<td class='td1'><span> </span><a id="lblItype" class="lbl"> </a></td>
 						<td class="td2"><select id="cmbItype" class="txt c1"> </select></td>
 						<td class='td3'><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td4"><input id="txtDatea" type="text" class="txt c3"/></td>
-					</tr>
-					<tr class="tr2">
+						<td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td class='td3'><span> </span><a id="lblNoa" class="lbl" > </a></td>
 						<td class="td4"><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td class='td5'><span> </span><a id="lblOrdeno" class="lbl" > </a></td>
-						<td class="td6"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class='td1'><span> </span><a id="lblStation" class="lbl btn" > </a></td>
@@ -470,6 +476,8 @@
 							<input id="txtStationno" type="text"  class="txt c2"/>
 							<input id="txtStation" type="text"  class="txt c3"/>
 						</td>
+						<td class='td5'><span> </span><a id="lblOrdeno" class="lbl" > </a></td>
+						<td class="td6"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
 						<td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -493,17 +501,27 @@
 							<input id="txtCardealno" type="text" class="txt c2"/>
 							<input id="txtCardeal" type="text" class="txt c3"/>
 						</td>
-						<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
-					</tr>
-					<tr class="tr7">
 						<td class="td3"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td5">
 							<input id="txtCarno"  type="text" class="txt" style="width:75%;"/>
 							<select id="combCarno" style="width: 20%;"> </select>
 						</td>
-						<td class="td3"><span> </span><a id="lblPost" class="lbl btn"> </a></td>
-						<td class="td4"><input id="txtPost" type="text" class="txt c1" /></td>
+					</tr>
+					<tr class="tr6">
+						<td class="td1"><span> </span><a id="lblPost" class="lbl btn"> </a></td>
+						<td class="td2" colspan="3">
+							<input id="txtPost" type="text" class="txt c2"/>
+							<input id="txtAddr" type="text" class="txt c3"/>
+						</td>
+						<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
+						<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
+					</tr>
+					<tr class="tr7">
+						<td class="td1"><span> </span><a id="lblTranstart" class="lbl btn"> </a></td>
+						<td class="td2" colspan="3">
+							<input id="txtTranstartno" type="text" class="txt c2"/>
+							<input id="txtTranstart" type="text" class="txt c3"/>
+						</td>
 						<td class='td5'><span> </span><a id="lblTranstyle" class="lbl" > </a></td>
 						<td class="td6"><select id="cmbTranstyle" style="width: 100%;"> </select></td>
 					</tr>
@@ -521,7 +539,9 @@
 					</tr>
 					<tr>
 						<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>					
+						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>	
+						<td class='td3'><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>					
 					</tr>
 				</table>
 			</div>
