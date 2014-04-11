@@ -68,7 +68,7 @@
                 $('#btnPrint').bind('contextmenu',function(e) {
                 	e.preventDefault();
                 	q_box("z_addr2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy,'z_addr2', "95%", "95%", q_getMsg("popPrint"));
-           		});
+           		});        	
             }
 
             function q_funcPost(t_func, result) {
@@ -122,6 +122,13 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
+                           //日光新增BBS有所不同
+                        if(q_getPara('sys.comp').substring(0, 2)=='日光'){
+                            $('#btnPlus_ds').show();
+                            
+                        }else{
+                            $('#btnPlus').show();
+                        }
                         break;
                 }
             }
@@ -330,6 +337,10 @@
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur==1 || q_cur==2)
+                    $('#btnPlus_ds').removeAttr('disabled');
+                else
+                    $('#btnPlus_ds').attr('disabled',$('#btnPlus').attr('disabled'));
             }
 
             function btnMinus(id) {
@@ -382,6 +393,34 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            
+            function plus_ds(){
+                var t_date = '';
+                for(var i=0;i<q_bbsCount;i++){
+                    t_date = $.trim($('#txtDatea_'+i).val())>t_date?$.trim($('#txtDatea_'+i).val()):t_date; 
+                }
+                var n = 0;
+                if(t_date.length>0)
+                    for(var i=0;i<q_bbsCount;i++){
+                        n += t_date==$.trim($('#txtDatea_'+i).val())?1:0;
+                    }
+                var m = q_bbsCount;
+                while(m+n>q_bbsCount){
+                    $('#btnPlus').click();
+                }        
+                var d1 = new Date(parseInt(t_date.substr(0, 3)) + 1911, parseInt(t_date.substring(4, 6)) - 1, parseInt(t_date.substring(7, 9)));
+                d1.setDate(d1.getDate()+95);      
+                var t_newdate = (d1.getFullYear()-1911)+'/'+(d1.getMonth()+1<10?'0':'')+(d1.getMonth()+1)+'/01';
+                for(var i=0,j=0;i<m;i++){
+                    if(t_date==$.trim($('#txtDatea_'+i).val())){
+                        $('#txtDatea_'+(m+j)).val(t_newdate);
+                        $('#txtCustprice_'+(m+j)).val($.trim($('#txtCustprice_'+i).val()));
+                        $('#txtDriverprice_'+(m+j)).val($.trim($('#txtDriverprice_'+i).val()));
+                        $('#txtDriverprice2_'+(m+j)).val($.trim($('#txtDriverprice2_'+i).val()));
+                        j++;
+                    }
+                }
             }
 		</script>
 		<style type="text/css">
@@ -599,7 +638,8 @@
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:30px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display:none;"  />
+					<input class="btn"  id="btnPlus_ds" type="button" value='+' style="font-weight: bold;display:none;color:darkgreen;" onclick="plus_ds()" />
 					</td>
 					<td align="center" style="width:80px;"><a id='lblDatea_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCustprice_s'> </a></td>
