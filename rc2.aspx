@@ -19,7 +19,7 @@
 			var q_name = "rc2";
 			var decbbs = ['money', 'total', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
 			var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
-			var q_readonly = ['txtNoa', 'txtAcomp', 'txtTgg', 'txtWorker', 'txtWorker2'];
+			var q_readonly = ['txtNoa', 'txtAcomp', 'txtTgg', 'txtWorker', 'txtWorker2','txtTranstart'];
 			var q_readonlys = ['txtNoq'];
 			var bbmNum = [
 				['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],
@@ -37,12 +37,16 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick,tel,zip_invo,addr_comp,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtRackno_', 'btnRackno_', 'rack', 'noa,rack,storeno,store', 'txtRackno_', 'rack_b.aspx'],
-				['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
+				//['txtPost', 'lblAddr', 'addr', 'post,addr', 'txtPost,txtAddr', 'addr_b.aspx'],
+				//['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
+				['txtPost', 'lblAddr', 'addr2', 'noa,post', 'txtPost', 'addr2_b.aspx'],
+				['txtPost2', 'lblAddr2', 'addr2', 'noa,post', 'txtPost2', 'addr2_b.aspx'],
 				['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0', '95%', '60%'],
-				['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']
+				['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx'],
+				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx']
 			);
 
 			var isinvosystem = false;
@@ -160,6 +164,9 @@
 				$('#txtPost2').change(function() {
 					GetTranPrice();
 				});
+				$('#txtTranstartno').change(function(){
+					GetTranPrice();
+				});
 				$('#txtCardealno').change(function() {
 					GetTranPrice();
 					//取得車號下拉式選單
@@ -177,10 +184,12 @@
 			function GetTranPrice() {
 				var Post2 = $.trim($('#txtPost2').val());
 				var Post = $.trim($('#txtPost').val());
+				var Transtartno = $.trim($('#txtTranstartno').val()); 
 				var Cardealno = $.trim($('#txtCardealno').val());
 				var TranStyle = $.trim($('#cmbTranstyle').val());
 				var t_where = 'where=^^ 1=1 ';
 				t_where += " and post=N'" + (Post2.length > 0 ? Post2 : Post) + "' ";
+				t_where += " and transtartno=N'" + Transtartno + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
 				t_where += ' ^^';
@@ -657,6 +666,7 @@
 						var thisVal = $('#txtCardealno').val();
 						var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
 						q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
+						GetTranPrice();
 						break;
 					case 'txtPost2':
 						GetTranPrice();
@@ -664,6 +674,9 @@
 					case 'txtPost':
 						GetTranPrice();
 						break;
+					case 'txtTranstartno':
+						GetTranPrice();
+						break;	
 					case 'txtTggno':
 						if (!emp($('#txtTggno').val())) {
 							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
@@ -920,7 +933,7 @@
 						<td class="td8"><input id="txtOrdcno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblAddr' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4' >
 							<input id="txtAddr" type="text" class="txt" style="width: 98%;"/>
@@ -942,18 +955,18 @@
 							<input id="txtPaytype" type="text" class="txt c3"/>
 							<select id="combPaytype" class="txt c2" onchange='cmbPaytype_chg()'></select>
 						</td>
-						<td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td class="td5" ><select id="cmbCoin" class="txt c1" ></select></td>
-						<td class="td6" ><input id="txtFloata" type="text" class="txt num c1" /></td>
-						<td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td class="td8"><input id="txtPrice" type="text" class="txt num c1" /></td>
-					</tr>
-					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"> </a></td>
 						<td class="td2" colspan='2'>
 							<input id="txtCardealno" type="text" class="txt c2"/>
 							<input id="txtCardeal" type="text" class="txt c3"/>
 						</td>
+						<td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td class="td8"><input id="txtPrice" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr class="tr6">
+						<td class="td1"><span> </span><a id='lblTranstart' class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtTranstartno" type="text" class="txt c1"/></td>
+						<td class="td3"><input id="txtTranstart" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td5">
 							<input id="txtCarno" type="text" class="txt" style="width:75%;"/>
@@ -977,16 +990,15 @@
 						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax" /></td>
 					</tr>
 					<tr class="tr8">
-						<td class="td1"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
-						<td class="td2" colspan='2'>
+						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
+						<td class="td2" ><select id="cmbCoin" class="txt c1" ></select></td>
+						<td class="td3" ><input id="txtFloata" type="text" class="txt num c1" /></td>
+						<td class="td4"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
+						<td class="td5" colspan='2'>
 							<input id="txtTotalus" type="text" class="txt num c1" />
 						</td>
-						<td class="td7"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-						<td class="td8" colspan="2">
-							<input id="txtAccno" type="text" class="txt c1"/>
-						</td>
-						<td class="td1"><span> </span><a id='lblLcno' class="lbl btn"> </a></td>
-						<td class="td2">
+						<td class="td7"><span> </span><a id='lblLcno' class="lbl btn"> </a></td>
+						<td class="td8">
 							<input id="txtLcno" type="text" class="txt c1"/>
 						</td>
 					</tr>
@@ -997,10 +1009,11 @@
 						</td>
 					</tr>
 					<tr class="tr10">
-						<td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="td3"><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td class="td4"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
+						<td class="td5" colspan="2"><input id="txtAccno" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

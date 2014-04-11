@@ -19,7 +19,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "workl";
-			var q_readonly = ['txtNoa','txtTheory','txtDiffweight', 'txtWorker', 'txtWorker2', 'txtCngno', 'txtWorkcno','txtTgg','txtStorein','txtStore','txtCardeal'];
+			var q_readonly = ['txtNoa','txtTheory','txtDiffweight', 'txtWorker', 'txtWorker2', 'txtCngno', 'txtWorkcno','txtTgg','txtStorein','txtStore','txtCardeal','txtTranstart','txtAddr'];
 			var q_readonlys = ['txtWorkno','txtTheory'];
 			var bbmNum = [['txtPrice', 12, 2, 1],['txtTranmoney', 12, 2, 1],['txtWeight', 12, 2, 1],['txtTheory', 12, 2, 1],['txtDiffweight', 12, 2, 1]];
 			var bbsNum = [['txtMount', 12, 2, 1],['txtTheory', 12, 2, 1]];
@@ -34,8 +34,11 @@
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreinno', 'lblStoreinno', 'store', 'noa,store', 'txtStoreinno,txtStorein', 'store_b.aspx'],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
-				['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
+				['txtCardealno', 'lblCardealno', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+				['txtPost', 'lblPost', 'addr', 'noa,post', 'txtPost,txtAddr', 'addr2_b.aspx'],
+				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx'],
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+				
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -56,6 +59,8 @@
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_getFormat();
 				q_mask(bbmMask);
+				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
+				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				//0313當撥料時同時做調撥和領料動作
 				//q_cmbParse("cmbTypea", q_getPara('workl.typea'));
 				$('#txtCngno').click(function() {
@@ -119,6 +124,23 @@
 				});
 				$('#txtWeight').change(function(){
 					sum();
+				});
+				
+				$('#txtPost').change(function(){
+					GetTranPrice();
+				});
+				$('#txtTranstartno').change(function(){
+					GetTranPrice();
+				});
+				$('#txtCardealno').change(function(){
+					GetTranPrice();
+					//取得車號下拉式選單
+					var thisVal = $(this).val();
+					var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
+					q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
+				});
+				$('#cmbTranstyle').change(function(){
+					GetTranPrice();
 				});
 			}
 
@@ -334,6 +356,31 @@
 							Unlock();
 						}
 						break;
+					case 'getCardealCarno' :
+						var as = _q_appendData("cardeals", "", true);
+						var t_item = " @ ";
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].carno + '@' + as[i].carno;
+							}
+						}
+						document.all.combCarno.options.length = 0;
+						q_cmbParse("combCarno", t_item);
+						$('#combCarno').unbind('change').change(function(){
+							if (q_cur == 1 || q_cur == 2) {
+								$('#txtCarno').val($('#combCarno').find("option:selected").text());
+								
+							}
+						});
+						break;
+					case 'GetTranPrice' :
+						var as = _q_appendData("addr", "", true);
+						if (as[0] != undefined) {
+							$('#txtPrice').val(as[0].driverprice2);
+						}else{
+							$('#txtPrice').val(0);
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -434,11 +481,37 @@
 						var t_where = "where=^^ tggno=N'" + t_tggno + "' ^^";
 						q_gt('store', t_where, 0, 0, 0, "GetStoreno", r_accy);
 						break;
+					case 'txtCardealno':
+						//取得車號下拉式選單
+						var thisVal = $('#txtCardealno').val();
+						var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
+						q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
+						GetTranPrice();
+						break;
+					case 'txtPost':
+						GetTranPrice();
+						break;
+					case 'txtTranstartno':
+						GetTranPrice();
+						break;	
 					default:
 						break;
 				}
 			}
 			
+			function GetTranPrice(){
+				var Post = $.trim($('#txtPost').val()); 
+				var Cardealno = $.trim($('#txtCardealno').val()); 
+				var TranStyle = $.trim($('#cmbTranstyle').val());
+				var Transtartno = $.trim($('#txtTranstartno').val()); 
+				var t_where = 'where=^^ 1=1 ';
+				t_where += " and post=N'" + Post + "' ";
+				t_where += " and transtartno=N'" + Transtartno + "' ";
+				t_where += " and cardealno=N'" + Cardealno + "' ";
+				t_where += " and transtyle=N'" + TranStyle + "' ";
+				t_where += ' ^^';
+				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
+			}
 			
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
@@ -873,21 +946,42 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
+						<td class="td3"><span> </span><a id="lblTranstyle" class="lbl" > </a></td>
+						<td class="td4"><select id="cmbTranstyle" class="txt c1"> </select></td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblCardealno' class="lbl btn"> </a></td>
 						<td class="td2">
 							<input id="txtCardealno" type="text" class="txt c2"/>
 							<input id="txtCardeal" type="text" class="txt c3"/>
 						</td>
-						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td2"><input id="txtCarno" type="text" class="txt c5"/></td>
-						<td class="td2"><input id="btnUcas" type="button" class="txt c5"/></td>
+						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td4">
+							<input id="txtCarno" type="text" class="txt" style="width:90%;"/>
+							<select id="combCarno" style="width: 20px;"> </select>
+						</td>
+						<td class="td5"><input id="btnUcas" type="button" class="txt c5"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblTranstart' class="lbl btn"> </a></td>
+						<td class="td2">
+							<input id="txtTranstartno" type="text" class="txt c2"/>
+							<input id="txtTranstart" type="text" class="txt c3"/>
+						</td>
+						<td class="td1"><span> </span><a id='lblPost' class="lbl btn"> </a></td>
+						<td class="td2">
+							<input id="txtPost" type="text" class="txt c2"/>
+							<input id="txtAddr" type="text" class="txt c3"/>
+						</td>
+						<td class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td2"><input id="txtPrice" type="text" class="txt c5 num"/></td>
 						<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td2"><input id="txtTranmoney" type="text" class="txt c5 num"/></td>
-						<td class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWeight' class="lbl"> </a></td>
@@ -910,15 +1004,7 @@
 						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						<!--<td class="td3"><span> </span><a id='lblWorkcno' class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorkcno" type="text" class="txt c1"/></td>-->
 					</tr>
-					<!--<tr>
-						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
-					</tr>-->
 				</table>
 			</div>
 		</div>

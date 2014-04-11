@@ -42,8 +42,10 @@
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
 				['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'],
-				['txtPost', 'lblAddr', 'addr', 'post,addr', 'txtPost,txtAddr', 'addr_b.aspx'],
-				['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
+				//['txtPost', 'lblAddr', 'addr', 'post,addr', 'txtPost,txtAddr', 'addr_b.aspx'],
+				//['txtPost2', 'lblAddr2', 'addr', 'post,addr', 'txtPost2,txtAddr2', 'addr_b.aspx'],
+				['txtPost', 'lblAddr', 'addr2', 'noa,post', 'txtPost', 'addr2_b.aspx'],
+				['txtPost2', 'lblAddr2', 'addr2', 'noa,post', 'txtPost2', 'addr2_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx']
 			);
@@ -101,6 +103,9 @@
 					GetTranPrice();
 				});
 				$('#txtPost2').change(function(){
+					GetTranPrice();
+				});
+				$('#txtTranstartno').change(function(){
 					GetTranPrice();
 				});
 				$('#txtCardealno').change(function(){
@@ -209,10 +214,12 @@
 			function GetTranPrice(){
 				var Post2 = $.trim($('#txtPost2').val());
 				var Post = $.trim($('#txtPost').val()); 
+				var Transtartno = $.trim($('#txtTranstartno').val()); 
 				var Cardealno = $.trim($('#txtCardealno').val()); 
 				var TranStyle = $.trim($('#cmbTranstyle').val());
 				var t_where = 'where=^^ 1=1 ';
 				t_where += " and post=N'" + (Post2.length>0?Post2:Post) + "' ";
+				t_where += " and transtartno=N'" + Transtartno + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
 				t_where += ' ^^';
@@ -846,6 +853,7 @@
 						var thisVal = $('#txtCardealno').val();
 						var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
 						q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
+						GetTranPrice();
 						break;
 					case 'txtCustno':
 						if (!emp($('#txtCustno').val())) {
@@ -860,6 +868,9 @@
 					case 'txtPost':
 						GetTranPrice();
 						break;
+					case 'txtTranstartno':
+						GetTranPrice();
+						break;	
 					case 'txtProductno_':
 						bbsGetOrdeList();
 						break;
