@@ -538,7 +538,7 @@
 					<td><input id="btnCust" type="button" style='width: auto; font-size: medium;'/></td>
 				</tr>
 				<tr>
-					<td><a id='lblTggno' class="lbl"> </a></td>
+					<td><a id='lblTggno' class="lbl btn"> </a></td>
 					<td><input id="txtTggno" type="text" class="txt c1"/></td>
 					<td colspan='4'><input id="txtTgg"	type="text" style="width: 97%;"/></td>
 					<td><input id="btnTgg" type="button" style='width: auto; font-size: medium;'/></td>
