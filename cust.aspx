@@ -93,7 +93,9 @@
 				q_mask(bbmMask);
 				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
 					q_cmbParse("cmbTypea", q_getPara('cust.typea_it'));
-				else
+				else if(q_getPara('sys.project').toUpperCase()=='RA'){
+					q_cmbParse("cmbTypea", q_getPara('cust.typea_ra'));
+				}else
 					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));

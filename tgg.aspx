@@ -88,7 +88,11 @@
 			}
 
 			function mainPost() {
-				q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
+				if(q_getPara('sys.project').toUpperCase()=='RA'){
+					q_cmbParse("cmbTypea", q_getPara('tgg_ra.typea'));
+				}else{
+					q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
+				}
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				$('#txtNoa').change(function(e) {
