@@ -71,19 +71,14 @@
 
 			function sum() {
 				var t1 = 0, t_unit, t_mount, t_weight = 0;
-				var t_float = dec($('#txtFloata').val());
-				t_float = (emp(t_float) ? 1 : t_float);
-				for (var j = 0; j < q_bbsCount; j++) {
-					t1 = q_add(t1, dec($('#txtTotal_' + j).val()));
-				}
-				var t1 = 0, t_unit, t_mount, t_weight = 0;
 				var t_money = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_money = q_add(t_money, q_float('txtTotal_' + j));
+					t_weight += q_float('txtMount_' + j);
 				}
 				q_tr('txtMoney', t_money);
 				q_tr('txtTotal', q_add(q_float('txtMoney'), q_float('txtTax')));
-				if (!emp($('#txtPrice').val()))
+				if (dec($('#txtPrice').val())!=0)
 					$('#txtTranmoney').val(round(q_mul(t_weight, dec($('#txtPrice').val())), 0));
 				calTax();
 				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
@@ -415,6 +410,8 @@
 					alert(t_err);
 					return;
 				}
+				
+				sum();
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				if (q_cur == 2)

@@ -180,14 +180,14 @@
 					alert(t_err);
 					return;
 				}
-				if (showRack()) {
+				/*if (showRack()) {
 					var thisRackno = $.trim($('#txtRackno').val());
 					var thisStoreno = $.trim($('#txtStoreno').val());
 					if (thisStoreno.length > 0 && thisRackno.length == 0) {
 						alert('請輸入料架編號!!');
 						return;
 					}
-				}
+				}*/
 				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
@@ -272,7 +272,7 @@
 				}
 
 				q_nowf();
-				as['date'] = abbm2['date'];
+				as['datea'] = abbm2['datea'];
 				as['custno'] = abbm2['custno'];
 				return true;
 			}
@@ -280,8 +280,11 @@
 			function sum() {
 				var t1 = 0, t_unit, t_mount, t_weight = 0, t_total = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
-					$('#txtTotal_' + j).val(round($('#txtPrice_' + j).val() * dec($('#txtMount_' + j).val()), 0));
+					//$('#txtTotal_' + j).val(round($('#txtPrice_' + j).val() * dec($('#txtMount_' + j).val()), 0));
+					t_weight=+q_float('txtMount_' + j);
 				}
+				if (dec($('#txtPrice').val())!=0)
+					$('#txtTranmoney').val(round(q_mul(t_weight, dec(q_float('txtPrice'))), 0));
 			}
 
 			function refresh(recno) {

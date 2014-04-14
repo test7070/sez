@@ -174,7 +174,7 @@
 					alert(t_err);
 					return;
 				}
-				if(showRack()){
+				/*if(showRack()){
 					var thisRackno = $.trim($('#txtRackno').val());
 					var thisStoreno = $.trim($('#txtStoreno').val());
 					var thisRackinno = $.trim($('#txtRackinno').val());
@@ -187,7 +187,7 @@
 						alert(q_chkEmpField([['txtRackinno', q_getMsg('lblRackinno')]]));
 						return;
 					}
-				}
+				}*/
 				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
@@ -401,7 +401,9 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					total += dec($('#txtMount_' + j).val());
 				}
-				q_tr('txtTranmoney', total * dec($('#txtPrice').val()));
+				
+				if (dec($('#txtPrice').val())!=0)
+					q_tr('txtTranmoney', total * dec($('#txtPrice').val()));
 			}
 
 		</script>
