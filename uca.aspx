@@ -481,7 +481,7 @@
 					return;
 				q_box('uca_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
 			}
-
+			
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -489,12 +489,21 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-
+							var thisVal = $.trim($(this).val());
+							if(thisVal.length>0){
+								for(var k=0;k<q_bbsCount;k++){
+									var bbsPno = $.trim($('#txtProductno_'+k).val());
+									if((thisVal==bbsPno) && (dec(b_seq) != dec(k))){
+										alert('與表身第 ' + (k+1) + ' 筆重複');
+										$('#btnMinus_'+b_seq).click();
+										return;
+									}
+								}
+							}
 							if (emp($('#txtNoa').val())) {
 								alert('請先輸入【' + q_getMsg('lblNoa') + '】');
 								$('#txtNoa').focus();
 							}
-
 							if (!emp($('#txtProductno_' + b_seq).val()) && !emp($('#txtNoa').val()))
 								q_func('qtxt.query', 'bom.txt,bom,' + encodeURI($('#txtProductno_' + b_seq).val()) + ';' + encodeURI($('#txtNoa').val()));
 						});
