@@ -33,6 +33,7 @@
 						$('#btnSearch').click();
 					}
 				});
+				q_gt('uccga', '', 0, 0, 0, "");
 			}
 
 			function q_gfPost() {
@@ -54,6 +55,19 @@
 							parent.q_box("ucc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucc', "95%", "95%", q_getMsg('popUcc'));
 						}
 						break;
+					case 'uccga':
+						var as = _q_appendData("uccga", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+							}
+							q_cmbParse("cmbGroupano", t_item);
+							if (abbm[q_recno] != undefined) {
+								$("#cmbGroupano").val(abbm[q_recno].groupano);
+							}
+						}
+						break;
 				}
 			}
 			
@@ -65,11 +79,13 @@
 				t_typea = $('#cmbTypea').val();
 				t_tggno = $('#txtTggno').val();
 				t_comp = $('#txtComp').val();
+				t_groupano = $('#cmbGroupano').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("product", t_product) +
 										q_sqlPara2("processno", t_processno) +
 										q_sqlPara2("typea", t_typea) +
+										q_sqlPara2("groupano", t_groupano) +
 										q_sqlPara2("tggno", t_tggno);
 				if (t_process.length > 0)
 					t_where += " and charindex('" + t_process + "',process)>0";
@@ -106,6 +122,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
 					<td><select id="cmbTypea" style="width:215px; font-size:medium;" ></select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblGroupano'> </a></td>
+					<td><select id="cmbGroupano" style="width:215px; font-size:medium;" ></select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblProcessno'> </a></td>

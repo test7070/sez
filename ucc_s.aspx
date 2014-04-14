@@ -27,7 +27,10 @@
 		
 		       bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 		        q_mask(bbmMask);
-		
+				
+				q_cmbParse("cmbTypea", '@全部,' + q_getPara('uca.typea'));
+				q_gt('uccga', '', 0, 0, 0, "");
+				
 		        $('#txtBdate').focus();
 		    }
 		
@@ -40,6 +43,24 @@
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
 		    }
+		    
+		    function q_gtPost(s2){
+				switch(s2){
+					case 'uccga':
+						var as = _q_appendData("uccga", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+							}
+							q_cmbParse("cmbGroupano", t_item);
+							if (abbm[q_recno] != undefined) {
+								$("#cmbGroupano").val(abbm[q_recno].groupano);
+							}
+						}
+						break;
+				}
+			}
 </script>
 <style type="text/css">
     .seek_tr
@@ -57,6 +78,14 @@
                 <td class='seek'  style="width:20%;"><a id='lblItem'></a></td>
                 <td><input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
+             <tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
+					<td><select id="cmbTypea" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblGroupano'> </a></td>
+					<td><select id="cmbGroupano" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>

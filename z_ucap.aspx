@@ -18,7 +18,7 @@
 			var uccgaItem = '';
 			var firstRun = false;
 			aPop = new Array(
-				['txtXproductno', '', 'uca', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
+				['txtXproductno', '', 'ucaucc', 'noa,product', 'txtXproductno', 'ucaucc_b.aspx']
 			);
 			$(document).ready(function() {
 				_q_boxClose();
