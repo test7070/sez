@@ -63,18 +63,24 @@
                     }, {/*8*/
                         type : '1',
                         name : 'ydate'
-                    }, {/*8*/
+                    }, {/*9*/
                         type : '6',
                         name : 'yacc1'
-                    }, {/*8*/
+                    }, {/*10*/
                         type : '1',
                         name : 'xchkdate'
-                    }, {/*5*/
+                    }, {/*11*/
                         type : '2',
-                        name : 'xcno',
-                        dbf : 'acomp',
-                        index : 'noa,acomp',
-                        src : 'acomp_b.aspx'
+                        name : 'xtcompno',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
+                    }, {/*12*/
+                        type : '2',
+                        name : 'xcompno',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     }]
                 });
                 q_popAssign();
