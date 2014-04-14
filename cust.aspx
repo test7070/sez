@@ -89,7 +89,7 @@
 			}///  end Main()
 
 			function mainPost() {
-				bbmMask = [['txtChkdate', r_picd], ['txtDuedate', r_picd]];
+				bbmMask = [['txtChkdate', r_picd], ['txtDuedate', r_picd], ['txtStartdate', '99'], ['txtGetdate', '99']];
 				q_mask(bbmMask);
 				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
 					q_cmbParse("cmbTypea", q_getPara('cust.typea_it'));
@@ -233,6 +233,17 @@
 				if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
 				}else{
 					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				
+				if($('#txtStartdate').val()>'31'){
+					alert(q_getMsg("lblStartdate")+'最大天數為31日');
+					Unlock();
+					return;
+				}
+				if($('#txtGetdate').val()>'31'){
+					alert(q_getMsg("lblGetdate")+'最大天數為31日');
 					Unlock();
 					return;
 				}

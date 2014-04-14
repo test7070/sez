@@ -22,7 +22,7 @@
 			var q_name = "tgg";
 			var q_readonly = ['txtWorker', 'txtKdate', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
 			var bbmNum = [['txtDueday', 10, 0]];
-			var bbmMask = [['txtChkdate', '999/99/99'], ['txtStartdate', '999/99/99']];
+			var bbmMask = [['txtChkdate', '999/99/99'], ['txtStartdate', '99'], ['txtGetdate', '99']];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -219,10 +219,21 @@
 			}
 
 			function btnOk() {
-				if ($('#txtChkdate').val().length > 0 && !q_cd($('#txtChkdate').val()))
+				if ($('#txtChkdate').val().length > 0 && !q_cd($('#txtChkdate').val())){
 					alert(q_getMsg('lblChkdate') + '錯誤。');
-				if ($('#txtStartdate').val().length > 0 && !q_cd($('#txtStartdate').val()))
-					alert(q_getMsg('lblStartdate') + '錯誤。');
+					return;
+				}
+				
+				if($('#txtStartdate').val()>'31'){
+					alert(q_getMsg("lblStartdate")+'最大天數為31日');
+					return;
+				}
+				
+				if($('#txtGetdate').val()>'31'){
+					alert(q_getMsg("lblGetdate")+'最大天數為31日');
+					return;
+				}
+					
 				$('#txtKdate').val(q_date());
 				$('#txtWorker').val(r_name);
 				var t_noa = trim($('#txtNoa').val()).toUpperCase();
