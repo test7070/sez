@@ -599,7 +599,7 @@
 			}
 
 			function sum() {
-				var t_theory=0;t_weight=0;t_diffweight=0;
+				var t_theory=0,t_weight=0,t_diffweight=0;
 				var t_theorys=0;
 				t_weight = dec($('#txtWeight').val());
 				for(var n=0;n<q_bbsCount;n++){
@@ -624,6 +624,8 @@
 				t_diffweight = q_sub(t_weight,t_theory);
 				$('#txtTheory').val(t_theory);
 				$('#txtDiffweight').val(t_diffweight);
+				
+				$('#txtTranmoney').val(round(q_mul(q_float('txtWeight'), q_float('txtPrice')), 0));
 			}
 
 			function refresh(recno) {

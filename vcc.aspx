@@ -76,11 +76,12 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_unit = $('#txtUnit_' + j).val();
 					t_mount = q_float('txtMount_' + j);
+					t_weight=+q_float('txtMount_' + j);
 					$('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j), dec(t_mount)), 0));
 					t1 = q_add(t1, dec(q_float('txtTotal_' + j)));
 				}
 				$('#txtMoney').val(round(t1, 0));
-				if (!emp($('#txtPrice').val()))
+				if (dec($('#txtPrice').val())!=0)
 					$('#txtTranmoney').val(round(q_mul(t_weight, dec(q_float('txtPrice'))), 0));
 				calTax();
 				q_tr('txtTotalus', round(q_mul(q_float('txtTotal'), q_float('txtFloata')), 0));
