@@ -17,19 +17,19 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_welfare');
+            	q_gt('store', '', 0, 0, 0);
             });
             function q_gfPost() {
                $('#q_report').q_report({
 					fileName : 'z_welfare',
 					options : [{
-						type : '0',
-						name : 'accy',
-                        value : q_getId()[4] //[1]
-                    },{
                         type : '1',
                         name : 'date'
-                    }]
+                    },{
+						type : '5', //[4]
+						name : 'storeno',
+						value : store_item.split(',')
+					}]
                 });
                 q_popAssign();
                 q_getFormat();
@@ -65,8 +65,21 @@
 
             function q_boxClose(s2) {
             }
-            function q_gtPost(s2) {
-            }
+            
+            var store_item="#non@全部";
+            function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'store':
+						var as = _q_appendData("store", "", true);
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								store_item = store_item + (store_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+							}
+						}
+						q_gf('', 'z_welfare');
+						break;
+				}
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"

@@ -47,13 +47,15 @@
             }
 
             function mainPost() {
-            	bbmMask = [['txtDatea', r_picd]];
-        	q_getFormat();
-        	q_mask(bbmMask);
+				bbmMask = [['txtDatea', r_picd]];
+        		q_getFormat();
+        		q_mask(bbmMask);
+        		
+        		q_gt('store', '', 0, 0, 0, "");
         	
-				 $('#txtDatea').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
+				$('#txtDatea').focusout(function () {
+					q_cd( $(this).val() ,$(this));
+				});
                 
             }
            function q_funcPost(t_func,result) {
@@ -73,12 +75,24 @@
             }
 
             function q_gtPost(t_name) {
-            	 switch (t_name) {
-                case q_name: if (q_cur == 4)  
-                        q_Seek_gtPost();
-
-                    break;
-            }  /// end switch
+				switch (t_name) {
+					case 'store':
+		                var as = _q_appendData("store", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+		                    }
+		                    q_cmbParse("cmbStoreno", t_item);
+		                    if(abbm[q_recno])
+		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
+		                }
+		                break;
+					case q_name:
+						if (q_cur == 4)  
+                        	q_Seek_gtPost();
+							break;
+				}  /// end switch
             }
 
             function q_stPost() {
@@ -86,60 +100,69 @@
                     return false;
             }
             function btnOk() {
-            		$('#txtDatea').val($.trim($('#txtDatea').val()));
-		          if (!emp($('#txtDatea').val())&&checkId($('#txtDatea').val())==0){
-		             alert(q_getMsg('lblDatea')+'錯誤');
-		          return;
-		    }
-		    var t_err = '';
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
-			 sum();
-			$('#txtWorker').val(r_name);
-			
-			var t_noa = trim($('#txtNoa').val());
-			 var t_date = trim($('#txtDatea').val());
-    		 if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_welfare') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-		        else
-		            wrServer(t_noa);		            
+				$('#txtDatea').val($.trim($('#txtDatea').val()));
+				if (!emp($('#txtDatea').val())&&checkId($('#txtDatea').val())==0){
+					alert(q_getMsg('lblDatea')+'錯誤');
+					return;
+				}
+				
+				var t_err = '';
+            	t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
+            	
+	            if( t_err.length > 0) {
+	                alert(t_err);
+	                return;
+	            }
+	            
+	            $('#txtStore').val($('#cmbStoreno').find(":selected").text());
+	            
+			 	sum();
+				$('#txtWorker').val(r_name);
+				
+				var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_welfare') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);		            
             }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)  // 1-3
-                return;
-            q_box('welfare_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
+					return;
+				q_box('welfare_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
             }
+            
             function btnIns() {
                 _btnIns();
-            $('#txtNoa').val('AUTO');
-            $('#txtDatea').val(q_date());
-            $('#txtDatea').focus();
+	            $('#txtNoa').val('AUTO');
+	            $('#txtDatea').val(q_date());
+	            $('#txtDatea').focus();
                 
             }
+            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                 return;
                 //04/03取消超過3日就鎖單的限制
                 //if (q_chkClose())
              	//return;
-            _btnModi();
-            $('#txtBdate').focus();
+            	_btnModi();
+            	$('#txtBdate').focus();
             }
+            
             function btnPrint() {
             	q_box('z_welfare.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
+            
             function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//�����Ҧr��
+                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
                     var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
                     var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
                     if ((n % 10) == 0)
                         return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//�Τ@�s��
+                } else if ((/^[0-9]{8}$/g).test(str)) {
                     var key = '12121241';
                     var n = 0;
                     var m = 0;
@@ -149,28 +172,29 @@
                     }
                     if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
                         return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//�褸�~
+                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){
                 	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
                		if(regex.test(str))
                			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//����~
+                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){
                 	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
                 	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
                		if(regex.test(str))
                			return 4
                	}
-               	return 0;//��~
+               	return 0;
             }
-          function wrServer( key_value) {
-            var i;
+            
+			function wrServer( key_value) {
+				var i;
 
-            xmlSql = '';
-            if (q_cur == 2)   /// popSave
-                xmlSql = q_preXml();
+				xmlSql = '';
+				if (q_cur == 2)   /// popSave
+               		xmlSql = q_preXml();
 
-            $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-        }
+            	$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+			}
        
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
@@ -189,6 +213,7 @@
                 }
                 q_nowf();
                 as['noa'] = abbm2['noa'];
+                
                 if (t_err) {
                     alert(t_err)
                     return false;
@@ -197,27 +222,30 @@
             }
 
             function sum() {
-            var t1 = 0, t_unit, t_mount, t_income = 0, t_pay = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-				t_income+=dec($('#txtIncome_'+j).val());
-				t_pay+=dec($('#txtPay_'+j).val());
-            }  // j
-			q_tr('txtIncome',t_income);
-			q_tr('txtPay',t_pay);
-            	if(!(q_cur==1 || q_cur==2))
-					return;
-					
+	            var t1 = 0, t_unit, t_mount, t_income = 0, t_pay = 0;
+	            for (var j = 0; j < q_bbsCount; j++) {
+					t_income+=dec($('#txtIncome_'+j).val());
+					t_pay+=dec($('#txtPay_'+j).val());
+	            }  // j
+				q_tr('txtIncome',t_income);
+				q_tr('txtPay',t_pay);
+	            	if(!(q_cur==1 || q_cur==2))
+						return;
             }
+            
             function refresh(recno) {
                 _refresh(recno);
             }
+            
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }
+            
             function btnMinus(id) {
                 _btnMinus(id);
                 sum();
             }
+            
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
             }
@@ -438,10 +466,13 @@
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-               <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-               <td class="td3"> </td>
-               <td class="td4"> </td>
-               <td class="td5"> </td>
+				<td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
+				<td class="td3"><span> </span><a id='lblStore' class="lbl"> </a></td>
+				<td class="td4">
+	               	<select id="cmbStoreno" class="txt c1"> </select>
+					<input id="txtStore"  type="text" style="display: none;"/>
+				</td>
+				<td class="td5"> </td>
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id='lblSssno' class="lbl btn"> </a></td>
