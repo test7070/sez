@@ -32,6 +32,9 @@
 					},{
 						type : '1',
 						name : 'date'
+					},{
+						type : '1',
+						name : 'xnoa'
 					}]
 				});
 				q_popAssign();
@@ -60,6 +63,13 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day>9?t_day+'':'0'+t_day;
 				$('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+				$(".c3").css('width','180px');
+				
+				var t_key = q_getHref();
+                if(t_key[1] != undefined){
+                	$('#txtXnoa1').val(t_key[1]);
+                	$('#txtXnoa2').val(t_key[1]);
+                }
 			}
 			function q_boxClose(s2) {
 			}
