@@ -104,11 +104,14 @@
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入					
 				$('#txtMemo').change(function(){
 					if ($('#txtMemo').val().substr(0,1)=='*')
-						$('#txtMon').removeAttr('disabled');
+						$('#txtMon').removeAttr('readonly');
 					else
-						$('#txtMon').attr('disabled', 'disabled');
+						$('#txtMon').attr('readonly', 'readonly');
 				});
-				
+				$('#txtMon').click(function(){
+					if ($('#txtMon').attr("readonly")=="readonly" && (q_cur==1 || q_cur==2))
+						q_msg($('#txtMon'), "月份要另外設定，請在"+q_getMsg('lblMemo')+"的第一個字打'*'字");
+				});
 				
 				$('#txtPost').change(function(){
 					GetTranPrice();
@@ -572,7 +575,7 @@
 			
 			var check_startdate=false;
 			function btnOk() {
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCust')], ['txtCno', q_getMsg('lblAcomp')]]);
+				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')], ['txtCustno', q_getMsg('lblCust')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -827,9 +830,9 @@
 				
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入
 				if ($('#txtMemo').val().substr(0,1)=='*')
-					$('#txtMon').removeAttr('disabled');
+					$('#txtMon').removeAttr('readonly');
 				else
-					$('#txtMon').attr('disabled', 'disabled');
+					$('#txtMon').attr('readonly', 'readonly');
 			}
 
 			function btnMinus(id) {
