@@ -526,8 +526,7 @@
                             }
                         }else if(t_name.substring(0,19)=='transvcces_lasttime'){
                             var t_senddate = t_name.split('_')[2];
-                            var n = parseInt(t_name.split('_')[3]);
-                            var t_sendid;
+                            var n = parseInt(t_name.split('_')[3]);  
                             var t_sendno = 0 ;
                             var GG = _q_appendData("view_transvcces", "", true);
                             if (GG[0] != undefined){
@@ -542,8 +541,8 @@
                             t_msg = t_msg.replace(/\u002c/g,'.');   
                             var t_commandid = $('#txtCommandid_'+n).val();
                             var t_Sendcommandresult = $('#chkSendcommandresult_'+n).prop('checked');
-                            if(t_isSend && t_carno.length>0 && t_msg.length>0 && t_commandid.length==0){
-                                if($.trim($('#txtSendno_'+n).val()).length==0){
+                            if(t_isSend && t_carno.length>0 && t_msg.length>0){
+                                if($.trim($('#txtSendid_'+n).val()).length==0){
                                     for(var i=0;i<q_bbsCount;i++){
                                         if(t_carno==$.trim($('#txtCarno_'+i).val())){
                                             x_sendno = q_float('txtSendno_'+i);
