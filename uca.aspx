@@ -489,6 +489,7 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+							/*
 							var thisVal = $.trim($(this).val());
 							if(thisVal.length>0){
 								for(var k=0;k<q_bbsCount;k++){
@@ -500,6 +501,7 @@
 									}
 								}
 							}
+							*/
 							if (emp($('#txtNoa').val())) {
 								alert('請先輸入【' + q_getMsg('lblNoa') + '】');
 								$('#txtNoa').focus();
