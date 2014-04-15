@@ -100,6 +100,20 @@
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
+				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入					
+				$('#txtMemo').change(function(){
+					if ($('#txtMemo').val().substr(0,1)=='*')
+						$('#txtMon').removeAttr('readonly');
+					else
+						$('#txtMon').attr('readonly', 'readonly');
+				});
+				
+				$('#txtMon').click(function(){
+					if ($('#txtMon').attr("readonly")=="readonly" && (q_cur==1 || q_cur==2))
+						q_msg($('#txtMon'), "月份要另外設定，請在"+q_getMsg('lblMemo')+"的第一個字打'*'字");
+				});
+				
 				$('#lblAccc').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
@@ -345,6 +359,24 @@
 							$('#txtAddr2').val(ordc[0].addr2);
 						}
 						break;
+					case 'startdate':
+						var as = _q_appendData('tgg', '', true);
+						var t_startdate='';
+						if (as[0] != undefined) {
+							t_startdate=as[0].startdate;
+						}
+						if(t_startdate.length==0 || ('00'+t_startdate).substr(-2)=='00' || $('#txtDatea').val().substr(7, 2)<('00'+t_startdate).substr(-2)){
+							$('#txtMon').val($('#txtDatea').val().substr(0, 6));
+						}else{
+							var t_date=$('#txtDatea').val();
+							var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				    		nextdate.setMonth(nextdate.getMonth() +1)
+				    		t_date=''+(nextdate.getFullYear()-1911)+'/'+(nextdate.getMonth()<9?'0':'')+(nextdate.getMonth()+1);
+							$('#txtMon').val(t_date);
+						}
+						check_startdate=true;
+						btnOk();
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -376,42 +408,53 @@
 				abbm[q_recno]['accno'] = s1[0];
 				$('#txtAccno').val(s1[0]);
 			}
-
+			
+			var check_startdate=false;
 			function btnOk() {
-				$('#txtMon').val($.trim($('#txtMon').val()));
-				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
-					alert(q_getMsg('lblMon') + '錯誤。');
-					return;
-				}
-				if (emp($('#txtMon').val()))
-					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
-				/*
-				 if(showRack()){
-				 var t_rackErr = '';
-				 for(var j=0;j<q_bbsCount;j++){
-				 var thisProductno = $.trim($('#txtProductno_'+j).val());
-				 var thisStoreno = $.trim($('#txtStoreno_'+j).val());
-				 var thisRackno = $.trim($('#txtRackno_'+j).val());
-				 if(thisProductno.length >0){
-				 if(thisStoreno.length == 0 || thisRackno.length == 0){
-				 t_rackErr += '表身第 ' + (j+1) + " 筆 倉庫或料架編號未填寫!! \n";
-				 }
-				 }
-				 }
-				 if($.trim(t_rackErr).length > 0){
-				 alert(t_rackErr);
-				 return;
-				 }
-				 }
-				 */
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTgg')], ['txtCno', q_getMsg('lblAcomp')]]);
+				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')], ['txtTggno', q_getMsg('lblTgg')], ['txtCno', q_getMsg('lblAcomp')]]);
 				// 檢查空白
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
 				}
 				
+				//判斷起算日,寫入帳款月份
+				if(!check_startdate&&emp($('#txtMon').val())){
+					var t_where = "where=^^ noa='"+$('#txtTggno').val()+"' ^^";
+					q_gt('tgg', t_where, 0, 0, 0, "startdate", r_accy);
+					return;
+				}
+				check_startdate=false;
+				
+				/*$('#txtMon').val($.trim($('#txtMon').val()));
+				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+					alert(q_getMsg('lblMon') + '錯誤。');
+					return;
+				}
+				
+				if (emp($('#txtMon').val()))
+					$('#txtMon').val($('#txtDatea').val().substr(0, 6));*/
+				
+				/*if(showRack()){
+					var t_rackErr = '';
+					for(var j=0;j<q_bbsCount;j++){
+						var thisProductno = $.trim($('#txtProductno_'+j).val());
+						var thisStoreno = $.trim($('#txtStoreno_'+j).val());
+						var thisRackno = $.trim($('#txtRackno_'+j).val());
+						if(thisProductno.length >0){
+							if(thisStoreno.length == 0 || thisRackno.length == 0){
+								t_rackErr += '表身第 ' + (j+1) + " 筆 倉庫或料架編號未填寫!! \n";
+							}
+						}
+					}
+					if($.trim(t_rackErr).length > 0){
+						alert(t_rackErr);
+						return;
+					}
+				}*/
+				
 				sum();
+				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				if (q_cur == 2)
@@ -595,6 +638,12 @@
 				var hasSpec = q_getPara('sys.isspec');
 				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 				showRack();
+				
+				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入
+				if ($('#txtMemo').val().substr(0,1)=='*')
+					$('#txtMon').removeAttr('readonly');
+				else
+					$('#txtMon').attr('readonly', 'readonly');
 			}
 
 			function btnMinus(id) {
