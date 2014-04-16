@@ -480,6 +480,9 @@
 				$('#lblXspecno').click(function(e) {
                 	q_box("carspec_b2.aspx?;;;;", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
                 });
+                
+                if(window.parent.q_name=='carpack')
+                	$('#q_report').find('span.radio').eq(13).parent().click();
             }
 		</script>
 	</head>
