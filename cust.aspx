@@ -101,9 +101,8 @@
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbStatus", q_getPara('cust.status'));
 				
-				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-					$('#btnUcam').hide();
-				}
+				//後面有需要的公司在顯示
+				$('#btnUcam').hide();// 嘜頭
 				
 				$('#btnUcam').click(function() {
 					t_where = "custno='" + $('#txtNoa').val() + "'";
