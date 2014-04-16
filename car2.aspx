@@ -658,8 +658,16 @@
             }
 
             function btnPrint() {
-            	 if(q_getPara('sys.project').toUpperCase()=="DC")
-					q_box('z_car2.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+                switch(q_getPara('sys.comp').substring(0,2)){
+                    case '大昌':
+                        q_box("z_car2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2', "95%", "95%", m_print);
+                    case '菱揚':
+                        q_box("z_car2_rj.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'z_car2_ej', "95%", "95%", m_print);
+                    default:
+                        
+                }
+            	// if(q_getPara('sys.project').toUpperCase()=="DC")
+					
             }
 
             function btnOk() {
