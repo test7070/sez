@@ -37,79 +37,11 @@
                 q_popAssign();
                 q_langShow();
 
-                $('#txtXdate1').mask('999/99');
-                $('#txtXdate2').mask('999/99');
+                $('#txtXmon1').mask('999/99');
+                $('#txtXmon2').mask('999/99');
             }
 
             function q_boxClose(t_name) {
-            }
-
-            function LoadFinish() {
-                
-
-                $('#txtXcheckrate').val(q_getMsg('trate1'));
-                $('#chkXcarkind').children('input').attr('checked', 'checked');
-                $('#chkXcarteam').children('input').attr('checked', 'checked');
-                $('#chkXcalctype').children('input').attr('checked', 'checked');
-                
-                $('#txtXmon1').mask('999/99');
-                $('#txtXmon2').mask('999/99');
-                $('#textMon').mask('999/99');
-                
-                $('#btnTrans_sum').click(function(e) {
-                    $('#divExport').toggle();
-                });
-                $('#btnDivexport').click(function(e) {
-                    $('#divExport').hide();
-                });
-                $('#btnExport').click(function(e) {
-                    var t_mon = $('#textMon').val();
-                    if (t_mon.length > 0) {
-                        Lock(1, {
-                            opacity : 0
-                        });
-                        q_func('qtxt.query.trans', 'trans.txt,tran_sum,' + encodeURI(t_mon));
-                    } else
-                        alert('請輸入交運月份。');
-                });
-                $('#btnOk').hide();
-                $('#btnOk2').click(function(e) {
-                    switch($('#q_report').data('info').radioIndex) {
-                        case 0:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',true);
-                            break;
-                        case 1:
-                            $('#cmbPaperSize').val('A3');
-                            $('#chkLandScape').prop('checked',true);
-                            break;
-                        case 2:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',true);
-                            break;
-                        case 3:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',true);
-                            break;
-                        case 4:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',false);
-                            break;
-                        case 5:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',false);
-                            break;
-                        case 6:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',false);
-                            break;
-                        case 7:
-                            $('#cmbPaperSize').val('A4');
-                            $('#chkLandScape').prop('checked',false);
-                            break;
-                    }
-                    $('#btnOk').click();
-                });
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
