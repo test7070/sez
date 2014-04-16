@@ -659,7 +659,7 @@
 
             function btnPrint() {
             	 if(q_getPara('sys.project').toUpperCase()=="DC")
-					q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
+					q_box('z_car2.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
