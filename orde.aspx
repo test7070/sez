@@ -36,7 +36,7 @@
 			brwKey = 'odate';
 			brwCount2 = 11;
 			aPop = new Array(
-				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucaucc2', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc2_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_fact', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr', 'cust_b.aspx']
@@ -417,7 +417,8 @@
 					return;
 				}
 				for(var k=0;k<q_bbsCount;k++){
-					$('#txtDatea_'+k).val(q_cdn($.trim($('#txtDatea').val()),15))
+					if(emp($('#txtDatea_'+k).val()))
+						$('#txtDatea_'+k).val(q_cdn($.trim($('#txtDatea').val()),15))
 				}
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
@@ -470,7 +471,7 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							q_change($(this), 'ucc', 'noa', 'noa,product,unit');
+							//q_change($(this), 'ucc', 'noa', 'noa,product,unit');
 						});
 
 						$('#txtUnit_' + j).focusout(function() {
@@ -533,6 +534,24 @@
 							b_seq = t_IdSeq;
 							t_where = "cust='" + $('#txtCustno').val() + "' and noq='" + $('#txtProductno_' + b_seq).val() + "'";
 							q_box("z_vccrecord.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccrecord', "95%", "95%", q_getMsg('lblRecord_s'));
+						});
+						
+						$('#btnScheduled_' + j).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if (!emp($('#txtProductno_' + b_seq).val())) {
+								t_where = "noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
+								q_box("z_scheduled.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
+							}
+						});
+						
+						$('#btnOrdemount_' + i).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							t_where = "title='本期訂單' and bdate='"+$('#txtOdate').val()+"' and edate='"+$('#txtDatea_'+b_seq).val()+"' and noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
+							q_box("z_workgorde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
 						});
 					}
 				}
@@ -993,6 +1012,8 @@
 					<td align="center" style="width:43px;"><a id='lblBorn'> </a></td>
 					<td align="center" style="width:43px;"><a id='lblNeed'> </a></td>
 					<td align="center" style="width:43px;"><a id='lblVccrecord'> </a></td>
+					<td align="center" style="width:43px;"><a id='lblOrdemount'> </a></td>
+					<td align="center" style="width:43px;"><a id='lblScheduled'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
@@ -1033,6 +1054,12 @@
 					</td>
 					<td align="center">
 						<input class="btn" id="btnVccrecord.*" type="button" value='.' style=" font-weight: bold;" />
+					</td>
+					<td align="center">
+						<input class="btn" id="btnOrdemount.*" type="button" value='.' style=" font-weight: bold;" />
+					</td>
+					<td align="center">
+						<input class="btn" id="btnScheduled.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
 				</tr>
 			</table>
