@@ -9,6 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			this.errorHandler = null;
 			function onPageError(error) {
@@ -550,12 +554,23 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							t_where = "title='本期訂單' and bdate='"+$('#txtOdate').val()+"' and edate='"+$('#txtDatea_'+b_seq).val()+"' and noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
+							t_where = "title='本期訂單' and bdate='"+q_cdn(q_date(),-61)+"' and edate='"+q_date()+"' and noa='"+$('#txtProductno_' + b_seq).val()+"' and product='"+$('#txtProduct_' + b_seq).val()+"' ";
 							q_box("z_workgorde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'scheduled', "95%", "95%", q_getMsg('PopScheduled'));
 						});
 					}
 				}
 				_bbsAssign();
+				
+				if (q_cur<1 && q_cur>2) {
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#txtDatea_'+j).datepicker( 'destroy' );
+					}
+				} else {
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#txtDatea_'+j).removeClass('hasDatepicker')
+						$('#txtDatea_'+j).datepicker();
+					}
+				}
 			}
 
 			function btnIns() {
@@ -644,10 +659,13 @@
 				if (t_para) {
 					$('#btnOrdei').removeAttr('disabled');
 					$('#combAddr').attr('disabled', 'disabled');
+					$('#txtOdate').datepicker( 'destroy' );
 				} else {
 					$('#btnOrdei').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
-				}
+					$('#txtOdate').datepicker();
+				}	
+				
 				$('#div_addr2').hide();
 				readonly_addr2();
 				var hasStyle = q_getPara('sys.isstyle');

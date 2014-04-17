@@ -45,6 +45,11 @@
 				$('#Xproduct').css('width','690px');
 				$('#Xproduct .c2').css('width','130px');
 				$('#Xproduct .c3').css('width','130px');
+				$('#txtXdate1').datepicker();
+				$('#txtXdate1').mask('999/99/99');
+				$('#txtXdate2').datepicker();
+				$('#txtXdate2').mask('999/99/99');
+				
                 var t_key = q_getHref();
 				if (t_key != undefined){
 					$('#txtXdate1').val(t_key[3]);

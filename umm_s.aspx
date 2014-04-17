@@ -78,15 +78,15 @@
                 + q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("cno", t_cno);
 				if (t_cust.length>0)
-                    t_where += " and patindex('%" + t_cust + "%',comp)>0";
+                    t_where += " and charindex('" + t_cust + "',comp)>0";
                 if ($('#cmbPart').val().length>0)
-                    t_where += " and patindex('%" + t_part + "%',part)>0";
+                    t_where += " and charindex('" + t_part + "',part)>0";
 				if (t_custno.length>0)
-                    t_where += " and (patindex('%" + t_custno + "%',custno)>0 or patindex('%" + t_custno + "%',custno2)>0)";
+                    t_where += " and (charindex('" + t_custno + "',custno)>0 or charindex('" + t_custno + "',custno2)>0)";
                	if (t_checkno.length>0)
-                    t_where += " and exists(select noa from umms where umms.noa=umm.noa and patindex('%" + t_checkno + "%',umms.checkno)>0)";
+                    t_where += " and exists(select noa from umms where umms.noa=umm.noa and charindex('" + t_checkno + "',umms.checkno)>0)";
                 if (t_vccno.length>0)
-                	t_where += " and exists(select noa from umms where umms.noa=umm.noa and patindex('%" + t_vccno + "%',umms.vccno)>0)";
+                	t_where += " and exists(select noa from umms where umms.noa=umm.noa and charindex('" + t_vccno + "',umms.vccno)>0)";
                 
                 t_where = ' where=^^' + t_where + '^^ ';
                // alert(t_where);

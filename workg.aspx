@@ -41,6 +41,7 @@
 			//brwCount2 = 6;//03/28自動
 			aPop = new Array(
 				['txtFactno', 'lblFactno', 'factory', 'noa,factory', 'txtFactno,txtFact', 'factory_b.aspx'],
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx'],
 				['txtProductno', 'lblProduct', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
 				['txtProductno_', 'btnProduct_', 'uca', 'noa,product,style', 'txtProductno_,txtProduct_,txtStyle_', 'uca_b.aspx'],
 				['txtStationno_', 'btnStation_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx'],
@@ -151,12 +152,14 @@
 						//if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
 							
-							var t_bbspno="1=0";
-							for (var i = 0; i < q_bbsCount; i++) {
+							//1030417應客戶需要所以即使沒有打產品也要帶入
+							var t_bbspno="1=1";//1=0
+							/*for (var i = 0; i < q_bbsCount; i++) {
 								if(!emp($('#txtProductno_'+i).val())){
 									t_bbspno+=" or a.productno='"+$('#txtProductno_'+i).val()+"'";
 								}
-							}
+							}*/
+							
 							var t_where1 = "where[1]=^^ (" +t_bbspno+ ") and a.enda!='1' and (a.datea between '" + bdate + "' and '" + edate + "') and a.productno in (select noa from uca)  group by productno ^^";
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + bdate + "' and '" + edate + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + bdate + "' and '" + edate + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
@@ -285,10 +288,16 @@
 										$('#txtSaleforecast_' + i).val(as[j].saleforecast);
 										$('#txtPrepare_' + i).val(as[j].prepare);
 										$('#txtUnprepare_' + i).val(as[j].unprepare);
+										as.splice(j, 1);
+                                    	j--;
 										break;	
 									}
 								}
 							}
+							
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
+							, as.length, as
+							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
 							change_field();
 						} else {
 							//alert('無排產資料!!。');
@@ -309,12 +318,13 @@
 							var t_where3 = "where[3]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
 							var t_where4 = "where[4]=^^ c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
 							
-							var t_bbspno="1=0";
-							for (var i = 0; i < q_bbsCount; i++) {
+							//1030417應客戶需要所以即使沒有打產品也要帶入
+							var t_bbspno="1=1";//1=0
+							/*for (var i = 0; i < q_bbsCount; i++) {
 								if(!emp($('#txtProductno_'+i).val())){
 									t_bbspno+=" or b.productno='"+$('#txtProductno_'+i).val()+"'";
 								}
-							}
+							}*/
 							
 							var t_where5 = "where[5]=^^ ("+t_bbspno+") and (b.datea between '"+sbdate+"' and '"+sedate+"') and b.productno in (select noa from uca)^^";
 							
@@ -351,6 +361,8 @@
 										$('#txtSaleforecast_' + i).val(as[j].saleforecast);
 										$('#txtPrepare_' + i).val(as[j].prepare);
 										$('#txtUnprepare_' + i).val(as[j].unprepare);
+										as.splice(j, 1);
+                                    	j--;
 										break;	
 									}
 								}
@@ -522,6 +534,8 @@
 				if($('#cmbStype').val()=='3'){
 					$('.sf').show();
 					if(q_cur==1||q_cur==2){
+						$('#txtSfbdate').removeAttr('disabled');
+						$('#txtSfedate').removeAttr('disabled');
 						$('#btnOrde').attr('disabled', 'disabled');
 						$('.safo').removeAttr('disabled');
 						$('.orde').attr('disabled', 'disabled');
@@ -531,6 +545,8 @@
 				}else{
 					$('.sf').hide();
 					if(q_cur==1||q_cur==2){
+						$('#txtSfbdate').attr('disabled', 'disabled');
+						$('#txtSfedate').attr('disabled', 'disabled');
 						$('#btnOrde').removeAttr('disabled');
 						$('.orde').removeAttr('disabled');
 						$('.safo').attr('disabled', 'disabled');
@@ -1037,8 +1053,9 @@
 						<td><input id="btnOrde" type="button"/></td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td colspan="2"><span> </span><a id="lblSfdate" class="lbl"> </a></td>
+						<td> <span> </span><a id="lblCustno" class="lbl btn"> </a></td>
+						<td> <input id="txtCustno" type="text" class="txt c1"/> </td>
+						<td ><span> </span><a id="lblSfdate" class="lbl" style="font-size: 15px;"> </a></td>
 						<td colspan="2">
 							<input id="txtSfbdate" type="text" class="txt c2"/>
 							<a style="float: left;">~</a>
