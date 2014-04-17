@@ -173,6 +173,10 @@
                         }, {/*15-[23]車種種類*/
                             type : '6',
                             name : 'xspecno'
+                        },{/*[24]*/
+                            type : '0',
+                            name : 'xcartype',
+                            value : q_getPara('car2.cartype')
                         }]
                     });
                     q_getFormat();
