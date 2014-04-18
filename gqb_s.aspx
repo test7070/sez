@@ -8,6 +8,7 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
 		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
@@ -15,8 +16,8 @@
 		<script type="text/javascript">
 			var q_name = "gqb_s";
 			aPop=new Array(
-				['txtTcompno', '', 'cust', 'noa,comp', 'txtTcompno', 'cust_b.aspx']
-				, ['txtCompno', '', 'tgg', 'noa,comp', 'txtCompno', 'tgg_b.aspx']
+				['txtTcompno', 'lblTcompno', 'view_cust_tgg', 'noa,comp', 'txtTcompno', 'view_cust_tgg_b.aspx']
+				, ['txtCompno', 'lblCompno', 'view_cust_tgg', 'noa,comp', 'txtCompno', 'view_cust_tgg_b.aspx']
 				, ['txtBankno', '', 'bank', 'noa,bank', 'txtBankno', 'bank_b.aspx']);
 
 			

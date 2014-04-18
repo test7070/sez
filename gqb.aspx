@@ -32,8 +32,8 @@
             q_xchg = 1;
             
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            , ['txtTcompno', 'lblTcomp', 'tgg', 'noa,comp', '0txtTcompno,txtTcomp', 'tgg_b.aspx']
-            , ['txtCompno', 'lblComp', 'cust', 'noa,comp', '0txtCompno,txtComp', 'cust_b.aspx']
+            , ['txtTcompno', 'lblTcomp', 'view_cust_tgg', 'noa,comp', '0txtTcompno,txtTcomp', 'view_cust_tgg_b.aspx']
+            , ['txtCompno', 'lblComp', 'view_cust_tgg', 'noa,comp', '0txtCompno,txtComp', 'view_cust_tgg_b.aspx']
             , ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -248,7 +248,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('gqb_s.aspx', q_name + '_s', "520px", "550px", q_getMsg("popSeek"));
+                q_box('gqb_s.aspx', q_name + '_s', "520px", "600px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
