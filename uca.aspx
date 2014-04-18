@@ -1318,10 +1318,10 @@
 						<td class="td6"><input id="txtUnit" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblStation" class="lbl btn"> </a></td>
 						<td class="td2">
-							<input id="txtModelno" type="text" class="txt" style="width: 45%;"/>
-							<input id="txtModel" type="text" class="txt" style="width: 53%;"/>
+							<input id="txtStationno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtStation" type="text" class="txt" style="width: 53%;"/>
 						</td>
 						<td class="td3">
 							<span> </span><a id="lblTgg" class="lbl btn"> </a>
@@ -1335,10 +1335,10 @@
 						<td class="td6"><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblStation" class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
 						<td class="td2">
-							<input id="txtStationno" type="text" class="txt" style="width: 45%;"/>
-							<input id="txtStation" type="text" class="txt" style="width: 53%;"/>
+							<input id="txtModelno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtModel" type="text" class="txt" style="width: 53%;"/>
 						</td>
 						<td class="td5" colspan="2">
 							<span style="float: left;"> </span><input id="btnUcap" type="button" />
