@@ -117,12 +117,6 @@
 					$('#btnOrda2ordb').hide();
 				}*/
                 
-                if (window.parent.q_name == 'workg') {
-					var wParent = window.parent.document;
-					if(wParent.getElementById("txtOrdbno").value.length==0&&wParent.getElementById("txtOrdano").value.length==0)
-						$('#btnOk').click();	
-				}
-                
                 $('#btnOrdb').click(function(){
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
                 		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "ordb", r_accy);
@@ -153,6 +147,14 @@
 	            $('#Workgall .c6').css('width','0px');
 	            $('#chkWorkgall').css('width','290px');
 	            $('#Workgall').css('width','300px');
+	            
+	            if (window.parent.q_name == 'workg') {
+					var wParent = window.parent.document;
+					if(wParent.getElementById("txtOrdbno").value.length==0&&wParent.getElementById("txtOrdano").value.length==0)
+						$('#btnOk').click();
+					else
+						$('#btnCheck').click();
+				}
             }
 
             function q_boxClose(s2) {

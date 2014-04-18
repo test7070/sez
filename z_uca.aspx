@@ -73,7 +73,16 @@
 				$('#txtDate2').datepicker();
 				$('#Xgroupano select').removeClass('c4');
 				$('#txtEdate').mask('999/99/99');
-				$('#txtEdate').val(q_date());
+				$('#txtEdate').val(q_date().substr(0,3)+'/12/31');
+				
+				$('#q_report .option ').css('width','800px');
+				$('.option .a1').css('width','790px');
+				$('.option .a2').css('width','390px');
+				$('.c6').css('width','90px');
+				$('.c2').css('width','150px');
+				$('.c3').css('width','150px');
+				$('.c5').css('width','150px');
+				$('.cmb').css('width','150px');
 			}
 
 			function q_boxClose(s2) {
