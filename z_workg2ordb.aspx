@@ -260,9 +260,26 @@
 				                q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
 						}else{
+							q_gt('workg', "where=^^isnull(ordbno,'')='' and  noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda_workg", r_accy);
+						}
+						break;
+					case 'orda_workg':
+						var as = _q_appendData("workg", "", true);
+						if (as[0] != undefined) {
+							q_gt('workg', "where=^^isnull(ordano,'')='' and  noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda_workg_ordano", r_accy);
+						}else{
+							alert('已產生請購。');
+						}
+						break;
+					case 'orda_workg_ordano':
+						var as = _q_appendData("workg", "", true);
+						if (as[0] != undefined) {
+							alert('未產生簽核。');
+						}else{
 							alert('簽核未核准。');
 						}
 						break;
+						
 				}
 			}
 			function q_funcPost(t_func, result) {
