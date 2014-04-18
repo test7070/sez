@@ -42,6 +42,10 @@
 					}, {
 						type : '6', //[8]
 						name : 'xcuano'
+					}, {
+						type : '0', //[9]
+						name : 'r_name',
+						value : r_name
 					}]
 				});
 				q_popAssign();

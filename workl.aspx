@@ -103,7 +103,7 @@
 							var t_where = '1=1 ';
 							t_where += " and (noa in (select noa from uca where tggno='"+tggno+"')) ";
 							t_where += ' ';
-							q_box("ucas_dist_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "95%", q_getMsg('PopUcas'));
+							q_box("ucas_dist_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "550px", "600px", q_getMsg('PopUcas'));
 						}
 					}
 				});
@@ -977,7 +977,7 @@
 							<input id="txtPost" type="text" class="txt c2"/>
 							<input id="txtAddr" type="text" class="txt c3"/>
 						</td>
-						<td class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
+						<td style="display:none;" class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>

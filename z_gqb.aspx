@@ -63,24 +63,24 @@
                     }, {/*8*/
                         type : '1',
                         name : 'ydate'
-                    }, {/*9*/
+                    }, {/*9 [16]*/
                         type : '6',
                         name : 'yacc1'
-                    }, {/*10*/
+                    }, {/*10 [17][18]*/
                         type : '1',
                         name : 'xchkdate'
-                    }, {/*11*/
+                    }, {/*11 [19][20]*/
                         type : '2',
                         name : 'xtcompno',
-                        dbf : 'tgg',
+                        dbf : 'view_cust_tgg',
                         index : 'noa,comp',
-                        src : 'tgg_b.aspx'
-                    }, {/*12*/
+                        src : 'view_cust_tgg_b.aspx'
+                    }, {/*12 [21][22]*/
                         type : '2',
                         name : 'xcompno',
-                        dbf : 'cust',
+                        dbf : 'view_cust_tgg',
                         index : 'noa,comp',
-                        src : 'cust_b.aspx'
+                        src : 'view_cust_tgg_b.aspx'
                     }]
                 });
                 q_popAssign();
