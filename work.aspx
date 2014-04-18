@@ -346,7 +346,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				/*width: 9%;*/
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -425,10 +425,14 @@
 			}
 		</style>
 	</head>
-	<body>
-		<div id="dmain" style="width: 1260px;">
+	<body ondragstart="return false" draggable="false"
+		ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"  
+		ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"  
+		ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+     >
+		<div id="dmain" style="width:1400px;">
 			<!--#include file="../inc/toolbar.inc"-->
-			<div class="dview" id="dview" style="float: left; width:30%;" >
+			<div class="dview" id="dview" style="float: left; width:400px;" >
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -444,11 +448,20 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 70%;float: left;">
+			<div class='dbbm' style="width: 1000px;float:left;">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
+					<tr style="height:1px;">
+						<td style="width:100px;"> </td>
+						<td style="width:280px;"> </td>
+						<td style="width:100px;"> </td>
+						<td style="width:200px;"> </td>
+						<td style="width:100px;"> </td>
+						<td style="width:200px;"> </td>
+						<td style="width:2px;"> </td>
+					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td class="td2"><input id="txtNoa" type="text" class="txt"/></td>
+						<td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblCuadate" class="lbl"> </a></td>
 						<td class="td4"><input id="txtCuadate" type="text" class="txt"/></td>
 						<td class="td5"><span> </span><a id="lblMount" class="lbl"> </a></td>
@@ -470,7 +483,7 @@
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
-						<td class="td2"><input id="txtProductno" type="text" class="txt"/></td>
+						<td class="td2"><input id="txtProductno" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblUindate" class="lbl"> </a></td>
 						<td class="td4"><input id="txtUindate" type="text" class="txt"/></td>
 						<td class="td5"><span> </span><a id="lblInmount" class="lbl"> </a></td>
@@ -478,7 +491,7 @@
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblProduct" class="lbl"> </a></td>
-						<td class="td2"><input id="txtProduct" type="text" class="txt"/></td>
+						<td class="td2"><input id="txtProduct" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblEnddate" class="lbl"> </a></td>
 						<td class="td4"><input id="txtEnddate" type="text" class="txt"/></td>
 						<td class="td5"><span> </span><a id="lblRmount" class="lbl"> </a></td>
@@ -487,8 +500,8 @@
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblStation" class="lbl btn"> </a></td>
 						<td class="td2">
-							<input id="txtStationno" type="text" class="txt" style="width: 45%"/>
-							<input id="txtStation" type="text" class="txt" style="width: 45%"/>
+							<input id="txtStationno" type="text" class="txt" style="width: 50%"/>
+							<input id="txtStation" type="text" class="txt" style="width: 50%"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblRank" class="lbl"> </a></td>
 						<td class="td4"><input id="txtRank" type="text" class="txt"/></td>
@@ -500,8 +513,8 @@
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblTggno" class="lbl btn"> </a></td>
 						<td class="td2">
-							<input id="txtTggno" type="text" class="txt" style="width: 45%"/>
-							<input id="txtComp" type="text" class="txt" style="width: 45%"/>
+							<input id="txtTggno" type="text" class="txt" style="width: 50%"/>
+							<input id="txtComp" type="text" class="txt" style="width: 50%"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td class="td4"><input id="txtPrice" type="text" class="txt num"/></td>
@@ -514,8 +527,8 @@
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblProcess" class="lbl btn"> </a></td>
 						<td class="td2">
-							<input id="txtProcessno" type="text" class="txt" style="width: 45%"/>
-							<input id="txtProcess" type="text" class="txt" style="width: 45%"/>
+							<input id="txtProcessno" type="text" class="txt" style="width: 50%"/>
+							<input id="txtProcess" type="text" class="txt" style="width: 50%"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblModel" class="lbl"> </a></td>
 						<td class="td4">
@@ -531,7 +544,7 @@
 						<td class="td3"><span> </span><a id="lblMakes" class="lbl"> </a></td>
 						<td class="td4"><input id="txtMakes" type="text" class="txt num"/></td>-->
 						<td class="td1"><span> </span><a id="lblHours" class="lbl"> </a></td>
-						<td class="td2"><input id="txtHours" type="text" class="txt num"/></td>
+						<td class="td2"><input id="txtHours" type="text" class="txt c1 num"/></td>
 						<td class="td3"><span> </span><a id="lblIsfreeze" class="lbl"> </a></td>
 						<td class="td4">
 							<input id="chkIsfreeze" type="checkbox"/>

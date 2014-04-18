@@ -138,7 +138,7 @@
                 $('#txtYdate2').datepicker();
                 $('#txtYdate1').val(q_date());
                 $('#txtYdate2').val(q_date());
-				$('#txtXdate1').val('102/01/01');
+				$('#txtXdate1').val(q_date().substring(0,7)+'01');
 				//$('#txtXdate1').val(q_date().substring(0,7)+'01');
 				$('.q_report .option:first').css('width','700px')
 				$('#Xproductno').css('width','690px');

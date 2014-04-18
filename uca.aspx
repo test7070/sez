@@ -27,7 +27,7 @@
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 2, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
-			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtHours', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
+			var bbsNum = [['txtMount', 12, 2,1]/*, ['txtWeight', 11, 2]*/, ['txtHours', 9, 2,1], ['txtMinutes', 9, 2,1],['txtLoss', 10, 2,1],['txtDividea', 10, 0,1],['txtMul', 10, 2,1]];
 			var bbtNum = [['txtMount_', 12, 2, 1]/*, ['txtWeight_', 12, 2 ,1]*/,['txtPrice_', 12, 2, 1], ['txtEndmount_', 12, 0, 1], ['txtEndweight_', 12, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -1359,7 +1359,12 @@
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id="lblHours" class="lbl"> </a></td>
-						<td class="td4"><input id="txtHours" type="text" class="txt c1 num"/></td>
+						<td class="td4">
+							<input id="txtHours" type="text" class="txt num" style="width:30%;"/>
+							<span style="float:left;width:15%;padding-left:3px;">Hr.</span>
+							<input id="txtMinutes" type="text" class="txt num" style="width:30%;"/>
+							<span style="float:left;width:15%;padding-left:3px;">Min.</span>
+						</td>
 						<td class="td5"><span> </span><a id="lblPretime" class="lbl"> </a></td>
 						<td class="td6"><input id="txtPretime" type="text" class="txt c1 num"/></td>
 						<td class="td1" style="display:none;"><span> </span><a id="lblPreday" class="lbl"> </a></td>
