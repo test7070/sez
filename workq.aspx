@@ -995,8 +995,8 @@
 					</td>-->
 					<td>
 						<input class="txt c1" id="txtMemo.*" type="text"/>
-						<input class="txt" id="txtOrdeno.*" type="text" style="width:70%;"/>
-						<input class="txt" id="txtNo2.*" type="text" style="width:20%;"/>
+						<input class="txt" id="txtOrdeno.*" type="hidden" style="width:70%;"/>
+						<input class="txt" id="txtNo2.*" type="hidden" style="width:20%;"/>
 						<input id="txtNoq.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>

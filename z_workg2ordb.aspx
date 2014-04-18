@@ -213,7 +213,7 @@
 				                q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							}
 						}else{
-							alert('已產生簽核或請購。');
+							alert('已產生請購。');
 						}
 						break;
 					case 'orda':
