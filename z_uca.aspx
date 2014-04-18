@@ -73,7 +73,7 @@
 				$('#txtDate2').datepicker();
 				$('#Xgroupano select').removeClass('c4');
 				$('#txtEdate').mask('999/99/99');
-				$('#txtEdate').val(q_date());
+				$('#txtEdate').val(q_date().substr(0,3)+'/12/31');
 			}
 
 			function q_boxClose(s2) {

@@ -601,6 +601,7 @@
 						$('.odm').val('');
 					}
 					$('.dbbs').css('width','3300px');
+					$('#lblMount_s').css('color','white');
 				}else{
 					$('.sf').hide();
 					if(q_cur==1||q_cur==2){
@@ -612,6 +613,7 @@
 						$('.sam').val('');
 					}
 					$('.dbbs').css('width','2850px');
+					$('#lblMount_s').css('color','red');
 				}
 			}
 
@@ -657,6 +659,7 @@
 
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
+					 $('#lblNo_' + i).text(i + 1);
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 						$('#txtWorkno_' + i).click(function() {
 							t_IdSeq = -1;
@@ -1173,7 +1176,7 @@
 						<td style="width:20px;">
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:60px;"><a id='lblNoq_s'> </a></td>
+						<td style="width:20px;"> </td>
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
@@ -1181,7 +1184,7 @@
 						<td style="width:90px;" class="sf"><a id='lblSaleforecast_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblPrepare_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblUnprepare_s'> </a></td>
-						<td style="width:120px;" class="sf"><a id='lblForecastprepare_s'> </a></td>
+						<td style="width:120px;" class="sf"><a id='lblForecastprepare_s' style="color: red;font-weight: bold;"> </a></td>
 						<td style="width:110px;"><a id='lblUnmount_s'> </a></td>
 						<td style="width:110px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
@@ -1191,7 +1194,7 @@
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
 						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
 						<td style="width:100px;"><a id='lblPlanmount_s'> </a></td>
-						<td style="width:100px;"><a id='lblMount_s'> </a></td>
+						<td style="width:110px;"><a id='lblMount_s' style="color: red;font-weight: bold;"> </a></td>
 						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
 						<td style="width:130px;"><a id='lblStation_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
@@ -1204,14 +1207,11 @@
 						<td style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 						<td style="width:50px;"><a id='lblIsfreeze_s'> </a></td>
 						<td style="width:40px;"><a id='lblBorn_s'> </a></td>
+						<td style="width:60px;"><a id='lblNoq_s'> </a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
-						<td align="center">
-							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-						</td>
-						<td align="center">
-							<input id="txtNoq.*" type="text" class="txt c1"/>
-						</td>
+						<td align="center"><input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/></td>
+						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtRworkdate.*" type="text" class="txt c1"/></td>
 						<td><input id="txtProductno.*" type="text" class="txt c1"/></td>
 						<td>
@@ -1260,6 +1260,7 @@
 						<td align="center">
 							<input class="btn" id="btnBorn.*" type="button" value='.' style=" font-weight: bold;" />
 						</td>
+						<td align="center"><input id="txtNoq.*" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
