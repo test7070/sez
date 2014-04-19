@@ -99,7 +99,7 @@
                     ,{/*16 [28]*/
                         type : '5',
                         name : 'showquat',
-                        value : '#non@未詢價且未議價,1@未詢價,2@未議價'.split(',')
+                        value : '#non@未詢價或未議價,1@未詢價,2@未議價'.split(',')
                     }, {/*17 [29]*/
                         type : '6',
                         name : 'zordbno'

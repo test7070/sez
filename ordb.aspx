@@ -415,6 +415,17 @@
 					Unlock(1);
 					return;
 				}
+				
+				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
+				if(!$('#chkIsproj').prop('checked')){
+					for (var j = 0; j < q_bbsCount; j++) {
+						if($('#chkEnda').prop('checked'))
+							$('#chkEnda_'+j).prop('checked','true');
+						if($('#chkCancel').prop('checked'))
+							$('#chkCancel_'+j).prop('checked','true')
+					}
+				}
+				
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (q_cur == 1 || (q_cur != 1 && q_float('txtOmount_' + i) == 0))
 						$('#txtOmount_' + i).val($('#txtMount_' + i).val());

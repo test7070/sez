@@ -130,7 +130,9 @@
 							alert(q_getMsg('lblBdate') + '錯誤!!。');
 							return;
 						}*/
-						var bdate='',edate='';
+						
+						//0418不顯示預測為0的資料以下資料註解
+						/*var bdate='',edate='';
 						if (emp($('#txtBdate').val())) {
 							bdate=q_date();
 						}else{
@@ -155,17 +157,16 @@
 							sedate=$('#txtSfedate').val();
 						}
 						
-
 						//if (!emp($('#txtBdate').val()) && !emp($('#txtEdate').val())) {
 							var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
 							
 							//1030417應客戶需要所以即使沒有打產品也要帶入
 							//var t_bbspno="1=0";
-							/*for (var i = 0; i < q_bbsCount; i++) {
-								if(!emp($('#txtProductno_'+i).val())){
-									t_bbspno+=" or a.productno='"+$('#txtProductno_'+i).val()+"'";
-								}
-							}*/
+							//for (var i = 0; i < q_bbsCount; i++) {
+							//	if(!emp($('#txtProductno_'+i).val())){
+							//		t_bbspno+=" or a.productno='"+$('#txtProductno_'+i).val()+"'";
+							//	}
+							//}
 							//var t_where1 = "where[1]=^^ (" +t_bbspno+ ") and a.enda!='1' and (a.datea between '" + bdate + "' and '" + edate + "') and a.productno in (select noa from uca)  group by productno ^^";
 							
 							var t_where1 = "where[1]=^^ ";
@@ -195,6 +196,64 @@
 							
 							q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "workg_bbs", r_accy);
 						//}
+						*///0418不顯示預測為0的資料以上資料註解
+						
+						//0418 不顯示預測為0的資料
+						var sbdate='',sedate='';
+						if (emp($('#txtSfbdate').val())) {
+							sbdate=q_date();
+						}else{
+							sbdate=$('#txtSfbdate').val();
+						}
+						if (emp($('#txtSfedate').val())) {
+							sedate='999/99/99';
+						}else{
+							sedate=$('#txtSfedate').val();
+						}
+						var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
+						
+						var t_where1 = "where[1]=^^ ";
+						if(!emp($('#txtCustno').val()))
+							t_where1=t_where1+"wa.custno='"+$('#txtCustno').val()+"' and "
+						t_where1=t_where1+"wb.productno=b.productno and (wa.sfedate between '"+sbdate+"' and '"+sedate+"') and wa.noa!='"+$('#txtNoa').val()+"'^^"
+						
+						var t_where2 = "where[2]=^^ ";
+						if(!emp($('#txtCustno').val()))
+							t_where2=t_where2+"d.custno='"+$('#txtCustno').val()+"' and "
+						t_where2=t_where2+"c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end < '"+$('#txtBdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
+						
+						var t_where3 = "where[3]=^^ ";
+						if(!emp($('#txtCustno').val()))
+							t_where3=t_where3+"d.custno='"+$('#txtCustno').val()+"' and "
+						t_where3=t_where3+"c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
+						
+						var t_where4 = "where[4]=^^ ";
+						if(!emp($('#txtCustno').val()))
+							t_where4=t_where4+"d.custno='"+$('#txtCustno').val()+"' and "
+						t_where4=t_where4+"c.productno=b.productno and (case when isnull(c.datea,'')='' then d.odate else c.datea end between '"+$('#txtBdate').val()+"' and '"+$('#txtEdate').val()+"') and c.enda!='1' and d.enda!='1' ^^"
+						
+						//1030417應客戶需要所以即使沒有打產品也要帶入
+						//var t_bbspno="1=0";
+						/*for (var i = 0; i < q_bbsCount; i++) {
+							if(!emp($('#txtProductno_'+i).val())){
+								t_bbspno+=" or b.productno='"+$('#txtProductno_'+i).val()+"'";
+							}
+						}*/
+						//var t_where5 = "where[5]=^^ ("+t_bbspno+") and (b.datea between '"+sbdate+"' and '"+sedate+"') and b.productno in (select noa from uca)^^";
+						
+						var t_where5 = "where[5]=^^ ";
+						if(!emp($('#txtCustno').val()))
+							t_where5=t_where5+"a.custno='"+$('#txtCustno').val()+"' and "							
+						//排除已匯入的產品
+						for (var i = 0; i < q_bbsCount; i++) {
+							if(!emp($('#txtProductno_'+i).val())){
+								t_where5+="b.productno!='"+$('#txtProductno_'+i).val()+"' and ";
+							}
+						}	
+						t_where5=t_where5+"(b.datea between '"+sbdate+"' and '"+sedate+"') and b.productno in (select noa from uca) ^^"
+							
+						q_gt('workg_saleforecast', t_where + t_where1 + t_where2 + t_where3 + t_where4 + t_where5 , 0, 0, 0, "", r_accy);
+						
 					}
 				});
 				
@@ -425,9 +484,12 @@
 									}
 								}
 							}
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
+							, as.length, as
+							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
 							change_field();
 						} else {
-							if(!ordedate)
+							//if(!ordedate)
 								alert('無排產資料!!。');
 						}
 						break;
