@@ -313,6 +313,7 @@
 									break;
 								}
 							}
+							GetTranPrice();
 						});
 						break;
 					case 'GetTranPrice' :
