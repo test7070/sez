@@ -502,10 +502,15 @@
 										if($('#vtnoa_'+i).text()==as[j].noa){
 											if(as[j].ordbno!=''){
 												$('#vtunordb_'+i).text('');
+											}else{
+												$('#vtunordb_'+i).text('v');
 											}
 											if(as[j].ordano!=''){
 												$('#vtunorda_'+i).text('');
+											}else{
+												$('#vtunorda_'+i).text('v');
 											}
+											$('#vtunwork_'+i).text(as[j].unwork);
 										}
 									}
 								}
@@ -646,6 +651,14 @@
 					$('#vtunordb_0').text('v');
 					$('#vtunorda_0').text('v');					
 				}
+				
+				var endnoa=''
+				for (var i = 0; i < brwCount; i++) {
+					if($('#vtnoa_'+i).text()!='')
+						endnoa=$('#vtnoa_'+i).text();
+				}
+				q_gt('workg', "where=^^ noa between '"+endnoa+"' and '"+$('#vtnoa_0').text()+"' ^^" , 0, 0, 0, "check_view", r_accy);
+				
 				var t_where = "where=^^ cuano ='" + $('#txtNoa').val() + "' ^^";
 				q_gt('work', t_where, 0, 0, 0, "", r_accy);
 				change_field();
