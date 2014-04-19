@@ -113,23 +113,35 @@
 				var Post = $.trim($('#txtPost').val()); 
 				var Cardealno = $.trim($('#txtCardealno').val()); 
 				var TranStyle = $.trim($('#cmbTranstyle').val());
+				var Carspecno = $.trim(thisCarSpecno);
 				var t_where = 'where=^^ 1=1 ';
 				t_where += " and post=N'" + Post + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
+				t_where += " and carspecno=N'" + Carspecno + "' ";
 				t_where += ' ^^';
 				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
 			}
 			
 			
+			var carnoList = [];
+			var thisCarSpecno = '';
+
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'getCardealCarno' :
 						var as = _q_appendData("cardeals", "", true);
+						carnoList = as;
 						var t_item = " @ ";
 						if (as[0] != undefined) {
 							for ( i = 0; i < as.length; i++) {
 								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].carno + '@' + as[i].carno;
+							}
+						}
+						for(var k=0;k<carnoList.length;k++){
+							if(carnoList[k].carno==$('#txtCarno').val()){
+								thisCarSpecno = carnoList[k].carspecno;
+								break;
 							}
 						}
 						document.all.combCarno.options.length = 0;
@@ -137,7 +149,12 @@
 						$('#combCarno').unbind('change').change(function(){
 							if (q_cur == 1 || q_cur == 2) {
 								$('#txtCarno').val($('#combCarno').find("option:selected").text());
-								
+							}
+							for(var k=0;k<carnoList.length;k++){
+								if(carnoList[k].carno==$('#txtCarno').val()){
+									thisCarSpecno = carnoList[k].carspecno;
+									break;
+								}
 							}
 						});
 						break;
