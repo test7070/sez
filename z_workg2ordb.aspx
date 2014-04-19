@@ -210,7 +210,8 @@
 		                		
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
-				                q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+				                //q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+				                q_func('qtxt.query.sign3', 'orda.txt,sign3,' + t_where);
 							}
 						}else{
 							alert('已產生請購。');
@@ -234,7 +235,7 @@
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_orda');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
-				                q_func('qtxt.query.sign', 'orda.txt,sign,' + t_where);
+				                q_func('qtxt.query.sign1', 'orda.txt,sign1,' + t_where);
 							}
 						}else{
 							alert('已產生過簽核。');
@@ -257,7 +258,8 @@
 		                		
 								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
-				                q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+				                //q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+				                q_func('qtxt.query.sign2', 'orda.txt,sign2,' + t_where);
 							}
 						}else{
 							q_gt('workg', "where=^^isnull(ordbno,'')='' and  noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda_workg", r_accy);
@@ -284,13 +286,31 @@
 			}
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
-                	case 'qtxt.query.sign':
+                	case 'qtxt.query.sign1':
                 		var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
 							q_func('sign.q_signForm', 'orda,,'+  as[0].ordano);
 							alert('簽核送出。');
 						}
-                	break;
+						break;
+					case 'qtxt.query.sign2':
+                		var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							for(var i=0;i<as[0].ordbnos.split(',').length;i++){
+								q_func('sign.q_signForm', 'ordb,'+r_accy+','+  as[0].ordbnos.split(',')[i]);
+							}
+							alert('簽核已轉請購。');
+						}
+                		break;
+                	case 'qtxt.query.sign3':
+                		var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							for(var i=0;i<as[0].ordbnos.split(',').length;i++){
+								q_func('sign.q_signForm', 'ordb,'+r_accy+','+  as[0].ordbnos.split(',')[i]);
+							}
+							alert('已轉請購。');
+						}
+                		break;
                 }
 			}
 		</script>
