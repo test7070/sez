@@ -820,6 +820,7 @@
 				_refresh(recno);
 				if (isinvosystem)
 					$('.istax').hide();
+				showRack();
 			}
 
 			function showRack(){
