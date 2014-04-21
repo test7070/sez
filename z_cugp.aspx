@@ -375,6 +375,8 @@
 							var days=t2.getTime()-t1.getTime();
 							days= Math.floor(days / (24 * 3600 * 1000))+1
 							var day_width=70;//估定天數大小
+							if(days<=10)
+							day_width=900/days;
 							var bkOrigin = [130,50];//邊界
 							//div大小
 							obj.width(bkOrigin[0]+day_width*days+100).height((bkOrigin[1]+p_height*bkN+100)).html(''); 
