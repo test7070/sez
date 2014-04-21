@@ -495,7 +495,7 @@
 						</td>
 						<td>
 							<input type="text" id="txtWorktime.*" style="float:left; width:90px;" />
-							<select id="combWorktime.*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:20px;"> </select>
+							<select id="combWorktime.*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:19px;"> </select>
 						</td>
 						<td><input type="text" id="txtBorntime.*" class="txt num c3" /></td>
 						<td><input type="text" id="txtAddtime.*" class="txt num c3" /></td>
@@ -524,12 +524,13 @@
 						<td style="width:120px; text-align: center;"><a id='lblWorktime_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblMans_t'> </a></td>
 						<td style="width:200px; text-align: center;"><a id='lblSales_t'> </a></td>
-						<td style="width:80px; text-align: center;"><a id='lblWorkmount_t'> </a></td>
-						<td style="width:80px; text-align: center;"><a id='lblMount_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblSupmans_t'> </a></td>
+						<td style="width:120px; text-align: center;"><a id='lblSupworker_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblHours_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblAddhours_t'> </a></td>
-						<td style="width:120px; text-align: center;"><a id='lblSupworker_t'> </a></td>
+						<td style="width:40px;"><a id='lblIsovertime_t'> </a></td>
+						<td style="width:80px; text-align: center;"><a id='lblWorkmount_t'> </a></td>
+						<td style="width:80px; text-align: center;"><a id='lblMount_t'> </a></td>
 					</tr>
 					<tr>
 						<td>
@@ -538,20 +539,21 @@
 						</td>
 						<td>
 							<input type="text" id="txtWorktime..*" style="float:left; width:90px;" />
-							<select id="combWorktime..*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:20px;"> </select>
+							<select id="combWorktime..*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:19px;"> </select>
 						</td>
 						<td><input id="txtMans..*" type="text" class="txt num c3"/></td>
 						<td>
 							<input type="button" id="btnSalesno..*" value="." style="width:5%;font-size: medium; font-weight: bold;" />
 							<input type="text" id="txtSalesno..*" class="txt" style="width: 26%;"/>
-							<input type="text" id="txtSales..*" class="txt" style="width: 55%;" />
+							<input type="text" id="txtSales..*" class="txt" style="width: 53%;" />
 						</td>
-						<td><input id="txtWorkmount..*" type="text" class="txt num c3"/></td>
-						<td><input id="txtMount..*" type="text" class="txt num c3"/></td>
 						<td><input id="txtSupmans..*" type="text" class="txt num c3"/></td>
+						<td><input id="txtSupworker..*" type="text" class="txt c3"/></td>
 						<td><input id="txtHours..*" type="text" class="txt num c3"/></td>
 						<td><input id="txtAddhours..*" type="text" class="txt num c3"/></td>
-						<td><input id="txtSupworker..*" type="text" class="txt c3"/></td>
+						<td><input id="chkIsovertime..*" type="checkbox" /></td>
+						<td><input id="txtWorkmount..*" type="text" class="txt num c3"/></td>
+						<td><input id="txtMount..*" type="text" class="txt num c3"/></td>
 					</tr>
 				</tbody>
 			</table>
