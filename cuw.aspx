@@ -29,8 +29,8 @@
 				['txtSupmans',10,0,1],['txtHours',10,2,1],['txtAddhours',10,2,1]
 			];
 			var bbmMask = [];
-			var bbsMask = [];
-			var bbtMask = [];
+			var bbsMask = [['txtWorktime','9999-9999']];
+			var bbtMask = [['txtWorktime','9999-9999']];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -64,9 +64,9 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea',r_picd]];
-				bbsMask = [['txtBtime','99:99'],['txtEtime','99:99']];
+				bbsMask = [['txtBtime','99:99'],['txtEtime','99:99'],['txtWorktime','9999-9999']];
+				bbtMask = [['txtWorktime','9999-9999']];
 				q_mask(bbmMask);
-				q_cmbParse("combWorktime", q_getPara('cuwt.worktime'),'t');
 			}
 
 			function q_funcPost(t_func, result) {
@@ -119,6 +119,7 @@
 			}
 
 			function btnPrint() {
+				q_box('z_cuwp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
@@ -190,7 +191,14 @@
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
+					q_cmbParse("combWorktime_"+i, q_getPara('cuwt.worktime'));
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+						$('#combWorktime_'+i).change(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							if(q_cur==1 || q_cur==2){
+								$('#txtWorktime_'+n).val($(this).val());
+							}
+						});
 					}
 				}
 				_bbsAssign();
@@ -199,8 +207,14 @@
 			function bbtAssign() {
 				for (var i = 0; i < q_bbtCount; i++) {
 					$('#lblNo__' + i).text(i + 1);
+					q_cmbParse("combWorktime__"+i, q_getPara('cuwt.worktime'));
 					if (!$('#btnMinut__' + i).hasClass('isAssign')) {
-
+						$('#combWorktime__'+i).change(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							if(q_cur==1 || q_cur==2){
+								$('#txtWorktime__'+n).val($(this).val());
+							}
+						});
 					}
 				}
 				_bbtAssign();
@@ -385,7 +399,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 940px;
+				width: 1000px;
 			}
 			#tbbt {
 				margin: 0;
@@ -459,6 +473,7 @@
 						<td style="width:20px;">
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
+						<td style="width:120px;"><a id='lblWorktime_s'> </a></td>
 						<td style="width:80px;"><a id='lblBorntime_s'> </a></td>
 						<td style="width:80px;"><a id='lblAddtime_s'> </a></td>
 						<td style="width:80px;"><a id='lblChgfre_s'> </a></td>
@@ -469,7 +484,6 @@
 						<td style="width:80px;"><a id='lblWaitfedtime_s'> </a></td>
 						<td style="width:80px;"><a id='lblLacksss_s'> </a></td>
 						<td style="width:150px;"><a id='lblMemo_s'> </a></td>
-						<td style="width:180px;"><a id='lblWorktime_s'> </a></td>
 						<td style="width:40px;"><a id='lblIsovertime_s'> </a></td>
 						<td style="width:80px;"><a id='lblWorkmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblMount_s'> </a></td>
@@ -478,6 +492,10 @@
 						<td align="center">
 							<input type="button" id="btnMinus.*" style="font-size: medium; font-weight: bold;" value="－"/>
 							<input type="text" id="txtNoq.*" style="display: none;"/>
+						</td>
+						<td>
+							<input type="text" id="txtWorktime.*" style="float:left; width:90px;" />
+							<select id="combWorktime.*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:20px;"> </select>
 						</td>
 						<td><input type="text" id="txtBorntime.*" class="txt num c3" /></td>
 						<td><input type="text" id="txtAddtime.*" class="txt num c3" /></td>
@@ -489,10 +507,6 @@
 						<td><input type="text" id="txtWaitfedtime.*" class="txt num c3" /></td>
 						<td><input type="text" id="txtLacksss.*" class="txt num c3" /></td>
 						<td><input type="text" id="txtMemo.*" class="txt c3" /></td>
-						<td>
-							<input type="text" id="txtWorktime.*" style="float:left; width:145px;" />
-							<select id="combWorktime.*" class="txt" style="float:left;margin-left:3px;width:20px;"> </select>
-						</td>
 						<td><input type="checkbox" id="chkIsovertime.*" /></td>
 						<td><input type="text" class="txt num c3" id="txtWorkmount.*" /></td>
 						<td><input type="text" class="txt num c3" id="txtMount.*" /></td>
@@ -507,8 +521,8 @@
 						<td style="width:20px;">
 							<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:80px; text-align: center;"><a id='lblMans_t'> </a></td>
 						<td style="width:120px; text-align: center;"><a id='lblWorktime_t'> </a></td>
+						<td style="width:80px; text-align: center;"><a id='lblMans_t'> </a></td>
 						<td style="width:200px; text-align: center;"><a id='lblSales_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblWorkmount_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblMount_t'> </a></td>
@@ -522,8 +536,11 @@
 							<input id="btnMinut..*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
 							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
+						<td>
+							<input type="text" id="txtWorktime..*" style="float:left; width:90px;" />
+							<select id="combWorktime..*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:20px;"> </select>
+						</td>
 						<td><input id="txtMans..*" type="text" class="txt num c3"/></td>
-						<td><select id="combWorktime..*" class="txt c1"> </select></td>
 						<td>
 							<input type="button" id="btnSalesno..*" value="." style="width:5%;font-size: medium; font-weight: bold;" />
 							<input type="text" id="txtSalesno..*" class="txt" style="width: 26%;"/>
