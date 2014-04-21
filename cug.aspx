@@ -19,8 +19,8 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "cug";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtProcess','txtProductno','txtProduct','txtHours','txtDays','txtMount','txtWorkno'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGen','txtHours'];
+            var q_readonlys = ['txtProcess','txtProductno','txtProduct','txtHours','txtDays','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx']
-            ,['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
+            ,['txtStationno', 'lblStation', 'station', 'noa,station,gen', 'txtStationno,txtStation,txtGen', 'station_b.aspx']
             ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -50,7 +50,7 @@
             }
 
             function mainPost() {
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
                 bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
@@ -60,10 +60,21 @@
                 		alert(q_getMsg('lblStation')+'請先填寫。');
                 		return;
                 	}else{
+                		var t_where = "where=^^ ";
                 		if(!emp($('#txtProcessno').val()))
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.processno='"+$('#txtProcessno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs where noa !='"+$('#txtNoa').val()+"') order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
-                		else
-                			var t_where = "where=^^ a.stationno='"+$('#txtStationno').val()+"' and a.enda!='1' and a.noa not in (select workno from view_cugs where noa !='"+$('#txtNoa').val()+"') order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours ^^";
+                			t_where=t_where+"a.processno='"+$('#txtProcessno').val()+"' and ";
+                		if(!emp($('#txtOrdeno').val()))
+                			t_where=t_where+"charindex('"+$('#txtOrdeno').val()+"',a.ordeno)>0 and ";
+                		if(!emp($('#txtBdate').val()) || !emp($('#txtEdate').val())){
+                			var t_bdate='',t_edate='';
+                			t_bdate=$('#txtBdate').val();
+                			t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
+                			t_where=t_where+"(a.cuadate between '"+t_bdate+"' and '"+t_edate+"' ) and ";
+                		}
+                		t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' and isnull(a.enda,'0')!='1' and isnull(a.isfreeze,'0')!='1' and ";
+                		t_where=t_where+"a.noa not in (select workno from view_cugs where noa !='"+$('#txtNoa').val()+"' and issel='1') ";
+                		//排序
+                		t_where=t_where+"order by case when a.cuadate='' then '999/99/99' else a.cuadate end,case when a.uindate='' then '999/99/99' else a.uindate end,a.processno,a.noa desc,a.hours";
 						q_gt('cug_work', t_where, 0, 0, 0, "", r_accy);
                 	}
                 });
@@ -84,16 +95,27 @@
                 	case 'cug_work':
                 		var as = _q_appendData("view_work", "", true);
                 		if(as[0]!=undefined){
+                			//0421因加訂單匯入 所以要判斷是否已被匯入
                 			for (var i = 0; i < q_bbsCount; i++) {
-								$('#btnMinus_'+i).click();
+								for (var j = 0; j < as.length; j++) {
+									if($('#txtWorkno_' + i).val()==as[j].workno){
+										as.splice(j, 1);
+                                    	j--;
+										break;	
+									}
+								}
 							}
-                			for ( var i = 0; i < as.length; i++) {
-                				as[i].noq=('0000'+(i+1)).substr(-4);	
+                			
+                			/*for (var i = 0; i < q_bbsCount; i++) {
+								$('#btnMinus_'+i).click();
+							}*/
+                			/*for ( var i = 0; i < as.length; i++) {
+                				as[i].noq=('000'+(i+1)+'0').substr(-4);	
                 				//as[i].days=round(as[i].hours/24,0)
-                			}
+                			}*/
                 			q_gridAddRow(bbsHtm, 'tbbs'
-							,'txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtMount,txtHours,txtDays,txtCuadate,txtUindate,txtWorkno', as.length, as,
-							'noq,processno,process,productno,product,mount,hours,days,cuadate,uindate,workno','txtProductno');
+							,'txtProcessno,txtProcess,txtProductno,txtProduct,txtMount,txtHours,txtDays,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno', as.length, as,
+							'processno,process,productno,product,mount,hours,days,cuadate,uindate,cuadate,uindate,workno','txtProductno');
                 		}
                 		break;
                     case q_name:
@@ -119,10 +141,25 @@
                 //檢查排程序號
                 for (var i = 0; i < q_bbsCount; i++) {
                 	for (var j = i+1; j < q_bbsCount; j++) {
-                		if (i!=j &&!emp($('#txtNoq_'+i).val())&& $('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()){
+                		if (i!=j &&!emp($('#txtWorkno_'+i).val())&&!emp($('#txtNoq_'+i).val())&&$('#chkIssel_'+i).prop('checked')&&$('#chkIssel_'+j).prop('checked')&& $('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()){
                 			alert(q_getMsg('lblNoq_s')+'['+$('#txtNoq_'+i).val()+']重覆')
                 			return;
                 		}
+                	}
+                }
+                //處理有排程但沒有排程序號的資料
+                for (var i = 0; i < q_bbsCount; i++) {
+                	if ($('#chkIssel_'+i).prop('checked')&&emp($('#txtNoq_'+i).val())&&!emp($('#txtWorkno_'+i).val())){
+                		$('#txtNoq_'+i).val(('000'+(dec(getmaxnoq(-1).substr(0,3))+1)).substr(-3)+'0');
+                	}
+                }
+                
+                //重新編排沒有排程的noq放在有排程的下面
+                var maxnoq=getmaxnoq(-1),count=1;
+                for (var i = 0; i < q_bbsCount; i++) {
+                	if(!$('#chkIssel_'+i).prop('checked')&&!emp($('#txtWorkno_'+i).val())){
+                		$('#txtNoq_'+i).val(('000'+(dec(maxnoq.substr(0,3))+count)).substr(-3)+'0');
+                		count++;
                 	}
                 }
                 
@@ -215,13 +252,36 @@
 							}
 		                });
 		                
+		                $('#chkIssel_' + i).click(function () {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if($('#chkIssel_'+b_seq).prop('checked')){	//判斷是否被選取
+								$('#trSel_'+ b_seq).addClass('chkIssel');//變色
+								$('#txtNoq_'+ b_seq).val(('000'+(dec(getmaxnoq(b_seq).substr(0,3))+1)).substr(-3)+'0');
+							}else{
+				                $('#trSel_'+b_seq).removeClass('chkIssel');//取消變色
+							}
+							sum();
+						});
+		                
                     }
                 }
                 _bbsAssign();
             }
+            
+            function getmaxnoq(seq) {//seq 表示排除的noq
+            	var maxnoq='0000';
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		if($('#chkIssel_'+i).prop('checked')&&i!=dec(seq)&&$('#txtNoq_' +i).val()>maxnoq){
+            			maxnoq=$('#txtNoq_' +i).val();
+            		}
+            	}
+            	return maxnoq;
+            }
 
             function bbsSave(as) {
-                if (!as['productno'] && !as['product']) {//不存檔條件
+                if (!as['productno'] && !as['product']&& !as['workno']) {//不存檔條件
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -236,12 +296,21 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount;
                 for (var j = 0; j < q_bbsCount; j++) {
-
+					if($('#chkIssel_'+j).prop('checked'))
+						t1=t1+q_float('txtHours_'+j);
                 } // j
+                $('#txtHours').val(t1);
             }
 
             function refresh(recno) {
                 _refresh(recno);
+                for (var i = 0; i < q_bbsCount; i++) {
+		        	if($('#chkIssel_'+i).prop('checked')){	//判斷是否被選取
+		               	$('#trSel_'+ i).addClass('chkIssel');//變色
+		            }else{
+		            	$('#trSel_'+i).removeClass('chkIssel');//取消變色
+					}
+				}
             }
 
             function readonly(t_para, empty) {
@@ -398,7 +467,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 98%;
+                width: 100%;
                 float: left;
             }
             .txt.c6 {
@@ -440,7 +509,8 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 1460px;
+                width: 1860px;
+                background:#cad3ff;
             }
             .tbbs a {
                 font-size: medium;
@@ -448,6 +518,7 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            .tbbs tr.chkIssel { background:bisque;} 
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -482,21 +553,35 @@
 						<td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td class="td3" style="width: 130px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
+						<td class="td5"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2">
+						<td class="td2">
 							<input id="txtStationno"  type="text" class="txt c2"/>
 							<input id="txtStation"  type="text" class="txt c3"/>
 						</td>
+						<td class="td3" style="width: 130px;"><span> </span><a id='lblGen' class="lbl"> </a></td>
+						<td class="td4"><input id="txtGen"  type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProcess' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2">
+						<td class="td2">
 							<input id="txtProcessno"  type="text" class="txt c2"/>
 							<input id="txtProcess"  type="text" class="txt c3"/>
 						</td>
-						<td class="td4"><input id="btnWork" type="button"/></td>
+						<td class="td3" style="width: 130px;"><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
+						<td class="td4"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblCuadate' class="lbl"> </a></td>
+						<td class="td2">
+							<input id="txtBdate"  type="text" class="txt c2"/><a style="float: left;">~</a>
+							<input id="txtEdate"  type="text" class="txt c2"/>
+						</td>
+						<td class="td3" style="width: 130px;"><span> </span><a id='lblHours' class="lbl"> </a></td>
+						<td class="td4"><input id="txtHours"  type="text" class="txt num c1"/></td>
+						<td class="td5"><input id="btnWork" type="button"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -514,21 +599,25 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
-					<td align="center" style="width:4%;"><a id='lblNoq_s'> </a></td>
-					<td align="center" style="width:9%;"><a id='lblProcess_s'> </a></td>
-					<td align="center" style="width:11%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblHours_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblDays_s'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblWorkdate_s'> </a></td>
-					<td align="center" style="width:6%;"><a id='lblEnddate_s'> </a></td>
-					<td align="center" style="width:12%;"><a id='lblWorkno_s'> </a></td>
+					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
+					<td align="center" style="width:36px;"><a id='lblIssel_s'> </a></td>
+					<td align="center" style="width:75px;"><a id='lblNoq_s'> </a></td>
+					<td align="center" style="width:145px;"><a id='lblProcess_s'> </a></td>
+					<td align="center" style="width:185px;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:275px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblHours_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblDays_s'> </a></td>
+					<td align="center" style="width:105px;"><a id='lblOrgcuadate_s'> </a></td>
+					<td align="center" style="width:105px;"><a id='lblOrguindate_s'> </a></td>
+					<td align="center" style="width:105px;"><a id='lblCuadate_s'> </a></td>
+					<td align="center" style="width:105px;"><a id='lblUindate_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblWorkno_s'> </a></td>
 					<td align="center"><a id='lblMemo_s'> </a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr id="trSel.*">
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+					<td align="center"><input id="chkIssel.*" type="checkbox"/></td>
 					<td>
 						<input id="txtNoq.*" type="text" class="txt c1"/>
 						<input id="txtStationno.*" type="hidden" class="txt c1"/>
@@ -540,6 +629,8 @@
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtHours.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtDays.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtOrgcuadate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtOrguindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
