@@ -62,10 +62,11 @@
 			}
 
 			function mainPost() {
+				q_getFormat();
 				bbmMask = [['txtDatea',r_picd]];
 				bbsMask = [['txtBtime','99:99'],['txtEtime','99:99']];
 				q_mask(bbmMask);
-				q_cmbParse("cmbWorktime", q_getPara('cuwt.worktime'),'t');
+				q_cmbParse("combWorktime", q_getPara('cuwt.worktime'),'t');
 			}
 
 			function q_funcPost(t_func, result) {
@@ -468,7 +469,7 @@
 						<td style="width:80px;"><a id='lblWaitfedtime_s'> </a></td>
 						<td style="width:80px;"><a id='lblLacksss_s'> </a></td>
 						<td style="width:150px;"><a id='lblMemo_s'> </a></td>
-						<td style="width:180px;"><a id='lblBtime_s'> </a></td>
+						<td style="width:180px;"><a id='lblWorktime_s'> </a></td>
 						<td style="width:40px;"><a id='lblIsovertime_s'> </a></td>
 						<td style="width:80px;"><a id='lblWorkmount_s'> </a></td>
 						<td style="width:80px;"><a id='lblMount_s'> </a></td>
@@ -489,9 +490,8 @@
 						<td><input type="text" id="txtLacksss.*" class="txt num c3" /></td>
 						<td><input type="text" id="txtMemo.*" class="txt c3" /></td>
 						<td>
-							<input type="text" id="txtBtime.*" style="float:left; width:70px;" />
-							<a style="display:block;float:left; width:20px;">&sim;</a>
-							<input type="text" id="txtEtime.*" style="float:left; width:70px;"/>
+							<input type="text" id="txtWorktime.*" style="float:left; width:145px;" />
+							<select id="combWorktime.*" class="txt" style="float:left;margin-left:3px;width:20px;"> </select>
 						</td>
 						<td><input type="checkbox" id="chkIsovertime.*" /></td>
 						<td><input type="text" class="txt num c3" id="txtWorkmount.*" /></td>
@@ -523,7 +523,7 @@
 							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><input id="txtMans..*" type="text" class="txt num c3"/></td>
-						<td><select id="cmbWorktime..*" class="txt c1"> </select>
+						<td><select id="combWorktime..*" class="txt c1"> </select></td>
 						<td>
 							<input type="button" id="btnSalesno..*" value="." style="width:5%;font-size: medium; font-weight: bold;" />
 							<input type="text" id="txtSalesno..*" class="txt" style="width: 26%;"/>
