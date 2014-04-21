@@ -70,7 +70,7 @@
 			
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtWorktime','99:99']];
 				q_mask(bbmMask);
 				
 				$('#txtWorkano').click(function() {
@@ -826,27 +826,34 @@
 						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
-						<td>
-							<input id="txtStationno" type="text" class="txt c2"/>
-							<input id="txtStation" type="text" class="txt c3"/>
-						</td>
-						<td><span> </span><a id='lblMechno' class="lbl btn"> </a></td>
-						<td>
-							<input id="txtMechno" type="text" class="txt c2"/>
-							<input id="txtMech" type="text" class="txt c3"/>
-						</td>
-					</tr>
-					<tr>
+						<td><span> </span><a id='lblWorktime' class="lbl"> </a></td>
+						<td><input id="txtWorktime" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 						<td>
 							<input id="txtBdate" type="text" class="txt c3" style="width: 113px;"/>
 							<a style="float: left;">~</a>
 							<input id="txtEdate" type="text" class="txt c3" style="width: 113px;"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtStationno" type="text" class="txt c2"/>
+							<input id="txtStation" type="text" class="txt c3"/>
+						</td>
 						<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 						<td ><input id="txtWorkno" type="text" class="txt c1"/></td>
 						<td><input type="button" id="btnWork"></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMechno' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtMechno" type="text" class="txt c2"/>
+							<input id="txtMech" type="text" class="txt c3"/>
+						</td>
+						<td><span> </span><a id='lblWorkano' class="lbl"> </a></td>
+						<td><input id="txtWorkano" type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnOrdes"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
@@ -854,11 +861,6 @@
 							<input id="txtStoreno" type="text" class="txt c2"/>
 							<input id="txtStore" type="text" class="txt c3"/>
 						</td>
-						<td><span> </span><a id='lblWorkano' class="lbl"> </a></td>
-						<td><input id="txtWorkano" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btnOrdes"> </td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 					</tr>
