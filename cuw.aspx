@@ -15,8 +15,8 @@
 			q_tables = 't';
 			var q_name = "cuw";
 			var q_readonly = ['txtNoa','txtStation'];
-			var q_readonlys = [];
-			var q_readonlyt = ['txtSales'];
+			var q_readonlys = ['txtBorntime','txtAddtime'];
+			var q_readonlyt = ['txtSales','txtHours','txtAddhours'];
 			var bbmNum = [];
 			var bbsNum = [
 				['txtBorntime',10,2,1],['txtAddtime',10,2,1],['txtChgfre',10,0,1],
@@ -198,6 +198,30 @@
 							if(q_cur==1 || q_cur==2){
 								$('#txtWorktime_'+n).val($(this).val());
 							}
+							$('#txtWorktime_' + n).focusout();
+						});
+						$('#txtWorktime_' + i).focusout(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							var usetime = 0;
+							if(thisVal.indexOf('-') > -1){
+								var btime = dec(thisVal.split('-')[0]);
+								var etime = dec(thisVal.split('-')[1]);
+								btime = (Math.floor(btime/100)*60)+(btime%100);
+								etime = (Math.floor(etime/100)*60)+(etime%100);
+								usetime = (etime-btime);
+							}
+							if($('#chkIsovertime_'+n).prop('checked')){
+								$('#txtAddtime_'+n).val(usetime);
+								$('#txtBorntime_'+n).val(0);
+							}else{
+								$('#txtAddtime_'+n).val(0);
+								$('#txtBorntime_'+n).val(usetime);
+							}
+						});
+						$('#chkIsovertime_'+i).click(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							$('#txtWorktime_' + n).focusout();
 						});
 					}
 				}
@@ -214,6 +238,30 @@
 							if(q_cur==1 || q_cur==2){
 								$('#txtWorktime__'+n).val($(this).val());
 							}
+							$('#txtWorktime__' + n).focusout();
+						});
+						$('#txtWorktime__' + i).focusout(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							var usetime = 0;
+							if(thisVal.indexOf('-') > -1){
+								var btime = dec(thisVal.split('-')[0]);
+								var etime = dec(thisVal.split('-')[1]);
+								btime = (Math.floor(btime/100)*60)+(btime%100);
+								etime = (Math.floor(etime/100)*60)+(etime%100);
+								usetime = round(((etime-btime)/60),2);
+							}
+							if($('#chkIsovertime__'+n).prop('checked')){
+								$('#txtAddhours__'+n).val(usetime);
+								$('#txtHours__'+n).val(0);
+							}else{
+								$('#txtAddhours__'+n).val(0);
+								$('#txtHours__'+n).val(usetime);
+							}
+						});
+						$('#chkIsovertime__'+i).click(function(){
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							$('#txtWorktime__' + n).focusout();
 						});
 					}
 				}
