@@ -141,7 +141,13 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['mechno'] && !as['mech']) {
+				if (
+					!as['borntime'] && !as['addtime'] && !as['chgfre'] &&
+					!as['chgtime'] && !as['faulttime'] && !as['delaytime'] &&
+					!as['waittime'] && !as['waitfedtime'] && !as['lacksss'] &&
+					!as['memo'] && !as['btime'] && !as['etime'] &&
+					!as['workmount'] && !as['mount']
+				) {
 					as[bbsKey[1]] = '';
 					return;
 				}
