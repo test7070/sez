@@ -348,8 +348,8 @@
                             var tmpPath = "";
 							var bkColor = ['rgb(210,233,255)', 'rgb(255,238,221)'];//背景色
 							var bkN = t_data.process.length;//分幾個製程
-							var p_height=100//固定背景製程高度
-							var s_process=3;//每個製程要區分段落
+							var p_height=200//固定背景製程高度
+							var s_process=9;//每個製程要區分段落
 							var s_height=p_height/s_process;//固定製程高度
 							var start_date='';//起始
                         	var end_date='';//終止
