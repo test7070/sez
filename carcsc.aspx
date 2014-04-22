@@ -20,7 +20,7 @@
             }
 
             var q_name = "carcsc";
-            var q_readonly = ['txtNoa','txtInmoney','txtOutmoney','txtWorker','txtTranno'];
+            var q_readonly = ['txtNoa','txtInmoney','txtOutmoney','txtWorker','txtTranno','txtQtime'];
             var bbmNum = [['txtWeight', 14, 3, 1], ['txtInprice', 14, 3, 1], ['txtInmount', 14, 3, 1], ['txtInmoney', 14, 0, 1], ['txtOutprice', 14, 3, 1], ['txtOutmount', 14, 3, 1], ['txtOutmoney', 14, 0, 1]];
             // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
             var bbmMask = [];
@@ -681,6 +681,8 @@
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblTranno" class="lbl"> </a></td>
 						<td><input id="txtTranno"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblQtime" class="lbl btn"> </a></td>
+                        <td><input id="txtQtime"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

@@ -19,7 +19,7 @@
 			var q_name = "get";
 			var q_readonly = ['txtNoa', 'txtWorker','txtTranstart','txtAddr','txtStation','txtComp','txtStore','txtCardeal','txtWorker2'];
 			var q_readonlys = [];
-			var bbmNum = [['txtTotal', 15, 1,1],['txtPrice', 10, 2 ,1],['txtTranmoney', 15, 0,1]];
+			var bbmNum = [['txtTotal', 15, 1,1],['txtPrice', 10, 2 ,1],['txtTranmoney', 15, 0,1],['txtTranadd', 15, 2,1]];
 			var bbsNum = [
 				['txtSize1', 10, 3], ['txtSize2', 10, 2], ['txtSize3', 10, 3],
 				['txtSize4', 10, 2], ['txtRadius', 10, 3], ['txtWidth', 10, 2],
@@ -85,6 +85,12 @@
 				$('#cmbTranstyle').change(function(){
 					GetTranPrice();
 				});
+				$('#txtPrice').change(function(){
+					sum();
+				});
+				$('#txtTranadd').change(function(){
+					sum();
+				});
 			}
 			
 			function q_popPost(s1) {
@@ -115,7 +121,9 @@
 				t_where += " and transtartno=N'" + Transtartno + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
-				t_where += " and carspecno=N'" + Carspecno + "' ";
+				if(Carspecno.length > 0){
+					t_where += " and carspecno=N'" + Carspecno + "' ";
+				}
 				t_where += ' ^^';
 				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
 			}
@@ -183,6 +191,7 @@
 						}else{
 							$('#txtPrice').val(0);
 						}
+						sum();
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -295,13 +304,16 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0, t_total = 0;
-				for (var j = 0; j < q_bbsCount; j++) {
-					//$('#txtTotal_' + j).val(round($('#txtPrice_' + j).val() * dec($('#txtMount_' + j).val()), 0));
-					t_weight=+q_float('txtMount_' + j);
+				var price = dec($('#txtPrice').val());
+				var addMoney = dec(q_getPara('sys.tranadd'));
+				var addMul = dec($('#txtTranadd').val());
+				var total = 0
+				var transtyle = $.trim($('#cmbTranstyle').val());
+				if(transtyle=='4' || transtyle=='9'){
+					price = 0;
 				}
-				if (dec($('#txtPrice').val())!=0)
-					$('#txtTranmoney').val(round(q_mul(t_weight, dec(q_float('txtPrice'))), 0));
+				total = q_add(q_mul(addMoney,addMul),price);
+				q_tr('txtTranmoney', total);
 			}
 
 			function refresh(recno) {
@@ -529,6 +541,8 @@
 							<input id="txtCustno" type="text" class="txt c2"/>
 							<input id="txtComp" type="text" class="txt c3"/>
 						</td>
+						<td class='td3'><span> </span><a id="lblVno" class="lbl"> </a></td>
+						<td class="td4"><input id="txtVno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblStore" class="lbl btn"> </a></td>
@@ -547,7 +561,7 @@
 						</td>
 						<td class="td3"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td5">
-							<input id="txtCarno"  type="text" class="txt" style="width:75%;"/>
+							<input id="txtCarno" type="text" class="txt" style="width:75%;"/>
 							<select id="combCarno" style="width: 20%;"> </select>
 						</td>
 					</tr>
@@ -566,12 +580,12 @@
 							<input id="txtTranstartno" type="text" class="txt c2"/>
 							<input id="txtTranstart" type="text" class="txt c3"/>
 						</td>
-						<td class='td5'><span> </span><a id="lblTranstyle" class="lbl" > </a></td>
-						<td class="td6"><select id="cmbTranstyle" style="width: 100%;"> </select></td>
+						<td class="td3"><span> </span><a id="lblTranadd" class="lbl"> </a></td>
+						<td class="td4"><input id="txtTranadd" type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr class="tr8">
-						<td class='td3'><span> </span><a id="lblVno" class="lbl"> </a></td>
-						<td class="td4"><input id="txtVno" type="text" class="txt c1"/></td>
+						<td class='td5'><span> </span><a id="lblTranstyle" class="lbl" > </a></td>
+						<td class="td6"><select id="cmbTranstyle" style="width: 100%;"> </select></td>
 						<td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td class="td4"><input id="txtPrice" type="text" class="txt c1 num" /></td>
 						<td class="td5"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>

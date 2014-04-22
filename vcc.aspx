@@ -20,8 +20,8 @@
 			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp','txtCardeal','txtSales', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWorker', 'txtWorker2','txtTranstart'];
 			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2','txtNoq'];
 			var bbmNum = [
-				['txtPrice', 10, 3, 1], ['txtTranmoney', 11, 2, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],
-				['txtTotal', 15, 0, 1], ['txtTotalus', 15, 0, 1]
+				['txtPrice', 10, 3, 1], ['txtTranmoney', 11, 0, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],
+				['txtTotal', 15, 0, 1], ['txtTotalus', 15, 0, 1], ['txtTranadd', 11, 2, 1]
 			];
 			var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtTotal', 15, 0, 1]];
 			var bbmMask = [];
@@ -81,8 +81,16 @@
 					t1 = q_add(t1, dec(q_float('txtTotal_' + j)));
 				}
 				$('#txtMoney').val(round(t1, 0));
-				if (dec($('#txtPrice').val())!=0)
-					$('#txtTranmoney').val(round(q_mul(t_weight, dec(q_float('txtPrice'))), 0));
+				var price = dec($('#txtPrice').val());
+				var addMoney = dec(q_getPara('sys.tranadd'));
+				var addMul = dec($('#txtTranadd').val());
+				var total = 0
+				var transtyle = $.trim($('#cmbTranstyle').val());
+				if(transtyle=='4' || transtyle=='9'){
+					price = 0;
+				}
+				total = q_add(q_mul(addMoney,addMul),price);
+				q_tr('txtTranmoney', total);
 				calTax();
 				q_tr('txtTotalus', round(q_mul(q_float('txtTotal'), q_float('txtFloata')), 0));
 			}
@@ -169,6 +177,9 @@
 				$('#txtPrice').change(function() {
 					sum();
 				});
+				$('#txtTranadd').change(function() {
+					sum();
+				});
 				$('#txtAddr').change(function() {
 					var t_custno = trim($(this).val());
 					if (!emp(t_custno)) {
@@ -237,7 +248,9 @@
 				t_where += " and transtartno=N'" + Transtartno + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
-				t_where += " and carspecno=N'" + Carspecno + "' ";
+				if(Carspecno.length > 0){
+					t_where += " and carspecno=N'" + Carspecno + "' ";
+				}
 				t_where += ' ^^';
 				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
 			}
@@ -345,6 +358,7 @@
 						}else{
 							$('#txtPrice').val(0);
 						}
+						sum();
 						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
@@ -820,6 +834,7 @@
 				_refresh(recno);
 				if (isinvosystem)
 					$('.istax').hide();
+				showRack();
 			}
 
 			function showRack(){
@@ -1209,14 +1224,14 @@
 						<td class="td5"><select id="cmbTrantype" style="width: 100%;"> </select></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 						<td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblAddr2' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4'>
 						<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
@@ -1242,8 +1257,8 @@
 						<td class="td4"><span> </span><a id='lblTranstart' class="lbl btn"> </a></td>
 						<td class="td5"><input id="txtTranstartno" type="text" class="txt c1"/></td>
 						<td class="td6"><input id="txtTranstart" type="text" class="txt c1"/></td>
-						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
+						<td class="td7"><span> </span><a id='lblTranadd' class="lbl"> </a></td>
+						<td class="td8"><input id="txtTranadd" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
@@ -1253,8 +1268,8 @@
 							<input id="txtTax" type="text" class="txt num c1 istax"  style="width: 49%;"/>
 							<select id="cmbTaxtype" style="width: 49%;" onchange="calTax();"> </select>
 						</td>
-						<td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
-						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax"/></td>
+						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
@@ -1262,6 +1277,8 @@
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1"/></td>
 						<td class="td4"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
+						<td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
+						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>

@@ -22,7 +22,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "carcsa";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtWeight','txtMount','txtInmoney','txtOutmoney'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtWeight','txtMount','txtInmoney','txtOutmoney','txtQtime'];
             var q_readonlys = ['txtInmoney','txtOutmoney','txtTranno'];
             var bbmNum = [['txtWeight',10,3,1],['txtMount',10,3,1],['txtPrice',10,3,1]
             ,['txtInmoney',10,0,1]
@@ -1085,8 +1085,8 @@
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblQtime" class="lbl"> </a></td>
+                        <td><input id="txtQtime"  type="text"  class="txt c1"/></td>
 						<td> </td>
 						<td><input type="button" id="btnTran" value="出車單明細"/> </td>
 					</tr>

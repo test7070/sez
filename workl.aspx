@@ -21,7 +21,7 @@
 			var q_name = "workl";
 			var q_readonly = ['txtNoa','txtTheory','txtDiffweight', 'txtWorker', 'txtWorker2', 'txtCngno', 'txtWorkcno','txtTgg','txtStorein','txtStore','txtCardeal','txtTranstart','txtAddr'];
 			var q_readonlys = ['txtWorkno','txtTheory'];
-			var bbmNum = [['txtPrice', 12, 2, 1],['txtTranmoney', 12, 2, 1],['txtWeight', 12, 2, 1],['txtTheory', 12, 2, 1],['txtDiffweight', 12, 2, 1]];
+			var bbmNum = [['txtPrice', 12, 2, 1],['txtTranmoney', 12, 0, 1],['txtTranadd', 12, 2, 1],['txtWeight', 12, 2, 1],['txtTheory', 12, 2, 1],['txtDiffweight', 12, 2, 1]];
 			var bbsNum = [['txtMount', 12, 2, 1],['txtTheory', 12, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -141,6 +141,12 @@
 				});
 				$('#cmbTranstyle').change(function(){
 					GetTranPrice();
+				});
+				$('#txtPrice').change(function(){
+					sum();
+				});
+				$('#txtTranadd').change(function(){
+					sum();
 				});
 			}
 
@@ -395,6 +401,7 @@
 						}else{
 							$('#txtPrice').val(0);
 						}
+						sum();
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -525,7 +532,9 @@
 				t_where += " and transtartno=N'" + Transtartno + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
-				t_where += " and carspecno=N'" + Carspecno + "' ";
+				if(Carspecno.length > 0){
+					t_where += " and carspecno=N'" + Carspecno + "' ";
+				}
 				t_where += ' ^^';
 				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
 			}
@@ -641,8 +650,16 @@
 				t_diffweight = q_sub(t_weight,t_theory);
 				$('#txtTheory').val(t_theory);
 				$('#txtDiffweight').val(t_diffweight);
-				
-				$('#txtTranmoney').val(round(q_mul(q_float('txtWeight'), q_float('txtPrice')), 0));
+				var price = dec($('#txtPrice').val());
+				var addMoney = dec(q_getPara('sys.tranadd'));
+				var addMul = dec($('#txtTranadd').val());
+				var total = 0
+				var transtyle = $.trim($('#cmbTranstyle').val());
+				if(transtyle=='4' || transtyle=='9'){
+					price = 0;
+				}
+				total = q_add(q_mul(addMoney,addMul),price);
+				q_tr('txtTranmoney', total);
 			}
 
 			function refresh(recno) {
@@ -997,20 +1014,24 @@
 						<td style="display:none;" class="td2"><input id="btnStoreImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td class="td2"><input id="txtPrice" type="text" class="txt c5 num"/></td>
-						<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-						<td class="td2"><input id="txtTranmoney" type="text" class="txt c5 num"/></td>
-					</tr>
-					<tr>
 						<td class="td1"><span> </span><a id='lblWeight' class="lbl"> </a></td>
 						<td class="td2"><input id="txtWeight" type="text" class="txt c5 num"/></td>
+						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td class="td2"><input id="txtPrice" type="text" class="txt c5 num"/></td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblTheory' class="lbl"> </a></td>
 						<td class="td2"><input id="txtTheory" type="text" class="txt c5 num"/></td>
+						<td class="td1"><span> </span><a id='lblTranadd' class="lbl"> </a></td>
+						<td class="td2"><input id="txtTranadd" type="text" class="txt c5 num"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDiffweight' class="lbl"> </a></td>
 						<td class="td2"><input id="txtDiffweight" type="text" class="txt c5 num"/></td>
+						<td class="td1"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+						<td class="td2"><input id="txtTranmoney" type="text" class="txt c5 num"/></td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblCngno' class="lbl"> </a></td>
 						<td class="td2"><input id="txtCngno" type="text" class="txt c1"/></td>
 					</tr>
