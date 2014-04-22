@@ -61,6 +61,9 @@
 						type : '5',
 						name : 'xgroupano', //[13]
 						value : xgroupanoStr.split(',')
+					}, {
+						type : '6',
+						name : 'style' //[14]
 					}]
 				});
 				q_popAssign();
