@@ -19,7 +19,7 @@
 			var q_name = "cng";
 			var q_readonly = ['txtNoa','txtTgg','txtCardeal','txtStorein','txtStore','txtNamea', 'txtWorker', 'txtWorker2', 'txtTranstart', 'txtAddr'];
 			var q_readonlys = [];
-			var bbmNum = [['txtPrice', 10, 0, 1], ['txtTranmoney', 15, 0, 1]];
+			var bbmNum = [['txtPrice', 10, 0, 1], ['txtTranmoney', 15, 0, 1], ['txtTranadd', 15, 2, 1]];
 			var bbsNum = [['txtMount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -88,6 +88,9 @@
 				});
 				$('#cmbTranstyle').change(function(){
 					GetTranPrice();
+				});
+				$('#txtTranadd').change(function(){
+					sum();
 				});
 			}
 
@@ -177,6 +180,7 @@
 						}else{
 							$('#txtPrice').val(0);
 						}
+						sun();
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -414,13 +418,16 @@
 			}
 
 			function sum() {
-				var total = 0;
-				for (var j = 0; j < q_bbsCount; j++) {
-					total += dec($('#txtMount_' + j).val());
+				var price = dec($('#txtPrice').val());
+				var addMoney = dec(q_getPara('sys.tranadd'));
+				var addMul = dec($('#txtTranadd').val());
+				var total = 0
+				var transtyle = $.trim($('#cmbTranstyle').val());
+				if(transtyle=='4' || transtyle=='9'){
+					price = 0;
 				}
-				
-				if (dec($('#txtPrice').val())!=0)
-					q_tr('txtTranmoney', total * dec($('#txtPrice').val()));
+				total = q_add(q_mul(addMoney,addMul),price);
+				q_tr('txtTranmoney', total);
 			}
 
 		</script>
@@ -655,6 +662,14 @@
 						<td class='td1'><span> </span><a id="lblSssno" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtSssno" type="text" class="txt c1"/></td>
 						<td class="td3" colspan="2"><input id="txtNamea" type="text" class="txt c1"/></td>
+						<td class='td5'><span> </span><a id="lblTranadd" class="lbl" > </a></td>
+						<td class="td6"><input id="txtTranadd" type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td class='td5'><span> </span><a id="lblTranmoney" class="lbl" > </a></td>
 						<td class="td6"><input id="txtTranmoney" type="text" class="txt c1 num"/></td>
 					</tr>
