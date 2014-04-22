@@ -208,7 +208,7 @@
 		            tc = tc + dec($('#txtCmoney_' + j).val());
 		            
 		            var t_fmoney=(dec($('#txtDmoney_' + j).val())-dec($('#txtCmoney_' + j).val()))*dec($('#txtFloata_' + j).val())
-		            q_tr('txtFmoney_'+j, t_fmoney, 4);
+		            q_tr('txtFmoney_'+j, Math.abs(t_fmoney), 4);
 		        } // j
 
 		        q_tr('txtDmoney', td, t_prec);
@@ -503,6 +503,11 @@
 
 		        if (r_rank < 8 && $('#chkLok')[0].checked)
 		            $('#tbbs').hide();
+		            
+				if(q_getPara('sys.isAcccUs')=='1')
+		           	$('.us').show();
+				else
+					$('.us').hide();
 		    }
 
 		    function readonly(t_para, empty) {
