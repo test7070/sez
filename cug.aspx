@@ -21,7 +21,7 @@
             var q_name = "cug";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtKdate'];
             var q_readonlys = ['txtProcess','txtProductno','txtProduct','txtSpec','txtStyle','txtHours','txtDays','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours'];
-            var bbmNum = [];
+            var bbmNum = [['txtGen', 10, 0, 1]];
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
@@ -362,16 +362,18 @@
 	            						}
 	            					}
 	            				}
+	            				
+	            				var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
+	            				
 	            				if(dhours>0)
-	            					dhours=q_sub($('#txtGen').val(),dhours);
-								
+	            					dhours=q_sub(t_gen,dhours);	
 								
 								//處理開工日
-								var days=Math.floor(q_div(dhours+dec($('#txtHours').val())-tt_hours,dec($('#txtGen').val())));
+								var days=Math.floor(q_div(dhours+dec($('#txtHours').val())-tt_hours,t_gen));
 								$('#txtCuadate_'+b_seq).val(q_cdn($('#txtDatea').val(),days));
 								sum();
 								//處理完工日
-								days=Math.floor(q_div(q_add(q_sub(dec($('#txtHours').val()),tt_hours),dhours),dec($('#txtGen').val())));
+								days=Math.floor(q_div(q_add(q_sub(dec($('#txtHours').val()),tt_hours),dhours),t_gen));
 								$('#txtUindate_'+b_seq).val(q_cdn($('#txtDatea').val(),days));
 								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
 							}else{
@@ -395,6 +397,7 @@
             
             function thours() {//處理累計工時
             	var dhours=0,tt_hours=0;
+            	var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
             	for (var i = 0; i < q_bbsCount; i++) {
             		if($('#chkIssel_'+i).prop('checked')){
 	            		var t_hours=0;
@@ -405,7 +408,7 @@
 	            		}
 	            		$('#txtThours_'+i).val(t_hours);
 	            		if(!$('#txtNos_'+i).attr('disabled'))
-	            			$('#txtDhours_'+i).val(q_sub(q_float('txtGen'),(q_add(q_sub(t_hours,tt_hours),(q_sub(q_float('txtGen'),dhours))))%q_float('txtGen')));
+	            			$('#txtDhours_'+i).val(q_sub(t_gen,(q_add(q_sub(t_hours,tt_hours),(q_sub(t_gen,dhours))))%t_gen));
 	            		else{
 	            			dhours=dec($('#txtDhours_'+i).val());
 	            			tt_hours=q_add(tt_hours,q_float('txtHours_'+i));
