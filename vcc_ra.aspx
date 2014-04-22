@@ -226,7 +226,9 @@
 				t_where += " and post=N'" + (Post2.length>0?Post2:Post) + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
-				t_where += " and carspecno=N'" + Carspecno + "' ";
+				if(Carspecno.length > 0){
+					t_where += " and carspecno=N'" + Carspecno + "' ";
+				}
 				t_where += ' ^^';
 				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
 			}

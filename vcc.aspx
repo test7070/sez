@@ -248,7 +248,9 @@
 				t_where += " and transtartno=N'" + Transtartno + "' ";
 				t_where += " and cardealno=N'" + Cardealno + "' ";
 				t_where += " and transtyle=N'" + TranStyle + "' ";
-				t_where += " and carspecno=N'" + Carspecno + "' ";
+				if(Carspecno.length > 0){
+					t_where += " and carspecno=N'" + Carspecno + "' ";
+				}
 				t_where += ' ^^';
 				q_gt('addr', t_where, 0, 0, 0, "GetTranPrice");
 			}
@@ -1222,14 +1224,14 @@
 						<td class="td5"><select id="cmbTrantype" style="width: 100%;"> </select></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblAddr" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 						<td class="td8"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblAddr2' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblAddr2' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4'>
 						<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
