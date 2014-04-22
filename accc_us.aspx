@@ -70,6 +70,11 @@
 		            q_cmbParse("combAccc1", q_getPara('acc.typea'));
 		            q_cmbParse("cmbCoin", q_getPara('sys.coin'),'s');
 		            // 需在 main_form() 後執行，才會載入 系統參數
+		            if(q_getPara('sys.isAcccUs')=='1')
+		            	$('.us').show();
+		            else
+		            	$('.us').hide();
+		            
 
 		            t_prec = q_getPara('accc.prec');
 		            t_prec = q_trv(t_prec);
@@ -201,6 +206,9 @@
 		            //t_accc8 = dec($('#txtAccc8_' + j).val());
 		            td = td + dec($('#txtDmoney_' + j).val());
 		            tc = tc + dec($('#txtCmoney_' + j).val());
+		            
+		            var t_fmoney=(dec($('#txtDmoney_' + j).val())-dec($('#txtCmoney_' + j).val()))*dec($('#txtFloata_' + j).val())
+		            q_tr('txtFmoney_'+j, t_fmoney, 4);
 		        } // j
 
 		        q_tr('txtDmoney', td, t_prec);
@@ -299,37 +307,6 @@
 			                    $(this).val(s1 + '.');
 			            });
 	
-			            //                $('#txtAccc8_' + j).focusout(function () { sum(); });
-	
-			            //                $('#txtAccc4_' + j).focus(function () {
-			            //                    var s1 = $.trim($(this).val());
-			            //                    if (s1.length == 0) {
-			            //                        $(this).val(dcType[0]);
-			            //                        $(this).select(); // ionStart = 0;
-			            //                    }
-			            //                });
-			            //                $('#txtAccc4_' + j).change(function () {
-			            //                    var s1 = $(this).val();
-	
-			            //                    if (s1.toLowerCase() == 'd')
-			            //                        $(this).val(dcType[0]);
-	
-			            //                    if (s1.toLowerCase() == 'c')
-			            //                        $(this).val(dcType[1]);
-	
-			            //                    s1 = $(this).val();
-	
-			            //                    if (s1 != dcType[0] && s1 != dcType[1])
-			            //                        $(this).val(dcType[0]);
-	
-			            //                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-			            //                    q_bodyId($(this).attr('id'));
-			            //                    b_seq = t_IdSeq;
-			            //                    changeDC();
-	
-			            //                    sum();
-			            //                });
-	
 			            $('#txtDmoney_' + j).focusout(function () {
 			                sum();
 			                var t_type = $('#txtAccc1').val();
@@ -341,10 +318,9 @@
 			                var t_type = $('#txtAccc1').val();
 			                if (t_type == '3')
 			                    diff($(this));
-	
 			            });
+			            
 			            $('#txtAccc7_' + j).bind('keyup', function (event) {
-	
 			                if (event.keyCode == 13) {
 			                    t_IdSeq = -1;
 			                    /// 要先給  才能使用 q_bodyId()
@@ -359,28 +335,11 @@
 			                        }
 			                }
 			            });
-			            //                $('#txtAccc7_' + j).focusout(function () {
-			            //                    var s1 = $(this).val();
-			            //                    if (s1.length == 1 && s1 == "=") {
-			            //                        t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-			            //                        q_bodyId($(this).attr('id'));
-			            //                        b_seq = t_IdSeq;
-			            //                        if (b_seq > 0) {
-			            //                            var i = b_seq - 1;
-			            //                            var s1 = $('#txtAccc7_' + i).val();
-			            //                            $('#txtAccc7_' + b_seq).val(s1);
-			            //                        }
-			            //                    }
-	
-			            //                    if (s1.length < 6 && s1.substr(0, 1) == "-") {
-			            //                        t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-			            //                        q_bodyId($(this).attr('id'));
-			            //                        b_seq = t_IdSeq;
-	
-			            //                        q_gt('qphr', " where=^^noa='" + $.trim(s1.substr(1)) + "'^^", 0, 1, 0, '', '');
-			            //                    }
-			            //                });
-	
+			            
+						$('#txtFloata_' + j).focusout(function () {
+			            	sum();
+			            });
+			           
 			            $('#btnQphr_' + j).click(function (e) {
 			                t_IdSeq = -1;
 			                q_bodyId($(this).attr('id'));
@@ -561,6 +520,11 @@
 						return false;
 					}	
 	            }
+	            
+	            if(q_getPara('sys.isAcccUs')=='1')
+		           	$('.us').show();
+				else
+					$('.us').hide();
 		    }
 
 		    function btnMinus(id) {
@@ -823,9 +787,9 @@
 						<td align="center" style="width:27%;"><a id='lblAccc7'> </a></td>
 						<td align="center" style="width:9%;"><a id='lblDmoney_s'> </a></td>
 						<td align="center" style="width:9%;"><a id='lblCmoney_s'> </a></td>
-						<td align="center" style="width:6%;"><a id='lblCoin'> </a></td>
-						<td align="center" style="width:6%;"><a id='lblFloata'> </a></td>
-						<td align="center" style="width:9%;"><a id='lblFmoney'> </a></td>
+						<td align="center" style="width:6%;" class="us"><a id='lblCoin'> </a></td>
+						<td align="center" style="width:6%;" class="us"><a id='lblFloata'> </a></td>
+						<td align="center" style="width:9%;" class="us"><a id='lblFmoney'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -848,9 +812,9 @@
 							<input class="txt" id="txtCmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/>
 							<input class="txt" id="txtNoq.*" type="hidden" style="width:90%;" />
 						</td>
-						<td ><select id="cmbCoin.*" style="width: 97%;font-size: medium;"> </select></td>
-						<td ><input class="txt" id="txtFloata.*" type="text" maxlength='90' style="width:97%;text-align:right;"/></td>
-						<td ><input class="txt" id="txtFmoney.*" type="text" maxlength='90' style="width:97%;text-align:right;"/></td>
+						<td class="us"><select id="cmbCoin.*" style="width: 97%;font-size: medium;"> </select></td>
+						<td class="us"><input class="txt" id="txtFloata.*" type="text" maxlength='90' style="width:97%;text-align:right;"/></td>
+						<td class="us"><input class="txt" id="txtFmoney.*" type="text" maxlength='90' style="width:97%;text-align:right;"/></td>
 					</tr>
 				</table>
 			</div>
