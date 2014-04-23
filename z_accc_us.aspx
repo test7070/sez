@@ -79,7 +79,7 @@
                     }, {/*4 [9]*/
                         type : '8',
                         name : 'xpart',
-                        value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
+                        value : ('zzzzz@無部門'+(t_data.data['part'].length==0?'':',')+t_data.data['part']).split(',')
                     }]
                 });
                 
