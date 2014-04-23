@@ -33,6 +33,12 @@
 					}, {
 						type : '1', //[2][3]
 						name : 'xdate'
+					}, {
+						type : '2', //[4][5]
+						name : 'xstationno',
+						dbf : 'station',
+						index : 'noa,station',
+						src : 'station_b.aspx'
 					}]
 				});
 				q_langShow();
@@ -53,13 +59,17 @@
 						$('#txtXdate1').val(q_date());
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
-					var t_xbdate='#non',t_xedate='#non';
+					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',t_xestationno='#non';
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
 						t_xedate=encodeURI($('#txtXdate2').val());
+					if(!emp($('#txtXstationno1a').val()))
+						t_xbstationno=encodeURI($('#txtXstationno1a').val());
+					if(!emp($('#txtXstationno2a').val()))
+						t_xestationno=encodeURI($('#txtXstationno2a').val());
 					Lock();
-					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';');
+					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';');
 				});
 			}
 
@@ -113,7 +123,7 @@
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stationno'] + '</td>';//列出工作站
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stations'] + '</td>';//列出工作站
 										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['hours']) + '</td>';//列出工作站
-										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['rate']) + '%</td>';//列出工作站
+										t_TableStr = t_TableStr + '<td class="num">' + round(dec(as[k]['rate']),3) + '%</td>';//列出工作站
 										for(var j=1;j<=maxCount;j++){
 											var thisVal = dec(as[k]['v'+padL(j,'0',2)]);
 											t_TableStr = t_TableStr + '<td class="num">' + round(thisVal,3) + '</td>';
