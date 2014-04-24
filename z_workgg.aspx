@@ -21,8 +21,9 @@
 			}
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_workgg');
+				q_gt('uccga', '', 0, 0, 0, "");
 			});
+			var xgroupanoStr = '';
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workgg',
@@ -33,7 +34,31 @@
 					}, {
 						type : '1', //[2][3]
 						name : 'xdate'
+					}, {
+						type : '2', //[4][5]
+						name : 'xstationno',
+						dbf : 'station',
+						index : 'noa,station',
+						src : 'station_b.aspx'
+					}, {
+						type : '8', //[6]
+						name : 'xshowdiff',
+						value : ('1@僅顯示差異>+-0.5').split(',')
+					}, {
+						type : '5', //[7]
+						name : 'xgroupano',
+						value : xgroupanoStr.split(',')
 					}]
+				});
+				$('#q_report').click(function(){
+					var t_index = $('#q_report').data('info').radioIndex;
+					if(t_index==0){
+						$('.prt').hide();
+						$('#chart,#chartCtrl').show();
+					}else{
+						$('.prt').show();
+						$('#chart,#chartCtrl').hide();
+					}
 				});
 				q_langShow();
 				q_popAssign();
@@ -53,20 +78,37 @@
 						$('#txtXdate1').val(q_date());
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
-					var t_xbdate='#non',t_xedate='#non';
+					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',t_xestationno='#non';
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
 						t_xedate=encodeURI($('#txtXdate2').val());
+					if(!emp($('#txtXstationno1a').val()))
+						t_xbstationno=encodeURI($('#txtXstationno1a').val());
+					if(!emp($('#txtXstationno2a').val()))
+						t_xestationno=encodeURI($('#txtXstationno2a').val());
 					Lock();
-					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';');
+					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';');
 				});
 			}
 
 			function q_boxClose(s2) {
 			}
 
-			function q_gtPost(s2) {
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'uccga':
+						var as = _q_appendData("uccga", "", true);
+						var t_item = "#non@全部";
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+							}
+						}
+						xgroupanoStr = t_item;
+						q_gf('', 'z_workgg');
+						break;
+				}
 			}
 			
 			function q_funcPost(t_func, result) {
@@ -113,7 +155,7 @@
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stationno'] + '</td>';//列出工作站
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stations'] + '</td>';//列出工作站
 										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['hours']) + '</td>';//列出工作站
-										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['rate']) + '%</td>';//列出工作站
+										t_TableStr = t_TableStr + '<td class="num">' + round(dec(as[k]['rate']),3) + '%</td>';//列出工作站
 										for(var j=1;j<=maxCount;j++){
 											var thisVal = dec(as[k]['v'+padL(j,'0',2)]);
 											t_TableStr = t_TableStr + '<td class="num">' + round(thisVal,3) + '</td>';
@@ -165,6 +207,25 @@
 			.tWidth{
 				width:70px;
 			}
+			.q_report .report {
+				position: relative;
+				width: 440px;
+				margin-right: 2px;
+				border: 1px solid #76a2fe;
+				background: #EEEEEE;
+				float: left;
+				border-radius: 5px;
+			}
+			.q_report .report div {
+				display: block;
+				float: left;
+				width: 220px;
+				height: 30px;
+				font-size: 14px;
+				font-weight: normal;
+				cursor: pointer;
+			}
+
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
