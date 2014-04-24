@@ -102,43 +102,43 @@
 				font-weight: bold;
 				BACKGROUND-COLOR: #76a2fe
 			}
+			.c1{
+				width:215px;
+				font-size:medium;
+			}
 		</style>
 	</head>
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
-			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
+					<td class='seek' style="width:20%;"><a id='lblNoa'> </a></td>
+					<td><input class="txt c1" id="txtNoa" type="text"/></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblProduct'> </a></td>
+					<td><input class="txt c1" id="txtProduct" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblTypea'> </a></td>
+					<td><select id="cmbTypea" class="c1" ></select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblGroupano'> </a></td>
+					<td><select id="cmbGroupano" class="c1" ></select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblProcessno'> </a></td>
 					<td>
-					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+						<input class="txt" id="txtProcessno" type="text" style="width:90px; font-size:medium;" />
+						<input class="txt" id="txtProcess" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblProduct'> </a></td>
+					<td class='seek' style="width:20%;"><a id='lblTggno'> </a></td>
 					<td>
-					<input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
-					<td><select id="cmbTypea" style="width:215px; font-size:medium;" ></select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblGroupano'> </a></td>
-					<td><select id="cmbGroupano" style="width:215px; font-size:medium;" ></select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblProcessno'> </a></td>
-					<td>
-					<input class="txt" id="txtProcessno" type="text" style="width:90px; font-size:medium;" />
-					<input class="txt" id="txtProcess" type="text" style="width:115px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTggno'> </a></td>
-					<td>
-					<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />
-					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+						<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />
+						<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
