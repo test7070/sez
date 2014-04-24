@@ -27,7 +27,7 @@
 				$('#btnSearch2').click(function(){
 					var t_noa = $.trim($('#txtNoa').val());
 					if(t_noa.length > 0){
-						var t_where = "where=^^ noa='" + t_noa + "' ^^ ";
+						var t_where = "where=^^ left(noa,"+t_noa.length+")='" + t_noa + "' ^^ ";
 						q_gt('uca', t_where, 0, 0, 0, "SeekNoaInUca", r_accy);
 					}else{
 						$('#btnSearch').click();
