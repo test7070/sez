@@ -67,7 +67,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd]];
-				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd]];
+				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('workg.stype'));	
 
@@ -102,7 +102,7 @@
 								t_where1=t_where1+"b.custno='"+$('#txtCustno').val()+"' and ";
 							if(!emp($('#txtProductno').val()))
 								t_where1=t_where1+"a.productno='"+$('#txtProductno').val()+"' and ";	
-							t_where1=t_where1+"a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by a.productno ^^";
+							t_where1=t_where1+"a.enda!='1' and (a.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and a.productno in (select noa from uca) and charindex(a.noa+'-'+a.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 group by a.productno,a.style ^^";
 
 							var t_where2 = "where[2]=^^e.enda!='1' and e.productno=a.productno and (e.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and e.productno in (select noa from uca) and charindex(e.noa+'-'+e.no2,isnull((select ordeno+',' from view_workgs where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')),''))=0 ^^";
 							var t_where3 = "where[3]=^^ (c.datea between '" + $('#txtBdate').val() + "' and '" + $('#txtEdate').val() + "') and d.stype='4' and c.productno=a.productno and c.enda!='1' ^^"
@@ -260,6 +260,11 @@
 				
 				$('#btnWork').click(function() {
 					if (q_cur != 1 && q_cur != 2) {
+						if(!emp($('#txtOrdbno').val())){
+							alert('製令單已請購-禁止重新產生製令單!!');
+							return;
+						}
+						
 						var worked = false;
 						for (var i = 0; i < q_bbsCount; i++) {
 							if (!emp($('#txtWorkno_' + i).val()))
@@ -337,9 +342,9 @@
 								as[i].rworkdate = '';
 								as[i].ordeno = as[i].ordeno.substr(0, as[i].ordeno.length - 1);
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare,txtStyle'
 							, as.length, as
-							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
+							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare,style', 'txtProductno');
 							change_field();
 						} else {
 							alert('無訂單資料!!。');
@@ -478,15 +483,16 @@
 										$('#txtSaleforecast_' + i).val(as[j].saleforecast);
 										$('#txtPrepare_' + i).val(as[j].prepare);
 										$('#txtUnprepare_' + i).val(as[j].unprepare);
+										$('#txtStyle_' + i).val(as[j].style);
 										as.splice(j, 1);
                                     	j--;
 										break;	
 									}
 								}
 							}
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtRworkdate,txtProductno,txtProduct,txtStyle,txtUnmount,txtOrdemount,txtPlanmount,txtStkmount,txtIntmount,txtPurmount,txtAvailmount,txtMount,txtOrdeno,txtStationno,txtStation,txtSaleforecast,txtPrepare,txtUnprepare,txtStyle'
 							, as.length, as
-							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare', 'txtProductno');
+							, 'rworkdate,productno,product,style,unmount,ordemount,planmount,stkmount,inmount,purmount,availmount,bornmount,ordeno,stationno,station,saleforecast,prepare,unprepare,style', 'txtProductno');
 							change_field();
 						} else {
 							//if(!ordedate)
@@ -625,7 +631,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['productno']) {
+				if ((dec(as['forecastprepare'])+dec(as['mount']))==0) { ///0424 改成數量為0 就不儲存  !as['productno']
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -675,7 +681,7 @@
 						$('.orde').attr('disabled', 'disabled');
 						$('.odm').val('');
 					}
-					$('.dbbs').css('width','3300px');
+					$('.dbbs').css('width','3200px');
 					$('#lblMount_s').css('color','white');
 				}else{
 					$('.sf').hide();
@@ -687,7 +693,7 @@
 						$('.safo').attr('disabled', 'disabled');
 						$('.sam').val('');
 					}
-					$('.dbbs').css('width','2850px');
+					$('.dbbs').css('width','2750px');
 					$('#lblMount_s').css('color','red');
 				}
 			}
@@ -1091,7 +1097,7 @@
 				font-size: medium;
 			}
 			.dbbs {
-				width: 3200px;
+				width: 3100px;
 			}
 			.dbbs .tbbs {
 				margin: 0;
@@ -1268,8 +1274,11 @@
 						<td style="width:80px;"><a id='lblPurmount_s'> </a></td>
 						<!--<td style="width:80px;"><a id='lblBornmount_s'> </a></td>-->
 						<td style="width:120px;"><a id='lblSalemount_s'> </a></td>
-						<td style="width:100px;"><a id='lblPlanmount_s'> </a></td>
-						<td style="width:110px;"><a id='lblMount_s' style="color: red;font-weight: bold;"> </a></td>
+						<td style="width:100px;display: none;"><a id='lblPlanmount_s'> </a></td>
+						<td style="width:110px;">
+							<a id='lblMount_s' style="color: red;font-weight: bold;"> </a>
+							/<a id='lblUindate_s'> </a>
+						</td>
 						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
 						<td style="width:130px;"><a id='lblStation_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
@@ -1315,8 +1324,11 @@
 						<td><input id="txtPurmount.*" type="text" class="txt c1 num orde"/></td>
 						<!--<td><input id="txtBornmount.*" type="text" class="txt c1 num"/></td>-->
 						<td><input id="txtSalemount.*" type="text" class="txt c1 num orde"/></td>
-						<td><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
-						<td><input id="txtMount.*" type="text" class="txt c1 num orde odm"/></td>
+						<td style="display: none;"><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
+						<td>
+							<input id="txtMount.*" type="text" class="txt c1 num orde odm"/>
+							<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>
+						</td>
 						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
 						<td>
 							<input id="txtStationno.*" type="text" class="txt c1" style="width: 70%"/>

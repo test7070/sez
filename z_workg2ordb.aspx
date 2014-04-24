@@ -97,7 +97,9 @@
 					$('#txtWorkgno1').val(wParent.getElementById("txtNoa").value);
 					$('#txtWorkgno2').val(wParent.getElementById("txtNoa").value);
 					if(wParent.getElementById("txtEdate").value!='')
-					$('#txtEnddate').val(wParent.getElementById("txtEdate").value);
+						$('#txtEnddate').val(wParent.getElementById("txtEdate").value);
+					if(wParent.getElementById("txtSfedate").value!='' && wParent.getElementById("cmbStype").value=='3')
+						$('#txtEnddate').val(wParent.getElementById("txtSfedate").value);
 				}
                 
                 var btn = document.getElementById('btnOk');
@@ -278,10 +280,17 @@
 						if (as[0] != undefined) {
 							alert('未產生簽核。');
 						}else{
+							q_gt('orda', "where=^^ordbno!='' and workgno between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda_ordbno", r_accy);
+						}
+						break;
+					case 'orda_ordbno':
+						var as = _q_appendData("orda", "", true);
+						if (as[0] != undefined) {
+							alert('已產生請購。');
+						}else{
 							alert('簽核未核准。');
 						}
 						break;
-						
 				}
 			}
 			function q_funcPost(t_func, result) {

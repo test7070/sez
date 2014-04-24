@@ -21,7 +21,7 @@
 			var q_readonlys = ['txtNoq'];
 			var bbmNum = [];
 			var bbsNum = [['txtGmount', 15, 2, 1],['txtStkmount', 15, 2, 1],['txtSchmount', 15, 2, 1],['txtSafemount', 15, 2, 1],
-									['txtNetmount', 15, 2, 1],['txtFmount', 15, 2, 1],['txtMount', 15, 2, 1]];
+									['txtNetmount', 15, 2, 1],['txtFmount', 15, 2, 1],['txtMount', 15, 2, 1],['txtWmount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -127,6 +127,7 @@
 					}
 				}
 				_bbsAssign();
+				q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
 			}
 
 			function btnIns() {
@@ -171,6 +172,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -180,6 +182,7 @@
 				} else {
 
 				}
+				q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
 			}
 
 			function btnMinus(id) {
@@ -400,7 +403,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1400px;">
+		<div class='dbbs' style="width: 1585px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:45px;">
@@ -408,8 +411,10 @@
 					</td>
 					<td align="center" style="width:160px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
+					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:55px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblGmount_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblWmount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblStkmount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblSchmount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblSafemount_s'> </a></td>
@@ -430,8 +435,10 @@
 						<input class="txt c1" id="txtProduct.*" type="text" />
 						<input class="txt c1" id="txtSpec.*" type="text" />
 					</td>
+					<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text" /></td>
 					<td align="center"><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt num c1" id="txtGmount.*" type="text" /></td>
+					<td><input class="txt num c1" id="txtWmount.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtStkmount.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtSchmount.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtSafemount.*" type="text" /></td>

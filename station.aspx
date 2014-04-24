@@ -20,13 +20,13 @@
 			var q_name = "station";
 			var q_readonly = [];
 			var q_readonlys = [];
-			var bbmNum = [];
+			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
-			brwCount2 = 6;
+			brwCount2 = 7;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
@@ -385,23 +385,23 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl"> </a></td>
 						<td class="td2"><input id="txtStation"  type="text" class="txt c1"/></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblFactory' class="lbl btn"> </a></td>
@@ -409,8 +409,8 @@
 							<input id="txtFactoryno"  type="text" class="txt c2"/>
 							<input id="txtFactory"  type="text" class="txt c3"/>
 						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStoreno' class="lbl btn"> </a></td>
@@ -418,26 +418,33 @@
 							<input id="txtStoreno"  type="text" class="txt c2"/>
 							<input id="txtStore"  type="text" class="txt c3"/>
 						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblHours' class="lbl"> </a></td>
 						<td class="td2"><input id="txtHours"  type="text" class="txt c1 num"/></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWages' class="lbl"> </a></td>
 						<td class="td2"><input id="txtWages"  type="text" class="txt c1 num"/></td>
 						<td class="td3">人時</td>
-						<td class="td4"></td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblGen' class="lbl"> </a></td>
 						<td class="td2"><input id="txtGen"  type="text" class="txt c1 num"/></td>
 						<td class="td3">機時</td>
-						<td class="td4"></td>
+						<td class="td4"> </td>
+						
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMount"  type="text" class="txt c1 num"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 				</table>
 			</div>

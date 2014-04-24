@@ -19,9 +19,9 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "cug";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtKdate'];
-            var q_readonlys = ['txtProcess','txtProductno','txtProduct','txtSpec','txtStyle','txtHours','txtDays','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours'];
-            var bbmNum = [['txtGen', 10, 0, 1]];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtKdate','txtSmount'];
+            var q_readonlys = ['txtProductno','txtProduct','txtSpec','txtStyle','txtDays','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours'];
+            var bbmNum = [['txtSmount', 10, 0, 1]];
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx']
-            ,['txtStationno', 'lblStation', 'station', 'noa,station,gen,gen', 'txtStationno,txtStation,txtGen,txtGenorg', 'station_b.aspx']
+            ,['txtStationno', 'lblStation', 'station', 'noa,station,smount,gen,gen', 'txtStationno,txtStation,txtSmount,txtGen,txtGenorg', 'station_b.aspx']
             ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -61,7 +61,11 @@
 						$('#txtBdate').val($('#txtDatea').val());
 					}
 				});
-                
+				
+				$('#btnCugt').click(function() {
+					q_box("cugt.aspx?;;;noa='" + $('#txtNoa').val() + "' and stationno='"+$('#txtStationno').val()+"'", 'cugt', "60%", "65%", q_getMsg("btnCugt"));
+				});
+				
                 $('#btnWork').click(function() {
                 	if(emp($('#txtDatea').val())){
                 		alert(q_getMsg('lblDatea')+'請先填寫。');
@@ -115,6 +119,121 @@
                 		q_gt('cug', "where=^^datea='"+$('#txtDatea').val()+"' and stationno='"+$('#txtStationno').val()+"' and noa!='"+$('#txtNoa').val()+"'^^", 0, 0, 0, "cug_chk", r_accy);
                 	}
                 });
+                
+                $('#btnCug').click(function() {
+                	$('#btnCug').attr('disabled', 'disabled');
+                	var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
+                	//取得上次的排程剩餘時數(計算已工作時數)與日期，排除工時
+                	var dhours=0,ddate=$('#txtDatea').val(),tt_hours=0;
+                	for (var i = 0; i < q_bbsCount; i++) {
+                		//判斷非本次的noq
+                		if($('#txtNos_'+i).attr('disabled') && $('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','')){
+                			dhours=dec($('#txtDhours_'+i).val());
+                			ddate=$('#txtUindate_'+i).val();
+                			tt_hours=q_add(tt_hours,q_float('txtHours_'+i));
+                			//累計工時
+	                		$('#txtThours_'+i).val(tt_hours);
+                		}
+                	}
+                	dhours=q_sub(t_gen,dhours)%t_gen;//非本次排程已工作時數
+                	
+                	for (var i = 0; i < q_bbsCount; i++) {
+                		var t_hours=0;//工作時數
+                		//本次排程
+                		if($('#chkIssel_'+i).prop('checked')&&!$('#txtNos_'+i).attr('disabled') && $('#txtNoq_'+i).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','')){
+	                		for (var j = 0; j < q_bbsCount; j++) {	
+	                			if($('#chkIssel_'+j).prop('checked') && $('#txtNoq_'+j).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','') && $('#txtNoq_'+i).val()>$('#txtNoq_'+j).val()){
+			            				t_hours=q_add(t_hours,q_float('txtHours_'+j));//已工作時數(不含該行排程)
+			            		}
+	                		}
+	                		//開工日
+	                		var days=Math.floor(q_div(q_add(t_hours,dhours),t_gen));
+	                		$('#txtCuadate_'+i).val(q_cdn(ddate,days));
+	                		//完工日
+	                		days=Math.floor(q_div(q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val())),t_gen));
+	                		$('#txtUindate_'+i).val(q_cdn(ddate,days));
+	                		//累計工時
+	                		$('#txtThours_'+i).val(q_add(q_add(t_hours,dec($('#txtHours_'+i).val())),tt_hours));
+	                		//剩餘時數
+	                		$('#txtDhours_'+i).val(q_sub(t_gen,q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val()))%t_gen));
+                		}
+                	}
+                	
+                	//排序處理
+                	//儲存有排序的資料,清除整個欄位
+                	var t_bbs=new Array();
+                	for (var i = 0; i < q_bbsCount; i++) {
+                		if($('#chkIssel_'+i).prop('checked')){
+                			var t_bbss=new Array();
+                			for (var j = 0; j < fbbs.length; j++) {
+                				t_bbss[fbbs[j]]=fbbs[j].substr(0,3)=='chk'?$('#'+fbbs[j]+'_'+i).prop('checked'):$('#'+fbbs[j]+'_'+i).val();
+                			}
+                			t_bbs.push(t_bbss);
+                		}
+						$('#btnMinus_'+i).click();
+						//解除disabled
+						for (var j = 0; j < fbbs.length; j++) {
+							if($.inArray(fbbs[j],q_readonlys)==-1){
+								$('#'+fbbs[j]+'_'+i).removeAttr('disabled');
+							}
+						}
+					}
+					
+                	//最先做的放前面(依noq)
+                	for (var i = 0; i < q_bbsCount; i++) {
+                		var minnoq='',min_j=0;//目前最小noq,與資料位置
+                		for (var j = 0; j < t_bbs.length; j++) {
+                			if(minnoq==''){
+                				minnoq=t_bbs[j].txtNoq
+                				min_j=0;
+                			}else{
+                				if(minnoq>t_bbs[j].txtNoq){
+                					minnoq=t_bbs[j].txtNoq;
+                					min_j=j;
+                				}
+                			}
+                		}
+                		for (var j = 0; j < fbbs.length; j++) {
+                			if(fbbs[j].substr(0,3)=='chk')
+                				$('#'+fbbs[j]+'_'+i).prop('checked',t_bbs[min_j][fbbs[j]]);
+                			else
+                				$('#'+fbbs[j]+'_'+i).val(t_bbs[min_j][fbbs[j]]);
+                		}
+                		//移除最小資料
+                		t_bbs.splice(min_j, 1);
+                		//如果暫存沒資料就跳出
+                		if(t_bbs.length==0)
+                			break;
+					}
+					//重新鎖定資料
+                	for (var i = 0; i < q_bbsCount; i++) {
+						if($('#chkIssel_'+i).prop('checked')){	//判斷是否被選取
+							$('#trSel_'+ i).addClass('chkIssel');//變色
+						}else{
+							$('#trSel_'+i).removeClass('chkIssel');//取消變色
+						}
+								
+						if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
+							for(var j=0;j<fbbs.length;j++){
+								$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
+							}
+							$('#btnMinus_'+i).attr('disabled', 'disabled');
+						}
+						$('#txtCuadate_'+i).attr('disabled', 'disabled');
+						$('#txtUindate_'+i).attr('disabled', 'disabled');
+						
+						if(!emp($('#txtWorkno_'+i).val())){
+							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						}else{
+							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						}
+					}
+                	sum();
+                	$('#btnCug').removeAttr('disabled');
+                });
+                
             }
 
             function q_boxClose(s2) {
@@ -171,7 +290,6 @@
                 					as[i].noq='';
                 			}
                 			
-                			
                 			q_gridAddRow(bbsHtm, 'tbbs'
 							,'txtNos,txtNoq,chkIssel,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtDays,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtDhours', as.length, as,
 							'nos,noq,issel,processno,process,productno,product,spec,style,mount,hours,days,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,dhours','txtProductno');
@@ -186,7 +304,11 @@
 									for(var j=0;j<fbbs.length;j++){
 										$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
 									}
+									$('#btnMinus_'+i).attr('disabled', 'disabled');
 								}
+								
+								$('#txtCuadate_'+i).attr('disabled', 'disabled');
+								$('#txtUindate_'+i).attr('disabled', 'disabled');
 								
 							}
 							sum();
@@ -221,7 +343,7 @@
                 //處理有排程但沒有nos的資料
                 for (var i = 0; i < q_bbsCount; i++) {
                 	if ($('#chkIssel_'+i).prop('checked')&&emp($('#txtNos_'+i).val())&&!emp($('#txtWorkno_'+i).val())){
-                		$('#txtNos_'+i).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
+                		$('#txtNos_'+i).val(('000'+(dec(getmaxnos(i).substr(0,3))+1)).substr(-3)+'0');
                 		$('#txtNoq_'+i).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+i).val());
                 	}
                 }
@@ -237,14 +359,15 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	for (var j = i+1; j < q_bbsCount; j++) {
                 		if (i!=j &&$('#chkIssel_'+i).prop('checked')&&$('#chkIssel_'+j).prop('checked')&&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()){
-                			alert(q_getMsg('lblNos_s')+'['+$('#txtNos_'+i).val()+']重覆')
+                			alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+i).val()+']重覆')
                 			return;
                 		}
                 	}
                 }
                 
+                $('#btnCug').click();
+                
                 sum();
-                thours();
                 
                 cng_btnok=false;
                 
@@ -274,6 +397,7 @@
                 $('#txtDatea').val(q_date());
                 $('#txtKdate').val(q_date());
                 $('#txtDatea').focus();
+                
             }
 
             function btnModi() {
@@ -284,6 +408,14 @@
 				$('#txtStationno').attr('disabled', 'disabled');
 				$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
 				$('#lblStation').css('display', 'none');
+				for (var i = 0; i < q_bbsCount; i++) {
+					if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
+						for(var j=0;j<fbbs.length;j++){
+							$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
+						}
+						$('#btnMinus_'+i).attr('disabled', 'disabled');
+					}
+				}
             }
 
             function btnPrint() {
@@ -341,82 +473,112 @@
 							}
 		                });
 		                
+		                $('#txtNos_' + i).blur(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+		                	if(q_cur==1 || q_cur==2){
+		                		if($('#chkIssel_'+b_seq).prop('checked') && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
+		                			//處理noq的資料
+		                			if(emp($('#txtNos_'+b_seq).val())){
+		                				$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
+		                				$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
+		                			}else{
+						                $('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
+						                //檢查排程序號是否重複
+						                for (var j = 0; j < q_bbsCount; j++) {
+						                	if (b_seq!=j &&$('#chkIssel_'+j).prop('checked')&&$('#txtNoq_'+b_seq).val()==$('#txtNoq_'+j).val()){
+						                		alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+b_seq).val()+']重覆')
+						                		$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
+							               		$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
+						                		break;
+						                	}
+						                }
+					                }
+		                		}else{
+		                			 $('#txtNoq_'+b_seq).val('');
+		                		}
+		                	}
+						});
+						
+						$('#txtProcess_' + i).blur(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+		                	if(q_cur==1 || q_cur==2){
+		                		if($('#chkIssel_'+b_seq).prop('checked') && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
+		                			//檢查nos 有沒有資料
+		                			if(emp($('#txtNos_'+b_seq).val())){
+		                				$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
+		                				$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
+		                			}else{
+		                				//處理noq的資料
+					                	$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
+					                	
+					                	//檢查排程序號是否重複
+						                for (var j = 0; j < q_bbsCount; j++) {
+						                	if (b_seq!=j &&$('#chkIssel_'+j).prop('checked')&&$('#txtNoq_'+b_seq).val()==$('#txtNoq_'+j).val()){
+						                		alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+b_seq).val()+']重覆')
+						                		$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
+							               		$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
+						                		break;
+						                	}
+						                }
+		                			}
+		                			$('#trSel_'+ b_seq).addClass('chkIssel');//變色
+		                		}else{
+		                			 $('#txtNoq_'+b_seq).val('');
+		                		}
+		                	}
+						});
+		                
 		                $('#chkIssel_' + i).click(function () {
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if($('#chkIssel_'+b_seq).prop('checked')){	//判斷是否被選取
+							if($('#chkIssel_'+b_seq).prop('checked')&&(!emp($('#txtWorkno_'+b_seq).val()) || !emp($('#txtProcess_'+b_seq).val()))){	//判斷是否被選取
 								$('#trSel_'+ b_seq).addClass('chkIssel');//變色
 								//判斷是否是當天排程的資料
 								if($('#txtNoq_'+ b_seq).val()=='' || $('#txtNoq_'+ b_seq).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','')){
 									$('#txtNos_'+ b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
 									$('#txtNoq_'+ b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+ b_seq).val());
 								}
-								
-								var dhours=0,tt_hours=0;
-								for (var j = 0; j < q_bbsCount; j++) {
-            						if($('#chkIssel_'+j).prop('checked')){
-	            						if($('#txtNos_'+j).attr('disabled')){
-	            							dhours=dec($('#txtDhours_'+j).val());
-	            							tt_hours=q_add(tt_hours,q_float('txtHours_'+j));
-	            						}
-	            					}
-	            				}
-	            				
-	            				var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
-	            				
-	            				if(dhours>0)
-	            					dhours=q_sub(t_gen,dhours);	
-								
-								//處理開工日
-								var days=Math.floor(q_div(dhours+dec($('#txtHours').val())-tt_hours,t_gen));
-								$('#txtCuadate_'+b_seq).val(q_cdn($('#txtDatea').val(),days));
-								sum();
-								//處理完工日
-								days=Math.floor(q_div(q_add(q_sub(dec($('#txtHours').val()),tt_hours),dhours),t_gen));
-								$('#txtUindate_'+b_seq).val(q_cdn($('#txtDatea').val(),days));
-								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
 							}else{
 				                $('#trSel_'+b_seq).removeClass('chkIssel');//取消變色
 				                $('#txtCuadate_'+b_seq).val('');
 				                $('#txtUindate_'+b_seq).val('');
+				                $('#txtThours_'+b_seq).val('');
 							}
 							sum();
-							thours();//計算累計工時
 						});
-		                
                     }
                 }
                 _bbsAssign();
-                if($('#chkIssel_'+i).prop('checked')){	//判斷是否被選取
-					$('#trSel_'+ i).addClass('chkIssel');//變色
-				}else{
-					$('#trSel_'+i).removeClass('chkIssel');//取消變色
+				
+				for (var i = 0; i < q_bbsCount; i++) {
+					if($('#chkIssel_'+i).prop('checked') && (!emp($('#txtWorkno_'+i).val()) || !emp($('#txtProcess_'+i).val()))){	//判斷是否被選取
+						$('#trSel_'+ i).addClass('chkIssel');//變色
+					}else{
+						$('#trSel_'+i).removeClass('chkIssel');//取消變色
+					}
+					$('#txtCuadate_'+i).attr('disabled', 'disabled');
+					$('#txtUindate_'+i).attr('disabled', 'disabled');
+					
+					if(!emp($('#txtWorkno_'+i).val())){
+						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					}else{
+						$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
+					}
+					
+					if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
+						for(var j=0;j<fbbs.length;j++){
+							$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
+						}
+						$('#btnMinus_'+i).attr('disabled', 'disabled');
+					}
 				}
-            }
-            
-            function thours() {//處理累計工時
-            	var dhours=0,tt_hours=0;
-            	var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		if($('#chkIssel_'+i).prop('checked')){
-	            		var t_hours=0;
-	            		for (var j = 0; j < q_bbsCount; j++) {
-	            			if($('#chkIssel_'+j).prop('checked') && $('#txtNoq_'+i).val()>=$('#txtNoq_'+j).val()){
-	            				t_hours=q_add(t_hours,q_float('txtHours_'+j));
-	            			}
-	            		}
-	            		$('#txtThours_'+i).val(t_hours);
-	            		if(!$('#txtNos_'+i).attr('disabled'))
-	            			$('#txtDhours_'+i).val(q_sub(t_gen,(q_add(q_sub(t_hours,tt_hours),(q_sub(t_gen,dhours))))%t_gen));
-	            		else{
-	            			dhours=dec($('#txtDhours_'+i).val());
-	            			tt_hours=q_add(tt_hours,q_float('txtHours_'+i));
-	            		}
-            		}else{
-            			$('#txtThours_'+i).val('');
-            		}
-            	}
             }
             
             function getmaxnos(seq) {//seq 表示排除的noq
@@ -430,7 +592,7 @@
             }
 
             function bbsSave(as) {
-                if (as['issel']=="false") {//不存檔條件
+                if (as['issel']=="false" || !as['noq'] ) {//不存檔條件
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -460,6 +622,19 @@
 		            }else{
 		            	$('#trSel_'+i).removeClass('chkIssel');//取消變色
 					}
+					if(!emp($('#txtWorkno_'+i).val())){
+						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					}else{
+						$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
+					}
+					if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
+						for(var j=0;j<fbbs.length;j++){
+							$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
+						}
+						$('#btnMinus_'+i).attr('disabled', 'disabled');
+					}
 				}
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
@@ -467,12 +642,51 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                
+                if(t_para){
+	            	$('#btnWork').attr('disabled', 'disabled');
+	            	$('#btnCug').attr('disabled', 'disabled');
+	            	$('#btnCugt').attr('disabled', 'disabled');
+	            }else{
+	            	$('#btnWork').removeAttr('disabled');
+	            	$('#btnCug').removeAttr('disabled');
+	            	$('#btnCugt').removeAttr('disabled');
+	            }
+                
+                if(q_getPara('sys.isstyle')=='1'){
+                	$('.isstyle').show();
+                	$('.dbbs').css('width','2165px');
+                }else{
+                	$('.isstyle').hide();
+                	$('.dbbs').css('width','2065px');
+                }
+                
+				for (var i = 0; i < q_bbsCount; i++) {
+					$('#txtCuadate_'+i).attr('disabled', 'disabled');
+					$('#txtUindate_'+i).attr('disabled', 'disabled');
+					
+					if(!emp($('#txtWorkno_'+i).val())){
+						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					}else{
+						if(!t_para){
+							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						}
+					}
+					
+					if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
+						for(var j=0;j<fbbs.length;j++){
+							$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
+						}
+						$('#btnMinus_'+i).attr('disabled', 'disabled');
+					}
+				}
             }
 
             function btnMinus(id) {
                 _btnMinus(id);
                 sum();
-                thours();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
@@ -662,7 +876,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 2265px;
+                width: 2165px;
                 background:#cad3ff;
             }
             .tbbs a {
@@ -717,8 +931,10 @@
 						</td>
 						<td class="td3"><span> </span><a id='lblGenorg' class="lbl"> </a></td>
 						<td class="td4"><input id="txtGenorg"  type="text" class="txt num c1"/></td>
-						<td class="td5"><span> </span><a id='lblGen' class="lbl"> </a></td>
-						<td class="td6"><input id="txtGen"  type="text" class="txt num c1"/></td>
+						<!--<td class="td5"><span> </span><a id='lblGen' class="lbl"> </a></td>
+						<td class="td6"><input id="txtGen"  type="text" class="txt num c1"/></td>-->
+						<td class="td3"><span> </span><a id='lblSmount' class="lbl"> </a></td>
+						<td class="td4"><input id="txtSmount"  type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProcess' class="lbl btn"> </a></td>
@@ -740,6 +956,10 @@
 						<td class="td3" ><span> </span><a id='lblHours' class="lbl"> </a></td>
 						<td class="td4"><input id="txtHours"  type="text" class="txt num c1"/></td>
 						<td class="td5"><input id="btnWork" type="button" style="float: right;"/></td>
+						<td class="td5">
+							<input id="btnCug" type="button" style="float: center;"/>
+							<input id="btnCugt" type="button" style="float: center;"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -750,6 +970,8 @@
 						<td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker2"  type="text" class="txt c1"/></td>
+						<!--<td class="td3"><span> </span><a id="lblIsset"> </a></td>
+						<td class="td4"><input id="chkIsset" type="checkbox" /></td>-->
 					</tr>
 				</table>
 			</div>
@@ -760,9 +982,9 @@
 					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
 					<td align="center" style="width:36px;"><a id='lblIssel_s'> </a></td>
 					<td align="center" style="width:75px;"><a id='lblNoq_s'> </a></td>
-					<td align="center" style="width:145px;"><a id='lblProcess_s'> </a></td>
-					<td align="center" style="width:275px;"><a id='lblProductno_s'> </a>/<a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:200px;"><a id='lblSpec_s'> </a>/<a id='lblStyle_s'> </a></td>
+					<td align="center" style="width:145px;"><a id='lblProductno_s'> </a>/<a id='lblProcess_s'> </a></td>
+					<td align="center" style="width:275px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
+					<td align="center" class="isstyle" style="width:100px;"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblHours_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblDays_s'> </a></td>
@@ -785,22 +1007,23 @@
 						<input id="txtStationno.*" type="hidden" class="txt c1"/>
 						<input id="txtStation.*" type="hidden" class="txt c1"/>
 					</td>
-					<td><input id="txtProcess.*" type="text" class="txt c1"/><input id="txtProcessno.*" type="hidden" class="txt c1"/></td>
 					<td>
 						<input id="txtProductno.*" type="text" class="txt c1"/>
-						<input id="txtProduct.*" type="text" class="txt c1"/>
+						<input id="txtProcess.*" type="text" class="txt c1"/>
+						<input id="txtProcessno.*" type="hidden" class="txt c1"/>
 					</td>
 					<td>
+						<input id="txtProduct.*" type="text" class="txt c1"/>
 						<input id="txtSpec.*" type="text" class="txt c1"/>
-						<input id="txtStyle.*" type="text" class="txt c1"/>
 					</td>
+					<td class="isstyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtHours.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtDays.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtOrgcuadate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtOrguindate.*" type="text" class="txt c1"/></td>
-					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
-					<td><input id="txtUindate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtCuadate.*" type="text" class="txt c1" style="color: red;"/></td>
+					<td><input id="txtUindate.*" type="text" class="txt c1" style="color: red;"/></td>
 					<td>
 						<input id="txtThours.*" type="text" class="txt c1"/>
 						<input id="txtDhours.*" type="hidden" class="txt c1"/>
