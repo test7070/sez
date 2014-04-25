@@ -255,7 +255,7 @@
 	                				next_nos=$('#txtNos_'+n).val();
 	                			}
 	                		}
-	                		if(Math.abs(ttt_hours)>0 &&Math.abs(ttt_hours)<1 && dec(next_work_hours)>1 &&q_sub(dec(next_work_hours),Math.abs(ttt_hours))!=0){
+	                		if(Math.abs(ttt_hours)>0 &&Math.abs(ttt_hours)<1 && dec(next_work_hours)>Math.abs(ttt_hours) &&q_sub(dec(next_work_hours),Math.abs(ttt_hours))!=0){
 	                			var t_nos=dec($('#txtNos_'+i).val())+5;
 	                			//檢查要產生的nos 是否已存在原始資料內
 	                			var t_nos_rep=false;
@@ -646,6 +646,12 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 		                	if(q_cur==1 || q_cur==2){
+		                		//如果手動打nos自動勾取排程
+		                		if(!$('#chkIssel_'+b_seq).prop('checked') && !emp($('#txtNos_'+b_seq).val()) && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
+		                			$('#chkIssel_'+b_seq).prop('checked',true);
+		                			$('#trSel_'+ b_seq).addClass('chkIssel');//變色
+		                		}
+		                		
 		                		if($('#chkIssel_'+b_seq).prop('checked') && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
 		                			//處理noq的資料
 		                			if(emp($('#txtNos_'+b_seq).val())){
