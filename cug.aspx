@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx']
-            ,['txtStationno', 'lblStation', 'station', 'noa,station,smount,gen,gen', 'txtStationno,txtStation,txtSmount,txtGen,txtGenorg', 'station_b.aspx']
+            ,['txtStationno', 'lblStation', 'station', 'noa,station,mount,gen', 'txtStationno,txtStation,txtSmount,txtGenorg', 'station_b.aspx']
             ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -50,6 +50,7 @@
             }
 			
 			var work_chk=false;
+			var t_cugt=undefined;//儲存cugt的資料
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
                 bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd],['txtNos', '9999']];
@@ -120,9 +121,14 @@
                 	}
                 });
                 
+                //禮拜六是否要上班
+                var issaturday=q_getPara('sys.saturday')=='1'?true:false;
                 $('#btnCug').click(function() {
                 	$('#btnCug').attr('disabled', 'disabled');
-                	var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
+                	//一般產能時數//var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
+                	var t_genorg=dec($('#txtGenorg').val());
+                	var t_gen=dec($('#txtGenorg').val());
+                	
                 	//取得上次的排程剩餘時數(計算已工作時數)與日期，排除工時
                 	var dhours=0,ddate=$('#txtDatea').val(),tt_hours=0;
                 	for (var i = 0; i < q_bbsCount; i++) {
@@ -135,6 +141,19 @@
 	                		$('#txtThours_'+i).val(tt_hours);
                 		}
                 	}
+                	
+                	//取得編制時數
+                	if(t_cugt==undefined){
+                		q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+ddate+"' ^^", 0, 0, 0, "cugt", r_accy);
+                		return;
+                	}
+                	
+                	//取得當天gen
+                	for (var k = 0; k < t_cugt.length; k++) {
+                		if(t_cugt[k].datea==ddate)
+                			t_gen=dec(t_cugt[k].gen);
+                	}
+                	
                 	dhours=q_sub(t_gen,dhours)%t_gen;//非本次排程已工作時數
                 	
                 	for (var i = 0; i < q_bbsCount; i++) {
@@ -146,16 +165,92 @@
 			            				t_hours=q_add(t_hours,q_float('txtHours_'+j));//已工作時數(不含該行排程)
 			            		}
 	                		}
+	                		
+	                		var ttt_hours=q_add(t_hours,dhours);//暫存已工作時數
+	                		var tt_ddate=ddate;//暫存開工日
 	                		//開工日
-	                		var days=Math.floor(q_div(q_add(t_hours,dhours),t_gen));
-	                		$('#txtCuadate_'+i).val(q_cdn(ddate,days));
+	                		//固定產能//var days=Math.floor(q_div(q_add(t_hours,dhours),t_gen));//$('#txtCuadate_'+i).val(q_cdn(ddate,days));
+	                		while(ttt_hours>=0){
+	                			//取得當天gen
+	                			t_gen=t_genorg;
+                				for (var k = 0; k < t_cugt.length; k++) {
+			                		if(t_cugt[k].datea==tt_ddate)
+			                			t_gen=dec(t_cugt[k].gen);
+			                	}
+			                	ttt_hours=q_sub(ttt_hours,t_gen);
+			                	if(ttt_hours>=0){
+	                				tt_ddate=q_cdn(tt_ddate,1);
+	                				//判斷一般禮拜六是不是不要上班
+	                				if(!issaturday&&new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==6){
+	                					//判斷是否有加班
+	                					var addwork=false;
+	                					for (var k = 0; k < t_cugt.length; k++) {
+					                		if(t_cugt[k].datea==tt_ddate)
+					                			addwork=true;
+					                	}
+					                	if(!addwork)
+	                						tt_ddate=q_cdn(tt_ddate,1);
+	                				}
+	                				//判斷日
+	                				if(new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==0){
+	                					//判斷是否有加班
+	                					var addwork=false;
+	                					for (var k = 0; k < t_cugt.length; k++) {
+					                		if(t_cugt[k].datea==tt_ddate)
+					                			addwork=true;
+					                	}
+					                	if(!addwork)
+	                						tt_ddate=q_cdn(tt_ddate,1);
+	                				}
+	                			}
+	                		}
+	                		$('#txtCuadate_'+i).val(tt_ddate);
+	                		
 	                		//完工日
-	                		days=Math.floor(q_div(q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val())),t_gen));
-	                		$('#txtUindate_'+i).val(q_cdn(ddate,days));
+	                		//固定產能//days=Math.floor(q_div(q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val())),t_gen));//$('#txtUindate_'+i).val(q_cdn(ddate,days));
+	                		ttt_hours=q_add(ttt_hours,dec($('#txtHours_'+i).val()))
+	                		while(ttt_hours>0){
+	                			if(ttt_hours>=0){
+	                				tt_ddate=q_cdn(tt_ddate,1);
+	                				//判斷一般禮拜六是不是不要上班
+	                				if(!issaturday&&new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==6){
+	                					//判斷是否有加班
+	                					var addwork=false;
+	                					for (var k = 0; k < t_cugt.length; k++) {
+					                		if(t_cugt[k].datea==tt_ddate)
+					                			addwork=true;
+					                	}
+					                	if(!addwork)
+	                						tt_ddate=q_cdn(tt_ddate,1);
+	                				}
+	                				//判斷日
+	                				if(new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==0){
+	                					//判斷是否有加班
+	                					var addwork=false;
+	                					for (var k = 0; k < t_cugt.length; k++) {
+					                		if(t_cugt[k].datea==tt_ddate)
+					                			addwork=true;
+					                	}
+					                	if(!addwork)
+	                						tt_ddate=q_cdn(tt_ddate,1);
+	                				}
+	                			}
+	                			//取得當天gen
+	                			t_gen=t_genorg;
+                				for (var k = 0; k < t_cugt.length; k++) {
+			                		if(t_cugt[k].datea==tt_ddate)
+			                			t_gen=dec(t_cugt[k].gen);
+			                	}
+			                	ttt_hours=q_sub(ttt_hours,t_gen);
+	                		}
+	                		$('#txtUindate_'+i).val(tt_ddate);
+	                		
+	                		//剩餘時數
+	                		//固定產能//$('#txtDhours_'+i).val(q_sub(t_gen,q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val()))%t_gen));
+	                		$('#txtDhours_'+i).val(Math.abs(ttt_hours));
+	                		
 	                		//累計工時
 	                		$('#txtThours_'+i).val(q_add(q_add(t_hours,dec($('#txtHours_'+i).val())),tt_hours));
-	                		//剩餘時數
-	                		$('#txtDhours_'+i).val(q_sub(t_gen,q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val()))%t_gen));
                 		}
                 	}
                 	
@@ -180,30 +275,32 @@
 					}
 					
                 	//最先做的放前面(依noq)
-                	for (var i = 0; i < q_bbsCount; i++) {
-                		var minnoq='',min_j=0;//目前最小noq,與資料位置
-                		for (var j = 0; j < t_bbs.length; j++) {
-                			if(minnoq==''){
-                				minnoq=t_bbs[j].txtNoq
-                				min_j=0;
-                			}else{
-                				if(minnoq>t_bbs[j].txtNoq){
-                					minnoq=t_bbs[j].txtNoq;
-                					min_j=j;
-                				}
-                			}
-                		}
-                		for (var j = 0; j < fbbs.length; j++) {
-                			if(fbbs[j].substr(0,3)=='chk')
-                				$('#'+fbbs[j]+'_'+i).prop('checked',t_bbs[min_j][fbbs[j]]);
-                			else
-                				$('#'+fbbs[j]+'_'+i).val(t_bbs[min_j][fbbs[j]]);
-                		}
-                		//移除最小資料
-                		t_bbs.splice(min_j, 1);
-                		//如果暫存沒資料就跳出
-                		if(t_bbs.length==0)
-                			break;
+                	if(t_bbs.length!=0){
+	                	for (var i = 0; i < q_bbsCount; i++) {
+	                		var minnoq='',min_j=0;//目前最小noq,與資料位置
+	                		for (var j = 0; j < t_bbs.length; j++) {
+	                			if(minnoq==''){
+	                				minnoq=t_bbs[j].txtNoq
+	                				min_j=0;
+	                			}else{
+	                				if(minnoq>t_bbs[j].txtNoq){
+	                					minnoq=t_bbs[j].txtNoq;
+	                					min_j=j;
+	                				}
+	                			}
+	                		}
+	                		for (var j = 0; j < fbbs.length; j++) {
+	                			if(fbbs[j].substr(0,3)=='chk')
+	                				$('#'+fbbs[j]+'_'+i).prop('checked',t_bbs[min_j][fbbs[j]]);
+	                			else
+	                				$('#'+fbbs[j]+'_'+i).val(t_bbs[min_j][fbbs[j]]);
+	                		}
+	                		//移除最小資料
+	                		t_bbs.splice(min_j, 1);
+	                		//如果暫存沒資料就跳出
+	                		if(t_bbs.length==0)
+	                			break;
+						}
 					}
 					//重新鎖定資料
                 	for (var i = 0; i < q_bbsCount; i++) {
@@ -231,6 +328,7 @@
 						}
 					}
                 	sum();
+                	t_cugt=undefined;//計算完清除cugt的資料
                 	$('#btnCug').removeAttr('disabled');
                 });
                 
@@ -248,6 +346,10 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cugt':
+                		t_cugt = _q_appendData("view_cugt", "", true);
+                		$('#btnCug').click();
+                		break;
                 	case 'cug_chk':
                 		var as = _q_appendData("cug", "", true);
                 		if(as[0]!=undefined){
@@ -421,7 +523,8 @@
             function btnPrint() {
                 q_box('z_cugp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
-
+			
+			var issave=false;
             function wrServer(key_value) {
                 var i;
                 xmlSql = '';
@@ -430,6 +533,7 @@
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+                issave=true;
             }
 
             function bbsAssign() {
@@ -615,6 +719,11 @@
             }
 
             function refresh(recno) {
+            	if(issave){
+            		var s2=new Array('cug_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
+					q_boxClose2(s2);
+					issave=false;
+				}
                 _refresh(recno);
                 for (var i = 0; i < q_bbsCount; i++) {
 		        	if($('#chkIssel_'+i).prop('checked')){	//判斷是否被選取
@@ -629,11 +738,13 @@
 						$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
 						$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
 					}
-					if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
-						for(var j=0;j<fbbs.length;j++){
-							$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
+					if($('#txtNoq_'+i).val()!=undefined){
+						if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
+							for(var j=0;j<fbbs.length;j++){
+								$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
+							}
+							$('#btnMinus_'+i).attr('disabled', 'disabled');
 						}
-						$('#btnMinus_'+i).attr('disabled', 'disabled');
 					}
 				}
 				$('#lblStation').css('display', 'inline');
@@ -655,10 +766,10 @@
                 
                 if(q_getPara('sys.isstyle')=='1'){
                 	$('.isstyle').show();
-                	$('.dbbs').css('width','2165px');
+                	$('.dbbs').css('width','1910px');
                 }else{
                 	$('.isstyle').hide();
-                	$('.dbbs').css('width','2065px');
+                	$('.dbbs').css('width','1810px');
                 }
                 
 				for (var i = 0; i < q_bbsCount; i++) {
@@ -876,7 +987,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 2165px;
+                width: 1900px;
                 background:#cad3ff;
             }
             .tbbs a {
@@ -993,10 +1104,10 @@
 					<td align="center" style="width:105px;"><a id='lblCuadate_s'> </a></td>
 					<td align="center" style="width:105px;"><a id='lblUindate_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblThours_s'> </a></td>
-					<td align="center" style="width:150px;"><a id='lblWorkno_s'> </a></td>
+					<td align="center" style="width:160px;"><a id='lblWorkno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblWorkgno_s'> </a></td>
-					<td align="center"><a id='lblMemo_s'> </a></td>
+					<!--<td align="center"><a id='lblMemo_s'> </a></td>-->
 				</tr>
 				<tr id="trSel.*">
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -1031,7 +1142,7 @@
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtOrdeno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtWorkgno.*" type="text" class="txt c1"/></td>
-					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
+					<!--<td><input id="txtMemo.*" type="text" class="txt c1"/></td>-->
 				</tr>
 			</table>
 		</div>
