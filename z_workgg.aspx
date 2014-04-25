@@ -135,10 +135,12 @@
 							var t_TableStr = '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
 							//產生標題<<Start>>
 							t_TableStr = t_TableStr + '<tr>';
-							t_TableStr = t_TableStr + '<td class="tTitle" colspan="2">工作中心</td>';
-							t_TableStr = t_TableStr + '<td class="tTitle tWidth">日產能</td>';
-							t_TableStr = t_TableStr + '<td class="tTitle tWidth">稼動率</td>';
+							t_TableStr = t_TableStr + '<td class="tTitle" colspan="2" rowspan="2">工作中心</td>';
+							t_TableStr = t_TableStr + '<td class="tTitle tWidth" rowspan="2">日產能</td>';
+							t_TableStr = t_TableStr + '<td class="tTitle tWidth" rowspan="2">稼動率</td>';
+							var tmpTd = '';
 							var dateCount = 0;
+							var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
 							for(var j=1;j<=maxCount;j++){
 								dateCount++;
 								while(1==1){
@@ -148,13 +150,17 @@
 									var thisDate_day = thisDate.getDay();
 									if(((isSaturday=='1') || (isSaturday!='1' && thisDate_day!=6)) && (thisDate_day != 0)){
 										t_TableStr = t_TableStr + '<td class="tTitle tWidth">' + t_date.substr(4) + '</td>';
+										tmpTd = tmpTd + '<td class="tTitle tWidth">' + DayName[thisDate_day] + '</td>';
 										break;
 									}else{
 										dateCount++;
 									}
 								}
 							}
-							t_TableStr = t_TableStr + '<td class="tTitle tWidth">合計</td>';
+							t_TableStr = t_TableStr + '<td class="tTitle tWidth" rowspan="2">合計</td>';
+							t_TableStr = t_TableStr + '</tr>';
+							t_TableStr = t_TableStr + '<tr>';
+							t_TableStr = t_TableStr + tmpTd;
 							t_TableStr = t_TableStr + '</tr>';
 							//產生標題<<End>>
 							//產生值<<Start>>
