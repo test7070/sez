@@ -101,7 +101,11 @@
 						if($('#combPartno__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSales__'+thisSeq);
 							$('#combPartno__'+thisSeq).val('');
+						}else if($('#combPartno2__'+thisSeq).val() != ''){
+							now_txtObject = $('#txtSupworker__'+thisSeq);
+							$('#combPartno2__'+thisSeq).val('');
 						}
+
 						for(var i = 0;i < as.length;i++){
 							str = now_txtObject.val();
 							name = as[i].namea;
@@ -122,6 +126,7 @@
 							}
 							for(var k=0;k<q_bbtCount;k++){
 								q_cmbParse("combPartno__"+k, t_item + t_item2);
+								q_cmbParse("combPartno2__"+k, t_item + t_item2);
 							}
 						}
 						break;
@@ -146,6 +151,9 @@
 						if($('#combPartno__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSales__'+thisSeq);
 							$('#combPartno__'+thisSeq).val('');
+						}else if($('#combPartno2__'+thisSeq).val() != ''){
+							now_txtObject = $('#txtSupworker__'+thisSeq);
+							$('#combPartno2__'+thisSeq).val('');
 						}
 						b_ret = getb_ret();
 						if (!b_ret || b_ret.length == 0)
@@ -244,11 +252,15 @@
 					for(var k=0;k<q_bbtCount;k++){
 						$('#combPartno__'+k).removeAttr('disabled');
 						$('#combPartno__'+k).css('background-color', 'rgb(255, 255, 255)');
+						$('#combPartno2__'+k).removeAttr('disabled');
+						$('#combPartno2__'+k).css('background-color', 'rgb(255, 255, 255)');
 					}
 				}else{
 					for(var k=0;k<q_bbtCount;k++){
 						$('#combPartno__'+k).attr('disabled','disabled');
 						$('#combPartno__'+k).css('background-color', 'rgb(237, 237, 238)');
+						$('#combPartno2__'+k).attr('disabled','disabled');
+						$('#combPartno2__'+k).css('background-color', 'rgb(237, 237, 238)');
 					}
 				}
 			}
@@ -319,6 +331,9 @@
 							$('#txtWorktime__' + n).focusout();
 						});
 						$("#combPartno__"+i).change(function() {
+							combtodo($(this));
+						});
+						$("#combPartno2__"+i).change(function() {
 							combtodo($(this));
 						});
 						$('#txtWorktime__' + i).focusout(function(){
@@ -529,7 +544,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1000px;
+				width: 1280px;
 			}
 			#tbbt {
 				margin: 0;
@@ -655,7 +670,7 @@
 						<td style="width:80px; text-align: center;"><a id='lblMans_t'> </a></td>
 						<td style="width:360px; text-align: center;"><a id='lblSales_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblSupmans_t'> </a></td>
-						<td style="width:120px; text-align: center;"><a id='lblSupworker_t'> </a></td>
+						<td style="width:360px; text-align: center;"><a id='lblSupworker_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblHours_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblAddhours_t'> </a></td>
 						<td style="width:40px;"><a id='lblIsovertime_t'> </a></td>
@@ -679,7 +694,10 @@
 							<input type="text" id="txtSales..*" class="txt" style="width: 230px;" />
 						</td>
 						<td><input id="txtSupmans..*" type="text" class="txt num c3"/></td>
-						<td><input id="txtSupworker..*" type="text" class="txt c3"/></td>
+						<td>
+							<select id="combPartno2..*" class="txt" style="width:100px;"> </select>
+							<input id="txtSupworker..*" type="text" class="txt" style="width: 230px;"/>
+						</td>
 						<td><input id="txtHours..*" type="text" class="txt num c3"/></td>
 						<td><input id="txtAddhours..*" type="text" class="txt num c3"/></td>
 						<td><input id="chkIsovertime..*" type="checkbox" /></td>
