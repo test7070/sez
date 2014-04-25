@@ -48,6 +48,12 @@
 						type : '5', //[7]
 						name : 'xgroupano',
 						value : xgroupanoStr.split(',')
+					}, {
+						type : '2', //[8][9]
+						name : 'xproductno',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
 					}]
 				});
 				$('#q_report').click(function(){
@@ -71,6 +77,7 @@
 				$('#btnXXX').click(function(e) {
 					btnAuthority(q_name);
 				});
+				$('#Xgroupano select').css('width','200px');
 				$("#btnRun").click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
 					var txtreport = $('#q_report').data('info').reportData[t_index].report;
@@ -78,7 +85,7 @@
 						$('#txtXdate1').val(q_date());
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
-					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',t_xestationno='#non';
+					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',t_xgroupano='#non';
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
@@ -87,8 +94,14 @@
 						t_xbstationno=encodeURI($('#txtXstationno1a').val());
 					if(!emp($('#txtXstationno2a').val()))
 						t_xestationno=encodeURI($('#txtXstationno2a').val());
+					if(!emp($('#txtXproductno1a').val()))
+						t_xbproductno=encodeURI($('#txtXproductno1a').val());
+					if(!emp($('#txtXproductno2a').val()))
+						t_xeproductno=encodeURI($('#txtXproductno2a').val());
+					if(!emp($('#Xgroupano select').val()))
+						t_xgroupano=encodeURI($('#Xgroupano select').val());
 					Lock();
-					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';');
+					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';'+ t_xgroupano + ';'+ t_xbproductno + ';'+ t_xeproductno + ';');
 				});
 			}
 
