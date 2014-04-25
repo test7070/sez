@@ -680,6 +680,11 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 		                	if(q_cur==1 || q_cur==2){
+		                		//如果手動打nos自動勾取排程
+		                		if(!$('#chkIssel_'+b_seq).prop('checked') && !emp($('#txtNos_'+b_seq).val()) && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
+		                			$('#chkIssel_'+b_seq).prop('checked',true);
+		                			$('#trSel_'+ b_seq).addClass('chkIssel');//變色
+		                		}
 		                		if($('#chkIssel_'+b_seq).prop('checked') && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
 		                			//檢查nos 有沒有資料
 		                			if(emp($('#txtNos_'+b_seq).val())){
