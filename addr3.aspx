@@ -94,7 +94,8 @@
 				var t_noq = '';
 				for(var i=0;i<q_bbsCount;i++){
 				    t_noq = '000'+(i+1);
-				    $('#txtNoq_'+i).val( t_noq.substring(t_noq.length-3,t_noq.length));
+				   // $('#txtNoq_'+i).val( t_noq.substring(t_noq.length-3,t_noq.length));
+				    $('#txtNoq_'+i).val('');
 				}
 				var t_noa = trim($('#txtNoa').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
