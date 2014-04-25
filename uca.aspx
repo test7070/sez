@@ -234,6 +234,14 @@
 					var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
 					q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", q_getMsg('btnUcab'));
 				});
+				$('#txtNoa').change(function(){
+					var thisVal = $.trim($(this).val());
+					if(thisVal.length > 0){
+						var t_where = "where=^^ noa='" + thisVal + "' ^^";
+						Lock();
+						q_gt('ucaucc', t_where, 0, 0, 0, "checkNoa", r_accy);
+					}
+				});
 			}
 
 			var t_td = '';
@@ -268,6 +276,14 @@
 			var ucsa_cost = 0;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'checkNoa':
+						var as = _q_appendData("ucaucc", "", true);
+						if (as[0] != undefined) {
+							alert('物品編號重複!!');
+							$('#txtNoa').val('').focus();
+						}
+						Unlock();
+						break;
 					case 'ucamodel_cost':
 						var as = _q_appendData("ucamodel_cost", "", true);
 						if (as[0] != undefined) {

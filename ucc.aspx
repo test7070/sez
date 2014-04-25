@@ -83,7 +83,6 @@
 				q_getFormat();
 				bbmMask = [['txtCdate', r_picd]];
 				q_mask(bbmMask);
-				
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1)
 					q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));//IR
 				else
@@ -111,7 +110,14 @@
 						$('#div_stkcost').toggle();
 					}
 				});
-
+				$('#txtUno').change(function(){
+					var thisVal = $.trim($(this).val());
+					if(thisVal.length > 0){
+						var t_where = "where=^^ noa='" + thisVal + "' ^^";
+						Lock();
+						q_gt('ucaucc', t_where, 0, 0, 0, "checkNoa", r_accy);
+					}
+				});
 				$('#btnClose_div_stkcost').click(function() {
 					$('#div_stkcost').toggle();
 				});
@@ -129,6 +135,14 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'checkNoa':
+						var as = _q_appendData("ucaucc", "", true);
+						if (as[0] != undefined) {
+							alert('物品編號重複!!');
+							$('#txtUno').val('').focus();
+						}
+						Unlock();
+						break;
 					case 'uccga':
 						var as = _q_appendData("uccga", "", true);
 						if (as[0] != undefined) {
@@ -332,7 +346,7 @@
 
 				//訂單、在途量、計畫
 				var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
-				var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
+				var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno,style ^^";
 				var t_where2 = "where[2]=^^1=0^^";
 				var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
 				var t_where4 = "where[4]=^^ 1=0 ^^";
