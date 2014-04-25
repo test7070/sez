@@ -196,11 +196,16 @@
 							var myEndDate = new Date(t_eADdate);
 							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
 							var DateList = [];
+							var DateObj = [];
 							for(var j=0;j<=DiffDays;j++){
 								var thisDay = q_cdn(t_bdate,j);
 								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
 								if((new Date(thisADday).getDay())!=0){
 									DateList.push(thisDay);
+									DateObj.push({
+										datea:thisDay,
+										value:0
+									});
 								}
 							}
 							var TL = [];
@@ -245,8 +250,8 @@
 								}
 							}
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:200px;' colspan='2' rowspan='2'>產品</td>" + 
-									   "<td class='tTitle' style='width:200px;' colspan='2' rowspan='2'>工作中心</td>" +
+							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>產品</td>" + 
+									   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
 									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>";
 							var tmpTd = '<tr>';
 							var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
@@ -259,22 +264,35 @@
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
+							var ATotal = 0;
+							var GenTotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center'>" + TL[k].productno + "</td><td class='center'>" + TL[k].product + "</td>" + 
-										   "<td class='center'>" + TL[k].stationno + "</td><td class='center'>" + TL[k].station + "</td>" +
+								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>" + 
+										   "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>";
+								GenTotal = q_add(GenTotal,TL[k].gen);
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
+									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
 									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "</td>";
 								}
+								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
 							}
+							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
+							OutHtml += "<td class='tTotal num'>" + GenTotal + "</td>";
+							for(var k=0;k<DateObj.length;k++){
+								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "</td>";
+							}
+							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
 							OutHtml += "</table>"
-							$('#chart').html(OutHtml).css('width','100%');
+							var t_totalWidth = 0;
+							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
+							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 				}
 				Unlock();
