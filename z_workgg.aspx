@@ -112,7 +112,6 @@
 			}
 			
 			function q_funcPost(t_func, result) {
-				console.log(t_func);
 				switch(t_func) {
 					case 'qtxt.query.z_workgg1':
 						var as = _q_appendData('tmp0','',true,true);

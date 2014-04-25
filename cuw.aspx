@@ -16,7 +16,7 @@
 			var q_name = "cuw";
 			var q_readonly = ['txtNoa','txtStation'];
 			var q_readonlys = ['txtBorntime','txtAddtime'];
-			var q_readonlyt = ['txtSales','txtHours','txtAddhours'];
+			var q_readonlyt = ['txtHours','txtAddhours'];
 			var bbmNum = [];
 			var bbsNum = [
 				['txtBorntime',10,2,1],['txtAddtime',10,2,1],['txtChgfre',10,0,1],
@@ -25,7 +25,7 @@
 				['txtWorkmount',10,2,1],['txtMount',10,2,1]
 			];
 			var bbtNum = [
-				['txtMans',10,0,1],['txtWorkmount',10,2,1],['txtMount',10,2,1],
+				['txtMans',10,0,1],/*['txtWorkmount',10,2,1],['txtMount',10,2,1],*/
 				['txtSupmans',10,0,1],['txtHours',10,2,1],['txtAddhours',10,2,1]
 			];
 			var bbmMask = [];
@@ -41,7 +41,6 @@
 			aPop = new Array(
 				['txtStationno', 'lblStationno', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
-				['txtSalesno__', 'btnSalesno__', 'sss', 'noa,namea', 'txtSalesno__,txtSales__', 'sss_b.aspx'],
 				['txtMechno__', 'btnMechno__', 'mech', 'noa,mech', 'txtMechno__,txtMech__', 'mech_b.aspx']
 			);
 
@@ -67,8 +66,28 @@
 				bbsMask = [['txtBtime','99:99'],['txtEtime','99:99'],['txtWorktime','9999-9999']];
 				bbtMask = [['txtWorktime','9999-9999']];
 				q_mask(bbmMask);
+				q_gt('part', '', 0, 0, 0, "");
 			}
-
+			var thisSeq = -1;
+			function combtodo(do_object){
+				if((q_cur == 1 || q_cur == 2) && do_object.val() != ''){
+					t_where = '';
+					choice_check = do_object.val();
+					choice_check = choice_check.split('-');
+					if(choice_check[0] != 'All'){
+						t_where = "partno='"+choice_check[0]+"'";
+					}
+					thisSeq = $(do_object).attr('id').split('_')[$(do_object).attr('id').split('_').length-1];
+					if(choice_check[1] == 'All'){
+						if(choice_check[0] != 'All'){
+							t_where = "where=^^ " + t_where + " ^^";
+						}
+						q_gt('sssall', t_where , 0, 0, 0, "", r_accy);	
+					}else{
+						q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
+					}
+				}
+			}
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 				}
@@ -76,6 +95,36 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'sssall':
+						var as = _q_appendData("sssall", "", true);
+						var now_txtObject;
+						if($('#combPartno__'+thisSeq).val() != ''){
+							now_txtObject = $('#txtSales__'+thisSeq);
+							$('#combPartno__'+thisSeq).val('');
+						}
+						for(var i = 0;i < as.length;i++){
+							str = now_txtObject.val();
+							name = as[i].namea;
+							if(str.match(name) == null){
+								newstr = str + name + ';';
+								now_txtObject.val(newstr);
+							}
+						}
+						break;
+					case 'part':
+						var as = _q_appendData("part", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@,All@全部";
+							var t_item2 = ",All-All@全部(全選)";
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+								t_item2 = t_item2 + (t_item2.length > 0 ? ',' : '') + as[i].noa + '-All@' + as[i].part + '(全選)';
+							}
+							for(var k=0;k<q_bbtCount;k++){
+								q_cmbParse("combPartno__"+k, t_item + t_item2);
+							}
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -92,6 +141,24 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'sssall':
+						var now_txtObject;
+						if($('#combPartno__'+thisSeq).val() != ''){
+							now_txtObject = $('#txtSales__'+thisSeq);
+							$('#combPartno__'+thisSeq).val('');
+						}
+						b_ret = getb_ret();
+						if (!b_ret || b_ret.length == 0)
+							return;
+						for(var i = 0;i < b_ret.length;i++){
+							str = now_txtObject.val();
+							name = b_ret[i].namea;
+							if(str.match(name) == null){
+								newstr = str + name + ';';
+								now_txtObject.val(newstr);
+							}
+						}
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -173,6 +240,17 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(q_cur == 1 || q_cur == 2){
+					for(var k=0;k<q_bbtCount;k++){
+						$('#combPartno__'+k).removeAttr('disabled');
+						$('#combPartno__'+k).css('background-color', 'rgb(255, 255, 255)');
+					}
+				}else{
+					for(var k=0;k<q_bbtCount;k++){
+						$('#combPartno__'+k).attr('disabled','disabled');
+						$('#combPartno__'+k).css('background-color', 'rgb(237, 237, 238)');
+					}
+				}
 			}
 
 			function btnMinus(id) {
@@ -225,6 +303,7 @@
 						});
 					}
 				}
+				q_gt('part', '', 0, 0, 0, "");
 				_bbsAssign();
 			}
 
@@ -239,6 +318,9 @@
 								$('#txtWorktime__'+n).val($(this).val());
 							}
 							$('#txtWorktime__' + n).focusout();
+						});
+						$("#combPartno__"+i).change(function() {
+							combtodo($(this));
 						});
 						$('#txtWorktime__' + i).focusout(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -571,14 +653,16 @@
 						</td>
 						<td style="width:120px; text-align: center;"><a id='lblWorktime_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblMans_t'> </a></td>
-						<td style="width:200px; text-align: center;"><a id='lblSales_t'> </a></td>
+						<td style="width:360px; text-align: center;"><a id='lblSales_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblSupmans_t'> </a></td>
 						<td style="width:120px; text-align: center;"><a id='lblSupworker_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblHours_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblAddhours_t'> </a></td>
 						<td style="width:40px;"><a id='lblIsovertime_t'> </a></td>
+						<!--
 						<td style="width:80px; text-align: center;"><a id='lblWorkmount_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblMount_t'> </a></td>
+						-->
 					</tr>
 					<tr>
 						<td>
@@ -591,17 +675,18 @@
 						</td>
 						<td><input id="txtMans..*" type="text" class="txt num c3"/></td>
 						<td>
-							<input type="button" id="btnSalesno..*" value="." style="width:5%;font-size: medium; font-weight: bold;" />
-							<input type="text" id="txtSalesno..*" class="txt" style="width: 26%;"/>
-							<input type="text" id="txtSales..*" class="txt" style="width: 53%;" />
+							<select id="combPartno..*" class="txt" style="width:100px;"> </select>
+							<input type="text" id="txtSales..*" class="txt" style="width: 230px;" />
 						</td>
 						<td><input id="txtSupmans..*" type="text" class="txt num c3"/></td>
 						<td><input id="txtSupworker..*" type="text" class="txt c3"/></td>
 						<td><input id="txtHours..*" type="text" class="txt num c3"/></td>
 						<td><input id="txtAddhours..*" type="text" class="txt num c3"/></td>
 						<td><input id="chkIsovertime..*" type="checkbox" /></td>
+						<!--
 						<td><input id="txtWorkmount..*" type="text" class="txt num c3"/></td>
 						<td><input id="txtMount..*" type="text" class="txt num c3"/></td>
+						-->
 					</tr>
 				</tbody>
 			</table>
