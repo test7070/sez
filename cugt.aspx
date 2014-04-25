@@ -18,7 +18,7 @@
             var afield, t_htm;
             var i, s1;
             var q_readonly = [];
-            var q_readonlys = [];
+            var q_readonlys = ['txtWeek'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -76,6 +76,9 @@
 						//資料空白不處理
 						if(emp($('#txtDatea_'+b_seq).val()))
 							return;
+						//寫入星期
+						$('#txtWeek_'+b_seq).val(getweek($('#txtDatea_'+b_seq).val()));
+						
 						//檢查輸入資料是否重複
 						var isrepeat=false;
 						for(var j = 0; j < q_bbsCount; j++) {
@@ -94,6 +97,39 @@
 				    });
             	}
                 _bbsAssign();
+                for(var i = 0; i < q_bbsCount; i++) {
+                	if(!emp($('#txtDatea_'+i).val()))
+                		$('#txtWeek_'+i).val(getweek($('#txtDatea_'+i).val()))
+                }
+            }
+            
+            function getweek(t_date) {
+            	switch (new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()) {
+            		case 0:
+            			return '日'; 
+            			break;
+            		case 1:
+            			return '一';
+            			break;
+            		case 2:
+            			return '二';
+            			break;
+            		case 3:
+            			return '三';
+            			break;
+            		case 4:
+            			return '四';
+            			break;
+            		case 5:
+            			return '五';
+            			break;
+            		case 6:
+            			return '六';
+            			break;
+            		default:
+            			return '';
+  						break;
+            	}
             }
 
             function btnOk() {
@@ -154,8 +190,9 @@
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td class="td2" align="center" style="width:19%;"><a id='lblDatea'> </a></td>
-					<td class="td3" align="center" style="width:30%;"><a id='lblGen'> </a></td>
-					<td class="td4" align="center" style="width:50%;"><a id='lblMemo'> </a></td>
+					<td class="td3" align="center" style="width:5%;"><a id='lblWeek'> </a></td>
+					<td class="td4" align="center" style="width:30%;"><a id='lblGen'> </a></td>
+					<td class="td5" align="center" style="width:45%;"><a id='lblMemo'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -165,8 +202,9 @@
 	                    <input id="txtStationno.*" type="hidden" />
 					</td>
 					<td class="td2"><input id="txtDatea.*" type="text" class="txt c1" style="width:95%;"/></td>
-					<td class="td3"><input id="txtGen.*" type="text" class="txt c1" style="width:95%;text-align: right;"/></td>
-					<td class="td4"><input id="txtMemo.*" type="text" class="txt c1" style="width:95%;"/></td>
+					<td class="td4"><input id="txtWeek.*" type="text" class="txt c1" style="width:95%;text-align: center;"/></td>
+					<td class="td5"><input id="txtGen.*" type="text" class="txt c1" style="width:95%;text-align: right;"/></td>
+					<td class="td6"><input id="txtMemo.*" type="text" class="txt c1" style="width:95%;"/></td>
 				</tr>
 			</table>
 			
