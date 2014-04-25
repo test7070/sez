@@ -302,8 +302,7 @@
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
 							}
-							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
-							OutHtml += "<td class='tTotal num'>" + GenTotal + "</td>";
+							OutHtml += "<tr><td colspan='5' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
 								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "</td>";
 							}
