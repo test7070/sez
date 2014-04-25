@@ -269,9 +269,9 @@
 								}
 							}
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>產品</td>" + 
+							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" + 
 									   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>";
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>需工時</td>";
 							var tmpTd = '<tr>';
 							var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
 							for(var j=0;j<DateList.length;j++){
