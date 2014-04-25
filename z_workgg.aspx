@@ -52,7 +52,7 @@
 				});
 				$('#q_report').click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
-					if(t_index==0){
+					if((t_index==0) || (t_index==1)){
 						$('.prt').hide();
 						$('#chart,#chartCtrl').show();
 					}else{
@@ -88,7 +88,7 @@
 					if(!emp($('#txtXstationno2a').val()))
 						t_xestationno=encodeURI($('#txtXstationno2a').val());
 					Lock();
-					q_func('qtxt.query','z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';');
+					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';');
 				});
 			}
 
@@ -112,8 +112,9 @@
 			}
 			
 			function q_funcPost(t_func, result) {
+				console.log(t_func);
 				switch(t_func) {
-					case 'qtxt.query':
+					case 'qtxt.query.z_workgg1':
 						var as = _q_appendData('tmp0','',true,true);
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
@@ -180,6 +181,102 @@
 							$('#chart').css('width',t_totalWidth+'px').html(t_TableStr);
 						}
 						break;
+					case 'qtxt.query.z_workgg5':
+						var as = _q_appendData('tmp0','',true,true);
+						if (as[0] == undefined) {
+							alert('沒有資料!!');
+						}else{
+							var t_bdate = $.trim($('#txtXdate1').val());
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_bdate = (t_bdate.length==9?t_bdate:q_date());
+							var t_bADdate = dec(t_bdate.substring(0,3))+1911+t_bdate.substr(3);
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_edate = (t_edate.length==9?t_edate:q_date());
+							var t_eADdate = dec(t_edate.substring(0,3))+1911+t_edate.substr(3);
+							var myStartDate = new Date(t_bADdate);
+							var myEndDate = new Date(t_eADdate);
+							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
+							var DateList = [];
+							for(var j=0;j<=DiffDays;j++){
+								var thisDay = q_cdn(t_bdate,j);
+								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								if((new Date(thisADday).getDay())!=0){
+									DateList.push(thisDay);
+								}
+							}
+							var TL = [];
+							var OutHtml= '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
+							for(var i=0;i<as.length;i++){
+								var isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if((as[i].stationno==TL[j].stationno) && (as[i].productno==TL[j].productno)){
+										isFind = true;
+									}
+								}
+								if(!isFind){
+									TL.push({
+										stationno : as[i].stationno,
+										station : as[i].station,
+										productno : as[i].productno,
+										product : as[i].product,
+										gen : as[i].gen,
+										datea : []
+									});
+								}
+							}
+							for(var k=0;k<TL.length;k++){
+								for(var j=0;j<DateList.length;j++){
+									TL[k].datea.push([DateList[j],0]);
+								}
+							}
+							for(var k=0;k<as.length;k++){
+								isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if(isFind) break;
+									if((as[k].stationno==TL[j].stationno) && (as[k].productno==TL[j].productno)){
+										var TLDatea = TL[j].datea;
+										for(var h=0;h<TLDatea.length;h++){
+											if(as[k].datea==TLDatea[h][0]){
+												TLDatea[h][1] = dec(TLDatea[h][1])+dec(as[k].value);
+												isFind = true;
+												break;
+											}
+										}
+									}
+								}
+							}
+							OutHtml += '<tr>';
+							OutHtml += "<td class='tTitle' style='width:200px;' colspan='2' rowspan='2'>產品</td>" + 
+									   "<td class='tTitle' style='width:200px;' colspan='2' rowspan='2'>工作中心</td>" +
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>";
+							var tmpTd = '<tr>';
+							var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
+							for(var j=0;j<DateList.length;j++){
+								var thisDay = DateList[j];
+								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(4) + "</td>";
+								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+							}
+							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+							tmpTd += "</tr>"
+							OutHtml += '</tr>' + tmpTd;
+							for(var k=0;k<TL.length;k++){
+								OutHtml += '<tr>';
+								OutHtml += "<td class='center'>" + TL[k].productno + "</td><td class='center'>" + TL[k].product + "</td>" + 
+										   "<td class='center'>" + TL[k].stationno + "</td><td class='center'>" + TL[k].station + "</td>" +
+										   "<td class='num'>" + TL[k].gen + "</td>";
+								var TTD = TL[k].datea;
+								var tTotal = 0;
+								for(var j=0;j<TTD.length;j++){
+									tTotal = q_add(tTotal,round(TTD[j][1],3));
+									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "</td>";
+								}
+								OutHtml += "<td class='num'>" + tTotal + "</td>";
+								OutHtml += '</tr>';
+							}
+							OutHtml += "</table>"
+							$('#chart').html(OutHtml).css('width','100%');
+						}
 				}
 				Unlock();
 			}
@@ -196,6 +293,9 @@
 				text-align:right;
 				background: #CFF;
 			}
+			.center{
+				text-align:center;
+			}
 			.num{
 				text-align:right;
 				padding-right:2px;
@@ -209,7 +309,7 @@
 			}
 			.q_report .report {
 				position: relative;
-				width: 440px;
+				width: 460px;
 				margin-right: 2px;
 				border: 1px solid #76a2fe;
 				background: #EEEEEE;
@@ -219,7 +319,7 @@
 			.q_report .report div {
 				display: block;
 				float: left;
-				width: 220px;
+				width: 230px;
 				height: 30px;
 				font-size: 14px;
 				font-weight: normal;
