@@ -364,7 +364,7 @@
 						
 						//訂單、在途量、計畫
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
-						var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno ^^";
+						var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno,style ^^";
 						var t_where2 = "where[2]=^^1=0^^";
 						var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
 						var t_where4 = "where[4]=^^ 1=0 ^^";
