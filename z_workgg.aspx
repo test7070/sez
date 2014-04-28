@@ -269,9 +269,9 @@
 								}
 							}
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>產品</td>" + 
+							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" + 
 									   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>";
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>需工時</td>";
 							var tmpTd = '<tr>';
 							var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
 							for(var j=0;j<DateList.length;j++){
@@ -302,8 +302,7 @@
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
 							}
-							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
-							OutHtml += "<td class='tTotal num'>" + GenTotal + "</td>";
+							OutHtml += "<tr><td colspan='5' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
 								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "</td>";
 							}
