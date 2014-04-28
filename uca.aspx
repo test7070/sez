@@ -23,7 +23,7 @@
 			var decbbs = ['weight', 'uweight', 'price'];
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes'/*, 'mechs', 'trans'*/, 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
-			var q_readonly = ['textCosta', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds'];
+			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
@@ -44,6 +44,7 @@
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtStationno__', 'btnStation__', 'station__', 'noa,station', 'txtStationno__,txtStation__', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
+				['txtModelno', 'lblModel', 'model', 'noa,model', 'txtModelno,txtModel', 'model_b.aspx'],
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx'],
 				['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
 				['txtTggno__', 'btnTggno__', 'tgg', 'noa,nick', 'txtTggno__,txtNick__', 'tgg_b.aspx'],
@@ -1352,10 +1353,10 @@
 						<td class="td6"><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblModel" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblStationg" class="lbl btn"> </a></td>
 						<td class="td2">
-							<input id="txtModelno" type="text" class="txt" style="width: 45%;"/>
-							<input id="txtModel" type="text" class="txt" style="width: 53%;"/>
+							<input id="txtStationgno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtStationg" type="text" class="txt" style="width: 53%;"/>
 						</td>
 						<td class="td5" colspan="2">
 							<span style="float: left;"> </span><input id="btnUcap" type="button" />
@@ -1384,8 +1385,8 @@
 						</td>
 						<td class="td5"><span> </span><a id="lblPretime" class="lbl"> </a></td>
 						<td class="td6"><input id="txtPretime" type="text" class="txt c1 num"/></td>
-						<td class="td1" style="display:none;"><span> </span><a id="lblPreday" class="lbl"> </a></td>
-						<td class="td2" style="display:none;"><input id="txtPreday" type="text" class="txt c1 num"/></td>
+						<td class="td1"><span> </span><a id="lblPreday" class="lbl"> </a></td>
+						<td class="td2"><input id="txtPreday" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -1408,6 +1409,11 @@
 					<tr class="tr9">
 						<td class="td3"><span> </span><a id="lblWages" class="lbl" style="font-size: 14px;"> </a></td>
 						<td class="td4"><input id="txtWages" type="text" class="txt c1 num"/></td>
+						<td class="td1"><span> </span><a id="lblModel" class="lbl btn"> </a></td>
+						<td class="td2">
+							<input id="txtModelno" type="text" class="txt" style="width: 45%;"/>
+							<input id="txtModel" type="text" class="txt" style="width: 53%;"/>
+						</td>
 						<!--
 						<td class="td5"><span> </span><a id="lblTrans" class="lbl"> </a></td>
 						<td class="td6"><input id="txtTrans" type="text" class="txt c1 num"/></td>
