@@ -9,6 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
 
@@ -19,8 +23,8 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "cug";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtKdate','txtSmount'];
-            var q_readonlys = ['txtProductno','txtProduct','txtSpec','txtStyle','txtDays','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtSmount'];
+            var q_readonlys = ['txtProductno','txtProduct','txtSpec','txtStyle','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours','txtPretime'];
             var bbmNum = [['txtSmount', 10, 0, 1]];
             var bbsNum = [];
             var bbmMask = [];
@@ -49,28 +53,23 @@
                 mainForm(1);
             }
 			
-			var work_chk=false;
 			var t_cugt=undefined;//儲存cugt的資料
+			var station_chk=false;
+			var first_cur2=false;//第一次匯入
             function mainPost() {
-                bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
+                bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
                 bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd],['txtNos', '9999'],['textDatea', r_picd]];
                 q_getFormat();
                 q_mask(bbmMask);
                 
-                $('#txtDatea').blur(function() {
-					if(emp($('#txtBdate').val()) && (q_cur==1 || q_cur==2)){
-						$('#txtBdate').val($('#txtDatea').val());
-					}
-				});
-				
 				$('#btnCugt').click(function() {
 					//後面針對stationno
 					q_box("cugt.aspx?;;;noa='" + $('#txtStationno').val() + "' and stationno='"+$('#txtStationno').val()+"'", 'cugt', "60%", "65%", q_getMsg("btnCugt"));
 				});
 				
                 $('#btnWork').click(function() {
-                	if(emp($('#txtDatea').val())){
-                		alert(q_getMsg('lblDatea')+'請先填寫。');
+                	if(emp($('#txtBdate').val())){
+                		alert(q_getMsg('lblCuadate')+'請先填寫。');
                 		return;
                 	}
                 	
@@ -79,8 +78,25 @@
                 		return;
                 	}
                 	
-                	if(work_chk){
-                		var t_where = "where=^^ ";
+                	//檢查station 是否已存在
+                	if(q_cur==1 && !station_chk){
+                		q_gt('cug', "where=^^stationno='"+$('#txtStationno').val()+"'^^", 0, 0, 0, "station_chk", r_accy);
+                	}else{
+                		station_chk=false;
+                		
+                		if(first_cur2){
+	                		for (var i = 0; i < q_bbsCount; i++) {
+								$('#btnMinus_'+i).click();
+							}
+						}
+                		first_cur2=false;
+                		
+                		$('#txtStationno').attr('disabled', 'disabled');
+                		$('#txtBdate').attr('disabled', 'disabled');
+						$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
+						$('#lblStation').css('display', 'none');
+						
+						var t_where = "where=^^ ";
                 		if(!emp($('#txtProcessno').val()))
                 			t_where=t_where+"a.processno='"+$('#txtProcessno').val()+"' and ";
                 		if(!emp($('#txtOrdeno').val()))
@@ -92,320 +108,79 @@
                 			t_where=t_where+"(a.cuadate between '"+t_bdate+"' and '"+t_edate+"' ) and ";
                 		}
                 		t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' and isnull(a.enda,'0')!='1' and isnull(a.isfreeze,'0')!='1' and ";
-                		t_where=t_where+"a.noa not in (select workno from view_cugs where noa !='"+$('#txtNoa').val()+"' and issel='1') ";
+                		t_where=t_where+"a.noa not in (select workno from view_cugu) ";
                 		//排序
-                		t_where=t_where+"order by noq,issel,orgcuadate,rank desc,workno^^";
-                		
+                		t_where=t_where+"order by noq,orgcuadate,rank desc,workno^^";
                 		
                 		var t_where1 = "where[1]=^^ ";
-                		if(!emp($('#txtProcessno').val()))
-                			t_where1=t_where1+"processno='"+$('#txtProcessno').val()+"' and ";
-                		if(!emp($('#txtOrdeno').val()))
-                			t_where1=t_where1+"charindex('"+$('#txtOrdeno').val()+"',ordeno)>0 and ";
-                		if(!emp($('#txtBdate').val()) || !emp($('#txtEdate').val())){
-                			var t_bdate='',t_edate='';
-                			t_bdate=$('#txtBdate').val();
-                			t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
-                			t_where1=t_where1+"((cuadate between '"+t_bdate+"' and '"+t_edate+"' ) or uindate >='"+t_bdate+"') and ";
-                		}
-                		t_where1=t_where1+"stationno='"+$('#txtStationno').val()+"' and isnull(issel,'0')='1' ^^";
+                		var t_bdate='',t_edate='';
+                		t_bdate=$('#txtBdate').val();
+                		t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
+                		t_where1=t_where1+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
+                		t_where1=t_where1+"a.stationno='"+$('#txtStationno').val()+"' ^^";
                 		
-						q_gt('cug_work', t_where+t_where1, 0, 0, 0, "", r_accy);
-						
-						$('#txtDatea').attr('disabled', 'disabled');
-						$('#txtStationno').attr('disabled', 'disabled');
-						$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
-						$('#lblStation').css('display', 'none');
-						work_chk=false;
-                	}else{
-                		q_gt('cug', "where=^^datea='"+$('#txtDatea').val()+"' and stationno='"+$('#txtStationno').val()+"' and noa!='"+$('#txtNoa').val()+"'^^", 0, 0, 0, "cug_chk", r_accy);
+                		q_gt('cug_work', t_where+t_where1, 0, 0, 0, "", r_accy);
                 	}
                 });
                 
                 //禮拜六是否要上班
                 var issaturday=q_getPara('sys.saturday')=='1'?true:false;
-                var first_rest=true;
                 $('#btnCug').click(function() {
-                	$('#btnCug').attr('disabled', 'disabled');
-                	//一般產能時數//var t_gen=dec($('#txtGen').val())<=0?dec($('#txtGenorg').val()):dec($('#txtGen').val());
+                	//依應開工日做為排程開始日
+                	//取得當天的已開工時數和產能
                 	var t_genorg=dec($('#txtGenorg').val());
                 	var t_gen=dec($('#txtGenorg').val());
-                	
-                	//先清除自動產生的空白時數
-                	if(first_rest){
-	                	for (var i = 0; i < q_bbsCount; i++) {
-	                		if($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
-	                			$('#btnMinus_'+i).click();
-	                		}
-	                	}
-	                	first_rest=false;
-                	}
-                	
-                	//取得上次的排程剩餘時數(計算已工作時數)與日期，排除工時
-                	var dhours=0,ddate=$('#txtDatea').val(),tt_hours=0;
-                	for (var i = 0; i < q_bbsCount; i++) {
-                		//判斷非本次的noq
-                		if($('#txtNos_'+i).attr('disabled') && $('#txtNoq_'+i).val()!='' && $('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','')){
-                			dhours=dec($('#txtDhours_'+i).val());
-                			ddate=$('#txtUindate_'+i).val();
-                			tt_hours=q_add(tt_hours,q_float('txtHours_'+i));
-                			//累計工時
-	                		$('#txtThours_'+i).val(tt_hours);
-                		}
-                	}
-                	
                 	//取得編制時數
                 	if(t_cugt==undefined){
-                		q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+ddate+"' ^^", 0, 0, 0, "cugt", r_accy);
+                		q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+$('#txtBdate').val()+"' ^^", 0, 0, 0, "cugt", r_accy);
                 		return;
                 	}
-                	
                 	//取得當天gen
                 	for (var k = 0; k < t_cugt.length; k++) {
-                		if(t_cugt[k].datea==ddate)
+                		if(t_cugt[k].datea==$('#txtBdate').val())
                 			t_gen=dec(t_cugt[k].gen);
                 	}
                 	
-                	dhours=q_sub(t_gen,dhours)%t_gen;//非本次排程已工作時數
+                	//檢查
                 	
-                	var addrest=false;
+                	
+                	
+                	//檢查nos是否已存在
                 	for (var i = 0; i < q_bbsCount; i++) {
-                		var t_hours=0;//工作時數
-                		//本次排程
-                		if($('#chkIssel_'+i).prop('checked')&&!$('#txtNos_'+i).attr('disabled') && $('#txtNoq_'+i).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','')){
-	                		for (var j = 0; j < q_bbsCount; j++) {	
-	                			if($('#chkIssel_'+j).prop('checked') && $('#txtNoq_'+j).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','') && $('#txtNoq_'+i).val()>$('#txtNoq_'+j).val()){
-			            				t_hours=q_add(t_hours,q_float('txtHours_'+j));//已工作時數(不含該行排程)
-			            		}
-	                		}
-	                		
-	                		var ttt_hours=q_add(t_hours,dhours);//暫存已工作時數
-	                		var tt_ddate=ddate;//暫存開工日
-	                		//開工日
-	                		//固定產能//var days=Math.floor(q_div(q_add(t_hours,dhours),t_gen));//$('#txtCuadate_'+i).val(q_cdn(ddate,days));
-	                		while(ttt_hours>=0){
-	                			//取得當天gen
-	                			t_gen=t_genorg;
-                				for (var k = 0; k < t_cugt.length; k++) {
-			                		if(t_cugt[k].datea==tt_ddate)
-			                			t_gen=dec(t_cugt[k].gen);
-			                	}
-			                	ttt_hours=q_sub(ttt_hours,t_gen);
-			                	if(ttt_hours>=0){
-	                				tt_ddate=q_cdn(tt_ddate,1);
-	                				//判斷一般禮拜六是不是不要上班
-	                				if(!issaturday&&new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==6){
-	                					//判斷是否有加班
-	                					var addwork=false;
-	                					for (var k = 0; k < t_cugt.length; k++) {
-					                		if(t_cugt[k].datea==tt_ddate)
-					                			addwork=true;
-					                	}
-					                	if(!addwork)
-	                						tt_ddate=q_cdn(tt_ddate,1);
-	                				}
-	                				//判斷日
-	                				if(new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==0){
-	                					//判斷是否有加班
-	                					var addwork=false;
-	                					for (var k = 0; k < t_cugt.length; k++) {
-					                		if(t_cugt[k].datea==tt_ddate)
-					                			addwork=true;
-					                	}
-					                	if(!addwork)
-	                						tt_ddate=q_cdn(tt_ddate,1);
-	                				}
-	                			}
-	                		}
-	                		$('#txtCuadate_'+i).val(tt_ddate);
-	                		
-	                		//完工日
-	                		//固定產能//days=Math.floor(q_div(q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val())),t_gen));//$('#txtUindate_'+i).val(q_cdn(ddate,days));
-	                		ttt_hours=q_add(ttt_hours,dec($('#txtHours_'+i).val()))
-	                		while(ttt_hours>0){
-	                			if(ttt_hours>=0){
-	                				tt_ddate=q_cdn(tt_ddate,1);
-	                				//判斷一般禮拜六是不是不要上班
-	                				if(!issaturday&&new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==6){
-	                					//判斷是否有加班
-	                					var addwork=false;
-	                					for (var k = 0; k < t_cugt.length; k++) {
-					                		if(t_cugt[k].datea==tt_ddate)
-					                			addwork=true;
-					                	}
-					                	if(!addwork)
-	                						tt_ddate=q_cdn(tt_ddate,1);
-	                				}
-	                				//判斷日
-	                				if(new Date(dec(tt_ddate.substr(0,3))+1911,dec(tt_ddate.substr(4,2))-1,dec(tt_ddate.substr(7,2))).getDay()==0){
-	                					//判斷是否有加班
-	                					var addwork=false;
-	                					for (var k = 0; k < t_cugt.length; k++) {
-					                		if(t_cugt[k].datea==tt_ddate)
-					                			addwork=true;
-					                	}
-					                	if(!addwork)
-	                						tt_ddate=q_cdn(tt_ddate,1);
-	                				}
-	                			}
-	                			//取得當天gen
-	                			t_gen=t_genorg;
-                				for (var k = 0; k < t_cugt.length; k++) {
-			                		if(t_cugt[k].datea==tt_ddate)
-			                			t_gen=dec(t_cugt[k].gen);
-			                	}
-			                	ttt_hours=q_sub(ttt_hours,t_gen);
-	                		}
-	                		$('#txtUindate_'+i).val(tt_ddate);
-	                		
-	                		//當天剩下不到一個小時幫其插入空白時數
-	                		//下個工作是否超過1個小時
-	                		var next_work_hours=0,next_nos='9999';
-	                		for (var n = 0; n < q_bbsCount; n++) {
-	                			if(next_nos>$('#txtNos_'+n).val() && $('#txtNos_'+n).val() > $('#txtNos_'+i).val() && $('#chkIssel_'+n).prop('checked')&&!$('#txtNos_'+n).attr('disabled') && $('#txtNoq_'+n).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','')){
-	                				next_work_hours=$('#txtHours_'+n).val();
-	                				next_nos=$('#txtNos_'+n).val();
-	                			}
-	                		}
-	                		if(Math.abs(ttt_hours)>0 &&Math.abs(ttt_hours)<1 && dec(next_work_hours)>Math.abs(ttt_hours) &&q_sub(dec(next_work_hours),Math.abs(ttt_hours))!=0){
-	                			var t_nos=$('#txtNos_'+i).val()+'X';
-	                			//檢查要產生的nos 是否已存在原始資料內 //後面不需要擔心會有nos 重複問題 因後面加X
-	                			/*var t_nos_rep=false;
-	                			for (var n = 0; n < q_bbsCount; n++) {
-	                				//如果新增編號有重複
-	                				if(dec($('#txtNos_'+n).val())<=t_nos && dec($('#txtNos_'+n).val())>=t_nos-4 && $('#chkIssel_'+n).prop('checked')&&!$('#txtNos_'+n).attr('disabled') && $('#txtNoq_'+n).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','') ){
-	                					t_nos_rep=true;
-	                					break;
-	                				}
-	                			}*/
-	                			
-	                			/*if(t_nos_rep){
-	                				for (var n = 0; n < q_bbsCount; n++) {
-		                				//該新增編號之後的全部+10
-		                				if($('#chkIssel_'+n).prop('checked')&&!$('#txtNos_'+n).attr('disabled') && $('#txtNoq_'+n).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','') && dec($('#txtNos_'+n).val())<=t_nos && dec($('#txtNos_'+n).val())>=t_nos-4){
-		                					$('#txtNos_'+n).val(('0000'+(dec($('#txtNos_'+n).val())+10)).substr(-4));
-		                					$('#txtNoq_'+n).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+n).val());
-		                				}
-	                				}
-	                			}*/
-	                			
-	                			q_bbs_addrow('bbs',q_bbsCount-1,1);//插入空白行
-	                			$('#chkIssel_'+(q_bbsCount-1)).prop('checked',true);
-	                			$('#txtProcess_'+(q_bbsCount-1)).val(tt_ddate);
-	                			$('#txtSpec_'+(q_bbsCount-1)).val('當天累計時數：'+(t_gen-Math.abs(ttt_hours))+';剩餘時數：'+Math.abs(ttt_hours));
-	                			$('#txtHours_'+(q_bbsCount-1)).val(Math.abs(ttt_hours));
-	                			
-	                			$('#txtNos_'+(q_bbsCount-1)).val(t_nos);//('0000'+t_nos).substr(-4)
-	                			$('#txtNoq_'+(q_bbsCount-1)).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+(q_bbsCount-1)).val());
-	                			
-	                			addrest=true;
-	                		}
-	                		
-	                		//剩餘時數
-	                		//固定產能//$('#txtDhours_'+i).val(q_sub(t_gen,q_add(q_add(t_hours,dhours),dec($('#txtHours_'+i).val()))%t_gen));
-	                		$('#txtDhours_'+i).val(Math.abs(ttt_hours));
-	                		
-	                		//累計工時
-	                		$('#txtThours_'+i).val(q_add(q_add(t_hours,dec($('#txtHours_'+i).val())),tt_hours));
-	                		//預估日數
-	                		$('#txtDays_' + i).val(DateDiff($('#txtCuadate_' + i).val(),$('#txtUindate_' + i).val())+1);
-                		}
-                		if(addrest)//跳出迴圈
-                			break;
+                		if(emp($('#txtNos_'+i).val())&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val())))
+                			$('#txtNos_'+i).val(('000'+(dec(getmaxnos(i).substr(0,3))+1)).substr(-3)+'0');
+                			$('#txtNoq_'+i).val(replaceAll(q_date(), '/','')+$('#txtNos_'+i).val());
                 	}
                 	
-                	//插入空白時數重新計算
-                	if(addrest){
-                		q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+ddate+"' ^^", 0, 0, 0, "cugt", r_accy);
-                		return;
-                	}
+                	//檢查排程序號是否重複
+	                for (var i = 0; i < q_bbsCount; i++) {
+	                	for (var j = i+1; j < q_bbsCount; j++) {
+	                		if (i!=j &&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val()))){
+	                			alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+i).val()+']重覆')
+	                			return;
+	                		}
+	                	}
+	                }
                 	
-                	//排序處理
-                	//儲存有排序的資料,清除整個欄位
-                	var t_bbs=new Array();
-                	for (var i = 0; i < q_bbsCount; i++) {
-                		if($('#chkIssel_'+i).prop('checked')){
-                			var t_bbss=new Array();
-                			for (var j = 0; j < fbbs.length; j++) {
-                				t_bbss[fbbs[j]]=fbbs[j].substr(0,3)=='chk'?$('#'+fbbs[j]+'_'+i).prop('checked'):$('#'+fbbs[j]+'_'+i).val();
-                			}
-                			t_bbs.push(t_bbss);
-                		}
-						$('#btnMinus_'+i).click();
-						//解除disabled
-						for (var j = 0; j < fbbs.length; j++) {
-							if($.inArray(fbbs[j],q_readonlys)==-1){
-								$('#'+fbbs[j]+'_'+i).removeAttr('disabled');
-							}
-						}
-					}
-					
-                	//最先做的放前面(依noq)
-                	if(t_bbs.length!=0){
-	                	for (var i = 0; i < q_bbsCount; i++) {
-	                		var minnoq='',min_j=0;//目前最小noq,與資料位置
-	                		for (var j = 0; j < t_bbs.length; j++) {
-	                			if(minnoq==''){
-	                				minnoq=t_bbs[j].txtNoq
-	                				min_j=0;
-	                			}else{
-	                				if(minnoq>t_bbs[j].txtNoq){
-	                					minnoq=t_bbs[j].txtNoq;
-	                					min_j=j;
-	                				}
-	                			}
-	                		}
-	                		for (var j = 0; j < fbbs.length; j++) {
-	                			if(fbbs[j].substr(0,3)=='chk')
-	                				$('#'+fbbs[j]+'_'+i).prop('checked',t_bbs[min_j][fbbs[j]]);
-	                			else
-	                				$('#'+fbbs[j]+'_'+i).val(t_bbs[min_j][fbbs[j]]);
-	                		}
-	                		//移除最小資料
-	                		t_bbs.splice(min_j, 1);
-	                		//如果暫存沒資料就跳出
-	                		if(t_bbs.length==0)
-	                			break;
-						}
-					}
-					
-					//重新鎖定資料
-                	for (var i = 0; i < q_bbsCount; i++) {
-						if($('#chkIssel_'+i).prop('checked')){	//判斷是否被選取
-							$('#trSel_'+ i).addClass('chkIssel');//變色
-						}else{
-							$('#trSel_'+i).removeClass('chkIssel');//取消變色
-						}
-								
-						if(($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!='')
-							|| ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12)){
-							for(var j=0;j<fbbs.length;j++){
-								$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
-							}
-							$('#btnMinus_'+i).attr('disabled', 'disabled');
-						}
-						$('#txtCuadate_'+i).attr('disabled', 'disabled');
-						$('#txtUindate_'+i).attr('disabled', 'disabled');
-						$('#txtCuadate_'+i).css('background-color','rgb(237, 237, 238)');
-						$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
-						
-						if(!emp($('#txtWorkno_'+i).val())){
-							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-						}else{
-							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
-							$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
-						}
-					}
-                	sum();
-                	t_cugt=undefined;//計算完清除cugt的資料
-                	$('#btnCug').removeAttr('disabled');
-                	first_rest=true;
-                	if(cngisbtnok){
-                		$('#btnOk').click();
-                	}
+                	
+                	
+                	//處理相同的workno
+                	
+                	
+                	
+                	//排序
+                	
+                	
+                	
+                	t_cugt=undefined;
                 });
                 
+                $('#txtBdate').blur(function() {
+					if($('#txtBdate').val()<q_date()&&(q_cur==1||q_cur==2)){
+						alert(q_getMsg('lblCuadate')+'不得小於今天日期!!');
+						$('#txtBdate').val(q_date());
+					}
+				});
             }
 
             function q_boxClose(s2) {
@@ -424,73 +199,47 @@
                 		t_cugt = _q_appendData("view_cugt", "", true);
                 		$('#btnCug').click();
                 		break;
-                	case 'cug_chk':
+                	case 'station_chk':
                 		var as = _q_appendData("cug", "", true);
                 		if(as[0]!=undefined){
-                			alert("該工作中心【"+$('#txtDatea').val()+"】的排程已存在!!");
+                			alert("該工作中心已存在!!");
                 		}else{
-                			work_chk=true;
+                			station_chk=true;
                 			$('#btnWork').click();
                 		}
                 		break;
-                	case 'cug_btnok':
-                		var as = _q_appendData("cug", "", true);
-                		if(as[0]!=undefined){
-                			alert("該工作中心【"+$('#txtDatea').val()+"】的排程已存在!!");
-                		}else{
-                			cng_btnok=true;
-                			$('#btnOk').click();
-                		}
-                		break;
                 	case 'cug_work':
-                		var as = _q_appendData("view_cugs", "", true);
+                		var as = _q_appendData("view_cugu", "", true);
                 		if(as[0]!=undefined){
-                			//0421因加訂單匯入 所以要判斷是否已被匯入
+                			for ( var i = 0; i < as.length; i++) {
+                				if(as[i].noq=='99999999999')
+                					as[i].noq='';
+                			}
+                			
+                			//判斷是否已被匯入
                 			for (var i = 0; i < q_bbsCount; i++) {
 								for (var j = 0; j < as.length; j++) {
-									if($('#txtWorkno_' + i).val()==as[j].workno){
+									if($('#txtWorkno_' + i).val()==as[j].workno && $('#txtNoq_'+i).val()==as[j].noq){
 										as.splice(j, 1);
                                     	j--;
 										break;	
 									}
 								}
 							}
-                			
-                			/*for (var i = 0; i < q_bbsCount; i++) {
-								$('#btnMinus_'+i).click();
-							}*/
-                			for ( var i = 0; i < as.length; i++) {
-                				if(as[i].issel=='true')
-                					q_bbs_addrow('bbs', q_bbsCount-1, 1);
-                				if(as[i].noq=='99999999999')
-                					as[i].noq='';
-                			}
-                			
-                			q_gridAddRow(bbsHtm, 'tbbs'
-							,'txtNos,txtNoq,chkIssel,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtDays,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtDhours', as.length, as,
-							'nos,noq,issel,processno,process,productno,product,spec,style,mount,hours,days,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,dhours','txtProductno,txtProcess,txtWorkno');
+							
+							q_gridAddRow(bbsHtm, 'tbbs'
+							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,textDatea', as.length, as,
+							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,orgcuadate','txtProductno,txtProcess,txtWorkno');
+							
 							for (var i = 0; i < q_bbsCount; i++) {
-								if($('#chkIssel_'+i).prop('checked')){	//判斷是否被選取
-					               	$('#trSel_'+ i).addClass('chkIssel');//變色
-					            }else{
-					            	$('#trSel_'+i).removeClass('chkIssel');//取消變色
-								}
-								
-								if($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!=''){
-									for(var j=0;j<fbbs.length;j++){
-										$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
-									}
-									$('#btnMinus_'+i).attr('disabled', 'disabled');
-								}
-								
 								$('#txtCuadate_'+i).attr('disabled', 'disabled');
 								$('#txtUindate_'+i).attr('disabled', 'disabled');
 								$('#txtCuadate_'+i).css('background-color','rgb(237, 237, 238)');
 								$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
-								
 							}
 							sum();
                 		}
+                		
                 		break;
                     case q_name:
                         if (q_cur == 4)
@@ -504,68 +253,25 @@
                     return false;
             }
 			
-			var cng_btnok=false;
-			var cngisbtnok=false;
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtStationno', q_getMsg('lblStation')], ['txtDatea', q_getMsg('lblDatea')]]);
+                t_err = q_chkEmpField([['txtStationno', q_getMsg('lblStation')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
                 
-                if(!cng_btnok){
-                	q_gt('cug', "where=^^datea='"+$('#txtDatea').val()+"' and stationno='"+$('#txtStationno').val()+"' and noa!='"+$('#txtNoa').val()+"'^^", 0, 0, 0, "cug_btnok", r_accy);
-                	return;
-                }
-                
-                //處理有排程但沒有nos的資料
-                for (var i = 0; i < q_bbsCount; i++) {
-                	if ($('#chkIssel_'+i).prop('checked')&&emp($('#txtNos_'+i).val())&&!emp($('#txtWorkno_'+i).val())){
-                		$('#txtNos_'+i).val(('000'+(dec(getmaxnos(i).substr(0,3))+1)).substr(-3)+'0');
-                		$('#txtNoq_'+i).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+i).val());
-                	}
-                }
-                
-                //處理有排程但沒有noq的資料
-                for (var i = 0; i < q_bbsCount; i++) {
-                	if ($('#chkIssel_'+i).prop('checked')&&emp($('#txtNoq_'+i).val())&&!emp($('#txtNos_'+i).val())&&!emp($('#txtWorkno_'+i).val())){
-                		$('#txtNoq_'+i).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+i).val());
-                	}
-                }
-                
-                //檢查排程序號是否重複
-                for (var i = 0; i < q_bbsCount; i++) {
-                	for (var j = i+1; j < q_bbsCount; j++) {
-                		if (i!=j &&$('#chkIssel_'+i).prop('checked')&&$('#chkIssel_'+j).prop('checked')&&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()){
-                			alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+i).val()+']重覆')
-                			return;
-                		}
-                	}
-                }
-                
-                if(!cngisbtnok){
-                	cngisbtnok=true;
-                	q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+$('#txtDatea').val()+"' ^^", 0, 0, 0, "cugt", r_accy);
-                	return;             	
-                }
-                
                 sum();
-                cngisbtnok=false;
-                cng_btnok=false;
                 
                 if (q_cur == 1)
                     $('#txtWorker').val(r_name);
                 else
                     $('#txtWorker2').val(r_name);
 
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
+                var t_noa = trim($('#txtStationno').val());
+                $('#txtNoa').val(t_noa);
 
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cug') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
+                wrServer(t_noa);
             }
 
             function _btnSeek() {
@@ -577,9 +283,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtKdate').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtBdate').val(q_date());
                 
             }
 
@@ -587,19 +291,11 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').attr('disabled', 'disabled');
 				$('#txtStationno').attr('disabled', 'disabled');
 				$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
 				$('#lblStation').css('display', 'none');
-				for (var i = 0; i < q_bbsCount; i++) {
-					if(($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!='')
-						|| ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12)){
-						for(var j=0;j<fbbs.length;j++){
-							$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
-						}
-						$('#btnMinus_'+i).attr('disabled', 'disabled');
-					}
-				}
+				$('#txtBdate').val(q_date());
+				first_cur2=true;
             }
 
             function btnPrint() {
@@ -630,66 +326,14 @@
 								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
 							}
 		                });
-		                $('#txtCuadate_'+i).blur(function() {
-		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if(!emp($('#txtCuadate_' + b_seq).val()) && !emp($('#txtUindate_' + b_seq).val()) && (q_cur == 1 || q_cur == 2)){
-								if($('#txtCuadate_' + b_seq).val()>$('#txtUindate_' + b_seq).val()){
-									alert(q_getMsg('lblWorkdate_s')+'大於'+q_getMsg('lblEnddate_s'));
-									$('#txtCuadate_' + b_seq).val('').focusin();
-									return;
-								}
-								
-								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
-							}
-		                });
-		                $('#txtUindate_'+i).blur(function() {
-		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if(!emp($('#txtCuadate_' + b_seq).val()) && !emp($('#txtUindate_' + b_seq).val()) && (q_cur == 1 || q_cur == 2)){
-								if($('#txtCuadate_' + b_seq).val()>$('#txtUindate_' + b_seq).val()){
-									alert(q_getMsg('lblWorkdate_s')+'大於'+q_getMsg('lblEnddate_s'));
-									$('#txtUindate_' + b_seq).val('').focusin();
-									return;
-								}
-								
-								$('#txtDays_' + b_seq).val(DateDiff($('#txtCuadate_' + b_seq).val(),$('#txtUindate_' + b_seq).val())+1);
-							}
-		                });
+		                
 		                
 		                $('#txtNos_' + i).blur(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 		                	if(q_cur==1 || q_cur==2){
-		                		//如果手動打nos自動勾取排程
-		                		if(!$('#chkIssel_'+b_seq).prop('checked') && !emp($('#txtNos_'+b_seq).val()) && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
-		                			$('#chkIssel_'+b_seq).prop('checked',true);
-		                			$('#trSel_'+ b_seq).addClass('chkIssel');//變色
-		                		}
 		                		
-		                		if($('#chkIssel_'+b_seq).prop('checked') && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
-		                			//處理noq的資料
-		                			if(emp($('#txtNos_'+b_seq).val())){
-		                				$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
-		                				$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
-		                			}else{
-						                $('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
-						                //檢查排程序號是否重複
-						                for (var j = 0; j < q_bbsCount; j++) {
-						                	if (b_seq!=j &&$('#chkIssel_'+j).prop('checked')&&$('#txtNoq_'+b_seq).val()==$('#txtNoq_'+j).val()){
-						                		alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+b_seq).val()+']重覆')
-						                		$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
-							               		$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
-						                		break;
-						                	}
-						                }
-					                }
-		                		}else{
-		                			 $('#txtNoq_'+b_seq).val('');
-		                		}
 		                	}
 						});
 						
@@ -697,67 +341,14 @@
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-		                	if(q_cur==1 || q_cur==2){
-		                		//如果手動打nos自動勾取排程
-		                		if(!$('#chkIssel_'+b_seq).prop('checked') && !emp($('#txtNos_'+b_seq).val()) && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
-		                			$('#chkIssel_'+b_seq).prop('checked',true);
-		                			$('#trSel_'+ b_seq).addClass('chkIssel');//變色
-		                		}
-		                		if($('#chkIssel_'+b_seq).prop('checked') && (!emp($('#txtProcess_'+b_seq).val()) || !emp($('#txtWorkno_'+b_seq).val()))){
-		                			//檢查nos 有沒有資料
-		                			if(emp($('#txtNos_'+b_seq).val())){
-		                				$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
-		                				$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
-		                			}else{
-		                				//處理noq的資料
-					                	$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
-					                	
-					                	//檢查排程序號是否重複
-						                for (var j = 0; j < q_bbsCount; j++) {
-						                	if (b_seq!=j &&$('#chkIssel_'+j).prop('checked')&&$('#txtNoq_'+b_seq).val()==$('#txtNoq_'+j).val()){
-						                		alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+b_seq).val()+']重覆')
-						                		$('#txtNos_'+b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
-							               		$('#txtNoq_'+b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+b_seq).val());
-						                		break;
-						                	}
-						                }
-		                			}
-		                			$('#trSel_'+ b_seq).addClass('chkIssel');//變色
-		                		}else{
-		                			 $('#txtNoq_'+b_seq).val('');
-		                		}
-		                	}
-						});
-		                
-		                $('#chkIssel_' + i).click(function () {
-							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							if($('#chkIssel_'+b_seq).prop('checked')&&(!emp($('#txtWorkno_'+b_seq).val()) || !emp($('#txtProcess_'+b_seq).val()))){	//判斷是否被選取
-								$('#trSel_'+ b_seq).addClass('chkIssel');//變色
-								//判斷是否是當天排程的資料
-								if($('#txtNoq_'+ b_seq).val()=='' || $('#txtNoq_'+ b_seq).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','')){
-									$('#txtNos_'+ b_seq).val(('000'+(dec(getmaxnos(b_seq).substr(0,3))+1)).substr(-3)+'0');
-									$('#txtNoq_'+ b_seq).val(replaceAll($('#txtDatea').val(), '/','')+$('#txtNos_'+ b_seq).val());
-								}
-							}else{
-				                $('#trSel_'+b_seq).removeClass('chkIssel');//取消變色
-				                $('#txtCuadate_'+b_seq).val('');
-				                $('#txtUindate_'+b_seq).val('');
-				                $('#txtThours_'+b_seq).val('');
-							}
-							sum();
+		                	
 						});
                     }
                 }
                 _bbsAssign();
 				
 				for (var i = 0; i < q_bbsCount; i++) {
-					if($('#chkIssel_'+i).prop('checked') && (!emp($('#txtWorkno_'+i).val()) || !emp($('#txtProcess_'+i).val()))){	//判斷是否被選取
-						$('#trSel_'+ i).addClass('chkIssel');//變色
-					}else{
-						$('#trSel_'+i).removeClass('chkIssel');//取消變色
-					}
+					
 					$('#txtCuadate_'+i).attr('disabled', 'disabled');
 					$('#txtUindate_'+i).attr('disabled', 'disabled');
 					
@@ -776,13 +367,25 @@
 						}
 						$('#btnMinus_'+i).attr('disabled', 'disabled');
 					}
+					
+					if (q_cur<1 && q_cur>2) {
+						for (var j = 0; j < q_bbsCount; j++) {
+							$('#textDatea_'+j).datepicker( 'destroy' );
+						}
+					} else {
+						for (var j = 0; j < q_bbsCount; j++) {
+							$('#textDatea_'+j).removeClass('hasDatepicker')
+							$('#textDatea_'+j).datepicker();
+						}
+					}
 				}
             }
             
             function getmaxnos(seq) {//seq 表示排除的noq
             	var maxnos='0000';
             	for (var i = 0; i < q_bbsCount; i++) {
-            		if($('#chkIssel_'+i).prop('checked')&&$('#txtNoq_'+i).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','')&&i!=dec(seq)&&$('#txtNos_' +i).val()>maxnos){
+            		if($('#txtNoq_'+i).val().substr(0,7)==replaceAll($('#txtDatea').val(), '/','')
+            		&&i!=dec(seq)&&$('#txtNos_' +i).val()>maxnos &&$('#txtNos_' +i).val().length==4){
             			maxnos=$('#txtNos_' +i).val();
             		}
             	}
@@ -790,7 +393,7 @@
             }
 
             function bbsSave(as) {
-                if (as['issel']=="false" || !as['noq'] ) {//不存檔條件
+                if (!as['noq'] ) {//不存檔條件
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -805,9 +408,7 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount;
                 for (var j = 0; j < q_bbsCount; j++) {
-					if($('#chkIssel_'+j).prop('checked')){
-						t1=q_add(t1,q_float('txtHours_'+j));
-					}
+					t1=q_add(t1,q_float('txtHours_'+j));
                 } // j
                 $('#txtHours').val(t1);
             }
@@ -815,11 +416,6 @@
             function refresh(recno) {
                 _refresh(recno);
                 for (var i = 0; i < q_bbsCount; i++) {
-		        	if($('#chkIssel_'+i).prop('checked')){	//判斷是否被選取
-		               	$('#trSel_'+ i).addClass('chkIssel');//變色
-		            }else{
-		            	$('#trSel_'+i).removeClass('chkIssel');//取消變色
-					}
 					if(!emp($('#txtWorkno_'+i).val()) || (q_cur!=1 && q_cur!=2)){
 						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -1108,7 +704,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:30%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:30%"><a id='vewBdate'> </a></td>
 						<td align="center" style="width:30%"><a id='vewStation'> </a></td>
 						<td align="center" style="width:30%"><a id='vewProcess'> </a></td>
 					</tr>
@@ -1116,7 +712,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='bdate'>~bdate</td>
 						<td align="center" id='station'>~station</td>
 						<td align="center" id='process'>~process</td>
 					</tr>
@@ -1124,13 +720,13 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr>
-						<td class="td1" style="width: 105px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2" style="width: 206px;"><input id="txtDatea"  type="text" class="txt c1"/></td>
-						<td class="td3" style="width: 105px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td4" style="width: 176px;"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td class="td5" style="width: 105px;"><span> </span><a id='lblKdate' class="lbl"> </a></td>
-						<td class="td6" style="width: 176px;"><input id="txtKdate"  type="text" class="txt c1"/></td>
+					<tr style="height: 1px;">
+						<td class="td1" style="width: 105px;"><!--<span> </span><a id='lblDatea' class="lbl"> </a>--></td>
+						<td class="td2" style="width: 206px;"><input id="txtDatea"  type="hidden" class="txt c1"/></td>
+						<td class="td3" style="width: 105px;"><!--<span> </span><a id='lblNoa' class="lbl"> </a>--></td>
+						<td class="td4" style="width: 176px;"><input id="txtNoa"  type="hidden" class="txt c1"/></td>
+						<td class="td5" style="width: 105px;"><!--<span> </span><a id='lblKdate' class="lbl"> </a>--></td>
+						<td class="td6" style="width: 176px;"><input id="txtKdate"  type="hidden" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a><a id='lblStationk' class="lbl btn"> </a></td>
@@ -1189,7 +785,6 @@
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
-					<td align="center" style="width:36px;"><a id='lblIssel_s'> </a></td>
 					<td align="center" style="width:75px;"><a id='lblNoq_s'> </a></td>
 					<td align="center" style="width:100px;">指定開工日</td>
 					<td align="center" style="width:145px;"><a id='lblProductno_s'> </a>/<a id='lblProcess_s'> </a></td>
@@ -1197,7 +792,7 @@
 					<td align="center" class="isstyle" style="width:100px;"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblHours_s'> </a></td>
-					<td align="center" style="width:90px;"><a id='lblDays_s'> </a></td>
+					<td align="center" style="width:90px;"><a id='lblPretime_s'> </a></td>
 					<td align="center" style="width:105px;"><a id='lblOrgcuadate_s'> </a></td>
 					<td align="center" style="width:105px;"><a id='lblOrguindate_s'> </a></td>
 					<td align="center" style="width:105px;"><a id='lblCuadate_s'> </a></td>
@@ -1210,10 +805,9 @@
 				</tr>
 				<tr id="trSel.*">
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-					<td align="center"><input id="chkIssel.*" type="checkbox"/></td>
 					<td>
 						<input id="txtNos.*" type="text" class="txt c1"/>
-						<input id="txtNoq.*" type="text" class="txt c1"/>
+						<input id="txtNoq.*" type="hidden" class="txt c1"/>
 						<input id="txtStationno.*" type="hidden" class="txt c1"/>
 						<input id="txtStation.*" type="hidden" class="txt c1"/>
 					</td>
@@ -1232,14 +826,14 @@
 					<td class="isstyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtHours.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtDays.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtPretime.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtOrgcuadate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtOrguindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtCuadate.*" type="text" class="txt c1" style="color: red;"/></td>
 					<td><input id="txtUindate.*" type="text" class="txt c1" style="color: red;"/></td>
 					<td>
 						<input id="txtThours.*" type="text" class="txt  num c1"/>
-						<input id="txtDhours.*" type="text" class="txt num c1"/>
+						<input id="txtDhours.*" type="hidden" class="txt num c1"/>
 					</td>
 					<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 					<td><input id="txtOrdeno.*" type="text" class="txt c1"/></td>
