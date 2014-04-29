@@ -40,7 +40,7 @@
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtCuano', 'lblCuano', 'inb', 'noa,datea', 'txtCuano,txtCuadate', 'inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec', 'ucaucc_b.aspx'],
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
 				['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx', '95%'],
 				['txtOrdeno', 'lblOrdeno', 'ordes', 'noa,no2,productno,product', 'txtOrdeno,txtNo2,txtProductno,txtProduct', 'ordes_b.aspx', '95%']

@@ -194,6 +194,13 @@
 				$('#btnOrdem').click(function() {
 					q_box("ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordem', "95%", "95%", q_getMsg('popOrdem'));
 				});
+				$('#chkCancel').click(function(){
+					if($(this).prop('checked')){
+						for(var k=0;k<q_bbsCount;k++){
+							$('#chkCancel_'+k).prop('checked',true);
+						}
+					}
+				});
 			}
 			
 			//addr2控制事件vvvvvv-------------------

@@ -169,6 +169,13 @@
 						q_gt('custaddr', t_where, 0, 0, 0, "");
 					}
 				});
+				$('#chkCancel').click(function(){
+					if($(this).prop('checked')){
+						for(var k=0;k<q_bbsCount;k++){
+							$('#chkCancel_'+k).prop('checked',true);
+						}
+					}
+				});
 			}
 
 			function q_boxClose(s2) {

@@ -256,6 +256,13 @@
                     }
                     q_box("ordc.aspx?"+ r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
                 });
+				$('#chkCancel').click(function(){
+					if($(this).prop('checked')){
+						for(var k=0;k<q_bbsCount;k++){
+							$('#chkCancel_'+k).prop('checked',true);
+						}
+					}
+				});
 			}
 
 			function q_funcPost(t_func, result) {
@@ -1063,7 +1070,7 @@
                     </td>
                     <td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:200px;">品名<br>規格</td>
+					<td align="center" style="width:200px;">品名/規格</td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyles'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_st'> </a></td>
