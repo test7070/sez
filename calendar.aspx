@@ -155,12 +155,12 @@
                             $('#' + this.id).find("table").find("tr.data").eq(i).append("<td id=\"D" + i + "_" + j + "\"></td>");
                     }
                     $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="date" style="font-weight:bolder;font-size:18px;width:20%;height:20px;">');
-                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="holiday" style="width:95%;height:20px;text-align:left;">&nbsp;</div>');
-                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="memo" style="width:95%;height:60px;text-align:left;">&nbsp;</div>');
+                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="holiday" style="width:95%;height:20px;text-align:left;"></div>');
+                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="memo" style="width:95%;height:60px;text-align:left;"></div>');
                     $('#' + this.id).find("table").find("tr.data").find("td").bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
-                        if($(this).html().length>0){
+                        if($(this).find('.date').html().length>0){
                             var t_top = $(this).offset().top;
                             var t_left = $(this).offset().left;
                             $("#msg").show().offset({top:t_top,left:t_left});
@@ -216,9 +216,9 @@
                     $('#lblMonth').html(this.month);
                     for (var i = 0; i < 6; i++) {
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").unbind("mouseenter").unbind("mouseleave").data('info','');
-                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".date").html("&nbsp;").css('color','black');
-                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".holiday").html("&nbsp;").css('color','black');
-                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".memo").html("&nbsp;").css('color','black');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".date").html("").css('color','black');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".holiday").html("").css('color','black');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".memo").html("").css('color','black');
                     }
                     var t_date = new Date();
                     
@@ -255,7 +255,7 @@
                         }
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').html(i+1);
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.holiday').html(t_holiday);
-                        $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.memo').html(t_memo.replace(/\n/g,","));
+                        $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.memo').html(t_memo.replace(/\n/g,"<br>"));
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).bind({
                             mouseenter : function(e) {
                                 $(this).css('background-color','#F6D8CE');
@@ -302,6 +302,9 @@
             });
         </script>
         <style type="text/css">
+            #calendar{
+                font-family: "Times New Roman","標楷體";
+            }
             #calendar table {
                 border: 5px solid gray;
                 font-size: medium;
@@ -313,6 +316,7 @@
             #calendar table tr.header {
                 background-color: #E3CEF6;
                 color: darkblue;
+                font-size:24px;
             }
             #calendar table tr.data {
                 background-color: #CED8F6;
@@ -328,6 +332,7 @@
                 width:400px;
                 height:250px;
                 display:none;
+                font-family: "Times New Roman","標楷體";
             }
             #msg table{
                 width:100%;
@@ -388,7 +393,7 @@
                 </tr>
                 <tr style="height:60px;">
                     <td><a id="lblMemo">備　　註</a></td>
-                    <td><textarea id="txtMemo_msg" style="width:98%;" rows=4> </textarea></td>
+                    <td><textarea id="txtMemo_msg" style="width:98%;" rows=3> </textarea></td>
                 </tr>
                 <tr>
                     <td align="center"><input type="button" id="btnSave_msg" value="儲存"></td>
