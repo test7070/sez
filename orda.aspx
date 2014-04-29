@@ -127,7 +127,9 @@
 					}
 				}
 				_bbsAssign();
-				q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
+				
+				//0428 不存style>>要採購時自行KEY打
+				//q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
 			}
 
 			function btnIns() {
@@ -172,7 +174,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
+				//q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -182,7 +184,7 @@
 				} else {
 
 				}
-				q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
+				//q_getPara('sys.isstyle')=='1'?$('.isStyle').show():$('.isStyle').hide();
 			}
 
 			function btnMinus(id) {
@@ -411,7 +413,7 @@
 					</td>
 					<td align="center" style="width:160px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
-					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle_s'> </a></td>
+					<!--<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle_s'> </a></td>-->
 					<td align="center" style="width:55px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblGmount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblWmount_s'> </a></td>
@@ -435,7 +437,7 @@
 						<input class="txt c1" id="txtProduct.*" type="text" />
 						<input class="txt c1" id="txtSpec.*" type="text" />
 					</td>
-					<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text" /></td>
+					<!--<td class="isStyle"><input class="txt c1" id="txtStyle.*" type="text" /></td>-->
 					<td align="center"><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt num c1" id="txtGmount.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtWmount.*" type="text" /></td>
