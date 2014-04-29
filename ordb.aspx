@@ -256,6 +256,13 @@
                     }
                     q_box("ordc.aspx?"+ r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'ordc', "95%", "95%", q_getMsg("popOrdc"));
                 });
+				$('#chkCancel').click(function(){
+					if($(this).prop('checked')){
+						for(var k=0;k<q_bbsCount;k++){
+							$('#chkCancel_'+k).prop('checked',true);
+						}
+					}
+				});
 			}
 
 			function q_funcPost(t_func, result) {
