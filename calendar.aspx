@@ -282,6 +282,7 @@
                         if(t_holiday.length>0){
                             t_color = "#FF0000";
                         }
+                        //休假日 淺灰
                         if(t_isholiday){
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).css('background-color','gainsboro').addClass('holiday');
                         }
@@ -289,6 +290,7 @@
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').css('color',t_color);
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.holiday').css('color',t_color);
                         }
+                        //初一、十五紅色
                         if(t_lunardate==1 || t_lunardate==15)
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.lunarcalendar').css('color','red');
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').html(i+1);
