@@ -18,7 +18,13 @@
             function Calendar() {
             }
             Calendar.prototype = {
-                id : "calendar",lunarcalendar:new Array(), year : 2014, month : 4, days : 0, dayName : ["日", "一", "二", "三", "四", "五", "六"]
+                id : "calendar"
+                ,lunarcalendar:new Array()
+                , year : 2014
+                , month : 4
+                , days : 0
+                , dayName : ["日", "一", "二", "三", "四", "五", "六"]
+                , cdate : ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','廿十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','卅十']
                 , init : function() {
                     $("#btnNext").click(function(e) {
                         calendar.next();
@@ -235,10 +241,7 @@
                     y_year = y_year.substring(y_year.length - 4, y_year.length);
                     x_month = '00' + (this.month);
                     x_month = x_month.substring(x_month.length - 2, x_month.length);
-                    
-                    var cdate = ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十'
-                        ,'十一','十二','十三','十四','十五','十六','十七','十八','十九','廿十'
-                        ,'廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','卅十'];
+
                     for (var i = 0; i < this.days; i++) {
                         x_day = '00' + (i + 1);
                         x_day = x_day.substring(x_day.length - 2, x_day.length);
@@ -276,7 +279,7 @@
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.lunarcalendar').css('color','red');
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').html(i+1);
                         if(t_lunardate>0)
-                            $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.lunarcalendar').html(t_lunarmonth+cdate[t_lunardate-1]);
+                            $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.lunarcalendar').html(t_lunarmonth+calendar.cdate[t_lunardate-1]);
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.holiday').html(t_holiday);
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.memo').html(t_memo.replace(/\n/g,"<br>"));
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).bind({
