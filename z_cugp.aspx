@@ -72,16 +72,44 @@
 						src : 'process_b.aspx'
                     },{
                         type : '6',
-                        name : 'xenddate' //[8]
+                        name : 'xenddate' 
                     }, {
 						type : '5', //select
 						name : 'xorder',
 						value : ('1@製程,2@開工日').split(',')
-					}]
+					},{
+                        type : '1',
+                        name : 'xdate'
+                    }]
 				});
                 q_popAssign();
 				$('#txtXenddate').datepicker();
 				$('#txtXenddate').mask('999/99/99');
+				$('#txtXdate1').mask('999/99/99');
+				$('#txtXdate2').mask('999/99/99');
+				
+				var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);
+				
 				//$('#txtXenddate').val(q_date());
 				
 				//SVG
@@ -90,6 +118,8 @@
                 	var t_estation = emp($('#txtStation2a').val())?'#non':$('#txtStation2a').val();
                 	var t_bprocess = emp($('#txtProcess1a').val())?'#non':$('#txtProcess1a').val();
                 	var t_eprocess = emp($('#txtProcess2a').val())?'#non':$('#txtProcess2a').val();
+                	var t_bdate = emp($('#txtXdate1').val())?'#non':$('#txtXdate1').val();
+                	var t_edate = emp($('#txtXdate2').val())?'#non':$('#txtXdate2').val();
                     var t_index = $('#q_report').data('info').radioIndex;
                     var t_report = $('#q_report').data('info').reportData[t_index].report;
 
@@ -100,7 +130,7 @@
                         case 'z_cugp_svg1':
                             $('#Loading').Loading();
                             Lock();
-                            q_func('qtxt.query', 'z_cugp_svg.txt,' + txtreport + ',' + encodeURI(r_accy) + ';' + t_bstation+ ';' + t_estation+ ';' + t_bprocess+ ';' + t_eprocess );
+                            q_func('qtxt.query', 'z_cugp_svg.txt,' + txtreport + ',' + encodeURI(r_accy) + ';#non;' + t_bstation+ ';' + t_estation+ ';' + t_bprocess+ ';' + t_eprocess + ';#non;#non;'+t_bdate+';'+t_edate);
                             break;
                         default:
                             alert('錯誤：未定義報表');
@@ -144,7 +174,7 @@
                                 			stationno : as[i].stationno,
                                 			station : as[i].station,
                                 			shours: as[i].shours,
-                                			gen: as[i].gen,
+                                			gen: as[i].mgen,
                                 			process : new Array({
                                 				processno : as[i].processno,
                                 				process : as[i].process,
@@ -155,6 +185,7 @@
 	                                				mount : as[i].mount,
 		                                			hours : as[i].hours,
 		                                			days : as[i].days,
+		                                			gen: as[i].gen,
 		                                			cuadate : as[i].cuadate,
 		                                			uindate : as[i].uindate,
 		                                			workno : as[i].workno,
@@ -168,7 +199,7 @@
                                 			stationno : as[i].stationno,
                                 			station : as[i].station,
                                 			shours: as[i].shours,
-                                			gen: as[i].gen,
+                                			gen: as[i].mgen,
 	                                		detail : new Array({
 	                                			processno : as[i].processno,
                                 				process : as[i].process,
@@ -178,6 +209,7 @@
 	                                			mount : as[i].mount,
 		                                		hours : as[i].hours,
 		                                		days : as[i].days,
+		                                		gen: as[i].gen,
 		                                		cuadate : as[i].cuadate,
 		                                		uindate : as[i].uindate,
 		                                		workno : as[i].workno,
@@ -197,6 +229,7 @@
 	                                			mount : as[i].mount,
 		                                		hours : as[i].hours,
 		                                		days : as[i].days,
+		                                		gen: as[i].gen,
 		                                		cuadate : as[i].cuadate,
 		                                		uindate : as[i].uindate,
 		                                		workno : as[i].workno,
@@ -214,6 +247,7 @@
 	                                		mount : as[i].mount,
 		                                	hours : as[i].hours,
 		                                	days : as[i].days,
+		                                	gen: as[i].gen,
 		                                	cuadate : as[i].cuadate,
 		                                	uindate : as[i].uindate,
 		                                	workno : as[i].workno,
@@ -229,6 +263,7 @@
                             				mount : as[i].mount,
 		                                	hours : as[i].hours,
 		                                	days : as[i].days,
+		                                	gen: as[i].gen,
 		                                	cuadate : as[i].cuadate,
 		                                	uindate : as[i].uindate,
 		                                	workno : as[i].workno,
@@ -245,6 +280,7 @@
 	                                		mount : as[i].mount,
 		                                	hours : as[i].hours,
 		                                	days : as[i].days,
+		                                	gen: as[i].gen,
 		                                	cuadate : as[i].cuadate,
 		                                	uindate : as[i].uindate,
 		                                	workno : as[i].workno,
