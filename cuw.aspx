@@ -26,7 +26,8 @@
 			];
 			var bbtNum = [
 				['txtMans',10,0,1],/*['txtWorkmount',10,2,1],['txtMount',10,2,1],*/
-				['txtSupmans',10,0,1],['txtHours',10,2,1],['txtAddhours',10,2,1]
+				['txtSupmans',10,0,1],['txtHours',10,2,1],['txtAddhours',10,2,1],
+				['txtManagermans',10,0,1]
 			];
 			var bbmMask = [];
 			var bbsMask = [['txtWorktime','9999-9999']];
@@ -104,12 +105,20 @@
 						}else if($('#combPartno2__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSupworker__'+thisSeq);
 							$('#combPartno2__'+thisSeq).val('');
+						}else if($('#combPartno3__'+thisSeq).val() != ''){
+							now_txtObject = $('#txtManager__'+thisSeq);
+							$('#combPartno3__'+thisSeq).val('');
 						}
-
+						var AllName = $.trim($('#txtSales__'+thisSeq).val())+
+									  $.trim($('#txtSupworker__'+thisSeq).val())+
+									  $.trim($('#txtManager__'+thisSeq).val());
 						for(var i = 0;i < as.length;i++){
+							var AllName = $.trim($('#txtSales__'+thisSeq).val())+
+										  $.trim($('#txtSupworker__'+thisSeq).val())+
+										  $.trim($('#txtManager__'+thisSeq).val());
 							str = now_txtObject.val();
 							name = as[i].namea;
-							if(str.match(name) == null){
+							if(AllName.match(name) == null){
 								newstr = str + name + ';';
 								now_txtObject.val(newstr);
 							}
@@ -127,6 +136,7 @@
 							for(var k=0;k<q_bbtCount;k++){
 								q_cmbParse("combPartno__"+k, t_item + t_item2);
 								q_cmbParse("combPartno2__"+k, t_item + t_item2);
+								q_cmbParse("combPartno3__"+k, t_item + t_item2);
 							}
 						}
 						break;
@@ -154,14 +164,20 @@
 						}else if($('#combPartno2__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSupworker__'+thisSeq);
 							$('#combPartno2__'+thisSeq).val('');
+						}else if($('#combPartno3__'+thisSeq).val() != ''){
+							now_txtObject = $('#txtManager__'+thisSeq);
+							$('#combPartno3__'+thisSeq).val('');
 						}
 						b_ret = getb_ret();
 						if (!b_ret || b_ret.length == 0)
 							return;
 						for(var i = 0;i < b_ret.length;i++){
+							var AllName = $.trim($('#txtSales__'+thisSeq).val())+
+										  $.trim($('#txtSupworker__'+thisSeq).val())+
+										  $.trim($('#txtManager__'+thisSeq).val());
 							str = now_txtObject.val();
 							name = b_ret[i].namea;
-							if(str.match(name) == null){
+							if(AllName.match(name) == null){
 								newstr = str + name + ';';
 								now_txtObject.val(newstr);
 							}
@@ -254,6 +270,8 @@
 						$('#combPartno__'+k).css('background-color', 'rgb(255, 255, 255)');
 						$('#combPartno2__'+k).removeAttr('disabled');
 						$('#combPartno2__'+k).css('background-color', 'rgb(255, 255, 255)');
+						$('#combPartno3__'+k).removeAttr('disabled');
+						$('#combPartno3__'+k).css('background-color', 'rgb(255, 255, 255)');
 					}
 				}else{
 					for(var k=0;k<q_bbtCount;k++){
@@ -261,6 +279,8 @@
 						$('#combPartno__'+k).css('background-color', 'rgb(237, 237, 238)');
 						$('#combPartno2__'+k).attr('disabled','disabled');
 						$('#combPartno2__'+k).css('background-color', 'rgb(237, 237, 238)');
+						$('#combPartno3__'+k).attr('disabled','disabled');
+						$('#combPartno3__'+k).css('background-color', 'rgb(237, 237, 238)');
 					}
 				}
 			}
@@ -308,6 +328,34 @@
 								$('#txtAddtime_'+n).val(0);
 								$('#txtBorntime_'+n).val(usetime);
 							}
+							//若bbt無相同時間 則新增一筆
+							var hasBBtRec = false;
+							var theEmpBBt = -1;
+							for(var k=0;k<q_bbtCount;k++){
+								var bbtWorkTime = $.trim($('#txtWorktime__'+k).val());
+								if(thisVal==bbtWorkTime){
+									hasBBtRec = true;
+									break;
+								}else if((bbtWorkTime.length == 0) && (theEmpBBt==-1)){
+								//尋找空白行(依作業時間判斷)
+									theEmpBBt = k;
+								}
+							}
+
+							if(!hasBBtRec){
+								var NewbbtSeq = theEmpBBt;
+								if(NewbbtSeq==-1){
+									q_bbs_addrow('bbt',q_bbtCount,0);
+									NewbbtSeq= dec(q_bbtCount)-1;
+								}
+								$('#txtWorktime__'+NewbbtSeq).val(thisVal);
+								if($('#chkIsovertime_'+n).prop('checked')){
+									$('#chkIsovertime__'+NewbbtSeq).prop('checked',true);
+								}else{
+									$('#chkIsovertime__'+NewbbtSeq).prop('checked');
+								}
+								$('#txtWorktime__'+NewbbtSeq).focusout();
+							}
 						});
 						$('#chkIsovertime_'+i).click(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -334,6 +382,9 @@
 							combtodo($(this));
 						});
 						$("#combPartno2__"+i).change(function() {
+							combtodo($(this));
+						});
+						$("#combPartno3__"+i).change(function() {
 							combtodo($(this));
 						});
 						$('#txtWorktime__' + i).focusout(function(){
@@ -544,7 +595,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-				width: 1280px;
+				width: 1660px;
 			}
 			#tbbt {
 				margin: 0;
@@ -671,6 +722,8 @@
 						<td style="width:360px; text-align: center;"><a id='lblSales_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblSupmans_t'> </a></td>
 						<td style="width:360px; text-align: center;"><a id='lblSupworker_t'> </a></td>
+						<td style="width:80px; text-align: center;"><a id='lblManagermans_t'> </a></td>
+						<td style="width:360px; text-align: center;"><a id='lblManager_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblHours_t'> </a></td>
 						<td style="width:80px; text-align: center;"><a id='lblAddhours_t'> </a></td>
 						<td style="width:40px;"><a id='lblIsovertime_t'> </a></td>
@@ -697,6 +750,11 @@
 						<td>
 							<select id="combPartno2..*" class="txt" style="width:100px;"> </select>
 							<input id="txtSupworker..*" type="text" class="txt" style="width: 230px;"/>
+						</td>
+						<td><input id="txtManagermans..*" type="text" class="txt num c3"/></td>
+						<td>
+							<select id="combPartno3..*" class="txt" style="width:100px;"> </select>
+							<input id="txtManager..*" type="text" class="txt" style="width: 230px;"/>
 						</td>
 						<td><input id="txtHours..*" type="text" class="txt num c3"/></td>
 						<td><input id="txtAddhours..*" type="text" class="txt num c3"/></td>

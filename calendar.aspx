@@ -18,7 +18,13 @@
             function Calendar() {
             }
             Calendar.prototype = {
-                id : "calendar", year : 2014, month : 4, days : 0, dayName : ["日", "一", "二", "三", "四", "五", "六"]
+                id : "calendar"
+                ,lunarcalendar:new Array()
+                , year : 2014
+                , month : 4
+                , days : 0
+                , dayName : ["日", "一", "二", "三", "四", "五", "六"]
+                , cdate : ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','廿十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','卅十']
                 , init : function() {
                     $("#btnNext").click(function(e) {
                         calendar.next();
@@ -154,13 +160,14 @@
                         for (var j = 0; j < 7; j++)
                             $('#' + this.id).find("table").find("tr.data").eq(i).append("<td id=\"D" + i + "_" + j + "\"></td>");
                     }
-                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="date" style="font-weight:bolder;font-size:18px;width:20%;height:20px;">');
-                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="holiday" style="width:95%;height:20px;text-align:left;">&nbsp;</div>');
-                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="memo" style="width:95%;height:60px;text-align:left;">&nbsp;</div>');
+                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="date" style="float:left;text-align:left;font-weight:bolder;font-size:18px;width:30%;height:20px;"></div>');
+                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="lunarcalendar" style="float:right;text-align:right;font-size:14px;width:65%;height:20px;"></div>');
+                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="holiday" style="float:left;width:95%;height:20px;text-align:left;"></div>');
+                    $('#' + this.id).find("table").find("tr.data").find('td').append('<div class="memo" style="float:left;width:95%;height:60px;text-align:left;"></div>');
                     $('#' + this.id).find("table").find("tr.data").find("td").bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
-                        if($(this).html().length>0){
+                        if($(this).find('.date').html().length>0){
                             var t_top = $(this).offset().top;
                             var t_left = $(this).offset().left;
                             $("#msg").show().offset({top:t_top,left:t_left});
@@ -216,9 +223,10 @@
                     $('#lblMonth').html(this.month);
                     for (var i = 0; i < 6; i++) {
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").unbind("mouseenter").unbind("mouseleave").data('info','');
-                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".date").html("&nbsp;").css('color','black');
-                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".holiday").html("&nbsp;").css('color','black');
-                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".memo").html("&nbsp;").css('color','black');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".date").html("").css('color','black');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".lunarcalendar").html("").css('color','black');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".holiday").html("").css('color','black');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".memo").html("").css('color','black');
                     }
                     var t_date = new Date();
                     
@@ -229,12 +237,16 @@
                     var t_weekNum = 0;
                     x_year = '000' + (this.year - 1911);
                     x_year = x_year.substring(x_year.length - 3, x_year.length);
+                    y_year = '0000' + (this.year);
+                    y_year = y_year.substring(y_year.length - 4, y_year.length);
                     x_month = '00' + (this.month);
                     x_month = x_month.substring(x_month.length - 2, x_month.length);
+
                     for (var i = 0; i < this.days; i++) {
                         x_day = '00' + (i + 1);
                         x_day = x_day.substring(x_day.length - 2, x_day.length);
                         x_date = x_year+'/'+x_month+'/'+x_day;
+                        y_date = y_year+'/'+x_month+'/'+x_day;
                         t_color = '#000000';
                         t_holiday = '';
                         t_memo = '';
@@ -249,13 +261,27 @@
                                 break;
                             }
                         }
+                        t_lunarmonth = '';
+                        t_lunardate = '';
+                        for(var j=0;j<this.lunarcalendar.length;j++){
+                            //西元年     
+                            if(this.lunarcalendar[j].datea!=undefined && this.lunarcalendar[j].datea==y_date){
+                                t_lunarmonth = this.lunarcalendar[j].lunarmonth;
+                                t_lunardate = this.lunarcalendar[j].lunardate;
+                                break;
+                            }
+                        }
                         if(t_color.length>0){
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').css('color',t_color);
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.holiday').css('color',t_color);
                         }
+                        if(t_lunardate==1 || t_lunardate==15)
+                            $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.lunarcalendar').css('color','red');
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').html(i+1);
+                        if(t_lunardate>0)
+                            $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.lunarcalendar').html(t_lunarmonth+calendar.cdate[t_lunardate-1]);
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.holiday').html(t_holiday);
-                        $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.memo').html(t_memo.replace(/\n/g,","));
+                        $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.memo').html(t_memo.replace(/\n/g,"<br>"));
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).bind({
                             mouseenter : function(e) {
                                 $(this).css('background-color','#F6D8CE');
@@ -269,6 +295,8 @@
                             date:x_date,
                             holiday:t_holiday,
                             color:t_color,
+                            lunarmonth:t_lunarmonth,
+                            lunardate:t_lunardate,
                             memo:t_memo
                         });
                         t_day++;
@@ -291,6 +319,23 @@
                                     calendar.data.push(JSON.parse(as[i].memo2));
                             }
                         }
+                        //西元年
+                        x_year = '0000' + (calendar.year);
+                        x_year = x_year.substring(x_year.length - 4, x_year.length);
+                        x_month = '00' + (calendar.month);
+                        x_month = x_month.substring(x_month.length - 2, x_month.length);
+                        q_func('qtxt.query.calendar', 'calendar.txt,getlunarcalendar,' + x_year+'/'+x_month);
+                        break;
+                }
+            }
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.calendar':
+                        calendar.lunarcalendar = new Array();
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            calendar.lunarcalendar = as.slice(0);
+                        }
                         calendar.refresh();
                         Unlock(1);
                         break;
@@ -302,6 +347,9 @@
             });
         </script>
         <style type="text/css">
+            #calendar{
+                font-family: "Times New Roman","標楷體";
+            }
             #calendar table {
                 border: 5px solid gray;
                 font-size: medium;
@@ -313,6 +361,7 @@
             #calendar table tr.header {
                 background-color: #E3CEF6;
                 color: darkblue;
+                font-size:24px;
             }
             #calendar table tr.data {
                 background-color: #CED8F6;
@@ -328,6 +377,7 @@
                 width:400px;
                 height:250px;
                 display:none;
+                font-family: "Times New Roman","標楷體";
             }
             #msg table{
                 width:100%;
@@ -388,7 +438,7 @@
                 </tr>
                 <tr style="height:60px;">
                     <td><a id="lblMemo">備　　註</a></td>
-                    <td><textarea id="txtMemo_msg" style="width:98%;" rows=4> </textarea></td>
+                    <td><textarea id="txtMemo_msg" style="width:98%;" rows=3> </textarea></td>
                 </tr>
                 <tr>
                     <td align="center"><input type="button" id="btnSave_msg" value="儲存"></td>
