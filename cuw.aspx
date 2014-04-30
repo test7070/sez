@@ -109,11 +109,16 @@
 							now_txtObject = $('#txtManager__'+thisSeq);
 							$('#combPartno3__'+thisSeq).val('');
 						}
-
+						var AllName = $.trim($('#txtSales__'+thisSeq).val())+
+									  $.trim($('#txtSupworker__'+thisSeq).val())+
+									  $.trim($('#txtManager__'+thisSeq).val());
 						for(var i = 0;i < as.length;i++){
+							var AllName = $.trim($('#txtSales__'+thisSeq).val())+
+										  $.trim($('#txtSupworker__'+thisSeq).val())+
+										  $.trim($('#txtManager__'+thisSeq).val());
 							str = now_txtObject.val();
 							name = as[i].namea;
-							if(str.match(name) == null){
+							if(AllName.match(name) == null){
 								newstr = str + name + ';';
 								now_txtObject.val(newstr);
 							}
@@ -167,9 +172,12 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						for(var i = 0;i < b_ret.length;i++){
+							var AllName = $.trim($('#txtSales__'+thisSeq).val())+
+										  $.trim($('#txtSupworker__'+thisSeq).val())+
+										  $.trim($('#txtManager__'+thisSeq).val());
 							str = now_txtObject.val();
 							name = b_ret[i].namea;
-							if(str.match(name) == null){
+							if(AllName.match(name) == null){
 								newstr = str + name + ';';
 								now_txtObject.val(newstr);
 							}
@@ -319,6 +327,34 @@
 							}else{
 								$('#txtAddtime_'+n).val(0);
 								$('#txtBorntime_'+n).val(usetime);
+							}
+							//若bbt無相同時間 則新增一筆
+							var hasBBtRec = false;
+							var theEmpBBt = -1;
+							for(var k=0;k<q_bbtCount;k++){
+								var bbtWorkTime = $.trim($('#txtWorktime__'+k).val());
+								if(thisVal==bbtWorkTime){
+									hasBBtRec = true;
+									break;
+								}else if((bbtWorkTime.length == 0) && (theEmpBBt==-1)){
+								//尋找空白行(依作業時間判斷)
+									theEmpBBt = k;
+								}
+							}
+
+							if(!hasBBtRec){
+								var NewbbtSeq = theEmpBBt;
+								if(NewbbtSeq==-1){
+									q_bbs_addrow('bbt',q_bbtCount,0);
+									NewbbtSeq= dec(q_bbtCount)-1;
+								}
+								$('#txtWorktime__'+NewbbtSeq).val(thisVal);
+								if($('#chkIsovertime_'+n).prop('checked')){
+									$('#chkIsovertime__'+NewbbtSeq).prop('checked',true);
+								}else{
+									$('#chkIsovertime__'+NewbbtSeq).prop('checked');
+								}
+								$('#txtWorktime__'+NewbbtSeq).focusout();
 							}
 						});
 						$('#chkIsovertime_'+i).click(function(){
