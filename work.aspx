@@ -144,8 +144,8 @@
 
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
+					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-						$('#lblNo_' + i).text(i + 1);
 						$('#btnTproductno_' + j).click(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
