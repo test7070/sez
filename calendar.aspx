@@ -24,7 +24,7 @@
                 , month : 4
                 , days : 0
                 , dayName : ["日", "一", "二", "三", "四", "五", "六"]
-                , cdate : ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','廿十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','卅十']
+                , cdate : ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','廿','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','卅']
                 , init : function() {
                     $("#btnNext").click(function(e) {
                         calendar.next();
@@ -168,7 +168,11 @@
                         e.preventDefault();
                         if($(this).find('.date').html().length>0){
                             var t_top = $(this).offset().top;
+                            if($(this).parent().offset().top + $(this).offset().top + $("#msg").height() > $('#calendar').height())
+                                t_top = $('#calendar').height() - $("#msg").height();
                             var t_left = $(this).offset().left;
+                            if($(this).parent().offset().left + $(this).offset().left + $("#msg").width() > $('#calendar').width())
+                                t_left = $('#calendar').width() - $("#msg").width();
                             $("#msg").show().offset({top:t_top,left:t_left});
                             $("#txtDate_msg").html($(this).data("info").date);
                             $("#chkIsholiday_msg").prop('checked',$(this).data("info").isholiday);
@@ -323,26 +327,6 @@
                     
                 }
             };
-            /*function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'init':
-                        calendar.data = new Array();
-                        var as = _q_appendData("holiday", "", true);
-                        if (as[0] != undefined) {
-                            for (var i = 0; i < as.length; i++) {
-                                if(as[i].memo2!=undefined && as[i].memo2.length>0)
-                                    calendar.data.push(JSON.parse(as[i].memo2));
-                            }
-                        }
-                        //西元年
-                        x_year = '0000' + (calendar.year);
-                        x_year = x_year.substring(x_year.length - 4, x_year.length);
-                        x_month = '00' + (calendar.month);
-                        x_month = x_month.substring(x_month.length - 2, x_month.length);
-                        q_func('qtxt.query.calendar', 'calendar.txt,getlunarcalendar,' + x_year+'/'+x_month);
-                        break;
-                }
-            }*/
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'qtxt.query.getcalendar':
@@ -470,7 +454,7 @@
                     <td><input id="chkIsholiday_msg" type="checkbox" style="width:98%;"/></td>
                 </tr>
                 <tr> 
-                    <td><a id="lblHoliday">名　　稱</a></td>
+                    <td><a id="lblHoliday">假日名稱</a></td>
                     <td><input id="txtHoliday_msg" type="text" style="width:98%;"/></td>
                 </tr>
                 <tr> 
@@ -487,5 +471,6 @@
                 </tr>
             </table>
         </div>
+        <div style="font-family: 'Times New Roman','標楷體';font-size: 20px;">※點擊滑鼠右鍵，編輯內容。</div>
     </body>
 </html>

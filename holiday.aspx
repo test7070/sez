@@ -356,7 +356,7 @@
 					<tr>
                         <td><span> </span><a id='lblIsholiday' class="lbl"> </a></td>
                         <td>
-                        <input type="checkbox" id="chkIshokiday" class="txt c1" style="float:left;" />
+                        <input type="checkbox" id="chkIshokiday"/>
                         </td>
                     </tr>
 					<tr>
