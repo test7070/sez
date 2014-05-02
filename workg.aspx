@@ -25,8 +25,8 @@
 				['txtOrdemount', 15, 0, 1], ['txtPlanmount', 15, 0, 1], ['txtStkmount', 15, 0, 1],
 				['txtIntmount', 15, 0, 1], ['txtPurmount', 15, 0, 1], ['txtAvailmount', 15, 0, 1],
 				['txtBornmount', 15, 0, 1], ['txtSalemount', 15, 0, 1], ['txtMount', 15, 0, 1],
-				['txtInmount', 15, 0, 1], ['txtWmount', 15, 0, 1], ['txtSaleforecast', 15, 0, 1]
-				, ['txtForecastprepare', 15, 0, 1], ['txtUnprepare', 15, 0, 1], ['txtPrepare', 15, 0, 1]
+				['txtInmount', 15, 0, 1], ['txtWmount', 15, 0, 1], ['txtSaleforecast', 15, 0, 1],
+				['txtForecastprepare', 15, 0, 1], ['txtUnprepare', 15, 0, 1], ['txtPrepare', 15, 0, 1]
 			];
 			var bbtNum = [];
 			var bbmMask = [];
@@ -66,7 +66,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd], ['txtWadate', r_picd], ['txtWbdate', r_picd], ['txtWedate', r_picd]];
 				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('workg.stype'));	
@@ -81,6 +81,9 @@
 							alert(q_getMsg('lblBdate') + '錯誤!!。');
 							return;
 						}
+						
+						$('#txtWbdate').val(q_cdn($('#txtBdate').val(),-1));
+						$('#txtWedate').val(q_cdn($('#txtEdate').val(),-1));
 						
 						var sbdate='',sedate='';
 						if (emp($('#txtSfbdate').val())) {
@@ -205,10 +208,13 @@
 						}else{
 							sbdate=$('#txtSfbdate').val();
 						}
+						$('#txtWbdate').val(q_cdn(sbdate,-1));
+						
 						if (emp($('#txtSfedate').val())) {
 							sedate='999/99/99';
 						}else{
 							sedate=$('#txtSfedate').val();
+							$('#txtWedate').val(q_cdn($('#txtSfedate').val(),-1));
 						}
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
 						
