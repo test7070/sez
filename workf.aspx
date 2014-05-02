@@ -197,7 +197,7 @@
 							for (var i = 0; i < b_ret.length; i++) {
 								if(dec(b_ret[i].tBorn2)>0){//本次送驗量>0
 									t_workno=t_workno+b_ret[i].noa+'&&';
-									t_born=t_born+b_ret[i].tBorn2+'&&';
+									t_born=t_born+dec(b_ret[i].tBorn2)+'&&';
 									t_storeno=t_storeno+b_ret[i].tStoreno2+'&&';
 								}
 							}
