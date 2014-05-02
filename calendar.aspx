@@ -24,7 +24,7 @@
                 , month : 4
                 , days : 0
                 , dayName : ["日", "一", "二", "三", "四", "五", "六"]
-                , cdate : ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','廿十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','卅十']
+                , cdate : ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','廿','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','卅']
                 , init : function() {
                     $("#btnNext").click(function(e) {
                         calendar.next();
@@ -85,10 +85,9 @@
                     });
                     $('#btnSave_msg').click(function(e){
                         var t_data = {
-                            date : $.trim($('#txtDate_msg').html()),
-                            holiday : $.trim($('#txtHoliday_msg').val()),
-                            memo : $.trim($('#txtMemo_msg').val()).replace(/\n/g,"char(10)"),
-                            color : $('#txtColor_msg').val()
+                            memo : $.trim($('#txtMemo_msg').val()),//.replace(/\n/g,"char(10)"),
+                            color : $('#txtColor_msg').val(),
+                            isholiday : $('#chkIsholiday_msg').prop('checked')
                         };
                         var t_noa = $.trim($('#txtDate_msg').html());
                         var t_memo = $.trim($('#txtHoliday_msg').val());
@@ -169,9 +168,14 @@
                         e.preventDefault();
                         if($(this).find('.date').html().length>0){
                             var t_top = $(this).offset().top;
+                            if($(this).parent().offset().top + $(this).offset().top + $("#msg").height() > $('#calendar').height())
+                                t_top = $('#calendar').height() - $("#msg").height();
                             var t_left = $(this).offset().left;
+                            if($(this).parent().offset().left + $(this).offset().left + $("#msg").width() > $('#calendar').width())
+                                t_left = $('#calendar').width() - $("#msg").width();
                             $("#msg").show().offset({top:t_top,left:t_left});
                             $("#txtDate_msg").html($(this).data("info").date);
+                            $("#chkIsholiday_msg").prop('checked',$(this).data("info").isholiday);
                             $("#txtHoliday_msg").val($(this).data("info").holiday);
                             $("#txtMemo_msg").val($(this).data("info").memo);
                             $("#txtColor_msg").attr('value',$(this).data("info").color).change(function(){
@@ -213,16 +217,16 @@
                     t_year = t_year.substring(t_year.length - 3, t_year.length);
                     var t_month = '00' + (this.month);
                     t_month = t_month.substring(t_month.length - 2, t_month.length);
-                    t_where = "where=^^ left(noa,6)='" + t_year + "/" + t_month + "'^^";
                     Lock(1, {
                         opacity : 0
                     });
-                    q_gt('holiday', t_where, 0, 0, 0, "init");
+                    q_func('qtxt.query.getcalendar', 'calendar.txt,getcalendar,' +encodeURI(t_year + "/" + t_month));
                 }, refresh : function() {
                     $('#lblYear').html(this.year);
                     $('#lblMonth').html(this.month);
                     for (var i = 0; i < 6; i++) {
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").unbind("mouseenter").unbind("mouseleave").data('info','');
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").removeClass('holiday').css('background-color','#CED8F6')
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".date").html("").css('color','black');
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".lunarcalendar").html("").css('color','black');
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".holiday").html("").css('color','black');
@@ -250,14 +254,17 @@
                         t_color = '#000000';
                         t_holiday = '';
                         t_memo = '';
+                        t_isholiday = false;
                         for(var j=0;j<this.data.length;j++){
-                            if(this.data[j].date!=undefined && this.data[j].date==x_date){
+                            if(this.data[j].noa!=undefined && this.data[j].noa==x_date){
                                 if(this.data[j].holiday!=undefined)
                                     t_holiday = this.data[j].holiday;
                                 if(this.data[j].memo!=undefined)
-                                    t_memo = this.data[j].memo.replace(/char\(10\)/g,'\n');
+                                    t_memo = this.data[j].memo;//.replace(/char\(10\)/g,'\n');
                                 if(this.data[j].color!=undefined)
                                     t_color = this.data[j].color;
+                                if(this.data[j].isholiday!=undefined)
+                                    t_isholiday = this.data[j].isholiday;
                                 break;
                             }
                         }
@@ -271,10 +278,19 @@
                                 break;
                             }
                         }
+                        //假日一律紅色
+                        if(t_holiday.length>0){
+                            t_color = "#FF0000";
+                        }
+                        //休假日 淺灰
+                        if(t_isholiday){
+                            $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).css('background-color','gainsboro').addClass('holiday');
+                        }
                         if(t_color.length>0){
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').css('color',t_color);
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.holiday').css('color',t_color);
                         }
+                        //初一、十五紅色
                         if(t_lunardate==1 || t_lunardate==15)
                             $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.lunarcalendar').css('color','red');
                         $('#' + this.id).find("table").find("tr.data").eq(t_weekNum).find("td").eq(t_day).find('.date').html(i+1);
@@ -286,13 +302,18 @@
                             mouseenter : function(e) {
                                 $(this).css('background-color','#F6D8CE');
                             }, mouseleave : function(e) {
-                                $(this).css('background-color','#CED8F6');
+                                if($(this).hasClass('holiday')){
+                                    $(this).css('background-color','gainsboro');
+                                }else{
+                                    $(this).css('background-color','#CED8F6');
+                                }
                             }
                         }).data('info',{
                             year:this.year,
                             month:this.month,
                             day:i+1,
                             date:x_date,
+                            isholiday:t_isholiday,
                             holiday:t_holiday,
                             color:t_color,
                             lunarmonth:t_lunarmonth,
@@ -308,15 +329,20 @@
                     
                 }
             };
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'init':
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query.getcalendar':
                         calendar.data = new Array();
-                        var as = _q_appendData("holiday", "", true);
+                        var as = _q_appendData("tmp0", "", true, true);
+                        var t_memo = {};
                         if (as[0] != undefined) {
                             for (var i = 0; i < as.length; i++) {
-                                if(as[i].memo2!=undefined && as[i].memo2.length>0)
-                                    calendar.data.push(JSON.parse(as[i].memo2));
+                                t_memo = {};
+                                if(as[i].memo!=undefined && as[i].memo.length>0)
+                                    t_memo = JSON.parse(as[i].memo);
+                                t_memo.noa = as[i].noa;
+                                t_memo.holiday = as[i].holiday;    
+                                calendar.data.push(t_memo);
                             }
                         }
                         //西元年
@@ -324,13 +350,9 @@
                         x_year = x_year.substring(x_year.length - 4, x_year.length);
                         x_month = '00' + (calendar.month);
                         x_month = x_month.substring(x_month.length - 2, x_month.length);
-                        q_func('qtxt.query.calendar', 'calendar.txt,getlunarcalendar,' + x_year+'/'+x_month);
+                        q_func('qtxt.query.getlunarcalendar', 'calendar.txt,getlunarcalendar,' + x_year+'/'+x_month);
                         break;
-                }
-            }
-            function q_funcPost(t_func, result) {
-                switch(t_func) {
-                    case 'qtxt.query.calendar':
+                    case 'qtxt.query.getlunarcalendar':
                         calendar.lunarcalendar = new Array();
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
@@ -343,6 +365,7 @@
             }
             var calendar = new Calendar();
             $(document).ready(function() {
+                q_getId();
                 calendar.init();
             });
         </script>
@@ -429,7 +452,11 @@
                     <td style="width:65%;"><a id="txtDate_msg"></a></td>
                 </tr>
                 <tr> 
-                    <td><a id="lblHoliday">名　　稱</a></td>
+                    <td><a id="lblHoliday">休 假 日</a></td>
+                    <td><input id="chkIsholiday_msg" type="checkbox" style="width:98%;"/></td>
+                </tr>
+                <tr> 
+                    <td><a id="lblHoliday">假日名稱</a></td>
                     <td><input id="txtHoliday_msg" type="text" style="width:98%;"/></td>
                 </tr>
                 <tr> 
@@ -437,7 +464,7 @@
                     <td><input type="color" id="txtColor_msg" style="width:98%;"></td>
                 </tr>
                 <tr style="height:60px;">
-                    <td><a id="lblMemo">備　　註</a></td>
+                    <td><a id="lblMemo">註記事項</a></td>
                     <td><textarea id="txtMemo_msg" style="width:98%;" rows=3> </textarea></td>
                 </tr>
                 <tr>
@@ -446,5 +473,6 @@
                 </tr>
             </table>
         </div>
+        <div style="font-family: 'Times New Roman','標楷體';font-size: 20px;">※點擊滑鼠右鍵，編輯內容。</div>
     </body>
 </html>
