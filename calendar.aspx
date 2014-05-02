@@ -226,7 +226,7 @@
                     $('#lblMonth').html(this.month);
                     for (var i = 0; i < 6; i++) {
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").unbind("mouseenter").unbind("mouseleave").data('info','');
-                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").removeClass('holiday').css('background-color','#CED8F6')
+                        $('#' + this.id).find("table").find("tr.data").eq(i).find("td").removeClass('holiday').css('background-color','#CED8F6');
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".date").html("").css('color','black');
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".lunarcalendar").html("").css('color','black');
                         $('#' + this.id).find("table").find("tr.data").eq(i).find("td").find(".holiday").html("").css('color','black');
