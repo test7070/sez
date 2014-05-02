@@ -46,6 +46,7 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
                 q_mask(bbmMask);
+                
             }
 
             function q_gtPost(t_name) {

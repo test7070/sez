@@ -28,6 +28,25 @@
                 $('#carnotice').hide();
                 
                 q_cmbParse("combTax", ('').concat(new Array( '01@上期牌照稅','02@下期牌照稅','03@春季燃料稅','04@夏季燃料稅','05@秋季燃料稅','06@冬季燃料稅')));
+                
+                $('#btnWebPrint').click(function(e) {
+					var t_index = $('#q_report').data('info').radioIndex;
+                    var txtreport = $('#q_report').data('info').reportData[t_index].report;
+                    
+                    if(txtreport=='z_cara1' || txtreport=='z_cara3' || txtreport=='z_cara4'){
+                    	var bmon=!emp($('#txtMon1').val())?$('#txtMon1').val():'#non';
+		                var emon=!emp($('#txtMon2').val())?$('#txtMon2').val():'#non';
+		                var bcarowner=!emp($('#txtCarowner1a').val())?$('#txtCarowner1a').val():'#non';
+		                var ecarowner=!emp($('#txtCarowner2a').val())?$('#txtCarowner2a').val():'#non';
+						var bcarno=!emp($('#txtTcarno1').val())?$('#txtTcarno1').val():'#non';
+		                var ecarno=!emp($('#txtTcarno2').val())?$('#txtTcarno2').val():'#non';
+		                var xcarno=!emp($('#txtXcarnos').val())?$('#txtXcarnos').val():'#non';
+		                	
+						var t_where = bmon+ ';' + emon+ ';' + bcarowner+ ';' + ecarowner+ ';' + bcarno+ ';' + ecarno+ ';' + xcarno;
+                    	q_func('qtxt.query', 'caraprint.txt,print,' + t_where);
+                    }
+                    
+				});
                 		
                 $('#btnMontax').click(function() {
                 	if(!emp($('#textYear').val())){

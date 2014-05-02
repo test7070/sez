@@ -17,7 +17,7 @@
 			this.errorHandler = null;
 			q_tables = 't';
 			var q_name = "workg";
-			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno'];
+			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno','txtWadate','txtWbdate','txtWedate'];
 			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno','txtNoq'];
 			var q_readonlyt = [];
 			var bbmNum = [];
@@ -1240,6 +1240,16 @@
 							<input id="txtOrdano" type="text" class="txt c1" style="display: none;"/>
 						</td>
 						<td><input id="btnWorkPrint" type="button" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWadate" class="lbl"> </a></td>
+						<td><input id="txtWadate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblWbdate" class="lbl"> </a></td>
+						<td colspan="2">
+							<input id="txtWbdate" type="text" class="txt c2"/>
+							<a style="float: left;">~</a>
+							<input id="txtWedate" type="text" class="txt c2"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
