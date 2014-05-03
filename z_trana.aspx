@@ -219,6 +219,9 @@
 				$('#txtUmmdate2').datepicker();
 				$('#txtXmoney1').val(-99999999);
                 $('#txtXmoney2').val(99999999);
+                
+                $('#txtBxxmon').mask('999/99');
+                $('#txtExxmon').mask('999/99');
 				
 				$('#txtXcheckrate').val(q_getMsg('trate1'));
                 $('#chkXcarkind').children('input').attr('checked', 'checked');
