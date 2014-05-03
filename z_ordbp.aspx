@@ -114,6 +114,10 @@
                         type : '5',
                         name : 'option08',
                         value : ' @全部,ordb@未採購量,ordc@已採購量,cancel@採購取消'.split(',')
+                    },{/*21[34]*/
+                        type : '8',
+						name : 'isdetails',
+						value : '1@明細'.split(',')
                     }]
 				});
 				q_popAssign();
