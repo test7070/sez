@@ -58,7 +58,7 @@
 				});
 				$('#q_report').click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
-					if((t_index==0) || (t_index==1)){
+					if((t_index==0) || (t_index==1) || (t_index==5)){
 						$('.prt').hide();
 						$('#chart,#chartCtrl').show();
 					}else{
@@ -312,6 +312,112 @@
 							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
+						break;
+					case 'qtxt.query.z_workgg6':
+						var as = _q_appendData('tmp0','',true,true);
+						if (as[0] == undefined) {
+							alert('沒有資料!!');
+						}else{
+							var t_bdate = $.trim($('#txtXdate1').val());
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_bdate = (t_bdate.length==9?t_bdate:q_date());
+							var t_bADdate = dec(t_bdate.substring(0,3))+1911+t_bdate.substr(3);
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_edate = (t_edate.length==9?t_edate:q_date());
+							var t_eADdate = dec(t_edate.substring(0,3))+1911+t_edate.substr(3);
+							var myStartDate = new Date(t_bADdate);
+							var myEndDate = new Date(t_eADdate);
+							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
+							var DateList = [];
+							var DateObj = [];
+							for(var j=0;j<=DiffDays;j++){
+								var thisDay = q_cdn(t_bdate,j);
+								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								if((new Date(thisADday).getDay())!=0){
+									DateList.push(thisDay);
+									DateObj.push({
+										datea:thisDay,
+										value:0
+									});
+								}
+							}
+							var TL = [];
+							var OutHtml= '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
+							for(var i=0;i<as.length;i++){
+								var isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if((as[i].productno==TL[j].productno)){
+										isFind = true;
+									}
+								}
+								if(!isFind){
+									TL.push({
+										productno : as[i].productno,
+										product : as[i].product,
+										datea : []
+									});
+								}
+							}
+							for(var k=0;k<TL.length;k++){
+								for(var j=0;j<DateList.length;j++){
+									TL[k].datea.push([DateList[j],0]);
+								}
+							}
+							for(var k=0;k<as.length;k++){
+								isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if(isFind) break;
+									if((as[k].productno==TL[j].productno)){
+										var TLDatea = TL[j].datea;
+										for(var h=0;h<TLDatea.length;h++){
+											if(as[k].datea==TLDatea[h][0]){
+												TLDatea[h][1] = dec(TLDatea[h][1])+dec(as[k].value);
+												isFind = true;
+												break;
+											}
+										}
+									}
+								}
+							}
+							OutHtml += '<tr>';
+							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>";
+							var tmpTd = '<tr>';
+							var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
+							for(var j=0;j<DateList.length;j++){
+								var thisDay = DateList[j];
+								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(4) + "</td>";
+								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+							}
+							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+							tmpTd += "</tr>"
+							OutHtml += '</tr>' + tmpTd;
+							var ATotal = 0;
+							for(var k=0;k<TL.length;k++){
+								OutHtml += '<tr>';
+								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>";
+								var TTD = TL[k].datea;
+								var tTotal = 0;
+								for(var j=0;j<TTD.length;j++){
+									tTotal = q_add(tTotal,round(TTD[j][1],3));
+									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
+									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "</td>";
+								}
+								ATotal = q_add(ATotal,tTotal);
+								OutHtml += "<td class='num'>" + tTotal + "</td>";
+								OutHtml += '</tr>';
+							}
+							OutHtml += "<tr><td colspan='2' class='tTotal num'>總計：</td>";
+							for(var k=0;k<DateObj.length;k++){
+								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "</td>";
+							}
+							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
+							OutHtml += "</table>"
+							var t_totalWidth = 0;
+							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
+							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
+						}
+						break;
 				}
 				Unlock();
 			}
