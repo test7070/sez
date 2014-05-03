@@ -1,20 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
-		<script type="text/javascript">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <script src="../script/jquery.min.js" type="text/javascript"></script>
+        <script src='../script/qj2.js' type="text/javascript"></script>
+        <script src='qset.js' type="text/javascript"></script>
+        <script src='../script/qj_mess.js' type="text/javascript"></script>
+        <script src="../script/qbox.js" type="text/javascript"></script>
+        <script src='../script/mask.js' type="text/javascript"></script>
+        <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+        <script src="css/jquery/ui/jquery.ui.core.js"></script>
+        <script src="css/jquery/ui/jquery.ui.widget.js"></script>
+        <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
+        <script type="text/javascript">
 			//********************************************
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
@@ -220,8 +220,8 @@
 				$('#txtXmoney1').val(-99999999);
                 $('#txtXmoney2').val(99999999);
                 
-                $('#txtBxxmon').mask('999/99');
-                $('#txtExxmon').mask('999/99');
+                $('#txtXxmon1').mask('999/99');
+                $('#txtXxmon2').mask('999/99');
 				
 				$('#txtXcheckrate').val(q_getMsg('trate1'));
                 $('#chkXcarkind').children('input').attr('checked', 'checked');
