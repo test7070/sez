@@ -562,9 +562,7 @@
 			
 			var refresh_modi=false;
 			var refresh_modi2=false;
-			function refreshModi() {
-				q_gt(q_name, q_content, q_sqlCount, 1);
-			}
+
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
@@ -577,8 +575,8 @@
                 if(!refresh_modi){
             		refresh_modi=true;
             		btnCancel();
-            		refreshModi();
-            		//return;
+            		q_gt(q_name, "where=^^noa='"+$('#txtNoa').val()+"'^^", q_sqlCount, 1);
+            		return;
             	}else{
             		refresh_modi=false;
             	}
