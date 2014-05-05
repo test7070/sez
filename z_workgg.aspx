@@ -394,27 +394,30 @@
 							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
-							var ATotal = 0;
+							var ATotal = 0,wATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
 								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
+								var wTotal = 0;
 								for(var j=0;j<TTD.length;j++){
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
+									wTotal = q_add(wTotal,round(TTD[j][2],3));
 									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
 									DateObj[j].workmount = q_add(dec(DateObj[j].workmount),round(TTD[j][2],3));
 									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "<br>" + round(TTD[j][2],3) + "</td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
-								OutHtml += "<td class='num'>" + tTotal + "</td>";
+								wATotal = q_add(wATotal,wTotal);
+								OutHtml += "<td class='num'>" + tTotal + "<br>" + wTotal + "</td>";
 								OutHtml += '</tr>';
 							}
 							OutHtml += "<tr><td colspan='2' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "</td>";
+								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "<br>" + round(DateObj[k].workmount,3) + "</td>";
 							}
-							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
+							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "<br>" + round(wATotal,3) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
 							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
