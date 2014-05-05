@@ -337,7 +337,8 @@
 									DateList.push(thisDay);
 									DateObj.push({
 										datea:thisDay,
-										value:0
+										value:0,
+										workmount:0
 									});
 								}
 							}
@@ -360,7 +361,7 @@
 							}
 							for(var k=0;k<TL.length;k++){
 								for(var j=0;j<DateList.length;j++){
-									TL[k].datea.push([DateList[j],0]);
+									TL[k].datea.push([DateList[j],0/*mount*/,0/*workmount*/]);
 								}
 							}
 							for(var k=0;k<as.length;k++){
@@ -372,6 +373,7 @@
 										for(var h=0;h<TLDatea.length;h++){
 											if(as[k].datea==TLDatea[h][0]){
 												TLDatea[h][1] = dec(TLDatea[h][1])+dec(as[k].value);
+												TLDatea[h][2] = dec(TLDatea[h][2])+dec(as[k].workmount);
 												isFind = true;
 												break;
 											}
@@ -401,7 +403,8 @@
 								for(var j=0;j<TTD.length;j++){
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
-									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "</td>";
+									DateObj[j].workmount = q_add(dec(DateObj[j].workmount),round(TTD[j][2],3));
+									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "<br>" + round(TTD[j][2],3) + "</td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
