@@ -41,7 +41,12 @@
                 bbsKey = ['noa', 'noq'];
                 q_desc = 1;
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                //q_gt(q_name, q_content, q_sqlCount, 1)
+                if (r_rank < 8 && q_content==''){
+					q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 1);
+                }else{
+                    q_gt(q_name, q_content, q_sqlCount, 1);
+				}
             });
 
             //////////////////   end Ready
@@ -116,9 +121,55 @@
                         break;
                 }
             }
-
+			
+			var ssspartno = '',sssgroup='',sssjob='';
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'authority':
+                        var as = _q_appendData('authority', '', true);
+                        if (as[0] != undefined) {
+                        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	                            if (r_rank >= 7)
+	                                q_content = "";
+	                            else if (as.length > 0 && as[0]["pr_modi"] == "true")
+	                                q_content = "where=^^partno='" + ssspartno + "'^^";
+	                            else
+	                                q_content = "where=^^sssno='" + r_userno + "'^^";
+							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+								if (r_rank >= 8)
+	                                q_content = "";
+	                             else if (as.length > 0 && as[0]["pr_ins"] == "true"&&sssjob.indexOf('經理')>-1)
+	                             	q_content = "where=^^ charindex(sssno,'"+sssgroup+"')>0^^";
+	                             else
+	                             	q_content = "where=^^sssno='" + r_userno + "'^^";
+							}else{
+								if (r_rank >= 8)
+	                                q_content = "";
+	                            else
+	                                q_content = "where=^^sssno='" + r_userno + "'^^";
+							}
+                        }
+                        q_gt(q_name, q_content, q_sqlCount, 1);
+						break;
+                	case 'sss':
+                        var as = _q_appendData('sss', '', true);
+                        if (as[0] != undefined) {
+                            ssspartno = as[0].partno;
+                            sssjob=as[0].job;
+                            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+    	                        q_gt('sss', "where=^^ salesgroup='" + as[0].salesgroup + "'^^", 0, 0, 0, "sss_salesgroup");
+                            }else{
+	                            q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
+                            }
+                        }
+                        break;
+					case 'sss_salesgroup':
+                        var as = _q_appendData('sss', '', true);
+                        for ( i = 0; i < as.length; i++) {
+                            sssgroup = sssgroup + as[i].noa;
+                        }
+                        q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
+                        break;
                 	case 'apop_sss':
                 		var as = _q_appendData("sss", "", true);
                         if (as[0] != undefined) {
