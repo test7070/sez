@@ -21,6 +21,12 @@
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_cng');
+                
+                $('#q_report').click(function() {
+                	if(q_getPara('sys.comp').indexOf('英特瑞')==-1 && q_getPara('sys.comp').indexOf('安美得')==-1)
+                		$('#Xorder').hide();
+				});
+                
             });
             function q_gfPost() {
 				$('#q_report').q_report({
@@ -71,6 +77,9 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtNoa1').val(t_noa);
                 $('#txtNoa2').val(t_noa);
+                
+                if(q_getPara('sys.comp').indexOf('英特瑞')==-1 && q_getPara('sys.comp').indexOf('安美得')==-1)
+                	$('#Xorder').hide();
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
