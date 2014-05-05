@@ -219,7 +219,7 @@
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
 			function bbsSave(as) {
-				if (!as['mans']) {
+				if (!as['worktime']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
