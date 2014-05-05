@@ -84,6 +84,13 @@
                        } 
                     });
                     $('#btnSave_msg').click(function(e){
+                        var getLocation = function(href) {
+                            var l = document.createElement("a");
+                            l.href = href;
+                            return l;
+                        };
+                        var l = getLocation(location.href);
+
                         var t_data = {
                             memo : $.trim($('#txtMemo_msg').val()),//.replace(/\n/g,"char(10)"),
                             color : $('#txtColor_msg').val(),
@@ -93,6 +100,8 @@
                         var t_memo = $.trim($('#txtHoliday_msg').val());
                         var t_memo2 = JSON.stringify(t_data);//.replace(/\"/g,'char(34)');
                         var json = JSON.stringify({
+                            hostname : l.hostname,
+                            db : q_db,
                             userno : r_userno,
                             namea : r_name,
                             noa : t_noa,
