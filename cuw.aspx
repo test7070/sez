@@ -68,6 +68,9 @@
 				bbtMask = [['txtWorktime','9999-9999']];
 				q_mask(bbmMask);
 				q_gt('part', '', 0, 0, 0, "");
+				$('#txtDatea').focusout(function(){
+					toGetCuy();
+				});
 			}
 			var thisSeq = -1;
 			function combtodo(do_object){
@@ -96,6 +99,10 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetCuy':
+						var as = _q_appendData("cuy", "", true);
+						console.log(as);
+						break;
 					case 'sssall':
 						var as = _q_appendData("sssall", "", true);
 						var now_txtObject;
@@ -464,8 +471,20 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 
+			function toGetCuy(){
+				var thisDatea = $.trim($('#txtDatea').val());
+				var thisStationno = $.trim($('#txtStationno').val());
+				if((thisDatea.length > 0) && (thisStationno.length > 0)){
+					var t_where = "where=^^ datea=N'" + thisDatea + "' and stationno=N'" + thisStationno + "' ^^";
+					q_gt('cuy', t_where , 0, 0, 0, "GetCuy", r_accy);
+				}			
+			}
+			
 			function q_popPost(id) {
 				switch (id) {
+					case 'txtStationno':
+						toGetCuy();
+						break;
 					default:
 						break;
 				}
