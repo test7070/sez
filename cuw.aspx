@@ -100,8 +100,15 @@
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'GetCuy':
-						var as = _q_appendData("cuy", "", true);
-						console.log(as);
+						var as = _q_appendData("cuys", "", true);
+						if(as[0] != undefined){
+							ret = q_gridAddRow(bbtHtm, 'tbbt',
+								'txtWorktime,txtMans,txtSales,txtSupmans,txtSupworker,txtManagermans,txtManager,txtHours,txtAddhours,chkIsovertime',
+								as.length, as,
+								'worktime,mans,sales,supmans,supworker,managermans,manager,hours,addhours,isovertime',
+								'txtWorkertime','__'
+							);
+						}
 						break;
 					case 'sssall':
 						var as = _q_appendData("sssall", "", true);
@@ -472,6 +479,8 @@
 			}
 
 			function toGetCuy(){
+				if(q_cur != 1)
+					return;
 				var thisDatea = $.trim($('#txtDatea').val());
 				var thisStationno = $.trim($('#txtStationno').val());
 				if((thisDatea.length > 0) && (thisStationno.length > 0)){
