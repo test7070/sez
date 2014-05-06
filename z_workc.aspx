@@ -53,7 +53,7 @@
 						src : 'ucc_b.aspx'
 					}, {
 						type : '1', //[11][12]
-						name : 'date'
+						name : 'cuadate'
 					}, {
 						type : '6', //[13]
 						name : 'xordeno'
@@ -69,17 +69,19 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtDate1').mask('999/99/99');
-				$('#txtDate2').mask('999/99/99');
+				$('#txtCuadate1').mask('999/99/99');
+				$('#txtCuadate2').mask('999/99/99');
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate1').val(q_date().substring(0, 7) + '01');
+				$('#txtCuadate1').val(q_date().substring(0, 7) + '01');
 				$('.q_report .option:first').css('width','700px')
 				$('#Xproduct').css('width','690px');
 				$('#Xproduct .c2').css('width','130px');
 				$('#Xproduct .c3').css('width','130px');
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
 				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
+				$('#txtCuadate2').val(q_date().substring(0, 7) + lastDays);
 				var t_key = q_getHref();
 				if (t_key[1] != undefined)
 					$('#txtXnoa').val(t_key[1]);
