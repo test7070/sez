@@ -173,11 +173,12 @@
 									if(t_gno=='0'){
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stationno'] + '</td>';//列出工作站
 										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stations'] + '</td>';//列出工作站
-										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['hours']) + '</td>';//列出工作站
-										t_TableStr = t_TableStr + '<td class="num">' + round(dec(as[k]['rate']),3) + '%</td>';//列出工作站
+										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['hours']) + '</td>';//日產能
+										t_TableStr = t_TableStr + '<td class="num">' + round(dec(as[k]['rate']),3) + '%</td>';//稼動率
 										for(var j=1;j<=maxCount;j++){
 											var thisVal = dec(as[k]['v'+padL(j,'0',2)]);
-											t_TableStr = t_TableStr + '<td class="num">' + round(thisVal,3) + '</td>';
+											var thisHours = dec(as[k]['hours']);
+											t_TableStr = t_TableStr + '<td class="num"'+(thisVal>thisHours?' style="color:red;"':'')+'>' + round(thisVal,3) + '</td>';
 										}
 									}else if(t_gno=='1'){
 										t_TableStr = t_TableStr + '<td class="tTotal" colspan="2">總計：</td>';
