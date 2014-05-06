@@ -161,6 +161,8 @@
 								var isFind = false;
 								for(var j=0;j<TL.length;j++){
 									if((as[i].stationno==TL[j].stationno)){
+										TL[j].rate = q_add(dec(TL[j].rate),dec(as[i].mount));
+										TL[j].days = q_add(dec(TL[j].days),1);
 										isFind = true;
 									}
 								}
@@ -168,7 +170,9 @@
 									TL.push({
 										stationno : as[i].stationno,
 										station : as[i].station,
-										gen : as[i].gen,
+										gen : dec(as[i].gen),
+										rate : 0,
+										days : 1,
 										datea : []
 									});
 								}
@@ -196,7 +200,8 @@
 							}
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>";
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>" + 
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
@@ -208,12 +213,11 @@
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
 							var ATotal = 0;
-							var GenTotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
 								OutHtml += "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
-										   "<td class='num'>" + TL[k].gen + "</td>";
-								GenTotal = q_add(GenTotal,TL[k].gen);
+										   "<td class='num'>" + TL[k].gen + "</td>" +
+										   "<td class='num'>" + round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
@@ -227,7 +231,7 @@
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
 							}
-							OutHtml += "<tr><td colspan='3' class='tTotal num'>總計：</td>";
+							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
 							for(var k=0;k<DateObj.length;k++){
 								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].mount,3) + "</td>";
 							}
@@ -322,13 +326,11 @@
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
 							var ATotal = 0;
-							var GenTotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
 								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>" + 
 										   "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>";
-								GenTotal = q_add(GenTotal,TL[k].gen);
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
