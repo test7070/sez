@@ -18,7 +18,8 @@
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
-
+			var isSaturday = '0';
+			var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
 			$(document).ready(function() {
 				q_getId();
 				q_gf('', 'z_cuwp');
@@ -42,8 +43,22 @@
 					}, {
 					}]
 				});
+				$('#q_report').click(function(){
+					var t_index = $('#q_report').data('info').radioIndex;
+					if((t_index==0) || (t_index==1) || (t_index==5) || (t_index==6)){
+						$('.prt').hide();
+						$('#chart,#chartCtrl').show();
+					}else{
+						$('.prt').show();
+						$('#chart,#chartCtrl').hide();
+					}
+				});
 				q_popAssign();
 				q_langShow();
+				isSaturday = (q_getPara('sys.saturday').toString()=='1'?'1':'0');
+				$('#btnXXX').click(function(e) {
+					btnAuthority(q_name);
+				});
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
 				/* 終止日預設為起始日之月份最後一日*/
@@ -78,24 +93,180 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
+				$("#btnRun").click(function(){
+					var t_index = $('#q_report').data('info').radioIndex;
+					var txtreport = $('#q_report').data('info').reportData[t_index].report;
+					if(emp($('#txtXdate1').val()))
+						$('#txtXdate1').val(q_date());
+					if(emp($('#txtXdate2').val()))
+						$('#txtXdate2').val(q_date());
+					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',t_xestationno='#non';
+					if(!emp($('#txtXdate1').val()))
+						t_xbdate=encodeURI($('#txtXdate1').val());
+					if(!emp($('#txtXdate2').val()))
+						t_xedate=encodeURI($('#txtXdate2').val());
+					if(!emp($('#txtXstationno1a').val()))
+						t_xbstationno=encodeURI($('#txtXstationno1a').val());
+					if(!emp($('#txtXstationno2a').val()))
+						t_xestationno=encodeURI($('#txtXstationno2a').val());
+					Lock();
+					q_func('qtxt.query.'+txtreport,'z_cuwp.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';');
+				});
+			}
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.z_cuwp2':
+						var as = _q_appendData('tmp0','',true,true);
+						if (as[0] == undefined) {
+							alert('沒有資料!!');
+						}else{
+							var OutHtm= '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
+							var Html01='<tr><td class="tMain" colspan="2">　　工作中心→<br>項目↓</td>';
+							var Html02='<tr><td class="tMain tLeft" colspan="2">基本產能</td>';
+							var Html03='<tr><td class="tMain tLeft" colspan="2">工時</td>';
+							var Html04='<tr><td class="tMain tLeft" colspan="2">製令工時</td>';
+							var Html05='<tr><td class="tMain tLeft" colspan="2">製令工時累計</td>';
+							var Html06='<tr><td class="tMain tLeft" colspan="2">製令數</td>';
+							var Html07='<tr><td class="tMain tLeft" colspan="2">製令數累計</td>';
+							var Html08='<tr><td class="tMain tLeft" colspan="2">完工數量</td>';
+							var Html09='<tr><td class="tMain tLeft" colspan="2">完工數量累計</td>';
+							var Html10='<tr><td class="tMain tLeft" colspan="2">加班製令數</td>';
+							var Html11='<tr><td class="tMain tLeft" colspan="2">加班製令數累計</td>';
+							var Html12='<tr><td class="tMain tLeft" colspan="2">加班產量</td>';
+							var Html13='<tr><td class="tMain tLeft" colspan="2">加班產量累計</td>';
+							var Html14='<tr><td class="tMain tLeft" colspan="2">加班時數</td>';
+							var Html15='<tr><td class="tMain tLeft" colspan="2">加班累計</td>';
+							var Html16='<tr><td class="tMain tRow" rowspan="12" valign="middle">停<br>機<br>原<br>因<br>及<br>時<br>數</td><td class="tMain tRowItem">換膜</td>';
+							var Html17='<tr><td class="tMain tRowItem">累計</td>';
+							var Html18='<tr><td class="tMain tRowItem">故障</td>';
+							var Html19='<tr><td class="tMain tRowItem">累計</td>';
+							var Html20='<tr><td class="tMain tRowItem">延遲</td>';
+							var Html21='<tr><td class="tMain tRowItem">累計</td>';
+							var Html22='<tr><td class="tMain tRowItem">待單</td>';
+							var Html23='<tr><td class="tMain tRowItem">累計</td>';
+							var Html24='<tr><td class="tMain tRowItem">待料</td>';
+							var Html25='<tr><td class="tMain tRowItem">累計</td>';
+							var Html26='<tr><td class="tMain tRowItem">缺員</td>';
+							var Html27='<tr><td class="tMain tRowItem">累計</td>';
+							var Html28='<tr><td class="tMain tRow" rowspan="3" valign="middle">人<br>員</td><td>編制</td>';
+							var Html29='<tr><td class="tMain tRowItem">支援</td>';
+							var Html30='<tr><td class="tMain tRowItem">間接</td>';
+							var t_workhours=0,t_workmount=0,t_mount=0,t_addwork=0,t_addmount=0;
+							var t_addhours=0,t_chgtime=0,t_faulttime=0,t_delaytime=0,t_waittime=0;
+							var t_waitfedtime=0,t_lacksss=0;
+							for(var k=0;k<as.length;k++){
+								t_workhours = q_add(t_workhours,dec(as[k].workhours));
+								t_workmount = q_add(t_workmount,dec(as[k].workmount));
+								t_mount = q_add(t_mount,dec(as[k].mount));
+								t_addwork = q_add(t_addwork,dec(as[k].addwork));
+								t_addmount = q_add(t_addmount,dec(as[k].addmount));
+								t_addhours = q_add(t_addhours,dec(as[k].addhours));
+								t_chgtime = q_add(t_chgtime,dec(as[k].chgtime));
+								t_faulttime = q_add(t_faulttime,dec(as[k].faulttime));
+								t_delaytime = q_add(t_delaytime,dec(as[k].delaytime));
+								t_waittime = q_add(t_waittime,dec(as[k].waittime));
+								t_waitfedtime = q_add(t_waitfedtime,dec(as[k].waitfedtime));
+								t_lacksss = q_add(t_lacksss,dec(as[k].lacksss));
+								Html01 += '<td class="tMain tTitle" valign="middle">'+as[k].stationno+ '<br>' + as[k].station +'</td>';
+								Html02 += '<td class="tNum">'+as[k].gen+'</td>';
+								Html03 += '<td class="tNum">'+as[k].hours+'</td>';
+								Html04 += '<td class="tNum">'+as[k].workhours+'</td>';
+								Html05 += '<td class="tNum">'+t_workhours+'</td>';
+								Html06 += '<td class="tNum">'+as[k].workmount+'</td>';
+								Html07 += '<td class="tNum">'+t_workmount+'</td>';
+								Html08 += '<td class="tNum">'+as[k].mount+'</td>';
+								Html09 += '<td class="tNum">'+t_mount+'</td>';
+								Html10 += '<td class="tNum">'+as[k].addwork+'</td>';
+								Html11 += '<td class="tNum">'+t_addwork+'</td>';
+								Html12 += '<td class="tNum">'+as[k].addmount+'</td>';
+								Html13 += '<td class="tNum">'+t_addmount+'</td>';
+								Html14 += '<td class="tNum">'+as[k].addhours+'</td>';
+								Html15 += '<td class="tNum">'+t_addhours+'</td>';
+								Html16 += '<td class="tNum">'+as[k].chgtime+'</td>';
+								Html17 += '<td class="tNum">'+t_chgtime+'</td>';
+								Html18 += '<td class="tNum">'+as[k].faulttime+'</td>';
+								Html19 += '<td class="tNum">'+t_faulttime+'</td>';
+								Html20 += '<td class="tNum">'+as[k].delaytime+'</td>';
+								Html21 += '<td class="tNum">'+t_delaytime+'</td>';
+								Html22 += '<td class="tNum">'+as[k].waittime+'</td>';
+								Html23 += '<td class="tNum">'+t_waittime+'</td>';
+								Html24 += '<td class="tNum">'+as[k].waitfedtime+'</td>';
+								Html25 += '<td class="tNum">'+t_waitfedtime+'</td>';
+								Html26 += '<td class="tNum">'+as[k].lacksss+'</td>';
+								Html27 += '<td class="tNum">'+t_lacksss+'</td>';
+								Html28 += '<td class="tNum">'+as[k].mans+'</td>';
+								Html29 += '<td class="tNum">'+as[k].supmans+'</td>';
+								Html30 += '<td class="tNum">'+as[k].managermans+'</td>';
+							}
+							OutHtm += Html01+'</tr>'+Html02+'</tr>'+Html03+'</tr>'+Html04+'</tr>'+
+									 Html05+'</tr>'+Html06+'</tr>'+Html07+'</tr>'+Html08+'</tr>'+
+									 Html09+'</tr>'+Html10+'</tr>'+Html11+'</tr>'+Html12+'</tr>'+
+									 Html13+'</tr>'+Html14+'</tr>'+Html15+'</tr>'+Html16+'</tr>'+
+									 Html17+'</tr>'+Html18+'</tr>'+Html19+'</tr>'+Html20+'</tr>'+
+									 Html21+'</tr>'+Html22+'</tr>'+Html23+'</tr>'+Html24+'</tr>'+
+									 Html25+'</tr>'+Html26+'</tr>'+Html27+'</tr>'+Html28+'</tr>'+
+									 Html29+'</tr>'+Html30+'</tr>' + '</table>';
+							$('#chart').html(OutHtm);
+						}
+						break;
+				}
+				Unlock();
 			}
 		</script>
+		<style>
+			#chart td{
+				text-align:center;
+			}
+			.tMain{
+				width:60px;
+				height:25px;
+			}
+			#chart .tTitle{
+				width:120px;
+			}
+			#chart .tNum{
+				text-align:right;
+				padding-right:3px;
+			}
+			#chart .tRow{
+				width:40px;
+			}
+			#chart .tRowItem{
+				width:80px;
+			}
+			#chart .tLeft{
+				text-align:left;
+				padding-left:3px;
+			}
+
+		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
-			<div id="container">
-				<div id="q_report"></div>
+			<div id="container" style="width:2000px;">
+				<div id="q_report"> </div>
 			</div>
-			<div id="Notice" style="display: block;">
-				<span style="margin-left:5px;"> <font color="red">**大張報表紙(US Std Fanfold) 直印**</font> </span>
+			<div id="chartCtrl" style="display:inline-block;width:2000px;">
+				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
+				<input type="button" id="btnXXX" style="float:left; width:80px;font-size: medium;" value="權限"/>
+				<!--
+				<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
+				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
+				<input type="text" id="txtCurPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;"/>
+				<span style="display:block; float:left; width:20px;"><label class="control" style="vertical-align: middle;font-size: medium;">／</label></span>
+				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
+				-->
 			</div>
-			<div class="prt" style="margin-left: -40px;">
+			<div id="chart">
+			</div>
+			<div class="prt" style="margin-left: -40px;display:none;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
+		<div id="q_acDiv" style="display: none;"><div> </div></div>
 	</body>
 </html>

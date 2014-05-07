@@ -132,71 +132,114 @@
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
 						}else{
-							var maxCount = dec(as[0].maxCount);
-							var t_TableStr = '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
-							//產生標題<<Start>>
-							t_TableStr = t_TableStr + '<tr>';
-							t_TableStr = t_TableStr + '<td class="tTitle" colspan="2" rowspan="2">工作中心</td>';
-							t_TableStr = t_TableStr + '<td class="tTitle tWidth" rowspan="2">日產能</td>';
-							t_TableStr = t_TableStr + '<td class="tTitle tWidth" rowspan="2">稼動率</td>';
-							var tmpTd = '';
-							var dateCount = 0;
-							for(var j=1;j<=maxCount;j++){
-								dateCount++;
-								while(1==1){
-									var t_date = q_cdn($('#txtXdate1').val(),(dateCount-1));
-									var t_Addate = (parseInt(t_date.substring(0,3))+1911)+t_date.substring(3);
-									var thisDate = new Date(t_Addate);
-									var thisDate_day = thisDate.getDay();
-									if(((isSaturday=='1') || (isSaturday!='1' && thisDate_day!=6)) && (thisDate_day != 0)){
-										t_TableStr = t_TableStr + '<td class="tTitle tWidth">' + t_date.substr(4) + '</td>';
-										tmpTd = tmpTd + '<td class="tTitle tWidth">' + DayName[thisDate_day] + '</td>';
-										break;
-									}else{
-										dateCount++;
-									}
+							var t_bdate = $.trim($('#txtXdate1').val());
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_bdate = (t_bdate.length==9?t_bdate:q_date());
+							var t_bADdate = dec(t_bdate.substring(0,3))+1911+t_bdate.substr(3);
+							var t_edate = $.trim($('#txtXdate2').val());
+							t_edate = (t_edate.length==9?t_edate:q_date());
+							var t_eADdate = dec(t_edate.substring(0,3))+1911+t_edate.substr(3);
+							var myStartDate = new Date(t_bADdate);
+							var myEndDate = new Date(t_eADdate);
+							var DiffDays = ((myEndDate - myStartDate)/ 86400000);
+							var DateList = [];
+							var DateObj = [];
+							for(var j=0;j<=DiffDays;j++){
+								var thisDay = q_cdn(t_bdate,j);
+								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								if((new Date(thisADday).getDay())!=0){
+									DateList.push(thisDay);
+									DateObj.push({
+										datea:thisDay,
+										mount:0
+									});
 								}
 							}
-							t_TableStr = t_TableStr + '<td class="tTitle tWidth" rowspan="2">合計</td>';
-							t_TableStr = t_TableStr + '</tr>';
-							t_TableStr = t_TableStr + '<tr>';
-							t_TableStr = t_TableStr + tmpTd;
-							t_TableStr = t_TableStr + '</tr>';
-							//產生標題<<End>>
-							//產生值<<Start>>
+							var TL = [];
+							var OutHtml= '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
+							for(var i=0;i<as.length;i++){
+								var isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if((as[i].stationno==TL[j].stationno)){
+										TL[j].rate = q_add(dec(TL[j].rate),dec(as[i].mount));
+										TL[j].days = q_add(dec(TL[j].days),1);
+										isFind = true;
+									}
+								}
+								if(!isFind){
+									TL.push({
+										stationno : as[i].stationno,
+										station : as[i].station,
+										gen : dec(as[i].gen),
+										rate : 0,
+										days : 1,
+										datea : []
+									});
+								}
+							}
+							for(var k=0;k<TL.length;k++){
+								for(var j=0;j<DateList.length;j++){
+									TL[k].datea.push([DateList[j],0,TL[k].gen]);
+								}
+							}
 							for(var k=0;k<as.length;k++){
-								var t_gno = as[k].gno;
-								t_TableStr = t_TableStr + '<tr>';
-								var t_stationno = $.trim(as[k]['stationno']);
-								var t_stations = $.trim(as[k]['stations']);
-								if(((t_stationno.length>0) && (t_stations.length>0)) || (t_gno=='1')){
-									if(t_gno=='0'){
-										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stationno'] + '</td>';//列出工作站
-										t_TableStr = t_TableStr + '<td class="tWidth_Station">' + as[k]['stations'] + '</td>';//列出工作站
-										t_TableStr = t_TableStr + '<td class="num">' + dec(as[k]['hours']) + '</td>';//列出工作站
-										t_TableStr = t_TableStr + '<td class="num">' + round(dec(as[k]['rate']),3) + '%</td>';//列出工作站
-										for(var j=1;j<=maxCount;j++){
-											var thisVal = dec(as[k]['v'+padL(j,'0',2)]);
-											t_TableStr = t_TableStr + '<td class="num">' + round(thisVal,3) + '</td>';
-										}
-									}else if(t_gno=='1'){
-										t_TableStr = t_TableStr + '<td class="tTotal" colspan="2">總計：</td>';
-										t_TableStr = t_TableStr + '<td class="tTotal num">'+dec(as[k]['hours'])+'</td>';
-										t_TableStr = t_TableStr + '<td class="tTotal num">'+dec(as[k]['rate'])+'%</td>';
-										for(var j=1;j<=maxCount;j++){
-											var thisVal = dec(as[k]['v'+padL(j,'0',2)]);
-											t_TableStr = t_TableStr + '<td class="tTotal num">' + round(thisVal,3) + '</td>';
+								isFind = false;
+								for(var j=0;j<TL.length;j++){
+									if(isFind) break;
+									if((as[k].stationno==TL[j].stationno)){
+										var TLDatea = TL[j].datea;
+										for(var h=0;h<TLDatea.length;h++){
+											if(as[k].datea==TLDatea[h][0]){
+												TLDatea[h][1] = dec(TLDatea[h][1])+dec(as[k].mount);
+												isFind = true;
+												break;
+											}
 										}
 									}
-									t_TableStr = t_TableStr + '<td class="'+(t_gno=='1'?'tTotal ':'')+'num">' + round(dec(as[k]['v'+padL((maxCount+1),'0',2)]),3) +'</td>';
-									t_TableStr = t_TableStr + '</tr>';
 								}
 							}
-							//產生值<<END>>
-							t_TableStr = t_TableStr + "</table>";
+							OutHtml += '<tr>';
+							OutHtml += "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>" + 
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
+							var tmpTd = '<tr>';
+							for(var j=0;j<DateList.length;j++){
+								var thisDay = DateList[j];
+								var thisADday = dec(thisDay.substring(0,3))+1911+thisDay.substr(3);
+								OutHtml += "<td class='tTitle tWidth'>" + thisDay.substr(4) + "</td>";
+								tmpTd += "<td class='tTitle tWidth'>" + DayName[(new Date(thisADday).getDay())] + "</td>";
+							}
+							OutHtml += "<td class='tTitle tWidth' rowspan='2'>小計</td>";
+							tmpTd += "</tr>"
+							OutHtml += '</tr>' + tmpTd;
+							var ATotal = 0;
+							for(var k=0;k<TL.length;k++){
+								OutHtml += '<tr>';
+								OutHtml += "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
+										   "<td class='num'>" + TL[k].gen + "</td>" +
+										   "<td class='num'>" + round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3) + "</td>";
+								var TTD = TL[k].datea;
+								var tTotal = 0;
+								for(var j=0;j<TTD.length;j++){
+									var thisValue = round(TTD[j][1],3);
+									var thisGen = dec(TTD[j][2]);
+									tTotal = q_add(tTotal,round(TTD[j][1],3));
+									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
+									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color=:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(TTD[j][1],3) + "</font></td>";
+								}
+								ATotal = q_add(ATotal,tTotal);
+								OutHtml += "<td class='num'>" + tTotal + "</td>";
+								OutHtml += '</tr>';
+							}
+							OutHtml += "<tr><td colspan='4' class='tTotal num'>總計：</td>";
+							for(var k=0;k<DateObj.length;k++){
+								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].mount,3) + "</td>";
+							}
+							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
+							OutHtml += "</table>"
 							var t_totalWidth = 0;
-							t_totalWidth = ((100+2)*(2))+((70+2)*(maxCount+1+2))+10;
-							$('#chart').css('width',t_totalWidth+'px').html(t_TableStr);
+							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
+							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 						break;
 					case 'qtxt.query.z_workgg5':
@@ -283,13 +326,11 @@
 							tmpTd += "</tr>"
 							OutHtml += '</tr>' + tmpTd;
 							var ATotal = 0;
-							var GenTotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
 								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>" + 
 										   "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>";
-								GenTotal = q_add(GenTotal,TL[k].gen);
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
