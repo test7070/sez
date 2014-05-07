@@ -238,7 +238,7 @@
 				text-align:left;
 				padding-left:3px;
 			}
-			
+
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
