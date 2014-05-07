@@ -424,13 +424,13 @@
 				if($('#combType2A').is(":visible")){
 					$('#txtType2').val($('#combType2A').val());
 				}
-				
-				var t_err = CheckInputError();
+				//裕承隆 暫時先不檢查
+				/*var t_err = CheckInputError();
 				if(t_err.length>0){
 					alert(t_err);
 					Unlock(1);
 					return;					
-				}
+				}*/
 				SetBBsPno();
 				if (q_cur > 0 && dec($('#txtPrice').val()) > 0)
 					$('#txtTranmoney').val(dec($('#txtPrice').val()) * dec($('#txtTheyout').val()));
