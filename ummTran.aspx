@@ -675,7 +675,7 @@
 						var t_tablea = trim($('#txtTablea_' + n).val());
 						if (t_tablea.length > 0) {
 							var t_form = (t_tablea == "vcc" ? 'vcctran' : t_tablea);
-							t_form = (t_tablea == 'trd' && q_getPara('sys.comp').substring(0, 2) == '日光' ? 'trd_ds' : t_form);
+							t_form = (t_tablea == 'trd' && (q_getPara('sys.comp').substring(0, 2) == '日光' || q_getPara('sys.comp').substring(0, 2) == '東暉') ? 'trd_ds' : t_form);
 							q_box(t_form + ".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop" + t_tablea));
 						}
 					});
