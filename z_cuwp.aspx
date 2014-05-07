@@ -19,7 +19,6 @@
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
 			var isSaturday = '0';
-			var DayName = ['週日','週一','週二','週三','週四','週五','週六'];
 			$(document).ready(function() {
 				q_getId();
 				q_gf('', 'z_cuwp');
@@ -45,7 +44,7 @@
 				});
 				$('#q_report').click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
-					if((t_index==0) || (t_index==1) || (t_index==5) || (t_index==6)){
+					if((t_index==0)){
 						$('.prt').hide();
 						$('#chart,#chartCtrl').show();
 					}else{
@@ -121,7 +120,7 @@
 							alert('沒有資料!!');
 						}else{
 							var OutHtm= '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
-							var Html01='<tr><td class="tMain" colspan="2">　　工作中心→<br>項目↓</td>';
+							var Html01='<tr><td class="tMain tTitle" colspan="2">　　工作中心→<br>項目↓</td>';
 							var Html02='<tr><td class="tMain tLeft" colspan="2">基本產能</td>';
 							var Html03='<tr><td class="tMain tLeft" colspan="2">工時</td>';
 							var Html04='<tr><td class="tMain tLeft" colspan="2">製令工時</td>';
@@ -223,6 +222,7 @@
 			}
 			#chart .tTitle{
 				width:120px;
+				background-color:rgb(255,255,153);
 			}
 			#chart .tNum{
 				text-align:right;
