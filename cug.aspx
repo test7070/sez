@@ -134,6 +134,20 @@
 						$('#txtBdate').val(q_date());
 					}
 				});
+				
+				$('#btnClose_div_child').click(function() {
+					$('#div_child').toggle();
+				});
+				
+				$('#btnEarlydayok').click(function() {
+					if(!emp($('#textEarlyday').val())&&!emp($('#textEarlyworkno').val())){						
+						var t_where = $('#textEarlyworkno').val()+ ';' + dec($('#textEarlyday').val());
+						q_func('qtxt.query.earlyday', 'cug.txt,earlyday,' + t_where);
+						$('#btnEarlydayok').attr('disabled', 'disabled');
+					}else{
+						alert("資料錯誤!!");
+					}
+				});
             }
             
 			var first_rest=true;
@@ -363,10 +377,13 @@
 		                $('#txtThours_'+i).val(total_hours);
 		                
 		                //-------------------------------------------------------------------
+		                //0506 非機時 >>指實際工作時數>>產能/標準日工時=機器數>>當天產能/機器數=實際工作時數
 		                //如果剩餘時數低於一小時且下個排程大於1個小時 插入休息不做
-		                if(q_sub(t_gen,tt_hours)<1 &&q_sub(t_gen,tt_hours)>0 && dec($('#txtHours_'+(i+1)).val())>=1){
+		                //if(q_sub(t_gen,tt_hours)<1 &&q_sub(t_gen,tt_hours)>0 && dec($('#txtHours_'+(i+1)).val())>=1){
+		                var smount=dec($('#txtSmount').val());
+		                if(q_div(q_sub(t_gen,tt_hours),smount)<1 && q_div(q_sub(t_gen,tt_hours),smount)>0 
+		                	&& q_div(dec($('#txtHours_'+(i+1)).val()),smount)>=1){
 		                	q_bbs_addrow('bbs',i,1);//下方插入空白行
-		                
 			                $('#txtCuadate_'+(i+1)).val($('#txtCuadate_'+i).val());
 			                $('#txtUindate_'+(i+1)).val($('#txtCuadate_'+i).val());
 			                $('#txtHours_'+(i+1)).val(q_sub(t_gen,tt_hours));
@@ -376,7 +393,8 @@
 			                $('#txtNos_'+(i+1)).val($('#txtNos_'+i).val()+'X');
 			                $('#txtNoq_'+(i+1)).val(replaceAll($('#txtCuadate_'+(i+1)).val(), '/','')+$('#txtNos_'+(i+1)).val());
 			                $('#txtProcess_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtSpec_'+(i+1)).val('當天累計時數：'+tt_hours+';剩餘時數：'+q_sub(t_gen,tt_hours));
+			                //$('#txtSpec_'+(i+1)).val('當天累計：'+tt_hours+'/HR;剩餘：'+q_sub(t_gen,tt_hours)+'/HR');
+			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'/HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'/HR');
 			                
 			                //處理當天如果還有work順便延後
 		                	for (var j = i+2; j < q_bbsCount; j++) {
@@ -407,7 +425,8 @@
 			                $('#txtNos_'+(i+1)).val($('#txtNos_'+i).val()+'X');
 			                $('#txtNoq_'+(i+1)).val(replaceAll($('#txtCuadate_'+(i+1)).val(), '/','')+$('#txtNos_'+(i+1)).val());
 			                $('#txtProcess_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtSpec_'+(i+1)).val('當天累計時數：'+tt_hours+';剩餘時數：'+q_sub(t_gen,tt_hours));
+			                //$('#txtSpec_'+(i+1)).val('當天累計：'+tt_hours+'/HR;剩餘：'+q_sub(t_gen,tt_hours)+'/HR');
+			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'/HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'/HR');
 			                re_scheduling=true;
 						}
 		                
@@ -442,10 +461,14 @@
 						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
-						$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						if(r_modi || r_modi==undefined)
+							$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						else
+							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).removeClass('hasDatepicker');
 						$('#textDatea_'+i).datepicker();
 						$('#btnMinus_'+i).removeAttr('disabled');
+						$('#btnChildchange_'+i).removeAttr('disabled');
 					}else if ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
 						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -455,14 +478,19 @@
 						$('#textDatea_'+i).datepicker();
 						$('#textDatea_'+i).datepicker('destroy');
 						$('#btnMinus_'+i).attr('disabled', 'disabled');
+						$('#btnChildchange_'+i).attr('disabled', 'disabled');
 					}else{
 						$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
 						$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
 						$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
-						$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						if(r_modi || r_modi==undefined)
+							$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						else
+							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).removeClass('hasDatepicker');
 						$('#textDatea_'+i).datepicker();
 						$('#btnMinus_'+i).removeAttr('disabled');
+						$('#btnChildchange_'+i).attr('disabled', 'disabled');
 					}
 					
 				}
@@ -496,7 +524,7 @@
                 			$('#btnCug').removeAttr('disabled');
                 		}else{
                 			$('#txtGenorg').val(as[0].gen);
-                			$('#txtSmount').val(as[0].mount);
+                			$('#txtSmount').val(dec(as[0].hours)!=0?Math.ceil(q_div(as[0].gen,as[0].hours)):1);
                 			getnewgen=true;
                 			scheduling();
                 		}
@@ -557,6 +585,39 @@
 							sum();
                 		}
                 		
+                		break;
+                	case 'child_work':
+                		var as = _q_appendData("view_work", "", true);
+                		var rowslength = document.getElementById("table_child").rows.length - 2;
+						for (var j = 1; j < rowslength; j++) {
+							document.getElementById("table_child").deleteRow(2);
+						}
+						
+						if(as[0]!=undefined){
+							$('#textEarlyday').val('');
+							var child_row = 0;
+							for (var i = 0; i < as.length; i++) {
+								var tr = document.createElement("tr");
+								tr.id = "bbs_" + j;
+								tr.innerHTML = "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";
+								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /></td>";
+								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtProcess_" + child_row + "' type='text' class='txt c1' value='" + as[i].process + "' disabled='disabled' /></td>";
+								tr.innerHTML += "<td><input id='child_txtStyle_" + child_row + "' type='text' class='txt c1' value='" + as[i].style + "' disabled='disabled'/></td>";
+								tr.innerHTML += "<td><input id='child_txtMount_" + child_row + "' type='text' class='txt c1 num' value='" + as[i].mount + "' disabled='disabled'/></td>";
+								tr.innerHTML += "<td><input id='child_txtHours_" + child_row + "' type='text' class='txt c1 num' value='" + as[i].hours + "' disabled='disabled'/></td>";
+								tr.innerHTML += "<td><input id='child_txtCuadate_" + child_row + "' type='text' class='txt c1' value='" + as[i].cuadate + "' disabled='disabled'/></td>";
+								var tmp = document.getElementById("child_close");
+								tmp.parentNode.insertBefore(tr, tmp);
+								child_row++;
+							}
+							$('#btnEarlydayok').removeAttr('disabled');
+							$('#div_child').css('top', mouse_point.pageY);
+							$('#div_child').css('left', mouse_point.pageX);
+							$('#div_child').toggle();
+						}else{
+							alert("無子階資料");
+							$('#btnEarlydayok').attr('disabled', 'disabled');
+						}
                 		break;
                     case q_name:
                         if (q_cur == 4)
@@ -646,7 +707,7 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
                 issave=true;
             }
-
+			var mouse_point;
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
@@ -660,28 +721,40 @@
 							}
 		                });
 		                
-		                
 		                $('#txtNos_' + i).blur(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-		                	if(q_cur==1 || q_cur==2){
-		                		
-		                	}
+		                	if(q_cur==1 || q_cur==2){}
 						});
 						
 						$('#txtProcess_' + i).blur(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-		                	
 						});
 						
 						$('#textDatea_' + i).blur(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-		                	$('#txtCuadate_' + b_seq).val($('#textDatea_' + b_seq).val())
+		                	//$('#txtCuadate_' + b_seq).val($('#textDatea_' + b_seq).val())
+						});
+						
+						$('#btnChildchange_' + i).mousedown(function(e) {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(e.button==0){
+								if (!emp($('#txtWorkno_' + b_seq).val()) && $("#div_child").is(":hidden")) {
+									$('#textEarlyworkno').val($('#txtWorkno_' + b_seq).val());
+									mouse_point = e;
+									//查詢子階work
+									var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
+									t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
+									q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
+								}
+							}
 						});
                     }
                 }
@@ -698,10 +771,14 @@
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
-							$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							if(r_modi || r_modi==undefined)
+								$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							else
+								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
 							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -711,14 +788,25 @@
 							$('#textDatea_'+i).datepicker();
 							$('#textDatea_'+i).datepicker('destroy');
 							$('#btnMinus_'+i).attr('disabled', 'disabled');
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}else{
 							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
 							$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
 							$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
-							$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							if(r_modi || r_modi==undefined)
+								$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							else
+								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
 							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
+						}
+					}else{
+						if(!emp($('#txtWorkno_'+i).val())){
+							$('#btnChildchange_'+i).removeAttr('disabled');
+						}else{
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
 					}
 				}
@@ -736,7 +824,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['noq'] ) {//不存檔條件
+                if (!as['process']&&!as['workno'] ) {//不存檔條件
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -758,6 +846,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                $('#div_child').hide();
                 for (var i = 0; i < q_bbsCount; i++) {
 					if($('#txtNoq_'+i).val()!=undefined){
 						if(($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!='')
@@ -805,10 +894,14 @@
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
-							$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							if(r_modi || r_modi==undefined)
+								$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							else
+								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
 							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -818,14 +911,25 @@
 							$('#textDatea_'+i).datepicker();
 							$('#textDatea_'+i).datepicker('destroy');
 							$('#btnMinus_'+i).attr('disabled', 'disabled');
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}else{
 							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
 							$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
 							$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
-							$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							if(r_modi || r_modi==undefined)
+								$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							else
+								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
 							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
+						}
+					}else{
+						if(!emp($('#txtWorkno_'+i).val())){
+							$('#btnChildchange_'+i).removeAttr('disabled');
+						}else{
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
 					}
 				}
@@ -834,6 +938,7 @@
             		var s2=new Array('cug_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
 					q_boxClose2(s2);
 				}
+				$('.ui-datepicker').css('margin-left','100px');
             }
 
             function btnMinus(id) {
@@ -898,6 +1003,14 @@
 		       iDays  =  parseInt(Math.abs(Date1-  Date2)  /  1000  /  60  /  60  /24)    //轉換為天數 
 		       return  iDays  
 		   }
+		   
+		   function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.earlyday':
+						$('#btnEarlydayok').removeAttr('disabled');
+					break;
+                }
+			}
 
 		</script>
 		<style type="text/css">
@@ -1045,6 +1158,32 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="div_child" style="position:absolute; top:0px; left:0px; display:none; width:1000px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_child" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+				<tr>
+					<td style="background-color: #f8d463;" align="center">提前天數</td>
+					<td colspan="6" style="background-color: #f8d463;" id='child_earlyday'>
+						<input id='textEarlyday' type='text' class='txt' style='width: 100px;' onkeyup="value=value.replace(/[^\d]/g,'') "/>
+						<input id='textEarlyworkno' type='hidden'/>
+						<input id="btnEarlydayok" type="button" value="更新">
+					</td>
+				</tr>
+				<tr id='child_top'>
+					<td style="background-color: #CDFFCE;width:16%;" align="center">子階製令單號</td>
+					<td style="background-color: #CDFFCE;width:30%;" align="center">製品編號/製品名稱</td>
+					<td style="background-color: #CDFFCE;width:15%;" align="center">工作中心/製程</td>
+					<td style="background-color: #CDFFCE;width:11%;" align="center">機型</td>
+					<td style="background-color: #CDFFCE;width:9%;" align="center">數量</td>
+					<td style="background-color: #CDFFCE;width:9%;" align="center">工時</td>
+					<td style="background-color: #CDFFCE;width:10%;" align="center">應開工日</td>
+				</tr>
+				<tr id='child_close'>
+					<td align="center" colspan='7'>
+						<input id="btnClose_div_child" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
@@ -1154,12 +1293,13 @@
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
 					<td>
 						<input id="txtNos.*" type="text" class="txt c1"/>
-						<input id="txtNoq.*" type="text" class="txt c1"/>
+						<input id="txtNoq.*" type="hidden" class="txt c1"/>
 						<input id="txtStationno.*" type="hidden" class="txt c1"/>
 						<input id="txtStation.*" type="hidden" class="txt c1"/>
 					</td>
 					<td>
 						<input id="textDatea.*" type="text" class="txt c1"/>
+						<input id="btnChildchange.*" type="button" style="float: center;" value="子階提前異動"/>
 					</td>
 					<td>
 						<input id="txtProductno.*" type="text" class="txt c1"/>

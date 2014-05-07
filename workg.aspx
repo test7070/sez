@@ -67,7 +67,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd], ['txtWadate', r_picd], ['txtWbdate', r_picd], ['txtWedate', r_picd]];
-				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd]];
+				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd]];//, ['txtUindate', r_picd]
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('workg.stype'));	
 
@@ -1002,7 +1002,7 @@
 			.dview {
 				float: left;
 				border-width: 0px;
-				width: 675px;
+				width: 575px;
 			}
 			.tview {
 				border: 5px solid gray;
@@ -1022,7 +1022,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 595px;
+				width: 695px;
 				border-radius: 5px;
 			}
 			.tbbm {
@@ -1159,7 +1159,7 @@
 						<td style="width:24px; color:black;"><a id='vewChk'> </a></td>
 						<td style="width:102px; color:black;"><a id='vewNoa'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewStype'> </a></td>
-						<td style="color:black;"><a id='vewProduct'> </a></td>
+						<!--<td style="color:black;"><a id='vewProduct'> </a></td>-->
 						<td style="width:150px; color:black;"><a id='vewRang'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnwork'> </a></td>
 						<td style="width:50px; color:black;"><a id='vewUnordb'> </a></td>
@@ -1169,7 +1169,7 @@
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td align="center" id='stype=workg.stype'>~stype=workg.stype</td>
-						<td id='product' style="text-align: center;">~product</td>
+						<!--<td id='product' style="text-align: center;">~product</td>-->
 						<td id='bdate edate' style="text-align: center;">~bdate - ~edate</td>
 						<td id='unwork' style="text-align: center;">~unwork</td>
 						<td id='unordb' style="text-align: center;">~unordb</td>
@@ -1200,6 +1200,16 @@
 							<input id="txtEdate" type="text" class="txt c2"/>
 						</td>
 						<td><input id="btnOrde" type="button"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWadate" class="lbl"> </a></td>
+						<td><input id="txtWadate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblWbdate" class="lbl"> </a></td>
+						<td colspan="2">
+							<input id="txtWbdate" type="text" class="txt c2"/>
+							<a style="float: left;">~</a>
+							<input id="txtWedate" type="text" class="txt c2"/>
+						</td>
 					</tr>
 					<tr>
 						<td> </td>
@@ -1248,16 +1258,6 @@
 						<td><input id="btnWorkPrint" type="button" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblWadate" class="lbl"> </a></td>
-						<td><input id="txtWadate" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblWbdate" class="lbl"> </a></td>
-						<td colspan="2">
-							<input id="txtWbdate" type="text" class="txt c2"/>
-							<a style="float: left;">~</a>
-							<input id="txtWedate" type="text" class="txt c2"/>
-						</td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
@@ -1293,7 +1293,7 @@
 						<td style="width:100px;display: none;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:110px;">
 							<a id='lblMount_s' style="color: red;font-weight: bold;"> </a>
-							/<a id='lblUindate_s'> </a>
+							<!--<a id='lblUindate_s'> </a>-->
 						</td>
 						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
 						<td style="width:130px;"><a id='lblStation_s'> </a></td>
@@ -1343,7 +1343,7 @@
 						<td style="display: none;"><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
 						<td>
 							<input id="txtMount.*" type="text" class="txt c1 num orde odm"/>
-							<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>
+							<!--<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>-->
 						</td>
 						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
 						<td>
