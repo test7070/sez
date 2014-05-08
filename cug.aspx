@@ -603,8 +603,8 @@
 								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtProcess_" + child_row + "' type='text' class='txt c1' value='" + as[i].process + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtStyle_" + child_row + "' type='text' class='txt c1' value='" + as[i].style + "' disabled='disabled'/></td>";
-								tr.innerHTML += "<td><input id='child_txtMount_" + child_row + "' type='text' class='txt c1 num' value='" + as[i].mount + "' disabled='disabled'/></td>";
-								tr.innerHTML += "<td><input id='child_txtHours_" + child_row + "' type='text' class='txt c1 num' value='" + as[i].hours + "' disabled='disabled'/></td>";
+								tr.innerHTML += "<td><input id='child_txtMount_" + child_row + "' type='text' class='txt c1 num' value='" + FormatNumber(as[i].mount) + "' disabled='disabled'/></td>";
+								tr.innerHTML += "<td><input id='child_txtHours_" + child_row + "' type='text' class='txt c1 num' value='" + FormatNumber(as[i].hours) + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtCuadate_" + child_row + "' type='text' class='txt c1' value='" + as[i].cuadate + "' disabled='disabled'/></td>";
 								var tmp = document.getElementById("child_close");
 								tmp.parentNode.insertBefore(tr, tmp);
@@ -1007,11 +1007,25 @@
 		   function q_funcPost(t_func, result) {
                 switch(t_func) {
                 	case 'qtxt.query.earlyday':
-						$('#btnEarlydayok').removeAttr('disabled');
+                		alert("更新完成!!");
+                		$('#div_child').toggle();
+						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
+						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
+						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
 					break;
                 }
 			}
-
+			function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -1163,7 +1177,7 @@
 				<tr>
 					<td style="background-color: #f8d463;" align="center">提前天數</td>
 					<td colspan="6" style="background-color: #f8d463;" id='child_earlyday'>
-						<input id='textEarlyday' type='text' class='txt' style='width: 100px;' onkeyup="value=value.replace(/[^\d]/g,'') "/>
+						<input id='textEarlyday' type='text' class='txt' style='width: 100px;' onkeyup="value=value.substring(0,1)=='-'?'-'+value.replace(/[^\d]/g,''):value.replace(/[^\d]/g,'') "/>
 						<input id='textEarlyworkno' type='hidden'/>
 						<input id="btnEarlydayok" type="button" value="更新">
 					</td>
