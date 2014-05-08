@@ -1008,6 +1008,7 @@
                 switch(t_func) {
                 	case 'qtxt.query.earlyday':
                 		alert("更新完成!!");
+                		//重新開啟新的資料
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
 						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
