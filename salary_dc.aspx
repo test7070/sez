@@ -902,6 +902,12 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
+				//1030508 欣芸 日期小於今天一律不能改
+				if($('#txtDatea').val()<q_date()){
+					alert('禁止修改!!');
+					return;
+				}
+				
 				if (checkenda) {
 					alert('超過' + q_getPara('sys.modiday') + '天' + '已關帳!!');
 					return;
