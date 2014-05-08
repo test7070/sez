@@ -149,7 +149,7 @@
 						opacity : 0
 					});
 					var t_comp = q_getPara('sys.comp').substring(0, 2);
-					if (t_comp == '大昌' || t_comp == '日光') {
+					if (t_comp == '大昌' || t_comp == '日光' || t_comp =='東暉') {
 						var t_where = "where=^^ pays.rc2no=a.noa and pays.noa!='" + t_noa + "' ^^";
 						//廠商, where[1] tre, where[2] payb
 						var t_where1 = "a.tggno ='" + t_tggno + "'", t_where2;
