@@ -36,6 +36,12 @@
 					}, {
 						type : '1', //[4][5]
 						name : 'xdate'
+					}, {
+						type : '2', //[6][7]
+						name : 'xstationgno',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
 					}]
 				});
 				q_popAssign();

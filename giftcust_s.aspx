@@ -12,9 +12,9 @@
 		<script type="text/javascript">
 			var q_name = "giftcust_s";
 			var aPop = new Array(
-				['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+				['txtPartno', '', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
 				['txtNoa', '', 'giftcust', 'noa,namea', 'txtNoa,txtNamea', 'giftcust_b.aspx'], 
-				['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+				['txtCustno', '', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
 
 			$(document).ready(function() {
 				main();
