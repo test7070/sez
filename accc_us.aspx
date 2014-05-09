@@ -445,7 +445,7 @@
 		    function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
 		        var t_dmoney = dec(as['dmoney']), t_cmoney = dec(as['cmoney']);
 
-		        if (!as['accc5'] && !as['accc6'] && !t_dmoney == 0 && t_cmoney == 0) {//不存檔條件
+		        if (!as['accc5'] && !as['accc6'] && t_dmoney == 0 && t_cmoney == 0) {//不存檔條件
 		            as[bbsKey[1]] = '';
 		            /// no2 為空，不存檔
 		            return;

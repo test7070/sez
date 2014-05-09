@@ -152,8 +152,7 @@
                         if (as[0] == undefined){
                         	$('#Loading').hide();
                             Unlock();
-                        }
-                        else {
+                        }else {
                             var n = -1;
                             t_data = new Array();
                             s_data = new Array();
@@ -165,7 +164,7 @@
 					                    if (t_data[j].stationno == as[i].stationno){
 					                    	n = j;
 					                    	for (var k = 0; k < t_data[j].process.length; k++)
-							                    if (t_data[j].process[k].processno == as[i].processno)
+							                    if (t_data[j].process[k].process == as[i].process)
 							                        m = k;
 					                    }
 					                        
@@ -455,7 +454,7 @@
                         		
 	                        	//計算製程的起始Y
 	                        	for(var j=0;j<t_data.process.length;j++){
-	                        		if(s_data.detail[i].processno==t_data.process[j].processno)
+	                        		if(s_data.detail[i].process==t_data.process[j].process)
 	                        			y=bkOrigin[1]+(p_height*j)+((i%s_process)*s_height);
 	                        	}
 	                        	
@@ -502,7 +501,7 @@
 	                        	}
 	                        	
 	                        	tmpPath += '<rect id="'+s_data.detail[i].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
-	                        	tmpPath += '<text id="'+s_data.detail[i].workno+'" class="workno" text-anchor="start" x="'+(x+end_width)+'" y="' + (y+s_height/2) + '" fill="black">' + (s_data.detail[i].comp==''?'生計':s_data.detail[i].comp) + '</text>';
+	                        	tmpPath += '<text id="'+s_data.detail[i].workno+'" class="workno" text-anchor="start" x="'+(x+end_width)+'" y="' + (y+s_height/2) + '" fill="black">' + (s_data.detail[i].comp==''?s_data.detail[i].process:s_data.detail[i].comp) + '</text>';
                         		//設定下個製程的起始X
                         		x+=end_width;
                         		pre_date=tmpdate;
