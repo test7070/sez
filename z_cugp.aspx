@@ -490,7 +490,10 @@
 	                        		x+=(day_width*tdays);
 	                        	}*/
 	                        	//--------時數
-	                        	end_width=(day_width/totalgen*dec(s_data.detail[i].hours));
+	                        	if(totalgen<dec(s_data.detail[i].hours))
+	                        		end_width=day_width;
+	                        	else
+	                        		end_width=(day_width/totalgen*dec(s_data.detail[i].hours));
 	                        	
 	                        	//如果製程沒有連續
 	                        	if(t_date!=pre_date){
