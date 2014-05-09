@@ -913,6 +913,13 @@
 			.txt.c6 {
 				width: 25%;
 			}
+			.txt.ime {
+				ime-mode:disabled;
+				-webkit-ime-mode: disabled;
+				-moz-ime-mode:disabled;
+				-o-ime-mode:disabled;
+				-ms-ime-mode:disabled;
+			}
 			.txt.num {
 				text-align: right;
 			}
@@ -991,7 +998,7 @@
 						<td class="td3"><span> </span><a id='lblStype' class="lbl"> </a></td>
 						<td class="td4"><select id="cmbStype" class="txt c1"></select></td>
 						<td class="td5"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td6"><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td class="td6"><input id="txtDatea" type="text" class="txt c1 ime"/></td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td8"><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
