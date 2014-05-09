@@ -39,11 +39,21 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					}, {
+						type : '1', //[6][7]
+						name : 'xcuadate'
+					}, {
+						type : '1', //[8][9]
+						name : 'xuindate'
 					}]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				$('#txtXcuadate1').mask('999/99/99');
+				$('#txtXcuadate2').mask('999/99/99');
+				$('#txtXuindate1').mask('999/99/99');
+				$('#txtXuindate2').mask('999/99/99');
 			}
 
 			function q_boxClose(s2) {

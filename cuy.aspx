@@ -32,6 +32,7 @@
 			brwCount2 = 10;
 			aPop = new Array(
 				['txtStationno', 'lblStationno', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']
 			);
 
@@ -87,14 +88,18 @@
 					case 'sssall':
 						var as = _q_appendData("sssall", "", true);
 						var now_txtObject;
+						var now_mountObject;
 						if($('#combPartno_'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSales_'+thisSeq);
+							now_mountObject = $('#txtMans_'+thisSeq);
 							$('#combPartno_'+thisSeq).val('');
 						}else if($('#combPartno2_'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSupworker_'+thisSeq);
+							now_mountObject = $('#txtSupmans_'+thisSeq);
 							$('#combPartno2_'+thisSeq).val('');
 						}else if($('#combPartno3_'+thisSeq).val() != ''){
 							now_txtObject = $('#txtManager_'+thisSeq);
+							now_mountObject = $('#txtManagermans_'+thisSeq);
 							$('#combPartno3_'+thisSeq).val('');
 						}
 						var AllName = $.trim($('#txtSales_'+thisSeq).val())+
@@ -111,6 +116,7 @@
 								now_txtObject.val(newstr);
 							}
 						}
+						now_mountObject.val(now_txtObject.val().split(';').length-1);
 						break;
 					case 'part':
 						var as = _q_appendData("part", "", true);
@@ -146,14 +152,18 @@
 				switch (b_pop) {
 					case 'sssall':
 						var now_txtObject;
+						var now_mountObject;
 						if($('#combPartno_'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSales_'+thisSeq);
+							now_mountObject = $('#txtMans_'+thisSeq);
 							$('#combPartno_'+thisSeq).val('');
 						}else if($('#combPartno2_'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSupworker_'+thisSeq);
+							now_mountObject = $('#txtSupmans_'+thisSeq);
 							$('#combPartno2_'+thisSeq).val('');
 						}else if($('#combPartno3_'+thisSeq).val() != ''){
 							now_txtObject = $('#txtManager_'+thisSeq);
+							now_mountObject = $('#txtManagermans_'+thisSeq);
 							$('#combPartno3_'+thisSeq).val('');
 						}
 						b_ret = getb_ret();
@@ -170,6 +180,7 @@
 								now_txtObject.val(newstr);
 							}
 						}
+						now_mountObject.val(now_txtObject.val().split(';').length-1);
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -285,6 +296,21 @@
 						});
 						$("#combPartno3_"+i).change(function() {
 							combtodo($(this));
+						});
+						$("#txtSales_"+i).change(function() {
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							$('#txtMans_'+n).val(thisVal.split(';').length-1);
+						});
+						$("#txtSupworker_"+i).change(function() {
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							$('#txtSupmans_'+n).val(thisVal.split(';').length-1);
+						});
+						$("#txtManager_"+i).change(function() {
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							$('#txtManagermans_'+n).val(thisVal.split(';').length-1);
 						});
 						$('#txtWorktime_' + i).focusout(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -533,6 +559,11 @@
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblStationgno" class="lbl btn"> </a></td>
+						<td><input id="txtStationgno" type="text" class="txt c1"/></td>
+						<td><input id="txtStationg" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblStationno" class="lbl btn"> </a></td>

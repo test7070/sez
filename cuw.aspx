@@ -113,14 +113,18 @@
 					case 'sssall':
 						var as = _q_appendData("sssall", "", true);
 						var now_txtObject;
+						var now_mountObject;
 						if($('#combPartno__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSales__'+thisSeq);
+							now_mountObject = $('#txtMans__'+thisSeq);
 							$('#combPartno__'+thisSeq).val('');
 						}else if($('#combPartno2__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSupworker__'+thisSeq);
+							now_mountObject = $('#txtSupmans__'+thisSeq);
 							$('#combPartno2__'+thisSeq).val('');
 						}else if($('#combPartno3__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtManager__'+thisSeq);
+							now_mountObject = $('#txtManagermans__'+thisSeq);
 							$('#combPartno3__'+thisSeq).val('');
 						}
 						var AllName = $.trim($('#txtSales__'+thisSeq).val())+
@@ -137,6 +141,7 @@
 								now_txtObject.val(newstr);
 							}
 						}
+						now_mountObject.val(now_txtObject.val().split(';').length-1);
 						break;
 					case 'part':
 						var as = _q_appendData("part", "", true);
@@ -172,14 +177,18 @@
 				switch (b_pop) {
 					case 'sssall':
 						var now_txtObject;
+						var now_mountObject;
 						if($('#combPartno__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSales__'+thisSeq);
+							now_mountObject = $('#txtMans__'+thisSeq);
 							$('#combPartno__'+thisSeq).val('');
 						}else if($('#combPartno2__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtSupworker__'+thisSeq);
+							now_mountObject = $('#txtSupmans__'+thisSeq);
 							$('#combPartno2__'+thisSeq).val('');
 						}else if($('#combPartno3__'+thisSeq).val() != ''){
 							now_txtObject = $('#txtManager__'+thisSeq);
+							now_mountObject = $('#txtManagermans__'+thisSeq);
 							$('#combPartno3__'+thisSeq).val('');
 						}
 						b_ret = getb_ret();
@@ -196,6 +205,7 @@
 								now_txtObject.val(newstr);
 							}
 						}
+						now_mountObject.val(now_txtObject.val().split(';').length-1);
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -394,6 +404,21 @@
 						});
 						$("#combPartno__"+i).change(function() {
 							combtodo($(this));
+						});
+						$("#txtSales__"+i).change(function() {
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							$('#txtMans__'+n).val(thisVal.split(';').length-1);
+						});
+						$("#txtSupworker__"+i).change(function() {
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							$('#txtSupmans__'+n).val(thisVal.split(';').length-1);
+						});
+						$("#txtManager__"+i).change(function() {
+							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+							var thisVal = $.trim($(this).val());
+							$('#txtManagermans__'+n).val(thisVal.split(';').length-1);
 						});
 						$("#combPartno2__"+i).change(function() {
 							combtodo($(this));
