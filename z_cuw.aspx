@@ -45,6 +45,15 @@
 					}, {
 						type : '1', //[8][9]
 						name : 'xuindate'
+					}, {
+						type : '1', //[10][11]
+						name : 'xdatea'
+					}, {
+						type : '2', //[12][13]
+						name : 'xstationgno',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
 					}]
 				});
 				q_popAssign();
@@ -54,6 +63,8 @@
 				$('#txtXcuadate2').mask('999/99/99');
 				$('#txtXuindate1').mask('999/99/99');
 				$('#txtXuindate2').mask('999/99/99');
+				$('#txtXdatea1').mask('999/99/99');
+				$('#txtXdatea2').mask('999/99/99');
 			}
 
 			function q_boxClose(s2) {

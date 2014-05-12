@@ -157,7 +157,7 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['datea']) {
+                if (!as['stationno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
