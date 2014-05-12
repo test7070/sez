@@ -39,11 +39,32 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					}, {
+						type : '1', //[6][7]
+						name : 'xcuadate'
+					}, {
+						type : '1', //[8][9]
+						name : 'xuindate'
+					}, {
+						type : '1', //[10][11]
+						name : 'xdatea'
+					}, {
+						type : '2', //[12][13]
+						name : 'xstationgno',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
 					}]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				$('#txtXcuadate1').mask('999/99/99');
+				$('#txtXcuadate2').mask('999/99/99');
+				$('#txtXuindate1').mask('999/99/99');
+				$('#txtXuindate2').mask('999/99/99');
+				$('#txtXdatea1').mask('999/99/99');
+				$('#txtXdatea2').mask('999/99/99');
 			}
 
 			function q_boxClose(s2) {

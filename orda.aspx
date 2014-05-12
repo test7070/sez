@@ -19,8 +19,8 @@
             q_tables = 't';
             var q_name = "orda";
             var q_readonly = ['txtNoa','txtDatea','txtWorker', 'txtWorker2', 'txtWorkgno','txtOrdbno'];
-            var q_readonlys = ['txtNoq'];
-            var q_readonlyt = [];
+            var q_readonlys = ['txtNoq','txtProductno','txtProduct','txtSpec','txtUnit','txtGmount','txtWmount','txtStkmount','txtSchmount','txtSafemount','txtNetmount','txtFdate','txtFmount','txtMemo'];
+            var q_readonlyt = ['txtNo2','txtNoq','txtNamea','txtMemo','chkIsapv','txtDatea'];
             var bbmNum = [];
             var bbsNum = [['txtGmount', 15, 2, 1],['txtStkmount', 15, 2, 1],['txtSchmount', 15, 2, 1],['txtSafemount', 15, 2, 1],
                                     ['txtNetmount', 15, 2, 1],['txtFmount', 15, 2, 1],['txtMount', 15, 2, 1],['txtWmount', 15, 2, 1]];
@@ -38,7 +38,7 @@
             //q_xchg = 1;
             brwCount2 = 5;
 
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']);
+            aPop = new Array(['txtProductno_', '', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -142,7 +142,6 @@
                         $('#chkIsapv__'+j).prop('checked',false);
                         $('#txtMemo__'+j).val('');*/
                         $('#btnMinut__'+j).click();
-                        alert(j);
                     }
                 }
                 
@@ -163,14 +162,16 @@
                 //BBS寫入BBT
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
-                    t_isapv = $('#checkIsapv_'+i).prop('checked');
+                    t_isapv = $('#chekIsapv_'+i).prop('checked');
                     t_memo = $('#textMemo_'+i).val();
+                    t_date = q_date();
                     t_isexist = false;
                     for(var j=0;j<q_bbtCount;j++){
                         if(t_noq == $('#txtNoq__'+j).val() && r_name==$('#txtNamea__'+j).val()){
                             $('#txtNo2__'+j).val(t_noq+r_name);
                             $('#chkIsapv__'+j).prop('checked',t_isapv);
                             $('#txtMemo__'+j).val(t_memo);
+                            $('#txtDatea__'+j).val(t_date);
                             t_isexist = true;
                             break;   
                         }
@@ -183,6 +184,7 @@
                                 $('#txtNamea__'+j).val(r_name);
                                 $('#chkIsapv__'+j).prop('checked',t_isapv);
                                 $('#txtMemo__'+j).val(t_memo);
+                                $('#txtDatea__'+j).val(t_date);
                                 t_isexist = true;
                                 break;
                             }
@@ -257,10 +259,11 @@
                         if(t_noq==$('#txtNoq__'+j).val() && r_name == $('#txtNamea__'+j).val()){
                             t_isapv = $('#chkIsapv__'+j).prop('checked');
                             t_memo = $('#txtMemo__'+j).val();
+                            
                             break;
                         }
                     }    
-                    $('#checkIsapv_'+i).prop('checked',t_isapv);
+                    $('#chekIsapv_'+i).prop('checked',t_isapv);
                     $('#textMemo_'+i).val(t_memo);
                 }
             }
@@ -269,9 +272,12 @@
                 _readonly(t_para, empty);
                 for(var i=0;i<q_bbsCount;i++){
                     if(q_cur==1 || q_cur==2)
-                        $('#checkIsapv_'+i).removeAttr('disabled');
+                        $('#chekIsapv_'+i).removeAttr('disabled');
                     else
-                        $('#checkIsapv_'+i).attr('disabled','disabled');
+                        $('#chekIsapv_'+i).attr('disabled','disabled');
+                }
+                for(var i=0;i<q_bbtCount;i++){
+                        $('#chkIsapv__'+i).attr('disabled','disabled');
                 }
             }
 
@@ -291,6 +297,19 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                        $('#btnHistory_'+i).bind("click",function(e){
+                            var n = $(this).attr('id').replace('btnHistory_','');
+                            t_noq = $('#txtNoq_'+n).val();
+                            $('#tbbt').find('tr').css('display','none');
+                            $('#tbbt').find('tr').eq(0).css('display','');
+                            var m = 0;
+                            for(var i=0;i<q_bbtCount;i++){
+                                if($('#txtNoq__'+i).val()==t_noq){
+                                    $('#txtNoq__'+i).parent().parent().css('display','');
+                                    $('#lblNo__' + i).text(++m);
+                                }
+                            }
+                        });
                     }
                 }
                 _bbsAssign();
@@ -298,7 +317,7 @@
 
             function bbtAssign() {
                 for (var i = 0; i < q_bbtCount; i++) {
-                    $('#lblNo__' + i).text(i + 1);
+                    //$('#lblNo__' + i).text(i + 1);
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
                     }
                 }
@@ -577,6 +596,8 @@
                         </td>
                         <td style="width:20px;"> </td>
                         <td align="center" style="width:50px;"><a id='lblIsapv_s'>核准</a></td>
+                        <td align="center" style="width:100px;"><a id='lblMemo2_s'>核准意見</a></td>
+                        <td align="center" style="width:100px;"></td>
                         <td align="center" style="width:160px;"><a id='lblProductno_s'> </a></td>
                         <td align="center" style="width:200px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
                         <td align="center" style="width:55px;"><a id='lblUnit_s'> </a></td>
@@ -589,7 +610,7 @@
                         <td align="center" style="width:100px;"><a id='lblFdate_s'> </a></td>
                         <td align="center" style="width:100px;"><a id='lblFmount_s'> </a></td>
                         <td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
-                        <td align="center" style="width:100px;"><a id='lblMemo2_s'>說明</a></td>
+                        
                     </tr>
                     <tr style='background:#cad3ff;'>
                         <td align="center">
@@ -597,10 +618,15 @@
                         <input id="txtNoq.*" type="text" style="display: none;"/>
                         </td>
                         <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                        <td align="center"><input class="txt c1" id="checkIsapv.*" type="checkbox"/></td>
                         <td align="center">
+                            <input class="txt" id="chekIsapv.*" type="checkbox"/>
+                        </td>
+                        <td><input class="txt c1" id="textMemo.*" type="text" /></td>
+                        <td>
+                            <input class="txt" id="btnHistory.*" type="button" value="歷史記錄" style="float:left;"/>
+                        </td>
+                        <td>
                             <input class="txt c1" id="txtProductno.*" type="text" />
-                            <input class="btn" id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width: 1%;" />
                         </td>
                         <td>
                             <input class="txt c1" id="txtProduct.*" type="text" />
@@ -616,36 +642,31 @@
                         <td><input class="txt c1" id="txtFdate.*" type="text" /></td>
                         <td><input class="txt num c1" id="txtFmount.*" type="text" /></td>
                         <td><input class="txt c1" id="txtMemo.*" type="text" /></td>
-                        <td><input class="txt c1" id="textMemo.*" type="text" /></td>
                     </tr>
                 </table>
             </div>
         </div>
         <input id="q_sys" type="hidden" />
         <div id="dbbt" >
-            <table id="tbbt" style="display:none;">
+            <table id="tbbt" >
                 <tbody>
                     <tr class="head" style="color:white; background:#003366;">
-                        <td style="width:90px;">
-                        <input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
-                        </td>
-                        <td style="width:20px;"> </td>
-                        <td style="width:100px; text-align: center;">No2</td>
-                        <td style="width:100px; text-align: center;">Noq</td>
-                        <td style="width:200px; text-align: center;">isapv</td>
-                        <td style="width:200px; text-align: center;">namea</td>
-                        <td style="width:400px; text-align: center;">memo</td>
+                        <td style="width:20px;"><input id="btnPlut" type="button" style="display:none;font-size: medium; font-weight: bold;" value="＋"/></td>
+                        <td style="width:100px; text-align: center;">姓名</td>
+                        <td style="width:100px; text-align: center;">核准</td>
+                        <td style="width:500px; text-align: center;">核准意見</td>
+                        <td style="width:100px; text-align: center;">日期</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+                    <tr style="display:none;">
+                        <td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a>
+                            <input id="btnMinut..*"  type="button" style="display:none;font-size: medium; font-weight: bold;" value="－"/>
+                            <input id="txtNo2..*" type="text" style="display:none;"/>
+                            <input id="txtNoq..*" type="text" style="display:none;"/>
                         </td>
-                        <td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                        <td><input id="txtNo2..*" type="text" style="width:95%;"/></td>
-                        <td><input id="txtNoq..*" type="text" style="width:95%;"/></td>
-                        <td><input id="chkIsapv..*" type="checkbox" style="width:95%;"/></td>
                         <td><input id="txtNamea..*" type="text" style="width:95%;"/></td>
+                        <td><input id="chkIsapv..*" type="checkbox" style="width:95%;"/></td>
                         <td><input id="txtMemo..*" type="text" style="width:95%;"/></td>
+                        <td><input id="txtDatea..*" type="text" style="width:95%;"/></td>
                     </tr>
                 </tbody>
             </table>
