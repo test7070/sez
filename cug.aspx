@@ -23,7 +23,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "cug";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtSmount'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtSmount','txtKdate'];
             var q_readonlys = ['txtProductno','txtProduct','txtSpec','txtStyle','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours','txtPretime'];
             var bbmNum = [['txtSmount', 10, 0, 1]];
             var bbsNum = [];
@@ -54,7 +54,7 @@
             }
 			
 			var t_cugt=undefined;//儲存cugt的資料
-			var station_chk=false;
+			//var station_chk=false;
 			var first_cur2=false;//第一次匯入
             function mainPost() {
                 bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
@@ -79,48 +79,71 @@
                 	}
                 	
                 	//檢查station 是否已存在
-                	if(q_cur==1 && !station_chk){
+                	/*if(q_cur==1 && !station_chk){
                 		q_gt('cug', "where=^^stationno='"+$('#txtStationno').val()+"'^^", 0, 0, 0, "station_chk", r_accy);
+                		return;
                 	}else{
-                		station_chk=false;
-                		
-                		if(first_cur2){
-	                		for (var i = 0; i < q_bbsCount; i++) {
-								$('#btnMinus_'+i).click();
-							}
+                		station_chk=false;*/
+                	//}
+                	
+                	if(first_cur2){
+	                	for (var i = 0; i < q_bbsCount; i++) {
+							$('#btnMinus_'+i).click();
 						}
-                		first_cur2=false;
+					}
+                	first_cur2=false;
                 		
-                		$('#txtStationno').attr('disabled', 'disabled');
-                		$('#txtBdate').attr('disabled', 'disabled');
-						$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
-						$('#lblStation').css('display', 'none');
-						
-						var t_where = "where=^^ ";
-                		if(!emp($('#txtProcessno').val()))
-                			t_where=t_where+"a.processno='"+$('#txtProcessno').val()+"' and ";
-                		if(!emp($('#txtOrdeno').val()))
-                			t_where=t_where+"charindex('"+$('#txtOrdeno').val()+"',a.ordeno)>0 and ";
-                		if(!emp($('#txtBdate').val()) || !emp($('#txtEdate').val())){
-                			var t_bdate='',t_edate='';
-                			t_bdate=$('#txtBdate').val();
-                			t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
-                			t_where=t_where+"(a.cuadate between '"+t_bdate+"' and '"+t_edate+"' ) and ";
-                		}
-                		t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' and isnull(a.enda,'0')!='1' and isnull(a.isfreeze,'0')!='1' and ";
-                		t_where=t_where+"a.noa not in (select workno from view_cugu) ";
-                		//排序
-                		t_where=t_where+"order by noq,orgcuadate,rank desc,workno^^";
-                		
-                		var t_where1 = "where[1]=^^ ";
+                	$('#txtStationno').attr('disabled', 'disabled');
+                	$('#txtBdate').attr('disabled', 'disabled');
+					$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
+					$('#lblStation').css('display', 'none');
+					
+					/*var t_where = "where=^^ ";
+                	if(!emp($('#txtProcessno').val()))
+                		t_where=t_where+"a.processno='"+$('#txtProcessno').val()+"' and ";
+                	if(!emp($('#txtOrdeno').val()))
+                		t_where=t_where+"charindex('"+$('#txtOrdeno').val()+"',a.ordeno)>0 and ";
+                	if(!emp($('#txtBdate').val()) || !emp($('#txtEdate').val())){
                 		var t_bdate='',t_edate='';
                 		t_bdate=$('#txtBdate').val();
                 		t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
-                		t_where1=t_where1+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
-                		t_where1=t_where1+"a.stationno='"+$('#txtStationno').val()+"' ^^";
-                		
-                		q_gt('cug_work', t_where+t_where1, 0, 0, 0, "", r_accy);
+                		t_where=t_where+"(a.cuadate between '"+t_bdate+"' and '"+t_edate+"' ) and ";
                 	}
+                	t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' and isnull(a.enda,'0')!='1' and isnull(a.isfreeze,'0')!='1' and ";
+                	t_where=t_where+"a.noa not in (select workno from view_cugu) ";
+                		
+                	//排序
+                	t_where=t_where+"order by noq,orgcuadate,rank desc,workno^^";
+                		
+                	var t_where1 = "where[1]=^^ ";
+                	var t_bdate='',t_edate='';
+                	t_bdate=$('#txtBdate').val();
+                	t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
+                	t_where1=t_where1+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
+                	t_where1=t_where1+"a.stationno='"+$('#txtStationno').val()+"' ^^";
+                	
+                	q_gt('cug_work', t_where+t_where1, 0, 0, 0, "", r_accy);*/
+                	
+                	var t_where = "where=^^ ";
+                	
+                	if(!emp($('#txtProcessno').val()))
+                		t_where=t_where+"b.processno='"+$('#txtProcessno').val()+"' and ";
+                	if(!emp($('#txtOrdeno').val()))
+                		t_where=t_where+"charindex('"+$('#txtOrdeno').val()+"',b.ordeno)>0 and ";
+                	if(!emp($('#txtWorkgno').val()))
+                		t_where=t_where+"charindex('"+$('#txtWorkgno').val()+"',b.cuano)>0 and ";
+                		
+                	var t_bdate='',t_edate='';
+                	t_bdate=$('#txtBdate').val();
+                	t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
+                	t_where=t_where+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
+                	t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' ";
+                	
+                	//排序
+                	t_where=t_where+"order by a.datea,a.nos,a.noq,b.rank desc,a.workno^^";
+                	
+                	q_gt('cug_work', t_where, 0, 0, 0, "", r_accy);
+                	
                 });
                 
                 $('#btnCug').click(function() {
@@ -129,10 +152,11 @@
                 });
                 
                 $('#txtBdate').blur(function() {
-					if($('#txtBdate').val()<q_date()&&(q_cur==1||q_cur==2)){
+                	//後面在使用>>目前測試
+					/*if($('#txtBdate').val()<q_date()&&(q_cur==1||q_cur==2)){
 						alert(q_getMsg('lblCuadate')+'不得小於今天日期!!');
 						$('#txtBdate').val(q_date());
-					}
+					}*/
 				});
 				
 				$('#btnClose_div_child').click(function() {
@@ -174,7 +198,8 @@
                 //先清除自動產生的空白時數,並將指定開工日寫入到應開工日
                 if(first_rest){
 	               	for (var i = 0; i < q_bbsCount; i++) {
-	               		$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
+	               		if(!emp($('#textDatea_'+i).val()))
+	               			$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
 	               		if($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
 	               			$('#btnMinus_'+i).click();
 	               		}
@@ -199,7 +224,8 @@
                 	if(emp($('#txtCuadate_'+i).val()) && (!emp($('#txtProcess_'+i).val()) || !emp($('#txtWorkno_'+i).val()))){
                 		if(!emp($('#textDatea_'+i).val())){
                 			$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
-                		}else{
+                		}
+                		if(emp($('#txtCuadate_'+i).val())){
                 			$('#txtCuadate_'+i).val($('#txtBdate').val());
                 		}
                 		for (var j = 0; j < q_bbsCount; j++) {
@@ -573,8 +599,8 @@
 							}
 							
 							q_gridAddRow(bbsHtm, 'tbbs'
-							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,textDatea', as.length, as,
-							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cuadate','txtProductno,txtProcess,txtWorkno');
+							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime', as.length, as,
+							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime','txtProductno,txtProcess,txtWorkno');
 							
 							for (var i = 0; i < q_bbsCount; i++) {
 								$('#txtCuadate_'+i).attr('disabled', 'disabled');
@@ -642,10 +668,10 @@
                 }
                 
                 //檢查station 是否已存在
-                if(q_cur==1 && !station_btnok){
+                /*if(q_cur==1 && !station_btnok){
                 	q_gt('cug', "where=^^stationno='"+$('#txtStationno').val()+"'^^", 0, 0, 0, "station_btnok", r_accy);
                 	return;
-                }
+                }*/
                 
                 if(!cngisbtnok){
                 	cngisbtnok=true;
@@ -653,7 +679,7 @@
                 	return;
                 }
                 
-                station_chk=false;
+                //station_chk=false;
                 cngisbtnok=false;
                 sum();
                 
@@ -661,11 +687,20 @@
                     $('#txtWorker').val(r_name);
                 else
                     $('#txtWorker2').val(r_name);
+								
+				var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtKdate').val());
 
-                var t_noa = trim($('#txtStationno').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cug') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
+
+				
+                /*var t_noa = trim($('#txtStationno').val());
                 $('#txtNoa').val(t_noa);
 
-                wrServer(t_noa);
+                wrServer(t_noa);*/
             }
 
             function _btnSeek() {
@@ -678,7 +713,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtBdate').val(q_date());
-                
+                $('#txtKdate').val(q_date());
             }
 
             function btnModi() {
@@ -1221,13 +1256,13 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr style="height: 1px;">
+					<tr>
+						<td class="td3" style="width: 105px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td4" style="width: 176px;"><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td class="td5" style="width: 105px;"><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td class="td6" style="width: 176px;"><input id="txtKdate"  type="text" class="txt c1"/></td>
 						<td class="td1" style="width: 105px;"><!--<span> </span><a id='lblDatea' class="lbl"> </a>--></td>
 						<td class="td2" style="width: 206px;"><input id="txtDatea"  type="hidden" class="txt c1"/></td>
-						<td class="td3" style="width: 105px;"><!--<span> </span><a id='lblNoa' class="lbl"> </a>--></td>
-						<td class="td4" style="width: 176px;"><input id="txtNoa"  type="hidden" class="txt c1"/></td>
-						<td class="td5" style="width: 105px;"><!--<span> </span><a id='lblKdate' class="lbl"> </a>--></td>
-						<td class="td6" style="width: 176px;"><input id="txtKdate"  type="hidden" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a><a id='lblStationk' class="lbl btn"> </a></td>

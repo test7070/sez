@@ -28,7 +28,7 @@
 					var t_index = $('#q_report').data('info').radioIndex;
                     txtreport = $('#q_report').data('info').reportData[t_index].report;
 					
-					if(txtreport=='z_cugp_svg1'){
+					if(txtreport.indexOf('z_cugp_svg')>-1){
 						$('#dataSearch').hide();
 						$('#svg_search').show();
 						$('#chart').show();
@@ -80,6 +80,18 @@
 					},{
                         type : '1',
                         name : 'xdate'
+                    },{
+                        type : '6',
+                        name : 'xordeno' 
+                    },{
+                        type : '6',
+                        name : 'xno2' 
+                    },{
+                        type : '6',
+                        name : 'xworkgno' 
+                    },{
+                        type : '6',
+                        name : 'xworkgnoq' 
                     }]
 				});
                 q_popAssign();
@@ -126,11 +138,22 @@
                     $(".z_cugp.chart").html('').height(0);
                     $("#txtCurPage").val(0);
                     $("#txtTotPage").val(0);
+                    
+                    var t_ordeno = emp($('#txtXordeno').val())?'#non':$('#txtXordeno').val();
+                	var t_no2 = emp($('#txtXno2').val())?'#non':$('#txtXno2').val();
+                	var t_workgno = emp($('#txtXworkgno').val())?'#non':$('#txtXworkgno').val();
+                	var t_workgnoq = emp($('#txtXworkgnoq').val())?'#non':$('#txtXworkgnoq').val();
+                    
                     switch(txtreport) {
                         case 'z_cugp_svg1':
                             $('#Loading').Loading();
                             Lock();
-                            q_func('qtxt.query', 'z_cugp_svg.txt,' + txtreport + ',' + encodeURI(r_accy) + ';#non;' + t_bstation+ ';' + t_estation+ ';' + t_bprocess+ ';' + t_eprocess + ';#non;#non;'+t_bdate+';'+t_edate);
+                            q_func('qtxt.query.svg1', 'z_cugp_svg.txt,' + txtreport + ',' + encodeURI(r_accy) + ';#non;' + t_bstation+ ';' + t_estation+ ';' + t_bprocess+ ';' + t_eprocess + ';#non;#non;'+t_bdate+';'+t_edate);
+                            break;
+						case 'z_cugp_svg2':
+                            $('#Loading').Loading();
+                            Lock();
+                            q_func('qtxt.query.svg2', 'z_cugp_svg.txt,' + txtreport + ',' + t_ordeno+ ';' + t_no2+ ';' + t_workgno+ ';' + t_workgnoq);
                             break;
                         default:
                             alert('錯誤：未定義報表');
@@ -145,9 +168,8 @@
             }
             
             function q_funcPost(t_func, result) {
-            	
                 switch(t_func) {
-                    case 'qtxt.query':
+                    case 'qtxt.query.svg1':
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] == undefined){
                         	$('#Loading').hide();
@@ -173,7 +195,7 @@
                                 			stationno : as[i].stationno,
                                 			station : as[i].station,
                                 			shours: as[i].shours,
-                                			gen: as[i].mgen,
+                                			gen: as[i].gen,
                                 			process : new Array({
                                 				processno : as[i].processno,
                                 				process : as[i].process,
@@ -198,7 +220,7 @@
                                 			stationno : as[i].stationno,
                                 			station : as[i].station,
                                 			shours: as[i].shours,
-                                			gen: as[i].mgen,
+                                			gen: as[i].gen,
 	                                		detail : new Array({
 	                                			processno : as[i].processno,
                                 				process : as[i].process,
@@ -307,6 +329,107 @@
                             $(".control").show();
                         }
                         break;
+					case 'qtxt.query.svg2':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] == undefined){
+                        	$('#Loading').hide();
+                            Unlock();
+                        }else {
+                            var n = -1;
+                            var m = -1;
+                            t_data = new Array();
+                            for (var i in as) {
+                                if (as[i].workgno != undefined) {
+                                	n = -1;
+                                	m = -1;
+                                	for (var j = 0; j < t_data.length; j++){
+					                    if (t_data[j].workgno == as[i].workgno && t_data[j].workgnoq == as[i].workgnoq){
+					                    	n = j;
+					                    	for (var k = 0; k < t_data[j].sp.length; k++)
+							                    if (t_data[j].sp[k].station == as[i].station)
+							                        m = k;
+					                    }
+									}
+					                        
+                                	if(n==-1){
+                                		t_data.push({
+                                			workgno : as[i].workgno,
+                                			workgnoq : as[i].workgnoq,
+                                			productno : as[i].productno,
+                                			product : as[i].product,
+                                			ordeno: as[i].ordeno,
+                                			sp: new Array({
+                                				stationno : as[i].stationno,
+		                                		station : as[i].station,
+		                                		detail : new Array({
+		                                			processno : as[i].processno,
+		                                			process : as[i].process,
+		                                			datea : as[i].datea,
+			                                		hours : as[i].hours,
+			                                		prehours : as[i].prehours,
+			                                		gen: as[i].gen,
+			                                		noq : as[i].noq,
+			                                		nos : as[i].nos,
+			                                		workno : as[i].workno,
+			                                		mproductno:as[i].mproductno,
+			                                		mproduct:as[i].mproduct,
+			                                		accy : as[i].accy
+		                                		})
+	                                		})
+                                		});
+                                	}else if(m==-1){
+                                		t_data[n].sp.push({
+                                			stationno : as[i].stationno,
+		                                	station : as[i].station,
+		                                	detail : new Array({
+		                                		processno : as[i].processno,
+		                                		process : as[i].process,
+		                                		datea : as[i].datea,
+			                                	hours : as[i].hours,
+			                                	prehours : as[i].prehours,
+			                                	gen: as[i].gen,
+			                                	noq : as[i].noq,
+			                                	nos : as[i].nos,
+			                                	workno : as[i].workno,
+			                                	mproductno:as[i].mproductno,
+			                                	mproduct:as[i].mproduct,
+			                                	accy : as[i].accy
+		                                	})
+                                		});
+                                	}else{
+                                		t_data[n].sp[m].detail.push({
+                                			processno : as[i].processno,
+		                                	process : as[i].process,
+                                			datea : as[i].datea,
+		                                	hours : as[i].hours,
+		                                	prehours : as[i].prehours,
+		                                	gen: as[i].gen,
+		                                	noq : as[i].noq,
+		                                	nos : as[i].nos,
+		                                	workno : as[i].workno,
+		                                	mproductno:as[i].mproductno,
+			                                mproduct:as[i].mproduct,
+		                                	accy : as[i].accy
+                                		});
+                                	}
+                                }
+                            }
+                            $('#Loading').hide();
+                            Unlock();
+                            $('#chart02').barChart02({
+                                data : t_data,
+                            });
+                            
+                            $('#txtTotPage').val(t_data.length);
+                            $('#txtCurPage').data('chart', 'chart02').val(1).change(function(e) {
+                                $(this).val(parseInt($(this).val()));
+                                $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
+                            });
+                            $("#btnNext").data('chart', 'chart02');
+                            $("#btnPrevious").data('chart', 'chart02');
+                            $(".control").show();
+                        }
+                        break;
                     default:
                         alert(t_func+':q_funcPost undefined');
                         break;
@@ -410,7 +533,7 @@
 							var days=t2.getTime()-t1.getTime();
 							days= Math.floor(days / (24 * 3600 * 1000))+1
 							var day_width=70;//估定天數大小
-							if(days<=10)
+							if(days<=12)
 							day_width=900/days;
 							var bkOrigin = [130,50];//邊界
 							//div大小
@@ -461,34 +584,6 @@
 	                        	//計算製程的長度
 	                        	//一天總時數
 	                        	var totalgen=dec(s_data.gen);
-	                        	//-------平均
-	                        	//計算該製程開工日包含其他同一天開工的製程數量(含該製程)
-                        		/*for(var j=0;j<s_data.detail.length;j++){
-                        			if(t_date==s_data.detail[j].cuadate){ total++;}
-                        			if(t_date==s_data.detail[j].uindate&&t_date!=s_data.detail[j].cuadate){ total++;}
-                        		}*/
-                        		//計算該製程完工日包含其他同一天開工或完工的製程數量(含該製程)
-                        		/*if(t_date!=tmpdate){
-                        			for(var j=0;j<s_data.detail.length;j++){
-	                        			if(tmpdate==s_data.detail[j].cuadate || tmpdate==s_data.detail[j].uindate){tmptotal++;}
-		                        	}
-	                        	}*/
-	                        	//end_width=(day_width/total);
-	                        	/*if(tmptotal!=0){
-	                        		var t3=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
-									var t4=new Date((dec(tmpdate.substr(0,3))+1911)+'/'+tmpdate.substr(4,2)+'/'+tmpdate.substr(7,2));
-									var tdays=t4.getTime()-t3.getTime();
-									tdays= Math.floor(tdays / (24 * 3600 * 1000))-1
-	                        		end_width+=(day_width/tmptotal)+(day_width*tdays);
-	                        	}*/
-	                        	//如果製程沒有連續
-	                        	/*if(t_date!=pre_date){
-	                        		var t3=new Date((dec(pre_date.substr(0,3))+1911)+'/'+pre_date.substr(4,2)+'/'+pre_date.substr(7,2));
-									var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
-									var tdays=t4.getTime()-t3.getTime();
-									tdays= Math.floor(tdays / (24 * 3600 * 1000))-1
-	                        		x+=(day_width*tdays);
-	                        	}*/
 	                        	//--------時數
 	                        	if(totalgen<dec(s_data.detail[i].hours))
 	                        		end_width=day_width;
@@ -508,6 +603,161 @@
                         		//設定下個製程的起始X
                         		x+=end_width;
                         		pre_date=tmpdate;
+                        	}
+                        	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                        	
+                        	//事件
+                        	obj.children('svg').find('.workno').hover(function(e) {
+								$(this).attr('fill', 'red');
+	                        }, function(e) {
+								$(this).attr('fill', 'black');
+							}).click(function(e){
+	                            var workno = $(this).attr('id')
+	                            t_where = "noa='"+workno+"'";
+								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
+							});
+                        }
+                    });
+                    $(this).data('info').init($(this));
+                }
+                $.fn.barChart02 = function(value) {
+                    $(this).data('info', {
+                        curIndex : -1,
+                        cugData : value.data,
+                        init : function(obj) {
+                            if (value.length == 0) {
+                                alert('無資料。');
+                                return;
+                            }
+                            obj.data('info').curIndex = 0;
+                            obj.data('info').refresh(obj);
+                        },
+                        page : function(obj, n) {
+                            if (n > 0 && n <= obj.data('info').cugData.length) {
+                                obj.data('info').curIndex = n - 1;
+                                obj.data('info').refresh(obj);
+                            } else
+                                alert('頁數錯誤。');
+                        },
+                        next : function(obj) {
+                            if (obj.data('info').curIndex == obj.data('info').cugData.length - 1)
+                                alert('已到最後頁。');
+                            else {
+                                obj.data('info').curIndex++;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj);
+                            }
+                        },
+                        previous : function(obj) {
+                            if (obj.data('info').curIndex == 0)
+                                alert('已到最前頁。');
+                            else {
+                                obj.data('info').curIndex--;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj);
+                            }
+                        },
+                        refresh : function(obj) {
+                            if(obj.data('info').cugData.length==0)
+								return
+							var t_data = obj.data('info').cugData[obj.data('info').curIndex];
+                            var tmpPath = "";
+							var bkColor = ['rgb(210,233,255)', 'rgb(255,238,221)'];//背景色
+							var bkN = t_data.sp.length;//分幾個框
+							var p_height=200//固定背景框的高度
+							var s_section=4//固定工作框的段落
+							var s_height=p_height/s_section//固定工作框的高度
+							
+							var start_date='';//起始
+                        	var end_date='';//終止
+                        	for(var i=0;i<t_data.sp.length;i++){
+                        		for(var j=0;j<t_data.sp[i].detail.length;j++){
+                        			if(start_date=='' || start_date>t_data.sp[i].detail[j].datea)
+                        				start_date=t_data.sp[i].detail[j].datea;
+                        			if(end_date=='' || end_date<t_data.sp[i].detail[j].datea)
+                        				end_date=t_data.sp[i].detail[j].datea;
+                        		}
+                        	}
+                        	
+							//寄算天數差
+							var t1=new Date((dec(start_date.substr(0,3))+1911)+'/'+start_date.substr(4,2)+'/'+start_date.substr(7,2));
+							var t2=new Date((dec(end_date.substr(0,3))+1911)+'/'+end_date.substr(4,2)+'/'+end_date.substr(7,2));
+							var days=t2.getTime()-t1.getTime();
+							days= Math.floor(days / (24 * 3600 * 1000))+1
+							var day_width=70;//估定天數大小
+							if(days<=12)
+								day_width=900/days;
+							var bkOrigin = [160,50];//邊界
+							
+							//div大小
+							obj.width(bkOrigin[0]+day_width*days+100).height((bkOrigin[1]+p_height*bkN+100)).html(''); 
+							//底色
+							for (var i = 0; i < bkN; i++)
+                                tmpPath += '<rect x="'+(bkOrigin[0])+'" y="'+(bkOrigin[1]+p_height*i)+'" width="' + (day_width*days) + '" height="' + (p_height) + '" style="fill:' + bkColor[i % bkColor.length] + ';"/>';
+							
+                            //X軸
+                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+(bkOrigin[1]+p_height*bkN)+'" x2="' + (bkOrigin[0]+day_width*days) + '" y2="' + (bkOrigin[1]+p_height*bkN)+ '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+                            //Y軸
+                            tmpPath += '<line x1="'+bkOrigin[0]+'" y1="'+bkOrigin[1]+'" x2="'+bkOrigin[0]+'" y2="' + (bkOrigin[1]+p_height*bkN) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';                       	
+                        	
+                        	//時間差距
+                        	var t3=new Date(t1);
+                        	for(var i=0;i<=days;i++){
+                        		var t_date=(t3.getMonth()+1)+'/'+t3.getDate();
+                        		tmpPath += '<line x1="'+(bkOrigin[0]+day_width*i)+'" y1="'+(bkOrigin[1]+p_height*bkN-5)+'" x2="'+(bkOrigin[0]+day_width*i)+'" y2="' + (bkOrigin[1]+p_height*bkN+5) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                        		tmpPath += '<text text-anchor="middle" x="'+(bkOrigin[0]+day_width*i)+'" y="' +(bkOrigin[1]+p_height*bkN+20+(i%2)*20) + '" fill="black">' +t_date + '</text>';
+                        		t3.setDate(t3.getDate()+1);
+                        	}
+                        	
+                        	//排產編號(標頭)
+                        	tmpPath += '<text font-size="22" text-anchor="start" x="'+(bkOrigin[0])+'" y="' + 30 + '" fill="black">'
+                        	+'排產編號：'+ t_data.workgno+'-'+t_data.workgnoq+'&nbsp;&nbsp;&nbsp;&nbsp;製品：'+t_data.product+'</text>';
+                        	
+                        	//工作中心名稱(Y軸)
+                        	for(var i=0; i<t_data.sp.length;i++){
+                        		var station_name=emp(t_data.sp[i].station)?'無工作中心名稱':t_data.sp[i].station;
+                        		//var process_name=emp(t_data.sp[i].process)?'無製程名稱':t_data.sp[i].process;
+                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)) + '" fill="black">' + station_name + '</text>';
+                        		//tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)+20) + '" fill="black">' + process_name + '</text>';
+                        	}
+                        	
+                        	//製程甘特圖
+                        	var itemColor = ['rgb(180,200,180)', 'rgb(200,180,180)', 'rgb(180,180,200)', 'rgb(200,180,200)'];
+                        	var x=bkOrigin[0];
+                        	var y=(bkOrigin[1]+5);
+	                        var end_width=0;
+                        	
+                        	for(var i=0;i<t_data.sp.length;i++){
+                        		//計算工作中心的起始Y
+	                        	//y=bkOrigin[1]+(p_height*i)+((p_height-s_height)/2);
+                        		for(var j=0;j<t_data.sp[i].detail.length;j++){
+                        			//計算工作中心的起始Y
+                        			y=bkOrigin[1]+(p_height*i)+((j%s_section)*s_height);
+                        			//計算製令的長度
+                        			//當天總時數
+                        			var totalgen=dec(t_data.sp[i].detail[j].gen);
+                        			//--------時數
+	                        		if(totalgen<dec(t_data.sp[i].detail[j].hours))
+		                        		end_width=day_width;
+		                        	else
+		                        		end_width=(day_width/totalgen*dec(t_data.sp[i].detail[j].hours));
+		                        	
+		                        	var t_date=t_data.sp[i].detail[j].datea
+		                        	var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
+									var tdays=t4.getTime()-t1.getTime();
+									tdays= Math.floor(tdays / (24 * 3600 * 1000))
+									//邊界+日期長度起始+當天前置時間
+	                        		x=bkOrigin[0]+(day_width*tdays)+(day_width/totalgen*dec(t_data.sp[i].detail[j].prehours));
+                        			
+                        			//長條
+                        			tmpPath += '<rect id="'+t_data.sp[i].detail[j].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[j % itemColor.length] + ';"/>';
+                        			//製令編號
+                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="12" class="workno" text-anchor="start" x="'+x+'" y="' + (y+15) + '" fill="black">' + t_data.sp[i].detail[j].workno + '</text>';
+                        			//製程
+                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="12" class="workno" text-anchor="start" x="'+x+'" y="' + (y+30) + '" fill="black">' + (emp(t_data.sp[i].detail[j].process)?'無製程名稱':t_data.sp[i].detail[j].process) + '</text>';
+                        			//成品
+                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="12" class="workno" text-anchor="start" x="'+x+'" y="' + (y+45) + '" fill="black">' + t_data.sp[i].detail[j].mproduct + '</text>';
+                        		}
                         	}
                         	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                         	
@@ -551,6 +801,7 @@
 			<div id="chart">
 				<div id='Loading' class="z_cugp chart"> </div>
 				<div id='chart01' class="z_cugp chart"> </div>
+				<div id='chart02' class="z_cugp chart"> </div>
 			</div>
 			<div id='dataSearch' class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
