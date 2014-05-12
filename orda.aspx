@@ -163,7 +163,7 @@
                 //BBS寫入BBT
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
-                    t_isapv = $('#checkIsapv_'+i).prop('checked');
+                    t_isapv = $('#chekIsapv_'+i).prop('checked');
                     t_memo = $('#textMemo_'+i).val();
                     t_isexist = false;
                     for(var j=0;j<q_bbtCount;j++){
@@ -260,7 +260,7 @@
                             break;
                         }
                     }    
-                    $('#checkIsapv_'+i).prop('checked',t_isapv);
+                    $('#chekIsapv_'+i).prop('checked',t_isapv);
                     $('#textMemo_'+i).val(t_memo);
                 }
             }
@@ -269,9 +269,9 @@
                 _readonly(t_para, empty);
                 for(var i=0;i<q_bbsCount;i++){
                     if(q_cur==1 || q_cur==2)
-                        $('#checkIsapv_'+i).removeAttr('disabled');
+                        $('#chekIsapv_'+i).removeAttr('disabled');
                     else
-                        $('#checkIsapv_'+i).attr('disabled','disabled');
+                        $('#chekIsapv_'+i).attr('disabled','disabled');
                 }
             }
 
@@ -597,7 +597,7 @@
                         <input id="txtNoq.*" type="text" style="display: none;"/>
                         </td>
                         <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                        <td align="center"><input class="txt c1" id="checkIsapv.*" type="checkbox"/></td>
+                        <td align="center"><input class="txt c1" id="chekIsapv.*" type="checkbox"/></td>
                         <td align="center">
                             <input class="txt c1" id="txtProductno.*" type="text" />
                             <input class="btn" id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width: 1%;" />
