@@ -229,6 +229,8 @@
 	                                			noq : as[i].noq,
 	                                			mount : as[i].mount,
 		                                		hours : as[i].hours,
+		                                		prehours : as[i].prehours,
+		                                		pretime : as[i].pretime,
 		                                		days : as[i].days,
 		                                		gen: as[i].gen,
 		                                		cuadate : as[i].cuadate,
@@ -267,6 +269,8 @@
 	                                		noq : as[i].noq,
 	                                		mount : as[i].mount,
 		                                	hours : as[i].hours,
+		                                	prehours : as[i].prehours,
+		                                	pretime : as[i].pretime,
 		                                	days : as[i].days,
 		                                	gen: as[i].gen,
 		                                	cuadate : as[i].cuadate,
@@ -300,6 +304,8 @@
 	                                		noq : as[i].noq,
 	                                		mount : as[i].mount,
 		                                	hours : as[i].hours,
+		                                	prehours : as[i].prehours,
+		                                	pretime : as[i].pretime,
 		                                	days : as[i].days,
 		                                	gen: as[i].gen,
 		                                	cuadate : as[i].cuadate,
@@ -367,6 +373,7 @@
 		                                			datea : as[i].datea,
 			                                		hours : as[i].hours,
 			                                		prehours : as[i].prehours,
+			                                		pretime : as[i].pretime,
 			                                		gen: as[i].gen,
 			                                		noq : as[i].noq,
 			                                		nos : as[i].nos,
@@ -387,6 +394,7 @@
 		                                		datea : as[i].datea,
 			                                	hours : as[i].hours,
 			                                	prehours : as[i].prehours,
+			                                	pretime : as[i].pretime,
 			                                	gen: as[i].gen,
 			                                	noq : as[i].noq,
 			                                	nos : as[i].nos,
@@ -403,6 +411,7 @@
                                 			datea : as[i].datea,
 		                                	hours : as[i].hours,
 		                                	prehours : as[i].prehours,
+		                                	pretime : as[i].pretime,
 		                                	gen: as[i].gen,
 		                                	noq : as[i].noq,
 		                                	nos : as[i].nos,
@@ -499,34 +508,33 @@
                             }
                         },
                         refresh : function(obj) {
+                        	//0512因每個工作中心只會有固定的製程所已不分製程
                             if(obj.data('info').cugData.length==0)
 								return
 							var t_data = obj.data('info').cugData[obj.data('info').curIndex];
 							var s_data = obj.data('info').cugData2[obj.data('info').curIndex];
                             var tmpPath = "";
 							var bkColor = ['rgb(210,233,255)', 'rgb(255,238,221)'];//背景色
-							var bkN = t_data.process.length;//分幾個製程
-							var p_height=200//固定背景製程高度
-							var s_process=9;//每個製程要區分段落
+							var bkN = 1;//分幾個製程
+							var p_height=480//固定背景製程高度
+							var s_process=6;//每個製程要區分段落
 							var s_height=p_height/s_process;//固定製程高度
 							var start_date='';//起始
                         	var end_date='';//終止
-                        	for(var i=0;i<t_data.process.length;i++){
-                        		for(var j=0;j<t_data.process[i].detail.length;j++){
-                        			if(start_date=='' || start_date>t_data.process[i].detail[j].cuadate)
-                        				start_date=t_data.process[i].detail[j].cuadate;
-                        			if(end_date=='' || end_date<t_data.process[i].detail[j].uindate)
-                        				end_date=t_data.process[i].detail[j].uindate;
-                        		}
+                        	for(var i=0;i<s_data.detail.length;i++){
+                        		if(start_date=='' || start_date>s_data.detail[i].cuadate)
+                        			start_date=s_data.detail[i].cuadate;
+                        		if(end_date=='' || end_date<s_data.detail[i].uindate)
+                        			end_date=s_data.detail[i].uindate;
+                        		
                         	}
                         	if(emp(end_date)){
-								for(var i=0;i<t_data.process.length;i++){
-	                        		for(var j=0;j<t_data.process[i].detail.length;j++){
-	                        			if(end_date<t_data.process[i].detail[j].cuadate)
-	                        				end_date=t_data.process[i].detail[j].cuadate;
-	                        		}
+								for(var i=0;i<s_data.detail.length;i++){
+	                        		if(end_date<s_data.detail[i].cuadate)
+	                        			end_date=s_data.detail[i].cuadate;
 	                        	}
 							}
+							
 							//寄算天數差
 							var t1=new Date((dec(start_date.substr(0,3))+1911)+'/'+start_date.substr(4,2)+'/'+start_date.substr(7,2));
 							var t2=new Date((dec(end_date.substr(0,3))+1911)+'/'+end_date.substr(4,2)+'/'+end_date.substr(7,2));
@@ -534,7 +542,7 @@
 							days= Math.floor(days / (24 * 3600 * 1000))+1
 							var day_width=70;//估定天數大小
 							if(days<=12)
-							day_width=900/days;
+							day_width=1000/days;
 							var bkOrigin = [130,50];//邊界
 							//div大小
 							obj.width(bkOrigin[0]+day_width*days+100).height((bkOrigin[1]+p_height*bkN+100)).html(''); 
@@ -555,16 +563,12 @@
                         		tmpPath += '<text text-anchor="middle" x="'+(bkOrigin[0]+day_width*i)+'" y="' +(bkOrigin[1]+p_height*bkN+20+(i%2)*20) + '" fill="black">' +t_date + '</text>';
                         		t3.setDate(t3.getDate()+1);
                         	}
-                        	//製程名稱
-                        	for(var i=0; i<t_data.process.length;i++){
-                        		var process_name=emp(t_data.process[i].process)?'無製程名稱':t_data.process[i].process;
-                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)) + '" fill="black">' + process_name + '</text>';
-                        	}
+                        	
                         	//工作中心
                         	tmpPath += '<text font-size="26" text-anchor="middle" x="'+(bkOrigin[0])+'" y="' + 30 + '" fill="black">'+t_data.station+'</text>';
                         	
                         	//製程甘特圖
-                        	var itemColor = ['rgb(180,200,180)', 'rgb(200,180,180)', 'rgb(180,180,200)'];
+                        	var itemColor = ['rgb(180,200,180)', 'rgb(200,180,180)', 'rgb(180,180,200)', 'rgb(200,180,200)'];
                         	var x=bkOrigin[0];
                         	var y=(bkOrigin[1]+5);
 	                        var end_width=0;
@@ -576,10 +580,7 @@
                         		var tmpdate=s_data.detail[i].uindate;
                         		
 	                        	//計算製程的起始Y
-	                        	for(var j=0;j<t_data.process.length;j++){
-	                        		if(s_data.detail[i].process==t_data.process[j].process)
-	                        			y=bkOrigin[1]+(p_height*j)+((i%s_process)*s_height);
-	                        	}
+	                        	y=bkOrigin[1]+((i%s_process)*s_height);
 	                        	
 	                        	//計算製程的長度
 	                        	//一天總時數
@@ -590,19 +591,29 @@
 	                        	else
 	                        		end_width=(day_width/totalgen*dec(s_data.detail[i].hours));
 	                        	
-	                        	//如果製程沒有連續
-	                        	if(t_date!=pre_date){
-									var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
-									var tdays=t4.getTime()-t1.getTime();
-									tdays= Math.floor(tdays / (24 * 3600 * 1000))
-	                        		x=bkOrigin[0]+(day_width*tdays);
-	                        	}
+								var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
+								var tdays=t4.getTime()-t1.getTime();
+								tdays= Math.floor(tdays / (24 * 3600 * 1000))
+	                        	x=bkOrigin[0]+(day_width*tdays)+(day_width/totalgen*dec(s_data.detail[i].prehours));;
 	                        	
-	                        	tmpPath += '<rect id="'+s_data.detail[i].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
-	                        	tmpPath += '<text id="'+s_data.detail[i].workno+'" class="workno" text-anchor="start" x="'+(x+end_width)+'" y="' + (y+s_height/2) + '" fill="black">' + (s_data.detail[i].comp==''?s_data.detail[i].process:s_data.detail[i].comp) + '</text>';
-                        		//設定下個製程的起始X
-                        		x+=end_width;
-                        		pre_date=tmpdate;
+	                        	if(s_data.detail[i].workno==''){
+	                        		tmpPath += '<rect x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
+	                        		//製程
+	                        		tmpPath += '<text text-anchor="start" font-size="14" x="'+(x)+'" y="' + (y+15) + '" fill="black">' + s_data.detail[i].process + '</text>';
+	                        	}else{
+	                        		tmpPath += '<rect id="'+s_data.detail[i].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
+	                        		//客戶
+	                        		tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+15) + '" fill="black">' + s_data.detail[i].comp + '</text>';
+	                        		//製令
+	                        		tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+30) + '" fill="black">' + s_data.detail[i].workno + '</text>';
+	                        		//成品編號
+	                        		tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+45) + '" fill="black">' + s_data.detail[i].productno + '</text>';
+	                        		//成品
+	                        		tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+60) + '" fill="black">' + s_data.detail[i].product + '</text>';
+	                        		//前置時間
+	                        		if(dec(s_data.detail[i].pretime)>0)
+	                        			tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+75) + '" fill="black">' +'前置時間'+s_data.detail[i].pretime+'/H'+ '</text>';
+	                        	}
                         	}
                         	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                         	
@@ -664,7 +675,7 @@
                             var tmpPath = "";
 							var bkColor = ['rgb(210,233,255)', 'rgb(255,238,221)'];//背景色
 							var bkN = t_data.sp.length;//分幾個框
-							var p_height=200//固定背景框的高度
+							var p_height=280//固定背景框的高度
 							var s_section=4//固定工作框的段落
 							var s_height=p_height/s_section//固定工作框的高度
 							
@@ -717,7 +728,8 @@
                         	for(var i=0; i<t_data.sp.length;i++){
                         		var station_name=emp(t_data.sp[i].station)?'無工作中心名稱':t_data.sp[i].station;
                         		//var process_name=emp(t_data.sp[i].process)?'無製程名稱':t_data.sp[i].process;
-                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)) + '" fill="black">' + station_name + '</text>';
+                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)) + '" fill="black">' + t_data.sp[i].stationno + '</text>';
+                        		tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)+20) + '" fill="black">' + station_name + '</text>';
                         		//tmpPath += '<text text-anchor="end" x="'+(bkOrigin[0]-10)+'" y="' + (bkOrigin[1]+p_height*(i+1)-((p_height+10)/2)+20) + '" fill="black">' + process_name + '</text>';
                         	}
                         	
@@ -749,14 +761,24 @@
 									//邊界+日期長度起始+當天前置時間
 	                        		x=bkOrigin[0]+(day_width*tdays)+(day_width/totalgen*dec(t_data.sp[i].detail[j].prehours));
                         			
-                        			//長條
-                        			tmpPath += '<rect id="'+t_data.sp[i].detail[j].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[j % itemColor.length] + ';"/>';
-                        			//製令編號
-                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="12" class="workno" text-anchor="start" x="'+x+'" y="' + (y+15) + '" fill="black">' + t_data.sp[i].detail[j].workno + '</text>';
-                        			//製程
-                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="12" class="workno" text-anchor="start" x="'+x+'" y="' + (y+30) + '" fill="black">' + (emp(t_data.sp[i].detail[j].process)?'無製程名稱':t_data.sp[i].detail[j].process) + '</text>';
-                        			//成品
-                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="12" class="workno" text-anchor="start" x="'+x+'" y="' + (y+45) + '" fill="black">' + t_data.sp[i].detail[j].mproduct + '</text>';
+                        			if(t_data.sp[i].detail[j].workno==''){
+                        				//長條
+                        			tmpPath += '<rect x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[j % itemColor.length] + ';"/>';
+                        				//製令編號
+	                        			tmpPath += '<text font-size="14" text-anchor="start" x="'+x+'" y="' + (y+15) + '" fill="black">' + t_data.sp[i].detail[j].process + '</text>';
+                        			}else{
+                        				//長條
+                        				tmpPath += '<rect id="'+t_data.sp[i].detail[j].workno+'" class="workno" x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[j % itemColor.length] + ';"/>';
+	                        			//製令編號
+	                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+15) + '" fill="black">' + t_data.sp[i].detail[j].workno + '</text>';
+	                        			//成品編號
+	                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+30) + '" fill="black">' + t_data.sp[i].detail[j].mproductno + '</text>';
+	                        			//成品
+	                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+45) + '" fill="black">' + t_data.sp[i].detail[j].mproduct + '</text>';
+	                        			//前置時間
+	                        			if(dec(t_data.sp[i].detail[j].pretime)>0)
+	                        				tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+60) + '" fill="black">' +'前置時間'+t_data.sp[i].detail[j].pretime+'/H'+ '</text>';
+                        			}
                         		}
                         	}
                         	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
