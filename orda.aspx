@@ -43,7 +43,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-                bbtKey = ['noa', 'noq'];
+                bbtKey = ['noa', 'no2'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
@@ -90,6 +90,7 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
+                refresh(q_recno);    
             }
             function q_boxClose(s2) {
                 var ret;
@@ -136,12 +137,13 @@
                         }
                     }
                     if(!t_isexist){
-                        /*$('#txtNo2__'+j).val('');
+                        $('#txtNo2__'+j).val('');
                         $('#txtNoq__'+j).val('');
                         $('#txtNamea__'+j).val('');
                         $('#chkIsapv__'+j).prop('checked',false);
-                        $('#txtMemo__'+j).val('');*/
-                        $('#btnMinut__'+j).click();
+                        $('#txtMemo__'+j).val('');
+                        $('#txtDatea__'+j).val('');
+                       // $('#btnMinut__'+j).click();
                     }
                 }
                 
@@ -160,11 +162,17 @@
                     }
                 }
                 //BBS寫入BBT
+                t_hour = '00'+(new Date()).getHours();
+                t_hour = t_hour.substring(t_hour.length-2,t_hour.length);
+                t_minute = '00'+(new Date()).getMinutes();
+                t_minute = t_minute.substring(t_minute.length-2,t_minute.length);
+                t_second = '00'+(new Date()).getSeconds();
+                t_second = t_second.substring(t_second.length-2,t_second.length);
+                t_date = q_date()+' '+t_hour+':'+t_minute+':'+t_second;
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
                     t_isapv = $('#chekIsapv_'+i).prop('checked');
                     t_memo = $('#textMemo_'+i).val();
-                    t_date = q_date();
                     t_isexist = false;
                     for(var j=0;j<q_bbtCount;j++){
                         if(t_noq == $('#txtNoq__'+j).val() && r_name==$('#txtNamea__'+j).val()){
@@ -213,8 +221,7 @@
                     $('#txtWorker2').val(r_name);
                 }else{
                     alert("error: btnok!");
-                }
-                    
+                }   
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -250,6 +257,7 @@
                 _refresh(recno);
                 if (q_cur > 0 && q_cur < 4)
                     sum();
+                $('#dbbt').hide();
                 //BBT 寫入BBS
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
@@ -298,16 +306,21 @@
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                         $('#btnHistory_'+i).bind("click",function(e){
+                            var top = $(this).offset().top + $(this).height();
+                            var left = $(this).offset().left;
                             var n = $(this).attr('id').replace('btnHistory_','');
                             t_noq = $('#txtNoq_'+n).val();
                             $('#tbbt').find('tr').css('display','none');
-                            $('#tbbt').find('tr').eq(0).css('display','');
                             var m = 0;
                             for(var i=0;i<q_bbtCount;i++){
                                 if($('#txtNoq__'+i).val()==t_noq){
                                     $('#txtNoq__'+i).parent().parent().css('display','');
                                     $('#lblNo__' + i).text(++m);
                                 }
+                            }
+                            if(m>0){
+                                $('#tbbt').find('tr').eq(0).css('display','');
+                                $('#dbbt').show().offset({top:top+5,left:left});
                             }
                         });
                     }
@@ -503,7 +516,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 100%;
+                width: 70%;
             }
             #tbbt {
                 margin: 0;
@@ -647,15 +660,18 @@
             </div>
         </div>
         <input id="q_sys" type="hidden" />
-        <div id="dbbt" >
+        <div id="dbbt" style="position: absolute;display:none;">
             <table id="tbbt" >
                 <tbody>
                     <tr class="head" style="color:white; background:#003366;">
-                        <td style="width:20px;"><input id="btnPlut" type="button" style="display:none;font-size: medium; font-weight: bold;" value="＋"/></td>
+                        <td style="width:20px;">
+                            <input id="btnBbtclose" type="button" style="color:red;" value="X" onclick="$('#dbbt').hide();"/>
+                            <input id="btnPlut" type="button" style="display:none;font-size: medium; font-weight: bold;" value="＋"/>
+                        </td>
                         <td style="width:100px; text-align: center;">姓名</td>
                         <td style="width:100px; text-align: center;">核准</td>
-                        <td style="width:500px; text-align: center;">核准意見</td>
-                        <td style="width:100px; text-align: center;">日期</td>
+                        <td style="width:400px; text-align: center;">核准意見</td>
+                        <td style="width:200px; text-align: center;">修改日期</td>
                     </tr>
                     <tr style="display:none;">
                         <td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a>
