@@ -59,12 +59,12 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-				$('#txtXcuadate1').mask('999/99/99');
-				$('#txtXcuadate2').mask('999/99/99');
-				$('#txtXuindate1').mask('999/99/99');
-				$('#txtXuindate2').mask('999/99/99');
-				$('#txtXdatea1').mask('999/99/99');
-				$('#txtXdatea2').mask('999/99/99');
+				$('#txtXcuadate1').datepicker().val(q_date()).mask('999/99/99');
+				$('#txtXcuadate2').datepicker().val(q_date()).mask('999/99/99');
+				$('#txtXuindate1').datepicker().val(q_date()).mask('999/99/99');
+				$('#txtXuindate2').datepicker().val(q_date()).mask('999/99/99');
+				$('#txtXdatea1').datepicker().val(q_date()).mask('999/99/99');
+				$('#txtXdatea2').datepicker().val(q_date()).mask('999/99/99');
 			}
 
 			function q_boxClose(s2) {
