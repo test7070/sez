@@ -209,6 +209,7 @@
 			}
 
 			function btnPrint() {
+				q_box('z_cuyp.aspx' + "?;;;;" + r_accy + ";", '', "95%", "95%", m_print);
 			}
 
 			function btnOk() {
