@@ -55,7 +55,7 @@
 			
 			var t_cugt=undefined;//儲存cugt的資料
 			//var station_chk=false;
-			var first_cur2=false;//第一次匯入
+			//var first_cur2=false;//第一次匯入
             function mainPost() {
                 bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
                 bbsMask = [['txtCuadate', r_picd],['txtUindate', r_picd],['txtNos', '9999'],['textDatea', r_picd]];
@@ -86,15 +86,16 @@
                 		station_chk=false;*/
                 	//}
                 	
-                	if(first_cur2){
+                	//0513 只要匯入bbs就全部砍
+                	//if(first_cur2){
 	                	for (var i = 0; i < q_bbsCount; i++) {
 							$('#btnMinus_'+i).click();
 						}
-					}
-                	first_cur2=false;
+					//}
+                	//first_cur2=false;
                 		
                 	$('#txtStationno').attr('disabled', 'disabled');
-                	$('#txtBdate').attr('disabled', 'disabled');
+                	//$('#txtBdate').attr('disabled', 'disabled');
 					$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
 					$('#lblStation').css('display', 'none');
 					
@@ -341,8 +342,8 @@
 		                if(re_scheduling)
 		                	break;
 		                //-------------------------------------------------------------------
-		                //如果當天總工時時數會跨天>>>拆分兩個work	
-		                var tt_hours=q_add( t_hours,dec($('#txtHours_'+i).val()));//當日累計時數
+		                //如果當天總工時時數會跨天>>>拆分兩個work	0513 強制當天會做完
+		                /*var tt_hours=q_add( t_hours,dec($('#txtHours_'+i).val()));//當日累計時數
 		                if(tt_hours>t_gen){
 		                	q_bbs_addrow('bbs',i,1);//下方插入空白行
 		                	//將work複製
@@ -395,7 +396,7 @@
 		                }
 		                
 		                if(re_scheduling)
-		                	break;
+		                	break;*/
 		                //-------------------------------------------------------------------
 		                //完工日
 		                $('#txtUindate_'+i).val($('#txtCuadate_'+i).val());
@@ -419,8 +420,8 @@
 			                $('#txtNos_'+(i+1)).val($('#txtNos_'+i).val()+'X');
 			                $('#txtNoq_'+(i+1)).val(replaceAll($('#txtCuadate_'+(i+1)).val(), '/','')+$('#txtNos_'+(i+1)).val());
 			                $('#txtProcess_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                //$('#txtSpec_'+(i+1)).val('當天累計：'+tt_hours+'/HR;剩餘：'+q_sub(t_gen,tt_hours)+'/HR');
-			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'/HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'/HR');
+			                //$('#txtSpec_'+(i+1)).val('當天累計：'+tt_hours+'HR;剩餘：'+q_sub(t_gen,tt_hours)+'HR');
+			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'HR');
 			                
 			                //處理當天如果還有work順便延後
 		                	for (var j = i+2; j < q_bbsCount; j++) {
@@ -451,8 +452,8 @@
 			                $('#txtNos_'+(i+1)).val($('#txtNos_'+i).val()+'X');
 			                $('#txtNoq_'+(i+1)).val(replaceAll($('#txtCuadate_'+(i+1)).val(), '/','')+$('#txtNos_'+(i+1)).val());
 			                $('#txtProcess_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                //$('#txtSpec_'+(i+1)).val('當天累計：'+tt_hours+'/HR;剩餘：'+q_sub(t_gen,tt_hours)+'/HR');
-			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'/HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'/HR');
+			                //$('#txtSpec_'+(i+1)).val('當天累計：'+tt_hours+'HR;剩餘：'+q_sub(t_gen,tt_hours)+'HR');
+			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'HR');
 			                re_scheduling=true;
 						}
 		                
@@ -581,9 +582,23 @@
                 		var as = _q_appendData("view_cugu", "", true);
                 		if(as[0]!=undefined){
                 			for ( var i = 0; i < as.length; i++) {
+                				//製令
                 				if(as[i].noq=='99999999999'){
                 					as[i].noq='';
                 					as[i].cuadate=as[i].orgcuadate;
+                				}
+                				//cugu
+                				if(as[i].nos=='9000'){
+                					var tmp_nos='ZZZZ'
+                					for ( var j = i+1; j < as.length; j++) {
+                						if(as[i].cuadate==as[i].cuadate &&tmp_nos>as[j].nos){
+                							tmp_nos=as[j].nos;
+                						}
+                					}
+                					if(tmp_nos=='ZZZZ')//表示當天沒有其他排程
+                						as[j].nos='0010'
+                					
+                					
                 				}
                 			}
                 			
@@ -599,8 +614,8 @@
 							}
 							
 							q_gridAddRow(bbsHtm, 'tbbs'
-							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime', as.length, as,
-							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime','txtProductno,txtProcess,txtWorkno');
+							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,txtCugunoq', as.length, as,
+							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cugunoq','txtProductno,txtProcess,txtWorkno');
 							
 							for (var i = 0; i < q_bbsCount; i++) {
 								$('#txtCuadate_'+i).attr('disabled', 'disabled');
@@ -724,7 +739,7 @@
 				$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
 				$('#lblStation').css('display', 'none');
 				$('#txtBdate').val(q_date());
-				first_cur2=true;
+				//first_cur2=true;
             }
 
             function btnPrint() {
@@ -912,10 +927,10 @@
                 
                 if(q_getPara('sys.isstyle')=='1'){
                 	$('.isstyle').show();
-                	$('.dbbs').css('width','2010px');
+                	$('.dbbs').css('width','1900px');
                 }else{
                 	$('.isstyle').hide();
-                	$('.dbbs').css('width','1910px');
+                	$('.dbbs').css('width','1710px');
                 }
                 
 				for (var i = 0; i < q_bbsCount; i++) {
@@ -1191,7 +1206,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 1900px;
+                width: 1700px;
                 background:#cad3ff;
             }
             .tbbs a {
@@ -1258,11 +1273,11 @@
 				<table class="tbbm"  id="tbbm">
 					<tr>
 						<td class="td3" style="width: 105px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td4" style="width: 176px;"><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td class="td4" style="width: 206px;"><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td class="td5" style="width: 105px;"><span> </span><a id='lblKdate' class="lbl"> </a></td>
 						<td class="td6" style="width: 176px;"><input id="txtKdate"  type="text" class="txt c1"/></td>
 						<td class="td1" style="width: 105px;"><!--<span> </span><a id='lblDatea' class="lbl"> </a>--></td>
-						<td class="td2" style="width: 206px;"><input id="txtDatea"  type="hidden" class="txt c1"/></td>
+						<td class="td2" style="width: 176px;"><input id="txtDatea"  type="hidden" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a><a id='lblStationk' class="lbl btn"> </a></td>
@@ -1321,18 +1336,18 @@
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
-					<td align="center" style="width:75px;"><a id='lblNoq_s'> </a></td>
-					<td align="center" style="width:100px;">指定開工日</td>
-					<td align="center" style="width:145px;"><a id='lblProductno_s'> </a>/<a id='lblProcess_s'> </a></td>
-					<td align="center" style="width:275px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
+					<td align="center" style="width:75px;"><a id='lblNos_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblDatea_s'> </a></td>
+					<td align="center" style="width:155px;"><a id='lblProductno_s'> </a>/<a id='lblProcess_s'> </a></td>
+					<td align="center" style="width:270px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
 					<td align="center" class="isstyle" style="width:100px;"><a id='lblStyle_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblHours_s'> </a></td>
-					<td align="center" style="width:90px;"><a id='lblPretime_s'> </a></td>
+					<td style='display: none;' align="center" style="width:90px;"><a id='lblPretime_s'> </a></td>
 					<td align="center" style="width:105px;"><a id='lblOrgcuadate_s'> </a></td>
 					<td align="center" style="width:105px;"><a id='lblOrguindate_s'> </a></td>
 					<td align="center" style="width:105px;"><a id='lblCuadate_s'> </a></td>
-					<td align="center" style="width:105px;"><a id='lblUindate_s'> </a></td>
+					<td style='display: none;' align="center" style="width:105px;"><a id='lblUindate_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblThours_s'> </a></td>
 					<td align="center" style="width:160px;"><a id='lblWorkno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblOrdeno_s'> </a></td>
@@ -1344,6 +1359,7 @@
 					<td>
 						<input id="txtNos.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" class="txt c1"/>
+						<input id="txtCugunoq.*" type="hidden" class="txt c1"/>
 						<input id="txtStationno.*" type="hidden" class="txt c1"/>
 						<input id="txtStation.*" type="hidden" class="txt c1"/>
 					</td>
@@ -1363,11 +1379,11 @@
 					<td class="isstyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtHours.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtPretime.*" type="text" class="txt num c1"/></td>
+					<td style='display: none;'><input id="txtPretime.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtOrgcuadate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtOrguindate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtCuadate.*" type="text" class="txt c1" style="color: red;"/></td>
-					<td><input id="txtUindate.*" type="text" class="txt c1" style="color: red;"/></td>
+					<td style='display: none;'><input id="txtUindate.*" type="text" class="txt c1" style="color: red;"/></td>
 					<td>
 						<input id="txtThours.*" type="text" class="txt  num c1"/>
 						<input id="txtDhours.*" type="hidden" class="txt num c1"/>

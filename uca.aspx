@@ -185,6 +185,8 @@
 
 				$('#btnStkcost').mousedown(function(e) {
 					if (e.button == 0) {
+						$('#btnStkcost').attr('disabled', 'disabled');
+						$('#btnStkcost').val('讀取中...');
 						////////////控制顯示位置
 						$('#div_stkcost').css('top', e.pageY);
 						$('#div_stkcost').css('left', e.pageX - $('#div_stkcost').width());
@@ -217,6 +219,7 @@
 				$('#btnClose_div_stkcost').click(function() {
 					$('#div_stkcost').toggle();
 					$('#div_stk').hide();
+					$('#btnStkcost').removeAttr('disabled');
 				});
 
 				$('#btnStk').click(function() {
@@ -364,7 +367,7 @@
 						
 						//訂單、在途量、計畫
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
-						var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno,style ^^";
+						var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by a.productno,a.style ^^";
 						var t_where2 = "where[2]=^^1=0^^";
 						var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
 						var t_where4 = "where[4]=^^ 1=0 ^^";
@@ -391,6 +394,7 @@
 						$('#textAvaistk').val(q_float('textStk') + q_float('textIntmount') - q_float('textOrdemount'));
 						
 						$('#div_stkcost').toggle();
+						$('#btnStkcost').val(q_getMsg('btnStkcost'));
 						break;
 					case 'msg_stk_all':
 						var as = _q_appendData("stkucc", "", true);
@@ -828,6 +832,8 @@
 				getMolds();
 				$('#div_stk').hide();
 				$('#div_stkcost').hide();
+				$('#btnStkcost').removeAttr('disabled');
+				$('#btnStkcost').val(q_getMsg('btnStkcost'));
 
 				//format();
 			}
