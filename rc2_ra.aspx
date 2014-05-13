@@ -398,6 +398,7 @@
 					}
 				}//j
 				_bbsAssign();
+				showRack();
 			}
 
 			function btnIns() {

@@ -239,6 +239,7 @@
 					}
 				}
 				_bbsAssign();
+				showRack();
 			}
 
 			function btnIns() {
