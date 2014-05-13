@@ -54,6 +54,12 @@
 						dbf : 'stationg',
 						index : 'noa,namea',
 						src : 'stationg_b.aspx'
+					}, {
+						type : '2', //[14][15]
+						name : 'xsssno',
+						dbf : 'sss',
+						index : 'noa,namea',
+						src : 'sss_b.aspx'
 					}]
 				});
 				q_popAssign();

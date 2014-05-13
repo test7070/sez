@@ -225,7 +225,7 @@
 									var thisGen = dec(TTD[j][2]);
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
-									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color=:red;"':'')+"><font title='日產能:"+thisGen+"'>" + round(TTD[j][1],3) + "</font></td>";
+									OutHtml += "<td class='num'"+(thisValue>thisGen?' style="color:red;"':'')+"><font title='日產能:"+thisGen+"'>" + thisValue + "</font></td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
