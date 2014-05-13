@@ -192,7 +192,7 @@
             	var issaturday=q_getPara('sys.saturday')=='1'?true:false;
                 //取得編制時數
                 if(t_cugt==undefined){
-                	q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+$('#txtBdate').val()+"' ^^", 0, 0, 0, "cugt", r_accy);
+                	q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+(!emp($('#txtCuadate_0').val())?$('#txtCuadate_0').val():$('#txtBdate').val())+"' ^^", 0, 0, 0, "cugt", r_accy);
                 	return;
                 }
                 
@@ -296,7 +296,7 @@
 		                }
 		                
 		                //表示當天沒有產能,禮拜六休假且沒有加工,禮拜日沒有加工>>>休息
-		                if((setgen && t_gen<=0)
+		                /*if((setgen && t_gen<=0)
 			                || (new Date(dec($('#txtCuadate_'+i).val().substr(0,3))+1911,dec($('#txtCuadate_'+i).val().substr(4,2))-1,dec($('#txtCuadate_'+i).val().substr(7,2))).getDay()==6 && !issaturday && !setgen)
 			                || (new Date(dec($('#txtCuadate_'+i).val().substr(0,3))+1911,dec($('#txtCuadate_'+i).val().substr(4,2))-1,dec($('#txtCuadate_'+i).val().substr(7,2))).getDay()==0 && !setgen)
 		                ){
@@ -314,7 +314,7 @@
 		                	re_scheduling=true;
 		                }
 		                if(re_scheduling)
-		                	break;
+		                	break;*/
 		                //-------------------------------------------------------------------
 		                //處理時數
 		                //取得當天已工作時數
@@ -325,7 +325,7 @@
 		                	}
 		                }
 		                //如果已工作時數>產能表示當天已沒有產能>>往後排
-		                if(t_hours>t_gen){
+		                /*if(t_hours>t_gen){
 		                	var tmpdate=$('#txtCuadate_'+i).val();
 		                	//處理目前與之後的應開工日
 		                	for (var j = i; j < q_bbsCount; j++) {
@@ -340,11 +340,11 @@
 		                	re_scheduling=true;
 		                }
 		                if(re_scheduling)
-		                	break;
+		                	break;*/
 		                //-------------------------------------------------------------------
 		                //如果當天總工時時數會跨天>>>拆分兩個work	0513 強制當天會做完
-		                /*var tt_hours=q_add( t_hours,dec($('#txtHours_'+i).val()));//當日累計時數
-		                if(tt_hours>t_gen){
+		                var tt_hours=q_add( t_hours,dec($('#txtHours_'+i).val()));//當日累計時數
+		                /*if(tt_hours>t_gen){
 		                	q_bbs_addrow('bbs',i,1);//下方插入空白行
 		                	//將work複製
 		                	for (var j = 0; j < fbbs.length; j++) {
@@ -464,7 +464,7 @@
                 }
                 
                 if(re_scheduling){
-                	q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+$('#txtBdate').val()+"' ^^", 0, 0, 0, "cugt", r_accy);
+                	q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+(!emp($('#txtCuadate_0').val())?$('#txtCuadate_0').val():$('#txtBdate').val())+"' ^^", 0, 0, 0, "cugt", r_accy);
                 	return;
                 }
                 
@@ -587,18 +587,17 @@
                 					as[i].noq='';
                 					as[i].cuadate=as[i].orgcuadate;
                 				}
+                				as[i].nownos=as[i].nos;
                 				//cugu
                 				if(as[i].nos=='9000'){
-                					var tmp_nos='ZZZZ'
-                					for ( var j = i+1; j < as.length; j++) {
-                						if(as[i].cuadate==as[i].cuadate &&tmp_nos>as[j].nos){
+                					var tmp_nos='9000';
+                					for ( var j = 0; j < as.length; j++) {
+                						if(i!=j&&as[i].cuadate==as[j].cuadate &&tmp_nos!=as[j].nos&&as[j].nos!=''){
                 							tmp_nos=as[j].nos;
                 						}
                 					}
-                					if(tmp_nos=='ZZZZ')//表示當天沒有其他排程
-                						as[j].nos='0010'
-                					
-                					
+                					if(tmp_nos=='9000')//表示當天沒有其他排程
+                						as[i].nownos='';
                 				}
                 			}
                 			
@@ -614,8 +613,8 @@
 							}
 							
 							q_gridAddRow(bbsHtm, 'tbbs'
-							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,txtCugunoq', as.length, as,
-							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cugunoq','txtProductno,txtProcess,txtWorkno');
+							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,txtCugunoq,txtNosold', as.length, as,
+							'nownos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cugunoq,nos','txtProductno,txtProcess,txtWorkno');
 							
 							for (var i = 0; i < q_bbsCount; i++) {
 								$('#txtCuadate_'+i).attr('disabled', 'disabled');
@@ -640,7 +639,8 @@
 							for (var i = 0; i < as.length; i++) {
 								var tr = document.createElement("tr");
 								tr.id = "bbs_" + j;
-								tr.innerHTML = "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";
+								tr.innerHTML = "<td><input id='child_txtRank_" + child_row + "' type='text' class='txt c1' value='" + as[i].rank + "' disabled='disabled' style='text-align:center;'/></td>";
+								tr.innerHTML += "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtProcess_" + child_row + "' type='text' class='txt c1' value='" + as[i].process + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtStyle_" + child_row + "' type='text' class='txt c1' value='" + as[i].style + "' disabled='disabled'/></td>";
@@ -738,7 +738,7 @@
 				$('#txtStationno').attr('disabled', 'disabled');
 				$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
 				$('#lblStation').css('display', 'none');
-				$('#txtBdate').val(q_date());
+				//$('#txtBdate').val(q_date());
 				//first_cur2=true;
             }
 
@@ -1226,7 +1226,7 @@
 		<div id="div_child" style="position:absolute; top:0px; left:0px; display:none; width:1000px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_child" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
-					<td style="background-color: #f8d463;" align="center">提前天數</td>
+					<td colspan="2" style="background-color: #f8d463;" align="center">提前天數</td>
 					<td colspan="6" style="background-color: #f8d463;" id='child_earlyday'>
 						<input id='textEarlyday' type='text' class='txt' style='width: 100px;' onkeyup="value=value.substring(0,1)=='-'?'-'+value.replace(/[^\d]/g,''):value.replace(/[^\d]/g,'') "/>
 						<input id='textEarlyworkno' type='hidden'/>
@@ -1234,16 +1234,17 @@
 					</td>
 				</tr>
 				<tr id='child_top'>
+					<td style="background-color: #CDFFCE;width:4%;" align="center">子階層數</td>
 					<td style="background-color: #CDFFCE;width:16%;" align="center">子階製令單號</td>
-					<td style="background-color: #CDFFCE;width:30%;" align="center">製品編號/製品名稱</td>
-					<td style="background-color: #CDFFCE;width:15%;" align="center">工作中心/製程</td>
+					<td style="background-color: #CDFFCE;width:28%;" align="center">製品編號/<BR>製品名稱</td>
+					<td style="background-color: #CDFFCE;width:14%;" align="center">工作中心/<BR>製程</td>
 					<td style="background-color: #CDFFCE;width:11%;" align="center">機型</td>
 					<td style="background-color: #CDFFCE;width:9%;" align="center">數量</td>
-					<td style="background-color: #CDFFCE;width:9%;" align="center">工時</td>
+					<td style="background-color: #CDFFCE;width:8%;" align="center">工時</td>
 					<td style="background-color: #CDFFCE;width:10%;" align="center">應開工日</td>
 				</tr>
 				<tr id='child_close'>
-					<td align="center" colspan='7'>
+					<td align="center" colspan='8'>
 						<input id="btnClose_div_child" type="button" value="關閉視窗">
 					</td>
 				</tr>
@@ -1360,6 +1361,7 @@
 						<input id="txtNos.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" class="txt c1"/>
 						<input id="txtCugunoq.*" type="hidden" class="txt c1"/>
+						<input id="txtNosold.*" type="hidden" class="txt c1"/>
 						<input id="txtStationno.*" type="hidden" class="txt c1"/>
 						<input id="txtStation.*" type="hidden" class="txt c1"/>
 					</td>
