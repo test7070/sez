@@ -722,7 +722,7 @@
                         	
                         	//排產編號(標頭)
                         	tmpPath += '<text font-size="22" text-anchor="start" x="'+(bkOrigin[0])+'" y="' + 30 + '" fill="black">'
-                        	+'排產編號：'+ t_data.workgno+'-'+t_data.workgnoq+'&nbsp;&nbsp;&nbsp;&nbsp;製品：'+t_data.product+'</text>';
+                        	+'排產編號：'+ t_data.workgno+'-'+t_data.workgnoq+'&nbsp;&nbsp;&nbsp;&nbsp;製成品：'+t_data.product+'</text>';
                         	
                         	//工作中心名稱(Y軸)
                         	for(var i=0; i<t_data.sp.length;i++){

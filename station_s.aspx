@@ -32,11 +32,9 @@
 
 			function q_seekStr() {
 				t_noa = $.trim($('#txtNoa').val());
-				t_station = $.trim($('#txtCno').val());
+				t_station = $.trim($('#txtStation').val());
 				t_factoryno = $.trim($('#txtFactoryno').val());
-				var t_where = " 1=1 " + 
-									q_sqlPara2("noa", t_noa) +
-									q_sqlPara2("station", t_station) +
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +	q_sqlPara2("station", t_station) +
 									q_sqlPara2("factoryno", t_factoryno);
 
 				t_where = ' where=^^' + t_where + '^^ ';
