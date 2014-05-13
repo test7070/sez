@@ -516,9 +516,9 @@
                             var tmpPath = "";
 							var bkColor = ['rgb(210,233,255)', 'rgb(255,238,221)'];//背景色
 							var bkN = 1;//分幾個製程
-							var p_height=480//固定背景製程高度
-							var s_process=6;//每個製程要區分段落
-							var s_height=p_height/s_process;//固定製程高度
+							var s_process=dec(s_data.detail.length)>8?7:dec(s_data.detail.length);//每個製程要區分段落
+							var s_height=80;//固定製程高度
+							var p_height=s_height*s_process//固定背景製程高度
 							var start_date='';//起始
                         	var end_date='';//終止
                         	for(var i=0;i<s_data.detail.length;i++){
@@ -540,9 +540,9 @@
 							var t2=new Date((dec(end_date.substr(0,3))+1911)+'/'+end_date.substr(4,2)+'/'+end_date.substr(7,2));
 							var days=t2.getTime()-t1.getTime();
 							days= Math.floor(days / (24 * 3600 * 1000))+1
-							var day_width=70;//估定天數大小
-							if(days<=12)
-							day_width=1000/days;
+							var day_width=120;//估定天數大小
+							if(days<=7)
+								day_width=900/days;
 							var bkOrigin = [130,50];//邊界
 							//div大小
 							obj.width(bkOrigin[0]+day_width*days+100).height((bkOrigin[1]+p_height*bkN+100)).html(''); 
@@ -695,8 +695,8 @@
 							var t2=new Date((dec(end_date.substr(0,3))+1911)+'/'+end_date.substr(4,2)+'/'+end_date.substr(7,2));
 							var days=t2.getTime()-t1.getTime();
 							days= Math.floor(days / (24 * 3600 * 1000))+1
-							var day_width=70;//估定天數大小
-							if(days<=12)
+							var day_width=120;//估定天數大小
+							if(days<=7)
 								day_width=900/days;
 							var bkOrigin = [160,50];//邊界
 							
