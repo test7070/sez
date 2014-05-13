@@ -78,7 +78,8 @@
 				mainForm(0);
 				$('#txtUno').focus();
 			}
-
+			
+			var mousepoint;
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtCdate', r_picd]];
@@ -104,10 +105,27 @@
 					q_box("ucccust.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucccust', "95%", "95%", q_getMsg('btnCust'));
 				});
 				$('#btnStkcost').mousedown(function(e) {
+					mousepoint=e;
 					if (e.button == 0) {
-						$('#div_stkcost').css('top', e.pageY);
-						$('#div_stkcost').css('left', e.pageX - $('#div_stkcost').width());
-						$('#div_stkcost').toggle();
+						$('#btnStkcost').attr('disabled', 'disabled');
+						$('#btnStkcost').val('讀取中...');
+						//抓原物料單價
+						var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^";
+						q_gt('costs', t_where, 0, 0, 0, "ucc_price", r_accy);
+						//庫存
+						if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
+							var t_where = "where=^^ 1=1 ^^";
+							q_gt('acomp', t_where, 0, 0, 0, "ucc_acomp_stk", r_accy);
+						} else {
+							var t_where = "where=^^ ['" + q_date() + "','','"+$('#txtNoa').val()+"') ^^";
+							q_gt('calstk', t_where, 0, 0, 0, "ucc_stk", r_accy);
+						}
+						//最新出貨單價
+						//var t_where = "where=^^ noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
+						//q_gt('vcc', t_where , 0, 0, 0, "ucc_vcc", r_accy);
+						//最新進貨單價
+						//var t_where = "where=^^ noa in (select noa from rc2s"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
+						//q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
 					}
 				});
 				$('#txtUno').change(function(){
@@ -120,6 +138,7 @@
 				});
 				$('#btnClose_div_stkcost').click(function() {
 					$('#div_stkcost').toggle();
+					$('#btnStkcost').removeAttr('disabled');
 				});
 			}
 
@@ -200,6 +219,11 @@
 						//在途
 						//可用庫存=庫存+在途-訂單(+計畫??)
 						$('#textAvaistk').val(q_float('textStk') + q_float('textIntmount') - q_float('textOrdemount'));
+						
+						$('#div_stkcost').css('top', mousepoint.pageY);
+						$('#div_stkcost').css('left', mousepoint.pageX - $('#div_stkcost').width());
+						$('#div_stkcost').toggle();
+						$('#btnStkcost').val(q_getMsg('btnStkcost'));
 						break;
 					case 'ucc_rc2':
 						var as = _q_appendData("rc2s", "", true);
@@ -236,7 +260,18 @@
 							stkmount = stkmount + dec(as[i].mount);
 						}
 						$('#textStk').val(stkmount);
-						$('#textAvaistk').val(q_float('textStk') + q_float('textIntmount') - q_float('textOrdemount'));
+						//$('#textAvaistk').val(q_float('textStk') + q_float('textIntmount') - q_float('textOrdemount'));
+						
+						//訂單、在途量、計畫
+						var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
+						var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno,style ^^";
+						var t_where2 = "where[2]=^^1=0^^";
+						var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
+						var t_where4 = "where[4]=^^ 1=0 ^^";
+						var t_where5 = "where[5]=^^ 1=0 ^^"
+						var t_where6 = "where[6]=^^ 1=0 ^^"
+						q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
+						
 						break;
 					case 'ucc_acomp_stk':
 						var as = _q_appendData("acomp", "", true);
@@ -245,7 +280,7 @@
 							storeno = storeno + ',' + as[i].noa;
 						}
 						storeno = storeno.substr(1, storeno.length);
-						var t_where = "where=^^ ['" + q_date() + "','" + storeno + "','') where productno='" + $('#txtNoa').val() + "' ^^";
+						var t_where = "where=^^ ['" + q_date() + "','" + storeno + "','"+$('#txtNoa').val()+"') ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "ucc_stk", r_accy);
 						break;
 					case q_name:
@@ -326,33 +361,9 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				//抓原物料單價
-				var t_where = "where=^^ productno ='" + $('#txtNoa').val() + "' order by mon desc ^^";
-				q_gt('costs', t_where, 0, 0, 0, "ucc_price", r_accy);
-				//庫存
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
-					var t_where = "where=^^ 1=1 ^^";
-					q_gt('acomp', t_where, 0, 0, 0, "ucc_acomp_stk", r_accy);
-				} else {
-					var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtNoa').val() + "' ^^";
-					q_gt('calstk', t_where, 0, 0, 0, "ucc_stk", r_accy);
-				}
-				//最新出貨單價
-				//var t_where = "where=^^ noa in (select noa from vccs"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
-				//q_gt('vcc', t_where , 0, 0, 0, "ucc_vcc", r_accy);
-				//最新進貨單價
-				//var t_where = "where=^^ noa in (select noa from rc2s"+r_accy+" where productno='"+$('#txtNoa').val()+"' and price>0 ) ^^ stop=1";
-				//q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
-
-				//訂單、在途量、計畫
-				var t_where = "where=^^ ['" + q_date() + "','','') where productno=a.productno ^^";
-				var t_where1 = "where[1]=^^a.productno='" + $('#txtNoa').val() + "' and a.enda!='1' group by productno,style ^^";
-				var t_where2 = "where[2]=^^1=0^^";
-				var t_where3 = "where[3]=^^ d.stype='4' and c.productno=a.productno and c.enda!='1' ^^";
-				var t_where4 = "where[4]=^^ 1=0 ^^";
-				var t_where5 = "where[5]=^^ 1=0 ^^"
-				var t_where6 = "where[6]=^^ 1=0 ^^"
-				q_gt('workg_orde', t_where + t_where1 + t_where2 + t_where3 + t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
+				$('#div_stkcost').hide();
+				$('#btnStkcost').removeAttr('disabled');
+				$('#btnStkcost').val(q_getMsg('btnStkcost'));
 			}
 
 			function readonly(t_para, empty) {
