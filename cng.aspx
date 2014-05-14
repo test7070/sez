@@ -197,21 +197,6 @@
 					alert(t_err);
 					return;
 				}
-				/*if(showRack()){
-					var thisRackno = $.trim($('#txtRackno').val());
-					var thisStoreno = $.trim($('#txtStoreno').val());
-					var thisRackinno = $.trim($('#txtRackinno').val());
-					var thisStoreinno = $.trim($('#txtStoreinno').val());
-					if(thisStoreno.length > 0 && thisRackno.length ==0){
-						alert(q_chkEmpField([['txtRackno', q_getMsg('lblRackno')]]));
-						return;
-					}
-					if(thisStoreinno.length > 0 && thisRackinno.length ==0){
-						alert(q_chkEmpField([['txtRackinno', q_getMsg('lblRackinno')]]));
-						return;
-					}
-				}*/
-				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
@@ -239,7 +224,7 @@
 					}
 				}
 				_bbsAssign();
-				showRack();
+				HiddenTreat();
 			}
 
 			function btnIns() {
@@ -329,34 +314,35 @@
 				$('#lblStorein').css('display','inline');
 				$('#lblStorek').css('display', 'none');
 				$('#lblStoreink').css('display', 'none');
-				
 				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
 					$('.class_it').show();
 					$('.it').css('text-align','left');
 				} else {
 					$('.class_it').hide();
 				}
-				showRack();
+				HiddenTreat();
 			}
 
-			function showRack(){
-				var hasRackComp = q_getPara('sys.rack');
-				var isRack = (hasRackComp==1?true:false);
-				if(isRack== true){
-					$('.isRack').show();
-				}else{
-					$('.isRack').hide();
-				}
-				return isRack;
-			}
-
-			function readonly(t_para, empty) {
-				_readonly(t_para, empty);
+			function HiddenTreat(returnType){
+				returnType = $.trim(returnType).toLowerCase();
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');
 				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
-				showRack();
+				var hasRackComp = q_getPara('sys.rack');
+				var isRack = (hasRackComp.toString()=='1'?$('.isRack').show():$('.isRack').hide());
+				if(returnType=='style'){
+					return (hasStyle.toString()=='1');
+				}else if(returnType=='spec'){
+					return (hasSpec.toString()=='1');
+				}else if(returnType=='rack'){
+					return (hasRackComp.toString()=='1');
+				}
+			}
+
+			function readonly(t_para, empty) {
+				_readonly(t_para, empty);
+				HiddenTreat();
 			}
 
 			function btnMinus(id) {
