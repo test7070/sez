@@ -470,24 +470,6 @@
 				if (emp($('#txtMon').val()))
 					$('#txtMon').val($('#txtDatea').val().substr(0, 6));*/
 				
-				/*if(showRack()){
-					var t_rackErr = '';
-					for(var j=0;j<q_bbsCount;j++){
-						var thisProductno = $.trim($('#txtProductno_'+j).val());
-						var thisStoreno = $.trim($('#txtStoreno_'+j).val());
-						var thisRackno = $.trim($('#txtRackno_'+j).val());
-						if(thisProductno.length >0){
-							if(thisStoreno.length == 0 || thisRackno.length == 0){
-								t_rackErr += '表身第 ' + (j+1) + " 筆 倉庫或料架編號未填寫!! \n";
-							}
-						}
-					}
-					if($.trim(t_rackErr).length > 0){
-						alert(t_rackErr);
-						return;
-					}
-				}*/
-				
 				sum();
 				
 				if (q_cur == 1)
@@ -574,11 +556,7 @@
 					}
 				}
 				_bbsAssign();
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
-				var hasSpec = q_getPara('sys.isspec');
-				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
-				showRack();
+				HiddenTreat();
 			}
 
 			function btnIns() {
@@ -652,22 +630,24 @@
 				_refresh(recno);
 				if (isinvosystem)
 					$('.istax').hide();
-				showRack();
+				HiddenTreat();
+			}
+
+			function HiddenTreat(returnType){
+				returnType = $.trim(returnType).toLowerCase();
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');
 				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
-			}
-
-			function showRack() {
 				var hasRackComp = q_getPara('sys.rack');
-				var isRack = (hasRackComp == 1 ? true : false);
-				if (isRack == true) {
-					$('.isRack').show();
-				} else {
-					$('.isRack').hide();
+				var isRack = (hasRackComp.toString()=='1'?$('.isRack').show():$('.isRack').hide());
+				if(returnType=='style'){
+					return (hasStyle.toString()=='1');
+				}else if(returnType=='spec'){
+					return (hasSpec.toString()=='1');
+				}else if(returnType=='rack'){
+					return (hasRackComp.toString()=='1');
 				}
-				return isRack;
 			}
 
 			function readonly(t_para, empty) {
@@ -677,11 +657,7 @@
 				} else {
 					$('#combAddr').removeAttr('disabled');
 				}
-				var hasStyle = q_getPara('sys.isstyle');
-				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
-				var hasSpec = q_getPara('sys.isspec');
-				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
-				showRack();
+				HiddenTreat();
 				
 				//限制帳款月份的輸入 只有在備註的第一個字為*才能手動輸入
 				if ($('#txtMemo').val().substr(0,1)=='*')

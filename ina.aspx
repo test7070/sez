@@ -187,15 +187,6 @@
 					alert(t_err);
 					return;
 				}
-				/*if(showRack()){
-					var thisRackno = $.trim($('#txtRackno').val());
-					var thisStoreno = $.trim($('#txtStoreno').val());
-					if(thisStoreno.length > 0 && thisRackno.length ==0){
-						alert('請輸入料架編號!!');
-						return;
-					}
-				}*/
-				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				else
@@ -226,7 +217,7 @@
 					}
 				}
 				_bbsAssign();
-				showRack()
+				HiddenTreat()
 			}
 
 			function btnIns() {
@@ -290,22 +281,29 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				showRack();
+				HiddenTreat();
 			}
 
-			function showRack(){
+			function HiddenTreat(returnType){
+				returnType = $.trim(returnType).toLowerCase();
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 				var hasRackComp = q_getPara('sys.rack');
-				var isRack = (hasRackComp==1?true:false);
-				if(isRack== true){
-					$('.isRack').show();
-				}else{
-					$('.isRack').hide();
+				var isRack = (hasRackComp.toString()=='1'?$('.isRack').show():$('.isRack').hide());
+				if(returnType=='style'){
+					return (hasStyle.toString()=='1');
+				}else if(returnType=='spec'){
+					return (hasSpec.toString()=='1');
+				}else if(returnType=='rack'){
+					return (hasRackComp.toString()=='1');
 				}
-				return isRack;
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				HiddenTreat();
 			}
 
 			function btnMinus(id) {

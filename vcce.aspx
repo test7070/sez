@@ -217,7 +217,7 @@
 					alert(t_err);
 					return;
 				}
-				if(showRack()){
+				if(HiddenTreat('rack')){
 					var t_rackErr = '';
 					for(var j=0;j<q_bbsCount;j++){
 						var thisProductno = $.trim($('#txtProductno_'+j).val());
@@ -282,7 +282,7 @@
 					}
 				}
 				_bbsAssign();
-				showRack();
+				HiddenTreat();
 			}
 
 			function btnIns() {
@@ -335,24 +335,30 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				showRack();
+				HiddenTreat();
 			}
 
-			function showRack(){
+			function HiddenTreat(returnType){
+				returnType = $.trim(returnType).toLowerCase();
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 				var hasRackComp = q_getPara('sys.rack');
-				var isRack = (hasRackComp==1?true:false);
-				if(isRack== true){
-					$('.isRack').show();
-				}else{
-					$('.isRack').hide();
+				var isRack = (hasRackComp.toString()=='1'?$('.isRack').show():$('.isRack').hide());
+				if(returnType=='style'){
+					return (hasStyle.toString()=='1');
+				}else if(returnType=='spec'){
+					return (hasSpec.toString()=='1');
+				}else if(returnType=='rack'){
+					return (hasRackComp.toString()=='1');
 				}
-				return isRack;
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				$('#cmbStype').attr('disabled', true);
-
+				HiddenTreat();
 				if (t_para) {
 					$('#btnVcct').removeAttr('disabled');
 					$('#btnInvoice').removeAttr('disabled');
