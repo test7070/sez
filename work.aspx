@@ -520,8 +520,8 @@
 						<td class="td4"><input id="txtPrice" type="text" class="txt num"/></td>
 						<td class="td5"><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
 						<td class="td6">
-							<input id="txtOrdeno" type="text" class="txt" style="width: 70%"/>
-							<input id="txtNo2" type="text" class="txt" style="width: 20%"/>
+							<input id="txtOrdeno" type="text" class="txt cl" />
+							<input id="txtNo2" type="hidden" class="txt" />
 						</td>
 					</tr>
 					<tr class="tr7">

@@ -132,18 +132,23 @@
 						alert("資料錯誤!!");
 					}*/
 					//0514後面直接使用後端的func
+					var edaytmp='',cworknotmp='';
 					for (var i = 0; i < child_row; i++) {
 						var eday=$('#child_txtEarlyday_'+i).val()=='-' || $('#child_txtEarlyday_'+i).val()=='-0'?0:dec($('#child_txtEarlyday_'+i).val());
 						var cworkno=trim($('#child_txtWorkno_'+i).val());
-						var edaytmp='',cworknotmp='';
 						if(eday!=0 && cworkno.length>0){
 							edaytmp=edaytmp+(edaytmp.length>0?';':'')+eday.toString();
 							cworknotmp=cworknotmp+(cworknotmp.length>0?';':'')+cworkno;
 						}
+					}
+					
+					if(edaytmp.length>0 &&cworknotmp.length>0){
 						q_func( 'workg.cuguChange', cworknotmp+','+edaytmp);
 						//原始q_func( 'workg.cuguChange', 'workno; ;  '+','+'days; ;  ');
+						$('#btnEarlydayok').attr('disabled', 'disabled');
+					}else{
+						alert("無資料更新!!");
 					}
-					$('#btnEarlydayok').attr('disabled', 'disabled');
 				});
             }
             
