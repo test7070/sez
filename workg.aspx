@@ -18,7 +18,7 @@
 			q_tables = 't';
 			var q_name = "workg";
 			var q_readonly = ['txtNoa','txtFact', 'txtDatea', 'txtWorker', 'txtWorker2', 'txtOrdbno','txtWadate','txtWbdate','txtWedate'];
-			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno','txtNoq'];
+			var q_readonlys = ['txtWorkno','txtWorkhno', 'txtIndate', 'txtInmount', 'txtWmount', 'txtOrdeno','txtNoq','txtUindate'];
 			var q_readonlyt = [];
 			var bbmNum = [];
 			var bbsNum = [
@@ -67,7 +67,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtSfbdate', r_picd], ['txtSfedate', r_picd], ['txtWadate', r_picd], ['txtWbdate', r_picd], ['txtWedate', r_picd]];
-				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd]];//, ['txtUindate', r_picd]
+				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('workg.stype'));	
 
@@ -1293,14 +1293,15 @@
 						<td style="width:100px;display: none;"><a id='lblPlanmount_s'> </a></td>
 						<td style="width:110px;">
 							<a id='lblMount_s' style="color: red;font-weight: bold;"> </a>
-							<!--<a id='lblUindate_s'> </a>-->
 						</td>
 						<!--<td style="width:80px;"><a id='lblCuadate_s'> </a></td>-->
 						<td style="width:130px;"><a id='lblStation_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkno_s'> </a></td>
 						<td style="width:180px;"><a id='lblWorkhno_s'> </a></td>
 						<td style="width:50px;"><a id='lblRank_s'> </a></td>
-						<td style="width:80px;"><a id='lblIndate_s'> </a></td>
+						<td style="width:90px;">
+							<a id='lblUindate_s'> </a>/<a id='lblIndate_s'> </a>
+						</td>
 						<td style="width:80px;"><a id='lblInmount_s'> </a></td>
 						<td style="width:100px;"><a id='lblWmount_s'> </a></td>
 						<td><a id='lblMemo_s'> </a></td>
@@ -1343,7 +1344,6 @@
 						<td style="display: none;"><input id="txtPlanmount.*" type="text" class="txt c1 num orde"/></td>
 						<td>
 							<input id="txtMount.*" type="text" class="txt c1 num orde odm"/>
-							<!--<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>-->
 						</td>
 						<!--<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>-->
 						<td>
@@ -1354,7 +1354,10 @@
 						<td><input id="txtWorkno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtWorkhno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtRank.*" type="text" class="txt c1" style="text-align: center;"/></td>
-						<td><input id="txtIndate.*" type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtUindate.*" type="text" class="txt c1 orde odm"/>
+							<input id="txtIndate.*" type="text" class="txt c1"/>
+						</td>
 						<td><input id="txtInmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtWmount.*" type="text" class="txt c1 num"/></td>
 						<td><input id="txtMemo.*" type="text" class="txt c1"/></td>

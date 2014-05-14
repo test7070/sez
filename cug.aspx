@@ -611,6 +611,26 @@
 							}
 		                });
 		                
+		                $('#txtOrdeno_'+i).click(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtOrdeno_' + b_seq).val())){
+								t_where = "charindex(noa,'"+$('#txtOrdeno_' + b_seq).val()+"')>0";
+								q_box("orde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('PopOrde'));
+							}
+		                });
+		                
+		                $('#txtWorkgno_'+i).click(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtWorkgno_' + b_seq).val())){
+								t_where = "noa='"+$('#txtWorkgno_' + b_seq).val()+"'";
+								q_box("workg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workg', "95%", "95%", q_getMsg('PopWorkg'));
+							}
+		                });
+		                
 		                $('#txtNos_' + i).blur(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
@@ -734,17 +754,6 @@
             function refresh(recno) {
                 _refresh(recno);
                 $('#div_child').hide();
-                for (var i = 0; i < q_bbsCount; i++) {
-					if($('#txtNoq_'+i).val()!=undefined){
-						if(($('#txtNoq_'+i).val().substr(0,7)!=replaceAll($('#txtDatea').val(), '/','') &&$('#txtNoq_'+i).val().substr(0,7)!='')
-							|| ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12)){
-							for(var j=0;j<fbbs.length;j++){
-								$('#'+fbbs[j]+'_'+i).attr('disabled', 'disabled');
-							}
-							$('#btnMinus_'+i).attr('disabled', 'disabled');
-						}
-					}
-				}
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
             }
@@ -1105,7 +1114,7 @@
 						<td class="td5" style="width: 105px;"><span> </span><a id='lblKdate' class="lbl"> </a></td>
 						<td class="td6" style="width: 176px;"><input id="txtKdate"  type="text" class="txt c1"/></td>
 						<td class="td1" style="width: 105px;"><!--<span> </span><a id='lblDatea' class="lbl"> </a>--></td>
-						<td class="td2" style="width: 176px;"><input id="txtDatea"  type="hidden" class="txt c1"/></td>
+						<td class="td2" style="width: 176px;"><!--<input id="txtDatea"  type="hidden" class="txt c1"/>--></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a><a id='lblStationk' class="lbl btn"> </a></td>
