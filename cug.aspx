@@ -137,12 +137,13 @@
 						var cworkno=trim($('#child_txtWorkno_'+i).val());
 						var edaytmp='',cworknotmp='';
 						if(eday!=0 && cworkno.length>0){
-							edaytmp=edaytmp+(edaytmp.length>0?',':'')+eday.toString();
-							cworknotmp=cworknotmp+(cworknotmp.length>0?',':'')+cworkno;
+							edaytmp=edaytmp+(edaytmp.length>0?';':'')+eday.toString();
+							cworknotmp=cworknotmp+(cworknotmp.length>0?';':'')+cworkno;
 						}
-						
-						//q_func( 'workg.cuguChange', 'workno; ;  '+','+'days; ;  ');
+						q_func( 'workg.cuguChange', cworknotmp+','+edaytmp);
+						//原始q_func( 'workg.cuguChange', 'workno; ;  '+','+'days; ;  ');
 					}
+					$('#btnEarlydayok').attr('disabled', 'disabled');
 				});
             }
             
@@ -915,6 +916,14 @@
             
 		   function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'workg.cuguChange':
+                		alert("更新完成!!");
+                		//重新開啟新的資料
+                		$('#div_child').toggle();
+						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
+						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
+						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
+                	break;
                 	/*case 'qtxt.query.earlyday':
                 		alert("更新完成!!");
                 		//重新開啟新的資料
