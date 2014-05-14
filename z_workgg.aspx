@@ -71,6 +71,7 @@
 							$('.prt').show();
 							$('#chart,#chartCtrl').hide();
 						}
+						clickIndex = $('#q_report').data('info').radioIndex;
 					}
 				});
 				q_langShow();
@@ -108,7 +109,16 @@
 					if(!emp($('#Xgroupano select').val()))
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
 					Lock();
-					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';'+ t_xgroupano + ';'+ t_xbproductno + ';'+ t_xeproductno + ';');
+					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ 
+							t_xbdate + ';' + 
+							t_xedate + ';' + 
+							isSaturday + ';' + 
+							t_xbstationno + ';' + 
+							t_xestationno + ';' + 
+							t_xgroupano + ';' + 
+							t_xbproductno + ';' +
+							t_xeproductno + ';'
+					);
 				});
 			}
 
