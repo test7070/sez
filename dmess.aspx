@@ -105,7 +105,7 @@
                 _btnIns();
                 $('#txtDatea').val(q_date());
                 var t_time = new Date();
-                $('#txtTime').val(t_time.getHours()+':'+('00'+t_time.getMinutes()).substr(-2));
+                $('#txtTime').val(t_time.getHours()+':'+('00'+t_time.getMinutes()).slice(-2));
                 $('#txtSender').val(r_userno);
                 $('#txtMessage').focus();
             }

@@ -260,7 +260,7 @@
 		        //重新設定noq
 	            for (var i = 0; i < q_bbsCount; i++) {
 	            	if(!emp($('#txtAccc5_'+i).val()))
-	            		$('#txtNoq_'+i).val(('000'+(i+1)).substr(-3));
+	            		$('#txtNoq_'+i).val(('000'+(i+1)).slice(-3));
 	            }
 
 		        s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();

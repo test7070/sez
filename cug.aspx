@@ -218,7 +218,7 @@
 	                			maxnos=$('#txtNos_'+j).val();
 	                		}
 	                	}
-	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).substr(-3)+'0');
+	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).slice(-3)+'0');
 	                	$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 	}
                 	//更新沒有排程應開工日的資料>>指定應開工日
@@ -234,7 +234,7 @@
 	                			maxnos=$('#txtNos_'+j).val();
 	                		}
 	                	}
-	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).substr(-3)+'0');
+	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).slice(-3)+'0');
 	                	$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 	}
                 }
@@ -375,7 +375,7 @@
 		                	if(minnos<='0010'){
 		                		for (var j = i+2; j < q_bbsCount; j++) {
 		                			if(q_cdn($('#txtCuadate_'+i).val(),1)==$('#txtCuadate_'+j).val() && !emp($('#textDatea_'+j).val()) && !emp($('#txtNos_'+j).val())){
-		                				$('#txtNos_'+j).val(('0000'+(dec($('#txtNos_'+j).val())+10)).substr(-4));
+		                				$('#txtNos_'+j).val(('0000'+(dec($('#txtNos_'+j).val())+10)).slice(-4));
 		                				$('#txtNoq_'+j).val(replaceAll($('#txtCuadate_'+j).val(), '/','')+$('#txtNos_'+j).val());
 		                			}
 		                		}

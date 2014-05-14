@@ -58,7 +58,7 @@
 		         	if(!emp($('#txtDatea').val())&&(q_cur==1 || q_cur==2)){
                     	var d = new Date(dec($('#txtDatea').val().substr(0,3))+1911, dec($('#txtDatea').val().substr(4,2))-1, dec($('#txtDatea').val().substr(7,2)));
 						d.setMonth(d.getMonth() - 1);
-						$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).substr(-2));
+						$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
 					}
                 });
 		        

@@ -466,14 +466,14 @@
 					noqt += 1;
 					//檢查是否重複編號
 					for (var j = 0; j < q_bbtCount && emp($('#txtProductno__' + i).val()); j++) {
-						if (!emp($('#txtProductno__' + j).val()) && $('#txtProductno__' + j).val() == ($('#txtNoa').val() + '-' + $('#txtTggno__' + i).val() + '-' + ('000' + noqt).substr(-3))) {
+						if (!emp($('#txtProductno__' + j).val()) && $('#txtProductno__' + j).val() == ($('#txtNoa').val() + '-' + $('#txtTggno__' + i).val() + '-' + ('000' + noqt).slice(-3))) {
 							i--;
 							break;
 						}
 					}
 
 					if (!emp($('#txtProcess__' + i).val()) && !emp($('#txtTggno__' + i).val()) && emp($('#txtProductno__' + i).val())) {
-						$('#txtProductno__' + i).val($('#txtNoa').val() + '-' + $('#txtTggno__' + i).val() + '-' + ('000' + noqt).substr(-3));
+						$('#txtProductno__' + i).val($('#txtNoa').val() + '-' + $('#txtTggno__' + i).val() + '-' + ('000' + noqt).slice(-3));
 					}
 				}
 
@@ -483,11 +483,11 @@
 				//重新設定noq
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!emp($('#txtProductno_' + i).val()))
-						$('#txtNoq_' + i).val(('000' + (i + 1)).substr(-3));
+						$('#txtNoq_' + i).val(('000' + (i + 1)).slice(-3));
 				}
 				for (var i = 0; i < q_bbtCount; i++) {
 					if (!emp($('#txtProcessno__' + i).val()))
-						$('#txtNoq__' + i).val(('000' + (i + 1)).substr(-3));
+						$('#txtNoq__' + i).val(('000' + (i + 1)).slice(-3));
 				}
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();

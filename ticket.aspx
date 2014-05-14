@@ -50,7 +50,7 @@
                 	if(!emp($('#txtMoney').val()) || !emp($('#txtDriverpay').val())){
                 		if(!emp($('#txtBmon').val()) || !emp($('#txtEmon').val())){
                 			var year_mon=(dec($('#txtEmon').val().substr(0,3))-dec($('#txtBmon').val().substr(0,3)))*12
-                			var t_mon=dec($('#txtEmon').val().substr(-2))-dec($('#txtBmon').val().substr(-2))+1;
+                			var t_mon=dec($('#txtEmon').val().slice(-2))-dec($('#txtBmon').val().slice(-2))+1;
                 			q_tr('txtComppay',(q_float('txtMoney')/(year_mon+t_mon))-q_float('txtDriverpay'));
                 		}else{
                 			q_tr('txtComppay',q_float('txtMoney')-q_float('txtDriverpay'));
@@ -61,7 +61,7 @@
                 	if(!emp($('#txtMoney').val()) || !emp($('#txtDriverpay').val())){
                 		if(!emp($('#txtBmon').val()) || !emp($('#txtEmon').val())){
                 			var year_mon=(dec($('#txtEmon').val().substr(0,3))-dec($('#txtBmon').val().substr(0,3)))*12
-                			var t_mon=dec($('#txtEmon').val().substr(-2))-dec($('#txtBmon').val().substr(-2))+1;
+                			var t_mon=dec($('#txtEmon').val().slice(-2))-dec($('#txtBmon').val().slice(-2))+1;
                 			q_tr('txtComppay',(q_float('txtMoney')/(year_mon+t_mon))-q_float('txtDriverpay'));
                 		}else{
                 			q_tr('txtComppay',q_float('txtMoney')-q_float('txtDriverpay'));
