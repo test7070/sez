@@ -497,6 +497,8 @@
 				}else{
 					q_cur=1;
 					$('#div_tgg').show();	
+					$('#tgg_txtTggno').val('');
+					$('#tgg_txtTgg').val('');
 					$('#tgg_txtTggno').focus();
 				}
 				_btnChange(1);
