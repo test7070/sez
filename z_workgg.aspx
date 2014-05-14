@@ -25,6 +25,7 @@
 				q_gt('uccga', '', 0, 0, 0, "");
 			});
 			var xgroupanoStr = '';
+			var clickIndex = -1;
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workgg',
@@ -58,13 +59,19 @@
 					}]
 				});
 				$('#q_report').click(function(){
-					var t_index = $('#q_report').data('info').radioIndex;
-					if((t_index==0) || (t_index==1) || (t_index==5) || (t_index==6)){
-						$('.prt').hide();
-						$('#chart,#chartCtrl').show();
-					}else{
-						$('.prt').show();
-						$('#chart,#chartCtrl').hide();
+					var ChartShowIndex = [0,1,5,6];
+					if($('#q_report').data('info').radioIndex != clickIndex){
+						$('#frameReport').html('');
+						$('#chart').html('');
+						var t_index = $('#q_report').data('info').radioIndex;
+						if($.inArray(t_index,ChartShowIndex) !== -1){
+							$('.prt').hide();
+							$('#chart,#chartCtrl').show();
+						}else{
+							$('.prt').show();
+							$('#chart,#chartCtrl').hide();
+						}
+						clickIndex = $('#q_report').data('info').radioIndex;
 					}
 				});
 				q_langShow();
@@ -102,7 +109,16 @@
 					if(!emp($('#Xgroupano select').val()))
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
 					Lock();
-					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';'+ t_xgroupano + ';'+ t_xbproductno + ';'+ t_xeproductno + ';');
+					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ 
+							t_xbdate + ';' + 
+							t_xedate + ';' + 
+							isSaturday + ';' + 
+							t_xbstationno + ';' + 
+							t_xestationno + ';' + 
+							t_xgroupano + ';' + 
+							t_xbproductno + ';' +
+							t_xeproductno + ';'
+					);
 				});
 			}
 
