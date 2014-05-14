@@ -124,12 +124,24 @@
 				});
 				
 				$('#btnEarlydayok').click(function() {
-					if(!emp($('#textEarlyday').val())&&!emp($('#textEarlyworkno').val())){						
+					/*if(!emp($('#textEarlyday').val())&&!emp($('#textEarlyworkno').val())){						
 						var t_where = $('#textEarlyworkno').val()+ ';' + dec($('#textEarlyday').val());
 						q_func('qtxt.query.earlyday', 'cug.txt,earlyday,' + t_where);
 						$('#btnEarlydayok').attr('disabled', 'disabled');
 					}else{
 						alert("資料錯誤!!");
+					}*/
+					//0514後面直接使用後端的func
+					for (var i = 0; i < child_row; i++) {
+						var eday=$('#child_txtEarlyday_'+i).val()=='-' || $('#child_txtEarlyday_'+i).val()=='-0'?0:dec($('#child_txtEarlyday_'+i).val());
+						var cworkno=trim($('#child_txtWorkno_'+i).val());
+						var edaytmp='',cworknotmp='';
+						if(eday!=0 && cworkno.length>0){
+							edaytmp=edaytmp+(edaytmp.length>0?',':'')+eday.toString();
+							cworknotmp=cworknotmp+(cworknotmp.length>0?',':'')+cworkno;
+						}
+						
+						//q_func( 'workg.cuguChange', 'workno; ;  '+','+'days; ;  ');
 					}
 				});
             }
@@ -395,7 +407,8 @@
                 }
                 b_pop = '';
             }
-
+			
+			var child_row = 0;//異動子階的欄位數
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'getgen':
@@ -486,14 +499,14 @@
 						for (var j = 1; j < rowslength; j++) {
 							document.getElementById("table_child").deleteRow(2);
 						}
-						
+						child_row=0;
 						if(as[0]!=undefined){
 							$('#textEarlyday').val('');
-							var child_row = 0;
 							for (var i = 0; i < as.length; i++) {
 								var tr = document.createElement("tr");
 								tr.id = "bbs_" + j;
-								tr.innerHTML = "<td><input id='child_txtRank_" + child_row + "' type='text' class='txt c1' value='" + as[i].rank + "' disabled='disabled' style='text-align:center;'/></td>";
+								tr.innerHTML = "<td><input id='child_txtEarlyday_" + child_row + "' type='text' class='txt c1' value='' style='text-align:right;' /></td>";
+								tr.innerHTML += "<td><input id='child_txtRank_" + child_row + "' type='text' class='txt c1' value='" + as[i].rank + "' disabled='disabled' style='text-align:center;'/></td>";
 								tr.innerHTML += "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtProcess_" + child_row + "' type='text' class='txt c1' value='" + as[i].process + "' disabled='disabled' /></td>";
@@ -512,6 +525,16 @@
 						}else{
 							alert("無子階資料");
 							$('#btnEarlydayok').attr('disabled', 'disabled');
+						}
+						for (var i = 0; i < child_row; i++) {
+							$('#child_txtEarlyday_'+i).keyup(function() {
+								t_IdSeq = -1;
+								q_bodyId($(this).attr('id'));
+								b_seq = t_IdSeq;
+								var tmp=$('#child_txtEarlyday_'+b_seq).val();
+								tmp=tmp.substring(0,1) == '-'?'-'+tmp.replace(/[^\d]/g,''):tmp.replace(/[^\d]/g,'');
+								$('#child_txtEarlyday_'+b_seq).val(tmp);
+							});
 						}
                 		break;
                     case q_name:
@@ -892,14 +915,14 @@
             
 		   function q_funcPost(t_func, result) {
                 switch(t_func) {
-                	case 'qtxt.query.earlyday':
+                	/*case 'qtxt.query.earlyday':
                 		alert("更新完成!!");
                 		//重新開啟新的資料
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
 						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
-					break;
+					break;*/
                 }
 			}
 			function FormatNumber(n) {
@@ -1061,26 +1084,25 @@
 	>
 		<div id="div_child" style="position:absolute; top:0px; left:0px; display:none; width:1000px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_child" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
-				<tr>
-					<td colspan="2" style="background-color: #f8d463;" align="center">提前天數</td>
-					<td colspan="6" style="background-color: #f8d463;" id='child_earlyday'>
-						<input id='textEarlyday' type='text' class='txt' style='width: 100px;' onkeyup="value=value.substring(0,1)=='-'?'-'+value.replace(/[^\d]/g,''):value.replace(/[^\d]/g,'') "/>
+				<tr style="display: none;">
+					<td colspan="9" style="background-color: #f8d463;" id='child_earlyday'>
 						<input id='textEarlyworkno' type='hidden'/>
-						<input id="btnEarlydayok" type="button" value="更新">
 					</td>
 				</tr>
 				<tr id='child_top'>
+					<td style="background-color: #CDFFCE;width:4%;" align="center">提前天數</td>
 					<td style="background-color: #CDFFCE;width:4%;" align="center">子階層數</td>
 					<td style="background-color: #CDFFCE;width:16%;" align="center">子階製令單號</td>
-					<td style="background-color: #CDFFCE;width:28%;" align="center">製品編號/<BR>製品名稱</td>
+					<td style="background-color: #CDFFCE;width:27%;" align="center">製品編號/<BR>製品名稱</td>
 					<td style="background-color: #CDFFCE;width:14%;" align="center">工作中心/<BR>製程</td>
 					<td style="background-color: #CDFFCE;width:11%;" align="center">機型</td>
-					<td style="background-color: #CDFFCE;width:9%;" align="center">數量</td>
-					<td style="background-color: #CDFFCE;width:8%;" align="center">工時</td>
-					<td style="background-color: #CDFFCE;width:10%;" align="center">應開工日</td>
+					<td style="background-color: #CDFFCE;width:8%;" align="center">數量</td>
+					<td style="background-color: #CDFFCE;width:7%;" align="center">工時</td>
+					<td style="background-color: #CDFFCE;width:9%;" align="center">應開工日</td>
 				</tr>
 				<tr id='child_close'>
-					<td align="center" colspan='8'>
+					<td align="center" colspan='9'>
+						<input id="btnEarlydayok" type="button" value="更新">
 						<input id="btnClose_div_child" type="button" value="關閉視窗">
 					</td>
 				</tr>

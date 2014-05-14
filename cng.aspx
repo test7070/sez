@@ -314,12 +314,6 @@
 				$('#lblStorein').css('display','inline');
 				$('#lblStorek').css('display', 'none');
 				$('#lblStoreink').css('display', 'none');
-				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
-					$('.class_it').show();
-					$('.it').css('text-align','left');
-				} else {
-					$('.class_it').hide();
-				}
 				HiddenTreat();
 			}
 
@@ -337,6 +331,12 @@
 					return (hasSpec.toString()=='1');
 				}else if(returnType=='rack'){
 					return (hasRackComp.toString()=='1');
+				}
+				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
+					$('.class_it').show();
+					$('.it').css('text-align','left');
+				} else {
+					$('.class_it').hide();
 				}
 			}
 
