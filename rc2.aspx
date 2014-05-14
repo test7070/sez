@@ -26,7 +26,7 @@
 				['txtPrice', 10, 2, 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],
 				['txtTranmoney',15,0,1],['txtTranadd',15,2,1]
 			];
-			var bbsNum = [['txtMount', 15, 0, 1], ['txtPrice', 15, 2, 1], ['txtTotal', 15, 0, 1]];
+			var bbsNum = [['txtMount', 15, 0, 1], ['txtPrice', 15, 3, 1], ['txtTotal', 15, 0, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
