@@ -27,8 +27,8 @@
         q_getFormat();
         q_langShow();
 
-        bbmMask = [];
-        q_mask(bbmMask);
+		bbmMask = [['txtDatea', r_picd]];
+		q_mask(bbmMask);
 
         $('#txtNoa').focus();
     }
@@ -39,14 +39,14 @@
         t_station = $('#txtStation').val();
         t_processno = $('#txtProcessno').val();
         t_process = $('#txtProcess').val();
-
+		t_datea = $('#txtDatea').val();
         
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("stationno", t_stationno)+ q_sqlPara2("station", t_station)
         + q_sqlPara2("processno", t_processno)+ q_sqlPara2("process", t_process);
         
-
-
-
+        if(t_datea.length>0)
+        	t_where+=" and ("+t_datea+" between bdate and edate) ";
+        	
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
@@ -62,6 +62,10 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblDatea'> </a></td>
+                <td><input class="txt" id="txtDatea" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblStationno'> </a></td>
