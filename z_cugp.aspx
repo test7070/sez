@@ -24,18 +24,29 @@
                 q_gf('', 'z_cugp');
                 
                 $('#q_report').click(function(e) {
-
 					var t_index = $('#q_report').data('info').radioIndex;
                     txtreport = $('#q_report').data('info').reportData[t_index].report;
+					var parent=document.getElementById("svg_search");
 					
 					if(txtreport.indexOf('z_cugp_svg')>-1){
 						$('#dataSearch').hide();
 						$('#svg_search').show();
 						$('#chart').show();
+						//讓apop 顯示到svg_search
+						if(parent.innerHTML.indexOf('q_acDiv')==-1){
+							var newDiv = document.createElement("Div"); 
+							newDiv.id="q_acDiv";
+							parent.appendChild(newDiv);
+						}
 					}else{
 						$('#dataSearch').show();
 						$('#svg_search').hide();
 						$('#chart').hide();
+						//讓apop 顯示到dataSearch
+						if(parent.innerHTML.indexOf('q_acDiv')>-1){
+							var child=document.getElementById("q_acDiv");
+							parent.removeChild(child);
+						}
 					}
 				});
 				
@@ -584,8 +595,15 @@
 	                        	
 	                        	//計算製程的長度
 	                        	//一天總時數
-	                        	var totalgen=dec(s_data.gen);
+	                        	var totalgen=dec(s_data.detail[i].gen);
 	                        	//--------時數
+	                        	if(totalgen==0 || totalgen<dec(s_data.detail[i].hours)){//找出當天工作時數加總
+	                        		for(var j=0;j<s_data.detail.length;j++){
+	                        			if(t_date==s_data.detail[j].cuadate)
+	                        				totalgen=totalgen+dec(s_data.detail[j].hours);
+	                        		}
+	                        	}
+	                        	
 	                        	if(totalgen<dec(s_data.detail[i].hours))
 	                        		end_width=day_width;
 	                        	else
@@ -753,6 +771,14 @@
                         			//計算製令的長度
                         			//當天總時數
                         			var totalgen=dec(t_data.sp[i].detail[j].gen);
+                        			
+                        			if(totalgen==0 || totalgen<dec(t_data.sp[i].detail[j].hours) ){//找出當天工作時數加總
+		                        		for(var k=0;k<t_data.sp[i].detail.length;k++){
+		                        			if(t_data.sp[i].detail[j].datea==t_data.sp[i].detail[k].datea)
+		                        				totalgen=totalgen+dec(t_data.sp[i].detail[k].hours);
+		                        		}
+		                        	}
+                        			
                         			//--------時數
 	                        		if(totalgen<dec(t_data.sp[i].detail[j].hours))
 		                        		end_width=day_width;

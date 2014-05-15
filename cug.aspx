@@ -204,7 +204,7 @@
 	                		}
 	                	}
 	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).slice(-3)+'0');
-	                	$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
+	                	//$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 	}
                 	//更新沒有排程應開工日的資料>>指定應開工日
                 	if(emp($('#txtCuadate_'+i).val()) && (!emp($('#txtProcess_'+i).val()) || !emp($('#txtWorkno_'+i).val()))){
@@ -220,9 +220,21 @@
 	                		}
 	                	}
 	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).slice(-3)+'0');
-	                	$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
+	                	//$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 	}
+                	$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 }
+                
+                //檢查排程序號是否重複
+				for (var i = 0; i < q_bbsCount; i++) {
+	               	for (var j = i+1; j < q_bbsCount; j++) {
+	               		if (i!=j &&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val()))){
+	               			alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+i).val()+']重覆')
+	               			$('#btnCug').removeAttr('disabled');
+	               			return;
+	               		}
+	               	}
+				}
                 
                 //排序資料
                 //儲存有排序的資料,清除整個欄位
@@ -297,7 +309,7 @@
 		                //0506 非機時 >>指實際工作時數>>產能/標準日工時=機器數>>當天產能/機器數=實際工作時數
 		                //如果剩餘時數低於一小時且下個排程大於1個小時 插入休息不做
 		                var smount=dec($('#txtSmount').val());
-		                if(q_div(q_sub(t_gen,tt_hours),smount)<1 && q_div(q_sub(t_gen,tt_hours),smount)>0 
+		                /*if(q_div(q_sub(t_gen,tt_hours),smount)<1 && q_div(q_sub(t_gen,tt_hours),smount)>0 
 		                	&& q_div(dec($('#txtHours_'+(i+1)).val()),smount)>=1){
 		                	q_bbs_addrow('bbs',i,1);//下方插入空白行
 			                $('#txtCuadate_'+(i+1)).val($('#txtCuadate_'+i).val());
@@ -317,11 +329,11 @@
 		                			$('#txtCuadate_'+j).val(q_cdn($('#txtCuadate_'+i).val(),1));
 		                			$('#txtNos_'+j).val('');
 		                		}
-		                		/*if(q_cdn($('#txtCuadate_'+i).val(),1)==$('#txtCuadate_'+j).val() && emp($('#textDatea_'+j).val())){
+		                		if(q_cdn($('#txtCuadate_'+i).val(),1)==$('#txtCuadate_'+j).val() && emp($('#textDatea_'+j).val())){
 		                			$('#txtNos_'+j).val('');
-		                		}*/
+		                		}
 		                	}
-		                }
+		                }*/
 		                //-------------------------------------------------------------------
 		                //如果當天是最後一筆且非空白行 插入 空白行分隔
 						if($('#txtCuadate_'+i).val()!=$('#txtCuadate_'+(i+1)).val() && $('#txtNos_'+i).val().length!=5 && $('#txtNoq_'+i).val().length!=12){
@@ -346,6 +358,7 @@
 	               	for (var j = i+1; j < q_bbsCount; j++) {
 	               		if (i!=j &&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val()))){
 	               			alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+i).val()+']重覆')
+	               			$('#btnCug').removeAttr('disabled');
 	               			return;
 	               		}
 	               	}
