@@ -139,6 +139,21 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtMon2').val(t_year + '/' + t_month);
+				
+				$('#btnOk').hide();
+                $('#btnOk2').click(function(e) {
+                    switch($('#q_report').data('info').radioIndex) {
+                        case 8:
+                            $('#cmbPaperSize').val('A4');
+                            $('#chkLandScape').prop('checked',true);
+                            break;
+                        default:
+                            $('#cmbPaperSize').val('A4');
+                            $('#chkLandScape').prop('checked',false);
+                            break;
+                    }
+                    $('#btnOk').click();
+                });
 			}
 
 			function q_boxClose(s2) {
@@ -159,8 +174,9 @@
 				<div id="q_report"></div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
-				<!--#include file="../inc/print_ctrl.inc"-->
-			</div>
+                <input type="button" id="btnOk2" style="float:left;font-size:16px;font-weight: bold;color: blue;cursor: pointer;width:50px;height:30px;" value="查詢"/>
+                <!--#include file="../inc/print_ctrl.inc"-->
+            </div>
 		</div>
 	</body>
 </html>
