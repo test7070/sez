@@ -685,7 +685,8 @@
 								if (!emp($('#txtWorkno_' + b_seq).val()) && $("#div_child").is(":hidden")) {
 									$('#textEarlyworkno').val($('#txtWorkno_' + b_seq).val());
 									//查詢子階work
-									var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
+									var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
+									t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
 									t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
 									q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
 									$('#div_child').css('top', e.pageY);
@@ -923,7 +924,8 @@
                 		alert("更新完成!!");
                 		//重新開啟新的資料
                 		$('#div_child').toggle();
-						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
+						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
+						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
 						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
