@@ -594,7 +594,12 @@
 								var t4=new Date((dec(t_date.substr(0,3))+1911)+'/'+t_date.substr(4,2)+'/'+t_date.substr(7,2));
 								var tdays=t4.getTime()-t1.getTime();
 								tdays= Math.floor(tdays / (24 * 3600 * 1000))
-	                        	x=bkOrigin[0]+(day_width*tdays)+(day_width/totalgen*dec(s_data.detail[i].prehours));;
+								
+								if(totalgen==0){
+									x=bkOrigin[0]+(day_width*tdays);
+								}else{
+									x=bkOrigin[0]+(day_width*tdays)+(day_width/totalgen*dec(s_data.detail[i].prehours));
+								}
 	                        	
 	                        	if(s_data.detail[i].workno==''){
 	                        		tmpPath += '<rect x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[i % itemColor.length] + ';"/>';
@@ -759,8 +764,12 @@
 									var tdays=t4.getTime()-t1.getTime();
 									tdays= Math.floor(tdays / (24 * 3600 * 1000))
 									//邊界+日期長度起始+當天前置時間
-	                        		x=bkOrigin[0]+(day_width*tdays)+(day_width/totalgen*dec(t_data.sp[i].detail[j].prehours));
-                        			
+									if(totalgen==0){
+		                        		x=bkOrigin[0]+(day_width*tdays);
+	                        		}else{
+	                        			x=bkOrigin[0]+(day_width*tdays)+(day_width/totalgen*dec(t_data.sp[i].detail[j].prehours));
+	                        		}
+                        		
                         			if(t_data.sp[i].detail[j].workno==''){
                         				//長條
                         			tmpPath += '<rect x="'+x+'" y="'+y+'" width="' + end_width + '" height="'+s_height+'" style="fill:' + itemColor[j % itemColor.length] + ';"/>';
