@@ -318,13 +318,12 @@
 			}
 			
 			var ordedate=false;
-			var t_work, t_works, t_gmount = 0;
+			var t_works, t_gmount = 0;
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'work':
+					case 'view_works':
 						t_gmount = 0;
-						t_work = _q_appendData("work", "", true);
-						t_works = _q_appendData("works", "", true);
+						t_works = _q_appendData("view_works", "", true);
 						for (var i = 0; i < t_works.length; i++) {
 							t_gmount = t_gmount + dec(t_works[i].gmount);
 						}
@@ -671,8 +670,8 @@
 				}
 				q_gt('workg', "where=^^ noa between '"+endnoa+"' and '"+$('#vtnoa_0').text()+"' ^^" , 0, 0, 0, "check_view", r_accy);
 				
-				var t_where = "where=^^ cuano ='" + $('#txtNoa').val() + "' ^^";
-				q_gt('work', t_where, 0, 0, 0, "", r_accy);
+				var t_where = "where=^^ noa in (select noa from view_work where cuano='" + $('#txtNoa').val() + "') and isnull(gmount,0)>0 ^^";
+				q_gt('view_works', t_where, 0, 0, 0, "", r_accy);
 				change_field();
 			}
 			
