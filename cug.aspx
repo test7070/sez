@@ -159,10 +159,11 @@
             		return;
             	}
             	
-            	if($('#txtGenorg').val()<=0){
+            	/*if($('#txtGenorg').val()<=0){
             		alert(q_getMsg('lblGenorg')+'不得小於等於0!!');
+            		$('#btnCug').removeAttr('disabled');
 	               	return;
-            	}
+            	}*/
             	
                 //取得編制時數
                 if(t_cugt==undefined){
@@ -219,7 +220,7 @@
 				for (var i = 0; i < q_bbsCount; i++) {
 	               	for (var j = i+1; j < q_bbsCount; j++) {
 	               		if (i!=j &&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val()))){
-	               			alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+i).val()+']重覆')
+	               			alert($('#lblNo_'+i).text()+'.'+$('#txtCuadate_'+i).val()+' '+q_getMsg('lblNos_s')+'['+$('#txtNos_'+i).val()+']重覆')
 	               			$('#btnCug').removeAttr('disabled');
 	               			return;
 	               		}
@@ -588,6 +589,7 @@
             
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
+                	$('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                     	$('#txtWorkno_'+i).click(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -1171,6 +1173,7 @@
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
+					<td style="width:20px;"> </td>
 					<td align="center" style="width:75px;"><a id='lblNos_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDatea_s'> </a></td>
 					<td align="center" style="width:155px;"><a id='lblProductno_s'> </a>/<a id='lblProcess_s'> </a></td>
@@ -1191,6 +1194,7 @@
 				</tr>
 				<tr id="trSel.*">
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input id="txtNos.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" class="txt c1"/>

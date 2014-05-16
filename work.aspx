@@ -572,18 +572,18 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1420px;">
+		<div class='dbbs' style="width: 1400px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:150px;"><a id='lblProcesss'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:160px;"><a id='lblProcesss'> </a></td>
+					<td align="center" style="width:210px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblStyles'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblCuadates'> </a></td>
+					<td align="center" style="width:80px;display: none;"><a id='lblCuadates'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMounts'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblGmount'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblEmount'> </a></td>
@@ -610,7 +610,7 @@
 					</td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtStyle.*" type="text" class="txt c1"/></td>
-					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
+					<td style="display: none;"><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtGmount.*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtEmount.*" type="text" class="txt c1 num"/></td>
