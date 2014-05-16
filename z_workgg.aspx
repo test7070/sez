@@ -233,7 +233,7 @@
 								OutHtml += '<tr>';
 								OutHtml += "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>" +
-										   "<td class='num'>" + round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3) + "</td>";
+										   "<td class='num'>" + (dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3)) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
