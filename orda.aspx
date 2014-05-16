@@ -22,7 +22,7 @@
             var q_readonlys = ['txtNoq','txtProductno','txtProduct','txtSpec','txtUnit','txtGmount','txtWmount','txtStkmount','txtSchmount','txtSafemount','txtNetmount','txtFdate','txtFmount','txtMemo'];
             var q_readonlyt = ['txtNo2','txtNoq','txtNamea','txtMemo','chkIsapv','txtDatea'];
             var bbmNum = [];
-            var bbsNum = [['txtGmount', 15, 2, 1],['txtStkmount', 15, 2, 1],['txtSchmount', 15, 2, 1],['txtSafemount', 15, 2, 1],
+            var bbsNum = [['txtApvmount', 15, 2, 1],['txtGmount', 15, 2, 1],['txtStkmount', 15, 2, 1],['txtSchmount', 15, 2, 1],['txtSafemount', 15, 2, 1],
                                     ['txtNetmount', 15, 2, 1],['txtFmount', 15, 2, 1],['txtMount', 15, 2, 1],['txtWmount', 15, 2, 1]];
             var bbtNum = [];
             var bbmMask = [];
@@ -171,23 +171,25 @@
                 t_date = q_date()+' '+t_hour+':'+t_minute+':'+t_second;
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
-                    t_isapv = $('#chekIsapv_'+i).prop('checked');
-                    t_memo = $('#textMemo_'+i).val();
+                    //t_isapv = $('#chekIsapv_'+i).prop('checked');
+                    //t_memo = $('#textMemo_'+i).val();
+                    t_isapv = $('#chkApv_'+i).prop('checked');
+                    t_memo = $('#txtApvmemo_'+i).val();
                     t_isexist = false;
+                    
+                    t_lastapv = false;
+                    t_lastmemo = '';
+                    t_lastdate = '';                
                     for(var j=0;j<q_bbtCount;j++){
-                        if(t_noq == $('#txtNoq__'+j).val() && r_name==$('#txtNamea__'+j).val()){
-                            $('#txtNo2__'+j).val(t_noq+r_name);
-                            $('#chkIsapv__'+j).prop('checked',t_isapv);
-                            $('#txtMemo__'+j).val(t_memo);
-                            $('#txtDatea__'+j).val(t_date);
-                            t_isexist = true;
-                            break;   
+                        if(t_noq == $('#txtNoq__'+j).val() && r_name==$('#txtNamea__'+j).val() && t_lastdate<$('#txtDatea__'+j).val()){
+                            t_lastapv = $('#chkIsapv__'+j).prop('checked');
+                            t_lastmemo = $('#txtMemo__'+j).val();
                         }
                     }
-                    if(!t_isexist && t_noq.length>0){
+                    if(!t_isexist && t_noq.length>0 && (t_isapv!=t_lastapv || t_memo!=t_lastmemo)){
                         for(var j=0;j<q_bbtCount;j++){
                             if($('#txtNoq__'+j).val().length==0){
-                                $('#txtNo2__'+j).val(t_noq+r_name);
+                                $('#txtNo2__'+j).val(t_noq+t_date+r_name);
                                 $('#txtNoq__'+j).val(t_noq);
                                 $('#txtNamea__'+j).val(r_name);
                                 $('#chkIsapv__'+j).prop('checked',t_isapv);
@@ -199,15 +201,16 @@
                         }
                     }
                     //BBT不夠
-                    if(!t_isexist && t_noq.length>0){                    
+                    if(!t_isexist && t_noq.length>0 && (t_isapv!=t_lastapv || t_memo!=t_lastmemo)){                    
                         $('#btnPlut').click();
                         for(var j=0;j<q_bbtCount;j++){
                             if($('#txtNoq__'+j).val().length==0){
-                                $('#txtNo2__'+j).val(t_noq+r_name);
+                                $('#txtNo2__'+j).val(t_noq+t_date+r_name);
                                 $('#txtNoq__'+j).val(t_noq);
                                 $('#txtNamea__'+j).val(r_name);
                                 $('#chkIsapv__'+j).prop('checked',t_isapv);
                                 $('#txtMemo__'+j).val(t_memo);
+                                $('#txtDatea__'+j).val(t_date);
                                 t_isexist = true;
                                 break;
                             }
@@ -633,10 +636,10 @@
                         <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                         <td align="center">
                             <input class="txt" id="chkApv.*" type="checkbox"/>
-                            <input class="txt" id="chekIsapv.*" type="checkbox"/>
+                            <input class="txt" id="chekIsapv.*" type="checkbox" style="display:none;"/>
                         </td>
                         <td><input class="txt c1" id="txtApvmemo.*" type="text" />
-                            <input class="txt c1" id="textMemo.*" type="text" />
+                            <input class="txt c1" id="textMemo.*" type="text" style="display:none;"/>
                         </td>
                         <td><input class="txt num c1" id="txtApvmount.*" type="text" /></td>
                         <td>
