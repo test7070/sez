@@ -71,8 +71,12 @@
                     if(!emp($('#txtOrdbno').val()))
                     q_box("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $('#txtOrdbno').val() + "')>0;" + r_accy + ";" + q_cur, 'ordb', "95%", "95%", q_getMsg('popOrdb'));
                 });
+                
+                
             }
-
+            function allApv(){
+               $('#tbbs').find('input[type=checkbox]').prop('checked',$('#cccAllapv').prop('checked'));
+            }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     default:
@@ -261,6 +265,7 @@
                 if (q_cur > 0 && q_cur < 4)
                     sum();
                 $('#dbbt').hide();
+                $('#cccAllapv').prop('checked',false);
                 //BBT 寫入BBS
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
@@ -280,6 +285,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur==1 || q_cur==2)
+                    $('#cccAllapv').removeAttr('disabled');
+                else
+                    $('#cccAllapv').attr('disabled','disabled');
+                
                 for(var i=0;i<q_bbsCount;i++){
                     if(q_cur==1 || q_cur==2)
                         $('#chekIsapv_'+i).removeAttr('disabled');
@@ -610,7 +620,7 @@
                         <input id="btnPlus" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
                         </td>
                         <td style="width:20px;"> </td>
-                        <td align="center" style="width:50px;"><a id='lblIsapv_s'>核准</a></td>
+                        <td align="center" style="width:50px;"><a id='lblIsapv_s'>核准</a><input type="checkbox" id="cccAllapv" onclick="allApv()"/></td>
                         <td align="center" style="width:100px;"><a id='lblMemo2_s'>簽核意見</a></td>
                         <td align="center" style="width:100px;"><a >異動數量</a></td>
                         <td align="center" style="width:100px;"></td>
