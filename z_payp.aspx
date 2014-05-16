@@ -42,7 +42,23 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa1').val(t_noa).css('width','90px');
                 $('#txtXnoa2').val(t_noa).css('width','90px');
-                
+                $('#btnOk2').click(function(e) {
+                    switch($('#q_report').data('info').radioIndex) {
+                        case 0:
+                            $('#cmbPaperSize').val('LETTER');
+                            $('#chkLandScape').prop('checked',false);
+                            break;
+                        case 1:
+                            $('#cmbPaperSize').val('A5');
+                            $('#chkLandScape').prop('checked',true);
+                            break;
+                        default:
+                            $('#cmbPaperSize').val('A4');
+                            $('#chkLandScape').prop('checked',false);
+                            break;
+                    }
+                    $('#btnOk').click();
+                });
             }
 
             function q_boxClose(s2) {
@@ -62,8 +78,9 @@
 				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
-				<!--#include file="../inc/print_ctrl.inc"-->
-			</div>
+                <input type="button" id="btnOk2" style="float:left;font-size:16px;font-weight: bold;color: blue;cursor: pointer;width:50px;height:30px;" value="查詢"/>
+                <!--#include file="../inc/print_ctrl.inc"-->
+            </div>
 		</div>
 	</body>
 </html>
