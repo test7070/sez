@@ -267,7 +267,6 @@
                         if(t_noq==$('#txtNoq__'+j).val() && r_name == $('#txtNamea__'+j).val()){
                             t_isapv = $('#chkIsapv__'+j).prop('checked');
                             t_memo = $('#txtMemo__'+j).val();
-                            
                             break;
                         }
                     }    
@@ -609,7 +608,8 @@
                         </td>
                         <td style="width:20px;"> </td>
                         <td align="center" style="width:50px;"><a id='lblIsapv_s'>核准</a></td>
-                        <td align="center" style="width:100px;"><a id='lblMemo2_s'>核准意見</a></td>
+                        <td align="center" style="width:100px;"><a id='lblMemo2_s'>簽核意見</a></td>
+                        <td align="center" style="width:100px;"><a >異動數量</a></td>
                         <td align="center" style="width:100px;"></td>
                         <td align="center" style="width:160px;"><a id='lblProductno_s'> </a></td>
                         <td align="center" style="width:200px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
@@ -632,9 +632,13 @@
                         </td>
                         <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                         <td align="center">
+                            <input class="txt" id="chkApv.*" type="checkbox"/>
                             <input class="txt" id="chekIsapv.*" type="checkbox"/>
                         </td>
-                        <td><input class="txt c1" id="textMemo.*" type="text" /></td>
+                        <td><input class="txt c1" id="txtApvmemo.*" type="text" />
+                            <input class="txt c1" id="textMemo.*" type="text" />
+                        </td>
+                        <td><input class="txt num c1" id="txtApvmount.*" type="text" /></td>
                         <td>
                             <input class="txt" id="btnHistory.*" type="button" value="歷史記錄" style="float:left;"/>
                         </td>
@@ -670,7 +674,7 @@
                         </td>
                         <td style="width:100px; text-align: center;">姓名</td>
                         <td style="width:100px; text-align: center;">核准</td>
-                        <td style="width:400px; text-align: center;">核准意見</td>
+                        <td style="width:400px; text-align: center;">簽核意見</td>
                         <td style="width:200px; text-align: center;">修改日期</td>
                     </tr>
                     <tr style="display:none;">
