@@ -49,7 +49,6 @@
                     dataErr = false;
                     return;
                 }
-
                 mainForm(1);
             }
 			
@@ -161,24 +160,9 @@
             	}
             	
             	if($('#txtGenorg').val()<=0){
-            		alert(q_getMsg('lblGenorg')+'不得小於0!!');
+            		alert(q_getMsg('lblGenorg')+'不得小於等於0!!');
 	               	return;
             	}
-                
-                //先清除自動產生的空白時數,並將指定開工日寫入到應開工日
-                if(first_rest){
-	               	for (var i = 0; i < q_bbsCount; i++) {
-	               		if(!emp($('#textDatea_'+i).val()))
-	               			$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
-	               		if($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
-	               			$('#btnMinus_'+i).click();
-	               		}
-	               	}
-	               	first_rest=false;
-                }
-                
-                //禮拜六是否要上班
-            	var issaturday=q_getPara('sys.saturday')=='1'?true:false;
             	
                 //取得編制時數
                 if(t_cugt==undefined){
@@ -188,10 +172,21 @@
                 		if(mincuadate>$('#txtCuadate_'+i).val())
                 			mincuadate=$('#txtCuadate_'+i).val()
                 	}
-                	
                 	q_gt('view_cugt', "where=^^stationno='"+$('#txtStationno').val()+"' and datea>='"+mincuadate+"' ^^", 0, 0, 0, "cugt", r_accy);
                 	return;
                 }
+                
+                //先清除自動產生的空白時數,並將指定開工日寫入到應開工日
+                if(first_rest){
+	               	for (var i = 0; i < q_bbsCount; i++) {
+	               		if(!emp($('#textDatea_'+i).val()))
+	               			$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
+	               		if(($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12)||(emp($('#txtProcess_'+i).val()) && emp($('#txtWorkno_'+i).val()))){
+	               			$('#btnMinus_'+i).click();
+	               		}
+	               	}
+	               	first_rest=false;
+                }                
                 
                 //依應開工日做為排程開始日
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -204,13 +199,9 @@
 	                		}
 	                	}
 	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).slice(-3)+'0');
-	                	//$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 	}
                 	//更新沒有排程應開工日的資料>>指定應開工日
                 	if(emp($('#txtCuadate_'+i).val()) && (!emp($('#txtProcess_'+i).val()) || !emp($('#txtWorkno_'+i).val()))){
-                		if(!emp($('#textDatea_'+i).val())){
-                			$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
-                		}
                 		if(emp($('#txtCuadate_'+i).val())){
                 			$('#txtCuadate_'+i).val($('#txtBdate').val());
                 		}
@@ -220,7 +211,6 @@
 	                		}
 	                	}
 	                	$('#txtNos_'+i).val(('000'+(dec(maxnos.substr(0,3))+1)).slice(-3)+'0');
-	                	//$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 	}
                 	$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 }
@@ -276,10 +266,12 @@
 				}
                 //---------------------------------------------------------------------------------------------------------------
                 //處理資料
-                var t_genorg=dec($('#txtGenorg').val());
-                var t_gen=t_genorg;
-                var total_hours=0;
+                //0513 強制當天會做完所以不處理 拆分兩個work、延後、剩餘一小時不處理等動作
+                var t_genorg=dec($('#txtGenorg').val());//原始產能
+                var t_gen=t_genorg;//目前產能
+                var total_hours=0; //累計機時
                 for (var i = 0; i < q_bbsCount; i++) {
+                	t_gen=t_genorg;//目前產能
                 	total_hours=q_add( total_hours,dec($('#txtHours_'+i).val()));
                 	if($('#txtCuadate_'+i).val()!='' && $('#txtCuadate_'+i).val().length==9){
 		                //取得當天gen
@@ -290,52 +282,21 @@
 		                }
 		                //-------------------------------------------------------------------
 		                //處理時數
+		                //累計工時
+		                $('#txtThours_'+i).val(total_hours);
 		                //取得當天已工作時數
-		                var t_hours=0 //當天暫存已工作時數
-		                for (var j = 0; j <i; j++) {
+		                var t_hours=0 //當日累計時數
+		                for (var j = 0; j <=i; j++) {
 		                	if($('#txtCuadate_'+i).val()==$('#txtCuadate_'+j).val()){
 		                		t_hours=q_add( t_hours,dec($('#txtHours_'+j).val()));
 		                	}
 		                }
 		                //-------------------------------------------------------------------
-		                //如果當天總工時時數會跨天>>>拆分兩個work	0513 強制當天會做完所已不處理
-		                var tt_hours=q_add( t_hours,dec($('#txtHours_'+i).val()));//當日累計時數
-		                //-------------------------------------------------------------------
 		                //完工日>>>0513做為判斷是否有變動開工日
 		                //$('#txtUindate_'+i).val($('#txtCuadate_'+i).val());
-		                //累計工時
-		                $('#txtThours_'+i).val(total_hours);
-		                //-------------------------------------------------------------------
-		                //0506 非機時 >>指實際工作時數>>產能/標準日工時=機器數>>當天產能/機器數=實際工作時數
-		                //如果剩餘時數低於一小時且下個排程大於1個小時 插入休息不做
-		                var smount=dec($('#txtSmount').val());
-		                /*if(q_div(q_sub(t_gen,tt_hours),smount)<1 && q_div(q_sub(t_gen,tt_hours),smount)>0 
-		                	&& q_div(dec($('#txtHours_'+(i+1)).val()),smount)>=1){
-		                	q_bbs_addrow('bbs',i,1);//下方插入空白行
-			                $('#txtCuadate_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtUindate_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtHours_'+(i+1)).val(q_sub(t_gen,tt_hours));
-			                $('#txtMount_'+(i+1)).val(0);
-			                $('#textDatea_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                
-			                $('#txtNos_'+(i+1)).val($('#txtNos_'+i).val()+'X');
-			                $('#txtNoq_'+(i+1)).val(replaceAll($('#txtCuadate_'+(i+1)).val(), '/','')+$('#txtNos_'+(i+1)).val());
-			                $('#txtProcess_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'HR');
-			                
-			                //處理當天如果還有work順便延後
-		                	for (var j = i+2; j < q_bbsCount; j++) {
-		                		if($('#txtCuadate_'+i).val()==$('#txtCuadate_'+j).val()){
-		                			$('#txtCuadate_'+j).val(q_cdn($('#txtCuadate_'+i).val(),1));
-		                			$('#txtNos_'+j).val('');
-		                		}
-		                		if(q_cdn($('#txtCuadate_'+i).val(),1)==$('#txtCuadate_'+j).val() && emp($('#textDatea_'+j).val())){
-		                			$('#txtNos_'+j).val('');
-		                		}
-		                	}
-		                }*/
 		                //-------------------------------------------------------------------
 		                //如果當天是最後一筆且非空白行 插入 空白行分隔
+		                var smount=dec($('#txtSmount').val());
 						if($('#txtCuadate_'+i).val()!=$('#txtCuadate_'+(i+1)).val() && $('#txtNos_'+i).val().length!=5 && $('#txtNoq_'+i).val().length!=12){
 							q_bbs_addrow('bbs',i,1);//下方插入空白行
 							$('#txtCuadate_'+(i+1)).val($('#txtCuadate_'+i).val());
@@ -347,27 +308,16 @@
 			                $('#txtNos_'+(i+1)).val($('#txtNos_'+i).val()+'X');
 			                $('#txtNoq_'+(i+1)).val(replaceAll($('#txtCuadate_'+(i+1)).val(), '/','')+$('#txtNos_'+(i+1)).val());
 			                $('#txtProcess_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(tt_hours,smount),2)+'HR;剩餘：'+round(q_div(q_sub(t_gen,tt_hours),smount),2)+'HR');
+			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(t_hours,smount),2)+'HR;剩餘：'+round(q_div(q_sub(t_gen,t_hours),smount),2)+'HR');
 						}
 		                //-------------------------------------------------------------------
 	                }
                 }
                 
-                //檢查排程序號是否重複
-				for (var i = 0; i < q_bbsCount; i++) {
-	               	for (var j = i+1; j < q_bbsCount; j++) {
-	               		if (i!=j &&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val()))){
-	               			alert(q_getMsg('lblNoq_s')+'['+$('#txtNos_'+i).val()+']重覆')
-	               			$('#btnCug').removeAttr('disabled');
-	               			return;
-	               		}
-	               	}
-				}
-                
                 //處理格式
                 for (var i = 0; i < q_bbsCount; i++) {
 					$('#txtCuadate_'+i).attr('disabled', 'disabled');
-					$('#txtUindate_'+i).attr('disabled', 'disabled');
+					//$('#txtUindate_'+i).attr('disabled', 'disabled');
 					
 					if(!emp($('#txtWorkno_'+i).val())){
 						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -404,7 +354,6 @@
 						$('#btnMinus_'+i).removeAttr('disabled');
 						$('#btnChildchange_'+i).attr('disabled', 'disabled');
 					}
-					
 				}
 				
                 t_cugt=undefined;
@@ -446,7 +395,7 @@
                 		t_cugt = _q_appendData("view_cugt", "", true);
                 		scheduling();
                 		break;
-                	case 'station_chk':
+                	/*case 'station_chk':
                 		var as = _q_appendData("cug", "", true);
                 		if(as[0]!=undefined){
                 			alert("該工作中心已存在!!");
@@ -454,8 +403,8 @@
                 			station_chk=true;
                 			$('#btnWork').click();
                 		}
-                		break;
-                	case 'station_btnok':
+                		break;*/
+                	/*case 'station_btnok':
                 		var as = _q_appendData("cug", "", true);
                 		if(as[0]!=undefined){
                 			alert("該工作中心已存在!!");
@@ -463,7 +412,7 @@
                 			station_btnok=true;
                 			$('#btnOk').click();
                 		}
-                		break;	
+                		break;*/
                 	case 'cug_work':
                 		var as = _q_appendData("view_cugu", "", true);
                 		if(as[0]!=undefined){
@@ -504,9 +453,9 @@
 							
 							for (var i = 0; i < q_bbsCount; i++) {
 								$('#txtCuadate_'+i).attr('disabled', 'disabled');
-								$('#txtUindate_'+i).attr('disabled', 'disabled');
+								//$('#txtUindate_'+i).attr('disabled', 'disabled');
 								$('#txtCuadate_'+i).css('background-color','rgb(237, 237, 238)');
-								$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
+								//$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
 							}
 							sum();
                 		}
@@ -674,7 +623,7 @@
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-		                	if(q_cur==1 || q_cur==2){}
+		                	//if(q_cur==1 || q_cur==2){}
 						});
 						
 						$('#txtProcess_' + i).blur(function() {
@@ -713,9 +662,9 @@
 				
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#txtCuadate_'+i).attr('disabled', 'disabled');
-					$('#txtUindate_'+i).attr('disabled', 'disabled');
+					//$('#txtUindate_'+i).attr('disabled', 'disabled');
 					$('#txtCuadate_'+i).css('background-color','rgb(237, 237, 238)');
-					$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
+					//$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
 					
 					if(q_cur==1 || q_cur==2){
 						if(!emp($('#txtWorkno_'+i).val())){
@@ -822,9 +771,9 @@
                 
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#txtCuadate_'+i).attr('disabled', 'disabled');
-					$('#txtUindate_'+i).attr('disabled', 'disabled');
+					//$('#txtUindate_'+i).attr('disabled', 'disabled');
 					$('#txtCuadate_'+i).css('background-color','rgb(237, 237, 238)');
-					$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
+					//$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
 					
 					if(q_cur==1 || q_cur==2){
 						if(!emp($('#txtWorkno_'+i).val())){
