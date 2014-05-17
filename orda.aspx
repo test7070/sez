@@ -22,7 +22,7 @@
             var q_readonlys = ['txtNoq','txtProductno','txtProduct','txtSpec','txtUnit','txtGmount','txtWmount','txtStkmount','txtSchmount','txtSafemount','txtNetmount','txtFdate','txtFmount','txtMemo'];
             var q_readonlyt = ['txtNo2','txtNoq','txtNamea','txtMemo','chkIsapv','txtDatea'];
             var bbmNum = [];
-            var bbsNum = [['txtGmount', 15, 2, 1],['txtStkmount', 15, 2, 1],['txtSchmount', 15, 2, 1],['txtSafemount', 15, 2, 1],
+            var bbsNum = [['txtApvmount', 15, 2, 1],['txtGmount', 15, 2, 1],['txtStkmount', 15, 2, 1],['txtSchmount', 15, 2, 1],['txtSafemount', 15, 2, 1],
                                     ['txtNetmount', 15, 2, 1],['txtFmount', 15, 2, 1],['txtMount', 15, 2, 1],['txtWmount', 15, 2, 1]];
             var bbtNum = [];
             var bbmMask = [];
@@ -71,8 +71,12 @@
                     if(!emp($('#txtOrdbno').val()))
                     q_box("ordb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'" + $('#txtOrdbno').val() + "')>0;" + r_accy + ";" + q_cur, 'ordb', "95%", "95%", q_getMsg('popOrdb'));
                 });
+                
+                
             }
-
+            function allApv(){
+               $('#tbbs').find('input[type=checkbox]').prop('checked',$('#cccAllapv').prop('checked'));
+            }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     default:
@@ -171,23 +175,25 @@
                 t_date = q_date()+' '+t_hour+':'+t_minute+':'+t_second;
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
-                    t_isapv = $('#chekIsapv_'+i).prop('checked');
-                    t_memo = $('#textMemo_'+i).val();
+                    //t_isapv = $('#chekIsapv_'+i).prop('checked');
+                    //t_memo = $('#textMemo_'+i).val();
+                    t_isapv = $('#chkApv_'+i).prop('checked');
+                    t_memo = $('#txtApvmemo_'+i).val();
                     t_isexist = false;
+                    
+                    t_lastapv = false;
+                    t_lastmemo = '';
+                    t_lastdate = '';                
                     for(var j=0;j<q_bbtCount;j++){
-                        if(t_noq == $('#txtNoq__'+j).val() && r_name==$('#txtNamea__'+j).val()){
-                            $('#txtNo2__'+j).val(t_noq+r_name);
-                            $('#chkIsapv__'+j).prop('checked',t_isapv);
-                            $('#txtMemo__'+j).val(t_memo);
-                            $('#txtDatea__'+j).val(t_date);
-                            t_isexist = true;
-                            break;   
+                        if(t_noq == $('#txtNoq__'+j).val() && r_name==$('#txtNamea__'+j).val() && t_lastdate<$('#txtDatea__'+j).val()){
+                            t_lastapv = $('#chkIsapv__'+j).prop('checked');
+                            t_lastmemo = $('#txtMemo__'+j).val();
                         }
                     }
-                    if(!t_isexist && t_noq.length>0){
+                    if(!t_isexist && t_noq.length>0 && (t_isapv!=t_lastapv || t_memo!=t_lastmemo)){
                         for(var j=0;j<q_bbtCount;j++){
                             if($('#txtNoq__'+j).val().length==0){
-                                $('#txtNo2__'+j).val(t_noq+r_name);
+                                $('#txtNo2__'+j).val(t_noq+t_date+r_name);
                                 $('#txtNoq__'+j).val(t_noq);
                                 $('#txtNamea__'+j).val(r_name);
                                 $('#chkIsapv__'+j).prop('checked',t_isapv);
@@ -199,15 +205,16 @@
                         }
                     }
                     //BBT不夠
-                    if(!t_isexist && t_noq.length>0){                    
+                    if(!t_isexist && t_noq.length>0 && (t_isapv!=t_lastapv || t_memo!=t_lastmemo)){                    
                         $('#btnPlut').click();
                         for(var j=0;j<q_bbtCount;j++){
                             if($('#txtNoq__'+j).val().length==0){
-                                $('#txtNo2__'+j).val(t_noq+r_name);
+                                $('#txtNo2__'+j).val(t_noq+t_date+r_name);
                                 $('#txtNoq__'+j).val(t_noq);
                                 $('#txtNamea__'+j).val(r_name);
                                 $('#chkIsapv__'+j).prop('checked',t_isapv);
                                 $('#txtMemo__'+j).val(t_memo);
+                                $('#txtDatea__'+j).val(t_date);
                                 t_isexist = true;
                                 break;
                             }
@@ -258,6 +265,7 @@
                 if (q_cur > 0 && q_cur < 4)
                     sum();
                 $('#dbbt').hide();
+                $('#cccAllapv').prop('checked',false);
                 //BBT 寫入BBS
                 for(var i=0;i<q_bbsCount;i++){
                     t_noq = $('#txtNoq_'+i).val();
@@ -267,7 +275,6 @@
                         if(t_noq==$('#txtNoq__'+j).val() && r_name == $('#txtNamea__'+j).val()){
                             t_isapv = $('#chkIsapv__'+j).prop('checked');
                             t_memo = $('#txtMemo__'+j).val();
-                            
                             break;
                         }
                     }    
@@ -278,6 +285,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur==1 || q_cur==2)
+                    $('#cccAllapv').removeAttr('disabled');
+                else
+                    $('#cccAllapv').attr('disabled','disabled');
+                
                 for(var i=0;i<q_bbsCount;i++){
                     if(q_cur==1 || q_cur==2)
                         $('#chekIsapv_'+i).removeAttr('disabled');
@@ -608,8 +620,9 @@
                         <input id="btnPlus" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
                         </td>
                         <td style="width:20px;"> </td>
-                        <td align="center" style="width:50px;"><a id='lblIsapv_s'>核准</a></td>
-                        <td align="center" style="width:100px;"><a id='lblMemo2_s'>核准意見</a></td>
+                        <td align="center" style="width:50px;"><a id='lblIsapv_s'>核准</a><input type="checkbox" id="cccAllapv" onclick="allApv()"/></td>
+                        <td align="center" style="width:100px;"><a id='lblMemo2_s'>簽核意見</a></td>
+                        <td align="center" style="width:100px;"><a >異動數量</a></td>
                         <td align="center" style="width:100px;"></td>
                         <td align="center" style="width:160px;"><a id='lblProductno_s'> </a></td>
                         <td align="center" style="width:200px;"><a id='lblProduct_s'> </a>/<a id='lblSpec_s'> </a></td>
@@ -632,9 +645,13 @@
                         </td>
                         <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                         <td align="center">
-                            <input class="txt" id="chekIsapv.*" type="checkbox"/>
+                            <input class="txt" id="chkApv.*" type="checkbox"/>
+                            <input class="txt" id="chekIsapv.*" type="checkbox" style="display:none;"/>
                         </td>
-                        <td><input class="txt c1" id="textMemo.*" type="text" /></td>
+                        <td><input class="txt c1" id="txtApvmemo.*" type="text" />
+                            <input class="txt c1" id="textMemo.*" type="text" style="display:none;"/>
+                        </td>
+                        <td><input class="txt num c1" id="txtApvmount.*" type="text" /></td>
                         <td>
                             <input class="txt" id="btnHistory.*" type="button" value="歷史記錄" style="float:left;"/>
                         </td>
@@ -670,7 +687,7 @@
                         </td>
                         <td style="width:100px; text-align: center;">姓名</td>
                         <td style="width:100px; text-align: center;">核准</td>
-                        <td style="width:400px; text-align: center;">核准意見</td>
+                        <td style="width:400px; text-align: center;">簽核意見</td>
                         <td style="width:200px; text-align: center;">修改日期</td>
                     </tr>
                     <tr style="display:none;">

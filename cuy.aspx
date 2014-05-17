@@ -35,12 +35,13 @@
 				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']
 			);
-
+			var WorkTimeArray = new Array();
+			var WorkTimeList ='@';
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+				q_gt('cuwa', '', 0, 0, 0, "");
 			});
 
 			function main() {
@@ -85,6 +86,20 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'cuwa':
+						var as = _q_appendData("cuwa", "", true);
+						if(as[0] != undefined){
+							for(var k=0;k<as.length;k++){
+								WorkTimeArray.push({
+									timea:$.trim(as[k].noa),
+									minutes:dec(as[k].minutes)
+								});
+								WorkTimeList += ','+as[k].noa+'@'+as[k].noa;
+							}
+							WorkTimeList = WorkTimeList.substring(1);
+						}
+						q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+						break;
 					case 'sssall':
 						var as = _q_appendData("sssall", "", true);
 						var now_txtObject;
@@ -280,7 +295,9 @@
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
-					q_cmbParse("combWorktime_"+i, q_getPara('cuwt.worktime'));
+					if(WorkTimeList.length > 0){
+						q_cmbParse("combWorktime_"+i, WorkTimeList);
+					}
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 						$('#combWorktime_'+i).change(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -316,8 +333,13 @@
 						$('#txtWorktime_' + i).focusout(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							var thisVal = $.trim($(this).val());
-							var usetime = 0;
-							if(thisVal.indexOf('-') > -1){
+							var usetime = -1;
+							for(var h=0;h<WorkTimeArray.length;h++){
+								if(WorkTimeArray[h].timea==thisVal){
+									usetime = dec(WorkTimeArray[h].minutes);
+								}
+							}
+							if((thisVal.indexOf('-') > -1) && (usetime==-1)){
 								var btime = dec(thisVal.split('-')[0]);
 								var etime = dec(thisVal.split('-')[1]);
 								btime = (Math.floor(btime/100)*60)+(btime%100);

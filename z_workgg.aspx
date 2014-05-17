@@ -233,7 +233,7 @@
 								OutHtml += '<tr>';
 								OutHtml += "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>" +
-										   "<td class='num'>" + round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3) + "</td>";
+										   "<td class='num'>" + (dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3)) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
@@ -439,6 +439,7 @@
 							}
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>";
+							OutHtml += "<td class='tTitle' style='width:80px;' rowspan='2'></td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
 								var thisDay = DateList[j];
@@ -452,28 +453,44 @@
 							var ATotal = 0,wATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>";
+								OutHtml += "<td class='Lproduct' style='width:150px;' rowspan='2'>" + TL[k].productno + "</td><td class='Lproduct' style='width:220px;' rowspan='2'>" + TL[k].product + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								var wTotal = 0;
+								OutHtml += "<td class='center' style='width:80px;'>訂單數量</td>";
 								for(var j=0;j<TTD.length;j++){
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
-									wTotal = q_add(wTotal,round(TTD[j][2],3));
 									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
-									DateObj[j].workmount = q_add(dec(DateObj[j].workmount),round(TTD[j][2],3));
-									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "<br>" + round(TTD[j][2],3) + "</td>";
+									OutHtml += "<td class='num'>" + round(TTD[j][1],3) + "</td>";
 								}
 								ATotal = q_add(ATotal,tTotal);
-								wATotal = q_add(wATotal,wTotal);
-								OutHtml += "<td class='num'>" + tTotal + "<br>" + wTotal + "</td>";
+								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
+								OutHtml += '<tr>';
+								OutHtml += "<td class='center' style='width:80px;'>排程數量</td>";
+								for(var j=0;j<TTD.length;j++){
+									wTotal = q_add(wTotal,round(TTD[j][2],3));
+									DateObj[j].workmount = q_add(dec(DateObj[j].workmount),round(TTD[j][2],3));
+									OutHtml += "<td class='num'>" + round(TTD[j][2],3) + "</td>";
+								}
+								wATotal = q_add(wATotal,wTotal);
+								OutHtml += "<td class='num'>" + wATotal + "</td>";
+								OutHtml += '</tr>';
+
 							}
-							OutHtml += "<tr><td colspan='2' class='tTotal num'>總計：</td>";
+							OutHtml += "<tr><td colspan='2' rowspan='2' class='tTotal num'>總計：</td>";
+							OutHtml += "<td class='center tTotal' style='width:80px;'>訂單數量</td>";
 							for(var k=0;k<DateObj.length;k++){
-								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "<br>" + round(DateObj[k].workmount,3) + "</td>";
+								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].value,3) + "</td>";
 							}
-							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "<br>" + round(wATotal,3) + "</td>";
-							OutHtml += "</table>"
+							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td></tr>";
+							OutHtml += "<tr>";
+							OutHtml += "<td class='center tTotal' style='width:80px;'>排程數量</td>";
+							for(var k=0;k<DateObj.length;k++){
+								OutHtml += "<td class='tTotal num'>" + round(DateObj[k].workmount,3) + "</td>";
+							}
+							OutHtml += "<td class='tTotal num'>" + round(wATotal,3) + "</td>";
+							OutHtml += "</tr></table>"
 							var t_totalWidth = 0;
 							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
@@ -602,6 +619,10 @@
 			}
 			.center{
 				text-align:center;
+			}
+			.Lproduct{
+				text-align:left;
+				padding-left:2px;
 			}
 			.num{
 				text-align:right;
