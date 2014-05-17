@@ -14,6 +14,7 @@
         <script src="css/jquery/ui/jquery.ui.widget.js"></script>
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
         <script type="text/javascript">
+            //菱揚
 			this.errorHandler = null;
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
@@ -91,12 +92,29 @@
 			}
 			function btnOk() {
 				Lock();
-				var t_noq = '';
+				//清除NOQ
+				//檢查地點是否重複
+				var t_addrno1,t_addrno2,t_errmsg='';
 				for(var i=0;i<q_bbsCount;i++){
-				    t_noq = '000'+(i+1);
-				   // $('#txtNoq_'+i).val( t_noq.substring(t_noq.length-3,t_noq.length));
 				    $('#txtNoq_'+i).val('');
+				    t_addrno1 = $.trim($('#txtAddrno_'+i).val());
+				    $('#txtAddrno_'+i).val(t_addrno1);
+				    $('#txtAddr_'+i).val(t_addrno1);
+				    for(var j=i+1;j<q_bbsCount;j++){
+				        t_addrno2 = $.trim($('#txtAddrno_'+j).val());
+				        if(t_addrno1.length>0 && t_addrno1==t_addrno2){
+				            t_errmsg = '【'+t_addrno1+'】在 '+(i+1)+' 及 '+(j+1)+'重複。\n';
+				            break;
+				        }
+				        
+				    }
 				}
+				if(t_errmsg.length>0){
+				    alert(t_errmsg);
+				    Unlock();
+				    return;
+				}
+				
 				var t_noa = trim($('#txtNoa').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_date(), '/', ''));
@@ -421,8 +439,7 @@
                     <input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
                     </td>
                     <td align="center" style="width:20px;"> </td>
-                    <td align="center" style="width:150px;"><a id='lblAddrno_s'> </a></td>
-                    <td align="center" style="width:200px;"><a id='lblAddr_s'> </a></td>
+                    <td align="center" style="width:150px;">項目</td>
                 </tr>
                 <tr  style='background:#cad3ff;'>
                     <td align="center">
@@ -430,8 +447,9 @@
                     <input id="txtNoq.*" type="text" style="display: none;" />
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                    <td><input type="text" id="txtAddrno.*" style="width:95%;" /></td>
-                    <td><input type="text" id="txtAddr.*" style="width:95%;" /></td>
+                    <td><input type="text" id="txtAddrno.*" style="width:95%;" />
+                        <input type="text" id="txtAddr.*" style="display:none;" />
+                    </td>
                 </tr>
             </table>
         </div>
