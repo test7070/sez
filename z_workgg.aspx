@@ -109,13 +109,13 @@
 					if(!emp($('#Xgroupano select').val()))
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
 					Lock();
-					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+ 
-							t_xbdate + ';' + 
-							t_xedate + ';' + 
-							isSaturday + ';' + 
-							t_xbstationno + ';' + 
-							t_xestationno + ';' + 
-							t_xgroupano + ';' + 
+					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
+							t_xbdate + ';' +
+							t_xedate + ';' +
+							isSaturday + ';' +
+							t_xbstationno + ';' +
+							t_xestationno + ';' +
+							t_xgroupano + ';' +
 							t_xbproductno + ';' +
 							t_xeproductno + ';'
 					);
@@ -140,7 +140,7 @@
 						break;
 				}
 			}
-			
+
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.z_workgg1':
@@ -216,7 +216,7 @@
 							}
 							OutHtml += '<tr>';
 							OutHtml += "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>" + 
+									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>" +
 									   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
@@ -328,7 +328,7 @@
 								}
 							}
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" + 
+							OutHtml += "<td class='tTitle' style='width:370px;' colspan='2' rowspan='2'>物品</td>" +
 									   "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
 									   "<td class='tTitle' style='width:80px;' rowspan='2'>需工時</td>";
 							var tmpTd = '<tr>';
@@ -344,7 +344,7 @@
 							var ATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>" + 
+								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>" +
 										   "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>";
 								var TTD = TL[k].datea;
