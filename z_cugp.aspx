@@ -218,6 +218,7 @@
 		                                			hours : as[i].hours,
 		                                			days : as[i].days,
 		                                			gen: as[i].gen,
+		                                			mgen: as[i].mgen,
 		                                			cuadate : as[i].cuadate,
 		                                			uindate : as[i].uindate,
 		                                			workno : as[i].workno,
@@ -244,6 +245,7 @@
 		                                		pretime : as[i].pretime,
 		                                		days : as[i].days,
 		                                		gen: as[i].gen,
+		                                		mgen: as[i].mgen,
 		                                		cuadate : as[i].cuadate,
 		                                		uindate : as[i].uindate,
 		                                		workno : as[i].workno,
@@ -264,6 +266,7 @@
 		                                		hours : as[i].hours,
 		                                		days : as[i].days,
 		                                		gen: as[i].gen,
+		                                		mgen: as[i].mgen,
 		                                		cuadate : as[i].cuadate,
 		                                		uindate : as[i].uindate,
 		                                		workno : as[i].workno,
@@ -284,6 +287,7 @@
 		                                	pretime : as[i].pretime,
 		                                	days : as[i].days,
 		                                	gen: as[i].gen,
+		                                	mgen: as[i].mgen,
 		                                	cuadate : as[i].cuadate,
 		                                	uindate : as[i].uindate,
 		                                	workno : as[i].workno,
@@ -300,6 +304,7 @@
 		                                	hours : as[i].hours,
 		                                	days : as[i].days,
 		                                	gen: as[i].gen,
+		                                	mgen: as[i].mgen,
 		                                	cuadate : as[i].cuadate,
 		                                	uindate : as[i].uindate,
 		                                	workno : as[i].workno,
@@ -319,6 +324,7 @@
 		                                	pretime : as[i].pretime,
 		                                	days : as[i].days,
 		                                	gen: as[i].gen,
+		                                	mgen: as[i].mgen,
 		                                	cuadate : as[i].cuadate,
 		                                	uindate : as[i].uindate,
 		                                	workno : as[i].workno,
@@ -386,6 +392,7 @@
 			                                		prehours : as[i].prehours,
 			                                		pretime : as[i].pretime,
 			                                		gen: as[i].gen,
+			                                		mgen: as[i].mgen,
 			                                		noq : as[i].noq,
 			                                		nos : as[i].nos,
 			                                		workno : as[i].workno,
@@ -407,6 +414,7 @@
 			                                	prehours : as[i].prehours,
 			                                	pretime : as[i].pretime,
 			                                	gen: as[i].gen,
+			                                	mgen: as[i].mgen,
 			                                	noq : as[i].noq,
 			                                	nos : as[i].nos,
 			                                	workno : as[i].workno,
@@ -424,6 +432,7 @@
 		                                	prehours : as[i].prehours,
 		                                	pretime : as[i].pretime,
 		                                	gen: as[i].gen,
+		                                	mgen: as[i].mgen,
 		                                	noq : as[i].noq,
 		                                	nos : as[i].nos,
 		                                	workno : as[i].workno,
@@ -595,7 +604,7 @@
 	                        	
 	                        	//計算製程的長度
 	                        	//一天總時數
-	                        	var totalgen=dec(s_data.detail[i].gen);
+	                        	var totalgen=dec(s_data.detail[i].gen)<dec(s_data.detail[i].mgen)?dec(s_data.detail[i].mgen):dec(s_data.detail[i].gen);
 	                        	//--------時數
 	                        	if(totalgen==0 || totalgen<dec(s_data.detail[i].hours)){//找出當天工作時數加總
 	                        		for(var j=0;j<s_data.detail.length;j++){
@@ -633,9 +642,8 @@
 	                        		tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+45) + '" fill="black">' + s_data.detail[i].productno + '</text>';
 	                        		//成品
 	                        		tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+60) + '" fill="black">' + s_data.detail[i].product + '</text>';
-	                        		//前置時間
-	                        		if(dec(s_data.detail[i].pretime)>0)
-	                        			tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+75) + '" fill="black">' +'前置時間'+s_data.detail[i].pretime+'/H'+ '</text>';
+	                        		//機時+前置時間
+	                        		tmpPath += '<text id="'+s_data.detail[i].workno+'" font-size="14" class="workno" text-anchor="start" x="'+(x)+'" y="' + (y+75) + '" fill="black">' +'機時'+s_data.detail[i].hours+(dec(s_data.detail[i].pretime)>0?(',前置時間'+s_data.detail[i].pretime+'/H'):'')+ '</text>';
 	                        	}
                         	}
                         	obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
@@ -745,7 +753,7 @@
                         	
                         	//排產編號(標頭)
                         	tmpPath += '<text font-size="22" text-anchor="start" x="'+(bkOrigin[0])+'" y="' + 30 + '" fill="black">'
-                        	+'排產編號：'+ t_data.workgno+'-'+t_data.workgnoq+'&nbsp;&nbsp;&nbsp;&nbsp;製成品：'+t_data.product+'</text>';
+                        	+'排產編號：'+ t_data.workgno+'-'+t_data.workgnoq+'&nbsp;&nbsp;&nbsp;&nbsp;製品編號：'+t_data.productno+'&nbsp;&nbsp;&nbsp;&nbsp;製品名稱：'+t_data.product+'</text>';
                         	
                         	//工作中心名稱(Y軸)
                         	for(var i=0; i<t_data.sp.length;i++){
@@ -770,7 +778,8 @@
                         			y=bkOrigin[1]+(p_height*i)+((j%s_section)*s_height);
                         			//計算製令的長度
                         			//當天總時數
-                        			var totalgen=dec(t_data.sp[i].detail[j].gen);
+                        			//var totalgen=dec(t_data.sp[i].detail[j].gen)<dec(t_data.sp[i].detail[j].mgen)?dec(t_data.sp[i].detail[j].mgen):dec(t_data.sp[i].detail[j].gen);
+                        			var totalgen=dec(t_data.sp[i].detail[j].mgen);
                         			
                         			if(totalgen==0 || totalgen<dec(t_data.sp[i].detail[j].hours) ){//找出當天工作時數加總
 		                        		for(var k=0;k<t_data.sp[i].detail.length;k++){
@@ -810,9 +819,8 @@
 	                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+30) + '" fill="black">' + t_data.sp[i].detail[j].mproductno + '</text>';
 	                        			//成品
 	                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+45) + '" fill="black">' + t_data.sp[i].detail[j].mproduct + '</text>';
-	                        			//前置時間
-	                        			if(dec(t_data.sp[i].detail[j].pretime)>0)
-	                        				tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+60) + '" fill="black">' +'前置時間'+t_data.sp[i].detail[j].pretime+'/H'+ '</text>';
+	                        			//機時+前置時間
+	                        			tmpPath += '<text id="'+t_data.sp[i].detail[j].workno+'" font-size="14" class="workno" text-anchor="start" x="'+x+'" y="' + (y+60) + '" fill="black">' +'機時'+t_data.sp[i].detail[j].hours+(dec(t_data.sp[i].detail[j].pretime)>0?(',前置時間'+t_data.sp[i].detail[j].pretime+'/H'):'')+ '</text>';
                         			}
                         		}
                         	}

@@ -123,13 +123,6 @@
 				});
 				
 				$('#btnEarlydayok').click(function() {
-					/*if(!emp($('#textEarlyday').val())&&!emp($('#textEarlyworkno').val())){						
-						var t_where = $('#textEarlyworkno').val()+ ';' + dec($('#textEarlyday').val());
-						q_func('qtxt.query.earlyday', 'cug.txt,earlyday,' + t_where);
-						$('#btnEarlydayok').attr('disabled', 'disabled');
-					}else{
-						alert("資料錯誤!!");
-					}*/
 					//0514後面直接使用後端的func
 					var edaytmp='',cworknotmp='';
 					for (var i = 0; i < child_row; i++) {
@@ -216,8 +209,9 @@
                 	$('#txtNoq_'+i).val(replaceAll($('#txtCuadate_'+i).val(), '/','')+$('#txtNos_'+i).val());
                 }
                 
+                //0516排程序號可重複
                 //檢查排程序號是否重複
-				for (var i = 0; i < q_bbsCount; i++) {
+				/*for (var i = 0; i < q_bbsCount; i++) {
 	               	for (var j = i+1; j < q_bbsCount; j++) {
 	               		if (i!=j &&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val()))){
 	               			alert($('#lblNo_'+i).text()+'.'+$('#txtCuadate_'+i).val()+' '+q_getMsg('lblNos_s')+'['+$('#txtNos_'+i).val()+']重覆')
@@ -225,7 +219,7 @@
 	               			return;
 	               		}
 	               	}
-				}
+				}*/
                 
                 //排序資料
                 //儲存有排序的資料,清除整個欄位
@@ -418,13 +412,8 @@
                 		var as = _q_appendData("view_cugu", "", true);
                 		if(as[0]!=undefined){
                 			for ( var i = 0; i < as.length; i++) {
-                				//製令
-                				if(as[i].noq=='99999999999'){
-                					as[i].noq='';
-                					as[i].cuadate=as[i].orgcuadate;
-                				}
-                				as[i].nownos=as[i].nos;
-                				//cugu
+								//cugu //1030516 nos 可重複
+                				/*as[i].nownos=as[i].nos;
                 				if(as[i].nos=='9000'){
                 					var tmp_nos='9000';
                 					for ( var j = 0; j < as.length; j++) {
@@ -434,11 +423,12 @@
                 					}
                 					if(tmp_nos=='9000')//表示當天沒有其他排程
                 						as[i].nownos='';
-                				}
+                				}*/
                 			}
                 			
+                			//0513 只要匯入bbs就全部砍
                 			//判斷是否已被匯入
-                			for (var i = 0; i < q_bbsCount; i++) {
+                			/*for (var i = 0; i < q_bbsCount; i++) {
 								for (var j = 0; j < as.length; j++) {
 									if($('#txtWorkno_' + i).val()==as[j].workno && $('#txtProcess_'+i).val()==as[j].process){
 										as.splice(j, 1);
@@ -446,11 +436,11 @@
 										break;	
 									}
 								}
-							}
+							}*/
 							
 							q_gridAddRow(bbsHtm, 'tbbs'
 							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,txtCugunoq,txtNosold', as.length, as,
-							'nownos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cugunoq,nos','txtProductno,txtProcess,txtWorkno');
+							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cugunoq,nos','txtProductno,txtProcess,txtWorkno');
 							
 							for (var i = 0; i < q_bbsCount; i++) {
 								$('#txtCuadate_'+i).attr('disabled', 'disabled');
@@ -534,6 +524,10 @@
                 
                 cngisbtnok=false;
                 sum();
+                
+                for (var i = 0; i < q_bbsCount; i++) {
+                	$('#txtNoq_'+i).val('');
+                }
                 
                 if (q_cur == 1)
                     $('#txtWorker').val(r_name);
