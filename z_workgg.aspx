@@ -457,7 +457,7 @@
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								var wTotal = 0;
-								OutHtml += "<td class='center' style='width:80px;'>訂單數量</td>";
+								OutHtml += "<td class='center subTitle' style='width:80px;'>訂單數量</td>";
 								for(var j=0;j<TTD.length;j++){
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].value = q_add(dec(DateObj[j].value),round(TTD[j][1],3));
@@ -467,7 +467,7 @@
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:80px;'>排程數量</td>";
+								OutHtml += "<td class='center subTitle' style='width:80px;'>排程數量</td>";
 								for(var j=0;j<TTD.length;j++){
 									wTotal = q_add(wTotal,round(TTD[j][2],3));
 									DateObj[j].workmount = q_add(dec(DateObj[j].workmount),round(TTD[j][2],3));
