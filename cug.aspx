@@ -42,7 +42,7 @@
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
-            });
+            })
 
             function main() {
                 if (dataErr) {
@@ -53,6 +53,7 @@
             }
 			
 			var t_cugt=undefined;//儲存cugt的資料
+			var del_cugunoq='';//存檔時刪除已拆分的cugunoq
 			//var station_chk=false;
             function mainPost() {
                 bbmMask = [['txtBdate', r_picd],['txtEdate', r_picd]];
@@ -80,6 +81,7 @@
 	                for (var i = 0; i < q_bbsCount; i++) {
 						$('#btnMinus_'+i).click();
 					}
+					del_cugunoq='';
                 		
                 	$('#txtStationno').attr('disabled', 'disabled');
 					$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
@@ -142,6 +144,161 @@
 						alert("無資料更新!!");
 					}
 				});
+				//-------------------------------
+				
+				$('#btnCopy_plus').click(function() {
+					var drow=3,countrow=0;//預設開三行
+					//目前的行數
+					var rowslength = document.getElementById("table_copy").rows.length - 5;
+					while(countrow<drow){
+						var tr = document.createElement("tr");
+						tr.id = "copy_" + j;
+						tr.innerHTML = "<td style='background-color: #CDFFCE;width:34px;' align='center'><input class='btn'  id='btnCopy_minus_"+(rowslength+countrow)+"' type='button' value='-' style='font-weight: bold;'  /></td>";
+						tr.innerHTML += "<td colspan='2' style=1background-color: #CDFFCE;width:274px;1 align='center'><input id='copy_txtCuadate_" + (rowslength+countrow) + "' type='text' class='txt c1' value=''/></td>";
+						tr.innerHTML += "<td colspan='2' style=1background-color: #CDFFCE;width:274px;1 align='center'><input id='copy_txtMount_" + (rowslength+countrow) + "' type='text' class='txt c1 num' value=''/></td>";
+						tr.innerHTML += "<td colspan='2' style=1background-color: #CDFFCE;width:274px;1 align='center'><input id='copy_txtHours_" + (rowslength+countrow) + "' type='text' class='txt c1 num' value='' disabled='disabled' /></td>";
+						
+						var tmp = document.getElementById("copy_close");
+						tmp.parentNode.insertBefore(tr, tmp);
+						
+						$('#copy_txtCuadate_'+(rowslength+countrow)).mask('999/99/99');
+		                $('#copy_txtCuadate_'+(rowslength+countrow)).datepicker();
+	                
+						countrow++;
+					}
+					
+					for (var i = 0; i < (rowslength+countrow); i++) {
+						$('#copy_txtMount_'+i).keyup(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var tmp=$('#copy_txtMount_'+b_seq).val();
+							tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
+							$('#copy_txtMount_'+b_seq).val(tmp);
+							
+							var omount=dec($('#copy_mount').text());
+							var ohours=dec($('#copy_hours').text());
+							$('#copy_txtHours_'+b_seq).val(round(ohours*(dec(tmp)/omount),3));
+						});
+						
+						$('#btnCopy_minus_'+i).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							$('#copy_txtCuadate_'+b_seq).val('');
+							$('#copy_txtMount_'+b_seq).val('');
+							$('#copy_txtHours_'+b_seq).val('');
+						});
+					}
+				});
+				
+				$('#btn_div_copy').click(function() {
+					var rowslength = document.getElementById("table_copy").rows.length - 5;
+					//檢查拆分數量是否等於原始數量
+					var total_mount=0,total_row=0,tmp_total_row=0,total_hours=0;
+					var copy_row=new Array();
+					var omount=dec($('#copy_mount').text());
+					var ohours=dec($('#copy_hours').text());
+					for (var i = 0; i < rowslength; i++) {
+						if(dec($('#copy_txtMount_'+i).val())>0){
+							//暫存資料
+							var t_copy=new Array();
+	                		t_copy['txtCuadate']=$('#copy_txtCuadate_'+i).val();
+	                		t_copy['textDatea']=$('#copy_txtCuadate_'+i).val();
+	                		t_copy['txtMount']=$('#copy_txtMount_'+i).val();
+	                		t_copy['txtHours']=$('#copy_txtHours_'+i).val();
+	                		copy_row.push(t_copy);
+	                		
+							total_mount=q_add(total_mount,dec($('#copy_txtMount_'+i).val()));
+							total_hours=q_add(total_hours,dec($('#copy_txtHours_'+i).val()));
+							total_row++;
+						}
+					}
+					
+					if(total_mount!=omount){
+						alert("拆分數量不等於原始數量!!");
+						return;
+					}
+					
+					if(emp($('#textCugunoq').val())){
+						alert("資料錯誤!!");
+						return;
+					}else{
+						del_cugunoq=del_cugunoq+(del_cugunoq.length>0?',':'')+$('#textCugunoq').val();
+					}
+					
+					if(dec(total_hours)!=dec(ohours)){//處理小數點四捨五入的問題
+						copy_row[total_row-1]['txtHours']=q_add(dec(copy_row[total_row-1]['txtHours']),q_sub(dec(ohours),dec(total_hours)));
+					}
+					
+					tmp_total_row=total_row-1;
+					//複製行數
+					while(tmp_total_row>0){
+						q_bbs_addrow('bbs', copy_row_b_seq, 1);
+						tmp_total_row--;
+					}
+					
+					//寫入資料
+					for(var i=0;i<total_row;i++){
+						for (var j = 0; j < fbbs.length; j++) {
+							if(copy_row[i][fbbs[j]]!=undefined && copy_row[i][fbbs[j]]!='')
+								$('#'+fbbs[j]+'_'+(dec(copy_row_b_seq)+i)).val(copy_row[i][fbbs[j]]);
+							else
+								$('#'+fbbs[j]+'_'+(dec(copy_row_b_seq)+i)).val(copy_bbs_row[fbbs[j]]);
+							
+							if(fbbs[j]=='txtCugunoq')
+								$('#txtCugunoq_'+(dec(copy_row_b_seq)+i)).val($('#txtCugunoq_'+(dec(copy_row_b_seq)+i)).val()+String.fromCharCode(65+i));
+						}
+					}
+					
+					//處理bbs格式 
+	                for (var i = 0; i < q_bbsCount; i++) {
+						$('#txtCuadate_'+i).attr('disabled', 'disabled');
+						//$('#txtUindate_'+i).attr('disabled', 'disabled');
+						
+						if(!emp($('#txtWorkno_'+i).val())){
+							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							if(r_modi || r_modi==undefined)
+								$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							else
+								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#textDatea_'+i).removeClass('hasDatepicker');
+							$('#textDatea_'+i).datepicker();
+							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnChildchange_'+i).removeAttr('disabled');
+						}else if ($('#txtNos_'+i).val().length==5 ){
+							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#textDatea_'+i).removeClass('hasDatepicker');
+							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker('destroy');
+							$('#btnMinus_'+i).attr('disabled', 'disabled');
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
+						}else{
+							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtHours_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							if(r_modi || r_modi==undefined)
+								$('#textDatea_'+i).css('color','black').css('background','white').removeAttr('readonly');
+							else
+								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+							$('#textDatea_'+i).removeClass('hasDatepicker');
+							$('#textDatea_'+i).datepicker();
+							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnChildchange_'+i).attr('disabled', 'disabled');
+						}
+					}
+					$('#div_copy').toggle();
+				});
+				
+				$('#btnClose_div_copy').click(function() {
+					$('#div_copy').toggle();
+				});
             }
             
 			var first_rest=true;
@@ -175,7 +332,7 @@
 	               	for (var i = 0; i < q_bbsCount; i++) {
 	               		if(!emp($('#textDatea_'+i).val()))
 	               			$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
-	               		if(($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12)||(emp($('#txtProcess_'+i).val()) && emp($('#txtWorkno_'+i).val()))){
+	               		if(($('#txtNos_'+i).val().length==5)||(emp($('#txtProcess_'+i).val()) && emp($('#txtWorkno_'+i).val()))){
 	               			$('#btnMinus_'+i).click();
 	               		}
 	               	}
@@ -234,17 +391,17 @@
                 	}
 					$('#btnMinus_'+i).click();
 				}
-                //最先做的放前面(依noq)
+                //最先做的放前面(依cudatea,nos,cugunoq)
                 if(t_bbs.length!=0){
 	               	for (var i = 0; i < q_bbsCount; i++) {
-	               		var minnoq='',min_j=0;//目前最小noq,與資料位置
+	               		var minnoq='',min_j=0;//目前最小資料,與資料位置
 	               		for (var j = 0; j < t_bbs.length; j++) {
 	               			if(minnoq==''){
-	               				minnoq=t_bbs[j].txtNoq
+	               				minnoq=t_bbs[j].txtCuadate+t_bbs[j].txtNos+t_bbs[j].txtCugunoq
 	               				min_j=0;
 	               			}else{
-	               				if(minnoq>t_bbs[j].txtNoq){
-	               					minnoq=t_bbs[j].txtNoq;
+	               				if(minnoq>t_bbs[j].txtCuadate+t_bbs[j].txtNos+t_bbs[j].txtCugunoq){
+	               					minnoq=t_bbs[j].txtCuadate+t_bbs[j].txtNos+t_bbs[j].txtCugunoq;
 	               					min_j=j;
 	               				}
 	               			}
@@ -292,7 +449,7 @@
 		                //-------------------------------------------------------------------
 		                //如果當天是最後一筆且非空白行 插入 空白行分隔
 		                var smount=dec($('#txtSmount').val());
-						if($('#txtCuadate_'+i).val()!=$('#txtCuadate_'+(i+1)).val() && $('#txtNos_'+i).val().length!=5 && $('#txtNoq_'+i).val().length!=12){
+						if($('#txtCuadate_'+i).val()!=$('#txtCuadate_'+(i+1)).val() && $('#txtNos_'+i).val().length!=5){
 							q_bbs_addrow('bbs',i,1);//下方插入空白行
 							$('#txtCuadate_'+(i+1)).val($('#txtCuadate_'+i).val());
 			                $('#txtUindate_'+(i+1)).val($('#txtCuadate_'+i).val());
@@ -326,7 +483,7 @@
 						$('#textDatea_'+i).datepicker();
 						$('#btnMinus_'+i).removeAttr('disabled');
 						$('#btnChildchange_'+i).removeAttr('disabled');
-					}else if ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
+					}else if ($('#txtNos_'+i).val().length==5 ){
 						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -529,6 +686,11 @@
                 	$('#txtNoq_'+i).val('');
                 }
                 
+                //刪除拆分的cugunoq
+                if(del_cugunoq.length>0){
+                	q_func('qtxt.query.delcugunoq', 'cug.txt,delcugunoq,' + del_cugunoq);
+                }
+                
                 if (q_cur == 1)
                     $('#txtWorker').val(r_name);
                 else
@@ -554,6 +716,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtBdate').val(q_date());
                 $('#txtKdate').val(q_date());
+                del_cugunoq='';
             }
 
             function btnModi() {
@@ -563,6 +726,7 @@
 				$('#txtStationno').attr('disabled', 'disabled');
 				$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
 				$('#lblStation').css('display', 'none');
+				del_cugunoq='';
             }
 
             function btnPrint() {
@@ -581,6 +745,8 @@
                 issave=true;
             }
             
+            var copy_row_b_seq = '';
+            var copy_bbs_row;
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                 	$('#lblNo_' + i).text(i + 1);
@@ -652,7 +818,48 @@
 								}
 							}
 						});
-                    }
+						
+						$('#btnMinus_' + i).bind('contextmenu',function(e) {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(e.button==2){
+								if(dec($('#txtMount_' + b_seq).val())<=0 || emp($('#txtWorkno_' + b_seq).val()))
+									return;
+								
+								//設定顯示位置
+								$('#div_copy').css('top', e.pageY+30);
+								$('#div_copy').css('left', e.pageX+45);
+								//填入資料
+								$('#copy_workno').text($('#txtWorkno_'+b_seq).val());
+								$('#copy_productno').text($('#txtProductno_'+b_seq).val());
+								$('#copy_product').text($('#txtProduct_'+b_seq).val());
+								$('#copy_cuadate').text($('#txtCuadate_'+b_seq).val());
+								$('#copy_mount').text($('#txtMount_'+b_seq).val());
+								$('#copy_hours').text($('#txtHours_'+b_seq).val());
+								$('#textCugunoq').val($('#txtCugunoq_'+b_seq).val());
+								
+								//刪除舊資料
+								var rowslength = document.getElementById("table_copy").rows.length - 4;
+								for (var j = 1; j < rowslength; j++) {
+									document.getElementById("table_copy").deleteRow(4);
+								}
+								
+								//預設開3行
+								$('#btnCopy_plus').click();
+								
+								//暫存要複製的資料
+								copy_bbs_row=new Array();
+				                for (var j = 0; j < fbbs.length; j++) {
+				                	copy_bbs_row[fbbs[j]]=$('#'+fbbs[j]+'_'+b_seq).val();
+				                }
+				                
+								$('#div_copy').show();
+								copy_row_b_seq = b_seq;
+								e.preventDefault();
+							}
+						});
+					}
                 }
                 _bbsAssign();
 				
@@ -675,7 +882,7 @@
 							$('#textDatea_'+i).datepicker();
 							$('#btnMinus_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
-						}else if ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
+						}else if ($('#txtNos_'+i).val().length==5){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -740,6 +947,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 $('#div_child').hide();
+                $('#div_copy').hide();
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
             }
@@ -784,7 +992,7 @@
 							$('#textDatea_'+i).datepicker();
 							$('#btnMinus_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
-						}else if ($('#txtNos_'+i).val().length==5 && $('#txtNoq_'+i).val().length==12){
+						}else if ($('#txtNos_'+i).val().length==5 ){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -1054,6 +1262,44 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="div_copy" style="position:absolute; top:0px; left:0px; display:none; width:800px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_copy" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+				<tr>
+					<td colspan='2'  style="background-color: #F8D463;" align="center">製品編號</td>
+					<td id="copy_productno" colspan='2' style="background-color: #F8D463;" align="center"> </td>
+					<td style="background-color: #F8D463;width:144px;" align="center">製令編號</td>
+					<td id="copy_workno" colspan='2' style="background-color: #F8D463;" align="center"> </td>
+				</tr>
+				<tr>
+					<td colspan='2'  style="background-color: #F8D463;" align="center">製品名稱</td>
+					<td id="copy_product" colspan='5' style="background-color: #F8D463;" align="left"> </td>
+				</tr>
+				<tr>
+					<td colspan='2' style="background-color: #F8D463;" align="center">原始應開工日</td>
+					<td id="copy_cuadate" style="background-color: #F8D463;width:144px;" align="center"> </td>
+					<td style="background-color: #F8D463;width:114px;" align="center">原始數量</td>
+					<td id="copy_mount" style="background-color: #F8D463;width:144px;" align="center"> </td>
+					<td style="background-color: #F8D463;width:114px;" align="center">原始機時</td>
+					<td id="copy_hours" style="background-color: #F8D463;width:144px;" align="center"> </td>
+				</tr>
+				<tr id='copy_top'>
+					<td style="background-color: #CDFFCE;width:34px;" align="center">
+						<input class="btn"  id="btnCopy_plus" type="button" value='+' style="font-weight: bold;"  />
+						<input id='textCugunoq' type='hidden'/>
+					</td>
+					<td colspan='2' style="background-color: #CDFFCE;width:274px;" align="center">應開工日</td>
+					<td colspan='2' style="background-color: #CDFFCE;width:274px;" align="center">數量</td>
+					<td colspan='2' style="background-color: #CDFFCE;width:274px;" align="center">機時</td>
+				</tr>
+				<tr id='copy_close'>
+					<td align="center" colspan='7'>
+						<input id="btn_div_copy" type="button" value="拆分">
+						<input id="btnClose_div_copy" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!---DIV分隔線---->
 		<div id="div_child" style="position:absolute; top:0px; left:0px; display:none; width:1000px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_child" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr style="display: none;">
@@ -1069,7 +1315,7 @@
 					<td style="background-color: #CDFFCE;width:14%;" align="center">工作中心/<BR>製程</td>
 					<td style="background-color: #CDFFCE;width:11%;" align="center">機型</td>
 					<td style="background-color: #CDFFCE;width:8%;" align="center">數量</td>
-					<td style="background-color: #CDFFCE;width:7%;" align="center">工時</td>
+					<td style="background-color: #CDFFCE;width:7%;" align="center">機時</td>
 					<td style="background-color: #CDFFCE;width:9%;" align="center">應開工日</td>
 				</tr>
 				<tr id='child_close'>
@@ -1166,7 +1412,7 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />	</td>
+					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td style="width:20px;"> </td>
 					<td align="center" style="width:75px;"><a id='lblNos_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDatea_s'> </a></td>
