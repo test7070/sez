@@ -59,7 +59,7 @@
 					}]
 				});
 				$('#q_report').click(function(){
-					var ChartShowIndex = [0,1,5,6];
+					var ChartShowIndex = [0,1,4,5];
 					if($('#q_report').data('info').radioIndex != clickIndex){
 						$('#frameReport').html('');
 						$('#chart').html('');
@@ -186,7 +186,7 @@
 									TL.push({
 										stationno : as[i].stationno,
 										station : as[i].station,
-										gen : dec(as[i].gen),
+										gen : (dec(as[i].gen)==0?8:dec(as[i].gen)),
 										rate : 0,
 										days : 1,
 										datea : []
@@ -466,7 +466,7 @@
 								ATotal = q_add(ATotal,tTotal);
 								OutHtml += "<td class='num'>" + tTotal + "</td>";
 								OutHtml += '</tr>';
-								OutHtml += '<tr>';
+								OutHtml += '<tr id="chgTitle">';
 								OutHtml += "<td class='center subTitle' style='width:80px;'>排程數量</td>";
 								for(var j=0;j<TTD.length;j++){
 									wTotal = q_add(wTotal,round(TTD[j][2],3));
@@ -474,7 +474,7 @@
 									OutHtml += "<td class='num'>" + round(TTD[j][2],3) + "</td>";
 								}
 								wATotal = q_add(wATotal,wTotal);
-								OutHtml += "<td class='num'>" + wATotal + "</td>";
+								OutHtml += "<td class='num'>" + wTotal + "</td>";
 								OutHtml += '</tr>';
 
 							}
@@ -608,6 +608,9 @@
 		<style type="text/css">
 			#tTable{
 				table-layout: fixed;
+			}
+			#chgTitle:nth-child(even){
+				background-color:#CEFFC6;
 			}
 			.tTitle{
 				text-align:center;

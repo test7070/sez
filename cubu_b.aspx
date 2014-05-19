@@ -558,6 +558,7 @@
 					<td align="center" style="width:80px;display:none;"><a id='lblWaste'></a></td>
 					<td align="center" style="width:80px;display:none;"><a id='lblGmount'></a></td>
 					<td align="center" style="width:220px;"><a id='lblMemo'></a></td>
+					<td align="center" style="width:40px;">群組</td>
 				</tr>
 				<tr style="background:#cad3ff;font-size: 14px;">
 					<td style="width:1%;">
@@ -615,6 +616,7 @@
 						<input type="text" id="txtMemo.*" class="txt c1"/>
 						<input type="text" id="txtWorker.*" style="display:none;"/>
 					</td>
+					<td><input type="text" id="txtGroupa.*" class="txt c1"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->
