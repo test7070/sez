@@ -59,7 +59,7 @@
 					}]
 				});
 				$('#q_report').click(function(){
-					var ChartShowIndex = [0,1,5,6];
+					var ChartShowIndex = [0,1,4,5];
 					if($('#q_report').data('info').radioIndex != clickIndex){
 						$('#frameReport').html('');
 						$('#chart').html('');
