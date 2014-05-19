@@ -299,6 +299,23 @@
 				$('#btnClose_div_copy').click(function() {
 					$('#div_copy').toggle();
 				});
+				
+				$('#btnWorkReal').click(function() {
+					var workj='';
+					for (var i = 0; i < q_bbsCount; i++) {
+						if(!emp($('#txtWorkno_'+i).val()) && workj.indexOf($('#txtWorkno_'+i).val())<0
+						&&$('#txtWorkno_'+i).val().substr(1,1).replace(/[^\d]/g,'')==''){//表示模擬製令
+							workj=workj+(workj.length>0?',':'')+$('#txtWorkno_'+i).val();
+						}
+					}
+					
+					if(workj.length>0){
+						$('#btnWorkReal').attr('disabled', 'disabled');
+						$('#btnWorkReal').val('轉換中....');
+						q_func('qtxt.query.workreal', 'cug.txt,workreal,'+'cug'+';'+$('#txtNoa').val());
+					}else
+						alert("已轉過正式製令!!");
+				});
             }
             
 			var first_rest=true;
@@ -959,10 +976,12 @@
 	            	$('#btnWork').attr('disabled', 'disabled');
 	            	$('#btnCug').attr('disabled', 'disabled');
 	            	$('#btnCugt').attr('disabled', 'disabled');
+	            	$('#btnWorkReal').removeAttr('disabled');
 	            }else{
 	            	$('#btnWork').removeAttr('disabled');
 	            	$('#btnCug').removeAttr('disabled');
 	            	$('#btnCugt').removeAttr('disabled');
+	            	$('#btnWorkReal').attr('disabled', 'disabled');
 	            }
                 
                 if(q_getPara('sys.isstyle')=='1'){
@@ -1095,14 +1114,13 @@
 						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
-                	/*case 'qtxt.query.earlyday':
-                		alert("更新完成!!");
-                		//重新開啟新的資料
-                		$('#div_child').toggle();
-						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"')"
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
-						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
-					break;*/
+                	case 'qtxt.query.workreal':
+                		$('#btnWorkReal').removeAttr('disabled');
+                		$('#btnWorkReal').val(q_getMsg('btnWorkReal'));
+                		alert("模擬製令成功轉成正式製令!!");
+                		var s2=new Array('cug_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
+						q_boxClose2(s2);
+                	break;
                 }
 			}
 			function FormatNumber(n) {
@@ -1403,6 +1421,7 @@
 						<td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker2"  type="text" class="txt c1"/></td>
+						<td class="td5"><input id="btnWorkReal" type="button" style="float: right;"/></td>
 						<!--<td class="td3"><span> </span><a id="lblIsset"> </a></td>
 						<td class="td4"><input id="chkIsset" type="checkbox" /></td>-->
 					</tr>
