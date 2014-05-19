@@ -111,6 +111,8 @@
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
 				
+				var wParent = window.parent.document;
+				
 				var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -120,8 +122,13 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
 	                
+	                if(window.parent.q_name=='cug' && wParent.getElementById("txtBdate").value!=''){
+						$('#txtXdate1').val(wParent.getElementById("txtBdate").value);
+					}else{
+						$('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
+					}
+					
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
@@ -131,7 +138,14 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                if(window.parent.q_name=='cug' && wParent.getElementById("txtEdate").value!=''){
+						$('#txtXdate2').val(wParent.getElementById("txtEdate").value);
+					}else if(window.parent.q_name=='cug' && wParent.getElementById("txtBdate").value!=''){
+						$('#txtXdate2').val(q_cdn(wParent.getElementById("txtBdate").value,13));
+					}else{
+						$('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);
+					}
 				
 				//$('#txtXenddate').val(q_date());
 				
