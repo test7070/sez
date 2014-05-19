@@ -1109,6 +1109,7 @@
 					<td style="width:100px; text-align: center;">耗用數</td>
 					<td style="width:100px; text-align: center;">耗料重</td>
 					<td style="width:100px; text-align: center;">領料日</td>
+					<td style="width:50px; text-align: center;">群組</td>
 				</tr>
 				<tr>
 					<td>
@@ -1143,6 +1144,7 @@
 					<td><input id="txtGmount..*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtGweight..*" type="text" class="txt c1 num"/></td>
 					<td><input id="txtDatea..*" type="text" class="txt c1"/></td>
+					<td><input id="txtGroupa..*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>
