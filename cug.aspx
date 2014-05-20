@@ -121,6 +121,9 @@
 				});
 				
 				$('#btnWorkReal').click(function() {
+					if (!confirm("確定要轉換嗎?")){
+						return;
+					}
 					var workj='';
 					for (var i = 0; i < q_bbsCount; i++) {
 						if(!emp($('#txtWorkno_'+i).val()) && workj.indexOf($('#txtWorkno_'+i).val())<0
@@ -137,7 +140,43 @@
 						alert("已轉過正式製令!!");
 				});
 				
+				$('#btnWorkRealAll').click(function() {
+					$('#textRealbdate').val('');
+					$('#textRealedate').val('');
+					
+					$('#div_real').css('top', $('#btnWorkRealAll').offset().top+25);
+					$('#div_real').css('left', $('#btnWorkRealAll').offset().left-$('#div_real').width()+$('#btnWorkRealAll').width()+10);
+					$('#div_real').toggle();
+				});
+				
+				$('#textRealbdate').mask('999/99/99');
+				$('#textRealbdate').datepicker();
+				$('#textRealedate').mask('999/99/99');
+				$('#textRealedate').datepicker();
+				
 				//DIV事件---------------------------------------------------
+				$('#btn_div_real').click(function() {
+					var r_bdate=trim($('#textRealbdate').val())==''?'#non':trim($('#textRealbdate').val());
+					var r_edate=trim($('#textRealedate').val())==''?'#non':trim($('#textRealedate').val());
+					var r_bcuano=trim($('#textRealbcuano').val())==''?'#non':trim($('#textRealbcuano').val());
+					var r_ecuano=trim($('#textRealecuano').val())==''?'#non':trim($('#textRealecuano').val());
+					var r_bworkno=trim($('#textRealbworkno').val())==''?'#non':trim($('#textRealbworkno').val());
+					var r_eworkno=trim($('#textRealeworkno').val())==''?'#non':trim($('#textRealeworkno').val());
+					var r_tmp=trim($('#textRealbdate').val())+trim($('#textRealedate').val())+trim($('#textRealbcuano').val())
+									+trim($('#textRealecuano').val())+trim($('#textRealbworkno').val())+trim($('#textRealeworkno').val());
+					
+					if(r_tmp.length>0){
+						$('#btn_div_real').attr('disabled', 'disabled');
+						$('#btn_div_real').val('轉換中....');
+						q_func('qtxt.query.workrealall', 'cug.txt,workrealall,'+r_bdate+';'+r_edate+';'+r_bcuano+';'+r_ecuano+';'+r_bworkno+';'+r_eworkno);
+					}else
+						alert("填寫資料有問題!!");
+				});
+				
+				$('#btnClose_div_real').click(function() {
+					$('#div_real').toggle();
+				});
+				
 				$('#btnClose_div_child').click(function() {
 					$('#div_child').toggle();
 				});
@@ -681,7 +720,7 @@
 								tr.innerHTML += "<td><input id='child_txtRank_" + child_row + "' type='text' class='txt c1' value='" + as[i].rank + "' disabled='disabled' style='text-align:center;'/></td>";
 								tr.innerHTML += "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /></td>";
-								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtProcess_" + child_row + "' type='text' class='txt c1' value='" + as[i].process + "' disabled='disabled' /></td>";
+								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtTgg_" + child_row + "' type='text' class='txt c1' value='" + as[i].comp + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtStyle_" + child_row + "' type='text' class='txt c1' value='" + as[i].style + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtMount_" + child_row + "' type='text' class='txt c1 num' value='" + FormatNumber(as[i].mount) + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtHours_" + child_row + "' type='text' class='txt c1 num' value='" + FormatNumber(as[i].hours) + "' disabled='disabled'/></td>";
@@ -881,10 +920,11 @@
 									//查詢子階work
 									var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
 									t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
-									t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
+									t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ^^";
 									q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
-									$('#div_child').css('top', e.pageY+25);
-									$('#div_child').css('left', e.pageX);
+									//有廠商的work也要顯示 >>>拿掉 and stationno!=''
+									$('#div_child').css('top', $('#btnChildchange_'+b_seq).offset().top+25);
+									$('#div_child').css('left', $('#btnChildchange_'+b_seq).offset().left);
 								}
 							}
 						});
@@ -1019,6 +1059,7 @@
                 _refresh(recno);
                 $('#div_child').hide();
                 $('#div_copy').hide();
+                $('#div_real').hide();
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
             }
@@ -1031,11 +1072,13 @@
 	            	$('#btnCug').attr('disabled', 'disabled');
 	            	$('#btnCugt').attr('disabled', 'disabled');
 	            	$('#btnWorkReal').removeAttr('disabled');
+	            	$('#btnWorkRealAll').removeAttr('disabled');
 	            }else{
 	            	$('#btnWork').removeAttr('disabled');
 	            	$('#btnCug').removeAttr('disabled');
 	            	$('#btnCugt').removeAttr('disabled');
 	            	$('#btnWorkReal').attr('disabled', 'disabled');
+	            	$('#btnWorkRealAll').attr('disabled', 'disabled');
 	            }
                 
                 if(q_getPara('sys.isstyle')=='1'){
@@ -1103,6 +1146,7 @@
 					q_boxClose2(s2);
 				}
 				$('.ui-datepicker').css('margin-left','100px');
+				$('#div_real').hide();
             }
 
             function btnMinus(id) {
@@ -1166,7 +1210,8 @@
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
 						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') and stationno!='' ^^";
+						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
+						//有廠商的work也要顯示 >>>拿掉 and stationno!=''
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
                 	case 'workg.cuguChangeAll':
@@ -1175,13 +1220,21 @@
                 		$('#div_child').toggle();
 						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
 						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') and stationno!='' ^^";
+						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ^^";
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
                 	case 'qtxt.query.workreal':
                 		$('#btnWorkReal').removeAttr('disabled');
                 		$('#btnWorkReal').val(q_getMsg('btnWorkReal'));
                 		alert("模擬製令成功轉成正式製令!!");
+                		var s2=new Array('cug_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
+						q_boxClose2(s2);
+                	break;
+                	case 'qtxt.query.workrealall':
+                		$('#btn_div_real').removeAttr('disabled');
+                		$('#btn_div_real').val('轉換');
+                		alert("批次模擬製令成功轉成正式製令!!");
+                		$('#div_real').toggle();
                 		var s2=new Array('cug_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
 						q_boxClose2(s2);
                 	break;
@@ -1344,6 +1397,38 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="div_real" style="position:absolute; top:0px; left:0px; display:none; width:510px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_real" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">應開工日區間</td>
+					<td style="background-color: #f8d463;">
+						<input id='textRealbdate' type='text' style='text-align:left;width:100px;'/>	~
+						<input id='textRealedate' type='text' style='text-align:left;width: 100px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">排產單號</td>
+					<td style="background-color: #f8d463;">
+						<input id='textRealbcuano' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textRealecuano' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">製令單號</td>
+					<td style="background-color: #f8d463;">
+						<input id='textRealbworkno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textRealeworkno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr id='real_close'>
+					<td align="center" colspan='7'>
+						<input id="btn_div_real" type="button" value="轉換">
+						<input id="btnClose_div_real" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!---DIV分隔線---->
 		<div id="div_copy" style="position:absolute; top:0px; left:0px; display:none; width:800px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_copy" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
@@ -1404,7 +1489,7 @@
 					<td style="background-color: #CDFFCE;width:4%;" align="center">子階層數</td>
 					<td style="background-color: #CDFFCE;width:16%;" align="center">子階製令單號</td>
 					<td style="background-color: #CDFFCE;width:23%;" align="center">製品編號/<BR>製品名稱</td>
-					<td style="background-color: #CDFFCE;width:14%;" align="center">工作中心/<BR>製程</td>
+					<td style="background-color: #CDFFCE;width:14%;" align="center">工作中心/<BR>廠商</td>
 					<td style="background-color: #CDFFCE;width:11%;" align="center">機型</td>
 					<td style="background-color: #CDFFCE;width:8%;" align="center">數量</td>
 					<td style="background-color: #CDFFCE;width:7%;" align="center">機時</td>
@@ -1496,6 +1581,7 @@
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker2"  type="text" class="txt c1"/></td>
 						<td class="td5"><input id="btnWorkReal" type="button" style="float: right;"/></td>
+						<td class="td6"><input id="btnWorkRealAll" type="button" style="float: center;"/></td>
 						<!--<td class="td3"><span> </span><a id="lblIsset"> </a></td>
 						<td class="td4"><input id="chkIsset" type="checkbox" /></td>-->
 					</tr>
