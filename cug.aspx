@@ -120,32 +120,86 @@
 					}*/
 				});
 				
+				$('#btnWorkReal').click(function() {
+					var workj='';
+					for (var i = 0; i < q_bbsCount; i++) {
+						if(!emp($('#txtWorkno_'+i).val()) && workj.indexOf($('#txtWorkno_'+i).val())<0
+						&&$('#txtWorkno_'+i).val().substr(1,1).replace(/[^\d]/g,'')==''){//表示模擬製令
+							workj=workj+(workj.length>0?',':'')+$('#txtWorkno_'+i).val();
+						}
+					}
+					
+					if(workj.length>0){
+						$('#btnWorkReal').attr('disabled', 'disabled');
+						$('#btnWorkReal').val('轉換中....');
+						q_func('qtxt.query.workreal', 'cug.txt,workreal,'+'cug'+';'+$('#txtNoa').val());
+					}else
+						alert("已轉過正式製令!!");
+				});
+				
+				//DIV事件---------------------------------------------------
 				$('#btnClose_div_child').click(function() {
 					$('#div_child').toggle();
 				});
 				
-				$('#btnEarlydayok').click(function() {
+				$('#btnDayupdate').click(function() {
 					//0514後面直接使用後端的func
-					var edaytmp='',cworknotmp='';
+					//0520 提前用負數 往後用正數
+					var daytmp='',cworknotmp='';
 					for (var i = 0; i < child_row; i++) {
-						var eday=$('#child_txtEarlyday_'+i).val()=='-' || $('#child_txtEarlyday_'+i).val()=='-0'?0:dec($('#child_txtEarlyday_'+i).val());
+						var eday=dec($('#child_txtEarlyday_'+i).val());
+						var dday=dec($('#child_txtDelayday_'+i).val());
 						var cworkno=trim($('#child_txtWorkno_'+i).val());
-						if(eday!=0 && cworkno.length>0){
-							edaytmp=edaytmp+(edaytmp.length>0?';':'')+eday.toString();
+						if(eday>0 && cworkno.length>0){
+							daytmp=daytmp+(daytmp.length>0?';':'')+(-1*eday).toString();
+							cworknotmp=cworknotmp+(cworknotmp.length>0?';':'')+cworkno;
+						}else if(dday>0 && cworkno.length>0){
+							daytmp=daytmp+(daytmp.length>0?';':'')+dday.toString();
 							cworknotmp=cworknotmp+(cworknotmp.length>0?';':'')+cworkno;
 						}
 					}
 					
-					if(edaytmp.length>0 &&cworknotmp.length>0){
-						q_func( 'workg.cuguChange', cworknotmp+','+edaytmp);
+					if(daytmp.length>0 &&cworknotmp.length>0){
+						q_func( 'workg.cuguChange', cworknotmp+','+daytmp);
 						//原始q_func( 'workg.cuguChange', 'workno; ;  '+','+'days; ;  ');
-						$('#btnEarlydayok').attr('disabled', 'disabled');
+						$('#btnDayupdate').attr('disabled', 'disabled');
+						$('#btnAlldayupdate').attr('disabled', 'disabled');
 					}else{
 						alert("無資料更新!!");
 					}
 				});
-				//-------------------------------
 				
+				$('#btnAlldayupdate').click(function() {
+					//0520 提前用負數 往後用正數
+					var cugunoq=$('#textChildcugunoq').val().substring(0,$('#textChildcugunoq').val().indexOf('-',$('#textChildcugunoq').val().indexOf('-')+1));
+					var day='';
+					if(dec($('#textAllEarlyday').val())>0)
+						day=(-1*dec($('#textAllEarlyday').val())).toString();
+					else if (dec($('#textAllDelayday').val())>0)
+						day=dec($('#textAllDelayday').val()).toString();
+					else day='';
+					
+					if(day.length>0 &&cugunoq.length>0){
+						q_func( 'workg.cuguChangeAll', cugunoq+','+day);
+						//原始q_func( 'workg.cuguChangeAll', cugs.cugunoq+','+'1');
+						$('#btnDayupdate').attr('disabled', 'disabled');
+						$('#btnAlldayupdate').attr('disabled', 'disabled');
+					}else{
+						alert("無資料更新!!");
+					}
+				});
+				
+				$('#textAllEarlyday').keyup(function() {
+					var tmp=$('#textAllEarlyday').val().replace(/[^\d]/g,'');
+					$('#textAllEarlyday').val(tmp);
+					$('#textAllDelayday').val('');
+				});
+				$('#textAllDelayday').keyup(function() {
+					var tmp=$('#textAllDelayday').val().replace(/[^\d]/g,'');
+					$('#textAllDelayday').val(tmp);
+					$('#textAllEarlyday').val('');
+				});
+				//-------------------------------
 				$('#btnCopy_plus').click(function() {
 					var drow=3,countrow=0;//預設開三行
 					//目前的行數
@@ -300,22 +354,6 @@
 					$('#div_copy').toggle();
 				});
 				
-				$('#btnWorkReal').click(function() {
-					var workj='';
-					for (var i = 0; i < q_bbsCount; i++) {
-						if(!emp($('#txtWorkno_'+i).val()) && workj.indexOf($('#txtWorkno_'+i).val())<0
-						&&$('#txtWorkno_'+i).val().substr(1,1).replace(/[^\d]/g,'')==''){//表示模擬製令
-							workj=workj+(workj.length>0?',':'')+$('#txtWorkno_'+i).val();
-						}
-					}
-					
-					if(workj.length>0){
-						$('#btnWorkReal').attr('disabled', 'disabled');
-						$('#btnWorkReal').val('轉換中....');
-						q_func('qtxt.query.workreal', 'cug.txt,workreal,'+'cug'+';'+$('#txtNoa').val());
-					}else
-						alert("已轉過正式製令!!");
-				});
             }
             
 			var first_rest=true;
@@ -639,6 +677,7 @@
 								var tr = document.createElement("tr");
 								tr.id = "bbs_" + j;
 								tr.innerHTML = "<td><input id='child_txtEarlyday_" + child_row + "' type='text' class='txt c1' value='' style='text-align:right;' /></td>";
+								tr.innerHTML += "<td><input id='child_txtDelayday_" + child_row + "' type='text' class='txt c1' value='' style='text-align:right;' /></td>";
 								tr.innerHTML += "<td><input id='child_txtRank_" + child_row + "' type='text' class='txt c1' value='" + as[i].rank + "' disabled='disabled' style='text-align:center;'/></td>";
 								tr.innerHTML += "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /></td>";
@@ -651,20 +690,30 @@
 								tmp.parentNode.insertBefore(tr, tmp);
 								child_row++;
 							}
-							$('#btnEarlydayok').removeAttr('disabled');
+							$('#btnDayupdate').removeAttr('disabled');
+							$('#btnAlldayupdate').removeAttr('disabled');
 							$('#div_child').toggle();
 						}else{
 							alert("無子階資料");
-							$('#btnEarlydayok').attr('disabled', 'disabled');
+							$('#btnDayupdate').attr('disabled', 'disabled');
+							$('#btnAlldayupdate').attr('disabled', 'disabled');
 						}
 						for (var i = 0; i < child_row; i++) {
 							$('#child_txtEarlyday_'+i).keyup(function() {
 								t_IdSeq = -1;
 								q_bodyId($(this).attr('id'));
 								b_seq = t_IdSeq;
-								var tmp=$('#child_txtEarlyday_'+b_seq).val();
-								tmp=tmp.substring(0,1) == '-'?'-'+tmp.replace(/[^\d]/g,''):tmp.replace(/[^\d]/g,'');
+								var tmp=$('#child_txtEarlyday_'+b_seq).val().replace(/[^\d]/g,'');
 								$('#child_txtEarlyday_'+b_seq).val(tmp);
+								$('#child_txtDelayday_'+b_seq).val('');
+							});
+							$('#child_txtDelayday_'+i).keyup(function() {
+								t_IdSeq = -1;
+								q_bodyId($(this).attr('id'));
+								b_seq = t_IdSeq;
+								var tmp=$('#child_txtDelayday_'+b_seq).val().replace(/[^\d]/g,'');
+								$('#child_txtDelayday_'+b_seq).val(tmp);
+								$('#child_txtEarlyday_'+b_seq).val('');
 							});
 						}
                 		break;
@@ -824,13 +873,17 @@
 							b_seq = t_IdSeq;
 							if(e.button==0){
 								if (!emp($('#txtWorkno_' + b_seq).val()) && $("#div_child").is(":hidden")) {
-									$('#textEarlyworkno').val($('#txtWorkno_' + b_seq).val());
+									$('#textChildseq').val(b_seq);
+									$('#textChildworkno').val($('#txtWorkno_' + b_seq).val());
+									$('#textChildcugunoq').val($('#txtCugunoq_' + b_seq).val());
+									$('#textAllEarlyday').val('');
+									$('#textAllDelayday').val('');
 									//查詢子階work
 									var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
 									t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
 									t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
 									q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
-									$('#div_child').css('top', e.pageY);
+									$('#div_child').css('top', e.pageY+25);
 									$('#div_child').css('left', e.pageX);
 								}
 							}
@@ -1111,9 +1164,18 @@
                 		alert("更新完成!!");
                 		//重新開啟新的資料
                 		$('#div_child').toggle();
-						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
-						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ";
-						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') and stationno!='' ^^";
+						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') and stationno!='' ^^";
+						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
+                	break;
+                	case 'workg.cuguChangeAll':
+                		alert("更新完成!!");
+                		//重新開啟新的資料
+                		$('#div_child').toggle();
+						var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						t_where=t_where+"and isnull(previd,'')=(select isnull(nowid,'') from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') ";
+						t_where=t_where+"and rank=(select cast(rank as int)+1 from view_work where noa='"+$('#txtWorkno_' + $('#textChildseq').val()).val()+"') and stationno!='' ^^";
 						q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
                 	break;
                 	case 'qtxt.query.workreal':
@@ -1322,16 +1384,26 @@
 		<!---DIV分隔線---->
 		<div id="div_child" style="position:absolute; top:0px; left:0px; display:none; width:1000px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_child" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
-				<tr style="display: none;">
-					<td colspan="9" style="background-color: #f8d463;" id='child_earlyday'>
-						<input id='textEarlyworkno' type='hidden'/>
+				<tr >
+					<td colspan="10" style="background-color: #f8d463;">
+						<input id='textChildseq' type='hidden'/>
+						<input id='textChildworkno' type='hidden'/>
+						<input id='textChildcugunoq' type='hidden'/>
+						所有製成品子階全部&nbsp;&nbsp;
+						提前&nbsp;
+						<input id='textAllEarlyday' type='text' style='text-align:right;width: 50px;'/>
+						往後&nbsp;
+						<input id='textAllDelayday' type='text' style='text-align:right;width: 50px;'/>
+						&nbsp;&nbsp;
+						<input id="btnAlldayupdate" type="button" value="全部更新">
 					</td>
 				</tr>
 				<tr id='child_top'>
 					<td style="background-color: #CDFFCE;width:4%;" align="center">提前天數</td>
+					<td style="background-color: #CDFFCE;width:4%;" align="center">往後天數</td>
 					<td style="background-color: #CDFFCE;width:4%;" align="center">子階層數</td>
 					<td style="background-color: #CDFFCE;width:16%;" align="center">子階製令單號</td>
-					<td style="background-color: #CDFFCE;width:27%;" align="center">製品編號/<BR>製品名稱</td>
+					<td style="background-color: #CDFFCE;width:23%;" align="center">製品編號/<BR>製品名稱</td>
 					<td style="background-color: #CDFFCE;width:14%;" align="center">工作中心/<BR>製程</td>
 					<td style="background-color: #CDFFCE;width:11%;" align="center">機型</td>
 					<td style="background-color: #CDFFCE;width:8%;" align="center">數量</td>
@@ -1339,8 +1411,8 @@
 					<td style="background-color: #CDFFCE;width:9%;" align="center">應開工日</td>
 				</tr>
 				<tr id='child_close'>
-					<td align="center" colspan='9'>
-						<input id="btnEarlydayok" type="button" value="更新">
+					<td align="center" colspan='10'>
+						<input id="btnDayupdate" type="button" value="部分更新">
 						<input id="btnClose_div_child" type="button" value="關閉視窗">
 					</td>
 				</tr>

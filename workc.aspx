@@ -76,9 +76,9 @@
 					
 					//1030310讀取倉庫
 					if (!emp($('#txtStoreno').val()))
-						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreno').val() + "','') group by productno order by productno^^";
+						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreno').val() + "','') where mount>0 group by productno order by productno^^";
 					else
-						var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
+						var t_where = "where=^^ ['" + q_date() + "','','') where mount>0 group by productno order by productno^^";
 					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 					
 					$('#btnOrdes').attr('disabled', 'disabled');
@@ -89,9 +89,9 @@
 					
 					//1030310讀取倉庫
 					if (!emp($('#txtStoreno').val()))
-						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreno').val() + "','') group by productno order by productno^^";
+						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreno').val() + "','') where mount>0 group by productno order by productno^^";
 					else
-						var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
+						var t_where = "where=^^ ['" + q_date() + "','','') where mount>0 group by productno order by productno^^";
 					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 					
 					$('#btnWork').attr('disabled', 'disabled');
@@ -102,9 +102,9 @@
 					
 					//1030310讀取倉庫
 					if (!emp($('#txtStoreno').val()))
-						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreno').val() + "','') group by productno order by productno^^";
+						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreno').val() + "','') where mount>0 group by productno order by productno^^";
 					else
-						var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
+						var t_where = "where=^^ ['" + q_date() + "','','') where mount>0 group by productno order by productno^^";
 					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 					
 					$('#btnWorks').attr('disabled', 'disabled');
@@ -138,12 +138,14 @@
 									$('#btnMinus_' + i).click();
 								}
 								for (var i = 0; i < b_ret.length; i++) {
-									var t_where = "where=^^ ordeno ='" + b_ret[i].noa + "' and no2='" + b_ret[i].no2 + "' and tggno!='' and left(tggno,1)!='Z' ";
+									//var t_where = "where=^^ ordeno ='" + b_ret[i].noa + "' and no2='" + b_ret[i].no2 + "' and tggno!='' and left(tggno,1)!='Z' ";
+									var t_where = "where=^^ charindex('"+b_ret[i].noa+'-'+b_ret[i].no2+"',ordeno)>0 and tggno!='' and left(tggno,1)!='Z' ";
+									t_where+=" and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and mount>inmount"; 
+									t_where+=" and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+									
 									if (!emp($('#txtTggno').val()))
 										t_where += " and tggno='" + $('#txtTggno').val() + "'";
-
 									t_where += "^^";
-
 									q_gt('work', t_where, 0, 0, 0, "", r_accy);
 								}
 							}
@@ -166,17 +168,29 @@
 							b_ret = getb_ret();
 							if (!b_ret || b_ret.length == 0)
 								return;
+								
+							var inwork_stk=false;
 							//將目前領料的數量加回目前庫存
 							for (var i = 0; i < abbsNow.length; i++) {
+								inwork_stk=false;
 								for (var j = 0; j < work_stk.length; j++) {
 									if (abbsNow[i].productno == work_stk[j].productno) {
 										work_stk[j].mount = dec(work_stk[j].mount) + dec(abbsNow[i].mount);
+										inwork_stk=true;
 									}
+								}
+								if(!inwork_stk){
+									work_stk.push({
+										porductno:abbsNow[i].productno,
+										mount:dec(abbsNow[i].mount),
+										weight:0
+									})
 								}
 							}
 							var t_msg = '', t_worksno = '';
 							//判斷庫存量足夠
 							for (var i = 0; i < b_ret.length; i++) {
+								inwork_stk=false;
 								//應領料數量
 								for (var j = 0; j < abbsNow.length; j++) {
 									if (b_ret[i].noa == abbsNow[j].workno) {
@@ -187,6 +201,7 @@
 								b_ret[i].smount = dec(b_ret[i].mount) - dec(b_ret[i].gmount);
 								for (var j = 0; j < work_stk.length; j++) {
 									if (b_ret[i].productno == work_stk[j].productno) {
+										inwork_stk=true;
 										if (dec(work_stk[j].mount) - dec(b_ret[i].mount) < 0) {
 											if (t_worksno != b_ret[i].noa) {
 												if (t_worksno == '')
@@ -208,6 +223,18 @@
 										}
 										break;
 									}
+								}
+								if(!inwork_stk){
+									if (t_worksno != b_ret[i].noa) {
+										if (t_worksno == '')
+											t_msg += "製令單：" + b_ret[i].noa + "\n";
+										else
+											t_msg += "\n製令單：" + b_ret[i].noa + "\n";
+										t_worksno = b_ret[i].noa;
+									}
+									t_msg += "原料：" + b_ret[i].product + "，不足數量：" + dec(b_ret[i].smount).toString() + "\n";
+									b_ret.splice(i, 1);
+									i--;
 								}
 							}
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtSpec,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', b_ret.length, b_ret, 'productno,product,unit,spec,smount,memo,processno,process,noa,mount,gmount,xmount', '');
@@ -300,11 +327,21 @@
 						}
 
 						//將目前領料的數量加回目前庫存
+						var inwork_stk=false;
 						for (var i = 0; i < abbsNow.length; i++) {
+							inwork_stk=false;
 							for (var j = 0; j < work_stk.length; j++) {
 								if (abbsNow[i].productno == work_stk[j].productno) {
 									work_stk[j].mount = dec(work_stk[j].mount) + dec(abbsNow[i].mount);
+									inwork_stk=true;
 								}
+							}
+							if(!inwork_stk){
+								work_stk.push({
+									porductno:abbsNow[i].productno,
+									mount:dec(abbsNow[i].mount),
+									weight:0
+								})
 							}
 						}
 
@@ -312,6 +349,7 @@
 						var t_msg = '', t_worksno = '';
 						//判斷庫存量足夠
 						for (var i = 0; i < as.length; i++) {
+							inwork_stk=false;
 							//應領料數量
 							for (var j = 0; j < abbsNow.length; j++) {
 								if (as[i].noa == abbsNow[j].workno) {
@@ -322,6 +360,7 @@
 							as[i].smount = dec(as[i].mount) - dec(as[i].gmount);
 							for (var j = 0; j < work_stk.length; j++) {
 								if (as[i].productno == work_stk[j].productno) {
+									inwork_stk=true;
 									if (dec(work_stk[j].mount) - dec(as[i].smount) < 0) {
 										if (t_worksno != as[i].noa) {
 											if ( t_worksno = '')
@@ -344,6 +383,19 @@
 									break;
 								}
 							}
+							
+							if(!inwork_stk){
+								if (t_worksno != as[i].noa) {
+									if ( t_worksno = '')
+										t_msg += "製令單：" + as[i].noa + "\n";
+									else
+										t_msg += "\n製令單：" + as[i].noa + "\n";
+									t_worksno = as[i].noa;
+								}
+								t_msg += "原料：" + as[i].product + "，不足數量：" + dec(as[i].smount).toString() + "\n";
+								as.splice(i, 1);
+								i--;
+							}
 						}
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit,txtMount,txtMemo,txtProcessno,txtProcess,txtWorkno,txtWk_mount,txtWk_gmount,txtWk_emount', as.length, as, 'productno,product,spec,unit,smount,memo,processno,process,noa,mount,gmount,xmount', '');
 						if (t_msg.length > 0)
@@ -354,24 +406,29 @@
 						
 						if(q_box_aspx=='ordes'){
 							if (!emp($('#txtTggno').val())) {
-								var t_where = "isnull(enda,0)!=1 and noa+'-'+no2 in (select a.ordeno from work" + r_accy + " a left join works" + r_accy + " b on a.noa=b.noa where a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and a.mount > a.inmount group by a.ordeno,a.no2) ";
+								//var t_where = "isnull(enda,0)!=1 and noa+'-'+no2 in (select a.ordeno from work" + r_accy + " a left join works" + r_accy + " b on a.noa=b.noa where a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and a.mount > a.inmount group by a.ordeno,a.no2) ";
+								var t_where = "isnull(enda,0)!=1 and charindex(noa+'-'+no2,(select a.ordeno+',' from view_work a left join view_works b on a.noa=b.noa ";
+								t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+								t_where+=" and a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and a.mount>a.inmount and a.ordeno!='' group by a.ordeno FOR XML path('')))>0";
 							} else {
-								var t_where = "isnull(enda,0)!=1 and noa+'-'+no2 in (select a.ordeno from work" + r_accy + " a left join works" + r_accy + " b on a.noa=b.noa where a.tggno!='' and a.mount > a.inmount group by a.ordeno,a.no2) ";
+								//var t_where = "isnull(enda,0)!=1 and noa+'-'+no2 in (select a.ordeno from work" + r_accy + " a left join works" + r_accy + " b on a.noa=b.noa where a.tggno!='' and a.mount > a.inmount group by a.ordeno,a.no2) ";
+								var t_where = "isnull(enda,0)!=1 and charindex(noa+'-'+no2,(select a.ordeno+',' from view_work a left join view_works b on a.noa=b.noa ";
+								t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+								t_where+=" and a.tggno!='' and a.mount>a.inmount and a.ordeno!='' group by a.ordeno FOR XML path('')))>0";
 							}
-							q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 							
+							q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 							$('#btnOrdes').removeAttr('disabled');
 						}
 						
 						if(q_box_aspx=='work'){
 							var t_where = '1=1 ';
-							if (!emp($('#txtTggno').val())) {
-								//var t_where += "and enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount>a.inmount)";
-								t_where += "and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' and tggno='" + $('#txtTggno').val() + "'";
-							} else {
-								//var t_where += "and enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount<a.inmount)";
-								t_where += "and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' ";
-							}
+							//var t_where += "and enda!=1 and tggno!='' and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where a.mount<a.inmount)";
+							t_where += "and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' ";
+							
+							if (!emp($('#txtTggno').val()))
+								t_where += "and tggno='" + $('#txtTggno').val() + "' ";
+							
 							var workno = $.trim($('#txtWorkno').val());
 							if (workno.length > 0) {
 								t_where += " and noa=N'" + workno + "'";
@@ -385,6 +442,11 @@
 									t_edate = '999/99/99'
 								t_where += " and cuadate between '" + t_bdate + "' and '" + t_edate + "'";
 							}
+							
+							//103/05/20 加上排除模擬製令
+							//t_where += " and SUBSTRING(noa,2,1) LIKE '[0-9]%' "; >>翻頁會出錯
+							t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
+							
 							q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 							
 							$('#btnWork').removeAttr('disabled');
@@ -412,6 +474,8 @@
 							}
 		
 							//t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"
+							//103/05/20 加上排除模擬製令
+							t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
 		
 							q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 							
