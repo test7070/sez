@@ -102,20 +102,20 @@
 	<body>
 		<div  id="dbbs"  >
 			<!--#include file="../inc/pop_modi.inc"-->
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:1086px'  >
 				<tr style='color:white; background:#003366;' >
-					<td class="td1" align="center" style="width:1%; max-width:20px;">
+					<td class="td1" align="center" style="width:36px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td class="td2" align="center" style="width:6%;"><a id='lblCarno'></a></td>
-					<td class="td3" align="center" style="width:6%;"><a id='lblOldcarno'></a></td>
-					<td class="td4" align="center" style="width:6%;"><a id='lblChgdate'></a></td>
-					<td class="td5" align="center" style="width:6%;"><a id='lblStopdate'></a></td>
-					<td class="td6" align="center" style="width:6%;"><a id='lblEnddate'></a></td>
-					<td class="td7" align="center" style="width:6%;"><a id='lblWastedate'></a></td>
-					<td class="td8" align="center" style="width:6%;"><a id='lblCanceldate'></a></td>
-					<td class="td9" align="center" style="width:6%;"><a id='lblDatea'></a></td>
-					<td class="td10" align="center" style="width:12%;"><a id='lblMemo'></a></td>
+					<td class="td2" align="center" style="width:103px;"><a id='lblCarno'></a></td>
+					<td class="td3" align="center" style="width:103px;"><a id='lblOldcarno'></a></td>
+					<td class="td4" align="center" style="width:103px;"><a id='lblChgdate'></a></td>
+					<td class="td5" align="center" style="width:103px;"><a id='lblStopdate'></a></td>
+					<td class="td6" align="center" style="width:103px;"><a id='lblEnddate'></a></td>
+					<td class="td7" align="center" style="width:104px;"><a id='lblWastedate'></a></td>
+					<td class="td8" align="center" style="width:104px;"><a id='lblCanceldate'></a></td>
+					<td class="td9" align="center" style="width:104px;"><a id='lblDatea'></a></td>
+					<td class="td10" align="center" style="width:208px;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1">
