@@ -558,7 +558,7 @@
 					<td align="center" style="width:80px;display:none;"><a id='lblWaste'></a></td>
 					<td align="center" style="width:80px;display:none;"><a id='lblGmount'></a></td>
 					<td align="center" style="width:220px;"><a id='lblMemo'></a></td>
-					<td align="center" style="width:40px;">群組</td>
+					<td align="center" style="width:40px;" title="領料、入庫群組設定相同，成本單價將會獨立計算。">群組</td>
 				</tr>
 				<tr style="background:#cad3ff;font-size: 14px;">
 					<td style="width:1%;">

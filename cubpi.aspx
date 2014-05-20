@@ -1109,7 +1109,7 @@
 					<td style="width:100px; text-align: center;">耗用數</td>
 					<td style="width:100px; text-align: center;">耗料重</td>
 					<td style="width:100px; text-align: center;">領料日</td>
-					<td style="width:50px; text-align: center;">群組</td>
+					<td style="width:50px; text-align: center;" title="領料、入庫群組設定相同，成本單價將會獨立計算。">群組</td>
 				</tr>
 				<tr>
 					<td>
