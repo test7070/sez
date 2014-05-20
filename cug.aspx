@@ -267,7 +267,7 @@
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
-							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnCopy_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5 ){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -277,7 +277,7 @@
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
 							$('#textDatea_'+i).datepicker('destroy');
-							$('#btnMinus_'+i).attr('disabled', 'disabled');
+							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}else{
 							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
@@ -289,7 +289,7 @@
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
-							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
 					}
@@ -498,7 +498,7 @@
 							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).removeClass('hasDatepicker');
 						$('#textDatea_'+i).datepicker();
-						$('#btnMinus_'+i).removeAttr('disabled');
+						$('#btnCopy_'+i).removeAttr('disabled');
 						$('#btnChildchange_'+i).removeAttr('disabled');
 					}else if ($('#txtNos_'+i).val().length==5 ){
 						$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -508,7 +508,7 @@
 						$('#textDatea_'+i).removeClass('hasDatepicker');
 						$('#textDatea_'+i).datepicker();
 						$('#textDatea_'+i).datepicker('destroy');
-						$('#btnMinus_'+i).attr('disabled', 'disabled');
+						$('#btnCopy_'+i).attr('disabled', 'disabled');
 						$('#btnChildchange_'+i).attr('disabled', 'disabled');
 					}else{
 						$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
@@ -520,7 +520,7 @@
 							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).removeClass('hasDatepicker');
 						$('#textDatea_'+i).datepicker();
-						$('#btnMinus_'+i).removeAttr('disabled');
+						$('#btnCopy_'+i).attr('disabled', 'disabled');
 						$('#btnChildchange_'+i).attr('disabled', 'disabled');
 					}
 				}
@@ -836,14 +836,14 @@
 							}
 						});
 						
-						$('#btnMinus_' + i).bind('contextmenu',function(e) {
+						$('#btnCopy_' + i).mousedown(function(e) {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if(e.button==2){
+							if(e.button==0){
 								if(dec($('#txtMount_' + b_seq).val())<=0 || emp($('#txtWorkno_' + b_seq).val()))
 									return;
-								
+									
 								//設定顯示位置
 								$('#div_copy').css('top', e.pageY+30);
 								$('#div_copy').css('left', e.pageX+45);
@@ -897,7 +897,7 @@
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
-							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnCopy_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -907,7 +907,7 @@
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
 							$('#textDatea_'+i).datepicker('destroy');
-							$('#btnMinus_'+i).attr('disabled', 'disabled');
+							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}else{
 							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
@@ -919,7 +919,7 @@
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
-							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
 					}else{
@@ -928,6 +928,7 @@
 						}else{
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
+						$('#btnCopy_'+i).attr('disabled', 'disabled');
 					}
 				}
 				
@@ -1009,7 +1010,7 @@
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
-							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnCopy_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5 ){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -1019,7 +1020,7 @@
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
 							$('#textDatea_'+i).datepicker('destroy');
-							$('#btnMinus_'+i).attr('disabled', 'disabled');
+							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}else{
 							$('#txtProcess_'+i).css('color','black').css('background','white').removeAttr('readonly');
@@ -1031,7 +1032,7 @@
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
 							$('#textDatea_'+i).datepicker();
-							$('#btnMinus_'+i).removeAttr('disabled');
+							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
 					}else{
@@ -1040,6 +1041,7 @@
 						}else{
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
+						$('#btnCopy_'+i).attr('disabled', 'disabled');
 					}
 				}
 				if(issave){
@@ -1452,7 +1454,11 @@
 					<!--<td align="center"><a id='lblMemo_s'> </a></td>-->
 				</tr>
 				<tr id="trSel.*">
-					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+					<td align="center">
+						<!--0520該作業不需要-->
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold; display: none;" />
+						<input class="btn"  id="btnCopy.*" type="button" value='拆分' />
+					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input id="txtNos.*" type="text" class="txt c1"/>
