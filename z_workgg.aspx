@@ -26,6 +26,9 @@
 			});
 			var xgroupanoStr = '';
 			var clickIndex = -1;
+			var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
+				t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
+				t_xgroupano='#non',t_xshowover='#non';
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workgg',
@@ -56,6 +59,10 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					}, {
+						type : '8', //[10]
+						name : 'xshowover',
+						value : ('1@只顯示超負荷').split(',')
 					}]
 				});
 				$('#q_report').click(function(){
@@ -93,7 +100,6 @@
 						$('#txtXdate1').val(q_date());
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
-					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',t_xgroupano='#non';
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
@@ -108,6 +114,11 @@
 						t_xeproductno=encodeURI($('#txtXproductno2a').val());
 					if(!emp($('#Xgroupano select').val()))
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
+					if($('#chkXshowover input[type="checkbox"]').prop('checked'))
+						t_xshowover=encodeURI('1');
+					else{
+						t_xshowover='#non'
+					}
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -117,7 +128,8 @@
 							t_xestationno + ';' +
 							t_xgroupano + ';' +
 							t_xbproductno + ';' +
-							t_xeproductno + ';'
+							t_xeproductno + ';' + 
+							t_xshowover + ';'
 					);
 				});
 			}
@@ -215,8 +227,8 @@
 								}
 							}
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>" +
+							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作中心</td>" +
+									   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
 									   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
@@ -231,13 +243,16 @@
 							var ATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
+								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>" +
 										   "<td class='num'>" + (dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3)) + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
 									var thisValue = round(TTD[j][1],3);
+									if(t_xshowover=='1'){
+										thisValue = (thisValue==0?'':thisValue);
+									}
 									var thisGen = dec(TTD[j][2]);
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
@@ -254,7 +269,7 @@
 							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
-							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
+							t_totalWidth = 670+((70+2)*(DateObj.length+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 						break;
@@ -344,8 +359,8 @@
 							var ATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>" +
-										   "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
+								OutHtml += "<td class='Lproduct' style='width:150px;'>" + TL[k].productno + "</td><td class='Lproduct' style='width:220px;'>" + TL[k].product + "</td>" +
+										   "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
@@ -365,7 +380,7 @@
 							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
-							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
+							t_totalWidth = 690+((70+2)*(DateObj.length+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 						break;
@@ -578,7 +593,7 @@
 							var ATotal = 0,wATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>";
+								OutHtml += "<td class='Lproduct' style='width:150px;'>" + TL[k].productno + "</td><td class='Lproduct' style='width:220px;'>" + TL[k].product + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
@@ -625,7 +640,7 @@
 			}
 			.Lproduct{
 				text-align:left;
-				padding-left:2px;
+				padding-left:3px;
 			}
 			.num{
 				text-align:right;
