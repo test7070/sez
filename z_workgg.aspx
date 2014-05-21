@@ -26,6 +26,9 @@
 			});
 			var xgroupanoStr = '';
 			var clickIndex = -1;
+			var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
+				t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
+				t_xgroupano='#non',t_xshowover='#non';
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workgg',
@@ -97,9 +100,6 @@
 						$('#txtXdate1').val(q_date());
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
-					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
-						t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
-						t_xgroupano='#non',t_xshowover='#non';
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
@@ -116,6 +116,9 @@
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
 					if($('#chkXshowover input[type="checkbox"]').prop('checked'))
 						t_xshowover=encodeURI('1');
+					else{
+						t_xshowover='#non'
+					}
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -247,6 +250,9 @@
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
 									var thisValue = round(TTD[j][1],3);
+									if(t_xshowover=='1'){
+										thisValue = (thisValue==0?'':thisValue);
+									}
 									var thisGen = dec(TTD[j][2]);
 									tTotal = q_add(tTotal,round(TTD[j][1],3));
 									DateObj[j].mount = q_add(dec(DateObj[j].mount),round(TTD[j][1],3));
