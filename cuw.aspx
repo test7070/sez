@@ -381,18 +381,13 @@
 								if(thisVal==bbtWorkTime){
 									hasBBtRec = true;
 									break;
-								}else if((bbtWorkTime.length == 0) && (theEmpBBt==-1)){
-								//尋找空白行(依作業時間判斷)
-									theEmpBBt = k;
 								}
 							}
 
 							if(!hasBBtRec){
 								var NewbbtSeq = theEmpBBt;
-								if(NewbbtSeq==-1){
-									q_bbs_addrow('bbt',q_bbtCount,0);
-									NewbbtSeq= dec(q_bbtCount)-1;
-								}
+								q_bbs_addrow('bbt',0,0);
+								NewbbtSeq= 0/*dec(q_bbtCount)-1*/;
 								$('#txtWorktime__'+NewbbtSeq).val(thisVal);
 								if($('#chkIsovertime_'+n).prop('checked')){
 									$('#chkIsovertime__'+NewbbtSeq).prop('checked',true);
@@ -537,7 +532,7 @@
 				var thisDatea = $.trim($('#txtDatea').val());
 				var thisStationno = $.trim($('#txtStationno').val());
 				if((thisDatea.length > 0) && (thisStationno.length > 0)){
-					var t_where = "where=^^ datea=N'" + thisDatea + "' and stationno=N'" + thisStationno + "' ^^";
+					var t_where = "where=^^ datea=N'" + thisDatea + "' and stationno=N'" + thisStationno + "' ^^ sorder=^^ noa asc ^^";
 					q_gt('cuy', t_where , 0, 0, 0, "GetCuy", r_accy);
 				}			
 			}

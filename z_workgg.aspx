@@ -56,6 +56,10 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					}, {
+						type : '8', //[10]
+						name : 'xshowover',
+						value : ('1@只顯示超負荷').split(',')
 					}]
 				});
 				$('#q_report').click(function(){
@@ -93,7 +97,9 @@
 						$('#txtXdate1').val(q_date());
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
-					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',t_xgroupano='#non';
+					var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
+						t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
+						t_xgroupano='#non',t_xshowover='#non';
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
@@ -108,6 +114,8 @@
 						t_xeproductno=encodeURI($('#txtXproductno2a').val());
 					if(!emp($('#Xgroupano select').val()))
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
+					if($('#chkXshowover input[type="checkbox"]').prop('checked'))
+						t_xshowover=encodeURI('1');
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -117,7 +125,8 @@
 							t_xestationno + ';' +
 							t_xgroupano + ';' +
 							t_xbproductno + ';' +
-							t_xeproductno + ';'
+							t_xeproductno + ';' + 
+							t_xshowover + ';'
 					);
 				});
 			}

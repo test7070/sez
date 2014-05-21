@@ -42,7 +42,7 @@
 			}
 
 			function mainPost() {
-				bbmMask = [['txtNoa','9999-9999']];
+				bbmMask = [['txtBtime','9999'],['txtEtime','9999']];
 				q_mask(bbmMask);
 				$('#txtNoa').change(function(e) {
 					$(this).val($.trim($(this).val()).toUpperCase());
@@ -95,7 +95,7 @@
 			function btnIns() {
 				_btnIns();
 				refreshBbm();
-				$('#txtNoa').focus();
+				$('#txtBtime').focus();
 			}
 
 			function btnModi() {
@@ -118,6 +118,14 @@
 
 			function btnOk() {
 				Lock();
+				var t_btime = $.trim($('#txtBtime').val());
+				var t_etime = $.trim($('#txtEtime').val());
+				if((t_btime.length==4) && (t_etime.length==4)){
+					$('#txtNoa').val(t_btime+'-'+t_etime);
+				}else{
+					alert(q_getMsg('lblTimea') + '欄位格式錯誤，正確格式 0000');
+					return;
+				}
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
 				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 				if (t_err.length > 0) {
@@ -321,11 +329,20 @@
 			</div>
 			<div class='dbbm' style="width: 73%;float: left;">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='5'>
-					<tr>
+					<tr style="display:none;">
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td class="td3"></td>
 						<td class="td4"></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblTimea' class="lbl"></a></td>
+						<td class="td2">
+							<input id="txtBtime" type="text" class="txt" style="width:43%"/>
+							<span style="float:left;width:10%;text-align:center;">~</span>
+							<input id="txtEtime" type="text" class="txt" style="width:43%"/>
+						</td>
+						<td class="td3"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMinutes' class="lbl"></a></td>
