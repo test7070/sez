@@ -540,6 +540,7 @@
 					<td align="center" style="width:45px;"><a id='lblPrt'></a></td>
 					<td align="center" style="width:30px;"><a id='lblStyle'></a></td>
 					<td align="center" style="width:250px;"><a id='lblUno'></a></td>
+					<td align="center" style="width:40px;" title="領料、入庫群組設定相同，成本單價將會獨立計算。">群組</td>
 					<td align="center" style="width:180px;"><a id='lblOrdeno'></a></td>
 					<td align="center" style="width:100px;"><a id='lblCustno'></a></td>
 					<td align="center" style="width:100px;"><a id='lblDatea'></a></td>
@@ -558,7 +559,7 @@
 					<td align="center" style="width:80px;display:none;"><a id='lblWaste'></a></td>
 					<td align="center" style="width:80px;display:none;"><a id='lblGmount'></a></td>
 					<td align="center" style="width:220px;"><a id='lblMemo'></a></td>
-					<td align="center" style="width:40px;" title="領料、入庫群組設定相同，成本單價將會獨立計算。">群組</td>
+					
 				</tr>
 				<tr style="background:#cad3ff;font-size: 14px;">
 					<td style="width:1%;">
@@ -571,6 +572,7 @@
 					</td>
 					<td><input type="text" id="txtStyle.*" class="txt c1" style="text-align: center;"/></td>
 					<td><input type="text" id="txtUno.*" class="txt c1"/></td>
+					<td><input type="text" id="txtGroupa.*" class="txt c1"/></td>
 					<td>
 						<input id="btnOrdeno.*" type="button" value="." class="txt btn" style="width:1%;"/>
 						<input type="text" id="txtOrdeno.*" class="txt" style="width:60%;"/>
@@ -616,7 +618,7 @@
 						<input type="text" id="txtMemo.*" class="txt c1"/>
 						<input type="text" id="txtWorker.*" style="display:none;"/>
 					</td>
-					<td><input type="text" id="txtGroupa.*" class="txt c1"/></td>
+					
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->
