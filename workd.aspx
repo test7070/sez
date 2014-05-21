@@ -96,9 +96,15 @@
 				$('#btnOrdes').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
 						if (!emp($('#txtTggno').val())) {
-							var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and (a.mount>a.inmount and b.gmount>0)) ";
+							//var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and (a.mount>a.inmount and b.gmount>0)) ";
+							var t_where = "isnull(enda,0)!=1 and charindex(noa+'-'+no2,(select a.ordeno from view_work a left join view_works b on a.noa=b.noa ";
+							t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+							t_where+=" and a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and a.mount>a.inmount and b.gmount>0 and a.ordeno!='' group by a.ordeno FOR XML path('')))>0";
 						} else {
-							var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and (a.mount>a.inmount and b.gmount>0)) ";
+							//var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where a.tggno!='' and (a.mount>a.inmount and b.gmount>0)) ";
+							var t_where = "isnull(enda,0)!=1 and charindex(noa+'-'+no2,(select a.ordeno from view_work a left join view_works b on a.noa=b.noa ";
+							t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+							t_where+=" and a.tggno!='' and a.mount>a.inmount and b.gmount>0 and a.ordeno!='' group by a.ordeno FOR XML path('')))>0";
 						}
 						q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrdes'));
 					}
@@ -113,13 +119,13 @@
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 				$('#btnWork').click(function() {
 					var t_where = '1=1 ';
+					//var t_where += "enda!=1 and tggno!='' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
+					t_where += "and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' ";
+					
 					if (!emp($('#txtTggno').val())) {
-						//var t_where += "enda!=1 and tggno!='' and tggno='"+$('#txtTggno').val()+"' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
-						t_where += "and enda!=1 and tggno!='' and tggno='" + $('#txtTggno').val() + "' ";
-					} else {
-						//var t_where += "enda!=1 and tggno!='' and noa in (select a.noa from view_work a left join view_works b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
-						t_where += "and enda!=1 and tggno!='' ";
+						t_where += "and tggno='" + $('#txtTggno').val() + "' ";
 					}
+					
 					var workno = $.trim($('#textWorkno').val());
 					if(workno.length > 0 ){
 						t_where += " and noa=N'"+workno+"'";
@@ -132,6 +138,10 @@
 						if(t_edate.length == 0) t_edate='999/99/99'
 						t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
 					}
+					
+					//103/05/20 加上排除模擬製令
+					//t_where += " and SUBSTRING(noa,2,1) LIKE '[0-9]%' "; >>翻頁會出錯
+					t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
 					
 					t_where += " or noa in (select workno from view_workds where noa='" + $('#txtNoa').val() + "')";
 					
@@ -191,8 +201,11 @@
 								for (var i = 0; i < q_bbsCount; i++) {
 									$('#btnMinus_' + i).click();
 								}
+								
 								for (var i = 0; i < b_ret.length; i++) {
-									var t_where = "where=^^ ordeno ='" + b_ret[i].noa + "' and no2='" + b_ret[i].no2 + "' and tggno!='' and left(tggno,1)!='Z' ";
+									var t_where = "where=^^ charindex('"+b_ret[i].noa+'-'+b_ret[i].no2+"',ordeno)>0 and tggno!='' and left(tggno,1)!='Z' ";
+									t_where+=" and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and mount>inmount"; 
+									t_where+=" and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
 									if (!emp($('#txtTggno').val()))
 										t_where += " and tggno='" + $('#txtTggno').val() + "'";
 

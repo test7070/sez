@@ -67,14 +67,18 @@
 				});
 				
                 $('#btnWork').click(function() {
+                	if(emp($('#txtStationno').val())){
+                		alert(q_getMsg('lblStation')+'請先填寫。');
+                		return;
+                	}
+                	
                 	if(emp($('#txtBdate').val())){
                 		alert(q_getMsg('lblCuadate')+'請先填寫。');
                 		return;
                 	}
                 	
-                	if(emp($('#txtStationno').val())){
-                		alert(q_getMsg('lblStation')+'請先填寫。');
-                		return;
+                	if(emp($('#txtEdate').val())){
+                		$('#txtEdate').val(q_cdn($('#txtBdate').val(),13));
                 	}
                 	
                 	//0513 只要匯入bbs就全部砍
@@ -255,7 +259,7 @@
 						tmp.parentNode.insertBefore(tr, tmp);
 						
 						$('#copy_txtCuadate_'+(rowslength+countrow)).mask('999/99/99');
-		                $('#copy_txtCuadate_'+(rowslength+countrow)).datepicker();
+		                $('#copy_txtCuadate_'+(rowslength+countrow)).datepicker({defaultDate:$('#copy_cuadate').text()});
 	                
 						countrow++;
 					}
@@ -284,6 +288,40 @@
 							$('#copy_txtHours_'+b_seq).val('');
 						});
 					}
+					
+					var SeekF= new Array();
+					$('#table_copy td').children("input:text").each(function() {
+						if($(this).attr('disabled')!='disabled')
+							SeekF.push($(this).attr('id'));
+					});
+					divdate=true;
+					SeekF.push('btn_div_copy');
+					$('#table_copy td').children("input:text").each(function() {
+						$(this).focusout(function(event) {
+							if($(this).attr('id').indexOf('copy_txtCuadate_')>-1){
+								divdate=true;
+								if(divkdate){
+									$('#ui-datepicker-div').hide();
+									divkdate=false;
+								}
+								$('#'+SeekF[SeekF.indexOf($(this).attr('id'))+1]).focus();
+								//$('#'+SeekF[SeekF.indexOf($(this).attr('id'))+1]).select();
+							}
+							if($(this).attr('id').indexOf('copy_txtMount_')>-1 &&divdate){
+								$('#'+SeekF[SeekF.indexOf($(this).attr('id'))]).select();
+								divdate=false;
+							}
+						});
+						
+						$(this).bind('keydown', function(event) {
+							if($(this).attr('id').indexOf('copy_txtCuadate_')>-1){
+								divdate=true;
+								divkdate=true;
+							}
+							keypress_bbm(event, $(this), SeekF, SeekF[$.inArray($(this).attr('id'),SeekF)+1]);	
+							
+						});
+					});
 				});
 				
 				$('#btn_div_copy').click(function() {
@@ -395,6 +433,8 @@
 				
             }
             
+            var divdate=false;
+            var divkdate=false;
 			var first_rest=true;
 			var getnewgen=false;
             function scheduling(){
@@ -718,10 +758,11 @@
 								tr.innerHTML = "<td><input id='child_txtEarlyday_" + child_row + "' type='text' class='txt c1' value='' style='text-align:right;' /></td>";
 								tr.innerHTML += "<td><input id='child_txtDelayday_" + child_row + "' type='text' class='txt c1' value='' style='text-align:right;' /></td>";
 								tr.innerHTML += "<td><input id='child_txtRank_" + child_row + "' type='text' class='txt c1' value='" + as[i].rank + "' disabled='disabled' style='text-align:center;'/></td>";
-								tr.innerHTML += "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";
-								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /></td>";
-								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtTgg_" + child_row + "' type='text' class='txt c1' value='" + as[i].comp + "' disabled='disabled' /></td>";
+								tr.innerHTML += "<td><input id='child_txtWorkno_" + child_row + "' type='text' class='txt c1' value='" + as[i].noa + "' disabled='disabled'/></td>";								
+								tr.innerHTML += "<td><input id='child_txtProductno_" + child_row + "' type='text' class='txt c1' value='" + as[i].productno + "' disabled='disabled' /><input id='child_txtProcess_" + child_row + "' type='text' class='txt c1' value='" + as[i].process + "' disabled='disabled' /></td>";
+								tr.innerHTML += "<td><input id='child_txtProduct_" + child_row + "' type='text' class='txt c1' value='" + as[i].product + "' disabled='disabled' /><input id='child_txtSpec_" + child_row + "' type='text' class='txt c1' value='" + as[i].spec + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtStyle_" + child_row + "' type='text' class='txt c1' value='" + as[i].style + "' disabled='disabled'/></td>";
+								tr.innerHTML += "<td><input id='child_txtStation_" + child_row + "' type='text' class='txt c1' value='" + as[i].station + "' disabled='disabled' /><input id='child_txtTgg_" + child_row + "' type='text' class='txt c1' value='" + as[i].comp + "' disabled='disabled' /></td>";
 								tr.innerHTML += "<td><input id='child_txtMount_" + child_row + "' type='text' class='txt c1 num' value='" + FormatNumber(as[i].mount) + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtHours_" + child_row + "' type='text' class='txt c1 num' value='" + FormatNumber(as[i].hours) + "' disabled='disabled'/></td>";
 								tr.innerHTML += "<td><input id='child_txtCuadate_" + child_row + "' type='text' class='txt c1' value='" + as[i].cuadate + "' disabled='disabled'/></td>";
@@ -822,6 +863,8 @@
                 $('#txtBdate').val(q_date());
                 $('#txtKdate').val(q_date());
                 del_cugunoq='';
+                //預設兩個禮拜
+                $('#txtEdate').val(q_cdn(q_date(),13));
             }
 
             function btnModi() {
@@ -924,7 +967,7 @@
 									q_gt('view_work', t_where, 0, 0, 0, "child_work", r_accy);
 									//有廠商的work也要顯示 >>>拿掉 and stationno!=''
 									$('#div_child').css('top', $('#btnChildchange_'+b_seq).offset().top+25);
-									$('#div_child').css('left', $('#btnChildchange_'+b_seq).offset().left);
+									$('#div_child').css('left', $('#btnChildchange_'+b_seq).offset().left-75);
 								}
 							}
 						});
@@ -1467,10 +1510,10 @@
 			</table>
 		</div>
 		<!---DIV分隔線---->
-		<div id="div_child" style="position:absolute; top:0px; left:0px; display:none; width:1000px; background-color: #CDFFCE; border: 5px solid gray;">
+		<div id="div_child" style="position:absolute; top:0px; left:0px; display:none; width:1100px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_child" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr >
-					<td colspan="10" style="background-color: #f8d463;">
+					<td colspan="11" style="background-color: #f8d463;">
 						<input id='textChildseq' type='hidden'/>
 						<input id='textChildworkno' type='hidden'/>
 						<input id='textChildcugunoq' type='hidden'/>
@@ -1487,16 +1530,17 @@
 					<td style="background-color: #CDFFCE;width:4%;" align="center">提前天數</td>
 					<td style="background-color: #CDFFCE;width:4%;" align="center">往後天數</td>
 					<td style="background-color: #CDFFCE;width:4%;" align="center">子階層數</td>
-					<td style="background-color: #CDFFCE;width:16%;" align="center">子階製令單號</td>
-					<td style="background-color: #CDFFCE;width:23%;" align="center">製品編號/<BR>製品名稱</td>
-					<td style="background-color: #CDFFCE;width:14%;" align="center">工作中心/<BR>廠商</td>
-					<td style="background-color: #CDFFCE;width:11%;" align="center">機型</td>
-					<td style="background-color: #CDFFCE;width:8%;" align="center">數量</td>
-					<td style="background-color: #CDFFCE;width:7%;" align="center">機時</td>
-					<td style="background-color: #CDFFCE;width:9%;" align="center">應開工日</td>
+					<td style="background-color: #CDFFCE;width:14%;" align="center">子階製令單號</td>
+					<td style="background-color: #CDFFCE;width:14%;" align="center">製品編號/製程</td>
+					<td style="background-color: #CDFFCE;width:17%;" align="center">製品名稱/規格</td>
+					<td style="background-color: #CDFFCE;width:10%;" align="center">機型</td>
+					<td style="background-color: #CDFFCE;width:12%;" align="center">工作中心/廠商</td>
+					<td style="background-color: #CDFFCE;width:7%;" align="center">數量</td>
+					<td style="background-color: #CDFFCE;width:6%;" align="center">機時</td>
+					<td style="background-color: #CDFFCE;width:8%;" align="center">應開工日</td>
 				</tr>
 				<tr id='child_close'>
-					<td align="center" colspan='10'>
+					<td align="center" colspan='11'>
 						<input id="btnDayupdate" type="button" value="部分更新">
 						<input id="btnClose_div_child" type="button" value="關閉視窗">
 					</td>
@@ -1628,7 +1672,7 @@
 					</td>
 					<td>
 						<input id="textDatea.*" type="text" class="txt c1"/>
-						<input id="btnChildchange.*" type="button" style="float: center;" value="子階提前異動"/>
+						<input id="btnChildchange.*" type="button" style="float: center;" value="子階開工異動"/>
 					</td>
 					<td>
 						<input id="txtProductno.*" type="text" class="txt c1"/>

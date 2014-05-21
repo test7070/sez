@@ -41,12 +41,14 @@
 		var aspxnamea=window.parent.q_name;
 		if(aspxnamea=='workq'){
 			var t_parentbbs=window.parent.abbsNow;
-			for (var i = 0; i < t_parentbbs.length; i++) {
-				 for (var j = 0; j < q_bbsCount; j++) {
-				 	if(t_parentbbs[i].workno==$('#txtWorkno_'+j).val()&&t_parentbbs[i].workfno==$('#txtNoa_'+j).val()&&t_parentbbs[i].workfnoq==$('#txtNoq_'+j).val()){
-				 		$('#textBorn_'+j).val(q_float('textBorn_'+j)+dec(t_parentbbs[i].mount)+dec(t_parentbbs[i].bkmount)+dec(t_parentbbs[i].wmount));
-				 	}
-				 }
+			if(t_parentbbs!=undefined){
+				for (var i = 0; i < t_parentbbs.length; i++) {
+					 for (var j = 0; j < q_bbsCount; j++) {
+					 	if(t_parentbbs[i].workno==$('#txtWorkno_'+j).val()&&t_parentbbs[i].workfno==$('#txtNoa_'+j).val()&&t_parentbbs[i].workfnoq==$('#txtNoq_'+j).val()){
+					 		$('#textBorn_'+j).val(q_float('textBorn_'+j)+dec(t_parentbbs[i].mount)+dec(t_parentbbs[i].bkmount)+dec(t_parentbbs[i].wmount));
+					 	}
+					 }
+				}
 			}
 		}
     }
