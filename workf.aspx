@@ -136,7 +136,8 @@
 				$('#btnClose_div_tgg').click(function() {
 					$('#div_tgg').toggle();
 					if(!emp($('#tgg_txtTggno').val())){
-						var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=work"+r_accy+".noa),0)";
+						var t_where = "1=1 and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=work"+r_accy+".noa),0)";
+						t_where+=" and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
 						q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 					}else{
 						_btnChange(0);
@@ -150,6 +151,17 @@
 						q_box("workc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workc', "95%", "95%", q_getMsg('PopWorkc'));
 					}
 				});*/
+				
+				$('#txtWorkno').change(function() {
+					if(!emp($('#txtWorkno').val())){
+						if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
+							var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
+							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						}else{
+							alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
+						}
+					}
+				});
 			}
 
 			function getInStr(HasNoaArray) {
@@ -174,7 +186,9 @@
 									$('#btnMinus_' + i).click();
 								}
 								for (var i = 0; i < b_ret.length; i++) {
-									var t_where = "where=^^ ordeno ='" + b_ret[i].noa + "' and no2='" + b_ret[i].no2 + "' and tggno!='' and left(tggno,1)!='Z' ";
+									var t_where = "where=^^ charindex('"+b_ret[i].noa+'-'+b_ret[i].no2+"',ordeno)>0 and tggno!='' and left(tggno,1)!='Z' ";
+									t_where+=" and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and mount>inmount"; 
+									t_where+=" and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
 									if (!emp($('#txtTggno').val()))
 										t_where += " and tggno='" + $('#txtTggno').val() + "'";
 
@@ -643,8 +657,12 @@
 			function q_popPost(s1) {
 				switch (s1) {
 					case 'txtWorkno':
-						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
-						q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
+							var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
+							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						}else{
+							alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
+						}
 						break;
 					case 'txtTggno':
 						if(!emp($('#txtTggno').val())){

@@ -130,7 +130,7 @@
 				<th align="center"><a id='lblMemo'></a></th>
 			</tr>
 			<tr style='background:#cad3ff;'>
-				<td style="width:9%;">
+				<td style="width:10%;">
 					<input class="txt" id="txtTggno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>

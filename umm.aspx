@@ -59,9 +59,14 @@
 		        
 		         $('#txtDatea').blur(function() {
 		         	if(!emp($('#txtDatea').val())&&(q_cur==1 || q_cur==2)){
-                    	var d = new Date(dec($('#txtDatea').val().substr(0,3))+1911, dec($('#txtDatea').val().substr(4,2))-1, dec($('#txtDatea').val().substr(7,2)));
-						d.setMonth(d.getMonth() - 1);
-						$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
+		         		
+		         		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+		         			$('#txtMon').val($('#txtDatea').val().substr(0,6));
+		         		}else{
+                    		var d = new Date(dec($('#txtDatea').val().substr(0,3))+1911, dec($('#txtDatea').val().substr(4,2))-1, dec($('#txtDatea').val().substr(7,2)));
+							d.setMonth(d.getMonth() - 1);
+							$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
+						}
 					}
                 });
 		        
@@ -621,7 +626,9 @@
                     if (t_money != 0 || i == 0)
                         t_mon = $('#txtVccno_' + i).val();
                 }
+                
                 sum();
+                
                 if (t_err) {
                     alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
                     Unlock(1);
@@ -646,6 +653,12 @@
                     		$('#txtTablea_'+i).val('vcc'+ q_getPara('sys.project'));
                     	}
                 	}
+                }
+                
+                if (emp($('#txtCustno').val()) && q_float('txtOpay')>0) {
+                    alert('有預收金額客戶名稱不能空白!!');
+                    Unlock(1);
+                    return false;
                 }
 				
                 var t_opay = q_float('txtOpay');

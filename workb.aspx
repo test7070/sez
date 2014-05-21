@@ -606,8 +606,12 @@
 			function q_popPost(s1) {
 				switch (s1) {
 					case 'txtWorkno':
-						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
-						q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
+							var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
+							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						}else{
+							alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
+						}
 						break;
 				}
 			}
