@@ -227,8 +227,8 @@
 								}
 							}
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:210px;' colspan='2' rowspan='2'>工作中心</td>" +
-									   "<td class='tTitle' style='width:80px;' rowspan='2'>日產能</td>" +
+							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作中心</td>" +
+									   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
 									   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
 							var tmpTd = '<tr>';
 							for(var j=0;j<DateList.length;j++){
@@ -243,7 +243,7 @@
 							var ATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
+								OutHtml += "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>" +
 										   "<td class='num'>" + (dec(TL[k].gen)==0?0:round(q_mul(q_div(TL[k].rate,q_mul(TL[k].gen,TL[k].days)),100),3)) + "</td>";
 								var TTD = TL[k].datea;
@@ -269,7 +269,7 @@
 							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
-							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
+							t_totalWidth = 670+((70+2)*(DateObj.length+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 						break;
@@ -359,8 +359,8 @@
 							var ATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>" +
-										   "<td class='center' style='width:110px;'>" + TL[k].stationno + "</td><td class='center' style='width:100px;'>" + TL[k].station + "</td>" +
+								OutHtml += "<td class='Lproduct' style='width:150px;'>" + TL[k].productno + "</td><td class='Lproduct' style='width:220px;'>" + TL[k].product + "</td>" +
+										   "<td class='Lproduct' style='width:120px;'>" + TL[k].stationno + "</td><td class='Lproduct' style='width:120px;'>" + TL[k].station + "</td>" +
 										   "<td class='num'>" + TL[k].gen + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
@@ -380,7 +380,7 @@
 							OutHtml += "<td class='tTotal num'>" + round(ATotal,3) + "</td>";
 							OutHtml += "</table>"
 							var t_totalWidth = 0;
-							t_totalWidth = 660+((70+2)*(DateObj.length+1+2))+10;
+							t_totalWidth = 690+((70+2)*(DateObj.length+1+2))+10;
 							$('#chart').css('width',t_totalWidth+'px').html(OutHtml);
 						}
 						break;
@@ -593,7 +593,7 @@
 							var ATotal = 0,wATotal = 0;
 							for(var k=0;k<TL.length;k++){
 								OutHtml += '<tr>';
-								OutHtml += "<td class='center' style='width:150px;'>" + TL[k].productno + "</td><td class='center' style='width:220px;'>" + TL[k].product + "</td>";
+								OutHtml += "<td class='Lproduct' style='width:150px;'>" + TL[k].productno + "</td><td class='Lproduct' style='width:220px;'>" + TL[k].product + "</td>";
 								var TTD = TL[k].datea;
 								var tTotal = 0;
 								for(var j=0;j<TTD.length;j++){
@@ -640,7 +640,7 @@
 			}
 			.Lproduct{
 				text-align:left;
-				padding-left:2px;
+				padding-left:3px;
 			}
 			.num{
 				text-align:right;
