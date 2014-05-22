@@ -429,7 +429,7 @@
 							else
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#btnCopy_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5 ){
@@ -438,7 +438,7 @@
 							$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#textDatea_'+i).datepicker('destroy');
 							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
@@ -451,7 +451,7 @@
 							else
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
@@ -597,7 +597,7 @@
 						else
 							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).removeClass('hasDatepicker');
-						$('#textDatea_'+i).datepicker();
+						$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 						$('#btnCopy_'+i).removeAttr('disabled');
 						$('#btnChildchange_'+i).removeAttr('disabled');
 					}else if ($('#txtNos_'+i).val().length==5 ){
@@ -606,7 +606,7 @@
 						$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).removeClass('hasDatepicker');
-						$('#textDatea_'+i).datepicker();
+						$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 						$('#textDatea_'+i).datepicker('destroy');
 						$('#btnCopy_'+i).attr('disabled', 'disabled');
 						$('#btnChildchange_'+i).attr('disabled', 'disabled');
@@ -619,7 +619,7 @@
 						else
 							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 						$('#textDatea_'+i).removeClass('hasDatepicker');
-						$('#textDatea_'+i).datepicker();
+						$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 						$('#btnCopy_'+i).attr('disabled', 'disabled');
 						$('#btnChildchange_'+i).attr('disabled', 'disabled');
 					}
@@ -988,7 +988,7 @@
 							else
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#btnCopy_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5){
@@ -997,7 +997,7 @@
 							$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#textDatea_'+i).datepicker('destroy');
 							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
@@ -1010,7 +1010,7 @@
 							else
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
@@ -1104,7 +1104,7 @@
 							else
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#btnCopy_'+i).removeAttr('disabled');
 							$('#btnChildchange_'+i).removeAttr('disabled');
 						}else if ($('#txtNos_'+i).val().length==5 ){
@@ -1113,7 +1113,7 @@
 							$('#txtNos_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#textDatea_'+i).datepicker('destroy');
 							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
@@ -1126,7 +1126,7 @@
 							else
 								$('#textDatea_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#textDatea_'+i).removeClass('hasDatepicker');
-							$('#textDatea_'+i).datepicker();
+							$('#textDatea_'+i).datepicker({defaultDate:$('#txtCuadate_'+i).val()});
 							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
