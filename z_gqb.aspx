@@ -81,6 +81,9 @@
                         dbf : 'view_cust_tgg',
                         index : 'noa,comp',
                         src : 'view_cust_tgg_b.aspx'
+                    }, {/*13 [23][24]*/
+                        type : '1',
+                        name : 'udate'
                     }]
                 });
                 q_popAssign();
@@ -99,6 +102,11 @@
                 $('#txtIndate1').datepicker();
                 $('#txtIndate2').mask('999/99/99');
                 $('#txtIndate2').datepicker();
+                
+                $('#txtUdate1').mask('999/99/99');
+                $('#txtUdate1').datepicker();
+                $('#txtUdate2').mask('999/99/99');
+                $('#txtUdate2').datepicker();
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();
                 t_date.setDate(1);

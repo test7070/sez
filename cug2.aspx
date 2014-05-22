@@ -19,6 +19,9 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+            
+            q_bbsShow = -1;
+            q_bbsShowTxt = ['txtNos', 'textDatea','txtProcess'];
 
             q_desc = 1;
             q_tables = 's';
@@ -63,7 +66,7 @@
                 q_mask(bbmMask);
                 
                 $('#btnWorkgg').click(function() {
-                	/*if(emp($('#txtStationno').val())){
+                	if(emp($('#txtStationno').val())){
                 		alert(q_getMsg('lblStation')+'請先填寫。');
                 		return;
                 	}
@@ -76,9 +79,7 @@
 					q_func('qtxt.query.z_workgg1','z_workgg.txt,z_workgg1,'+
 							bdate + ';' + edate + ';' + issaturday + ';' +	stationo + ';' + stationo + ';' +
 							'#non' + ';' +	'#non' + ';' +	'#non' + ';' +	t_xshowover + ';'
-					);*/
-					
-					q_box("z_workgg.aspx", 'z_workgg', "95%", "95%", q_getMsg("btnWorkgg"));
+					);
 				});
                 
 				$('#btnCugt').click(function() {

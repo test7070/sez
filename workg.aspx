@@ -70,6 +70,10 @@
 				bbsMask = [['txtRworkdate', r_picd], ['txtCuadate', r_picd], ['txtIndate', r_picd], ['txtUindate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbStype", q_getPara('workg.stype'));	
+				
+				 $('#btnWorkgg').click(function() {
+                	q_box("z_workgg.aspx", 'z_workgg', "95%", "95%", q_getMsg("btnWorkgg"));
+				});
 
 				$('#btnOrde').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
@@ -1234,6 +1238,7 @@
 							<input id="txtProductno" type="text" class="txt c3"/>
 							<input id="txtProduct" type="text" class="txt c4"/>
 						</td>
+						<td><input id="btnWorkgg" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblFactno" class="lbl btn"> </a></td>

@@ -132,6 +132,26 @@
 							t_xshowover + ';'
 					);
 				});
+				
+				if(window.parent.q_name=='cug'){
+                	var wParent = window.parent.document;
+                	var bdate=wParent.getElementById("txtBdate").value;
+                	var edate=wParent.getElementById("txtEdate").value;
+                	var stationno=wParent.getElementById("txtStationno").value;
+                	var station=wParent.getElementById("txtStation").value;
+                	
+                	$('#txtXdate1').val(bdate);
+                	$('#txtXdate2').val(edate);
+                	$('#txtXstationno1a').val(stationno);
+                	$('#txtXstationno1b').val(station);
+                	$('#txtXstationno2a').val(stationno);
+                	$('#txtXstationno2b').val(station);
+                	
+                	$("#btnRun").click();
+				}
+				if(window.parent.q_name=='workg'){
+                	$("#btnRun").click();
+				}
 			}
 
 			function q_boxClose(s2) {
