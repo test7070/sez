@@ -671,7 +671,6 @@
 				font-weight: normal;
 				cursor: pointer;
 			}
-
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
