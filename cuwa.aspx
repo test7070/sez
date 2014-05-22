@@ -44,13 +44,6 @@
 			function mainPost() {
 				bbmMask = [['txtBtime','9999'],['txtEtime','9999']];
 				q_mask(bbmMask);
-				$('#txtNoa').change(function(e) {
-					$(this).val($.trim($(this).val()).toUpperCase());
-					if ($(this).val().length > 0) {
-						t_where = "where=^^ noa='" + $(this).val() + "'^^";
-						q_gt('cuwa', t_where, 0, 0, 0, "checkcuwano_change", r_accy);
-					}
-				});
 			}
 
 			function q_boxClose(s2) {
@@ -64,22 +57,6 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'checkcuwano_change':
-						var as = _q_appendData("cuwa", "", true);
-						if (as[0] != undefined) {
-							alert('已存在 ' + as[0].noa);
-						}
-						break;
-					case 'checkcuwano_btnOk':
-						var as = _q_appendData("cuwa", "", true);
-						if (as[0] != undefined) {
-							alert('已存在 ' + as[0].noa);
-							Unlock();
-							return;
-						} else {
-							wrServer($('#txtNoa').val());
-						}
-						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -94,7 +71,7 @@
 
 			function btnIns() {
 				_btnIns();
-				refreshBbm();
+				$('#txtNoa').val('AUTO');
 				$('#txtBtime').focus();
 			}
 
@@ -102,8 +79,6 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				refreshBbm();
-				$('#txtcuwa').focus();
 			}
 
 			function btnPrint() {
@@ -120,13 +95,10 @@
 				Lock();
 				var t_btime = $.trim($('#txtBtime').val());
 				var t_etime = $.trim($('#txtEtime').val());
-				if((t_btime.length==4) && (t_etime.length==4)){
-					$('#txtNoa').val(t_btime+'-'+t_etime);
-				}else{
+				if((t_btime.length!=4) || (t_etime.length!=4)){
 					alert(q_getMsg('lblTimea') + '欄位格式錯誤，正確格式 0000');
 					return;
 				}
-				$('#txtNoa').val($.trim($('#txtNoa').val()));
 				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
@@ -138,12 +110,11 @@
 					$('#txtWorker').val(r_name);
 				else
 					$('#txtWorker2').val(r_name);
-				if (q_cur == 1) {
-					t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
-					q_gt('cuwa', t_where, 0, 0, 0, "checkcuwano_btnOk", r_accy);
-				} else {
-					wrServer($('#txtNoa').val());
-				}
+				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cuwa') + q_date(), '/', ''));
+				else
+					wrServer(s1);
 			}
 
 			function wrServer(key_value) {
@@ -157,15 +128,6 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				refreshBbm();
-			}
-
-			function refreshBbm() {
-				if (q_cur == 1) {
-					$('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
-				} else {
-					$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
-				}
 			}
 
 			function readonly(t_para, empty) {
@@ -322,7 +284,7 @@
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='btime - etime'>~btime - ~etime</td>
 						<td align="center" id='minutes' class="num">~minutes</td>
 					</tr>
 				</table>

@@ -90,11 +90,12 @@
 						var as = _q_appendData("cuwa", "", true);
 						if(as[0] != undefined){
 							for(var k=0;k<as.length;k++){
+								var t_timea=$.trim(as[k].btime)+'-'+$.trim(as[k].etime);
 								WorkTimeArray.push({
-									timea:$.trim(as[k].noa),
+									timea:t_timea,
 									minutes:dec(as[k].minutes)
 								});
-								WorkTimeList += ','+as[k].noa+'@'+as[k].noa;
+								WorkTimeList += ','+t_timea+'@'+t_timea;
 							}
 							WorkTimeList = WorkTimeList.substring(1);
 						}
@@ -336,7 +337,7 @@
 							var usetime = -1;
 							for(var h=0;h<WorkTimeArray.length;h++){
 								if(WorkTimeArray[h].timea==thisVal){
-									usetime = dec(WorkTimeArray[h].minutes);
+									usetime = round(dec(WorkTimeArray[h].minutes)/60,2);
 								}
 							}
 							if((thisVal.indexOf('-') > -1) && (usetime==-1)){
