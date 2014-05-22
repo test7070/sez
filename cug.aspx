@@ -555,7 +555,7 @@
 				}
                 //最先做的放前面(依cudatea,nos,cugunoq)
                 if(t_bbs.length!=0){
-	               	for (var i = 0; i < q_bbsCount; i++) {
+	               	/*for (var i = 0; i < q_bbsCount; i++) {
 	               		var minnoq='',min_j=0;//目前最小資料,與資料位置
 	               		for (var j = 0; j < t_bbs.length; j++) {
 	               			if(minnoq==''){
@@ -576,6 +576,12 @@
 	               		//如果暫存沒資料就跳出
 	               		if(t_bbs.length==0)
 	               			break;
+					}*/
+					t_bbs.sort(compare);
+					for (var i = 0; i < t_bbs.length; i++) {
+	               		for (var j = 0; j < fbbs.length; j++) {
+	               			$('#'+fbbs[j]+'_'+i).val(t_bbs[i][fbbs[j]]);
+	               		}
 					}
 				}
                 //---------------------------------------------------------------------------------------------------------------
@@ -1450,6 +1456,14 @@
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
+            
+			function compare(a,b) {
+				if (a.txtCuadate+a.txtNos+a.txtCugunoq< b.txtCuadate+b.txtNos+b.txtCugunoq)
+					return -1;
+				if (a.txtCuadate+a.txtNos+a.txtCugunoq > b.txtCuadate+b.txtNos+b.txtCugunoq)
+					return 1;
+				return 0;
+			}
 		</script>
 		<style type="text/css">
             #dmain {
