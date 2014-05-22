@@ -191,11 +191,8 @@
 						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
 						ProductAddStyle(n);
 						getTheory(n);
-						$('#txtGroupa_'+n).focus();
-					}).keydown(function(e){
-					    var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
-					    $('#txtGroupa_'+n).focus();
 					});
+					
 					$('#txtRadius_' + j).change(function() {
 						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
 						getTheory(n);
@@ -449,7 +446,7 @@
 						if (trim($('#txtStyle_' + b_seq).val()).length != 0)
 							ProductAddStyle(b_seq);
 						if (toFocusOrdeno == 1)
-							$('#txtOrdeno_' + b_seq).focus();
+							$('#txtGroupa_' + b_seq).focus();//2014/05/22  groupa移到ordeno前
 						toFocusOrdeno = 0;
 						break;
 				}
