@@ -330,6 +330,15 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'umm_cust':
+                		var as = _q_appendData("view_vcc", "", true);
+                		if(as.length>1 && !emp($('#txtCustno').val())){
+                			alert('請款單為多個收款客戶，表頭客戶請勿KEY打，以避免客戶款帳有問題!!');
+                		}else{
+                			ummcustchk=true;
+                			btnOk();
+                		}
+                		break;
                 	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
                 		if (as[0] != undefined) {
@@ -584,8 +593,24 @@
                 //$('#txtAccno').val(xmlString);
                 Unlock(1);
             }
-
+            
+            var ummcustchk=false;//檢查請款單的客戶是否為同一個客戶
             function btnOk() {
+            	if(!ummcustchk){
+            		var custwhere='';
+            		for (var i = 0; i < q_bbsCount; i++) {
+            			if(!emp($('#txtVccno_'+i).val()))
+            				custwhere=custwhere+(custwhere.length>0?' or ':'')+"noa='"+$('#txtVccno_'+i).val()+"'";
+            		}
+            		
+            		if(custwhere.length!=0){
+            			var t_where = "where=^^ "+custwhere+" ^^";
+	            		q_gt('umm_cust', t_where, 0, 0, 0, "umm_cust", r_accy);
+            			return;	
+            		}
+            	}
+            	ummcustchk=false;
+            	
             	Lock(1,{opacity:0});
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtMon').val($.trim($('#txtMon').val()));
