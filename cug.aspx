@@ -104,6 +104,8 @@
                 	//0513 只要匯入bbs就全部砍
 	                for (var i = 0; i < q_bbsCount; i++) {
 						$('#btnMinus_'+i).click();
+						$('#separationa_'+i).text('');
+                		$('#separationb_'+i).text('');
 					}
 					del_cugunoq='';
                 		
@@ -415,6 +417,8 @@
 	                for (var i = 0; i < q_bbsCount; i++) {
 						$('#txtCuadate_'+i).attr('disabled', 'disabled');
 						//$('#txtUindate_'+i).attr('disabled', 'disabled');
+						$('#separationa_'+i).text('');
+                		$('#separationb_'+i).text('');
 						
 						if(!emp($('#txtWorkno_'+i).val())){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
@@ -463,19 +467,12 @@
             
             var divdate=false;
             var divkdate=false;
-			var first_rest=true;
 			var getnewgen=false;
             function scheduling(){
             	if(!getnewgen){
             		q_gt('station', "where=^^noa='"+$('#txtStationno').val()+"' ^^", 0, 0, 0, "getgen", r_accy);
             		return;
             	}
-            	
-            	/*if($('#txtGenorg').val()<=0){
-            		alert(q_getMsg('lblGenorg')+'不得小於等於0!!');
-            		$('#btnCug').removeAttr('disabled');
-	               	return;
-            	}*/
             	
                 //取得編制時數
                 if(t_cugt==undefined){
@@ -489,20 +486,14 @@
                 	return;
                 }
                 
-                //先清除自動產生的空白時數,並將指定開工日寫入到應開工日
-                if(first_rest){
-	               	for (var i = 0; i < q_bbsCount; i++) {
-	               		if(!emp($('#textDatea_'+i).val()))
-	               			$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
-	               		if(($('#txtNos_'+i).val().length==5)||(emp($('#txtProcess_'+i).val()) && emp($('#txtWorkno_'+i).val()))){
-	               			$('#btnMinus_'+i).click();
-	               		}
-	               	}
-	               	first_rest=false;
-                }                
-                
                 //依應開工日做為排程開始日
                 for (var i = 0; i < q_bbsCount; i++) {
+                	if(!emp($('#textDatea_'+i).val()))
+	               		$('#txtCuadate_'+i).val($('#textDatea_'+i).val());
+	               	
+	               	$('#separationa_'+i).text('');
+                	$('#separationb_'+i).text('');	
+                	
                 	//更新 有排程應開工日沒有排程序號的資料
                 	var maxnos='0000'
                 	if(emp($('#txtNos_'+i).val()) && !emp($('#txtCuadate_'+i).val()) && (!emp($('#txtProcess_'+i).val()) || !emp($('#txtWorkno_'+i).val()))){
@@ -529,17 +520,6 @@
                 }
                 
                 //0516排程序號可重複
-                //檢查排程序號是否重複
-				/*for (var i = 0; i < q_bbsCount; i++) {
-	               	for (var j = i+1; j < q_bbsCount; j++) {
-	               		if (i!=j &&$('#txtNoq_'+i).val()==$('#txtNoq_'+j).val()&&(!emp($('#txtProcess_'+i).val())||!emp($('#txtWorkno_'+i).val()))){
-	               			alert($('#lblNo_'+i).text()+'.'+$('#txtCuadate_'+i).val()+' '+q_getMsg('lblNos_s')+'['+$('#txtNos_'+i).val()+']重覆')
-	               			$('#btnCug').removeAttr('disabled');
-	               			return;
-	               		}
-	               	}
-				}*/
-                
                 //排序資料
                 //儲存有排序的資料,清除整個欄位
 				var t_bbs=new Array();
@@ -555,28 +535,6 @@
 				}
                 //最先做的放前面(依cudatea,nos,cugunoq)
                 if(t_bbs.length!=0){
-	               	/*for (var i = 0; i < q_bbsCount; i++) {
-	               		var minnoq='',min_j=0;//目前最小資料,與資料位置
-	               		for (var j = 0; j < t_bbs.length; j++) {
-	               			if(minnoq==''){
-	               				minnoq=t_bbs[j].txtCuadate+t_bbs[j].txtNos+t_bbs[j].txtCugunoq
-	               				min_j=0;
-	               			}else{
-	               				if(minnoq>t_bbs[j].txtCuadate+t_bbs[j].txtNos+t_bbs[j].txtCugunoq){
-	               					minnoq=t_bbs[j].txtCuadate+t_bbs[j].txtNos+t_bbs[j].txtCugunoq;
-	               					min_j=j;
-	               				}
-	               			}
-	               		}
-	               		for (var j = 0; j < fbbs.length; j++) {
-	               			$('#'+fbbs[j]+'_'+i).val(t_bbs[min_j][fbbs[j]]);
-	               		}
-	               		//移除最小資料
-	               		t_bbs.splice(min_j, 1);
-	               		//如果暫存沒資料就跳出
-	               		if(t_bbs.length==0)
-	               			break;
-					}*/
 					t_bbs.sort(compare);
 					for (var i = 0; i < t_bbs.length; i++) {
 	               		for (var j = 0; j < fbbs.length; j++) {
@@ -618,17 +576,8 @@
 		                //如果當天是最後一筆且非空白行 插入 空白行分隔
 		                var smount=dec($('#txtSmount').val());
 						if($('#txtCuadate_'+i).val()!=$('#txtCuadate_'+(i+1)).val() && $('#txtNos_'+i).val().length!=5){
-							q_bbs_addrow('bbs',i,1);//下方插入空白行
-							$('#txtCuadate_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtUindate_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtHours_'+(i+1)).val(0);
-			                $('#txtMount_'+(i+1)).val(0);
-			                $('#textDatea_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                
-			                $('#txtNos_'+(i+1)).val($('#txtNos_'+i).val()+'X');
-			                $('#txtNoq_'+(i+1)).val(replaceAll($('#txtCuadate_'+(i+1)).val(), '/','')+$('#txtNos_'+(i+1)).val());
-			                $('#txtProcess_'+(i+1)).val($('#txtCuadate_'+i).val());
-			                $('#txtSpec_'+(i+1)).val('當天累計：'+round(q_div(t_hours,smount),2)+'HR;剩餘：'+round(q_div(q_sub(t_gen,t_hours),smount),2)+'HR');
+							$('#separationa_'+i).text($('#txtCuadate_'+i).val());
+							$('#separationb_'+i).text('當天累計：'+round(q_div(t_hours,smount),2)+'HR;剩餘：'+round(q_div(q_sub(t_gen,t_hours),smount),2)+'HR');
 						}
 		                //-------------------------------------------------------------------
 	                }
@@ -735,34 +684,7 @@
                 		break;*/
                 	case 'cug_work':
                 		var as = _q_appendData("view_cugu", "", true);
-                		if(as[0]!=undefined){
-                			for ( var i = 0; i < as.length; i++) {
-								//cugu //1030516 nos 可重複
-                				/*as[i].nownos=as[i].nos;
-                				if(as[i].nos=='9000'){
-                					var tmp_nos='9000';
-                					for ( var j = 0; j < as.length; j++) {
-                						if(i!=j&&as[i].cuadate==as[j].cuadate &&tmp_nos!=as[j].nos&&as[j].nos!=''){
-                							tmp_nos=as[j].nos;
-                						}
-                					}
-                					if(tmp_nos=='9000')//表示當天沒有其他排程
-                						as[i].nownos='';
-                				}*/
-                			}
-                			
-                			//0513 只要匯入bbs就全部砍
-                			//判斷是否已被匯入
-                			/*for (var i = 0; i < q_bbsCount; i++) {
-								for (var j = 0; j < as.length; j++) {
-									if($('#txtWorkno_' + i).val()==as[j].workno && $('#txtProcess_'+i).val()==as[j].process){
-										as.splice(j, 1);
-                                    	j--;
-										break;	
-									}
-								}
-							}*/
-							
+                		if(as[0]!=undefined){							
 							q_gridAddRow(bbsHtm, 'tbbs'
 							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,txtCugunoq,txtNosold', as.length, as,
 							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cugunoq,nos','txtProductno,txtProcess,txtWorkno');
@@ -1848,10 +1770,12 @@
 						<input id="txtProductno.*" type="text" class="txt c1"/>
 						<input id="txtProcess.*" type="text" class="txt c1"/>
 						<input id="txtProcessno.*" type="hidden" class="txt c1"/>
+						<span id='separationa.*' style="color: red;font-size: larger;"> </span>
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1"/>
 						<input id="txtSpec.*" type="text" class="txt c1"/>
+						<span id='separationb.*' style="color: red;font-size: medium;"> </span>
 					</td>
 					<td class="isstyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1"/></td>
