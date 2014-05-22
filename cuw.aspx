@@ -332,6 +332,7 @@
 						$('#combPartno3__'+k).removeAttr('disabled');
 						$('#combPartno3__'+k).css('background-color', 'rgb(255, 255, 255)');
 					}
+					$('#btnWorkmount').removeAttr('disabled');
 				}else{
 					for(var k=0;k<q_bbtCount;k++){
 						$('#combPartno__'+k).attr('disabled','disabled');
@@ -341,6 +342,7 @@
 						$('#combPartno3__'+k).attr('disabled','disabled');
 						$('#combPartno3__'+k).css('background-color', 'rgb(237, 237, 238)');
 					}
+					$('#btnWorkmount').attr('disabled','disabled');
 				}
 			}
 
@@ -751,7 +753,7 @@
 					<tr>
 						<td></td>
 						<td colspan="2">
-							<input type="button" class="" id="btnWorkmount" value="製令數重新計算" />
+							<input type="button" class="" id="btnWorkmount"/>
 						</td>
 					</tr>
 				</table>
