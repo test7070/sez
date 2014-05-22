@@ -14,7 +14,7 @@
 
 			q_tables = 's';
 			var q_name = "cuy";
-			var q_readonly = ['txtNoa','txtStation'];
+			var q_readonly = ['txtNoa','txtStation','txtDatea'];
 			var q_readonlys = ['txtHours','txtAddhours'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -54,7 +54,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea',r_picd]];
+				bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd]];
 				bbsMask = [['txtWorktime','9999-9999']];
 				q_mask(bbmMask);
 				q_gt('part', '', 0, 0, 0, "");
@@ -214,7 +214,9 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtDatea').focus();
+				$('#txtBdate').val(q_date());
+				$('#txtEdate').val(q_date());
+				$('#txtBdate').focus();
 			}
 
 			function btnModi() {
@@ -337,7 +339,7 @@
 							var usetime = -1;
 							for(var h=0;h<WorkTimeArray.length;h++){
 								if(WorkTimeArray[h].timea==thisVal){
-									usetime = round(dec(WorkTimeArray[h].minutes)/60,2);
+									usetime = round(dec(WorkTimeArray[h].minutes),2);
 								}
 							}
 							if((thisVal.indexOf('-') > -1) && (usetime==-1)){
@@ -345,7 +347,7 @@
 								var etime = dec(thisVal.split('-')[1]);
 								btime = (Math.floor(btime/100)*60)+(btime%100);
 								etime = (Math.floor(etime/100)*60)+(etime%100);
-								usetime = round(((etime-btime)/60),2);
+								usetime = round(((etime-btime)),2);
 							}
 							if($('#chkIsovertime_'+n).prop('checked')){
 								$('#txtAddhours_'+n).val(usetime);
@@ -556,12 +558,12 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td style="width:180px; color:black;"><a id='vewBdate'> </a></td>
 						<td style="width:120px; color:black;"><a id='vewStation'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='bdate ~ edate' style="text-align: center;">~bdate ~ ~edate</td>
 						<td id='station' style="text-align: center;">~station</td>
 					</tr>
 				</table>
@@ -579,10 +581,16 @@
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblBdate" class="lbl"> </a></td>
+						<td colspan="2">
+							<input id="txtBdate" type="text" class="txt" style="width:45%;"/>
+							<span style="width:10%;text-align:center;float:left;">～</span>
+							<input id="txtEdate" type="text" class="txt" style="width:45%;"/>						
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblStationgno" class="lbl btn"> </a></td>

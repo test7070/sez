@@ -15,7 +15,7 @@
 			q_tables = 't';
 			var q_name = "cuw";
 			var q_readonly = ['txtNoa','txtStation'];
-			var q_readonlys = ['txtBorntime','txtAddtime','txtWorkmount'];
+			var q_readonlys = ['txtBorntime','txtAddtime','txtWorkmount','txtMount'];
 			var q_readonlyt = ['txtHours','txtAddhours'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -70,6 +70,13 @@
 				q_gt('part', '', 0, 0, 0, "");
 				$('#txtDatea').focusout(function(){
 					toGetCuy();
+				});
+				$('#btnWorkmount').click(function(){
+					if(q_cur==1 || q_cur==2){
+						for(var k=0;k<q_bbsCount;k++){
+							$('#txtWorktime_' + k).focusout();
+						}
+					}
 				});
 			}
 			var thisSeq = -1;
@@ -181,9 +188,14 @@
 					default:
 						if(t_name.substring(0,14)=='GetWorkbCount_'){
 							var n = t_name.replace('GetWorkbCount_','');
-							var as = _q_appendData("view_workb", "", true);
+							var as = _q_appendData("cuw_workb", "", true);
 							var t_count = as.length;
 							$('#txtWorkmount_'+n).val(t_count);
+							var t_mount = 0;
+							for(var k=0;k<as.length;k++){
+								t_mount = q_add(t_mount,as[k].mount);
+							}
+							$('#txtMount_'+n).val(t_mount);
 						}
 						break;
 				}
@@ -390,38 +402,11 @@
 							var t_date = $.trim($('#txtDatea').val());
 							var t_stationno = $.trim($('#txtStationno').val());
 							var t_where = "where=^^ (datea=N'"+t_date+"') and (stationno=N'"+t_stationno+"') and (replace(worktime,':','') between N'"+btime+"' and N'"+etime+"') ^^";
-							q_gt('view_workb', t_where , 0, 0, 0, "GetWorkbCount_"+n, r_accy);
-							//若bbt無相同時間 則新增一筆
-							var hasBBtRec = false;
-							var theEmpBBt = -1;
-							for(var k=0;k<q_bbtCount;k++){
-								var bbtWorkTime = $.trim($('#txtWorktime__'+k).val());
-								if(thisVal==bbtWorkTime){
-									hasBBtRec = true;
-									break;
-								}
-							}
-							if(!hasBBtRec){
-								var NewbbtSeq = theEmpBBt;
-								q_bbs_addrow('bbt',0,0);
-								NewbbtSeq= 0/*dec(q_bbtCount)-1*/;
-								$('#txtWorktime__'+NewbbtSeq).val(thisVal);
-								if($('#chkIsovertime_'+n).prop('checked')){
-									$('#chkIsovertime__'+NewbbtSeq).prop('checked',true);
-								}else{
-									$('#chkIsovertime__'+NewbbtSeq).prop('checked');
-								}
-								$('#txtWorktime__'+NewbbtSeq).focusout();
-							}
+							q_gt('cuw_workb', t_where , 0, 0, 0, "GetWorkbCount_"+n, r_accy);
 						});
 						$('#chkIsovertime_'+i).click(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							$('#txtWorktime_' + n).focusout();
-						});
-						$('#btnWorkmount_'+i).click(function(){
-							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
-							$('#txtWorktime_' + n).focusout();
-							$('#txtMount_' + n).focus();
 						});
 					}
 				}
@@ -476,7 +461,7 @@
 							var usetime = -1;
 							for(var h=0;h<WorkTimeArray.length;h++){
 								if(WorkTimeArray[h].timea==thisVal){
-									usetime = round(dec(WorkTimeArray[h].minutes)/60,2);
+									usetime = round(dec(WorkTimeArray[h].minutes),2);
 								}
 							}
 							if((thisVal.indexOf('-') > -1) && (usetime==-1)){
@@ -484,7 +469,7 @@
 								var etime = dec(thisVal.split('-')[1]);
 								btime = (Math.floor(btime/100)*60)+(btime%100);
 								etime = (Math.floor(etime/100)*60)+(etime%100);
-								usetime = round(((etime-btime)/60),2);
+								usetime = round(((etime-btime)),2);
 							}
 							if($('#chkIsovertime__'+n).prop('checked')){
 								$('#txtAddhours__'+n).val(usetime);
@@ -558,7 +543,7 @@
 				var thisDatea = $.trim($('#txtDatea').val());
 				var thisStationno = $.trim($('#txtStationno').val());
 				if((thisDatea.length > 0) && (thisStationno.length > 0)){
-					var t_where = "where=^^ datea=N'" + thisDatea + "' and stationno=N'" + thisStationno + "' ^^ sorder=^^ noa asc ^^";
+					var t_where = "where=^^ (N'" + thisDatea + "' between bdate and edate) and stationno=N'" + thisStationno + "' ^^ sorder=^^ noa asc ^^";
 					q_gt('cuy', t_where , 0, 0, 0, "GetCuy", r_accy);
 				}			
 			}
@@ -763,6 +748,12 @@
 						<td><input id="txtStationno" type="text" class="txt c1"/></td>
 						<td><input id="txtStation" type="text" class="txt c1"/></td>
 					</tr>
+					<tr>
+						<td></td>
+						<td colspan="2">
+							<input type="button" class="" id="btnWorkmount" value="製令數重新計算" />
+						</td>
+					</tr>
 				</table>
 			</div>
 			<div class='dbbs'>
@@ -806,10 +797,7 @@
 						<td><input type="text" id="txtLacksss.*" class="txt num c3" /></td>
 						<td><input type="text" id="txtMemo.*" class="txt c3" /></td>
 						<td><input type="checkbox" id="chkIsovertime.*" /></td>
-						<td>
-							<input type="text" class="txt num c3" id="txtWorkmount.*" />
-							<input type="button" class="" id="btnWorkmount.*" value="重新計算" />
-						</td>
+						<td><input type="text" class="txt num c3" id="txtWorkmount.*" /></td>
 						<td><input type="text" class="txt num c3" id="txtMount.*" /></td>
 					</tr>
 				</table>
