@@ -191,6 +191,10 @@
 						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
 						ProductAddStyle(n);
 						getTheory(n);
+						$('#txtGroupa_'+n).focus();
+					}).keydown(function(e){
+					    var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
+					    $('#txtGroupa_'+n).focus();
 					});
 					$('#txtRadius_' + j).change(function() {
 						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];

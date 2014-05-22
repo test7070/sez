@@ -15,7 +15,7 @@
 			q_tables = 't';
 			var q_name = "cuw";
 			var q_readonly = ['txtNoa','txtStation'];
-			var q_readonlys = ['txtBorntime','txtAddtime'];
+			var q_readonlys = ['txtBorntime','txtAddtime','txtWorkmount','txtMount'];
 			var q_readonlyt = ['txtHours','txtAddhours'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -71,6 +71,13 @@
 				$('#txtDatea').focusout(function(){
 					toGetCuy();
 				});
+				$('#btnWorkmount').click(function(){
+					if(q_cur==1 || q_cur==2){
+						for(var k=0;k<q_bbsCount;k++){
+							$('#txtWorktime_' + k).focusout();
+						}
+					}
+				});
 			}
 			var thisSeq = -1;
 			function combtodo(do_object){
@@ -103,11 +110,12 @@
 						var as = _q_appendData("cuwa", "", true);
 						if(as[0] != undefined){
 							for(var k=0;k<as.length;k++){
+								var t_timea=$.trim(as[k].btime)+'-'+$.trim(as[k].etime);
 								WorkTimeArray.push({
-									timea:$.trim(as[k].noa),
+									timea:t_timea,
 									minutes:dec(as[k].minutes)
 								});
-								WorkTimeList += ','+as[k].noa+'@'+as[k].noa;
+								WorkTimeList += ','+t_timea+'@'+t_timea;
 							}
 							WorkTimeList = WorkTimeList.substring(1);
 						}
@@ -176,6 +184,19 @@
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
+						break;
+					default:
+						if(t_name.substring(0,14)=='GetWorkbCount_'){
+							var n = t_name.replace('GetWorkbCount_','');
+							var as = _q_appendData("cuw_workb", "", true);
+							var t_count = as.length;
+							$('#txtWorkmount_'+n).val(t_count);
+							var t_mount = 0;
+							for(var k=0;k<as.length;k++){
+								t_mount = q_add(t_mount,as[k].mount);
+							}
+							$('#txtMount_'+n).val(t_mount);
+						}
 						break;
 				}
 			}
@@ -311,6 +332,7 @@
 						$('#combPartno3__'+k).removeAttr('disabled');
 						$('#combPartno3__'+k).css('background-color', 'rgb(255, 255, 255)');
 					}
+					$('#btnWorkmount').removeAttr('disabled');
 				}else{
 					for(var k=0;k<q_bbtCount;k++){
 						$('#combPartno__'+k).attr('disabled','disabled');
@@ -320,6 +342,7 @@
 						$('#combPartno3__'+k).attr('disabled','disabled');
 						$('#combPartno3__'+k).css('background-color', 'rgb(237, 237, 238)');
 					}
+					$('#btnWorkmount').attr('disabled','disabled');
 				}
 			}
 
@@ -353,15 +376,19 @@
 						$('#txtWorktime_' + i).focusout(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							var thisVal = $.trim($(this).val());
+							if(thisVal.length==0){
+								$('#btnMinus_'+n).click();
+								return;
+							}
 							var usetime = -1;
 							for(var h=0;h<WorkTimeArray.length;h++){
 								if(WorkTimeArray[h].timea==thisVal){
 									usetime = dec(WorkTimeArray[h].minutes);
 								}
 							}
+							var btime = dec(thisVal.split('-')[0]);
+							var etime = dec(thisVal.split('-')[1]);
 							if((thisVal.indexOf('-') > -1) && (usetime==-1)){
-								var btime = dec(thisVal.split('-')[0]);
-								var etime = dec(thisVal.split('-')[1]);
 								btime = (Math.floor(btime/100)*60)+(btime%100);
 								etime = (Math.floor(etime/100)*60)+(etime%100);
 								usetime = (etime-btime);
@@ -373,29 +400,11 @@
 								$('#txtAddtime_'+n).val(0);
 								$('#txtBorntime_'+n).val(usetime);
 							}
-							//若bbt無相同時間 則新增一筆
-							var hasBBtRec = false;
-							var theEmpBBt = -1;
-							for(var k=0;k<q_bbtCount;k++){
-								var bbtWorkTime = $.trim($('#txtWorktime__'+k).val());
-								if(thisVal==bbtWorkTime){
-									hasBBtRec = true;
-									break;
-								}
-							}
-
-							if(!hasBBtRec){
-								var NewbbtSeq = theEmpBBt;
-								q_bbs_addrow('bbt',0,0);
-								NewbbtSeq= 0/*dec(q_bbtCount)-1*/;
-								$('#txtWorktime__'+NewbbtSeq).val(thisVal);
-								if($('#chkIsovertime_'+n).prop('checked')){
-									$('#chkIsovertime__'+NewbbtSeq).prop('checked',true);
-								}else{
-									$('#chkIsovertime__'+NewbbtSeq).prop('checked');
-								}
-								$('#txtWorktime__'+NewbbtSeq).focusout();
-							}
+							//取得workb個數
+							var t_date = $.trim($('#txtDatea').val());
+							var t_stationno = $.trim($('#txtStationno').val());
+							var t_where = "where=^^ (datea=N'"+t_date+"') and (stationno=N'"+t_stationno+"') and (replace(worktime,':','') between N'"+btime+"' and N'"+etime+"') ^^";
+							q_gt('cuw_workb', t_where , 0, 0, 0, "GetWorkbCount_"+n, r_accy);
 						});
 						$('#chkIsovertime_'+i).click(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
@@ -447,10 +456,14 @@
 						$('#txtWorktime__' + i).focusout(function(){
 							var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
 							var thisVal = $.trim($(this).val());
+							if(thisVal.length==0){
+								$('#btnMinut__'+n).click();
+								return;
+							}
 							var usetime = -1;
 							for(var h=0;h<WorkTimeArray.length;h++){
 								if(WorkTimeArray[h].timea==thisVal){
-									usetime = round(dec(WorkTimeArray[h].minutes)/60,2);
+									usetime = round(dec(WorkTimeArray[h].minutes),2);
 								}
 							}
 							if((thisVal.indexOf('-') > -1) && (usetime==-1)){
@@ -458,7 +471,7 @@
 								var etime = dec(thisVal.split('-')[1]);
 								btime = (Math.floor(btime/100)*60)+(btime%100);
 								etime = (Math.floor(etime/100)*60)+(etime%100);
-								usetime = round(((etime-btime)/60),2);
+								usetime = round(((etime-btime)),2);
 							}
 							if($('#chkIsovertime__'+n).prop('checked')){
 								$('#txtAddhours__'+n).val(usetime);
@@ -532,7 +545,7 @@
 				var thisDatea = $.trim($('#txtDatea').val());
 				var thisStationno = $.trim($('#txtStationno').val());
 				if((thisDatea.length > 0) && (thisStationno.length > 0)){
-					var t_where = "where=^^ datea=N'" + thisDatea + "' and stationno=N'" + thisStationno + "' ^^ sorder=^^ noa asc ^^";
+					var t_where = "where=^^ (N'" + thisDatea + "' between bdate and edate) and stationno=N'" + thisStationno + "' ^^ sorder=^^ noa asc ^^";
 					q_gt('cuy', t_where , 0, 0, 0, "GetCuy", r_accy);
 				}			
 			}
@@ -736,6 +749,12 @@
 						<td><span> </span><a id="lblStationno" class="lbl btn"> </a></td>
 						<td><input id="txtStationno" type="text" class="txt c1"/></td>
 						<td><input id="txtStation" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="2">
+							<input type="button" class="" id="btnWorkmount"/>
+						</td>
 					</tr>
 				</table>
 			</div>
