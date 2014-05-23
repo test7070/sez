@@ -20,8 +20,8 @@
 			}
 			q_tables = 's';
 			var q_name = "banktmp";
-			var q_readonly = ['txtNoa', 'txtAccount', 'txtBankno', 'txtBank', 'txtWorker', 'txtWorker2'];
-			var q_readonlys = ['txtAccount', 'txtDatea', 'txtMemo', 'txtMoney1', 'txtMoney2', 'txtMoney3', 'txtMoney4', 'txtTransbank', 'txtMemo2', 'txtTimea'];
+			var q_readonly = ['txtNoa', 'txtBank', 'txtWorker', 'txtWorker2'];
+			var q_readonlys = [];
 			var bbmNum = [];
 			var bbsNum = [['txtMoney1', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1], ['txtMoney4', 10, 0, 1]];
 			var bbmMask = [];
@@ -195,6 +195,34 @@
 			}
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				//var q_readonly = ['txtNoa', 'txtAccount', 'txtBankno', 'txtBank', 'txtWorker', 'txtWorker2'];
+                //var q_readonlys = ['txtAccount', 'txtDatea', 'txtMemo', 'txtMoney1', 'txtMoney2', 'txtMoney3', 'txtMoney4', 'txtTransbank', 'txtMemo2', 'txtTimea'];
+				if(q_cur==1){
+				    
+				    $('#txtAccount').removeAttr('readonly').css('color','black').css('background','white');    
+                    $('#txtBankno').removeAttr('readonly').css('color','black').css('background','white');
+                    $('#txtBank').removeAttr('readonly').css('color','black').css('background','white');
+				
+				
+				}else{
+				    $('#txtAccount').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');    
+                    $('#txtBankno').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                    $('#txtBank').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+				    $('#btnPlus').attr('disabled','disabled');
+				    for(var i=0;i<q_bbsCount;i++){
+				        $('#btnMinus_'+i).attr('disabled','disabled');
+                        $('#txtAccount_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');        
+                        $('#txtDatea_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMemo_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney1_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney2_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney3_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney4_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtTransbak_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMemo2_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtTimea_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                    }
+				}
 			}
 			function btnMinus(id) {
 				_btnMinus(id);
