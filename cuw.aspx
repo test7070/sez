@@ -128,7 +128,7 @@
 								'txtWorktime,txtMans,txtSales,txtSupmans,txtSupworker,txtManagermans,txtManager,txtHours,txtAddhours,chkIsovertime',
 								as.length, as,
 								'worktime,mans,sales,supmans,supworker,managermans,manager,hours,addhours,isovertime',
-								'txtWorkertime','__'
+								'txtWorktime','__'
 							);
 						}
 						break;
