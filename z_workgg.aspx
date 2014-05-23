@@ -160,6 +160,28 @@
                 	$("#btnRun").click();
 				}
 				if(window.parent.q_name=='workg'){
+					var wParent = window.parent.document;
+                	var wadate=wParent.getElementById("txtWadate").value;
+                	var wbdate=wParent.getElementById("txtWbdate").value;
+                	var wedate=wParent.getElementById("txtWedate").value;
+                	var bdate=wParent.getElementById("txtBdate").value;
+                	var edate=wParent.getElementById("txtEdate").value;
+                	var sfbdate=wParent.getElementById("txtSfbdate").value;
+                	var sfedate=wParent.getElementById("txtSfedate").value;
+                	
+                	if(wadate!=''){
+                		$('#txtXdate1').val(wadate);
+                		$('#txtXdate2').val(wadate);
+                	}else if (wbdate!=''){
+                		$('#txtXdate1').val(wbdate);
+                		$('#txtXdate2').val(wedate);
+                	}else if (bdate!=''){
+                		$('#txtXdate1').val(bdate);
+                		$('#txtXdate2').val(edate);
+                	}else if (sfbdate!=''){
+                		$('#txtXdate1').val(sfbdate);
+                		$('#txtXdate2').val(sfedate);
+                	}
                 	$("#btnRun").click();
 				}
 			}
