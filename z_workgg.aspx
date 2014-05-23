@@ -28,7 +28,7 @@
 			var clickIndex = -1;
 			var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
 				t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
-				t_xgroupano='#non',t_xshowover='#non';
+				t_xgroupano='#non',t_xshowover='#non',t_xshowfinished='#non';
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workgg',
@@ -63,6 +63,10 @@
 						type : '8', //[10]
 						name : 'xshowover',
 						value : ('1@只顯示超負荷').split(',')
+					}, {
+						type : '8', //[11]
+						name : 'xshowfinished',
+						value : ('1@只顯示製成品').split(',')
 					}]
 				});
 				$('#q_report').click(function(){
@@ -119,6 +123,11 @@
 					else{
 						t_xshowover='#non'
 					}
+					if($('#chkXshowfinished input[type="checkbox"]').prop('checked'))
+						t_xshowfinished=encodeURI('1');
+					else{
+						t_xshowfinished='#non'
+					}
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -129,7 +138,8 @@
 							t_xgroupano + ';' +
 							t_xbproductno + ';' +
 							t_xeproductno + ';' + 
-							t_xshowover + ';'
+							t_xshowover + ';' + 
+							t_xshowfinished + ';'
 					);
 				});
 				
