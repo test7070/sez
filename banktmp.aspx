@@ -225,15 +225,10 @@
 			}
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				//var q_readonly = ['txtNoa', 'txtAccount', 'txtBankno', 'txtBank', 'txtWorker', 'txtWorker2'];
-                //var q_readonlys = ['txtAccount', 'txtDatea', 'txtMemo', 'txtMoney1', 'txtMoney2', 'txtMoney3', 'txtMoney4', 'txtTransbank', 'txtMemo2', 'txtTimea'];
 				if(q_cur==1){
-				    
 				    $('#txtAccount').removeAttr('readonly').css('color','black').css('background','white');    
                     $('#txtBankno').removeAttr('readonly').css('color','black').css('background','white');
                     $('#txtBank').removeAttr('readonly').css('color','black').css('background','white');
-				
-				
 				}else{
 				    $('#txtAccount').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');    
                     $('#txtBankno').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
