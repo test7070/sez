@@ -80,6 +80,7 @@
 				        $('#textEEdate').focus();     
 				});
 			}
+
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.banktmp':
@@ -90,9 +91,16 @@
 							        alert(as[i].errmsg);
 							    }
 							} else {
+							    var t_array = new Array();
 								for (var i = 0; i < as.length; i++) {
+								    t_array.push({type: 'checkUf',noa:as[i].noa});
 									q_func('uf_post.post', r_accy + ',' + as[i].noa + ',0');// post 0
 									q_func('uf_post.post', r_accy + ',' + as[i].noa + ',1');// post 1
+								}
+								//檢查傳票是否產生
+								if(t_array.length>0){
+								    t_noa = t_array.pop().noa;
+								    q_func(JSON.stringify(t_array), 'banktmp.txt,checkuf,' + t_noa );
 								}
 								alert('共兌現 '+as[0].mount+' 筆支票');
 							}
@@ -103,6 +111,28 @@
 						Unlock(1);
 						break;
 					default:
+					   try{
+					       var t_array = JSON.parse(t_func);
+					       var as = _q_appendData("tmp0", "", true, true);
+					       if(as[0]!=undefined){
+					           if(as[0].errmsg!=undefined){
+					               alert(as[0].errmsg);
+					               Unlock(1);
+					               return;
+					           }
+					       }
+					       if(t_array.length>0){
+                                t_noa = t_array.pop().noa;
+                                q_func(JSON.stringify(t_array), 'banktmp.txt,checkuf,' + t_noa );
+                           }
+                           else{
+                               //check OK!
+                               Unlock(1);
+                               return;
+                           }
+					   }catch(e){
+					       
+					   }
 						break;
 				}
 			}
