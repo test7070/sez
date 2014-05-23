@@ -68,7 +68,7 @@
 				bbtMask = [['txtWorktime','9999-9999']];
 				q_mask(bbmMask);
 				q_gt('part', '', 0, 0, 0, "");
-				$('#txtDatea').focusout(function(){
+				$('#btnCuyimport').click(function(){
 					toGetCuy();
 				});
 				$('#btnWorkmount').click(function(){
@@ -540,26 +540,15 @@
 			}
 
 			function toGetCuy(){
-				if(q_cur != 1)
-					return;
-				var thisDatea = $.trim($('#txtDatea').val());
-				var thisStationno = $.trim($('#txtStationno').val());
-				if((thisDatea.length > 0) && (thisStationno.length > 0)){
-					var t_where = "where=^^ (N'" + thisDatea + "' between bdate and edate) and stationno=N'" + thisStationno + "' ^^ sorder=^^ noa asc ^^";
-					q_gt('cuy', t_where , 0, 0, 0, "GetCuy", r_accy);
-				}			
-			}
-			
-			function q_popPost(id) {
-				switch (id) {
-					case 'txtStationno':
-						toGetCuy();
-						break;
-					default:
-						break;
+				if(q_cur == 1 || q_cur == 2){
+					var thisDatea = $.trim($('#txtDatea').val());
+					var thisStationno = $.trim($('#txtStationno').val());
+					if((thisDatea.length > 0) && (thisStationno.length > 0)){
+						var t_where = "where=^^ (N'" + thisDatea + "' between bdate and edate) and stationno=N'" + thisStationno + "' ^^ sorder=^^ noa asc ^^";
+						q_gt('cuy', t_where , 0, 0, 0, "GetCuy", r_accy);
+					}
 				}
 			}
-
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -749,10 +738,8 @@
 						<td><span> </span><a id="lblStationno" class="lbl btn"> </a></td>
 						<td><input id="txtStationno" type="text" class="txt c1"/></td>
 						<td><input id="txtStation" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td colspan="2">
+						<td colspan="2" style="text-align:left;">
+							<input type="button" class="" id="btnCuyimport"/>
 							<input type="button" class="" id="btnWorkmount"/>
 						</td>
 					</tr>
