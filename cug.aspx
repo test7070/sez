@@ -386,7 +386,7 @@
 						alert("資料錯誤!!");
 						return;
 					}else{
-						del_cugunoq=del_cugunoq+(del_cugunoq.length>0?',':'')+$('#textCugunoq').val();
+						del_cugunoq=del_cugunoq+(del_cugunoq.length>0?'&':'')+$('#textCugunoq').val();
 					}
 					
 					if(dec(total_hours)!=dec(ohours)){//處理小數點四捨五入的問題
@@ -880,7 +880,7 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							if(!emp($('#txtWorkgno_' + b_seq).val())){
-								t_where = "noa='"+$('#txtWorkgno_' + b_seq).val()+"'";
+								t_where = "charindex(noa,'"+$('#txtWorkgno_' + b_seq).val()+"')>0";
 								q_box("workg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workg', "95%", "95%", q_getMsg('PopWorkg'));
 							}
 		                });

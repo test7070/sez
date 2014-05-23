@@ -165,9 +165,9 @@
                     $("#txtTotPage").val(0);
                     
                     var t_ordeno = emp($('#txtXordeno').val())?'#non':$('#txtXordeno').val();
-                	var t_no2 = emp($('#txtXno2').val())?'#non':$('#txtXno2').val();
+                	//var t_no2 = emp($('#txtXno2').val())?'#non':$('#txtXno2').val();
                 	var t_workgno = emp($('#txtXworkgno').val())?'#non':$('#txtXworkgno').val();
-                	var t_workgnoq = emp($('#txtXworkgnoq').val())?'#non':$('#txtXworkgnoq').val();
+                	//var t_workgnoq = emp($('#txtXworkgnoq').val())?'#non':$('#txtXworkgnoq').val();
                     
                     switch(txtreport) {
                         case 'z_cugp_svg1':
@@ -178,7 +178,7 @@
 						case 'z_cugp_svg2':
                             $('#Loading').Loading();
                             Lock();
-                            q_func('qtxt.query.svg2', 'z_cugp_svg.txt,' + txtreport + ',' + t_ordeno+ ';' + t_no2+ ';' + t_workgno+ ';' + t_workgnoq);
+                            q_func('qtxt.query.svg2', 'z_cugp_svg.txt,' + txtreport + ',' + t_ordeno+ ';' + t_workgno);
                             break;
                         default:
                             alert('錯誤：未定義報表');
