@@ -74,7 +74,9 @@
 				 $('#btnWorkgg').click(function() {
                 	q_box("z_workgg.aspx", 'z_workgg', "95%", "95%", q_getMsg("btnWorkgg"));
 				});
-
+				$('#btnImport').click(function(){
+					q_box('uploadra.aspx'+ "?;;;;"+r_accy+";", 'uploadra', "95%", "95%", q_getMsg("popPrint"));
+				});
 				$('#btnOrde').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
 						if (emp($('#txtBdate').val()) && emp($('#txtEdate').val())) {
@@ -1213,6 +1215,7 @@
 							<a style="float: left;">~</a>
 							<input id="txtWedate" type="text" class="txt c2"/>
 						</td>
+						<td><input id="btnImport" type="button"/></td>
 					</tr>
 					<tr>
 						<td> </td>
