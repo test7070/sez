@@ -20,8 +20,8 @@
 			}
 			q_tables = 's';
 			var q_name = "banktmp";
-			var q_readonly = ['txtNoa', 'txtAccount', 'txtBankno', 'txtBank', 'txtWorker', 'txtWorker2'];
-			var q_readonlys = ['txtAccount', 'txtDatea', 'txtMemo', 'txtMoney1', 'txtMoney2', 'txtMoney3', 'txtMoney4', 'txtTransbank', 'txtMemo2', 'txtTimea'];
+			var q_readonly = ['txtNoa', 'txtBank', 'txtWorker', 'txtWorker2'];
+			var q_readonlys = [];
 			var bbmNum = [];
 			var bbsNum = [['txtMoney1', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1], ['txtMoney4', 10, 0, 1]];
 			var bbmMask = [];
@@ -80,9 +80,11 @@
 				        $('#textEEdate').focus();     
 				});
 			}
+
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.banktmp':
+<<<<<<< HEAD
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                             if (as[0].errmsg != undefined) {
@@ -119,6 +121,46 @@
                                return;
                            }
                            if(t_array.length>0){
+=======
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							if (as[0].errmsg != undefined) {
+							    for (var i = 0; i < as.length; i++) {
+							        alert(as[i].errmsg);
+							    }
+							} else {
+							    var t_array = new Array();
+								for (var i = 0; i < as.length; i++) {
+								    t_array.push({type: 'checkUf',noa:as[i].noa});
+									q_func('uf_post.post', r_accy + ',' + as[i].noa + ',0');// post 0
+									q_func('uf_post.post', r_accy + ',' + as[i].noa + ',1');// post 1
+								}
+								//檢查傳票是否產生
+								if(t_array.length>0){
+								    t_noa = t_array.pop().noa;
+								    q_func(JSON.stringify(t_array), 'banktmp.txt,checkuf,' + t_noa );
+								}
+								alert('共兌現 '+as[0].mount+' 筆支票');
+							}
+						} else {
+							alert('無資料!');
+							
+						}
+						Unlock(1);
+						break;
+					default:
+					   try{
+					       var t_array = JSON.parse(t_func);
+					       var as = _q_appendData("tmp0", "", true, true);
+					       if(as[0]!=undefined){
+					           if(as[0].errmsg!=undefined){
+					               alert(as[0].errmsg);
+					               Unlock(1);
+					               return;
+					           }
+					       }
+					       if(t_array.length>0){
+>>>>>>> a1
                                 t_noa = t_array.pop().noa;
                                 q_func(JSON.stringify(t_array), 'banktmp.txt,checkuf,' + t_noa );
                            }
@@ -127,10 +169,17 @@
                                Unlock(1);
                                return;
                            }
+<<<<<<< HEAD
                        }catch(e){
                            
                        }
 					   break;
+=======
+					   }catch(e){
+					       
+					   }
+						break;
+>>>>>>> a1
 				}
 			}
 			function q_gtPost(t_name) {
@@ -222,6 +271,29 @@
 			}
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(q_cur==1){
+				    $('#txtAccount').removeAttr('readonly').css('color','black').css('background','white');    
+                    $('#txtBankno').removeAttr('readonly').css('color','black').css('background','white');
+                    $('#txtBank').removeAttr('readonly').css('color','black').css('background','white');
+				}else{
+				    $('#txtAccount').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');    
+                    $('#txtBankno').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                    $('#txtBank').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+				    $('#btnPlus').attr('disabled','disabled');
+				    for(var i=0;i<q_bbsCount;i++){
+				        $('#btnMinus_'+i).attr('disabled','disabled');
+                        $('#txtAccount_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');        
+                        $('#txtDatea_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMemo_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney1_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney2_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney3_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMoney4_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtTransbak_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtMemo2_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                        $('#txtTimea_'+i).attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                    }
+				}
 			}
 			function btnMinus(id) {
 				_btnMinus(id);
