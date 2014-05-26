@@ -161,7 +161,7 @@
 						}
 						t_where1 = "(isnull(a.total,0)-ISNULL(b.paysale,0)!=0) and (" + t_where1 + ")";
 						//1020712 帳款月份有打payb也要判斷月份
-						t_where2 = "where[2]=^^" + t_where1 + (emp($('#txtMon').val()) ? '' : " and  mon='" + $('#txtMon').val() + "'") + "^^";
+						t_where2 = "where[2]=^^" + t_where1 + (emp($('#txtMon').val()) ? '' : " and  (mon='" + $('#txtMon').val() + "' or left(a.datea,6)='" + $('#txtMon').val() + "')") + "^^";
 						if (t_comp == '大昌')
 							t_where1 = "where[1]=^^ 1=0 ^^";
 						else
@@ -180,7 +180,7 @@
 							}
 						}
 						t_where1 += " and (" + t_string + ") ^^";
-						t_where3 += " and (" + t_string + ")" + ($('#txtMon').val().length > 0 ? "and a.mon='" + $('#txtMon').val() + "'" : "") + " ^^";
+						t_where3 += " and (" + t_string + ")" + ($('#txtMon').val().length > 0 ? "and (a.mon='" + $('#txtMon').val() + "' or left(a.datea,6)='" + $('#txtMon').val() + "')" : "") + " ^^";
 						q_gt('pay_tre_tb', t_where + t_where1 + t_where2 + t_where3, 0, 0, 0, "pay_tre", r_accy);
 					}
 				}
