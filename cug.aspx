@@ -544,8 +544,9 @@
 				}
                 //---------------------------------------------------------------------------------------------------------------
                 //處理資料
+                //0526 沒有資料預設8小時 機台1台
                 //0513 強制當天會做完所以不處理 拆分兩個work、延後、剩餘一小時不處理等動作
-                var t_genorg=dec($('#txtGenorg').val());//原始產能
+                var t_genorg=dec($('#txtGenorg').val())>0?dec($('#txtGenorg').val()):8;//原始產能
                 var t_gen=t_genorg;//目前產能
                 var total_hours=0; //累計機時
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -654,7 +655,7 @@
                 			alert("該工作中心不存在!!");
                 			$('#btnCug').removeAttr('disabled');
                 		}else{
-                			$('#txtGenorg').val(as[0].gen);
+                			$('#txtGenorg').val(dec(as[0].gen)>0?dec(as[0].gen):8);
                 			$('#txtSmount').val(dec(as[0].hours)!=0?Math.ceil(q_div(as[0].gen,as[0].hours)):1);
                 			getnewgen=true;
                 			scheduling();
