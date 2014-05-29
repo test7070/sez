@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,memo,comp,cuamount,ucahours,stationhours,stationgen", afilter = [], bbsKey = ['noa','no2'], as;
+            var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,dime,width,lengthb,lengthc,unit,mount,weight,notv,noa,no2,price,theory,datea,custno,style,class,uno,total,memo,comp,cuamount,ucahours,stationhours,stationgen", afilter = [], bbsKey = ['noa','no2'], as;
             //, t_where = '';
             var t_sqlname = 'ordes_load';
             t_postname = q_name;
@@ -141,6 +141,10 @@
 					<input id="txtUcahours.*" type="hidden" />
 					<input id="txtStationhours.*" type="hidden" />
 					<input id="txtStationgen.*" type="hidden" />
+					<input id="txtStyle.*" type="hidden" />
+					<input id="txtWidth.*" type="hidden" />
+					<input id="txtLengthb.*" type="hidden" />
+					<input id="txtLengthc.*" type="hidden" />
 					</td>
 				</tr>
 			</table>
