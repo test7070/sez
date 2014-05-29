@@ -99,7 +99,7 @@
 								$('#chkSel_' + abbs[i].rec).attr('checked', true);
 							}
 						}
-						if (abbs[i].issale == 'false' || abbs[i].issale == false || abbs[i].enda == 'true' || abbs[i].enda == true) {
+						if (abbs[i].sale == 'false' || abbs[i].sale == false || abbs[i].enda == 'true' || abbs[i].enda == true) {
 							abbs.splice(i, 1);
 							i--;
 						}
