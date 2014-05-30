@@ -20,52 +20,41 @@
 			}
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_rc2');
+				q_gf('', 'z_custjoin');
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_rc2',
+					fileName : 'z_custjoin',
 					options : [{
 						type : '0', //[1]
 						name : 'accy',
 						value : r_accy
 					}, {
 						type : '1', //[2][3]
-						name : 'date'
+						name : 'xdate'
 					}, {
-						type : '1', //[4][5]
-						name : 'mon'
+						type : '2', //[4][5]
+						name : 'xpartno',
+						dbf : 'part',
+						index : 'noa,part',
+						src : 'part_b.aspx'
 					}, {
 						type : '2', //[6][7]
-						name : 'tgg',
-						dbf : 'tgg',
+						name : 'xcustno',
+						dbf : 'cust',
 						index : 'noa,comp',
-						src : 'tgg_b.aspx'
+						src : 'cust_b.aspx'
 					}, {
-						type : '2', //[8][9]
-						name : 'sales',
-						dbf : 'sss',
-						index : 'noa,namea',
-						src : 'sss_b.aspx'
-					}, {
-						type : '2', //[10][11]
-						name : 'product',
-						dbf : 'ucc',
-						index : 'noa,product',
-						src : 'ucc_b.aspx'
-					}, {
-						type : '5', //[12]
-						name : 'xstype',
-						value : [q_getPara('report.all')].concat(q_getPara('rc2.stype').split(','))
+						type : '0', //[8]
+						name : 'xtypea',
+						value : q_getPara('custjoin.typea')
 					}]
 				});
 				q_popAssign();
-				$('#txtDate1').mask('999/99/99');
-				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
-				$('#txtDate2').datepicker();
-				$('#txtMon1').mask('999/99');
-				$('#txtMon2').mask('999/99');
+				$('#txtXdate1').mask('999/99/99');
+				$('#txtXdate1').datepicker();
+				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate2').datepicker();
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -75,7 +64,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtXdate1').val(t_year + '/' + t_month + '/' + t_day);
 
 				t_date = new Date();
 				t_date.setDate(35);
@@ -86,7 +75,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
 			}
 
 			function q_boxClose(s2) {
