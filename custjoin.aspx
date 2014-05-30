@@ -42,7 +42,7 @@
 				}
 				mainForm(0);
 			}
-			
+
 			function mainPost() {
 				q_getFormat();
 				q_cmbParse("cmbTypea", q_getPara('custjoin.typea'));
@@ -85,6 +85,7 @@
 			}
 
 			function btnPrint() {
+				q_box("z_custjoin.aspx?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
