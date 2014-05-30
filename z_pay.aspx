@@ -92,6 +92,10 @@
 						type : '8',
 						name : 'xoption01',
 						value : q_getMsg('toption01').split('&')
+					}, {
+						type : '5', //[24]
+						name : 'xrc2stype',
+						value : [q_getPara('report.all')].concat(q_getPara('rc2.stype').split(','))
 					}]
 				});
 				q_popAssign();
