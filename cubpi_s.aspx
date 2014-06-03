@@ -87,14 +87,18 @@
 					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".lengthb=" + t_lengthb + ")";
 				if (t_radius != 0 && !isNaN(t_radius))
 					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".radius=" + t_radius + ")";
-				if (!(t_bdime==0 && t_edime==0))
-                    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa and cubu" + r_accy + ".dime between " + t_bdime + " and "+t_edime+")";
-                if (!(t_bwidth==0 && t_width==0))
-                    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa and cubu" + r_accy + ".width between " + t_bwidth + " and "+t_ewidth+")";
-                if (!(t_blength==0 && t_elength==0))
-                    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa and cubu" + r_accy + ".length between " + t_blength + " and "+t_elength+")";
-                if (!(t_bradius==0 && t_eradius==0))
-                    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa and cubu" + r_accy + ".radius between " + t_bradius + " and "+t_eradius+")";
+				
+				if(!(t_bdime==0 && t_edime==0) && !(t_bwidth==0 && t_width==0) && !(t_blength==0 && t_elength==0) && !(t_bradius==0 && t_eradius==0)){
+				    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa ";
+				    if (!(t_bdime==0 && t_edime==0))
+                        t_where += " and cubu" + r_accy + ".dime between " + t_bdime + " and "+t_edime+")";
+                    if (!(t_bwidth==0 && t_width==0))
+                        t_where += " and cubu" + r_accy + ".width between " + t_bwidth + " and "+t_ewidth+")";
+                    if (!(t_blength==0 && t_elength==0))
+                        t_where += " and cubu" + r_accy + ".length between " + t_blength + " and "+t_elength+")";
+                    if (!(t_bradius==0 && t_eradius==0))
+                        t_where += " and cubu" + r_accy + ".radius between " + t_bradius + " and "+t_eradius+")";
+				}
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
