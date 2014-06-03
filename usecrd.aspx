@@ -17,7 +17,7 @@
 			var afield, t_htm;
 			var i, s1;
 			var q_readonly = [];
-			var q_readonlys = [];
+			var q_readonlys = ['txtCreditno','txtNamea','txtCredit','txtWorker','txtBasev','txtMul'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -41,7 +41,12 @@
 			}
 
 			function q_gtPost(t_name) {
-
+				switch(t_name){
+					case 'GetCredit':
+						var as = _q_appendData('credit', "", true);
+						console.log(as);
+						break;
+				}
 			}
 
 			function bbsAssign() {
@@ -65,6 +70,7 @@
 
 			function refresh() {
 				_refresh();
+				q_gt('credit', '', 0, 0, 0, "GetCredit", r_accy);
 			}
 
 			function sum() {
@@ -98,20 +104,32 @@
 	<body>
 		<div id="dbbs" >
 			<!--#include file="../inc/pop_modi.inc"-->
-			<table id="tbbs" class='tbbs' border="2" cellpadding='2' cellspacing='1' style='width:1086px' >
+			<table id="tbbs" class='tbbs' border="2" cellpadding='2' cellspacing='1' style='width:100%' >
 				<tr style='color:white; background:#003366;' >
-					<td class="td1" align="center" style="width:36px;">
+					<td align="center" style="width:36px;">
 						<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
 					</td>
-					<td class="td2" align="center" style="width:103px;"><a id='lblCreditno'></a></td>
+					<td align="center" style="width:80px;"><a id='lblCreditno'></a></td>
+					<td align="center" style="width:200px;"><a id='lblNamea'></a></td>
+					<td align="center" style="width:120px;"><a id='lblRefv'></a></td>
+					<td align="center" style="width:120px;"><a id='lblCredit'></a></td>
+					<td align="center" style="width:120px;"><a id='lblWorker'></a></td>
+					<td align="center" style="width:120px;"><a id='lblBasev'></a></td>
+					<td align="center" style="width:120px;"><a id='lblMul'></a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td>
+					<td align="center">
 						<input class="btn" id="btnMinus.*" type="button" value='-' style="font-weight: bold; " />
 						<input class="txt c1" id="txtNoa.*" type="hidden" />
 						<input id="txtNoq.*" type="hidden" />
 					</td>
 					<td><input id="txtCreditno.*" type="text" class="c1" /></td>
+					<td><input id="txtNamea.*" type="text" class="c1" /></td>
+					<td><input id="txtRefv.*" type="text" class="c1 num" /></td>
+					<td><input id="txtCredit.*" type="text" class="c1 num" /></td>
+					<td><input id="txtWorker.*" type="text" class="c1" /></td>
+					<td><input id="txtBasev.*" type="text" class="c1 num" /></td>
+					<td><input id="txtMul.*" type="text" class="c1 num" /></td>
 				</tr>
 			</table>
 		</div>
