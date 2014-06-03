@@ -403,6 +403,12 @@
 			            	sum();
 			       		});
 			       		$('#txtCost_'+i).blur(function () {
+			       			t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							if(!emp($('#txtCost_'+b_seq).val()) && dec($('#txtCost_'+b_seq).val())!=0)
+								$('#chkIsprepay_'+b_seq)[0].checked=true;
 			            	sum();
 			       		});
 			       		$('#chkIsprepay_'+i).change(function () {
@@ -413,7 +419,8 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							
-							$('#chkIsprepay_'+b_seq)[0].checked=true;
+							if(!emp($('#txtRealcost_'+b_seq).val()) && dec($('#txtRealcost_'+b_seq).val())!=0)
+								$('#chkIsprepay_'+b_seq)[0].checked=true;
 			            	sum();
 			       		});
                     }

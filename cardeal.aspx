@@ -349,53 +349,37 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td calss="trZ"> </td>
+						<td class="trZ"> </td>
 					</tr>
 					<tr class="tr1">
-						<td><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id='lblComp'  class="lbl"></a></td>
-						<td class="td2" colspan="3">
-						<input id="txtComp"  type="text" class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblComp'  class="lbl"> </a></td>
+						<td class="td2" colspan="3"><input id="txtComp"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblNick' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtNick"  type="text" class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblNick' class="lbl"> </a></td>
+						<td class="td2"><input id="txtNick"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id='lblBoss' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtBoss"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblUacc1' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtUacc1"   type="text" class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblBoss' class="lbl"> </a></td>
+						<td class="td2"><input id="txtBoss"  type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblUacc1' class="lbl"> </a></td>
+						<td class="td4"><input id="txtUacc1"   type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblTel1' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtTel1"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblUacc2' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtUacc2"    type="text"  class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblTel1' class="lbl"> </a></td>
+						<td class="td2"><input id="txtTel1"  type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblUacc2' class="lbl"> </a></td>
+						<td class="td4"><input id="txtUacc2"    type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr6">
-						<td class="td1"><span> </span><a id='lblSerial' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtSerial"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblUacc3' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtUacc3"   type="text"  class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td class="td2"><input id="txtSerial"  type="text" class="txt c1"/> </td>
+						<td class="td3"><span> </span><a id='lblUacc3' class="lbl"> </a></td>
+						<td class="td4"><input id="txtUacc3"   type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

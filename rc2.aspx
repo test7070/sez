@@ -631,6 +631,9 @@
 				if (isinvosystem)
 					$('.istax').hide();
 				HiddenTreat();
+				
+				if (q_getPara('sys.comp').indexOf('楊家') > -1)
+					$('.floata').hide();
 			}
 
 			function HiddenTreat(returnType){
@@ -1005,7 +1008,7 @@
 						<td class="td7"><span> </span><a id='lblOrdc' class="lbl btn"> </a></td>
 						<td class="td8"><input id="txtOrdcno" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4' >
@@ -1019,16 +1022,16 @@
 						<td class="td2"><input id="txtPost2" type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4' >
 							<input id="txtAddr2" type="text" class="txt" style="width: 95%;"/>
-							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'></select>
+							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 						</td>
 						<td class="td4"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
 						<td class="td5"><select id="cmbTrantype" class="txt c1"></select></td>
 					</tr>
-					<tr class="tr4">
+					<tr class="tr6">
 						<td class="td4"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td class="td5" colspan='2'>
 							<input id="txtPaytype" type="text" class="txt c3"/>
-							<select id="combPaytype" class="txt c2" onchange='cmbPaytype_chg()'></select>
+							<select id="combPaytype" class="txt c2" onchange='cmbPaytype_chg()'> </select>
 						</td>
 						<td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"> </a></td>
 						<td class="td2" colspan='2'>
@@ -1038,20 +1041,20 @@
 						<td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td8"><input id="txtPrice" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblTranstart' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtTranstartno" type="text" class="txt c1"/></td>
 						<td class="td3"><input id="txtTranstart" type="text" class="txt c1"/></td>
 						<td class="td4"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td5">
 							<input id="txtCarno" type="text" class="txt" style="width:75%;"/>
-							<select id="combCarno" style="width: 20%;"></select>
+							<select id="combCarno" style="width: 20%;"> </select>
 						</td>
-						<td><select id="cmbTranstyle" style="width: 100%;"></select></td>
+						<td><select id="cmbTranstyle" style="width: 100%;"> </select></td>
 						<td class="td7"><span> </span><a id='lblTranadd' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTranadd" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td class="td2"colspan='2'>
 							<input id="txtMoney" type="text" class="txt num c1" />
@@ -1059,14 +1062,14 @@
 						<td class="td4" ><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td class="td5" colspan='2' >
 							<input id="txtTax" type="text" class="txt num c1 istax" style="width: 49%;" />
-							<select id="cmbTaxtype" class="txt c1" style="width: 49%;" onchange="calTax();"></select>
+							<select id="cmbTaxtype" class="txt c1" style="width: 49%;" onchange="calTax();"> </select>
 						</td>
 						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr class="tr8">
+					<tr class="tr9 floata">
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td class="td2" ><select id="cmbCoin" class="txt c1" ></select></td>
+						<td class="td2" ><select id="cmbCoin" class="txt c1" > </select></td>
 						<td class="td3" ><input id="txtFloata" type="text" class="txt num c1" /></td>
 						<td class="td4"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
 						<td class="td5" colspan='2'>
@@ -1075,13 +1078,13 @@
 						<td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
 						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax" /></td>
 					</tr>
-					<tr class="tr9">
+					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan='7' >
 							<input id="txtMemo" type="text" class="txt" style="width:98%;"/>
 						</td>
 					</tr>
-					<tr class="tr10">
+					<tr class="tr11">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td class="td3"><input id="txtWorker2" type="text" class="txt c1"/></td>

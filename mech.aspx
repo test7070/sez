@@ -19,7 +19,7 @@
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';brwCount2 = 12;
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']);
         $(document).ready(function () {
@@ -291,21 +291,21 @@
         </style>
     </head>
     <body>
-    	<div id='dmain'>
+    	<div id='dmain' style="width: 1000px;">
             <!--#include file="../inc/toolbar.inc"-->
             <div class="dview" id="dview" style="float: left;  width:32%;"  >
                     <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
                         <tr>
-                            <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                            <td align="center" style="width:5%"><a id='vewNoa'></a></td>
-                            <td align="center" style="width:25%"><a id='vewMech'></a></td>
-                            <td align="center" style="width:25%"><a id='vewTypea'></a></td>
+                            <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                            <td align="center" style="width:35%"><a id='vewNoa'> </a></td>
+                            <td align="center" style="width:60%"><a id='vewMech'> </a></td>
+                            <!--<td align="center" style="width:25%"><a id='vewTypea'></a></td>-->
                         </tr>
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='noa'>~noa</td>
                             <td align="center" id='mech'>~mech</td>
-                            <td align="center" id='typea=mech.typea'>~typea=mech.typea</td>
+                            <!--<td align="center" id='typea=mech.typea'>~typea=mech.typea</td>-->
                         </tr>
                     </table>
                 </div>
