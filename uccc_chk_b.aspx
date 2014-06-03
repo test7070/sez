@@ -297,11 +297,11 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div  id="dFixedTitle" style="overflow-y: scroll;">
-			<table id="tFixedTitle" class='tFixedTitle'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;'  >
+		<div id="dFixedTitle" style="overflow-y: scroll;">
+			<table id="tFixedTitle" class='tFixedTitle' border="2" cellpadding='2' cellspacing='1' style='width:100%;' >
 				<tr style='color:White; background:#003366;' >
 					<th align="center" style="width:2%;" >
-					<input type="checkbox" id="checkAllCheckbox"/>
+						<input type="checkbox" id="checkAllCheckbox"/>
 					</th>
 					<td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblProductno_st'> </a></td>
