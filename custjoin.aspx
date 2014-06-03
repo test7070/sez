@@ -89,7 +89,7 @@
 			}
 
 			function btnOk() {
-				var t_err = q_chkEmpField(['txtNoa', q_getMsg('lblNoa')]);
+				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 				if($.trim(t_err).length > 0){
 					alert(t_err);
 					return;
