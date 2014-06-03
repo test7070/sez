@@ -364,6 +364,8 @@
 				product_change();
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
+				$('#cmbKind').val('2').change();
 			}
 
 			function btnModi() {
@@ -411,6 +413,12 @@
 				} else {
 					$('.import').hide();
 					$('#btnImport').val('進口欄位顯示');
+				}
+				
+				if (q_getPara('sys.comp').indexOf('楊家') > -1){
+					$('#lblOrdb').hide();
+					$('#txtOrdbno').hide();
+					$('.floata').hide();
 				}
 			}
 
@@ -802,7 +810,7 @@
 						<td class="td6"><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td class="td7"><input id="txtTotal" type="text" class="txt num c1 lef" /></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr7 floata">
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbCoin" class="txt c1 lef"></select></td>
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1 lef" /></td>
@@ -816,7 +824,7 @@
 						<td class="td2" colspan="2"><input id="txtLcno" type="text"	class="txt c1 lef"/></td>
 						<td class="td4"><span> </span><a id='lblImportno' class="lbl"> </a></td>
 						<td class="td5" colspan="2"><input id="txtImportno" type="text"	class="txt c1 lef"/></td>
-						<td class="td7"></td>
+						<td class="td7"> </td>
 						<td class="td8"><!--<input id="btnSi" type="button"/>--></td>
 					</tr>
 					<tr class="tr8 import">
@@ -835,7 +843,7 @@
 						<td class="td6"><input id="txtWorker2" type="text" class="txt c1 lef" /></td>
 						<td class="td7" align="right">
 							<input id="chkIsproj" type="checkbox"/>
-							<a id='lblIsproj' style="width: 50%;"> </a>
+							<a id='lblIsproj' style="width: 50%;"> </a><span> </span>
 						</td>
 						<td class="td8" align="right">
 							<input id="chkEnda" type="checkbox"/>
@@ -880,15 +888,15 @@
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td>
+					<td align="center">
 						<input class="txt c1" id="txtProductno1.*" type="text" />
 						<input class="txt c1" id="txtProductno2.*" type="text" />
 						<input class="txt c1" id="txtProductno3.*" type="text" />
 						<input class="txt c1" id="txtProductno.*" type="hidden" />
-						<input id="txtNo2.*" type="text" class="txt c3"/>
-						<input class="btn" id="btnProduct1.*" type="button" value='...' style=" font-weight: bold;" />
-						<input class="btn" id="btnProduct2.*" type="button" value='...' style=" font-weight: bold;" />
-						<input class="btn" id="btnProduct3.*" type="button" value='...' style=" font-weight: bold;" />
+						<input id="txtNo2.*" type="text" class="txt" style="width:60px;"/>
+						<input class="btn" id="btnProduct1.*" type="button" value='.' style=" font-weight: bold;" />
+						<input class="btn" id="btnProduct2.*" type="button" value='.' style=" font-weight: bold;" />
+						<input class="btn" id="btnProduct3.*" type="button" value='.' style=" font-weight: bold;" />
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1"/>

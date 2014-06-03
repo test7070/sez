@@ -47,20 +47,20 @@
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
             <tr class='seek_tr'>
-                <td   style="width:35%;" ><a id='lblNoa'></a></td>
-                <td style="width:65%;  "><input class="txt" id="txtNoa" type="text" style="width:93px; font-size:medium;" /></td>
+                <td   style="width:35%;" ><a id='lblNoa'> </a></td>
+                <td style="width:65%;  "><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td   style="width:35%;" ><a id='lblNick'></a></td>
-                <td style="width:65%;  "><input class="txt" id="txtNick" type="text" style="width:93px; font-size:medium;" /></td>
+                <td   style="width:35%;" ><a id='lblNick'> </a></td>
+                <td style="width:65%;  "><input class="txt" id="txtNick" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td   style="width:35%;" ><a id='lblBoss'></a></td>
-                <td style="width:65%;  "><input class="txt" id="txtBoss" type="text" style="width:93px; font-size:medium;" /></td>
+                <td   style="width:35%;" ><a id='lblBoss'> </a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBoss" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td   style="width:35%;" ><a id='lblTel1'></a></td>
-                <td style="width:65%;  "><input class="txt" id="txtTel1" type="text" style="width:93px; font-size:medium;" /></td>
+                <td   style="width:35%;" ><a id='lblTel1'> </a></td>
+                <td style="width:65%;  "><input class="txt" id="txtTel1" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

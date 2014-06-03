@@ -631,9 +631,6 @@
 				if (isinvosystem)
 					$('.istax').hide();
 				HiddenTreat();
-				
-				if (q_getPara('sys.comp').indexOf('楊家') > -1)
-					$('.floata').hide();
 			}
 
 			function HiddenTreat(returnType){
@@ -1067,7 +1064,7 @@
 						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr class="tr9 floata">
+					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td class="td2" ><select id="cmbCoin" class="txt c1" > </select></td>
 						<td class="td3" ><input id="txtFloata" type="text" class="txt num c1" /></td>
