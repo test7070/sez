@@ -416,7 +416,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('cubpi_s.aspx', q_name + '_s', "530px", "650px", q_getMsg("popSeek"));
+				q_box('cubpi_s.aspx', q_name + '_s', "530px", "95%", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {

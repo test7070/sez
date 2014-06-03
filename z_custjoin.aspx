@@ -48,6 +48,9 @@
 						type : '0', //[8]
 						name : 'xtypea',
 						value : q_getPara('custjoin.typea')
+					}, {
+						type : '6', //[9]
+						name : 'xyeara'
 					}]
 				});
 				q_popAssign();
@@ -55,6 +58,8 @@
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate2').datepicker();
+				$('#txtXyeara').mask('999');
+				$('#txtXyeara').val(q_date().substring(0,3));
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);

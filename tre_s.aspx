@@ -38,6 +38,7 @@
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('carteam', '', 0, 0, 0, "");
+                q_cmbParse("cmbIspay", '@全部,N@未付');
                 $('#txtBdate').focus();
             }
 
@@ -66,6 +67,7 @@
                 t_accno = $.trim($('#txtAccno').val());
                 t_carteam = $('#cmbCarteam').val();
 				t_tranno = $.trim($('#txtTranno').val());
+				t_ispay = $('#cmbIspay').val();
 				
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("carno", t_carno) + q_sqlPara2("datea", t_bdate, t_edate)+ q_sqlPara_or(["accno", "accno2"], t_accno);
                 if (t_carteam.length > 0)
@@ -74,6 +76,8 @@
                     t_where += " and patindex('%" + t_driver + "%',driver)>0";     
 				if(t_tranno.length>0)
 		       		t_where += " and exists(select noa from tres"+r_accy+" where tres"+r_accy+".noa=tre"+r_accy+".noa and tres"+r_accy+".tranno='"+t_tranno+"')";
+                if(t_ispay.length>0)
+                    t_where +=" and not exists(select * from tre_accc where CHARINDEX(tre"+r_accy+".noa,treno)>0)";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -94,6 +98,10 @@
 	>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblIspay'></a></td>
+                    <td><select id="cmbIspay" style="width:215px; font-size:medium;" ></select></td>
+                </tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCarteam'></a></td>
 					<td><select id="cmbCarteam" style="width:215px; font-size:medium;" ></select></td>
