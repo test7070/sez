@@ -79,25 +79,30 @@
 					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".uno='" + t_uno + "')";
 				if (t_inuno.length > 0)
 					t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa and cubu" + r_accy + ".uno='" + t_inuno + "')";
-				if (t_dime != 0 && !isNaN(t_dime))
-					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".dime=" + t_dime + ")";
-				if (t_width != 0 && !isNaN(t_width))
-					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".width=" + t_width + ")";
-				if (t_lengthb != 0 && !isNaN(t_lengthb))
-					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".lengthb=" + t_lengthb + ")";
-				if (t_radius != 0 && !isNaN(t_radius))
-					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".radius=" + t_radius + ")";
 				
-				if(!(t_bdime==0 && t_edime==0) && !(t_bwidth==0 && t_width==0) && !(t_blength==0 && t_elength==0) && !(t_bradius==0 && t_eradius==0)){
+				if(t_dime != 0 || t_width != 0 || t_lengthb || t_radius){
+				    t_where +=" and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa ";
+				    if (t_dime != 0)
+                        t_where += " and cubt" + r_accy + ".dime=" + t_dime;
+                    if (t_width != 0)
+                        t_where += " and cubt" + r_accy + ".width=" + t_width;
+                    if (t_lengthb != 0)
+                        t_where += " and cubt" + r_accy + ".lengthb=" + t_lengthb;
+                    if (t_radius != 0)
+                        t_where += " and cubt" + r_accy + ".radius=" + t_radius;
+				    t_where +=")";
+				}
+				if(!(t_bdime==0 && t_edime==0) || !(t_bwidth==0 && t_width==0) || !(t_blength==0 && t_elength==0) || !(t_bradius==0 || t_eradius==0)){
 				    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa ";
 				    if (!(t_bdime==0 && t_edime==0))
-                        t_where += " and cubu" + r_accy + ".dime between " + t_bdime + " and "+t_edime+")";
+                        t_where += " and cubu" + r_accy + ".dime between " + t_bdime + " and "+t_edime;
                     if (!(t_bwidth==0 && t_width==0))
-                        t_where += " and cubu" + r_accy + ".width between " + t_bwidth + " and "+t_ewidth+")";
+                        t_where += " and cubu" + r_accy + ".width between " + t_bwidth + " and "+t_ewidth;
                     if (!(t_blength==0 && t_elength==0))
-                        t_where += " and cubu" + r_accy + ".length between " + t_blength + " and "+t_elength+")";
+                        t_where += " and cubu" + r_accy + ".length between " + t_blength + " and "+t_elength;
                     if (!(t_bradius==0 && t_eradius==0))
-                        t_where += " and cubu" + r_accy + ".radius between " + t_bradius + " and "+t_eradius+")";
+                        t_where += " and cubu" + r_accy + ".radius between " + t_bradius + " and "+t_eradius;
+				    t_where +=")";
 				}
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
