@@ -1044,7 +1044,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 15%;
+				/*width: 15%;*/
 			}
 			.tbbm .tdZ {
 				width: 1%;
@@ -1184,6 +1184,14 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
+					<tr style="height: 1px;">
+						<td style="width: 116px;"> </td>
+						<td style="width: 111px;"> </td>
+						<td style="width: 126px;"> </td>
+						<td style="width: 111px;"> </td>
+						<td style="width: 111px;"> </td>
+						<td style="width: 210px;"> </td>
+					</tr>
 					<tr>
 						<td style="display:none;">
 							<input type="text" style="display:none;" id="txtUnwork">
@@ -1225,7 +1233,10 @@
 							<a style="float: left;">~</a>
 							<input id="txtSfedate" type="text" class="txt c2"/>
 						</td>
-						<td><input id="btnWorkg" type="button"/></td>
+						<td>
+							<input id="btnWorkg" type="button"/>
+							<input id="btnWorkgv" type="button" />
+						</td>
 						<!--<td><input id="btnSaleforecast" type="button"/></td>-->
 					</tr>
 					<tr>
@@ -1249,7 +1260,6 @@
 							<input id="txtFactno" type="text" class="txt c3"/>
 							<input id="txtFact" type="text" class="txt c4"/>
 						</td>
-						<td><input id="btnWorkgv" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
