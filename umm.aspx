@@ -431,6 +431,8 @@
 							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 								as[i].tablea='vcc_uu';
 								as[i].memo=as[i].memo+as[i].invono;
+							}else if (q_getPara('sys.comp').indexOf('楊家') > -1){
+								as[i].tablea='vcc_tn';
 							}else{
 								as[i].tablea='vcc'+ q_getPara('sys.project');
 							}
@@ -674,7 +676,9 @@
 							$('#txtTablea_'+i).val('vcc_it');
                     	}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 							$('#txtTablea_'+i).val('vcc_uu');
-                    	}else{
+                    	}else if (q_getPara('sys.comp').indexOf('楊家') > -1){
+							$('#txtTablea_'+i).val('vcc_tn');
+						}else{
                     		$('#txtTablea_'+i).val('vcc'+ q_getPara('sys.project'));
                     	}
                 	}

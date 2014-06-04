@@ -645,7 +645,10 @@
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
                     	if(t_tablea.length>0){
-                    		t_tablea = t_tablea + q_getPara('sys.project');
+                    		if (q_getPara('sys.comp').indexOf('楊家') > -1)
+                    			t_tablea = t_tablea +'_tn';
+                    		else
+                    			t_tablea = t_tablea + q_getPara('sys.project');
                     		q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
                     	}
                     });
