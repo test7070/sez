@@ -15,7 +15,7 @@
             var t_sqlname = 'ordes_load';
             t_postname = q_name;
             brwCount=-1;
-            //brwCount2 = 10;
+            brwCount2 = 10;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
             var i, s1;
@@ -59,10 +59,12 @@
                             $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
                     });
                 });
+				/*//資料多會掛掉
                 $('#btnTop').hide();
                 $('#btnPrev').hide();
                 $('#btnNext').hide();
                 $('#btnBott').hide();
+				*/
                 if(q_getPara('sys.comp').indexOf('永勝')>-1){
 					$('.uu').hide();
 				}
