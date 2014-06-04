@@ -33,12 +33,13 @@
 			brwNowPage = 0;
 			brwKey = 'Odate';
 			aPop = new Array(
-				['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
-				['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno2_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
-				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
+				['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_,txtMount_', 'bcc_b.aspx'],
+				['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno2_,txtProduct_,txtSpec_,txtUnit_,txtMount_', 'ucaucc_b.aspx'],
+				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_,txtMount_', 'fixucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,addr', 'txtCno,txtAcomp,txtAddr2', 'acomp_b.aspx'],
-				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype', 'txtTggno,txtTgg,txtPaytype', 'tgg_b.aspx']
+				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,trantype,paytype,salesno,sales,tel,fax,zip_comp,addr_comp'
+				, 'txtTggno,txtTgg,cmbTrantype,txtPaytype,txtSalesno,txtSales,txtTel,txtFax,txtPost,txtAddr,txtPost2', 'tgg_b.aspx']
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -799,8 +800,6 @@
 						<td class="td2" colspan='2'><input id="txtTel" type="text" class="txt c1 lef"/></td>
 						<td class="td4"><span> </span><a id='lblFax' class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtFax" type="text" class="txt c1 lef"/></td>
-						<td class="td7"><span> </span><a id='lblTrandate' class="lbl"> </a></td>
-						<td class="td8"><input id="txtTrandate" type="text" class="txt c1 lef"/></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
@@ -818,6 +817,8 @@
 							<input id="txtAddr2" type="text" class="txt c1 lef" style="width: 412px;"/>
 							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'></select>
 						</td>
+						<td class="td7"><span> </span><a id='lblTrandate' class="lbl"> </a></td>
+						<td class="td8"><input id="txtTrandate" type="text" class="txt c1 lef"/></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -920,7 +921,7 @@
 						<input id="txtProduct.*" type="text" class="txt c1"/>
 						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
 					</td>
-					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
+					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1 isStyle"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtOmount.*" type="text" class="txt num c1" /></td>
