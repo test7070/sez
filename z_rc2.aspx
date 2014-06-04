@@ -57,7 +57,11 @@
 						type : '5', //[12]
 						name : 'xstype',
 						value : [q_getPara('report.all')].concat(q_getPara('rc2.stype').split(','))
-					}]
+					}, {
+                        type : '0', //[13] //判斷顯示小數點與其他判斷
+                        name : 'acomp',
+                        value : q_getPara('sys.comp')
+                    }]
 				});
 				q_popAssign();
 				$('#txtDate1').mask('999/99/99');

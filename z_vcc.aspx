@@ -40,7 +40,7 @@
                 }
                 
                 $('#q_report').click(function(e) {
-					if(q_getPara('sys.comp').indexOf('永勝') > -1){//沒有發票系統
+					if(q_getPara('sys.comp').indexOf('永勝') > -1 || q_getPara('sys.comp').indexOf('楊家') > -1){//沒有發票系統
 	                	$('#Xshowinvono').hide();
 	                }
 				});
