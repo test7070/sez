@@ -290,6 +290,9 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					if(!emp($('#txtProductno_' + j).val())&&emp($('#txtTrandate_'+j).val()))
 						$('#txtTrandate_'+j).val($('#txtTrandate').val());
+						
+					if(q_cur==1)
+						$('#txtOmount_'+j).val($('#txtMount_'+j).val());
 				}
 				
 				if (q_cur == 1)
