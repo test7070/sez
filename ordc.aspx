@@ -186,6 +186,14 @@
 			var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetOrdct':
+						var as = _q_appendData("ordct", "", true);
+						if(as.length > 0){
+							alert('禁止修改');
+						}else{
+							ModiDo();
+						}
+						break;
 					case 'cno_acomp':
 						var as = _q_appendData("acomp", "", true);
 						if (as[0] != undefined) {
@@ -372,8 +380,14 @@
 			}
 
 			function btnModi() {
-				if (emp($('#txtNoa').val()))
+				var t_noa = $.trim($('#txtNoa').val());
+				if (emp(t_noa))
 					return;
+				var t_where = "stop=1 where=^^ noa='" +t_noa+ "' ^^";
+				q_gt('ordct', t_where, 0, 0, 0, "GetOrdct", r_accy);
+			}
+			
+			function ModiDo(){
 				_btnModi();
 				$('#txtProduct').focus();
 				product_change();
@@ -381,6 +395,7 @@
 					var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
+			
 			}
 
 			function btnPrint() {

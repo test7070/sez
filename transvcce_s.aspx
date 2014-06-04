@@ -56,14 +56,16 @@
 		        + q_sqlPara2("ordeno", t_ordeno) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 
 		        + q_sqlPara2("trandate", t_btrandate, t_etrandate) 
-		        + q_sqlPara2("custno", t_custno) 
-		        + q_sqlPara2("addrno", t_addrno);
+		        + q_sqlPara2("custno", t_custno);;
 		        if (t_comp.length>0)
-                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                    t_where += " and charindex('" + t_comp + "',comp)>0";
                 if(t_carno.length>0)
-					t_where += " and exists(select noa from transvcces"+r_accy+" where transvcces"+r_accy+".noa=transvcce"+r_accy+".noa and patindex('%" + t_carno+ "%',transvcces"+r_accy+".carno)>0)";
+					t_where += " and exists(select noa from transvcces"+r_accy+" where transvcces"+r_accy+".noa=transvcce"+r_accy+".noa and charindex('" + t_carno+ "',transvcces"+r_accy+".carno)>0)";
 		        if(t_caseno.length>0)
-					t_where += " and exists(select noa from transvcces"+r_accy+" where transvcces"+r_accy+".noa=transvcce"+r_accy+".noa and patindex('%" + t_caseno+ "%',transvcces"+r_accy+".caseno)>0)";
+					t_where += " and exists(select noa from transvcces"+r_accy+" where transvcces"+r_accy+".noa=transvcce"+r_accy+".noa and charindex('" + t_caseno+ "',transvcces"+r_accy+".caseno)>0)";
+		        if(t_addrno.length>0)
+                    t_where += " and exists(select noa from transvcces"+r_accy+" where transvcces"+r_accy+".noa=transvcce"+r_accy+".noa and transvcces"+r_accy+".addrno='"+t_addrno+"')";
+		        
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
