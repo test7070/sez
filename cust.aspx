@@ -99,10 +99,12 @@
 					['txtGetdate', '99']
 				];
 				q_mask(bbmMask);
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
+				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1){
 					q_cmbParse("cmbTypea", q_getPara('cust.typea_it'));
-				else if (q_getPara('sys.project').toUpperCase() == 'RA') {
+				}else if (q_getPara('sys.project').toUpperCase() == 'RA') {
 					q_cmbParse("cmbTypea", q_getPara('cust.typea_ra'));
+				}else if (q_getPara('sys.project').toUpperCase() == 'TN') {
+					q_cmbParse("cmbTypea", q_getPara('cust.typea_tn'));
 				} else
 					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
