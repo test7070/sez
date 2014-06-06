@@ -47,8 +47,13 @@
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("datea", t_bdate,t_edate)+ q_sqlPara2("sssno", t_sssno)
         + q_sqlPara2("namea", t_namea)+ q_sqlPara2("salexpono", t_salexpono)+ q_sqlPara2("salexpo", t_salexpo);
         
+        var t_where2='';
+        if(r_rank<7){
+            	t_where2 = " and  sssno in (select noa from sss where partno=(select partno from sss where noa='" + r_userno+ "')) ";
+        }
+        
 
-        t_where = ' where=^^' + t_where + '^^ ';
+        t_where = ' where=^^' + t_where +t_where2+ '^^ ';
         return t_where;
     }
 </script>

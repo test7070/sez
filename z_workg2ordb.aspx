@@ -78,6 +78,10 @@
                     },{
                         type : '6', //[9]
                         name : 'enddate'
+                    },{
+                        type : '8', //[10]
+                        name : 'otherworkg',
+                        value : ("1@包含其他排產製令(製令未領)").split(',')
                     }]
                 });
                 q_popAssign();
@@ -92,6 +96,12 @@
                 $('#txtEnddate').datepicker();
                 $('#txtEnddate').val(q_date());
                 
+                var btn = document.getElementById('btnOk');
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='無簽核轉請購'>");
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda2ordb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核轉請購'>");
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnCheck' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='查詢'>");
+                	
                 if (window.parent.q_name == 'workg') {
 					var wParent = window.parent.document;
 					$('#txtWorkgno1').val(wParent.getElementById("txtNoa").value);
@@ -100,13 +110,43 @@
 						$('#txtEnddate').val(wParent.getElementById("txtEdate").value);
 					if(wParent.getElementById("txtSfedate").value!='' && wParent.getElementById("cmbStype").value=='3')
 						$('#txtEnddate').val(wParent.getElementById("txtSfedate").value);
+						
+					if(wParent.getElementById("vtunordb_"+window.parent.q_recno).innerHTML==''){
+						$('#btnOrda').attr('disabled', 'disabled');
+						$('#btnOrda2ordb').attr('disabled', 'disabled');
+						$('#btnOrdb').attr('disabled', 'disabled');
+						
+						$('#btnOrda').css('font-weight', '' );
+						$('#btnOrda').css('color', '');
+						$('#btnOrdb').css('font-weight', '' );
+						$('#btnOrdb').css('color', '');
+						$('#btnOrda2ordb').css('font-weight', '' );
+						$('#btnOrda2ordb').css('color', '');
+						
+					}else if(wParent.getElementById("vtunorda_"+window.parent.q_recno).innerHTML==''){
+						$('#btnOrda').attr('disabled', 'disabled');
+						$('#btnOrdb').attr('disabled', 'disabled');
+						$('#btnOrda2ordb').removeAttr('readonly');
+						
+						$('#btnOrda').css('font-weight', '' );
+						$('#btnOrda').css('color', '');
+						$('#btnOrdb').css('font-weight', '' );
+						$('#btnOrdb').css('color', '');
+						$('#btnOrda2ordb').css('font-weight', 'bold');
+						$('#btnOrda2ordb').css('color', 'blue');
+					}else{
+						$('#btnOrda').removeAttr('readonly');
+						$('#btnOrdb').removeAttr('readonly');
+						$('#btnOrda2ordb').removeAttr('readonly');
+						
+						$('#btnOrda').css('font-weight', 'bold');
+						$('#btnOrda').css('color', 'blue');
+						$('#btnOrdb').css('font-weight', 'bold');
+						$('#btnOrdb').css('color', 'blue');
+						$('#btnOrda2ordb').css('font-weight', 'bold');
+						$('#btnOrda2ordb').css('color', 'blue');
+					}
 				}
-                
-                var btn = document.getElementById('btnOk');
-                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='無簽核轉請購'>");
-                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda2ordb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核轉請購'>");
-                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
-                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnCheck' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='查詢'>");
                 
                 $('#btnOk').hide();
                 /*if(isorda){
@@ -118,6 +158,25 @@
 					$('#btnOrda').hide();
 					$('#btnOrda2ordb').hide();
 				}*/
+				
+				$('#txtWorkgno1').change(function() {
+					if($('#chkWorkgall [type]=checkbox').prop('checked'))
+						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
+					else
+						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+	            });
+	            $('#txtWorkgno2').change(function() {
+					if($('#chkWorkgall [type]=checkbox').prop('checked'))
+						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
+					else
+						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+	            });
+	            $('#chkWorkgall [type]=checkbox').click(function() {
+					if($('#chkWorkgall [type]=checkbox').prop('checked'))
+						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
+					else
+						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+				});
                 
                 $('#btnOrdb').click(function(){
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
@@ -150,6 +209,10 @@
 	            $('#chkWorkgall').css('width','290px');
 	            $('#Workgall').css('width','300px');
 	            
+	            $('#Otherworkg .c6').css('width','0px');
+	            $('#chkOtherworkg').css('width','290px');
+	            $('#Otherworkg').css('width','300px');
+	            
 	            if (window.parent.q_name == 'workg') {
 					var wParent = window.parent.document;
 					if(wParent.getElementById("txtOrdbno").value.length==0&&wParent.getElementById("txtOrdano").value.length==0)
@@ -164,6 +227,64 @@
 
             function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'view_workg':
+						var as = _q_appendData("view_workg", "", true);
+						if (as[0] != undefined) {
+							var isordb=false;
+							var isorda=false;
+							for (var i = 0; i < as.length; i++) {
+								if(as[i].ordano!='')
+									isorda=true;
+								if(as[i].ordbno!='')
+									isordb=true;
+							}
+							if(isordb){
+								$('#btnOrda').attr('disabled', 'disabled');
+								$('#btnOrda2ordb').attr('disabled', 'disabled');
+								$('#btnOrdb').attr('disabled', 'disabled');
+								
+								$('#btnOrda').css('font-weight', '');
+								$('#btnOrda').css('color', '');
+								$('#btnOrdb').css('font-weight', '');
+								$('#btnOrdb').css('color', '');
+								$('#btnOrda2ordb').css('font-weight', '');
+								$('#btnOrda2ordb').css('color', '');
+							}else if (isorda){
+								$('#btnOrda').attr('disabled', 'disabled');
+								$('#btnOrdb').attr('disabled', 'disabled');
+								$('#btnOrda2ordb').removeAttr('readonly');
+								
+								$('#btnOrda').css('font-weight', '');
+								$('#btnOrda').css('color', '');
+								$('#btnOrdb').css('font-weight', '');
+								$('#btnOrdb').css('color', '');
+								$('#btnOrda2ordb').css('font-weight', 'bold');
+								$('#btnOrda2ordb').css('color', 'blue');
+							}else{
+								$('#btnOrda').removeAttr('readonly');
+								$('#btnOrdb').removeAttr('readonly');
+								$('#btnOrda2ordb').removeAttr('readonly');
+								
+								$('#btnOrda').css('font-weight', 'bold');
+								$('#btnOrda').css('color', 'blue');
+								$('#btnOrdb').css('font-weight', 'bold');
+								$('#btnOrdb').css('color', 'blue');
+								$('#btnOrda2ordb').css('font-weight', 'bold');
+								$('#btnOrda2ordb').css('color', 'blue');
+							}
+						}else{
+							$('#btnOrda').attr('disabled', 'disabled');
+							$('#btnOrda2ordb').attr('disabled', 'disabled');
+							$('#btnOrdb').attr('disabled', 'disabled');
+							
+							$('#btnOrda').css('font-weight', '');
+							$('#btnOrda').css('color', '');
+							$('#btnOrdb').css('font-weight', '');
+							$('#btnOrdb').css('color', '');
+							$('#btnOrda2ordb').css('font-weight', '');
+							$('#btnOrda2ordb').css('color', '');
+						}
+					break;
 					case 'check':
 						var as = _q_appendData("workg", "", true);
 						if (as[0] != undefined) {
@@ -175,10 +296,12 @@
 		                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
 		                	var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
 		                	var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
+		                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
 		                	
-							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
+							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 							q_gtx("z_workg2ordb1", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
+							
 						}else{
 							var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
 		                	var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
@@ -188,12 +311,12 @@
 		                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
 		                	var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
 		                	var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
+		                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
 		                	
-							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
+							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 							q_gtx("z_workg2ordb3", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 						}
-						
 						break;
 					case 'ordb':
 						var as = _q_appendData("workg", "", true);
@@ -209,8 +332,9 @@
 		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
 		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
 		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
+		                		var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign3', 'orda.txt,sign3,' + t_where);
@@ -233,8 +357,9 @@
 		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
 		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
 		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
+		                		var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_orda');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_orda');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign1', 'orda.txt,sign1,' + t_where);
@@ -257,8 +382,9 @@
 		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
 		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
 		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
+		                		var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+r_userno+';'+q_getPara('sys.key_ordb');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign2', 'orda.txt,sign2,' + t_where);

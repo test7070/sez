@@ -154,7 +154,7 @@
 			function q_funcPost(t_func, result) {
 		        //location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
 		        alert('結轉功能執行完畢!!');
-		        var s2=new Array('cara_s',"where=^^carno='"+$('#txtCarno').val()+" ^^ ");
+		        var s2=new Array('cara_s',"where=^^carno='"+$('#txtCarno').val()+"' ^^ ");
                 q_boxClose2(s2);
 		    } //endfunction
 			

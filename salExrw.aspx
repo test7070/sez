@@ -25,6 +25,11 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
+            
+            if(r_rank<7){
+            	q_content = "where=^^sssno in (select noa from sss where partno=(select partno from sss where noa='" + r_userno+ "'))^^";
+            }
+            
             q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
