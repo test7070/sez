@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'view_ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,unit,mount,weight,noa,no2,price,total,memo,notv,trandate  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
+    var q_name = 'view_ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,unit,mount,weight,noa,no2,price,total,memo,notv,trandate,spec,dime,width,lengthb,lengthc,style,class  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
     var t_sqlname = 'ordcs_load2'; t_postname = q_name; //brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -193,32 +193,37 @@
                 <td align="center">
 					<input type="checkbox" id="checkAllCheckbox"/>
 				</td>
-                <td align="center"><a id='lblProductno'></a></td>
-                <td align="center"><a id='lblProduct'></a></td>
-                <!--<td align="center"><a id='lblSpec'></a></td>-->
-                <td align="center"><a id='lblUnit'></a></td>
-                <td align="center"><a id='lblMount'></a></td>
+                <td align="center"><a id='lblProductno'> </a></td>
+                <td align="center"><a id='lblProduct'> </a></td>
+                <td align="center"><a id='lblUnit'> </a></td>
+                <td align="center"><a id='lblMount'> </a></td>
                 <!--<td align="center"><a id='lblWeight'></a></td>-->
-                <td align="center"><a id='lblPrice'></a></td>
+                <td align="center"><a id='lblPrice'> </a></td>
                 <!--<td align="center"><a id='lblNotv'></a></td>-->
-                <td align="center"><a id='lblNoa'></a></td>
-                <td align="center"><a id='lblMemo'></a></td>
+                <td align="center"><a id='lblNoa'> </a></td>
+                <td align="center"><a id='lblMemo'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"  /></td>
                 <td style="width:10%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
                 <td style="width:15%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
-                <!--<td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
-                                    <input class="txt" id="txtDime.*" type="text"  style="width:25%;text-align:right;" />x
-                                    <input class="txt" id="txtWidth.*" type="text"  style="width:25%;text-align:right;" />x
-                                    <input class="txt" id="txtLengthb.*" type="text"  style="width:25%;text-align:right;" /></td>-->
                 <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
                 <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
                 <!--<td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>-->
                 <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
                 <!--<td style="width:8%;"><input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/></td>-->
                 <td style="width:5%;"><input class="txt" id="txtNoa.*" type="text" style="width:96%;"/><input class="txt" id="txtNo2.*" type="text" /></td>
-                <td style="width:8%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /></td>
+                <td style="width:8%;">
+                	<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
+                	<input id="recno.*" type="hidden" />
+                	<input id="txtStyle.*" type="hidden" />
+                	<input id="txtSpec.*" type="hidden" />
+					<input id="txtWidth.*" type="hidden" />
+					<input id="txtLengthb.*" type="hidden" />
+					<input id="txtLengthc.*" type="hidden" />
+					<input id="txtDime.*" type="hidden" />
+					<input id="txtClass.*" type="hidden" />
+                </td>
             </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 
