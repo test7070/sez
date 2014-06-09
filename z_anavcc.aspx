@@ -16,6 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 			var uccgaItem = '';
+			var custtypeItem = '';
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
@@ -73,7 +74,7 @@
 					}, {
                         type : '5', //[19]
                         name : 'custtype',
-                        value : q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1?(' @全部,'+q_getPara('cust.typea_it')).split(','):(' @全部,'+q_getPara('cust.typea')).split(',')
+                        value : custtypeItem.split(',')
 					},{
                         type : '5', //[20]
                         name : 'vccstype',
@@ -105,12 +106,20 @@
 				switch (t_name) {
 					case 'uccga':
                         var as = _q_appendData("uccga", "", true);
-                        uccgaItem = " @全部";
+						uccgaItem = " @全部";
                         for ( i = 0; i < as.length; i++) {
                             uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
                         }
-						q_gf('', 'z_anavcc');
+						q_gt('custtype', '', 0, 0, 0, "");
                         break;
+					case 'custtype':
+                        var as = _q_appendData("custtype", "", true);
+                        custtypeItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            custtypeItem = custtypeItem + (custtypeItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa +' . '+as[i].namea;
+                        }
+						q_gf('', 'z_anavcc');
+						break;
 				}
 			}
 		</script>
