@@ -99,6 +99,8 @@
 					['txtGetdate', '99']
 				];
 				q_mask(bbmMask);
+				q_gt('custtype', '', 0, 0, 0, "custtype");
+				/*
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1){
 					q_cmbParse("cmbTypea", q_getPara('cust.typea_it'));
 				}else if (q_getPara('sys.project').toUpperCase() == 'RA') {
@@ -107,6 +109,7 @@
 					q_cmbParse("cmbTypea", q_getPara('cust.typea_tn'));
 				} else
 					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
+				*/
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbStatus", q_getPara('cust.status'));
@@ -169,6 +172,18 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'custtype':
+						var as = _q_appendData("custtype", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
+							}
+							q_cmbParse("cmbTypea", t_item);
+							if(abbm[q_recno])
+								$("#cmbTypea").val(abbm[q_recno].typea);
+						}
+						break;
 					case 'checkCustno_change':
 						var as = _q_appendData("cust", "", true);
 						if (as[0] != undefined) {
