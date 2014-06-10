@@ -88,7 +88,7 @@
                 if (t_vccno.length>0)
                 	t_where += " and exists(select noa from umms where umms.noa=umm.noa and charindex('" + t_vccno + "',umms.vccno)>0)";
                 if (t_mon.length>0){
-                    t_where += "('"+t_mon+"'=case when isnull(mon,'')='' then left(datea,6) else mon end "
+                    t_where += "and ('"+t_mon+"'=case when isnull(mon,'')='' then left(datea,6) else mon end "
                         +" or exists(select noa from umms where umms.noa=umm.noa and charindex('"+t_mon+"',umms.memo2)>0) )";
                     
                 }
