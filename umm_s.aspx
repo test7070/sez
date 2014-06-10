@@ -73,7 +73,6 @@
 				
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
-            //    + q_sqlPara2("case when isnull(mon,'')='' then left(datea,6) else mon end ", t_mon) 
                 + q_sqlPara2("accno", t_accno) 
                 + q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("cno", t_cno);
@@ -90,11 +89,8 @@
                 if (t_mon.length>0){
                     t_where += "and ('"+t_mon+"'=case when isnull(mon,'')='' then left(datea,6) else mon end "
                         +" or exists(select noa from umms where umms.noa=umm.noa and charindex('"+t_mon+"',umms.memo2)>0) )";
-                    
                 }
-                
                 t_where = ' where=^^' + t_where + '^^ ';
-               // alert(t_where);
                 return t_where;
             }
 		</script>
