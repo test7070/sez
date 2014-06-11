@@ -1071,10 +1071,10 @@
 				
 				if(q_getPara('sys.isstyle')=='1'){
                 	$('.isstyle').show();
-                	$('.dbbs').css('width','1900px');
+                	$('.dbbs').css('width','1950px');
                 }else{
                 	$('.isstyle').hide();
-                	$('.dbbs').css('width','1710px');
+                	$('.dbbs').css('width','1760px');
                 }
             }
 
@@ -1127,10 +1127,10 @@
                 
                 if(q_getPara('sys.isstyle')=='1'){
                 	$('.isstyle').show();
-                	$('.dbbs').css('width','1900px');
+                	$('.dbbs').css('width','1950px');
                 }else{
                 	$('.isstyle').hide();
-                	$('.dbbs').css('width','1710px');
+                	$('.dbbs').css('width','1760px');
                 }
                 
 				for (var i = 0; i < q_bbsCount; i++) {
@@ -1785,7 +1785,7 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:31px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+					<td align="center" style="width:85px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td style="width:20px;"> </td>
 					<td align="center" style="width:75px;"><a id='lblNos_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDatea_s'> </a></td>
@@ -1809,7 +1809,7 @@
 					<td align="center">
 						<!--0520該作業不需要-->
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold; display: none;" />
-						<input class="btn"  id="btnPlus.*" type="button" value='+' style=" font-weight: bold;" />
+						<input class="btn"  id="btnPlus.*" type="button" value='+'  />
 						<input class="btn"  id="btnCopy.*" type="button" value='拆分' />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
