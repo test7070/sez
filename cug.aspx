@@ -42,7 +42,14 @@
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
-            })
+            }).mousedown(function(e) {
+				if (!$('#div_row').is(':hidden')) {
+					if (mouse_div) {
+						$('#div_row').hide();
+					}
+					mouse_div = true;
+				}
+			});
 
             function main() {
                 if (dataErr) {
@@ -463,6 +470,22 @@
 					$('#div_copy').toggle();
 				});
 				
+				$('#lblTop_row').mousedown(function(e) {
+					if (e.button == 0) {
+						mouse_div = false;
+						q_bbs_addrow(row_bbsbbt, row_b_seq, 0);
+						bbsAssign();
+					}
+				});
+				
+				//下方插入空白行
+				$('#lblDown_row').mousedown(function(e) {
+					if (e.button == 0) {
+						mouse_div = false;
+						q_bbs_addrow(row_bbsbbt, row_b_seq, 1);
+						bbsAssign();
+					}
+				});
             }
             
             var divdate=false;
@@ -852,6 +875,10 @@
             
             var copy_row_b_seq = '';
             var copy_bbs_row;
+            var row_b_seq = '';
+            var row_bbsbbt = '';
+            //控制滑鼠消失div
+            var mouse_div = true;
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                 	$('#lblNo_' + i).text(i + 1);
@@ -967,6 +994,23 @@
 								$('#div_copy').show();
 								copy_row_b_seq = b_seq;
 								e.preventDefault();
+							}
+						});
+						
+						$('#btnPlus_' + i).mousedown(function(e) {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(e.button==0){
+								mouse_div = false;
+								$('#div_row').css('top', e.pageY);
+								$('#div_row').css('left', e.pageX);
+								//顯示選單
+								$('#div_row').show();
+								//儲存選取的row
+								row_b_seq = b_seq;
+								//儲存要新增的地方
+								row_bbsbbt = 'bbs';
 							}
 						});
 					}
@@ -1131,6 +1175,7 @@
 							$('#btnCopy_'+i).attr('disabled', 'disabled');
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
+						$('#btnPlus_'+i).removeAttr('disabled');
 					}else{
 						if(!emp($('#txtWorkno_'+i).val())){
 							$('#btnChildchange_'+i).removeAttr('disabled');
@@ -1138,6 +1183,7 @@
 							$('#btnChildchange_'+i).attr('disabled', 'disabled');
 						}
 						$('#btnCopy_'+i).attr('disabled', 'disabled');
+						$('#btnPlus_'+i).attr('disabled', 'disabled');
 					}
 				}
 				if(issave){
@@ -1640,6 +1686,17 @@
 				</tr>
 			</table>
 		</div>
+		<!---DIV分隔線---->
+		<div id="div_row" style="position:absolute; top:300px; left:500px; display:none; width:150px; background-color: #ffffff; ">
+			<table id="table_row" class="table_row" style="width:100%;" border="1" cellpadding='1' cellspacing='0'>
+				<tr>
+					<td align="center" ><a id="lblTop_row" class="lbl btn">上方插入空白行</a></td>
+				</tr>
+				<tr>
+					<td align="center" ><a id="lblDown_row" class="lbl btn">下方插入空白行</a></td>
+				</tr>
+			</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
@@ -1752,6 +1809,7 @@
 					<td align="center">
 						<!--0520該作業不需要-->
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold; display: none;" />
+						<input class="btn"  id="btnPlus.*" type="button" value='+' style=" font-weight: bold;" />
 						<input class="btn"  id="btnCopy.*" type="button" value='拆分' />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
