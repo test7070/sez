@@ -18,7 +18,7 @@
 
 			q_tables = 's';
 			var q_name = "station";
-			var q_readonly = [];
+			var q_readonly = ['txtGen'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
@@ -39,7 +39,8 @@
 			aPop = new Array(
 				['txtFactoryno', 'lblFactory', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx'],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech,gen', 'txtMechno_,txtMech_,txtGen_', 'mech_b.aspx'],
-				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']
+				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx']
 			);
 			function main() {
 				if (dataErr) {
@@ -48,7 +49,7 @@
 				}
 				mainForm(0);
 			}
-
+			
 			function mainPost() {
 				q_getFormat();
 				$('#txtNoa').change(function(e) {
@@ -63,6 +64,12 @@
 							Unlock();
 						}
 					}
+				});
+				$('#txtHours').change(function(){
+					sum();
+				});
+				$('#txtMount').change(function(){
+					sum();
 				});
 			}
 
@@ -111,6 +118,7 @@
 			function btnOk() {
 				Lock();
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
+				sum();
 				if (q_cur == 1) {
 					t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
 					q_gt('station', t_where, 0, 0, 0, "checkStationno_btnOk", r_accy);
@@ -169,6 +177,18 @@
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
+				var t_hours = 0,t_mount=0;
+				var t_gen = 0;
+				t_hours = dec($('#txtHours').val());
+				t_mount = dec($('#txtMount').val());
+				if(t_hours==0){
+					$('#txtHours').val('8');
+				}
+				if(t_mount==0){
+					$('#txtMount').val('1');
+				}
+				t_gen = q_mul(t_hours,t_mount);
+				$('#txtGen').val(t_gen);
 			}
 
 			function refresh(recno) {
@@ -383,7 +403,7 @@
 				</table>
 			</div>
 			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm">
+				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
 						<td> </td>
 						<td> </td>
@@ -393,21 +413,30 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
+						<td class="td2"><input id="txtNoa" type="text" class="txt c1" /></td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl"> </a></td>
-						<td class="td2"><input id="txtStation"  type="text" class="txt c1"/></td>
+						<td class="td2"><input id="txtStation" type="text" class="txt c1"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblStationgno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtStationgno" type="text" class="txt c2"/>
+							<input id="txtStationg" type="text" class="txt c3"/>
+						</td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblFactory' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
-							<input id="txtFactoryno"  type="text" class="txt c2"/>
-							<input id="txtFactory"  type="text" class="txt c3"/>
+							<input id="txtFactoryno" type="text" class="txt c2"/>
+							<input id="txtFactory" type="text" class="txt c3"/>
 						</td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
@@ -415,36 +444,36 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblStoreno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
-							<input id="txtStoreno"  type="text" class="txt c2"/>
-							<input id="txtStore"  type="text" class="txt c3"/>
+							<input id="txtStoreno" type="text" class="txt c2"/>
+							<input id="txtStore" type="text" class="txt c3"/>
 						</td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblHours' class="lbl"> </a></td>
-						<td class="td2"><input id="txtHours"  type="text" class="txt c1 num"/></td>
+						<td class="td2"><input id="txtHours" type="text" class="txt c1 num"/></td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWages' class="lbl"> </a></td>
-						<td class="td2"><input id="txtWages"  type="text" class="txt c1 num"/></td>
+						<td class="td2"><input id="txtWages" type="text" class="txt c1 num"/></td>
 						<td class="td3">人時</td>
 						<td class="td4"> </td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td class="td2"><input id="txtMount" type="text" class="txt c1 num"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblGen' class="lbl"> </a></td>
-						<td class="td2"><input id="txtGen"  type="text" class="txt c1 num"/></td>
+						<td class="td2"><input id="txtGen" type="text" class="txt c1 num"/></td>
 						<td class="td3">機時</td>
 						<td class="td4"> </td>
 						
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td class="td2"><input id="txtMount"  type="text" class="txt c1 num"/></td>
-						<td class="td3"> </td>
-						<td class="td4"> </td>
 					</tr>
 				</table>
 			</div>
@@ -452,8 +481,8 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width: 2%;">
-						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+					<td align="center" style="width: 2%;">
+						<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:10%;"><a id='lblMechno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblMech_s'> </a></td>
@@ -465,11 +494,11 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center">
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td>
-						<input class="btn"  id="btnMechno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+						<input class="btn" id="btnMechno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
 						<input id="txtMechno.*" type="text" style="width: 75%;"/>
 					</td>
 					<td><input type="text" id="txtMech.*" class="txt c1"/></td>

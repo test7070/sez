@@ -384,8 +384,11 @@
 				var t_noa = $.trim($('#txtNoa').val());
 				if (emp(t_noa))
 					return;
+				/*
 				var t_where = "stop=1 where=^^ noa='" +t_noa+ "' ^^";
 				q_gt('ordct', t_where, 0, 0, 0, "GetOrdct", r_accy);
+				*/
+				ModiDo();
 			}
 			
 			function ModiDo(){

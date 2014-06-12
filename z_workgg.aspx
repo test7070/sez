@@ -71,6 +71,7 @@
 				});
 				$('#q_report').click(function(){
 					var ChartShowIndex = [0,1,4,5];
+					var parent=document.getElementById("chart");
 					if($('#q_report').data('info').radioIndex != clickIndex){
 						$('#frameReport').html('');
 						$('#chart').html('');
@@ -78,9 +79,18 @@
 						if($.inArray(t_index,ChartShowIndex) !== -1){
 							$('.prt').hide();
 							$('#chart,#chartCtrl').show();
+							if(parent.innerHTML.indexOf('q_acDiv')==-1){
+								var newDiv = document.createElement("Div"); 
+								newDiv.id="q_acDiv";
+								parent.appendChild(newDiv);
+							}
 						}else{
 							$('.prt').show();
 							$('#chart,#chartCtrl').hide();
+							if(parent.innerHTML.indexOf('q_acDiv')>-1){
+								var child=document.getElementById("q_acDiv");
+								parent.removeChild(child);
+							}
 						}
 						clickIndex = $('#q_report').data('info').radioIndex;
 					}
@@ -89,8 +99,8 @@
 				q_popAssign();
 				q_getFormat();
 				isSaturday = (q_getPara('sys.saturday').toString()=='1'?'1':'0');
-				$('#txtXdate1').mask('999/99/99');
-				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate1').datepicker().mask('999/99/99');
+				$('#txtXdate2').datepicker().mask('999/99/99');
 				$('#txtXdate1').val(q_date());
 				$('#txtXdate2').val(q_cdn(q_date(),15));
 				$('#btnXXX').click(function(e) {
@@ -751,6 +761,6 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
-		<div id="q_acDiv" style="display: none;"><div> </div></div>
+		<div id="q_acDiv" style="display: none;"><div>
 	</body>
 </html>
