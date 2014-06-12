@@ -18,7 +18,7 @@
 			q_tables = 's';
 			var q_name = "ordb";
 			var q_readonly = ['txtOrdcno','txtWorkgno', 'txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus'];
-			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','chkIsnotdeal','chkEnda'];
+			var q_readonlys = ['txtNo3','txtStdmount', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','chkIsnotdeal','chkEnda'];
 			var bbmNum = [
 				['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],
 				['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]
@@ -40,7 +40,7 @@
 			brwCount2 = 10;
 			aPop = new Array(
 				['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
-				['txtProductno2_', 'btnProduct2_', 'ucaucc2', 'noa,product,unit,spec', 'txtProductno2_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc2_b.aspx'],
+				['txtProductno2_', 'btnProduct2_', 'ucaucc2', 'noa,product,unit,spec,stdmount', 'txtProductno2_,txtProduct_,txtUnit_,txtSpec_,txtStdmount_', 'ucaucc2_b.aspx'],
 				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
@@ -1111,7 +1111,10 @@
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c2"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c2"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
-					<td><input id="txtOmount.*" type="text" class="txt c2 num"/></td>
+					<td>
+						<input id="txtOmount.*" type="text" class="txt c2 num"/>
+						<input id="txtStdmount.*" type="text" class="txt c2 num"/>
+					</td>
 					<td><input id="txtPrice.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt c2 num"/></td>
 					<td>
