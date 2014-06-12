@@ -46,7 +46,7 @@
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick,paytype', 'txtTggno,txtTgg,txtNick,txtPaytype', 'tgg_b.aspx']
 			);
-			
+
 			var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -229,10 +229,10 @@
 						Lock(1, {
 							opacity : 0
 						});
-						q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) 
+						q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno)
 						+ ';' + encodeURI(t_bedate) + ';' + encodeURI(t_eedate) + ';' + encodeURI(t_bfdate) + ';' + encodeURI(t_efdate) + ';' + encodeURI(t_workgno) + ';' + encodeURI(t_bno) + ';' + encodeURI(t_eno)
-						+ ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate) 
-                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate) 
+						+ ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate)
+                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate)
                         + ';' + encodeURI(t_bproductno) + ';' + encodeURI(t_eproductno));
 					} else
 						alert('請輸入採購日期。');
@@ -416,13 +416,13 @@
 				Lock(1, {
 					opacity : 0
 				});
-				
+
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					Unlock(1);
 					return;
 				}
-				
+
 				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
 				if(!$('#chkIsproj').prop('checked')){
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -432,7 +432,7 @@
 							$('#chkCancel_'+j).prop('checked','true')
 					}
 				}
-				
+
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (q_cur == 1 || (q_cur != 1 && q_float('txtOmount_' + i) == 0))
 						$('#txtOmount_' + i).val($('#txtMount_' + i).val());
@@ -1055,7 +1055,7 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						
+
 						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
                         <td colspan="3"><input id="txtWorkgno" type="text" class="txt c1"/></td>
 					</tr>
