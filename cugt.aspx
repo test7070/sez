@@ -9,6 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var q_name = 'cugt', t_bbsTag = 'tbbs', t_content = "", afilter = [] , bbmKey = [], bbsKey = ['noa,noq'], as, brwCount2 = 10;
             var t_sqlname = 'cugt_load';
@@ -18,9 +22,9 @@
             var afield, t_htm;
             var i, s1;
             var q_readonly = [];
-            var q_readonlys = ['txtWeek'];
+            var q_readonlys = ['txtWeek','txtWorker'];
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtGen', 10, 2, 1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea', '999/99/99']];
 
@@ -64,14 +68,70 @@
                 }  /// end switch
 
             }
+            var tmpdate='';
             function bbsAssign() {
             	var t_stationno=q_getHref()[3];
             	var t_noa=q_getHref()[1];
             	for(var i = 0; i < q_bbsCount; i++) {
+            		$('#txtDatea_' + i).focusin(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						tmpdate=$('#txtDatea_'+b_seq).val();
+						
+				    });
             		$('#txtDatea_' + i).blur(function () {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
+						
+						if(tmpdate!=$('#txtDatea_'+b_seq).val()){
+							$('#txtWorker_'+b_seq).val(r_name);
+							tmpdate='';
+						}
+						
+						//資料空白不處理
+						if(emp($('#txtDatea_'+b_seq).val()))
+							return;
+						//寫入星期
+						$('#txtWeek_'+b_seq).val(getweek($('#txtDatea_'+b_seq).val()));
+						
+						//檢查輸入資料是否重複
+						var isrepeat=false;
+						for(var j = 0; j < q_bbsCount; j++) {
+							if(b_seq!=j && $('#txtDatea_'+b_seq).val()==$('#txtDatea_'+j).val()){
+								alert("該工作中心日期重複輸入!!");
+								$('#btnMinus_'+b_seq).click();
+								isrepeat=true;
+								break;
+							}
+						}
+						if(isrepeat)
+							return;
+						
+						//檢查資料是否已存在DB
+						q_gt('view_cugt',"where=^^noa!='"+t_noa+"' and stationno='"+t_stationno+"' and datea='"+$('#txtDatea_'+b_seq).val()+"' ^^", 0, 0, 0, "", r_accy);
+				    });
+				    
+				    $('#txtGen_' + i).change(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						$('#txtWorker_'+b_seq).val(r_name);
+				    });
+				    
+				    $('#txtMemo_' + i).change(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						$('#txtWorker_'+b_seq).val(r_name);
+				    });
+				    
+				    $('#txtDatea_' + i).change(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						$('#txtWorker_'+b_seq).val(r_name);
 						
 						//資料空白不處理
 						if(emp($('#txtDatea_'+b_seq).val()))
@@ -100,6 +160,12 @@
                 for(var i = 0; i < q_bbsCount; i++) {
                 	if(!emp($('#txtDatea_'+i).val()))
                 		$('#txtWeek_'+i).val(getweek($('#txtDatea_'+i).val()))
+                		
+                	$('#txtDatea_'+i).removeClass('hasDatepicker');
+					$('#txtDatea_'+i).datepicker({defaultDate:$('#txtDatea_'+i).val()});
+					
+					$('#txtWeek_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+					$('#txtWorker_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
                 }
             }
             
@@ -190,9 +256,10 @@
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td class="td2" align="center" style="width:19%;"><a id='lblDatea'> </a></td>
-					<td class="td3" align="center" style="width:5%;"><a id='lblWeek'> </a></td>
-					<td class="td4" align="center" style="width:30%;"><a id='lblGen'> </a></td>
-					<td class="td5" align="center" style="width:45%;"><a id='lblMemo'> </a></td>
+					<td class="td3" align="center" style="width:8%;"><a id='lblWeek'> </a></td>
+					<td class="td4" align="center" style="width:20%;"><a id='lblGen'> </a></td>
+					<td class="td5" align="center" style="width:32%;"><a id='lblMemo'> </a></td>
+					<td class="td6" align="center" style="width:20%;"><a id='lblWorker'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -202,9 +269,10 @@
 	                    <input id="txtStationno.*" type="hidden" />
 					</td>
 					<td class="td2"><input id="txtDatea.*" type="text" class="txt c1" style="width:95%;"/></td>
-					<td class="td4"><input id="txtWeek.*" type="text" class="txt c1" style="width:95%;text-align: center;"/></td>
-					<td class="td5"><input id="txtGen.*" type="text" class="txt c1" style="width:95%;text-align: right;"/></td>
-					<td class="td6"><input id="txtMemo.*" type="text" class="txt c1" style="width:95%;"/></td>
+					<td class="td3"><input id="txtWeek.*" type="text" class="txt c1" style="width:95%;text-align: center;"/></td>
+					<td class="td4"><input id="txtGen.*" type="text" class="txt c1" style="width:95%;text-align: right;"/></td>
+					<td class="td5"><input id="txtMemo.*" type="text" class="txt c1" style="width:95%;"/></td>
+					<td class="td6"><input id="txtWorker.*" type="text" class="txt c1" style="width:95%;"/></td>
 				</tr>
 			</table>
 			

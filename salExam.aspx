@@ -36,6 +36,9 @@
             	q_content = "where=^^workerno='" + r_userno+ "'^^";
             	//q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
             }
+            
+            q_gt('sss', "where=^^noa='" + r_userno+ "'^^" , 0, 0, 0, "getperson", r_accy);
+            
             q_gt(q_name, q_content, q_sqlCount, 1)
         });
 
@@ -49,6 +52,8 @@
 
             mainForm(1); // 1=最後一筆  0=第一筆
         }
+        
+        var person;
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
@@ -61,9 +66,60 @@
             	$('#lblIsall').hide();
             }
             
-            
+            //1030612 之前副總的權限調成9所以調整且匯入時可以匯入自己
             $('#btnImport').click(function() {
-            	if(r_rank==9){//總事長評量副總
+            	if(r_rank==9 && person[0].typea=='雇主'){//總事長評量副總
+            		if(!emp($('#txtPartno').val())){
+            			if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')='' ^^";
+	            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else
+	            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+            		}else{
+	            		if($('#checkIsall')[0].checked==true)
+	            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else
+	            			var t_where = "where=^^ (partno ='02' and jobno='02') and isnull(outdate,'')=''^^";
+            		}
+            	}else if(r_rank==9 && person[0].job.indexOf('副總')>-1){//副總評量各主管(含監理部經理)以及部門以下員工
+            		if(!emp($('#txtPartno').val())){
+            			if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else
+	            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+            		}else{
+	            		if($('#checkIsall')[0].checked==true)
+	            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04') or job='09') and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+            		}
+            	}else if(r_rank>=7){//特別助理
+            		if(!emp($('#txtPartno').val())){
+            			if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else
+	            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+            		}else{
+	            		if($('#checkIsall')[0].checked==true)
+	            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+	            		else
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04') or job='09') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+            		}
+            	}else{
+            		if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
+            		else
+            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')='' ^^";
+            	}
+            	
+            	/*if(r_rank==9){//總事長評量副總
             		if(!emp($('#txtPartno').val())){
             			if($('#txtPartno').val()=='03')//財務部跟內帳部一起
 	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')='' ^^";
@@ -98,7 +154,7 @@
             			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')=''^^";
             		else
             			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and typea!='雇主' and isnull(outdate,'')='' ^^";
-            	}
+            	}*/
             	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
             });
         }
@@ -115,7 +171,9 @@
 		var r_partno='',r_part='';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-            	
+            	case 'getperson':
+            		person=_q_appendData("sss", "", true);
+            		break;
             	case 'sss':
             		/*if(q_cur==0){
             			var as = _q_appendData("sss", "", true);

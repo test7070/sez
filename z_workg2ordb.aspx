@@ -72,16 +72,24 @@
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
                      },{
-                        type : '8', //[8]
-                        name : 'workgall',
-                        value : ("1@全部未請購的排產計畫").split(',')
-                    },{
-                        type : '6', //[9]
-                        name : 'enddate'
-                    },{
-                        type : '8', //[10]
+                        type : '8', //[10]>>[8]
                         name : 'otherworkg',
                         value : ("1@包含其他排產製令(製令未領)").split(',')
+                    },{
+                        type : '1', //[9]>>[9][10]
+                        name : 'enddate' //原(應完工截止日)>>改其他排產製令區間
+                    },{
+                        type : '8', //[11]
+                        name : 'xordc',
+                        value : ("1@包含在途量").split(',')
+                    },{
+                        type : '8', //[12]
+                        name : 'xsafe',
+                        value : ("1@包含安全存量").split(',')
+                    },{
+                        type : '8', //[8]>>[13]
+                        name : 'workgall',
+                        value : ("1@全部未請購的排產計畫").split(',')
                     }]
                 });
                 q_popAssign();
@@ -92,9 +100,12 @@
                 $('#txtOdate1').datepicker();
                 $('#txtOdate2').mask('999/99/99');
                 $('#txtOdate2').datepicker();
-                $('#txtEnddate').mask('999/99/99');
-                $('#txtEnddate').datepicker();
-                $('#txtEnddate').val(q_date());
+                $('#txtEnddate1').mask('999/99/99');
+                $('#txtEnddate1').datepicker();
+                $('#txtEnddate1').val();
+                $('#txtEnddate2').mask('999/99/99');
+                $('#txtEnddate2').datepicker();
+                $('#txtEnddate2').val(q_date());
                 
                 var btn = document.getElementById('btnOk');
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='無簽核轉請購'>");
@@ -205,13 +216,24 @@
 	            
 	            $('.q_report .option div .c3').css("width","180px");
 	            $('.q_report .option div .c6').css("width","110px");
-	            $('#Workgall .c6').css('width','0px');
-	            $('#chkWorkgall').css('width','290px');
-	            $('#Workgall').css('width','300px');
-	            
+	           
 	            $('#Otherworkg .c6').css('width','0px');
 	            $('#chkOtherworkg').css('width','290px');
 	            $('#Otherworkg').css('width','300px');
+	            
+	            $('#Enddate').css('width','300px');
+	            $('#txtEnddate1').css('width','80px');
+	            $('#txtEnddate2').css('width','80px');
+	            $('#Xordc .c6').css('width','0px');
+	            $('#chkXordc').css('width','290px');
+	            $('#Xordc').css('width','300px');
+	            $('#Xsafe .c6').css('width','0px');
+	            $('#chk Xsafe').css('width','290px');
+	            $('#Xsafe').css('width','300px');
+	            
+	            $('#Workgall .c6').css('width','0px');
+	            $('#chkWorkgall').css('width','290px');
+	            $('#Workgall').css('width','300px');
 	            
 	            if (window.parent.q_name == 'workg') {
 					var wParent = window.parent.document;
@@ -294,11 +316,15 @@
 		                	var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
 							var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
 		                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
-		                	var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
-		                	var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
-		                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
+		                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                	var benddate=!emp($('#txtEnddate1').val())?$('#txtEnddate1').val():'#non';
+		                	var eenddate=!emp($('#txtEnddate2').val())?$('#txtEnddate2').val():'#non';
+		                	var ordc=!emp($('#q_report').data('info').sqlCondition[10].getValue())?$('#q_report').data('info').sqlCondition[10].getValue():'#non';
+		                	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
+		                	var workgall=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 		                	
-							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 							q_gtx("z_workg2ordb1", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 							
@@ -309,11 +335,15 @@
 		                	var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
 							var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
 		                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
-		                	var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
-		                	var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
-		                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
+		                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+		                	var benddate=!emp($('#txtEnddate1').val())?$('#txtEnddate1').val():'#non';
+		                	var eenddate=!emp($('#txtEnddate2').val())?$('#txtEnddate2').val():'#non';
+		                	var ordc=!emp($('#q_report').data('info').sqlCondition[10].getValue())?$('#q_report').data('info').sqlCondition[10].getValue():'#non';
+		                	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
+		                	var workgall=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 		                	
-							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+							var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 							var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 							q_gtx("z_workg2ordb3", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 						}
@@ -324,17 +354,20 @@
 							if(confirm("確定要轉至請購?"))
 							{
 								var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
-		                		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
-		                		var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
-		                		var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
+			                	var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
+			                	var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
+			                	var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
 								var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
-		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
-		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
-		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
-		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
-		                		var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
+			                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+			                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+			                	var benddate=!emp($('#txtEnddate1').val())?$('#txtEnddate1').val():'#non';
+			                	var eenddate=!emp($('#txtEnddate2').val())?$('#txtEnddate2').val():'#non';
+			                	var ordc=!emp($('#q_report').data('info').sqlCondition[10].getValue())?$('#q_report').data('info').sqlCondition[10].getValue():'#non';
+			                	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
+			                	var workgall=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb2", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign3', 'orda.txt,sign3,' + t_where);
@@ -349,17 +382,20 @@
 							if(confirm("確定要轉至簽核?"))
 							{
 								var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
-		                		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
-		                		var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
-		                		var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
+			                	var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
+			                	var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
+			                	var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
 								var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
-		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
-		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
-		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
-		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
-		                		var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
+			                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+			                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+			                	var benddate=!emp($('#txtEnddate1').val())?$('#txtEnddate1').val():'#non';
+			                	var eenddate=!emp($('#txtEnddate2').val())?$('#txtEnddate2').val():'#non';
+			                	var ordc=!emp($('#q_report').data('info').sqlCondition[10].getValue())?$('#q_report').data('info').sqlCondition[10].getValue():'#non';
+			                	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
+			                	var workgall=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_orda');
+								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_orda');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb4", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign1', 'orda.txt,sign1,' + t_where);
@@ -371,20 +407,23 @@
 					case 'orda2ordb':
 						var as = _q_appendData("orda", "", true);
 						if (as[0] != undefined) {
-							if(confirm("確定將簽核轉至請購?"))
+							if(confirm("確定將物料需求簽核轉至請購?"))
 							{
 								var bdate=!emp($('#txtOdate1').val())?$('#txtOdate1').val():'#non';
-		                		var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
-		                		var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
-		                		var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
+			                	var edate=!emp($('#txtOdate2').val())?$('#txtOdate2').val():'#non';
+			                	var bworkgno=!emp($('#txtWorkgno1').val())?$('#txtWorkgno1').val():'#non';
+			                	var eworkgno=!emp($('#txtWorkgno2').val())?$('#txtWorkgno2').val():'#non';
 								var bpno=!emp($('#txtXproductno1a').val())?$('#txtXproductno1a').val():'#non';
-		                		var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
-		                		//$('#chkWorkgall input[type=checkbox]').prop('checked')
-		                		var workgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
-		                		var enddate=!emp($('#txtEnddate').val())?$('#txtEnddate').val():'#non';
-		                		var otherworkgall=!emp($('#q_report').data('info').sqlCondition[9].getValue())?$('#q_report').data('info').sqlCondition[9].getValue():'#non';
+			                	var epno=!emp($('#txtXproductno2a').val())?$('#txtXproductno2a').val():'#non';
+			                	var otherworkgall=!emp($('#q_report').data('info').sqlCondition[7].getValue())?$('#q_report').data('info').sqlCondition[7].getValue():'#non';
+			                	var benddate=!emp($('#txtEnddate1').val())?$('#txtEnddate1').val():'#non';
+			                	var eenddate=!emp($('#txtEnddate2').val())?$('#txtEnddate2').val():'#non';
+			                	var ordc=!emp($('#q_report').data('info').sqlCondition[10].getValue())?$('#q_report').data('info').sqlCondition[10].getValue():'#non';
+			                	var safe=!emp($('#q_report').data('info').sqlCondition[11].getValue())?$('#q_report').data('info').sqlCondition[11].getValue():'#non';
+			                	var workgall=!emp($('#q_report').data('info').sqlCondition[12].getValue())?$('#q_report').data('info').sqlCondition[12].getValue():'#non';
 		                		
-								var t_where = r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno+ ';' + workgall+';'+enddate+';'+otherworkgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
+								var t_where =r_accy+ ';' + bdate+ ';' + edate+ ';' + bworkgno+ ';' + eworkgno+ ';' + bpno+ ';' + epno
+											+';'+otherworkgall+';'+benddate+';'+eenddate+ ';' + ordc+';' + safe+';' + workgall+';'+r_userno+';'+q_getPara('sys.key_ordb');
 								var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",r_cno=" + r_cno;
 				                //q_gtx("z_workg2ordb5", t_where + ";;" + t_para + ";;z_workg2ordb;;" + q_getMsg('qTitle'));
 				                q_func('qtxt.query.sign2', 'orda.txt,sign2,' + t_where);
