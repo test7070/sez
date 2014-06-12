@@ -18,7 +18,7 @@
 			q_tables = 's';
 			var q_name = "ordb";
 			var q_readonly = ['txtOrdcno','txtWorkgno', 'txtTgg', 'txtAcomp', 'txtSales', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus'];
-			var q_readonlys = ['txtNo3', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','chkIsnotdeal','chkEnda'];
+			var q_readonlys = ['txtNo3','txtStdmount', 'txtNo2', 'txtTotal', 'txtC1', 'txtNotv', 'txtOmount','chkIsnotdeal','chkEnda'];
 			var bbmNum = [
 				['txtFloata', 10, 5, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1],
 				['txtTotal', 10, 0, 1], ['txtTotalus', 10, 0, 1]
@@ -40,13 +40,13 @@
 			brwCount2 = 10;
 			aPop = new Array(
 				['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
-				['txtProductno2_', 'btnProduct2_', 'ucaucc2', 'noa,product,unit,spec', 'txtProductno2_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc2_b.aspx'],
+				['txtProductno2_', 'btnProduct2_', 'ucaucc2', 'noa,product,unit,spec,stdmount', 'txtProductno2_,txtProduct_,txtUnit_,txtSpec_,txtStdmount_', 'ucaucc2_b.aspx'],
 				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick,paytype', 'txtTggno,txtTgg,txtNick,txtPaytype', 'tgg_b.aspx']
 			);
-			
+
 			var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -229,10 +229,10 @@
 						Lock(1, {
 							opacity : 0
 						});
-						q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno) 
+						q_func('qtxt.query.ordb', 'ordb.txt,ordc,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('key_ordc')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_tggno)
 						+ ';' + encodeURI(t_bedate) + ';' + encodeURI(t_eedate) + ';' + encodeURI(t_bfdate) + ';' + encodeURI(t_efdate) + ';' + encodeURI(t_workgno) + ';' + encodeURI(t_bno) + ';' + encodeURI(t_eno)
-						+ ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate) 
-                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate) 
+						+ ';' + encodeURI(t_bodate) + ';' + encodeURI(t_eodate)
+                        + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate)
                         + ';' + encodeURI(t_bproductno) + ';' + encodeURI(t_eproductno));
 					} else
 						alert('請輸入採購日期。');
@@ -416,13 +416,13 @@
 				Lock(1, {
 					opacity : 0
 				});
-				
+
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					Unlock(1);
 					return;
 				}
-				
+
 				//1030419 當專案沒有勾 BBM的取消和結案被打勾BBS也要寫入
 				if(!$('#chkIsproj').prop('checked')){
 					for (var j = 0; j < q_bbsCount; j++) {
@@ -432,7 +432,7 @@
 							$('#chkCancel_'+j).prop('checked','true')
 					}
 				}
-				
+
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (q_cur == 1 || (q_cur != 1 && q_float('txtOmount_' + i) == 0))
 						$('#txtOmount_' + i).val($('#txtMount_' + i).val());
@@ -1055,7 +1055,7 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						
+
 						<td><span> </span><a id='lblWorkgno' class="lbl"> </a></td>
                         <td colspan="3"><input id="txtWorkgno" type="text" class="txt c1"/></td>
 					</tr>
@@ -1111,7 +1111,10 @@
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c2"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c2"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c2 num"/></td>
-					<td><input id="txtOmount.*" type="text" class="txt c2 num"/></td>
+					<td>
+						<input id="txtOmount.*" type="text" class="txt c2 num"/>
+						<input id="txtStdmount.*" type="text" class="txt c2 num"/>
+					</td>
 					<td><input id="txtPrice.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt c2 num"/></td>
 					<td>

@@ -1044,7 +1044,7 @@
 				float: left;
 			}
 			.tbbm td input[type="button"] {
-				float: left;
+				/*float: left;*/
 				width: auto;
 			}
 			.tbbm select {
@@ -1359,12 +1359,14 @@
 						<td class="td6"><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr6">
+						<!--
 						<td class="td1"><span> </span><a id="lblStationg" class="lbl btn"> </a></td>
 						<td class="td2">
 							<input id="txtStationgno" type="text" class="txt" style="width: 45%;"/>
 							<input id="txtStationg" type="text" class="txt" style="width: 53%;"/>
 						</td>
-						<td class="td5" colspan="2">
+						-->
+						<td align="center" class="td5" colspan="4">
 							<span style="float: left;"> </span><input id="btnUcap" type="button" />
 							<span style="float: left;"> </span><input id="btnStkcost" type="button" />
 							<span style="float: left;"> </span><input id="btnModel" type="button" />

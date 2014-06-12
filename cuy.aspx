@@ -31,7 +31,7 @@
 			q_desc = 1;
 			brwCount2 = 10;
 			aPop = new Array(
-				['txtStationno', 'lblStationno', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				['txtStationno', 'lblStationno', 'station', 'noa,station,stationgno,stationg', 'txtStationno,txtStation,txtStationgno,txtStationg', 'station_b.aspx'],
 				['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']
 			);
@@ -593,14 +593,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblStationgno" class="lbl btn"> </a></td>
-						<td><input id="txtStationgno" type="text" class="txt c1"/></td>
-						<td><input id="txtStationg" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblStationno" class="lbl btn"> </a></td>
 						<td><input id="txtStationno" type="text" class="txt c1"/></td>
 						<td><input id="txtStation" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblStationgno" class="lbl btn"> </a></td>
+						<td><input id="txtStationgno" type="text" class="txt c1"/></td>
+						<td><input id="txtStationg" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

@@ -46,6 +46,10 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
+				$('#btnTop').hide();
+				$('#btnPrev').hide();
+				$('#btnNext').hide();
+				$('#btnBott').hide();
             }
 
             function bbsAssign() {/// 表身運算式
