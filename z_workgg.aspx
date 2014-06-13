@@ -28,7 +28,9 @@
 			var clickIndex = -1;
 			var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
 				t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
-				t_xgroupano='#non',t_xshowover='#non',t_xshowfinished='#non';
+				t_xgroupano='#non',t_xshowover='#non',t_xshowfinished='#non',
+				t_xbstationgno='#non',t_xestationgno='#non'	;
+				
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workgg',
@@ -67,6 +69,12 @@
 						type : '8', //[11]
 						name : 'xshowfinished',
 						value : ('1@只顯示製成品').split(',')
+					}, {
+						type : '2', //[12][13]
+						name : 'xstationgno',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
 					}]
 				});
 				$('#q_report').click(function(){
@@ -112,22 +120,48 @@
 					var txtreport = $('#q_report').data('info').reportData[t_index].report;
 					if(emp($('#txtXdate1').val()))
 						$('#txtXdate1').val(q_date());
+						
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
+						
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
 						t_xedate=encodeURI($('#txtXdate2').val());
+						
 					if(!emp($('#txtXstationno1a').val()))
 						t_xbstationno=encodeURI($('#txtXstationno1a').val());
+					else
+						t_xbstationno='#non';
+						
 					if(!emp($('#txtXstationno2a').val()))
 						t_xestationno=encodeURI($('#txtXstationno2a').val());
+					else
+						t_xestationno='#non';
+						
+					if(!emp($('#txtXstationgno1a').val()))
+						t_xbstationgno=encodeURI($('#txtXstationgno1a').val());
+					else
+						t_xbstationgno='#non';
+						
+					if(!emp($('#txtXstationgno2a').val()))
+						t_xestationgno=encodeURI($('#txtXstationgno2a').val());
+					else
+						t_xestationgno='#non';
+						
 					if(!emp($('#txtXproductno1a').val()))
 						t_xbproductno=encodeURI($('#txtXproductno1a').val());
+					else
+						t_xbproductno='#non';
+						
 					if(!emp($('#txtXproductno2a').val()))
 						t_xeproductno=encodeURI($('#txtXproductno2a').val());
+					else
+						t_xbproductno='#non';
+						
 					if(!emp($('#Xgroupano select').val()))
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
+						
 					if($('#chkXshowover input[type="checkbox"]').prop('checked'))
 						t_xshowover=encodeURI('1');
 					else{
@@ -149,7 +183,8 @@
 							t_xbproductno + ';' +
 							t_xeproductno + ';' + 
 							t_xshowover + ';' + 
-							t_xshowfinished + ';'
+							t_xshowfinished + ';'+
+							t_xbstationgno+';'+t_xbstationgno
 					);
 				});
 				

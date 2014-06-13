@@ -36,7 +36,10 @@
             brwKey = 'noa';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx']
             ,['txtStationno', 'lblStation', 'station', 'noa,station,mount,gen', 'txtStationno,txtStation,txtSmount,txtGenorg', 'station_b.aspx']
-            ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']);
+            ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
+            ,['textCugtbstationno', '', 'station', 'noa,station', 'textCugtbstationno', '']
+            ,['textCugtestationno', '', 'station', 'noa,station', 'textCugtestationno', '']
+            );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -183,11 +186,16 @@
 				});
 				
 				$('#btnCugt2').click(function() {
-					$('#textCugtbdate').val('');
-					$('#textCugtedate').val('');
-					$('#textCugtbstationno').val('');
-					$('#textCugtestationno').val('');
-					$('#textCugtGen').val('');
+					$('#textCugtbdate').val($('#txtBdate').val());
+					$('#textCugtedate').val($('#txtEdate').val());
+					$('#textCugtbstationno').val($('#txtStationno').val());
+					$('#textCugtestationno').val($('#txtStationno').val());
+					$('#textCugtGen').val($('#txtGenorg').val());
+					if(q_getPara('sys.saturday').toString()=='1')
+						$('#checkSaturday').prop('checked','true')
+					else
+						$('#checkSaturday').prop('checked','')
+					$('#checkSunday').prop('checked','')
 					
 					$('#div_cugt').css('top', $('#btnCugt2').offset().top+25);
 					$('#div_cugt').css('left', $('#btnCugt2').offset().left-$('#div_cugt').width()+$('#btnCugt2').width()+10);
@@ -195,8 +203,50 @@
 				});
 				
 				//DIV事件---------------------------------------------------
+				$('#textCugtbdate').mask('999/99/99');
+				$('#textCugtbdate').datepicker();
+				$('#textCugtedate').mask('999/99/99');
+				$('#textCugtedate').datepicker();
+				
+				$('#textCugtGen').keyup(function() {
+					var tmp=$('#textCugtGen').val().replace(/[^\d]/g,'');
+					$('#textCugtGen').val(tmp);
+				});
+				
 				$('#btn_div_cugt').click(function() {
-					$('#div_cugt').toggle();
+					if(emp($('#textCugtbdate').val()) || emp($('#textCugtedate').val())){
+						alert('請填寫日期區間!!');
+						return;
+					}
+					
+					if(emp($('#textCugtbstationno').val()) && emp($('#textCugtestationno').val())){
+						if(!confirm("確定要更新全部的工作中心?"))
+							return;
+					}
+					
+					if(dec($('#textCugtGen').val())<=0){
+						if(dec($('#textCugtGen').val())<0){
+							alert('請填寫正確產能!!');
+							return;
+						}else{
+							if(!confirm("確定要將產能設置成0?"))
+								return;	
+						}
+					}
+					
+					var t_cugt_bstationno=!emp($('#textCugtbstationno').val())?trim($('#textCugtbstationno').val()):'#non';
+					var t_cugt_estationno=!emp($('#textCugtestationno').val())?trim($('#textCugtestationno').val()):'#non';
+					var t_cugt_bdate=!emp($('#textCugtbdate').val())?trim($('#textCugtbdate').val()):'#non';
+					var t_cugt_edate=!emp($('#textCugtedate').val())?trim($('#textCugtedate').val()):'#non';
+					var t_cugt_saturday=$('#checkSaturday').prop('checked')?'1':'#non';
+					var t_cugt_sunday=$('#checkSunday').prop('checked')?'1':'#non';
+					var t_cugt_gen=dec($('#textCugtGen').val()).toString();
+					
+					$('#btn_div_cugt').attr('disabled', 'disabled');
+					$('#btn_div_real').val('更新中....');
+					q_func('qtxt.query.cugtchange', 'cug.txt,cugtchange,'+t_cugt_bstationno+';'+t_cugt_estationno
+					+';'+t_cugt_bdate+';'+t_cugt_edate+';'+t_cugt_saturday+';'+t_cugt_sunday+';'+t_cugt_gen+';'+r_name);
+					
 				});
 				
 				$('#btnClose_div_cugt').click(function() {
@@ -1133,6 +1183,7 @@
                 $('#div_child').hide();
                 $('#div_copy').hide();
                 $('#div_real').hide();
+                $('#div_cugt').hide();
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
             }
@@ -1222,6 +1273,7 @@
 				}
 				$('.ui-datepicker').css('margin-left','100px');
 				$('#div_real').hide();
+				$('#div_cugt').hide();
             }
 
             function btnMinus(id) {
@@ -1279,6 +1331,12 @@
             
 		   function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.cugtchange':
+                		alert("更新完成!!");
+                		$('#btn_div_cugt').removeAttr('disabled');
+                		$('#btn_div_cugt').val('更新');
+                		$('#div_cugt').toggle();
+                	break;
                 	case 'workg.cuguChange':
                 		alert("更新完成!!");
                 		//重新開啟新的資料
@@ -1626,7 +1684,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="background-color: #f8d463;width: 110px;text-align: center;">產能</td>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">產能(機時)</td>
 					<td style="background-color: #f8d463;">
 						<input id='textCugtGen' type='text' style='text-align:left;width:100px;'/>
 					</td>

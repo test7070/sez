@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,width,lengthb,lengthc,unit,mount,noa,no2,price,datea,custno,style,class,uno,total,memo,comp", afilter = [], bbsKey = ['noa', 'no2'], as;
+			var q_name = 'ordes', t_bbsTag = 'tbbs', t_content = " field=datea,productno,product,spec,width,lengthb,lengthc,dime,unit,mount,noa,no2,price,datea,custno,style,class,uno,total,memo,comp", afilter = [], bbsKey = ['noa', 'no2'], as;
 			var t_sqlname = 'ordes_load';
 			t_postname = q_name;
 			brwCount = -1;
@@ -96,7 +96,14 @@
 						<input type="text" class="txt" id="txtNo2.*" style="width:25%"/>
 					</td>
 					<td><input class="txt c1" id="txtComp.*" type="text"/></td>
-					<td><input class="txt c1" id="txtMemo.*" type="text"/></td>
+					<td><input class="txt c1" id="txtMemo.*" type="text"/>
+						<input class="txt" id="txtWidth.*" type="hidden"/>
+						<input class="txt" id="txtLengthb.*" type="hidden"/>
+						<input class="txt" id="txtLengthc.*" type="hidden"/>
+						<input class="txt" id="txtDime.*" type="hidden"/>
+						<input class="txt" id="txtClass.*" type="hidden"/>
+						<input class="txt" id="txtStyle.*" type="hidden"/>
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->
