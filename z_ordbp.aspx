@@ -254,6 +254,7 @@
                         + ';' + encodeURI(t_ordbno)
                         + ';' + encodeURI(t_bldate) + ';' + encodeURI(t_eldate)
                         + ';' + encodeURI(t_option)  
+                        + ';' + encodeURI(q_getPara('ordb.sign'))  
                         );
                     } else
                         alert('請輸入採購日期。');
