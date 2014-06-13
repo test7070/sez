@@ -183,8 +183,8 @@
 							t_xbproductno + ';' +
 							t_xeproductno + ';' + 
 							t_xshowover + ';' + 
-							t_xshowfinished + ';'+
-							t_xbstationgno+';'+t_xbstationgno
+							t_xshowfinished + ';'+ 
+							t_xbstationgno+';'+t_xestationgno+';'
 					);
 				});
 				

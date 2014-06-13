@@ -190,7 +190,7 @@
 					$('#textCugtedate').val($('#txtEdate').val());
 					$('#textCugtbstationno').val($('#txtStationno').val());
 					$('#textCugtestationno').val($('#txtStationno').val());
-					$('#textCugtGen').val($('#txtGenorg').val());
+					$('#textCugtGen').val(round(q_div(dec($('#txtGenorg').val()),dec($('#txtSmount').val())),0));
 					if(q_getPara('sys.saturday').toString()=='1')
 						$('#checkSaturday').prop('checked','true')
 					else
@@ -1684,7 +1684,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="background-color: #f8d463;width: 110px;text-align: center;">產能(機時)</td>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">工時</td>
 					<td style="background-color: #f8d463;">
 						<input id='textCugtGen' type='text' style='text-align:left;width:100px;'/>
 					</td>
