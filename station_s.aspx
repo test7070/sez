@@ -12,6 +12,7 @@
 			var q_name = "station_s";
 			aPop = new Array(
 				['txtNoa', '', 'station', 'noa,station', 'txtNoa,txtStation', 'station_b.aspx'],
+				['txtStationgno', '', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				['txtFactoryno', '', 'factory', 'noa,factory', 'txtFactoryno,txtFactory', 'factory_b.aspx']
 			);
 			$(document).ready(function() {
@@ -27,14 +28,16 @@
 				q_getFormat();
 				q_langShow();
 				$('#txtFactory').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+				$('#txtStationg').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 				$('#txtBmon').focus();
 			}
 
 			function q_seekStr() {
-				t_noa = $.trim($('#txtNoa').val());
-				t_station = $.trim($('#txtStation').val());
-				t_factoryno = $.trim($('#txtFactoryno').val());
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +	q_sqlPara2("station", t_station) +
+				var t_noa = $.trim($('#txtNoa').val());
+				var t_station = $.trim($('#txtStation').val());
+				var t_stationgno = $.trim($('#txtStationgno').val());
+				var t_factoryno = $.trim($('#txtFactoryno').val());
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("station", t_station)+ q_sqlPara2("stationgno", t_stationgno) +
 									q_sqlPara2("factoryno", t_factoryno);
 
 				t_where = ' where=^^' + t_where + '^^ ';
@@ -63,6 +66,14 @@
 					<td style="width:35%;" ><a id='lblStation'></a></td>
 					<td style="width:65%; ">
 						<input class="txt" id="txtStation" type="text" style="width:205px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:35%;"><a id='lblStationgno'></a></td>
+					<td style="width:65%; ">
+						<input class="txt" id="txtStationgno" type="text" style="width:90px; font-size:medium;" />
+						&nbsp;
+						<input class="txt" id="txtStationg" type="text" style="width:115px;font-size:medium;"/>
 					</td>
 				</tr>
 				<tr class='seek_tr'>
