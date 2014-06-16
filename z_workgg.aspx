@@ -30,7 +30,7 @@
 				t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
 				t_xgroupano='#non',t_xshowover='#non',t_xshowfinished='#non',
 				t_xbstationgno='#non',t_xestationgno='#non'	;
-				
+
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workgg',
@@ -88,7 +88,7 @@
 							$('.prt').hide();
 							$('#chart,#chartCtrl').show();
 							if(parent.innerHTML.indexOf('q_acDiv')==-1){
-								var newDiv = document.createElement("Div"); 
+								var newDiv = document.createElement("Div");
 								newDiv.id="q_acDiv";
 								parent.appendChild(newDiv);
 							}
@@ -120,48 +120,48 @@
 					var txtreport = $('#q_report').data('info').reportData[t_index].report;
 					if(emp($('#txtXdate1').val()))
 						$('#txtXdate1').val(q_date());
-						
+
 					if(emp($('#txtXdate2').val()))
 						$('#txtXdate2').val(q_date());
-						
+
 					if(!emp($('#txtXdate1').val()))
 						t_xbdate=encodeURI($('#txtXdate1').val());
 					if(!emp($('#txtXdate2').val()))
 						t_xedate=encodeURI($('#txtXdate2').val());
-						
+
 					if(!emp($('#txtXstationno1a').val()))
 						t_xbstationno=encodeURI($('#txtXstationno1a').val());
 					else
 						t_xbstationno='#non';
-						
+
 					if(!emp($('#txtXstationno2a').val()))
 						t_xestationno=encodeURI($('#txtXstationno2a').val());
 					else
 						t_xestationno='#non';
-						
+
 					if(!emp($('#txtXstationgno1a').val()))
 						t_xbstationgno=encodeURI($('#txtXstationgno1a').val());
 					else
 						t_xbstationgno='#non';
-						
+
 					if(!emp($('#txtXstationgno2a').val()))
 						t_xestationgno=encodeURI($('#txtXstationgno2a').val());
 					else
 						t_xestationgno='#non';
-						
+
 					if(!emp($('#txtXproductno1a').val()))
 						t_xbproductno=encodeURI($('#txtXproductno1a').val());
 					else
 						t_xbproductno='#non';
-						
+
 					if(!emp($('#txtXproductno2a').val()))
 						t_xeproductno=encodeURI($('#txtXproductno2a').val());
 					else
 						t_xbproductno='#non';
-						
+
 					if(!emp($('#Xgroupano select').val()))
 						t_xgroupano=encodeURI($('#Xgroupano select').val());
-						
+
 					if($('#chkXshowover input[type="checkbox"]').prop('checked'))
 						t_xshowover=encodeURI('1');
 					else{
@@ -181,27 +181,27 @@
 							t_xestationno + ';' +
 							t_xgroupano + ';' +
 							t_xbproductno + ';' +
-							t_xeproductno + ';' + 
-							t_xshowover + ';' + 
-							t_xshowfinished + ';'+ 
+							t_xeproductno + ';' +
+							t_xshowover + ';' +
+							t_xshowfinished + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'
 					);
 				});
-				
+
 				if(window.parent.q_name=='cug'){
                 	var wParent = window.parent.document;
                 	var bdate=wParent.getElementById("txtBdate").value;
                 	var edate=wParent.getElementById("txtEdate").value;
                 	var stationno=wParent.getElementById("txtStationno").value;
                 	var station=wParent.getElementById("txtStation").value;
-                	
+
                 	$('#txtXdate1').val(bdate);
                 	$('#txtXdate2').val(edate);
                 	$('#txtXstationno1a').val(stationno);
                 	$('#txtXstationno1b').val(station);
                 	$('#txtXstationno2a').val(stationno);
                 	$('#txtXstationno2b').val(station);
-                	
+
                 	$("#btnRun").click();
 				}
 				if(window.parent.q_name=='workg'){
@@ -213,7 +213,7 @@
                 	var edate=wParent.getElementById("txtEdate").value;
                 	var sfbdate=wParent.getElementById("txtSfbdate").value;
                 	var sfedate=wParent.getElementById("txtSfedate").value;
-                	
+
                 	if(wadate!=''){
                 		$('#txtXdate1').val(wadate);
                 		$('#txtXdate2').val(wadate);
