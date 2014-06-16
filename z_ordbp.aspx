@@ -293,14 +293,19 @@
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
 							var t_msg = '';
+							var MsgCount = 0;
 							for (var i = 0; i < as.length; i++) {
 								var thisMsg = $.trim(as[i].memo);
 								if (thisMsg.substring(0, 4) != 'noa=') {
 									t_msg += (t_msg.length > 0 ? '\r\n' : '') + as[i].memo;
+								}else{
+									var thisOrdcNoa = $.trim(thisMsg.substr(4));
+									q_func('sign.q_signForm', 'ordc,'+r_accy+','+ thisOrdcNoa);
+									MsgCount++;
 								}
 							}
 							alert(t_msg);
-							if (t_msg.length > 1)
+							if (as.length > (MsgCount+1))
 								window.open("z_ordbp.aspx?" + r_userno + ";" + r_name + ";" + q_id + ";action=z_ordbp06;" + r_accy);
 						} else {
 							alert('無資料!');
