@@ -37,8 +37,9 @@
             aPop = new Array(['txtProductno_', 'btnProduct_', 'uca', 'noa,product', 'txtProductno_,txtProduct_', 'uca_b.aspx']
             ,['txtStationno', 'lblStation', 'station', 'noa,station,mount,gen', 'txtStationno,txtStation,txtSmount,txtGenorg', 'station_b.aspx']
             ,['txtProcessno', 'lblProcess', 'process', 'noa,process', 'txtProcessno,txtProcess', 'process_b.aspx']
-            ,['textCugtbstationno', '', 'station', 'noa,station', 'textCugtbstationno', '']
-            ,['textCugtestationno', '', 'station', 'noa,station', 'textCugtestationno', '']
+            ,['textCugtbstationno', '', 'station', 'noa,station', 'textCugtbstationno', ''],['textCugtestationno', '', 'station', 'noa,station', 'textCugtestationno', '']
+            ,['textRealbstationno', '', 'station', 'noa,station', 'textRealbstationno', ''],['textRealestationno', '', 'station', 'noa,station', 'textRealestationno', '']
+            ,['textRealbstationgno', '', 'stationg', 'noa,namea', 'textRealbstationgno', ''],['textRealestationgno', '', 'stationg', 'noa,namea', 'textRealestationgno', '']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -177,12 +178,15 @@
 				});
 				
 				$('#btnWorkRealAll').click(function() {
-					$('#textRealbdate').val('');
-					$('#textRealedate').val('');
+					//預設
+					$('#textRealbdate').val($('#txtBdate').val());
+					$('#textRealedate').val($('#txtEdate').val());
+					$('#checkSigntgg').prop('checked','true');
 					
 					$('#div_real').css('top', $('#btnWorkRealAll').offset().top+25);
 					$('#div_real').css('left', $('#btnWorkRealAll').offset().left-$('#div_real').width()+$('#btnWorkRealAll').width()+10);
 					$('#div_real').toggle();
+					q_cur=2;
 				});
 				
 				$('#btnCugt2').click(function() {
@@ -200,6 +204,7 @@
 					$('#div_cugt').css('top', $('#btnCugt2').offset().top+25);
 					$('#div_cugt').css('left', $('#btnCugt2').offset().left-$('#div_cugt').width()+$('#btnCugt2').width()+10);
 					$('#div_cugt').toggle();
+					q_cur=2;
 				});
 				
 				//DIV事件---------------------------------------------------
@@ -220,7 +225,7 @@
 					}
 					
 					if(emp($('#textCugtbstationno').val()) && emp($('#textCugtestationno').val())){
-						if(!confirm("確定要更新全部的工作中心?"))
+						if(!confirm("確定要更新全部的工作線別?"))
 							return;
 					}
 					
@@ -243,13 +248,14 @@
 					var t_cugt_gen=dec($('#textCugtGen').val()).toString();
 					
 					$('#btn_div_cugt').attr('disabled', 'disabled');
-					$('#btn_div_real').val('更新中....');
+					$('#btn_div_cugt').val('更新中....');
 					q_func('qtxt.query.cugtchange', 'cug.txt,cugtchange,'+t_cugt_bstationno+';'+t_cugt_estationno
 					+';'+t_cugt_bdate+';'+t_cugt_edate+';'+t_cugt_saturday+';'+t_cugt_sunday+';'+t_cugt_gen+';'+r_name);
-					
+					q_cur=0;
 				});
 				
 				$('#btnClose_div_cugt').click(function() {
+					q_cur=0;
 					$('#div_cugt').toggle();
 				});
 				
@@ -265,21 +271,77 @@
 					var r_ecuano=trim($('#textRealecuano').val())==''?'#non':trim($('#textRealecuano').val());
 					var r_bworkno=trim($('#textRealbworkno').val())==''?'#non':trim($('#textRealbworkno').val());
 					var r_eworkno=trim($('#textRealeworkno').val())==''?'#non':trim($('#textRealeworkno').val());
+					var r_bstationno=trim($('#textRealbstationno').val())==''?'#non':trim($('#textRealbstationno').val());
+					var r_estationno=trim($('#textRealestationno').val())==''?'#non':trim($('#textRealestationno').val());
+					var r_bstationgno=trim($('#textRealbstationgno').val())==''?'#non':trim($('#textRealbstationgno').val());
+					var r_estationgno=trim($('#textRealestationgno').val())==''?'#non':trim($('#textRealestationgno').val());
 					var r_sigtngg=$('#checkSigntgg').prop('checked')?'1':'#non';
 					
-					var r_tmp=trim($('#textRealbdate').val())+trim($('#textRealedate').val())+trim($('#textRealbcuano').val())
-									+trim($('#textRealecuano').val())+trim($('#textRealbworkno').val())+trim($('#textRealeworkno').val());
+					var r_week='';
+					if(!$('#div_realweek').is(':hidden')){
+						$('#div_realweek input[type="checkbox"]').each(function(){
+							if($(this).prop('checked'))
+								r_week+=$(this).val()+'^';
+						});
+					}
 					
+					if(r_week=='')
+						r_week='#non';
+					
+					var r_tmp=trim($('#textRealbdate').val())+trim($('#textRealedate').val())+trim($('#textRealbcuano').val())
+									+trim($('#textRealecuano').val())+trim($('#textRealbworkno').val())+trim($('#textRealeworkno').val())
+									+trim($('#textRealbstationno').val())+trim($('#textRealestationno').val())+trim($('#textRealbstationgno').val())
+									+trim($('#textRealestationgno').val());
+									
 					if(r_tmp.length>0){
 						$('#btn_div_real').attr('disabled', 'disabled');
 						$('#btn_div_real').val('轉換中....');
-						q_func('qtxt.query.workrealall', 'cug.txt,workrealall,'+r_bdate+';'+r_edate+';'+r_bcuano+';'+r_ecuano+';'+r_bworkno+';'+r_eworkno+';'+r_sigtngg+';'+r_name);
+						q_func('qtxt.query.workrealall', 'cug.txt,workrealall,'+r_bdate+';'+r_edate+';'+r_bcuano+';'+r_ecuano+';'+r_bworkno+';'+r_eworkno
+						+';'+r_bstationno+';'+r_estationno+';'+r_bstationgno+';'+r_estationgno+';'+r_week+';'+r_sigtngg+';'+r_name);
 					}else
 						alert("填寫資料有問題!!");
+						
+					$('#div_realweek').hide();
+					q_cur=0;
+				});
+				
+				$('#btn_div_realweek').click(function() {
+					$('#div_realweek').show();
+					//產生勾選日期
+					var week_bdate=$('#textRealbdate').val();
+					var week_edate=$('#textRealedate').val();
+					
+					if(week_bdate=='' && week_edate==''){
+						week_bdate=q_date();
+						week_edate=q_cdn(q_date(),13);
+					}else if(week_bdate!='' && week_edate==''){
+						week_edate=q_cdn(week_bdate,13);
+					}else if(week_bdate=='' && week_edate!=''){
+						week_bdate=q_cdn(week_edate,-13);
+					}
+					
+					$('#div_realweek').css('top', $('#div_real').offset().top);
+					$('#div_realweek').css('left', $('#div_real').offset().left-$('#div_realweek').width()-5);
+					
+					var tmp_checkbox='',t_week=1;
+					while(week_bdate<=week_edate){
+						if(q_holiday.indexOf(week_bdate)>-1 || getweek(week_bdate)=='日' || (getweek(week_bdate)=='六' && q_getPara('sys.saturday').toString()=='0'))
+							tmp_checkbox += "<div style='float:left;text-align: center;'>&nbsp;<a class='lbl' id='week_" + t_week + "' style='color:red;'>" + week_bdate +"("+getweek(week_bdate)+")</a>&nbsp;<BR>"
+							+"<input id='checkweek" + t_week + "' type='checkbox' value='" + week_bdate +"'/></div>";
+						else{
+							tmp_checkbox += "<div style='float:left;text-align: center;'>&nbsp;<a class='lbl' id='week_" + t_week + "' >" + week_bdate +"("+getweek(week_bdate)+")</a>&nbsp;<BR>"
+							+"<input id='checkweek" + t_week + "' type='checkbox' value='" + week_bdate +"'/></div>";
+						}
+						week_bdate=q_cdn(week_bdate,1);
+						t_week++;
+					}
+					$('#div_realweek').html(tmp_checkbox);
 				});
 				
 				$('#btnClose_div_real').click(function() {
 					$('#div_real').toggle();
+					$('#div_realweek').hide();
+					q_cur=0;
 				});
 				
 				$('#btnClose_div_child').click(function() {
@@ -754,7 +816,7 @@
                 	case 'getgen':
                 		var as = _q_appendData("station", "", true);
                 		if(as[0]==undefined){
-                			alert("該工作中心不存在!!");
+                			alert("該工作線別不存在!!");
                 			$('#btnCug').removeAttr('disabled');
                 		}else{
                 			$('#txtGenorg').val(dec(as[0].gen)>0?dec(as[0].gen):8);
@@ -770,7 +832,7 @@
                 	/*case 'station_chk':
                 		var as = _q_appendData("cug", "", true);
                 		if(as[0]!=undefined){
-                			alert("該工作中心已存在!!");
+                			alert("該工作線別已存在!!");
                 		}else{
                 			station_chk=true;
                 			$('#btnWork').click();
@@ -779,7 +841,7 @@
                 	/*case 'station_btnok':
                 		var as = _q_appendData("cug", "", true);
                 		if(as[0]!=undefined){
-                			alert("該工作中心已存在!!");
+                			alert("該工作線別已存在!!");
                 		}else{
                 			station_btnok=true;
                 			$('#btnOk').click();
@@ -792,12 +854,13 @@
 							,'txtNos,txtNoq,txtProcessno,txtProcess,txtProductno,txtProduct,txtSpec,txtStyle,txtMount,txtHours,txtCuadate,txtUindate,txtOrgcuadate,txtOrguindate,txtWorkno,txtWorkgno,txtOrdeno,txtPretime,txtCugunoq,txtNosold', as.length, as,
 							'nos,noq,processno,process,productno,product,spec,style,mount,hours,cuadate,uindate,orgcuadate,orguindate,workno,workgno,ordeno,pretime,cugunoq,nos','txtProductno,txtProcess,txtWorkno');
 							
-							for (var i = 0; i < q_bbsCount; i++) {
+							/*for (var i = 0; i < q_bbsCount; i++) {
 								$('#txtCuadate_'+i).attr('disabled', 'disabled');
 								//$('#txtUindate_'+i).attr('disabled', 'disabled');
 								$('#txtCuadate_'+i).css('background-color','rgb(237, 237, 238)');
 								//$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
-							}
+							}*/
+							scheduling();
 							sum();
                 		}
                 		
@@ -937,7 +1000,7 @@
             }
 
             function btnPrint() {
-                q_box('z_cugp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_cugp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 			
 			var issave=false;
@@ -1183,6 +1246,7 @@
                 $('#div_child').hide();
                 $('#div_copy').hide();
                 $('#div_real').hide();
+                $('#div_realweek').hide();
                 $('#div_cugt').hide();
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
@@ -1197,12 +1261,14 @@
 	            	$('#btnCugt').attr('disabled', 'disabled');
 	            	$('#btnWorkReal').removeAttr('disabled');
 	            	$('#btnWorkRealAll').removeAttr('disabled');
+	            	$('#btnCugt2').removeAttr('disabled');
 	            }else{
 	            	$('#btnWork').removeAttr('disabled');
 	            	$('#btnCug').removeAttr('disabled');
 	            	$('#btnCugt').removeAttr('disabled');
 	            	$('#btnWorkReal').attr('disabled', 'disabled');
 	            	$('#btnWorkRealAll').attr('disabled', 'disabled');
+	            	$('#btnCugt2').attr('disabled', 'disabled');
 	            }
                 
                 if(q_getPara('sys.isstyle')=='1'){
@@ -1273,6 +1339,7 @@
 				}
 				$('.ui-datepicker').css('margin-left','100px');
 				$('#div_real').hide();
+				$('#div_realweek').hide();
 				$('#div_cugt').hide();
             }
 
@@ -1444,7 +1511,7 @@
 								}
 							}
 							OutHtml += '<tr>';
-							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作中心</td>" +
+							OutHtml += "<td class='tTitle' style='width:240px;' colspan='2' rowspan='2'>工作線別</td>" +
 								   "<td class='tTitle' style='width:60px;' rowspan='2'>日產能</td>" +
 								   "<td class='tTitle' style='width:80px;' rowspan='2'>稼動率</td>";
 							var tmpTd = '<tr>';
@@ -1520,6 +1587,35 @@
 					return 1;
 				return 0;
 			}
+			
+			function getweek(t_date) {
+            	switch (new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()) {
+            		case 0:
+            			return '日'; 
+            			break;
+            		case 1:
+            			return '一';
+            			break;
+            		case 2:
+            			return '二';
+            			break;
+            		case 3:
+            			return '三';
+            			break;
+            		case 4:
+            			return '四';
+            			break;
+            		case 5:
+            			return '五';
+            			break;
+            		case 6:
+            			return '六';
+            			break;
+            		default:
+            			return '';
+  						break;
+            	}
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -1669,7 +1765,7 @@
 		<div id="div_cugt" style="position:absolute; top:0px; left:0px; display:none; width:510px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_cugt" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
-					<td style="background-color: #f8d463;width: 110px;text-align: center;">工作中心區間</td>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">工作線別區間</td>
 					<td style="background-color: #f8d463;">
 						<input id='textCugtbstationno' type='text' style='text-align:left;width:180px;'/>	~
 						<input id='textCugtestationno' type='text' style='text-align:left;width: 180px;'/>
@@ -1703,8 +1799,9 @@
 				<tr>
 					<td style="background-color: #f8d463;width: 110px;text-align: center;">應開工日區間</td>
 					<td style="background-color: #f8d463;">
-						<input id='textRealbdate' type='text' style='text-align:left;width:100px;'/>	~
-						<input id='textRealedate' type='text' style='text-align:left;width: 100px;'/>	
+						<input id='textRealbdate' type='text' style='text-align:left;width:80px;'/>	~
+						<input id='textRealedate' type='text' style='text-align:left;width: 80px;'/>
+						<input id="btn_div_realweek" type="button" value="挑選日期">	
 						<input id="checkSigntgg" type="checkbox">	
 						委外送簽核
 					</td>
@@ -1723,6 +1820,20 @@
 						<input id='textRealeworkno' type='text' style='text-align:left;width: 180px;'/>
 					</td>
 				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">工作線別區間</td>
+					<td style="background-color: #f8d463;">
+						<input id='textRealbstationno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textRealestationno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">管理單位區間</td>
+					<td style="background-color: #f8d463;">
+						<input id='textRealbstationgno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textRealestationgno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
 				<tr id='real_close'>
 					<td align="center" colspan='2'>
 						<input id="btn_div_real" type="button" value="轉換">
@@ -1731,6 +1842,7 @@
 				</tr>
 			</table>
 		</div>
+		<div id="div_realweek" style="position:absolute; top:0px; left:0px; display:none; width:690px; background-color: rgb(255, 240, 237); border: 5px solid gray;">	</div>
 		<!---DIV分隔線---->
 		<div id="div_copy" style="position:absolute; top:0px; left:0px; display:none; width:800px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_copy" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
@@ -1794,7 +1906,7 @@
 					<td style="background-color: #CDFFCE;width:14%;" align="center">製品編號/製程</td>
 					<td style="background-color: #CDFFCE;width:17%;" align="center">製品名稱/規格</td>
 					<td style="background-color: #CDFFCE;width:10%;" align="center">機型</td>
-					<td style="background-color: #CDFFCE;width:12%;" align="center">工作中心/廠商</td>
+					<td style="background-color: #CDFFCE;width:12%;" align="center">工作線別/廠商</td>
 					<td style="background-color: #CDFFCE;width:7%;" align="center">數量</td>
 					<td style="background-color: #CDFFCE;width:6%;" align="center">機時</td>
 					<td style="background-color: #CDFFCE;width:8%;" align="center">應開工日</td>
