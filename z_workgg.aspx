@@ -304,7 +304,14 @@
 							}
 							for(var k=0;k<TL.length;k++){
 								for(var j=0;j<DateList.length;j++){
-									TL[k].datea.push([DateList[j],0,TL[k].gen]);
+									var thisDateGen = TL[k].gen;
+									for(var i=0;i<as.length;i++){
+										if((as[i].stationno==TL[k].stationno) && (as[i].datea==DateList[j])){
+											thisDateGen = as[i].gen;
+											break;
+										}
+									}
+									TL[k].datea.push([DateList[j],0,thisDateGen]);
 								}
 							}
 							for(var k=0;k<as.length;k++){
