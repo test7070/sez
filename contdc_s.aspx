@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title></title>
@@ -14,178 +13,186 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            var q_name = "contdc_s";
+			var q_name = "contdc_s";
 			aPop = new Array(
-			['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
-            $(document).ready(function() {
-                main();
-            });
-            /// end ready
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+			);
+			$(document).ready(function() {
+				main();
+			});
 
-            function main() {
-                mainSeek();
-                q_gf('', q_name);
-            }
+			function main() {
+				mainSeek();
+				q_gf('', q_name);
+			}
 
+			function q_gfPost() {
+				q_getFormat();
+				q_langShow();
+				bbmMask = [
+					['txtDatea', r_picd], ['txtBcontdate', r_picd], ['txtEcontdate', r_picd],
+					['txtBchangecontdate', r_picd], ['txtEchangecontdate', r_picd]
+				];
+				q_mask(bbmMask);
+				q_cmbParse("cmbEnsuretype", ('').concat(new Array('', '定存單質押', '不可撤銷保證', '銀行本票質押', '商業本票質押', '現金質押')));
+				q_cmbParse("cmbEnda", ('').concat(new Array('2@全部', '1@結案','0@未結案')));
+				$('#txtBdate').focus();
+				q_gt('conttype', '', 0, 0, 0, "");
+				q_gt('acomp', '', 0, 0, 0, "");
+				$('#txtBcontdate').datepicker();
+				$('#txtEcontdate').datepicker();
+				$('#txtBecontdate').datepicker();
+				$('#txtEecontdate').datepicker();
+				$('#txtBchangecontdate').datepicker();
+				$('#txtEchangecontdate').datepicker();
+			}
 
-            function q_gfPost() {
-                q_getFormat();
-                q_langShow();
-                bbmMask = [['txtDatea', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtBchangecontdate', r_picd],['txtEchangecontdate', r_picd]];
-                q_mask(bbmMask);
-                //q_cmbParse("cmbStype", q_getPara('cont.stype'));
-                q_cmbParse("cmbEnsuretype", ('').concat(new Array( '','定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
-                $('#txtBdate').focus();
-                q_gt('conttype', '', 0, 0, 0, "");
-                q_gt('acomp', '', 0, 0, 0, "");
-                
-                $('#txtBcontdate').datepicker();
-                $('#txtEcontdate').datepicker();
-                $('#txtBecontdate').datepicker();
-                $('#txtEecontdate').datepicker();
-                $('#txtBchangecontdate').datepicker();
-                $('#txtEchangecontdate').datepicker();
-            }
-			 function q_gtPost(t_name) {
-                switch (t_name) {
-                   case 'conttype':
-                        var as = _q_appendData("conttype", "", true);
-                        var t_stype = "@";
-                        for ( i = 0; i < as.length; i++) {
-                            t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
-                        }
-                        q_cmbParse("cmbStype", t_stype);
-                        break;
-                    case 'acomp':
-                        var as = _q_appendData("acomp", "", true);
-                        var t_stype = "@";
-                        for ( i = 0; i < as.length; i++) {
-                            t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
-                        }
-                        q_cmbParse("cmbCno", t_stype);
-                        break;
-						
-                }
-              }
-            
-            function q_seekStr() {
-            	t_noa = $('#txtNoa').val();
-            	t_datea = $('#txtDatea').val();
-            	t_stype = $('#cmbStype').val();
-            	t_contract = $('#txtContract').val();
-            	t_ensuretype = $('#cmbEnsuretype').val();
-            	t_bcontdate = $('#txtBcontdate').val();
-            	t_econtdate = $('#txtEcontdate').val();
-            	t_becontdate = $('#txtBecontdate').val();
-            	t_eecontdate = $('#txtEecontdate').val();
-            	t_bchangecontdate = $('#txtBchangecontdate').val();
-            	t_echangecontdate = $('#txtEchangecontdate').val();
-            	t_cno = $('#cmbCno').val();
-            	//t_acomp = $('#txtAcomp').val();
-            	t_custno = $('#txtCustno').val();
-            	t_comp = $('#txtComp').val();
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'conttype':
+						var as = _q_appendData("conttype", "", true);
+						var t_stype = "@";
+						for ( i = 0; i < as.length; i++) {
+							t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
+						}
+						q_cmbParse("cmbStype", t_stype);
+						break;
+					case 'acomp':
+						var as = _q_appendData("acomp", "", true);
+						var t_stype = "@";
+						for ( i = 0; i < as.length; i++) {
+							t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+						}
+						q_cmbParse("cmbCno", t_stype);
+						break;
+				}
+			}
 
-                t_bcontdate = t_bcontdate.length > 0 && t_bcontdate.indexOf("_") > -1 ? t_bcontdate.substr(0, t_bcontdate.indexOf("_")) : t_bcontdate;
-                /// 100.  .
-                t_econtdate = t_econtdate.length > 0 && t_econtdate.indexOf("_") > -1 ? t_econtdate.substr(0, t_econtdate.indexOf("_")) : t_econtdate;
-                /// 100.  .
+			function q_seekStr() {
+				var t_noa = $('#txtNoa').val();
+				var t_datea = $('#txtDatea').val();
+				var t_stype = $('#cmbStype').val();
+				var t_contract = $('#txtContract').val();
+				var t_ensuretype = $('#cmbEnsuretype').val();
+				var t_bcontdate = $('#txtBcontdate').val();
+				var t_econtdate = $('#txtEcontdate').val();
+				var t_becontdate = $('#txtBecontdate').val();
+				var t_eecontdate = $('#txtEecontdate').val();
+				var t_bchangecontdate = $('#txtBchangecontdate').val();
+				var t_echangecontdate = $('#txtEchangecontdate').val();
+				var t_cno = $('#cmbCno').val();
+				var t_custno = $('#txtCustno').val();
+				var t_comp = $('#txtComp').val();
+				var t_enda = $.trim($('#cmbEnda').val());
+				
+				t_bcontdate = t_bcontdate.length > 0 && t_bcontdate.indexOf("_") > -1 ? t_bcontdate.substr(0, t_bcontdate.indexOf("_")) : t_bcontdate;
+				t_econtdate = t_econtdate.length > 0 && t_econtdate.indexOf("_") > -1 ? t_econtdate.substr(0, t_econtdate.indexOf("_")) : t_econtdate;
 
-                var t_where = " 1=1 " + 
-                	q_sqlPara2("noa", t_noa) + 
-                	q_sqlPara2("datea", t_datea) + 
-                	q_sqlPara2("stype", t_stype) + 
-                	q_sqlPara2("contract", t_contract) + 
-                	q_sqlPara2("ensuretype", t_ensuretype) + 
-                	q_sqlPara2("econtdate", t_becontdate, t_eecontdate) + 
-                	q_sqlPara2("changecontdate", t_bchangecontdate, t_echangecontdate) + 
-                	q_sqlPara2("cno", t_cno) + 
-                	//q_sqlPara2("acomp", t_acomp) + 
-                	q_sqlPara2("custno", t_custno) + 
-                	q_sqlPara2("comp", t_comp);
-                	
-                	var t_contdatewhere=''
-                	if(t_bcontdate!='' || t_econtdate!=''){
-                		t_contdatewhere=" and ('"+t_bcontdate+"' between bcontdate and econtdate or '"+t_econtdate+"' between bcontdate and econtdate";
-                		t_contdatewhere+=" or bcontdate between '"+t_bcontdate+"' and '"+t_econtdate+"' or econtdate between '"+t_bcontdate+"' and '"+t_econtdate+"' )"
-                	}
-                	
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
+										q_sqlPara2("datea", t_datea) +
+										q_sqlPara2("stype", t_stype) +
+										q_sqlPara2("contract", t_contract) +
+										q_sqlPara2("ensuretype", t_ensuretype) +
+										q_sqlPara2("econtdate", t_becontdate, t_eecontdate) +
+										q_sqlPara2("changecontdate", t_bchangecontdate, t_echangecontdate) +
+										q_sqlPara2("cno", t_cno) +
+										q_sqlPara2("custno", t_custno) +
+										q_sqlPara2("comp", t_comp);
+				if(t_enda!='2'){
+					t_where += q_sqlPara2("enda", t_enda);
+				}
+				var t_contdatewhere = ''
+				if (t_bcontdate != '' || t_econtdate != '') {
+					t_contdatewhere = " and ('" + t_bcontdate + "' between bcontdate and econtdate or '" + t_econtdate + "' between bcontdate and econtdate";
+					t_contdatewhere += " or bcontdate between '" + t_bcontdate + "' and '" + t_econtdate + "' or econtdate between '" + t_bcontdate + "' and '" + t_econtdate + "' )"
+				}
 
-                t_where = ' where=^^' + t_where +t_contdatewhere+ '^^ ';
-                return t_where;
-            }
+				t_where = ' where=^^' + t_where + t_contdatewhere + '^^ ';
+				return t_where;
+			}
 		</script>
 		<style type="text/css">
-            .seek_tr {
-                color: white;
-                text-align: center;
-                font-weight: bold;
-                BACKGROUND-COLOR: #76a2fe
-            }
+			.seek_tr {
+				color: white;
+				text-align: center;
+				font-weight: bold;
+				BACKGROUND-COLOR: #76a2fe
+			}
 		</style>
 	</head>
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
-			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
-	                <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+					<td class='seek' style="width:20%;"><a id='lblNoa'></a></td>
+					<td>
+					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblDatea'></a></td>
-	                <td><input class="txt" id="txtDatea" type="text" style="width:215px; font-size:medium;" /></td>
+					<td class='seek' style="width:20%;"><a id='lblDatea'></a></td>
+					<td>
+					<input class="txt" id="txtDatea" type="text" style="width:215px; font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblStype'></a></td>
-	                <td><select id="cmbStype" class="txt c1"> </select></td>
+					<td class='seek' style="width:20%;"><a id='lblStype'></a></td>
+					<td><select id="cmbStype" class="txt c1"></select></td>
 				</tr>
 				<tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblEnsuretype'></a></td>
-	                <td><select id="cmbEnsuretype" class="txt c1"> </select></td>
+					<td class='seek' style="width:20%;"><a id='lblEnsuretype'></a></td>
+					<td><select id="cmbEnsuretype" class="txt c1"></select></td>
 				</tr>
 				<tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblContract'></a></td>
-	                <td><input class="txt" id="txtContract" type="text" style="width:215px; font-size:medium;" /></td>
+					<td class='seek' style="width:20%;"><a id='lblContract'></a></td>
+					<td>
+					<input class="txt" id="txtContract" type="text" style="width:215px; font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblContdate'></a></td>
-					<td style="width:65%;  ">
+					<td style="width:35%;" ><a id='lblContdate'></a></td>
+					<td style="width:65%; ">
 					<input class="txt" id="txtBcontdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEcontdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblEcontdate'></a></td>
-					<td style="width:65%;  ">
+					<td style="width:35%;" ><a id='lblEcontdate'></a></td>
+					<td style="width:65%; ">
 					<input class="txt" id="txtBecontdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEecontdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblChangecontdate'></a></td>
-	                <td style="width:65%;  ">
+					<td class='seek' style="width:20%;"><a id='lblChangecontdate'></a></td>
+					<td style="width:65%; ">
 					<input class="txt" id="txtBchangecontdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEchangecontdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
-	                <!--<td><input class="txt" id="txtChangecontdate" type="text" style="width:215px; font-size:medium;" /></td>-->
+					<!--<td><input class="txt" id="txtChangecontdate" type="text" style="width:215px; font-size:medium;" /></td>-->
 				</tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblAcomp'></a></td>
-                <td>
-                	<select id="cmbCno" class="txt c1"> </select>
-                	<!--<input class="txt" id="txtCno" type="text" style="width:90px; font-size:medium;" />&nbsp;
-                	<input class="txt" id="txtAcomp" type="text" style="width:115px; font-size:medium;" />-->
-                </td>
-            </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
-                <td>
-                	<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;
-                	<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
-                </td>
-             </tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblAcomp'></a></td>
+					<td><select id="cmbCno" class="txt c1"></select><!--<input class="txt" id="txtCno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+					<input class="txt" id="txtAcomp" type="text" style="width:115px; font-size:medium;" />--></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblCustno'></a></td>
+					<td>
+					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
+					&nbsp;
+					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblEnda'></a></td>
+					<td>
+						<select id="cmbEnda" class="txt c1"></select>
+					</td>
+				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
