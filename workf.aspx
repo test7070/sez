@@ -9,6 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			this.errorHandler = null;
 			function onPageError(error) {
@@ -60,9 +64,10 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtTimea', '99:99']];
+				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtTimea', '99:99'], ['tgg_txtBdate', r_picd], ['tgg_txtEdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 				});
@@ -133,11 +138,35 @@
 					$('#div_stk').toggle();
 				});
 				
+				$('#tgg_txtBdate').datepicker();
+				$('#tgg_txtEdate').datepicker();
+				
+				var SeekF= new Array();
+				$('#table_tgg td').children("input:text").each(function() {
+					if($(this).attr('disabled')!='disabled')
+						SeekF.push($(this).attr('id'));
+				});
+				
+				SeekF.push('btnClose_div_tgg');
+				$('#table_tgg td').children("input:text").each(function() {
+					$(this).bind('keydown', function(event) {
+						if( event.which == 13 || event.which == 40) {
+							$('#'+SeekF[SeekF.indexOf($(this).attr('id'))+1]).focus();
+							$('#'+SeekF[SeekF.indexOf($(this).attr('id'))+1]).select();
+						}
+					});
+				});
+				
 				$('#btnClose_div_tgg').click(function() {
 					$('#div_tgg').toggle();
 					if(!emp($('#tgg_txtTggno').val())){
-						var t_where = "1=1 and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=work"+r_accy+".noa),0)";
+						var tgg_bdate=!emp($('#tgg_txtBdate').val())?$('#tgg_txtBdate').val():'000/00/00';
+						var tgg_edate=!emp($('#tgg_txtEdate').val())?$('#tgg_txtEdate').val():'999/99/99';
+						var t_where = "1=1 and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and tggno!='' and tggno='" + $('#tgg_txtTggno').val() + "' ";
+						t_where+=" and (cuadate between '"+tgg_bdate+"' and '"+tgg_edate+"') ";
+						t_where+="and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=work"+r_accy+".noa),0)";
 						t_where+=" and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+						
 						q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 					}else{
 						_btnChange(0);
@@ -505,7 +534,7 @@
 				$('#txtDatea').focus();
 				$('#cmbTaxtype').val('1');*/
 				//4001改由txt新增
-				if(r_outs=='1'){
+				/*if(r_outs=='1'){
 					var t_where = "1=1 and enda!=1 and tggno!='' and tggno='" + r_userno + "' and mount>isnull((select SUM(born-bkmount-wmount) from view_workfs where workno=work"+r_accy+".noa),0)";
 					q_box("work_chk_f_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				}else{
@@ -514,7 +543,21 @@
 					$('#tgg_txtTggno').val('');
 					$('#tgg_txtTgg').val('');
 					$('#tgg_txtTggno').focus();
+				}*/
+				//0616 都顯示div 但廠商要鎖定但提供應開工日的篩選
+				$('#div_tgg').show();
+				if(r_outs=='1'){
+					$('#tgg_txtTggno').val(r_userno).attr('disabled', 'disabled');
+					$('#tgg_txtTgg').val(r_name).attr('disabled', 'disabled');
+					$('#tgg_txtBdate').focus();
+				}else{
+					$('#tgg_txtTggno').val('').removeAttr('disabled');
+					$('#tgg_txtTgg').val('').removeAttr('disabled');
+					$('#tgg_txtTggno').focus();
 				}
+				q_cur=1;
+				$('#tgg_txtBdate').val('');
+				$('#tgg_txtEdate').val('');
 				_btnChange(1);
 				$('#btnOk').attr('disabled', 'disabled').css("font-weight","").css("color","");
 				$('#btnCancel').attr('disabled', 'disabled');
@@ -863,6 +906,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td style="background-color: #f8d463;" align="left">
+						應開工日：<input id='tgg_txtBdate' type='text' class='txt' style="float:none;width: 100px;"/>
+						~ <input id='tgg_txtEdate' type='text' class='txt' style="float:none;width: 100px;"/>
+					</td>
+				</tr>
+				<tr>
 					<td align="center">
 						<input id="btnClose_div_tgg" type="button" value="確定">
 					</td>
@@ -873,11 +922,11 @@
 			<table id="table_stk" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品編號</td>
-					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'></td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_productno'> </td>
 				</tr>
 				<tr>
 					<td style="background-color: #f8d463;" align="center">產品名稱</td>
-					<td style="background-color: #f8d463;" colspan="2" id='stk_product'></td>
+					<td style="background-color: #f8d463;" colspan="2" id='stk_product'> </td>
 				</tr>
 				<tr id='stk_top'>
 					<td align="center" style="width: 30%;">倉庫編號</td>

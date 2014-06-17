@@ -239,8 +239,21 @@
 						}
 					}
 					
+					var t_week='';
+					if(!$('#div_cugtweek').is(':hidden')){
+						$('#div_cugtweek input[type="checkbox"]').each(function(){
+							if($(this).prop('checked'))
+								t_week+=$(this).val()+'^';
+						});
+					}
+					
+					if(t_week=='')
+						t_week='#non';
+					
 					var t_cugt_bstationno=!emp($('#textCugtbstationno').val())?trim($('#textCugtbstationno').val()):'#non';
 					var t_cugt_estationno=!emp($('#textCugtestationno').val())?trim($('#textCugtestationno').val()):'#non';
+					var t_cugt_bstationgno=!emp($('#textCugtbstationgno').val())?trim($('#textCugtbstationgno').val()):'#non';
+					var t_cugt_estationgno=!emp($('#textCugtestationgno').val())?trim($('#textCugtestationgno').val()):'#non';
 					var t_cugt_bdate=!emp($('#textCugtbdate').val())?trim($('#textCugtbdate').val()):'#non';
 					var t_cugt_edate=!emp($('#textCugtedate').val())?trim($('#textCugtedate').val()):'#non';
 					var t_cugt_saturday=$('#checkSaturday').prop('checked')?'1':'#non';
@@ -249,14 +262,49 @@
 					
 					$('#btn_div_cugt').attr('disabled', 'disabled');
 					$('#btn_div_cugt').val('更新中....');
-					q_func('qtxt.query.cugtchange', 'cug.txt,cugtchange,'+t_cugt_bstationno+';'+t_cugt_estationno
-					+';'+t_cugt_bdate+';'+t_cugt_edate+';'+t_cugt_saturday+';'+t_cugt_sunday+';'+t_cugt_gen+';'+r_name);
+					q_func('qtxt.query.cugtchange', 'cug.txt,cugtchange,'+t_cugt_bstationno+';'+t_cugt_estationno+';'+t_cugt_bstationgno+';'+t_cugt_estationgno
+					+';'+t_cugt_bdate+';'+t_cugt_edate+';'+t_cugt_saturday+';'+t_cugt_sunday+';'+t_cugt_gen+';'+t_week+';'+r_name);
 					q_cur=0;
+					$('#div_cugtweek').hide();
 				});
 				
 				$('#btnClose_div_cugt').click(function() {
 					q_cur=0;
 					$('#div_cugt').toggle();
+					$('#div_cugtweek').hide();
+				});
+				
+				$('#btn_div_cugtweek').click(function() {
+					$('#div_cugtweek').show();
+					//產生勾選日期
+					var week_bdate=$('#textCugtbdate').val();
+					var week_edate=$('#textCugtedate').val();
+					
+					if(week_bdate=='' && week_edate==''){
+						week_bdate=q_date();
+						week_edate=q_cdn(q_date(),13);
+					}else if(week_bdate!='' && week_edate==''){
+						week_edate=q_cdn(week_bdate,13);
+					}else if(week_bdate=='' && week_edate!=''){
+						week_bdate=q_cdn(week_edate,-13);
+					}
+					
+					$('#div_cugtweek').css('top', $('#div_cugt').offset().top);
+					$('#div_cugtweek').css('left', $('#div_cugt').offset().left-$('#div_cugtweek').width()-5);
+					
+					var tmp_checkbox='',t_week=1;
+					while(week_bdate<=week_edate){
+						if(q_holiday.indexOf(week_bdate)>-1 || getweek(week_bdate)=='日' || (getweek(week_bdate)=='六' && q_getPara('sys.saturday').toString()=='0'))
+							tmp_checkbox += "<div style='float:left;text-align: center;'>&nbsp;<a class='lbl' id='week_" + t_week + "' style='color:red;'>" + week_bdate +"("+getweek(week_bdate)+")</a>&nbsp;<BR>"
+							+"<input id='checkweek" + t_week + "' type='checkbox' value='" + week_bdate +"'/></div>";
+						else{
+							tmp_checkbox += "<div style='float:left;text-align: center;'>&nbsp;<a class='lbl' id='week_" + t_week + "' >" + week_bdate +"("+getweek(week_bdate)+")</a>&nbsp;<BR>"
+							+"<input id='checkweek" + t_week + "' type='checkbox' value='" + week_bdate +"'/></div>";
+						}
+						week_bdate=q_cdn(week_bdate,1);
+						t_week++;
+					}
+					$('#div_cugtweek').html(tmp_checkbox);
 				});
 				
 				$('#textRealbdate').mask('999/99/99');
@@ -277,17 +325,6 @@
 					var r_estationgno=trim($('#textRealestationgno').val())==''?'#non':trim($('#textRealestationgno').val());
 					var r_sigtngg=$('#checkSigntgg').prop('checked')?'1':'#non';
 					
-					var r_week='';
-					if(!$('#div_realweek').is(':hidden')){
-						$('#div_realweek input[type="checkbox"]').each(function(){
-							if($(this).prop('checked'))
-								r_week+=$(this).val()+'^';
-						});
-					}
-					
-					if(r_week=='')
-						r_week='#non';
-					
 					var r_tmp=trim($('#textRealbdate').val())+trim($('#textRealedate').val())+trim($('#textRealbcuano').val())
 									+trim($('#textRealecuano').val())+trim($('#textRealbworkno').val())+trim($('#textRealeworkno').val())
 									+trim($('#textRealbstationno').val())+trim($('#textRealestationno').val())+trim($('#textRealbstationgno').val())
@@ -297,50 +334,15 @@
 						$('#btn_div_real').attr('disabled', 'disabled');
 						$('#btn_div_real').val('轉換中....');
 						q_func('qtxt.query.workrealall', 'cug.txt,workrealall,'+r_bdate+';'+r_edate+';'+r_bcuano+';'+r_ecuano+';'+r_bworkno+';'+r_eworkno
-						+';'+r_bstationno+';'+r_estationno+';'+r_bstationgno+';'+r_estationgno+';'+r_week+';'+r_sigtngg+';'+r_name);
+						+';'+r_bstationno+';'+r_estationno+';'+r_bstationgno+';'+r_estationgno+';'+r_sigtngg+';'+r_name);
 					}else
 						alert("填寫資料有問題!!");
 						
-					$('#div_realweek').hide();
 					q_cur=0;
-				});
-				
-				$('#btn_div_realweek').click(function() {
-					$('#div_realweek').show();
-					//產生勾選日期
-					var week_bdate=$('#textRealbdate').val();
-					var week_edate=$('#textRealedate').val();
-					
-					if(week_bdate=='' && week_edate==''){
-						week_bdate=q_date();
-						week_edate=q_cdn(q_date(),13);
-					}else if(week_bdate!='' && week_edate==''){
-						week_edate=q_cdn(week_bdate,13);
-					}else if(week_bdate=='' && week_edate!=''){
-						week_bdate=q_cdn(week_edate,-13);
-					}
-					
-					$('#div_realweek').css('top', $('#div_real').offset().top);
-					$('#div_realweek').css('left', $('#div_real').offset().left-$('#div_realweek').width()-5);
-					
-					var tmp_checkbox='',t_week=1;
-					while(week_bdate<=week_edate){
-						if(q_holiday.indexOf(week_bdate)>-1 || getweek(week_bdate)=='日' || (getweek(week_bdate)=='六' && q_getPara('sys.saturday').toString()=='0'))
-							tmp_checkbox += "<div style='float:left;text-align: center;'>&nbsp;<a class='lbl' id='week_" + t_week + "' style='color:red;'>" + week_bdate +"("+getweek(week_bdate)+")</a>&nbsp;<BR>"
-							+"<input id='checkweek" + t_week + "' type='checkbox' value='" + week_bdate +"'/></div>";
-						else{
-							tmp_checkbox += "<div style='float:left;text-align: center;'>&nbsp;<a class='lbl' id='week_" + t_week + "' >" + week_bdate +"("+getweek(week_bdate)+")</a>&nbsp;<BR>"
-							+"<input id='checkweek" + t_week + "' type='checkbox' value='" + week_bdate +"'/></div>";
-						}
-						week_bdate=q_cdn(week_bdate,1);
-						t_week++;
-					}
-					$('#div_realweek').html(tmp_checkbox);
 				});
 				
 				$('#btnClose_div_real').click(function() {
 					$('#div_real').toggle();
-					$('#div_realweek').hide();
 					q_cur=0;
 				});
 				
@@ -1772,6 +1774,13 @@
 					</td>
 				</tr>
 				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">管理單位區間</td>
+					<td style="background-color: #f8d463;">
+						<input id='textCugtbstationgno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textCugtestationgno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr>
 					<td style="background-color: #f8d463;width: 110px;text-align: center;">日期區間</td>
 					<td style="background-color: #f8d463;">
 						<input id='textCugtbdate' type='text' style='text-align:left;width:100px;'/>	~
@@ -1783,6 +1792,7 @@
 					<td style="background-color: #f8d463;width: 110px;text-align: center;">工時</td>
 					<td style="background-color: #f8d463;">
 						<input id='textCugtGen' type='text' style='text-align:left;width:100px;'/>
+						<input id="btn_div_cugtweek" type="button" style="float: right;margin-right: 75px;" value="挑選日期">
 					</td>
 				</tr>
 				<tr id='cugt_close'>
@@ -1793,6 +1803,7 @@
 				</tr>
 			</table>
 		</div>
+		<div id="div_cugtweek" style="position:absolute; top:0px; left:0px; display:none; width:690px; background-color: rgb(255, 240, 237); border: 5px solid gray;">	</div>
 		<!---DIV分隔線---->
 		<div id="div_real" style="position:absolute; top:0px; left:0px; display:none; width:510px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_real" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
@@ -1801,7 +1812,6 @@
 					<td style="background-color: #f8d463;">
 						<input id='textRealbdate' type='text' style='text-align:left;width:80px;'/>	~
 						<input id='textRealedate' type='text' style='text-align:left;width: 80px;'/>
-						<input id="btn_div_realweek" type="button" value="挑選日期">	
 						<input id="checkSigntgg" type="checkbox">	
 						委外送簽核
 					</td>
@@ -1842,7 +1852,6 @@
 				</tr>
 			</table>
 		</div>
-		<div id="div_realweek" style="position:absolute; top:0px; left:0px; display:none; width:690px; background-color: rgb(255, 240, 237); border: 5px solid gray;">	</div>
 		<!---DIV分隔線---->
 		<div id="div_copy" style="position:absolute; top:0px; left:0px; display:none; width:800px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_copy" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
