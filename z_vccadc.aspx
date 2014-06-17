@@ -22,7 +22,7 @@
                 q_gf('', 'z_vccadc');
             });
             function q_gfPost() {
-            	q_gt('acomp', '', 0, 0, 0);
+            	q_gt('acomp', 'where=^^ not exists(select top 1 noa from vcca where acomp.noa=vcca.cno) ^^', 0, 0, 0);
             }
 			function q_gtPost(t_name) {
                 switch (t_name) {
