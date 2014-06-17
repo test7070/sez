@@ -28,12 +28,55 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            
             q_brwCount();  
-
             q_gt(q_name, q_content, q_sqlCount, 1)  
-
         });
+        
+        function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				//bbm
+				include : ['txtInsur_accident', 'txtInsur_person','txtInsur_job','txtInsur_comp'],
+				//bbs
+				includes : ['txtClass_', 'txtSalary1_','txtSalary2_','txtLmoney_','txtLself_','txtLcomp_','txtFlself_','txtFlcomp_'],
+				/*記錄當前的資料*/
+				copy : function() {
+					this.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in this.include) {
+							if (fbbm[i] == this.include[j] ) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude ) {
+							this.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+					//bbs
+					for (var i in this.includes) {
+						for(var j = 0; j < q_bbsCount; j++) {
+							this.data.push({
+								field : this.includes[i]+j,
+								value : $('#' + this.includes[i]+j).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in this.data) {
+					   	$('#' + this.data[i].field).val(this.data[i].value);
+				   	}
+				}
+			};
+			
+			var curData = new currentData();
 
         //////////////////   end Ready
         function main() {
@@ -170,8 +213,19 @@
         }
 
         function btnIns() {
+        	var t_bbscounts=q_bbsCount;
+			if($('#Copy').is(':checked')){
+				curData.copy();
+			}
             _btnIns();
+            if($('#Copy').is(':checked')){
+				while(t_bbscounts>=q_bbsCount){
+					q_bbs_addrow('bbs',0,0);
+				}
+				curData.paste();
+			}
             $('#txtNoa').focus();
+            $('#txtNoa').val(q_date());
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -468,15 +522,19 @@
         </div>
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        	<tr>
+        <tr>
             <td class='td1'><span> </span><a id="lblNoa" class="lbl" > </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            </tr>
+            <td class="td1" style="text-align: center;">
+            	<input id="Copy" type="checkbox" />
+				<span> </span><a id="lblCopy">複製</a>
+			</td>
+        </tr>
         <tr>
             <td class='td1'><span> </span><a id="lblInsur_accident" class="lbl" > </a></td>
             <td class="td2"><input id="txtInsur_accident" type="text" class="txt num c1" /></td> 
             <td class='td3'><span> </span><a id="lblInsur_job" class="lbl" > </a></td>
-            <td class="td4"><input id="txtInsur_job" type="text"class="txt num c1" /></td> 
+            <td class="td4"><input id="txtInsur_job" type="text" class="txt num c1" /></td> 
         </tr>
         <tr>
             <td class='td1'><span> </span><a id="lblInsur_person" class="lbl" > </a></td>

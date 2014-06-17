@@ -81,14 +81,13 @@
             		}
             	}
             	
-            	
             	getdtmp();
             	check_insed();
             });
             
             $('#btnInput').click(function () {
             	if(q_cur==1 ||q_cur==2){
-	            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa!='Z001' and a.noa!='010132'^^";//後面是不要匯入軒威和董事長資料
+	            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa not in (select sno from salarys where mon='103/05')  and a.noa!='Z001'^^";//後面是不要匯入軒威
 	            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
 	            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
 	            	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
@@ -658,7 +657,7 @@
                 return;
             }
             
-            if(insed&&q_cur==1){
+            if(insed&&q_cur==1&&!(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)){
             	alert('該薪資作業已做過!!!');
                 return;
             }

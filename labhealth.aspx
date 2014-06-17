@@ -23,15 +23,59 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
-
+        brwCount2 = 2;
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();   
             q_gt(q_name, q_content, q_sqlCount, 1)  
-
         });
+        
+        function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				//bbm
+				include : ['txtHe_person', 'txtRate','txtHe_comp'],
+				//bbs
+				includes : ['txtClass_', 'txtSalary1_','txtSalary2_','txtLmoney_','txtAs_gover_','txtHe_person_','txtHe_comp_'],
+				/*記錄當前的資料*/
+				copy : function() {
+					this.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in this.include) {
+							if (fbbm[i] == this.include[j] ) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude ) {
+							this.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+					//bbs
+					for (var i in this.includes) {
+						for(var j = 0; j < q_bbsCount; j++) {
+							this.data.push({
+								field : this.includes[i]+j,
+								value : $('#' + this.includes[i]+j).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in this.data) {
+					   	$('#' + this.data[i].field).val(this.data[i].value);
+				   	}
+				}
+			};
+			
+			var curData = new currentData();
 
         //////////////////   end Ready
         function main() {
@@ -157,7 +201,18 @@
         }
 
         function btnIns() {
+        	var t_bbscounts=q_bbsCount;
+			if($('#Copy').is(':checked')){
+				curData.copy();
+			}
             _btnIns();
+            if($('#Copy').is(':checked')){
+				while(t_bbscounts>=q_bbsCount){
+					q_bbs_addrow('bbs',0,0);
+				}
+				curData.paste();
+			}
+				
             $('#txtNoa').focus();
             $('#txtNoa').val(q_date());
         }
@@ -465,6 +520,10 @@
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblRate" class="lbl" > </a></td>
             <td class="td4"><input id="txtRate"  type="text" class="txt num c1"/></td>
+            <td class="td5" style="text-align: center;">
+            	<input id="Copy" type="checkbox" />
+				<span> </span><a id="lblCopy">複製</a>
+			</td>	
         </tr>             
         <tr class="tr2">
             <td class='td1'><span> </span><a id="lblHe_person" class="lbl" > </a></td>
