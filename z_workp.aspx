@@ -46,6 +46,15 @@
 						type : '0', //[9]
 						name : 'r_name',
 						value : r_name
+					}, {
+						type : '2', //[10][11]
+						name : 'xproduct',
+						dbf : 'ucc',
+						index : 'noa,product',
+						src : 'ucc_b.aspx'
+					}, {
+						type : '6', //[12]
+						name : 'xstyle'
 					}]
 				});
 				q_popAssign();
@@ -88,7 +97,7 @@
 							$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
 						}
 						break;
-				}  /// end switch
+				} /// end switch
 			}
 		</script>
 	</head>
