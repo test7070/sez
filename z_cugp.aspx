@@ -112,8 +112,20 @@
 					}, {
 						type : '1', //[17][18]
 						name : 'xdate2'
+					}, {
+						type : '2', //[19][20]
+						name : 'xtgg',
+						dbf : 'tgg',
+						index : 'noa,comp',
+						src : 'tgg_b.aspx'
 					}]
 				});
+				if(r_outs==1){
+					$('#txtXtgg1a').val(r_userno.toUpperCase()).attr('disabled','disabled');
+					$('#txtXtgg2a').val(r_userno.toUpperCase()).attr('disabled','disabled');
+					$('#btnXtgg1').unbind('click');
+					$('#btnXtgg2').unbind('click');
+				}
 				q_popAssign();
 				$('#txtXenddate').datepicker();
 				$('#txtXenddate').mask('999/99/99');
