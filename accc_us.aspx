@@ -51,6 +51,7 @@
 					mouse_div=true;
 				}
 			});
+			
 		    function main() {
 		        mainForm(1);
 		        // 1=最後一筆  0=第一筆
@@ -75,7 +76,6 @@
 		            else
 		            	$('.us').hide();
 		            
-
 		            t_prec = q_getPara('accc.prec');
 		            t_prec = q_trv(t_prec);
 
