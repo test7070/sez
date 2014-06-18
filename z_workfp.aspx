@@ -39,6 +39,20 @@
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
+					}, {
+						type : '2', //[7][8]
+						name : 'xucaucc',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
+					}, {
+						type : '5', //[9]
+						name : 'xsortby',
+						value : 'datea@依日期,pno@依品號'.split(',')
+					}, {
+						type : '8', //[10]
+						name : 'xwhere',
+						value : '1@已製單，未送驗,2@已暫收，未驗收,3@已驗收'.split(',')
 					}]
 				});
 				q_popAssign();
