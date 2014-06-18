@@ -236,6 +236,7 @@
 	            $('#Workgall').css('width','300px');
 	            
 	            if (window.parent.q_name == 'workg') {
+	            	q_gt('view_workg', "where=^^ noa = '"+wParent.getElementById("txtNoa").value+"' ^^ ", 0, 0, 0, "get_workg_memo2", r_accy);
 					var wParent = window.parent.document;
 					if(wParent.getElementById("txtOrdbno").value.length==0&&wParent.getElementById("txtOrdano").value.length==0)
 						$('#btnOk').click();
@@ -249,6 +250,25 @@
 
             function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'get_workg_memo2':
+						var as = _q_appendData("view_workg", "", true);
+						if (as[0] != undefined) {
+							if(as[0].memo2!='' && as[0].memo2 != undefined){
+								$('#txtWorkgno1').val(as[0].memo2.split('**')[0]);
+								$('#txtWorkgno2').val(as[0].memo2.split('**')[1]);
+								if(as[0].memo2.split('**')[2]=='1')
+									$('#chkOtherworkg [type]=checkbox').prop('checked','true');
+								$('#txtEnddate1').val(as[0].memo2.split('**')[3]);
+								$('#txtEnddate2').val(as[0].memo2.split('**')[4]);
+								if(as[0].memo2.split('**')[5]=='1')
+									$('#chkXordc [type]=checkbox').prop('checked','true');
+								if(as[0].memo2.split('**')[6]=='1')
+									$('#chkXsafe [type]=checkbox').prop('checked','true');
+								if(as[0].memo2.split('**')[7]=='1')
+									$('#chkWorkgall [type]=checkbox').prop('checked','true');
+							}
+						}
+						break;
 					case 'view_workg':
 						var as = _q_appendData("view_workg", "", true);
 						if (as[0] != undefined) {

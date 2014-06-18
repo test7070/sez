@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -1294,7 +1294,7 @@
 						<td style="width:80px;"><a id='lblRworkdate_s'> </a></td>
 						<td style="width:140px;"><a id='lblProductno_s'> </a></td>
 						<td style="width:210px;"><a id='lblProduct_s'> </a></td>
-						<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle_s'></a></td>
+						<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblSaleforecast_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblPrepare_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblUnprepare_s'> </a></td>
@@ -1395,7 +1395,7 @@
 					<td style="width:20px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 					</td>
-					<td style="width:20px;"></td>
+					<td style="width:20px;"> </td>
 					<td style="width:160px; text-align: center;"><a id='lblOrdeno_t'> </a></td>
 					<td style="width:40px; text-align: center;"><a id='lblNo2_t'> </a></td>
 					<td style="width:120px; text-align: center;"><a id='lblProductno_t'> </a></td>
