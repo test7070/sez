@@ -61,8 +61,7 @@
 				if(r_outs==1){
 					$('#txtXtgg1a').val(r_userno.toUpperCase()).attr('disabled','disabled');
 					$('#txtXtgg2a').val(r_userno.toUpperCase()).attr('disabled','disabled');
-					$('#btnXtgg1').unbind('click');
-					$('#btnXtgg2').unbind('click');
+					$('#btnXtgg1,#btnXtgg2').unbind('click');
 				}
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
