@@ -109,13 +109,33 @@
 						dbf : 'stationg',
 						index : 'noa,namea',
 						src : 'stationg_b.aspx'
+					}, {
+						type : '1', //[17][18]
+						name : 'xdate2'
+					}, {
+						type : '2', //[19][20]
+						name : 'xtgg',
+						dbf : 'tgg',
+						index : 'noa,comp',
+						src : 'tgg_b.aspx'
+					}, {
+						type : '8', //[21]
+						name : 'xshowtgg',
+						value : ('1@只顯示委外廠').split(',')
 					}]
 				});
+				if(r_outs==1){
+					$('#txtXtgg1a').val(r_userno.toUpperCase()).attr('disabled','disabled');
+					$('#txtXtgg2a').val(r_userno.toUpperCase()).attr('disabled','disabled');
+					$('#btnXtgg1,#btnXtgg2').unbind('click');
+				}
 				q_popAssign();
 				$('#txtXenddate').datepicker();
 				$('#txtXenddate').mask('999/99/99');
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
+				$('#txtXdate21').mask('999/99/99');
+				$('#txtXdate22').mask('999/99/99');
 
 				var wParent = window.parent.document;
 
@@ -133,6 +153,7 @@
 					$('#txtXdate1').val(wParent.getElementById("txtBdate").value);
 				} else {
 					$('#txtXdate1').val(t_year + '/' + t_month + '/' + t_day);
+					$('#txtXdate21').val(t_year + '/' + t_month + '/' + t_day);
 				}
 
 				t_date = new Date();
@@ -151,6 +172,7 @@
 					$('#txtXdate2').val(q_cdn(wParent.getElementById("txtBdate").value, 13));
 				} else {
 					$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
+					$('#txtXdate22').val(t_year + '/' + t_month + '/' + t_day);
 				}
 
 				//$('#txtXenddate').val(q_date());

@@ -50,16 +50,22 @@
 						name : 'xsortby',
 						value : 'datea@依日期,pno@依品號'.split(',')
 					}, {
-						type : '8', //[10]
-						name : 'xwhere',
-						value : '1@已製單，未送驗,2@已暫收，未驗收,3@已驗收'.split(',')
+						type : '5', //[10]
+						name : 'xwhere',//f,u,q
+						value : '4@階段一：委外製令單,1@階段二：已送驗未暫收,2@階段三：已暫收，未驗收,3@階段四：已驗收'.split(',')
 					}]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				if(r_outs==1){
+					$('#txtXtgg1a').val(r_userno.toUpperCase()).attr('disabled','disabled');
+					$('#txtXtgg2a').val(r_userno.toUpperCase()).attr('disabled','disabled');
+					$('#btnXtgg1,#btnXtgg2').unbind('click');
+				}
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
+				$('#Xwhere select').css('width','180px')
 				$('#txtXdate1').val(q_date().substring(0, 7) + '01');
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
 				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
