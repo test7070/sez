@@ -118,6 +118,10 @@
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
+					}, {
+						type : '8', //[21]
+						name : 'xshowtgg',
+						value : ('1@只顯示委外廠').split(',')
 					}]
 				});
 				if(r_outs==1){
