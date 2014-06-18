@@ -366,6 +366,10 @@
 					}
 		        } //j
 		        _bbsAssign();
+		        for (var j = 0; j < q_bbsCount; j++) {
+		        	if($('#cmbCoin_'+j).val()=='' && q_cur==1)
+		        		$('#cmbCoin_'+j).val('RMB');//預設
+		        }
 		    }
 
 		    function diff(obj) {
@@ -790,8 +794,8 @@
 						<td align="center" style="width:12%;"><a id='lblAccc5'> </a></td>
 						<td align="center" style="width:15%;"><a id='lblAccc6'> </a></td>
 						<td align="center" style="width:27%;"><a id='lblAccc7'> </a></td>
-						<td align="center" style="width:9%;"><a id='lblDmoney_s'> </a></td>
-						<td align="center" style="width:9%;"><a id='lblCmoney_s'> </a></td>
+						<td align="center" style="width:9%;">本幣<a id='lblDmoney_s'> </a></td>
+						<td align="center" style="width:9%;">本幣<a id='lblCmoney_s'> </a></td>
 						<td align="center" style="width:6%;" class="us"><a id='lblCoin'> </a></td>
 						<td align="center" style="width:6%;" class="us"><a id='lblFloata'> </a></td>
 						<td align="center" style="width:9%;" class="us"><a id='lblFmoney'> </a></td>
