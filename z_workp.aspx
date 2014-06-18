@@ -55,6 +55,9 @@
 					}, {
 						type : '6', //[12]
 						name : 'xstyle'
+					}, {
+						type : '1', //[13] [14]
+						name : 'xdate2'
 					}]
 				});
 				q_popAssign();
@@ -62,6 +65,8 @@
 				q_langShow();
 				$('#txtXdate1').datepicker().mask('999/99/99');
 				$('#txtXdate2').datepicker().mask('999/99/99');
+				$('#txtXdate21').datepicker().mask('999/99/99');
+				$('#txtXdate22').datepicker().mask('999/99/99');
 				$('#txtXnoa1').css('width', '160px');
 				$('#txtXnoa2').css('width', '160px');
 				var t_key = q_getHref();
