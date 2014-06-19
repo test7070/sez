@@ -402,13 +402,11 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:20%"><a id='vewMon'></a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
-
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='mon'>~mon</td>
 						<td align="center" id='datea'>~datea</td>
-
 					</tr>
 				</table>
 			</div>
