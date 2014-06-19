@@ -434,7 +434,11 @@
 							}else if (q_getPara('sys.comp').indexOf('楊家') > -1){
 								as[i].tablea='vcc_tn';
 							}else{
-								as[i].tablea='vcc'+ q_getPara('sys.project');
+								if(q_getPara('sys.steel')=='1'){
+									as[i].tablea='vccst';
+								}else{
+									as[i].tablea='vcc';
+								}
 							}
                         }
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtAccy,txtTablea,txtVccno,txtMemo2,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'accy,tablea,noa,memo,unpay,unpay,part', 'txtVccno', '');
@@ -679,7 +683,11 @@
                     	}else if (q_getPara('sys.comp').indexOf('楊家') > -1){
 							$('#txtTablea_'+i).val('vcc_tn');
 						}else{
-                    		$('#txtTablea_'+i).val('vcc'+ q_getPara('sys.project'));
+							if(q_getPara('sys.steel')=='1'){
+								$('#txtTablea_'+i).val('vccst');
+							}else{
+								$('#txtTablea_'+i).val('vcc');
+							}
                     	}
                 	}
                 }
@@ -762,7 +770,7 @@
                     	var n = $(this).attr('id').replace('txtVccno_','');
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
-                    	if(t_tablea.length>0){
+                    	if(t_tablea.length>0 && $(this).val().indexOf('TAX')==-1 ){
                     		//t_tablea = t_tablea + q_getPara('sys.project');
                     		//q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "'", t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
                     		q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
