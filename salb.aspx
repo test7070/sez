@@ -87,6 +87,9 @@
 								as[k]['tmp_money'] = s_money;
 								as[k]['tmp_food_money'] = 0;
 							}
+							for(var j=0;j<q_bbsCount;j++){
+								$('#btnMinus_'+j).click();
+							}
 							ret = q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal',as.length, as,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money','txtSssno');
 							var SssArray = [];
 							for(var i=0;i<ret.length;i++){
