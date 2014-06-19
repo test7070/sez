@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'sss', t_content = ' field=noa,namea,id,email,partno,part,cno,comp,indate,person,job,jobno', bbsKey = ['noa'], as;
+            var q_name = 'sss', t_content = ' field=noa,namea,id,email,partno,part,cno,comp,indate,person,job,jobno,addr_conn,sex', bbsKey = ['noa'], as;
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';

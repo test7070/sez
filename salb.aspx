@@ -18,7 +18,7 @@
 			q_tables = 's';
 			var q_name = "salb";
 			var q_readonly = ['txtNoa','txtMoney','txtMi_money'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtNamea','txtId'];
 			var bbmNum = [['txtMoney',15,0,1],['txtMi_money',15,0,1]];
 			var bbsNum = [
 				['txtMount',10,0,1],['txtAd_money',15,0,1],['txtCh_meal',15,0,1],
@@ -54,9 +54,14 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtCucdate', r_picd]];
+				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbSex", q_getPara('sss.sex'),'s');
+				$('#btnIndata').click(function(){
+					var t_mon = $.trim($('#txtMon').val());
+					var t_where = "where=^^ (typea=N'薪資') and (mon=N'"+t_mon+"')";
+					q_gt('salary', t_where, 0, 0, 0, "");
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -68,9 +73,50 @@
 				}
 				b_pop = '';
 			}
-
+			var ret;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'salary':
+						var as = _q_appendData("salarys", "", true);
+						var t_mon = $.trim($('#txtMon').val());
+						if(as.length == 0){
+							alert(t_mon+'尚未建立[薪資作業]');
+						}else{
+							for(var k=0;k<as.length;k++){
+								var s_money = dec(as[k].total5)-0-dec(as[k].addmoney);
+								as[k]['tmp_money'] = s_money;
+								as[k]['tmp_food_money'] = 0;
+							}
+							for(var j=0;j<q_bbsCount;j++){
+								$('#btnMinus_'+j).click();
+							}
+							ret = q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal',as.length, as,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money','txtSssno');
+							var SssArray = [];
+							for(var i=0;i<ret.length;i++){
+								var thisSssno = $.trim($('#txtSssno_'+ret[i]).val());
+								SssArray.push("'"+thisSssno+"'");
+							}
+							if(SssArray.length > 0){
+								var t_where = "where=^^ noa in (" + SssArray.toString() + ")";
+								q_gt('sss', t_where, 0, 0, 0, "salaryGetSSS");
+							}
+						}
+						break;
+					case 'salaryGetSSS':
+						var as = _q_appendData("sss", "", true);
+						for(var j=0;j<as.length;j++){
+							var sss_noa = $.trim(as[j].noa);
+							for(var k=0;k<ret.length;k++){
+								var ret_sss = $.trim($('#txtSssno_'+ret[k]).val());
+								if(sss_noa==ret_sss){
+									$('#txtId_'+ret[k]).val($.trim(as[j].id));
+									$('#cmbSex_'+ret[k]).val($.trim(as[j].sex));
+									$('#txtAddr_'+ret[k]).val(($.trim(as[j].addr_conn)=='同上'?$.trim(as[j].addr_home):$.trim(as[j].addr_conn)));
+									break;
+								}
+							}
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -80,10 +126,6 @@
 
 			function btnOk() {
 				$('#txtMon').val($.trim($('#txtMon').val()));
-				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
-					alert(q_getMsg('lblMon') + '錯誤。');
-					return;
-				}
 				sum();
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtMon', q_getMsg('lblMon')]]);
 				if (t_err.length > 0) {
@@ -93,8 +135,9 @@
 				$('#txtWorker').val(r_name)
 				sum();
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+				var t_datea = $.trim($('#txtDatea').val());
 				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_salb') + $('#txtDatea').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_salb') + t_datea, '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -134,6 +177,7 @@
 			}
 
 			function btnPrint() {
+				q_box('z_salb.aspx', '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
@@ -358,13 +402,11 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:20%"><a id='vewMon'></a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
-
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='mon'>~mon</td>
 						<td align="center" id='datea'>~datea</td>
-
 					</tr>
 				</table>
 			</div>
@@ -422,7 +464,10 @@
 					<td style="width:1%;">
 						<input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					</td>
-					<td><input id="txtSssno.*" type="text" class="txt c1"/></td>
+					<td>
+						<input id="btnSssno.*" type="button" style="width:10%;" value="." />
+						<input id="txtSssno.*" type="text" class="txt" style="width:70%;"/>
+					</td>
 					<td><input id="txtNamea.*" type="text" class="txt c1"/></td>
 					<td><input id="txtId.*" type="text" class="txt c1"/></td>
 					<td><input id="chkIsclerk.*" type="checkbox"/></td>
