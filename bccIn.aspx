@@ -90,7 +90,14 @@
                 		alert('請先輸入'+q_getMsg('lblOrdcno')+'或'+q_getMsg('lblTgg')+'。');
                 		return;
                 	}
-                	var t_where="kind='1' and noa in (select noa from view_ordc where enda!='1')";
+                	
+                	var t_where="1=1";
+                	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+                		 t_where+=" and apv='Y' and noa in (select noa from view_ordc where enda!='1')";
+                	}else{
+                		t_where+=" and kind='1' and noa in (select noa from view_ordc where enda!='1')";
+                	}
+                	
                 	if(!emp($('#txtOrdcno').val())){
                 		t_where=t_where+" and noa='" + $('#txtOrdcno').val() + "'";
                 	}

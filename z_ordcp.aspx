@@ -23,29 +23,74 @@
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_ordcp',
-                    options : [{/* [1]*/
-						type : '0',
-						name : 'accy',
-                        value : q_getId()[4] 
-                    },{/* [2]*/
-                        type : '0',
-                        name : 'xkind',
-                        value : q_getPara('ordc.kind')
-                    },{/*1 [3][4]*/
-                        type : '1',
-                        name : 'xdate'
-                    },{/*2 [5][6]*/
-                        type : '1',
-                        name : 'xnoa'
-                    }]
+                    options : [{/*2 [5][6]*/
+                        	type : '1',
+                        	name : 'xnoa'
+                    	},{
+							type : '5',
+	                        name : 'xkind',
+	                        value : [q_getPara('report.all')].concat(q_getPara('ordb.kind').split(','))
+                    	},{/*1*/
+							type : '1',
+							name : 'date'
+						}, {
+	                        type : '2',
+	                        name : 'xcno',
+	                        dbf : 'acomp',
+	                        index : 'noa,acomp',
+	                        src : 'acomp_b.aspx'
+	                    }, {
+	                        type : '2',
+	                        name : 'xtggno',
+	                        dbf : 'tgg',
+	                        index : 'noa,comp',
+	                        src : 'tgg_b.aspx'
+	                    }, {
+	                        type : '2',
+	                        name : 'xproductno',
+	                        dbf : 'bcc',
+	                        index : 'noa,product',
+	                        src : 'bcc_b.aspx'
+	                    },{
+							type : '5',
+							name : 'apv',
+							value : [q_getPara('report.all')].concat('Y@核准,N@未核准'.split(','))
+						},{
+							type : '5',
+							name : 'enda',
+							value : [q_getPara('report.all')].concat('1@結案,0@未結案'.split(','))
+						}]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate2').datepicker();
+               $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
+                
+                var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                
                 var t_para = (typeof (q_getId()[3]) == 'undefined' ? '' : q_getId()[3]).split('&');
                 for(var i=0;i<t_para.length;i++){
                     if(t_para[i].indexOf('noa=') >= 0){
@@ -56,6 +101,13 @@
                         }
                     }    
                 } 
+				
+				if (window.parent.q_name == 'ordc') {
+					var wParent = window.parent.document;
+					
+					$('#txtXnoa1').val(wParent.getElementById("txtNoa").value);
+					$('#txtXnoa2').val(wParent.getElementById("txtNoa").value);
+				}
             }
 
             function q_boxClose(s2) {

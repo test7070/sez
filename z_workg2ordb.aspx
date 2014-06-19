@@ -236,8 +236,8 @@
 	            $('#Workgall').css('width','300px');
 	            
 	            if (window.parent.q_name == 'workg') {
-	            	q_gt('view_workg', "where=^^ noa = '"+wParent.getElementById("txtNoa").value+"' ^^ ", 0, 0, 0, "get_workg_memo2", r_accy);
 					var wParent = window.parent.document;
+					q_gt('view_workg', "where=^^ noa = '"+wParent.getElementById("txtNoa").value+"' ^^ ", 0, 0, 0, "get_workg_memo2", r_accy);
 					if(wParent.getElementById("txtOrdbno").value.length==0&&wParent.getElementById("txtOrdano").value.length==0)
 						$('#btnOk').click();
 					else
