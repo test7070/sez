@@ -45,10 +45,7 @@
 		        q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
 		    }).mousedown(function(e) {
 				if(!$('#div_row').is(':hidden')){
-					if(mouse_div){
-						$('#div_row').hide();
-					}
-					mouse_div=true;
+					$('#div_row').hide();
 				}
 			});
 			
@@ -150,14 +147,12 @@
 		        //上方插入空白行
 	            $('#lblTop_row').mousedown(function(e) {
 	            	if(e.button==0){
-						mouse_div=false;
 						q_bbs_addrow(row_bbsbbt,row_b_seq,0);
 					}
 	             });
 				//下方插入空白行
 				$('#lblDown_row').mousedown(function(e) {
 					if(e.button==0){
-						mouse_div=false;
 						q_bbs_addrow(row_bbsbbt,row_b_seq,1);
 					}
 				});
@@ -347,10 +342,10 @@
 			                $('#text_Noq').val(b_seq);
 			                q_box('qPhr.aspx' + "?;;;;" + r_accy, 'qphr', "90%", "90%", m_qphr);
 			            });
-			            
-			            $('#btnMinus_'+j).mousedown(function(e) {
-							if(e.button==2){
-								mouse_div=false;
+						
+						$('#btnMinus_'+j).bind('contextmenu',function(e) {
+							e.preventDefault();
+	                    	if(e.button==2){
 								////////////控制顯示位置
 								$('#div_row').css('top',e.pageY);
 								$('#div_row').css('left',e.pageX);
@@ -362,7 +357,8 @@
 								row_b_seq=b_seq;
 								row_bbsbbt='bbs';
 							}
-						});
+                    	});
+						
 					}
 		        } //j
 		        _bbsAssign();
@@ -520,14 +516,14 @@
 	            	$('#div_row').hide();
 	            	$('#div_assm').hide();
 	            	//恢復滑鼠右鍵
-					document.oncontextmenu=function(){
+					/*document.oncontextmenu=function(){
 						return true;
-					}
+					}*/
 	            }else{
 	            	//防滑鼠右鍵
-					document.oncontextmenu=function(){
+					/*document.oncontextmenu=function(){
 						return false;
-					}	
+					}	*/
 	            }
 	            
 	            if(q_getPara('sys.isAcccUs')=='1')
@@ -598,7 +594,6 @@
 		        _btnCancel();
 		    }
 		    
-		    var mouse_div=true;//控制滑鼠消失div
 			var row_bbsbbt='';//判斷是bbs或bbt增加欄位
 			var row_b_seq='';//判斷第幾個row
 			//插入欄位

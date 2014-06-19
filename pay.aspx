@@ -644,11 +644,17 @@
                     	var n = $(this).attr('id').replace('txtRc2no_','');
                     	var t_accy = $('#txtAccy_'+n).val();
                     	var t_tablea = $('#txtTablea_'+n).val();
-                    	if(t_tablea.length>0){
+                    	if(t_tablea.length>0 && $(this).val().indexOf('TAX')==-1 && !($(this).val().indexOf('-')>-1 && $(this).val().indexOf('/')>-1)){//稅額和月結排除
                     		if (q_getPara('sys.comp').indexOf('楊家') > -1)
                     			t_tablea = t_tablea +'_tn';
-                    		else
-                    			t_tablea = t_tablea + q_getPara('sys.project');
+                    		else if (t_tablea=='rc2'){
+                    			if(q_getPara('sys.steel')=='1'){//鋼鐵業
+                    				t_tablea = t_tablea+'st';
+                    			}else{
+                    				t_tablea = t_tablea;
+                    			}
+                    		}
+                    			
                     		q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
                     	}
                     });

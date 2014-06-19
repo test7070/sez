@@ -58,11 +58,8 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			}).mousedown(function(e) {
-				if (!$('#div_row').is(':hidden')) {
-					if (mouse_div) {
-						$('#div_row').hide();
-					}
-					mouse_div = true;
+				if(!$('#div_row').is(':hidden')){
+					$('#div_row').hide();
 				}
 			});
 			
@@ -166,14 +163,12 @@
 				//上方插入空白行
 				$('#lblTop_row').mousedown(function(e) {
 					if (e.button == 0) {
-						mouse_div = false;
 						q_bbs_addrow(row_bbsbbt, row_b_seq, 0);
 					}
 				});
 				//下方插入空白行
 				$('#lblDown_row').mousedown(function(e) {
 					if (e.button == 0) {
-						mouse_div = false;
 						q_bbs_addrow(row_bbsbbt, row_b_seq, 1);
 					}
 				});
@@ -565,9 +560,9 @@
 							}
 						});
 
-						$('#btnMinus_' + j).mousedown(function(e) {
-							if (e.button == 2) {
-								mouse_div = false;
+						$('#btnMinus_'+j).bind('contextmenu',function(e) {
+							e.preventDefault();
+	                    	if(e.button==2){
 								////////////控制顯示位置
 								$('#div_row').css('top', e.pageY);
 								$('#div_row').css('left', e.pageX);
@@ -582,7 +577,8 @@
 								row_bbsbbt = 'bbs';
 								//儲存要新增的地方
 							}
-						});
+                    	});
+						
 					}
 				}
 				_bbsAssign();
@@ -731,9 +727,9 @@
 							}
 						});
 
-						$('#btnMinut__' + i).mousedown(function(e) {
+						$('#btnMinut__' + i).bind('contextmenu',function(e) {
+							e.preventDefault();
 							if (e.button == 2) {
-								mouse_div = false;
 								////////////控制顯示位置
 								$('#div_row').css('top', e.pageY);
 								$('#div_row').css('left', e.pageX);
@@ -844,14 +840,14 @@
 					$('#div_row').hide();
 					$('#div_assm').hide();
 					//恢復滑鼠右鍵
-					document.oncontextmenu = function() {
+					/*document.oncontextmenu = function() {
 						return true;
-					}
+					}*/
 				} else {
 					//防滑鼠右鍵
-					document.oncontextmenu = function() {
+					/*document.oncontextmenu = function() {
 						return false;
-					}
+					}*/
 				}
 			}
 
