@@ -37,6 +37,10 @@
 					}, {
 						type : '6', //[6]
 						name : 'xyears'
+					}, {
+						type : '0', //[7]
+						name : 'xusername',
+						value : r_name
 					}]
 				});
 				q_popAssign();
