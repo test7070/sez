@@ -317,6 +317,12 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'get_acc2':
+						var as = _q_appendData("acc", "", true);
+							if (as[0] != undefined) {
+								$('#txtAcc2_'+b_seq).val(as[0].acc2);
+							}
+						break;
 					case 'part':
 						var as = _q_appendData("part", "", true);
 						if (as[0] != undefined) {
@@ -663,9 +669,20 @@
 					if ($('#btnMinus_' + i).hasClass('isAssign'))/// 重要
 						continue;
 					$('#txtAcc1_' + i).change(function() {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						
 						var patt = /^(\d{4})([^\.,.]*)$/g;
 						$(this).val($(this).val().replace(patt, "$1.$2"));
 						sum();
+						
+						if(emp($('#txtAcc1_' + b_seq).val())){
+							$('#txtAcc2_' + b_seq).val('');
+						}/*else if(!emp($('#txtAcc1_'+b_seq).val()) && emp($('#txtAcc2_'+b_seq).val())){
+							q_gt("acc", "where=^^acc1='" + $('#txtAcc1_'+b_seq).val() + "' ^^", 1, 1, 0, "get_acc2", r_accy + '_' + r_cno);
+						}*/
+						
 					});
 					$('#txtVccno_' + i).bind('contextmenu', function(e) {
 						/*滑鼠右鍵*/
