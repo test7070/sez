@@ -15,7 +15,12 @@
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i, s1;
-			var q_readonly = ['textComp'];
+			var q_readonly = [
+				'textComp','textMemo_datea','chkMemo_isproj','textMemo_paytype',
+				'textMemo_coin','textMemo_floata','textMemo_salesno','textMemo_sales',
+				'textMemo_addr2','textMemo_dispasser','textMemo_memo',
+				'textMemo_checker','cmbMemo_trantype'
+			];
 			var q_readonlys = [
 				'txtNick','txtOdate','txtQuatno','txtNo3',
 				'txtProductno','txtProduct','txtSpec','txtClass',
@@ -28,7 +33,6 @@
 			isLoadGt = 0;
 			var fbbm = [];
 			$(document).ready(function() {
-				setDefaultValue();
 				t_content += ' where=^^ ' + SeekStr() + ' ^^';
 				main();
 				$('#btnToSeek').click(function() {
@@ -45,13 +49,49 @@
 				mainBrow(6, t_content);
 			}
 
+			function DoFunc(DoName){
+				DoName = $.trim(DoName);
+				var t_workerno = encodeURI($.trim(r_userno.toUpperCase()));
+				var t_worker = encodeURI($.trim(r_name));
+				var t_dispass = encodeURI($.trim($('#textMemo_dispass').val()));
+				var t_dispasser = encodeURI($.trim($('#textMemo_dispasser').val()));
+				var t_checkpass = encodeURI($.trim($('#textMemo_checkpass').val()));
+				var t_checkpasser = encodeURI($.trim($('#textMemo_checker').val()));
+				var t_quatno = [];
+				for(var k=0;k<q_bbsCount;k++){
+					if($('#checkSel_'+k).prop('checked')){
+						var thisQuatno = $.trim($('#txtQuatno_'+k).val());
+						var thisNo3 = $.trim($('#txtNo3_'+k).val());
+						if(thisQuatno.length > 0){
+							t_quatno.push(thisQuatno+'-'+thisNo3);
+						}
+					}
+				}
+				if(t_quatno.length==0){
+					alert('請選擇報價單');
+					return;
+				}else{
+					var t_quatnoStr = $.trim(t_quatno.toString());
+					t_quatnoStr = t_quatnoStr.replace(/\,/g, "^^");
+					Lock();
+					q_func('qtxt.query.quatc.'+DoName, 'quatc.txt,'+DoName+',' + t_workerno + ';' +
+																		 t_worker + ';' +
+																		 t_dispass + ';' +
+																		 t_dispasser + ';' +
+																		 t_checkpass + ';' +
+																		 t_checkpasser + ';' +
+																		 encodeURI(t_quatnoStr) + ';'
+					);
+				}
+			}
+			
 			var SeekF = new Array();
 			function mainPost() {
 				q_getFormat();
 				$('#textBdate').mask(r_picd);
 				$('#textEdate').mask(r_picd);
-				setDefaultValue();
 				q_cmbParse("combTypea", q_getPara('sys.stktype'));
+				q_cmbParse("cmbMemo_trantype", q_getPara('sys.tran'));
 				$('#textCustno').focus(function() {
 					q_cur = 2;
 				}).blur(function() {
@@ -67,38 +107,55 @@
 						keypress_bbm(event, $(this), SeekF, 'btnToSeek');
 					});
 				});
+				$('#btnMemo_disapv').click(function(){
+					DoFunc('dis_apv');
+				});
+				$('#btnMemo_disunapv').click(function(){
+					DoFunc('dis_unapv');
+				});
+				$('#btnMemo_checkapv').click(function(){
+					DoFunc('checker_apv');
+				});
+				$('#btnMemo_checkunapv').click(function(){
+					DoFunc('checker_unapv');
+				});
 			}
 
-			function setDefaultValue() {
-				var w = window.parent;
-				var t_deli = '_';
-				if (w.q_name == 'cub')
-					t_deli = '__';
-				var t_productno = w.$('#txtProductno' + t_deli + w.b_seq).val();
-				t_productno = ( t_productno ? t_productno : '');
-				var t_radius = dec(w.$('#txtRadius' + t_deli + w.b_seq).val());
-				var t_dime = dec(w.$('#txtDime' + t_deli + w.b_seq).val());
-				var t_width = dec(w.$('#txtWidth' + t_deli + w.b_seq).val());
-				var t_lengthb = dec(w.$('#txtLengthb' + t_deli + w.b_seq).val());
-				var t_kind = '';
-				if (w.$('#cmbKind').val()) {
-					t_kind = $.trim(w.$('#cmbKind').val());
+			function q_funcPost(t_func, result) {
+				switch(t_func){
+					default:
+						var as = _q_appendData("tmp0", "", true, true);
+						var ShowMsg = '';
+						if(as.length == 0){
+							alert('執行完畢!!');
+						}else{
+							for(var k=0;k<as.length;k++){
+								var thisMemo = $.trim(as[k].memo).split(':');
+								if(thisMemo[0]=='ERROR'){
+									ShowMsg += thisMemo[1] + '\n';
+								}
+							}
+							if(ShowMsg.length > 0){
+								alert(ShowMsg);
+							}else{
+								switch(t_func){
+									case 'qtxt.query.quatc.dis_apv':
+									case 'qtxt.query.quatc.dis_unapv':
+										$('#textMemo_dispasser').val(r_name);
+										break;
+									case 'qtxt.query.quatc.checker_apv':
+									case 'qtxt.query.quatc.checker_unapv':
+										$('#textMemo_checker').val(r_name);
+										break;
+								}
+							}
+						}
+						break;
 				}
-				if (w.q_name == 'cub') {
-					if (w.$('#cmbTypea').find("option:selected").text() == '製管') {
-						t_kind = 'A1';
-					} else {
-						t_kind = 'B2';
-					}
-				}
-				$('#combTypea').val(t_kind);
-				$('#textProductno').val(t_productno);
-				$('#textRadius').val(t_radius);
-				$('#textDime').val(t_dime);
-				$('#textWidth').val(t_width);
-				$('#textLengthb').val(t_lengthb);
+				seekData(LastSearchStr);
+				Lock();
 			}
-
+			
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case q_name:
@@ -123,21 +180,51 @@
 							$('#checkAllCheckbox').attr('checked', false);
 						}
 					});
+					$('#radioSel_'+j).click(function(){
+						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length-1];
+						if(abbs.length >= (dec(n)+1)){
+							$('#textMemo_datea').val(abbs[n].datea);
+							$("#chkMemo_isproj").attr('checked',(((abbs[n].isproj).toLowerCase()=="true") || abbs[n].isproj==true || abbs[n].isproj==1));
+							$('#cmbMemo_trantype').val(abbs[n].trantype);
+							$('#textMemo_paytype').val(abbs[n].paytype);
+							$('#textMemo_coin').val(abbs[n].coin);
+							$('#textMemo_floata').val(abbs[n].floata);
+							$('#textMemo_salesno').val(abbs[n].salesno);
+							$('#textMemo_sales').val(abbs[n].sales);
+							$('#textMemo_addr2').val(abbs[n].addr2);
+							$('#textMemo_memo').val(abbs[n].memo);
+						}
+					});
 				}
 			}
-
+			var LastSearchStr = '';
 			function SeekStr() {
-				t_ordeno = trim($('#textOrdeno').val());
-				t_productno = trim($('#textProductno').val());
-				t_storeno = trim($('#textStoreno').val());
-				t_class = trim($('#textClass').val());
-				t_radius = (dec($('#textRadius').val()) == 0 ? '' : dec($('#textRadius').val()));
-				t_dime = (dec($('#textDime').val()) == 0 ? '' : dec($('#textDime').val()));
-				t_width = (dec($('#textWidth').val()) == 0 ? '' : dec($('#textWidth').val()));
-				t_lengthb = (dec($('#textLengthb').val()) == 0 ? '' : dec($('#textLengthb').val()));
-				t_weight = (dec($('#textWeight').val()) == 0 ? '' : dec($('#textWeight').val()));
-				t_kind = trim($('#combTypea').val());
+				var t_typea = $.trim($('#combTypea').val());
+				var t_bdate = $.trim($('#textBdate').val());
+				var t_edate = $.trim($('#textEdate').val());
+				var t_custno = $.trim($('#textCustno').val());
+				var t_showLow = ($('#checkShow1').prop('checked')?1:0);
+				var t_showDis = ($('#checkShow2').prop('checked')?1:0);
+				var t_showApv = ($('#checkShow3').prop('checked')?1:0);
+				var t_quatno = $.trim($('#textQuatno').val());
+				if(t_edate.length == ''){
+					t_edate = '999/99/99';
+				}
 				var t_where = " 1=1 ";
+				t_where += " and (b.kind=N'"+t_typea+"') and (b.odate between N'"+t_bdate+"' and N'"+t_edate+"' ) ";
+				if(t_custno.length > 0){
+					t_where += " and (b.costno=N'"+t_custno+"')";
+				}
+				if(t_quatno.length > 0){
+					t_where += " and (b.noa=N'"+t_quatno+"')";
+				}
+				if(t_showApv == 1){
+					t_where += " and (len(a.checker)>0)";
+				}
+				if(t_showDis == 1){
+					t_where += " and (len(a.diser)>0)";
+				}
+				LastSearchStr = t_where;
 				return t_where;
 			}
 
@@ -149,6 +236,8 @@
 						$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 					});
 				});
+				q_bbsCount = (abbs.length==0?1:abbs.length);
+				_readonly(false);
 				Unlock();
 			}
 			function readonly(t_para, empty) {
@@ -156,12 +245,12 @@
 			}
 		</script>
 		<style type="text/css">
-			#seekForm {
+			#seekForm,#MemoForm {
 				margin-left: auto;
 				margin-right: auto;
-				width: 95%;
+				width: 100%;
 			}
-			#seekTable {
+			#seekTable,#MemoTable {
 				padding: 0px;
 				border: 1px white double;
 				border-spacing: 0;
@@ -171,7 +260,7 @@
 				background: #cad3ff;
 				width: 100%;
 			}
-			#seekTable tr {
+			#seekTable tr,,#MemoTable tr {
 				height: 35px;
 			}
 			.txt.c1 {
@@ -189,10 +278,13 @@
 			td {
 				width: 4%;
 			}
+			#MemoTable td{
+				width: 1%;
+			}
 			.num {
 				text-align: right;
 			}
-			input[type="text"],input[type="button"] {
+			input[type="text"],input[type="button"],select {
 				font-size: medium;
 			}
 			.StrX {
@@ -243,7 +335,7 @@
 				<div></div>
 			</div>
 		</div>
-		<div id="dbbs" style="overflow: scroll;height:450px; width:100%;" >
+		<div id="dbbs" style="width:100%;" >
 			<table id="tbbs" class='tbbs' border="2" cellpadding='2' cellspacing='1' style='width:1850px;' >
 				<tr style='color:White; background:#003366;' >
 					<th align="center" style="width:40px;" >
@@ -333,6 +425,65 @@
 					</td>
 				</tr>
 			</table>
+		</div>
+		<div id="MemoForm">
+			<table id="MemoTable" border="0" cellpadding='0' cellspacing='0'>
+				<tr>
+					<td><span class="lbl">有效日期</span></td>
+					<td><input id="textMemo_datea" type="text" class="txt c1"/></td>
+					<td>
+						<input id="chkMemo_isproj" type="checkbox" class="txt" style="float: left;"/>
+						<span class="lbl" style="float:left;">專案</span>
+					</td>
+					<td><span class="lbl">交運方式</span></td>
+					<td><select id="cmbMemo_trantype" class="txt c1"></select></td>
+					<td><span class="lbl">付款方式</span></td>
+					<td><input id="textMemo_paytype" type="text" class="txt c1"/></td>
+				</tr>
+				<tr>
+					<td><span class="lbl">匯率</span></td>
+					<td colspan="2">
+						<input id="textMemo_coin" type="text" class="txt" style="width:45%;"/>
+						<input id="textMemo_floata" type="text" class="txt" style="width:50%;"/>
+					</td>
+					<td></td>
+					<td></td>
+					<td><span class="lbl">業務員</span></td>
+					<td colspan="2">
+						<input id="textMemo_salesno" type="text" class="txt" style="width:45%;"/>
+						<input id="textMemo_sales" type="text" class="txt" style="width:50%;"/>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="lbl">送貨地址</span></td>
+					<td colspan="4"><input id="textMemo_addr2" type="text" class="txt c1"/></td>
+					<td><span class="lbl">折扣密碼</span></td>
+					<td colspan="2">
+						<input id="textMemo_dispass" type="password" class="txt" style="width:45%;"/>
+						<input id="textMemo_dispasser" type="text" class="txt" style="width:50%;"/>
+					</td>
+					<td colspan="2">
+						<input id="btnMemo_disapv" type="button" class="txt c1" value="核准" style="width:45%;"/>
+						<input id="btnMemo_disunapv" type="button" class="txt c1" value="取消核准" style="width:45%;"/>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="lbl">備註</span></td>
+					<td colspan="4"><input id="textMemo_memo" type="text" class="txt c1"/></td>
+					<td><span class="lbl">核准密碼</span></td>
+					<td colspan="2">
+						<input id="textMemo_checkpass" type="password" class="txt" style="width:45%;"/>
+						<input id="textMemo_checker" type="text" class="txt" style="width:50%;"/>
+					</td>
+					<td colspan="2">
+						<input id="btnMemo_checkapv" type="button" class="txt" value="核准" style="width:45%;"/>
+						<input id="btnMemo_checkunapv" type="button" class="txt" value="取消核准" style="width:45%;"/>
+					</td>
+				</tr>
+			</table>
+			<div id="q_acDiv" style="display: none;">
+				<div></div>
+			</div>
 		</div>
 	</body>
 </html>
