@@ -14,7 +14,11 @@
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
         <script type="text/javascript">
             var q_name = "ordc_s";
-            aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,nick', 'txtTggno', 'tgg_b.aspx']);
+            aPop = new Array(
+            	['txtTggno', 'lblTggno', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
+            	['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            	['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']
+            );
             $(document).ready(function() {
                 main();
             });
@@ -30,30 +34,30 @@
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", '@全部,'+q_getPara('ordc.kind'));
-                $('#txtBdate').datepicker();
-                $('#txtEdate').datepicker(); 
                 $('#txtNoa').focus();
+                $('#txtComp').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
+                $('#txtSales').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
+                $('#txtPart').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
             }
 
             function q_seekStr() {
                 t_kind = $.trim($('#cmbKind').val());
                 t_noa = $.trim($('#txtNoa').val());
-                t_tggno = $.trim($('#txtTggno').val());
-                t_comp = $.trim($('#txtComp').val());
-                t_ordbno = $.trim($('#txtOrdbno').val());
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
+                t_partno = $.trim($('#txtPartno').val());
+                t_tggno = $.trim($('#txtTggno').val());
+                t_salesno = $.trim($('#txtSalesno').val());
                 
                 var t_where = " 1=1 " 
                 + q_sqlPara2("noa", t_noa) 
-                + q_sqlPara2("datea", t_bdate, t_edate)              
+                + q_sqlPara2("datea", t_bdate, t_edate)
+                + q_sqlPara2("partno", t_partno);
+                + q_sqlPara2("salesno", t_salesno);              
                 + q_sqlPara2("tggno", t_tggno);
+                
                 if (t_kind.length>0)
                     t_where += " and kind='"+t_kind+"'";
-                if (t_comp.length>0)
-                    t_where += " and charindex('" + t_comp + "',tgg)>0";
-                if(t_ordbno.length>0)
-                    t_where += " and exists(select noa from ordcs"+r_accy+" where ordcs"+r_accy+".noa=ordc"+r_accy+".noa and ordcs"+r_accy+".ordbno='"+t_ordbno+"')";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -79,13 +83,13 @@
                     <td><select id="cmbKind" style="width:215px; font-size:medium;" > </select></td>
                 </tr>
                 <tr class='seek_tr'>
-                    <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+                    <td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
                     <td>
                     <input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
                     </td>
                 </tr>
                 <tr class='seek_tr'>
-                    <td   style="width:35%;" ><a id='lblDatea'></a></td>
+                    <td   style="width:35%;" ><a id='lblDatea'> </a></td>
                     <td style="width:65%;  ">
                     <input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
                     <span style="display:inline-block; vertical-align:middle">&sim;</span>
@@ -93,23 +97,26 @@
                     </td>
                 </tr>
                 <tr class='seek_tr'>
-                    <td class='seek'  style="width:20%;"><a id='lblTggno'></a></td>
-                    <td>
-                    <input class="txt" id="txtTggno" type="text" style="width:215px; font-size:medium;" />
-                    </td>
-                </tr>
+	                <td class='seek'  style="width:20%;"><a id='lblPart'> </a></td>
+	                <td>
+	                	<input class="txt" id="txtPartno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+	                	<input class="txt" id="txtPart" type="text" style="width:115px; font-size:medium;" />
+	                </td>
+                 </tr>
                 <tr class='seek_tr'>
-                    <td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
+                    <td class='seek'  style="width:20%;"><a id='lblTggno'> </a></td>
                     <td>
-                    <input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
-                    </td>
+	                	<input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+	                	<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+                	</td>
                 </tr>
-                <tr class='seek_tr'>
-                    <td class='seek'  style="width:20%;"><a id='lblOrdbno'></a></td>
-                    <td>
-                    <input class="txt" id="txtOrdbno" type="text" style="width:215px; font-size:medium;" />
-                    </td>
-                </tr>
+				<tr class='seek_tr'>
+	                <td class='seek'  style="width:20%;"><a id='lblSales'> </a></td>
+	                <td>
+	                	<input class="txt" id="txtSalesno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+	                	<input class="txt" id="txtSales" type="text" style="width:115px; font-size:medium;" />
+	                </td>
+             	</tr>
             </table>
             <!--#include file="../inc/seek_ctrl.inc"-->
         </div>

@@ -28,14 +28,14 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Odate';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount', 'bcc_b.aspx']
-							,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-							,['txtCno','lblAcomp','acomp','noa,nick','txtCno,txtAcomp','acomp_b.aspx']
-							,['txtTggno','lblTgg','tgg','noa,nick,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
+            aPop = new Array(
+            	['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount', 'bcc_b.aspx']
+				,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+				,['txtCno','lblAcomp','acomp','noa,nick','txtCno,txtAcomp','acomp_b.aspx']
+				,['txtTggno','lblTgg','tgg','noa,nick,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']
+				,['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx']
+			);
 			
-			if (r_rank>7){
-				q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus', 'txtTax'];
-			}
 							
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -79,12 +79,12 @@
 			     $('#lblOrdb').click(function () {
 	            	var t_tggno = trim($('#txtTggno').val());
 		            var t_ordbno = trim($('#txtOrdbno').val());
-		            var t_where='';
+		            var t_where="(noa+'_'+no3 in (select ordbno+'_'+no3 from view_ordcs where noa='"+$('#txtNoa').val()+"')) or ";
 		            if (t_tggno.length > 0) {
 		            	if (t_ordbno.length > 0) 
-		            		t_where = "enda=0 && apv='Y' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		            		t_where += "(enda=0 && apv='Y' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"')";  ////  sql AND 語法，請用 &&
 		            	else
-		                	t_where = "enda=0 && apv='Y' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		                	t_where += "(enda=0 && apv='Y' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"')";  ////  sql AND 語法，請用 &&
 		                t_where = t_where;
 		            }
 		            else {
@@ -104,6 +104,11 @@
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
+						
+						for(var j = 0; j < q_bbsCount; j++) {
+							$('#btnMinus_'+j).click();
+						}
+						                            
 						$('#txtOrdbno').val(b_ret[0].noa);
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
                                                            , 'productno,product,noa,no3,price,mount,weight,total,memo,unit'
@@ -185,7 +190,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('ordc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('ordc_s.aspx', q_name + '_s', "500px", "430px", q_getMsg("popSeek"));
             }
 
             function combPaytype_chg() {
@@ -341,7 +346,7 @@
 		        }
 		        
 		        if(q_cur==1 || q_cur==2){
-					if(r_rank>7)
+					if(r_modi)
 						$('#cmbApv').removeAttr('disabled');
 					else
 						$('#cmbApv').attr('disabled', 'disabled');
@@ -614,8 +619,11 @@
 				<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
 				<td class="td2" colspan="2"><input id="txtCno"  type="text" class="txt c4 lef"/>
 				<input id="txtAcomp"type="text" class="txt c5 lef" /></td>
-				<td class="td4"><span> </span><a id='lblContract' class="lbl"> </a></td>
-				<td class="td5" colspan="2"><input id="txtContract"  type="text" class="txt c1 lef"/></td>    
+				<td class="td4"><span> </span><a id='lblPart' class="lbl btn"> </a></td>
+				<td class="td5" colspan="2">
+					<input id="txtPartno"  type="text" class="txt c2 lef"/>
+					<input id="txtPart"    type="text" class="txt c3 lef"/>
+               	</td>
                 <td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 				<td class="td8"><input id="txtNoa"   type="text" class="txt c1 lef"/></td>
             </tr>
@@ -659,6 +667,17 @@
                 <td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
                 <td class="td5"><select id="cmbCoin" class="txt c1 lef"> </select></td>                 
                 <td class="td6"><input id="txtFloata" type="text"  class="txt num c1 lef" /></td>    
+                <td class="td7"><span> </span><a id="lblApv" class="lbl"> </a></td>
+            	<td class="td8"><select id="cmbApv" class="txt c1 lef" name="D1" > </select></td>	
+            </tr>
+            <tr class="tr8">
+                <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>--> 
+                <td class="td1"><span> </span><a id='lblContract' class="lbl"> </a></td>
+				<td class="td2" colspan="2"><input id="txtContract"  type="text" class="txt c1 lef"/></td>
+                <td class="td4"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+                <td class="td5"><input id="txtWorker"  type="text" class="txt c1 lef" /></td>
+                <td class="td6"><input id="txtWorker2"  type="text" class="txt c1 lef" /></td> 
                 <td class="td7" align="right">
                 	<input id="chkIsproj" type="checkbox"/>
                 	<a id='lblIsproj' style="width: 50%;"> </a>
@@ -666,19 +685,7 @@
                 <td class="td8" align="right">
 					<input id="chkEnda" type="checkbox"/>
                 	<a id='lblEnd' style="width: 40%;"> </a><span> </span>
-                </td>	
-            </tr>
-            <tr class="tr8">
-                <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>--> 
-                <td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-                <td class="td6"><input id="txtWorker"  type="text" class="txt c1 lef" /></td> 
-                <td> </td>
-                <td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-                <td class="td8"><input id="txtWorker2"  type="text" class="txt c1 lef" /></td>
-                <td> </td> 
-                <td class="td7"><span> </span><a id="lblApv" class="lbl"> </a></td>
-            	<td class="td8"><select id="cmbApv" class="txt c1 lef" name="D1" > </select></td>
+                </td>
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
