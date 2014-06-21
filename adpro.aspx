@@ -17,8 +17,8 @@
 			}
 
 			var q_name = "adpro";
-			var q_readonly = ['txtNoa'];
-			var bbmNum = [];
+			var q_readonly = ['txtNoa','txtProduct','txtComp'];
+			var bbmNum = [['txtExreprice', 10, 2, 1],['txtExprice', 10, 2, 1],['txtDiffprice', 10, 2, 1],['txtWeight', 10, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -29,7 +29,7 @@
 			q_xchg = 1;
 			q_desc = 1;
 			aPop = new Array(
-				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
+				['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
 				['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']
 			);
 
@@ -52,6 +52,11 @@
 				bbmMask = [['txtMon', r_picm], ['txtDatea', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
+				
+				$('#txtMon').blur(function() {
+					if((q_cur==1 || q_car==2) &&emp($('#txtDatea').val())&&!emp($('#txtMon').val()))
+                    $('#txtDatea').val($('#txtMon').val()+'/01');
+                });
 			}
 
 			function q_boxClose(s2) {
@@ -81,7 +86,7 @@
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
-				$('#txtDatea').val(q_date());
+				//$('#txtDatea').val(q_date());
 				$('#txtMon').focus();
 			}
 
