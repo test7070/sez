@@ -26,7 +26,7 @@
 			brwKey = 'noa';
 			brwCount2 = 20;
 			aPop = new Array(
-				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+				['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
 			);
 
 			$(document).ready(function() {

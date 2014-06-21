@@ -26,8 +26,8 @@
 			brwKey = 'noa';
 			brwCount2 = 20;
 			aPop = new Array(
-				['txtProductno', 'lblProduct', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx'],
-				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']
+				['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+				['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -78,7 +78,7 @@
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
-				$('#txtMon').focus();
+				$('#txtMon').val(q_date().substring(0,6)).focus();
 			}
 
 			function btnModi() {

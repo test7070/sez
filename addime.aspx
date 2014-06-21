@@ -31,7 +31,7 @@
 			q_xchg = 1;
 			brwCount2 = 20;
 			aPop = new Array(
-				['txtProductno', 'lblProduct', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+				['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -52,9 +52,10 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
-
+				
+				q_gt('custtype', '', 0, 0, 0, "custtype");
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
-				q_cmbParse("cmbUsetype", ('').concat(new Array('盤商', '貿易商', '下游廠商', '其他')));
+				//q_cmbParse("cmbUsetype", ('').concat(new Array('盤商', '貿易商', '下游廠商', '其他')));
 				q_cmbParse("cmbKind", ('').concat(new Array('', '原料', '加工')));
 			}
 
@@ -69,6 +70,18 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'custtype':
+						var as = _q_appendData("custtype", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
+							}
+							q_cmbParse("cmbUsetype", t_item);
+							if(abbm[q_recno])
+								$("#cmbUsetype").val(abbm[q_recno].usetype);
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -366,19 +379,15 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
-						<td><select id='cmbStyle' class="txt c1" ></select></td>
+						<td><select id='cmbStyle' class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUsetype' class="lbl"> </a></td>
-						<td><select id='cmbUsetype' class="txt c1" ></select></td>
+						<td><select id='cmbUsetype' class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
-						<td><select id='cmbKind' class="txt c1" ></select></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblPstyle' class="lbl"> </a></td>
-						<td><input id="txtPstyle" type="text" class="txt c1" /></td>
+						<td><select id='cmbKind' class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
@@ -386,6 +395,12 @@
 							<input id="txtProductno" type="text" class="txt c2" />
 							<input id="txtProduct" type="text" class="txt c3" />
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
+						<td><input id="txtSpec" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblPstyle' class="lbl"> </a></td>
+						<td><input id="txtPstyle" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDime1' class="lbl"> </a></td>
@@ -402,8 +417,6 @@
 					<tr>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td><input id="txtPrice" type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
-						<td><input id="txtSpec" type="text" class="txt num c1" /></td>
 					</tr>
 				</table>
 			</div>

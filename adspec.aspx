@@ -30,7 +30,7 @@
 			brwCount2 = 20;
 			q_xchg = 1;
 			aPop = new Array(
-				['txtProductno', 'lblProduct', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+				['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
 			);
 
 			$(document).ready(function() {
