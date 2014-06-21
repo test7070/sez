@@ -17,7 +17,7 @@
 			q_tables = 's';
 			var q_name = "adly";
 			var q_readonly = ['txtNoa'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtProduct'];
 			var bbmNum = [];
 			var bbsNum = [
 					['txtHweight', 10, 3, 1],['txtWeight', 10, 3, 1],['txtInprice', 10, 3, 1],
@@ -34,7 +34,7 @@
 			brwKey = 'noa';
 			q_desc=1;
 			aPop = new Array(
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucc_b.aspx']
 			);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -55,6 +55,10 @@
 				q_getFormat();
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				
+				$('#btnPrevasly').click(function() {
+					q_gt("adly", "where=^^mon=(select MAX(mon) from adly) ^^", 1, 1, 0, "get_prev", r_accy);
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -69,6 +73,11 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'get_prev':
+						as = _q_appendData("adlys", "", true);
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtTeamno,txtTeam,txtHweight,txtWeight,txtInprice,txtFixedprice,txtNoprice,txtSecondprice,txtMixprice'
+						, as.length, as, 'productno,product,spec,teamno,team,hweight,weight,inprice,fixedprice,noprice,secondprice,mixprice', 'txtProductno', '');
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -302,7 +311,7 @@
 				float: left;
 			}
 			.dbbs {
-				width: 1050px;
+				width: 1260px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -339,23 +348,23 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1" /></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td class="td2"><input id="txtMon"  type="text" class="txt c1"/></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"><input type="button" id="btnPrevasly" class="txt c1 " /></td>
 					</tr>
 				</table>
 			</div>
@@ -368,7 +377,7 @@
 					</td>
 					<td align="center" style="width:13%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblSpec_s'> </a></td>
-					<td align="center" style="width:13%;"><a id='lblTeamno_s'> </a></td>
+					<td align="center" style="width:13%;"><a id='lblTeamno_s'> </a>/<a id='lblTeam_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblHweight_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblInprice_s'> </a></td>
@@ -388,12 +397,10 @@
 						<span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
 					</td>
-					<td><input id="txtSpec.*" type="text" style="width: 85%;"/></td>
+					<td><input id="txtSpec.*" type="text" style="width: 95%;"/></td>
 					<td>
-						<input class="btn"  id="btnTeamno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-						<input type="text" id="txtTeamno.*"  style="width:85%; float:left;"/>
-						<span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtTeam.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtTeamno.*"  style="width:95%; float:left;"/>
+						<input type="text" id="txtTeam.*"  style="width:95%; float:left;"/>
 					</td>
 					<td><input id="txtHweight.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtWeight.*" type="text" class="txt num c1"/></td>

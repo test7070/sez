@@ -189,7 +189,6 @@
 				q_tr('txtTotal8_'+j,q_float('txtMoney_'+j)-q_float('txtTotal7_'+j));
 				
 				//發放金額
-				q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
 				t_total+=dec($('#txtTotal8_'+j).val());
 			}  // j
 			q_tr('txtTotal',t_total);

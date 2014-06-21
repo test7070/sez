@@ -16,8 +16,8 @@
 			}
 
 			var q_name = "adsss";
-			var q_readonly = ['txtNoa'];
-			var bbmNum = [];
+			var q_readonly = ['txtNoa','txtProduct','txtWorker','txtWorker2'];
+			var bbmNum = [['txtPrice', 10, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -25,7 +25,9 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			brwCount2 = 20;
-			aPop = new Array(['txtProductno', 'lblProduct', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']);
+			aPop = new Array(
+				['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+			);
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -118,8 +120,18 @@
 
 			function btnOk() {
 				Lock();
+				
+				if(q_cur ==1){
+		            $('#txtWorker').val(r_name);
+				}else if(q_cur ==2){
+					$('#txtWorker2').val(r_name);
+				}else{
+					alert("error: btnok!")
+				}
+				
 				var t_date = $('#txtMon').val();
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+				
 				if (s1.length == 0 || s1 == "AUTO")/// 自動產生編號
 					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
@@ -331,7 +343,7 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewStyle'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewProductno'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewPrice'> </a></td>
-						<td align="center" style="width:300px; color:black;"><a id='vewAgent'> </a></td>
+						<!--<td align="center" style="width:300px; color:black;"><a id='vewAgent'> </a></td>-->
 					</tr>
 					<tr>
 						<td >
@@ -342,18 +354,18 @@
 						<td id='style=adsss.stype' style="text-align: center;">~style=adsss.stype</td>
 						<td id='productno' style="text-align: left;">~productno</td>
 						<td id='price' style="text-align: right;">~price</td>
-						<td id='agent' style="text-align: left;">~agent</td>
+						<!--<td id='agent' style="text-align: left;">~agent</td>-->
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -365,7 +377,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
-						<td><select id='cmbStyle' ></select></td>
+						<td><select id='cmbStyle' > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
@@ -376,14 +388,23 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblJob' class="lbl"> </a></td>
-						<td><select id='cmbJob'></select></td>
+						<td><select id='cmbJob'> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td><input id="txtPrice"  type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblAgent" class="lbl"> </a></td>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text" class="txt c1 " /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1 " /></td>
+					</tr>
+					<!--1030620代理人只是看是誰建立資料所以用操作者代替-->
+					<!--<tr>
+						<td><span> </span><a id="lblAgent" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtAgentno" type="text" style="float:left; width:25%;"/>
 							<input id="txtAgeent"  type="text" style="float:left; width:73%;"/>
@@ -392,7 +413,7 @@
 					<tr>
 						<td><span> </span><a id='lblPasswd' class="lbl"> </a></td>
 						<td><input id="txtPasswd" type="text" class="txt c1" /></td>
-					</tr>
+					</tr>-->
 				</table>
 			</div>
 		</div>

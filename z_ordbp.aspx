@@ -22,39 +22,45 @@
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_ordbp',
-                        options : [{/*1*/
+                        options : [{/*[1][2]*/
 							type : '1',
 							name : 'noa'
-						},{
+						},{/*[3]*/
 	                        type : '5',
 	                        name : 'xkind',
 	                        value : [q_getPara('report.all')].concat(q_getPara('ordb.kind').split(','))
-                    	},{/*1*/
+                    	},{/*[4][5]*/
 							type : '1',
 							name : 'date'
-						}, {
+						}, {/*[6][7]*/
 	                        type : '2',
 	                        name : 'xcno',
 	                        dbf : 'acomp',
 	                        index : 'noa,acomp',
 	                        src : 'acomp_b.aspx'
-	                    }, {
+	                    }, {/*[8][9]*/
+	                        type : '2',
+	                        name : 'xpartno',
+	                        dbf : 'part',
+	                        index : 'noa,part',
+	                        src : 'part_b.aspx'
+	                    }, {/*[10][11]*/
 	                        type : '2',
 	                        name : 'xtggno',
 	                        dbf : 'tgg',
 	                        index : 'noa,comp',
 	                        src : 'tgg_b.aspx'
-	                    }, {
+	                    }, {/*[12][13]*/
 	                        type : '2',
 	                        name : 'xproductno',
 	                        dbf : 'bcc',
 	                        index : 'noa,product',
 	                        src : 'bcc_b.aspx'
-	                    },{
+	                    },{/*[14]*/
 	                        type : '5',
 	                        name : 'apv',
 	                        value : [q_getPara('report.all')].concat('Y@核准,N@未核准'.split(','))
-                    	},{
+                    	},{/*[15]*/
 	                        type : '5',
 	                        name : 'enda',
 	                        value : [q_getPara('report.all')].concat('1@結案,0@未結案'.split(','))

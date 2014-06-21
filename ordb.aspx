@@ -17,7 +17,7 @@
 			q_desc = 1;
             q_tables = 's';
             var q_name = "ordb";
-            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus', 'txtTax'];
+            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2', 'txtMoney', 'txtTotal', 'txtTotalus', 'txtTax','txtPart'];
             var q_readonlys = ['txtNo3','txtTotal','txtC1','txtNotv','txtOrdeno','txtNo2'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtWeight', 10, 3, 1],['txtTotal', 10, 0, 1]];
@@ -31,7 +31,9 @@
             aPop = new Array(['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount_', 'bcc_b.aspx']
 					,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 					,['txtCno','lblAcomp','acomp','noa,nick','txtCno,txtAcomp','acomp_b.aspx']
-					,['txtTggno','lblTgg','tgg','noa,nick,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
+					,['txtTggno','lblTgg','tgg','noa,nick,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']
+					,['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx']
+			);
 					
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -148,7 +150,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('ordb_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('ordb_s.aspx', q_name + '_s', "500px", "430px", q_getMsg("popSeek"));
             }
 
             function combPaytype_chg() {
@@ -297,7 +299,7 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if(q_cur==1 || q_cur==2){
-					if(r_rank>7)
+					if(r_modi)
 						$('#cmbApv').removeAttr('disabled');
 					else
 						$('#cmbApv').attr('disabled', 'disabled');
@@ -570,8 +572,11 @@
                <td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
                <td class="td2" colspan="2"><input id="txtCno"  type="text" class="txt c4 lef"/>
                <input id="txtAcomp"    type="text" class="txt c5 lef"/></td>
-               <td class="td4"><span> </span><a id='lblContract' class="lbl"> </a></td>
-               <td class="td5" colspan="2"><input id="txtContract"  type="text" class="txt c1 lef"/></td>
+               <td class="td4"><span> </span><a id='lblPart' class="lbl btn"> </a></td>
+               <td class="td5" colspan="2">
+					<input id="txtPartno"  type="text" class="txt c2 lef"/>
+					<input id="txtPart"    type="text" class="txt c3 lef"/>
+               	</td>
                <td class="td7"><span> </span><a id='lblNoa' class="lbl"> </a></td>
                <td class="td8"><input id="txtNoa"   type="text"  class="txt c1 lef"/></td>   
             </tr>
@@ -600,7 +605,8 @@
                 <td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
                 <td class="td2"><input id="txtPost"  type="text"  class="txt c1 lef"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr"  type="text" class="txt c1 lef"/></td>
-                <td> </td>
+                <td class="td4"><span> </span><a id='lblContract' class="lbl"> </a></td>
+				<td class="td5"><input id="txtContract"  type="text" class="txt c1 lef"/></td>
                 <!--<td class="td8"><input id="btnOrde" type="button" /></td>--> 
             </tr>
             <tr class="tr6">

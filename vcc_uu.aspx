@@ -18,7 +18,7 @@
 
 			q_tables = 's';
 			var q_name = "vcc";
-			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtWorker', 'txtWorker2', 'txtSales','textStatus'];
+			var q_readonly = ['txtNoa', 'txtAccno', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtWorker', 'txtWorker2', 'txtSales','textStatus','txtComp2'];
 			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2'];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2, 1], ['txtLengthb', 9, 2, 1], ['txtWidth', 9, 2, 1], ['txtDime', 9, 2, 1], ['txtTotal', 15, 0, 1]];
@@ -32,7 +32,16 @@
 			brwKey = 'datea';
 			//ajaxPath = ""; // 只在根目錄執行，才需設定
 
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtPost,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'], ['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'], ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtComp2', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_,txtLengthb_', 'ucc_b.aspx']);
+			aPop = new Array(
+				['txtCustno', 'lblCust', 'cust', 'noa,nick,tel,fax,zip_comp,addr_comp,paytype,trantype,salesno,sales', 'txtCustno,txtComp,txtTel,txtFax,txtPost,txtAddr,txtPaytype,cmbTrantype,txtSalesno,txtSales', 'cust_b.aspx'], 
+				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'], 
+				['txtCardealno', 'lblCardeal', 'cardealno', 'noa,car', 'txtCardealno,txtCardeal', 'car_b.aspx'], 
+				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
+				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
+				['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'], 
+				['txtCustno2', 'lblCust2', 'cust', 'noa,nick', 'txtCustno2,txtComp2', 'cust_b.aspx'], 
+				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_,txtLengthb_', 'ucc_b.aspx']
+			);
 
 			var isinvosystem = false;
 			//購買發票系統
@@ -1046,9 +1055,11 @@
 						<td class="td1"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtSalesno" type="text" class="txt c1"/></td>
 						<td class="td3"><input id="txtSales" type="text" class="txt c1"/></td>
-						<td class="td4"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td5"><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id="lblCust2" class="lbl btn"> </a></td>
+						<td class="td2" colspan='2'>
+							<input id="txtCustno2" type="text" class="txt c2"/>
+							<input id="txtComp2" type="text" class="txt c3"/>
+						</td>
 						<td class="td7"><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
 						<td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td>
 					</tr>
@@ -1057,8 +1068,11 @@
 						<td class="td2" colspan='7'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
 					</tr>
 					<tr>
+						<td class="td4"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class="td5"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="td6"><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<td class="td1"><span> </span><a class="lbl">收款情況</a></td>
-						<td class="td2" colspan='7'><input id="textStatus" type="text" class="txt c1"/></td>
+						<td class="td2" colspan='4'><input id="textStatus" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
