@@ -82,11 +82,15 @@
 				}
 				b_pop = '';
 			}
+			var isSearch = 0;
+			var SearchStr = "";
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case q_name:
-						if (q_cur == 4)
+						if (q_cur == 4){
+							isSearch = 1;
 							q_Seek_gtPost();
+						}
 						break;
 				}
 			}
@@ -103,8 +107,10 @@
 				    for(var j=i+1;j<q_bbsCount;j++){
 				        t_addrno2 = $.trim($('#txtAddrno_'+j).val());
 				        if(t_addrno1.length>0 && t_addrno1==t_addrno2){
-				            t_errmsg = '【'+t_addrno1+'】在 '+(i+1)+' 及 '+(j+1)+'重複。\n';
-				            break;
+							$('#btnMinus_'+j).click();
+							//20140620 01:47 溫小姐說有重複直接拿掉 
+				            //t_errmsg = '【'+t_addrno1+'】在 '+(i+1)+' 及 '+(j+1)+'重複。\n';
+				            //break;
 				        }
 				        
 				    }
@@ -129,7 +135,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				//q_box('addr3_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+				q_box('addr3_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
 			}
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
@@ -184,13 +190,23 @@
 			}
 			function refresh(recno) {
 				_refresh(recno);
+				if(isSearch==1){
+					for(var k=0;k<q_bbsCount;k++){
+						var thisAddrno = $.trim($('#txtAddrno_'+k).val());
+						if(thisAddrno==SearchStr){
+							$('#txtAddrno_'+k).focus();
+							$('#txtAddrno_'+k).select();
+							break;
+						}
+					}
+					isSearch = 0;
+				}
 			}
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 			}
 			function btnMinus(id) {
 				_btnMinus(id);
-				sum();
 			}
 			function btnPlus(org_htm, dest_tag, afield) {
 				_btnPlus(org_htm, dest_tag, afield);
