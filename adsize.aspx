@@ -16,7 +16,7 @@
 			}
 
 			var q_name = "adsize";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtNoa','txtProduct'];
 			var bbmNum = [
 				['txtWidth1', 10, 3, 1],['txtWidth2', 10, 3, 1],['txtLengthb1', 10, 3, 1],
 				['txtLengthb2', 10, 3, 1],['txtPrice', 10, 3, 1]
@@ -30,7 +30,8 @@
 			brwCount2 = 20;
 			q_xchg = 1;
 			aPop = new Array(
-				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+				//['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+				['txtPstyle', 'lblPstyle', 'style', 'noa,product', 'txtPstyle,txtProduct,txtWidth1', 'style_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -102,6 +103,11 @@
 			}
 
 			function btnOk() {
+				if($('#txtProduct').val().indexOf('鋼片')==-1){
+					alert('規格加價僅適用鋼片!!');
+					return;
+				}
+				
 				Lock();
 				var t_date = $('#txtMon').val();
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -332,11 +338,11 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -351,16 +357,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPstyle' class="lbl"> </a></td>
+						<td><span> </span><a id='lblPstyle' class="lbl btn"> </a></td>
 						<td>
 						<input id="txtPstyle" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
 						<td colspan="2">
-						<input id="txtProductno" type="text" class="txt c2" />
-						<input id="txtProduct" type="text" class="txt c3" />
+						<!--<input id="txtProductno" type="text" class="txt c2" />-->
+						<input id="txtProduct" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr>

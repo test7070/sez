@@ -16,7 +16,7 @@
 			}
 
 			var q_name = "adpro2";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtNoa','txtProduct'];
 			var bbmNum = [['txtPrice', 10, 3, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
@@ -26,7 +26,8 @@
 			brwKey = 'noa';
 			brwCount2 = 20;
 			aPop = new Array(
-				['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+				['txtPstyle', 'lblPstyle', 'style', 'noa,product', 'txtPstyle,txtProduct,txtPrice', 'style_b.aspx']
+				//['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -98,6 +99,11 @@
 			}
 
 			function btnOk() {
+				if($('#txtProduct').val().indexOf('鋼帶')==-1){
+					alert('品名加價僅適用鋼帶!!');
+					return;
+				}
+				
 				Lock();
 				var t_date = $('#txtMon').val();
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -318,10 +324,10 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -332,14 +338,14 @@
 						<td><input id="txtMon"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPstyle' class="lbl"> </a></td>
+						<td><span> </span><a id='lblPstyle' class="lbl btn"> </a></td>
 						<td><input id="txtPstyle" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
 						<td colspan="2">
-							<input id="txtProductno" type="text" class="txt c2" />
-							<input id="txtProduct" type="text" class="txt c3" />
+							<!--<input id="txtProductno" type="text" class="txt c2" />-->
+							<input id="txtProduct" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr>

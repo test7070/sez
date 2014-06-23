@@ -16,7 +16,7 @@
 			}
 
 			var q_name = "adpipe";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtNoa','txtProduct'];
 			var bbmNum = [
 				['txtRadius', 10, 3, 1],['txtWidth', 10, 3, 1],['txtDime1', 10, 3, 1],
 				['txtDime2', 10, 3, 1],['txtPrice', 10, 3, 1]
@@ -30,7 +30,8 @@
 			brwCount2 = 20;
 			q_xchg = 1;
 			aPop = new Array(
-				['txtProductno', 'lblProductno', 'ucaucc', 'noa,product', 'txtProductno,txtProduct', 'ucaucc_b.aspx']
+				['txtStyle', 'lblStyle', 'style', 'noa,product', 'txtStyle,txtProduct,txtProductno', 'style_b.aspx'],
+				['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno', 'ucc_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -102,6 +103,10 @@
 			}
 
 			function btnOk() {
+				if($('#txtProduct').val().indexOf('管')==-1){
+					alert('特殊管加價僅適用管類!!');
+					return;
+				}
 				Lock();
 				var t_date = $('#txtMon').val();
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -321,11 +326,11 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -334,14 +339,14 @@
 						<td><input id="txtMon" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
-						<td><input id="txtProductno" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblStyle' class="lbl btn"> </a></td>
+						<td><input id="txtStyle" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
 						<td><input id="txtProduct" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblStyle' class="lbl"> </a></td>
-						<td><input id="txtStyle" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+						<td><input id="txtProductno" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblSpec' class="lbl"> </a></td>
 						<td><input id="txtSpec" type="text" class="txt c1" /></td>
 					</tr>

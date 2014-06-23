@@ -36,16 +36,16 @@
 				t_mon = $('#txtMon').val();
 				t_noa = $('#txtNoa').val();
 				t_style = $('#cmbStyle').val();
-				t_team = $('#txtTeam').val();
+				t_teamno = $('#txtTeamno').val();
 				t_custno = $('#txtCustno').val();
 				t_comp = $('#txtComp').val();
 				t_adprono = $('#txtAdprono').val();
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("mon", t_mon) +
-										q_sqlPara2("team", t_team) +
+										q_sqlPara2("teamno", t_teamno) +
 										q_sqlPara2("custno", t_custno) +
-										q_sqlPara2("comp", t_comp) +
-										q_sqlPara2("adprono", t_adprono);
+										q_sqlPara2("comp", t_comp);
+										/*+q_sqlPara2("adprono", t_adprono)*/
 				if (t_style != '全部')
 					t_where += q_sqlPara2("style", t_style);
 				t_where = ' where=^^' + t_where + '^^ ';
@@ -69,33 +69,33 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek" border="1" cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblNoa'> </a></td>
+					<td class='seek' style="width:30%;"><a id='lblNoa'> </a></td>
 					<td><input class="txt" id="txtNoa" type="text"/></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblMon'> </a></td>
+					<td class='seek' style="width:30%;"><a id='lblMon'> </a></td>
 					<td><input class="txt" id="txtMon" type="text"/></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblStyle'> </a></td>
-					<td><select id="cmbStyle"></select></td>
+					<td class='seek' style="width:30%;"><a id='lblStyle'> </a></td>
+					<td><select id="cmbStyle"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblTeam'> </a></td>
-					<td><input class="txt" id="txtTeam" type="text"/></td>
+					<td class='seek' style="width:30%;"><a id='lblTeam'> </a></td>
+					<td><input class="txt" id="txtTeamno" type="text"/></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblCustno'> </a></td>
+					<td class='seek' style="width:30%;"><a id='lblCustno'> </a></td>
 					<td><input class="txt" id="txtCustno" type="text"/></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblComp'> </a></td>
+					<td class='seek' style="width:30%;"><a id='lblComp'> </a></td>
 					<td><input class="txt" id="txtComp" type="text"/></td>
 				</tr>
-				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblAdprono'> </a></td>
+				<!--<tr class='seek_tr'>
+					<td class='seek' style="width:30%;"><a id='lblAdprono'> </a></td>
 					<td><input class="txt" id="txtAdprono" type="text"/></td>
-				</tr>
+				</tr>-->
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>

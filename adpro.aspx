@@ -17,7 +17,7 @@
 			}
 
 			var q_name = "adpro";
-			var q_readonly = ['txtNoa','txtProduct','txtComp'];
+			var q_readonly = ['txtNoa','txtProduct','txtComp','txtDiffprice'];
 			var bbmNum = [['txtExreprice', 10, 2, 1],['txtExprice', 10, 2, 1],['txtDiffprice', 10, 2, 1],['txtWeight', 10, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
@@ -57,6 +57,20 @@
 					if((q_cur==1 || q_car==2) &&emp($('#txtDatea').val())&&!emp($('#txtMon').val()))
                     $('#txtDatea').val($('#txtMon').val()+'/01');
                 });
+                
+                $('#txtExreprice').blur(function() {
+					if((q_cur==1 || q_car==2))
+                    	sum();
+                });
+                
+                $('#txtExprice').blur(function() {
+					if((q_cur==1 || q_car==2) )
+                    	sum();
+                });
+			}
+			
+			function sum() {
+				$('#txtDiffprice').val(q_sub(dec($('#txtExprice').val()),dec($('#txtExreprice').val())));
 			}
 
 			function q_boxClose(s2) {
@@ -80,7 +94,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('adpro_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
+				q_box('adpro_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
