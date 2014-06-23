@@ -54,7 +54,7 @@
 						t_count++;
 					}
 				}
-				$('#txtAvgoil').val(q_div(t_sum,t_count));
+				$('#txtAvgoil').val(round(q_div(t_sum,t_count),3));
 			}
 			
 			function mainPost() {
@@ -199,7 +199,7 @@
 			}
 			.dview {
 				float: left;
-				width: 730px;
+				width: 750px;
 				border-width: 0px;
 			}
 			.tview {
