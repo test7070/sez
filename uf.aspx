@@ -57,19 +57,18 @@
 				});
 				$('#lblAccno').click(function() {
 					var t_accy = $('#txtNoa').val().replace(/^[A-Z]*([0-9]{3})[0-9]*$/, '$1');
-					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + t_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
-					//q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^");
+					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
 				});
 				//........................託收匯入
 				$('#btnGqb').click(function() {
 					var t_where = "";
 					if (emp($('#txtBankno').val())) {
-						t_where = "where=^^ len(isnull(a.tbankno,''))=0 and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "' or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "')^^";
+						t_where = "where=^^(len(isnull(a.usage,''))=0 and len(isnull(a.tbankno,''))=0 and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "') or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "')^^";
 					} else {
 						if ($('#cmbTypea').val() == '1')
-							t_where = "where=^^   a.tbankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "' or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "')^^";
+							t_where = "where=^^ (len(isnull(a.usage,''))=0 and a.tbankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='" + $('#cmbTypea').val() + "') or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "')^^";
 						if ($('#cmbTypea').val() == '2')
-							t_where = "where=^^   a.bankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0  and a.typea='" + $('#cmbTypea').val() + "' or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "')^^";
+							t_where = "where=^^ (len(isnull(a.usage,''))=0 and a.bankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0  and a.typea='" + $('#cmbTypea').val() + "') or (c.noa is not null and c.noa='" + $('#txtNoa').val() + "')^^";
 					}
 					Lock();
 					q_gt('uf_gqb', t_where, 0, 0);
@@ -159,29 +158,32 @@
 			}
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
-					$('#chkSel_' + i).click(function() {
-						sum();
-					});
-					$('#chkSel_' + i).hover(function() {
-						t_IdSeq = -1;
-						/// 要先給  才能使用 q_bodyId()
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						$('#trSel_' + b_seq).addClass('sel');
-					}, function() {
-						t_IdSeq = -1;
-						/// 要先給  才能使用 q_bodyId()
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						$('#trSel_' + b_seq).removeClass('sel');
-						if ($('#chkSel_' + b_seq).prop("checked")) {//判斷是否被選取
-							$('#trSel_' + b_seq).addClass('chksel');
-							//變色
-						} else {
-							$('#trSel_' + b_seq).removeClass('chksel');
-							//取消變色
-						}
-					});
+				    $('#lblNo_' + i).text(i + 1);
+                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+    					$('#chkSel_' + i).click(function() {
+    						sum();
+    					});
+    					$('#chkSel_' + i).hover(function() {
+    						t_IdSeq = -1;
+    						/// 要先給  才能使用 q_bodyId()
+    						q_bodyId($(this).attr('id'));
+    						b_seq = t_IdSeq;
+    						$('#trSel_' + b_seq).addClass('sel');
+    					}, function() {
+    						t_IdSeq = -1;
+    						/// 要先給  才能使用 q_bodyId()
+    						q_bodyId($(this).attr('id'));
+    						b_seq = t_IdSeq;
+    						$('#trSel_' + b_seq).removeClass('sel');
+    						if ($('#chkSel_' + b_seq).prop("checked")) {//判斷是否被選取
+    							$('#trSel_' + b_seq).addClass('chksel');
+    							//變色
+    						} else {
+    							$('#trSel_' + b_seq).removeClass('chksel');
+    							//取消變色
+    						}
+    					});
+					}
 				}//end for
 				_bbsAssign();
 				ChecknoReadonly();
@@ -192,10 +194,6 @@
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
 				$('#cmbTypea').val(2).focus();
-				//自動產生序號
-				for (var j = 0; j <= q_bbsCount; j++) {
-					$('#ufseq_' + j).text(j + 1);
-				}// j
 				//取消變色
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#trSel_' + i).removeClass('chksel');
@@ -248,10 +246,6 @@
 			///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
 			function refresh(recno) {
 				_refresh(recno);
-				//自動產生序號
-				for (var j = 0; j <= q_bbsCount; j++) {
-					$('#ufseq_' + j).text(j + 1);
-				}// j
 				for (var j = 0; j < q_bbsCount; j++) {
 					if ($('#chkSel_' + j).prop("checked")) {//判斷是否被選取
 						$('#trSel_' + j).addClass('chksel');
@@ -550,10 +544,10 @@
                     <td style="width:1%;">
                     <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
                     </td>
+                    <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                     <td >
                     <input id="chkSel.*" type="checkbox"/>
                     </td>
-                    <td id="ufseq.*" style="width:1%;"></td ><!--序號欄位-->
                     <td >
                     <input id="txtCheckno.*" onclick="browGqb(this)" type="text" style="width: 95%"/>
                     </td>

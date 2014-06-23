@@ -55,7 +55,7 @@
                 q_mask(bbmMask);
 
                 $('#btnGqb').click(function() {
-                    t_where = "where=^^ (len(isnull(tbankno,''))=0 and a.typea='1' and isnull(b.sel,0)=0) or (c.noa is not null and c.noa='"+$.trim($('#txtNoa').val())+"') ^^";
+                    t_where = "where=^^ (len(isnull(a.usage,''))=0 and len(isnull(tbankno,''))=0 and a.typea='1' and isnull(b.sel,0)=0) or (c.noa is not null and c.noa='"+$.trim($('#txtNoa').val())+"') ^^";
                     Lock();
                     q_gt('chk2_gqb', t_where, 0, 0, 0, "", r_accy);
                 });
@@ -99,13 +99,13 @@
             		if($.trim($('#txtCheckno_' + i).val()).length>0){
             			t_checkno += (t_checkno.length>0?",":"") + $.trim($('#txtCheckno_' + i).val());
             		}
-            		t_money = parseFloat($('#txtMoney_' + i).val().length==0?'0':$('#txtMoney_' + i).val().replace(',',''));
+            		/*t_money = parseFloat($('#txtMoney_' + i).val().length==0?'0':$('#txtMoney_' + i).val().replace(',',''));
             		if(t_money!=0){
-            			t_cmoney += ','+t_money+','
-            		}
+            			t_cmoney += ','+t_money+',';
+            		}*/
 		        }
 		        $('#txtCheckno').val(t_checkno);
-		        $('#txtCmoney').val(t_cmoney);
+		      //  $('#txtCmoney').val(t_cmoney);
 		        
                 if ($('#txtDatea').val().length = 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
