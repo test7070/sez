@@ -126,6 +126,7 @@
 					default:
 						var as = _q_appendData("tmp0", "", true, true);
 						var ShowMsg = '';
+						console.log(as);
 						if(as.length == 0){
 							alert('執行完畢!!');
 						}else{
@@ -161,6 +162,16 @@
 					case q_name:
 						if (isLoadGt == 1) {
 							abbs = _q_appendData(q_name, "", true);
+							$('#textMemo_datea').val('');
+							$("#chkMemo_isproj").attr('checked',false);
+							$('#cmbMemo_trantype').val('');
+							$('#textMemo_paytype').val('');
+							$('#textMemo_coin').val('');
+							$('#textMemo_floata').val(0);
+							$('#textMemo_salesno').val('');
+							$('#textMemo_sales').val('');
+							$('#textMemo_addr2').val('');
+							$('#textMemo_memo').val('');
 							isLoadGt = 0;
 							refresh();
 						}
