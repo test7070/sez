@@ -49,7 +49,7 @@
 				q_mask(bbmMask);
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
 				q_gt('salm', '', 0, 0, 0, "");
-				$("#cmbJob").focus(function() {
+				$("#cmbJobno").focus(function() {
 					var len = $(this).children().length > 0 ? $(this).children().length : 1;
 					$(this).attr('size', len + "");
 				}).blur(function() {
@@ -76,9 +76,9 @@
 							for ( i = 0; i < as.length; i++) {
 								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].job;
 							}
-							q_cmbParse("cmbJob", t_item);
+							q_cmbParse("cmbJobno", t_item);
 							if (abbm[q_recno] != undefined)
-								$("#cmbJob").val(abbm[q_recno].jobno);
+								$("#cmbJobno").val(abbm[q_recno].jobno);
 						}
 						break;
 					case q_name:
@@ -119,6 +119,8 @@
 			}
 
 			function btnOk() {
+				$('#txtJob').val($('#cmbJobno').find(":selected").text());
+				
 				Lock();
 				
 				if(q_cur ==1){
@@ -388,7 +390,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblJob' class="lbl"> </a></td>
-						<td><select id='cmbJob'> </select></td>
+						<td><select id='cmbJobno'> </select>
+							<input id="txtJob"  type="hidden" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
