@@ -20,7 +20,7 @@
 			var q_name = "quat";
 			var decbbs = ['price', 'weight', 'mount', 'total', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
-			var q_readonly = ['txtWorker', 'txtComp', 'txtAcomp', 'txtSales', 'txtWorker2'];
+			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales', 'txtWorker2'];
 			var q_readonlys = ['txtNo3'];
 			var bbmNum = [
 				['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],

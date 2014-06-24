@@ -126,7 +126,6 @@
 					default:
 						var as = _q_appendData("tmp0", "", true, true);
 						var ShowMsg = '';
-						console.log(as);
 						if(as.length == 0){
 							alert('執行完畢!!');
 						}else{
