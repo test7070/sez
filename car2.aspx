@@ -16,7 +16,7 @@
             }
 
             var q_name = "car2";
-            var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
+            var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver','txtZip_home','txtZip_conn'];
             var bbmNum = [['txtInmoney', 10, 0,1],['txtInvoicemoney', 10, 0,1], ['txtOutmoney', 10, 0,1], ['txtIrange', 10, 0,1], ['txtManage', 10, 0,1], ['txtReserve', 10, 0,1], ['txtHelp', 10, 0,1],
              ['txtVrate', 6, 3,1], ['txtRrate', 6, 3,1], ['txtOrate', 6, 3,1], ['txtIrate', 6, 3,1], ['txtPrate', 6, 3,1], ['txtUlicense', 10, 0,1], ['txtDlicense', 10, 0,1], ['txtSpring', 10, 0,1], ['txtSummer', 10, 0,1],
              ['txtFalla', 10, 0,1], ['txtWinter', 10, 0,1], ['txtCylinder', 2, 0,1], ['txtSalemoney', 10, 0,1], ['txtImprovemoney1', 10, 0,1], ['txtImprovemoney2', 10, 0,1], ['txtImprovemoney3', 10, 0,1], 
@@ -29,7 +29,7 @@
             brwKey = 'noa';
             q_alias = 'a';
             brwCount2 = 20;
-            aPop = [['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx']
+            aPop = [['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,zip_conn,addr_conn,zip_home,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtZip_conn,txtAddr_conn,txtZip_home,txtAddr_home', 'carowner_b.aspx']
             , ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx']
             , ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
             , ['textCarbrandno', '', 'carbrand', 'noa,brand', 'cmbCarbrandno', '']
@@ -80,9 +80,7 @@
                 //q_gt('carstyle', '', 0, 0, 0, "");
                 q_gt('cardeal', '', 0, 0, 0, "");
 
-
 				$(".carowner").hide();
-
 
 				$("#btnCarowner").val("＋");
 				$("#btnCarowner").toggle(function(e) {
@@ -97,7 +95,6 @@
 						$('#txtIndate').focus();
 				});
 
-
 				$("#btnCarowneredit").val("車主新增/修改");
 				$('#btnCarowneredit').click(function(e) {
 					if(emp($('#txtCarownerno').val()))
@@ -105,7 +102,6 @@
 					else
 						q_box("carowner.aspx?;;;noa='" + $('#txtCarownerno').val() + "'", 'carowner', "90%", "600px", q_getMsg("popCarowner"));
 				});
-
 
 				$(".carexpense").hide();
 				$("#btnCarexpense").toggle(function(e) {
@@ -125,7 +121,6 @@
 				}, function(e) {
 					$(".carnocchange").hide();
 				});
-
 
 				$('#btnCarsalary').click(function(e) {
 					if(!emp($('#txtOutdate').val()) || !emp($('#txtEnddate').val()) || !emp($('#txtWastedate').val()) || !emp($('#txtSuspdate').val()))
@@ -160,14 +155,12 @@
 						q_box("carspec.aspx", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
 				});
 
-
                 //--11/21大昌改管理費+公會費=行費
                 if (q_getPara('sys.comp').indexOf('大昌') > -1) {
                     $('#divGuile').hide();
                     $('#lblGuile').hide();
                     $('#txtGuile').hide();
                 }
-
 
                 $('#txtInvoicemoney').change(function() {
                     if (!emp($('#txtInvoicemoney').val())) {
@@ -306,7 +299,6 @@
 					}
 				});
 
-
 				$('#txtSssno').blur(function() {
                     $('#txtManage').focus();
                 });
@@ -341,7 +333,6 @@
                     if(dec($('#txtWinter').val())>0)
                     	$('#txtWintermon').val('12');
                 });
-                
                 
                 $('#txtUlicensemon').blur(function() {
                     if(!emp($('#txtUlicensemon').val())&&$('#txtUlicensemon').val()!='04')
@@ -383,36 +374,29 @@
                 	sendsignmemo();
 				});
 
-
 				$("#txtOutdate").blur(function() {
                 	sendsignmemo();
 				});
-
 
 				$("#txtEnddate").blur(function() {
                 	sendsignmemo();
 				});
 
-
 				$("#txtWastedate").blur(function() {
                 	sendsignmemo();
 				});
-
 
 				$("#txtOutplace").change(function() {
                 	sendsignmemo();
 				});
 
-
 				$("#txtSigndate").blur(function() {
                 	sendsignmemo();
 				});
 
-
 				$("#txtCarownerno").change(function() {
                 	sendsignmemo();
 				});
-
 
 				//1020904 車牌新增時判斷是否已存在
 				$('#txtNoa').change(function() {
@@ -501,10 +485,12 @@
                 }   /// end Switch
 				b_pop = '';
             }
+            
 			function q_funcPost(t_func, result) {
 		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
 		        alert('功能執行完畢');
 		    } //endfunction
+		    
             function q_gfPost() {
 
             }
@@ -993,6 +979,14 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 10%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 90%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -1130,11 +1124,17 @@
 					</tr>
 					<tr class="carowner">
 						<td><span> </span><a id="lblAddr_conn" class="lbl"> </a></td>
-						<td colspan="5"><input id="txtAddr_conn" type="text" class="txt c1"/> </td>
+						<td colspan="5">
+							<input id="txtZip_home" type="text" class="txt c2"/>
+							<input id="txtAddr_conn" type="text" class="txt c3"/>
+						</td>
 					</tr>
 					<tr class="carowner">
 						<td><span> </span><a id="lblAddr_home" class="lbl"> </a></td>
-						<td colspan="5"><input id="txtAddr_home" type="text" class="txt c1"/> </td>
+						<td colspan="5">
+							<input id="txtZip_conn" type="text" class="txt c2"/>
+							<input id="txtAddr_home" type="text" class="txt c3"/>
+						</td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblIndate" class="lbl"> </a></td>
