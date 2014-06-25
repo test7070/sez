@@ -223,7 +223,6 @@
                             x_date = new Date((parseInt(x_date.substring(0,3))+1911)+x_date.substring(3,9)); 
                             t_days = (x_date.getTime()-t_date.getTime())/1000/60/60/24;  
                             t_inte += round(q_mul(q_div(q_div(q_mul(t_days,t_rate),100),365),q_float('txtMoney_'+i)),0);
-                            alert(t_days);
                         }*/
                     }
                 }
