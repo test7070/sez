@@ -34,6 +34,8 @@
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", '@全部,'+q_getPara('ordc.kind'));
+                q_cmbParse("cmbApv", '@全部,Y@Y,N@N');
+                
                 $('#txtNoa').focus();
                 $('#txtComp').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
                 $('#txtSales').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
@@ -42,6 +44,7 @@
 
             function q_seekStr() {
                 t_kind = $.trim($('#cmbKind').val());
+                t_apv = $.trim($('#cmbApv').val());
                 t_noa = $.trim($('#txtNoa').val());
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
@@ -58,6 +61,9 @@
                 
                 if (t_kind.length>0)
                     t_where += " and kind='"+t_kind+"'";
+                if (t_apv.length>0)
+                    t_where += " and apv='"+t_apv+"'";    
+                    
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -117,6 +123,10 @@
 	                	<input class="txt" id="txtSales" type="text" style="width:115px; font-size:medium;" />
 	                </td>
              	</tr>
+             	<tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblApv'> </a></td>
+                    <td><select id="cmbApv" style="width:215px; font-size:medium;" > </select></td>
+                </tr>
             </table>
             <!--#include file="../inc/seek_ctrl.inc"-->
         </div>

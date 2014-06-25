@@ -40,6 +40,7 @@
             ,['textCugtbstationno', '', 'station', 'noa,station', 'textCugtbstationno', ''],['textCugtestationno', '', 'station', 'noa,station', 'textCugtestationno', '']
             ,['textRealbstationno', '', 'station', 'noa,station', 'textRealbstationno', ''],['textRealestationno', '', 'station', 'noa,station', 'textRealestationno', '']
             ,['textRealbstationgno', '', 'stationg', 'noa,namea', 'textRealbstationgno', ''],['textRealestationgno', '', 'stationg', 'noa,namea', 'textRealestationgno', '']
+            ,['textRealbtggno', '', 'tgg', 'noa,comp', 'textRealbtggno', ''],['textRealetggno', '', 'tgg', 'noa,comp', 'textRealetggno', '']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -323,6 +324,9 @@
 					var r_estationno=trim($('#textRealestationno').val())==''?'#non':trim($('#textRealestationno').val());
 					var r_bstationgno=trim($('#textRealbstationgno').val())==''?'#non':trim($('#textRealbstationgno').val());
 					var r_estationgno=trim($('#textRealestationgno').val())==''?'#non':trim($('#textRealestationgno').val());
+					var r_btggno=trim($('#textRealbtggno').val())==''?'#non':trim($('#textRealbtggno').val());
+					var r_etggno=trim($('#textRealetggno').val())==''?'#non':trim($('#textRealetggno').val());
+					
 					var r_sigtngg=$('#checkSigntgg').prop('checked')?'1':'#non';
 					
 					var r_tmp=trim($('#textRealbdate').val())+trim($('#textRealedate').val())+trim($('#textRealbcuano').val())
@@ -334,7 +338,7 @@
 						$('#btn_div_real').attr('disabled', 'disabled');
 						$('#btn_div_real').val('轉換中....');
 						q_func('qtxt.query.workrealall', 'cug.txt,workrealall,'+r_bdate+';'+r_edate+';'+r_bcuano+';'+r_ecuano+';'+r_bworkno+';'+r_eworkno
-						+';'+r_bstationno+';'+r_estationno+';'+r_bstationgno+';'+r_estationgno+';'+r_sigtngg+';'+r_name);
+						+';'+r_bstationno+';'+r_estationno+';'+r_bstationgno+';'+r_estationgno+';'+r_btggno+';'+r_etggno+';'+r_sigtngg+';'+r_name);
 					}else
 						alert("填寫資料有問題!!");
 						
@@ -1842,6 +1846,13 @@
 					<td style="background-color: #f8d463;">
 						<input id='textRealbstationgno' type='text' style='text-align:left;width:180px;'/>	~
 						<input id='textRealestationgno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">委外廠商區間</td>
+					<td style="background-color: #f8d463;">
+						<input id='textRealbtggno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textRealetggno' type='text' style='text-align:left;width: 180px;'/>
 					</td>
 				</tr>
 				<tr id='real_close'>
