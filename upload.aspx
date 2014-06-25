@@ -87,7 +87,7 @@
                         str = IndexOf(temp3, (new byte[] { 0xd, 0xa, 0xd, 0xa }));
                         item[0] = new byte[str];
                         Array.ConstrainedCopy(temp3, 0, item[0], 0, item[0].Length);
-                        item[1] = new byte[temp3.Length - (str + 4)];
+                        item[1] = new byte[temp3.Length - (str + 4)-2];
                         Array.ConstrainedCopy(temp3, str + 4, item[1], 0, item[1].Length);
                         items.Add(item);
                         
