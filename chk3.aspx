@@ -209,7 +209,7 @@
             }
 
             function sum() {
-                var t_money = 0, t_inte = 0;
+                var t_money = 0, t_inte = q_float('txtInte');
                 var t_date = $('#txtDatea').val(),x_date='';
                 var t_rate = $('#txtRate').val();
                 if(t_date.length>0)
@@ -217,13 +217,14 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     if ($('#chkSel_' + i).prop('checked')) {
                         t_money += q_float('txtMoney_' + i);
-                        x_date = $.trim($('#txtDatea_'+ i).val());
+                        //利息先手動
+                        /*x_date = $.trim($('#txtDatea_'+ i).val());
                         if( (x_date+'').length>0 && q_cd(x_date) && (t_date+'').length>0){
                             x_date = new Date((parseInt(x_date.substring(0,3))+1911)+x_date.substring(3,9)); 
                             t_days = (x_date.getTime()-t_date.getTime())/1000/60/60/24;  
                             t_inte += round(q_mul(q_div(q_div(q_mul(t_days,t_rate),100),365),q_float('txtMoney_'+i)),0);
                             alert(t_days);
-                        }
+                        }*/
                     }
                 }
                 $('#txtMoney').val(t_money);
@@ -442,8 +443,8 @@
                 <table class="tview" id="tview">
                     <tr>
                         <td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-                        <td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-                        <td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
+                        <td align="center" style="width:80px; color:black;"><a id='vewDatea'>貼現日期</a></td>
+                        <td align="center" style="width:80px; color:black;"><a id='vewTotal'>撥款金額</a></td>
                     </tr>
                     <tr>
                         <td>
