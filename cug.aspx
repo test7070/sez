@@ -1816,8 +1816,6 @@
 					<td style="background-color: #f8d463;">
 						<input id='textRealbdate' type='text' style='text-align:left;width:80px;'/>	~
 						<input id='textRealedate' type='text' style='text-align:left;width: 80px;'/>
-						<input id="checkSigntgg" type="checkbox">	
-						委外送簽核
 					</td>
 				</tr>
 				<tr>
@@ -1854,6 +1852,10 @@
 						<input id='textRealbtggno' type='text' style='text-align:left;width:180px;'/>	~
 						<input id='textRealetggno' type='text' style='text-align:left;width: 180px;'/>
 					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">委外送簽核</td>
+					<td style="background-color: #f8d463;"><input id="checkSigntgg" type="checkbox">	</td>
 				</tr>
 				<tr id='real_close'>
 					<td align="center" colspan='2'>

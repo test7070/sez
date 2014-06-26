@@ -110,6 +110,7 @@
                 var btn = document.getElementById('btnOk');
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='無簽核轉請購'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda2ordb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核轉請購'>");
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdabox' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='物料需求簽核'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnCheck' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='查詢'>");
                 	
@@ -124,11 +125,14 @@
 						
 					if(wParent.getElementById("vtunordb_"+window.parent.q_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
+						$('#btnOrdabox').attr('disabled', 'disabled');
 						$('#btnOrda2ordb').attr('disabled', 'disabled');
 						$('#btnOrdb').attr('disabled', 'disabled');
 						
 						$('#btnOrda').css('font-weight', '' );
 						$('#btnOrda').css('color', '');
+						$('#btnOrdabox').css('font-weight', '' );
+						$('#btnOrdabox').css('color', '');
 						$('#btnOrdb').css('font-weight', '' );
 						$('#btnOrdb').css('color', '');
 						$('#btnOrda2ordb').css('font-weight', '' );
@@ -138,6 +142,7 @@
 						$('#btnOrda').attr('disabled', 'disabled');
 						$('#btnOrdb').attr('disabled', 'disabled');
 						$('#btnOrda2ordb').removeAttr('readonly');
+						$('#btnOrdabox').removeAttr('readonly');
 						
 						$('#btnOrda').css('font-weight', '' );
 						$('#btnOrda').css('color', '');
@@ -145,13 +150,18 @@
 						$('#btnOrdb').css('color', '');
 						$('#btnOrda2ordb').css('font-weight', 'bold');
 						$('#btnOrda2ordb').css('color', 'blue');
+						$('#btnOrdabox').css('font-weight', 'bold');
+						$('#btnOrdabox').css('color', 'blue');
 					}else{
 						$('#btnOrda').removeAttr('readonly');
 						$('#btnOrdb').removeAttr('readonly');
 						$('#btnOrda2ordb').removeAttr('readonly');
+						$('#btnOrdb').attr('disabled', 'disabled');
 						
 						$('#btnOrda').css('font-weight', 'bold');
 						$('#btnOrda').css('color', 'blue');
+						$('#btnOrdabox').css('font-weight', '' );
+						$('#btnOrdabox').css('color', '');
 						$('#btnOrdb').css('font-weight', 'bold');
 						$('#btnOrdb').css('color', 'blue');
 						$('#btnOrda2ordb').css('font-weight', 'bold');
@@ -174,44 +184,48 @@
 					if($('#chkWorkgall [type]=checkbox').prop('checked'))
 						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
 					else
-						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
 	            });
 	            $('#txtWorkgno2').change(function() {
 					if($('#chkWorkgall [type]=checkbox').prop('checked'))
 						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
 					else
-						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
 	            });
 	            $('#chkWorkgall [type]=checkbox').click(function() {
 					if($('#chkWorkgall [type]=checkbox').prop('checked'))
 						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
 					else
-						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
 				});
                 
                 $('#btnOrdb').click(function(){
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
                 		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "ordb", r_accy);
                 	else
-                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "ordb", r_accy);
+                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "ordb", r_accy);
 	            });
 	            
 	           $('#btnOrda').click(function(){
                 	if($('#chkWorkgall [type]=checkbox').prop('checked'))
                 		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "orda", r_accy);
                 	else
-                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda", r_accy);
+                		q_gt('workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "orda", r_accy);
+	            });
+	            
+	            $('#btnOrdabox').click(function(){
+                	q_box("orda.aspx?;;;charindex(noa,(select ordano+',' from view_workg where noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' group by ordano for xml path('')))>0", 'orda', "95%", "95%", q_getMsg("btnOrdabox"));
 	            });
 	            
 	            $('#btnOrda2ordb').click(function(){
-                	q_gt('orda', "where=^^isnull(workgno,'')!='' and isnull(ordbno,'')='' and noa in (select zno from sign where enda='Y' and left(zno2,4)='orda') and noa in (select ordano from view_workg where noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"') ^^ ", 0, 0, 0, "orda2ordb", r_accy);
+                	q_gt('orda', "where=^^isnull(workgno,'')!='' and isnull(ordbno,'')='' and noa in (select zno from sign where enda='Y' and left(zno2,4)='orda') and noa in (select ordano from view_workg where noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"') ^^ ", 0, 0, 0, "orda2ordb", r_accy);
 	            });
 	            
 	            $('#btnCheck').click(function(){
 	            	if($('#chkWorkgall [type]=checkbox').prop('checked'))
 	            		q_gt('workg', "where=^^ isnull(ordano,'')='' and isnull(ordbno,'')='' ^^", 0, 0, 0, "check", r_accy);
 	            	else
-	            		q_gt('workg', "where=^^ isnull(ordano,'')='' and isnull(ordbno,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"'^^", 0, 0, 0, "check", r_accy);
+	            		q_gt('workg', "where=^^ isnull(ordano,'')='' and isnull(ordbno,'')='' and noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"'^^", 0, 0, 0, "check", r_accy);
 	            });
 	            
 	            $('.q_report .option div .c3').css("width","180px");
@@ -282,11 +296,14 @@
 							}
 							if(isordb){
 								$('#btnOrda').attr('disabled', 'disabled');
+								$('#btnOrdabox').attr('disabled', 'disabled');
 								$('#btnOrda2ordb').attr('disabled', 'disabled');
 								$('#btnOrdb').attr('disabled', 'disabled');
 								
 								$('#btnOrda').css('font-weight', '');
 								$('#btnOrda').css('color', '');
+								$('#btnOrdabox').css('font-weight', '');
+								$('#btnOrdabox').css('color', '');
 								$('#btnOrdb').css('font-weight', '');
 								$('#btnOrdb').css('color', '');
 								$('#btnOrda2ordb').css('font-weight', '');
@@ -295,6 +312,7 @@
 								$('#btnOrda').attr('disabled', 'disabled');
 								$('#btnOrdb').attr('disabled', 'disabled');
 								$('#btnOrda2ordb').removeAttr('readonly');
+								$('#btnOrdabox').removeAttr('readonly');
 								
 								$('#btnOrda').css('font-weight', '');
 								$('#btnOrda').css('color', '');
@@ -302,13 +320,18 @@
 								$('#btnOrdb').css('color', '');
 								$('#btnOrda2ordb').css('font-weight', 'bold');
 								$('#btnOrda2ordb').css('color', 'blue');
+								$('#btnOrdabox').css('font-weight', 'bold');
+								$('#btnOrdabox').css('color', 'blue');
 							}else{
 								$('#btnOrda').removeAttr('readonly');
 								$('#btnOrdb').removeAttr('readonly');
 								$('#btnOrda2ordb').removeAttr('readonly');
+								$('#btnOrdb').attr('disabled', 'disabled');
 								
 								$('#btnOrda').css('font-weight', 'bold');
 								$('#btnOrda').css('color', 'blue');
+								$('#btnOrdabox').css('font-weight', '');
+								$('#btnOrdabox').css('color', '');
 								$('#btnOrdb').css('font-weight', 'bold');
 								$('#btnOrdb').css('color', 'blue');
 								$('#btnOrda2ordb').css('font-weight', 'bold');
@@ -318,9 +341,12 @@
 							$('#btnOrda').attr('disabled', 'disabled');
 							$('#btnOrda2ordb').attr('disabled', 'disabled');
 							$('#btnOrdb').attr('disabled', 'disabled');
+							$('#btnOrdb').attr('disabled', 'disabled');
 							
 							$('#btnOrda').css('font-weight', '');
 							$('#btnOrda').css('color', '');
+							$('#btnOrdabox').css('font-weight', '');
+							$('#btnOrdabox').css('color', '');
 							$('#btnOrdb').css('font-weight', '');
 							$('#btnOrdb').css('color', '');
 							$('#btnOrda2ordb').css('font-weight', '');
@@ -449,13 +475,13 @@
 				                q_func('qtxt.query.sign2', 'orda.txt,sign2,' + t_where);
 							}
 						}else{
-							q_gt('workg', "where=^^isnull(ordbno,'')='' and  noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda_workg", r_accy);
+							q_gt('workg', "where=^^isnull(ordbno,'')='' and  noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "orda_workg", r_accy);
 						}
 						break;
 					case 'orda_workg':
 						var as = _q_appendData("workg", "", true);
 						if (as[0] != undefined) {
-							q_gt('workg', "where=^^isnull(ordano,'')='' and  noa between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda_workg_ordano", r_accy);
+							q_gt('workg', "where=^^isnull(ordano,'')='' and  noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "orda_workg_ordano", r_accy);
 						}else{
 							alert('已產生請購。');
 						}
@@ -465,7 +491,7 @@
 						if (as[0] != undefined) {
 							alert('未產生簽核。');
 						}else{
-							q_gt('orda', "where=^^ordbno!='' and workgno between '"+$('#txtWorkgno1').val()+"' and '"+$('#txtWorkgno2').val()+"' ^^ ", 0, 0, 0, "orda_ordbno", r_accy);
+							q_gt('orda', "where=^^ordbno!='' and workgno between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "orda_ordbno", r_accy);
 						}
 						break;
 					case 'orda_ordbno':
