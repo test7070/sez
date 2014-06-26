@@ -517,7 +517,7 @@
 					Unlock(1);
 					return;
 				}
-				if ($.trim($('#txtTggno').val()) == 0) {
+				if ($.trim($('#txtTggno').val()).length == 0) {
 					alert(m_empty + q_getMsg('lblTgg'));
 					Unlock(1);
 					return false;

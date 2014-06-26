@@ -84,11 +84,20 @@
                     }, {/*13 [23][24]*/
                         type : '1',
                         name : 'udate'
-                    }]
+                    },{
+						type : '0',
+	                    name : 'r_tel',
+	                    value : q_getPara('sys.tel')
+					},{
+	                    type : '0',
+	                    name : 'r_addr',
+	                    value : q_getPara('sys.addr')
+					}]
                 });
                 q_popAssign();
                 q_langShow();
-				
+				$('#txtR_tel').val(q_getPara('sys.tel'));
+	            $('#txtR_addr').val(q_getPara('sys.addr'));
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
