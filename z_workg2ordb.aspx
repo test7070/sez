@@ -110,7 +110,7 @@
                 var btn = document.getElementById('btnOk');
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='無簽核轉請購'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda2ordb' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核轉請購'>");
-                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdabox' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='物料需求簽核'>");
+                	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrdabox' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='簽核明細'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnOrda' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='送簽核'>");
                 	btn.insertAdjacentHTML("afterEnd","<input type='button' id='btnCheck' style='font-size: 16px; font-weight: bold; color: blue; cursor: pointer;' value='查詢'>");
                 	
@@ -125,14 +125,11 @@
 						
 					if(wParent.getElementById("vtunordb_"+window.parent.q_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
-						$('#btnOrdabox').attr('disabled', 'disabled');
 						$('#btnOrda2ordb').attr('disabled', 'disabled');
 						$('#btnOrdb').attr('disabled', 'disabled');
 						
 						$('#btnOrda').css('font-weight', '' );
 						$('#btnOrda').css('color', '');
-						$('#btnOrdabox').css('font-weight', '' );
-						$('#btnOrdabox').css('color', '');
 						$('#btnOrdb').css('font-weight', '' );
 						$('#btnOrdb').css('color', '');
 						$('#btnOrda2ordb').css('font-weight', '' );
@@ -141,8 +138,7 @@
 					}else if(wParent.getElementById("vtunorda_"+window.parent.q_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
 						$('#btnOrdb').attr('disabled', 'disabled');
-						$('#btnOrda2ordb').removeAttr('readonly');
-						$('#btnOrdabox').removeAttr('readonly');
+						$('#btnOrda2ordb').removeAttr('disabled');
 						
 						$('#btnOrda').css('font-weight', '' );
 						$('#btnOrda').css('color', '');
@@ -150,22 +146,26 @@
 						$('#btnOrdb').css('color', '');
 						$('#btnOrda2ordb').css('font-weight', 'bold');
 						$('#btnOrda2ordb').css('color', 'blue');
-						$('#btnOrdabox').css('font-weight', 'bold');
-						$('#btnOrdabox').css('color', 'blue');
 					}else{
-						$('#btnOrda').removeAttr('readonly');
-						$('#btnOrdb').removeAttr('readonly');
-						$('#btnOrda2ordb').removeAttr('readonly');
-						$('#btnOrdb').attr('disabled', 'disabled');
+						$('#btnOrda').removeAttr('disabled');
+						$('#btnOrdb').removeAttr('disabled');
+						$('#btnOrda2ordb').removeAttr('disabled');
 						
 						$('#btnOrda').css('font-weight', 'bold');
 						$('#btnOrda').css('color', 'blue');
-						$('#btnOrdabox').css('font-weight', '' );
-						$('#btnOrdabox').css('color', '');
 						$('#btnOrdb').css('font-weight', 'bold');
 						$('#btnOrdb').css('color', 'blue');
 						$('#btnOrda2ordb').css('font-weight', 'bold');
 						$('#btnOrda2ordb').css('color', 'blue');
+					}
+					if(wParent.getElementById("vtunorda_"+window.parent.q_recno).innerHTML==''){
+						$('#btnOrdabox').removeAttr('disabled');
+						$('#btnOrdabox').css('font-weight', 'bold');
+						$('#btnOrdabox').css('color', 'blue');
+					}else{
+						$('#btnOrdabox').attr('disabled', 'disabled');
+						$('#btnOrdabox').css('font-weight', '' );
+						$('#btnOrdabox').css('color', '');
 					}
 				}
                 
@@ -185,12 +185,26 @@
 						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
 					else
 						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+						
+					$('#chkOtherworkg [type]=checkbox').removeAttr('disabled');
+					$('#txtEnddate1').removeAttr('disabled');
+					$('#txtEnddate2').removeAttr('disabled');
+					$('#chkXordc [type]=checkbox').removeAttr('disabled');
+					$('#chkXsafe [type]=checkbox').removeAttr('disabled');
+					$('#chkWorkgall [type]=checkbox').removeAttr('disabled');
 	            });
 	            $('#txtWorkgno2').change(function() {
 					if($('#chkWorkgall [type]=checkbox').prop('checked'))
 						q_gt('view_workg', "where=^^isnull(ordbno,'')='' and isnull(ordano,'')=''^^", 0, 0, 0, "view_workg", r_accy);
 					else
 						q_gt('view_workg', "where=^^ noa between '"+$('#txtWorkgno1').val()+"' and '"+(emp($('#txtWorkgno2').val())?'CHAR(255)':$('#txtWorkgno2').val())+"' ^^ ", 0, 0, 0, "view_workg", r_accy);
+						
+					$('#chkOtherworkg [type]=checkbox').removeAttr('disabled');
+					$('#txtEnddate1').removeAttr('disabled');
+					$('#txtEnddate2').removeAttr('disabled');
+					$('#chkXordc [type]=checkbox').removeAttr('disabled');
+					$('#chkXsafe [type]=checkbox').removeAttr('disabled');
+					$('#chkWorkgall [type]=checkbox').removeAttr('disabled');
 	            });
 	            $('#chkWorkgall [type]=checkbox').click(function() {
 					if($('#chkWorkgall [type]=checkbox').prop('checked'))
@@ -280,6 +294,13 @@
 									$('#chkXsafe [type]=checkbox').prop('checked','true');
 								if(as[0].memo2.split('**')[7]=='1')
 									$('#chkWorkgall [type]=checkbox').prop('checked','true');
+								
+								$('#chkOtherworkg [type]=checkbox').attr('disabled', 'disabled');
+								$('#txtEnddate1').attr('disabled', 'disabled');
+								$('#txtEnddate2').attr('disabled', 'disabled');
+								$('#chkXordc [type]=checkbox').attr('disabled', 'disabled');
+								$('#chkXsafe [type]=checkbox').attr('disabled', 'disabled');
+								$('#chkWorkgall [type]=checkbox').attr('disabled', 'disabled');	
 							}
 						}
 						break;
@@ -296,14 +317,11 @@
 							}
 							if(isordb){
 								$('#btnOrda').attr('disabled', 'disabled');
-								$('#btnOrdabox').attr('disabled', 'disabled');
 								$('#btnOrda2ordb').attr('disabled', 'disabled');
 								$('#btnOrdb').attr('disabled', 'disabled');
 								
 								$('#btnOrda').css('font-weight', '');
 								$('#btnOrda').css('color', '');
-								$('#btnOrdabox').css('font-weight', '');
-								$('#btnOrdabox').css('color', '');
 								$('#btnOrdb').css('font-weight', '');
 								$('#btnOrdb').css('color', '');
 								$('#btnOrda2ordb').css('font-weight', '');
@@ -312,7 +330,6 @@
 								$('#btnOrda').attr('disabled', 'disabled');
 								$('#btnOrdb').attr('disabled', 'disabled');
 								$('#btnOrda2ordb').removeAttr('readonly');
-								$('#btnOrdabox').removeAttr('readonly');
 								
 								$('#btnOrda').css('font-weight', '');
 								$('#btnOrda').css('color', '');
@@ -320,37 +337,41 @@
 								$('#btnOrdb').css('color', '');
 								$('#btnOrda2ordb').css('font-weight', 'bold');
 								$('#btnOrda2ordb').css('color', 'blue');
-								$('#btnOrdabox').css('font-weight', 'bold');
-								$('#btnOrdabox').css('color', 'blue');
 							}else{
 								$('#btnOrda').removeAttr('readonly');
 								$('#btnOrdb').removeAttr('readonly');
 								$('#btnOrda2ordb').removeAttr('readonly');
-								$('#btnOrdb').attr('disabled', 'disabled');
 								
 								$('#btnOrda').css('font-weight', 'bold');
 								$('#btnOrda').css('color', 'blue');
-								$('#btnOrdabox').css('font-weight', '');
-								$('#btnOrdabox').css('color', '');
 								$('#btnOrdb').css('font-weight', 'bold');
 								$('#btnOrdb').css('color', 'blue');
 								$('#btnOrda2ordb').css('font-weight', 'bold');
 								$('#btnOrda2ordb').css('color', 'blue');
 							}
+							if(isorda){
+								$('#btnOrdabox').removeAttr('readonly');
+								$('#btnOrdabox').css('font-weight', 'bold');
+								$('#btnOrdabox').css('color', 'blue');
+							}else{
+								$('#btnOrdabox').attr('disabled', 'disabled');
+								$('#btnOrdabox').css('font-weight', '' );
+								$('#btnOrdabox').css('color', '');
+							}
 						}else{
 							$('#btnOrda').attr('disabled', 'disabled');
 							$('#btnOrda2ordb').attr('disabled', 'disabled');
 							$('#btnOrdb').attr('disabled', 'disabled');
-							$('#btnOrdb').attr('disabled', 'disabled');
+							$('#btnOrdabox').attr('disabled', 'disabled');
 							
 							$('#btnOrda').css('font-weight', '');
 							$('#btnOrda').css('color', '');
-							$('#btnOrdabox').css('font-weight', '');
-							$('#btnOrdabox').css('color', '');
 							$('#btnOrdb').css('font-weight', '');
 							$('#btnOrdb').css('color', '');
 							$('#btnOrda2ordb').css('font-weight', '');
 							$('#btnOrda2ordb').css('color', '');
+							$('#btnOrdabox').css('font-weight', '' );
+							$('#btnOrdabox').css('color', '');
 						}
 					break;
 					case 'check':
