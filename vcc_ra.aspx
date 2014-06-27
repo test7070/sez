@@ -191,215 +191,6 @@
 					btnordedisabled();
 				});
 				
-				$('#btnClose_div_stk').click(function() {
-					$('#div_stk').toggle();
-				});
-				
-				$('#btnOrde_plus').click(function() {
-					var drow=3,countrow=0;//預設開三行
-					//目前的行數
-					var rowslength = document.getElementById("table_orde").rows.length - 5;
-					while(countrow<drow){
-						var tr = document.createElement("tr");
-						tr.id = "copy_" + j;
-						tr.innerHTML = "<td style='background-color: #CDFFCE;width:34px;' align='center'><input class='btn'  id='btnOrde_minus_"+(rowslength+countrow)+"' type='button' value='-' style='font-weight: bold;'  /></td>";
-						tr.innerHTML += "<td style=1background-color: #CDFFCE;width:274px;1 align='center'><input id='orde_txtMount_" + (rowslength+countrow) + "' type='text' class='txt c1 num' value=''/></td>";
-						tr.innerHTML += "<td style=1background-color: #CDFFCE;width:274px;1 align='center'><input id='orde_txtOrdeno_" + (rowslength+countrow) + "' type='text' class='txt c1' style='width:200px;' value=''/><input id='orde_txtNo2_" + (rowslength+countrow) + "' type='text' class='txt c1' style='width:50px;' value=''/></td>";
-						
-						var tmp = document.getElementById("orde_close");
-						tmp.parentNode.insertBefore(tr, tmp);
-	                
-						countrow++;
-					}
-					
-					for (var i = 0; i < (rowslength+countrow); i++) {
-						$('#orde_txtMount_'+i).keyup(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							var tmp=$('#orde_txtMount_'+b_seq).val();
-							tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-							$('#orde_txtMount_'+b_seq).val(tmp);
-							
-						});
-						
-						$('#btnOrde_minus_'+i).click(function() {
-							t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							
-							$('#orde_txtMount_'+b_seq).val('');
-							$('#orde_txtOrdeno_'+b_seq).val('');
-						});
-					}
-					
-					var SeekF= new Array();
-					$('#table_orde td').children("input:text").each(function() {
-						if($(this).attr('disabled')!='disabled')
-							SeekF.push($(this).attr('id'));
-					});
-					
-					SeekF.push('btn_div_orde');
-					$('#table_orde td').children("input:text").each(function() {
-						$(this).bind('keydown', function(event) {
-							keypress_bbm(event, $(this), SeekF, SeekF[$.inArray($(this).attr('id'),SeekF)+1]);	
-						});
-					});
-				});
-				
-				$('#btnClose_div_orde').click(function() {
-					$('#div_orde').toggle();
-				});
-				
-				$('#btn_div_orde').click(function() {
-					var rowslength = document.getElementById("table_orde").rows.length - 5;
-					//檢查拆分數量是否等於原始數量
-					var total_mount=0,total_row=0,tmp_total_row=0,total_hours=0;
-					var copy_row=new Array();
-					var omount=dec($('#vcc_mount').text());
-					var t_orde_row=orde_row;
-					var orde_error='',orde_existed=false;
-					
-					for (var i = 0; i < q_bbsCount; i++) {
-						if(!emp($('#txtOrdeno_'+i).val()) && !emp($('#txtNo2_'+i).val())){
-							for (var j = 0; j < t_orde_row.length; j++) {
-								if($('#txtOrdeno_'+i).val()==t_orde_row[j].noa && $('#txtNo2_'+i).val()==t_orde_row[j].no2 && $('#txtProductno_'+i).val()==t_orde_row[j].productno){
-									t_orde_row[j].notv=dec(t_orde_row[j].notv)-dec($('#txtMount_'+i).val());
-									break;
-								}
-							}
-						}
-					}
-					
-					for (var i = 0; i < rowslength; i++) {
-						orde_existed=false
-						if(dec($('#orde_txtMount_'+i).val())>0){
-							
-							if(!emp($('#orde_txtOrdeno_'+i).val())&&!emp($('#orde_txtNo2_'+i).val())){
-								for (var j = 0; j < t_orde_row.length; j++) {
-									if(t_orde_row[j].noa==$('#orde_txtOrdeno_'+i).val()&&t_orde_row[j].no2==$('#orde_txtNo2_'+i).val()){
-										if(dec(t_orde_row[j].notv)<dec($('#orde_txtMount_'+i).val())){
-											orde_error='訂單'+$('#orde_txtOrdeno_'+i).val()+'-'+$('#orde_txtNo2_'+i).val() +"數量大於未交量!!";
-										}else{
-											t_orde_row[j].notv=dec(t_orde_row[j].notv)-dec($('#orde_txtMount_'+i).val());
-											orde_existed=true;
-											if(dec(t_orde_row[j].notv)==0){
-												t_orde_row.splice(j, 1);
-                                    			j--;	
-											}
-										}
-										break;
-									}
-								}
-								if(orde_error.length>0){
-									break;
-								}
-								if(!orde_existed){
-									orde_error='訂單'+$('#orde_txtOrdeno_'+i).val()+'-'+$('#orde_txtNo2_'+i).val() +"資料不正確!!";
-									break;
-								}
-							}else if(!emp($('#orde_txtOrdeno_'+i).val())&&emp($('#orde_txtNo2_'+i).val())){
-								for (var j = 0; j < t_orde_row.length; j++) {
-									if(t_orde_row[j].noa==$('#orde_txtOrdeno_'+i).val()){
-										if(dec(t_orde_row[j].notv)<dec($('#orde_txtMount_'+i).val())){
-											orde_error='訂單'+$('#orde_txtOrdeno_'+i).val()+"數量大於未交量!!";
-											continue;
-										}else{
-											orde_error='';
-											$('#orde_txtNo2_'+i).val(t_orde_row[j].no2);
-											t_orde_row[j].notv=dec(t_orde_row[j].notv)-dec($('#orde_txtMount_'+i).val());
-											orde_existed=true;
-											if(dec(t_orde_row[j].notv)==0){
-												t_orde_row.splice(j, 1);
-                                    			j--;	
-											}
-											break;
-										}
-									}
-								}
-								if(orde_error.length>0){
-									break;
-								}
-								if(!orde_existed){
-									orde_error='訂單'+$('#orde_txtOrdeno_'+i).val() +"資料不正確!!";
-									break;
-								}
-							}
-	                		
-							total_mount=q_add(total_mount,dec($('#orde_txtMount_'+i).val()));
-							total_row++;
-						}
-					}
-					
-					if(orde_error.length>0){
-						alert(orde_error);
-						return;
-					}
-					
-					if(total_mount!=omount){
-						alert("分批數量不等於原始數量!!");
-						return;
-					}
-					
-					if(emp($('#textVccnoq').val())){
-						alert("資料錯誤!!");
-						return;
-					}
-					var copy_row_b_seq=$('#textVccnoq').val();
-					
-					for (var i = 0; i < rowslength; i++) {
-						if(dec($('#orde_txtMount_'+i).val())>0){
-							if(emp($('#orde_txtOrdeno_'+i).val())&&emp($('#orde_txtNo2_'+i).val())){
-								for (var j = 0; j < t_orde_row.length; j++) {
-									if(dec(t_orde_row[j].notv)>=dec($('#orde_txtMount_'+i).val())){
-										$('#orde_txtOrdeno_'+i).val(t_orde_row[j].noa);
-										$('#orde_txtNo2_'+i).val(t_orde_row[j].no2);
-										t_orde_row[j].notv=dec(t_orde_row[j].notv)-dec($('#orde_txtMount_'+i).val());
-										if(dec(t_orde_row[j].notv)==0){
-											t_orde_row.splice(j, 1);
-	                                    	j--;	
-										}
-									}
-								}
-							}
-							//暫存資料
-							var t_copy=new Array();
-	                		t_copy['txtMount']=$('#orde_txtMount_'+i).val();
-	                		t_copy['txtOrdeno']=$('#orde_txtOrdeno_'+i).val();
-	                		t_copy['txtNo2']=$('#orde_txtNo2_'+i).val();
-	                		copy_row.push(t_copy);
-						}
-					}
-					
-					tmp_total_row=total_row-1;
-					//複製行數
-					while(tmp_total_row>0){
-						q_bbs_addrow('bbs', copy_row_b_seq, 1);
-						tmp_total_row--;
-					}
-					
-					//寫入資料
-					for(var i=0;i<total_row;i++){
-						for (var j = 0; j < fbbs.length; j++) {
-							if(copy_row[i][fbbs[j]]!=undefined && copy_row[i][fbbs[j]]!='')
-								$('#'+fbbs[j]+'_'+(dec(copy_row_b_seq)+i)).val(copy_row[i][fbbs[j]]);
-							else
-								$('#'+fbbs[j]+'_'+(dec(copy_row_b_seq)+i)).val(vcc_bbs_row[fbbs[j]]);
-								
-							//if(fbbs[j]=='txtNoq')
-							//	$('#txtNoq_'+(dec(copy_row_b_seq)+i)).val($('#txtNoq_'+(dec(copy_row_b_seq)+i)).val()+String.fromCharCode(65+i));
-						}
-					}
-					
-					for (var i = 0; i < q_bbsCount; i++) {
-						$('#txtNoq_'+i).val('');
-					}
-					sum();
-					btnordedisabled();
-					bbsGetOrdeList();
-					$('#div_orde').toggle();
-				});
-				
 				if (isinvosystem)
 					$('.istax').hide();
 			}
@@ -418,8 +209,8 @@
 					}
 					if(PnoArray.length > 0){
 						var t_where = 'where=^^ 1=1 ';
-						t_where += "and ((select enda from view_orde where noa=view_ordes.noa)='0') ";//BBM未結案
-						t_where += "and (enda='0') ";//BBS未結案
+						t_where += "and ((select isnull(enda,0) from view_orde where noa=view_ordes.noa)!=1) ";//BBM未結案
+						t_where += "and (isnull(enda,0)!=1) ";//BBS未結案
 						t_where += "and (custno=N'"+t_custno+"')";
 						t_where += "and (productno in (" +PnoArray.toString()+ "))";
 						q_gt('view_ordes', t_where, 0, 0, 0, "GetOrdeList");
@@ -769,6 +560,7 @@
 					case 'div_ordes':
 						orde_row = _q_appendData('view_ordes', '', true);
 						if (orde_row[0] != undefined) {
+							//將原先單子的數量加回
 							for (var i = 0; i < abbsNow.length; i++) {
 								if(abbsNow[i].ordeno!='' && abbsNow[i].no2!=''){
 									for (var j = 0; j < orde_row.length; j++) {
@@ -779,11 +571,85 @@
 									}
 								}
 							}
+							orde_row.sort(compare);//排序
 							
-							orde_row.sort(compare);
-							//預設開3行
-							$('#btnOrde_plus').click();
-							$('#div_orde').show();
+							//檢查拆分數量是否等於原始數量
+							var total_mount=0,total_row=0,tmp_total_row=0,total_hours=0;
+							var copy_row=new Array();
+							var t_orde_row=orde_row;
+							var orde_error='',orde_existed=false;
+							
+							//扣掉目前已指定的單子數量
+							for (var i = 0; i < q_bbsCount; i++) {
+								if(!emp($('#txtOrdeno_'+i).val()) && !emp($('#txtNo2_'+i).val())){
+									for (var j = 0; j < t_orde_row.length; j++) {
+										if($('#txtOrdeno_'+i).val()==t_orde_row[j].noa && $('#txtNo2_'+i).val()==t_orde_row[j].no2 && $('#txtProductno_'+i).val()==t_orde_row[j].productno){
+											t_orde_row[j].notv=dec(t_orde_row[j].notv)-dec($('#txtMount_'+i).val());
+											break;
+										}
+									}
+								}
+							}
+							
+							//將數量依據未分配的訂單分批
+							var vcc_mount=dec(vcc_bbs_row['txtMount']);
+							for (var i = 0; i < t_orde_row.length; i++) {
+								if(dec(t_orde_row[i].notv)>0 && vcc_mount>0){
+									if(dec(t_orde_row[i].notv)>=vcc_mount){
+										//暫存資料
+										var t_copy=new Array();
+				                		t_copy['txtMount']=vcc_mount;
+				                		t_copy['txtOrdeno']=t_orde_row[i].noa;
+				                		t_copy['txtNo2']=t_orde_row[i].no2;
+				                		copy_row.push(t_copy);
+				                		vcc_mount=0;
+									}else{
+										var t_copy=new Array();
+				                		t_copy['txtMount']=dec(t_orde_row[i].notv);
+				                		t_copy['txtOrdeno']=t_orde_row[i].noa;
+				                		t_copy['txtNo2']=t_orde_row[i].no2;
+				                		copy_row.push(t_copy);
+				                		vcc_mount=vcc_mount-dec(t_orde_row[i].notv);
+									}
+								}
+								
+								if(vcc_mount<=0)
+									break;
+							}
+							
+							if(vcc_mount>0){
+								var t_copy=new Array();
+				                t_copy['txtMount']=vcc_mount;
+				                t_copy['txtOrdeno']='';
+				                t_copy['txtNo2']='';
+				                copy_row.push(t_copy);
+							}
+							
+							tmp_total_row=copy_row.length-1;
+							//複製行數
+							while(tmp_total_row>0){
+								q_bbs_addrow('bbs', vcc_b_seq, 1);
+								tmp_total_row--;
+							}
+							
+							//寫入資料
+							for(var i=0;i<copy_row.length;i++){
+								for (var j = 0; j < fbbs.length; j++) {
+									if(copy_row[i][fbbs[j]]!=undefined && copy_row[i][fbbs[j]]!='')
+										$('#'+fbbs[j]+'_'+(dec(vcc_b_seq)+i)).val(copy_row[i][fbbs[j]]);
+									else
+										$('#'+fbbs[j]+'_'+(dec(vcc_b_seq)+i)).val(vcc_bbs_row[fbbs[j]]);
+										
+								}
+							}
+							
+							for (var i = 0; i < q_bbsCount; i++) {
+								$('#txtNoq_'+i).val('');
+							}
+							
+							sum();
+							btnordedisabled();
+							bbsGetOrdeList();
 						}else{
 							alert('無訂單資料!!!');
 						}
@@ -849,7 +715,7 @@
 				}
 			}
 			
-			var mouse_point,vcc_bbs_row,orde_row;
+			var mouse_point,vcc_bbs_row,orde_row,vcc_b_seq;
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
@@ -929,55 +795,40 @@
 							}
 						});
 						
-						$('#btnOrde_' + i).mousedown(function(e) {
+						$('#btnOrde_' + i).click(function(e) {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+							
+							vcc_b_seq=b_seq;
 							
 							var t_err = q_chkEmpField([['txtCustno', q_getMsg('lblCust')],['txtProductno_' + b_seq, q_getMsg('lblProductno_s')]]);
 							if (t_err.length > 0) {
 								alert(t_err);
 								return;
 							}
+							
 							if(dec($('#txtMount_' + b_seq).val())<=0){
 								alert(q_getMsg('lblMount_s')+'不能小於等於0');
 								return;	
 							}
 							
-							if(e.button==0){
-								//設定顯示位置
-								$('#div_orde').css('top', e.pageY+30);
-								$('#div_orde').css('left', e.pageX+45);
-								//填入資料
-								$('#vcc_productno').text($('#txtProductno_'+b_seq).val());
-								$('#vcc_product').text($('#txtProduct_'+b_seq).val());
-								$('#vcc_mount').text($('#txtMount_'+b_seq).val());
-								$('#textVccnoq').val(b_seq);
-								
-								//刪除舊資料
-								var rowslength = document.getElementById("table_orde").rows.length - 4;
-								for (var j = 1; j < rowslength; j++) {
-									document.getElementById("table_orde").deleteRow(4);
-								}
-								
-								//暫存要複製的資料
-								vcc_bbs_row=new Array();
-				                for (var j = 0; j < fbbs.length; j++) {
-				                	vcc_bbs_row[fbbs[j]]=$('#'+fbbs[j]+'_'+b_seq).val();
-				                }
-				                
-				                var orde_where='1=0';
-				                for (var j = 0; j < abbsNow.length; j++) {
-				                	if(abbsNow[j].ordeno!='' && abbsNow[j].no2!=''){
-				                		orde_where=orde_where+" or (noa='"+abbsNow[j].ordeno+"' and no2='"+abbsNow[j].no2+"') ";
-				                	}
-				                }
-				                
-				                var t_where = "where=^^ ((custno='" + $('#txtCustno').val() + "' and isnull(enda,0) !=1 and isnull(cancel,0) !=1 and notv>0) or ("+orde_where+")) and productno='"+$('#txtProductno_' + b_seq).val()+"' ^^";
-								q_gt('view_ordes', t_where, 0, 0, 0, "div_ordes", r_accy);
-				                
-								e.preventDefault();
+							//暫存要複製的資料
+							vcc_bbs_row=new Array();
+				               for (var j = 0; j < fbbs.length; j++) {
+				               	vcc_bbs_row[fbbs[j]]=$('#'+fbbs[j]+'_'+b_seq).val();
 							}
+				                
+				            var orde_where='1=0';
+							for (var j = 0; j < abbsNow.length; j++) {
+				            	if(abbsNow[j].ordeno!='' && abbsNow[j].no2!=''){
+				                	orde_where=orde_where+" or (noa='"+abbsNow[j].ordeno+"' and no2='"+abbsNow[j].no2+"') ";
+				                }
+							}
+				                
+				            var t_where = "where=^^ ((custno='" + $('#txtCustno').val() + "' and isnull(enda,0) !=1 and isnull(cancel,0) !=1 and notv>0) or ("+orde_where+")) and productno='"+$('#txtProductno_' + b_seq).val()+"' ^^";
+							q_gt('view_ordes', t_where, 0, 0, 0, "div_ordes", r_accy);
+							
 						});
 					}
 				}
@@ -1372,36 +1223,6 @@
 		</style>
 	</head>
 	<body>
-		<div id="div_orde" style="position:absolute; top:0px; left:0px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray;">
-			<table id="table_orde" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
-				<tr>
-					<td colspan='2'  style="background-color: #F8D463;" align="center">物品編號</td>
-					<td id="vcc_productno" style="background-color: #F8D463;" align="left"> </td>
-				</tr>
-				<tr>
-					<td colspan='2'  style="background-color: #F8D463;" align="center">物品名稱</td>
-					<td id="vcc_product" style="background-color: #F8D463;" align="left"> </td>
-				</tr>
-				<tr>
-					<td colspan='2' style="background-color: #F8D463;width:114px;" align="center">原始數量</td>
-					<td id="vcc_mount" style="background-color: #F8D463;width:144px;" align="left"> </td>
-				</tr>
-				<tr id='orde_top'>
-					<td style="background-color: #CDFFCE;width:34px;" align="center">
-						<input class="btn"  id="btnOrde_plus" type="button" value='+' style="font-weight: bold;"  />
-						<input id='textVccnoq' type='hidden'/>
-					</td>
-					<td style="background-color: #CDFFCE;width:100px;" align="center">分批數量</td>
-					<td style="background-color: #CDFFCE;width:266px;" align="center">指定訂單</td>
-				</tr>
-				<tr id='orde_close'>
-					<td align="center" colspan='3'>
-						<input id="btn_div_orde" type="button" value="分批">
-						<input id="btnClose_div_orde" type="button" value="關閉視窗">
-					</td>
-				</tr>
-			</table>
-		</div>
 		<div id="div_stk" style="position:absolute; top:300px; left:400px; display:none; width:400px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_stk" style="width:100%;" border="1" cellpadding='2'  cellspacing='0'>
 				<tr>
