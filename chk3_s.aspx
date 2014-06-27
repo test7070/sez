@@ -34,8 +34,6 @@
 
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
-                t_bank = $('#txtBank').val();
-                t_bankno = $('#txtBankno').val();
                 t_worker = $('#txtWorker').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
@@ -43,7 +41,7 @@
                 
                 t_checkno = $.trim($('#txtCheckno').val());
                 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("bank", t_bank) + q_sqlPara2("bankno", t_bankno) + q_sqlPara2("worker", t_worker) + q_sqlPara2("datea", t_bdate, t_edate);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("worker", t_worker) + q_sqlPara2("datea", t_bdate, t_edate);
                 if(t_checkno.length>0)
                     t_where += " and exists(select noa from chk3s where chk3s.noa=chk3.noa and patindex('%" + t_checkno + "%',chk3s.checkno)>0)";
                 if(t_money!=0)
@@ -77,14 +75,6 @@
                     <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                     <td>
                     <input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
-                    </td>
-                </tr>
-                <tr class='seek_tr'>
-                    <td class='seek'  style="width:20%;"><a id='lblBank'></a></td>
-                    <td>
-                    <input class="txt" id="txtBankno" type="text" style="width:90px; font-size:medium;" />
-                    &nbsp;
-                    <input class="txt" id="txtBank" type="text" style="width:115px; font-size:medium;" />
                     </td>
                 </tr>
                 <tr class='seek_tr'>
