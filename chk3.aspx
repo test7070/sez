@@ -135,6 +135,14 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                        $('#txtCheckno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtCheckno_', '');
+                            if ($(this).val().length > 0) {
+                                q_box("gqb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";gqbno='" + $(this).val() + "';" + r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
+                            }
+                        });
                         $('#chkSel_' + i).click(function() {
                             sum();
                         }).hover(function() {
@@ -166,6 +174,14 @@
                 for (var i = 0; i < q_bbtCount; i++) {
                     $('#lblNo__' + i).text(i + 1);
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+                        $('#txtAcc1__'+i).change(function(e) {
+                            var patt = /^(\d{4})([^\.,.]*)$/g;
+                            if(patt.test($(this).val()))
+                                $(this).val($(this).val().replace(patt,"$1.$2"));
+                            else if((/^(\d{4})$/).test($(this).val())){
+                                $(this).val($(this).val()+'.');
+                            }
+                        });
                     }
                 }
                 _bbtAssign();
