@@ -79,12 +79,24 @@
             switch (t_name) {
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea', as.length, as, 'noa,namea', '');
-            		
-            		for (var j = 0; j < q_bbsCount; j++) {
-            			$('#txtClockin_'+j).val('08:00');
-            			$('#txtClockout_'+j).val('17:30');
+            		for (var j = 0; j < as.length; j++) {
+            			if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+            				if(as[j].typea.indexOf('中班')>-1){
+            					as[j].clockin='16:00';
+            					as[j].clockout='00:00';
+            				}else if(as[j].typea.indexOf('晚班')>-1){
+            					as[j].clockin='00:00';
+            					as[j].clockout='08:00';
+            				}else{
+            					as[j].clockin='09:00';
+            					as[j].clockout='18:00';
+            				}
+            			}else{
+            				as[j].clockin='08:00';
+            				as[j].clockout='17:30';
+            			}
             		}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtClockin,txtClockout', as.length, as, 'noa,namea,clockin,clockout', '');
             		sum()
             		table_change();
             	break;
