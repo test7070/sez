@@ -182,6 +182,9 @@
                                 $(this).val($(this).val()+'.');
                             }
                         });
+                        $('#txtMoney__'+i).change(function(e){
+                            sum();
+                        });
                     }
                 }
                 _bbtAssign();
