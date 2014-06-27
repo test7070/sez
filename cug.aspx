@@ -1911,7 +1911,7 @@
 						<input id='textChildseq' type='hidden'/>
 						<input id='textChildworkno' type='hidden'/>
 						<input id='textChildcugunoq' type='hidden'/>
-						所有製成品子階全部&nbsp;&nbsp;
+						製成品全部子階&nbsp;&nbsp;
 						提前&nbsp;
 						<input id='textAllEarlyday' type='text' style='text-align:right;width: 50px;'/>
 						往後&nbsp;

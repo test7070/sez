@@ -1592,8 +1592,8 @@
 							<input id="txtTax" type="text" class="txt num c1 istax"  style="width: 49%;"/>
 							<select id="cmbTaxtype" style="width: 49%;" onchange="calTax();"> </select>
 						</td>
-						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
+						<td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
+						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
@@ -1601,8 +1601,8 @@
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1"/></td>
 						<td class="td4"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
-						<td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
-						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax"/></td>
+						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
@@ -1645,7 +1645,7 @@
 						<input class="txt c1"  id="txtProductno.*" type="text" />
 						<input id="txtNoq.*" type="text" class="txt c6"/>
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
-						<input class="btn"  id="btnOrde.*" type="button" value='分批' style="" />
+						<!--<input class="btn"  id="btnOrde.*" type="button" value='分批' style="" />-->
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1" />
