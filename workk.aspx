@@ -122,6 +122,29 @@
 			//儲存目前倉庫庫存
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getstore':
+						var as = _q_appendData("store", "", true);
+						var t_storeno=false,t_storeinno=false;
+						for (var i = 0; i < as.length; i++) {
+							if($('#txtStoreno').val()==as[i].noa)
+								t_storeno=true;
+							if($('#txtStoreinno').val()==as[i].noa)
+								t_storeinno=true;
+						}
+						
+						if(!t_storeno){
+							alert(q_getMsg('lblStoreno')+'不存在');
+							break;
+						}
+						
+						if(!t_storeinno){
+							alert(q_getMsg('lblStoreinno')+'不存在');
+							break;
+						}
+						
+						btnOk();
+						instore=true;
+						break;
 					case 'work_stk':
 						work_stk = _q_appendData("stkucc", "", true);
 						break;
@@ -247,6 +270,7 @@
 
 						if (btnok_bbsstkchk && btnok_msg.length == 0) {
 							sum();
+							instore=false;
 							if (q_cur == 1)
 								$('#txtWorker').val(r_name);
 							else
@@ -277,6 +301,7 @@
 			}
 
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
+			var instore=false;
 			function btnOk() {
 				var t_err = '';
 				t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')], ['txtStationno', q_getMsg('lblStation')]
@@ -285,6 +310,12 @@
 
 				if (t_err.length > 0) {
 					alert(t_err);
+					return;
+				}
+				
+				//1030627 判斷倉庫存在才能存檔
+				if(!instore){
+					q_gt('store', 'where=^^ 1=1 ^^', 0, 0, 0, "getstore", r_accy);
 					return;
 				}
 
@@ -321,6 +352,7 @@
 				}
 
 				if (stkchkcount == 0) {
+					instore=false;
 					sum();
 					if (q_cur == 1)
 						$('#txtWorker').val(r_name);
