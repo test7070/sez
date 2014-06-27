@@ -19,14 +19,17 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             q_desc=1;
-            q_tables = 's';
+            q_tables = 't';
             var q_name = "chk3";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney','txtTotal','txtAccno'];
             var q_readonlys = ['txtCheckno'];
+            var q_readonlyt = [];
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
+            var bbtNum = [];
             var bbmMask = [];
             var bbsMask = [['txtDatea', '999/99/99']];
+            var bbtMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
