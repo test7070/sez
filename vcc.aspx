@@ -1225,8 +1225,11 @@
 						<td class="td1"><span> </span><a id='lblAddr2' class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
 						<td class="td3" colspan='4'>
-						<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
-						<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select></td>
+							<input id="txtAddr2"  type="text" class="txt c1" style="width: 412px;"/>
+							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
+						</td>
+						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
@@ -1268,8 +1271,6 @@
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1"/></td>
 						<td class="td4"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
-						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
