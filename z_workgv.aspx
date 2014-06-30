@@ -44,6 +44,10 @@
                         type : '8', //[6]
                         name : 'showordb',
                         value : "1@只顯示需備料".split(',')
+                    },{
+                        type : '8', //[7]
+                        name : 'showforecast',
+                        value : "1@只顯示有預測資料".split(',')
                     }]
                 });
                 q_popAssign();
@@ -53,6 +57,15 @@
 				$('#Xproduct').css('width','690px');
 				$('#Xproduct .c2').css('width','130px');
 				$('#Xproduct .c3').css('width','130px');
+				$('#Xmon').css('width','340px');
+				$('#Showworkg').css('width','340px');
+				$('#Showordb').css('width','340px');
+				$('#Showforecast').css('width','340px');
+				$('#chkShowworkg').css('width','250px');
+				$('#chkShowordb').css('width','250px');
+				$('#chkShowforecast').css('width','250px');
+				
+				
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setMonth(t_date.getMonth() + 5);

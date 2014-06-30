@@ -1916,7 +1916,7 @@
 						<input id='textAllEarlyday' type='text' style='text-align:right;width: 50px;'/>
 						往後&nbsp;
 						<input id='textAllDelayday' type='text' style='text-align:right;width: 50px;'/>
-						&nbsp;&nbsp;
+						天&nbsp;&nbsp;
 						<input id="btnAlldayupdate" type="button" value="全部更新">
 					</td>
 				</tr>
