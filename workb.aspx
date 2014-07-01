@@ -83,7 +83,7 @@
 				$('#txtWorkno').change(function() {
 					if(!emp($('#txtWorkno').val())){
 						if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
-							var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
+							var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and (tggno is null or tggno='') ^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						}else{
 							alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
@@ -99,13 +99,14 @@
 
 				//1020729 排除已完全入庫&&完全未領料的成品
 				$('#btnOrdes').click(function() {
-					var t_err = '';
+					//1030630不用判斷工作中心是否有填寫
+					/*var t_err = '';
 					t_err = q_chkEmpField([['txtStationno', q_getMsg('lblStation')]]);
 					// 檢查空白
 					if (t_err.length > 0) {
 						alert(t_err);
 						return;
-					}
+					}*/
 					
 					if (!emp($('#txtStationno').val())) {
 						//var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where (a.tggno is null or a.tggno='') and a.stationno='" + $('#txtStationno').val() + "' and (a.mount>a.inmount and b.gmount>0)) ";
@@ -123,38 +124,49 @@
 
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 				$('#btnWork').click(function() {
-					var t_err = '';
+					//1030630不用判斷工作中心是否有填寫
+					/*var t_err = '';
 					t_err = q_chkEmpField([['txtStationno', q_getMsg('lblStation')]]);
 					// 檢查空白
 					if (t_err.length > 0) {
 						alert(t_err);
 						return;
+					}*/
+					if(!emp($('#txtWorkno').val()) && $('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')==''){
+						alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");
+						return;
 					}
-					var t_where = '1=1 ';
-					//var t_where += "and enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
-					t_where += "and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and (tggno is null or tggno='')";
 					
-					if (!emp($('#txtStationno').val())) 
-						t_where += " and stationno='" + $('#txtStationno').val() + "' ";
+					if(!emp($('#txtWorkno').val())){
+						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and (tggno is null or tggno='')^^";
+						q_gt('work', t_where, 0, 0, 0, "", r_accy);
+					}else{
+						var t_where = '1=1 ';
+						//var t_where += "and enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
+						t_where += "and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and (tggno is null or tggno='')";
 						
-					var workno = $.trim($('#txtWorkno').val());
-					if(workno.length > 0 ){
-						t_where += " and noa=N'"+workno+"'";
+						if (!emp($('#txtStationno').val())) 
+							t_where += " and stationno='" + $('#txtStationno').val() + "' ";
+							
+						var workno = $.trim($('#txtWorkno').val());
+						if(workno.length > 0 ){
+							t_where += " and noa=N'"+workno+"'";
+						}
+						//1030310 加入應完工日的條件
+						var t_bdate = $.trim($('#txtBdate').val());
+						var t_edate = $.trim($('#txtEdate').val());
+						if(t_bdate.length > 0 || t_edate.length>0){
+							if(t_edate.length == 0) t_edate='999/99/99'
+							t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
+						}
+						
+						t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
+						
+						//原先的資料
+						t_where += " or noa in (select workno from view_workbs where noa='" + $('#txtNoa').val() + "')";
+						
+						q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 					}
-					//1030310 加入應完工日的條件
-					var t_bdate = $.trim($('#txtBdate').val());
-					var t_edate = $.trim($('#txtEdate').val());
-					if(t_bdate.length > 0 || t_edate.length>0){
-						if(t_edate.length == 0) t_edate='999/99/99'
-						t_where += " and uindate between '"+t_bdate+"' and '"+t_edate+"'";
-					}
-					
-					t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
-					
-					//原先的資料
-					t_where += " or noa in (select workno from view_workbs where noa='" + $('#txtNoa').val() + "')";
-					
-					q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 				});
 				
 				$('#btnClose_div_stk').click(function() {
@@ -285,7 +297,17 @@
 					case 'work':
 						var as = _q_appendData("work", "", true);
 						var t_stationno = '', t_station = '';
-						for ( i = 0; i < as.length; i++) {
+						for ( var i = 0; i < as.length; i++) {
+							for (var j = 0; j < q_bbsCount; j++) {
+								if(!emp($('#txtWorkno_'+j).val()) && as[i].noa==$('#txtWorkno_'+j).val()){
+									//排除已在BBS內的work
+									as.splice(i, 1);
+									i--;
+									break;
+								}
+							}
+						}
+						for ( var i = 0; i < as.length; i++) {
 							if (as[i].stationno != '') {
 								t_stationno = as[i].stationno;
 								t_station = as[i].station;
@@ -301,8 +323,9 @@
 							//本次入庫量
 							as[i].smount=dec(as[i].mount)-dec(as[i].inmount);
 						}
+						
 						var ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtStyle,txtUnit,txtSpec,txtMount,txtMemo,txtWorkno,txtOrdeno,txtNo2,txtWk_mount,txtWk_inmount,txtWk_unmount', as.length, as
-						, 'productno,product,style,unit,spec,smount,memo,noa,ordeno,no2,mount,inmount,smount', '');
+						, 'productno,product,style,unit,spec,smount,memo,noa,ordeno,no2,mount,inmount,smount', 'txtWorkno');
 
 						if (t_stationno.length != 0 || t_station.length != 0) {
 							$('#txtStationno').val(t_stationno);
@@ -607,7 +630,7 @@
 				switch (s1) {
 					case 'txtWorkno':
 						if($('#txtWorkno').val().substr(1,1).replace(/[^\d]/g,'')!=''){
-							var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' ^^";
+							var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and (tggno is null or tggno='') ^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
 						}else{
 							alert("【"+$('#txtWorkno').val()+"】是模擬製令不得入庫!!");

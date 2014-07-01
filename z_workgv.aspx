@@ -64,7 +64,7 @@
 				$('#chkShowworkg').css('width','250px');
 				$('#chkShowordb').css('width','250px');
 				$('#chkShowforecast').css('width','250px');
-				
+				$('#chkShowforecast [type]=checkbox').prop('checked','ture')
 				
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();

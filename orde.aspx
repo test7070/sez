@@ -517,7 +517,7 @@
 								b_seq = t_IdSeq;
 								if (!emp($('#txtProductno_' + b_seq).val())) {
 									//庫存
-									var t_where = "where=^^ ['" + q_date() + "','','') where productno='" + $('#txtProductno_' + b_seq).val() + "' ^^";
+									var t_where = "where=^^ ['" + q_date() + "','','"+$('#txtProductno_' + b_seq).val()+"')  ^^";
 									q_gt('calstk', t_where, 0, 0, 0, "msg_stk", r_accy);
 								}
 							}

@@ -1439,7 +1439,8 @@
                 	case 'qtxt.query.workrealall':
                 		$('#btn_div_real').removeAttr('disabled');
                 		$('#btn_div_real').val('轉換');
-                		alert("批次模擬製令成功轉成正式製令!!");
+                		var as = _q_appendData('tmp0','',true,true);
+                		alert("批次模擬製令成功轉成正式製令!!\n共轉換"+as.length+"張");
                 		$('#div_real').toggle();
                 		var s2=new Array('cug_s',"where=^^noa<='"+$('#txtNoa').val()+"' ^^ ");
 						q_boxClose2(s2);
