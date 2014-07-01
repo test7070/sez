@@ -8,6 +8,10 @@
 		<script src="../script/qj_mess.js" type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			var q_name = 'ordbt', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], t_count = 0, as, brwCount = -1;
 			brwCount2 = 0;
@@ -55,6 +59,14 @@
 
 			function bbsAssign() {
 				_bbsAssign();
+				 for (var i = 0; i < q_bbsCount; i++) {
+				 	$('#txtEdate_'+i).removeClass('hasDatepicker');
+					$('#txtEdate_'+i).datepicker();
+					$('#txtRdate_'+i).removeClass('hasDatepicker');
+					$('#txtRdate_'+i).datepicker();
+					$('#txtFdate_'+i).removeClass('hasDatepicker');
+					$('#txtFdate_'+i).datepicker();
+				 }
 			}
 
 			function btnOk() {
