@@ -10,15 +10,15 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		var q_name = 'work' , t_content = ' field=noa,kdate,workdate,uindate,cuadate,ordeno,no2,enddate,mount,rmount,inmount,wmount,memo,productno,product,process,station,processno,stationno,unit,modelno,model,hours,tggno,comp', bbsKey = ['noa'], as, t_where = '';
-		var t_sqlname = 'work_load'; t_postname = q_name;
+		var q_name = 'work' , t_content = ' field=noa,kdate,rank,workdate,uindate,cuadate,ordeno,no2,enddate,mount,rmount,inmount,wmount,memo,productno,product,process,station,processno,stationno,unit,modelno,model,hours,tggno,comp', bbsKey = ['noa'], as, t_where = '';
+		var t_sqlname = 'work_f_load'; t_postname = q_name;
 		var isBott = false;  /// 是否已按過 最後一頁
 		var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
 		var bbsNum = [['textBorn2', 15, 0, 1]];
 		var i, s1;
 		brwCount = -1;
 		//brwCount2 = -1;
-		q_desc=1;
+		//q_desc=1;
 		
 		aPop = new Array(['textStoreno2_', 'btnStore2_', 'store', 'noa,store', 'textStoreno2_,textStore2_', 'store_b.aspx']);
 		
@@ -122,6 +122,7 @@
 				<th align="center"><a id='lblProcess'></a></th>
 				<th align="center"><a id='lblNoa'></a> <BR><a id='lblCuadate'></a>/ <a id='lblUindate'></a></th>
 				<th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
+				<th align="center"><a id='lblRank'></a></th>
 				<th align="center"><a id='lblMount'></a></th>
 				<th align="center"><a id='lblInmount2_f'></a></th>
 				<th align="center"><a id='lblUnborn2_f'></a></th>
@@ -149,6 +150,9 @@
 				<td style="width:14%;">
 					<input class="txt" id="txtProductno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
+				</td>
+				<td style="width:4%;">
+					<input class="txt" id="txtRank.*" type="text" style="width:98%;text-align: center;"  readonly="readonly" />
 				</td>
 				<td style="width:7%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
 				<td style="width:7%;"><input class="txt" id="textInmount2.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>

@@ -87,7 +87,7 @@
             
             $('#btnInput').click(function () {
             	if(q_cur==1 ||q_cur==2){
-	            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa not in (select sno from salarys where mon='103/05')  and a.noa!='Z001'^^";//後面是不要匯入軒威
+	            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa not in (select sno from salarys where mon='"+$('#txtMon').val()+"')  and a.noa!='Z001'^^";//後面是不要匯入軒威
 	            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
 	            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
 	            	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
@@ -546,11 +546,23 @@
 			                    	}
 			                    }
 			                    
-			                    //只要有請假與遲到一律都沒有全勤獎金
-			                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary)+dec(as[i].late))>0){
-			                    	as[i].bo_full=0;
-			                    }
-		                    
+			                    //全勤獎金
+			                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+				                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+				                    	if(dec(as[i].late)>3){as[i].bo_full=0;}
+				                    }else if(q_getPara('sys.comp').indexOf('安美得')>-1){
+				                    	if(dec(as[i].late)>2){as[i].bo_full=0;}
+				                    }
+				                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))>0){
+				                    	as[i].bo_full=0;
+				                    }
+			                    }else{
+			                    	//只要有請假與遲到一律都沒有全勤獎金
+				                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary)+dec(as[i].late))>0){
+				                    	as[i].bo_full=0;
+				                    }
+		                    	}
+		                    	
 		                    	//其他項目
 		                    		//應稅其他=應稅其他+生產獎金+夜班津貼+值班津貼
 		                    		//if(!($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1))

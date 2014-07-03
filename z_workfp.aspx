@@ -18,8 +18,10 @@
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
-				q_gf('', 'z_workfp');
+				//q_gf('', 'z_workfp');
+				q_gt('uccga', '', 0, 0, 0, "");
 			});
+			var xgroupanoStr = '';
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workfp',
@@ -53,6 +55,21 @@
 						type : '5', //[10]
 						name : 'xwhere',//f,u,q
 						value : '4@階段一：委外製令單,1@階段二：已送驗未暫收,2@階段三：已暫收，未驗收,3@階段四：已驗收'.split(',')
+					},{
+						type : '1', //[11] [12]
+						name : 'xcuadate'
+					}, {
+						type : '5', //[13]
+						name : 'xgroupano',
+						value : xgroupanoStr.split(',')
+					}, {
+						type : '5', //[14]
+						name : 'xenda',
+						value : '0@未完工,1@已完工'.split(',')
+					}, {
+						type : '8', //[15]
+						name : 'xworkj',
+						value : ('1@含非正式製令').split(',')
 					}]
 				});
 				q_popAssign();
@@ -62,9 +79,12 @@
 					$('#txtXtgg1a').val(r_userno.toUpperCase()).attr('disabled','disabled');
 					$('#txtXtgg2a').val(r_userno.toUpperCase()).attr('disabled','disabled');
 					$('#btnXtgg1,#btnXtgg2').unbind('click');
+					$('#chkXworkj [type]=checked').attr('disabled','disabled');
 				}
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate2').mask('999/99/99');
+				$('#txtXcuadate1').mask('999/99/99');
+				$('#txtXcuadate2').mask('999/99/99');
 				$('#Xwhere select').css('width','180px')
 				$('#txtXdate1').val(q_date().substring(0, 7) + '01');
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
@@ -76,8 +96,21 @@
 
 			function q_boxClose(s2) {
 			}
-
+			
 			function q_gtPost(s2) {
+				switch (s2) {
+					case 'uccga':
+						var as = _q_appendData("uccga", "", true);
+						var t_item = "#non@全部";
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+							}
+						}
+						xgroupanoStr = t_item;
+						q_gf('', 'z_workfp');
+						break;
+				} /// end switch
 			}
 		</script>
 	</head>

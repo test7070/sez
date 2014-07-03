@@ -156,6 +156,26 @@
 				$('#Xproductno').css('width','690px');
 				$('#Xproductno .c2').css('width','130px');
 				$('#Xproductno .c3').css('width','130px');
+				$('#Yproductno').css('width','690px');
+				$('#Yproductno .c2').css('width','130px');
+				$('#Yproductno .c3').css('width','130px');
+				$('#Xstoreno').css('width','690px');
+				$('#Xstoreno .c2').css('width','130px');
+				$('#Xstoreno .c3').css('width','130px');
+				$('#Xprocess').css('width','690px');
+				$('#Xprocess .c2').css('width','130px');
+				$('#Xprocess .c3').css('width','130px');
+				$('#Xstation').css('width','690px');
+				$('#Xstation .c2').css('width','130px');
+				$('#Xstation .c3').css('width','130px');
+				$('#Xstationg').css('width','690px');
+				$('#Xstationg .c2').css('width','130px');
+				$('#Xstationg .c3').css('width','130px');
+				
+				$('#Xdate').css('width','340px');
+				$('.option div.a2').css('width','340px');
+				$('#Aberrant').css('width','340px').css('height','30px');
+				$('#chkAberrant').css('width','250px');
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
 				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
 
