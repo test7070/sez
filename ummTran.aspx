@@ -719,7 +719,15 @@
 						} else {
 							Unlock(1);
 						}
-					});
+					}).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace('txtCheckno_', '');
+                        var t_checkno = $.trim($(this).val());
+                        if (t_checkno.length > 0) {
+                            q_box("gqb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";gqbno='" + t_checkno + "';" + r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
+                        }
+                    });
 					$('#txtPaysale_' + i).change(function(e) {
 						t_IdSeq = -1;
 						/// 要先給 才能使用 q_bodyId()
