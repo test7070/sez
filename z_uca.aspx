@@ -64,6 +64,10 @@
 					}, {
 						type : '6',
 						name : 'style' //[14]
+					}, {
+						type : '8',
+						name : 'allucc',//[15]
+						value : '1@顯示所有物品'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -86,6 +90,8 @@
 				$('.c3').css('width','150px');
 				$('.c5').css('width','150px');
 				$('.cmb').css('width','150px');
+				$('#Allucc').css('width','390px').css('height','30px');
+				$('#Allucc .label').css('width','0px');
 			}
 
 			function q_boxClose(s2) {

@@ -38,7 +38,7 @@
 				q_gt('part', '', 0, 0, 0, "");
 				q_gt('salm', '', 0, 0, 0, "");
 				$('#txtNoa').focus();
-
+				q_cmbParse("cmbEnd", ('').concat(new Array('全部','Y@在職', 'N@離職')));
 			}
 			
 			function q_gtPost(t_name) {
@@ -63,14 +63,14 @@
                             q_cmbParse("cmbJobno", t_data.salm);
                         }
                         break;
-                	/*case 'acomp':
+                	case 'acomp':
                         var as = _q_appendData("acomp", "", true);
                         t_data.acomp = '@全部';
                         for ( i = 0; i < as.length; i++) {
                             t_data.acomp = t_data.acomp + (t_data.acomp.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
                         }
                         q_cmbParse("cmbCno", t_data.acomp);
-                        break;*/
+                        break;
                 }
             }
 
@@ -78,15 +78,21 @@
 				t_noa = $('#txtNoa').val();
 				t_namea = $('#txtNamea').val();
 				t_partno = $('#cmbPartno').val();
-				//t_cno = $('#cmbCno').val();
+				t_cno = $('#cmbCno').val();
 				t_jobno = $('#cmbJobno').val();
+				t_end=$('#cmbEnd').val();
 
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("namea", t_namea)
 				+ q_sqlPara2("partno", t_partno)
-				//+ q_sqlPara2("cno", t_cno)
+				+ q_sqlPara2("cno", t_cno)
 				+ q_sqlPara2("jobno", t_jobno); 
+				
+				if (t_end=='Y')
+					t_where +="and isnull(outdate,'')='' ";
+				if (t_end=='N')
+					t_where +="and isnull(outdate,'')!='' ";
 				
 				if(r_rank <7)
 					t_where+="and noa = '"+q_getId()[0]+"' ";
@@ -107,29 +113,33 @@
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
-			<!--	<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblAcomp'> </a></td>
-					<td><select id="cmbCno" style="width:215px; font-size:medium;"> </select></td>
-			</tr>-->
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblPart'> </a></td>
+					<td class='seek' style="width:30%;"><a id='lblAcomp'> </a></td>
+					<td><select id="cmbCno" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:30%;"><a id='lblPart'> </a></td>
 					<td><select id="cmbPartno" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:20%;"><a id='lblJob'> </a></td>
+					<td class='seek' style="width:30%;"><a id='lblJob'> </a></td>
 					<td><select id="cmbJobno" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
+					<td class='seek'  style="width:30%;"><a id='lblNoa'> </a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNamea'> </a></td>
+					<td class='seek'  style="width:30%;"><a id='lblNamea'> </a></td>
 					<td>
 					<input class="txt" id="txtNamea" type="text"  />
 					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:30%;">在職/離職</td>
+					<td>	<select id="cmbEnd" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

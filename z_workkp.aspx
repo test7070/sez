@@ -41,6 +41,12 @@
 						src : 'station_b.aspx'
 					}, {
 						type : '2',
+						name : 'xstationgno',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
+					},{
+						type : '2',
 						name : 'xproductno',
 						dbf : 'ucaucc',
 						index : 'noa,product',

@@ -46,45 +46,49 @@
 						index : 'noa,store',
 						src : 'store_b.aspx'
 					}, {
-						type : '6',
-						name : 'edate' //[8]
-					}, {
 						type : '1',
-						name : 'ordeno' //[9][10]
+						name : 'ordeno' //[8][9]
 					}, {
 						type : '5',
-						name : 'ucctype', //[11]
+						name : 'ucctype', //[10]
 						value : [q_getPara('report.all')].concat((q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it').split(',') : q_getPara('ucc.typea').split(','))
 					}, {
 						type : '5',
-						name : 'outtypea', //[12]
+						name : 'outtypea', //[11]
 						value : ('all@全部,out@委外,notout@非委外').split(',')
 					}, {
-						type : '5', //[13]
+						type : '5', //[12]
 						name : 'xgroupano',
 						value : uccgaItem.split(',')
 					}, {
-						type : '0', //[14]
+						type : '0', //[13]
 						name : 'xgroupas',
 						value : uccgaItem
 					}, {
-						type : '0', //[15]
+						type : '0', //[14]
 						name : 'xucctype',
 						value : (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it') : q_getPara('ucc.typea')
 					}, {
-						type : '0', //[16]
+						type : '0', //[15]
 						name : 'showprice',
 						value : (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) && r_rank < '7' ? '0' : '1'
 					}, {
-						type : '0', //[17] //判斷公司
+						type : '0', //[16] //判斷公司
 						name : 'acomp',
 						value : q_getPara('sys.comp')
 					}, {
-						type : '2', //[18][19]
+						type : '2', //[17][18]
 						name : 'xtgg',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
+					}, {
+						type : '6',
+						name : 'edate' //[19]
+					}, {
+						type : '8',
+						name : 'allucc',//[20]
+						value : '1@顯示所有物品'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -98,6 +102,9 @@
 
 				$('#txtEdate').mask('999/99/99');
 				$('#txtEdate').val(q_date());
+				
+				$('#Allucc').css('width','300px').css('height','30px');
+				$('#Allucc .label').css('width','0px');
 			}
 
 			function q_boxClose(s2) {

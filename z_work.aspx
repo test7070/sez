@@ -121,8 +121,14 @@
 						name : 'xdetail',
 						value : ('detail@明細').split(',')
 					}, {
-						type : '6', //[27]
+						type : '6', //[27] 18
 						name : 'xmon'
+					}, {
+						type : '2', //[28] [29] 19 
+						name : 'xstationg',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
 					}]
 				});
 				q_popAssign();
