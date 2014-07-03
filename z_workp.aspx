@@ -18,8 +18,10 @@
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
-				q_gf('', 'z_workp');
+				//q_gf('', 'z_workp');
+				q_gt('uccga', '', 0, 0, 0, "");
 			});
+			var xgroupanoStr = '';
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_workp',
@@ -58,6 +60,26 @@
 					}, {
 						type : '1', //[13] [14]
 						name : 'xdate2'
+					}, {
+						type : '2', //[15] [16]  
+						name : 'xstation',
+						dbf : 'station',
+						index : 'noa,station',
+						src : 'station_b.aspx'
+					},{
+						type : '2', //[17] [18] 
+						name : 'xstationg',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
+					}, {
+						type : '5', //[19]
+						name : 'xgroupano',
+						value : xgroupanoStr.split(',')
+					}, {
+						type : '5', //[20]
+						name : 'xenda',
+						value : '0@未完工,1@已完工'.split(',')
 					}]
 				});
 				q_popAssign();
@@ -101,6 +123,17 @@
 							var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
 							$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
 						}
+						break;
+					case 'uccga':
+						var as = _q_appendData("uccga", "", true);
+						var t_item = "#non@全部";
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+							}
+						}
+						xgroupanoStr = t_item;
+						q_gf('', 'z_workp');
 						break;
 				} /// end switch
 			}

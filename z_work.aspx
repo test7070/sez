@@ -129,6 +129,12 @@
 						dbf : 'stationg',
 						index : 'noa,namea',
 						src : 'stationg_b.aspx'
+					}, {
+						type : '2', //[30] [31] 20
+						name : 'yproductno',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
 					}]
 				});
 				q_popAssign();
