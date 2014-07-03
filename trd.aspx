@@ -320,14 +320,25 @@
             }
             function btnOk() {
             	Lock(1,{opacity:0});
+            	//BBS日期不可超過2個月
+            	var t_array= new Array();
         		for ( i = 0; i < q_bbsCount; i++) {
-        			if($.trim($('#txtTranno_'+i).val()).length>0 && $.trim($('#txtTrannoq_'+i).val()).length==0){
+        			t_mon = $.trim($('#txtTrandate_'+i).val()).substring(0,6);
+        			if(t_array.indexOf(t_mon)<0)
+                        t_array.push(t_mon);
+        			
+        			/*if($.trim($('#txtTranno_'+i).val()).length>0 && $.trim($('#txtTrannoq_'+i).val()).length==0){
         				alert($('#txtTranno_'+i).val()+'出車單資料異常。');
         				Unlock(1);
         				return;
-        			}
+        			}*/
         		}
-            	
+        		
+            	if(t_array.length>2){
+            	    alert('資料超過2個月份。');
+                    Unlock(1);
+                    return;
+            	}
             	if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
             		Unlock(1);
@@ -351,7 +362,7 @@
                 }else if(q_cur ==2){
                 	$('#txtWorker2').val(r_name);
                 }else{
-                	alert("error: btnok!")
+                	alert("error: btnok!");
                 }         
                 sum();
                 
