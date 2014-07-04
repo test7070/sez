@@ -70,6 +70,12 @@
 						type : '8', //[15]
 						name : 'xworkj',
 						value : ('1@含非正式製令').split(',')
+					}, {
+						type : '2', //[16] [17]
+						name : 'yproduct',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
 					}]
 				});
 				q_popAssign();

@@ -51,9 +51,9 @@
 					}, {
 						type : '2', //[10][11]
 						name : 'xproduct',
-						dbf : 'ucc',
+						dbf : 'ucaucc',
 						index : 'noa,product',
-						src : 'ucc_b.aspx'
+						src : 'ucaucc_b.aspx'
 					}, {
 						type : '6', //[12]
 						name : 'xstyle'
@@ -84,6 +84,12 @@
 						type : '8', //[21]
 						name : 'xworkj',
 						value : ('1@含非正式製令').split(',')
+					}, {
+						type : '2', //[22] [23] 20
+						name : 'yproduct',
+						dbf : 'ucaucc',
+						index : 'noa,product',
+						src : 'ucaucc_b.aspx'
 					}]
 				});
 				q_popAssign();

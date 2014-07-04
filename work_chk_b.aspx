@@ -55,6 +55,12 @@
 				//else
 				//	q_gt('view_works', "noa='"+$('#txtNoa_'+j).val()+"'", 0, 0, 0, "view_works", r_accy);
 			}
+			
+			if (window.parent.q_name == 'workb') 
+				$('.tgg').hide();
+				
+			if (window.parent.q_name == 'workd') 
+				$('.station').hide();	
 		}
 
 		function q_gtPost(t_name) {  ///  for   store2 
@@ -112,22 +118,22 @@
 	   <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'>
 			<tr style='color:White; background:#003366;'>
 				<th align="center"><input type="checkbox" id="checkAllCheckbox"/></th>
-				<th align="center"><a id='lblState'></a></th>
-				<th align="center"><a id='lblNoa'></a> <BR><a id='lblCuadate'></a>/ <a id='lblUindate'></a></th>
+				<th align="center"><a id='lblState'> </a></th>
+				<th align="center"><a id='lblNoa'> </a> <BR><a id='lblCuadate'> </a>/ <a id='lblUindate'> </a></th>
 				<!--<th align="center"  ><a id='lblDatea'></a></th>-->
-				<th align="center"><a id='lblProductno'></a> / <a id='lblProduct'></a></th>
-				<th align="center"><a id='lblMount'></a></th>
+				<th align="center"><a id='lblProductno'> </a> / <a id='lblProduct'> </a></th>
+				<th align="center"><a id='lblMount'> </a></th>
 				<!--<th align="center"  ><a id='lblWorkdate'></a></th>
 				<th align="center"  ><a id='lblUindate'></a></th>-->
-				<th align="center"><a id='lblStation'></a></th>
-				<th align="center"><a id='lblInmount'></a></th>
+				<th align="center" class="station"><a id='lblStation'> </a></th>
+				<th align="center"><a id='lblInmount'> </a></th>
 				<!--<th align="center"><a id='lblRmount'></a></th>
 				<th align="center"><a id='lblWmount'></a></th>-->
-				<th align="center"><a id='lblOrdeno'></a></th>
-				<th align="center"><a id='lblTggno'></a></th>
-				<th align="center"><a id='lblProcess'></a></th>
-				<th align="center"><a id='lblHours'></a></th>
-				<th align="center"><a id='lblMemo'></a></th>
+				<th align="center"><a id='lblOrdeno'> </a></th>
+				<th align="center" class="tgg"><a id='lblTggno'> </a></th>
+				<th align="center"><a id='lblProcess'> </a></th>
+				<th align="center"><a id='lblHours'> </a></th>
+				<th align="center"><a id='lblMemo'> </a></th>
 			</tr>
 			<tr style='background:#cad3ff;'>
 				<td style="width:2%;">
@@ -152,7 +158,8 @@
 				<td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
 				<!--<td style="width:6%;"><input class="txt" id="txtWorkdate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
 				<td style="width:6%;"><input class="txt" id="txtUindate.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
-				<td style="width:7%;"><input class="txt" id="txtStationno.*" type="text" style="width:98%;"  readonly="readonly" />
+				<td class="station" style="width:9%;">
+					<input class="txt" id="txtStationno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtStation.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>
 				<td style="width:5%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
@@ -162,7 +169,7 @@
 					<input class="txt" id="txtOrdeno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtNo2.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>
-				<td style="width:7%;">
+				<td class="tgg" style="width:9%;">
 					<input class="txt" id="txtTggno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>
