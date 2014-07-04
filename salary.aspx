@@ -1049,8 +1049,8 @@
 	            $('.hid_tax5').hide();
             }
             //公費和住宿電費拿到有需要再加
-        	$('.lblPubmoney').hide();
-        	$('.txtPubmoney').hide();
+        	$('#lblPubmoney').hide();
+        	$('#txtPubmoney').hide();
         	$('.hid_pubmoney').hide();
         	$('.hid_lodging_power_fee').hide();
             
