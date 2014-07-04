@@ -62,6 +62,12 @@
             	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where ('"+$('#txtNoa').val()+"' between bdate and edate) and hr_used>=8 and hname not like '遲到' and hname not like '早退' ) and noa!='Z001' and noa!='010132' and (jobno not between '97' and '99')^^";
             	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
             });
+            
+            $('#txtNoa').blur(function () {
+            	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^";
+			    q_gt('salpresent', t_where , 0, 0, 0, "", r_accy);
+	            table_change();
+            });
         }
 
         function q_boxClose(s2) { 
