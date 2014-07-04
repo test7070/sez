@@ -67,10 +67,10 @@
 			function show_confirm() {
 				var r = confirm("你確定要執行嗎?");
 				if (r == true) {
-					alert("確定執行");
+					//alert("確定執行");
 					q_func('banktran.gen', $('#txtNoa').val() + ",");
 				} else {
-					alert("取消執行");
+					//alert("取消執行");
 				}
 			}
 
