@@ -30,7 +30,7 @@
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
+				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
 
 			function main() {
@@ -51,7 +51,7 @@
 
 				if ((/^.*(banktran,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())) {
 					$('#btnGen').click(function() {
-						show_confirm()
+						show_confirm();
 					});
 				}
 
@@ -67,23 +67,27 @@
 			function show_confirm() {
 				var r = confirm("你確定要執行嗎?");
 				if (r == true) {
-					alert("確定執行");
+					//alert("確定執行");
 					q_func('banktran.gen', $('#txtNoa').val() + ",");
 				} else {
-					alert("取消執行");
+					//alert("取消執行");
 				}
 			}
 
 			function q_funcPost(t_func, result) {
 				var s1 = location.href;
+				var t_accno = result.split(';')[0];
+				var t_memo =  result.split(';')[1];
 				var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
 				if (t_func == 'banktran.gen') {
-					window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
-					$('#txtAccno').val(result);
+				    $('#xdownload').attr('src','obtdta.aspx');
+					//window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+					$('#txtAccno').val(t_accno);
 				}
 				if (t_func == 'banktran.gen2')
 					window.open(t_path + 'obtdta2.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
-
+                if(t_memo.length>0)
+                    alert(t_memo);
 			}
 
 			function q_boxClose(s2) {
@@ -454,17 +458,16 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcc" class="lbl btn"> </a></td>
-						<td>
+						<td colspan="3">
 						<input id="txtAcc1" type="text" style="float:left; width:30%;">
 						<input id="txtAcc2" type="text" style="float:left; width:70%;"/>
 						</td>
-						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney" type="text"  class="txt c1 num"/>
-						</td>
-
 					</tr>
 					<tr>
+					    <td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+                        <td>
+                        <input id="txtMoney" type="text"  class="txt c1 num"/>
+                        </td>
 						<td><span> </span><a id='lblCash' class="lbl"> </a></td>
 						<td>
 						<input id="txtCash" type="text"  class="txt c1 num"/>
@@ -475,9 +478,8 @@
 						<td>
 						<input id="btnGen"  type="button"  />
 						</td>
-						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a></td>
-						<td>
-						<input id="btnGen2"  type="button" style=" display:none"  />
+						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a>
+						    <input id="btnGen2"  type="button" style=" display:none"  />
 						</td>
 					</tr>
 					<tr>
@@ -494,6 +496,7 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<iframe id="xdownload" style="display:none;"></iframe>
 	</body>
 </html>
 
