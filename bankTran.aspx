@@ -30,7 +30,7 @@
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
+				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
 
 			function main() {
@@ -51,7 +51,7 @@
 
 				if ((/^.*(banktran,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())) {
 					$('#btnGen').click(function() {
-						show_confirm()
+						show_confirm();
 					});
 				}
 
@@ -76,14 +76,18 @@
 
 			function q_funcPost(t_func, result) {
 				var s1 = location.href;
+				var t_accno = result.split(';')[0];
+				var t_memo =  result.split(';')[1];
 				var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
 				if (t_func == 'banktran.gen') {
-					window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
-					$('#txtAccno').val(result);
+				    $('#xdownload').attr('src','obtdta.aspx');
+					//window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+					$('#txtAccno').val(t_accno);
 				}
 				if (t_func == 'banktran.gen2')
 					window.open(t_path + 'obtdta2.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
-
+                if(t_memo.length>0)
+                    alert(t_memo);
 			}
 
 			function q_boxClose(s2) {
@@ -494,6 +498,7 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<iframe id="xdownload" style="display:none;">XXXX</iframe>
 	</body>
 </html>
 
