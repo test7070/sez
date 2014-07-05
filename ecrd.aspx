@@ -45,16 +45,10 @@
 				bbmMask = [];
 				q_mask(bbmMask);
 				$('#btnCodazero').click(function(){
-					if(q_cur==1){
-						$('#txtCustno').val('');
-						$('#txtComp').val('');						
-						$('#txtCredit').val(0);
-						$('#txtMemo').val('額度全部歸零');
-						$('#txtWorker').val(r_name);
-						var t_noa = trim($('#txtNoa').val());
-						var t_date = trim($('#txtDatea').val());
-						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ecrd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-					}
+					var NowTime = new Date;
+					var w_Hours = padL(NowTime.getHours(),'0',2); 
+					var w_Minutes = padL(NowTime.getMinutes(),'0',2); 
+					//q_func('qtxt.query.ecrdzero','ecrd.txt,ecrdzero,'+r_namea+';'+q_date()+';'+w_Hours+':'+w_Minutes);
 				});
 			}
 
@@ -79,6 +73,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
+				q_box('ecrd_s.aspx', q_name + '_s', "500px", "320px", $('#btnSeek').val());
 			}
 
 			function btnIns() {
@@ -94,6 +89,7 @@
 			}
 	
 			function btnPrint() {
+				q_box('z_ecrdp.aspx', '', "95%", "95%", $('#btnPrint').val());
 			}
 
 			function btnOk() {
@@ -114,18 +110,14 @@
 			}
 	
 			function wrServer(key_value) {
-				var NowTime = new Date;
-				var w_Hours = padL(NowTime.getHours(),'0',2); 
-				var w_Minutes = padL(NowTime.getMinutes(),'0',2); 
-				$('#txtDatea').val(q_date());
-				$('#txtTimea').val(w_Hours+':'+w_Minutes);
 				var i;
+				
+				xmlSql = '';
+				if (q_cur == 2)/// popSave
+					xmlSql = q_preXml();
+				
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
-				var t_custno = trim($('#txtCustno').val());
-				if(t_custno.length==0){t_custno=' ';}
-				var t_credit = (dec($('#txtCredit').val()).toString() == 'NaN'?0:dec($('#txtCredit').val()));
-				q_func('qtxt.query.ecrdchange','ecrd.txt,ecrdchange,'+t_custno+';'+t_credit);
 			}
 	
 			function refresh(recno) {
@@ -134,7 +126,7 @@
 	
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if(q_cur==1 || q_cur==2)
+				if(t_para)
 					$('#btnCodazero').removeAttr('disabled');
 				else
 					$('#btnCodazero').attr('disabled','disabled');
@@ -299,11 +291,11 @@
 		</div>
 		<div class='dbbm'>
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-				<tr class="tr1">
+				<tr class="tr1" style="display: none;">
 					<td class="td1" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
 					<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-					<td></td>
-					<td></td>
+					<td> </td>
+					<td> </td>
 				</tr>
 				<tr class="tr2">
 					<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -323,19 +315,19 @@
 					<td class="td1"><span> </span><a id='lblCredit' class="lbl"> </a></td>
 					<td class="td2"><input id="txtCredit"  type="text" class="txt c1 num" /></td>
 					<td class="td3"><input id="btnCodazero" type="button"></td>
-					<td></td>
+					<td> </td>
 				</tr>
 				<tr class="tr5">
 					<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 					<td class="td2" colspan="2"><input id="txtMemo"  type="text" class="txt c1" /></td>
-					<td></td>
-					<td></td>
+					<td> </td>
+					<td> </td>
 				</tr>
 				<tr class="tr6">
 					<td class="td1" ><span> </span><a id='lblWorker' class="lbl"> </a></td>
 					<td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
-					<td></td>
-					<td></td>
+					<td> </td>
+					<td> </td>
 				</tr>							   
 			</table>
 		</div>
