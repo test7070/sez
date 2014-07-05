@@ -4,6 +4,7 @@
         {
             try
             {
+                //banktran.aspx  用
                 string targetUrl = "http://127.0.0.1/htm/obtdta.txt";
                 System.Net.HttpWebRequest request = System.Net.HttpWebRequest.Create(targetUrl) as System.Net.HttpWebRequest;
                 request.Method = "GET";
