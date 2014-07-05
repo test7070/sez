@@ -458,17 +458,16 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcc" class="lbl btn"> </a></td>
-						<td>
+						<td colspan="3">
 						<input id="txtAcc1" type="text" style="float:left; width:30%;">
 						<input id="txtAcc2" type="text" style="float:left; width:70%;"/>
 						</td>
-						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney" type="text"  class="txt c1 num"/>
-						</td>
-
 					</tr>
 					<tr>
+					    <td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+                        <td>
+                        <input id="txtMoney" type="text"  class="txt c1 num"/>
+                        </td>
 						<td><span> </span><a id='lblCash' class="lbl"> </a></td>
 						<td>
 						<input id="txtCash" type="text"  class="txt c1 num"/>
@@ -479,9 +478,8 @@
 						<td>
 						<input id="btnGen"  type="button"  />
 						</td>
-						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a></td>
-						<td>
-						<input id="btnGen2"  type="button" style=" display:none"  />
+						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a>
+						    <input id="btnGen2"  type="button" style=" display:none"  />
 						</td>
 					</tr>
 					<tr>
