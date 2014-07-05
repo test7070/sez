@@ -27,7 +27,7 @@
             {
                 Response.ContentType = "application/x-msdownload;";
                 Response.AddHeader("Content-transfer-encoding", "binary");
-                Response.AddHeader("Content-Disposition", "attachment;filename=obtdta.txt");
+                Response.AddHeader("Content-Disposition", "attachment;filename=error.txt");
                 Response.Write(ex.Message);
             }
             finally
