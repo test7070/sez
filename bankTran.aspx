@@ -498,7 +498,7 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<iframe id="xdownload" style="display:none;">XXXX</iframe>
+		<iframe id="xdownload" style="display:none;"></iframe>
 	</body>
 </html>
 
