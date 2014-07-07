@@ -18,7 +18,7 @@
 
             var q_name = "bcc";
             var q_readonly = [];
-            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1]];
+            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1],['txtSafemount', 12, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -90,8 +90,10 @@
 						}
 					}
                 });
-                if(q_getPara('sys.comp').indexOf('大昌')>-1)
+                if(q_getPara('sys.comp').indexOf('大昌')>-1){
                 	$('.acc').hide();
+                	$('.safe').hide();
+                }
             }
             function sum(){
             	if(!(q_cur==1 || q_cur==2))
@@ -226,7 +228,6 @@
                 	wrServer($('#txtNoa').val());
                 }
             }
-
 
             function wrServer(key_value) {
                 var i;
@@ -486,6 +487,10 @@
 						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
 						<td><select id="cmbStoreno" class="txt c1"></td>
 					</tr>-->
+					<tr class="safe">
+						<td><span> </span><a id='lblSafemount' class="lbl"> </a></td>
+						<td><input id="txtSafemount"  type="text" class="txt num c1"/></td>
+					</tr>
 					<tr class="acc">
 						<td><span> </span><a id='lblAcc' class="lbl"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
