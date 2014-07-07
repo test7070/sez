@@ -17,7 +17,7 @@
 
 			var q_name = "adsss";
 			var q_readonly = ['txtNoa','txtProduct','txtWorker','txtWorker2'];
-			var bbmNum = [['txtPrice', 10, 2, 1]];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -47,6 +47,8 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]];
+				
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
 				q_gt('salm', '', 0, 0, 0, "");
 				$("#cmbJobno").focus(function() {

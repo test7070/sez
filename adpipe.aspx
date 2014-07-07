@@ -17,10 +17,7 @@
 
 			var q_name = "adpipe";
 			var q_readonly = ['txtNoa','txtProduct'];
-			var bbmNum = [
-				['txtRadius', 10, 3, 1],['txtWidth', 10, 3, 1],['txtDime1', 10, 3, 1],
-				['txtDime2', 10, 3, 1],['txtPrice', 10, 3, 1]
-			];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -52,6 +49,7 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [['txtRadius', 10, 3, 1],['txtWidth', 10, 3, 1],['txtDime1', 10, 3, 1],['txtDime2', 10, 3, 1],['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]];
 			}
 
 			function q_boxClose(s2) {

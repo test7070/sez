@@ -17,10 +17,7 @@
 
 			var q_name = "adsize";
 			var q_readonly = ['txtNoa','txtProduct'];
-			var bbmNum = [
-				['txtWidth1', 10, 3, 1],['txtWidth2', 10, 3, 1],['txtLengthb1', 10, 3, 1],
-				['txtLengthb2', 10, 3, 1],['txtPrice', 10, 3, 1]
-			];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -52,6 +49,10 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [
+					['txtWidth1', 10, 3, 1],['txtWidth2', 10, 3, 1],['txtLengthb1', 10, 3, 1],
+					['txtLengthb2', 10, 3, 1],['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]
+				]
 			}
 
 			function q_boxClose(s2) {

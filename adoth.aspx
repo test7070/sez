@@ -17,11 +17,7 @@
 
 			var q_name = "adoth";
 			var q_readonly = ['txtNoa'];
-			var bbmNum = [
-				['txtFloat', 10, 3, 1],['txtBackc', 10, 3, 1],['txtNcut', 10, 3, 1],
-				['txtScrape', 10, 3, 1],['txtInstore', 10, 3, 1],['txtLweight', 10, 3, 1],
-				['txtLmoney', 10, 3, 1]
-			];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -52,6 +48,11 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [
+					['txtFloat', 10, 3, 1],['txtBackc', 10, q_getPara('vcc.pricePrecision'), 1],['txtNcut', 10, q_getPara('vcc.pricePrecision'), 1],
+					['txtScrape', 10, q_getPara('vcc.pricePrecision'), 1],['txtInstore', 10, q_getPara('vcc.pricePrecision'), 1],['txtLweight', 10, q_getPara('vcc.weightPrecision'), 1],
+					['txtLmoney', 10, q_getPara('vcc.pricePrecision'), 1]
+				]
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
 			}
 

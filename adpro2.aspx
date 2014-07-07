@@ -17,7 +17,7 @@
 
 			var q_name = "adpro2";
 			var q_readonly = ['txtNoa','txtProduct'];
-			var bbmNum = [['txtPrice', 10, 3, 1]];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -48,6 +48,7 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]];
 			}
 
 			function q_boxClose(s2) {

@@ -17,7 +17,7 @@
 
 			var q_name = "pack";
 			var q_readonly = [];
-			var bbmNum = [['txtPrice', 10, 3, 1]];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -42,6 +42,7 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
+				bbmNum = [['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]];
 				$('#txtNoa').change(function(e) {
 					$(this).val($.trim($(this).val()).toUpperCase());
 					if ($(this).val().length > 0) {

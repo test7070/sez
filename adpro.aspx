@@ -18,7 +18,7 @@
 
 			var q_name = "adpro";
 			var q_readonly = ['txtNoa','txtProduct','txtComp','txtDiffprice'];
-			var bbmNum = [['txtExreprice', 10, 2, 1],['txtExprice', 10, 2, 1],['txtDiffprice', 10, 2, 1],['txtWeight', 10, 2, 1]];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -51,6 +51,7 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm], ['txtDatea', r_picd]];
 				q_mask(bbmMask);
+				bbmNum = [['txtExreprice', 10, q_getPara('vcc.pricePrecision'), 1],['txtExprice', 10, q_getPara('vcc.pricePrecision'), 1],['txtDiffprice', 10, q_getPara('vcc.pricePrecision'), 1],['txtWeight', 10, q_getPara('vcc.weightPrecision'), 1]];
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
 				
 				$('#txtMon').blur(function() {

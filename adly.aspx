@@ -19,11 +19,7 @@
 			var q_readonly = ['txtNoa'];
 			var q_readonlys = ['txtProduct'];
 			var bbmNum = [];
-			var bbsNum = [
-					['txtHweight', 10, 3, 1],['txtWeight', 10, 3, 1],['txtInprice', 10, 3, 1],
-					['txtFixedprice', 10, 3, 1],['txtNoprice', 10, 3, 1],['txtSecondprice', 10, 3, 1],
-					['txtMixprice', 10, 3, 1]
-			];
+			var bbsNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -55,6 +51,11 @@
 				q_getFormat();
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbsNum = [
+					['txtHweight', 10, q_getPara('vcc.weightPrecision'), 1],['txtWeight', 10, q_getPara('vcc.weightPrecision'), 1],['txtInprice', 10, q_getPara('vcc.pricePrecision'), 1],
+					['txtFixedprice', 10, q_getPara('vcc.pricePrecision'), 1],['txtNoprice', 10, q_getPara('vcc.pricePrecision'), 1],['txtSecondprice', 10, q_getPara('vcc.pricePrecision'), 1],
+					['txtMixprice', 10, q_getPara('vcc.pricePrecision'), 1]
+				];
 				
 				$('#btnPrevasly').click(function() {
 					q_gt("adly", "where=^^mon=(select MAX(mon) from adly) ^^", 1, 1, 0, "get_prev", r_accy);

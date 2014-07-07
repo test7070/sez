@@ -16,11 +16,7 @@
 			}
 			var q_name = "adknife";
 			var q_readonly = ['txtNoa'];
-			var bbmNum = [
-				['txtDime1', 10, 3, 1],['txtDime2', 10, 3, 1],['txtWidth1', 10, 3, 1],
-				['txtWidth2', 10, 3, 1],['txtKnife1', 10, 3, 1],['txtKnife2', 10, 3, 1],
-				['txtPrice', 10, 3, 1]
-			];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -51,6 +47,8 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [['txtDime1', 10, 3, 1],['txtDime2', 10, 3, 1],['txtWidth1', 10, 3, 1],	['txtWidth2', 10, 3, 1],
+									['txtKnife1', 10, 3, 1],['txtKnife2', 10, 3, 1],	['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]];
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
 			}
 

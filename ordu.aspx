@@ -19,14 +19,8 @@
 			var q_name = "ordu";
 			var q_readonly = ['txtNoa','txtGweight', 'txtOweight', 'txtWeight','txtMweight'];
 			var q_readonlys = [];
-			var bbmNum = [
-				['txtWeight2', 10, 3, 1],['txtMweight', 10, 3, 1],['txtOweight', 10, 3, 1],
-				['txtWeight', 10, 3, 1],['txtGweight', 10, 3, 1]
-			];
-			var bbsNum = [
-				['txtOweight', 10, 3, 1],['txtWeight', 10, 3, 1],['txtGweight', 10, 3, 1],
-				['txtEweight', 10, 3, 1]
-			];
+			var bbmNum = [];
+			var bbsNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -62,6 +56,10 @@
 				q_getFormat();
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [['txtWeight2', 10, q_getPara('vcc.weightPrecision'), 1],['txtMweight', 10, q_getPara('vcc.weightPrecision'), 1],['txtOweight', 10, q_getPara('vcc.weightPrecision'), 1],
+									['txtWeight', 10, q_getPara('vcc.weightPrecision'), 1],['txtGweight', 10, q_getPara('vcc.weightPrecision'), 1]];
+				bbsNum = [['txtOweight', 10, q_getPara('vcc.weightPrecision'), 1],['txtWeight', 10, q_getPara('vcc.weightPrecision'), 1],['txtGweight', 10, q_getPara('vcc.weightPrecision'), 1],
+									['txtEweight', 10, q_getPara('vcc.weightPrecision'), 1]];
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
 				
 				$('#txtMon').blur(function() {

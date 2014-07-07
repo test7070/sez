@@ -17,10 +17,7 @@
 
 			var q_name = "add4";
 			var q_readonly = ['txtNoa','txtAvgoil'];
-			var bbmNum = [
-				['txtOil1', 10, 3, 1],['txtOil2', 10, 3, 1],['txtOil3', 10, 3, 1],
-				['txtOil4', 10, 3, 1],['txtOil5', 10, 3, 1],['txtAvgoil', 10, 3, 1],
-			];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -60,6 +57,11 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [
+					['txtOil1', 10, q_getPara('vcc.pricePrecision'), 1],['txtOil2', 10, q_getPara('vcc.pricePrecision'), 1],['txtOil3', 10, q_getPara('vcc.pricePrecision'), 1],
+					['txtOil4', 10, q_getPara('vcc.pricePrecision'), 1],['txtOil5', 10, q_getPara('vcc.pricePrecision'), 1],['txtAvgoil', 10, q_getPara('vcc.pricePrecision'), 1],
+				]
+				
 				$('input[id*="txtOil"]').change(function(){
 					sum();
 				});

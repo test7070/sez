@@ -17,7 +17,7 @@
 
 			var q_name = "adtran";
 			var q_readonly = ['txtNoa'];
-			var bbmNum = [['txtPrice', 10, 3, 1]];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -47,6 +47,7 @@
 			function mainPost() {
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]];
 				q_cmbParse("cmbStyle", q_getPara('adsss.stype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_gt('add2', '', 0, 0, 0, "");

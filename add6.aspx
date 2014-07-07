@@ -19,10 +19,8 @@
 			var q_name = "add6";
 			var q_readonly = ['txtNoa','txtCardeal'];
 			var q_readonlys = ['txtPost'];
-			var bbmNum = [
-				['txtThirdprice', 10, 3, 1],['txtBoil', 10, 3, 1],['txtEoil', 10, 3, 1]
-			];
-			var bbsNum = [['txtPrice', 10, 3, 1]];
+			var bbmNum = [];
+			var bbsNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -102,6 +100,9 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd]];
 				q_mask(bbmMask);
+				bbmNum = [['txtThirdprice', 10, q_getPara('vcc.pricePrecision'), 1],['txtBoil', 10, q_getPara('vcc.pricePrecision'), 1],['txtEoil', 10, q_getPara('vcc.pricePrecision'), 1]];
+				bbsNum = [['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1]];
+				
 				q_cmbParse("cmbTypea", ('').concat(new Array('內銷', '外銷')));
 				q_gt('carspec', '', 0, 0, 0, "");
 			}
