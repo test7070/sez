@@ -129,8 +129,10 @@
 						$('#txtEnddate').val(wParent.getElementById("txtEdate").value);
 					if(wParent.getElementById("txtSfedate").value!='' && wParent.getElementById("cmbStype").value=='3')
 						$('#txtEnddate').val(wParent.getElementById("txtSfedate").value);
-						
-					if(wParent.getElementById("vtunordb_"+window.parent.q_recno).innerHTML==''){
+					
+					var parent_recno=(window.parent.q_recno>=window.parent.brwCount?window.parent.q_recno-window.parent.brwCount:window.parent.q_recno);
+					
+					if(wParent.getElementById("vtunordb_"+parent_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
 						$('#btnOrda2ordb').attr('disabled', 'disabled');
 						$('#btnOrdb').attr('disabled', 'disabled');
@@ -142,7 +144,7 @@
 						$('#btnOrda2ordb').css('font-weight', '' );
 						$('#btnOrda2ordb').css('color', '');
 						
-					}else if(wParent.getElementById("vtunorda_"+window.parent.q_recno).innerHTML==''){
+					}else if(wParent.getElementById("vtunorda_"+parent_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
 						$('#btnOrdb').attr('disabled', 'disabled');
 						$('#btnOrda2ordb').removeAttr('disabled');
@@ -165,7 +167,7 @@
 						$('#btnOrda2ordb').css('font-weight', 'bold');
 						$('#btnOrda2ordb').css('color', 'blue');
 					}
-					if(wParent.getElementById("vtunorda_"+window.parent.q_recno).innerHTML==''){
+					if(wParent.getElementById("vtunorda_"+parent_recno).innerHTML==''){
 						$('#btnOrdabox').removeAttr('disabled');
 						$('#btnOrdabox').css('font-weight', 'bold');
 						$('#btnOrdabox').css('color', 'blue');
