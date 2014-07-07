@@ -130,7 +130,7 @@
 					if(wParent.getElementById("txtSfedate").value!='' && wParent.getElementById("cmbStype").value=='3')
 						$('#txtEnddate').val(wParent.getElementById("txtSfedate").value);
 					
-					var parent_recno=(window.parent.q_recno>=window.parent.brwCount?window.parent.q_recno-window.parent.brwCount:window.parent.q_recno);
+					var parent_recno=(window.parent.q_recno>=window.parent.brwCount?window.parent.q_recno%window.parent.brwCount:window.parent.q_recno);
 					
 					if(wParent.getElementById("vtunordb_"+parent_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
