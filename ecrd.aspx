@@ -44,11 +44,17 @@
 				q_getFormat();
 				bbmMask = [];
 				q_mask(bbmMask);
+				
+				$('#btnModi').hide();
+				$('#btnDele').hide();
+				
 				$('#btnCodazero').click(function(){
 					var NowTime = new Date;
 					var w_Hours = padL(NowTime.getHours(),'0',2); 
-					var w_Minutes = padL(NowTime.getMinutes(),'0',2); 
-					//q_func('qtxt.query.ecrdzero','ecrd.txt,ecrdzero,'+r_namea+';'+q_date()+';'+w_Hours+':'+w_Minutes);
+					var w_Minutes = padL(NowTime.getMinutes(),'0',2);
+					if(confirm("確定將全部客戶的信用餘額歸零?")){ 
+						q_func('qtxt.query.ecrdzero','ecrd.txt,ecrdzero,'+r_name+';'+q_date()+';'+w_Hours+':'+w_Minutes+';'+q_getPara('sys.key_ecrd'));
+					}
 				});
 			}
 
@@ -151,9 +157,11 @@
 			function btnTop() {
 				_btnTop();
 			}
+			
 			function btnPrev() {
 				_btnPrev();
 			}
+			
 			function btnPrevPage() {
 				_btnPrevPage();
 			}
@@ -161,6 +169,7 @@
 			function btnNext() {
 				_btnNext();
 			}
+			
 			function btnNextPage() {
 				_btnNextPage();
 			}
@@ -168,6 +177,7 @@
 			function btnBott() {
 				_btnBott();
 			}
+			
 			function q_brwAssign(s1) {
 				_q_brwAssign(s1);
 			}
@@ -178,6 +188,15 @@
 	
 			function btnCancel() {
 				_btnCancel();
+			}
+			
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.ecrdzero':
+						alert('額度全部歸零!!');
+						location.href=location.href;
+						break;
+                }
 			}
 	</script>
 	<style type="text/css">
