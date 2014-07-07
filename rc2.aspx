@@ -21,12 +21,8 @@
 			var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
 			var q_readonly = ['txtNoa', 'txtAcomp', 'txtTgg', 'txtWorker', 'txtWorker2','txtTranstart'];
 			var q_readonlys = ['txtNoq'];
-			var bbmNum = [
-				['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],
-				['txtPrice', 10, 2, 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],
-				['txtTranmoney',15,0,1],['txtTranadd',15,2,1]
-			];
-			var bbsNum = [['txtMount', 15, 0, 1], ['txtPrice', 15, 3, 1], ['txtTotal', 15, 0, 1]];
+			var bbmNum = [];
+			var bbsNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -97,6 +93,9 @@
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtPrice', 10, q_getPara('rc2.pricePrecision'), 1], ['txtTotalus', 15, 0, 1], ['txtFloata', 10, 2, 1],['txtTranmoney',15,0,1],['txtTranadd',15,q_getPara('rc2.pricePrecision'),1]];
+				bbsNum = [['txtMount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtTotal', 15, 0, 1]];
+				
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
@@ -1115,7 +1114,7 @@
 					</td>
 					<td>
 						<input id="txtProductno.*" type="text" class="txt c1"/>
-						<input class="btn" id="btnProductno.*" type="button" value='...' style="font-weight: bold;" />
+						<input class="btn" id="btnProductno.*" type="button" value='.' style="font-weight: bold;" />
 						<input id="txtNoq.*" type="text" class="txt c6"/>
 					</td>
 					<td>
