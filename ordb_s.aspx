@@ -17,6 +17,7 @@
             aPop = new Array(
             	['txtTggno', 'lblTggno', 'tgg', 'noa,nick', 'txtTggno,txtComp', 'tgg_b.aspx'],
             	['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            	['txtWorkerno', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'],
             	['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']
             );
             $(document).ready(function() {
@@ -40,6 +41,7 @@
                 $('#txtComp').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
                 $('#txtSales').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
                 $('#txtPart').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
+                $('#txtWorker').attr('readonly', true).css('background-color', 'rgb(237,237,238)').css('color', 'green');
             }
 
             function q_seekStr() {
@@ -51,18 +53,23 @@
                 t_partno = $.trim($('#txtPartno').val());
                 t_tggno = $.trim($('#txtTggno').val());
                 t_salesno = $.trim($('#txtSalesno').val());
+                t_workerno = $.trim($('#txtWorkerno').val());
                 
                 var t_where = " 1=1 " 
                 + q_sqlPara2("noa", t_noa) 
                 + q_sqlPara2("datea", t_bdate, t_edate)
-                + q_sqlPara2("partno", t_partno);
-                + q_sqlPara2("salesno", t_salesno);              
+                + q_sqlPara2("partno", t_partno)
+                + q_sqlPara2("salesno", t_salesno)              
                 + q_sqlPara2("tggno", t_tggno);
                 
                 if (t_kind.length>0)
                     t_where += " and kind='"+t_kind+"'";
+                    
                 if (t_apv.length>0)
-                    t_where += " and apv='"+t_apv+"'";    
+                    t_where += " and apv='"+t_apv+"'";
+                    
+				if (t_workerno.length>0)
+                    t_where += " and noa in (select noa from drun where usera='"+t_workerno+"' and tablea='ordb' and action='Insert') ";  
                     
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -121,6 +128,13 @@
 	                <td>
 	                	<input class="txt" id="txtSalesno" type="text" style="width:90px; font-size:medium;" />&nbsp;
 	                	<input class="txt" id="txtSales" type="text" style="width:115px; font-size:medium;" />
+	                </td>
+             	</tr>
+             	<tr class='seek_tr'>
+	                <td class='seek'  style="width:20%;"><a id='lblWorker'> </a></td>
+	                <td>
+	                	<input class="txt" id="txtWorkerno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+	                	<input class="txt" id="txtWorker" type="text" style="width:115px; font-size:medium;" />
 	                </td>
              	</tr>
              	<tr class='seek_tr'>

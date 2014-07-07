@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Odate';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount_', 'bcc_b.aspx']
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', '0txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount_', 'bcc_b.aspx']
 					,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 					,['txtCno','lblAcomp','acomp','noa,nick','txtCno,txtAcomp','acomp_b.aspx']
 					,['txtTggno','lblTgg','tgg','noa,nick,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']
@@ -150,7 +150,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('ordb_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+                q_box('ordb_s.aspx', q_name + '_s', "500px", "480px", q_getMsg("popSeek"));
             }
 
             function combPaytype_chg() {

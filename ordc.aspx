@@ -29,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Odate';
             aPop = new Array(
-            	['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount', 'bcc_b.aspx']
+            	['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', '0txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount', 'bcc_b.aspx']
 				,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 				,['txtCno','lblAcomp','acomp','noa,nick','txtCno,txtAcomp','acomp_b.aspx']
 				,['txtTggno','lblTgg','tgg','noa,nick,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']

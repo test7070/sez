@@ -39,7 +39,7 @@
                     case 'store':
                         t_store = '';
                         var as = _q_appendData("store", "", true);
-                        t_store += '99@全部';
+                        t_store += '#non@全部';
                         for ( i = 0; i < as.length; i++) {
                             t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
                         }
