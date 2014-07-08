@@ -90,10 +90,6 @@
 						}
 					}
                 });
-                if(q_getPara('sys.comp').indexOf('大昌')>-1){
-                	$('.acc').hide();
-                	$('.safe').hide();
-                }
             }
             function sum(){
             	if(!(q_cur==1 || q_cur==2))
@@ -199,11 +195,7 @@
             }
 
             function btnPrint() {
-				if(q_getPara('sys.comp').indexOf('祥興')>-1){
-                	q_box('z_bcc5_rs.aspx', '', "95%", "95%", q_getMsg("popPrint"));
-				}else{
-					q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
-				}
+				q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -491,15 +483,6 @@
 						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
 						<td><select id="cmbStoreno" class="txt c1"></td>
 					</tr>-->
-					<tr class="safe">
-						<td><span> </span><a id='lblSafemount' class="lbl"> </a></td>
-						<td><input id="txtSafemount"  type="text" class="txt num c1"/></td>
-					</tr>
-					<tr class="acc">
-						<td><span> </span><a id='lblAcc' class="lbl"> </a></td>
-						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
-						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
-					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo" type="text"  class="txt c1"/></td>

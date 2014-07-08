@@ -31,7 +31,6 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtSno', 'lblSname', 'sssall', 'noa,namea,partno,part', 'txtSno,txtSname,cmbPartno', 'sss_b.aspx']
-            ,['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']
             ,['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
 
             $(document).ready(function() {
@@ -59,9 +58,6 @@
                 q_gt('store', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 
-                if(q_getPara('sys.comp').indexOf('大昌')>-1){
-                	$('.mech').hide();
-                }
             }
 
             function q_boxClose(s2) {
@@ -448,11 +444,6 @@
 						<td colspan="2">
 							<input id="txtSno"  type="text" style="float:left; width:40%;"/>
 							<input id="txtSname"  type="text" style="float:left; width:60%;"/>
-						</td>
-						<td class="mech"><span> </span><a id='lblMech' class="lbl btn"> </a></td>
-						<td class="mech" colspan="2">
-							<input id="txtMechno"  type="text" style="float:left; width:40%;"/>
-							<input id="txtMech"  type="text" style="float:left; width:60%;"/>
 						</td>
 					</tr>
 					<tr>
