@@ -252,7 +252,7 @@
             }
 
             function bbsSave(as) {
-               if(!as['productno']) {
+               if(!as['productno'] && !as['product']) {
                     as[bbsKey[1]] = '';
                     return;
                 }

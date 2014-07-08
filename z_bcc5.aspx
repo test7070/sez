@@ -74,7 +74,7 @@
 						},{/*4*/
 							type : '5',
 							name : 'typea',
-							value : ('全部,'+q_getPara('bcc.type')).split(',')
+							value : ('#non@全部,'+q_getPara('bcc.type')).split(',')
 						}]
                     });
                     q_popAssign();

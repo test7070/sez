@@ -60,7 +60,7 @@
 			function currentData() {}
 			currentData.prototype = {
 				data : [],
-				exclude : ['txtNoa','chkEnda'],  //bbm
+				exclude : ['txtNoa','chkEnda','txtPostname'],  //bbm
 				excludes : ['chkEnda'], //bbs
 				copy : function() {
 					this.data = new Array();

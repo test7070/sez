@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "bccout";
-            var q_readonly = ['txtNoa', 'txtApprover','txtWorker'];
+            var q_readonly = ['txtNoa', 'txtApprover','txtWorker','txtMech','txtSname'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtBkbcc', 10, 0, 1]];
@@ -31,6 +31,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtSno', 'lblSname', 'sssall', 'noa,namea,partno,part', 'txtSno,txtSname,cmbPartno', 'sss_b.aspx']
+            ,['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']
             ,['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
 
             $(document).ready(function() {
@@ -39,7 +40,7 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
                 //判斷是否為權限(簽核)
-                q_gt('authority', "where=^^a.noa='bccout' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
+                q_gt('authority', "where=^^a.noa='bccout' and a.sssno='" + r_userno + "'^^", 0, 0, 0, "");
 
             });
 
@@ -57,6 +58,10 @@
                 q_mask(bbmMask);
                 q_gt('store', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
+                
+                if(q_getPara('sys.comp').indexOf('大昌')>-1){
+                	$('.mech').hide();
+                }
             }
 
             function q_boxClose(s2) {
@@ -69,7 +74,8 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			
+			var ischecker=false;//簽核權限
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'authority':
@@ -153,13 +159,24 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                
+                if(ischecker){
+	            	$('#lblApprover').click(function (e) {
+			             $('#txtApprover').val(r_name);
+			     	});
+            	}
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();      
+                $('#txtDatea').focus();   
+                if(ischecker){
+	            	$('#lblApprover').click(function (e) {
+			             $('#txtApprover').val(r_name);
+			     	});
+	            }
             }
 
             function btnPrint() {
@@ -422,6 +439,7 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/> </td>
+						<td> </td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 					</tr>
@@ -431,6 +449,11 @@
 							<input id="txtSno"  type="text" style="float:left; width:40%;"/>
 							<input id="txtSname"  type="text" style="float:left; width:60%;"/>
 						</td>
+						<td class="mech"><span> </span><a id='lblMech' class="lbl btn"> </a></td>
+						<td class="mech" colspan="2">
+							<input id="txtMechno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtMech"  type="text" style="float:left; width:60%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblPart" class="lbl"> </a></td>
@@ -438,6 +461,7 @@
 							<select id="cmbPartno" class="txt c1"> </select>
 							<input id="txtPart"  type="text"  style="display:none;"/>
 						</td>
+						<td> </td>
 						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
 						<td>
 							<select id="cmbStoreno" class="txt c1"> </select>

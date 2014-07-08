@@ -642,7 +642,7 @@
 					<td align="center" style="width: 5%;"><a id='lblTotals'> </a></td>
 					<td align="center" style="width: 6%;"><a id='lblErrmount'> </a></td>
 					<td align="center" style="width: 10%;"><a id='lblUno'> </a></td>
-					<td align="center" style="width: 10%;"><a id='lblMemos'> </a></td>
+					<td align="center" style="width: 10%;"><a id='lblMemos'> </a>/<a id='lblOrdcnos'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -667,8 +667,8 @@
 					</td>
 					<td><input id="txtUno.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMemo.*"type="text" style="width: 95%;"/>
-						<input id="txtOrdcno.*"type="hidden"/>
-						<input id="txtNo2.*"type="hidden"/>
+						<input id="txtOrdcno.*"type="text" style="width: 70%;"/>
+						<input id="txtNo2.*"type="text" style="width: 20%;"/>
 					</td>
 				</tr>
 			</table>

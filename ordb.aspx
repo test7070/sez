@@ -104,6 +104,11 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'find_ordc':
+                		ordc_modi = _q_appendData("view_ordcs", "", true);
+                		find_ordc=true;
+                		btnModi();
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -191,12 +196,35 @@
                 $('#txtDatea').val(q_cdn(q_date(),10));
                 $('#txtOdate').focus();
             }
-
+			
+			var find_ordc=false,ordc_modi;//設定有採購就不能修改請購
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
+				//大昌一開始不會設品號
+				if(q_getPara('sys.comp').indexOf('大昌')==-1){
+					if(!find_ordc){
+						var t_where = "where=^^ ordbno='"+$('#txtNoa').val()+"' ^^";
+						q_gt('view_ordcs', t_where, 0, 0, 0, "find_ordc", r_accy);
+						return;
+					}
+				}
                 _btnModi();
-                $('#txtProduct').focus();
+                if(q_getPara('sys.comp').indexOf('大昌')==-1){
+	                find_ordc=false;
+	                if (ordc_modi[0] != undefined) {
+	                	for (var i = 0; i < ordc_modi.length; i++) {
+	                		for (var j = 0; j < q_bbsCount; j++) {
+	                			if(ordc_modi[i].no3==$('#txtNo3_'+j).val()){
+	                				for (var k = 0; k < fbbs.length; k++) {
+	                					$('#'+fbbs[k]+'_'+j).attr('disabled', 'disabled');
+	                				}
+	                			}
+	                		}
+	                	}
+	                }
+				}
+                $('#txtCno').focus();
             }
 
             function btnPrint() {
@@ -211,7 +239,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['productno']) {
+                if(!as['productno'] && !as['product']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
