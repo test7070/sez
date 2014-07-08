@@ -47,22 +47,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                $('#txtNo1').change(function(e){
-                    checkGqbr();
-                });
-                $('#txtNo2').change(function(e){
-                    checkGqbr();
-                });
             }
-            
-            function checkGqbr(){
-                var t_noa = $('#txtNoa').val();
-                var t_no1 = $.trim($('#txtNo1').val());
-                var t_no2 = $.trim($('#txtNo2').val());
-                var t_where ="where=^^noa!='"+t_noa+"' and ('"+t_no1+"' between no1 and no2 or '"+t_no2+"' between no1 and no2) ^^";
-                q_gt('gqbr', t_where, 0, 0, 0, "checkGqbr");    
-            }
-            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -111,7 +96,7 @@
             }
 
             function btnPrint() {
-                q_box('z_gqbr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                q_box('z_gqbrp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -121,8 +106,15 @@
             function btnOk() {    
                 Lock(1,{opacity:0}); 
                 var t_noa = $('#txtNoa').val();
+                var t_no1 = $.trim($('#txtNo1').val());
+                var t_no2 = $.trim($('#txtNo2').val());
+                var t_where ="where=^^noa!='"+t_noa+"' and ('"+t_no1+"' between no1 and no2 or '"+t_no2+"' between no1 and no2) ^^";
+                if(t_no1.length>0 && t_no2.length>0)
+                    q_gt('gqbr', t_where, 0, 0, 0, "checkGqbr"); 
+                    
+                var t_noa = $('#txtNoa').val();
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, '');
+                    q_gtnoa(q_name, replaceAll(q_date(), '/', ''));
                 else
                     wrServer(t_noa);
             }
