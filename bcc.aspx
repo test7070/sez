@@ -199,7 +199,11 @@
             }
 
             function btnPrint() {
-                q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				if(q_getPara('sys.comp').indexOf('祥興')>-1){
+                	q_box('z_bcc5_rs.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				}else{
+					q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				}
             }
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
