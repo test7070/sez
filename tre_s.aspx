@@ -73,7 +73,7 @@
                 if (t_carteam.length > 0)
                     t_where += q_sqlPara2("carteamno", t_carteam);
                 if (t_driver.length > 0)
-                    t_where += " and patindex('%" + t_driver + "%',driver)>0";     
+                    t_where += " and charindex('" + t_driver + "',driver)>0";     
 				if(t_tranno.length>0)
 		       		t_where += " and exists(select noa from tres"+r_accy+" where tres"+r_accy+".noa=tre"+r_accy+".noa and tres"+r_accy+".tranno='"+t_tranno+"')";
                 if(t_ispay.length>0)

@@ -323,15 +323,11 @@
             	//BBS日期不可超過2個月
             	var t_array= new Array();
         		for ( i = 0; i < q_bbsCount; i++) {
-        			t_mon = $.trim($('#txtTrandate_'+i).val()).substring(0,6);
-        			if(t_array.indexOf(t_mon)<0)
-                        t_array.push(t_mon);
-        			
-        			/*if($.trim($('#txtTranno_'+i).val()).length>0 && $.trim($('#txtTrannoq_'+i).val()).length==0){
-        				alert($('#txtTranno_'+i).val()+'出車單資料異常。');
-        				Unlock(1);
-        				return;
-        			}*/
+        		    if($.trim($('#txtTrandate_'+i).val()).length>0){
+        		        t_mon = $.trim($('#txtTrandate_'+i).val()).substring(0,6);
+                        if(t_array.indexOf(t_mon)<0)
+                            t_array.push(t_mon);
+        		    }
         		}
         		
             	if(t_array.length>2){
