@@ -211,6 +211,9 @@
 							t_planmount = dec(as[0].planmount);
 							t_intmount = dec(as[0].inmount) + dec(as[0].purmount);
 						}
+						if (as[0] == undefined) //表示原物料
+							q_gt('view_ordcs', "where=^^ productno='"+$('#txtNoa').val()+"' and isnull(enda,0)!=1 and isnull(cancel,0)!=1 ^^", 0, 0, 0, "", r_accy);
+							
 						$('#textOrdemount').val(t_ordemount);
 						//訂單
 						$('#textPlanmount').val(t_planmount);
@@ -224,6 +227,14 @@
 						$('#div_stkcost').css('left', mousepoint.pageX - $('#div_stkcost').width());
 						$('#div_stkcost').toggle();
 						$('#btnStkcost').val(q_getMsg('btnStkcost'));
+						break;
+					case 'view_ordcs':
+						var as = _q_appendData("view_ordcs", "", true);
+						var ordcmount=0;
+						for (var i = 0; i < as.length; i++) {
+							ordcmount+=dec(as[i].notv);
+						}
+						$('#textIntmount').val(dec($('#textIntmount').val())+ordcmount);
 						break;
 					case 'ucc_rc2':
 						var as = _q_appendData("rc2s", "", true);

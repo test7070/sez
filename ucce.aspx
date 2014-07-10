@@ -31,8 +31,8 @@
 			aPop = new Array(
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-				['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
-				['txtProductno2_', 'btnProduct2_', 'ucaucc', 'noa,product,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtProductno1_', 'btnProduct1_', 'ucaucc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+				['txtProductno2_', 'btnProduct2_', 'bcc', 'noa,product,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
 				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 			);
@@ -161,8 +161,8 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
-				if (q_getPara('sys.comp').indexOf('永勝') > -1) {
-					$('#cmbKind').val(2);
+				if (q_getPara('sys.comp').indexOf('永勝') > -1|| q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
+					$('#cmbKind').val(1);
 				}
 				product_change();
 			}
@@ -212,7 +212,7 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if (q_getPara('sys.comp').indexOf('永勝') > -1) {
+				if (q_getPara('sys.comp').indexOf('永勝') > -1|| q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
 					$('#cmbKind').attr('disabled', 'disabled');
 				}
 			}

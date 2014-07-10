@@ -84,13 +84,14 @@
 					<td align="center">
 					<input type="checkbox" id="checkAllCheckbox"/>
 					</td>
-					<td align="center"><a id='lblProductno'></a>/<a id='lblProduct'></a></td>
-					<td align="center"><a id='lblUnit'></a></td>
-					<td align="center"><a id='lblMount'></a></td>
-					<td align="center"><a id='lblPrice'></a></td>
-					<td align="center"><a id='lblNoa'></a></td>
-					<td align="center"><a id='lblCust'></a></td>
-					<td align="center"><a id='lblMemo'></a></td>
+					<td align="center"><a id='lblProductno'> </a>/<a id='lblProduct'> </a></td>
+					<td align="center"><a id='lblUnit'> </a></td>
+					<td align="center"><a id='lblMount'> </a></td>
+					<td align="center"><a id='lblPrice'> </a></td>
+					<td align="center"><a id='lblNoa'> </a></td>
+					<td align="center"><a id='lblDatea'> </a></td>
+					<td align="center"><a id='lblCust'> </a></td>
+					<td align="center"><a id='lblMemo'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;" align="center">
@@ -114,6 +115,9 @@
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>
 					<input class="txt" id="txtNoq.*" type="text"  style="width:98%;"/>
 					</td>
+					<td style="width:10%;">
+					<input class="txt" id="txtDatea.*" type="text" style="width:96%; text-align:left;"/>
+					</td>
 					<td style="width:15%;">
 					<input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/>
 					</td>
@@ -123,7 +127,7 @@
 					<input id="txtTotal.*" type="hidden" />
 					<input id="txtBkmount.*" type="hidden" />
 					<input id="txtBkmoney.*" type="hidden" />
-					<input id="txtDatea.*" type="hidden" />
+					<!--<input id="txtDatea.*" type="hidden" />-->
 					</td>
 				</tr>
 			</table>
