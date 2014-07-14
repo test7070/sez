@@ -385,8 +385,12 @@
 					}
 					if (word_where.length > 0)
 						word_where = "and (" + word_where.substr(0, word_where.length - 3) + ")";
-
-					var t_where = "where=^^ 1=1 " + word_where + "^^";
+						
+					if(word_where.length==0)
+						var t_where = "where=^^ 1=0 ^^";
+					else
+						var t_where = "where=^^ 1=1 " + word_where + "^^";
+						
 					var t_where1 = "where[1]=^^ noa='" + $('#txtNoa').val() + "' and productno=a.productno and workno=a.noa ^^";
 					q_gt('work_pick', t_where + t_where1, 0, 0, 0, "", r_accy);
 				} else {
@@ -424,6 +428,7 @@
 					$('#lblNo_' + i).text(i + 1);
 				}
 				_bbsAssign();
+				HideField();
 				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 					$('#btnMinus_' + j).click(function() {
 						btnMinus($(this).attr('id'));
@@ -519,6 +524,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
+				HideField();
 			}
 
 			function readonly(t_para, empty) {
@@ -532,6 +538,10 @@
 					$('#btnOrdes').removeAttr('disabled');
 					$('#btnWorkq').removeAttr('disabled');
 				}
+				HideField();
+			}
+			
+			function HideField() {
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');

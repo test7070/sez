@@ -586,7 +586,7 @@
 					var t_date = $('#txtDatea').val();
 					var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 					if (s1.length == 0 || s1 == "AUTO")
-						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_worka') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workc') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 					else
 						wrServer(s1);
 				}
@@ -631,6 +631,7 @@
 					}
 				}
 				_bbsAssign();
+				HideField();
 				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 					$('#btnMinus_' + j).click(function() {
 						btnMinus($(this).attr('id'));
@@ -718,6 +719,7 @@
 				$('#lblStation').css('display', 'inline');
 				$('#lblStorek').css('display', 'none');
 				$('#lblStationk').css('display', 'none');
+				HideField();
 			}
 
 			function readonly(t_para, empty) {
@@ -731,6 +733,10 @@
 					$('#btnWorks').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
 				}
+				HideField();
+			}
+			
+			function HideField() {
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');

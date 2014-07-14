@@ -649,11 +649,11 @@
 					}
 				}
 				_bbsAssign();
+				HideField();
 				for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 					$('#btnMinus_' + j).click(function() {
 						btnMinus($(this).attr('id'));
 					});
-
 				}
 			}
 
@@ -741,6 +741,8 @@
 				$('#lblStation').css('display', 'inline');
 				$('#lblStorek').css('display', 'none');
 				$('#lblStationk').css('display', 'none');
+				
+				HideField();
 			}
 
 			function refreshBbm() {
@@ -762,6 +764,10 @@
 					$('#btnWorks').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
 				}
+				HideField();
+			}
+			
+			function HideField() {
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');

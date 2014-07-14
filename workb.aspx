@@ -502,6 +502,7 @@
 					}
 				}
 				_bbsAssign();
+				HideField();
 			}
 
 			function btnIns() {
@@ -554,10 +555,15 @@
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
+				HideField();
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				HideField();
+			}
+			
+			function HideField() {
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');
