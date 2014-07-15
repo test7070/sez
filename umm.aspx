@@ -335,7 +335,7 @@
                 		if(as.length>1 && !emp($('#txtCustno').val())){
                 			alert('請款單為多個收款客戶，表頭客戶請勿KEY打，以避免客戶款帳有問題!!');
                 		}else{
-                			if (as[0] != undefined) {
+                			if (as[0] != undefined && !emp($('#txtCustno').val())) {
                 				if(as[0].custno!=$('#txtCustno').val()){
                 					alert('收款客戶與請款單客戶不同!!');
                 					break;	
