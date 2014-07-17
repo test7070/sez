@@ -40,39 +40,39 @@
                	t_isinit = true;  
                 $('#q_report').q_report({
                     fileName : 'z_vccadc',
-                    options : [ {
+                    options : [ {//1  [1][2]
                         type : '1',
                         name : 'xmon'
-                    },{
+                    },{//2  [3][4]
                         type : '1',
                         name : 'bmon'
-                    }, {
+                    }, {//3  [5[6]
                         type : '1',
                         name : 'emon'
-                    }, {
+                    }, {//4  [7][8]
                         type : '2',
                         name : 'xcust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }, {
+                    }, {//5  [9][10]
                         type : '2',
                         name : 'xacomp',
                         dbf : 'acomp',
                         index : 'noa,acomp',
                         src : 'acomp_b.aspx'
-                    }, {
+                    }, {//  [11]
                     	type : '0',
                         name : 'accy',
                         value : q_getId()[4]
-                    }, {/*2*/
+                    }, {//6  [12]
                         type : '8',
                         name : 'xcno',
                         value : t_cno.split(',')
-                     },{
+                     },{//7  [13][14]
                         type : '1',
                         name : 'xinvono'
-                     },{
+                     },{//8  [15]
                         type : '6',
                         name : 'xyear'
                   }]
