@@ -391,7 +391,7 @@
         }
 		
 		function sum() {
-			q_tr('txtTotal',Math.round((q_float('txtP20')*2)+(q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP130')*13)+(q_float('txtP150')*15)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32)));
+			q_tr('txtTotal',round((q_float('txtP20')*2)+(q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP130')*13)+(q_float('txtP150')*15)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32),1));
         }
 		
         function btnSeek(){

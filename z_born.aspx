@@ -18,8 +18,9 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_born');
+                q_gt('uca', 'stop=1', 0, 0, 0);
             });
+            var isuca=false;
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_born',
@@ -44,6 +45,13 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
+                //有BOM表的公司才顯示排產篩選
+                if(!isuca){
+                	$('#Xworkgnoa').hide();
+                	$('#Xworkgnoq').hide();
+                }
+                
                 var hrefList = q_getHref();
 				for(var k=0;k<hrefList.length;k++){
 					var thisVal = $.trim(q_getHref()[k]).toLowerCase();
@@ -70,8 +78,17 @@
             function q_boxClose(s2) {
             }
 
-            function q_gtPost(s2) {
-            }
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'uca':
+                        var as = _q_appendData("uca", "", true);
+                        if(as.length>0)
+                        	isuca=true;
+                        
+                        q_gf('', 'z_born');
+                        break;
+                }
+			}
 		</script>
 		<style type="text/css">
 			.q_report .option div .c6 {
