@@ -27,13 +27,16 @@
 					options : [{//[1]
 						type : '0',
 						name : 'accy',
-						value : q_getId()[4]
+						value : r_accy
 					},{
                         type : '2',
                         name : 'xacc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : 'acc_b.aspx?'+ r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_1' 
+                    },{
+                        type : '6',
+                        name : 'usfloat'
                     }]
 				});
 				q_popAssign();

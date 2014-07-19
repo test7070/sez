@@ -14,7 +14,8 @@
     var q_name = "accz_s";
         aPop = new Array(
         	['txtNoa', '', 'acc', 'acc1,acc2', 'txtNoa', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-        	['txtDepl_ac', '', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+        	['txtDepl_ac', '', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        	['txtPartno', '', 'part', 'noa,part', 'txtPartno,txtPart', "part_b.aspx"]
         );
     $(document).ready(function () {
         main();
@@ -36,20 +37,29 @@
     }
 
     function q_seekStr() {   
-        t_noa = $('#txtNoa').val();
+        //t_noa = $('#txtNoa').val();
         t_acc1 = $('#txtAcc1').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_depl_ac = $('#txtDepl_ac').val();
         t_namea = $('#txtNamea').val();
         t_namea2 = $('#txtNamea2').val();
+        t_partno = $('#txtPartno').val();
+        t_part = $('#txtPart').val();
+        
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("acc1", t_acc1) + q_sqlPara2("namea", t_namea) + q_sqlPara2("datea", t_bdate, t_edate) +
-                           q_sqlPara2("depl_ac", t_depl_ac) + q_sqlPara2("namea2", t_namea2);
-
+        var t_where = " 1=1 " + q_sqlPara2("acc1", t_acc1)  + q_sqlPara2("indate", t_bdate, t_edate) +q_sqlPara2("depl_ac", t_depl_ac) + q_sqlPara2("partno", t_partno);
+        
+        if(t_namea.length>0)
+        	t_where+=" and charindex('"+t_namea+"',namea)>0 ";
+        if(t_namea2.length>0)
+			t_where+=" and charindex('"+t_namea2+"',namea2)>0 ";
+		if(t_part.length>0)
+			t_where+=" and charindex('"+t_part+"',part)>0 ";
+			
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
@@ -68,10 +78,10 @@
                 <span style="display:inline-block; vertical-align:middle">&sim;</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
-             <tr class='seek_tr'>
+             <!--<tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
+            </tr>-->
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblAcc1'></a></td>
                 <td><input class="txt" id="txtAcc1" type="text" style="width:215px; font-size:medium;" /></td>
@@ -84,7 +94,10 @@
                 <td class='seek'  style="width:20%;"><a id='lblDepl_ac'></a></td>
                 <td><input class="txt" id="txtDepl_ac" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtNamea2" type="text" style="width:115px;font-size:medium;" /></td>
              </tr>
-             
+             <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblPartno'></a></td>
+                <td><input class="txt" id="txtPartno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtPart" type="text" style="width:115px;font-size:medium;" /></td>
+             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>
