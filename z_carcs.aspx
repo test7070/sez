@@ -86,51 +86,53 @@
 				if (t_data.isLoad() && !t_data.isInit) {
 					t_data.isInit = true;
 					$('#q_report').q_report({
-						fileName : 'z_carcs', options : [{
+						fileName : 'z_carcs', options : [{//[1]
 							type : '0', name : 'accy', value : q_getId()[4]
-						}, {/*1*/
+						}, {/*1*///[2][3]
 							type : '1', name : 'date'
-						}, {/*2*/
+						}, {/*2*///[4][5]
 							type : '1', name : 'carno'
-						}, {/*3*/
+						}, {/*3*///[6][7]
 							type : '2', name : 'driver', dbf : 'driver', index : 'noa,namea', src : 'driver_b.aspx'
-						}, {/*4*/
+						}, {/*4*///[8]
 							type : '8', name : 'xtypea', value : q_getPara('z_carcs.typea').split(',')
-						}, {/*5*/
+						}, {/*5*///[9][10]
 							type : '1', name : 'trandate'
-						}, {/*6*/
+						}, {/*6*///[11][12]
 							type : '2', name : 'cust', dbf : 'cust', index : 'noa,comp', src : 'cust_b.aspx'
-						}, {/*7*/
+						}, {/*7*///[13]
 							type : '6', name : 'xcarno'
-						}, {/*8*/
+						}, {/*8*///[14]
 							type : '6', name : 'xpo'
-						}, {/*9*/
+						}, {/*9*///[15][16]
 							type : '2', name : 'addr', dbf : 'addr', index : 'noa,addr', src : 'addr_b.aspx'
-						}, {/*10*/
+						}, {/*10*///[17]
 							type : '8', name : 'xcarteam', value : t_data.data['carteam'].split(',')
-						}, {/*11*/
+						}, {/*11*///[18]
 							type : '8', name : 'xcalctypes', value : t_data.data['calctypes'].split(',')
-						}, {/*12*/
+						}, {/*12*///[19]
 							type : '5', name : 'xsort8', value : q_getMsg('tsort08').split('&')
-						}, {/*13*/
+						}, {/*13*///[20]
 							type : '8', name : 'xfield05', value : q_getMsg('tfield05').split('&')
-						}, {/*14*/
+						}, {/*14*///[21]
 							type : '5', name : 'xsort03', value : q_getMsg('tsort03').split('&')
-						}, {/*15*/
+						}, {/*15*///[22]
 							type : '8', name : 'xcarkind', value : t_data.data['carkind'].split(',')
-						}, {/*16*/
+						}, {/*16*///[23]
 							type : '8', name : 'cartype', value : q_getPara('car2.cartype').split(',')
-						}, {/*17*/
+						}, {/*17*///[24]
 							type : '6', name : 'xmon'
-						}, {
+						}, {/*18*///[25]
 							type : '5', name : 'xinterval', value : [q_getPara('report.all')].concat(q_getPara('carcsa.interval').split(','))
-						}, {/*18*/
+						}, {/*19*///[26]
 							type : '5', name : 'xcno', value : [q_getPara('report.all')].concat(t_data.data['acomp'].split(','))
-						}, {
+						}, {//[27]
 							type : '0', name : 'cinterval', value : q_getPara('carcsa.interval')
-						}, {/*19*/
+						}, {/*20*///[28]
 							type : '6', name : 'xboatno'
-						}]
+						}, {/*21*///[29]
+                            type : '5', name : 'xisoutside', value : ['#non@全部','N@公司車','Y@外車']
+                        }]
 					});
 					q_popAssign();
 					q_langShow();
