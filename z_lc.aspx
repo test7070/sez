@@ -29,19 +29,28 @@
 						name : 'accy',
 						value : r_accy
 					},{
-                        type : '2',
+                        type : '2',//[2][3]
                         name : 'xacc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src : 'acc_b.aspx?'+ r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_1' 
                     },{
-                        type : '6',
+                        type : '6',//[4]
+                        name : 'payedate'
+                    },{
+                        type : '6',//[5]
+                        name : 'xcoin'
+                    },{
+                        type : '6',//[6]
                         name : 'usfloat'
                     }]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
+				
+				$('#txtPayedate').mask('999/99/99');
+				$('#txtPayedate').val(q_date());
 			}
 
 			function q_boxClose(s2) {
