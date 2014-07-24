@@ -17,9 +17,9 @@
 
             q_tables = 's';
             var q_name = "lc";
-            var q_readonly = ['txtWorker', 'txtWorker2', 'textUnpay', 'textUnpayus', 'txtTotal', 'txtBank'];
+            var q_readonly = ['txtWorker', 'txtWorker2', 'txtUnpay', 'txtUnpayus', 'txtTotal', 'txtBank'];
             var q_readonlys = [];
-            var bbmNum = [['txtCredit', 15, 0, 1], ['txtConrate1', 15, 0, 1], ['txtConrate2', 15, 0, 1], ['txtExpire', 3, 0, 1], ['txtRate', 10, 4, 1], ['textUnpay', 15, 0, 1], ['textUnpayus', 15, 0, 1], ['txtTotal', 15, 0, 1]];
+            var bbmNum = [['txtCredit', 15, 0, 1], ['txtConrate1', 15, 0, 1], ['txtConrate2', 15, 0, 1], ['txtExpire', 3, 0, 1], ['txtRate', 10, 4, 1], ['txtUnpay', 15, 0, 1], ['txtUnpayus', 15, 0, 1], ['txtTotal', 15, 0, 1]];
             var bbsNum = [['txtMoney', 15, 0, 1], ['txtLcmoney', 15, 0, 1], ['txtRate', 15, 4, 1], ['txtConrate1', 15, 4, 1], ['txtConrate2', 15, 4, 1], ['txtFloat', 15, 4, 1], ['txtUnpay', 15, 0, 1], ['txtPay', 15, 0, 1], ['txtLch', 15, 0, 1], ['txtChgmoney', 15, 0, 1], ['txtChgfloat', 15, 4, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -138,6 +138,9 @@
                     q_box('z_accc.aspx', 'z_accc;', "95%", "95%", $('#btnAccc').val());
                 });
                 
+                $('#btnBank').click(function(e) {
+                    q_box('z_bank.aspx', 'z_accc;', "95%", "95%", $('#btnBank').val());
+                });
             }
 			
 			var qbox=false;
@@ -145,8 +148,10 @@
                 var ret;
                 switch (b_pop) {
                     case 'lcs':
+                    	if(!emp($('#txtNoa').val())){
+                    		q_func('qtxt.query.lcschang', 'lc.txt,lcschang,' + $('#txtNoa').val());
+                    	}
                     	qbox=true;
-                        q_gt(q_name, q_content, q_sqlCount, 1);
                         break;
                     case q_name + '_s':
                         q_boxClose2(s2);
@@ -157,19 +162,15 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'getunpay':
-                     var t_unpay=0;
-                     var t_unpayus=0;
+                    case 'gettotal':
+                     var t_bill=0;
                      var as = _q_appendData("lcs", "", true);
                      for (var i=0; i < as.length; i++) {
-	                     if(as[i].coin=='')
-							t_unpay=q_add(t_unpay,dec(as[i].unpay));
-	                     else
-	                     	t_unpayus=q_add(t_unpayus,dec(as[i].unpay));
+						t_bill=q_sub(dec(as[i].lcmoney),dec(as[i].money));
                      };
                      
-                     q_tr('textUnpay',t_unpay);
-                     q_tr('textUnpayus',t_unpayus);
+                     q_tr('txtTotal',q_sub(q_sub(q_float('txtCredit'),q_float('txtUnpay')),t_bill));
+                     
                      break;
                     case 'findAccno3':
                         var as = _q_appendData("lc", "", true);
@@ -281,10 +282,8 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							if(!emp($('#txtNoq_'+b_seq).val())){
-								var t_where = "noa='"+$('#txtNoa').val()+"' and noq='"+$('#txtNoq_'+b_seq).val()+"'";
-                        		q_box('lcs.aspx', 'lcs;' + t_where, "98%", "95%", q_getMsg('popLcs'));
-							}
+							var t_where = "noa='"+$('#txtNoa').val()+"' and noq='"+$('#txtNoq_'+b_seq).val()+"'";
+                        	q_box('lcs.aspx', 'lcs;' + t_where, "80%", "80%", $('#btnDetail_'+b_seq).val());
 						});
                     }
                 }
@@ -292,12 +291,12 @@
                 
                $('.dbbs .txt').css('color','green').css('background','RGB(237,237,237)').attr('disabled','disabled');
                
-               $('#btnPluss').click(function(e) {
+               /*$('#btnPluss').click(function(e) {
 	               	if(!emp($('#txtNoa').val())){
 	                    var t_where = "noa='"+$('#txtNoa').val()+"'";
 	                	q_box('lcs.aspx', 'lcs;' + t_where, "98%", "95%", q_getMsg('popLcs'));
 	                }
-                });
+                });*/
             }
 
             function bbsSave(as) {
@@ -314,9 +313,13 @@
             function refresh(recno) {
                 _refresh(recno);
                 refreshBbm();
-               var t_noa = trim($('#txtAcc1').val()).replace('.','');
-                 var t_where = "swhere=^^noa='"+t_noa+"'^^";
-                 q_gt('lcs', t_where, 0, 0, 0, "getunpay", r_accy);
+                if(emp($('#txtAccno3').val())){
+					var t_noa = trim($('#txtAcc1').val()).replace('.','');
+					var t_where = "swhere=^^noa='"+t_noa+"' and isnull(chgdate,'')!='' and '"+q_date()+"'<=isnull(lcdate,'') and isnull(lcno,'')!='' and isnull(lcodate,'')!='' and isnull(coin,'')='' ^^";
+					q_gt('lcs', t_where, 0, 0, 0, "gettotal", r_accy);
+				}else{
+					$('#txtTotal').val('0');
+				}
             }
 
             function readonly(t_para, empty) {
@@ -390,6 +393,14 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.lcschang':
+                		q_gt(q_name, q_content, q_sqlCount, 1);
+                	break;
+                }
+			}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -603,8 +614,8 @@
 						<td class="td2"><input id="txtAccno3" type="text" class="txt c1"/></td>
 						<td class="td4" colspan="2"><input id="txtAccname3" type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id="lblUnpay" class="lbl"> </a></td>
-						<td class="td6"><input id="textUnpay" type="text" class="txt num c1"/></td>
-						<td class="td8" colspan="2"><input id="textUnpayus" type="text" class="txt num c1"/></td>
+						<td class="td6"><input id="txtUnpay" type="text" class="txt num c1"/></td>
+						<td class="td8" colspan="2"><input id="txtUnpayus" type="text" class="txt num c1"/></td>
 						<td class="td9"><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td class="tdA"><input id="txtTotal" type="text" class="txt num c1"/></td>
 					</tr>
@@ -621,10 +632,11 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td6"> </td>
-						<td class="td6" colspan="5">
+						<td class="td6" colspan="7">
 							<input id="btnLcc" type="button"/>
 							<input id="btnGqb" type="button"/>
 							<input id="btnAccc" type="button"/>
+							<input id="btnBank" type="button"/>
 						</td>
 					</tr>
 				</table>
@@ -633,9 +645,9 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;">
+					<td  align="center" style="width:30px;height: 31px;">
 						<!--<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />-->
-						<input class="btn"  id="btnPluss" type="button" value='+' style="font-weight: bold;"  />
+						<!--<input class="btn"  id="btnPluss" type="button" value='+' style="font-weight: bold;"  />-->
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:50px;"> </td>

@@ -83,7 +83,7 @@
 		        
 		        $('#btnLct').click(function () {
 		        	if(!emp($('#txtNoa').val()) && !emp($('#txtNoq').val()))
-		            	q_box("lct.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "' and noq='" + $('#txtNoq').val() + "'", 'lct', "95%", "95%", q_getMsg("popPay"));
+		            	q_box("lct.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "' and noq='" + $('#txtNoq').val() + "'", 'lct', "500px", "500px", $('#btnLct').val());
 		        });
 		        
 		        $('#txtChgacc1').change(function () {
@@ -113,11 +113,26 @@
 		        	//lc.genAccc( noa, 3)  // 改貸
 		        	q_func('lc.genAccc.3',$('#txtNoa').val()+",3");
 		        });
+		        
+		        $('#btnSeek').hide();
+		        $('#btnPrint').hide();
+		        $('#btnPrev').hide();
+		        $('#btnNext').hide();
+		        $('#btnPrevPage').hide();
+		        $('#btnNextPage').hide();
+		        $('#dview').hide();
             }
-
+			
+			var qbox=false;
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+                	case 'lct':
+                		if(!emp($('#txtNoa').val())&&!emp($('#txtNoq').val())){
+                    		q_func('qtxt.query.lctchang', 'lc.txt,lctchang,' + $('#txtNoa').val()+';'+$('#txtNoq').val());
+                    	}
+                    	qbox=true;
+                		break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -139,7 +154,15 @@
                     	t_lcnoa = trim(t_lcnoa).replace('.', '');
                 		wrServer(t_lcnoa);
                 		break;
+                	case 'recnobbs':
+						refresh(q_recno);
+						qbox=false;
+						break;
                     case q_name:
+                    	if (q_cur == 0 && qbox){
+                    		t_where = "where=^^ noa='" + $('#txtNoa').val() + "' and noq='" + $('#txtNoq').val() + "'^^";
+                        	q_gt('lcs', t_where, 0, 0, 0, "recnobbs", r_accy);
+						}
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
@@ -282,6 +305,9 @@
             
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.lctchang':
+                		q_gt(q_name, q_content, q_sqlCount, 1);
+                	break;
                 	case 'lc.genAccc.1':// 開狀
 						$('#txtLcaccno').val(result);
 						abbm[q_recno]['lcaccno'] = result;
@@ -439,12 +465,12 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:50%;"  >
+			<div class="dview" id="dview" style="float: left;  width:50%;" >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:3%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:15%"><a id='vewTgg'> </a></td>
-						<td align="center" style="width:10%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:10%"><a id='vewXdatea'> </a></td>
 						<td align="center" style="width:15%"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:10%"><a id='vewLcodate'> </a></td>
 						<td align="center" style="width:15%"><a id='vewLcmoney'> </a></td>
@@ -463,7 +489,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 50%;float: left;">
+			<div class='dbbm' style="width: 100%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 					<tr class="tr1" style="display: none;">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>

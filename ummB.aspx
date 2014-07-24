@@ -237,6 +237,7 @@
                 alert(t_err);
                 return;
             }
+            
             if($('#cmbTypea').val()=='1'&&emp($('#txtBkdate').val())){
             	alert('請填入'+q_getMsg('lblBkdate'));
             	return;
@@ -251,6 +252,7 @@
             	alert('請填入'+q_getMsg('lblChgdate')+'、'+q_getMsg('lblVccno'));
             	return;	
 			}
+			
             if(q_cur ==1){
 				$('#txtWorker').val(r_name);
 			}else if(q_cur ==2){
@@ -284,7 +286,6 @@
 					/*滑鼠右鍵*/
 					e.preventDefault();
 					q_box("vcc_uu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + $(this).val().substr(1,3), "vcc", "95%", "95%", q_getMsg("popVcc"));
-	
 				});
 				
 				$('#txtPrice_' + i).change (function() {
@@ -311,10 +312,9 @@
 					
 					q_tr('txtSalemoney_'+b_seq,q_mul(q_float('txtSalemount_'+b_seq),q_float('txtPrice_'+b_seq)));
 				});
-				
-				
 			}
             _bbsAssign();
+            fieldsdisabled ();
         }
 
         function btnIns() {
@@ -380,6 +380,7 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            fieldsdisabled ();
         }
 
         function btnMinus(id) {

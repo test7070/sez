@@ -172,8 +172,21 @@
 					t_invo = $('#txtInvono').val();
 					if (t_invo.length > 0) {
 						t_where = "noa='" + t_invo + "'";
-						q_box("vcca.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcca', "95%", "95%", q_getMsg('lblInvono'));
+						q_box("vcca.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcca', "95%", "95%", $('#lblInvono').val());
 					}
+				});
+				
+				$('#lblInvo').click(function() {
+					t_where = '';
+					t_invo = $('#txtInvo').val();
+					if (t_invo.length > 0) {
+						t_where = "noa='" + t_invo + "'";
+						q_box("invo.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", $('#lblInvo').val());
+					}
+				});
+				
+				$('#cmbStype').change(function() {
+					stype_chang();
 				});
 				
 				$('#txtFloata').change(function() {
@@ -827,6 +840,7 @@
 				if (isinvosystem)
 					$('.istax').hide();
 				HiddenTreat();
+				stype_chang();
 			}
 
 			function HiddenTreat(returnType){
@@ -843,6 +857,16 @@
 					return (hasSpec.toString()=='1');
 				}else if(returnType=='rack'){
 					return (hasRackComp.toString()=='1');
+				}
+			}
+			
+			function stype_chang(){
+				if($('#cmbStype').val()=='3'){
+					$('.invo').show();
+					$('.vcca').hide();
+				}else{
+					$('.invo').hide();
+					$('.vcca').show();
 				}
 			}
 
@@ -1196,8 +1220,15 @@
 						<td class="td7"><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td class="td8"><input id="txtMon" type="text" class="txt c1"/></td>
 						<td class="td8"> </td>
-						<td class="td7"><span> </span><a id='lblInvono' class="lbl btn"> </a></td>
-						<td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td>
+						<td class="td7">
+							<span> </span>
+							<a id='lblInvono' class="lbl btn vcca"> </a>
+							<a id='lblInvo' class="lbl btn invo"> </a>
+						</td>
+						<td class="td8">
+							<input id="txtInvono" type="text" class="txt c1 vcca"/>
+							<input id="txtInvo" type="text" class="txt c1 invo"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
