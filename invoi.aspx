@@ -15,7 +15,7 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			q_tables = 's';
-			var q_name = "invo";
+			var q_name = "invoi";
 			var q_readonly = ['txtTotal','txtUsd'];
 			var q_readonlys = [];
 			var bbmNum = [['txtTotal', 15, 3, 1],['txtUsd', 15, 2, 1]];
@@ -28,11 +28,9 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,addr_home', 'txtCustno,txtComp,txtAddr', '']
-			,['txtCno', 'lblCno', 'acomp', 'noa,acomp,ename', 'txtCno']
-				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype', '']
-				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype,tax,money,total,coin,floata,totalus', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype,txtTax,txtMoney,txtTotal,cmbCoin,txtFloata,txtTotalus', '']
-			);
+			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,addr_home', 'txtTggno,txtTgg,txtAddr', '']
+			,['txtCno', 'lblCno', 'acomp', 'noa,acomp,ename', 'txtCno']);
+			
 			$(document).ready(function () {
 				bbmKey = ['noa'];
 				bbsKey = ['noa','noq'];
@@ -54,35 +52,27 @@
                 q_getFormat();
                 bbmMask = [['txtDatea',r_picd],['txtClosing',r_picd],['txtEtd',r_picd],['txtEta',r_picd]];
                 q_mask(bbmMask);
-                /*$('#btnInvo').click(function(){
-                	t_where = '';
-                	t_noa = $('#txtNoa').val();
-                	if(t_noa.length > 0){
-                		t_where = "noa='" + t_noa + "'";
-                		q_box("invo_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
-                	}
-                });*/
-                
+                                
                 $('#btnPack').click(function(){
                 	t_where = '';
                 	t_noa = $('#txtNoa').val();
                 	if(t_noa.length > 0){
                 		t_where = "noa='" + t_noa + "'";
-                		q_box("packing_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack', "95%", "95%", $('#btnPack').val());
+                		q_box("packingi_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack', "95%", "95%", $('#btnPack').val());
                 	}
                 });
                 
                 $('#txtNoa').change(function() {
 					t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                	q_gt('invo', t_where, 0, 0, 0, "check_Noa", r_accy);
+                	q_gt('invoi', t_where, 0, 0, 0, "check_Noa", r_accy);
 				});
 				
-				$('#txtVccno').change(function() {
+				$('#txtRc2no').change(function() {
 					t_where = '';
-                	t_noa = $('#txtVccno').val();
+                	t_noa = $('#txtRc2no').val();
                 	if(t_noa.length > 0){
                 		t_where = "noa='" + t_noa + "'";
-                		q_box("vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+t_noa.substring(1,4), 'vcc', "95%", "95%",'');
+                		q_box("rc2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+t_noa.substring(1,4), 'rc2', "95%", "95%",'');
                 	}
 				});
 				
@@ -104,17 +94,18 @@
 	            	$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 	            }
 			}
+			
 			function q_gtPost(t_name) { 
 				switch (t_name) {
 					case 'check_Noa':
-                		var as = _q_appendData("invo", "", true);
+                		var as = _q_appendData("invoi", "", true);
                         if (as[0] != undefined){
                         	alert(q_getMsg('lblNoa')+'已存在!!');
                             return;
                         }
                 		break;
                 	case 'check_btnOk':
-                		var as = _q_appendData("invo", "", true);
+                		var as = _q_appendData("invoi", "", true);
                         if (as[0] != undefined){
                         	alert(q_getMsg('lblNoa')+'已存在!!');
                             return;
@@ -150,7 +141,7 @@
 			}
 	
 			function btnPrint() {
-				q_box('z_invop.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", $('#btnPrint').val());
+				q_box('z_invoi.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", $('#btnPrint').val());
 			}
 			
 			function bbsSave(as) {
@@ -172,7 +163,6 @@
 				}
 				_bbsAssign();
 			}
-			
 
 			function btnOk() {
 				var t_err = '';
@@ -187,7 +177,7 @@
 				sum();
 				if(q_cur==1){
 					t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                	q_gt('invo', t_where, 0, 0, 0, "check_btnOk", r_accy);
+                	q_gt('invoi', t_where, 0, 0, 0, "check_btnOk", r_accy);
 				}else
 					wrServer($('#txtNoa').val());
 			}
@@ -201,7 +191,7 @@
 	
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
-				$('#btnInvo').removeAttr('disabled');
+				
 				$('#btnPack').removeAttr('disabled');
 			}
 	
@@ -263,7 +253,6 @@
 	
 			function btnCancel() {
 				_btnCancel();
-				$('#btnInvo').removeAttr('disabled');
 				$('#btnPack').removeAttr('disabled');
 			}
 			
@@ -398,12 +387,12 @@
 				<tr>
 					<td align="center" style="width:5%"><a id='vewChk' class="lbl"> </a></td>
 					<td align="center" style="width:25%"><a id='vewNoa' class="lbl"> </a></td>
-					<td align="center" style="width:40%"><a id='vewVccno' class="lbl"> </a></td>
+					<td align="center" style="width:40%"><a id='vewRc2no' class="lbl"> </a></td>
 				</tr>
 				<tr>
 					<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 					<td align="center" id='noa'>~noa</td>
-					<td align="center" id='vccno'>~vccno</td>
+					<td align="center" id='rc2no'>~rc2no</td>
 				</tr>
 			</table>
 		</div>
@@ -414,17 +403,17 @@
 					<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
 					<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 					<td class="td4"><input id="txtDatea" type="text" class="txt c1" /></td>
-					<td class="td5"><span> </span><a id="lblVccno" class="lbl"> </a></td>
-					<td class="td6"><input id="txtVccno" type="text" class="txt c1" /></td>
+					<td class="td5"><span> </span><a id="lblRc2no" class="lbl"> </a></td>
+					<td class="td6"><input id="txtRc2no" type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr2">
-					<td class="td1" ><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-					<td class="td2"><input id="txtCustno"  type="text"  class="txt c1"/></td>
-					<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
-					<td class="td2" colspan="3"><input id="txtComp"  type="text" class="txt c1" /></td>
+					<td class="td1" ><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
+					<td class="td2"><input id="txtTggno"  type="text"  class="txt c1"/></td>
+					<td class="td1"><span> </span><a id='lblTgg' class="lbl"> </a></td>
+					<td class="td2" colspan="3"><input id="txtTgg"  type="text" class="txt c1" /></td>
 				</tr>  
 				<tr class="tr3">
-					<td class="td1"><span> </span><a id='lblAddress' class="lbl"> </a></td>
+					<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 					<td class="td2" colspan="3"><input id="txtAddr"  type="text" class="txt c1" /></td>
 					<td class="td5" ><span> </span><a id='lblAttn' class="lbl"> </a></td>
 					<td class="td6"><input id="txtAttn"  type="text"  class="txt c1"/></td>

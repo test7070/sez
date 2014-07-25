@@ -125,9 +125,11 @@
 				$('#lblAccc').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
+				
 				$('#lblOrdc').click(function() {
 					lblOrdc();
 				});
+				
 				$('#lblInvono').click(function() {
 					t_where = '';
 					t_invo = $('#txtInvono').val();
@@ -136,6 +138,16 @@
 						q_box("rc2a.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'rc2a', "95%", "95%", q_getMsg('popRc2a'));
 					}
 				});
+				
+				$('#lblInvo').click(function() {
+					t_where = '';
+					t_invo = $('#txtInvo').val();
+					if (t_invo.length > 0) {
+						t_where = "noa='" + t_invo + "'";
+						q_box("invoi.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invoi', "95%", "95%", $('#lblInvo').val());
+					}
+				});
+				
 				$('#lblLcno').click(function() {
 					t_where = '';
 					t_lcno = $('#txtLcno').val();
@@ -144,12 +156,15 @@
 						q_box("lcs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'lcs', "95%", "95%", q_getMsg('popLcs'));
 					}
 				});
+				
 				$('#txtFloata').change(function() {
 					sum();
 				});
+				
 				$('#txtTotal').change(function() {
 					sum();
 				});
+				
 				$('#txtTggno').change(function() {
 					if (!emp($('#txtTggno').val())) {
 						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
@@ -166,6 +181,7 @@
 						q_gt('tgg', t_where, 0, 0, 0, "");
 					}
 				});
+				
 				$('#txtAddr2').change(function() {
 					var t_custno = trim($(this).val());
 					if (!emp(t_custno)) {
@@ -175,15 +191,19 @@
 						q_gt('cust', t_where, 0, 0, 0, "");
 					}
 				});
+				
 				$('#txtPost').change(function() {
 					GetTranPrice();
 				});
+				
 				$('#txtPost2').change(function() {
 					GetTranPrice();
 				});
+				
 				$('#txtTranstartno').change(function(){
 					GetTranPrice();
 				});
+				
 				$('#txtCardealno').change(function() {
 					GetTranPrice();
 					//取得車號下拉式選單
@@ -191,16 +211,24 @@
 					var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
 					q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
 				});
+				
 				$('#cmbTranstyle').change(function() {
 					GetTranPrice();
 				});
+				
 				if (isinvosystem)
 					$('.istax').hide();
+					
 				$('#txtPrice').change(function(){
 					sum();
 				});
+				
 				$('#txtTranadd').change(function(){
 					sum();
+				});
+				
+				$('#cmbStype').change(function() {
+					stype_chang();
 				});
 			}
 
@@ -630,6 +658,7 @@
 				if (isinvosystem)
 					$('.istax').hide();
 				HiddenTreat();
+				stype_chang();
 			}
 
 			function HiddenTreat(returnType){
@@ -646,6 +675,16 @@
 					return (hasSpec.toString()=='1');
 				}else if(returnType=='rack'){
 					return (hasRackComp.toString()=='1');
+				}
+			}
+			
+			function stype_chang(){
+				if($('#cmbStype').val()=='7'){
+					$('.invo').show();
+					$('.vcca').hide();
+				}else{
+					$('.invo').hide();
+					$('.vcca').show();
 				}
 			}
 
@@ -992,8 +1031,15 @@
 						<td class="td3" colspan="2"><input id="txtAcomp" type="text" class="txt c1"/></td>
 						<td class="td7" ><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td class="td8"><input id="txtMon" type="text" class="txt c1"/></td>
-						<td class="td7"><span> </span><a id='lblInvono' class="lbl btn"> </a></td>
-						<td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td>
+						<td class="td7">
+							<span> </span>
+							<a id='lblInvono' class="lbl btn vcca"> </a>
+							<a id='lblInvo' class="lbl btn invo"> </a>
+						</td>
+						<td class="td8">
+							<input id="txtInvono" type="text" class="txt c1 vcca"/>
+							<input id="txtInvo" type="text" class="txt c1 invo"/>
+						</td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
@@ -1010,8 +1056,8 @@
 						<td class="td3" colspan='4' >
 							<input id="txtAddr" type="text" class="txt" style="width: 98%;"/>
 						</td>
-						<td class="td7"><span> </span><a id='lblLcno' class="lbl btn"> </a></td>
-						<td class="td8"><input id="txtLcno" type="text" class="txt c1"/></td>
+						<td class="td7"><span> </span><a id='lblLcno' class="lbl btn invo"> </a></td>
+						<td class="td8"><input id="txtLcno" type="text" class="txt c1  invo"/></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblAddr2' class="lbl btn"> </a></td>

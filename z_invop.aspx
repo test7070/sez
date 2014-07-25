@@ -18,35 +18,19 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_invo');
+                q_gf('', 'z_invop');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_invo',
+                    fileName : 'z_invop',
                     options : [{
 						type : '0',//[1]
 						name : 'accy',
                         value : q_getId()[4] 
                     },{
-                        type : '1',//[2][3]
+                        type : '6',//[2]
                         name : 'xnoa'
-                    },{
-						type : '1', //[4][5]
-						name : 'xdate'
-					},{
-                        type : '2',//[6][7]
-                        name : 'xcustno',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx' 
-                    },{
-                        type : '6',//[8]
-                        name : 'xcommodity'
-                    }, {
-						type : '8', //[9]
-						name : 'onlyunpay',
-						value : "1@只印未收".split(',')
-					}]
+                    }]
                 });
                 q_popAssign();
                 q_getFormat();
