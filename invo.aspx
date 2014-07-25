@@ -85,7 +85,6 @@
                 		q_box("vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+t_noa.substring(1,4), 'vcc', "95%", "95%",'');
                 	}
 				});
-				
 			}
 
 			function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -104,6 +103,7 @@
 	            	$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 	            }
 			}
+			
 			function q_gtPost(t_name) { 
 				switch (t_name) {
 					case 'check_Noa':
@@ -132,6 +132,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
+				q_box('invo_s.aspx', q_name + '_s', "500px", "500px", $('#btnSeek').val());
 			}
 
 			function btnIns() {
