@@ -266,42 +266,46 @@
 	                        type : '5', //select
 	                        name : 'yorder',
 	                        value : ('車行,車主,驗車日期').split(',')
-                    	}, {/*22 -[32]-科目名稱*/
+                    	}, {/*22 -[32][33]-科目名稱*/
                             type : '2',
                             name : 'caritemno',
                             dbf : 'caritem',
                             index : 'noa,item',
                             src : 'caritem_b.aspx'
-                        }, {/*23-[33]-排序依車牌、車行、車主*/
+                        }, {/*23-[34]-排序依車牌、車行、車主*/
 	                        type : '5', //select
 	                        name : 'worder',
 	                        value : ('車牌,車行,車主').split(',')
-                    	}, {/*24-[34]-年度*/
+                    	}, {/*24-[35]-年度*/
                             type : '6',
                             name : 'xyear'
-                        }, {/*25-[35]稅金*/
+                        }, {/*25-[36]稅金*/
                             type : '5',
                             name : 'cartax',
                             value : ('全部,上期牌照稅,下期牌照稅,春季燃料費,夏季燃料費,秋季燃料費,冬季燃料費').split(',')
-                        }, {/*26-[36]已收單、未收單*/
+                        }, {/*26-[37]已收單、未收單*/
 	                        type : '5', //select
 	                        name : 'sheetyn',
 	                        value : ('已收單,未收單').split(',')
-	                    },{/*27-[37]*/
+	                    },{/*27-[38]*/
 							type : '0',
 							name : 'xaccy',
 							value : r_accy
-						}, {/*28-[37]內帳*/
+						}, {/*28-[39]內帳*/
 	                        type : '5', //select
 	                        name : 'iacc',
 	                        value : ('顯示,不顯示').split(',')
-	                    }, {/*29-[38]車種種類*/
+	                    }, {/*29-[40]車種種類*/
                             type : '6',
                             name : 'xspecno'
-                        }, {/*30-[39]未付立帳*/
+                        }, {/*30-[41]未付立帳*/
 	                        type : '8', //select
 	                        name : 'carc',
 	                        value : ('未付立帳').split('.')
+	                    }, {/*31-[42]-列印*/
+	                        type : '8', //select
+	                        name : 'prdate',
+	                        value : ('遷入,遷出,報廢,繳銷,報停').split(',')
 	                    }]
                     });
                     q_getFormat();

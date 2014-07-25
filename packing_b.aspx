@@ -19,7 +19,7 @@
 		    var q_readonlys = [];
 		    var bbmNum = [];
 		    var bbsNum = [['txtDime', 15, 2, 1],['txtWidth', 15, 2, 1],['txtHeight', 15, 2, 1],
-					      ['txtMount', 15, 0, 1],['txtPrice', 15, 2, 1],['txtWeight', 15, 2, 1]];
+					      ['txtMount', 15, 0, 1],['txtPrice', 15, 2, 1],['txtWeight', 15, 2, 1],['txtGweight', 15, 2, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
             aPop = new Array(
@@ -54,20 +54,42 @@
 		        q_mask(bbsMask);
 		        
 		        var t_key = q_getHref();
-		        t_where="where=^^ noa='"+t_key[1]+"'^^";
-                q_gt('vcce', t_where, 0, 0, 0, "", r_accy);
+		        t_where="where=^^ noa=(select top 1 noa from view_vcc where invo='"+t_key[1]+"' order by datea desc)^^";
+                q_gt('view_vccs', t_where, 0, 0, 0, "", r_accy);
 			}
 		
 		    function bbsAssign() {
 		    		for(var j = 0; j < q_bbsCount; j++) {
 		            	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-		            		            		
+		            		$('#txtNo2_'+j).change(function() {
+		            			t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                    q_bodyId($(this).attr('id'));
+			                    b_seq = t_IdSeq;
+			                    
+			                     for(var j = 0; j < vccs.length; j++) {
+			                     	if(vccs[j].no2==$('#txtNo2_'+b_seq).val()){
+			                     		$('#txtUno_'+b_seq).val(vccs[j].uno);
+			                     		$('#txtProductno_'+b_seq).val(vccs[j].productno);
+			                     		$('#txtProduct_'+b_seq).val(vccs[j].product);
+			                     		$('#txtSpec_'+b_seq).val(vccs[j].spec);
+			                     		$('#txtSize_'+b_seq).val(vccs[j].size);
+			                     		$('#txtDime_'+b_seq).val(vccs[j].dime);
+			                     		$('#txtWidth_'+b_seq).val(vccs[j].width);
+			                     		$('#txtHeight_'+b_seq).val(vccs[j].lengthb);
+			                     		$('#txtMount_'+b_seq).val(vccs[j].mount);
+			                     		$('#txtWeight_'+b_seq).val(vccs[j].weight);
+			                     		$('#txtPrice_'+b_seq).val(vccs[j].price);
+			                     		$('#txtMemo_'+b_seq).val(vccs[j].memo);
+			                     		break;	
+			                     	}
+			                     }
+							});
 						}
 					}
 		        _bbsAssign();
-		        for(var j = 0; j < q_bbsCount; j++) {
+		        /*for(var j = 0; j < q_bbsCount; j++) {
 		    		$('#lblNo_' + j).text(j + 1);
-				}
+				}*/
 		    }
 		    
 		    function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -104,9 +126,12 @@
 		        _refresh();
 		    }
 		    
+		    var vccs;
 		    function q_gtPost(t_name) {
 				switch (t_name) {
-					
+					case 'vccs':
+						vcces=_q_appendData("vccs", "", true);
+						break;
 				}  /// end switch
 		    }
 		
@@ -162,7 +187,8 @@
 					<td class="td8" align="center" style="width:7%;"><a id='lblWidth_s'> </a></td>
 					<td class="td9" align="center" style="width:7%;"><a id='lblHeight_s'> </a></td>
 					<td class="td10" align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
-					<td class="td11" align="center" style="width:7%;"><a id='lblWeight_s'> </a></td>
+					<td class="td11" align="center" style="width:7%;"><a id='lblNweight_s'> </a></td>
+					<td class="td11" align="center" style="width:7%;"><a id='lblGweight_s'> </a></td>
 					<td class="td12" align="center" style="width:7%;"><a id='lblPrice_s'> </a></td>
 					<td class="td13" align="center"><a id='lblMemo_s'> </a></td>
 				</tr>
@@ -172,7 +198,10 @@
 						<input class="txt c1"  id="txtNoa.*" type="hidden"  />
                     	<input id="txtNoq.*" type="hidden" />
 					</td>
-					<td class="td2" style="text-align: center;"><a id='lblNo.*'> </a></td>
+					<td class="td2" style="text-align: center;">
+						<!--<a id='lblNo.*'> </a>-->
+						<input class="txt" id="txtNo2.*" type="text" />
+					</td>
 					<td class="td3"><input class="txt" id="txtUno.*" type="text" /></td>
 					<td class="td4">
 						<input class="txt" id="txtProductno.*" type="text" />
@@ -185,6 +214,7 @@
 					<td class="td9"><input class="txt num" id="txtHeight.*" type="text" /></td>
 					<td class="td10"><input class="txt num" id="txtMount.*" type="text" /></td>
 					<td class="td11"><input class="txt num" id="txtWeight.*" type="text" /></td>
+					<td class="td11"><input class="txt num" id="txtGweight.*" type="text" /></td>
 					<td class="td12"><input class="txt num" id="txtPrice.*" type="text" /></td>
 					<td class="td13"><input class="txt" id="txtMemo.*" type="text" /></td>
 				</tr>

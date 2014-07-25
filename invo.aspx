@@ -16,10 +16,10 @@
 			}
 			q_tables = 's';
 			var q_name = "invo";
-			var q_readonly = [];
+			var q_readonly = ['txtTotal','txtUsd'];
 			var q_readonlys = [];
-			var bbmNum = [['txtTotal', 15, 3, 1],['txtUsd', 15, 0, 1]];
-			var bbsNum = [['txtQuantity', 15, 3, 1],['txtPrice', 15, 2, 1],['txtAmount', 15, 0, 1]];
+			var bbmNum = [['txtTotal', 15, 3, 1],['txtUsd', 15, 2, 1]];
+			var bbsNum = [['txtQuantity', 15, 3, 1],['txtPrice', 15, 2, 1],['txtAmount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			
@@ -149,11 +149,11 @@
 			}
 	
 			function btnPrint() {
-				
+				q_box('z_invo.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", $('#btnPrint').val());
 			}
 			
 			function bbsSave(as) {
-				if (!as['description']) {
+				if (!as['description']&&!as['marks']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -183,6 +183,7 @@
 					return;
 				}
 				
+				sum();
 				if(q_cur==1){
 					t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                 	q_gt('invo', t_where, 0, 0, 0, "check_btnOk", r_accy);
@@ -268,14 +269,14 @@
 			function sum() {
 	            var t1 = 0,t2=0, t_unit, t_mount, t_weight = 0;
 	            for (var j = 0; j < q_bbsCount; j++) {
-	                t_mount = $('#txtQuantity_' + j).val();  // 計價量
+	                t_mount = dec($('#txtQuantity_' + j).val());  // 計價量
 	                t2=q_add(t2,t_mount);
-					q_tr('txtAmount_'+j ,round(q_mul(dec($('#txtPrice_' + j).val()),dec( t_mount)), 0));
+					q_tr('txtAmount_'+j ,round(q_mul(dec($('#txtPrice_' + j).val()),dec( t_mount)), 2));
 	                t1 = q_add(t1 , dec($('#txtAmount_' + j).val()));
 	            }  // j
 	
-	            $('#txtTotal').val(round(t2, 0));
-	            $('#txtUsd').val(round(t1, 0));
+	            $('#txtTotal').val(round(t2, 2));
+	            $('#txtUsd').val(round(t1, 2));
 	        }
 	        
 	</script>
@@ -396,12 +397,12 @@
 				<tr>
 					<td align="center" style="width:5%"><a id='vewChk' class="lbl"> </a></td>
 					<td align="center" style="width:25%"><a id='vewNoa' class="lbl"> </a></td>
-					<td align="center" style="width:40%"><a id='vewVcceno' class="lbl"> </a></td>
+					<td align="center" style="width:40%"><a id='vewVccno' class="lbl"> </a></td>
 				</tr>
 				<tr>
 					<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 					<td align="center" id='noa'>~noa</td>
-					<td align="center" id='vcceno'>~vcceno</td>
+					<td align="center" id='vccno'>~vccno</td>
 				</tr>
 			</table>
 		</div>
@@ -423,25 +424,33 @@
 				</tr>  
 				<tr class="tr3">
 					<td class="td1"><span> </span><a id='lblAddress' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtAddr"  type="text" class="txt c1" /></td>
+					<td class="td2" colspan="3"><input id="txtAddr"  type="text" class="txt c1" /></td>
+					<td class="td5" ><span> </span><a id='lblAttn' class="lbl"> </a></td>
+					<td class="td6"><input id="txtAttn"  type="text"  class="txt c1"/></td>
 				</tr>
 				<tr class="tr4">
 					<td class="td1"><span> </span><a id='lblShipped' class="lbl"> </a></td>
 					<td class="td2" colspan="2"><input id="txtShipped"  type="text" class="txt c1" /></td>
-					<td class="td4"><span> </span><a id='lblClosing' class="lbl"> </a></td>
-					<td class="td5" colspan="2"><input id="txtClosing"  type="text" class="txt c1" /></td>
+					<td class="td4"><span> </span><a id='lblSailing' class="lbl"> </a></td>
+					<td class="td5" colspan="2"><input id="txtSailing"  type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr4">
-					<td class="td1"><span> </span><a id='lblCommodity' class="lbl"> </a></td>
-         			<td class="td2" colspan="2"><input id="txtCommodity"  type="text" class="txt c1" /></td>
-         			<td class="td1"><span> </span><a id='lblContract' class="lbl"> </a></td>
-         			<td class="td2" colspan="2"><input id="txtContract"  type="text" class="txt c1" /></td>
+					<td class="td1"><span> </span><a id='lblPer' class="lbl"> </a></td>
+					<td class="td2" colspan="2"><input id="txtPer"  type="text" class="txt c1" /></td>
+					<td class="td4"><span> </span><a id='lblClosing' class="lbl"> </a></td>
+					<td class="td5" colspan="2"><input id="txtClosing"  type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr5">
 					<td class="td1" ><span> </span><a id='lblFroma' class="lbl"> </a></td>
 					<td class="td2" colspan="2"><input id="txtFroma"  type="text"  class="txt c1"/></td>
 					<td class="td1" ><span> </span><a id='lblToa' class="lbl"> </a></td>
 					<td class="td2" colspan="2"><input id="txtToa"  type="text"  class="txt c1"/></td>
+				</tr>
+				<tr class="tr4">
+					<td class="td1"><span> </span><a id='lblCommodity' class="lbl"> </a></td>
+         			<td class="td2" colspan="2"><input id="txtCommodity"  type="text" class="txt c1" /></td>
+         			<td class="td1"><span> </span><a id='lblContract' class="lbl"> </a></td>
+         			<td class="td2" colspan="2"><input id="txtContract"  type="text" class="txt c1" /></td>
 				</tr>                                                         
 				<tr class="tr6">
 					<td class="td1" ><span> </span><a id='lblEtd' class="lbl"> </a></td>
@@ -462,12 +471,12 @@
 				<tr class="tr8">
 					<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
 					<td class="td2"><input id="txtTotal" type="text" class="txt c1 num" /></td>
-					<td class="td1"><span> </span><a id="lblUsd" class="lbl"> </a></td>
-					<td class="td2"><input id="txtUsd" type="text" class="txt c1 num" /></td>
+					<td class="td4"><span> </span><a id="lblUsd" class="lbl"> </a></td>
+					<td class="td5"><input id="txtUsd" type="text" class="txt c1 num" /></td>
 				</tr> 
 				<tr class="tr9">
 					<td class="td1"><span> </span><a id='lblTitle' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtTitle" type="text" class="txt c1 num" /></td>
+					<td class="td2" colspan="5"><input id="txtTitle" type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr10">
 					<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -482,13 +491,13 @@
 				<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 				</td>
-				<td align="center" style="width:5%;"><a id='lblMarks_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblDescription_s'></a></td>
-				<td align="center" style="width:2%;"><a id='lblUnit_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblQuantity_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblPrice_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblAmount_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
+				<td align="center" style="width:5%;"><a id='lblMarks_s'> </a></td>
+				<td align="center" style="width:5%;"><a id='lblDescription_s'> </a></td>
+				<td align="center" style="width:2%;"><a id='lblUnit_s'> </a></td>
+				<td align="center" style="width:5%;"><a id='lblQuantity_s'> </a></td>
+				<td align="center" style="width:5%;"><a id='lblPrice_s'> </a></td>
+				<td align="center" style="width:5%;"><a id='lblAmount_s'> </a></td>
+				<td align="center" style="width:5%;"><a id='lblMemo_s'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td align="center">
