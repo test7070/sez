@@ -16,9 +16,9 @@
 			}
 			q_tables = 's';
 			var q_name = "invo";
-			var q_readonly = ['txtTotal','txtUsd'];
+			var q_readonly = ['txtTotal','txtAmount'];
 			var q_readonlys = [];
-			var bbmNum = [['txtTotal', 15, 3, 1],['txtUsd', 15, 2, 1]];
+			var bbmNum = [['txtTotal', 15, 3, 1],['txtAmount', 15, 2, 1],['txtFloata', 15, 4, 1]];
 			var bbsNum = [['txtQuantity', 15, 3, 1],['txtPrice', 15, 2, 1],['txtAmount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -28,8 +28,9 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,addr_home', 'txtCustno,txtComp,txtAddr', '']
-			,['txtCno', 'lblCno', 'acomp', 'noa,acomp,ename', 'txtCno']
+			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,addr_home', 'txtCustno,txtComp,txtAddr', 'cust_b.aspx']
+			,['txtCno', 'lblCno', 'acomp', 'noa,acomp,ename', 'txtCno','acomp_b.aspx']
+			,['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtDescription_,txtUnit_,txtMarks_', 'ucaucc_b.aspx']
 				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype', '']
 				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype,tax,money,total,coin,floata,totalus', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype,txtTax,txtMoney,txtTotal,cmbCoin,txtFloata,txtTotalus', '']
 			);
@@ -54,6 +55,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea',r_picd],['txtClosing',r_picd],['txtEtd',r_picd],['txtEta',r_picd]];
                 q_mask(bbmMask);
+                q_cmbParse("cmbCoin", q_getPara('sys.coin'));
                 /*$('#btnInvo').click(function(){
                 	t_where = '';
                 	t_noa = $('#txtNoa').val();
@@ -177,20 +179,45 @@
 
 			function btnOk() {
 				var t_err = '';
-	
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')]]);
 
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
 				}
-				
 				sum();
+				
 				if(q_cur==1){
 					t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                 	q_gt('invo', t_where, 0, 0, 0, "check_btnOk", r_accy);
 				}else
 					wrServer($('#txtNoa').val());
+			}
+			
+			function q_stPost() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return false;
+				if(q_cur != 2)
+					q_func('qtxt.query.u2', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_vcc')+';'+q_getPara('vcc.pricePrecision')+';'+r_userno+';'+r_name);//新增,修改
+			}
+			
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.u1':
+						//呼叫workf.post
+						q_func('qtxt.query.u2', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_vcc')+';'+q_getPara('vcc.pricePrecision')+';'+r_userno+';'+r_name);//新增,修改
+						break;
+					case 'qtxt.query.u2':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['vccno'] = as[0].vccno;
+							$('#txtVccno').val(as[0].vccno);
+						}
+						break;
+					case 'qtxt.query.u3':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
+				}
 			}
 	
 			function wrServer(key_value) {
@@ -199,7 +226,10 @@
 				xmlSql = '';
 				if (q_cur == 2) 
 					xmlSql = q_preXml();
-	
+				
+				if(q_cur == 2)
+					q_func('qtxt.query.u1', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_vcc')+';'+q_getPara('vcc.pricePrecision')+';'+r_userno+';'+r_name);
+				
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
 				$('#btnInvo').removeAttr('disabled');
@@ -259,7 +289,11 @@
 			}
 	
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				q_func('qtxt.query.u3', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_vcc')+';'+q_getPara('vcc.pricePrecision')+';'+r_userno+';'+r_name);//刪除
 			}
 	
 			function btnCancel() {
@@ -278,7 +312,7 @@
 	            }  // j
 	
 	            $('#txtTotal').val(round(t2, 2));
-	            $('#txtUsd').val(round(t1, 2));
+	            $('#txtAmount').val(round(t1, 2));
 	        }
 	        
 	</script>
@@ -306,7 +340,7 @@
 		}
 		.dbbm{
 			float:left;
-			width:70%;
+			width:73%;
 			margin:-1px;
 			border:1px black solid;
 			border-radius:5px;
@@ -413,8 +447,16 @@
 				<tr class="tr1">
 					<td class="td1" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
 					<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-					<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-					<td class="td4"><input id="txtDatea" type="text" class="txt c1" /></td>
+					<td class="td3">
+						<span style="float: left;"> </span>
+						<input id="chkIsgenvcc" type="checkbox" style="float: left;"/>
+						<a id='lblIsgenvcc' class="lbl" style="float: left;"> </a>
+					</td>
+					<td class="td4">
+						<a id="lblDatea" class="lbl" style="float: left;"> </a>
+						<span style="float: left;"> </span>
+						<input id="txtDatea" type="text" class="txt c1" style="width:100px;float: left;"/>
+					</td>
 					<td class="td5"><span> </span><a id="lblVccno" class="lbl"> </a></td>
 					<td class="td6"><input id="txtVccno" type="text" class="txt c1" /></td>
 				</tr>
@@ -467,15 +509,20 @@
 					<td class="td2"><input id="txtPno"  type="text"  class="txt c1"/></td>
 					<td class="td3"><span> </span><a id="lblCno" class="lbl"> </a></td>
 					<td class="td4"><input id="txtCno" type="text" class="txt c1" /></td>
-					<td class="td5"> </td>
-					<td class="td6"><input id="btnPack" type="button"/></td>
+					<td class="td5" ><span> </span><a id='lblCoin' class="lbl"> </a></td>
+					<td class="td6">
+						<select id="cmbCoin" class="txt c2"> </select>
+						<input id="txtFloata" type="text" class="txt num c2" />
+					</td>
 				</tr>
 				<tr class="tr8">
 					<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
 					<td class="td2"><input id="txtTotal" type="text" class="txt c1 num" /></td>
-					<td class="td4"><span> </span><a id="lblUsd" class="lbl"> </a></td>
-					<td class="td5"><input id="txtUsd" type="text" class="txt c1 num" /></td>
-				</tr> 
+					<td class="td3"><span> </span><a id="lblAmount" class="lbl"> </a></td>
+					<td class="td4"><input id="txtAmount" type="text" class="txt c1 num" /></td>
+					<td class="td5"> </td>
+					<td class="td6"><input id="btnPack" type="button"/></td>
+				</tr>
 				<tr class="tr9">
 					<td class="td1"><span> </span><a id='lblTitle' class="lbl"> </a></td>
 					<td class="td2" colspan="5"><input id="txtTitle" type="text" class="txt c1" /></td>
@@ -493,18 +540,24 @@
 				<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 				</td>
-				<td align="center" style="width:5%;"><a id='lblMarks_s'> </a></td>
-				<td align="center" style="width:5%;"><a id='lblDescription_s'> </a></td>
+				<td align="center" style="width:9%;"><a id='lblProductno_s'> </a></td>
+				<td align="center" style="width:9%;"><a id='lblMarks_s'> </a></td>
+				<td align="center" style="width:15%;"><a id='lblDescription_s'> </a></td>
 				<td align="center" style="width:2%;"><a id='lblUnit_s'> </a></td>
 				<td align="center" style="width:5%;"><a id='lblQuantity_s'> </a></td>
 				<td align="center" style="width:5%;"><a id='lblPrice_s'> </a></td>
 				<td align="center" style="width:5%;"><a id='lblAmount_s'> </a></td>
-				<td align="center" style="width:5%;"><a id='lblMemo_s'> </a></td>
+				<td align="center" style="width:7%;"><a id='lblMemo_s'> </a></td>
+				<td align="center" style="width:7%;"><a id='lblUno_s'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>
 				<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
+				</td>
+				<td>
+					<input id="txtProductno.*"  type="text"  class="txt c5"/>
+					<input class="btn" id="btnProductno.*" type="button" value='.' style="font-weight: bold;" />
 				</td>
 				<td><input id="txtMarks.*"  type="text"  class="txt c1"/></td>
 				<td><input id="txtDescription.*"  type="text"  class="txt c1"/></td>
@@ -513,6 +566,7 @@
 				<td><input id="txtPrice.*"  type="text"  class="txt c1 num"/></td>
 				<td><input id="txtAmount.*"  type="text"  class="txt c1 num"/></td>
 				<td><input id="txtMemo.*"  type="text"  class="txt c1"/></td>
+				<td><input id="txtUno.*"  type="text"  class="txt c1"/></td>
 			</tr>
 		</table>
 	</div>

@@ -42,8 +42,11 @@
                     },{
                         type : '6',//[8]
                         name : 'xcommodity'
+                    },{
+                        type : '6',//[9]
+                        name : 'xcontract'
                     }, {
-						type : '8', //[9]
+						type : '8', //[10]
 						name : 'onlyunpay',
 						value : "1@只印未收".split(',')
 					}]
