@@ -53,6 +53,10 @@
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
+                bbsNum = [['txtUsprice', 15, q_getPara('rc2.pricePrecision'), 1],['txtFloata', 15, 4, 1],['txtContainer', 10, 0, 1],['txtWeight', 15, q_getPara('rc2.weightPrecision'), 1]
+            					,['txtWorker', 15, 0, 1],['txtDocn', 15, 0, 1],['txtArrange', 15, 0, 1],['txtInsurance', 15, 0, 1],['txtCustoms', 15, 0, 1],['txtTranmoney', 15, 0, 1],['txtImport', 15, 0, 1]
+            					,['txtCheckn', 15, 0, 1],['txtTrans', 15, 0, 1],['txtHang', 15, 0, 1],['txtErele', 15, 0, 1],['txtLch', 15, 0, 1],['txtInterest', 15, 0, 1],['txtCoolie', 15, 0, 1]
+            					,['txtCommission', 15, 0, 1],['txtTax', 15, 0, 1],['txtTotal', 15, 0, 1]];//,['txtDocn2', 15, 0, 1]
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('inchg.typea'));
                 /* 若非本會計年度則無法存檔 */
@@ -116,6 +120,27 @@
             }
 
             function bbsAssign() {
+            	for (var j = 0; j < q_bbsCount; j++) {
+					if (!$('#btnMinus_' + j).hasClass('isAssign')) {	
+						$('#txtWorker_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtDocn_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtArrange_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtInsurance_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtCustoms_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtTranmoney_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtImport_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtCheckn_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtTrans_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtHang_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtErele_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtLch_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtInterest_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtCoolie_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtCommission_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+						$('#txtTax_' + j).change(function () {t_IdSeq = -1; q_bodyId($(this).attr('id')); b_seq = t_IdSeq; s_sum(b_seq)});
+					}
+				}
+            	
                 _bbsAssign();
             }
 
@@ -145,7 +170,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['date2']) {
+                if (!as['invono']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -155,13 +180,32 @@
 
                 return true;
             }
-
+			
+			function s_sum(b_seq) {
+				var t1 = 0, t_unit, t_mount, t_weight = 0;
+                t1=q_add(q_float('txtWorker_'+b_seq),q_float('txtDocn_'+b_seq));
+                t1=q_add(t1,q_float('txtArrange_'+b_seq));
+                t1=q_add(t1,q_float('txtInsurance_'+b_seq));
+				t1=q_add(t1,q_float('txtCustoms_'+b_seq));
+				t1=q_add(t1,q_float('txtTranmoney_'+b_seq));
+				t1=q_add(t1,q_float('txtImport_'+b_seq));
+				t1=q_add(t1,q_float('txtCheckn_'+b_seq));
+				t1=q_add(t1,q_float('txtTrans_'+b_seq));
+				t1=q_add(t1,q_float('txtHang_'+b_seq));
+				t1=q_add(t1,q_float('txtErele_'+b_seq));
+				t1=q_add(t1,q_float('txtLch_'+b_seq));
+				t1=q_add(t1,q_float('txtInterest_'+b_seq));
+				t1=q_add(t1,q_float('txtCoolie_'+b_seq));
+				t1=q_add(t1,q_float('txtCommission_'+b_seq));
+				t1=q_add(t1,q_float('txtTax_'+b_seq));
+				q_tr('txtTotal_'+b_seq,t1);
+            }
+			
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+				var t1 = 0, t_unit, t_mount, t_weight = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-
+                	
                 } // j
-
             }
 
             function refresh(recno) {
@@ -387,12 +431,8 @@
 						<td class='td2' style="width: 23%;"><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td class='td3' style="width: 10%;"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class='td4' style="width: 23%;"><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td class='td5' style="width: 10%;"><span> </span><a id="lblDate" class="lbl" > </a></td>
-						<td class='td6' style="width: 23%;">
-							<input id="txtBdate" type="text" style='width:40%;'/>
-							<a style="font-size: 25px;float: left;">&sim;</a>
-							<input id="txtEdate" type="text" style='width:40%;float: left;'/>
-						</td>
+						<td class='td5'><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td class='td6'><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -402,8 +442,12 @@
 						</td>
 						<td class='td3'><span> </span><a id="lblPay" class="lbl "> </a></td>
 						<td class="td4"><input id="txtPay"  type="text"  class="txt c1"/></td>
-						<td class='td3'><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>
+						<!--<td class='td5' style="width: 10%;"><span> </span><a id="lblDate" class="lbl" > </a></td>
+						<td class='td6' style="width: 23%;">
+							<input id="txtBdate" type="text" style='width:40%;'/>
+							<a style="font-size: 25px;float: left;">&sim;</a>
+							<input id="txtEdate" type="text" style='width:40%;float: left;'/>
+						</td>-->
 					</tr>
 					<tr>
 						<td class='td1'><span> </span><a id="lblBcomp" class="lbl" > </a></td>
@@ -446,7 +490,7 @@
 					<td align="center" ><a id='lblTrans'> </a></td>
 					<td align="center" ><a id='lblHang'> </a></td>
 					<td align="center" ><a id='lblErele'> </a></td>
-					<td align="center" ><a id='lblDocn2'> </a></td>
+					<!--<td align="center" ><a id='lblDocn2'> </a></td>-->
 					<td align="center" ><a id='lblLch'> </a></td>
 					<td align="center" ><a id='lblInterest'> </a></td>
 					<td align="center" ><a id='lblCoolie'> </a></td>
@@ -476,7 +520,7 @@
 					<td ><input class="txt num c1" id="txtTrans.*" type="text" /></td>
 					<td ><input class="txt num c1" id="txtHang.*" type="text" /></td>
 					<td ><input class="txt num c1" id="txtErele.*" type="text" /></td>
-					<td ><input class="txt num c1" id="txtDocn2.*" type="text" /></td>
+					<!--<td ><input class="txt num c1" id="txtDocn2.*" type="text" /></td>-->
 					<td ><input class="txt num c1" id="txtLch.*" type="text" /></td>
 					<td ><input class="txt num c1" id="txtInterest.*" type="text" /></td>
 					<td ><input class="txt num c1" id="txtCoolie.*" type="text" /></td>

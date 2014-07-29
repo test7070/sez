@@ -19,11 +19,11 @@
 		    var q_readonlys = [];
 		    var bbmNum = [];
 		    var bbsNum = [['txtDime', 15, 2, 1],['txtWidth', 15, 2, 1],['txtHeight', 15, 2, 1],
-					      ['txtMount', 15, 0, 1],['txtPrice', 15, 2, 1],['txtWeight', 15, 2, 1],['txtGweight', 15, 2, 1]];
+					      ['txtMount', 15, 2, 1],['txtPrice', 15, 2, 1],['txtWeight', 15, 2, 1],['txtGweight', 15, 2, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
             aPop = new Array(
-            	['txtProductno_', '', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx']
+            	['txtProductno_', '', 'ucc', 'noa,engpro,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucc_b.aspx']
             );
 		    $(document).ready(function () {
 		        bbmKey = [];

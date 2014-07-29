@@ -40,20 +40,38 @@
                         index : 'noa,comp',
                         src : 'cust_b.aspx' 
                     },{
-                        type : '6',//[8]
+                        type : '2',//[8][9]
+                        name : 'xtggno',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx' 
+                    },{
+                        type : '6',//[10]
                         name : 'xcommodity'
                     },{
-                        type : '6',//[9]
+                        type : '6',//[11]
                         name : 'xcontract'
                     }, {
-						type : '8', //[10]
+						type : '8', //[12]
 						name : 'onlyunpay',
 						value : "1@只印未收".split(',')
-					}]
+					}, {
+						type : '5', //[13]
+						name : 'im_export',
+						value : "進口,出口".split(',')
+					},{
+                        type : '1',//[14][15]
+                        name : 'xuno'
+                    },{
+                        type : '5', //[16]
+						name : 'denominate',
+						value : "1@數量,2@重量".split(',')
+                    }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                $('.q_report .option div .c6').css('width','90px');
                 var t_key = q_getHref();
                 if(t_key != undefined)
                 	$('#txtXnoa').val(t_key[1]);

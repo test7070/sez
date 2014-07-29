@@ -19,7 +19,7 @@
 			var q_readonly = ['txtTotal','txtAmount'];
 			var q_readonlys = [];
 			var bbmNum = [['txtTotal', 15, 3, 1],['txtAmount', 15, 2, 1],['txtFloata', 15, 4, 1]];
-			var bbsNum = [['txtQuantity', 15, 3, 1],['txtPrice', 15, 2, 1],['txtAmount', 15, 2, 1]];
+			var bbsNum = [['txtQuantity', 15, 3, 1],['txtPrice', 15, 2, 1],['txtWeight', 15, 2, 1],['txtAmount', 15, 2, 1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			
@@ -30,7 +30,7 @@
 			brwKey = 'noa';
 			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,addr_home', 'txtTggno,txtTgg,txtAddr', 'tgg_b.aspx']
 			,['txtCno', 'lblCno', 'acomp', 'noa,acomp,ename', 'txtCno','acomp_b.aspx']
-			,['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtDescription_,txtUnit_,txtMarks_', 'ucaucc_b.aspx']);
+			,['txtProductno_', 'btnProductno_', 'ucc', 'noa,engpro,unit', 'txtProductno_,txtDescription_,txtUnit_,txtMarks_', 'ucc_b.aspx']);
 			
 			$(document).ready(function () {
 				bbmKey = ['noa'];
@@ -69,10 +69,10 @@
                 	q_gt('invoi', t_where, 0, 0, 0, "check_Noa", r_accy);
 				});
 				
-				$('#txtRc2no').change(function() {
+				$('#txtRc2no').click(function() {
 					t_where = '';
                 	t_noa = $('#txtRc2no').val();
-                	if(t_noa.length > 0){
+                	if(t_noa.length > 0 && q_cur!=1 &&q_cur!=2 ){
                 		t_where = "noa='" + t_noa + "'";
                 		q_box("rc2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+t_noa.substring(1,4), 'rc2', "95%", "95%",'');
                 	}
@@ -536,6 +536,7 @@
 				<td align="center" style="width:15%;"><a id='lblDescription_s'> </a></td>
 				<td align="center" style="width:2%;"><a id='lblUnit_s'> </a></td>
 				<td align="center" style="width:5%;"><a id='lblQuantity_s'> </a></td>
+				<td align="center" style="width:5%;"><a id='lblWeight_s'> </a></td>
 				<td align="center" style="width:5%;"><a id='lblPrice_s'> </a></td>
 				<td align="center" style="width:5%;"><a id='lblAmount_s'> </a></td>
 				<td align="center" style="width:7%;"><a id='lblMemo_s'> </a></td>
@@ -554,6 +555,7 @@
 				<td><input id="txtDescription.*"  type="text"  class="txt c1"/></td>
 				<td><input id="txtUnit.*"  type="text"  class="txt c1"/></td>
 				<td><input id="txtQuantity.*"  type="text"  class="txt c1 num"/></td>
+				<td><input id="txtWeight.*"  type="text"  class="txt c1 num"/></td>
 				<td><input id="txtPrice.*"  type="text"  class="txt c1 num"/></td>
 				<td><input id="txtAmount.*"  type="text"  class="txt c1 num"/></td>
 				<td><input id="txtMemo.*"  type="text"  class="txt c1"/></td>
