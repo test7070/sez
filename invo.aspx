@@ -212,9 +212,17 @@
 						if (as[0] != undefined) {
 							abbm[q_recno]['vccno'] = as[0].vccno;
 							$('#txtVccno').val(as[0].vccno);
+							
+							if(as[0].vccno.length>0){
+								q_func('vcc_post.post' ,$('#txtDatea').val().substr(0,3)+','+as[0].vccno+',0');
+								q_func('vcc_post.post' ,$('#txtDatea').val().substr(0,3)+','+as[0].vccno+',1');
+							}
 						}
 						break;
 					case 'qtxt.query.u3':
+						if($('#txtVccno').val().length>0){
+							q_func('vcc_post.post' ,$('#txtDatea').val().substr(0,3)+','+$('#txtVccno').val()+',0');
+						}
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;
 				}
@@ -418,7 +426,7 @@
 			font-size: medium;
 		}
 		.dbbs {
-			width: 100%;
+			width: 1270px;
 		}
 		.tbbs a {
 			font-size: medium;
@@ -427,7 +435,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-	<div id='dmain' style="overflow:hidden;">
+	<div id='dmain' style="overflow:hidden;width: 1270px;">
 		<div class="dview" id="dview" style="float: left;  width:25%;"  >
 			<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 				<tr>
