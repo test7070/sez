@@ -131,7 +131,14 @@
 			function btnIns() {
 				_btnIns();
 				refreshBbm();
-				$('#txtDatea').val(q_date());
+				var t_date,t_year,t_month,t_day;
+				t_date = new Date();
+				t_year = t_date.getUTCFullYear();
+				t_month = t_date.getUTCMonth()+1;
+				t_month = t_month>9?t_month+'':'0'+t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day>9?t_day+'':'0'+t_day;
+				$('#txtDatea').val(t_year+'/'+t_month+'/'+t_day);
 				$('#btnPack').attr('disabled','disabled');
 				$('#txtNoa').focus();
 			}

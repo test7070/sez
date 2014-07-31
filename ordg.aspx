@@ -67,13 +67,14 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd]];
+				bbmMask = [['txtDatea', '9999/99/99']];
 				q_mask(bbmMask);
 				bbsNum = [['txtPrice', 15, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1], ['txtTotal', 15, 0, 1]
 								,['txtBprice', 15, q_getPara('vcc.pricePrecision'), 1], ['txtBmount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtBweight', 15, q_getPara('vcc.weightPrecision'), 1], ['txtBtotal', 15, 0, 1]];
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("cmbBcoin", q_getPara('sys.coin'));
 				q_cmbParse("cmbTypea", q_getPara('ordg.typea'));
+				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				
 				$('#lblOrdeno').click(function() {
 					if(!emp($('#txtOrdeno').val()))
@@ -94,6 +95,22 @@
 					if(!emp($('#txtInvoino').val()) &&q_cur!=1 &&q_cur!=2)
 						q_box('invoi.aspx' + "?;;;noa=" + trim($('#txtInvoino').val()) + ";" + $('#txtDatea').val().substr(0,3), '', "95%", "95%", q_getMsg("popInvoi"));
 				});
+				
+				$('#cmbTaxtype').change(function() {
+					if($('#cmbTaxtype').val()=='1' || $('#cmbTaxtype').val()=='3')
+						$('#txtTaxrate').val(q_getPara('sys.taxrate'));
+					else 
+						$('#txtTaxrate').val(0);
+					Taxtype_change();
+				});
+			}
+			
+			function Taxtype_change(){
+				if($('#cmbTaxtype').val()=='1' || $('#cmbTaxtype').val()=='3'){
+	            	$('#txtTaxrate').css('color','black').css('background','white').removeAttr('readonly');
+	            }else{
+	            	$('#txtTaxrate').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+	            }
 			}
 
 			function q_boxClose(s2) {
@@ -228,8 +245,16 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtCno').val(z_cno);
 				$('#txtAcomp').val(z_acomp);
-				$('#txtDatea').val(q_date());
-				$('#txtTaxrate').val(q_getPara('sys.taxrate'));
+				
+				var t_date,t_year,t_month,t_day;
+				t_date = new Date();
+				t_year = t_date.getUTCFullYear();
+				t_month = t_date.getUTCMonth()+1;
+				t_month = t_month>9?t_month+'':'0'+t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day>9?t_day+'':'0'+t_day;
+				$('#txtDatea').val(t_year+'/'+t_month+'/'+t_day);
+				
 				$('#txtDatea').focus();
 			}
 
@@ -238,7 +263,6 @@
 					return;
 				_btnModi();
 				$('#txtDatea').focus();
-
 			}
 
 			function btnPrint() {
@@ -283,6 +307,7 @@
 				}	
 				
 				field_hide();
+				Taxtype_change();
 			}
 			
 			function field_hide() {
@@ -501,8 +526,8 @@
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td class="td3"> </td>
-						<td class="td4"> </td>
+						<td class="td3" ><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>
 						<td class="td5"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td6" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td class="td8" align="center"> </td>
@@ -533,10 +558,10 @@
 					<tr class="tr4">
 						<td class="td1" ><span> </span><a id='lblManu' class="lbl"> </a></td>
 						<td class="td2" colspan="3"><input id="txtManu" type="text" class="txt c1"/></td>
-						<td class="td5" ><span> </span><a id='lblTaxrate' class="lbl"> </a></td>
-						<td class="td6"><input id="txtTaxrate" type="text" class="txt c1 num" style="width: 80%;"/>%</td>
-						<td class="td7" ><span> </span><a id='lblTypea' class="lbl"> </a></td>
-						<td class="td8"><select id="cmbTypea" class="txt c1"> </select></td>
+						<td class="td5" ><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
+						<td class="td6"><select id="cmbTaxtype" class="txt c1"> </select></td>
+						<td class="td7" ><span> </span><a id='lblTaxrate' class="lbl"> </a></td>
+						<td class="td8"><input id="txtTaxrate" type="text" class="txt c1 num" style="width: 80%;"/>%</td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblOrdeno" class="lbl btn"> </a></td>
