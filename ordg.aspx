@@ -78,22 +78,22 @@
 				
 				$('#lblOrdeno').click(function() {
 					if(!emp($('#txtOrdeno').val()))
-						q_box('orde.aspx' + "?;;;noa=" + trim($('#txtOrdeno').val()) + ";" + $('#txtDatea').val().substr(0,3), '', "95%", "95%", q_getMsg("popOrde"));
+						q_box('orde.aspx' + "?;;;noa='" + trim($('#txtOrdeno').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popOrde"));
 				});
 				
 				$('#lblOrdcno').click(function() {
 					if(!emp($('#txtOrdcno').val()))
-						q_box('ordc.aspx' + "?;;;noa=" + trim($('#txtOrdcno').val()) + ";" + $('#txtDatea').val().substr(0,3), '', "95%", "95%", q_getMsg("popOrdc"));
+						q_box('ordc.aspx' + "?;;;noa='" + trim($('#txtOrdcno').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popOrdc"));
 				});
 				
 				$('#lblInvono').click(function() {
 					if(!emp($('#txtInvono').val()) &&q_cur!=1 &&q_cur!=2)
-						q_box('invo.aspx' + "?;;;noa=" + trim($('#txtInvono').val()) + ";" + $('#txtDatea').val().substr(0,3), '', "95%", "95%", q_getMsg("popInvo"));
+						q_box('invo.aspx' + "?;;;noa='" + trim($('#txtInvono').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popInvo"));
 				});
 				
 				$('#lblInvoino').click(function() {
 					if(!emp($('#txtInvoino').val()) &&q_cur!=1 &&q_cur!=2)
-						q_box('invoi.aspx' + "?;;;noa=" + trim($('#txtInvoino').val()) + ";" + $('#txtDatea').val().substr(0,3), '', "95%", "95%", q_getMsg("popInvoi"));
+						q_box('invoi.aspx' + "?;;;noa='" + trim($('#txtInvoino').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popInvoi"));
 				});
 				
 				$('#cmbTaxtype').change(function() {
@@ -106,11 +106,13 @@
 			}
 			
 			function Taxtype_change(){
-				if($('#cmbTaxtype').val()=='1' || $('#cmbTaxtype').val()=='3'){
-	            	$('#txtTaxrate').css('color','black').css('background','white').removeAttr('readonly');
-	            }else{
-	            	$('#txtTaxrate').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-	            }
+				if(q_cur==1 || q_cur==2){
+					if($('#cmbTaxtype').val()=='1' || $('#cmbTaxtype').val()=='3'){
+		            	$('#txtTaxrate').css('color','black').css('background','white').removeAttr('readonly');
+		            }else{
+		            	$('#txtTaxrate').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+		            }
+	           }
 			}
 
 			function q_boxClose(s2) {
@@ -166,6 +168,34 @@
 				else
 					wrServer(s1);
 			}
+			
+			function q_stPost() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return false;
+				if(q_cur != 2)
+					q_func('qtxt.query.u2', 'ordg.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_orde')+';'+q_getPara('sys.key_ordc')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat')+';'+q_getPara('vcc.pricePrecision')+';'+q_getPara('rc2.pricePrecision'));//新增,修改
+			}
+			
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.u1':
+						//呼叫workf.post
+						q_func('qtxt.query.u2', 'ordg.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_orde')+';'+q_getPara('sys.key_ordc')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat')+';'+q_getPara('vcc.pricePrecision')+';'+q_getPara('rc2.pricePrecision'));//新增,修改
+						break;
+					case 'qtxt.query.u2':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['ordeno'] = as[0].ordeno;
+							abbm[q_recno]['ordcno'] = as[0].ordcno;
+							$('#txtOrdeno').val(as[0].ordeno);
+							$('#txtOrdcno').val(as[0].ordcno);
+						}
+						break;
+					case 'qtxt.query.u3':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
+				}
+			}
 
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
@@ -219,7 +249,7 @@
 			function bbs_sum(seq) {
 				if(q_float('txtPrice_'+seq)!=0){
 					var t_unit = $.trim($('#txtUnit_' + seq).val()).toUpperCase();
-					if(t_unit.length==0 ||t_unit=='KG' || t_unit=='M2' || t_unit=='M' || t_unit=='批' || t_unit=='公斤' || t_unit=='噸' || t_unit=='頓'){
+					if(t_unit=='KG' || t_unit=='M2' || t_unit=='M' || t_unit=='批' || t_unit=='公斤' || t_unit=='噸' || t_unit=='頓'){
 						q_tr('txtTotal_'+seq,q_mul(q_float('txtWeight_'+seq),q_float('txtPrice_'+seq)));
 					}else{
 						q_tr('txtTotal_'+seq,q_mul(q_float('txtMount_'+seq),q_float('txtPrice_'+seq)));
@@ -231,7 +261,7 @@
 			function bbs_bsum(seq) {
 				if(q_float('txtBprice_'+seq)!=0){
 					var t_unit = $.trim($('#txtBunit_' + seq).val()).toUpperCase();
-					if(t_unit.length==0 ||t_unit=='KG' || t_unit=='M2' || t_unit=='M' || t_unit=='批' || t_unit=='公斤' || t_unit=='噸' || t_unit=='頓'){
+					if(t_unit=='KG' || t_unit=='M2' || t_unit=='M' || t_unit=='批' || t_unit=='公斤' || t_unit=='噸' || t_unit=='頓'){
 						q_tr('txtBtotal_'+seq,q_mul(q_float('txtBweight_'+seq),q_float('txtBprice_'+seq)));
 					}else{
 						q_tr('txtBtotal_'+seq,q_mul(q_float('txtBmount_'+seq),q_float('txtBprice_'+seq)));
@@ -276,6 +306,9 @@
 				xmlSql = '';
 				if (q_cur == 2)
 					xmlSql = q_preXml();
+					
+				if(q_cur == 2)
+					q_func('qtxt.query.u1', 'ordg.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_orde')+';'+q_getPara('sys.key_ordc')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat')+';'+q_getPara('vcc.pricePrecision')+';'+q_getPara('rc2.pricePrecision'));
 
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 			}
@@ -363,7 +396,11 @@
 			}
 
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				q_func('qtxt.query.u3', 'ordg.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_orde')+';'+q_getPara('sys.key_ordc')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat')+';'+q_getPara('vcc.pricePrecision')+';'+q_getPara('rc2.pricePrecision'));//刪除
 			}
 
 			function btnCancel() {

@@ -84,7 +84,7 @@
                 	t_noa = $('#txtVccno').val();
                 	if(t_noa.length > 0 && q_cur!=1 &&q_cur!=2 ){
                 		t_where = "noa='" + t_noa + "'";
-                		q_box("vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+t_noa.substring(1,4), 'vcc', "95%", "95%",'');
+                		q_box("vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+(dec($('#txtDatea').val().substr(0,4))-1911), 'vcc', "95%", "95%",'');
                 	}
 				});
 			}
@@ -228,7 +228,7 @@
 						break;
 					case 'qtxt.query.u3':
 						if($('#txtVccno').val().length>0){
-							q_func('vcc_post.post' ,$('#txtDatea').val().substr(0,3)+','+$('#txtVccno').val()+',0');
+							q_func('vcc_post.post' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+$('#txtVccno').val()+',0');
 						}
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;

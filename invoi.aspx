@@ -74,7 +74,7 @@
                 	t_noa = $('#txtRc2no').val();
                 	if(t_noa.length > 0 && q_cur!=1 &&q_cur!=2 ){
                 		t_where = "noa='" + t_noa + "'";
-                		q_box("rc2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+t_noa.substring(1,4), 'rc2', "95%", "95%",'');
+                		q_box("rc2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+(dec($('#txtDatea').val().substr(0,4))-1911), 'rc2', "95%", "95%",'');
                 	}
 				});
 				
@@ -219,7 +219,7 @@
 						break;
 					case 'qtxt.query.u3':
 						if($('#txtRc2no').val().length>0){
-							q_func('rc2_post.post' ,$('#txtDatea').val().substr(0,3)+','+$('#txtRc2no').val()+',0');
+							q_func('rc2_post.post' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+$('#txtRc2no').val()+',0');
 						}
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;
