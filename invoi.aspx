@@ -51,7 +51,7 @@
 	
 			function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea',r_picd],['txtClosing',r_picd],['txtEtd',r_picd],['txtEta',r_picd]];
+                bbmMask = [['txtDatea','9999/99/99'],['txtEtd','9999/99/99'],['txtEta','9999/99/99']];
                 q_mask(bbmMask);
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));
                 
@@ -189,14 +189,14 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 				if(q_cur != 2)
-					q_func('qtxt.query.u2', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name);//新增,修改
+					q_func('qtxt.query.u2', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));//新增,修改
 			}
 			
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.u1':
 						//呼叫workf.post
-						q_func('qtxt.query.u2', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name);//新增,修改
+						q_func('qtxt.query.u2', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));//新增,修改
 						break;
 					case 'qtxt.query.u2':
 						var as = _q_appendData("tmp0", "", true, true);
@@ -205,8 +205,8 @@
 							$('#txtRc2no').val(as[0].rc2no);
 							
 							if(as[0].rc2no.length>0){
-								q_func('rc2_post.post' ,$('#txtDatea').val().substr(0,3)+','+as[0].rc2no+',0');
-								q_func('rc2_post.post' ,$('#txtDatea').val().substr(0,3)+','+as[0].rc2no+',1');
+								q_func('rc2_post.post' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+as[0].rc2no+',0');
+								q_func('rc2_post.post' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+as[0].rc2no+',1');
 							}
 						}
 						break;
@@ -227,7 +227,7 @@
 					xmlSql = q_preXml();
 					
 				if(q_cur == 2)
-					q_func('qtxt.query.u1', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name);
+					q_func('qtxt.query.u1', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));
 	
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
@@ -293,7 +293,7 @@
 				if (!confirm(mess_dele))
 					return;
 				q_cur = 3;
-				q_func('qtxt.query.u3', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name);//刪除				
+				q_func('qtxt.query.u3', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));//刪除				
 			}
 	
 			function btnCancel() {
@@ -443,19 +443,19 @@
 		</div>
 		<div class='dbbm'>
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing=''>
+				<tr class="tr0" style="height: 0px;">
+					<td class="td1" style="width:100px;"> </td>
+					<td class="td2" style="width:200px;"> </td>
+					<td class="td3" style="width:100px;"> </td>
+					<td class="td4" style="width:200px;"> </td>
+					<td class="td5" style="width:100px;"> </td>
+					<td class="td6" style="width:200px;"> </td>
+				</tr>
 				<tr class="tr1">
-					<td class="td1" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
+					<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 					<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-					<td class="td3">
-						<span style="float: left;"> </span>
-						<input id="chkIsgenrc2" type="checkbox" style="float: left;"/>
-						<a id='lblIsgenrc2' class="lbl" style="float: left;"> </a>
-					</td>
-					<td class="td4">
-						<a id="lblDatea" class="lbl" style="float: left;"> </a>
-						<span style="float: left;"> </span>
-						<input id="txtDatea" type="text" class="txt c1" style="width:100px;float: left;"/>
-					</td>
+					<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+					<td class="td4"><input id="txtDatea" type="text" class="txt c1" /></td>
 					<td class="td5"><span> </span><a id="lblRc2no" class="lbl"> </a></td>
 					<td class="td6"><input id="txtRc2no" type="text" class="txt c1" /></td>
 				</tr>
@@ -519,8 +519,12 @@
 					<td class="td2"><input id="txtTotal" type="text" class="txt c1 num" /></td>
 					<td class="td3"><span> </span><a id="lblAmount" class="lbl"> </a></td>
 					<td class="td4"><input id="txtAmount" type="text" class="txt c1 num" /></td>
-					<td class="td5"> </td>
-					<td class="td6"><input id="btnPack" type="button"/></td>
+					<td class="td5" align="center"><input id="btnPack" type="button"/> </td>
+					<td class="td6" >
+						<span style="float: left;"> </span>
+						<input id="chkIsgenrc2" type="checkbox" style="float: left;"/>
+						<a id='lblIsgenrc2' class="lbl" style="float: left;"> </a>
+					</td>
 				</tr> 
 				<tr class="tr9">
 					<td class="td1"><span> </span><a id='lblTitle' class="lbl"> </a></td>

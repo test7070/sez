@@ -20,7 +20,7 @@
             }
 
             var q_name = "gqb";
-            var q_readonly = ['txtWorker','txtWorker2','txtTdate','txtEnda','txtTbankno','txtTbank','txtTacc1','txtEndaccno','txtAcc1','txtBkaccno'];
+            var q_readonly = ['txtWorker','txtWorker2','txtTdate','txtEnda','txtTbankno','txtTbank','txtTacc1','txtEndaccno','txtAcc1','txtBkaccno','txtUsage'];
             var bbmNum = [['txtMoney', 10, 0]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99'], ['txtTdate', '999/99/99']];
             q_sqlCount = 6;
