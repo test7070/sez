@@ -99,7 +99,7 @@
                     if (!(t_bwidth==0 && t_width==0))
                         t_where += " and cubu" + r_accy + ".width between " + t_bwidth + " and "+t_ewidth;
                     if (!(t_blength==0 && t_elength==0))
-                        t_where += " and cubu" + r_accy + ".length between " + t_blength + " and "+t_elength;
+                        t_where += " and cubu" + r_accy + ".lengthb between " + t_blength + " and "+t_elength;
                     if (!(t_bradius==0 && t_eradius==0))
                         t_where += " and cubu" + r_accy + ".radius between " + t_bradius + " and "+t_eradius;
 				    t_where +=")";
