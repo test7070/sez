@@ -563,8 +563,8 @@
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td class="td3" ><span> </span><a id='lblTypea' class="lbl"> </a></td>
-						<td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>
+						<td class="td3" > </td>
+						<td class="td4"> </td>
 						<td class="td5"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td6" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td class="td8" align="center"> </td>
@@ -601,6 +601,16 @@
 						<td class="td8"><input id="txtTaxrate" type="text" class="txt c1 num" style="width: 80%;"/>%</td>
 					</tr>
 					<tr class="tr5">
+						<td class="td1" ><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td class="td2"><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td>
+					</tr>
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblOrdeno" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblOrdcno" class="lbl btn"> </a></td>
@@ -615,12 +625,6 @@
 						<td class="td2" colspan='7'>
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
 						</td>
-					</tr>
-					<tr class="tr7">
-						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td2"><input id="txtWorker" type="text" class="txt c1" /></td>
-						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
