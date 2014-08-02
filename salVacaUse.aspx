@@ -26,7 +26,10 @@
             brwKey = 'noa';
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,id,job,jobno', 'txtSssno,txtNamea,txtPartno,txtPart,txtId,txtJob,txtJobno', 'sss_b.aspx'], ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']);
+            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,id,job,jobno', 'txtSssno,txtNamea,txtPartno,txtPart,txtId,txtJob,txtJobno', 'sss_b.aspx']
+            , ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']
+            ,['txtAgent', '', 'sss', 'noa,namea', '0txtAgent,txtAgent', '']
+            );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -249,7 +252,7 @@
                 });
 
                 $('#lblAgent').click(function() {
-                    q_box("sss_b2.aspx", 'sss', "95%", "95%", q_getMsg("popSss"));
+                    q_box("sss_b2.aspx", 'sss', "450px", "700px", $('#lblAgent').text());
                 });
 
             }

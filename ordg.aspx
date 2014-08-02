@@ -21,7 +21,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "ordg";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtTgg', 'txtOrdeno', 'txtOrdcno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtTgg', 'txtOrdeno', 'txtOrdcno','txtObu'];
 			var q_readonlys = ['txtProfit'];
 			var bbmNum = [['txtTaxrate', 15, 2, 1], ['txtFloata', 15, 4, 1], ['txtBfloat', 15, 4, 1]];
 			var bbsNum = [];
@@ -32,10 +32,11 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'datea';
-			brwCount2 = 6;
+			brwCount2 = 9;
 			aPop = new Array(
 				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,spec,unit,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtBunit_,txtProduct_', 'ucc_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+				['txtObuno', 'lblObu', 'acomp', 'noa,acomp', 'txtObuno,txtObu', 'acomp_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
 			);
@@ -217,13 +218,24 @@
 						});
 						$('#txtPrice_'+j).change(function() {
 							var n = $(this).attr('id').split('_')[1];
+							$('#txtBunit_'+n).val($('#txtUnit_'+n).val());
+							$('#txtBmount_'+n).val($('#txtMount_'+n).val());
+							$('#txtBweight_'+n).val($('#txtWeight_'+n).val());
 							bbs_sum(n);
 						});
 						$('#txtTotal_'+j).change(function() {
 							var n = $(this).attr('id').split('_')[1];
 							bbs_sum(n);
 						});
-						
+						$('#txtBunit_'+j).change(function() {
+							var n = $(this).attr('id').split('_')[1];
+							if($('#txtBunit_'+n).val()=='='){
+								$('#txtBunit_'+n).val($('#txtUnit_'+n).val());
+								$('#txtBmount_'+n).val($('#txtMount_'+n).val());
+								$('#txtBweight_'+n).val($('#txtWeight_'+n).val());
+								bbs_bsum(n);
+							}
+						});
 						$('#txtBmount_'+j).change(function() {
 							var n = $(this).attr('id').split('_')[1];
 							bbs_bsum(n);
@@ -286,6 +298,7 @@
 				$('#txtDatea').val(t_year+'/'+t_month+'/'+t_day);
 				
 				$('#txtDatea').focus();
+				$('#chkImport').prop("checked",true);
 			}
 
 			function btnModi() {
@@ -584,7 +597,22 @@
 						<td class="td6"><select id="cmbCoin" class="txt c1"> </select></td>
 						<td class="td7"><input id="txtFloata" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr class="tr4">
+					<tr class="tr4" style="background-color: antiquewhite;">
+						<td class="td1"><span> </span><a id="lblObu" class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtObuno" type="text" class="txt c1"/></td>
+						<td class="td3" colspan="2"><input id="txtObu" type="text" class="txt c1"/></td>
+						<td class="td4">
+							<a id="lblImport" class="lbl"> </a><span> </span>
+							<input id="chkImport" type="checkbox" style="float:right;"/>
+						</td>
+						<td class="td5">
+							<a id="lblExport" class="lbl"> </a><span> </span>
+							<input id="chkExport" type="checkbox" style="float:right;"/>
+						</td>
+						<td class="td6"> </td>
+						<td class="td7"> </td>
+					</tr>
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtTggno" type="text" class="txt c1"/></td>
 						<td class="td3" colspan="2"><input id="txtTgg" type="text" class="txt c1"/></td>
@@ -592,7 +620,7 @@
 						<td class="td6"><select id="cmbBcoin" class="txt c1"> </select></td>
 						<td class="td7"><input id="txtBfloat" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr class="tr4">
+					<tr class="tr6">
 						<td class="td1" ><span> </span><a id='lblManu' class="lbl"> </a></td>
 						<td class="td2" colspan="3"><input id="txtManu" type="text" class="txt c1"/></td>
 						<td class="td5" ><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
@@ -600,7 +628,7 @@
 						<td class="td7" ><span> </span><a id='lblTaxrate' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTaxrate" type="text" class="txt c1 num" style="width: 80%;"/>%</td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr7">
 						<td class="td1" ><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 						<td class="td3"> </td>
@@ -610,7 +638,7 @@
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblOrdeno" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblOrdcno" class="lbl btn"> </a></td>
@@ -620,7 +648,7 @@
 						<td class="td7"><span> </span><a id="lblInvoino" class="lbl btn"> </a></td>
 						<td class="td8"><input id="txtInvoino" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>
 						<td class="td2" colspan='7'>
 							<textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
