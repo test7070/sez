@@ -637,8 +637,8 @@
 						<td class="td8"> </td>
 					</tr>
 					<tr class="tr8" style="background-color: gold;">
-						<td class="td1"><span> </span><a id="lblSupacomp" class="lbl btn"> </a></td>
-						<td class="td2"><input id="txtSupacompno" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id="lblSup" class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtSupno" type="text" class="txt c1"/></td>
 						<td class="td3" colspan="2"><input id="txtSupacomp" type="text" class="txt c1"/></td>
 						<td class="td5"> </td>
 						<td class="td6"> </td>
