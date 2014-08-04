@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -536,9 +536,9 @@
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:40px; color:black;"><a id='vewNoa'></a></td>
-						<td align="center" style="width:180px; color:black;"><a id='vewNick'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:40px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:180px; color:black;"><a id='vewNick'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -599,7 +599,7 @@
 						</tr>
 						<tr>
 							<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-							<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
+							<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"> </textarea></td>
 						</tr>
 						<tr>
 							<td><span> </span><a id='lblHealthno' class="lbl"> </a></td>
