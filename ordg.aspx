@@ -37,7 +37,7 @@
 				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,spec,unit,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtBunit_,txtProduct_', 'ucc_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtObuno', 'lblObu', 'acomp', 'noa,acomp', 'txtObuno,txtObu', 'acomp_b.aspx'],
-				['txtSupacompno', 'lblSupacomp', 'acomp', 'noa,acomp', 'txtSupacompno,txtSupacomp', 'acomp_b.aspx'],
+				['txtSupno', 'lblSup', 'acomp', 'noa,acomp', 'txtSupno,txtSupacomp', 'acomp_b.aspx'],
 				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
 			);
