@@ -375,6 +375,16 @@
 				$('#div_stkcost').hide();
 				$('#btnStkcost').removeAttr('disabled');
 				$('#btnStkcost').val(q_getMsg('btnStkcost'));
+				
+				$('.images').html('');
+				if(!emp($('#txtImages').val())){
+					var imagename=$('#txtImages').val().split(';');
+					var imagehtml="";
+					for (var i=0 ;i<imagename.length;i++){
+						imagehtml+="<div style='float:left;'><img src='../images/"+imagename[i]+"'> <div>"
+					}
+					$('.images').html(imagehtml);
+				}
 			}
 
 			function readonly(t_para, empty) {
@@ -554,7 +564,7 @@
 						<input type="text" id="txtNoa" style="display:none;"/>
 						<div style="float:left;">
 							<input id="Copy" type="checkbox" />
-							<span> </span><a id="lblCopy"></a>
+							<span> </span><a id="lblCopy"> </a>
 						</div>
 					</td>
 				</tr>
@@ -609,7 +619,7 @@
 					<td><a id='lblArea' class="lbl"> </a></td>
 					<td><input	type="text" id="txtArea"	class="txt c1"/></td>
 					<td><a id='lblTrantype' class="lbl"> </a></td>
-					<td><select id="cmbTrantype" class="txt c1"></select></td>
+					<td><select id="cmbTrantype" class="txt c1"> </select></td>
 				</tr>
 				<tr>
 					<td><a id='lblCdate' class="lbl"> </a></td>
@@ -617,14 +627,14 @@
 				</tr>
 				<tr>
 					<td><a id='lblGroupano' class="lbl"> </a></td>
-					<td colspan="2"><select id="cmbGroupano" class="txt c1"></select></td>
+					<td colspan="2"><select id="cmbGroupano" class="txt c1"> </select></td>
 					<td><a id='lblGroupbno' class="lbl"> </a></td>
-					<td colspan="2"><select id="cmbGroupbno" class="txt c1"></select></td>
+					<td colspan="2"><select id="cmbGroupbno" class="txt c1"> </select></td>
 				</tr>
 				<tr>
 					<td><a id='lblGroupcno' class="lbl"> </a></td>
 					<td colspan="2"><select id="cmbGroupcno" class="txt c1"> </select></td>
-					<td></td>
+					<td> </td>
 					<td><a id='lblDate2' class="lbl"> </a></td>
 					<td><input type="text" id="txtDate2" class="txt c1"/></td>
 				</tr>
@@ -638,10 +648,14 @@
 				</tr>
 				<tr>
 					<td><a id='lblMemo' class="lbl"> </a></td>
-					<td colspan='5'> <input type="text" id="txtMemo" class="txt c1"/></td>
+					<td colspan='5'> 
+						<input type="text" id="txtMemo" class="txt c1"/>
+						<input type="hidden" id="txtImages" class="txt c1"/>
+					</td>
 				</tr>
 			</table>
 		</div>
+		<div class='images' style="float: left;"> </div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>

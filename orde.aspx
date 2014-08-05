@@ -33,6 +33,7 @@
 			brwNowPage = 0;
 			brwKey = 'odate';
 			brwCount2 = 11;
+			
 			aPop = new Array(
 				['txtProductno_', 'btnProduct_', 'ucaucc2', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc2_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
@@ -93,6 +94,7 @@
 
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
 
 				$('#btnOrdei').click(function() {
 					if (q_cur != 1 && $('#cmbStype').find("option:selected").text() == '外銷')
@@ -213,7 +215,7 @@
 			}
 			
 			//addr2控制事件^^^^^^--------------------
-
+			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {

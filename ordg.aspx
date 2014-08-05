@@ -34,7 +34,7 @@
 			brwKey = 'datea';
 			brwCount2 = 15;
 			aPop = new Array(
-				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,spec,unit,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtBunit_,txtProduct_', 'ucc_b.aspx'],
+				['txtProductno_', 'btnProductno_', 'ucc', 'noa,engpro,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtProduct_', 'ucc_b.aspx'],
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtObuno', 'lblObu', 'acomp', 'noa,acomp', 'txtObuno,txtObu', 'acomp_b.aspx'],
 				['txtSupno', 'lblSup', 'acomp', 'noa,acomp', 'txtSupno,txtSupacomp', 'acomp_b.aspx'],
