@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -12,7 +12,9 @@
 		<script type="text/javascript">
 			var q_name = "cust_s";
 			aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,nick', 'txtNoa', 'cust_b.aspx']
-			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,nick', 'txtSerial', 'cust_b.aspx']);
+			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,nick', 'txtSerial', 'cust_b.aspx']
+			,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno', 'sss_b.aspx']
+			);
 			$(document).ready(function() {
 				main();
 			});
@@ -33,8 +35,9 @@
 				t_noa = $('#txtNoa').val();
 				t_comp = $('#txtComp').val();
 				t_serial = $('#txtSerial').val();
+				t_salesno = $('#txtSalesno').val();
 				
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("serial", t_serial);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno);
 				if (t_comp.length > 0)
                     t_where += " and (patindex('%" + t_comp + "%',comp)>0 or patindex('%" + t_comp + "%',nick)>0)";
                     
@@ -70,6 +73,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblSerial'></a></td>
 					<td>
 					<input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblSales'></a></td>
+					<td>
+					<input class="txt" id="txtSalesno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

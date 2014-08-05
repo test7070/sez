@@ -73,7 +73,7 @@
 				q_mask(bbmMask);
 				bbsNum = [['txtPrice', 15, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1], ['txtTotal', 15, 0, 1]
 								,['txtBprice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtBmount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtBweight', 15, q_getPara('rc2.weightPrecision'), 1], ['txtBtotal', 15, 0, 1]
-								,['txtOprice', 15, q_getPara('vcc.pricePrecision'), 1],['txtObprice', 15, q_getPara('rc2.pricePrecision'), 1]];
+								,['txtOprice', 15, q_getPara('vcc.pricePrecision'), 1],['txtObprice', 15, q_getPara('rc2.pricePrecision'), 1],['txtSprice', 15, q_getPara('vcc.pricePrecision'), 1],['txtSbprice', 15, q_getPara('rc2.pricePrecision'), 1]];
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("cmbBcoin", q_getPara('sys.coin'));
 				q_cmbParse("cmbOcoin", q_getPara('sys.coin'));
@@ -91,6 +91,26 @@
 				$('#lblOrdcno').click(function() {
 					if(!emp($('#txtOrdcno').val()))
 						q_box('ordc.aspx' + "?;;;noa='" + trim($('#txtOrdcno').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popOrdc"));
+				});
+				//OBU
+				$('#lblOordeno').click(function() {
+					if(!emp($('#txtOordeno').val()) && !emp($('#txtOdatabase').val()))
+						q_box(location.origin+'/'+$('#txtOdatabase').val()+'/orde.aspx' + "?;;;noa='" + trim($('#txtOordeno').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popOrde"));
+				});
+				
+				$('#lblOordcno').click(function() {
+					if(!emp($('#txtOordcno').val()) && !emp($('#txtOdatabase').val()))
+						q_box(location.origin+'/'+$('#txtOdatabase').val()+'/ordc.aspx' + "?;;;noa='" + trim($('#txtOordcno').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popOrdc"));
+				});
+				//SUP
+				$('#lblSordeno').click(function() {
+					if(!emp($('#txtSordeno').val()) && !emp($('#txtSdatabase').val()))
+						q_box(location.origin+'/'+$('#txtSdatabase').val()+'/orde.aspx' + "?;;;noa='" + trim($('#txtSordeno').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popOrde"));
+				});
+				
+				$('#lblSordcno').click(function() {
+					if(!emp($('#txtSordcno').val()) && !emp($('#txtSdatabase').val()))
+						q_box(location.origin+'/'+$('#txtSdatabase').val()+'/ordc.aspx' + "?;;;noa='" + trim($('#txtSordcno').val()) + "';" + (dec($('#txtDatea').val().substr(0,4))-1911), '', "95%", "95%", q_getMsg("popOrdc"));
 				});
 				
 				$('#lblInvono').click(function() {
@@ -194,8 +214,20 @@
 						if (as[0] != undefined) {
 							abbm[q_recno]['ordeno'] = as[0].ordeno;
 							abbm[q_recno]['ordcno'] = as[0].ordcno;
+							abbm[q_recno]['oordeno'] = as[0].oordeno;
+							abbm[q_recno]['oordcno'] = as[0].oordcno;
+							abbm[q_recno]['sordeno'] = as[0].sordeno;
+							abbm[q_recno]['sordcno'] = as[0].sordcno;
+							abbm[q_recno]['odatabase'] = as[0].odatabase;
+							abbm[q_recno]['sdatabase'] = as[0].sdatabase;
 							$('#txtOrdeno').val(as[0].ordeno);
 							$('#txtOrdcno').val(as[0].ordcno);
+							$('#txtOordeno').val(as[0].oordeno);
+							$('#txtOordcno').val(as[0].oordcno);
+							$('#txtSordeno').val(as[0].sordeno);
+							$('#txtSordcno').val(as[0].sordcno);
+							$('#txtOdatabase').val(as[0].odatabase);
+							$('#txtSdatabase').val(as[0].sdatabase);
 						}
 						break;
 					case 'qtxt.query.u3':
@@ -726,12 +758,12 @@
 					<td align="center" style="width:75px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblWeight_s'> </a></td>
-					<td align="center" style="width:95px;"><a id='lblPrice_s'> </a><BR><a id='lblOprice_s'> </a></td>
+					<td align="center" style="width:95px;"><a id='lblPrice_s'> </a><BR><a id='lblOprice_s'> </a><BR><a id='lblSprice_s'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:75px;"><a id='lblBunit_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblBmount_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblBweight_s'> </a></td>
-					<td align="center" style="width:95px;"><a id='lblBprice_s'> </a><BR><a id='lblObprice_s'> </a></td>
+					<td align="center" style="width:95px;"><a id='lblBprice_s'> </a><BR><a id='lblObprice_s'> </a><BR><a id='lblSbprice_s'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblBtotal_s'> </a></td>
 					<td align="center" style="width:85px;"><a id='lblProfit_s'> </a></td>
 					<td align="center" style="width:175px;"><a id='lblMemo_s'> </a></td>
