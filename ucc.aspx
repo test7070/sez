@@ -92,6 +92,12 @@
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_gt('uccga', '', 0, 0, 0, "");
+				
+				$('#btnUploadimg').click(function() {
+					t_where = "noa='" + $('#txtNoa').val() + "'";
+					q_box("uploadimg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uploadimg', "680px", "650px", q_getMsg('btnUploadimg'));
+				});
+				
 				$('#btnUcctd').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
@@ -369,7 +375,8 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
 			}
-
+			
+			var imagename='';
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stkcost').hide();
@@ -377,13 +384,22 @@
 				$('#btnStkcost').val(q_getMsg('btnStkcost'));
 				
 				$('.images').html('');
-				if(!emp($('#txtImages').val())){
-					var imagename=$('#txtImages').val().split(';');
-					var imagehtml="";
-					for (var i=0 ;i<imagename.length;i++){
-						imagehtml+="<div style='float:left;'><img src='../images/"+imagename[i]+"'> <div>"
+				if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
+					imagename=$('#txtImages').val().split(';');
+					var imagehtml="<table width='1260px'><tr>";
+					for (var i=0 ;i<imagename.length-1;i++){
+						imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"'> </td>"
 					}
+					imagehtml+="</tr></table>";
 					$('.images').html(imagehtml);
+					
+					for (var i=0 ;i<imagename.length-1;i++){
+						$('#images_'+i).click(function() {
+							var n = $(this).attr('id').split('_')[1];
+							t_where = "noa='" + $('#txtNoa').val() + "'";
+							q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n], 'image', "", "", "");
+						});
+					}
 				}
 			}
 
@@ -652,6 +668,7 @@
 						<input type="text" id="txtMemo" class="txt c1"/>
 						<input type="hidden" id="txtImages" class="txt c1"/>
 					</td>
+					<td><input id="btnUploadimg" type="button"  /></td>
 				</tr>
 			</table>
 		</div>
