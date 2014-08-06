@@ -151,15 +151,47 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'uploadimg':
+					var t_where = "where=^^noa='" + $('#txtNoa').val() + "'^^";
+					q_gt('ucc', t_where, 0, 0, 0, "uploadimg_noa", r_accy);
+					break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						///	q_boxClose 3/4
 						break;
 				}	/// end Switch
+				b_pop='';
 			}
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'uploadimg_noa':
+						var as = _q_appendData("ucc", "", true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['images'] = as[0].images;
+							$('#txtImages').val(as[0].images);
+						}
+						$('.images').html('');
+						if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
+							imagename=$('#txtImages').val().split(';');
+							imagename.sort();
+							var imagehtml="<table width='1260px'><tr>";
+							for (var i=0 ;i<imagename.length;i++){
+								if(imagename[i]!='')
+									imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"?"+new Date()+"'> </td>"
+							}
+							imagehtml+="</tr></table>";
+							$('.images').html(imagehtml);
+							
+							for (var i=0 ;i<imagename.length;i++){
+								$('#images_'+i).click(function() {
+									var n = $(this).attr('id').split('_')[1];
+									t_where = "noa='" + $('#txtNoa').val() + "'";
+									q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+								});
+							}
+						}
+						break;
 					case 'checkNoa':
 						var as = _q_appendData("ucaucc", "", true);
 						if (as[0] != undefined) {
@@ -386,18 +418,20 @@
 				$('.images').html('');
 				if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
 					imagename=$('#txtImages').val().split(';');
+					imagename.sort();
 					var imagehtml="<table width='1260px'><tr>";
-					for (var i=0 ;i<imagename.length-1;i++){
-						imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"'> </td>"
+					for (var i=0 ;i<imagename.length;i++){
+						if(imagename[i]!='')
+							imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"?"+new Date()+"'> </td>"
 					}
 					imagehtml+="</tr></table>";
 					$('.images').html(imagehtml);
 					
-					for (var i=0 ;i<imagename.length-1;i++){
+					for (var i=0 ;i<imagename.length;i++){
 						$('#images_'+i).click(function() {
 							var n = $(this).attr('id').split('_')[1];
 							t_where = "noa='" + $('#txtNoa').val() + "'";
-							q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n], 'image', "", "", "");
+							q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
 						});
 					}
 				}
