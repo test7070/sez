@@ -308,14 +308,14 @@
                     <tr>
                         <td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
                         <td align="center" style="width:100px; color:black;"><a id="vewBank"> </a></td>
-                        <td align="center" style="width:120px; color:black;"><a id="vewNo1"> </a></td>
-                        <td align="center" style="width:120px; color:black;"><a id="vewNo2"> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a id="vewBcheckno"> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a id="vewEcheckno"> </a></td>
                     </tr>
                     <tr>
                         <td ><input id="chkBrow.*" type="checkbox"/></td>
                         <td id="bank" style="text-align: center;">~bank</td>
-                        <td id="no1" style="text-align: center;">~no1</td>
-                        <td id="no2" style="text-align: center;">~no2</td>
+                        <td id="bcheckno" style="text-align: center;">~bcheckno</td>
+                        <td id="echeckno" style="text-align: center;">~echeckno</td>
                     </tr>
                 </table>
             </div>
@@ -331,6 +331,10 @@
                         <td><input id="txtNoa"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
+                        <td><span> </span><a id="lblDatea" class="lbl"> </a></td>
+                        <td><input id="txtDatea"  type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
                         <td><span> </span><a id="lblBankno" class="lbl btn"> </a></td>
                         <td><input id="txtBankno"  type="text" class="txt c1"/></td>
                     </tr>
@@ -343,12 +347,16 @@
                         <td><input id="txtAccount"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblNo1" class="lbl"> </a></td>
-                        <td><input id="txtNo1"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblBcheckno" class="lbl"> </a></td>
+                        <td><input id="txtBcheckno"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblNo2" class="lbl"> </a></td>
-                        <td><input id="txtNo2"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblEcheckno" class="lbl"> </a></td>
+                        <td><input id="txtEcheckno"  type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+                        <td><input id="txtMemo"  type="text" class="txt c1"/></td>
                     </tr>
                 </table>
             </div>
