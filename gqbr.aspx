@@ -106,10 +106,10 @@
             function btnOk() {    
                 Lock(1,{opacity:0}); 
                 var t_noa = $('#txtNoa').val();
-                var t_no1 = $.trim($('#txtNo1').val());
-                var t_no2 = $.trim($('#txtNo2').val());
-                var t_where ="where=^^noa!='"+t_noa+"' and ('"+t_no1+"' between no1 and no2 or '"+t_no2+"' between no1 and no2) ^^";
-                if(t_no1.length>0 && t_no2.length>0)
+                var t_bcheckno = $.trim($('#txtBcheckno').val());
+                var t_echeckno = $.trim($('#txtEcheckno').val());
+                var t_where ="where=^^noa!='"+t_noa+"' and ('"+t_bcheckno+"' between bcheckno and echeckno or '"+t_echeckno+"' between bcheckno and echeckno) ^^";
+                if(t_bcheckno.length>0 && t_echeckno.length>0)
                     q_gt('gqbr', t_where, 0, 0, 0, "checkGqbr"); 
                     
                 var t_noa = $('#txtNoa').val();
