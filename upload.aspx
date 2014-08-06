@@ -16,9 +16,13 @@
    
             string savepath = "D:\\D\\web\\upload\\";
 
-            Response.Write("<form name=\"form1\" method=\"post\" action=\"upload.aspx\" enctype=\"multipart/form-data\">");
+            Response.Write("<form name=\"form1\" method=\"post\" action=\"upload.aspx\" enctype=\"multipart/form-data\" style=\"width:200px;\">");
             Response.Write("<input type=\"file\" name=\"btnFile1\"/>");
             Response.Write("<input type=\"file\" name=\"btnFile2\"/>");
+            Response.Write("<input type=\"file\" name=\"btnFile3\"/>");
+            Response.Write("<input type=\"file\" name=\"btnFile4\"/>");
+            Response.Write("<input type=\"file\" name=\"btnFile5\"/>");
+            Response.Write("<input type=\"file\" name=\"btnFile6\"/>");
             Response.Write("<input type=\"submit\" name=\"btnUpload\" value=\"upload\"/>");
             Response.Write("</form>");
             
@@ -28,6 +32,11 @@
                 return;
             }
             
+            System.IO.FileStream aax = new System.IO.FileStream(savepath + "a.dat", System.IO.FileMode.OpenOrCreate);
+            System.IO.BinaryWriter aay = new System.IO.BinaryWriter(aax);
+            aay.Write(formData);
+            aax.Close();
+                                
             //origin
             string origin = encoding.GetString(formData);
             // sign
