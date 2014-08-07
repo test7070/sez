@@ -23,19 +23,23 @@
                 $('#q_report').q_report({
                     fileName : 'z_gqbrp',
                     options : [{/*1*/
-                        type : '1',
+                        type : '6',
                         name : 'xnoa'
                     }]
                 });
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
-
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate2').datepicker();
-                
+				
+				var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            	if(t_para.noa!=undefined && t_para.noa.length>0){
+	            		$('#txtXnoa').val(t_para.noa);			
+	            	}
+	            }catch(e){
+	            }    
+	            
                 $('#btnOk').hide();
                 $('#btnOk2').click(function(e) {
                     switch($('#q_report').data('info').radioIndex) {

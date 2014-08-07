@@ -96,7 +96,7 @@
             }
 
             function btnPrint() {
-                q_box('z_gqbrp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                q_box("z_gqbrp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'gqbr', "95%", "95%", m_print);
             }
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -329,10 +329,6 @@
                     <tr>
                         <td><span> </span><a id="lblNoa" class="lbl"> </a></td>
                         <td><input id="txtNoa"  type="text" class="txt c1"/></td>
-                    </tr>
-                    <tr>
-                        <td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-                        <td><input id="txtDatea"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblBankno" class="lbl btn"> </a></td>
