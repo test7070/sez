@@ -230,6 +230,11 @@
 				$('#cmbStype').change(function() {
 					stype_chang();
 				});
+				
+				if (q_getPara('sys.menu').substr(0,3)!='qra'){
+					$('#lblTranadd').hide()
+					$('#txtTranadd').hide()
+				}
 			}
 
 			function GetTranPrice() {

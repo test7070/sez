@@ -92,6 +92,10 @@
 				$('#txtTranadd').change(function(){
 					sum();
 				});
+				if (q_getPara('sys.menu').substr(0,3)!='qra'){
+					$('#lblTranadd').hide()
+					$('#txtTranadd').hide()
+				}
 			}
 
 			function q_boxClose(s2) {

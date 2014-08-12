@@ -232,6 +232,11 @@
 				
 				if (isinvosystem)
 					$('.istax').hide();
+					
+				if (q_getPara('sys.menu').substr(0,3)!='qra'){
+					$('#lblTranadd').hide()
+					$('#txtTranadd').hide()
+				}
 			}
 
 			function bbsGetOrdeList(){
