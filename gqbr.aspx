@@ -96,7 +96,7 @@
             }
 
             function btnPrint() {
-                q_box('z_gqbrp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                q_box("z_gqbrp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'gqbr', "95%", "95%", m_print);
             }
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -106,10 +106,10 @@
             function btnOk() {    
                 Lock(1,{opacity:0}); 
                 var t_noa = $('#txtNoa').val();
-                var t_no1 = $.trim($('#txtNo1').val());
-                var t_no2 = $.trim($('#txtNo2').val());
-                var t_where ="where=^^noa!='"+t_noa+"' and ('"+t_no1+"' between no1 and no2 or '"+t_no2+"' between no1 and no2) ^^";
-                if(t_no1.length>0 && t_no2.length>0)
+                var t_bcheckno = $.trim($('#txtBcheckno').val());
+                var t_echeckno = $.trim($('#txtEcheckno').val());
+                var t_where ="where=^^noa!='"+t_noa+"' and ('"+t_bcheckno+"' between bcheckno and echeckno or '"+t_echeckno+"' between bcheckno and echeckno) ^^";
+                if(t_bcheckno.length>0 && t_echeckno.length>0)
                     q_gt('gqbr', t_where, 0, 0, 0, "checkGqbr"); 
                     
                 var t_noa = $('#txtNoa').val();
@@ -308,14 +308,14 @@
                     <tr>
                         <td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
                         <td align="center" style="width:100px; color:black;"><a id="vewBank"> </a></td>
-                        <td align="center" style="width:120px; color:black;"><a id="vewNo1"> </a></td>
-                        <td align="center" style="width:120px; color:black;"><a id="vewNo2"> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a id="vewBcheckno"> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a id="vewEcheckno"> </a></td>
                     </tr>
                     <tr>
                         <td ><input id="chkBrow.*" type="checkbox"/></td>
                         <td id="bank" style="text-align: center;">~bank</td>
-                        <td id="no1" style="text-align: center;">~no1</td>
-                        <td id="no2" style="text-align: center;">~no2</td>
+                        <td id="bcheckno" style="text-align: center;">~bcheckno</td>
+                        <td id="echeckno" style="text-align: center;">~echeckno</td>
                     </tr>
                 </table>
             </div>
@@ -343,12 +343,16 @@
                         <td><input id="txtAccount"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblNo1" class="lbl"> </a></td>
-                        <td><input id="txtNo1"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblBcheckno" class="lbl"> </a></td>
+                        <td><input id="txtBcheckno"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblNo2" class="lbl"> </a></td>
-                        <td><input id="txtNo2"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblEcheckno" class="lbl"> </a></td>
+                        <td><input id="txtEcheckno"  type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+                        <td><input id="txtMemo"  type="text" class="txt c1"/></td>
                     </tr>
                 </table>
             </div>
