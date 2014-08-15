@@ -1292,9 +1292,9 @@
 						<td style="width:100px;"> </td>
 						<td style="width:200px;"> </td>
 						<td style="width:100px;"> </td>
-						<td style="width:200px;"> </td>
+						<td style="width:220px;"> </td>
 						<td style="width:100px;"> </td>
-						<td style="width:150px;"> </td>
+						<td style="width:130px;"> </td>
 					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -1355,14 +1355,12 @@
 						<td class="td6"><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr6">
-						<!--
 						<td class="td1"><span> </span><a id="lblStationg" class="lbl btn"> </a></td>
 						<td class="td2">
 							<input id="txtStationgno" type="text" class="txt" style="width: 45%;"/>
 							<input id="txtStationg" type="text" class="txt" style="width: 53%;"/>
 						</td>
-						-->
-						<td align="center" class="td5" colspan="4">
+						<td align="center" class="td5" colspan="2">
 							<span style="float: left;"> </span><input id="btnUcap" type="button" />
 							<span style="float: left;"> </span><input id="btnStkcost" type="button" />
 							<span style="float: left;"> </span><input id="btnModel" type="button" />

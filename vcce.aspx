@@ -18,7 +18,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "vcce";
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtSales'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtSales','textCuft'];
 			var q_readonlys = ['txtStore'];
 			var bbmNum = [['txtWeight', 15, 3, 1], ['txtTotal', 10, 2, 1]];
 			var bbsNum = [['txtMount', 10, 0, 1], ['txtEcount', 10, 0, 1], ['txtAdjcount', 10, 0, 1]];
@@ -83,6 +83,10 @@
 						t_where = "noa='" + t_noa + "'";
 					q_box("invo.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('btnInvo'));
 				});
+				
+				$('#lblInvo').change(function() {
+					ChangeCuft();
+				});
 
 				$('#btnPack').click(function() {
 					var t_noa = $('#txtInvo').val();
@@ -137,6 +141,9 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'packing':
+						ChangeCuft();
+						break;
 					case 'orde':
 						if (q_cur > 0 && q_cur < 4) {
 							if (!b_ret || b_ret.length == 0){
@@ -160,6 +167,16 @@
 			var focus_addr = '';
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'packing':
+						var as = _q_appendData("packing", "", true);
+						var t_cuft=0;
+						if (as[0] != undefined) {
+							for (var i = 0; i < as.length; i++) {
+								t_cuft=q_add(t_cuft,dec(as[i].cuft));
+							}
+						}
+						$('#textCuft').val(t_cuft);
+					break;
 					case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
 						var t_item = " @ ";
@@ -338,8 +355,18 @@
 			function refresh(recno) {
 				_refresh(recno);
 				HiddenTreat();
+				ChangeCuft();
 			}
-
+			
+			function ChangeCuft(){
+				if(emp($('#txtInvo').val())){
+					$('#textCuft').val(0);
+				}else{
+					var t_where = "where=^^ noa='" + $('#txtInvo').val()+ "' ^^";
+					q_gt('packing', t_where, 0, 0, 0, "");
+				}
+			}
+			
 			function HiddenTreat(returnType){
 				returnType = $.trim(returnType).toLowerCase();
 				var hasStyle = q_getPara('sys.isstyle');
@@ -699,7 +726,7 @@
 						<td class="td2" colspan="2"><input id="txtInvo"  type="text" class="txt c1"/></td>
 						<!--<td class="td6"><input id="btnInvo" type="button"/></td>-->
 						<td class="td6"> </td>
-						<td class="td6"><input id="btnPack" type="button"/> </td>
+						<td class="td6"> </td>
 						<td class="td1"><span> </span><a id="lblLcno" class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input id="txtLcno"  type="text" class="txt c1"/></td>
 					</tr>
@@ -725,6 +752,9 @@
 						<td class="td2" colspan="8"><textarea id="txtMemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
 					</tr>
 					<tr class="tr7">
+						<td class="td1"><span> </span><a id="lblCuft" class="lbl"> </a></td>
+						<td class="td2"><input id="textCuft"  type="text" class="txt c1 num "/></td>
+						<td class="td6"><input id="btnPack" type="button"/> </td>
 						<td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td6"><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>

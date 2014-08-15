@@ -169,19 +169,19 @@
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808))
+			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
 						});
 						$('#txtWidth_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808))
+			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
 						});
 						$('#txtHeight_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
-			                q_tr('txtCuft_'+b_seq,q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808))
+			                q_tr('txtCuft_'+b_seq,round(q_float('txtLengthb_'+b_seq)*q_float('txtWidth_'+b_seq)*q_float('txtHeight_'+b_seq)*(0.032808*0.032808*0.032808),2))
 						});
 					}
 				}
