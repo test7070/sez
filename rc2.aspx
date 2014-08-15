@@ -462,7 +462,8 @@
 						t_where = "isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
 					t_where = t_where;
 				} else {
-					alert(q_getMsg('msgTggEmp'));
+					var t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);
+					alert(t_err);
 					return;
 				}
 				q_box("ordcs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));

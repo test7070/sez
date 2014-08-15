@@ -18,7 +18,7 @@
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "vcce";
-			var q_readonly = ['txtNoa', 'cmbStype', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtSales'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtComp', 'txtAcomp', 'txtSales'];
 			var q_readonlys = ['txtStore'];
 			var bbmNum = [['txtWeight', 15, 3, 1], ['txtTotal', 10, 2, 1]];
 			var bbsNum = [['txtMount', 10, 0, 1], ['txtEcount', 10, 0, 1], ['txtAdjcount', 10, 0, 1]];
@@ -30,7 +30,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(
-				['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,fax,trantype,zip_comp,addr_comp', 'txtCustno,txtComp,txtTel,txtFax,txtTrantype,txtZip_post,txtAddr_post', 'cust_b.aspx'],
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp,tel,fax,trantype,zip_comp,addr_comp', 'txtCustno,txtComp,txtTel,txtFax,cmbTrantype,txtZip_post,txtAddr_post', 'cust_b.aspx'],
 				['txtOrdeno', '', 'orde', 'noa,custno,comp,trantype,stype,tel,fax,addr2,salesno,sales,cno,acomp,paytype', 'txtOrdeno,txtCustno,txtComp,cmbTrantype,cmbStype,txtTel,txtFax,txtAddr_post,txtSalesno,txtSales,txtCno,txtAcomp,txtPaytype', ''],
 				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
@@ -95,7 +95,7 @@
 
 				$('#btnOrdeimport').click(function() {
 					var ordeno = $('#txtOrdeno').val();
-					var t_where = ' 1=1 ';
+					var t_where = " 1=1 and noa in (select noa from view_orde where stype='"+$('#cmbStype').val()+"')";
 					if (ordeno.length > 0)
 						t_where += " and noa='" + ordeno + "'";
 					t_where += q_sqlPara2('custno', $('#txtCustno').val());
@@ -359,7 +359,6 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				$('#cmbStype').attr('disabled', true);
 				HiddenTreat();
 				if (t_para) {
 					$('#btnVcct').removeAttr('disabled');
