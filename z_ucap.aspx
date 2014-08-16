@@ -62,6 +62,12 @@
 						type : '8', //[9]
 						name : 'isprice',
 						value : '1@顯示單價'.split(',')
+					}, {
+						type : '2', //[10][11]
+						name : 'xstationgno',
+						dbf : 'stationg',
+						index : 'noa,namea',
+						src : 'stationg_b.aspx'
 					}]
 				});
 				q_popAssign();
