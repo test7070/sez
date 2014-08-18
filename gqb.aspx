@@ -253,6 +253,26 @@
 
             function btnIns() {
                 var t_curgqbno = $('#txtGqbno').val();
+                var t_data;
+                if($("#checkCopy").prop("checked")){
+                	t_data = {
+                		typea : $('#cmbTypea').val(),
+                		account : $('#txtAccount').val(),
+                		cno : $('#txtCno').val(),
+                		acomp : $('#txtAcomp').val(),
+                		bankno : $('#txtBankno').val(),
+                		bank : $('#txtBank').val(),
+                		datea : $('#txtDatea').val(),
+                		indate : $('#txtIndate').val(),
+                		money : $('#txtMoney').val(),
+                		accno : $('#txtAccno').val(),
+                		tcompno : $('#txtTcompno').val(),
+                		tcomp : $('#txtTcomp').val(),
+                		compno : $('#txtCompno').val(),
+                		comp : $('#txtComp').val(),
+                		memo : $('#txtMemo').val()
+                	};
+                }
                 _btnIns();
                 var patt = new RegExp(/[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);
                 var n = 0;
@@ -261,6 +281,24 @@
                     for (var i = 7 - n.length; i > 0; i--)
                         n = "0" + n;
                     $('#txtGqbno').val(t_curgqbno.substring(0, 2) + n);
+                }
+                if($("#checkCopy").prop("checked")){
+                	$('#cmbTypea').val(t_data.typea);
+                	$('#txtAccount').val(t_data.account);
+                	$('#txtCno').val(t_data.cno);
+                	$('#txtAcomp').val(t_data.acomp);
+                	$('#txtBankno').val(t_data.bankno);
+                	$('#txtBank').val(t_data.bank);
+                	$('#txtDatea').val(t_data.datea);
+                	$('#txtIndate').val(t_data.indate);
+                	$('#txtMoney').val(t_data.money);
+                	$('#txtAccno').val(t_data.accno);
+                	$('#txtTcompno').val(t_data.tcompno);
+                	$('#txtTcomp').val(t_data.tcomp);
+                	$('#txtCompno').val(t_data.compno);
+                	$('#txtComp').val(t_data.comp);
+                	$('#txtMemo').val(t_data.memo);
+            		$("#checkCopy").prop("checked",false);
                 }
                 $('#txtGqbno').focus();
             }
@@ -378,6 +416,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if (t_para) {
+					$('#checkCopy').removeAttr('disabled');
+				} else {
+					$('#checkCopy').attr('disabled', 'disabled');
+				}
             }
 
             function btnMinus(id) {
@@ -574,11 +617,11 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td> </td>
 						<td class='tdZ'> </td>
 					</tr>
 					<tr>
-						<td><a id="lblGqb"  style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
+						<td colspan="2"><a id="lblGqb"  style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
+						<td><a id="lblCopy">複製</a><input id="checkCopy" type="checkbox"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblGqbno' class="lbl"></a></td>
