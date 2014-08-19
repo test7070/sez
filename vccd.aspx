@@ -36,7 +36,7 @@
 			var aPop = new Array(
 				['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 				['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx'],
-				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
+				['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 				['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtUno_', 'btnUno_', 'uccc', 'view_uccc', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0','95%','60%'],
 				['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
@@ -399,7 +399,7 @@
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtCustno" type="text" style="float:left; width:30%;"/>
-							<input id="txtCust" type="text" style="float:left; width:70%;"/>
+							<input id="txtComp" type="text" style="float:left; width:70%;"/>
 						</td>
 						<td><span> </span><a id='lblBkaddr' class="lbl"> </a></td>
 						<td><input id="txtBkaddr"  type="text" class="txt c1"/></td>

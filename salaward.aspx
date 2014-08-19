@@ -532,12 +532,12 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['sssno']) {
+				if (!as['sssno'] && !as['namea']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
 				q_nowf();
-				as['date'] = abbm2['date'];
+				as['datea'] = abbm2['datea'];
 				return true;
 			}
 
