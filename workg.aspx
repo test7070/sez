@@ -318,7 +318,7 @@
 					change_field();
 				});
 				
-				$('#cmbStype').blur(function() {
+				$('#cmbStype').change(function() {
 					change_field();
 				});
 			}
