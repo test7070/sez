@@ -103,7 +103,7 @@
 							var t_where = '1=1 ';
 							t_where += " and (noa in (select noa from uca where tggno='"+tggno+"')) ";
 							t_where += ' ';
-							q_box("ucas_dist_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "550px", "600px", q_getMsg('PopUcas'));
+							q_box("ucas_dist_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "550px", "600px", $('#btnUcas').val());
 						}
 					}
 				});

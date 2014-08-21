@@ -162,7 +162,7 @@
 					var t_where1="where[1]=^^ noa!='"+$('#txtNoa').val()+"' and workqno=view_workqs.noa ^^";
 					
 					
-					q_box("workqs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'workqs', "95%", "95%", q_getMsg('popWorkqs'));
+					q_box("workqs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'workqs', "95%", "95%", $('#btnWorkq').val());
 				});
 			}
 
