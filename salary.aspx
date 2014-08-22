@@ -655,6 +655,21 @@
 	                $('#txtMi_person_'+j).change(function () {sum();});
 	                $('#txtMi_nosalary_'+j).change(function () {sum();});
 	                $('#txtMi_leave_'+j).change(function () {sum();});
+	                $('#txtLate_'+j).click(function() {
+	                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+	                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+	                    	var t_m2=$('#txtMemo2_'+b_seq).val();
+	                    	if(t_m2.length>0 && $('#txtMon').val()>='103/08' ){
+			                	var t_late=dec(t_m2.split(';')[0]),t_early=dec(t_m2.split(';')[1])
+			                	,t_nopunch=dec(t_m2.split(';')[2]),t_late3_it=dec(t_m2.split(';')[3]);
+		                    	var t_msg='遲到:'+t_late+'/次<BR>&nbsp;&nbsp;早退:'+t_early+'/次<BR>&nbsp;&nbsp;沒打卡:'+t_nopunch+'/次<BR>&nbsp;&nbsp;連續遲到3次:'+(t_late3_it==1?'Y':'N');
+			            		q_msg($('#txtLate_' + b_seq), t_msg);
+			            		$('#q_acDiv div').css('text-align','left')
+		            		}
+		            	}
+					});
             	}
             }
             _bbsAssign();
