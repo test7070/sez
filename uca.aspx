@@ -231,7 +231,7 @@
 				});
 				$('#btnModel').click(function(){
 					var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
-					q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", q_getMsg('btnUcab'));
+					q_box("ucab.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucab', "95%", "95%", $('#btnModel').val());
 				});
 				$('#txtNoa').change(function(){
 					var thisVal = $.trim($(this).val());
