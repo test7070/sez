@@ -1023,11 +1023,14 @@
 						q_tr('txtTotal2_' + j, Math.round(dec($('#txtTotal1_' + j).val()) - dec($('#txtMi_total_' + j).val()) + dec($('#txtBo_full_' + j).val()) + dec($('#txtBo_born_' + j).val()) + dec($('#txtBo_night_' + j).val()) + dec($('#txtBo_duty_' + j).val()) + dec($('#txtTax_other_' + j).val())));
 						//給付總額
 						q_tr('txtOstand_' + j, Math.round((dec($('#txtMoney_' + j).val()) / 30 / 8) * 100) / 100);
-						//加班費基數(取小數點兩位並四捨五入)
-						q_tr('txtAddmoney_' + j, Math.round(dec($('#txtOstand_' + j).val()) * dec($('#txtAddh2_1_' + j).val())) + Math.round(dec($('#txtOstand_' + j).val()) * dec($('#txtAddh2_2_' + j).val())));
-						//加班費
+						//加班費基數(取小數點兩位並四捨五入)//103/08/25 將假日加班的金額移到加班費上
+						q_tr('txtAddmoney_' + j, 
+							Math.round(dec($('#txtOstand_' + j).val()) * dec($('#txtAddh2_1_' + j).val())) + Math.round(dec($('#txtOstand_' + j).val()) * dec($('#txtAddh2_2_' + j).val()))
+							+ Math.round(dec($('#txtOstand_' + j).val()) * 1.33 * dec($('#txtAddh46_1_' + j).val())) + Math.round(dec($('#txtOstand_' + j).val()) * 1.67 * dec($('#txtAddh46_2_' + j).val())) + Math.round(dec($('#txtOstand_' + j).val()) * 1 * dec($('#txtAddh100_' + j).val()))
+						);
+						//加班費//103/08/25 將假日加班的金額移到加班費上
 						//q_tr('txtTax6_'+j,Math.round((dec($('#txtTotal2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val())))*0.06));//所得稅
-						q_tr('txtTotal3_' + j, Math.round(dec($('#txtTotal2_' + j).val()) + dec($('#txtAddmoney_' + j).val()) + dec($('#txtTax_other2_' + j).val()) + Math.round(dec($('#txtOstand_' + j).val()) * 1.33 * dec($('#txtAddh46_1_' + j).val())) + Math.round(dec($('#txtOstand_' + j).val()) * 1.67 * dec($('#txtAddh46_2_' + j).val())) + Math.round(dec($('#txtOstand_' + j).val()) * 1 * dec($('#txtAddh100_' + j).val()))));
+						q_tr('txtTotal3_' + j, Math.round(dec($('#txtTotal2_' + j).val()) + dec($('#txtAddmoney_' + j).val()) + dec($('#txtTax_other2_' + j).val()) ));
 						//應領總額
 						//福利金--本薪*0.5%
 						if (!($('#chkIswelfare_'+j)[0].checked))
