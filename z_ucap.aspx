@@ -68,6 +68,9 @@
 						dbf : 'stationg',
 						index : 'noa,namea',
 						src : 'stationg_b.aspx'
+					}, {
+						type : '6', //[12]
+						name : 'xstyle'
 					}]
 				});
 				q_popAssign();
@@ -77,13 +80,16 @@
 				$('#txtXmon').val(q_date().substr(0, 6));
 				if (window.parent.q_name == 'uca') {
 					var wParent = window.parent.document;
-					/*$('#txtSpno1a').val(wParent.getElementById("txtNoa").value);
+					$('#txtSpno1a').val(wParent.getElementById("txtNoa").value);
 					$('#txtSpno2a').val(wParent.getElementById("txtNoa").value);
 					$('#txtSpno1b').val(wParent.getElementById("txtProduct").value);
-					$('#txtSpno2b').val(wParent.getElementById("txtProduct").value);*/
+					$('#txtSpno2b').val(wParent.getElementById("txtProduct").value);
 					$('#txtXproductno').val(wParent.getElementById("txtNoa").value);
 				}
 				firstRun = false;
+				$('#Isprice').css('width','300px');
+				$('#chkIsprice').css('width','200px');
+				$('#chkIsprice span').css('width','150px');
 			}
 
 			function q_boxClose(s2) {
