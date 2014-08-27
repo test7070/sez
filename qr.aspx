@@ -2659,8 +2659,8 @@
                 
                 var video_constraints = {
                     mandatory : {
-                        maxWidth : 320,
-                        maxHeight : 240
+		                minWidth: 1280,
+		                minHeight: 720
                     },
                     optional : [{
                         sourceId : $('#videoSource').val(),
