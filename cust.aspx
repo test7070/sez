@@ -17,7 +17,7 @@
 
 			var q_name = "cust";
 			var q_readonly = ['txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
-			var bbmNum = [['txtCredit', 10, 0, 1]];
+			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -599,6 +599,8 @@
 						</td>
 						<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
 						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblProfit' class="lbl"> </a></td>
+						<td><input id="txtProfit" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"></a></td>
