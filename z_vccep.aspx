@@ -68,6 +68,10 @@
 	                    },{
 	                        type : '1',
 	                        name : 'cldate'
+	                    }, {//[17]
+	                        type : '0',
+	                        name : 'xstype',
+	                        value : q_getPara('orde.stype')
 	                    }]
                     });
                 q_popAssign();
