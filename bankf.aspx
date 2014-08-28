@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 16;
+            brwCount2 = 22;
             if (q_cur == 1)
                 CheckLcno = true;
             else
@@ -39,6 +39,7 @@
                 bbmKey = ['noa'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
+                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
 
             function main() {
@@ -88,8 +89,17 @@
                 }
             }
             var compArr = new Array();
+            var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cno_acomp':
+						var as = _q_appendData("acomp", "", true);
+						if (as[0] != undefined) {
+							z_cno = as[0].noa;
+							z_acomp = as[0].acomp;
+							z_nick = as[0].nick;
+						}
+						break;
                     case 'acomp':
                         var as = _q_appendData("acomp", "", true);
                         if (as[0] != undefined) {
@@ -148,6 +158,8 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtLcno').focus();
+                $('#cmbCno').val(z_cno);
+				$('#txtAcomp').val(z_acomp);
             }
 
             function btnModi() {
@@ -376,6 +388,10 @@
             select {
                 font-size: medium;
             }
+            
+            .pay {
+                background-color: tan;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -413,159 +429,121 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-						<input id="txtNoa"  type="text" class="txt c1" />
-						</td>
+						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea"  type="text" class="txt c1" />
-						</td>
+						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
-						<td colspan="2"><select id="cmbCno" class="txt c1"></select>
-						<input id="txtAcomp" type="text" style="display:none;"/>
-						<input id="txtNick" type="text" style="display:none;"/>
+						<td colspan="2"><select id="cmbCno" class="txt c1"> </select>
+							<input id="txtAcomp" type="text" style="display:none;"/>
+							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
-						<td colspan="2">
-						<input id="txtLcno"  type="text" class="txt c1" />
-						</td>
+						<td colspan="2"><input id="txtLcno"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><select id="cmbTypeyear" class="txt c1"></select></td>
-						<td><select id="cmbType" class="txt c1"></select></td>
+						<td><select id="cmbTypeyear" class="txt c1"> </select></td>
+						<td><select id="cmbType" class="txt c1"> </select></td>
 						<td>
-						<input id="chkAuto" type="checkbox" style=' '/>
-						<span> </span><a id="lblAuto"> </a></td>
+							<input id="chkAuto" type="checkbox" style=' '/>
+							<span> </span><a id="lblAuto"> </a>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
-						<td>
-						<input id="txtBankno" type="text" class="txt c1" />
-						</td>
-						<td>
-						<input id="txtBank" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtBankno" type="text" class="txt c1" /></td>
+						<td><input id="txtBank" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
-						<td colspan="2">
-						<input id="txtAccount"  type="text" class="txt c1" />
-						</td>
+						<td colspan="2"><input id="txtAccount"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoneytype' class="lbl"> </a></td>
-						<td><select id="cmbMoneytype"  class="txt c1" ></select></td>
-
+						<td><select id="cmbMoneytype"  class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
-						<td><select id="cmbRate"  class="txt c1" ></select></td>
-						<td>
-						<input id="txtInterestrate"  type="text" class="txt num c2" />
-						%</td>
+						<td><select id="cmbRate"  class="txt c1" > </select></td>
+						<td><input id="txtInterestrate"  type="text" class="txt num c2" />%</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPayitype' class="lbl"> </a></td>
-						<td><select id="cmbPayitype" class="txt c1"></select></td>
+						<td><select id="cmbPayitype" class="txt c1"> </select></td>
 					</tr>
 					<tr style="display: none;">
-						<td align="right"><span> </span>
-						<input id="btnInput" type="button"/>
-						</td>
-						<td colspan="2">
-						<input id="txtInput" type="text" class="txt c1" />
-						</td>
+						<td align="right"><span> </span><input id="btnInput" type="button"/></td>
+						<td colspan="2"><input id="txtInput" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
-						<td>
-						<input id="txtIndate" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtIndate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblEnddate' class="lbl"> </a></td>
-						<td>
-						<input id="txtEnddate" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtEnddate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney"  type="text" class="txt num c1" />
-						</td>
+						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUndate' class="lbl"> </a></td>
-						<td>
-						<input id="txtUndate" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtUndate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney2' class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney2" type="text" class="txt num c1" />
-						</td>
+						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblAcc' class="lbl"> </a></td>
-						<td>
-						<input id="txtAcc1" type="text" class="txt c1" />
-						</td>
-						<td>
-						<input id="txtAcc2" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblCheckno' class="lbl"> </a></td>
-						<td>
-						<input id="txtCheckno" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtCheckno" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblPaydate' class="lbl"> </a></td>
-						<td>
-						<input id="txtPaydate" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtPaydate" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
-						<td>
-						<input id="txtAccno" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtAccno" type="text" class="txt c1" /></td>
+						<td> </td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblBank2' class="lbl"> </a></td>
-						<td>
-						<input id="txtBank2no" type="text" class="txt c1" />
-						</td>
-						<td>
-						<input id="txtBank2" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtBank2no" type="text" class="txt c1" /></td>
+						<td><input id="txtBank2" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3" >						<textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
+						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td>
-						<input id="txtWorker" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td>
-						<input id="txtWorker2" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

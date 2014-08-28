@@ -42,7 +42,15 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                $('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    	q_gt('bankt', t_where, 0, 0, 0, "checkBanktno_change", r_accy);
+					}
+                });
             }
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -55,6 +63,23 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkBanktno_change':
+                		var as = _q_appendData("bankt", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].namea);
+                        }
+                		break;
+					case 'checkBanktno_btnOk':
+                		var as = _q_appendData("bankt", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].namea);
+                            Unlock();
+                            return;
+                        }else{
+                        	$('#txtWorker').val(r_name);
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -67,10 +92,12 @@
                     return;
                 q_box('bankt_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
+            
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').focus();
             }
+            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
@@ -81,18 +108,21 @@
             function btnPrint() {
 
             }
-
+			
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+        	}
+        	
             function btnOk() {
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
+            	Lock(); 
+            	if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('bankt', t_where, 0, 0, 0, "checkBanktno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
                 }
-                $('#txtWorker').val(r_name);
-                t_noa = trim($('#txtNoa').val());
-		        if (t_noa.length != 0)
-		            wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -103,10 +133,20 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
+            }
+            
+            function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                refreshBbm();
             }
 
             function btnMinus(id) {

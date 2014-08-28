@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -17,7 +17,7 @@
             }
 
             var q_name = "bankm";
-            var q_readonly = ['txtNoa','txtAccno','txtDatea'];
+            var q_readonly = ['txtNoa','txtAccno','txtDatea','txtPayacc2'];
             var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -51,6 +51,10 @@
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
+				});
+				
+				$('#lblAccno').click(function() {
+					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + (!emp($('#txtDatea').val())?$('#txtDatea').val().substring(0, 3):r_accy) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
             }
             function q_boxClose(s2) {
@@ -289,6 +293,10 @@
             select {
                 font-size: medium;
             }
+            
+            .pay {
+                background-color: tan;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -322,10 +330,12 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
@@ -355,23 +365,33 @@
 						<td><span> </span><a id='lblMoney2' class="lbl"> </a></td>
 						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblPayacc' class="lbl btn"> </a></td>
 						<td><input id="txtPayacc1" type="text" class="txt c1" /></td>
 						<td><input id="txtPayacc2" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblCheckno' class="lbl"> </a></td>
 						<td><input id="txtCheckno" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblPaydate' class="lbl"> </a></td>
 						<td><input id="txtPaydate" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
-					<tr>
+					<tr class="pay">
 						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
 						<td><input id="txtBank3no" type="text" class="txt c1" /></td>
 						<td><input id="txtBank3" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<!--
 					<tr>
@@ -384,7 +404,7 @@
 						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1" /></td>
 					</tr>
 				</table>

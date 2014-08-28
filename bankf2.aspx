@@ -18,7 +18,7 @@
 
             var q_name = "bankf2";
             var q_readonly = ['txtNoa','txtLcno2','txtAccno','txtAccno2','txtWorker'];
-            var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3]];
+            var bbmNum = [['txtMoney', 15, 3,1],['txtMoney2', 15, 3,1],['txtTax', 15, 3,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -27,7 +27,7 @@
             brwKey = 'noa';
             brwCount2 = 16;
             aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-							 ['txtBankno', 'lblBank', 'acc', 'acc1,acc2', 'txtBankno,txtBank', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+							 ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', "bank_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 						);
 
             $(document).ready(function() {
@@ -46,8 +46,14 @@
             }
 
             function mainPost() {
-            	bbmMask = [['txtDate', r_picd],['txtDate2', r_picd],['txtDate3', r_picd],['txtLdate', r_picd]];
+            	bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd],['txtDate3', r_picd],['txtLdate', r_picd]];
                 q_mask(bbmMask);
+                
+                q_cmbParse("cmbType", ('').concat(new Array('', '一個月', '二個月', '三個月', '四個月', '五個月', '六個月', '七個月', '八個月', '九個月', '十個月', '十一個月')));
+                q_cmbParse("cmbTypeyear", ('').concat(new Array('', '一年', '二年', '三年')));
+                q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息', '每月付息', '到期入本金')));
+                q_cmbParse("cmbMoneytype", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
+                
 				$('#txtAcc1').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
@@ -57,6 +63,14 @@
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
+				});
+				
+				$('#lblAccno').click(function() {
+					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + (!emp($('#txtDatea').val())?$('#txtDatea').val().substring(0, 3):r_accy) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
+				});
+				
+				$('#lblAccno2').click(function() {
+					q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + (!emp($('#txtDatea').val())?$('#txtDatea').val().substring(0, 3):r_accy) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
             }
             function q_boxClose(s2) {
@@ -83,12 +97,14 @@
                     return;
                 q_box('bankf2_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
+            
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
                 $('#txtLcno').focus();
             }
+            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
@@ -112,7 +128,7 @@
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('F' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_bankf2')+ (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
             }
@@ -126,6 +142,9 @@
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
+                
+                if (q_cur == 1 || q_cur == 2)
+					q_func('qtxt.query.c0', 'bankf2.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_getPara('sys.key_bankf')) + ';0');
             }
 
             function refresh(recno) {
@@ -340,7 +359,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><input id="txtType" type="text" class="txt c1" /></td>
+						<td><select id="cmbTypeyear" class="txt c1"> </select></td>
+						<td><select id="cmbType" class="txt c1"> </select></td>
+						<!--<td><input id="txtType" type="text" class="txt c1" /></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
@@ -348,12 +369,29 @@
 						<td><input id="txtBank" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
-						<td><input id="txtDate" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtAccount"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMoneytype' class="lbl"> </a></td>
+						<td><select id="cmbMoneytype"  class="txt c1" > </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
+						<td><select id="cmbRate"  class="txt c1" > </select></td>
+						<td><input id="txtInterestrate"  type="text" class="txt num c2" />%</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblPayitype' class="lbl"> </a></td>
+						<td><select id="cmbPayitype" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td><input id="txtMoney" type="text" class="txt c1" /></td>
+						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
@@ -370,7 +408,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney2' class="lbl"> </a></td>
-						<td><input id="txtMoney2" type="text" class="txt c1" /></td>
+						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDate3' class="lbl"> </a></td>
@@ -387,9 +425,9 @@
 						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblAccno2' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno2' class="lbl btn"> </a></td>
 						<td><input id="txtAccno2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
