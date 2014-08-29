@@ -70,7 +70,10 @@
         		});
                 $("#cmbCno").change(function() {
                     var selectVal = $('#cmbCno').val();
-                    $('#txtNick').val(compArr[selectVal].nick);
+                    if(compArr[selectVal]!=undefined)
+                    	$('#txtNick').val(compArr[selectVal][0].nick);
+                    else
+                    	$('#txtNick').val('');
                 });
                 $('#txtLcno').change(function() {
                     $('#btnOk').attr('disabled', 'disabled');
@@ -116,7 +119,8 @@
                             q_cmbParse("cmbCno", t_item);
                             if (abbm[q_recno] != undefined){
                                 $("#cmbCno").val(abbm[q_recno].cno);
-                            	$('#txtNick').val(compArr[abbm[q_recno].cno].nick);
+                                if(abbm[q_recno].cno!='')
+                            		$('#txtNick').val(compArr[abbm[q_recno].cno].nick);
                             }
                         }
                         break;

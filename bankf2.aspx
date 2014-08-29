@@ -17,7 +17,7 @@
             }
 
             var q_name = "bankf2";
-            var q_readonly = ['txtNoa','txtLcno2','txtAccno','txtAccno2','txtWorker'];
+            var q_readonly = ['txtNoa','txtLcno2','txtAccno','txtAccno2','txtWorker','txtWorker2'];
             var bbmNum = [['txtMoney', 15, 3,1],['txtMoney2', 15, 3,1],['txtTax', 15, 3,1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -25,16 +25,16 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 16;
             aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', "bank_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 						);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                brwCount2 = 16;
+                brwCount2 = 22;
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
+                q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
             });
 
             function main() {
@@ -53,6 +53,9 @@
                 q_cmbParse("cmbTypeyear", ('').concat(new Array('', '一年', '二年', '三年')));
                 q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息', '每月付息', '到期入本金')));
                 q_cmbParse("cmbMoneytype", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
+                q_cmbParse("cmbRate", ('').concat(new Array('固定利率', '機動利率')));
+                
+                q_gt('acomp', '', 0, 0, 0, "");
                 
 				$('#txtAcc1').change(function() {
 					var str=$.trim($(this).val());
@@ -72,6 +75,14 @@
 				$('#lblAccno2').click(function() {
 					q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + (!emp($('#txtDatea').val())?$('#txtDatea').val().substring(0, 3):r_accy) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
+				
+				$("#cmbCno").change(function() {
+                    var selectVal = $('#cmbCno').val();
+                    if(compArr[selectVal]!=undefined)
+                    	$('#txtNick').val(compArr[selectVal][0].nick);
+                    else
+                    	$('#txtNick').val('');
+                });
             }
             function q_boxClose(s2) {
                 var ret;
@@ -82,9 +93,40 @@
                         break;
                 }  
             }
-
+			
+			var compArr = new Array();
+            var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cno_acomp':
+						var as = _q_appendData("acomp", "", true);
+						if (as[0] != undefined) {
+							z_cno = as[0].noa;
+							z_acomp = as[0].acomp;
+							z_nick = as[0].nick;
+						}
+						break;
+                    case 'acomp':
+                        var as = _q_appendData("acomp", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "@";
+                            for (var  i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                                compArr[as[i].noa] = new Array();
+                                compArr[as[i].noa].push({
+                                	cno:as[i].noa,
+                                	acomp:as[i].acomp,
+                                	nick:as[i].nick
+                                });
+                            }
+                            q_cmbParse("cmbCno", t_item);
+                            if (abbm[q_recno] != undefined){
+                                $("#cmbCno").val(abbm[q_recno].cno);
+                                if(abbm[q_recno].cno!='')
+                            		$('#txtNick').val(compArr[abbm[q_recno].cno].nick);
+                            }
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -103,6 +145,8 @@
                 $('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
                 $('#txtLcno').focus();
+                $('#cmbCno').val(z_cno);
+				$('#txtAcomp').val(z_acomp);
             }
             
             function btnModi() {
@@ -118,13 +162,22 @@
             }
 
             function btnOk() {
+            	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
-                $('#txtWorker').val(r_name);
+                
+                if (q_cur == 1) {
+                    $('#txtWorker').val(r_name);
+                } else if (q_cur == 2) {
+                    $('#txtWorker2').val(r_name);
+                } else {
+                    alert("error: btnok!");
+                }
+                
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
@@ -200,12 +253,37 @@
             }
 
             function btnDele() {
-                _btnDele();
+                //_btnDele();
+                
+                if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				q_func('qtxt.query.c2', 'bankf2.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_getPara('sys.key_bankf')) + ';0');
+                
             }
 
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.c0':
+						q_func('qtxt.query.c1', 'bankf2.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val())+ ';' + encodeURI(q_getPara('sys.key_bankf')) + ';1');
+						break;
+					case 'qtxt.query.c1':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['lcno2'] = as[0].lcno2;
+							$('#txtLcno2').val(as[0].lcno2);
+						}
+						break;
+					case 'qtxt.query.c2':
+						_btnOk($('#txtNoa').val(), bbmKey[0],'', '', 3)
+						break;
+						
+				}
+			}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -354,6 +432,13 @@
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
+						<td colspan="2"><select id="cmbCno" class="txt c1"> </select>
+							<input id="txtAcomp" type="text" style="display:none;"/>
+							<input id="txtNick" type="text" style="display:none;"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
 						<td><input id="txtLcno"  type="text" class="txt c1" /></td>
 					</tr>
@@ -379,7 +464,7 @@
 					<tr>
 						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
 						<td><select id="cmbRate"  class="txt c1" > </select></td>
-						<td><input id="txtInterestrate"  type="text" class="txt num c2" />%</td>
+						<td><input id="txtInterestrate"  type="text" class="txt num c1" style="width: 80%;" />%</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPayitype' class="lbl"> </a></td>
@@ -432,7 +517,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1" /></td>	
+						<td><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
