@@ -84,10 +84,9 @@
                         type : '8',
                         name : 'xoption03',
                         value : q_getMsg('toption03').split('&')
-                    }, {/* [11]*/
-                        type : '8',
-                        name : 'xproject',
-                        value : ['專案']
+                    }, {/* [11][12]*/
+                        type : '1',
+                        name : 'xproject'
                     }]
                 });
                 
@@ -97,7 +96,8 @@
            //     $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				if(q_getPara('accc.proj').length==0){
-					$('#chkXproject').children('input').attr('disabled','disabled');
+					$('#txtXproject1').attr('disabled','disabled');
+					$('#txtXproject2').attr('disabled','disabled');
 					$('#Xproject').css('height','0px');
 				}
 				
