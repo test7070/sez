@@ -397,8 +397,8 @@
 					<tr>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
 						<td><input id="txtLcno" type="text" class="txt c1" /></td>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id='lblLcno2' class="lbl"> </a></td>
+						<td><input id="txtLcno2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBankt' class="lbl btn"> </a></td>

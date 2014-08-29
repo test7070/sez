@@ -16,7 +16,7 @@
             }
 
             var q_name = "lcs";
-            var q_readonly = ['txtUnpay', 'txtPay', 'txtLcaccno', 'txtPayno', 'txtAccno', 'txtChgaccno', 'txtTgg', 'textAcc1'];
+            var q_readonly = ['txtUnpay', 'txtPay', 'txtLcaccno', 'txtPayno', 'txtAccno', 'txtChgaccno', 'txtTgg', 'textAcc1','txtBank'];
             var bbmNum = [['txtMoney', 15, 0, 1], ['txtLcmoney', 15, 0, 1], ['txtRate', 15, 4, 1], ['txtConrate1', 15, 4, 1], ['txtConrate2', 15, 4, 1], ['txtFloat', 15, 4, 1], ['txtUnpay', 15, 0, 1], ['txtPay', 15, 0, 1], ['txtLch', 15, 0, 1], ['txtChgmoney', 15, 0, 1], ['txtChgfloat', 15, 4, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -27,6 +27,7 @@
             //ajaxPath = "";
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,nick', 'txtTggno,txtTgg', 'tgg_b.aspx']
             							,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            							, ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', "bank_b.aspx"]
             							,['txtChgacc1', 'lblChgacc1','acc','acc1,acc2', 'txtChgacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
@@ -83,7 +84,7 @@
 		        
 		        $('#btnLct').click(function () {
 		        	if(!emp($('#txtNoa').val()) && !emp($('#txtNoq').val()))
-		            	q_box("lct.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "' and noq='" + $('#txtNoq').val() + "'", 'lct', "500px", "500px", $('#btnLct').val());
+		            	q_box("lct.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val()+'-'+ $('#txtNoq').val() + "'", 'lct', "500px", "500px", $('#btnLct').val());
 		        });
 		        
 		        $('#txtChgacc1').change(function () {
@@ -187,6 +188,8 @@
                 	$('#txtConrate1').val(window.parent.document.getElementById('txtConrate1').value);
                 	$('#txtConrate2').val(window.parent.document.getElementById('txtConrate2').value);
                 	$('#cmbCoin').val(window.parent.document.getElementById('cmbCoin').value);
+                	$('#txtBankno').val(window.parent.document.getElementById('txtBankno').value);
+                	$('#txtBank').val(window.parent.document.getElementById('txtBank').value);
                 }
 
                 $('#txtTggno').focus();
@@ -505,9 +508,9 @@
 							<input id="txtTggno" type="text" class="txt c2"/>
 							<input id="txtTgg" type="text" class="txt c3" />
 						</td>
-						<td class="td4"> </td>
-						<td class="td5"> </td>
-						<td class="td6"> </td>
+						<td class="td4"><span> </span><a id="lblBank" class="lbl btn"> </a></td>
+						<td class="td5"><input id="txtBankno" type="text" class="txt c1" /></td>
+						<td class="td6"><input id="txtBank" type="text" class="txt c1" /></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>

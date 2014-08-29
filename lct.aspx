@@ -26,10 +26,10 @@
 
             $(document).ready(function() {
                 bbmKey = [];
-                bbsKey = ['noa', 'noq', 'nos'];
+                bbsKey = ['noa', 'noq'];
                 if(location.href.indexOf('?') < 0)// debug
                 {
-                    location.href = location.href + "?;;;1=1 order by nos desc";
+                    location.href = location.href + "?;;;1=1 order by noq desc";
                     return;
                 }
                 if(!q_paraChk())
@@ -62,26 +62,8 @@
 
             function btnOk() {
                 sum();
-                //寫入nos
-                var maxnos='000';
-                //取得目前最大nos
-                for(var i = 0; i < q_bbsCount; i++) {
-                	if(!emp($('#txtDatea_'+i).val())&&!emp($('#txtNos_'+i).val())){
-                		if($('#txtNos_'+i).val()>maxnos){
-                			maxnos=$('#txtNos_'+i).val();
-                		}
-                	}
-                }
-                //寫入nos
-                for(var i = 0; i < q_bbsCount; i++) {
-                	if(!emp($('#txtDatea_'+i).val())&&emp($('#txtNos_'+i).val())){
-                		maxnos=('000'+(dec(maxnos)+1)).toString().substr(-3);
-                		$('#txtNos_'+i).val(maxnos);
-                	}
-                }
-                
                 t_key = q_getHref();
-                _btnOk(t_key[1], bbsKey[0],bbsKey[1],bbsKey[2], 2);
+                _btnOk(t_key[1], bbsKey[0],bbsKey[1],'', 2);
             }
 
             function bbsSave(as) {
@@ -137,7 +119,6 @@
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 						<input class="txt" id="txtNoa.*" type="hidden"/>
 						<input class="txt" id="txtNoq.*" type="hidden"/>
-						<input class="txt" id="txtNos.*" type="hidden"/>
 					</td>
 					<td class="td2"><input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"  /></td>
 					<td class="td8"><input class="txt" id="txtPay.*" type="text" style="width:95%; text-align:right;"   /></td>
