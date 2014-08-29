@@ -84,6 +84,9 @@
                         type : '8',
                         name : 'xoption03',
                         value : q_getMsg('toption03').split('&')
+                    }, {/* [11][12]*/
+                        type : '1',
+                        name : 'xproject'
                     }]
                 });
                 
@@ -92,6 +95,11 @@
                 $('#txtDate2').mask('999/99/99');
            //     $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
+				if(q_getPara('accc.proj').length==0){
+					$('#txtXproject1').attr('disabled','disabled');
+					$('#txtXproject2').attr('disabled','disabled');
+					$('#Xproject').css('height','0px');
+				}
 				
 				$('#txtXacc1a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
