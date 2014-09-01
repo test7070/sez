@@ -18,7 +18,7 @@
 
             var q_name = "bcc";
             var q_readonly = [];
-            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1],['txtSafemount', 12, 0, 1]];
+            var bbmNum = [['txtPrice', 12, 2, 1], ['txtTax', 12, 2, 1], ['txtTotal', 12, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
