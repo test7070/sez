@@ -437,7 +437,7 @@
 							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 								as[i].tablea='vcc_uu';
 								as[i].memo=as[i].memo+as[i].invono;
-							}else if (q_getPara('sys.comp').indexOf('楊家') > -1){
+							}else if (q_getPara('sys.comp').indexOf('楊家') > -1|| q_getPara('sys.comp').indexOf('德芳') > -1){
 								as[i].tablea='vcc_tn';
 							}else{
 								if(q_getPara('sys.steel')=='1'){
@@ -686,7 +686,7 @@
 							$('#txtTablea_'+i).val('vcc_it');
                     	}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 							$('#txtTablea_'+i).val('vcc_uu');
-                    	}else if (q_getPara('sys.comp').indexOf('楊家') > -1){
+                    	}else if (q_getPara('sys.comp').indexOf('楊家') > -1|| q_getPara('sys.comp').indexOf('德芳') > -1){
 							$('#txtTablea_'+i).val('vcc_tn');
 						}else{
 							if(q_getPara('sys.steel')=='1'){//鋼鐵業
