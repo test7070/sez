@@ -117,6 +117,16 @@
             }
 
             function btnOk() {
+            	//103/09/01應請購匯入會依採購人匯入所以必須要填
+            	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+            		t_err = q_chkEmpField([['txtSalesno', q_getMsg('lblSales')],['txtPartno', q_getMsg('lblPart')]]);
+                
+	                if(t_err.length > 0) {
+	                    alert(t_err);
+	                    return;
+	                }
+            	}
+            	
 	            $('#txtDatea').val($.trim($('#txtDatea').val()));
 	                if (checkId($('#txtDatea').val())==0){
 	                	alert(q_getMsg('lblDatea')+'錯誤。');

@@ -32,7 +32,7 @@
             brwKey = 'Datea';
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
             , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit,price', 'txtBccno_,txtBccname_,txtUnit_,txtPrice_', 'bcc_b.aspx']
-            ,['txtBuyer', 'lblBuyer', 'sss', 'namea,noa', 'txtBuyer', 'sss_b.aspx']
+            ,['txtBuyerno', 'lblBuyer', 'sss', 'noa,namea', 'txtBuyerno,txtBuyer', 'sss_b.aspx']
             ,['txtOrdcno', '', 'ordc', 'noa', 'txtOrdcno', '']);
             
             $(document).ready(function() {
@@ -86,25 +86,28 @@
                 });
                 
                 $('#btnOrdc').click(function() {
-                	if(emp($('#txtOrdcno').val())&&emp($('#txtTggno').val())){
-                		alert('請先輸入'+q_getMsg('lblOrdcno')+'或'+q_getMsg('lblTgg')+'。');
-                		return;
-                	}
-                	
                 	var t_where="1=1";
+                	
                 	if(q_getPara('sys.comp').indexOf('大昌')>-1){
-                		 t_where+=" and apv='Y' and noa in (select noa from view_ordc where enda!='1')";
+                		t_err = q_chkEmpField([['txtBuyerno', q_getMsg('lblBuyer')]]);
+	                
+		                if(t_err.length > 0) {
+		                    alert(t_err);
+		                    return;
+		                }
+		                
+                		t_where+=" and ((apv='Y' and noa in (select noa from view_ordc where isnull(enda,0)!='1')) or (noa+'_'+no2 in (select ordcno+'_'+no2 from bccins where noa='"+$('#txtNoa').val()+"'))) ";
+                		
                 	}else{
-                		t_where+=" and kind='1' and noa in (select noa from view_ordc where enda!='1')";
+                		if(emp($('#txtOrdcno').val())&&emp($('#txtTggno').val())){
+	                		alert('請先輸入'+q_getMsg('lblOrdcno')+'或'+q_getMsg('lblTgg')+'。');
+	                		return;
+	                	}
+                		
+                		t_where+=" and kind='1' and noa in (select noa from view_ordc where isnull(enda,0)!='1')";
+                		
                 	}
-                	
-                	if(!emp($('#txtOrdcno').val())){
-                		t_where=t_where+" and noa='" + $('#txtOrdcno').val() + "'";
-                	}
-                	if(!emp($('#txtTggno').val())){
-                		t_where=t_where+" and tggno='" + $('#txtTggno').val() + "'";
-                	}
-                	
+                	t_where=t_where+q_sqlPara2("tggno", $('#txtTggno').val())+q_sqlPara2("noa", $('#txtOrdcno').val());
                 	q_box("ordcs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+" ;"+r_accy+";" + q_cur, 'ordc', "95%", "95%", q_getMsg('btnOrdc'));
                 });
             }
@@ -492,6 +495,11 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 49%;
+                float: left;
+            }
+            
             .txt.num {
                 text-align: right;
             }
@@ -570,7 +578,10 @@
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
-						<td><input id="txtBuyer"  type="text" class="txt c1"/></td>
+						<td>
+							<input id="txtBuyerno"  type="text" class="txt c2"/>
+							<input id="txtBuyer"  type="text" class="txt c2"/>
+						</td>
 					</tr>
 					<tr>						
 						<td><span> </span><a id="lblPart" class="lbl"> </a></td>

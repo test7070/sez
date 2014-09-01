@@ -77,9 +77,36 @@
 			     });*/
 			     
 			     $('#lblOrdb').click(function () {
-	            	var t_tggno = trim($('#txtTggno').val());
+			     	var t_tggno = trim($('#txtTggno').val());
 		            var t_ordbno = trim($('#txtOrdbno').val());
-		            var t_where="(noa+'_'+no3 in (select ordbno+'_'+no3 from view_ordcs where noa='"+$('#txtNoa').val()+"')) or ";
+		            var t_salesno = trim($('#txtSalesno').val());
+		            var t_kind = trim($('#cmbKind').val());
+		            
+		            var t_where="";
+			     	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	            		t_err = q_chkEmpField([['txtSalesno', q_getMsg('lblSales')]]);
+	                
+		                if(t_err.length > 0) {
+		                    alert(t_err);
+		                    return;
+		                }
+		                
+		                t_where="(noa in (select noa from view_ordb where salesno='"+t_salesno+"') and isnull(enda,0)=0 and isnull(apv,'')='Y' "+q_sqlPara2("kind", t_kind)+q_sqlPara2("tggno", t_tggno)+q_sqlPara("noa", t_ordbno) +")";   
+		                t_where+=" or (noa+'_'+no3 in (select ordbno+'_'+no3 from view_ordcs where noa='"+$('#txtNoa').val()+"')) ";
+		                
+	            	}else{
+	            		t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);
+	                
+		                if(t_err.length > 0) {
+		                    alert(t_err);
+		                    return;
+		                }
+	            		
+	            		t_where="( isnull(enda,0)=0 and isnull(apv,'')='Y' "+q_sqlPara2("kind", t_kind)+q_sqlPara2("tggno", t_tggno)+q_sqlPara("noa", t_ordbno) +")";   
+		                t_where+=" or (noa+'_'+no3 in (select ordbno+'_'+no3 from view_ordcs where noa='"+$('#txtNoa').val()+"')) ";
+	            	}
+	            	
+		            /*var t_where="(noa+'_'+no3 in (select ordbno+'_'+no3 from view_ordcs where noa='"+$('#txtNoa').val()+"')) or ";
 		            if (t_tggno.length > 0) {
 		            	if (t_ordbno.length > 0) 
 		            		t_where += "(enda=0 && apv='Y' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"')";  ////  sql AND 語法，請用 &&
@@ -90,7 +117,7 @@
 		            else {
 		                alert('請輸入' + q_getMsg('lblTgg'));
 		                return;
-		            }
+		            }*/
 		            q_box('ordbs_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
 			     });
             }
