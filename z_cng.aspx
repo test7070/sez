@@ -23,8 +23,25 @@
                 q_gf('', 'z_cng');
                 
                 $('#q_report').click(function() {
-                	if(q_getPara('sys.comp').indexOf('英特瑞')==-1 && q_getPara('sys.comp').indexOf('安美得')==-1)
+                	if(q_getPara('sys.comp').indexOf('英特瑞')==-1 && q_getPara('sys.comp').indexOf('安美得')==-1){
                 		$('#Xorder').hide();
+                		$('#Sssno').hide();
+                	}
+                	if((q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) 
+                	&& $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_cng2') {
+                		$('#txtMon1').val('');
+                		$('#txtMon2').val('');
+                		$('#Mon').hide();
+                		$('#Date').show();
+                	}
+                	
+                	if((q_getPara('sys.comp').indexOf('英特瑞')==-1 && q_getPara('sys.comp').indexOf('安美得')==-1) 
+                	&& $('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report=='z_cng2') {
+                		$('#txtDate1').val('');
+                		$('#txtDate2').val('');
+                		$('#Mon').show();
+                		$('#Date').hide();
+                	}
 				});
                 
             });
@@ -57,6 +74,12 @@
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
                     },{
+                        type : '2',
+                        name : 'sssno',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                    },{
                         type : '5',
                         name : 'xorder',
                         value : (('').concat(new Array("1@調撥日","2@有效日"))).split(',')
@@ -78,8 +101,10 @@
                 $('#txtNoa1').val(t_noa);
                 $('#txtNoa2').val(t_noa);
                 
-                if(q_getPara('sys.comp').indexOf('英特瑞')==-1 && q_getPara('sys.comp').indexOf('安美得')==-1)
+                if(q_getPara('sys.comp').indexOf('英特瑞')==-1 && q_getPara('sys.comp').indexOf('安美得')==-1){
                 	$('#Xorder').hide();
+                	$('#Sssno').hide();
+                }
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
