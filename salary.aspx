@@ -801,7 +801,7 @@
 			                var t_m2=$('#txtMemo2_'+j).val();
 		                	var t_late=dec(t_m2.split(';')[0]),t_early=dec(t_m2.split(';')[1])
 		                	,t_nopunch=dec(t_m2.split(';')[2]),t_late3_it=dec(t_m2.split(';')[3])
-		                	,t_typea=t_m2.split(';')[4];
+		                	,t_typea=(t_m2.split(';')[4]==undefined?'':t_m2.split(';')[4]);
 		                	q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
 		                	//扣薪金額=(連續3次或遲到超過5次(第6次)-500)+(早退+沒打卡*時數)+病假+事假+事假+曠工金額
 	        				q_tr('txtMi_total_'+j,Math.round( ((t_typea.indexOf('早')>-1|| t_typea.indexOf('中')>-1||t_typea.indexOf('晚')>-1||t_typea.indexOf('足')>-1)?((t_late3_it>1|| t_late>5 ?-500:0)+((t_nopunch+t_early)*q_float('txtOstand_'+j))):0)
@@ -843,7 +843,7 @@
 		                	var t_m2=$('#txtMemo2_'+j).val();
 		                	var t_late=dec(t_m2.split(';')[0]),t_early=dec(t_m2.split(';')[1])
 		                	,t_nopunch=dec(t_m2.split(';')[2]),t_late3_it=dec(t_m2.split(';')[3])
-		                	,t_typea=t_m2.split(';')[4];
+		                	,t_typea=(t_m2.split(';')[4]==undefined?'':t_m2.split(';')[4]);
 		                	q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
 		                	//扣薪金額=(連續3次或遲到超過5次(第6次)-500)+病假+事假+事假+曠工金額
 	        				//q_tr('txtMi_total_'+j,Math.round((t_late3_it>1|| t_late>5 ?-500:0)+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
