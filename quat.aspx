@@ -20,7 +20,7 @@
 			var q_name = "quat";
 			var decbbs = ['price', 'weight', 'mount', 'total', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
 			var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'totalus'];
-			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales', 'txtWorker2'];
+			var q_readonly = ['txtNoa','txtWorker', 'txtComp', 'txtAcomp', 'txtSales', 'txtWorker2','txtApv'];
 			var q_readonlys = ['txtNo3'];
 			var bbmNum = [];
 			var bbsNum = [];
@@ -176,6 +176,13 @@
 						}
 					}
 				});
+				
+				//判斷核准是否顯示
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.apv').show();
+				}else{
+					$('.apv').hide();
+				}
 			}
 
 			function q_boxClose(s2) {
@@ -228,7 +235,7 @@
 
 			function btnOk() {
 				t_err = '';
-				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCust')]]);
+				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCust')], ['txtOdate', q_getMsg('lblOdate')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -248,10 +255,15 @@
 					$('#txtWorker').val(r_name);
 				if (q_cur == 2)
 					$('#txtWorker2').val(r_name);
+					
+				//只要修改都會重新送簽核，將核准變回N
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					$('#txtApv').val('N');
+				}
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_quat') + $('#txtDatea').val(), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_quat') + (!emp($('#txtDatea').val())?$('#txtDatea').val():q_date()), '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -303,6 +315,7 @@
 					}
 				}
 				_bbsAssign();
+				HiddenField();
 			}
 
 			function btnIns() {
@@ -311,10 +324,18 @@
 				_btnIns();
 				if ($('#checkCopy').is(':checked'))
 					curData.paste();
+				
 				$('#chkIsproj').attr('checked', true);
+				
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtOdate').val(q_date());
 				$('#txtDatea').val(q_cdn(q_date(), 3));
+				
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					$('#chkIsproj').attr('checked', false);
+					$('#txtDatea').val(q_date().substr(0,3)+'/12/31');
+				}
+				
 				$('#txtDatea').focus();
 
 				$('#txtCno').val(z_cno);
@@ -359,11 +380,14 @@
 				q_nowf();
 				as['datea'] = abbm2['datea'];
 				as['odate'] = abbm2['odate'];
+				as['custno'] = abbm2['custno'];
+				as['apv'] = abbm2['apv'];
 				return true;
 			}
 
 			function refresh(recno) {
 				_refresh(recno);
+				HiddenField();
 			}
 
 			function readonly(t_para, empty) {
@@ -373,6 +397,9 @@
 				} else {
 					$('#combAddr').removeAttr('disabled');
 				}
+			}
+			
+			function HiddenField(){
 				var hasStyle = q_getPara('sys.isstyle');
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');
@@ -640,9 +667,9 @@
 						<td><input id="txtComp" type="text" class="txt c1"/></td>
 						<td class="label2"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td><input id="txtPaytype" type="text" class="txt c1" /></td>
-						<td><select id="combPaytype" class="txt c1" onchange='combPay_chg()'></select></td>
+						<td><select id="combPaytype" class="txt c1" onchange='combPay_chg()'> </select></td>
 						<td class="label3"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
-						<td><select id="cmbTrantype" class="txt c1" name="D1" ></select></td>
+						<td><select id="cmbTrantype" class="txt c1" name="D1" > </select></td>
 					</tr>
 					<tr class="tr4">
 						<td class="label1"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
@@ -665,10 +692,10 @@
 						<td><input id="txtPost2" type="text" class="txt c1"/></td>
 						<td colspan='4' >
 							<input id="txtAddr2" type="text" class="txt c1" style="width: 412px;"/>
-							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'></select>
+							<select id="combAddr" style="width: 20px" onchange='combAddr_chg()'> </select>
 						</td>
-						<td align="right" >&nbsp;</td>
-						<td>&nbsp;</td>
+						<td><span> </span><a id='lblApv' class="lbl apv"> </a></td>
+						<td><input id="txtApv" type="text" class="txt c1 apv" /></td>
 					</tr>
 					<tr class="tr7">
 						<td class="label1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -677,7 +704,7 @@
 						</td>
 						<td class="label2"><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td><input id="txtTax" type="text" class="txt c1 num"/></td>
-						<td><select id="cmbTaxtype" class="txt c1" onchange='sum()'></select></td>
+						<td><select id="cmbTaxtype" class="txt c1" onchange='sum()'> </select></td>
 						<td class="label3"><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 					</tr>

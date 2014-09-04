@@ -406,9 +406,14 @@
 				var t_custno = trim($('#txtCustno').val());
 				var t_where = '';
 				if (t_custno.length > 0) {
-					//t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : ""); //// sql AND 語法，請用 &&
 					t_where = "noa+'_'+no3 not in (select isnull(quatno,'')+'_'+isnull(no3,'') from view_ordes" + r_accy + " where noa!='" + $('#txtNoa').val() + "' ) and isnull(enda,0)=0 and isnull(cancel,0)=0"
-					t_where = t_where + ' and ' + q_sqlPara("custno", t_custno);
+					t_where = t_where + ' and ' + q_sqlPara("custno", t_custno)+" and odate>='"+q_date()+"'";
+					
+					if(q_getPara('sys.project').toUpperCase()=='XY'){
+						t_where = "";
+						t_where="noa+'_'+odate+'_'+productno in (select MAX(a.noa)+'_'+MAX(a.odate)+'_'+b.productno from view_quat a left join view_quats b on a.noa=b.noa where UPPER(a.apv)='Y' and isnull(b.enda,0)=0 and isnull(b.cancel,0)=0 "+q_sqlPara2("a.custno", t_custno)+" and a.odate>='"+q_date()+"' group by b.productno)";
+						t_where+=" and isnull(enda,0)=0 and isnull(cancel,0)=0 "+q_sqlPara2("custno", t_custno) +" and odate>='"+q_date()+"'";
+					}
 				}
 				else {
 					alert(q_getMsg('msgCustEmp'));
