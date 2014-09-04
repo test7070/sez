@@ -11,7 +11,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 		    var q_name = "ucc_s";
-			aPop = new Array(['txtUno', '', 'ucc', 'uno,product', 'txtUno,txtProduct', "ucc_b.aspx"]);
+			aPop = new Array(['txtNoa', '', 'ucc', 'noa,product', 'txtNoa,txtProduct', "ucc_b.aspx"]);
 		    $(document).ready(function () {
 		        main();
 		    });         /// end ready
@@ -35,10 +35,10 @@
 		    }
 		
 		    function q_seekStr() {   
-		        t_uno = $('#txtUno').val();  
+		        t_noa = $('#txtNoa').val();  
 				t_product = $('#txtProduct').val();
 		
-		        var t_where = " 1=1 " + q_sqlPara2("uno", t_uno) +q_sqlPara2("product", t_product);
+		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("product", t_product);
 		
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
@@ -71,8 +71,8 @@
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblUno'></a></td>
-                <td><input class="txt" id="txtUno" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+                <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblItem'></a></td>
