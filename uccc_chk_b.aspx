@@ -23,7 +23,7 @@
 			$(document).ready(function() {
 				var t_para = new Array();
 				try{
-	            	t_para = JSON.parse(decodeURIComponent(q_getId()[4]));
+	            	t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
 	            	$('#textProductno').val(t_para.productno);
 	            	$('#textBdime').val(t_para.bdime);
 	            	$('#textEdime').val(t_para.edime);
