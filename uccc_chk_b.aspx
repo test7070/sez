@@ -20,13 +20,20 @@
 			aPop = new Array(['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'], ['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']);
 			isLoadGt = 0;
 			$(document).ready(function() {
+				var t_para = new Array();
+				try{
+	            	t_para = JSON.parse(decodeURIComponent(q_getId()[4]));
+	            	$('#textProductno').val(t_para.productno);
+	            	$('#textBdime').val(t_para.bdime);
+	            	$('#textEdime').val(t_para.edime);
+	            	$('#textWidth').val(t_para.width);
+	            	$('#textLengthb').val(t_para.blength);            	
+	            }catch(e){
+	            }
 				setDefaultValue();
 				t_content += ' where=^^ ' + SeekStr() + ' ^^';
 				main();
-				$('#btnToSeek').click(function() {
-					seekData(SeekStr());
-					Lock();
-				});
+				
 			});
 			/// end ready
 
@@ -35,6 +42,7 @@
 					dataErr = false;
 					return;
 				}
+
 				var w = window.parent;
 				mainBrow(6, t_content);
 				w.$('#cboxTitle').text('若沒有找到相關資料，請注意類別的選取。').css('color', 'red').css('font-size', 'initial');
@@ -48,7 +56,7 @@
 			function mainPost() {
 				q_getFormat();
 				q_cmbParse("combTypea", q_getPara('sys.stktype'));
-				setDefaultValue();
+				//setDefaultValue();
 				$('#textProductno').focus(function() {
 					q_cur = 1;
 				}).blur(function() {
@@ -68,19 +76,14 @@
 						keypress_bbm(event, $(this), SeekF, 'btnToSeek');
 					});
 				});
+				$('#btnToSeek').click(function() {
+					seekData(SeekStr());
+					Lock();
+				});
 			}
 
 			function setDefaultValue() {
 				var w = window.parent;
-				var t_deli = '_';
-				if (w.q_name == 'cub')
-					t_deli = '__';
-				var t_productno = w.$('#txtProductno' + t_deli + w.b_seq).val();
-				t_productno = ( t_productno ? t_productno : '');
-				var t_radius = dec(w.$('#txtRadius' + t_deli + w.b_seq).val());
-				var t_dime = dec(w.$('#txtDime' + t_deli + w.b_seq).val());
-				var t_width = dec(w.$('#txtWidth' + t_deli + w.b_seq).val());
-				var t_lengthb = dec(w.$('#txtLengthb' + t_deli + w.b_seq).val());
 				var t_kind = '';
 				if (w.$('#cmbKind').val()) {
 					t_kind = $.trim(w.$('#cmbKind').val());
@@ -92,12 +95,8 @@
 						t_kind = 'B2';
 					}
 				}
+				t_kind = (t_kind.length==0?'A1':t_kind);
 				$('#combTypea').val(t_kind);
-				$('#textProductno').val(t_productno);
-				$('#textRadius').val(t_radius);
-				$('#textDime').val(t_dime);
-				$('#textWidth').val(t_width);
-				$('#textLengthb').val(t_lengthb);
 			}
 
 			function q_gtPost(t_name) {
@@ -126,22 +125,26 @@
 				t_productno = trim($('#textProductno').val());
 				t_storeno = trim($('#textStoreno').val());
 				t_class = trim($('#textClass').val());
-				t_radius = (dec($('#textRadius').val()) == 0 ? '' : dec($('#textRadius').val()));
-				t_dime = (dec($('#textDime').val()) == 0 ? '' : dec($('#textDime').val()));
-				t_width = (dec($('#textWidth').val()) == 0 ? '' : dec($('#textWidth').val()));
-				t_lengthb = (dec($('#textLengthb').val()) == 0 ? '' : dec($('#textLengthb').val()));
-				t_weight = (dec($('#textWeight').val()) == 0 ? '' : dec($('#textWeight').val()));
+				t_radius = q_float('textRadius');
+				t_bdime = q_float('textBdime');
+				t_edime = q_float('textEdime');
+				t_width = q_float('textWidth');
+				t_lengthb = q_float('textLengthb');
+				t_weight = q_float('textWeight');
 				t_kind = trim($('#combTypea').val());
 				var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno) + 
 							q_sqlPara2("productno", t_productno) + 
-							" and storeno='"+t_storeno+"'" + 
+							(q_getPara('sys.comp').substring(0,2)=='裕承'?" and storeno='"+t_storeno+"'":q_sqlPara2("storeno", t_storeno))+
 							q_sqlPara2("class", t_class) + 
 							(t_radius>0?' and radius='+t_radius+' ':'') + 
-							(t_dime>0?' and dime='+t_dime+' ':'') + 
-							(t_width>0?' and width='+t_width+' ':'') + 
-							(t_lengthb>0?' and lengthb='+t_lengthb+' ':'') + 
+							(t_bdime>0?' and dime>='+t_bdime+' ':'') + 
+							(t_edime>0?' and dime<='+t_edime+' ':'') + 
+							(t_width>0?' and width>='+t_width+' ':'') + 
+							(t_lengthb>0?' and lengthb>='+t_lengthb+' ':'') + 
 							(t_weight>0?' and weight='+t_weight+' ':'') + 
 							q_sqlPara2("kind", t_kind);
+							
+				//alert(t_where);			
 				return t_where;
 			}
 
@@ -381,10 +384,14 @@
 					<td><span class="lbl">倉庫</span></td>
 					<td colspan="3">
 					<input id="textStoreno" type="text" style="width:25%"/>
-					<input id="textStore" type="text" style="width:73%"/>
+					<input id="textStore" type="text" style="width:65%"/>
 					</td>
 					<td><span class="lbl">類別</span></td>
 					<td><select id="combTypea" class="txt c1"></select></td>
+					<td><span class="lbl">重量</span></td>
+					<td>
+					<input id="textWeight" type="text" class="txt c1 num"/>
+					</td>
 				</tr>
 				<tr>
 					<td><span class="lbl">等級</span></td>
@@ -396,8 +403,10 @@
 					<input id="textRadius" type="text" class="txt c1 num"/>
 					</td>
 					<td><span class="lbl">厚度</span></td>
-					<td>
-					<input id="textDime" type="text" class="txt c1 num"/>
+					<td colspan="3">
+					<input id="textBdime" type="text" class="txt num" style="float:left;width:40%;"/>
+					<span style="float:left;">~</span>
+					<input id="textEdime" type="text" class="txt num" style="float:left;width:40%;"/>
 					</td>
 					<td><span class="lbl">寬度</span></td>
 					<td>
@@ -407,10 +416,7 @@
 					<td>
 					<input id="textLengthb" type="text" class="txt c1 num"/>
 					</td>
-					<td><span class="lbl">重量</span></td>
-					<td>
-					<input id="textWeight" type="text" class="txt c1 num"/>
-					</td>
+					
 				</tr>
 				<tr>
 					<td colspan="12" align="center">
