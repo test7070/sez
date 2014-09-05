@@ -27,14 +27,14 @@
 			brwCount = 6;
 			brwList = [];
 			brwNowPage = 0;
-			brwKey = 'uno';
+			brwKey = 'noa';
 			aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
 
 			$(document).ready(function() {
-				bbmKey = ['uno'];
+				bbmKey = ['noa'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
-				$('#txtUno').focus();
+				$('#txtNoa').focus();
 
 			});
 			function currentData() {
@@ -76,7 +76,7 @@
 					return;
 				}
 				mainForm(0);
-				$('#txtUno').focus();
+				$('#txtNoa').focus();
 			}
 			
 			var mousepoint;
@@ -134,7 +134,7 @@
 						//q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
 					}
 				});
-				$('#txtUno').change(function(){
+				$('#txtNoa').change(function(){
 					var thisVal = $.trim($(this).val());
 					if(thisVal.length > 0){
 						var t_where = "where=^^ noa='" + thisVal + "' ^^";
@@ -196,7 +196,7 @@
 						var as = _q_appendData("ucaucc", "", true);
 						if (as[0] != undefined) {
 							alert('物品編號重複!!');
-							$('#txtUno').val('').focus();
+							$('#txtNoa').val('').focus();
 						}
 						Unlock();
 						break;
@@ -363,11 +363,11 @@
 				if ($('#Copy').is(':checked')) {
 					curData.paste();
 				}
-				$('#txtUno').focus();
+				$('#txtNoa').focus();
 			}
 
 			function btnModi() {
-				if (emp($('#txtUno').val()))
+				if (emp($('#txtNoa').val()))
 					return;
 
 				_btnModi();
@@ -381,20 +381,17 @@
 			function btnOk() {
 				var t_err = '';
 
-				t_err = q_chkEmpField([['txtUno', q_getMsg('lblUno')], ['txtComp', q_getMsg('lblComp')]]);
 				$('#txtDate2').val(q_date());
 				$('#txtWorker').val(r_name);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
 				}
-				var t_uno = trim($('#txtUno').val());
-				$('#txtNoa').val(t_uno);
-
-				if (t_uno.length == 0)
-					q_gtnoa(q_name, t_uno);
+				var t_noa = trim($('#txtNoa').val());
+				if (t_noa.length == 0)
+					q_gtnoa(q_name, t_noa);
 				else
-					wrServer(t_uno);
+					wrServer(t_noa);
 			}
 
 			function wrServer(key_value) {
@@ -595,7 +592,7 @@
 			<table class="tview" id="tview"	border="1" cellpadding='2'	cellspacing='0' style="background-color: #FFFF66;">
 				<tr>
 					<td align="center" style="width:2%"><a id='vewChk'> </a></td>
-					<td align="center" style="width:15%"><a id='vewUno'> </a></td>
+					<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
 					<td align="center" style="width:25%"><a id='vewProduct'> </a></td>
 				</tr>
 				<tr>
@@ -608,10 +605,9 @@
 		<div class='dbbm' style="width: 68%;float: left;">
 			<table class="tbbm"	id="tbbm"	border="0" cellpadding='2'	cellspacing='0'>
 				<tr>
-					<td><a id='lblUno' class="lbl"> </a></td>
+					<td><a id='lblNoa' class="lbl"> </a></td>
 					<td colspan="5">
-						<input type="text" id="txtUno" class="txt c3"/>
-						<input type="text" id="txtNoa" style="display:none;"/>
+						<input type="text" id="txtNoa" class="txt c3"/>
 						<div style="float:left;">
 							<input id="Copy" type="checkbox" />
 							<span> </span><a id="lblCopy"> </a>
