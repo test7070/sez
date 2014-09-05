@@ -143,7 +143,7 @@
 							(t_bdime>0?' and dime>='+t_bdime+' ':'') + 
 							(t_edime>0?' and dime<='+t_edime+' ':'') + 
 							(t_width>0?' and width>='+t_width+' ':'') + 
-							(t_lengthb>0?' and lengthb>='+t_lengthb+' ':'') + 
+							(t_lengthb>0?' and (lengthb=0 or lengthb>='+t_lengthb+') ':'') + 
 						//	(t_weight>0?' and weight>='+t_weight+' ':'') + 
 							q_sqlPara2("kind", t_kind);
 							
