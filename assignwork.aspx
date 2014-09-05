@@ -130,11 +130,14 @@
                 });
                 
                 $('#chkEnda').click(function() {
+                	//103/09/05 千嘉 如果付款日沒打,但有勾結案要依今天日期產生付款日
+                	//102/07/08 欣芸&&千嘉
+						//如果10日之前結案則當月10日，否則下個月10日,遇六日則順延<Begin>
 					if(emp($('#txtEnddate').val())&&$('#chkEnda')[0].checked) {
 						$('#txtEnddate').val(q_date());
-						
-						//102/07/08 欣芸&&千嘉
-						//如果10日之前結案則當月10日，否則下個月10日,遇六日則順延<Begin>
+					}
+					
+					if(emp($('#txtPaydate').val())&&$('#chkEnda')[0].checked) {
 						if(dec(q_date().substr(7,2))>=10){
 			                var t_year = q_date().substring(0,3);
 			                var t_mon = q_date().substring(4,6);
