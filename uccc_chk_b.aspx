@@ -17,7 +17,8 @@
 			var q_readonly = ['textProduct', 'textStore'];
 			brwCount = -1;
 			brwCount2 = 0;
-			aPop = new Array(['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx'], ['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']);
+			aPop = new Array(['textProductno', '', 'ucc', 'noa,product', 'textProductno,textProduct', 'ucc_b.aspx']
+			, ['textStoreno', '', 'store', 'noa,store', 'textStoreno,textStore', 'store_b.aspx']);
 			isLoadGt = 0;
 			$(document).ready(function() {
 				var t_para = new Array();
@@ -31,7 +32,10 @@
 	            }catch(e){
 	            }
 				setDefaultValue();
-				t_content += ' where=^^ ' + SeekStr() + ' ^^';
+				if(q_getPara('sys.comp').substring(0,2)=='裕承')
+					t_content += ' where=^^ 1!=1 ^^';
+				else
+					t_content += ' where=^^ ' + SeekStr() + ' ^^';
 				main();
 				
 			});
@@ -42,7 +46,7 @@
 					dataErr = false;
 					return;
 				}
-
+				
 				var w = window.parent;
 				mainBrow(6, t_content);
 				w.$('#cboxTitle').text('若沒有找到相關資料，請注意類別的選取。').css('color', 'red').css('font-size', 'initial');
@@ -55,7 +59,7 @@
 			var SeekF = new Array();
 			function mainPost() {
 				q_getFormat();
-				q_cmbParse("combTypea", q_getPara('sys.stktype'));
+				q_cmbParse("combTypea", " @ ,"+q_getPara('sys.stktype'));
 				//setDefaultValue();
 				$('#textProductno').focus(function() {
 					q_cur = 1;
@@ -95,7 +99,6 @@
 						t_kind = 'B2';
 					}
 				}
-				t_kind = (t_kind.length==0?'A1':t_kind);
 				$('#combTypea').val(t_kind);
 			}
 
@@ -113,7 +116,7 @@
 
 			function seekData(seekStr) {
 				isLoadGt = 1;
-				q_gt(q_name, 'where=^^ ' + seekStr + ' ^^', 0, 0, 0, "", r_accy);
+				q_gt(q_name, 'where=^^ ' + seekStr + ' ^^', 0, 0, 0, "");
 			}
 
 			function bbsAssign() {
@@ -141,7 +144,7 @@
 							(t_edime>0?' and dime<='+t_edime+' ':'') + 
 							(t_width>0?' and width>='+t_width+' ':'') + 
 							(t_lengthb>0?' and lengthb>='+t_lengthb+' ':'') + 
-							(t_weight>0?' and weight='+t_weight+' ':'') + 
+						//	(t_weight>0?' and weight>='+t_weight+' ':'') + 
 							q_sqlPara2("kind", t_kind);
 							
 				//alert(t_where);			
@@ -188,7 +191,7 @@
 				});
 				var t_cmbKind = '';
 				t_cmbKind = $('#combTypea').val().substr(0, 1);
-				if (t_cmbKind == 'A') {
+				if (t_cmbKind == 'A' || $.trim(t_cmbKind) == '') {
 					$('#lblSize_st').text(q_getPara('sys.lblSizea')).show();
 					$('#lblSize_st').parent().css('width', '18%').show();
 					$('#size_changeTd').css('width', '18%').show();
@@ -388,8 +391,8 @@
 					</td>
 					<td><span class="lbl">類別</span></td>
 					<td><select id="combTypea" class="txt c1"></select></td>
-					<td><span class="lbl">重量</span></td>
-					<td>
+					<td style="display:none;"><span class="lbl">重量</span></td>
+					<td style="display:none;">
 					<input id="textWeight" type="text" class="txt c1 num"/>
 					</td>
 				</tr>
