@@ -94,7 +94,7 @@
                 $('#txtDatea').val(q_date());
             	$('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
-                bankt_change();
+                bankt_change(0);
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -104,7 +104,7 @@
              		    return;
                 _btnModi();
                 $('#txtDatea').focus();
-                
+                bankt_change(0);
             }
 
             function btnPrint() {
@@ -137,7 +137,7 @@
                 _refresh(recno);
                 $('#lblAcc1x').text($('#lblAcc1').text());
 				$('#lblAcc2x').text($('#lblAcc2').text());
-				bankt_change();
+				bankt_change(0);
             }
 
             function readonly(t_para, empty) {
@@ -198,43 +198,79 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function bankt_change(){
-				bankt_val = $('#cmbBankt').val();
-				if(bankt_val == '1'){
-					$('#txtAcc1').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtAcc2').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtEnddate').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtAcc3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtAcc4').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtMoney2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtCheckno').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtPaydate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtBankno3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtMoney3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtBank3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#lblAcc1').show();
-					$('#lblAcc1x').hide();
-					$('#lblAcc2').hide();
-					$('#lblAcc2x').show();
-				}else if(bankt_val == '2'){
-					$('#txtAcc3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtAcc4').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtMoney2').val('0').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtCheckno').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtPaydate').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtBankno3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtMoney3').val('0').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtBank3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
-					$('#txtAcc1').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtAcc2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#txtEnddate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
-					$('#lblAcc1x').show();
-					$('#lblAcc1').hide();
-					$('#lblAcc2x').hide();
-					$('#lblAcc2').show();
+            function bankt_change(init){
+            	bankt_val = $('#cmbBankt').val();
+            	if(q_cur==1 || q_cur==2){
+					if(bankt_val == '1'){
+						$('#txtAcc1').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtAcc2').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtEnddate').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						if(init==1){
+							$('#txtAcc3').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtAcc4').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtMoney2').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtCheckno').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtPaydate').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtBankno3').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtMoney3').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtBank3').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+						}else{
+							$('#txtAcc3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtAcc4').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtMoney2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtCheckno').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtPaydate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtBankno3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtMoney3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtBank3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+						}
+						$('#lblAcc1').show();
+						$('#lblAcc1x').hide();
+						$('#lblAcc2').hide();
+						$('#lblAcc2x').show();
+					}else if(bankt_val == '2'){
+						
+						if(init==1){
+							$('#txtAcc1').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtAcc2').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtEnddate').val('').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+						}else{
+							$('#txtAcc1').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtAcc2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+							$('#txtEnddate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+						}
+						$('#txtAcc3').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtAcc4').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtMoney2').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtCheckno').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtPaydate').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtBankno3').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtMoney3').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						$('#txtBank3').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+						
+						$('#lblAcc1x').show();
+						$('#lblAcc1').hide();
+						$('#lblAcc2x').hide();
+						$('#lblAcc2').show();
+					}else{
+						$('#lblAcc1x').hide();
+						$('#lblAcc2x').hide();
+					}
 				}else{
-					$('#lblAcc1x').hide();
-					$('#lblAcc2x').hide();
+					if(bankt_val == '1'){
+						$('#lblAcc1').show();
+						$('#lblAcc1x').hide();
+						$('#lblAcc2').hide();
+						$('#lblAcc2x').show();
+					}else if(bankt_val == '2'){
+						$('#lblAcc1x').show();
+						$('#lblAcc1').hide();
+						$('#lblAcc2x').hide();
+						$('#lblAcc2').show();
+					}else{
+						$('#lblAcc1x').hide();
+						$('#lblAcc2x').hide();
+					}
 				}
             }
 		</script>
@@ -404,7 +440,7 @@
 						<td><span> </span><a id='lblBankt' class="lbl btn"> </a></td>
 						<td><input id="txtBanktno" type="text" class="txt c1" /></td>
 						<td><input id="txtBanktname" type="text" class="txt c1" /></td>
-						<td><select id="cmbBankt" class="txt c1" onchange="bankt_change();"> </select></td>
+						<td><select id="cmbBankt" class="txt c1" onchange="bankt_change(1);"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
