@@ -65,6 +65,12 @@
                 $('#txtXmon').val(t_date);
                 $('#txtXyear').val(t_date.substr(0,3));
                 
+                //1030909 副總 不讓員工列印
+                if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	                $('.prt input').not("#btnOk").not("#btnTop").not("#btnPrev").not("#btnNext").not("#btnBott").not("#txtPageno").not("#txtEnd").hide();
+	                $('.prt select').hide();
+	                $('.prt a').hide();
+                }
             }
 		</script>
 	</head>
