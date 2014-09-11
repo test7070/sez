@@ -64,7 +64,7 @@
 						if (!isExclude) {
 							curData.data.push({
 								field : fbbm[i],
-								value : $('#' + fbbm[i]).val()
+								value : fbbm[i].substr(0,3)=='chk'?$('#' + fbbm[i]).prop("checked"):$('#' + fbbm[i]).val()
 							});
 						}
 					}
@@ -72,7 +72,10 @@
 				/*貼上資料*/
 				paste : function() {
 					for (var i in curData.data) {
-						$('#' + curData.data[i].field).val(curData.data[i].value);
+						if(curData.data[i].field.substr(0,3)=='chk')
+							$('#' + curData.data[i].field).prop("checked",curData.data[i].value);
+						else
+							$('#' + curData.data[i].field).val(curData.data[i].value);
 					}
 				}
 			};

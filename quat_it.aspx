@@ -292,6 +292,8 @@
 								$('#txtWorker' ).val(r_name);
 							if(q_cur==2)
 								$('#txtWorker2' ).val(r_name);
+								
+							sum();
 							
 							var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 							if(s1.length == 0 || s1 == "AUTO")
@@ -356,6 +358,7 @@
 						$('#txtMount_' + j).change(function () {sum();});
 						//$('#txtWeight_' + j).change(function () {sum();});
 						$('#txtPrice_' + j).change(function () {sum();});
+						$('#txtProductno_' + j).change(function () {sum();});
 						$('#btnVccrecord_' + j).click(function () {
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
