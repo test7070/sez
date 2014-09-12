@@ -626,6 +626,14 @@
 					Unlock(1);
             		return;
 				}
+				var t_custno = $.trim($('#txtCustno').val());
+				var t_addrno = $.trim($('#txtStraddrno').val());
+				if(t_custno.length>0 && t_addrno.substring(0,t_custno.length)!=t_custno){
+					alert('客戶編號、起迄地點不一致\n請確認!');
+					Unlock(1);
+					return;
+				}
+				
 				var t_days = 0;
                 var t_date1 = $('#txtDatea').val();
                 var t_date2 = $('#txtTrandate').val();

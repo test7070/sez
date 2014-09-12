@@ -53,9 +53,11 @@
         var t_where = " 1=1 "
         		+ q_sqlPara2("datea", t_bdate, t_edate) 
         		+ q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) 
-        		 +q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)+ q_sqlPara2("quatno", t_quatno)
+        		 +q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)
         		 +q_sqlPara2("stype", t_stype)+ q_sqlPara2("contract", t_contract);
-
+		if(t_quatno.length>0)
+		       		t_where += " and exists(select noa from ordes"+r_accy+" where ordes"+r_accy+".noa=orde"+r_accy+".noa and ordes"+r_accy+".quatno='"+t_quatno+"')";
+		       		
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
