@@ -49,6 +49,10 @@
 							type : '8',//[10]
 							name : 'xshowprice',
 							value : "1@".split(',')
+	                    }, {
+	                        type : '0', //[11] //判斷顯示小數點
+	                        name : 'xacomp',
+	                        value : q_getPara('sys.comp')
 	                    }]
                     });
                 q_popAssign();
