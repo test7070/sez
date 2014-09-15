@@ -50,7 +50,11 @@
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
-                    }]
+                    }, {
+						type : '0', //[12] //判斷顯示小數點
+						name : 'xacomp',
+						value : q_getPara('sys.comp')
+					}]
 				});
                 q_popAssign();
                  

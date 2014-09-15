@@ -51,7 +51,7 @@
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
         var t_where = " 1=1 "
-        		+ q_sqlPara2("datea", t_bdate, t_edate) 
+        		+ q_sqlPara2("odate", t_bdate, t_edate) 
         		+ q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) 
         		 +q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)
         		 +q_sqlPara2("stype", t_stype)+ q_sqlPara2("contract", t_contract);
