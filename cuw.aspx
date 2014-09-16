@@ -14,7 +14,7 @@
 
 			q_tables = 't';
 			var q_name = "cuw";
-			var q_readonly = ['txtNoa','txtStation'];
+			var q_readonly = ['txtNoa','txtStation','txtWorker'];
 			var q_readonlys = ['txtBorntime','txtAddtime','txtWorkmount','txtMount'];
 			var q_readonlyt = ['txtHours','txtAddhours'];
 			var bbmNum = [];
@@ -277,6 +277,10 @@
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
+				}
+				
+				if(q_cur==1){
+					$('#txtWorker').val(r_name);
 				}
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -742,6 +746,10 @@
 							<input type="button" class="" id="btnCuyimport"/>
 							<input type="button" class="" id="btnWorkmount"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
