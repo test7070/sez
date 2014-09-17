@@ -110,7 +110,7 @@
 			if (q_cur > 0 && q_cur < 4)  // 1-3
 				return;
 
-			q_box('salexam_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
+			q_box('salaward_it_s.aspx', q_name + '_s', "500px", "320px", q_getMsg("popSeek"));
 		}
 
 		function bbsAssign() {  /// 表身運算式
@@ -159,7 +159,7 @@
 			table_change();
 		}
 		function btnPrint() {
-			q_box('z_salaward_it.aspx' + "?;;;;" + r_accy, '','95%', '95%', q_getMsg("popPrint"));
+			q_box('z_salaward_it.aspx' + "?;;;noa="+$('#txtNoa').val()+";" + r_accy, '','95%', '95%', q_getMsg("popPrint"));
 		}
 
 		function wrServer(key_value) {
