@@ -83,6 +83,11 @@
                     else
                     	$('#txtNick').val('');
                 });
+                
+                $("#txtMoney").change(function() {
+                    var taxrate=dec(q_getPara('bankf.taxrate'));
+                    $('#txtTax').val(q_mul(q_float('txtMoney'),q_div(taxrate,100)));
+                });
             }
             function q_boxClose(s2) {
                 var ret;
