@@ -16,12 +16,13 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var gfrun = false;
-            var uccgaItem = '';
+            var uccgaItem = '',uccgbItem = '',uccgcItem = '';
             var partItem = '';
             var sss_state = false;
             var issale = '0';
             var job = '';
             var sgroup = '';
+            var isinvosystem = '';
 
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;100";
@@ -29,8 +30,17 @@
             
             $(document).ready(function() {
                 q_getId();
+                if (isinvosystem.length == 0) {
+                    q_gt('ucca', 'stop=1 ', 0, 0, 0, "ucca_invo");
+                }
                 if (uccgaItem.length == 0) {
                     q_gt('uccga', '', 0, 0, 0, "");
+                }
+                if (uccgbItem.length == 0) {
+                    q_gt('uccgb', '', 0, 0, 0, "");
+                }
+                if (uccgcItem.length == 0) {
+                    q_gt('uccgc', '', 0, 0, 0, "");
                 }
                 if (partItem.length == 0) {
                     q_gt('part', '', 0, 0, 0, "");
@@ -40,8 +50,12 @@
                 }
                 
                 $('#q_report').click(function(e) {
-					if(q_getPara('sys.comp').indexOf('永勝') > -1 || q_getPara('sys.comp').indexOf('楊家') > -1 || q_getPara('sys.comp').indexOf('德芳') > -1){//沒有發票系統
+					if(isinvosystem=='2'){//沒有發票系統
 	                	$('#Xshowinvono').hide();
+	                }
+	                if(!(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)){
+						$('#Xgroupbno').hide();
+						$('#Xgroupcno').hide();
 	                }
 				});
             });
@@ -109,25 +123,37 @@
                         type : '5', //[17]//80
                         name : 'xgroupano',
                         value : uccgaItem.split(',')
+                    },{
+                        type : '5', //[18]//100
+                        name : 'xgroupbno',
+                        value : uccgbItem.split(',')
+                    },{
+                        type : '5', //[19]//200
+                        name : 'xgroupcno',
+                        value : uccgcItem.split(',')
                     }, {
                         type : '5',
-                        name : 'xstype', //[18]//100
+                        name : 'xstype', //[20]//400
                         value : [q_getPara('report.all')].concat(vccstype.split(','))
                     }, {
-                        type : '6', //[19]//200
+                        type : '6', //[21]//800
                         name : 'salesgroup'
                     }, {
                         type : '5',
-                        name : 'vcctypea', //[20]//400
+                        name : 'vcctypea', //[22]//1000
                         value : [q_getPara('report.all')].concat(q_getPara('vcc.typea').split(','))
                     },{
-                        type : '5', //[21]//800
+                        type : '5', //[23]//2000
                         name : 'xpartno',
                         value : partItem.split(',')
                     },{
-                        type : '8', //[22]//顯示發票號碼//1000
+                        type : '8', //[24]//顯示發票號碼//4000
                         name : 'xshowinvono',
                         value : "1@顯示發票資料".split(',')
+                    }, {
+                        type : '0', //[25] //判斷是否顯示規格
+                        name : 'isspec',
+                        value : q_getPara('sys.isspec')
                     }]
                 });
                 q_popAssign();
@@ -199,9 +225,47 @@
                 $('#chkXshowinvono').css('width', '220px').css('margin-top', '5px');
                 $('#chkXshowinvono span').css('width','180px')
                 
-                if(q_getPara('sys.comp').indexOf('永勝') > -1){//沒有發票系統
+                if(isinvosystem=='2'){//沒有發票系統
 	                $('#Xshowinvono').hide();
 				}
+				
+				if(!(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)){
+					$('#Xgroupbno').hide();
+					$('#Xgroupcno').hide();
+				}
+				
+				if(q_getPara('sys.comp').indexOf('楊家') > -1 || q_getPara('sys.comp').indexOf('德芳') > -1){
+					//打客戶編號和產品後面要自動帶一樣的值
+	                $('#txtCardeal1a').blur(function() {
+	                   	if(emp($('#txtCust1a').val())){
+	                   		$('#txtCust1b').val('');
+	                   	}
+	                   	$('#txtCust2a').val($('#txtCust1a').val());
+	                   	$('#txtCust2b').val($('#txtCust1b').val());
+	                });
+	                	
+	                $('#txtCust2a').blur(function() {
+	                   	if(emp($('#txtCust2a').val())){
+	                   		$('#txtCust2b').val('');
+	                   	}
+	                });
+	                
+	                $('#txtProduct1a').blur(function() {
+	                   	if(emp($('#txtProduct1a').val())){
+	                   		$('#txtProduct1b').val('');
+	                   	}
+	                   	$('#txtProduct2a').val($('#txtProduct1a').val());
+	                   	$('#txtProduct2b').val($('#txtProduct1b').val());
+	                });
+	                	
+	                $('#txtProduct2a').blur(function() {
+	                   	if(emp($('#txtProduct2a').val())){
+	                   		$('#txtProduct2b').val('');
+	                   	}
+	                });
+	                	
+				}
+				
             }
 
             function q_boxClose(s2) {
@@ -229,11 +293,33 @@
                         }
                         sss_state = true;
                         break;
+					case 'ucca_invo':
+						var as = _q_appendData("ucca", "", true);
+						if (as[0] != undefined) {
+							isinvosystem = '1';
+						} else {
+							isinvosystem = '2';
+						}
+						break;
                     case 'uccga':
                         var as = _q_appendData("uccga", "", true);
                         uccgaItem = " @全部";
                         for ( i = 0; i < as.length; i++) {
                             uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+                        }
+                        break;
+					case 'uccgb':
+                        var as = _q_appendData("uccgb", "", true);
+                        uccgbItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            uccgbItem = uccgbItem + (uccgbItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+                        }
+                        break;
+					case 'uccgc':
+                        var as = _q_appendData("uccgc", "", true);
+                        uccgcItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            uccgcItem = uccgcItem + (uccgcItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
                         }
                         break;
                      case 'part':
@@ -244,7 +330,7 @@
                         }
                         break;   
                 }
-                if (uccgaItem.length > 0 && partItem.length > 0 && sss_state && !gfrun) {
+                if (isinvosystem.length > 0 && uccgaItem.length > 0 &&uccgbItem.length > 0 &&uccgcItem.length > 0 && partItem.length > 0 && sss_state && !gfrun) {
                     gfrun = true;
                     q_gf('', 'z_vcc');
                 }

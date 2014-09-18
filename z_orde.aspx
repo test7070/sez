@@ -70,6 +70,10 @@
                         type : '5', //[15]
                         name : 'xend',
                         value : [q_getPara('report.all')].concat(new Array('1@Y', '0@N'))
+                    }, {
+                        type : '0', //[16] //判斷是否顯示規格
+                        name : 'isspec',
+                        value : q_getPara('sys.isspec')
                     }]
                 });
                 q_popAssign();
@@ -83,6 +87,28 @@
                 $('#txtXodate1').datepicker();
                 $('#txtXodate2').mask('999/99/99');
                 $('#txtXodate2').datepicker();
+                
+                var t_date, t_year, t_month, t_day;
+                t_date = new Date();
+                t_date.setDate(1);
+                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 1;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtXodate1').val(t_year + '/' + t_month + '/' + t_day);
+
+                t_date = new Date();
+                t_date.setDate(35);
+                t_date.setDate(0);
+                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 1;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtXodate2').val(t_year + '/' + t_month + '/' + t_day);
             }
 
             function q_boxClose(s2) {

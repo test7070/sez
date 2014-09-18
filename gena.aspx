@@ -125,13 +125,13 @@
                 			if(as[0]==undefined)
                 				return;
                 			//直接人工金額
-                			t_factitmoney=(dec(as[0].dmoney)-dec(as[0].cmoney));
+                			t_factitmoney=(q_sub(dec(as[0].dmoney),dec(as[0].cmoney)));
                 			//計算全部生產重量與數量
                 			var t_bornmount=0,t_bornweight=0;
                 			for(var j = 0; j < q_bbsCount; j++) {
                 				if(!emp($('#txtProductno_'+j).val())){
-                					t_bornmount+=dec($('#txtBornmount_'+j).val());
-                					t_bornweight+=dec($('#txtBornweight_'+j).val());
+                					t_bornmount=q_add(t_bornmount,dec($('#txtBornmount_'+j).val()));
+                					t_bornweight=q_add(t_bornweight,dec($('#txtBornweight_'+j).val()));
                 				}
                 			}
                 			//平均分攤金額
@@ -139,9 +139,9 @@
                 				if(!emp($('#txtProductno_'+j).val())){
                 					//看公司要用數量還是重量計算
                 					if(mw=='m')
-                						q_tr('txtFactitmoney_'+j,round(t_factitmoney*(dec($('#txtBornmount_'+j).val())/t_bornmount),0));
+                						q_tr('txtFactitmoney_'+j,round(q_mul(t_factitmoney,(q_div(dec($('#txtBornmount_'+j).val()),t_bornmount))),0));
                 					if(mw=='w')
-                						q_tr('txtFactitmoney_'+j,round(t_factitmoney*(dec($('#txtBornweight_'+j).val())/t_bornweight),0));	
+                						q_tr('txtFactitmoney_'+j,round(q_mul(t_factitmoney,(q_div(dec($('#txtBornweight_'+j).val()),t_bornweight))),0));	
                 				}
                 			}
                 			sum();
@@ -157,8 +157,8 @@
                 			var t_bornmount=0,t_bornweight=0;
                 			for(var j = 0; j < q_bbsCount; j++) {
                 				if(!emp($('#txtProductno_'+j).val())){
-                					t_bornmount+=dec($('#txtBornmount_'+j).val());
-                					t_bornweight+=dec($('#txtBornweight_'+j).val());
+                					t_bornmount=q_add(t_bornmount,dec($('#txtBornmount_'+j).val()));
+                					t_bornweight=q_add(t_bornweight,dec($('#txtBornweight_'+j).val()));
                 				}
                 			}
                 			//平均分攤金額
@@ -166,9 +166,9 @@
                 				if(!emp($('#txtProductno_'+j).val())){
                 					//看公司要用數量還是重量計算
                 					if(mw=='m')
-                						q_tr('txtMakemoney_'+j,round(t_makemoney*(dec($('#txtBornmount_'+j).val())/t_bornmount),0));
+                						q_tr('txtMakemoney_'+j,round(q_mul(t_makemoney,(q_div(dec($('#txtBornmount_'+j).val()),t_bornmount))),0));
                 					if(mw=='w')
-                						q_tr('txtMakemoney_'+j,round(t_makemoney*(dec($('#txtBornweight_'+j).val())/t_bornweight),0));
+                						q_tr('txtMakemoney_'+j,round(q_mul(t_makemoney,(q_div(dec($('#txtBornweight_'+j).val()),t_bornweight))),0));
                 				}
                 			}
                 			sum();
@@ -275,34 +275,46 @@
             	var t_gwelght=0,t_twelght = 0, t_welght = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
                 	if(mw=='m'){
-                		//計算直接原料單價
-	                	q_tr('txtStuffprice_'+j,round(q_float('txtStuffmoney_'+j)/q_float('txtBornmount_'+j),2));
+                		if(q_float('txtBornmount_'+j)>0){
+                			//計算直接原料單價
+	                		q_tr('txtStuffprice_'+j,round(q_div(q_float('txtStuffmoney_'+j),q_float('txtBornmount_'+j)),2));
+	                		//計算直接人工單價
+	                		q_tr('txtFactitprice_'+j,round(q_div(q_float('txtFactitmoney_'+j),q_float('txtBornmount_'+j)),2));
+	                		//計算製造費用單價
+	                		q_tr('txtMakeprice_'+j,round(q_div(q_float('txtMakemoney_'+j),q_float('txtBornmount_'+j)),2));
+	                	}else{
+	                		q_tr('txtStuffprice_'+j,0);
+	                		q_tr('txtFactitprice_'+j,0);
+	                		q_tr('txtMakeprice_'+j,0);
+	                	}
 	                	
-	                	//計算直接人工單價
-	                	q_tr('txtFactitprice_'+j,round(q_float('txtFactitmoney_'+j)/q_float('txtBornmount_'+j),2));
-	                	
-	                	//計算製造費用單價
-	                	q_tr('txtMakeprice_'+j,round(q_float('txtMakemoney_'+j)/q_float('txtBornmount_'+j),2));
-	                	
-						q_tr('txtMoney_'+j,q_float('txtStuffmoney_'+j)+q_float('txtFactitmoney_'+j)+q_float('txtMakemoney_'+j));
+						q_tr('txtMoney_'+j,q_add(q_add(q_float('txtStuffmoney_'+j),q_float('txtFactitmoney_'+j)),q_float('txtMakemoney_'+j)));
 						
 						if(q_float('txtBornmount_'+j)>=0)
-							q_tr('txtPrice_'+j,round(float('txtMoney_'+j)/q_float('txtBornmount_'+j),2));
+							q_tr('txtPrice_'+j,round(q_div(q_float('txtMoney_'+j),q_float('txtBornmount_'+j)),2));
+						else
+							q_tr('txtPrice_'+j,0);
                 	}
                 	if(mw=='w'){
-                		//計算直接原料單價
-	                	q_tr('txtStuffprice_'+j,round(q_float('txtStuffmoney_'+j)/q_float('txtBornweight_'+j),2));
+                		if(q_float('txtBornweight_'+j)>0){
+                			//計算直接原料單價
+	                		q_tr('txtStuffprice_'+j,round(q_div(q_float('txtStuffmoney_'+j),q_float('txtBornweight_'+j)),2));
+                			//計算直接人工單價
+	                		q_tr('txtFactitprice_'+j,round(q_div(q_float('txtFactitmoney_'+j),q_float('txtBornweight_'+j)),2));
+	                		//計算製造費用單價
+	                		q_tr('txtMakeprice_'+j,round(q_div(q_float('txtMakemoney_'+j),q_float('txtBornweight_'+j)),2));
+                		}else{
+                			q_tr('txtStuffprice_'+j,0);
+	                		q_tr('txtFactitprice_'+j,0);
+	                		q_tr('txtMakeprice_'+j,0);
+                		}
 	                	
-	                	//計算直接人工單價
-	                	q_tr('txtFactitprice_'+j,round(q_float('txtFactitmoney_'+j)/q_float('txtBornweight_'+j),2));
-	                	
-	                	//計算製造費用單價
-	                	q_tr('txtMakeprice_'+j,round(q_float('txtMakemoney_'+j)/q_float('txtBornweight_'+j),2));
-	                	
-						q_tr('txtMoney_'+j,q_float('txtStuffmoney_'+j)+q_float('txtFactitmoney_'+j)+q_float('txtMakemoney_'+j));
+						q_tr('txtMoney_'+j,q_add(q_add(q_float('txtStuffmoney_'+j),q_float('txtFactitmoney_'+j)),q_float('txtMakemoney_'+j)));
 						
-						if(q_float('txtBornmount_'+j)>=0)
-							q_tr('txtPrice_'+j,round(q_float('txtMoney_'+j)/q_float('txtBornweight_'+j),2));
+						if(q_float('txtBornweight_'+j)>=0)
+							q_tr('txtPrice_'+j,round(q_div(q_float('txtMoney_'+j),q_float('txtBornweight_'+j)),2));
+						else
+							q_tr('txtPrice_'+j,0);
                 	}
                 } // j
             }

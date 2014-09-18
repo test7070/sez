@@ -92,6 +92,8 @@
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_gt('uccga', '', 0, 0, 0, "");
+				q_gt('uccgb', '', 0, 0, 0, "");
+				q_gt('uccgc', '', 0, 0, 0, "");
 				
 				$('#btnUploadimg').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
