@@ -32,20 +32,23 @@
 					}, {
 						type : '1', //[3][4]
 						name : 'xmon'
+					}, {
+						type : '1', //[5][6]
+						name : 'xnoa'
 					}, {/*3*/
-						type : '2', //[5][6]
+						type : '2', //[7][8]
 						name : 'sss',
 						dbf : 'sss',
 						index : 'noa,namea',
 						src : 'sss_b.aspx'
 					}, {
-						type : '2', //[7][8]
+						type : '2', //[9][10]
 						name : 'part',
 						dbf : 'part',
 						index : 'noa,part',
 						src : 'part_b.aspx'
 					}, {
-						type : '5', //[9]
+						type : '5', //[11]
 						name : 'xorder',
 						value : (('').concat(new Array("員工編號", "部門"))).split(',')
 					}]
@@ -55,6 +58,11 @@
 				$('#txtXmon1').val(q_date().substr(0, 6)).mask(r_picm);
 				$('#txtXmon2').val(q_date().substr(0, 6)).mask(r_picm);
 				$('#txtXyear').val(q_date().substr(0, 6));
+				if(q_getHref()[1]!=undefined){
+					$('#txtXnoa1').val(q_getHref()[1]);
+					$('#txtXnoa2').val(q_getHref()[1]);
+				}
+				
 			}
 
 			var exchange = function(a, b) {
