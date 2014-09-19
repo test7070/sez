@@ -18,10 +18,21 @@
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911)+"_1";
             }
+            function z_accc() {
+            }
+            z_accc.prototype = {
+                data : {
+                    part : null
+                },
+                keyup : null
+            };
+            t_data = new z_accc();
+            
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_acccp');
+                q_gt('acpart', '', 0, 0, 0, "", r_accy+'_'+r_cno);
             });
+             
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_acccp',
@@ -36,10 +47,24 @@
                     }, {/*1  [3],[4]*/
                         type : '1',
                         name : 'xaccc3'
+                    }, {/*4 [5]*/
+                        type : '8',
+                        name : 'xpart',
+                        value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
                     }]
                 });
                 q_popAssign();
                 q_langShow();
+                
+                if(q_getPara('acc.lockPart')=='1' && r_rank<8){
+		        	$("#chkXpart").children('input').attr('Disabled','Disabled');
+		        	$('#chkXpart').children('input').prop('checked',false);
+		        	for(var i=0;i<$('#chkXpart').children('input').length;i++){
+		        		if ($('#chkXpart').children('input')[i].value==r_partno || i==0){
+		        			$('#chkXpart').children('input')[i].checked=true;
+		        		}
+		        	}
+		        }
 
                 var t_accc3=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
                 t_accc3  =  t_accc3.replace('accc3=','');
@@ -64,6 +89,20 @@
                     }
                     $('#btnOk').click();
                 });
+                
+            }
+            
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acpart':
+                        t_data.data['part'] = '';
+                        var as = _q_appendData("acpart", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        q_gf('', 'z_acccp');
+                        break;
+                }
             }
 		</script>
 	</head>

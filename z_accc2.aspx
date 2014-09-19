@@ -99,6 +99,20 @@
 				});
 				q_popAssign();
 				q_langShow();
+				
+				if(q_getPara('acc.lockPart')=='1' && r_rank<8){
+		        	$('#txtPart1a').val(r_partno);
+		        	$('#txtPart1a').attr('Disabled','Disabled');
+		        	$('#btnPart1').hide();
+		        	$('#txtPart2a').val(r_partno);
+		        	$('#txtPart2a').attr('Disabled','Disabled');
+		        	$('#btnPart2').hide();
+		        	
+		        	$('#txtXbpart').val(r_partno);
+		        	$('#txtXbpart').attr('Disabled','Disabled');
+		        	$('#txtXepart').val(r_partno);
+		        	$('#txtXepart').attr('Disabled','Disabled');
+		        }
 			}
 			function q_boxClose(t_name) {
 			}

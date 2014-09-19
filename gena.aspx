@@ -21,10 +21,7 @@
             var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtBornmount', 15, 0, 1],['txtBornweight', 15, 2, 1],
-            						['txtStuffmount', 15, 0, 1],['txtStuffweight', 15, 2, 1],['txtStuffmoney', 15, 0, 1],['txtStuffprice', 15, 2, 1],
-            						['txtFactitmoney', 15, 0, 1],['txtFactitprice', 15, 2, 1],['txtMakemoney', 15, 0, 1],['txtMakeprice', 15, 2, 1],
-            						['txtMoney', 15, 0, 1],['txtPrice', 15, 2, 1]];
+            var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -56,6 +53,12 @@
             var mw='w'; //判斷是要用數量m還是重量w
             function mainPost() {
 				q_getFormat();
+				bbsNum = [['txtBornmount', 15, q_getPara('rc2.mountPrecision'), 1],['txtBornweight', 15, q_getPara('rc2.weightPrecision'), 1],
+            						['txtStuffmount', 15, q_getPara('rc2.mountPrecision'), 1],['txtStuffweight', 15, q_getPara('rc2.weightPrecision'), 1],
+            						['txtStuffmoney', 15, 0, 1],['txtStuffprice', 15, q_getPara('rc2.pricePrecision'), 1],
+            						['txtFactitmoney', 15, 0, 1],['txtFactitprice', 15, q_getPara('rc2.pricePrecision'), 1],
+            						['txtMakemoney', 15, 0, 1],['txtMakeprice', 15, q_getPara('rc2.pricePrecision'), 1],
+            						['txtMoney', 15, 0, 1],['txtPrice', 15, q_getPara('rc2.pricePrecision'), 1]];
 				bbmMask = [['txtMon', r_picm]];
 				bbsMask = [];
 				q_mask(bbmMask);
@@ -191,7 +194,7 @@
                 
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('GA' + q_date(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_gena') + q_date(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -236,6 +239,7 @@
             }
 
             function btnPrint() {
+            	q_box('z_genap.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -290,7 +294,7 @@
 	                	
 						q_tr('txtMoney_'+j,q_add(q_add(q_float('txtStuffmoney_'+j),q_float('txtFactitmoney_'+j)),q_float('txtMakemoney_'+j)));
 						
-						if(q_float('txtBornmount_'+j)>=0)
+						if(q_float('txtBornmount_'+j)>0)
 							q_tr('txtPrice_'+j,round(q_div(q_float('txtMoney_'+j),q_float('txtBornmount_'+j)),2));
 						else
 							q_tr('txtPrice_'+j,0);
@@ -311,7 +315,7 @@
 	                	
 						q_tr('txtMoney_'+j,q_add(q_add(q_float('txtStuffmoney_'+j),q_float('txtFactitmoney_'+j)),q_float('txtMakemoney_'+j)));
 						
-						if(q_float('txtBornweight_'+j)>=0)
+						if(q_float('txtBornweight_'+j)>0)
 							q_tr('txtPrice_'+j,round(q_div(q_float('txtMoney_'+j),q_float('txtBornweight_'+j)),2));
 						else
 							q_tr('txtPrice_'+j,0);
@@ -509,7 +513,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 100%;
+         	width: 1300px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
