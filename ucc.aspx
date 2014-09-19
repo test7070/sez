@@ -599,7 +599,7 @@
 				</tr>
 				<tr>
 					<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-					<td align="center" id='noa'>~noa</td>
+					<td align="left" id='noa'>~noa</td>
 					<td align="left" id='product'>~product</td>
 				</tr>
 			</table>
