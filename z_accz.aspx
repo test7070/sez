@@ -67,6 +67,15 @@
 				$('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
                 var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0,3),q_date().substring(4,6)-1);
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
+                
+                if(q_getPara('acc.lockPart')=='1' && r_rank<8){
+		        	$('#txtXpartno1a').val(r_partno);
+		        	$('#txtXpartno1a').attr('Disabled','Disabled');
+		        	$('#btnXpartno1').hide();
+		        	$('#txtXpartno2a').val(r_partno);
+		        	$('#txtXpartno2a').attr('Disabled','Disabled');
+		        	$('#btnXpartno2').hide();
+		        }
 
 			}
 			

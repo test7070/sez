@@ -171,6 +171,17 @@
         		});
         		q_popAssign();
         		q_langShow();
+        		
+        		if(q_getPara('acc.lockPart')=='1' && r_rank<8){
+		        	$("#chkXpart").children('input').attr('Disabled','Disabled');
+		        	$("#chkXpart").children('input')[0].disabled=false;
+		        	$('#chkXpart').children('input').prop('checked',false);
+		        	for(var i=0;i<$('#chkXpart').children('input').length;i++){
+		        		if ($('#chkXpart').children('input')[i].value==r_partno || i==0){
+		        			$('#chkXpart').children('input')[i].checked=true;
+		        		}
+		        	}
+		        }
             }
             function q_boxClose(t_name) {
             }

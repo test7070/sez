@@ -89,7 +89,7 @@
                 }
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('GE' + q_date(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_costa') + q_date(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -154,6 +154,7 @@
             }
 
             function btnPrint() {
+            	q_box('z_costap.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -164,7 +165,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['productno']) {
+                if(!as['acc1']) {
                     as[bbsKey[1]] = '';
                     return;
                 }

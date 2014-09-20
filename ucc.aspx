@@ -92,6 +92,8 @@
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_gt('uccga', '', 0, 0, 0, "");
+				q_gt('uccgb', '', 0, 0, 0, "");
+				q_gt('uccgc', '', 0, 0, 0, "");
 				
 				$('#btnUploadimg').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
@@ -597,8 +599,8 @@
 				</tr>
 				<tr>
 					<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-					<td align="center" id='noa'>~noa</td>
-					<td align="center" id='product'>~product</td>
+					<td align="left" id='noa'>~noa</td>
+					<td align="left" id='product'>~product</td>
 				</tr>
 			</table>
 		</div>

@@ -20,7 +20,7 @@
             var q_name = "aem";
             var q_readonly = ['txtNoa','txtMoney','txtMoney1','txtMoney2','txtMoney3'];
             var q_readonlys = [];
-            var bbmNum = [['txtMen', 15, 0, 1], ['txtMen1', 15, 0, 1], ['txtMen2', 15, 0, 1], ['txtMen3', 15, 0, 1],['txtMoney', 15, 0, 1], ['txtMoney1', 15, 0, 1], ['txtMoney2', 15, 0, 1], ['txtMoney3', 15, 0, 1]];
+            var bbmNum = [['txtMan', 15, 0, 1], ['txtMan1', 15, 0, 1], ['txtMan2', 15, 0, 1], ['txtMan3', 15, 0, 1],['txtMoney', 15, 0, 1], ['txtMoney1', 15, 0, 1], ['txtMoney2', 15, 0, 1], ['txtMoney3', 15, 0, 1]];
             var bbsNum = [['txtMoney', 15, 0, 1], ['txtMoney1', 15, 0, 1], ['txtMoney2', 15, 0, 1], ['txtMoney3', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -60,11 +60,48 @@
 							alert('請先輸入'+q_getMsg('lblMon'));
 							return;
 						}
-						var t_where = "where=^^ left(accc2,2)= '"+$('#txtMon').val().substr(4,2)+"'  order by accc5^^";
-			        	q_gt('acccs', t_where, 0, 0, 0, "", $('#txtMon').val().substr(0,3)+'_'+r_cno);
+						var t_where = "where=^^ left(a.accc2,2)= '"+$('#txtMon').val().substr(4,2)+"' and a.accc5 like '55%' ^^";
+			        	q_gt('acccs_accc5', t_where, 0, 0, 0, "", $('#txtMon').val().substr(0,3)+'_'+r_cno);
 						
                 	}
 				});
+				
+				$('#txtMan1').change(function() {
+                	if((q_cur==1 || q_cur==2)) {
+                		for (var j = 0; j < q_bbsCount; j++) {
+                			if(!emp($('#txtAcc1_'+j).val()) && q_float('txtMan')>0)
+                				q_tr('txtMoney1_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan1'),q_float('txtMan'))),0));
+                			else
+                				q_tr('txtMoney1_'+j,0);
+                		}
+                	}
+                	sum();
+				});
+				
+				$('#txtMan2').change(function() {
+                	if((q_cur==1 || q_cur==2)) {
+                		for (var j = 0; j < q_bbsCount; j++) {
+                			if(!emp($('#txtAcc1_'+j).val()) && q_float('txtMan')>0)
+                				q_tr('txtMoney2_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan2'),q_float('txtMan'))),0));
+                			else
+                				q_tr('txtMoney2_'+j,0);
+                		}
+                	}
+                	sum();
+				});
+				
+				$('#txtMan3').change(function() {
+                	if((q_cur==1 || q_cur==2)) {
+                		for (var j = 0; j < q_bbsCount; j++) {
+                			if(!emp($('#txtAcc1_'+j).val()) && q_float('txtMan')>0)
+                				q_tr('txtMoney3_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan3'),q_float('txtMan'))),0));
+                			else
+                				q_tr('txtMoney3_'+j,0);
+                		}
+                	}
+                	sum();
+				});
+				
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -82,18 +119,22 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'acccs':
+                    case 'acccs_accc5':
                         var as = _q_appendData("acccs", "", true);
-                        var ac55=new Array();
+                        as.sort(compare);
+                        //分類
+                        /*var ac55=new Array();
                         var accc5='',t_accc5='',t_accc6='',accc5_total=0;
                         for (var i = 0; i < as.length; i++) {
                         	accc5=as[i].accc5;
                         	if(accc5!=t_accc5 && t_accc5!=''){
-                        		ac55.push({
-									acc1:t_accc5,
-									acc2:t_accc6,
-									money:accc5_total,
-								});
+                        		if(accc5_total>0){
+	                        		ac55.push({
+										acc1:t_accc5,
+										acc2:t_accc6,
+										money:accc5_total,
+									});
+								}
                         		
                         		accc5_total=0;
                         	}
@@ -101,7 +142,15 @@
                 			t_accc5=accc5;
                 			t_accc6=as[i].accc6;
                 		}
-                		q_gridAddRow(bbsHtm, 'tbbs', 'txtAcc1,txtAcc2,txtMoney', ac55.length, ac55, 'acc1,acc2,money', '');
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtAcc1,txtAcc2,txtMoney', ac55.length, ac55, 'acc1,acc2,money', '');*/
+                		for (var i = 0; i < as.length; i++) {
+                			as[i].money=q_sub(dec(as[i].dmoney),dec(as[i].cmoney));
+                			if(as[i].money<=0){
+                				as.splice(i, 1);
+                				i--;	
+                			}
+                		}
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtAcc1,txtAcc2,txtMoney', as.length, as, 'accc5,acc2,money', '');
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -109,17 +158,32 @@
                         break;
                 }  /// end switch
             }
+            
+            function compare(a,b) {
+				if (a.accc5 < b.accc5)
+					return -1;
+				if (a.accc5 > b.accc5)
+					return 1;
+				return 0;
+			}
 
             function btnOk() {
                 t_err = '';
                 t_err = q_chkEmpField([['txtMon', q_getMsg('lblMon')]]);
+                
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                
+                if(q_float('txtMan')!=q_add(q_float('txtMan1'),q_add(q_float('txtMan2'),q_float('txtMan3')))){
+                	alert("人數合計異常!!");
+                    return;
+                }
+                
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if (s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('AE' + q_date(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_aem') + q_date(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -148,9 +212,6 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtMon').val(q_date().substr(0, 6));
                 $('#txtMon').focus();
-
-                
-
             }
 
             function btnModi() {
@@ -171,7 +232,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['productno']) {
+                if (!as['acc1']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -192,10 +253,18 @@
             }
 
             function sum() {
-                var t_total1 = 0, t_total2 = 0, t_total3 = 0, t_total4 = 0, t_total5 = 0;
+                var t_money = 0, t_money1 = 0, t_money2 = 0, t_money3 = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-                    
+                    t_money=q_add(t_money,q_float('txtMoney_'+j));
+                    t_money1=q_add(t_money1,q_float('txtMoney1_'+j));
+                    t_money2=q_add(t_money2,q_float('txtMoney2_'+j));
+                    t_money3=q_add(t_money3,q_float('txtMoney3_'+j));
                 }
+                
+                q_tr('txtMoney',t_money);
+                q_tr('txtMoney1',t_money1);
+                q_tr('txtMoney2',t_money2);
+                q_tr('txtMoney3',t_money3);
             }
 
             function btnMinus(id) {
@@ -428,23 +497,23 @@
 				</tr>
 				<tr class="tr2">
 					<td class="td1"><span> </span><a id="lblMan" class="lbl"> </a></td>
-					<td class="td2"><input id="txtMan" type="text" class="txt c1"/></td>
+					<td class="td2"><input id="txtMan" type="text" class="txt num c1"/></td>
 					<td class="td3"><span> </span><a id="lblMan1" class="lbl"> </a></td>
-					<td class="td4"><input id="txtMan1" type="text" class="txt c1"/></td>
+					<td class="td4"><input id="txtMan1" type="text" class="txt num c1"/></td>
 					<td class="td5"><span> </span><a id="lblMan2" class="lbl"> </a></td>
-					<td class="td6"><input id="txtMan2" type="text" class="txt c1"/></td>
+					<td class="td6"><input id="txtMan2" type="text" class="txt num c1"/></td>
 					<td class="td7"><span> </span><a id="lblMan3" class="lbl"> </a></td>
-					<td class="td8"><input id="txtMan3" type="text" class="txt c1"/></td>
+					<td class="td8"><input id="txtMan3" type="text" class="txt num c1"/></td>
 				</tr>
 				<tr class="tr2">
 					<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
-					<td class="td2"><input id="txtMoney" type="text" class="txt c1"/></td>
+					<td class="td2"><input id="txtMoney" type="text" class="txt num c1"/></td>
 					<td class="td3"><span> </span><a id="lblMoney1" class="lbl"> </a></td>
-					<td class="td4"><input id="txtMoney1" type="text" class="txt c1"/></td>
+					<td class="td4"><input id="txtMoney1" type="text" class="txt num c1"/></td>
 					<td class="td5"><span> </span><a id="lblMoney2" class="lbl"> </a></td>
-					<td class="td6"><input id="txtMoney2" type="text" class="txt c1"/></td>
+					<td class="td6"><input id="txtMoney2" type="text" class="txt num c1"/></td>
 					<td class="td7"><span> </span><a id="lblMoney3" class="lbl"> </a></td>
-					<td class="td8"><input id="txtMoney3" type="text" class="txt c1"/></td>
+					<td class="td8"><input id="txtMoney3" type="text" class="txt num c1"/></td>
 				</tr>
 			</table>
 		</div>

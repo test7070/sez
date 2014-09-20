@@ -16,18 +16,18 @@
 		}
 		var decbbm = ['inprice', 'saleprice', 'reserve', 'beginmount','uweight','beginmoney','drcr','price2','days','stkmount','safemount','stkmoney'];
 		var q_name = "ucc";
-		var q_readonly = ['txtUno'];
+		var q_readonly = ['txtNoa'];
 		var bbmNum = [['txtSaleprice',10,2,1],['txtInprice',10,2,1]];	
 		var bbmMask = []; 
-		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'uno';
+		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
 		//ajaxPath = ""; //	execute in Root
 		aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
 		
 		$(document).ready(function () {
-			bbmKey = ['uno'];
+			bbmKey = ['noa'];
 			q_brwCount();
 			q_gt(q_name, q_content, q_sqlCount, 1);
-			$('#txtUno').focus();
+			$('#txtNoa').focus();
 			
 		});
 		function currentData() {
@@ -71,7 +71,7 @@
 			}
 			q_mask(bbmMask);
 			mainForm(0); // 1=Last	0=Top
-			$('#txtUno').focus();
+			$('#txtNoa').focus();
 		}	///	end Main()
 
 
@@ -109,8 +109,8 @@
 					var autonumber='000';//流水編號
 					if (as[0] != undefined) {
 						for ( var i = 0; i < as.length; i++) {
-							if(maxnumber<parseInt(as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length)))
-								maxnumber=as[i].uno.substring(as[i].uno.length-autonumber.length,as[i].uno.length);
+							if(maxnumber<parseInt(as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length)))
+								maxnumber=as[i].noa.substring(as[i].noa.length-autonumber.length,as[i].noa.length);
 						}
 					}
 					
@@ -184,11 +184,11 @@
 				curData.paste();
 			}
 			
-			$('#txtUno').val('AUTO').focus();
+			$('#txtNoa').val('AUTO').focus();
 		}
 
 		function btnModi() {
-			if (emp($('#txtUno').val()))
+			if (emp($('#txtNoa').val()))
 				return;
 			_btnModi();
 		}
@@ -200,7 +200,7 @@
 		function btnOk() {
 			var t_err = '';
 
-			t_err = q_chkEmpField([['txtUno', q_getMsg('lblUno')]]);
+			t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 
 			if (t_err.length > 0) {
 				alert(t_err);
@@ -208,10 +208,10 @@
 			}
 			
 			$('#txtWorker' ).val(  r_name); 
-			var t_uno = trim($('#txtUno').val());
+			var t_uno = trim($('#txtNoa').val());
 			if (t_uno.length == 0 || t_uno=='AUTO'){
 				//自動編號-找該類別最大數值
-				q_gt('ucc', "where=^^ left(uno,1)='"+($('#cmbGroupano').val()=='N'?'D':$('#cmbGroupano').val())+"'^^", 0, 0, 0, 'getmaxuno', r_accy);
+				q_gt('ucc', "where=^^ left(noa,1)='"+($('#cmbGroupano').val()=='N'?'D':$('#cmbGroupano').val())+"'^^", 0, 0, 0, 'getmaxuno', r_accy);
 			}else{
 				$('#txtNoa').val(t_uno);
 				wrServer(t_uno);
@@ -421,7 +421,7 @@
 		<table class="tview" id="tview"	border="1" cellpadding='2'	cellspacing='0' style="background-color: #FFFF66;">
 		<tr>
 			<td align="center" style="width:2%"><a id='vewChk'> </a></td>
-			<td align="center" style="width:15%"><a id='vewUno'> </a></td>
+			<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
 			<td align="center" style="width:25%"><a id='vewProduct'> </a></td>
 		</tr>
 		<tr>
@@ -434,10 +434,9 @@
 	<div class='dbbm' style="width: 68%;float: left;">
 	<table class="tbbm"	id="tbbm"	border="0" cellpadding='2'	cellspacing='0'>
 		<tr>
-			<td class="td1"><span> </span><a id='lblUno' class="lbl"> </a></td>
+			<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 			<td class="td2">
-				<input id="txtUno"  type="text" class="txt c1" />
-				<input id="txtNoa"  type="text" class="txt c1" style="display:none;" />
+				<input id="txtNoa"  type="text" class="txt c1" />
 			</td>
 			<td class="td3"><input id="Copy" type="checkbox" /> <span> </span><a id="lblCopy"></a></td>
 			<td class="td4"> </td>
