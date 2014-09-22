@@ -15,41 +15,51 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-             if(location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;101";
-            }
+            var acompItem = '';
             $(document).ready(function() {
-            	q_getId();
-                q_gf('', 'z_orde');
-               
+                q_getId();
+                q_gt('acomp', '', 0, 0, 0, "");
             });
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acomp':
+                        var as = _q_appendData("acomp", "", true);
+                        acompItem = " @全部";
+                        for ( i = 0; i < as.length; i++) {
+                            acompItem = acompItem + (acompItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                        }
+                        q_gf('', 'z_orde');
+                        break;
+                }
+            }
+
             function q_gfPost() {
                 $('#qReport').q_report({
                     fileName : 'z_orde',
                     options : [{
-                        type : '0',//[1]
+                        type : '0', //[1]
                         name : 'accy',
                         value : q_getId()[4]
                     }, {
-                        type : '1',//[2][3]
+                        type : '1', //[2][3]
                         name : 'xdate'
-                    },{
-                        type : '1',//[4][5]
+                    }, {
+                        type : '1', //[4][5]
                         name : 'xodate'
                     }, {
-                        type : '2',//[6][7]
+                        type : '2', //[6][7]
                         name : 'xcust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
                     }, {
-                        type : '2',//[8][9]
+                        type : '2', //[8][9]
                         name : 'xsales',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
                     }, {
-                        type : '2',//[10][11]
+                        type : '2', //[10][11]
                         name : 'xproduct',
                         dbf : 'ucc',
                         index : 'noa,product',
@@ -74,6 +84,10 @@
                         type : '0', //[16] //判斷是否顯示規格
                         name : 'isspec',
                         value : q_getPara('sys.isspec')
+                    },{
+                        type : '5', //[17]
+                        name : 'xcno',
+                        value : acompItem.split(',')
                     }]
                 });
                 q_popAssign();
@@ -83,7 +97,7 @@
                 $('#txtXdate1').datepicker();
                 $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate2').datepicker();
- 				$('#txtXodate1').mask('999/99/99');
+                $('#txtXodate1').mask('999/99/99');
                 $('#txtXodate1').datepicker();
                 $('#txtXodate2').mask('999/99/99');
                 $('#txtXodate2').datepicker();
@@ -113,15 +127,13 @@
 
             function q_boxClose(s2) {
             }
-            function q_gtPost(s2) {
-            }
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"> </div>
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="qReport"></div>
