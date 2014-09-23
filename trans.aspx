@@ -370,12 +370,11 @@
                         }
                 		break;                	
                 	case 'btnModi':
+                		// 寄、修、洗櫃費需要修改，暫時先不鎖定
                 		var as = _q_appendData("trans", "", true);
                         if (as[0] != undefined) {
                         	if(as[0].ordeno.length>0){
-                        		alert('轉來的單據禁止修改。');
-                        		Unlock(1);
-                        		return;
+                        		alert('轉來的單據，修改請注意。');
                         	}
                         }
                         Unlock(1);
