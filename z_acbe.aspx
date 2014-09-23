@@ -32,7 +32,7 @@
 		            var t_detail = $('#chkDetail')[0].checked;
 		            t_detail = (t_detail ? 1 : 0);
 
-		            var t_where = r_accy + ';' + r_cno + ';' + t_bdate + ';' + t_edate + ';' + t_edate + ';' + t_detail;
+		            var t_where = r_accy + ';' + r_cno + ';' + t_bdate + ';' + t_edate + ';' + $('#combPart').val() + ';' + t_detail;
 		            var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",bdate=" + t_bdate + ",edate=" + t_edate + ",r_cno=" + r_cno;
 
 		            q_gtx("z_acbe1", t_where + ";;" + t_para + ";;z_acbe;;" + q_getMsg('qTitle'));
