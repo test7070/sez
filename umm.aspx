@@ -14,7 +14,7 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
-            var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2','txtCno'];
+            var q_readonlys = ['txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2','txtCno','txtCoin'];
             var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
             var bbmMask = [];
@@ -134,38 +134,13 @@
                 $('#btnVcc').click(function(e) {
                 	var t_noa = $.trim($('#txtNoa').val());
                 	var t_custno = $.trim($('#txtCustno').val());
+                	var t_mon = $.trim($('#txtMon').val());
                 	if(t_custno.length==0){
                 		alert('請先輸入'+q_getMsg('lblCust')+'!!');
                 		return;
                 	}
-                	var t_where = " where=^^ (case when a.custno2!='' then a.custno2 else a.custno end)='"+t_custno+"' ^^";
-                	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";
-                	var t_where2 = " where[2]=^^ 1=0 ^^";
-                	var t_where3 = " where[3]=^^ 1=0 ^^";
-                	var t_where4 = " where[4]=^^ vccno=a.custno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
-                	if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
-                		var t_where5 = " where[5]=^^ "+q_getPara('sys.d4taxtype')+"!=3 and a.custno='"+t_custno+"' and a.datea >'102/10/31' and (taxtype='1' or taxtype='5') ^^";
-                	}else{
-                		var t_where5 = " where[5]=^^ "+q_getPara('sys.d4taxtype')+"!=3 and a.custno='"+t_custno+"' and (taxtype='1' or taxtype='5') ^^";//舊帳請根據公司加入限制日期或月份
-                	}
-                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
+                	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_mon+"','"+q_getPara('sys.d4taxtype')+"')^^", 0, 0, 0, "umm_import");
                 	
-                	/*1021129 PS.
-                	 		有買發票系統 要開發票的帳 稅金不能是應稅和自訂，只能在vcca上輸入
-							沒有發票系統 不限定
-					*/
-                	
-                	/*if(emp($('#txtDatea').val())){
-                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
-                		return;
-                	}
-                    var t_cust=emp($('#txtCustno').val())?"":(" and a.custno ='"+$('#txtCustno').val()+"'");
-                    var t_where = "where=^^ 1=1 "+t_cust+" and a.datea<='"+$('#txtDatea').val()+"' ^^";
-                    var t_where1 = "where[1]=^^ noa!='"+$('#txtNoa').val()+"' and vccno=a.noa^^";
-                    var t_where2 = "where[2]=^^ 1=0 ^^";
-                    var t_where3 = "where[3]=^^ 1=0 ^^";
-                    var t_where4 = "where[4]=^^ 1=0 ^^";
-            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);*/
                 });
                 
                 $('#btnMon').click(function(e) {
@@ -180,39 +155,7 @@
                 		alert('請先輸入'+q_getMsg('lblMon')+'!!');
                 		return;
                 	}
-                	var t_where = " where=^^ 1=0 ^^";
-                	var t_where1 = " where[1]=^^ vccno=a.noa and noa!='"+t_noa+"'^^";          	
-                	var t_where2 = " where[2]=^^(case when custno2!='' then custno2 else custno end)='"+t_custno+"' and mon<='"+t_mon+"' ^^";
-                	var t_where3 = " where[3]=^^vccno=a.custno+'-'+a.mon and noa!='"+t_noa+"' ^^";
-                	var t_where4 = " where[4]=^^ vccno=a.custno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
-                	if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
-                		var t_where5 = " where[5]=^^ "+q_getPara('sys.d4taxtype')+"!=3 and a.custno='"+t_custno+"' and a.datea >'102/10/31' and (taxtype='1' or taxtype='5') ^^";
-                	}else{
-                		var t_where5 = " where[5]=^^ "+q_getPara('sys.d4taxtype')+"!=3 and a.custno='"+t_custno+"' and (taxtype='1' or taxtype='5') ^^";//舊帳請根據公司加入限制日期或月份
-                	}
-                	q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
-                	
-                	/*1021129 PS.
-                	 		有買發票系統 要開發票的帳 稅金不能是應稅和自訂，只能在vcca上輸入
-							沒有發票系統 不限定
-					*/
-					
-                	/*if(emp($('#txtDatea').val())){
-                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
-                		return;
-                	}
-                	if(emp($('#txtMon').val())){
-                		alert('請先輸入'+q_getMsg('lblMon')+'!!')
-                		return;
-                	}
-                	
-                    var t_where = "where=^^ 1=0 ^^";
-                    var t_where1 = "where[1]=^^ 1=0 ^^";
-                    var t_cust=emp($('#txtCustno').val())?"":(" and custno ='"+$('#txtCustno').val()+"'");
-                    var t_where2 = "where[2]=^^ 1=1 "+t_cust+"and vcc.mon<='"+$('#txtMon').val()+"' ^^";
-                    var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and vccno in(select noa from view_vcc"+r_accy+" where mon=vcc.mon and custno=vcc.custno) ^^";
-                    var t_where4 = "where[4]=^^ noa!='"+$('#txtNoa').val()+"' and left(vccno,6)=vcc.mon and substring(vccno,8,len(vccno))=vcc.custno ^^";
-            		q_gt('umm_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);*/
+                	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_mon+"','mon')^^", 0, 0, 0, "umm_import");
                 });
             }
 			
@@ -330,6 +273,11 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'umm_import':
+                		as = _q_appendData(t_name, "", true);
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtMon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,mon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
+                		sum();
+                		break;
                 	case 'umm_cust':
                 		var as = _q_appendData("view_vcc", "", true);
                 		if(as.length>1 && !emp($('#txtCustno').val())){
@@ -1338,6 +1286,7 @@
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:5%;"><a id='lblChgsTran'></a><br><a id='lblParts'></a></td>
 					<td align="center" style="width:7%;"><a id='lblMemos'></a></td>
+					<td align="center" style="width:3%;"><a id='lblCoins'></a></td>
 					<td align="center" style="width:5%;"><a id='lblPaysales'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUnpay_s'></a></td>
 				</tr>
@@ -1383,6 +1332,11 @@
 						<input type="text" id="txtAccy.*" style="display:none;" />
 						<input type="text" id="txtTablea.*" style="display:none;" />
 						<input type="text" id="textTypea.*" style="display:none;" />
+						<input type="text" id="txtCustno.*" style="display:none;" />
+						<input type="text" id="txtPaymon.*" style="display:none;" />
+					</td>
+					<td>
+						<input type="text" id="txtCoin.*" style="width:95%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
