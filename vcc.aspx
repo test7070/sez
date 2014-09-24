@@ -993,7 +993,7 @@
 				var re = /(\d{1,3})(?=(\d{3})+$)/g;
 				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 			}
-
+			
 			function calTax() {
 				var t_money = 0, t_tax = 0, t_total = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
@@ -1036,6 +1036,7 @@
 						default:
 					}
 				}
+				
 				$('#txtMoney').val(FormatNumber(t_money));
 				$('#txtTax').val(FormatNumber(t_tax));
 				$('#txtTotal').val(FormatNumber(t_total));
