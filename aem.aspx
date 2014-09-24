@@ -222,6 +222,7 @@
             }
 
             function btnPrint() {
+            	q_box('z_aemp.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {

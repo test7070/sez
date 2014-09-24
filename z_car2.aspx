@@ -51,33 +51,35 @@
                 $('#btnMontax').click(function() {
                 	if(!emp($('#textYear').val())){
                 		var montaxhtml='1=1';
+                		//1030924 避免早期資料出現的問題 當年度102以上101之前的資料不顯示
+                		var notyear=dec($('#textYear').val())>=102?" and a.mon >='102/01' ":'';
                 		switch ($('#combTax').val()) {
                 			case '01':
                 				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
                 			break;
                 			case '02':
                 				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
                 			break;
                 			case '03':
                 				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
                 			break;
                 			case '04':
                 				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
                 			break;
                 			case '05':
                 				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
                 			break;
                 			case '06':
                 				//montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',a.memo)>0 and CHARINDEX('"+$('#textYear').val()+"',a.memo)>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and CHARINDEX('"+$('#textYear').val()+"',left(a.memo,case when CHARINDEX('#',a.memo)>0 then CHARINDEX('#',a.memo)-1 else len(a.memo) end))>0 and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"'"+notyear+" order by a.carno;"+r_accy;
                 			break;
                 		}
-                		q_box((montaxhtml), 'cartax', "90%", "600px", q_getMsg("popCartax"));
+                		q_box((montaxhtml), 'cartax', "90%", "600px", $('#btnMontax').val());
                 	}
                 });
                 
@@ -107,7 +109,7 @@
 		            	
 					//婉容說不要顯示報停20130603
                 	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(a.checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and (a.enddate='' or a.enddate is null) and (a.outdate='' or a.outdate is null) and (a.wastedate='' or a.wastedate is null) and (a.suspdate='' or a.suspdate is null);"+r_accy,
-                		 'car2', "90%", "600px", q_getMsg("popNotice"));
+                		 'car2', "90%", "600px", $('#btnNotice').val());
                 });
                 
                 $('#q_report').click(function(e) {
