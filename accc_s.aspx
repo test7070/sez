@@ -26,14 +26,16 @@
 				bbmMask = [['txtBdate', '99/99'], ['txtEdate', '99/99']];
 				q_mask(bbmMask);
 				$('#txtBdate').focus();
+				q_cmbParse("cmbAccc1", q_getPara('acc.typea'));
 			}
 			function q_seekStr() {
+				t_accc1 = $('#cmbAccc1').val();
 				t_baccc3 = $('#txtBaccc3').val();
 				t_eaccc3 = $('#txtEaccc3').val();
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_part = $('#txtPart').val();
-				var t_where = " 1=1 " + q_sqlPara2("accc3", t_baccc3, t_eaccc3) + q_sqlPara2("accc2", t_bdate, t_edate);
+				var t_where = " 1=1 " + q_sqlPara2("accc3", t_baccc3, t_eaccc3) + q_sqlPara2("accc2", t_bdate, t_edate)+ q_sqlPara2("accc1", t_accc1);
 				if(t_part.length>0)
                     t_where += " and exists(select accc3 from acccs"+r_accy+"_"+r_cno+" where acccs"+r_accy+"_"+r_cno+".accc3=accc"+r_accy+"_"+r_cno+".accc3 and acccs"+r_accy+"_"+r_cno+".part='"+t_part+"')";
 				
@@ -54,7 +56,7 @@
         <div style='width:400px; text-align:center;padding:15px;' >
             <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
                 <tr class='seek_tr'>
-                    <td   style="width:35%;" ><a id='lblDatea'></a></td>
+                    <td   style="width:35%;" ><a id='lblDatea'> </a></td>
                     <td style="width:65%;  ">
                     <input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
                     <span style="display:inline-block; vertical-align:middle">&sim;</span>
@@ -62,7 +64,7 @@
                     </td>
                 </tr>
                 <tr class='seek_tr'>
-                    <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+                    <td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
                     <td style="width:65%;  ">
                     <input class="txt" id="txtBaccc3" type="text" style="width:90px; font-size:medium;" />
                     <span style="display:inline-block; vertical-align:middle">&sim;</span>
@@ -70,9 +72,15 @@
                     </td>
                 </tr>
                 <tr class='seek_tr'>
-                    <td class='seek'  style="width:20%;"><a id='lblPart'></a></td>
+                    <td class='seek'  style="width:20%;"><a id='lblPart'> </a></td>
                     <td>
                     <input class="txt" id="txtPart" type="text" style="width:215px; font-size:medium;" />
+                    </td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblAccc1'> </a></td>
+                    <td>
+                    <select id="cmbAccc1" style='width:88%;font-size: medium;'> </select>
                     </td>
                 </tr>
             </table>

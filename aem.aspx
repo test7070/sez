@@ -67,38 +67,14 @@
 				});
 				
 				$('#txtMan1').change(function() {
-                	if((q_cur==1 || q_cur==2)) {
-                		for (var j = 0; j < q_bbsCount; j++) {
-                			if(!emp($('#txtAcc1_'+j).val()) && q_float('txtMan')>0)
-                				q_tr('txtMoney1_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan1'),q_float('txtMan'))),0));
-                			else
-                				q_tr('txtMoney1_'+j,0);
-                		}
-                	}
                 	sum();
 				});
 				
 				$('#txtMan2').change(function() {
-                	if((q_cur==1 || q_cur==2)) {
-                		for (var j = 0; j < q_bbsCount; j++) {
-                			if(!emp($('#txtAcc1_'+j).val()) && q_float('txtMan')>0)
-                				q_tr('txtMoney2_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan2'),q_float('txtMan'))),0));
-                			else
-                				q_tr('txtMoney2_'+j,0);
-                		}
-                	}
                 	sum();
 				});
 				
 				$('#txtMan3').change(function() {
-                	if((q_cur==1 || q_cur==2)) {
-                		for (var j = 0; j < q_bbsCount; j++) {
-                			if(!emp($('#txtAcc1_'+j).val()) && q_float('txtMan')>0)
-                				q_tr('txtMoney3_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan3'),q_float('txtMan'))),0));
-                			else
-                				q_tr('txtMoney3_'+j,0);
-                		}
-                	}
                 	sum();
 				});
 				
@@ -222,6 +198,7 @@
             }
 
             function btnPrint() {
+            	q_box('z_aemp.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -255,6 +232,21 @@
             function sum() {
                 var t_money = 0, t_money1 = 0, t_money2 = 0, t_money3 = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
+                	if(!emp($('#txtAcc1_'+j).val()) && $('#txtAcc2_'+j).val().indexOf('間接人工')>-1){
+                		q_tr('txtMoney1_'+j,q_float('txtMoney_'+j));
+                		q_tr('txtMoney2_'+j,0);
+                		q_tr('txtMoney3_'+j,0);
+                	}else{
+                		if(!emp($('#txtAcc1_'+j).val()) && q_float('txtMan')>0){
+                			var t_money=q_float('txtMoney_'+j);
+                			q_tr('txtMoney1_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan1'),q_float('txtMan'))),0));
+                			t_money=q_sub(t_money,q_float('txtMoney1_'+j));
+                			q_tr('txtMoney2_'+j,round(q_mul(q_float('txtMoney_'+j),q_div(q_float('txtMan2'),q_float('txtMan'))),0));
+                			t_money=q_sub(t_money,q_float('txtMoney2_'+j));
+                			q_tr('txtMoney3_'+j,t_money);
+                		}
+                	}
+                	
                     t_money=q_add(t_money,q_float('txtMoney_'+j));
                     t_money1=q_add(t_money1,q_float('txtMoney1_'+j));
                     t_money2=q_add(t_money2,q_float('txtMoney2_'+j));

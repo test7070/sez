@@ -28,10 +28,11 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			brwCount2 = 20;
+			brwCount2 = 21;
 			aPop = new Array(
 				['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'], 
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
+				['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'], 
 				['txtAddr_fact', '', 'view_road', 'memo,zipcode', '0txtAddr_fact,txtZip_fact', 'road_b.aspx'], 
 				['txtAddr_comp', '', 'view_road', 'memo,zipcode', '0txtAddr_comp,txtZip_comp', 'road_b.aspx'], 
 				['txtAddr_invo', '', 'view_road', 'memo,zipcode', '0txtAddr_invo,txtZip_invo', 'road_b.aspx'], 
@@ -241,6 +242,13 @@
 					alert(q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]));
 					return;
 				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('#txtConntel').val($('#textGqbtitle').val())
+					$('#txtExt').val($('#textInvo').val())
+					$('#txtPost').val($('#textPost').val())
+				}
+						
 				if (q_cur == 1) {
 					t_where = "where=^^ noa='" + t_noa + "'^^";
 					q_gt('tgg', t_where, 0, 0, 0, "checkTggno_btnOk", r_accy);
@@ -260,6 +268,12 @@
 				refreshBbm();
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
 					$('.it').css('text-align', 'left');
+					
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.isXY').show();
+				}else{
+					$('.isXY').hide();
+				}
 			}
 
 			function refreshBbm() {
@@ -267,6 +281,18 @@
 					$('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
 				} else {
 					$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					if (q_cur == 1 || q_cur==2) {
+						$('#textGqbtitle').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtConntel').val());
+						$('#textInvo').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtExt').val());
+						$('#textPost').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtPost').val());
+					}else{
+						$('#textGqbtitle').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtConntel').val());
+						$('#textInvo').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtExt').val());
+						$('#textPost').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtPost').val());
+					}
 				}
 			}
 
@@ -463,13 +489,13 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -541,6 +567,25 @@
 						<td colspan="5"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblBank" class="lbl btn" > </a></td>
+						<td colspan="2">
+							<input id="txtBankno" type="text" style="float:left; width:40%;"/>
+							<input id="txtBank" type="text" style="float:left; width:60%;"/>
+						</td>
+						<td><span> </span><a id="lblAccount" class="lbl" > </a></td>
+						<td colspan="2"><input id="txtAccount" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="isXY">
+						<td><span> </span><a class="lbl isXY" >支票抬頭</a></td>
+						<td colspan="2"><input id="textGqbtitle" type="text" class="txt c1 isXY"/></td>
+						<td><span> </span><a class="lbl isXY" >發票</a></td>
+						<td>
+							<input id="textInvo" type="text" class="txt c1 isXY" style="width:50px;"/>
+							<span> </span><a class="lbl isXY" >回郵</a>
+						</td>
+						<td><input id="textPost" type="text" class="txt c1 isXY" style="width:50px;"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
 						<td colspan="2">
 							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
@@ -576,20 +621,25 @@
 							<select id="combPaytype" style="float:left; width:20px;"></select>
 							<span> </span><a id='lblTrantype' class="lbl"> </a>
 						</td>
-						<td><select id="cmbTrantype" class="txt c1"></select></td>
+						<td><select id="cmbTrantype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
 						<td><input id="txtUacc3" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="5"><textarea id="txtMemo" style="width:100%; height:100px;"> </textarea></td>
+						<td colspan="5">
+							<textarea id="txtMemo" style="width:100%; height:100px;"> </textarea>
+							<input id="txtExt" type="hidden" />
+							<input id="txtPost" type="hidden" />
+							<input id="txtConntel" type="hidden" />
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td align="right">
 							<input id="Copy" type="checkbox" />
-							<span> </span><a id="lblCopy" class="lbl"></a>
+							<span> </span><a id="lblCopy" class="lbl"> </a>
 						</td>
 					</tr>
 				</table>

@@ -92,6 +92,16 @@
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					aPop = new Array(
+						['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucc_b.aspx'],
+						['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+						['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+						['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_home,addr_home', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx'],
+						['ordb_txtTggno_', '', 'tgg', 'noa,comp', 'ordb_txtTggno_,ordb_txtTgg_', '']
+					);
+				}
 
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
