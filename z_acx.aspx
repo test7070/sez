@@ -29,23 +29,21 @@
                         value : r_accy
                     },{
                         type : '0',//[2]
-                        name : 'stype',
+                        name : 'xstype',
                         value : q_getPara('vccst.stype')
                     },{
                         type : '5',//[3]
                         name : 'xkind',
-                        value : ('鋼捲,鋼帶,鋼片,鋼管').split(',')
+                        value : ('捲@鋼捲,帶@鋼帶,片@鋼片,管@鋼管').split(',')
                     },{
-                        type : '1',//[4,5]
+                        type : '6',//[4]
                         name : 'xmon'
                     }]
                 });
                 q_popAssign();
 
-                $('#txtXmon1').mask('999/99');
-                $('#txtXmon2').mask('999/99');
-                $('#txtXmon1').val(q_date().substr(0, 6));
-                $('#txtXmon2').val(q_date().substr(0, 6));
+                $('#txtXmon').mask('999/99');
+                $('#txtXmon').val(q_date().substr(0, 6));
             }
 
             function q_boxClose(s2) {
