@@ -88,10 +88,7 @@
 		       	$('#btnGen').click(function() {show_confirm()});}}
             else
             	{$('#btnGen').click(function() {show_confirm()});}
-            
-            	
-		      
-		      
+
 				/*
 				$('#lblPaybno').click(function(){
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
