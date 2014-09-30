@@ -24,7 +24,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwCount2 = 5;
+            brwCount2 = 6;
             brwKey = 'Datea';
             aPop = new Array(
             	['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
@@ -134,18 +134,20 @@
                 $('#btnVcc').click(function(e) {
                 	var t_noa = $.trim($('#txtNoa').val());
                 	var t_custno = $.trim($('#txtCustno').val());
+                	var t_custno2 = $.trim($('#txtCustno2').val()).replace(/\,/g,'@');
                 	var t_mon = $.trim($('#txtMon').val());
                 	if(t_custno.length==0){
                 		alert('請先輸入'+q_getMsg('lblCust')+'!!');
                 		return;
                 	}
-                	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_mon+"','"+q_getPara('sys.d4taxtype')+"')^^", 0, 0, 0, "umm_import");
+                	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_custno2+"','"+t_mon+"','"+q_getPara('sys.d4taxtype')+"')^^", 0, 0, 0, "umm_import");
                 	
                 });
                 
                 $('#btnMon').click(function(e) {
                 	var t_noa = $.trim($('#txtNoa').val());
                 	var t_custno = $.trim($('#txtCustno').val());
+                	var t_custno2 = $.trim($('#txtCustno2').val()).replace(/\,/g,'@');
                 	var t_mon = $.trim($('#txtMon').val());
                 	if(t_custno.length==0){
                 		alert('請先輸入'+q_getMsg('lblCust')+'!!');
@@ -155,7 +157,7 @@
                 		alert('請先輸入'+q_getMsg('lblMon')+'!!');
                 		return;
                 	}
-                	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_mon+"','mon')^^", 0, 0, 0, "umm_import");
+                	q_gt('umm_import',"where=^^['"+t_noa+"','"+t_custno+"','"+t_custno2+"','"+t_mon+"','mon')^^", 0, 0, 0, "umm_import");
                 });
             }
 			
@@ -1212,19 +1214,16 @@
 						<input id="txtCustno" type="text" class="txt" style="float:left;width:40%;"/>
 						<input id="txtComp"  type="text" class="txt" style="float:left;width:60%;"/>
 						</td>
-						<td class="6">
-						<input type="button" id="btnVcc" class="txt c1 " />
-						</td>
-						<td class="7">
-						<input type="button" id="btnMon" class="txt c1 " />
-						</td>
+						<td> </td>
+						<td><input type="button" id="btnVcc" class="txt c1 " /></td>
+						<td><input type="button" id="btnMon" class="txt c1 " /></td>
 					</tr>
 					<tr>
 						<td> </td>
 						<td> </td>
 						<td><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 						<td colspan="2">
-							<input id="txtCustno2" type="text" class="txt" style="float:left;width:40%;"/>
+							<input id="txtCustno2" type="text" class="txt c1" title='多客戶使用"逗號"分隔'/>
 						</td>
 					</tr>
 					<tr class="tr3">
@@ -1268,12 +1267,14 @@
 						<td colspan="3" rowspan="3" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " ></textarea></td>
 						<td><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
+						<td> </td>
 						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"></a></td>
 						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
+						<td> </td>
 						<td><input type="button" id="btnBank" class="txt c1 "/></td>
 					</tr>
 				</table>
