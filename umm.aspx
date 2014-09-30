@@ -1219,6 +1219,14 @@
 						<input type="button" id="btnMon" class="txt c1 " />
 						</td>
 					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id='lblCust2' class="lbl btn"></a></td>
+						<td colspan="2">
+							<input id="txtCustno2" type="text" class="txt" style="float:left;width:40%;"/>
+						</td>
+					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
 						<td class="td2">
