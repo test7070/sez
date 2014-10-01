@@ -22,7 +22,7 @@
 
 		    q_sqlCount = 6;
 		    brwCount = 6;
-		    brwCount2 = 5;
+		    brwCount2 = 6;
 		    brwList = [];
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
@@ -30,7 +30,7 @@
 		    aPop = new Array(
             ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
              ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-             ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
+             ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
              ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'],
              ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
 
@@ -103,6 +103,15 @@
 		        $('#btnVcc').click(function (e) {
 		        	var t_noa = $.trim($('#txtNoa').val());
                 	var t_tggno = $.trim($('#txtTggno').val());
+                	var t_tggno2 = $.trim($('#txtTggno2').val()).replace(/\,/g,'@');
+                	var t_mon = $.trim($('#txtMon').val());
+                	if(t_tggno.length==0){
+                		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
+                		return;
+                	}
+                	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','')^^", 0, 0, 0, "pay_import");
+		        	/*var t_noa = $.trim($('#txtNoa').val());
+                	var t_tggno = $.trim($('#txtTggno').val());
                 	if(t_tggno.length==0){
                 		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
                 		return;
@@ -114,28 +123,24 @@
                 	var t_where4 = " where[4]=^^ rc2no=a.tggno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
                 	var t_where5 = " where[5]=^^ a.tggno='"+t_tggno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
                 	q_gt('pay_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
-                	
-                	/*1021129 PS.
-                	 		有買發票系統 要開發票的帳 稅金不能是應稅和自訂，只能在rc2a上輸入
-							沒有發票系統 不限定
-					*/
-                	
-		            /*if(emp($('#txtDatea').val())){
-                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
-                		return;
-                	}
-                	
-                	var t_tgg=emp($('#txtTggno').val())?"":(" and a.tggno ='"+$('#txtTggno').val()+"'");
-                    var t_where = "where=^^ 1=1 "+t_tgg+" and a.datea<='"+$('#txtDatea').val()+"'^^";
-                    var t_where1 = "where[1]=^^ noa!='"+$('#txtNoa').val()+"' and rc2no=a.noa^^";
-                    var t_where2 = "where[2]=^^ 1=0 ^^";
-                    var t_where3 = "where[3]=^^ 1=0 ^^"; 
-                    var t_where4 = "where[4]=^^ 1=0 ^^";
-            		q_gt('pay_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);*/
-
+                	*/
 		        });
 		        $('#btnMon').click(function (e) {
 		        	var t_noa = $.trim($('#txtNoa').val());
+                	var t_tggno = $.trim($('#txtTggno').val());
+                	var t_tggno2 = $.trim($('#txtTggno2').val()).replace(/\,/g,'@');
+                	var t_mon = $.trim($('#txtMon').val());
+                	if(t_tggno.length==0){
+                		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
+                		return;
+                	}
+                	if(t_mon.length==0){
+                		alert('請先輸入'+q_getMsg('lblMon')+'!!');
+                		return;
+                	}
+                	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','mon')^^", 0, 0, 0, "pay_import");
+                	
+		        	/*var t_noa = $.trim($('#txtNoa').val());
                 	var t_tggno = $.trim($('#txtTggno').val());
                 	var t_mon = $.trim($('#txtMon').val());
                 	if(t_tggno.length==0){
@@ -153,23 +158,7 @@
                 	var t_where4 = " where[4]=^^ rc2no=a.tggno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
                 	var t_where5 = " where[5]=^^ a.tggno='"+t_tggno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
                 	q_gt('pay_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
-		           /* if(emp($('#txtDatea').val())){
-                		alert('請先輸入'+q_getMsg('lblDatea')+'!!')
-                		return;
-                	}
-                	if(emp($('#txtMon').val())){
-                		alert('請先輸入'+q_getMsg('lblMon')+'!!')
-                		return;
-                	}
-                	
-                   var t_tgg=emp($('#txtTggno').val())?"":(" and tggno ='"+$('#txtTggno').val()+"'");
-                    var t_where = "where=^^ 1=0 ^^";
-                    var t_where1 = "where[1]=^^ 1=0 ^^";
-                    var t_where2 = "where[2]=^^ 1=1 "+t_tgg+"and mon<='"+$('#txtMon').val()+"' ^^";
-                    var t_where3 = "where[3]=^^ noa!='"+$('#txtNoa').val()+"' and (rc2no in (select noa from view_rc2"+r_accy+" where mon=a.mon and tggno=a.tggno) or rc2no in (select noa from view_workd"+r_accy+" where mon=a.mon and tggno=a.tggno) or rc2no in (select noa from payb where mon=a.mon and tggno=a.tggno)) ^^";
-                    var t_where4 = "where[4]=^^ noa!='"+$('#txtNoa').val()+"' and left(rc2no,6)=a.mon and substring(rc2no,8,len(rc2no))=a.tggno ^^";
-            		q_gt('pay_mon', t_where+t_where1+t_where2+t_where3+t_where4, 0, 0, 0, "", r_accy);*/
-
+					*/
 		        });
 		        
 		         $('#btnAuto').click(function (e) {
@@ -263,6 +252,11 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'pay_import':
+                		as = _q_appendData(t_name, "", true);
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtTggno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtRc2no,txtMemo2', as.length, as, 'cno,tggno,mon,coin,unpay,unpay,tablea,tableaccy,rc2no,memo', '', '');
+                		sum();
+                		break;
 		        	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
                 		if (as[0] != undefined) {
@@ -670,10 +664,17 @@
 		            $('#txtChgs_' + i).change(function (e) {
 		                sum();
 		            });
-		            $('#txtAcc1_' + i).change(function() {
-                        var patt = /^(\d{4})([^\.,.]*)$/g;
-	                    $(this).val($(this).val().replace(patt,"$1.$2"));
-                        sum();
+		            $('#txtAcc1_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace('txtAcc1_', '');
+                        $('#btnAcc_'+n).click();
+                    });
+                    $('#txtBankno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace('txtBankno_', '');
+                        $('#btnBank_'+n).click();
                     });
                     $('#txtCheckno_'+i).change(function(){
         				Lock(1,{opacity:0});
@@ -1090,46 +1091,47 @@
 						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="tr1">
+					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td>
 							<input id="txtNoa" type="text" class="txt c1"/>
 							<input id="txtCheckno" type="text" style="display:none;"/>
 						</td>
-						<td class="td3" ><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td4" ><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td><input id="txtMon"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblPayc' class="lbl"> </a></td>
+						<td><input id="txtPayc" type="text" class="txt c1"/></td>
+						<td class="tdZ"><input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/></td>
+					</tr>
+					<tr class="tr2">
 						<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
 						<td>
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp" type="text" style="display:none;"/>
 							<input id="txtPart2" type="text" style="display:none;"/>
 						</td>
-						<td class="td7"><span> </span><a id='lblPayc' class="lbl"> </a></td>
-						<td class="td8"><input id="txtPayc" type="text" class="txt c1"/></td>
-						<td class="tdZ"><input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/></td>
-					</tr>
-					<tr class="tr2">
-                        <td class="td1" ><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
-						<td class="td2" colspan='3'>
+                        <td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td colspan='2'>
 	                        <input id="txtTggno" type="text" class="txt c4"/>
 	                        <input id="txtComp"  type="text" class="txt c5" />
 						</td>
-						<td class="td5"><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td class="td6" ><input id="txtMon"  type="text" class="txt c1"/></td>
-						<td class="7"><input type="button" id="btnVcc" class="txt c1 " /></td>
-						<td class="8"><input type="button" id="btnMon" class="txt c1 " /></td>
+						<td> </td>
+						<td><input type="button" id="btnVcc" class="txt c1 " /></td>
+						<td><input type="button" id="btnMon" class="txt c1 " /></td>
 					</tr>
-					<!--<tr class="tr3">
-                        <td class="td1" ><span> </span><a id='lblTgg2' class="lbl"></a></td>
-						<td class="td2" colspan='3'>
-                        <input id="txtTggno2" type="text" class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
-						<td ><input id="txtPartno"  type="text" style="width: 35%;"/>
-							<input id="txtPart"  type="text" style="width: 63%;"/>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id='lblTgg2' class="lbl btn"> </a></td>
+						<td colspan='2'>
+	                        <input id="txtTggno2" type="text" class="txt c1" title='多廠商使用"逗號"分隔'/>
 						</td>
 						<td> </td>
-					</tr>-->
+						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
+						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"> </a></td>
 						<td class="td2"><input id="txtSale"  type="text" class="txt num c1"/></td>
@@ -1141,37 +1143,32 @@
 						<td class="td8"><input id="txtUnpay"  type="text" class="txt num c1"/></td>
 					</tr>  
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblOpay' class="lbl"> </a></td>
-						<td class="td2"><input id="txtOpay"  type="text" class="txt num c1"/></td>
-						<td class="td3"><span> </span><a id='lblUnopay' class="lbl"> </a></td>
-						<td class="td4"><input id="txtUnopay"  type="text" class="txt num c1"/></td>
-						<td class="td5"><span> </span><a id='lblTextopay' class="lbl"> </a></td>
-						<td class="td6">
+						<td><span> </span><a id='lblOpay' class="lbl"> </a></td>
+						<td><input id="txtOpay"  type="text" class="txt num c1"/></td>
+						<td><span> </span><a id='lblUnopay' class="lbl"> </a></td>
+						<td><input id="txtUnopay"  type="text" class="txt num c1"/></td>
+						<td><span> </span><a id='lblTextopay' class="lbl"> </a></td>
+						<td>
 							<input id="textOpay"  type="text" class="txt num c1"/>
 	                        <input type='hidden' id="textOpayOrg" />
 						</td>
-						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblRc2no' class="lbl"> </a></td>
+						<td><input id="txtRc2no"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr6">
-						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan='3' ><textarea id="txtMemo"  class="txt c1" style="height: 50px;" > </textarea></td>
-						<td align="right">
-							<span> </span><a id='lblRc2no' class="lbl" style="width: 80%;"> </a>
-							<input type="button" id="btnAuto" style="width:80%;color:red;"/>
-						</td>
-						<td>
-							<input id="txtRc2no"  type="text" class="txt c1"/>
-							<input type="button" id="btnGqbPrint" style="width:80%;"/>
-						</td>
-						<td>
-							<span> </span><a id='lblWorker' class="lbl"> </a> <BR>
-							<span> </span><a id='lblWorker2' class="lbl" > </a>
-						</td>
-						<td>
-							<input id="txtWorker"  type="text" class="txt c1" />
-							<input id="txtWorker2"  type="text" class="txt c1" />
-						</td>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"></a></td>
+						<td colspan="3" rowspan="3" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " ></textarea></td>
+						<td><span> </span><a id='lblWorker' class="lbl"></a></td>
+						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
+						<td> </td>
+						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"></a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
+						<td> </td>
+						<td><input type="button" id="btnGqbPrint" class="txt c1 "/></td>
 					</tr>
 				</table>
 			</div>
@@ -1183,15 +1180,16 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width:6%;"><a id='lblAcc1'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMoney'> </a></td>
-					<td align="center" style="width:4%;"><a id='lblIndate'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblCheckno'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblBank'> </a></td>
-					<td align="center" style="width:3%;"><a id='lblChgsTran'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblAcc1'> </a><br><a id='lblAcc2'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblMoney'> </a><br><a id='lblAccmemo'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblPaycs'> </a><br><a id='lblIndate'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblCheckno'> </a><br><a id='lblAccount_s'> </a><br><a id='lblGqbtitle'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblBankno'> </a><br><a id='lblBank'> </a></td>
+					<td align="center" style="width:3%;"><a id='lblChgsTran'> </a><br><a id='lblPart_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblPaysales'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblUnpay_s'> </a></td>
+					<td align="center" style="width:3%;"><a id='lblCoins'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -1200,14 +1198,13 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtAcc1.*"  style="width:85%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtAcc2.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtAcc1.*"  style="width:95%; float:left;" title="點擊滑鼠右鍵，列出明細。"/>
+						<input type="text" id="txtAcc2.*"  style="width:95%; float:left;"/>
+						<input type="button" id="btnAcc.*" style="display:none;" />
 					</td>
 					<td>
-						<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
-						<input type="text" id="txtMemo.*" style="width:95%;"/>
+					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+					<input type="text" id="txtMemo.*" style="width:95%;"/>
 					</td>
 					<td>
 						<input type="text" id="txtPayc.*"  style="float:left;width:75%;" />
@@ -1220,10 +1217,9 @@
 						<input type="text" id="txtTitle.*"  style="width:95%;" />
 					</td>
 					<td>
-						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:5%;float:left;" />
-                        <input type="text" id="txtBankno.*"  style="width:80%; float:left;"/>
-                        <span style="display:block; width:5%;float:left;"> </span>
-						<input type="text" id="txtBank.*"  style="width:80%; float:left;"/>
+                        <input type="text" id="txtBankno.*"  style="width:95%; float:left;" title="點擊滑鼠右鍵，列出明細。"/>
+						<input type="text" id="txtBank.*"  style="width:95%; float:left;"/>
+						<input type="button" id="btnBank.*"  style=" display:none;"/>
 					</td>
 					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
@@ -1231,18 +1227,25 @@
 						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
-					<input type="text" id="txtMemo2.*" style="width:95%;"/>
-                    <input type="text" id="txtRc2no.*" style="width:95%;" title="點擊滑鼠右鍵，瀏覽單據內容。"/>
-                    <input type="text" id="txtAccy.*" style="display:none;"/>
-                    <input type="text" id="txtTablea.*" style="display:none;"/>
+						<input type="text" id="txtCno.*" style="width:30%;float:left;"/>
+						<input type="text" id="txtMemo2.*" style="width:60%;float:left;"/>
+						<input type="text" id="txtRc2no.*" style="width:95%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
+						<input type="text" id="txtAccy.*" style="display:none;" />
+						<input type="text" id="txtTablea.*" style="display:none;" />
+						<input type="text" id="textTypea.*" style="display:none;" />
+						<input type="text" id="txtTggno.*" style="display:none;" />
+						<input type="text" id="txtPaymon.*" style="display:none;" />
 					</td>
-  					<td>
+					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
 					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
 					<input type="text" id="txtPart2.*"  style="float:left;width: 95%;"/>
+					</td>
+					<td>
+						<input type="text" id="txtCoin.*" style="width:95%;"/>
 					</td>
 				</tr>
 			</table>

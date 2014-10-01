@@ -277,7 +277,7 @@
                 switch (t_name) {
                 	case 'umm_import':
                 		as = _q_appendData(t_name, "", true);
-                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,paymon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,mon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
                 		sum();
                 		break;
                 	case 'umm_cust':
@@ -866,7 +866,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['acc1'] && (!as['money'] || as['money'] == 0) && (!as['paysale'] || as['paysale'] == 0)) {
+                if (!as['acc1'] && (!as['money'] || parsrFloat(as['money']) == 0) && (!as['paysale'] || parsrFloat(as['paysale']) == 0)) {
                     as[bbsKey[1]] = '';
                     return;
                 }
