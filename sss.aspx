@@ -67,6 +67,8 @@
                 q_cmbParse("cmbPerson", q_getPara('person.typea'));
                 //q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
                 q_cmbParse("cmbBlood", ('').concat(new Array('A', 'B', 'AB', 'O')));
+                $('.tax').hide();
+                q_gf('Paytype.txt', '');
                 
                 $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
@@ -99,7 +101,9 @@
                     $(this).attr('size', len + "");
                 }).blur(function() {
                     $(this).attr('size', '1');
+                    refreshBbm();
                 });
+                
                 $("#cmbRecord").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -162,7 +166,26 @@
                         $('#txtLabor2_edate').val($('#txtOutdate').val());
                     }
                 });
+                $('#btnTax').click(function(e) {
+                    $('.tax').toggle();
+                });
             }
+            
+            var t_typep='',c_typep=' @ ';
+			function q_gfPost() {
+				if (q_gfTxt=='Paytype.txt'){
+					t_typep = xmlString.split('\r\n');
+					//處理內容
+					for (i=0;i<t_typep.length;i++){
+						var typep=t_typep[i].split(';')[0];
+						c_typep=c_typep+','+typep.split('.')[0]+"@"+typep;
+					}
+					
+					q_cmbParse("cmbPtype", c_typep);
+					refresh(q_recno);  /// 第一次需要重新載入	
+				}
+			}
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -332,6 +355,17 @@
             	}else{
             		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
             	}
+            	if($("#cmbPerson").val()=='外勞'){
+					$('#txtPassport').show();
+					$('#lblPassport').show();
+					$('#txtId').hide();
+					$('#lblId').hide();
+				}else{
+                   	$('#txtPassport').hide();
+					$('#lblPassport').hide();
+					$('#txtId').show();
+					$('#lblId').show();
+				}
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -579,8 +613,8 @@
 						<td><select id="cmbPerson" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblId' class="lbl"> </a></td>
-						<td><input id="txtId"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblId' class="lbl"> </a><a id='lblPassport' class="lbl"> </a></td>
+						<td><input id="txtId"  type="text"  class="txt c1"/><input id="txtPassport"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblBirthday' class="lbl"> </a></td>
 						<td><input id="txtBirthday"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblBlood' class="lbl"> </a></td>
@@ -683,7 +717,18 @@
 						<td> </td>
 						<td><input id='btnSsspart' type="button"/></td>
 						<td><input id='btnSaladjust' type="button"/></td>
-						<td><input id='btnLabases' type="button" />	</td>
+						<td><input id='btnLabases' type="button" /></td>
+						<td><input id='btnTax' type="button" /></td>
+					</tr>
+					<tr class='tax'>
+						<td><span> </span><a id="lblTaxno" class="lbl"> </a></td>
+						<td><input id="txtTaxno"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblPtype" class="lbl"> </a></td>
+						<td colspan="2"><select id="cmbPtype" class="txt c1"> </select></td>
+					</tr>
+					<tr class='tax'>
+						<td><span> </span><a id="lblAddr_rent" class="lbl"> </a></td>
+						<td colspan="5"><input id="txtAddr_rent"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

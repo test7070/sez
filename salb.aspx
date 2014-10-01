@@ -42,6 +42,7 @@
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1)
+				q_gf('PAYFORM.txt', '');
 			});
 
 			function main() {
@@ -62,6 +63,26 @@
 					var t_where = "where=^^ (typea=N'薪資') and (mon=N'"+t_mon+"')";
 					q_gt('salary', t_where, 0, 0, 0, "");
 				});
+			}
+			
+			var t_typea='',c_typea=' @ ',t_typeb='',c_typeb=' @ ',t_typec='',c_typec=' @ ';
+			function q_gfPost() {
+				if (q_gfTxt=='PAYFORM.txt'){
+					t_typea = xmlString.split('\r\n');
+					//處理內容
+					for (i=0;i<t_typea.length;i++){
+						var typea=replaceAll(t_typea[i],' ','').split(';')[0];
+						c_typea=c_typea+','+typea.split('.')[0]+"@"+typea;
+					}
+					
+					q_cmbParse("cmbTypea", c_typea, 's');
+					q_gf('PAYREMARK.txt', '');
+				}else if (q_gfTxt=='PAYREMARK.txt'){
+					t_typeb = xmlString.split('\r\n');
+					q_gf('PAYMARK.txt', '');
+				}else if (q_gfTxt=='PAYMARK.txt'){
+					t_typec = xmlString.split('\r\n');
+				}
 			}
 
 			function q_boxClose(s2) {
@@ -160,7 +181,43 @@
 					$('#txtMi_money_'+j).change(function(){
 						sum();
 					});
+					
+					$('#cmbTypea_'+j).change(function(){
+						t_IdSeq = -1;
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+						if(q_cur==1 || q_cur==2){
+							//處理內容
+							c_typeb=' @ ';
+							for (i=0;i<t_typeb.length;i++){
+								var typeb=t_typeb[i].split('	');
+								if(typeb[1]==$('#cmbTypea_'+b_seq).val())
+									c_typeb=c_typeb+','+typeb[2]+"@"+typeb[3];
+							}
+							$('#cmbTypeb_'+b_seq).text('');
+							$('#cmbTypec_'+b_seq).text('');
+							q_cmbParse("cmbTypeb_"+b_seq, c_typeb);
+							
+							//處理內容
+							c_typec=' @ ';
+							for (i=0;i<t_typec.length;i++){
+								var typec=t_typec[i].split('	');
+								if(typec[0]==$('#cmbTypea_'+b_seq).val()){
+									var item=typec[1].split('.');
+									c_typec=c_typec+','+item[0]+"@"+typec[1];
+								}
+							}
+							q_cmbParse("cmbTypec_"+b_seq, c_typec);
+						}
+					});
+					/*$('#cmbTypeb_'+j).change(function(){
+						t_IdSeq = -1;
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+						q_gf('PAYMARK.txt', '');
+					});*/
 				}
+				btnTypechange();
 			}
 
 			function btnIns() {
@@ -212,7 +269,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-
+				btnTypechange();
 			}
 
 			function readonly(t_para, empty) {
@@ -270,6 +327,41 @@
 
 			function btnCancel() {
 				_btnCancel();
+			}
+			
+			var typebbs=false;
+			
+			function btnTypechange() {
+				//if((q_cur>2 || q_cur<1)){
+					for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+						if($('#cmbTypea_'+j).val()!=''){
+							c_typeb=' @ ';
+							for (i=0;i<t_typeb.length;i++){
+								var typeb=t_typeb[i].split('	');
+								if(typeb[1]==$('#cmbTypea_'+j).val())
+									c_typeb=c_typeb+','+typeb[2]+"@"+typeb[3];
+							}
+							$('#cmbTypeb_'+j).text('');
+							$('#cmbTypec_'+j).text('');
+							q_cmbParse("cmbTypeb_"+j, c_typeb);
+							if(abbs[0]!=undefined)
+								$('#cmbTypeb_'+j).val(abbs[j].typeb);
+							
+							c_typec=' @ ';
+							for (i=0;i<t_typec.length;i++){
+								var typec=t_typec[i].split('	');
+								if(typec[0]==$('#cmbTypea_'+j).val()){
+									var item=typec[1].split('.');
+									c_typec=c_typec+','+item[0]+"@"+typec[1];
+								}
+							}
+							$('#cmbTypec_'+j).text('');
+							q_cmbParse("cmbTypec_"+j, c_typec);
+							if(abbs[0]!=undefined)
+								$('#cmbTypec_'+j).val(abbs[j].typec);
+						}
+					}
+				//}
 			}
 		</script>
 		<style type="text/css">
@@ -361,7 +453,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 100%;
+				width: 1600px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -380,13 +472,7 @@
 				width: 100%;
 				height: 98%;
 			}
-			.tbbs .td1 {
-				width: 10%;
-			}
-			.tbbs .td2 {
-				width: 6%;
-			}
-
+			
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -399,9 +485,9 @@
 			<div class="dview" id="dview" style="float: left; width:32%;" >
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%"><a id='vewMon'></a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:20%"><a id='vewMon'> </a></td>
+						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -413,29 +499,29 @@
 			<div class='dbbm' style="width: 68%;float:left">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr>
-						<td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td class='td3'><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
+						<td class='td3'><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td class="td4"><input id="txtCno" type="text" class="txt c1" /></td>
 						<td class='td5'colspan="2"><input id="txtComp2" type="text" class="txt c1" /></td>
-						<td class="td6"></td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
-						<td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
+						<td class='td1'><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td class="td2"><input id="txtMon" type="text" class="txt c1"/></td>
-						<td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class='td3'><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td class='td5'><span> </span><a id="lblTitle" class="lbl"></a></td>
+						<td class='td5'><span> </span><a id="lblTitle" class="lbl"> </a></td>
 						<td class="td6"><input id="txtTitle" class="txt c1" type="text" /></td>
 						<td class='td7'><input id="btnIndata" type="button"/></td>
-						<td class="td8"></td>
+						<td class="td8"> </td>
 					</tr>
 					<tr>
-						<td class='td1'></td>
+						<td class='td1'> </td>
 						<td class="td2"><input id="btnEnd" type="button" /></td>
-						<td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
+						<td class='td3'><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td class="td4"><input id="txtMoney" type="text" class="txt num c1" /></td>
-						<td class='td5'><span> </span><a id="lblMi_money" class="lbl"></a></td>
+						<td class='td5'><span> </span><a id="lblMi_money" class="lbl"> </a></td>
 						<td class="td6"><input id="txtMi_money" type="text" class="txt num c1" /></td>
 					</tr>
 				</table>
@@ -447,18 +533,22 @@
 					<td align="center">
 						<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
 					</td>
-					<td align="center" class="td1"><a id='lblSssno'></a></td>
-					<td align="center" class="td1"><a id='lblNamea'></a></td>
-					<td align="center" class="td1"><a id='lblId'></a></td>
-					<td align="center" style="width: 2%;"><a id='vewIsclerk'></a></td>
-					<td align="center" class="td2"><a id='lblMount'></a></td>
-					<td align="center" class="td2"><a id='lblAd_money'></a></td>
-					<td align="center" class="td2"><a id='lblCh_meal'></a></td>
-					<td align="center" class="td2"><a id='lblMoneys'></a></td>
-					<td align="center" class="td2"><a id='lblMi_moneys'></a></td>
-					<td align="center" class="td2"><a id='lblSex'></a></td>
-					<td align="center" class="td1"><a id='lblComp'></a></td>
-					<td align="center" ><a id='lblAddr'></a></td>
+					<td align="center"><a id='lblSssno'> </a></td>
+					<td align="center"><a id='lblNamea'> </a></td>
+					<td align="center"><a id='lblId'> </a></td>
+					<td align="center" style="width: 90px;"><a id='lblTypea'> </a></td>
+					<td align="center" style="width: 90px;"><a id='lblTypeb'> </a></td>
+					<td align="center" style="width: 90px;"><a id='lblTypec'> </a></td>
+					<td align="center"><a id='lblWtno'> </a></td>
+					<td align="center" style="width: 20px;"><a id='vewIsclerk'> </a></td>
+					<td align="center"><a id='lblMount'> </a></td>
+					<td align="center"><a id='lblAd_money'> </a></td>
+					<td align="center"><a id='lblCh_meal'> </a></td>
+					<td align="center"><a id='lblMoneys'> </a></td>
+					<td align="center"><a id='lblMi_moneys'> </a></td>
+					<td align="center" style="width: 40px;"><a id='lblSex'> </a></td>
+					<td align="center"><a id='lblComp'> </a></td>
+					<td align="center" ><a id='lblAddr'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -470,6 +560,10 @@
 					</td>
 					<td><input id="txtNamea.*" type="text" class="txt c1"/></td>
 					<td><input id="txtId.*" type="text" class="txt c1"/></td>
+					<td><select id="cmbTypea.*" class="txt c1"> </select></td>
+					<td><select id="cmbTypeb.*" class="txt c1"> </select></td>
+					<td><select id="cmbTypec.*" class="txt c1"> </select></td>
+					<td><input id="txtWtno.*" type="text" class="txt c1"/></td>
 					<td><input id="chkIsclerk.*" type="checkbox"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtAd_money.*" type="text" class="txt num c1" /></td>
