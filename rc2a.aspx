@@ -10,6 +10,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
+			//1030929 進貨發票沒有買受人>>拿掉
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
@@ -33,7 +34,7 @@
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtComp,txtSerial,txtAddress', 'tgg_b.aspx']
             , ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress', 'road_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            , ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
+            //, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
             , ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
 
             $(document).ready(function() {
@@ -103,40 +104,39 @@
                     case '6':
                         // 作廢-清空資料
                         t_money = 0,t_tax = 0, t_total = 0;
-                        $('#txtTggno').val('');
                         //銷貨客戶
+                        $('#txtTggno').val('');
                         $('#txtTggno').attr('readonly', true);
                         $('#txtComp').val('');
                         $('#txtComp').attr('readonly', true);
-                        $('#txtSerial').val('');
                         //統一編號
+                        $('#txtSerial').val('');
                         $('#txtSerial').attr('readonly', true);
-                        $('#txtMoney').val(0);
                         //產品金額
+                        $('#txtMoney').val(0);
                         $('#txtMoney').attr('readonly', true);
-                        $('#txtMon').val('');
                         //帳款月份
+                        $('#txtMon').val('');
                         $('#txtMon').attr('readonly', true);
-                        $('#txtTax').val(0);
                         //營業稅
+                        $('#txtTax').val(0);
                         $('#txtTax').attr('readonly', true);
-                        $('#txtTotal').val(0);
                         //總計
+                        $('#txtTotal').val(0);
                         $('#txtTotal').attr('readonly', true);
-                        $('#txtChkno').val('');
                         //檢查號碼
+                        $('#txtChkno').val('');
                         $('#txtChkno').attr('readonly', true);
-                        $('#txtAccno').val('');
                         //轉會計傳票編號
+                        $('#txtAccno').val('');
                         $('#txtAccno').attr('readonly', true);
-                        $('#txtBuyerno').val('');
                         //買受人
-                        $('#txtBuyerno').attr('readonly', true);
-                        $('#txtBuyer').val('');
-                        //
-                        $('#txtBuyer').attr('readonly', true);
-                        $('#txtMemo').val('');
+                        //$('#txtBuyerno').val('');
+                        //$('#txtBuyerno').attr('readonly', true);
+                        //$('#txtBuyer').val('');
+                        //$('#txtBuyer').attr('readonly', true);
                         //發票備註
+                        $('#txtMemo').val('');
                         break;
                     default:
                 }
@@ -532,10 +532,7 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td>
-							<input id="txtCobtype"  type="text" style="float:left;width:30%;"/>
-							<span> </span><a id="lblTgg" class="lbl btn"> </a>
-						</td>
+						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtTggno"  type="text" style="float:left;width:30%;"/>
 							<input id="txtComp"  type="text" style="float:left;width:70%;"/>
@@ -552,11 +549,13 @@
 					<tr>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblCobtype' class="lbl"> </a></td>
+						<td><input id="txtCobtype"  type="text" style="float:left;width:50%;"/></td>
+						<!--<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtBuyerno"  type="text" style="float:left;width:30%;"/>
 							<input id="txtBuyer"  type="text" style="float:left;width:70%;"/>
-						</td>
+						</td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
