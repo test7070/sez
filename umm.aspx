@@ -277,7 +277,7 @@
                 switch (t_name) {
                 	case 'umm_import':
                 		as = _q_appendData(t_name, "", true);
-                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtMon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,mon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,paymon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
                 		sum();
                 		break;
                 	case 'umm_cust':
@@ -1295,9 +1295,9 @@
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:5%;"><a id='lblChgsTran'></a><br><a id='lblParts'></a></td>
 					<td align="center" style="width:7%;"><a id='lblMemos'></a></td>
-					<td align="center" style="width:3%;"><a id='lblCoins'></a></td>
 					<td align="center" style="width:5%;"><a id='lblPaysales'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUnpay_s'></a></td>
+					<td align="center" style="width:3%;"><a id='lblCoins'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -1345,15 +1345,15 @@
 						<input type="text" id="txtPaymon.*" style="display:none;" />
 					</td>
 					<td>
-						<input type="text" id="txtCoin.*" style="width:95%;"/>
-					</td>
-					<td>
 					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
 					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
 					<input type="text" id="txtPart2.*"  style="float:left;width: 95%;"/>
+					</td>
+					<td>
+						<input type="text" id="txtCoin.*" style="width:95%;"/>
 					</td>
 				</tr>
 			</table>
