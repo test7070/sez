@@ -278,6 +278,14 @@
                 	case 'umm_import':
                 		as = _q_appendData(t_name, "", true);
                 		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,mon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
+                		
+                		var t_comp = q_getPara('sys.comp').substring(0,2);
+                		for(var i=0;i<q_bbsCount;i++){
+                			if($('#txtTablea_'+i).val()=='vcc' && t_comp == "裕承"){
+                				$('#txtTablea_'+i).val('vccst');
+                			}
+                		}
+                		
                 		sum();
                 		break;
                 	case 'umm_cust':

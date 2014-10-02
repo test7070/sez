@@ -110,20 +110,6 @@
                 		return;
                 	}
                 	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','')^^", 0, 0, 0, "pay_import");
-		        	/*var t_noa = $.trim($('#txtNoa').val());
-                	var t_tggno = $.trim($('#txtTggno').val());
-                	if(t_tggno.length==0){
-                		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
-                		return;
-                	}
-                	var t_where = " where=^^ a.tggno='"+t_tggno+"' ^^";
-                	var t_where1 = " where[1]=^^ rc2no=a.noa and noa!='"+t_noa+"'^^";
-                	var t_where2 = " where[2]=^^ 1=0 ^^";
-                	var t_where3 = " where[3]=^^ 1=0 ^^";
-                	var t_where4 = " where[4]=^^ rc2no=a.tggno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
-                	var t_where5 = " where[5]=^^ a.tggno='"+t_tggno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
-                	q_gt('pay_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
-                	*/
 		        });
 		        $('#btnMon').click(function (e) {
 		        	var t_noa = $.trim($('#txtNoa').val());
@@ -139,26 +125,6 @@
                 		return;
                 	}
                 	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','mon')^^", 0, 0, 0, "pay_import");
-                	
-		        	/*var t_noa = $.trim($('#txtNoa').val());
-                	var t_tggno = $.trim($('#txtTggno').val());
-                	var t_mon = $.trim($('#txtMon').val());
-                	if(t_tggno.length==0){
-                		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
-                		return;
-                	}
-                	if(t_mon.length==0){
-                		alert('請先輸入'+q_getMsg('lblMon')+'!!');
-                		return;
-                	}
-                	var t_where = " where=^^ 1=0 ^^";
-                	var t_where1 = " where[1]=^^ rc2no=a.noa and noa!='"+t_noa+"'^^";
-                	var t_where2 = " where[2]=^^ tggno='"+t_tggno+"' and mon<='"+t_mon+"' ^^";
-                	var t_where3 = " where[3]=^^ rc2no=a.tggno+'-'+a.mon and noa!='"+t_noa+"' ^^";
-                	var t_where4 = " where[4]=^^ rc2no=a.tggno+'-'+(case when a.mon!='' then a.mon else left(a.datea,6) end)+'-TAX' and noa!='"+t_noa+"' ^^";
-                	var t_where5 = " where[5]=^^ a.tggno='"+t_tggno+"' and taxtype='1' or taxtype='5' ^^";//舊帳請根據公司加入限制日期或月份
-                	q_gt('pay_mon', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
-					*/
 		        });
 		        
 		         $('#btnAuto').click(function (e) {
@@ -255,6 +221,14 @@
 		        	case 'pay_import':
                 		as = _q_appendData(t_name, "", true);
                 		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtTggno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtRc2no,txtMemo2', as.length, as, 'cno,tggno,mon,coin,unpay,unpay,tablea,tableaccy,rc2no,memo', '', '');
+                		
+                		var t_comp = q_getPara('sys.comp').substring(0,2);
+                		for(var i=0;i<q_bbsCount;i++){
+                			if($('#txtTablea_'+i).val()=='rc2' && t_comp == "裕承"){
+                				$('#txtTablea_'+i).val('rc2st');
+                			}
+                		}
+                		
                 		sum();
                 		break;
 		        	case 'cno_acomp':
@@ -760,7 +734,10 @@
             	}
             }
 		    function btnPrint() {
-		        q_box("z_payp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'pay', "95%", "95%", m_print);
+		       // q_box("z_payp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'pay', "95%", "95%", m_print);
+		    	q_box("z_payp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({
+                    noa : trim($('#txtNoa').val())
+                }) + ";" + r_accy + "_" + r_cno, 'pay', "95%", "95%", m_print);
 		    }
 
 		    function wrServer(key_value) {
