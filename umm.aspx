@@ -874,7 +874,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['acc1'] && (!as['money'] || parsrFloat(as['money']) == 0) && (!as['paysale'] || parsrFloat(as['paysale']) == 0)) {
+                if (!as['acc1'] && (!as['money'] || parseFloat(as['money']) == 0) && (!as['paysale'] || parseFloat(as['paysale']) == 0)) {
                     as[bbsKey[1]] = '';
                     return;
                 }
