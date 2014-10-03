@@ -290,7 +290,7 @@
                 		break;
                 	case 'umm_cust':
                 		var as = _q_appendData("view_vcc", "", true);
-                		if(as.length>1 && !emp($('#txtCustno').val())){
+                		/*if(as.length>1 && !emp($('#txtCustno').val())){
                 			alert('請款單為多個收款客戶，表頭客戶請勿KEY打，以避免客戶款帳有問題!!');
                 		}else{
                 			if (as[0] != undefined && !emp($('#txtCustno').val())) {
@@ -298,10 +298,10 @@
                 					alert('收款客戶與請款單客戶不同!!');
                 					break;	
                 				}
-                			}
+                			}*/
                 			ummcustchk=true;
                 			btnOk();
-                		}
+                		//}
                 		break;
                 	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
