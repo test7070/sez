@@ -278,11 +278,19 @@
                 	case 'umm_import':
                 		as = _q_appendData(t_name, "", true);
                 		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,mon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
+                		
+                		var t_comp = q_getPara('sys.comp').substring(0,2);
+                		for(var i=0;i<q_bbsCount;i++){
+                			if($('#txtTablea_'+i).val()=='vcc' && t_comp == "裕承"){
+                				$('#txtTablea_'+i).val('vccst');
+                			}
+                		}
+                		
                 		sum();
                 		break;
                 	case 'umm_cust':
                 		var as = _q_appendData("view_vcc", "", true);
-                		if(as.length>1 && !emp($('#txtCustno').val())){
+                		/*if(as.length>1 && !emp($('#txtCustno').val())){
                 			alert('請款單為多個收款客戶，表頭客戶請勿KEY打，以避免客戶款帳有問題!!');
                 		}else{
                 			if (as[0] != undefined && !emp($('#txtCustno').val())) {
@@ -290,10 +298,10 @@
                 					alert('收款客戶與請款單客戶不同!!');
                 					break;	
                 				}
-                			}
+                			}*/
                 			ummcustchk=true;
                 			btnOk();
-                		}
+                		//}
                 		break;
                 	case 'cno_acomp':
                 		var as = _q_appendData("acomp", "", true);
@@ -866,7 +874,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['acc1'] && (!as['money'] || parsrFloat(as['money']) == 0) && (!as['paysale'] || parsrFloat(as['paysale']) == 0)) {
+                if (!as['acc1'] && (!as['money'] || parseFloat(as['money']) == 0) && (!as['paysale'] || parseFloat(as['paysale']) == 0)) {
                     as[bbsKey[1]] = '';
                     return;
                 }
