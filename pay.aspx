@@ -643,6 +643,10 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace('txtAcc1_', '');
                         $('#btnAcc_'+n).click();
+                    }).change(function() {
+                        var patt = /^(\d{4})([^\.,.]*)$/g;
+	                    $(this).val($(this).val().replace(patt,"$1.$2"));
+                        sum();
                     });
                     $('#txtBankno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
