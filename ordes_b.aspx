@@ -15,7 +15,7 @@
 			var t_sqlname = 'view_ordes_load';
 			t_postname = q_name;
 			brwCount = -1;
-			brwCount2 = 10;
+			brwCount2 = 0;
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm;
 			var i, s1;
@@ -32,6 +32,10 @@
 					return;
 				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+				$('#btnTop').hide();
+				$('#btnPrev').hide();
+				$('#btnNext').hide();
+				$('#btnBott').hide();
 			}
 
 			function bbsAssign() {
