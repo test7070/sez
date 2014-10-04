@@ -1208,8 +1208,8 @@
 						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
-						<input type="text" id="txtCno.*" style="width:30%;float:left;"/>
 						<input type="text" id="txtMemo2.*" style="width:60%;float:left;"/>
+						<input type="text" id="txtCno.*" style="width:30%;float:left;"/>
 						<input type="text" id="txtRc2no.*" style="width:95%;" title="點擊滑鼠右鍵，瀏覽單據內容。" />
 						<input type="text" id="txtAccy.*" style="display:none;" />
 						<input type="text" id="txtTablea.*" style="display:none;" />
