@@ -47,7 +47,8 @@
 			function mainPost(){
 				//alert(q_getHref()[1]);
 				$('#txtNoa').val(q_getHref()[1]);
-				q_cmbParse("combUsage", q_getPara('ordem.usage'));
+				//q_cmbParse("combUsage", q_getPara('ordem.usage'));
+				q_gt('make', '', 0, 0, 0);
 			}
 
 			function bbsAssign() {  /// 表身運算式
@@ -97,10 +98,21 @@
 				_btnModi();
 			}
 
-			function q_gtPost(t_postname) {
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'make':
+                	 	var t_make = ' @ ';
+                        var as = _q_appendData("make", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_make += (t_make.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+                        }
+                        q_cmbParse("cmbUsage", t_make);
+                       	refresh(q_recno);
+					break;
+				}
 			}
 
-			function combUsage_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+			/*function combUsage_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
 				var cmb = document.getElementById("combUsage")
 				if (!q_cur)
 					cmb.value = '';
@@ -108,7 +120,7 @@
 					$('#txtUsage').val(cmb.value);
 
 				cmb.value = '';
-			}
+			}*/
 
 			function refresh(recno) {
 				_refresh(recno);
@@ -140,13 +152,16 @@
 				BACKGROUND-COLOR: #76a2fe
 			}
 			.column1 {
-				width: 18%;
+				width: 13%;
 			}
 			.column2 {
-				width: 15%;
+				width: 12%;
 			}
 			.column3 {
-				width: 33%;
+				width: 18%;
+			}
+			.column4 {
+				width: 18%;
 			}
 			.label1 {
 				width: 10%;
@@ -160,17 +175,21 @@
 				width: 10%;
 				text-align:right;
 			}
+			.label4 {
+				width: 10%;
+				text-align:right;
+			}
 		</style>
 	</head>
 	<body>
 		<div style="float:left;width:100%;margin-bottom: 10px;">
-			<div class='dbbm' style="width: 68%;float: left;">
+			<div class='dbbm' style="width: 90%;float: left;">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='0'>
 					<tr>
 						<td class="lable1" align="right"><a id='lblUsage'></a></td>
 						<td class="column1">
-							<input id="txtUsage" maxlength='30' type="text"  style='width:50%;'/>
-							<select id="combUsage" style="width:40%;" onchange="combUsage_chg();"> </select>
+							<!--<input id="txtUsage" maxlength='30' type="text"  style='width:50%;'/>-->
+							<select id="cmbUsage" style="width:90%;"> </select>
 						</td>
 						<td class="label2" align="right" ><a id='lblProductno'></a></td>
 						<td class="column2"><input id="txtProductno" type="text" style='width:100%;'/></td>
@@ -183,10 +202,9 @@
 						<td class="label2" align="right" ><a id='lblRdate'></a></td>
 						<td class="column2"><input id="txtRdate" type="text" style='width:100%;'/></td>
 						<td class="label3" align="right"><a id='lblPacks'></a></td>
-						<td class="column3" >
-							<input id="txtPacks" type="text" style='width:85%;'/>
-							<input id="txtNoa" type="text" style='width:85%;'/>
-						</td>
+						<td class="column3" ><input id="txtPacks" type="text" style='width:85%;'/></td>
+						<td class="label4" align="right"><a id='lblNoa'></a></td>
+						<td class="column4" ><input id="txtNoa" type="text" style='width:85%;'/></td>
 					</tr>
 				</table>
 			</div>
