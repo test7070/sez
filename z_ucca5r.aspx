@@ -185,6 +185,9 @@
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
+				
+				$('#q_report .report').css('width','460px');
+				$('#q_report .report div').css('width','220px');
             }
 
             function q_boxClose(s2) {
