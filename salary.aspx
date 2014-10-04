@@ -741,8 +741,11 @@
         	for (var j = 0; j < q_bbsCount; j++) {
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼+其他加項
         		//5/3本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼直接換算
+        		var inday=0;
+        		if(($('#txtMemo_'+j).val().indexOf('新進員工')>-1 || $('#txtMemo_'+j).val().indexOf('離職員工')>-1)){
+        			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
+        		}
         		if(($('#txtMemo_'+j).val().indexOf('新進員工')>-1 || $('#txtMemo_'+j).val().indexOf('離職員工')>-1 )&&imports){
-        			var inday=0;
         			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
         			q_tr('txtMoney_'+j,round((dec($('#txtMoney_'+j).val()))/30*inday,0));
         			q_tr('txtPubmoney_'+j,round((dec($('#txtPubmoney_'+j).val()))/30*inday,0));
@@ -778,7 +781,7 @@
         			
         			//當有核取時加班費金額可以直接修改
         			if(!$('#checkSel_'+j)[0].checked)
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
         			if(!($('#chkIswelfare_'+j)[0].checked))
@@ -786,9 +789,15 @@
         		}else if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
         			if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
         				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
-	        			q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)	
+        				if(inday>0)
+        					q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/2/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+        				else
+	        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)	
         			}else{
-        				q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)	
+        				if(inday>0)
+        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/2/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+        				else
+        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/2/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         			}
         			
         			//當有核取時扣薪時數和扣薪金額可以直接修改
@@ -828,9 +837,15 @@
         		}else {//本月
         			if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
         				//勞基法加班費基數=本俸+主管津貼+工作津貼+其他津貼+全勤
-	        			q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)	
+        				if(inday>0)
+	        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/inday/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+	        			else
+	        				q_tr('txtOstand_'+j,Math.round(((dec($('#txtMoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtBo_full_'+j).val()))/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         			}else{
-        				q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)	
+        				if(inday>0)
+        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/inday)*100)/100);//加班費基數(取小數點兩位並四捨五入)
+        				else
+        					q_tr('txtOstand_'+j,Math.round((dec($('#txtMoney_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)	
         			}
         			
         			//當有核取時扣薪時數和扣薪金額可以直接修改
@@ -862,9 +877,9 @@
         			
         			//當有核取時加班費金額可以直接修改
         			if(!$('#checkSel_'+j)[0].checked){
-        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
+        				q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh2_2_'+j).val())));//加班費
         			}
-        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
+        			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+dec($('#txtMeals_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.66*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
         			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
         		}

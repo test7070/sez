@@ -17,12 +17,12 @@
 
 			q_tables = 's';
 			var q_name = "salb";
-			var q_readonly = ['txtNoa','txtMoney','txtMi_money'];
+			var q_readonly = ['txtNoa','txtMoney','txtTax'];
 			var q_readonlys = ['txtNamea','txtId'];
-			var bbmNum = [['txtMoney',15,0,1],['txtMi_money',15,0,1]];
+			var bbmNum = [['txtMoney',15,0,1],['txtTax',15,0,1]];
 			var bbsNum = [
 				['txtMount',10,0,1],['txtAd_money',15,0,1],['txtCh_meal',15,0,1],
-				['txtMoney',15,0,1],['txtMi_money',15,0,1]
+				['txtMoney',15,0,1],['txtRetire',15,0,1],['txtTax',15,0,1],['txtTax2',15,0,1]
 			];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -33,8 +33,8 @@
 			brwKey = 'Datea';
 			
 			aPop = new Array(
-				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'],
-				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,id,addr_conn,sex', 'txtSssno_,txtNamea_,txtId_,txtAddr_,cmbSex_,txtMount_', 'sss_b.aspx']
+				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex', 'txtSssno_,txtNamea_,cmbSex_,txtMount_', 'sss_b.aspx']
 			);
 			
 			$(document).ready(function() {
@@ -130,9 +130,9 @@
 							for(var k=0;k<ret.length;k++){
 								var ret_sss = $.trim($('#txtSssno_'+ret[k]).val());
 								if(sss_noa==ret_sss){
-									$('#txtId_'+ret[k]).val($.trim(as[j].id));
+									//$('#txtId_'+ret[k]).val($.trim(as[j].id));
 									$('#cmbSex_'+ret[k]).val($.trim(as[j].sex));
-									$('#txtAddr_'+ret[k]).val(($.trim(as[j].addr_conn)=='同上'?$.trim(as[j].addr_home):$.trim(as[j].addr_conn)));
+									//$('#txtAddr_'+ret[k]).val(($.trim(as[j].addr_conn)=='同上'?$.trim(as[j].addr_home):$.trim(as[j].addr_conn)));
 									break;
 								}
 							}
@@ -178,7 +178,7 @@
 					$('#txtMoney_'+j).change(function(){
 						sum();
 					});
-					$('#txtMi_money_'+j).change(function(){
+					$('#txtTax_'+j).change(function(){
 						sum();
 					});
 					
@@ -259,17 +259,17 @@
 				var t_moneys = 0,t_mi_moneys = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
 					var t_moneys = dec($('#txtMoney_'+j).val());
-					var t_mi_moneys = dec($('#txtMi_money_'+j).val());
+					var t_mi_moneys = dec($('#txtTax_'+j).val());
 					t_money = q_add(t_money,t_moneys);
 					t_mi_money = q_add(t_mi_money,t_mi_moneys);
 				}
 				$('#txtMoney').val(t_money);
-				$('#txtMi_money').val(t_mi_money);
+				$('#txtTax').val(t_mi_money);
 			}
 
 			function refresh(recno) {
 				_refresh(recno);
-				btnTypechange();
+				//btnTypechange();
 			}
 
 			function readonly(t_para, empty) {
@@ -453,7 +453,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1600px;
+				width: 1500px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -503,7 +503,7 @@
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td class='td3'><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td class="td4"><input id="txtCno" type="text" class="txt c1" /></td>
-						<td class='td5'colspan="2"><input id="txtComp2" type="text" class="txt c1" /></td>
+						<td class='td5'colspan="2"><input id="txtAcomp" type="text" class="txt c1" /></td>
 						<td class="td6"> </td>
 					</tr>
 					<tr>
@@ -518,11 +518,14 @@
 					</tr>
 					<tr>
 						<td class='td1'> </td>
-						<td class="td2"><input id="btnEnd" type="button" /></td>
+						<td class="td2">
+							<!--<input id="btnEnd" type="button" />-->
+							<input id="btnMedia" type="button" />
+						</td>
 						<td class='td3'><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td class="td4"><input id="txtMoney" type="text" class="txt num c1" /></td>
-						<td class='td5'><span> </span><a id="lblMi_money" class="lbl"> </a></td>
-						<td class="td6"><input id="txtMi_money" type="text" class="txt num c1" /></td>
+						<td class='td5'><span> </span><a id="lblTax" class="lbl"> </a></td>
+						<td class="td6"><input id="txtTax" type="text" class="txt num c1" /></td>
 					</tr>
 				</table>
 			</div>
@@ -535,20 +538,24 @@
 					</td>
 					<td align="center"><a id='lblSssno'> </a></td>
 					<td align="center"><a id='lblNamea'> </a></td>
-					<td align="center"><a id='lblId'> </a></td>
+					<!--<td align="center"><a id='lblId'> </a></td>-->
 					<td align="center" style="width: 90px;"><a id='lblTypea'> </a></td>
 					<td align="center" style="width: 90px;"><a id='lblTypeb'> </a></td>
 					<td align="center" style="width: 90px;"><a id='lblTypec'> </a></td>
-					<td align="center"><a id='lblWtno'> </a></td>
+					<!--<td align="center"><a id='lblWtno'> </a></td>-->
 					<td align="center" style="width: 20px;"><a id='vewIsclerk'> </a></td>
 					<td align="center"><a id='lblMount'> </a></td>
 					<td align="center"><a id='lblAd_money'> </a></td>
 					<td align="center"><a id='lblCh_meal'> </a></td>
 					<td align="center"><a id='lblMoneys'> </a></td>
-					<td align="center"><a id='lblMi_moneys'> </a></td>
+					<td align="center"><a id='lblRetire'> </a></td>
+					<!--<td align="center"><a id='lblRate'> </a></td>-->
+					<td align="center"><a id='lblTaxs'> </a></td>
+					<td align="center"><a id='lblTax2s'> </a></td>
+					<!--<td align="center"><a id='lblMi_moneys'> </a></td>-->
 					<td align="center" style="width: 40px;"><a id='lblSex'> </a></td>
 					<td align="center"><a id='lblComp'> </a></td>
-					<td align="center" ><a id='lblAddr'> </a></td>
+					<!--<td align="center" ><a id='lblAddr'> </a></td>-->
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -559,23 +566,27 @@
 						<input id="txtSssno.*" type="text" class="txt" style="width:70%;"/>
 					</td>
 					<td><input id="txtNamea.*" type="text" class="txt c1"/></td>
-					<td><input id="txtId.*" type="text" class="txt c1"/></td>
+					<!--<td><input id="txtId.*" type="text" class="txt c1"/></td>-->
 					<td><select id="cmbTypea.*" class="txt c1"> </select></td>
 					<td><select id="cmbTypeb.*" class="txt c1"> </select></td>
 					<td><select id="cmbTypec.*" class="txt c1"> </select></td>
-					<td><input id="txtWtno.*" type="text" class="txt c1"/></td>
+					<!--<td><input id="txtWtno.*" type="text" class="txt c1"/></td>-->
 					<td><input id="chkIsclerk.*" type="checkbox"/></td>
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtAd_money.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtCh_meal.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtMi_money.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtRetire.*" type="text" class="txt num c1" /></td>
+					<!--<td><input id="txtRate.*" type="text" class="txt num c1" /></td>-->
+					<td><input id="txtTax.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtTax2.*" type="text" class="txt num c1" /></td>
+					<!--<td><input id="txtMi_money.*" type="text" class="txt num c1"/></td>-->
 					<td><select id="cmbSex.*" class="txt c1"> </select></td>
-					<td><input id="txtComp.*" type="text" class="txt c1"/></td>
 					<td>
-						<input id="txtAddr.*" type="text" class="txt c1"/>
+						<input id="txtCno.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" />
 					</td>
+					<!--<td><input id="txtAddr.*" type="text" class="txt c1"/></td>-->
 				</tr>
 			</table>
 		</div>

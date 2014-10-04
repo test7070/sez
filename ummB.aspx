@@ -46,12 +46,16 @@
             }
             mainForm(1); 
         }
+        var field_mount='mount';
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtChgdate', r_picd],['txtBkdate',r_picd],['txtVccdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('ummb.typea')); 
              
+             if(q_getPara('sys.comp').indexOf('永勝')>-1){
+             	field_mount='lengthb';
+             }
              
              $('#btnVccs').click(function () {
              	//換單 不匯入直接在BBM打單號和換單帳款月份
@@ -66,7 +70,7 @@
 					t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' && noa not in (select noa from view_vcc where unpay>=0 and payed>0)"
-					+" && lengthb-isnull((select SUM(bkmount)-SUM(salemount) from ummbs where vccno=a.noa and vccnoq=a.noq),0)!=0 ";
+					+" && "+field_mount+"-isnull((select SUM(bkmount)-SUM(salemount) from ummbs where vccno=a.noa and vccnoq=a.noq),0)!=0 ";
 					q_box("vccs_ummb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vccs_1', "95%", "95%", q_getMsg('popVccs'));
 	            }else if($('#cmbTypea').val()=='2'){//換貨--->匯入【未收】出貨單--->一次一張需整張處理完--->退舊產品：系統自動建立 退貨單, 出新產品：系統自動建立 新出貨單
 	            	//alert('請選擇同一出貨單號的產品!!');
@@ -116,7 +120,7 @@
 					//清空bbs
 					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
 					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
-					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
+					, b_ret.length, b_ret, 'productno,product,'+field_mount+',price,total,'+field_mount+',total,noa,noq', '');
 					fieldsdisabled ();
             	}
             	break;
@@ -140,7 +144,7 @@
 					//清空bbs
 					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
 					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
-					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
+					, b_ret.length, b_ret, 'productno,product,'+field_mount+',price,total,'+field_mount+',total,noa,noq', '');
 					fieldsdisabled ();
             	}
             	break;
@@ -164,7 +168,7 @@
 					//清空bbs
 					for (var i = 0; i < q_bbsCount; i++) {$('#btnMinus_' + i).click();}
 					ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtMount,txtPrice,txtTotal,txtBkmount,txtBkmoney,txtVccno,txtVccnoq'
-					, b_ret.length, b_ret, 'productno,product,lengthb,price,total,lengthb,total,noa,noq', '');
+					, b_ret.length, b_ret, 'productno,product,'+field_mount+',price,total,'+field_mount+',total,noa,noq', '');
 					fieldsdisabled ();
             	}
             	break;

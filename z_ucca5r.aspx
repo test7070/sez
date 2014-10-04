@@ -45,55 +45,59 @@
                         name : 'xstype',
                         value : q_getPara('vccst.stype')
                     },{
-                        type : '5',//[5] 產品用途
+                        type : '0',//[5]
+                        name : 'stktype',
+                        value : q_getPara('sys.stktype')
+                    },{
+                        type : '5',//[6] 產品用途
                         name : 'xmake',
                         value : t_make.split(',')
                     },{
-                        type : '5',//[6] 類別
+                        type : '5',//[7] 類別
                         name : 'xkind',
                         value : ('#non@全部,'+q_getPara('sys.stktype')).split(',')
                     },{
-                        type : '5',//[7]  材質
+                        type : '5',//[8]  材質
                         name : 'xpno',
                         value : ('全部,CR,HR,PO,其他').split(',') //祥興版本除了CR、HR、PO,其餘皆為其他
                     },{
-                        type : '1',//[8]][9] //組別
+                        type : '1',//[9]][10] //組別
                         name : 'xgroup'
                     }, {
-						type : '2', //[10][11] 業務員
+						type : '2', //[11][12] 業務員
 						name : 'xsss',
 						dbf : 'sss',
 						index : 'noa,namea',
 						src : 'sss_b.aspx'
 					}, {
-						type : '2', //[12][13] 客戶
+						type : '2', //[13][14] 客戶
 						name : 'xcust',
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
 					},{
-                        type : '1',//[14][15] //厚
+                        type : '1',//[15][16] //厚
                         name : 'xdime'
                     },{
-                        type : '1',//[16][17] //短
+                        type : '1',//[17][18] //短
                         name : 'xradius'
                     },{
-                        type : '1',//[18][19] //寬                                           
+                        type : '1',//[19][20] //寬                                           
                         name : 'xwidth'
                     },{
-                        type : '1',//[20][21] //長
+                        type : '1',//[21][22] //長
                         name : 'xlengthb'
                     },{
-                        type : '1',//[22][23] //銷售日期
+                        type : '1',//[23][24] //銷售日期
                         name : 'xdate'
                     },{
-                        type : '6',//[24] //年利率
+                        type : '6',//[25] //年利率
                         name : 'xrate'
                     },{
-                        type : '6',//[25] //訂單編號
+                        type : '6',//[26] //訂單編號
                         name : 'xordeno'
                     },{
-                        type : '6',//[26] //訂序
+                        type : '6',//[27] //訂序
                         name : 'xno2'
                     }]
                 });
