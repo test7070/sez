@@ -733,6 +733,10 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace('txtAcc1_', '');
                         $('#btnAcc_'+n).click();
+                    }).change(function() {
+                        var patt = /^(\d{4})([^\.,.]*)$/g;
+	                    $(this).val($(this).val().replace(patt,"$1.$2"));
+                        sum();
                     });
                     $('#txtBankno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
@@ -752,11 +756,7 @@
                     		q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
                     	}
                     });
-					$('#txtAcc1_' + i).change(function() {
-                        var patt = /^(\d{4})([^\.,.]*)$/g;
-	                    $(this).val($(this).val().replace(patt,"$1.$2"));
-                        sum();
-                    });
+					
                     $('#txtMoney_' + i).change(function(e) {
                         sum();
                     });
@@ -1207,8 +1207,8 @@
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblMon' class="lbl"></a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblPayc' class="lbl"></a></td>
-						<td><input id="txtPayc" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblPayc' class="lbl btn"></a></td>
+						<td><input id="txtPayc"  type="text" class="txt c1"/></td>
 						<td class="tdZ"><input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/></td>
 					</tr>
 					<tr class="tr2">
@@ -1222,13 +1222,6 @@
 						<input id="txtCustno" type="text" class="txt" style="float:left;width:40%;"/>
 						<input id="txtComp"  type="text" class="txt" style="float:left;width:60%;"/>
 						</td>
-						<td> </td>
-						<td><input type="button" id="btnVcc" class="txt c1 " /></td>
-						<td><input type="button" id="btnMon" class="txt c1 " /></td>
-					</tr>
-					<tr>
-						<td> </td>
-						<td> </td>
 						<td><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 						<td colspan="2">
 							<input id="txtCustno2" type="text" class="txt c1" title='多客戶使用"逗號"分隔'/>
@@ -1266,17 +1259,24 @@
 						<input id="textOpay"  type="text" class="txt num c1"/>
 						<input type='hidden' id="textOpayOrg" />
 						</td>
-						<td><span> </span><a id='lblAccc' class="lbl btn"></a></td>
-						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
-
+						
+						<td> </td>
+						<td><input type="button" id="btnVcc" class="txt c1 " /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td colspan="3" rowspan="3" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " ></textarea></td>
+						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='6' cols='3' style="width: 100%; " ></textarea></td>
+						<td><span> </span><a id='lblAccc' class="lbl btn"></a></td>
+						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+						<td> </td>
+						<td><input type="button" id="btnMon" class="txt c1 " /></td>
+					</tr>
+					<tr>
+						<td></td>
 						<td><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td> </td>
-						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/></td>
+						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:red"/></td>
 					</tr>
 					<tr>
 						<td></td>
