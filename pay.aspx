@@ -1098,20 +1098,10 @@
 	                        <input id="txtTggno" type="text" class="txt c4"/>
 	                        <input id="txtComp"  type="text" class="txt c5" />
 						</td>
-						<td> </td>
-						<td><input type="button" id="btnVcc" class="txt c1 " /></td>
-						<td><input type="button" id="btnMon" class="txt c1 " /></td>
-					</tr>
-					<tr>
-						<td> </td>
-						<td> </td>
 						<td><span> </span><a id='lblTgg2' class="lbl btn"> </a></td>
 						<td colspan='2'>
 	                        <input id="txtTggno2" type="text" class="txt c1" title='多廠商使用"逗號"分隔'/>
 						</td>
-						<td> </td>
-						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"> </a></td>
@@ -1138,18 +1128,25 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td colspan="3" rowspan="3" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " ></textarea></td>
+						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='6' cols='3' style="width: 100%; " ></textarea></td>
+						<td><span> </span><a id='lblAccc' class="lbl btn"></a></td>
+						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+						<td> </td>
+						<td><input type="button" id="btnVcc" class="txt c1 " /></td>
+					</tr>
+					<tr>
+						<td></td>
 						<td><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td> </td>
-						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/></td>
+						<td><input type="button" id="btnMon" class="txt c1 " /></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"></a></td>
 						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
 						<td> </td>
-						<td><input type="button" id="btnGqbPrint" class="txt c1 "/></td>
+						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:red"/></td>
 					</tr>
 				</table>
 			</div>
