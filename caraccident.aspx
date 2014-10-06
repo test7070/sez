@@ -39,7 +39,6 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
-            //////////////////   end Ready
             function main() {
                 if(dataErr) {
                     dataErr = false;
@@ -65,14 +64,33 @@
             }
 
             function q_gtPost(t_name) {
-//                q_changeFill(t_name);
 
                 switch (t_name) {
+                    /*case 'getNoq':
+                    	var as = _q_appendData("caraccident", "", true);
+                    	var t_noq = '000';
+                    	if (as[0] != undefined) {
+                    		for(var i=0;i<as.length;i++){
+                    			t_noq = t_noq<as[0].noq?as[0].noq:t_noq;              
+                    		}
+                    		t_noq = '000'+parseInt(t_noq);
+                    		t_noq = t_noq.substring(t_noq.length-3,t_noq.length);
+                    	}
+                    	var t_carno = $.trim(q_getId()[3].replace(/[carno='*']/g,""));
+	            		if(t_carno.length>0){
+	            			$('#txtCarno').val(t_carno);
+	            			$('#txtNoq').val(t_noq);
+	            			$('#txtDatea').focus(); 
+	        			}else{
+	        				$('#txtCarno').focus(); 
+	        			}
+	        			$('#txtNoa').val('AUTO');
+                    	break;*/
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
-                }  /// end switch
+                } 
             }
 
             function _btnSeek() {
@@ -85,6 +103,7 @@
             	if(q_getId()[3].length>0){
             		var t_carno = $.trim(q_getId()[3].replace(/[carno='*']/g,""));
             		_btnIns();
+            		//q_gt('caraccident',"where=^^noa='"+t_carno+"'^^", 0, 0, 0, 'getNoq')
             		if(t_carno.length>0){
             			$('#txtCarno').val(t_carno);
             			$('#txtDatea').focus(); 
