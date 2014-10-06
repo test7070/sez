@@ -825,14 +825,8 @@
              		return;
                Lock(1,{opacity:0});
                checkGqbStatus_btnModi(q_bbsCount-1);
-               
-               for (var i = 0; i < q_bbsCount; i++) {
-                 	if(emp($('#txtVccno_'+i).val()))
-                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
-                 	else
-                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-                 }
             }
+            
             function checkGqbStatus_btnModi(n){
             	if(n<0){
             		 _btnModi();
@@ -908,6 +902,15 @@
 		        	$("#btnVcc").attr("disabled","disabled");
 		        	$("#btnMon").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
+		        }
+		        
+		        if(q_cur==2){
+		        	for (var i = 0; i < q_bbsCount; i++) {
+	                 	if(emp($('#txtVccno_'+i).val()))
+	                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+	                 	else
+	                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+	                 }
 		        }
             }
 
