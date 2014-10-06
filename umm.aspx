@@ -1102,7 +1102,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 10%;
+                /*width: 10%;*/
             }
             .tbbm .tdZ {
                 width: 1%;
@@ -1205,15 +1205,15 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 120px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 100px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 120px;"> </td>
+						<td style="width: 120px;"> </td>
+						<td style="width: 100px;"> </td>
+						<td style="width: 30px;"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"></a></td>
@@ -1241,10 +1241,11 @@
 						<input id="txtCustno" type="text" class="txt" style="float:left;width:40%;"/>
 						<input id="txtComp"  type="text" class="txt" style="float:left;width:60%;"/>
 						</td>
-						<td><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 						<td colspan="2">
-							<input id="txtCustno2" type="text" class="txt c1" title='多客戶使用"逗號"分隔'/>
-						</td>
+							<input type="button" id="btnVcc" class="txt c1 " style="width: 95px;"/>
+							<input type="button" id="btnMon" class="txt c1 " style="width: 95px;"/>
+						<span> </span><a id='lblCust2' class="lbl btn"> </a></td>
+						<td><input id="txtCustno2" type="text" class="txt c1" title='多客戶使用"逗號"分隔'/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
@@ -1278,31 +1279,23 @@
 						<input id="textOpay"  type="text" class="txt num c1"/>
 						<input type='hidden' id="textOpayOrg" />
 						</td>
-						
-						<td> </td>
-						<td><input type="button" id="btnVcc" class="txt c1 " /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='6' cols='3' style="width: 100%; " ></textarea></td>
 						<td><span> </span><a id='lblAccc' class="lbl btn"></a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
-						<td> </td>
-						<td><input type="button" id="btnMon" class="txt c1 " /></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td><span> </span><a id='lblWorker' class="lbl"></a></td>
-						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="3" rowspan="6" ><textarea id="txtMemo"  rows='3' cols='3' style="width: 100%; " > </textarea></td>
 						<td> </td>
-						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:red"/></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><span> </span><a id='lblWorker2' class="lbl"></a></td>
-						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
+						<td><input type="button" id="btnAuto" class="txt c1 "  style="color:red"/> </td>
 						<td> </td>
 						<td><input type="button" id="btnBank" class="txt c1 "/></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
