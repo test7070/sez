@@ -76,7 +76,7 @@
 				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
 				+ q_sqlPara2("a.cardealno", t_cardealno) 
 				+ q_sqlPara2("a.carownerno", t_carownerno) 
-				+ q_sqlPara2("a.cartype", t_cartype);
+				+ q_sqlPara2("a.cartype", t_cartype)
 				+ q_sqlPara2("a.cardno", t_cardno);
 				
 				if(!emp(t_carno))
