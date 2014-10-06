@@ -277,6 +277,22 @@
                 switch (t_name) {
                 	case 'umm_import':
                 		as = _q_appendData(t_name, "", true);
+                		for (var i = 0; i < as.length; i++) {
+							if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+								as[i].tablea='vcc_it';
+							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
+								as[i].tablea='vcc_uu';
+								as[i].memo=as[i].memo+as[i].invono;
+							}else if (q_getPara('sys.comp').indexOf('楊家') > -1|| q_getPara('sys.comp').indexOf('德芳') > -1){
+								as[i].tablea='vcc_tn';
+							}else{
+								if(q_getPara('sys.steel')=='1'){
+									as[i].tablea='vccst';
+								}else{
+									as[i].tablea='vcc';
+								}
+							}
+						}
                 		q_gridAddRow(bbsHtm, 'tbbs', 'txtCno,txtCustno,txtPaymon,txtCoin,txtUnpay,txtUnpayorg,txtTablea,txtAccy,txtVccno,txtMemo2', as.length, as, 'cno,custno,mon,coin,unpay,unpay,tablea,tableaccy,vccno,memo', '', '');
                 		
                 		var t_comp = q_getPara('sys.comp').substring(0,2);
@@ -906,11 +922,11 @@
 		        
 		        if(q_cur==2){
 		        	for (var i = 0; i < q_bbsCount; i++) {
-	                 	if(emp($('#txtVccno_'+i).val()))
-	                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
-	                 	else
-	                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-	                 }
+                 	if(emp($('#txtVccno_'+i).val()))
+                 		$('#txtVccno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+                 	else
+                 		$('#txtVccno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+                 }
 		        }
             }
 
