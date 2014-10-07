@@ -87,7 +87,29 @@
 					$('#txtXproductno').val(wParent.getElementById("txtNoa").value);
 				}
 				firstRun = false;
-				$('#Isprice').css('width','300px');
+				
+				$('#txtSpno1a').blur(function() {
+					if(!emp($('#txtSpno1a').val()) &&!emp($('#txtSpno2a').val())){
+						if($('#txtSpno2a').val()<$('#txtSpno1a').val()){
+							alert('【'+$('#txtSpno2a').val()+'】編號小於【'+$('#txtSpno1a').val()+'】編號');
+						}
+					}
+				});
+				$('#txtSpno2a').blur(function() {
+					if(!emp($('#txtSpno1a').val()) &&!emp($('#txtSpno2a').val())){
+						if($('#txtSpno2a').val()<$('#txtSpno1a').val()){
+							alert('【'+$('#txtSpno2a').val()+'】編號小於【'+$('#txtSpno1a').val()+'】編號');
+						}
+					}
+				});
+				$('.option').css('width','700px');
+				$('.option .a1').css('width','690px');
+				$('.option .a2').css('width','340px');
+				$('.q_report .option div .c2').css('width','130px');
+				$('.q_report .option div .c3').css('width','130px');
+				$('.q_report .option div .c5').css('width','245px');
+				$('.q_report .option div .c4').css('width','250px');
+				$('#Isprice').css('width','340px');
 				$('#chkIsprice').css('width','200px');
 				$('#chkIsprice span').css('width','150px');
 			}

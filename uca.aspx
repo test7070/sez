@@ -1432,15 +1432,15 @@
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:200px;"><a id='lblProductno'></a></td>
-					<td align="center" style="width:200px;"><a id='lblProducts'></a></td>
+					<td align="center" style="width:260px;"><a id='lblProducts'></a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width:100px;"><a id='lblMount'></a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblWeights'></a></td>-->
 					<td align="center" style="width:120px;"><a id='lblMtype_s'></a></td>
 					<td align="center" style="width:150px;"><a id='lblProcessno_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblLoss_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblDividea_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblMul_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblLoss_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblDividea_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMul_s'></a></td>
 					<!--<td align="center" style="width:15%;"><a id='lblTd'></a></td>-->
 					<td align="center" style="width:200px;"><a id='lblMemos'></a></td>
 				</tr>

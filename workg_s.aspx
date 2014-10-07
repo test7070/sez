@@ -26,7 +26,7 @@
         q_getFormat();
         q_langShow();
 
-        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBodate', r_picd], ['txtEodate', r_picd],['txtBwdate', r_picd], ['txtEwdate', r_picd]];
         q_mask(bbmMask);
 
         $('#txtNoa').focus();
@@ -36,21 +36,30 @@
         t_noa = $('#txtNoa').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
+        t_bodate = $('#txtBodate').val();
+        t_eodate = $('#txtEodate').val();
+        t_bwdate = $('#txtBwdate').val();
+        t_ewdate = $('#txtEwdate').val();
         t_productno = $('#txtProductno').val();
         t_product = $('#txtProduct').val();
         t_ordeno = $('#txtOrdeno').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
+        t_bodate = t_bodate.length > 0 && t_bodate.indexOf("_") > -1 ? t_bodate.substr(0, t_bodate.indexOf("_")) : t_bodate;  /// 100.  .
+        t_eodate = t_eodate.length > 0 && t_eodate.indexOf("_") > -1 ? t_eodate.substr(0, t_eodate.indexOf("_")) : t_eodate;  /// 100.  .
+        t_bwdate = t_bwdate.length > 0 && t_bwdate.indexOf("_") > -1 ? t_bwdate.substr(0, t_bwdate.indexOf("_")) : t_bwdate;  /// 100.  .
+        t_ewdate = t_ewdate.length > 0 && t_ewdate.indexOf("_") > -1 ? t_ewdate.substr(0, t_ewdate.indexOf("_")) : t_ewdate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+q_sqlPara2("datea", t_bdate,t_edate)
+        +q_sqlPara2("bdate", t_bodate,t_eodate)
+        +q_sqlPara2("wbdate", t_bwdate,t_ewdate)
+        ;
         
         if(t_productno.length>0)
         	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where productno='"+t_productno+"')"
         if(t_product.length>0)
         	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where product='"+t_product+"')"
-        if(t_bdate.length>0 && t_edate.length>0)
-        	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where dworkdate between '"+t_bdate+"' and '"+t_edate+"')"
         if(t_ordeno.length>0)
         	t_where=t_where+" and noa in(select noa from workgs"+r_accy+" where charindex('"+t_ordeno+"',ordeno)>0)"
 
@@ -75,6 +84,18 @@
                 <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
                 <span style="display:inline-block; vertical-align:middle">&sim;</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblOdate'> </a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBodate" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                <input class="txt" id="txtEodate" type="text" style="width:93px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblWdate'> </a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBwdate" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                <input class="txt" id="txtEwdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblProductno'></a></td>
