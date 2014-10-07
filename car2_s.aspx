@@ -68,13 +68,16 @@
 				t_carownerno = $('#txtCarownerno').val();
 
 				t_cartype = $('#cmbCartype').val();
+				
+				t_cardno = $('#txtCardno').val();
 
 
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
 				+ q_sqlPara2("a.cardealno", t_cardealno) 
 				+ q_sqlPara2("a.carownerno", t_carownerno) 
-				+ q_sqlPara2("a.cartype", t_cartype);
+				+ q_sqlPara2("a.cartype", t_cartype)
+				+ q_sqlPara2("a.cardno", t_cardno);
 				
 				if(!emp(t_carno))
 				t_where+= " and (a.noa='"+t_carno+"' or oldnoa='"+t_carno+"') ";
@@ -135,7 +138,12 @@
 					<input class="txt" id="txtCarownerno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
-				
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCardno'></a></td>
+					<td>
+					<input class="txt" id="txtCardno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
