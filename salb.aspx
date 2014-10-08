@@ -156,9 +156,9 @@
 				$('#txtWorker').val(r_name)
 				sum();
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-				var t_datea = $.trim($('#txtDatea').val());
+				var t_mon = $.trim($('#txtMon').val());
 				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_salb') + t_datea, '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_salb') + t_mon, '/', ''));
 				else
 					wrServer(s1);
 			}
