@@ -34,7 +34,7 @@
 			
 			aPop = new Array(
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk', 'txtSssno_,txtNamea_,cmbSex_,txtMount_,txtId_,chkIsclerk_', 'sss_b.aspx']
+				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk', 'txtSssno_,txtNamea_,cmbSex_,txtId_,chkIsclerk_', 'sss_b.aspx']
 			);
 			
 			$(document).ready(function() {
