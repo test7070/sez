@@ -63,6 +63,20 @@
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbApv", 'N,Y');
+                
+                $("#combPaytype").change(function(e) {
+  					if(q_cur==1 || q_cur==2)
+					 $('#txtPaytype').val($('#combPaytype').find(":selected").text()); 
+				});
+				$("#txtPaytype").focus(function(e) {
+  					var n=$(this).val().match(/[0-9]+/g);
+  					var input = document.getElementById ("txtPaytype");
+		            if (typeof(input.selectionStart) != 'undefined' && n != null) {	  
+		                input.selectionStart = $(this).val().indexOf(n);
+		                input.selectionEnd =$(this).val().indexOf(n)+n.length+1;
+		            }
+				});
+				
                 /* 若非本會計年度則無法存檔 */
                 $('#txtDatea').focusout(function() {
                     if ($(this).val().substr(0, 3) != r_accy) {
