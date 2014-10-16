@@ -76,6 +76,13 @@
 		                input.selectionEnd =$(this).val().indexOf(n)+n.length+1;
 		            }
 				});
+				$('#txtTax').change(function () {
+	            	sum();
+			     });
+			     
+			     $('#txtFloata').change(function () {
+	            	sum();
+			     });
 				
                 /* 若非本會計年度則無法存檔 */
                 $('#txtDatea').focusout(function() {
