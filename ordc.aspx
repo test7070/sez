@@ -28,6 +28,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Odate';
+            
+            var z_acomp='';
             aPop = new Array(
             	['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', '0txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount', 'bcc_b.aspx']
 				,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
@@ -41,7 +43,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no2'];
                 q_brwCount();
-               q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt('acomp', "", 0, 0, 0, 'acompx'); 
             });
             
             //////////////////   end Ready
@@ -57,6 +59,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtOdate', r_picd]];
                 q_mask(bbmMask);
+                q_cmbParse("cmbCno", z_acomp);  
                 q_cmbParse("cmbKind", q_getPara('ordc.kind')); //rc2.stype
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
                 q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
@@ -153,6 +156,16 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'acompx':
+                		var as = _q_appendData("acomp","",true)
+                		if(as[0]!=undefined){
+							z_acomp = ' @';
+							for(var i=0;i<as.length;i++){
+								z_acomp += ','+as[i].noa+'@'+as[i].acomp;
+							}                			
+                		}
+                		q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+                		break;
                 	case 'ordb':
                 		var ordb = _q_appendData("ordb", "", true);
                 		if(ordb[0]!=undefined)
@@ -644,8 +657,7 @@
             </tr>
             <tr class="tr2">
 				<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
-				<td class="td2" colspan="2"><input id="txtCno"  type="text" class="txt c4 lef"/>
-				<input id="txtAcomp"type="text" class="txt c5 lef" /></td>
+				<td class="td2" colspan="2"><select id="cmbCno" class="txt c1"></select></td>
 				<td class="td4"><span> </span><a id='lblPart' class="lbl btn"> </a></td>
 				<td class="td5" colspan="2">
 					<input id="txtPartno"  type="text" class="txt c2 lef"/>
