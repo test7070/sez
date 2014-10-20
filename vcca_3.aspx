@@ -172,6 +172,8 @@
                     	try{
 	                    	$('#txtAccno').val(result.split(';')[0]);
 	                    	$('#txtVccno').val(result.split(';')[1]);
+	                    	abbm[q_recno].accno = result.split(';')[0];
+	                    	abbm[q_recno].vccno = result.split(';')[1];
                     	}catch(e){
                     		alert(e.toString());
                     	}
