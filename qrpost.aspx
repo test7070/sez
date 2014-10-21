@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>寫入RQCODE</title>
+        <title>寫入QRCODE</title>
         <script src="../script/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript">
 			var text=location.search;
@@ -13,7 +13,7 @@
 				$.ajax({
 					url : 'qrget.aspx'
 					, type : 'POST'
-					, data : JSON.stringify({datea:text.split(';')[0],timea:text.split(';')[1],qrcode:text.split(';')[2]})
+					, data : JSON.stringify({worker:text.split(';')[0],datea:text.split(';')[1],timea:text.split(';')[2],qrcode:text.split(';')[3]})
 					, dataType : 'text'
 					, timeout : 5000
 					, success : function(data) {

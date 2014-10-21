@@ -2,6 +2,7 @@
     <script language="c#" runat="server">
          public class msg
         {
+        	public string worker;
 			public string datea;
 			public string timea;
             public string qrcode;
@@ -20,15 +21,24 @@
             string query = "";
             try
             {
-                
                 conn.Open();
-								
-                query = "insert cubu"+item.datea.Substring(0,3)+" (noa,noq,datea,uno,memo,productno,storeno,mount,weight,radius,width,dime,lengthb)"
-				+"select @datea,right('00'+cast(ROW_NUMBER() over (order by n)+cast(isnull((select MAX(noq) from view_cubu where datea=@datea),'000') as int) as nvarchar(50)),3),@datea"
-				+",n,@timea,'','',0,0,0,0,0,0 from dbo.fnSplit(@qrcode)";
+                
+                /*判斷機台 並寫入入庫時間 目前只有5個機台*/
+                query = "update b set time5=(case when right(n,2)='-5' then @datea+' '+@timea else time5 end) ,worker5=(case when right(n,2)='-5' then @worker else worker5 end) ";
+                query += ",time4=(case when right(n,2)='-4' then @datea+' '+@timea else time4 end),worker4=(case when right(n,2)='-4' then @worker else worker4 end) ";
+                query += ",time3=(case when right(n,2)='-3' then @datea+' '+@timea else time3 end),worker3=(case when right(n,2)='-3' then @worker else worker3 end) ";
+                query += ",time2=(case when right(n,2)='-2' then @datea+' '+@timea else time2 end),worker2=(case when right(n,2)='-2' then @worker else worker2 end) ";
+                query += ",time1=(case when right(n,2) not in ('-2','-3','-4','-5') then @datea+' '+@timea else time1 end)";
+                query += ",worker1=(case when right(n,2) not in ('-2','-3','-4','-5') then @worker else worker1 end)";
+                query += " from dbo.fnSplit(@qrcode) a left join workjs b on a.n like b.noa+'-'+b.noq+'%' where b.noa!=''";
+                
+                /*query = "insert cubu"+item.datea.Substring(0,3)+" (noa,noq,datea,uno,worker,productno,product,storeno,store,mount,weight,radius,width,dime,lengthb,b.memo)"
+				+"select b.noa,right('00'+cast(ROW_NUMBER() over (order by n)+cast(isnull((select MAX(noq) from view_cubu where noa=b.noa),'000') as int) as nvarchar(50)),3),@datea"
+				+",a.n,@timea,b.productno,b.product,'','',b.mount,b.weight,0,0,0,b.lengthb,b.memo from dbo.fnSplit(@qrcode) a left join workjs b on a.n=b.noa+'-'+b.noq";*/
 
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(query, conn);
 
+				cmd.Parameters.AddWithValue("@worker", item.worker);
                 cmd.Parameters.AddWithValue("@datea", item.datea);
 				cmd.Parameters.AddWithValue("@timea", item.timea);
 				cmd.Parameters.AddWithValue("@qrcode", item.qrcode);
