@@ -31,9 +31,7 @@
 			aPop = new Array(
 				['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
-				['txtProductno1_', 'btnProduct1_', 'ucaucc', 'noa,product,unit', 'txtProductno1_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
-				['txtProductno2_', 'btnProduct2_', 'bcc', 'noa,product,unit', 'txtProductno2_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
-				['txtProductno3_', 'btnProduct3_', 'fixucc', 'noa,namea,unit', 'txtProductno3_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
+				['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
 				['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 			);
 
@@ -104,19 +102,6 @@
 				}
 				$('#txtWorker').val(r_name);
 				//sum();
-				if ($('#cmbKind').val() == '1') {
-					for (var j = 0; j < q_bbsCount; j++) {
-						$('#txtProductno_' + j).val($('#txtProductno1_' + j).val());
-					}
-				} else if ($('#cmbKind').val() == '2') {
-					for (var j = 0; j < q_bbsCount; j++) {
-						$('#txtProductno_' + j).val($('#txtProductno2_' + j).val());
-					}
-				} else {
-					for (var j = 0; j < q_bbsCount; j++) {
-						$('#txtProductno_' + j).val($('#txtProductno3_' + j).val());
-					}
-				}
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
@@ -161,7 +146,7 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
-				if (q_getPara('sys.comp').indexOf('永勝') > -1|| q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
+				if (q_getPara('sys.comp').indexOf('永勝') > -1|| q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1 || q_getPara('sys.comp').indexOf('德芳') > -1) {
 					$('#cmbKind').val(1);
 				}
 				product_change();
@@ -187,7 +172,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['productno1'] && !as['productno2'] && !as['productno3']) {
+				if (!as['productno'] ) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -212,7 +197,7 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if (q_getPara('sys.comp').indexOf('永勝') > -1|| q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
+				if (q_getPara('sys.comp').indexOf('永勝') > -1|| q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1 || q_getPara('sys.comp').indexOf('德芳') > -1) {
 					$('#cmbKind').attr('disabled', 'disabled');
 				}
 			}
@@ -271,52 +256,27 @@
 			}
 
 			function product_change() {
-				if (q_cur == 1 || q_cur == 2) {
-					if ($('#cmbKind').val() == '1') {
-						for (var j = 0; j < q_bbsCount; j++) {
-							$('#txtProductno_' + j).val($('#txtProductno1_' + j).val());
-						}
-					} else if ($('#cmbKind').val() == '2') {
-						for (var j = 0; j < q_bbsCount; j++) {
-							$('#txtProductno_' + j).val($('#txtProductno2_' + j).val());
-						}
-					} else {
-						for (var j = 0; j < q_bbsCount; j++) {
-							$('#txtProductno_' + j).val($('#txtProductno3_' + j).val());
-						}
-					}
-				}
-
 				if ($('#cmbKind').val() == '1') {
-					for (var j = 0; j < q_bbsCount; j++) {
-						$('#btnProduct1_' + j).show();
-						$('#btnProduct2_' + j).hide();
-						$('#btnProduct3_' + j).hide();
-						$('#txtProductno1_' + j).show();
-						$('#txtProductno2_' + j).hide();
-						$('#txtProductno3_' + j).hide();
-						$('#txtProductno1_' + j).val($('#txtProductno_' + j).val());
-					}
+					aPop = new Array(
+						['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+						['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
+						['txtProductno_', 'btnProduct_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx'],
+						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
+					);
 				} else if ($('#cmbKind').val() == '2') {
-					for (var j = 0; j < q_bbsCount; j++) {
-						$('#btnProduct1_' + j).hide();
-						$('#btnProduct2_' + j).show();
-						$('#btnProduct3_' + j).hide();
-						$('#txtProductno1_' + j).hide();
-						$('#txtProductno2_' + j).show();
-						$('#txtProductno3_' + j).hide();
-						$('#txtProductno2_' + j).val($('#txtProductno_' + j).val());
-					}
+					aPop = new Array(
+						['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+						['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
+						['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'bcc_b.aspx'],
+						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
+					);
 				} else {
-					for (var j = 0; j < q_bbsCount; j++) {
-						$('#btnProduct1_' + j).hide();
-						$('#btnProduct2_' + j).hide();
-						$('#btnProduct3_' + j).show();
-						$('#txtProductno1_' + j).hide();
-						$('#txtProductno2_' + j).hide();
-						$('#txtProductno3_' + j).show();
-						$('#txtProductno3_' + j).val($('#txtProductno_' + j).val());
-					}
+					aPop = new Array(
+						['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+						['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
+						['txtProductno_', 'btnProduct_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx'],
+						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
+					);
 				}
 			}
 		</script>
@@ -505,13 +465,8 @@
 							<input class="txt c1" id="txtStore.*" type="text" />
 						</td>
 						<td>
-							<input id="btnProduct1.*" type="button" value='.' style="float:left;width:1%;" />
-							<input id="btnProduct2.*" type="button" value='.' style="float:left;width:1%;" />
-							<input id="btnProduct3.*" type="button" value='.' style="float:left;width:1%;" />
-							<input id="txtProductno1.*" type="text" style="float:left;width:80%;"/>
-							<input id="txtProductno2.*" type="text" style="float:left;width:80%;"/>
-							<input id="txtProductno3.*" type="text" style="float:left;width:80%;"/>
-							<input id="txtProductno.*" style="display:none;" />
+							<input id="btnProduct.*" type="button" value='.' style="float:left;width:1%;" />
+							<input id="txtProductno.*" type="text" style="float:left;width:80%;"/>
 							<BR>
 							<input class="txt c1" id="txtProduct.*" type="text" />
 						</td>
