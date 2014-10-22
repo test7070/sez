@@ -456,7 +456,7 @@
 					Unlock(1);
 					$('#txtDatea').focus();
 					
-					if(r_rank<8){ //1030213 王小姐 不能讓其他人去修改
+					if(r_rank<4){ //1030213 王小姐 不能讓其他人去修改//1022 開放權限4以上的可以修改
 						$('#chkIsgenvcca').attr('disabled','disabled');
 						$('#txtInvono').attr('disabled','disabled');
 					}

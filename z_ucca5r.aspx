@@ -141,46 +141,55 @@
 				});
 				
 				$('#txtXdime1').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXdime2').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXradius1').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXradius2').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXwidth1').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXwidth2').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXlengthb1').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXlengthb2').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
 				$('#txtXrate').keyup(function() {
+					if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);

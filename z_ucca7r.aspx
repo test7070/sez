@@ -57,7 +57,7 @@
                         type : '1',//[8][9] //日期
                         name : 'xdate'
                     },{
-                        type : '6',//[25] //年利率
+                        type : '6',//[10] //年利率
                         name : 'xrate'
                     }]
                 });
@@ -89,63 +89,13 @@
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
                 
-                $('#Xkind .cmb').change(function() {
-                	var t_kind=$('#Xkind .cmb').val().substr(0,1);
-                	if(t_kind=='B'){
-                		$('#lblXradius').text('短徑');
-                		$('#lblXwidth').text('長徑');
-                	}else{
-                		$('#lblXradius').text(q_getMsg('lblXradius'));
-                		$('#lblXwidth').text(q_getMsg('lblXwidth'));
-                	}
-				});
-				
-				$('#txtXdime1').keyup(function() {
+                $('#txtXrate').keyup(function(e) {
+                	if(e.which>=37 && e.which<=40){return;}
 					var tmp=$(this).val();
 					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
 					$(this).val(tmp);
 				});
-				$('#txtXdime2').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				$('#txtXradius1').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				$('#txtXradius2').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				$('#txtXwidth1').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				$('#txtXwidth2').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				$('#txtXlengthb1').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				$('#txtXlengthb2').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				$('#txtXrate').keyup(function() {
-					var tmp=$(this).val();
-					tmp=tmp.match(/\d{1,}\.{0,1}\d{0,}/);
-					$(this).val(tmp);
-				});
-				
+
 				$('#q_report .report').css('width','460px');
 				$('#q_report .report div').css('width','220px');
             }
