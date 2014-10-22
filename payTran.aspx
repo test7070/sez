@@ -25,7 +25,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
-			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
+			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', '0txtTggno,txtComp', 'tgg_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -152,16 +152,22 @@
 					if (t_comp == '大昌' || t_comp == '日光' || t_comp =='東暉') {
 						var t_where = "where=^^ pays.rc2no=a.noa and pays.noa!='" + t_noa + "' ^^";
 						//廠商, where[1] tre, where[2] payb
-						var t_where1 = "a.tggno ='" + t_tggno + "'", t_where2;
+						var t_where1 = "a.tggno ='" + t_tggno + "'", t_where2 = "a.tggno ='" + t_tggno + "'";
+						if( t_comp =='東暉')
+							t_where1 += " or a.driverno ='" + t_tggno + "'";
 						if (t_tggno2.length > 0) {
 							var t_tggno2 = t_tggno2.split(",");
 							for (var i = 0; i < t_tggno2.length; i++) {
 								t_where1 += " or a.tggno ='" + t_tggno2[i] + "'";
+								t_where2 += " or a.tggno ='" + t_tggno2[i] + "'";
+								if( t_comp =='東暉')
+									t_where1 += " or a.driverno ='" + t_tggno2[i] + "'";
 							}
 						}
 						t_where1 = "(isnull(a.total,0)-ISNULL(b.paysale,0)!=0) and (" + t_where1 + ")";
+						t_where2 = "(isnull(a.total,0)-ISNULL(b.paysale,0)!=0) and (" + t_where2 + ")";
 						//1020712 帳款月份有打payb也要判斷月份
-						t_where2 = "where[2]=^^" + t_where1 + (emp($('#txtMon').val()) ? '' : " and  (mon='" + $('#txtMon').val() + "' or left(a.datea,6)='" + $('#txtMon').val() + "')") + "^^";
+						t_where2 = "where[2]=^^" + t_where2 + (emp($('#txtMon').val()) ? '' : " and  (mon='" + $('#txtMon').val() + "' or left(a.datea,6)='" + $('#txtMon').val() + "')") + "^^";
 						if (t_comp == '大昌')
 							t_where1 = "where[1]=^^ 1=0 ^^";
 						else
