@@ -49,10 +49,11 @@
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount(); 
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy); 
             q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
-            
             q_gt('ucca', 'stop=1 ', 0, 0, 0, "ucca_invo");//判斷是否有買發票系統
+            
+            //103/10/23 業務只能看到自己的
+            q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "sales_vcc");
         });
 
         //////////////////   end Ready
@@ -473,6 +474,39 @@
                     break;
                 case 'sss':
                     as = _q_appendData('sss', '', true);
+                    break;
+                case 'sales_vcc':
+                    as = _q_appendData('sss', '', true);
+                    if (as[0] != undefined) {
+						if (as[0].issales == 'true' && as[0].job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的出貨單
+							q_content = "where=^^salesno='" + r_userno + "'^^";
+							q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+	                    } else if (as[0].issales == 'true' && as[0].job.indexOf('經理') > -1 && r_rank <= '5') {
+	                        q_gt('sss', "where=^^salesgroup='" + as[0].salesgroup + "'^^", 0, 0, 0, "sales_vcc2");
+	                    }else{
+	                    	q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+	                    }
+                    }else{
+                    	q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+                    }
+                    break;
+				case 'sales_vcc2':
+                    as = _q_appendData('sss', '', true);
+                    //只能看到群組的
+                    if (as[0] != undefined) {
+	                    var sssno="1=0";
+	                    for(var i=0;i<as.length;i++){
+	                    	sssno=sssno+" or salesno='"+as[0].noa+"'";
+	                    }
+						
+						q_content = "where=^^ "+sssno+" ^^";
+						q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+					}else{
+						q_content = "where=^^salesno='" + r_userno + "'^^";
+						q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+					}
+                    
+                    break;
             }  /// end switch
         }
 

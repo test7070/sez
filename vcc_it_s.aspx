@@ -29,7 +29,13 @@
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_cmbParse("cmbStatus", "@全部,Y@已收完,N@未收完");
 				$('#txtNoa').focus();
+				
+				//103/10/23 業務只能看到自己的
+            	q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "sales_vcc");
 			}
+			
+			var sales_issales='',sales_job='',sales_group='';
+			
 			function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'acomp':
@@ -40,6 +46,14 @@
                         }
                         q_cmbParse("cmbCno", t_acomp);
                         break;
+					case 'sales_vcc':
+	                    as = _q_appendData('sss', '', true);
+	                    if (as[0] != undefined) {
+	                    	sales_issales=as[0].issales;
+	                    	sales_job=as[0].job;
+	                    	sales_group=as[0].salesgroup;
+	                    }
+	                    break;
                 }
             }
 
@@ -76,6 +90,12 @@
                 	
 				if(t_ordeno.length>0)
                 	t_where += " and (noa in (select noa from view_vccs where ordeno='"+t_ordeno+"') or noa in (select noa from view_vcc where ordeno='"+t_ordeno+"'))";
+                	
+                if (sales_issales == 'true' && sales_job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的出貨單
+                	t_where += " and salesno='"+r_userno+"' ";
+                }else if (sales_issales == 'true' && sales_job.indexOf('經理') > -1 && r_rank <= '5') {
+                	t_where += " and salesno in (select noa from sss where  salesgroup='"+sales_group+"') ";
+                }
                 	
 				t_where = ' where=^^ ' + t_where + ' ^^ ';
 				return t_where;
