@@ -402,23 +402,6 @@
 				_btnCancel();
 			}
 
-			function returnparent() {
-				if (window.parent.q_name == 'vcc' && (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)) {
-					var wParent = window.parent.document;
-					wParent.getElementById("txtCustno").value = $('#txtNoa').val();
-					wParent.getElementById("txtComp").value = $('#txtComp').val();
-					wParent.getElementById("txtPaytype").value = $('#txtPaytype').val();
-					wParent.getElementById("txtTel").value = $('#txtTel').val();
-					wParent.getElementById("txtFax").value = $('#txtFax').val();
-					wParent.getElementById("cmbTrantype").value = $('#cmbTrantype').val();
-					wParent.getElementById("txtZipcode").value = $('#txtZip_comp').val();
-					wParent.getElementById("txtAddr").value = $('#txtAddr_comp').val();
-					wParent.getElementById("txtSalesno").value = $('#txtSalesno').val();
-					wParent.getElementById("txtSales").value = $('#txtSales').val();
-					wParent.getElementById("txtSalesno2").value = $('#txtSalesno').val();
-					wParent.getElementById("txtSales2").value = $('#txtSales').val();
-				}
-			}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -619,12 +602,6 @@
 						<td colspan='3'><input id="textConn" type="text" class="txt c7 isXY "/></td>
 						<td><span> </span><a class="lbl isXY">交貨時間</a></td>
 						<td><input id="textTrantime" type="text" class="txt c1 isXY"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblInvoicetitle' class="lbl"> </a></td>
-						<td colspan='3'><input id="txtInvoicetitle" type="text" class="txt c7"/></td>
-						<td><span> </span><a class="lbl isXY">發票開立</a></td>
-						<td><input id="textIsinvo" type="text" class="txt c1 isXY"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
