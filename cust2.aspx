@@ -386,10 +386,6 @@
 						<td><input id="txthead" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td><input id="txtSerial" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
 						<td colspan='5'><input id="txtTel" type="text" class="txt c7"/></td>
 					</tr>
