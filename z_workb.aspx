@@ -34,11 +34,17 @@
                         type : '6',
                         name : 'xnoa'
 					}, {
-						type : '2',
-						name : 'product',
-						dbf : 'ucc',
-						index : 'noa,product',
-						src : 'ucc_b.aspx'
+                        type : '2',
+                        name : 'product',//[5][6]
+                        dbf : 'ucaucc',
+                        index : 'noa,product',
+                        src : 'ucaucc_b.aspx'
+                    },{
+                        type : '2',
+                        name : 'storeno', //[7][8]
+                        dbf : 'store',
+                        index : 'noa,store',
+                        src : 'store_b.aspx'
                     }]
                 });
                 q_popAssign();
@@ -52,6 +58,10 @@
 				$('#Product').css('width','690px');
 				$('#Product .c2').css('width','130px');
 				$('#Product .c3').css('width','130px');
+				$('#Storeno').css('width', '690px');
+                $('#Storeno .c2').css('width', '130px');
+                $('#Storeno .c3').css('width', '130px');
+				
                 var t_key = q_getHref();
                 if(t_key[1] != undefined)
                 	$('#txtXnoa').val(t_key[1]);

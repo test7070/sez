@@ -19,6 +19,19 @@
 				_q_boxClose();
 				q_getId();
 				q_gf('', 'z_workc');
+				
+				$('#q_report').click(function(e) {
+					var t_index = $('#q_report').data('info').radioIndex;
+					txtreport = $('#q_report').data('info').reportData[t_index].report;
+					if(txtreport=='z_workctb'){
+						$('#lblXdate').text('日期');
+						$('#lblXucaucc').text('產品編號');
+					}else{
+						$('#lblXdate').text(q_getMsg('lblXdate'));
+						$('#lblXucaucc').text(q_getMsg('lblXucaucc'));
+					}
+					
+				});
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
@@ -45,13 +58,13 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
-					}, {
-						type : '2', //[9][10]
-						name : 'xproduct',
-						dbf : 'ucc',
-						index : 'noa,product',
-						src : 'ucc_b.aspx'
-					}, {
+					},{
+                        type : '2',
+                        name : 'storeno', //[9][10]
+                        dbf : 'store',
+                        index : 'noa,store',
+                        src : 'store_b.aspx'
+                    }, {
 						type : '1', //[11][12]
 						name : 'cuadate'
 					}, {
@@ -76,9 +89,17 @@
 				$('#txtXdate1').val(q_date().substring(0, 7) + '01');
 				$('#txtCuadate1').val(q_date().substring(0, 7) + '01');
 				$('.q_report .option:first').css('width','700px')
-				$('#Xproduct').css('width','690px');
-				$('#Xproduct .c2').css('width','130px');
-				$('#Xproduct .c3').css('width','130px');
+				
+				$('#.q_report .option div.a1').css('width', '690px');
+				$('#.q_report .option div.a2').css('width', '340px');
+				$('#Xucaucc .c2').css('width','130px');
+				$('#Xucaucc .c3').css('width','130px');
+                $('#Storeno .c2').css('width', '130px');
+                $('#Storeno .c3').css('width', '130px');
+                $('#Xtgg .c2').css('width', '130px');
+                $('#Xtgg .c3').css('width', '130px');
+                $('#.q_report .option div .c5').css('width', '240px');
+                
 				var lastDays = $.datepicker._getDaysInMonth(q_date().substring(0, 3), q_date().substring(4, 6) - 1);
 				$('#txtXdate2').val(q_date().substring(0, 7) + lastDays);
 				$('#txtCuadate2').val(q_date().substring(0, 7) + lastDays);
