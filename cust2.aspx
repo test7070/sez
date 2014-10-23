@@ -14,39 +14,25 @@
         <script src="css/jquery/ui/jquery.ui.widget.js"></script>
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
         <script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
 
 			var q_name = "cust2";
-			var q_readonly = ['txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
-			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1]];
+			var q_readonly = [];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			brwCount2 = 25;
-			//ajaxPath = ""; // execute in Root
+			brwCount2 = 15;
 			aPop = new Array(
-				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-				['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'],
-				['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx']
+				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 			);
 			
 			$(document).ready(function() {
 				bbmKey = ['noa'];
-				xmlTable = 'conn';
-				xmlKey = [['noa', 'noq']];
-				xmlDec = [];
-				q_popSave(xmlTable);
-				// for conn_b.aspx
 				q_brwCount();
-				var t_where = "where=^^ noa='" + r_userno + "' ^^";
-				q_gt('sss', t_where, 0, 0, 0, "", r_accy);
-				$('#txtNoa').focus();
+                q_gt(q_name, q_content, q_sqlCount, 1);
 			});
 			function main() {
 				if (dataErr) {
@@ -57,80 +43,19 @@
 			}
 
 			function mainPost() {
-				bbmMask = [
-					['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],
-					['txtGetdate', '99']
-				];
 				q_mask(bbmMask);
-				q_gt('custtype', '', 0, 0, 0, "custtype");
-				
-				if (q_getPara('sys.comp').indexOf('裕承隆') > -1){
-					aPop = new Array(
-						['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-						['txtAddr_fact', '', 'view_road', 'memo,zipcode', '0txtAddr_fact,txtZip_fact', 'road_b.aspx'],
-						['txtAddr_comp', '', 'view_road', 'memo,zipcode', '0txtAddr_comp,txtZip_comp', 'road_b.aspx'],
-						['txtAddr_invo', '', 'view_road', 'memo,zipcode', '0txtAddr_invo,txtZip_invo', 'road_b.aspx'],
-						['txtAddr_home', '', 'view_road', 'memo,zipcode', '0txtAddr_home,txtZip_home', 'road_b.aspx'],
-						['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'],
-						['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx']
-					);
-				}
-				/*
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1){
-					q_cmbParse("cmbTypea", q_getPara('cust.typea_it'));
-				}else if (q_getPara('sys.project').toUpperCase() == 'RA') {
-					q_cmbParse("cmbTypea", q_getPara('cust.typea_ra'));
-				}else if (q_getPara('sys.project').toUpperCase() == 'TN') {
-					q_cmbParse("cmbTypea", q_getPara('cust.typea_tn'));
-				} else
-					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
-				*/
-				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
-				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-				q_cmbParse("cmbStatus", q_getPara('cust.status'));
 
-				//後面有需要的公司在顯示
-				$('.btnUcam').hide();
-				// 嘜頭
-
-				$('#btnUcam').click(function() {
-					t_where = "custno='" + $('#txtNoa').val() + "'";
-					q_box("ucam_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucam', "95%", "95%", q_getMsg('btnUcam'));
-				});
-				$('#btnConn').click(function() {
-					if (q_cur == 1) {
-						return;
-					} else {
-						t_where = "noa='" + $('#txtNoa').val() + "'";
-						q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
-					}
-				});
 				$('#txtNoa').change(function(e) {
 					$(this).val($.trim($(this).val()).toUpperCase());
 					if ($(this).val().length > 0) {
 						if ((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())) {
 							t_where = "where=^^ noa='" + $(this).val() + "'^^";
-							q_gt('cust', t_where, 0, 0, 0, "checkCustno_change", r_accy);
+							q_gt('cust2', t_where, 0, 0, 0, "checkCustno_change", r_accy);
 						} else {
 							Lock();
 							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
 							Unlock();
 						}
-					}
-				});
-				$('#txtUacc4').change(function() {
-					var s1 = trim($(this).val());
-					if (s1.length > 4 && s1.indexOf('.') < 0)
-						$(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-					if (s1.length == 4)
-						$(this).val(s1 + '.');
-
-				});
-				$('#btnUsecrd').click(function(){
-					var t_custno = $.trim($('#txtNoa').val());
-					if((t_custno.length > 0) && (t_custno.toUpperCase() != 'AUTO')){
-						var t_where = "noa='" + t_custno + "'";
-						q_box("usecrd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'usecrd', "95%", "450px", q_getMsg('btnUsecrd'));
 					}
 				});
 			}
@@ -147,26 +72,14 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'custtype':
-						var as = _q_appendData("custtype", "", true);
-						if (as[0] != undefined) {
-							var t_item = "@";
-							for (i = 0; i < as.length; i++) {
-								t_item = t_item + (t_item.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
-							}
-							q_cmbParse("cmbTypea", t_item);
-							if(abbm[q_recno])
-								$("#cmbTypea").val(abbm[q_recno].typea);
-						}
-						break;
 					case 'checkCustno_change':
-						var as = _q_appendData("cust", "", true);
+						var as = _q_appendData("cust2", "", true);
 						if (as[0] != undefined) {
 							alert('已存在 ' + as[0].noa + ' ' + as[0].comp);
 						}
 						break;
 					case 'checkCustno_btnOk':
-						var as = _q_appendData("cust", "", true);
+						var as = _q_appendData("cust2", "", true);
 						if (as[0] != undefined) {
 							alert('已存在 ' + as[0].noa + ' ' + as[0].comp);
 							Unlock();
@@ -175,60 +88,33 @@
 							wrServer($('#txtNoa').val());
 						}
 						break;
-					case 'sss':
-						var as = _q_appendData("sss", "", true);
-						if (as[0] == undefined || (as[0].issales == 'false') || (as[0].issales == false)) {
-							q_gt(q_name, q_content, q_sqlCount, 1);
-						} else {
-							q_content = "where=^^ salesno='" + r_userno + "'^^";
-							q_gt(q_name, q_content, q_sqlCount, 1);
-						}
-						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
-				} /// end switch
+				}
 			}
 
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
-				q_box('cust_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
-			}
-
-			function combPaytype_chg() {
-				var cmb = document.getElementById("combPaytype");
-				if (!q_cur)
-					cmb.value = '';
-				else
-					$('#txtPaytype').val(cmb.value);
-				cmb.value = '';
+				q_box('cust2_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
-				if ($('#Copy').is(':checked')) {
-					curData.copy();
-				}
 				_btnIns();
-				if ($('#Copy').is(':checked')) {
-					curData.paste();
-				}
-				refreshBbm();
 				$('#txtNoa').focus();
 			}
 
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
-
 				_btnModi();
-				refreshBbm();
 				$('#txtComp').focus();
 			}
 
 			function btnPrint() {
-				q_box("z_label.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";cust=" + $('#txtNoa').val() + ";" + r_accy, 'z_label', "95%", "95%", q_getMsg('popZ_label'));
+				q_box("z_cust2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";cust=" + $('#txtNoa').val() + ";" + r_accy, 'z_label', "95%", "95%", q_getMsg('popZ_label'));
 			}
 
 			function q_stPost() {
@@ -247,38 +133,12 @@
 					return;
 				}
 
-				if ($('#txtStartdate').val() > '31') {
-					alert(q_getMsg("lblStartdate") + '最大天數為31日');
-					Unlock();
-					return;
-				}
-				if ($('#txtGetdate').val() > '31') {
-					alert(q_getMsg("lblGetdate") + '最大天數為31日');
-					Unlock();
-					return;
-				}
-
-				if (dec($('#txtCredit').val()) > 9999999999)
-					t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-				if (dec($('#txtGetdate').val()) > 31)
-					t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r';
-					
-				if(q_cur==1)
-					$('#txtKdate').val(q_date());
-					
 				$('#txtWorker').val(r_name);
 				
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					$('#txtConntel').val($('#textConn').val());
-					$('#txtBillmemo').val($('#textTrantime').val());
-					var t_invomemo=$('#textIsvcc').val()+'##'+$('#textIsinvo').val()+'##'+$('#textIstax').val()+'##'+$('#textCheckvcc').val();
-					$('#txtInvomemo').val(t_invomemo);
-				}
 				
 				if (q_cur == 1) {
 					t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
-					q_gt('cust', t_where, 0, 0, 0, "checkCustno_btnOk", r_accy);
+					q_gt('cust2', t_where, 0, 0, 0, "checkCustno_btnOk", r_accy);
 				} else {
 					wrServer($('#txtNoa').val());
 				}
@@ -297,57 +157,15 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				refreshBbm();
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
-					$('.it').css('text-align', 'left');
-				if (q_getPara('sys.menu').substring(0,3)=='qfe'){
-					$('.isFe').show();
-				}else{
-					$('.isFe').hide();
-				}
-				
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					$('.isXY').show();
-				}else{
-					$('.isXY').hide();
-				}
 			}
 
-			function refreshBbm() {
-				if (q_cur == 1) {
-					$('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
-				} else {
-					$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
-				}
-				
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					var t_invomemo=$('#txtInvomemo').val().split('##');
-					if (q_cur == 1 || q_cur==2) {
-						$('#textConn').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtConntel').val());
-						$('#textTrantime').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtBillmemo').val());
-						$('#textIsvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[0]);
-						$('#textIsinvo').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[1]);
-						$('#textIstax').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[2]);
-						$('#textCheckvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[3]);
-					} else {
-						$('#textConn').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtConntel').val());
-						$('#textTrantime').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtBillmemo').val());
-						$('#textIsvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[0]);
-						$('#textIsinvo').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[1]);
-						$('#textIstax').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[2]);
-						$('#textCheckvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[3]);
-					}
-				}
-			}
-
-			var vccitopen = true;
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if (vccitopen && t_para && window.parent.q_name == 'vcc' && (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)) {
-					btnIns();
-					vccitopen = false;
-					$('#txtNoa').val(window.parent.post_custno);
-				}
+				if (q_cur==1) {
+                    $('#txtNoa').removeAttr('readonly').css('color','black').css('background','white');
+                } else {
+                    $('#txtNoa').attr('readonly','readonly').css('color','green').css('background','RGB(237,237,237)');
+                }
 			}
 
 			function btnMinus(id) {
@@ -566,26 +384,10 @@
 						<td><input id="txtboss" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblHead' class="lbl"> </a></td>
 						<td><input id="txthead" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblStatus' class="lbl"> </a></td>
-						<td><select id="cmbStatus" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
-						<td><input id="txtTeam" type="text" class="txt c1"/></td>
-						<td><input id="btnConn" type="button" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblGrp" class="lbl btn"> </a></td>
-						<td>
-							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
-							<input id="txtGrpname" type="text" style="float:left; width:60%;"/>
-						</td>
-						<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
-						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblProfit' class="lbl"> </a></td>
-						<td><input id="txtProfit" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td><input id="txtSerial" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
@@ -597,11 +399,9 @@
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
 						<td><input id="txtMobile" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="isXY">
-						<td><span> </span><a class="lbl isXY">連絡人員</a></td>
-						<td colspan='3'><input id="textConn" type="text" class="txt c7 isXY "/></td>
-						<td><span> </span><a class="lbl isXY">交貨時間</a></td>
-						<td><input id="textTrantime" type="text" class="txt c1 isXY"/></td>
+					<tr>
+						<td><span> </span><a class="lbl">E-mail</a></td>
+						<td colspan='5'><input id="txtEmail" type="text" class="txt c7"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
@@ -624,11 +424,22 @@
 						<td colspan='4'><input id="txtAddr_home" type="text" class="txt c7"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">E-mail</a></td>
-						<td colspan='5'><input id="txtEmail" type="text" class="txt c7"/></td>
+						<td><span> </span><a id='lblSales' class="lbl"> </a></td>
+						<td><input id="txtSalesno" type="text" class="txt c1"/></td>
+						<td><input id="txtSales" type="text" class="txt c1"/></td>
 					</tr>
-
-					
+					<tr>
+						<td><span> </span><a id='lblConn' class="lbl"> </a></td>
+						<td><input id="txtConn" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblConntel' class="lbl"> </a></td>
+						<td><input id="txtConntel" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblConnfax' class="lbl"> </a></td>
+						<td><input id="txtConnfax" type="text" class="txt c1"/></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='5'>
