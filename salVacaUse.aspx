@@ -16,7 +16,7 @@
             }
 
             var q_name = "salvacause";
-            var q_readonly = ['txtNoa', 'txtHr_special', 'txtTot_special', 'txtJob'];
+            var q_readonly = ['txtNoa', 'txtHr_special', 'txtTot_special', 'txtJob','txtNamea','txtHname','txtPart','txtId'];
             var bbmNum = [['txtHr_used', 10, 1, 1], ['txtHr_special', 10, 1, 1], ['txtTot_special', 10, 1, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -53,37 +53,19 @@
 
             var t_tot_special = 0;
             //存放初始'特休假剩餘天數'
-            var insed = false;
-            //判斷員工是否重覆請假
             function mainPost() {
-            	if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
-            		$('#lblId').hide();
-                   	$('#txtId').hide();
-                   	aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,job,jobno', 'txtSssno,txtNamea,txtPartno,txtPart,txtJob,txtJobno', 'sss_b.aspx'], ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']);
-            	}
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99']];
                 q_mask(bbmMask);
+                
                 $('#txtSssno').change(function() {
                     if (!emp($('#txtSssno').val())) {
                         //找員工的特休假可用天數和特休假剩餘天數
-                        var t_where = "where=^^ noa ='" + $('#txtDatea').val().substr(0, 3) + "' ^^";
+                        var t_where = "where=^^ noa ='" + $('#txtBdate').val().substr(0, 3) + "' ^^";
                         q_gt('salvaca', t_where, 0, 0, 0, "", r_accy);
-                    }
-                    if (!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())) {
-                        //判斷員工是否重覆請假
-                        var t_where = "where=^^ datea ='" + $('#txtDatea').val() + "' and sssno='" + $('#txtSssno').val() + "' ^^";
-                        q_gt('salvacause', t_where, 0, 0, 0, "", r_accy);
+                        
                     }
 				});
-
-                $('#txtDatea').blur(function() {
-                    if (!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())) {
-                        //判斷員工是否重覆請假
-                        var t_where = "where=^^ datea ='" + $('#txtDatea').val() + "' and sssno='" + $('#txtSssno').val() + "' ^^";
-                        q_gt('salvacause', t_where, 0, 0, 0, "", r_accy);
-                    }
-                });
 
                 $('#txtBdate').focus(function() {
                     q_msg($(this), '請假日期跨月份，請申請兩張!!');
@@ -93,6 +75,13 @@
                         $('#txtEdate').val($('#txtBdate').val());
                     }
                     q_msg();
+                    
+                    if (!emp($('#txtSssno').val())) {
+                        //找員工的特休假可用天數和特休假剩餘天數
+                        var t_where = "where=^^ noa ='" + $('#txtBdate').val().substr(0, 3) + "' ^^";
+                        q_gt('salvaca', t_where, 0, 0, 0, "", r_accy);
+                    }
+                    change_hr_used();
                 });
 
                 $('#txtEdate').focus(function() {
@@ -103,137 +92,15 @@
                         $('#txtEdate').val($('#txtBdate').val());
                     }
                     q_msg();
+                    change_hr_used();
                 });
 
                 $('#txtBtime').blur(function() {
-                    if (!emp($('#txtBtime').val()) && !emp($('#txtEtime').val())) {
-                        if ($('#txtBtime').val() > $('#txtEtime').val()) {
-                            var time = $('#txtBtime').val()
-                            $('#txtBtime').val($('#txtEtime').val());
-                            $('#txtEtime').val(time);
-                        }
-                        var use_hr = 0;
-                        if (q_getPara('sys.comp').indexOf('大昌') > -1) {
-                            if ($('#txtEtime').val() >= '13:30' && $('#txtBtime').val() <= '12:00') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                                use_hr = use_hr - 1.5;
-                                //大昌休息時間從12點到13點半
-                            } else if ($('#txtBtime').val() >= '12:00' && $('#txtBtime').val() < '13:30' && $('#txtEtime').val() >= '13:30') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - 13) * 60 + dec($('#txtEtime').val().substr(3, 2)) - 30) / 60, 1);
-                            } else if ($('#txtEtime').val() >= '12:00' && $('#txtEtime').val() < '13:30' && $('#txtBtime').val() >= '12:00') {
-                                use_hr = round(((12 - dec($('#txtBtime').val().substr(0, 2))) * 60 + 0 - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            } else {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            }
-                        } else {
-                            if ($('#txtEtime').val() >= '13:00' && $('#txtBtime').val() <= '12:00') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                                use_hr = use_hr - 1.0;
-                            } else if ($('#txtBtime').val() >= '12:00' && $('#txtBtime').val() < '13:00' && $('#txtEtime').val() >= '13:00') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - 13) * 60 + dec($('#txtEtime').val().substr(3, 2)) - 30) / 60, 1);
-                            } else if ($('#txtEtime').val() >= '12:00' && $('#txtEtime').val() < '13:00' && $('#txtBtime').val() >= '12:00') {
-                                use_hr = round(((12 - dec($('#txtBtime').val().substr(0, 2))) * 60 + 0 - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            } else {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            }
-                        }
-
-                        if ($('#txtBdate').val() != $('#txtEdate').val()) {
-                            var t_date = $('#txtBdate').val();
-                            var count = 0;
-                            while (t_date < $('#txtEdate').val()) {
-                            	if (new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 0 || new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 6) {
-                                    //六日不算
-                                } else {
-                                    count++;
-                                }
-                            	
-                                //日期加一天
-                                var nextdate = new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2)));
-                                nextdate.setDate(nextdate.getDate() + 1)
-                                t_date = '' + (nextdate.getFullYear() - 1911) + '/';
-                                //月份
-                                if (nextdate.getMonth() + 1 < 10)
-                                    t_date = t_date + '0' + (nextdate.getMonth() + 1) + '/';
-                                else
-                                    t_date = t_date + (nextdate.getMonth() + 1) + '/';
-                                //日期
-                                if (nextdate.getDate() < 10)
-                                    t_date = t_date + '0' + (nextdate.getDate());
-                                else
-                                    t_date = t_date + (nextdate.getDate());
-                            }
-
-                            use_hr = use_hr +(8* count);
-                        }
-
-                        $('#txtHr_used').val(use_hr);
-                    }
+                    change_hr_used();
                 });
 
                 $('#txtEtime').blur(function() {
-                    if (!emp($('#txtBtime').val()) && !emp($('#txtEtime').val())) {
-                        if ($('#txtBtime').val() > $('#txtEtime').val()) {
-                            var time = $('#txtBtime').val()
-                            $('#txtBtime').val($('#txtEtime').val());
-                            $('#txtEtime').val(time);
-                        }
-                        var use_hr = 0;
-                        if (q_getPara('sys.comp').indexOf('大昌') > -1) {
-                            if ($('#txtEtime').val() >= '13:30' && $('#txtBtime').val() <= '12:00') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                                use_hr = use_hr - 1.5;
-                                //大昌休息時間從12點到13點半
-                            } else if ($('#txtBtime').val() >= '12:00' && $('#txtBtime').val() < '13:30' && $('#txtEtime').val() >= '13:30') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - 13) * 60 + dec($('#txtEtime').val().substr(3, 2)) - 30) / 60, 1);
-                            } else if ($('#txtEtime').val() >= '12:00' && $('#txtEtime').val() < '13:30' && $('#txtBtime').val() <= '12:00') {
-                                use_hr = round(((12 - dec($('#txtBtime').val().substr(0, 2))) * 60 + 0 - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            } else {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            }
-                        } else {
-                            if ($('#txtEtime').val() >= '13:00' && $('#txtBtime').val() <= '12:00') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                                use_hr = use_hr - 1.0;
-                            } else if ($('#txtBtime').val() >= '12:00' && $('#txtBtime').val() < '13:00' && $('#txtEtime').val() >= '13:00') {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - 13) * 60 + dec($('#txtEtime').val().substr(3, 2)) - 30) / 60, 1);
-                            } else if ($('#txtEtime').val() >= '12:00' && $('#txtEtime').val() < '13:00' && $('#txtBtime').val() <= '12:00') {
-                                use_hr = round(((12 - dec($('#txtBtime').val().substr(0, 2))) * 60 + 0 - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            } else {
-                                use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
-                            }
-                        }
-                        if ($('#txtBdate').val() != $('#txtEdate').val()) {
-                            var t_date = $('#txtBdate').val();
-                            var count = 0;
-                            while (t_date < $('#txtEdate').val()) {
-                            	
-                            	if (new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 0 || new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 6) {
-                                    //六日不算
-                                } else {
-                                    count++;
-                                }
-                            	
-                                //日期加一天
-                                var nextdate = new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2)));
-                                nextdate.setDate(nextdate.getDate() + 1)
-                                t_date = '' + (nextdate.getFullYear() - 1911) + '/';
-                                //月份
-                                if (nextdate.getMonth() + 1 < 10)
-                                    t_date = t_date + '0' + (nextdate.getMonth() + 1) + '/';
-                                else
-                                    t_date = t_date + (nextdate.getMonth() + 1) + '/';
-                                //日期
-                                if (nextdate.getDate() < 10)
-                                    t_date = t_date + '0' + (nextdate.getDate());
-                                else
-                                    t_date = t_date + (nextdate.getDate());
-                            }
-
-                            use_hr = use_hr +(8* count);
-                        }
-                        $('#txtHr_used').val(use_hr);
-                    }
+                    change_hr_used();
                 });
 
                 $('#txtHr_used').change(function() {
@@ -296,13 +163,6 @@
 	                                q_content = "where=^^partno='" + ssspartno + "'^^";
 	                            else
 	                                q_content = "where=^^sssno='" + r_userno + "'^^";
-							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
-								if (r_rank >= 8)
-	                                q_content = "";
-	                             else if (as.length > 0 && as[0]["pr_ins"] == "true"&&sssjob.indexOf('經理')>-1)
-	                             	q_content = "where=^^ charindex(sssno,'"+sssgroup+"')>0^^";
-	                             else
-	                             	q_content = "where=^^sssno='" + r_userno + "'^^";
 							}else{
 								if (r_rank >= 8)
 	                                q_content = "";
@@ -317,31 +177,22 @@
                         if (as[0] != undefined) {
                             ssspartno = as[0].partno;
                             sssjob=as[0].job;
-                            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
-    	                        q_gt('sss', "where=^^ salesgroup='" + as[0].salesgroup + "'^^", 0, 0, 0, "sss_salesgroup");
-                            }else{
-	                            q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
-                            }
+	                        q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
                         }
-                        break;
-					case 'sss_salesgroup':
-                        var as = _q_appendData('sss', '', true);
-                        for ( i = 0; i < as.length; i++) {
-                            sssgroup = sssgroup + as[i].noa;
-                        }
-                        q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
                         break;
                     case 'salvaca':
-                        if (q_cur == 1) {
+                        if (q_cur == 1 || q_cur==2) {
                             var as = _q_appendData("salvaca", "", true);
                             if (as[0] != undefined) {
                                 var salvacas = _q_appendData("salvacas", "", true);
                                 for (var i = 0; i < salvacas.length; i++) {
                                     if (salvacas[i].sssno == $('#txtSssno').val()) {
                                         $('#txtHr_special').val(salvacas[i].inday);
-                                        t_tot_special = salvacas[i].total;
-                                        $('#txtTot_special').val(salvacas[i].total);
-                                        $('#txtHr_used').val('0.0');
+                                        if (q_cur == 1){
+                                        	t_tot_special = salvacas[i].total;
+                                        	$('#txtTot_special').val(salvacas[i].total);
+                                        	$('#txtHr_used').val('0.0');
+                                        }
                                         break;
                                     }
                                 }
@@ -349,14 +200,6 @@
                         }
                         break;
                     case q_name:
-                        if (q_cur == 1) {
-                            var as = _q_appendData("salvacause", "", true);
-                            if (as[0] != undefined) {
-                                insed = true;
-                            } else {
-                                insed = false;
-                            }
-                        }
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
@@ -367,15 +210,10 @@
                 switch (s1) {
                     case 'txtSssno':
                         if (!emp($('#txtSssno').val())) {
-                            //找員工的特休假可用天數和特休假剩餘天數
-                            var t_where = "where=^^ noa ='" + $('#txtDatea').val().substr(0, 3) + "' ^^";
-                            q_gt('salvaca', t_where, 0, 0, 0, "", r_accy);
-                        }
-                        if (!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())) {
-                            //判斷員工是否重覆請假
-                            var t_where = "where=^^ datea ='" + $('#txtDatea').val() + "' and sssno='" + $('#txtSssno').val() + "' ^^";
-                            q_gt('salvacause', t_where, 0, 0, 0, "", r_accy);
-                        }
+	                        //找員工的特休假可用天數和特休假剩餘天數
+	                        var t_where = "where=^^ noa ='" + $('#txtBdate').val().substr(0, 3) + "' ^^";
+	                        q_gt('salvaca', t_where, 0, 0, 0, "", r_accy);
+	                    }
                         var jobname = $('#txtJob').val();
                         if (jobname.indexOf('副總') != -1)
                             $('#txtSendboss').val('1');
@@ -424,12 +262,7 @@
                     alert(t_err);
                     return;
                 }
-
-                /*if(insed) {
-                 alert('該員工當天已請假!!!');
-                 return;
-                 }*/
-
+                
                 var t_noa = trim($('#txtNoa').val());
 
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -508,6 +341,73 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function change_hr_used() {
+                if (!emp($('#txtBtime').val()) && !emp($('#txtEtime').val())) {
+					if ($('#txtBtime').val() > $('#txtEtime').val()) {
+						var time = $('#txtBtime').val()
+						$('#txtBtime').val($('#txtEtime').val());
+						$('#txtEtime').val(time);
+					}
+                    var use_hr = 0;
+                    if (q_getPara('sys.comp').indexOf('大昌') > -1) {
+                    	if ($('#txtEtime').val() >= '13:30' && $('#txtBtime').val() <= '12:00') {
+                        	use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
+                            use_hr = use_hr - 1.5;
+                            //大昌休息時間從12點到13點半
+						} else if ($('#txtBtime').val() >= '12:00' && $('#txtBtime').val() < '13:30' && $('#txtEtime').val() >= '13:30') {
+                        	use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - 13) * 60 + dec($('#txtEtime').val().substr(3, 2)) - 30) / 60, 1);
+						} else if ($('#txtEtime').val() >= '12:00' && $('#txtEtime').val() < '13:30' && $('#txtBtime').val() >= '12:00') {
+                        	use_hr = round(((12 - dec($('#txtBtime').val().substr(0, 2))) * 60 + 0 - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
+						} else {
+                        	use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
+						}
+					} else {
+                    	if ($('#txtEtime').val() >= '13:00' && $('#txtBtime').val() <= '12:00') {
+                        	use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
+                            use_hr = use_hr - 1.0;
+						} else if ($('#txtBtime').val() >= '12:00' && $('#txtBtime').val() < '13:00' && $('#txtEtime').val() >= '13:00') {
+                        	use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - 13) * 60 + dec($('#txtEtime').val().substr(3, 2)) - 30) / 60, 1);
+						} else if ($('#txtEtime').val() >= '12:00' && $('#txtEtime').val() < '13:00' && $('#txtBtime').val() >= '12:00') {
+                        	use_hr = round(((12 - dec($('#txtBtime').val().substr(0, 2))) * 60 + 0 - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
+						} else {
+                        	use_hr = round(((dec($('#txtEtime').val().substr(0, 2)) - dec($('#txtBtime').val().substr(0, 2))) * 60 + dec($('#txtEtime').val().substr(3, 2)) - dec($('#txtBtime').val().substr(3, 2))) / 60, 1);
+						}
+					}
+
+                    if ($('#txtBdate').val() != $('#txtEdate').val()) {
+                    	var t_date = $('#txtBdate').val();
+                        var count = 0;
+                        while (t_date < $('#txtEdate').val()) {
+                        	if (new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 0 || new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2))).getDay() == 6) {
+                            	//六日不算
+							} else {
+								count++;
+							}
+                            	
+                            //日期加一天
+                            var nextdate = new Date(dec(t_date.substr(0, 3)) + 1911, dec(t_date.substr(4, 2)) - 1, dec(t_date.substr(7, 2)));
+                            nextdate.setDate(nextdate.getDate() + 1)
+                            t_date = '' + (nextdate.getFullYear() - 1911) + '/';
+                            //月份
+                            if (nextdate.getMonth() + 1 < 10)
+                            	t_date = t_date + '0' + (nextdate.getMonth() + 1) + '/';
+							else
+								t_date = t_date + (nextdate.getMonth() + 1) + '/';
+							//日期
+                            if (nextdate.getDate() < 10)
+                            	t_date = t_date + '0' + (nextdate.getDate());
+							else
+                            	t_date = t_date + (nextdate.getDate());
+						}
+
+                        use_hr = use_hr +(8* count);
+					}
+
+                    $('#txtHr_used').val(use_hr);
+				}
+            }
+            
 		</script>
 		<style type="text/css">
             #dmain {
@@ -636,13 +536,14 @@
 	</head>
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:25%;"  >
+		<div id='dmain' style="overflow:hidden;width: 1260px;">
+			<div class="dview" id="dview" style="float: left;  width:30%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:40%"><a id='vewNamea'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:22%"><a id='vewNamea'> </a></td>
+						<td align="center" style="width:43%"><a id='vewBdate'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -650,51 +551,46 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='namea'>~namea</td>
+						<td align="center" id='bdate edate'>~bdate ~ ~edate</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 73%;float: left;">
+			<div class='dbbm' style="width: 68%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtNoa"  type="text"  class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
 						<td class="td3" ><!--<input id="btnAuto"  type="button" />--></td>
-						<td class="td4"></td>
-						<td class="td5" ></td>
-						<td class="td6"></td>
+						<td class="td4"> </td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtDatea"  type="text" class="txt c1" />
-						</td>
-						<td class="td3" ><span> </span><a id='lblBdate' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td class="td3" ><span> </span><a id='lblBdate' class="lbl"> </a></td>
 						<td class="td4" colspan="2">
-						<input id="txtBdate"  type="text" class="txt" style="width: 120px;"/>
-						<a style="float:left;">~</a>
-						<input id="txtEdate"  type="text" class="txt" style="width: 120px;"/>
+							<input id="txtBdate"  type="text" class="txt" style="width: 120px;"/>
+							<a style="float:left;">~</a>
+							<input id="txtEdate"  type="text" class="txt" style="width: 120px;"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1" ><span> </span><a id='lblSss' class="lbl btn"></a></td>
+						<td class="td1" ><span> </span><a id='lblSss' class="lbl btn"> </a></td>
 						<td class="td2">
-						<input id="txtSssno"  type="text"  class="txt c2"/>
-						<input id="txtNamea"  type="text"  class="txt c3"/>
+							<input id="txtSssno"  type="text"  class="txt c2"/>
+							<input id="txtNamea"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id='lblPart' class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id='lblPart' class="lbl"> </a></td>
 						<td class="td4">
-						<input id="txtPartno"  type="text"  class="txt c2"/>
-						<input id="txtPart"  type="text"  class="txt c3"/>
+							<input id="txtPartno"  type="text"  class="txt c2"/>
+							<input id="txtPart"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td5"><span> </span><a id='lblId' class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtId"  type="text" class="txt c1" />
-						</td>
+						<td class="td5"><span> </span><a id='lblId' class="lbl"> </a></td>
+						<td class="td6"><input id="txtId"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblJob' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblJob' class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtJob"  type="text" class="txt c1" />
 						<input id="txtJobno"  type="text" style="display:none;" />
@@ -702,61 +598,36 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1" ><span> </span><a id='lblHtype' class="lbl btn" ></a></td>
+						<td class="td1" ><span> </span><a id='lblHtype' class="lbl btn" > </a></td>
 						<td class="td2">
-						<input id="txtHtype"  type="text"  class="txt c2"/>
-						<input id="txtHname"  type="text"  class="txt c3"/>
+							<input id="txtHtype"  type="text"  class="txt c2"/>
+							<input id="txtHname"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id='lblHr_special' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtHr_special"  type="text" class="txt num c1" />
-						</td>
-						<td class="td5"><span> </span><a id='lblTot_special' class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtTot_special"  type="text" class="txt num c1" />
-						</td>
+						<td class="td3" ><span> </span><a id='lblHr_special' class="lbl"> </a></td>
+						<td class="td4"><input id="txtHr_special"  type="text" class="txt num c1" /></td>
+						<td class="td5"><span> </span><a id='lblTot_special' class="lbl"> </a></td>
+						<td class="td6"><input id="txtTot_special"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td class="td1" ><span> </span><a id='lblBtime' class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtBtime"  type="text" class="txt" style="width: 120px;"/>
-						<a style="float:left;">~</a>
-						<input id="txtEtime"  type="text" class="txt" style="width: 120px;"/>
+						<td class="td1" ><span> </span><a id='lblBtime' class="lbl"> </a></td>
+						<td class="td2">
+							<input id="txtBtime"  type="text" class="txt" style="width: 65px;"/>
+							<a style="float:left;">~</a>
+							<input id="txtEtime"  type="text" class="txt" style="width: 65px;"/>
 						</td>
-						<td class="td4"><span> </span><a id='lblHr_used' class="lbl"></a></td>
-						<td class="td5">
-						<input id="txtHr_used"  type="text" class="txt num c1"/>
-						</td>
-						<td class="td6"></td>
+						<td class="td3"><span> </span><a id='lblHr_used' class="lbl"> </a></td>
+						<td class="td4"><input id="txtHr_used"  type="text" class="txt num c1"/></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan="5">
-						<input id="txtMemo"  type="text" class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input id="txtMemo"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
-						<td class="td2" colspan="5">
-						<input id="txtAgent"  type="text" class="txt c1"/>
-						</td>
+						<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"> </a></td>
+						<td class="td2" colspan="5"><input id="txtAgent"  type="text" class="txt c1"/></td>
 					</tr>
-					<!--<tr>
-					<td class="td1"><span> </span><a id='lblHbtime' class="lbl"></a></td>
-					<td class="td2"><input id="txtHbtime"  type="text"  class="txt c1"/></td>
-					<td class="td3"><span> </span><a id='lblHetime' class="lbl"></a></td>
-					<td class="td4"><input id="txtHetime"  type="text" class="txt c1" /></td>
-					<td class="td5"></td>
-					<td class="td6"></td>
-					</tr>
-					<tr>
-					<td class="td1"><span> </span><a id='lblHr_sick' class="lbl"></a></td>
-					<td class="td2"><input id="txtHr_sick"  type="text" class="txt num c1"/></td>
-					<td class="td3"><span> </span><a id='lblHr_person' class="lbl"></a></td>
-					<td class="td4"><input id="txtHr_person"  type="text" class="txt num c1"/></td>
-					<td class="td5" ></td>
-					<td class="td6"></td>
-					</tr>-->
 				</table>
 			</div>
 		</div>
