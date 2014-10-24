@@ -24,7 +24,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			brwCount2 = 15;
+			brwCount2 = 14;
 			aPop = new Array(
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 			);
@@ -58,6 +58,16 @@
 						}
 					}
 				});
+				
+				$('#btnToCust').click(function(e){
+					$('#export').toggle().css('top',$(this).offset().top+30).css('left',$(this).offset().left-30);
+				});
+				$('#btnExport').click(function(e){
+					var t_curnoa = $.trim($('#txtNoa').val());
+					var t_newnoa = $.trim($('#textCustno').val());
+					Lock(1);
+					q_func('qtxt.query.cust2', 'cust2.txt,export,' + encodeURI(t_curnoa) + ';' + encodeURI(t_newnoa)); 	
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -69,7 +79,24 @@
 				}
 				b_pop = '';
 			}
-
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.cust2':
+                		var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] != undefined) {
+                            if(as[0].isok=='1')
+                            	location.reload();
+                            else
+                            	alert(as[0].msg);
+                        } else {
+                            alert('錯誤!');
+                        }
+                        Unlock(1);
+                		break;
+                    default:
+                        break;
+                }
+            }
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'checkCustno_change':
@@ -161,6 +188,11 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if(t_para){
+					$('#btnExport').removeAttr('disabled');
+				}else{
+					$('#btnExport').attr('disabled','disabled');
+				}
 				if (q_cur==1) {
                     $('#txtNoa').removeAttr('readonly').css('color','black').css('background','white');
                 } else {
@@ -340,6 +372,18 @@
     ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
     ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
     >
+    	<div id='export' style="position:absolute; top:100px; left:200px; display:none; width:300px; height:100px; background-color: pink; border: 5px solid gray;">
+    		<table>
+    			<tr>
+    				<td><a>客戶編號</a></td>
+    				<td><input type="text" id = 'textCustno' style="float:left;width:100%;" /></td>
+    			</tr>
+    			<tr>
+    				<td colspan="2"><input type="button" id="btnExport" value="匯出"/></td>
+    			</tr>
+    		</table>
+    		
+    	</div>
         <!--#include file="../inc/toolbar.inc"-->
         <div id="dmain">
             <div class="dview" id="dview">
@@ -370,14 +414,16 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td><input id="txtSerial" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblComp' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtComp" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td><input id="txtSerial" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblNick' class="lbl"> </a></td>
 						<td><input id="txtNick" type="text" class="txt c1"/></td>
+						<td></td>
+						<td><input type="button" id="btnToCust" value="轉至客戶"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBoss' class="lbl"> </a></td>
@@ -387,37 +433,43 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td colspan='5'><input id="txtTel" type="text" class="txt c7"/></td>
+						<td colspan='2'><input id="txtTel" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
+						<td colspan='2'><input id="txtMobile" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
-						<td colspan='3'><input id="txtFax" type="text" class="txt c7"/></td>
-						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
-						<td><input id="txtMobile" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
+						<td colspan='2'><input id="txtFax" type="text" class="txt c1"/></td>
 						<td><span> </span><a class="lbl">E-mail</a></td>
-						<td colspan='5'><input id="txtEmail" type="text" class="txt c7"/></td>
+						<td colspan='2'><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
-						<td><input id="txtZip_fact" type="text" class="txt c1"></td>
-						<td colspan='4'><input id="txtAddr_fact" type="text" class="txt c7"/></td>
+						<td colspan='5'>
+							<input id="txtZip_fact" type="text" style="float:left;width:15%;">
+							<input id="txtAddr_fact" type="text" style="float:left;width:85%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_comp' class="lbl"> </a></td>
-						<td><input id="txtZip_comp" type="text" class="txt c1"/></td>
-						<td colspan='4'><input id="txtAddr_comp" type="text" class="txt c7"/></td>
+						<td colspan='5'>
+							<input id="txtZip_comp" type="text" style="float:left;width:15%;">
+							<input id="txtAddr_comp" type="text" style="float:left;width:85%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_invo' class="lbl"> </a></td>
-						<td><input id="txtZip_invo" type="text" class="txt c1"/></td>
-						<td colspan='4'><input id="txtAddr_invo" type="text" class="txt c7"/></td>
+						<td colspan='5'>
+							<input id="txtZip_invo" type="text" style="float:left;width:15%;">
+							<input id="txtAddr_invo" type="text" style="float:left;width:85%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_home' class="lbl"> </a></td>
-						<td><input id="txtZip_home" type="text" class="txt c1"/></td>
-						<td colspan='4'><input id="txtAddr_home" type="text" class="txt c7"/></td>
+						<td colspan='5'>
+							<input id="txtZip_home" type="text" style="float:left;width:15%;">
+							<input id="txtAddr_home" type="text" style="float:left;width:85%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSales' class="lbl"> </a></td>
@@ -430,16 +482,14 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblConntel' class="lbl"> </a></td>
-						<td><input id="txtConntel" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
+						<td colspan="2"><input id="txtConntel" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblConnfax' class="lbl"> </a></td>
-						<td><input id="txtConnfax" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtConnfax" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan='5'>
-							<textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
+							<textarea id="txtMemo" rows='5' style="width:100%; height: 50px;"> </textarea>
 						</td>
 					</tr>
 				</table>
