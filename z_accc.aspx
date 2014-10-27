@@ -33,11 +33,14 @@
                 q_getId();
                 q_gf('', 'z_accc');
             });
-
+			
+			var ssspart;
             function q_gfPost() {
                 q_gt('acpart', '', 0, 0, 0, "init1", r_accy+'_'+r_cno);
+                q_gt('ssspart', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "", r_accy+'_'+r_cno);
             }
-
+			
+			var init_finish=false,init_acpart=false,init_ssspart=false;
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'init1':
@@ -46,11 +49,18 @@
                         for ( i = 0; i < as.length; i++) {
                             t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
-                        initfinish();
+                        init_acpart=true;
                         break;
+					case 'ssspart':
+						ssspart = _q_appendData("ssspart", "", true);
+						init_ssspart=true;
+						break;
                 }
+                if(init_acpart&&init_ssspart&&!init_finish)
+                	initfinish();
             }
             function initfinish(){
+            	init_finish=true;
             	$('#q_report').q_report({
                     fileName : 'z_accc',
                     options : [{/*  [1]*/
@@ -179,7 +189,14 @@
 		        	for(var i=0;i<$('#chkXpart').children('input').length;i++){
 		        		if ($('#chkXpart').children('input')[i].value==r_partno || i==0){
 		        			$('#chkXpart').children('input')[i].checked=true;
+		        			continue;
 		        		}
+		        		for(var j=0;j<ssspart.length;j++){
+			        		if ($('#chkXpart').children('input')[i].value==ssspart[j].partno){
+				        		$('#chkXpart').children('input')[i].checked=true;
+				        		break;
+				        	}
+			        	}
 		        	}
 		        }
             }

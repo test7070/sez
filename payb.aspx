@@ -827,7 +827,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 1260px;
             }
             .tbbs a {
                 font-size: medium;
@@ -992,6 +992,7 @@
 					<td align="center" style="width:120px;">#<a id='lblInvonos'> </a>/<a id='lblTaxs'> </a></td>
 					<td align="center" style="width:80px;">*<a id='lblTotals'> </a></td>
 					<td align="center" style="width:150px;">*<a id='lblMemos'> </a></td>
+					<td align="center" style="width:100px;">*<a id='lblPartnos'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblBal'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -1019,7 +1020,12 @@
 						<input id="txtMemo.*" type="text" style=" width: 95%;"/>	
 						<input class="btn"  id="btnAcc.*" type="button" value='.' style="float: left; font-weight: bold;width:1%;" />
 						<input type="text" id="txtAcc1.*"  style="float: left;width:40%;"/>
-						<input type="text" id="txtAcc2.*"  style="float: left;width:40%;"/>
+						<input type="text" id="txtAcc2.*"  style="float: left;width:45%;"/>
+					</td>
+					<td>
+						<input class="btn"  id="btnPartno.*" type="button" value='.' style="float: left; font-weight: bold;width:1%;" />
+						<input type="text" id="txtPartno.*"  style="float: left;width:80%;"/>
+						<input type="text" id="txtPart.*"  style="float: left;width:95%;"/>
 					</td>
 					<td><input id="txtBal.*" type="text" style="width: 95%;" /></td>
 				</tr>
