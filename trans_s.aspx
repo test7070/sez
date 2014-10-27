@@ -92,16 +92,18 @@
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 
 		        + q_sqlPara2("Trandate", t_btrandate, t_etrandate) 
-		        + q_sqlPara_or(["caseno", "caseno2"], t_caseno) 
 		        + q_sqlPara2("driverno", t_driverno) 
 		        + q_sqlPara2("custno", t_custno) 
 		        + q_sqlPara2("straddrno", t_straddrno) 
 		        + q_sqlPara2("carno", t_carno) 
 		        + q_sqlPara2("po", t_po);
+		        if (t_caseno.length>0)
+                    t_where += " and (charindex('" + t_caseno + "',caseno)>0 or charindex('" + t_caseno + "',caseno2)>0)";
+                    
 		        if (t_comp.length>0)
-                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                    t_where += " and charindex('" + t_comp + "',comp)>0";
                 if (t_driver.length>0)
-                    t_where += " and patindex('%" + t_driver + "%',driver)>0";
+                    t_where += " and charindex('" + t_driver + "',driver)>0";
 		       	if(t_trd=='Y')
 		       		t_where += " and exists(select noa from view_trds"+r_accy+" where view_trds"+r_accy+".tranno=trans"+r_accy+".noa)";
 		       	if(t_trd=='N')
