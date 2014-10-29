@@ -16,7 +16,7 @@
 			}
 
 			var q_name = "cust";
-			var q_readonly = ['txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
+			var q_readonly = ['txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
 			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
@@ -29,7 +29,8 @@
 			aPop = new Array(
 				['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 				['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'],
-				['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx']
+				['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'],
+				['txtCustno2', 'lblCustno2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx']
 			);
 			
 			$(document).ready(function() {
@@ -701,7 +702,12 @@
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales" type="text" class="txt c6"/>
 						</td>
-						<td class="btnUcam"><input id="btnUcam" type="button" style="float: right;" /></td>
+						<td><span> </span><a id="lblCustno2" class="lbl isXY btn">收款客戶</a></td>
+						<td>
+							<input id="txtCustno2" type="text" class="txt c6 isXY"/>
+							<input id="txtCust2" type="text" class="txt c6 isXY"/>
+							<input id="btnUcam" type="button" style="float: right;" class="btnUcam"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblChkstatus' class="lbl"> </a></td>
