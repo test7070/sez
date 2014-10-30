@@ -33,6 +33,7 @@
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
         t_namea = $('#txtNamea').val();
+        t_idno = $('#txtIdno').val();
         t_tel = $('#txtTel').val();
         t_addr_conn = $('#txtAddr_conn').val();
 		/*t_bdate = $('#txtBdate').val();
@@ -47,7 +48,7 @@
 		if(t_addr_conn.length>0)
 			addr_conn_where=" and charindex('"+t_addr_conn+"',addr_conn)>0 ";
 		
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea)+tel_where+addr_conn_where;
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea)+ q_sqlPara2("idno", t_idno)+tel_where+addr_conn_where;
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -68,6 +69,10 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNamea'></a></td>
                 <td><input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblIdno'></a></td>
+                <td><input class="txt" id="txtIdno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblTel'></a></td>
