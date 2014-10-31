@@ -26,7 +26,7 @@
 				bbmMask = [['txtBdate', '99/99'], ['txtEdate', '99/99']];
 				q_mask(bbmMask);
 				$('#txtBdate').focus();
-				q_cmbParse("cmbAccc1", q_getPara('acc.typea'));
+				q_cmbParse("cmbAccc1", '@全部,'+q_getPara('acc.typea'));
 			}
 			function q_seekStr() {
 				t_accc1 = $('#cmbAccc1').val();
