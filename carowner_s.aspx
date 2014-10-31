@@ -33,12 +33,22 @@
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
         t_namea = $('#txtNamea').val();
+        t_idno = $('#txtIdno').val();
+        t_tel = $('#txtTel').val();
+        t_addr_conn = $('#txtAddr_conn').val();
 		/*t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
-
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea) ;
+		var tel_where=" ";
+		if(t_tel.length>0)
+			tel_where=" and ( left(tel1,"+t_tel.length+")='"+t_tel+"' or left(tel2,"+t_tel.length+")='"+t_tel+"' or left(mobile,"+t_tel.length+")='"+t_tel+"') ";
+		
+		var addr_conn_where=" ";
+		if(t_addr_conn.length>0)
+			addr_conn_where=" and charindex('"+t_addr_conn+"',addr_conn)>0 ";
+		
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea)+ q_sqlPara2("idno", t_idno)+tel_where+addr_conn_where;
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -59,6 +69,18 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNamea'></a></td>
                 <td><input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblIdno'></a></td>
+                <td><input class="txt" id="txtIdno" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblTel'></a></td>
+                <td><input class="txt" id="txtTel" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblAddr_conn'></a></td>
+                <td><input class="txt" id="txtAddr_conn" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

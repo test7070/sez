@@ -82,7 +82,7 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(1);
             }///  end Main()
 
             function mainPost() {
