@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 
-	    var q_name = 'salinsures', t_bbsTag = 'tbbs', t_content = "", afilter = [] , bbmKey = [], bbsKey = ['noa,noq'], as, brwCount2 = 12;
+	    var q_name = 'salinsures', t_bbsTag = 'tbbs', t_content = "", afilter = [] , bbmKey = ['noa'], bbsKey = ['noa,noq'], as, brwCount2 = 12;
         var t_sqlname = 'salinsures_load';
         t_postname = q_name;
         var isBott = false;
@@ -107,6 +107,11 @@
 			}
 			_bbsAssign();
 			if(q_getPara('sys.comp').indexOf('大昌')>-1){
+				for(var j = 0; j < q_bbsCount; j++) {
+					if(dec($('#txtSysgen_'+j).val())==1){
+						$('#sel_'+j).css('background-color','red');
+					}
+				}
 			 	 $('.hidecust').show();
 			 }else{
 			 	$('.hidecust').hide();
@@ -174,42 +179,42 @@
             width: 97%;
         }
         .num {
-                text-align: center;
+                text-align: right;
             }
     </style>
 </head>
 
 <body> 
-<div  id="dbbs"  style="width: 2620px;">
-       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 2600px;">
+<div  id="dbbs"  style="width: 1600px;">
+       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 1600px;">
             <tr>
 				<td class="td1" align="center" style="width:36px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 				</td>
                 <!--<td align="center" style="color:Blue; width:36px;" class="td2"><a id='lblNoa'></a></td>-->
-                <td align="center" style="color:Blue;width:80px;" class="td2"><a id='lblMon'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblHe_person'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblHe_comp'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblLa_person'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblLa_comp'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblRe_person'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblRe_comp'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblDisaster'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblTotal1'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblTotal2'></a></td>
+                <td align="center" style="color:Blue;width:60px;" class="td2"><a id='lblMon'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td1"><a id='lblHe_person'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td1"><a id='lblHe_comp'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td1"><a id='lblLa_person'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td1"><a id='lblLa_comp'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td1"><a id='lblRe_person'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td1"><a id='lblRe_comp'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td2"><a id='lblDisaster'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td2"><a id='lblTotal1'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td2"><a id='lblTotal2'></a></td>
                 <!--<td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblPayc'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblPay'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblUnpay'></a></td>-->
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSalary'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_retire'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_labor'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_health'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblMount'></a></td>
-                <td align="center" style="color:Blue;width:300px;" class="td1"><a id='lblComp'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td2"><a id='lblSalary'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td2"><a id='lblSa_retire'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td2"><a id='lblSa_labor'></a></td>
+                <td align="center" style="color:Blue;width:70px;" class="td2"><a id='lblSa_health'></a></td>
+                <td align="center" style="color:Blue;width:40px;" class="td2"><a id='lblMount'></a></td>
+                <td align="center" style="color:Blue;width:250px;" class="td1"><a id='lblComp'></a></td>
                 <td align="center" style="color:Blue;" class="td1"><a id='lblMemo'></a></td>
                 <td class="hidecust" align="center" style="color:Blue;width:100px;"><a id='lblCust'></a></td>
             </tr>
-            <tr>
+            <tr id="sel.*">
 					<td class="td1" align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 					</td>
@@ -217,6 +222,7 @@
                 	<input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" />
                 	<input class="txt c1" id="txtNoa.*" type="hidden"   readonly="readonly" />
                 	<input class="txt c1" id="txtNoq.*" type="hidden"   readonly="readonly" />
+                	<input class="txt c1" id="txtSysgen.*" type="hidden"   readonly="readonly" />
                 </td>
                 <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
