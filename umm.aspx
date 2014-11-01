@@ -56,6 +56,8 @@
                 bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
 				q_gt('part', '', 0, 0, 0, "");
 		        q_gt('acomp', '', 0, 0, 0, "");
+		        //q_cmbParse("combAcc1", '1111@現金,1121@應收票據');
+		        
 		        
 		         $('#txtDatea').blur(function() {
 		         	if(!emp($('#txtDatea').val())&&(q_cur==1 || q_cur==2)){
@@ -1326,6 +1328,7 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
+						<select id="combAcc1.*" style="display:none;width:95%;float:left;"> </select>
                         <input type="text" id="txtAcc1.*"  style="width:95%; float:left;" title="點擊滑鼠右鍵，列出明細。"/>
 						<input type="text" id="txtAcc2.*"  style="width:95%; float:left;"/>
 						<input type="button" id="btnAcc.*" style="display:none;" />
