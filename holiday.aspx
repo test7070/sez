@@ -353,12 +353,16 @@
 						<input id="txtMemo"  type="text" class="txt c1" />
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
                         <td><span> </span><a id='lblIsholiday' class="lbl"> </a></td>
                         <td>
                         <input type="checkbox" id="chkIshokiday"/>
                         </td>
-                    </tr>
+					</tr>-->
+					<tr>
+                        <td><span> </span><a id='lblIswork' class="lbl"> </a></td>
+                        <td><input type="checkbox" id="chkIswork"/></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td colspan="3">
