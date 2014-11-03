@@ -86,19 +86,9 @@
             });
             
             $('#btnInput').click(function () {
+            	//抓取停職資料
             	if(q_cur==1 ||q_cur==2){
-	            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa not in (select sno from salarys where mon='"+$('#txtMon').val()+"')  and a.noa!='Z001'^^";//後面是不要匯入軒威
-	            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
-	            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa and noa>=a.indate ^^";
-	            	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
-	            	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
-	            	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
-	            	
-	            	if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-	            		q_gt('salary_it_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "salaryst_import", r_accy);
-	            	}else{
-			        	q_gt('salaryst_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "", r_accy);
-			        }
+            		q_gt('sssr',"where=^^ '"+$('#txtMon').val()+"' between left(stopdate,6) and left(dbo.q_cdn(reindate,-1),6) ^^", 0, 0, 0, "sssr", r_accy);
 		        }
             });
             
@@ -265,6 +255,7 @@
         }
 		var checkenda=false;
 		var holiday;//存放holiday的資料
+		var sssr;//存放sssr的資料
 		function endacheck(x_datea,x_day) {
 			//102/06/21 7月份開始資料3日後不能在處理
 			var t_date=x_datea,t_day=1;
@@ -304,6 +295,7 @@
 				checkenda=false;
 			}
 		}
+		
 		function q_funcPost(t_func, result) {
 		        
 		        var s1 = location.href;
@@ -355,7 +347,23 @@
             	case 'holiday':
             		holiday = _q_appendData("holiday", "", true);
             		endacheck($('#txtDatea').val(),q_getPara('sys.modiday'));//單據日期,幾天後關帳
-            	break;
+            		break;
+            	case 'sssr':
+            		sssr = _q_appendData("sssr", "", true);
+            	
+            		var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa not in (select sno from salarys where mon='"+$('#txtMon').val()+"')  and a.noa!='Z001'^^";//後面是不要匯入軒威
+	            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
+	            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa and noa>=a.indate ^^";
+	            	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
+	            	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
+	            	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
+	            	
+	            	if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+	            		q_gt('salary_it_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "salaryst_import", r_accy);
+	            	}else{
+			        	q_gt('salaryst_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "", r_accy);
+			        }
+            		break;
                 case 'salaryst_import':  
 						var as = _q_appendData("salpresents", "", true);
 						imports=true;
@@ -404,15 +412,15 @@
 			                    	as[i].mi_saliday=0;
 			                    }else{
 			                    	as[i].day=0;
-			                    	as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary)); //扣薪日數=病假(時)+事假(時)+曠工(時)+無薪(時)
+			                    	//as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary)); //扣薪日數=病假(時)+事假(時)+曠工(時)+無薪(時)
 			                    	//病假扣薪=(本薪+津貼)/30/8*病假時數/2---->病假扣薪扣一半
-			                    	as[i].mi_sick=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_sick)/2;
+			                    	//as[i].mi_sick=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_sick)/2;
 			                    	//事假扣薪=(本薪+津貼)/30/8*事假時數
-			                    	as[i].mi_person=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_person);
+			                    	//as[i].mi_person=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_person);
 			                    	//無薪扣薪=(本薪+津貼)/30/8*無薪時數
-			                    	as[i].mi_nosalary=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_nosalary);
+			                    	//as[i].mi_nosalary=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_nosalary);
 			                    	//曠工扣薪=(本薪+津貼)/30/8*曠工時數
-			                    	as[i].mi_leave=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_leave);
+			                    	//as[i].mi_leave=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_leave);
 			                    }
 			                    
 			                    //全勤獎金
@@ -455,6 +463,26 @@
 				                    	as[i].bo_full=0;
 				                    }
 		                    	}
+		                    	
+		                    	//停職扣薪 寫在無薪(避免扣到全勤 放在處理全勤後面)
+			                    for (var j = 0; j < sssr.length; j++) {
+			                    	if(as[i].sssno==sssr[j].noa){
+			                    		//判斷是否整個月都停職
+			                    		if(date_1>=sssr[j].stopdate && date_2<sssr[j].reindate){//整個月都停職
+			                    			as[i].hr_nosalary=30*8;//整個月的時數
+			                    			as[i].bo_full=0;//整月停職則無全勤
+			                    		}else{ //當月停職
+			                    			var x_date=date_1,x_count=0;
+			                    			while(x_date<=date_2){
+			                    				if(x_date>=sssr[j].stopdate && x_date<sssr[j].reindate){
+			                    					x_count++;
+			                    				}
+			                    				x_date=q_cdn(x_date,1);
+			                    			}
+			                    			as[i].hr_nosalary=dec(as[i].hr_nosalary)+x_count*8;//停職天數的時數
+			                    		}
+			                    	}
+			                    }
 		                    	
 		                    	//其他項目
 		                    		//應稅其他=應稅其他+生產獎金+夜班津貼+值班津貼
