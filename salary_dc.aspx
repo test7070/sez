@@ -1151,7 +1151,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				if (r_rank <= 7)
-					q_gt('holiday', "where=^^ noa>='" + $('#txtDatea').val() + "'^^", 0, 0, 0, "", r_accy);
+					q_gt('holiday', "where=^^ noa>='" + $('#txtDatea').val() + "' and isnull(iswork,0)=0^^", 0, 0, 0, "", r_accy);
 				//單據日期之後的假日
 				else
 					checkenda = false;

@@ -746,7 +746,7 @@
                 _refresh(recno);
                 endacheck();
                 if(r_rank<=7)
-            		q_gt('holiday', "where=^^ noa<='"+q_date()+"'^^ stop=10" , 0, 0, 0, "", r_accy);
+            		q_gt('holiday', "where=^^ noa<='"+q_date()+"' and isnull(iswork,0)=0 ^^ stop=10" , 0, 0, 0, "", r_accy);
             }
             
             var checkenda=false;

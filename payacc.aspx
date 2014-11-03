@@ -215,6 +215,9 @@
 	                        }
 		                }
 		                break;
+					case 'holiday':
+	            		holiday = _q_appendData("holiday", "", true);
+	            		break;
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
@@ -434,7 +437,7 @@
 		    function refresh(recno) {
 		        _refresh(recno);
 		        if(r_rank<=7)
-	            	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"'^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
+	            	q_gt('holiday', "where=^^ noa>='"+$('#txtDatea').val()+"' and isnull(iswork,0)=0 ^^" , 0, 0, 0, "", r_accy);//單據日期之後的假日
 	            else
 	            	checkenda=false;
 		        if(q_cur==1 || q_cur==2){

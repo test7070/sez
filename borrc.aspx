@@ -359,10 +359,10 @@
 					){continue;}
 					               	
 					//假日跳過
-					if(holiday){
+					if(q_holiday){
 						var isholiday=false;
-						for(var i=0;i<holiday.length;i++){
-							if(holiday[i].noa==t_date){
+						for(var i=0;i<q_holiday.length;i++){
+							if(q_holiday[i]==t_date){
 								isholiday=true;
 								break;
 							}

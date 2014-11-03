@@ -170,10 +170,6 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				if (r_rank <= 7)
-					q_gt('holiday', "where=^^ noa>='" + $('#txtDatea').val() + "'^^", 0, 0, 0, "", r_accy);
-				else
-					checkenda = false;
 			}
 
 			function readonly(t_para, empty) {

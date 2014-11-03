@@ -451,7 +451,7 @@
 					                    	if(dec(as[i].late)+dec(as[i].early)>2){as[i].bo_full=0;}
 					                    }
 				                    }
-				                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))>0){
+				                    if(dec(as[i].hr_leave)>0){
 				                    	as[i].bo_full=0;
 				                    }
 				                    as[i].memo2=as[i].late+';'+as[i].early+';'+as[i].nopunch+';'+as[i].late3_it+';'+as[i].typea;
@@ -841,7 +841,7 @@
 		                	,t_typea=(t_m2.split(';')[4]==undefined?'':t_m2.split(';')[4]);
 		                	q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
 		                	//扣薪金額=(連續3次或遲到超過5次(第6次)-500)+(早退+沒打卡*時數)+病假+事假+事假+曠工金額
-	        				q_tr('txtMi_total_'+j,Math.round( ((t_typea.indexOf('早')>-1|| t_typea.indexOf('中')>-1||t_typea.indexOf('晚')>-1||t_typea.indexOf('足')>-1)?((t_late3_it>1|| t_late>5 ?-500:0)+((t_nopunch+t_early)*q_float('txtOstand_'+j))):0)
+	        				q_tr('txtMi_total_'+j,Math.round(((t_typea.indexOf('早')>-1|| t_typea.indexOf('中')>-1||t_typea.indexOf('晚')>-1||t_typea.indexOf('足')>-1)?((t_late3_it>0|| t_late>5 ?500:0)+((t_nopunch+t_early)*q_float('txtOstand_'+j))):0)
 	        				+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
         				}else{
 		        			q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));
@@ -890,7 +890,7 @@
 		                	q_tr('txtMi_saliday_'+j,Math.round(dec($('#txtHr_sick_'+j).val())+dec($('#txtHr_person_'+j).val())+dec($('#txtHr_nosalary_'+j).val())+dec($('#txtHr_leave_'+j).val())));//扣薪時數=病假+事假+事假+曠工金額
 		                	//扣薪金額=(連續3次或遲到超過5次(第6次)-500)+病假+事假+事假+曠工金額
 	        				//q_tr('txtMi_total_'+j,Math.round((t_late3_it>1|| t_late>5 ?-500:0)+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
-	        				q_tr('txtMi_total_'+j,Math.round( ((t_typea.indexOf('早')>-1|| t_typea.indexOf('中')>-1||t_typea.indexOf('晚')>-1||t_typea.indexOf('足')>-1)?((t_late3_it>1|| t_late>5 ?-500:0)+((t_nopunch+t_early)*q_float('txtOstand_'+j))):0)
+	        				q_tr('txtMi_total_'+j,Math.round( ((t_typea.indexOf('早')>-1|| t_typea.indexOf('中')>-1||t_typea.indexOf('晚')>-1||t_typea.indexOf('足')>-1)?((t_late3_it>0|| t_late>5 ?500:0)+((t_nopunch+t_early)*q_float('txtOstand_'+j))):0)
 	        				+dec($('#txtMi_sick_'+j).val())+dec($('#txtMi_person_'+j).val())+dec($('#txtMi_nosalary_'+j).val())+dec($('#txtMi_leave_'+j).val())));
         				}else{
         					q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));

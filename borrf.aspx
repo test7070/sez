@@ -215,7 +215,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 if(r_rank<=7)
-            		q_gt('holiday', '' , 0, 0, 0, "", r_accy);
+            		q_gt('holiday', "where=^^ isnull(iswork,0)=0 ^^" , 0, 0, 0, "", r_accy);
                 if(q_cur > 0 && q_cur < 4)
                     sum();
             }
