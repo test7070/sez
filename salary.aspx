@@ -381,10 +381,12 @@
 		                    		else
 		                    			inday=dec(date_2.substr(7,2))-dec(t_date.substr(7,2))+1
 		                    		
-		                    		if(inday>30) inday=30;
+		                    		if(inday>30)
+		                    			inday=30;
+		                    		else
+		                    			as[i].bo_full=0;
 		                    				                    		
 		                    		as[i].memo="新進員工(工作日:"+inday+")";
-		                    		as[i].bo_full=0;
 		                    		as[i].iswelfare='false';
 		                    	}
 		                    	

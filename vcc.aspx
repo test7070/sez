@@ -21,7 +21,7 @@
 			var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2','txtNoq'];
 			var bbmNum = [
 				['txtPrice', 10, 3, 1], ['txtTranmoney', 11, 0, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],
-				['txtTotal', 15, 0, 1], ['txtTotalus', 15, 0, 1], ['txtTranadd', 11, 2, 1]
+				['txtTotal', 15, 0, 1], ['txtTotalus', 15, 2, 1], ['txtTranadd', 15, 2, 1], ['txtFloata', 11, 5, 1]
 			];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -92,14 +92,14 @@
 				total = q_add(q_mul(addMoney,addMul),price);
 				q_tr('txtTranmoney', total);
 				calTax();
-				q_tr('txtTotalus', round(q_mul(q_float('txtTotal'), q_float('txtFloata')), 0));
+				q_tr('txtTotalus', round(q_mul(q_float('txtMoney'), q_float('txtFloata')),2));
 			}
 
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
-				bbmNum = [	['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1], ['txtTranmoney', 11, 0, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],	['txtTotal', 15, 0, 1], ['txtTotalus', 15, 0, 1], ['txtTranadd', 11, 2, 1]];
+				bbmNum = [	['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1], ['txtTranmoney', 11, 0, 1], ['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1],['txtTotal', 15, 0, 1], ['txtTotalus', 15, 2, 1], ['txtTranadd', 11, 2, 1], ['txtFloata', 11, 5, 1]];
 				bbsNum = [['txtPrice', 12, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 9, q_getPara('vcc.mountPrecision'), 1], ['txtTotal', 15, 0, 1]];
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
@@ -542,17 +542,30 @@
 					case 'orde':
 						var as = _q_appendData("orde", "", true);
 						var t_memo = $('#txtMemo').val();
+						var t_post = '';
+						var t_addr = '';
 						var t_post2 = '';
 						var t_addr2 = '';
 						for ( i = 0; i < as.length; i++) {
 							t_memo = t_memo + (t_memo.length > 0 ? '\n' : '') + as[i].noa + ':' + as[i].memo;
+							t_post = t_post+(t_post.length>0?';':'')+as[i].post;
+							t_addr = t_addr+(t_addr.length>0?';':'')+as[i].addr;
 							t_post2 = t_post2+(t_post2.length>0?';':'')+as[i].post2;
-							t_addr2 = t_addr2+(t_addr2.length>0?';':'')+as[i].addr;
+							t_addr2 = t_addr2+(t_addr2.length>0?';':'')+as[i].addr2;
 						}
 						$('#txtMemo').val(t_memo);
+						$('#txtPost').val(t_post);
+						$('#txtAddr').val(t_addr);
 						$('#txtPost2').val(t_post2);
 						$('#txtAddr2').val(t_addr2);
-						
+						if (as[0] != undefined){
+							$('#txtSalesno').val(as[0].salesno);
+							$('#txtSales').val(as[0].sales);
+							$('#cmbTaxtype').val(as[0].taxtype);
+							$('#cmbCoin').val(as[0].coin);
+							$('#txtFloata').val(as[0].floata);
+						}
+						sum();
 						break;
 					case 'cust':
 						var as = _q_appendData("cust", "", true);

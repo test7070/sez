@@ -122,14 +122,14 @@
 				//q_tr('txtWeight',t_weight);
 				q_tr('txtTotal', t_total);
 				calTax();
-				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
+				q_tr('txtTotalus', q_mul(q_float('txtMoney'), q_float('txtFloata')));
 			}
 
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]];
 				q_mask(bbmMask);
-				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 15, 3, 1]];
+				bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1], ['txtFloata', 11, 5, 1]];
 				bbsNum = [['txtMount', 10, q_getPara('vcc.mountPrecision'), 1], ['txtPrice', 10, q_getPara('vcc.pricePrecision'), 1], ['txtTotal', 15, 0, 1]];
 				
 				q_cmbParse("cmbStype", q_getPara('vcc.stype'));
@@ -250,11 +250,13 @@
 							$('#chkCancel_'+j).prop('checked','true')
 					}
 				}
-
+				
 				if (q_cur == 1)
 					$('#txtWorker').val(r_name);
 				if (q_cur == 2)
 					$('#txtWorker2').val(r_name);
+					
+				sum();
 					
 				//只要修改都會重新送簽核，將核准變回N
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
