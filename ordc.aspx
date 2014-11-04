@@ -28,6 +28,7 @@
             brwNowPage = 0;
             brwKey = 'Odate';
 			 brwCount = 12;
+			 brwCount2 = 12;
             var z_acomp = '',z_part = '';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_,txtMount', 'bcc_b.aspx']
             	, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
@@ -112,7 +113,7 @@
                             return;
                         }
 
-                        t_where = "(noa in (select noa from view_ordb where salesno='" + t_salesno + "') and isnull(enda,0)=0 and isnull(apv,'')='Y' " + q_sqlPara2("kind", t_kind) + q_sqlPara2("tggno", t_tggno) + q_sqlPara("noa", t_ordbno) + ")";
+                        t_where = "(noa in (select noa from view_ordb where salesno='" + t_salesno + "' and '"+$('#txtOdate').val()+"' <=datea ) and isnull(enda,0)=0 and isnull(apv,'')='Y' " + q_sqlPara2("kind", t_kind) + q_sqlPara2("tggno", t_tggno) + q_sqlPara("noa", t_ordbno) + ")";
                         t_where += " or (noa+'_'+no3 in (select ordbno+'_'+no3 from view_ordcs where noa='" + $('#txtNoa').val() + "')) ";
 
                     } else {
@@ -561,7 +562,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                /*width: 9%;*/
             }
             .tbbm .tdZ {
                 width: 1%;
@@ -689,36 +690,36 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm'>
+			<div class='dbbm' style="width: 800px;">
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 95px;"> </td>
+						<td style="width: 125px;"> </td>
+						<td style="width: 10px;"> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNoa"   type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblOdate' class="lbl"> </a></td>
 						<td><input id="txtOdate" type="text" class="txt c1"/></td>
+						<td> </td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
-						<td><select id="cmbKind" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
 						<td colspan="2"><select id="cmbCno" class="txt c1"></select></td>
 						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
-						<td><select id="cmbPartno" class="txt c1"></select></td>
-						
+						<td colspan="2"><select id="cmbPartno" class="txt c1"></select></td>
+						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
+						<td><select id="cmbKind" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -743,7 +744,7 @@
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
 						<td colspan='2'><input id="txtTel"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtFax" type="text" class="txt c1"/></td>
+						<td><input id="txtFax" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>

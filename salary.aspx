@@ -350,8 +350,8 @@
             		break;
             	case 'sssr':
             		sssr = _q_appendData("sssr", "", true);
-            	
-            		var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa not in (select sno from salarys where mon='"+$('#txtMon').val()+"')  and a.noa!='Z001'^^";//後面是不要匯入軒威
+            		
+            		var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa!='Z001'^^";//後面是不要匯入軒威//a.noa not in (select sno from salarys where mon='"+$('#txtMon').val()+"')  and
 	            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
 	            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa and noa>=a.indate ^^";
 	            	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
