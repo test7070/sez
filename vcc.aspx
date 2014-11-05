@@ -641,6 +641,13 @@
 						check_startdate=true;
 						btnOk();
 						break;
+					case 'flors':
+						var as = _q_appendData("flors", "", true);
+						if (as[0] != undefined) {
+							q_tr('txtFloata',as[0].floata);
+							sum();
+						}
+						break;
 				}
 			}
 			
@@ -689,6 +696,11 @@
 				else
 					$('#txtPaytype').val(cmb.value);
 				cmb.value = '';
+			}
+			
+			function coin_chg() {
+				var t_where = "where=^^ ('" + $('#txtOdate').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+				q_gt('flors', t_where, 0, 0, 0, "");
 			}
 
 			function combAddr_chg() {
@@ -1319,7 +1331,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td class="td2"><select id="cmbCoin" style="width: 100%;"> </select></td>
+						<td class="td2"><select id="cmbCoin" style="width: 100%;" onchange='coin_chg()'> </select></td>
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1"/></td>
 						<td class="td4"><span> </span><a id="lblTotalus" class="lbl"> </a></td>
 						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td>
