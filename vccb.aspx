@@ -55,7 +55,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtVkdate', r_picd]];
+                bbmMask = [['txtMon', r_picm],['txtDatea', r_picd],['txtVkdate', r_picd]];
                 q_mask(bbmMask);
                 bbsMask = [['txtIdate', r_picd]];
                 q_mask(bbsMask);
@@ -82,6 +82,10 @@
 	                		}
 	                	}
 	                }
+                });
+                
+                $('#txtDatea').change(function() {
+                    $('#txtMon').val($('#txtDatea').val().substr(0,6));
                 });
                 
             }
@@ -144,12 +148,13 @@
 				}
 			}
             function btnOk() {
-            	
-            	
                 if($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 }
+                
+                if(emp($('#txtMon').val()))
+                	$('#txtMon').val($('#txtDatea').val().substr(0,6));
 
                 $('#txtWorker').val(r_name);
                 sum();
@@ -206,6 +211,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                $('#txtMon').val(q_date().substr(0,6));
                 $('#txtDatea').focus();
                 $("#cmbCno").val(z_cno);
                 if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
@@ -497,23 +503,23 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1" onchange="typea_chg();"> </select></td>
+						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td><input id="txtMon"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td><input id="txtSerial"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblVkdate' class="lbl"> </a></td>
-						<td><input id="txtVkdate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td><select id="cmbTypea" class="txt c1" onchange="typea_chg();"> </select></td>
 						<td><span> </span><a id='lblCno' class="lbl"> </a></td>
 						<td>
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp" type="text" style="display:none;"/>
 						</td>
+						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td><input id="txtSerial"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr id='Cust'>
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
@@ -522,6 +528,8 @@
 							<input id="txtComp" type="text" style="float:left; width:70%;"/>
 							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
+						<td><span> </span><a id='lblVkdate' class="lbl"> </a></td>
+						<td><input id="txtVkdate" type="text" class="txt c1"/></td>
 					</tr>
 					<tr id='Tgg'>
 						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
