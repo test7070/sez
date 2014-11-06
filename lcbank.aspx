@@ -29,8 +29,9 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+           	q_gt(q_name, q_content, q_sqlCount, 1)
+            $('#txtNoa').focus();
+            q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
         });
  
        function main() {
@@ -43,8 +44,8 @@
         }  
 
         function mainPost() { 
-        	   q_mask(bbmMask);
-        	 q_cmbParse("cmbCoin", q_getPara('sys.coin'));
+			q_mask(bbmMask);
+        	 //q_cmbParse("cmbCoin", q_getPara('sys.coin'));
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -90,6 +91,19 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						
+						break;
                 case 'sss':  
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;

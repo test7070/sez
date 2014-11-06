@@ -41,7 +41,7 @@
 		        q_xchg = (q_content.length > 0 ? 2 : 1);
 
 		        $('#tYear').text(r_accy + ' ' + (r_cno == '1' ? '' : r_cno));
-
+				q_gt('flors_coin', '', 0, 0, 0, "florss_coin");
 		        q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
 		    }).mousedown(function(e) {
 				if(!$('#div_row').is(':hidden')){
@@ -66,7 +66,7 @@
 		            bbmMask = [['txtAccc2', '99/99']];
 		            q_mask(bbmMask);
 		            q_cmbParse("combAccc1", q_getPara('acc.typea'));
-		            q_cmbParse("cmbCoin", q_getPara('sys.coin'),'s');
+		            //q_cmbParse("cmbCoin", q_getPara('sys.coin'),'s');
 		            // 需在 main_form() 後執行，才會載入 系統參數
 		            if(q_getPara('sys.isAcccUs')=='1')
 		            	$('.us').show();
@@ -185,14 +185,33 @@
 		                if (as && as.length > 0)
 		                    $('#tYear').html(r_accy + as[0]['acomp']);
 		                break;
+					case 'florss_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin,'s');
+						
+						break;
 		            //                case 'qphr': var as = _q_appendData('qphr', '', true);           
 		            //                    if (as && as.length > 0)           
 		            //                        $('#txtAccc7_' + b_seq).val(as[0]['phr']);           
 		            //                    break;           
 
 		        }  /// end switch
+		        if(t_name.substr(0,6)=='flors_'){
+		        	var as = _q_appendData("flors", "", true);
+						if (as[0] != undefined) {
+							q_tr('txtFloata_'+t_name.split('_')[1],as[0].floata);
+							sum();
+						}
+		        }
+		        
 		    }
-
+		    
 		    function sum() {
 		        var td = 0, tc = 0, t_accc8;
 		        var s1 = '';
@@ -333,6 +352,15 @@
 			            
 						$('#txtFloata_' + j).focusout(function () {
 			            	sum();
+			            });
+			            
+			            $('#cmbCoin_' + j).change(function () {
+			            	t_IdSeq = -1;
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                
+			                var t_where = "where=^^ ('" +r_accy+"/"+$('#txtAccc2').val() + "' between bdate and edate) and coin='"+$('#cmbCoin_'+b_seq).find("option:selected").text()+"' ^^";
+							q_gt('flors', t_where, 0, 0, 0, "flors_"+b_seq);
 			            });
 			           
 			            $('#btnQphr_' + j).click(function (e) {

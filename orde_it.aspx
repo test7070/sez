@@ -36,6 +36,7 @@
 			q_brwCount();  // 計算 合適  brwCount 
 			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
 			q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+			q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 			$('#txtOdate').focus();
 		});
 		//////////////////   end Ready
@@ -72,7 +73,7 @@
 			q_mask(bbmMask);			
 			bbsMask = [['txtDatea', r_picd ]];  
 			q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
-			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	 /// q_cmbParse 會加入 fbbm
+			//q_cmbParse("cmbCoin", q_getPara('sys.coin'));	 /// q_cmbParse 會加入 fbbm
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
 			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
@@ -187,6 +188,26 @@
 	                	z_nick=as[0].nick;
 	                }
                 	break;
+                case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						
+						break;
+					case 'flors':
+						var as = _q_appendData("flors", "", true);
+						if (as[0] != undefined) {
+							q_tr('txtFloata',as[0].floata);
+							sum();
+						}
+						break;
 				case 'msg_ucc':
             		var as  = _q_appendData("ucc", "", true);
             		t_msg='';
@@ -308,6 +329,11 @@
 						q_Seek_gtPost();
 					break;
 			}  /// end switch
+		}
+		
+		function coin_chg() {
+			var t_where = "where=^^ ('" + $('#txtOdate').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+			q_gt('flors', t_where, 0, 0, 0, "");
 		}
 		
 		function btnQuat() {
@@ -851,7 +877,7 @@
 					<td class="td2"><input id="txtCno"  type="text" class="txt c1"/></td>
 					<td class="td3" ><input id="txtAcomp" type="text" class="txt c1"/></td>
 					<td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-					<td class="td5"><select id="cmbCoin" class="txt c1"> </select></td>				
+					<td class="td5"><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>				
 					<td class="td6"><input id="txtFloata" type="text" class="txt num c1" /></td>
 					<td class="td7"><span> </span><a id='lblIsproj' class="lbl"> </a></td>
 					<td class="td8"><input id="chkIsproj" type="checkbox"/></td>

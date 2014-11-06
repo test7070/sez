@@ -37,6 +37,7 @@
                 bbmKey = ['noa'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
+                q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
             });
 
             function main() {
@@ -51,7 +52,7 @@
             	bbmMask = [['txtDatea', r_picd],['txtVdate',r_picd],['txtEdate',r_picd],['txtCdate',r_picd],['txtIssuedate', r_picd],['txtReceivedate', r_picd],['txtOnboarddate', r_picd],['txtNegotiatingdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('lcu.typea'));
-                q_cmbParse("cmbCoin", q_getPara('sys.coin'));
+                //q_cmbParse("cmbCoin", q_getPara('sys.coin'));
                 $('#cmbTypea').focus(function() {
 					var len = $(this).children().length > 0 ? $(this).children().length : 1;
 					$(this).attr('size', len + "");
@@ -98,6 +99,24 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						break;
+					case 'flors':
+						var as = _q_appendData("flors", "", true);
+						if (as[0] != undefined) {
+							q_tr('txtFloata',as[0].floata);
+						}
+						break;
                 	case 'check_Lcno':
                 		var as = _q_appendData("lcu", "", true);
                         if (as[0] != undefined){
@@ -121,6 +140,11 @@
                         break;
                 }  
             }
+            
+            function coin_chg() {
+				var t_where = "where=^^ ('" + $('#txtDatea').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+				q_gt('flors', t_where, 0, 0, 0, "");
+			}
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
@@ -434,7 +458,7 @@
 					<tr>
 						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>
 		                <td>
-		                	<select id="cmbCoin" class="txt c4"> </select>
+		                	<select id="cmbCoin" class="txt c4" onchange='coin_chg()'> </select>
 		                	<input id="txtFloata" type="text" class="txt num c4"/>
 		                </td>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>

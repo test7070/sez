@@ -37,6 +37,7 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
                 $('#txtAcc1').focus();
+                q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
             });
 
             function main() {
@@ -52,7 +53,7 @@
                 bbmMask = [['txtDatea', r_picd]];
                 bbsMask = [['txtDatea', r_picd]]
                 q_mask(bbmMask);
-                q_cmbParse("cmbCoin", q_getPara('sys.coin'));
+                //q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 
                 $('#txtAccno3').change(function() {
                     $(this).val($.trim($(this).val()).toUpperCase());
@@ -162,14 +163,27 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'gettotal':
-                     var t_bill=0;
-                     var as = _q_appendData("lcs", "", true);
-                     for (var i=0; i < as.length; i++) {
-						t_bill=q_sub(dec(as[i].lcmoney),dec(as[i].money));
-                     };
-                     
-                     q_tr('txtTotal',q_sub(q_sub(q_float('txtCredit'),q_float('txtUnpay')),t_bill));
+                	case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						
+						break;
+					case 'gettotal':
+	                     var t_bill=0;
+	                     var as = _q_appendData("lcs", "", true);
+	                     for (var i=0; i < as.length; i++) {
+							t_bill=q_sub(dec(as[i].lcmoney),dec(as[i].money));
+	                     };
+	                     
+	                     q_tr('txtTotal',q_sub(q_sub(q_float('txtCredit'),q_float('txtUnpay')),t_bill));
                      
                      break;
                     case 'findAccno3':

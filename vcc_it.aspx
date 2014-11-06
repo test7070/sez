@@ -54,6 +54,8 @@
             
             //103/10/23 業務只能看到自己的
             q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "sales_vcc");
+            
+            q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
         });
 
         //////////////////   end Ready
@@ -91,7 +93,7 @@
             q_cmbParse("cmbTypea", q_getPara('vcc.typea'));   
             q_cmbParse("cmbStype", q_getPara('vcc.stype')); 
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-            q_cmbParse("cmbCoin", q_getPara('sys.coin')); 
+            //q_cmbParse("cmbCoin", q_getPara('sys.coin')); 
             q_cmbParse("combPay", q_getPara('vcc.paytype')); 
             q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 
@@ -265,6 +267,26 @@
 	                		z_nick=as[0].nick;
 	                	}
                 		break;
+                case 'flors_coin':
+					var as = _q_appendData("flors", "", true);
+					var z_coin='';
+					for ( i = 0; i < as.length; i++) {
+						z_coin+=','+as[i].coin;
+					}
+					if(z_coin.length==0) z_coin=' ';
+					
+					q_cmbParse("cmbCoin", z_coin);
+					if(abbm[q_recno])
+						$('#cmbCoin').val(abbm[q_recno].coin);
+					
+					break;
+				case 'flors':
+					var as = _q_appendData("flors", "", true);
+					if (as[0] != undefined) {
+						q_tr('txtFloata',as[0].floata);
+						sum();
+					}
+					break;
             	case 'msg_ucc':
             		var as  = _q_appendData("ucc", "", true);
             		t_msg='';
@@ -488,6 +510,11 @@
                     break;
             }  /// end switch
         }
+        
+        function coin_chg() {
+			var t_where = "where=^^ ('" + $('#txtDatea').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+			q_gt('flors', t_where, 0, 0, 0, "");
+		}
 
         function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('lblAcomp')]]);  // 檢查空白 
@@ -1093,7 +1120,7 @@
 					<input id="txtComp2" type="text" class="txt c3"/>
 				</td>
 				<td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-                <td class="td5"><select id="cmbCoin" style="width: 100%;"> </select></td>                 
+                <td class="td5"><select id="cmbCoin" style="width: 100%;" onchange='coin_chg()'> </select></td>                 
                 <td class="td6"><input id="txtFloata" type="text" class="txt num c1"/></td>
 				 <td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
                 <td class="td8"><input id="txtPrice" type="text" class="txt num c1"/></td> 

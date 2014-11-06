@@ -48,6 +48,7 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+				q_gt('flors_coin', '', 0, 0, 0, "florss_coin");
 				$('#txtDatea').focus();
 			});
 
@@ -74,12 +75,12 @@
 				bbsNum = [['txtPrice', 15, q_getPara('vcc.pricePrecision'), 1], ['txtMount', 15, q_getPara('vcc.mountPrecision'), 1], ['txtWeight', 15, q_getPara('vcc.weightPrecision'), 1], ['txtTotal', 15, 0, 1]
 								,['txtBprice', 15, q_getPara('rc2.pricePrecision'), 1], ['txtBmount', 15, q_getPara('rc2.mountPrecision'), 1], ['txtBweight', 15, q_getPara('rc2.weightPrecision'), 1], ['txtBtotal', 15, 0, 1]
 								,['txtOprice', 15, q_getPara('vcc.pricePrecision'), 1],['txtObprice', 15, q_getPara('rc2.pricePrecision'), 1],['txtSprice', 15, q_getPara('vcc.pricePrecision'), 1],['txtSbprice', 15, q_getPara('rc2.pricePrecision'), 1]];
-				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
-				q_cmbParse("cmbBcoin", q_getPara('sys.coin'));
-				q_cmbParse("cmbOcoin", q_getPara('sys.coin'));
-				q_cmbParse("cmbObcoin", q_getPara('sys.coin'));
-				q_cmbParse("cmbScoin", q_getPara('sys.coin'));
-				q_cmbParse("cmbSbcoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbBcoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbOcoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbObcoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbScoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbSbcoin", q_getPara('sys.coin'));
 				q_cmbParse("cmbTypea", q_getPara('ordg.typea'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				
@@ -163,9 +164,82 @@
 							z_nick = as[0].nick;
 						}
 						break;
+					case 'florss_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						q_cmbParse("cmbBcoin", z_coin);
+						q_cmbParse("cmbOcoin", z_coin);
+						q_cmbParse("cmbObcoin", z_coin);
+						q_cmbParse("cmbScoin", z_coin);
+						q_cmbParse("cmbSbcoin", z_coin);
+						if(abbm[q_recno]){
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
+						break;
+				}
+				if(t_name.substr(0,6)=='flors_'){
+		        	var as = _q_appendData("flors", "", true);
+					if (as[0] != undefined) {
+						switch (t_name.split('_')[1]) {
+							case '1':
+								q_tr('txtFloata',as[0].floata);
+							break;
+							case '2':
+								q_tr('txtBfloat',as[0].floata);
+							break;
+							case '3':
+								q_tr('txtOfloat',as[0].floata);
+							break;
+							case '4':
+								q_tr('txtObfloat',as[0].floata);
+							break;
+							case '5':
+								q_tr('txtSfloat',as[0].floata);
+							break;
+							case '6':
+								q_tr('txtSbfloat',as[0].floata);
+							break;
+						}
+					}
+		        }
+				
+			}
+			
+			function coin_chg(i) {
+				switch (i) {
+					case 1:
+						var t_where = "where=^^ ('" +  (dec($('#txtDatea').val().substr(0,4))-1911)+'/'+$('#txtDatea').val().substr(5) + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+						q_gt('flors', t_where, 0, 0, 0, "flors_"+i);
+						break;
+					case 2:
+						var t_where = "where=^^ ('" +  (dec($('#txtDatea').val().substr(0,4))-1911)+'/'+$('#txtDatea').val().substr(5) + "' between bdate and edate) and coin='"+$('#cmbBcoin').find("option:selected").text()+"' ^^";
+						q_gt('flors', t_where, 0, 0, 0, "flors_"+i);
+						break;
+					case 3:
+						var t_where = "where=^^ ('" +  (dec($('#txtDatea').val().substr(0,4))-1911)+'/'+$('#txtDatea').val().substr(5) + "' between bdate and edate) and coin='"+$('#cmbOcoin').find("option:selected").text()+"' ^^";
+						q_gt('flors', t_where, 0, 0, 0, "flors_"+i);
+						break;
+					case 4:
+						var t_where = "where=^^ ('" +  (dec($('#txtDatea').val().substr(0,4))-1911)+'/'+$('#txtDatea').val().substr(5) + "' between bdate and edate) and coin='"+$('#cmbObcoin').find("option:selected").text()+"' ^^";
+						q_gt('flors', t_where, 0, 0, 0, "flors_"+i);
+						break;
+					case 5:
+						var t_where = "where=^^ ('" +  (dec($('#txtDatea').val().substr(0,4))-1911)+'/'+$('#txtDatea').val().substr(5) + "' between bdate and edate) and coin='"+$('#cmbScoin').find("option:selected").text()+"' ^^";
+						q_gt('flors', t_where, 0, 0, 0, "flors_"+i);
+						break;
+					case 6:
+						var t_where = "where=^^ ('" +  (dec($('#txtDatea').val().substr(0,4))-1911)+'/'+$('#txtDatea').val().substr(5) + "' between bdate and edate) and coin='"+$('#cmbSbcoin').find("option:selected").text()+"' ^^";
+						q_gt('flors', t_where, 0, 0, 0, "flors_"+i);
 						break;
 				}
 			}
@@ -629,11 +703,11 @@
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblCoin" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbCoin" class="txt c1"> </select></td>
+						<td class="td2"><select id="cmbCoin" class="txt c1" onchange='coin_chg(1)'> </select></td>
 						<td class="td3"><input id="txtFloata" type="text" class="txt num c1" /></td>
 						<td class="td4"> </td>
 						<td class="td5"><span> </span><a id="lblBcoin" class="lbl"> </a></td>
-						<td class="td6"><select id="cmbBcoin" class="txt c1"> </select></td>
+						<td class="td6"><select id="cmbBcoin" class="txt c1" onchange='coin_chg(2)'> </select></td>
 						<td class="td7"><input id="txtBfloat" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="tr5">
@@ -660,11 +734,11 @@
 					</tr>
 					<tr class="tr7" style="background-color: lightcoral;">
 						<td class="td1"><span> </span><a id="lblOcoin" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbOcoin" class="txt c1"> </select></td>
+						<td class="td2"><select id="cmbOcoin" class="txt c1" onchange='coin_chg(3)'> </select></td>
 						<td class="td3"><input id="txtOfloat" type="text" class="txt num c1" /></td>
 						<td class="td4"> </td>
 						<td class="td5"><span> </span><a id="lblObcoin" class="lbl"> </a></td>
-						<td class="td6"><select id="cmbObcoin" class="txt c1"> </select></td>
+						<td class="td6"><select id="cmbObcoin" class="txt c1" onchange='coin_chg(4)'> </select></td>
 						<td class="td7"><input id="txtObfloat" type="text" class="txt num c1" /></td>
 						<td class="td8"> </td>
 					</tr>
@@ -679,11 +753,11 @@
 					</tr>
 					<tr class="tr9" style="background-color: gold;">
 						<td class="td1"><span> </span><a id="lblScoin" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbScoin" class="txt c1"> </select></td>
+						<td class="td2"><select id="cmbScoin" class="txt c1" onchange='coin_chg(5)'> </select></td>
 						<td class="td3"><input id="txtSfloat" type="text" class="txt num c1" /></td>
 						<td class="td4"> </td>
 						<td class="td5"><span> </span><a id="lblSbcoin" class="lbl"> </a></td>
-						<td class="td6"><select id="cmbSbcoin" class="txt c1"> </select></td>
+						<td class="td6"><select id="cmbSbcoin" class="txt c1" onchange='coin_chg(6)'> </select></td>
 						<td class="td7"><input id="txtSbfloat" type="text" class="txt num c1" /></td>
 						<td class="td8"> </td>
 					</tr>

@@ -33,7 +33,8 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy) 
+           q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+           q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
             $('#txtNoa').focus();
             
             //一個訂單只有一個ordei
@@ -63,7 +64,7 @@
         	bbmMask = [];
             q_mask(bbmMask);
             //q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-			q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
+			//q_cmbParse("cmbCoin", ('').concat(new Array('台幣', '美元', '日幣', '港幣', '人民幣', '歐元', '英鎊', '新加坡幣')));
 			
 			if(window.parent.q_name=='orde'){
 				//讀取嘜頭選項
@@ -107,6 +108,19 @@
 		var ucam_as;
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						
+						break;
             	case 'ucam':
             		ucam_as = _q_appendData("ucam", "", true);
             		if(ucam_as[0] != undefined){
@@ -125,6 +139,11 @@
                     break;
             }  /// end switch
         }
+        
+        function coin_chg() {
+			var t_where = "where=^^ ('" + $('#txtDatea').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+			q_gt('flors', t_where, 0, 0, 0, "");
+		}
         
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3

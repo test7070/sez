@@ -189,11 +189,13 @@
 		        	for(var i=0;i<$('#chkXpart').children('input').length;i++){
 		        		if ($('#chkXpart').children('input')[i].value==r_partno || i==0){
 		        			$('#chkXpart').children('input')[i].checked=true;
+		        			$("#chkXpart").children('input')[i].disabled=false;
 		        			continue;
 		        		}
 		        		for(var j=0;j<ssspart.length;j++){
 			        		if ($('#chkXpart').children('input')[i].value==ssspart[j].partno){
 				        		$('#chkXpart').children('input')[i].checked=true;
+				        		$("#chkXpart").children('input')[i].disabled=false;
 				        		break;
 				        	}
 			        	}

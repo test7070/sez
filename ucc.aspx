@@ -35,7 +35,7 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
 				$('#txtNoa').focus();
-
+				q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 			});
 			function currentData() {
 			}
@@ -90,7 +90,7 @@
 					q_cmbParse("cmbTypea", q_getPara('ucc.typea')+(q_getPara('sys.comp').indexOf('安美得') > -1?',null@其他':''));
 
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_gt('uccga', '', 0, 0, 0, "");
 				q_gt('uccgb', '', 0, 0, 0, "");
 				q_gt('uccgc', '', 0, 0, 0, "");
@@ -167,6 +167,19 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						
+						break;
 					case 'uploadimg_noa':
 						var as = _q_appendData("ucc", "", true);
 						if (as[0] != undefined) {

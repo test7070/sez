@@ -79,7 +79,7 @@
                     }, {/*4 [9]*/
                         type : '8',
                         name : 'xpart',
-                        value : ('zzzzz@無部門'+(t_data.data['part'].length==0?'':',')+t_data.data['part']).split(',')
+                        value : ('zzzzz@無部門'+(t_data.data['part'].length==0?'':',')+t_data.data['part']+',checkAll@全部').split(',')
                     }]
                 });
                 
@@ -110,6 +110,21 @@
 				$('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 				
 				$('#chkXpart').children('input').attr('checked', 'checked');
+				
+				$("#chkXpart input[type='checkbox'][value!='']").attr('checked', true);
+                $("#chkXpart input[type='checkbox'][value='checkAll']").removeAttr('checked');
+                $("#chkXpart input[type='checkbox'][value='checkAll']").next('span').text('取消全部');
+
+                $("#chkXpart input[type='checkbox'][value='checkAll']").click(function() {
+                    if ($(this).next('span').text() == '全部') {
+                        $("input[type='checkbox'][value!='']").attr('checked', true);
+                        $(this).removeAttr('checked');
+                        $(this).next('span').text('取消全部');
+                    } else if ($(this).next('span').text() == '取消全部') {
+                        $("input[type='checkbox'][value!='']").removeAttr('checked');
+                        $(this).next('span').text('全部');
+                    }
+                });
 				
 				$('#txtXacc1a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;

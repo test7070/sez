@@ -28,7 +28,7 @@
 			q_brwCount();
 			q_gt(q_name, q_content, q_sqlCount, 1);
 			$('#txtNoa').focus();
-			
+			q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 		});
 		function currentData() {
 		}
@@ -78,7 +78,7 @@
 		function mainPost() { 
 			q_cmbParse("cmbTypea", q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
 			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-			q_cmbParse("cmbCoin", q_getPara('sys.coin'));	
+			//q_cmbParse("cmbCoin", q_getPara('sys.coin'));	
 			
 			q_gt('uccga', '', 0, 0, 0, "");
 			q_gt('uccgb', '', 0, 0, 0, "");
@@ -160,6 +160,18 @@
 							$("#cmbGroupcno").val(abbm[q_recno].groupcno);
 						}
 					}
+					break;
+				case 'flors_coin':
+					var as = _q_appendData("flors", "", true);
+					var z_coin='';
+					for ( i = 0; i < as.length; i++) {
+						z_coin+=','+as[i].coin;
+					}
+					if(z_coin.length==0) z_coin=' ';
+					
+					q_cmbParse("cmbCoin", z_coin);
+					if(abbm[q_recno])
+						$('#cmbCoin').val(abbm[q_recno].coin);
 					break;
 				case q_name: 
 					if (q_cur == 4)	

@@ -54,8 +54,8 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
-				q_gt('ucca', 'stop=1 ', 0, 0, 0, "ucca_invo");
-				//判斷是否有買發票系統
+				q_gt('ucca', 'stop=1 ', 0, 0, 0, "ucca_invo");//判斷是否有買發票系統
+				q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 			});
 
 			function main() {
@@ -95,7 +95,7 @@
 					q_cmbParse("cmbStype", q_getPara('rc2.stype_it'));
 				else
 					q_cmbParse("cmbStype", q_getPara('rc2.stype'));
-				q_cmbParse("cmbCoin", q_getPara('sys.coin'));
+				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
@@ -194,6 +194,26 @@
 							z_nick = as[0].nick;
 						}
 						break;
+					case 'flors_coin':
+						var as = _q_appendData("flors", "", true);
+						var z_coin='';
+						for ( i = 0; i < as.length; i++) {
+							z_coin+=','+as[i].coin;
+						}
+						if(z_coin.length==0) z_coin=' ';
+						
+						q_cmbParse("cmbCoin", z_coin);
+						if(abbm[q_recno])
+							$('#cmbCoin').val(abbm[q_recno].coin);
+						
+						break;
+					case 'flors':
+						var as = _q_appendData("flors", "", true);
+						if (as[0] != undefined) {
+							q_tr('txtFloata',as[0].floata);
+							sum();
+						}
+						break;
 					case 'custaddr':
 						var as = _q_appendData("custaddr", "", true);
 						var t_item = " @ ";
@@ -261,7 +281,12 @@
 						break;
 				}
 			}
-
+			
+			function coin_chg() {
+				var t_where = "where=^^ ('" + $('#txtDatea').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+				q_gt('flors', t_where, 0, 0, 0, "");
+			}
+			
 			function lblOrdc() {
 				var t_tggno = trim($('#txtTggno').val());
 				var t_ordeno = trim($('#txtOrdeno').val());
@@ -816,7 +841,7 @@
 							<select id="combPaytype" class="txt c2" onchange='cmbPaytype_chg()'> </select>
 						</td>
 						<td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
-						<td class="td5" ><select id="cmbCoin" class="txt c1" > </select></td>
+						<td class="td5" ><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td class="td6" ><input id="txtFloata" type="text" class="txt num c1" /></td>
 						<td class="td7"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td8"><input id="txtPrice" type="text" class="txt num c1" /></td>
