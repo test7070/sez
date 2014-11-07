@@ -14,7 +14,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="color";
+        var q_name="size";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -38,14 +38,14 @@
             mainForm(0); // 1=Last  0=Top           
         }  
 
-
         function mainPost() { 
             q_mask(bbmMask);
-			$('#txtNoa').change(function(e){
+            
+            $('#txtNoa').change(function(e){
                 $(this).val($.trim($(this).val()).toUpperCase());    	
 				if($(this).val().length>0){
 					t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    q_gt('color', t_where, 0, 0, 0, "checkColorno_change", r_accy);
+                    q_gt('size', t_where, 0, 0, 0, "checkSizeno_change", r_accy);
 				}
 			});
         }
@@ -59,18 +59,19 @@
             }   /// end Switch
         }
 
+
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'checkColorno_change':
-                		var as = _q_appendData("color", "", true);
+            	case 'checkSizeno_change':
+                		var as = _q_appendData("size", "", true);
                         if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].color);
+                        	alert('已存在 '+as[0].noa+' '+as[0].size);
                         }
                 		break;
-                case 'checkColorno_btnOk':
-                		var as = _q_appendData("color", "", true);
+                case 'checkSizeno_btnOk':
+                		var as = _q_appendData("size", "", true);
                         if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].color);
+                        	alert('已存在 '+as[0].noa+' '+as[0].size);
                             return;
                         }else{
                         	wrServer($('#txtNoa').val());
@@ -79,6 +80,7 @@
                 case q_name: 
                 	if (q_cur == 4)  
                         q_Seek_gtPost();
+
                     break;
             }  /// end switch
         }
@@ -87,8 +89,9 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('color_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('size_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
+
 
         function btnIns() {
             _btnIns();
@@ -99,7 +102,6 @@
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
             _btnModi();
             refreshBbm();
             $('#txtComp').focus();
@@ -111,17 +113,18 @@
         
         function btnOk() {
             var t_err = '';
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtColor', q_getMsg('lblColor')] ]);
-
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtSize', q_getMsg('lblSize')] ]);
+            
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
-           
-			if(q_cur==1){
+              
+			var t_noa = trim($('#txtNoa').val());
+			
+            if(q_cur==1){
 				t_where="where=^^ noa='"+t_noa+"'^^";
-				q_gt('color', t_where, 0, 0, 0, "checkColorno_btnOk", r_accy);
+				q_gt('size', t_where, 0, 0, 0, "checkSizeno_btnOk", r_accy);
 			}else{
 				wrServer(t_noa);
 			}
@@ -321,21 +324,21 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" style="float: left;  width:35%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
                 <td align="center" style="width:25%"><a id='vewNoa'> </a></td>
-                <td align="center" style="width:40%"><a id='vewColor'> </a></td>
+                <td align="center" style="width:40%"><a id='vewSize'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='color'>~color</td>
+                   <td align="center" id='size'>~size</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="width: 60%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -344,9 +347,8 @@
                <td class="td4"> </td> 
             </tr>
             <tr class="tr2">
-               <td class="td1"><span> </span><a id="lblColor" class="lbl"> </a></td>
-               <td class="td2"><input id="txtColor" type="text" class="txt c1"/></td>
-               <td class="td3"> </td>
+               <td class="td1"><span> </span><a id="lblSize" class="lbl"> </a></td>
+               <td class="td2" colspan="2"><input id="txtSize" type="text" class="txt c1"/></td>
                <td class="td4"> </td> 
             </tr>
 
