@@ -35,6 +35,7 @@
     }
 
     function q_seekStr() {   
+    	t_noa = $('#txtNoa').val();
         t_partno = $('#txtPartno').val();
         t_part = $('#txtPart').val();
         t_sssno = $('#txtSssno').val();
@@ -46,7 +47,7 @@
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("partno", t_partno)  + q_sqlPara2("part", t_part)
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("partno", t_partno)  + q_sqlPara2("part", t_part)
         + q_sqlPara2("sssno", t_sssno)  + q_sqlPara2("namea", t_namea)+ q_sqlPara2("senderno", t_senderno)  + q_sqlPara2("sender", t_sender);
 		
 		if($('#cmbChecker').val()=='未核准')
@@ -71,6 +72,10 @@
                 <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
                 <span style="display:inline-block; vertical-align:middle">&sim;</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblNoa'></a></td>
+                <td style="width:65%;  "><input class="txt" id="txtNoa" type="text" style="width:150px; font-size:medium;" />
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblPartno'></a></td>
