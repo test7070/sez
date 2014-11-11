@@ -27,6 +27,10 @@
 			$(document).ready(function() {
 				q_getId();
 				q_gf('', 'z_pay');
+				$('#q_report').click(function(e) {
+					if(q_getPara('sys.isAcccUs')!='1')
+						$('#Xcoin').hide();
+				});
 			});
 			
 			function q_gfPost() {
