@@ -19,7 +19,7 @@
             q_tables = 's';
             var q_name = "bccin";
             var q_readonly = ['txtNoa', 'txtWorker','txtMoney','txtTax','txtTotal'];
-            var q_readonlys = ['txtTotal'];
+            var q_readonlys = ['txtTotal','txtOrdcno','txtNo2'];
             var bbmNum = [['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtDiscount', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtMount2', 10, 0, 1], ['txtPrice', 15, 3, 1], ['txtDiscount', 15, 0, 1], ['txtMoney', 15, 0, 1], ['txtTotal', 15, 0, 1], ['txtErrmount', 15, 0, 1]];
             var bbmMask = [];

@@ -713,7 +713,7 @@
 			}
 			
 			function coin_chg() {
-				var t_where = "where=^^ ('" + $('#txtOdate').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
+				var t_where = "where=^^ ('" + $('#txtDatea').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
 				q_gt('flors', t_where, 0, 0, 0, "");
 			}
 
