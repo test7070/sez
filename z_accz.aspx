@@ -18,11 +18,26 @@
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
 			}
+			
+			function z_accc() {
+            }
+            z_accc.prototype = {
+                data : {
+                    part : null
+                },
+                keyup : null
+            };
+            t_data = new z_accc();
+            
+            var ssspart;
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_accz');
+				q_gt('acpart', '', 0, 0, 0, "", r_accy+'_'+r_cno);
+                q_gt('ssspart', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "", r_accy+'_'+r_cno);
 			});
+			
 			function q_gfPost() {
+				init_finish=true;
 				$('#q_report').q_report({
 					fileName : 'z_accz',
 					options : [{
@@ -38,15 +53,14 @@
 					},{
 						type : '1',
 						name : 'xdate'
-					},{
-						type : '2',
-						name : 'xpartno',
-						dbf : 'part',
-						index : 'noa,part',
-						src : 'part_b.aspx'
-					}]
+					}, {
+                        type : '8',
+                        name : 'xpartno',
+                        value : ('zzzzz@無部門,'+t_data.data['part']).split(',')
+                    }]
 				});
 				q_popAssign();
+                q_langShow();
 				$('#txtXdate1').mask('999/99/99');
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99/99');
@@ -69,12 +83,22 @@
                 $('#txtXdate2').val(q_date().substring(0,7)+lastDays);
                 
                 if(q_getPara('acc.lockPart')=='1' && r_rank<8){
-		        	$('#txtXpartno1a').val(r_partno);
-		        	$('#txtXpartno1a').attr('Disabled','Disabled');
-		        	$('#btnXpartno1').hide();
-		        	$('#txtXpartno2a').val(r_partno);
-		        	$('#txtXpartno2a').attr('Disabled','Disabled');
-		        	$('#btnXpartno2').hide();
+		        	$("#chkXpartno").children('input').attr('Disabled','Disabled');
+		        	$('#chkXpartno').children('input').prop('checked',false);
+		        	for(var i=0;i<$('#chkXpartno').children('input').length;i++){
+		        		if ($('#chkXpartno').children('input')[i].value==r_partno || i==0){
+		        			$('#chkXpartno').children('input')[i].checked=true;
+		        			$('#chkXpartno').children('input')[i].disabled=false;
+		        			continue;
+		        		}
+		        		for(var j=0;j<ssspart.length;j++){
+		        			if ($('#chkXpartno').children('input')[i].value==ssspart[j].partno){
+			        			$('#chkXpartno').children('input')[i].checked=true;
+			        			$('#chkXpartno').children('input')[i].disabled=false;
+			        			break;
+			        		}
+		        		}
+		        	}
 		        }
 
 			}
@@ -82,8 +106,26 @@
 			function q_boxClose(s2) {
 			}
 			
-			function q_gtPost(s2) {
-			}
+			var init_finish=false,init_acpart=false,init_ssspart=false;
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acpart':
+                        t_data.data['part'] = '';
+                        var as = _q_appendData("acpart", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        
+                        init_acpart=true;
+                        break;
+					case 'ssspart':
+						ssspart = _q_appendData("ssspart", "", true);
+						init_ssspart=true;
+						break;
+                }
+                if(init_acpart&&init_ssspart&&!init_finish)
+                	q_gf('', 'z_accz');
+            }
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"

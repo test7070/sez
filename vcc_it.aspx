@@ -17,7 +17,7 @@
         }
         q_tables = 's';
         var q_name = "vcc";
-        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2','txtSales','txtSales2','txtZipname'];
+        var q_readonly = ['txtNoa','txtAccno','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus','txtWorker','txtWorker2','txtSales','txtSales2','txtZipname','textStatus'];
         var q_readonlys = ['txtTotal', 'txtOrdeno', 'txtNo2']; 
         var bbmNum = [['txtPrice', 10, 3,1], ['txtTranmoney', 11, 2,1], ['txtMoney', 15, 0, 1], ['txtTax',15 ,0 , 1], ['txtTotal',15 ,0 , 1], ['txtTotalus',15 ,0 , 1]];
         var bbsNum = [['txtPrice', 12, 3,1], ['txtMount', 9, 2, 1], ['txtTotal',15 ,0 , 1]];
@@ -508,6 +508,25 @@
                     }
 					q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
                     break;
+				case 'umms':
+					var as = _q_appendData("umms", "", true);
+					var z_msg = "", t_paysale = 0,t_tpaysale=0;
+					if (as[0] != undefined) {
+						for (var i = 0; i < as.length; i++) {
+							t_paysale = parseFloat(as[i].paysale.length == 0 ? "0" : as[i].paysale);
+							t_tpaysale+= parseFloat(as[i].paysale.length == 0 ? "0" : as[i].paysale);
+							if (t_paysale != 0)
+								z_msg += (as[i].noa+';');
+						}
+						
+						if (z_msg.length > 0) {
+							z_msg='已收款：'+FormatNumber(t_tpaysale)+'，收款單號【'+z_msg.substr(0,z_msg.length-1)+ '】。 '
+						}
+					}else{
+						z_msg='未收款。'
+					}
+					$('#textStatus').val(z_msg);
+					break;
             }  /// end switch
         }
         
@@ -721,6 +740,10 @@
 			}else{
 				$('.it').hide();
 			}
+			
+			var t_where = " where=^^ vccno='" + $('#txtNoa').val() + "'^^";
+			q_gt('umms', t_where, 0, 0, 0, '', r_accy);
+			
 			if(isinvosystem)
 				$('.istax').hide();
         }
@@ -1161,6 +1184,10 @@
 				<td class="td2" colspan='7'>
 					<input id="txtMemo" type="text" class="txt c1"/>
 				</td>
+            </tr>
+            <tr>
+				<td class="td1"><span> </span><a class="lbl">收款情況</a></td>
+				<td class="td2" colspan='7'><input id="textStatus" type="text" class="txt c1"/></td>
             </tr>
         </table>
         </div>
