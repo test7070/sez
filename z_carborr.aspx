@@ -42,6 +42,10 @@
 						type : '8',
 						name : 'xchk',
 						value : q_getMsg('chk').split('&')
+					},{
+						type : '0',
+						name : 'r_name',
+						value : r_name
 					}]
 				});
 				q_popAssign();
