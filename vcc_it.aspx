@@ -25,7 +25,7 @@
         var bbsMask = [];
         q_sqlCount = 6; 
         brwCount = 6; 
-        brwCount2 = 11; 
+        brwCount2 = 12; 
         brwList = []; 
         brwNowPage = 0; 
         brwKey = 'datea';
@@ -117,8 +117,14 @@
 	            q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
             });
 
-            $('#lblOrdeno').click(function () { 
-            	q_pop('txtOrdeno', "orde_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtOrdeno').val()+"')>0;" + r_accy + '_' + r_cno, 'orde', 'noa', '', "92%", "1024px", q_getMsg('lblOrdeno'), true); 
+            $('#lblOrdeno').click(function () {
+            	if(!emp($('#txtOrdeno').val())) 
+            		q_pop('txtOrdeno', "orde_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtOrdeno').val()+"')>0;" + r_accy + '_' + r_cno, 'orde', 'noa', '', "95%", "1024px", q_getMsg('lblOrdeno'), true); 
+            });
+            
+            $('#textStatus').click(function () { 
+            	if(!emp($('#textStatus2').val()))
+            		q_pop('textStatus2', "umm.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#textStatus2').val()+"')>0;" + r_accy + '_' + r_cno, 'umm', 'noa', '', "95%", "1024px",'收款', true); 
             });
             
             $('#lblAccc').click(function () {
@@ -126,7 +132,7 @@
             });
             
             $('#lblZipname').click(function () { 
-            	q_pop('txtZipname', "quat_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtZipname').val()+"')>0;" + r_accy + '_' + r_cno, 'quat', 'noa', '', "92%", "1024px", q_getMsg('lblZipname'), true); 
+            	q_pop('txtZipname', "quat_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex(noa,'"+$('#txtZipname').val()+"')>0;" + r_accy + '_' + r_cno, 'quat', 'noa', '', "95%", "1024px", q_getMsg('lblZipname'), true); 
             });
             
             /*$('#btnFunc').click(function () {
@@ -510,7 +516,7 @@
                     break;
 				case 'umms':
 					var as = _q_appendData("umms", "", true);
-					var z_msg = "", t_paysale = 0,t_tpaysale=0;
+					var z_msg = "",z_msg2 = "", t_paysale = 0,t_tpaysale=0;
 					if (as[0] != undefined) {
 						for (var i = 0; i < as.length; i++) {
 							t_paysale = parseFloat(as[i].paysale.length == 0 ? "0" : as[i].paysale);
@@ -520,12 +526,14 @@
 						}
 						
 						if (z_msg.length > 0) {
-							z_msg='已收款：'+FormatNumber(t_tpaysale)+'，收款單號【'+z_msg.substr(0,z_msg.length-1)+ '】。 '
+							z_msg='已收款：'+FormatNumber(t_tpaysale)+'，收款單號【'+z_msg.substr(0,z_msg.length-1)+ '】。 ';
+							z_msg2=z_msg.substr(0,z_msg.length-1);
 						}
 					}else{
-						z_msg='未收款。'
+						z_msg='未收款。';
 					}
 					$('#textStatus').val(z_msg);
+					$('#textStatus2').val(z_msg2);
 					break;
             }  /// end switch
         }
@@ -1187,7 +1195,10 @@
             </tr>
             <tr>
 				<td class="td1"><span> </span><a class="lbl">收款情況</a></td>
-				<td class="td2" colspan='7'><input id="textStatus" type="text" class="txt c1"/></td>
+				<td class="td2" colspan='7'>
+					<input id="textStatus" type="text" class="txt c1"/>
+					<input id="textStatus2" type="hidden" class="txt c1"/>
+				</td>
             </tr>
         </table>
         </div>
