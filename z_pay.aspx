@@ -49,6 +49,9 @@
 						for ( i = 0; i < as.length; i++) {
 							z_coin+=','+as[i].coin;
 						}
+						
+						if(z_coin!='#non@本幣')//有外幣
+							z_coin+=',ALL@全部';
                 	break;
                 }
                 if(!t_isinit && z_coin.length>0){
