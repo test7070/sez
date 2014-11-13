@@ -21,7 +21,6 @@
                 q_gf('', 'z_tranorde');
             });
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
-            ['txtAddrno', '', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'],
             ['txtSssno', '', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'], 
             ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             function q_gfPost() {
@@ -60,7 +59,7 @@
                         type : '2',
                         name : 'addrno',
                         dbf : 'addr',
-                        index : 'noa,namea',
+                        index : 'noa,addr',
                         src : 'addr_b.aspx'
                     }, {/*[15] 2-4*/
                          	type : '8',
