@@ -408,7 +408,7 @@
 					}
 					t_day++;
 				}
-				for(var j = 0; j < q_bbsCount; j++) {
+				/*for(var j = 0; j < q_bbsCount; j++) {
 					if(r_rank<=7&&t_date>$('#txtDatea_'+j).val()){
 						$('#btnPlus').attr('disabled', 'disabled');
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
@@ -427,7 +427,7 @@
 						$('#txtAccno_'+j).attr('disabled', 'disabled');
 						$('#txtVccno_'+j).attr('disabled', 'disabled');
 					}
-				}
+				}*/
                 $('#txtDatea').focus();
             }
 
