@@ -840,38 +840,14 @@
 								//取消變色
 							}
 						});
-						$('#txtHr_sick_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-
-							sum();
-						});
-						$('#txtHr_person_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-
-							sum();
-						});
-						$('#txtHr_nosalary_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-
-							sum();
-						});
-						$('#txtHr_leave_' + j).change(function() {
-							t_IdSeq = -1;
-							/// 要先給  才能使用 q_bodyId()
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-
-							sum();
-						});
+						$('#txtHr_sick_' + j).change(function() {sum();});
+						$('#txtHr_person_' + j).change(function() {sum();});
+						$('#txtHr_nosalary_' + j).change(function() {sum();});
+						$('#txtHr_leave_' + j).change(function() {sum();});
+						$('#txtMi_sick_' + j).change(function() {sum();});
+						$('#txtMi_person_' + j).change(function() {sum();});
+						$('#txtMi_nosalary_' + j).change(function() {sum();});
+						$('#txtMi_leave_' + j).change(function() {sum();});
 					}
 				}
 				_bbsAssign();
@@ -966,8 +942,8 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼+其他加項
 					//5/3本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼直接換算
+					var inday = 30;
 					if (($('#txtMemo_' + j).val().indexOf('新進員工') > -1 || $('#txtMemo_' + j).val().indexOf('離職員工') > -1 ) && imports) {
-						var inday = 0;
 						inday = dec($('#txtMemo_' + j).val().substr($('#txtMemo_' + j).val().indexOf(':') + 1, $('#txtMemo_' + j).val().indexOf(')') - $('#txtMemo_' + j).val().indexOf(':') - 1));
 						q_tr('txtMoney_' + j, round((dec($('#txtMoney_' + j).val())) / 30 * inday, 0));
 						q_tr('txtPubmoney_' + j, round((dec($('#txtPubmoney_' + j).val())) / 30 * inday, 0));
@@ -1028,7 +1004,7 @@
 						}
 						q_tr('txtTotal2_' + j, Math.round(dec($('#txtTotal1_' + j).val()) - dec($('#txtMi_total_' + j).val()) + dec($('#txtBo_full_' + j).val()) + dec($('#txtBo_born_' + j).val()) + dec($('#txtBo_night_' + j).val()) + dec($('#txtBo_duty_' + j).val()) + dec($('#txtTax_other_' + j).val())));
 						//給付總額
-						q_tr('txtOstand_' + j, Math.round((dec($('#txtMoney_' + j).val()) / 30 / 8) * 100) / 100);
+						q_tr('txtOstand_' + j, Math.round((dec($('#txtMoney_' + j).val()) / inday / 8) * 100) / 100);
 						//加班費基數(取小數點兩位並四捨五入)//103/08/25 將假日加班的金額移到加班費上
 						q_tr('txtAddmoney_' + j, 
 							Math.round(dec($('#txtOstand_' + j).val()) * dec($('#txtAddh2_1_' + j).val())) + Math.round(dec($('#txtOstand_' + j).val()) * dec($('#txtAddh2_2_' + j).val()))
