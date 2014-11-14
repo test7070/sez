@@ -149,6 +149,19 @@
                         xcarspec=xcarspec.substr(0,xcarspec.length-1);
                         $('#txtXspecno').val(xcarspec);
                         break;	
+					case 'carbrand':
+						ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xcarbrand='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xcarbrand+=ret[i].noa+'.'
+                        	}
+                        }
+                        xcarbrand=xcarbrand.substr(0,xcarbrand.length-1);
+                        $('#txtXcarbrand').val(xcarbrand);
+						break;
                 }   /// end Switch
 				b_pop = '';
             }
@@ -289,26 +302,36 @@
 	                        type : '5', //select
 	                        name : 'sheetyn',
 	                        value : ('已收單,未收單').split(',')
-	                    },{/*27-[38]*/
+	                    },{/*-[38]*/
 							type : '0',
 							name : 'xaccy',
 							value : r_accy
-						}, {/*28-[39]內帳*/
+						}, {/*27-[39]內帳*/
 	                        type : '5', //select
 	                        name : 'iacc',
 	                        value : ('顯示,不顯示').split(',')
-	                    }, {/*29-[40]車種種類*/
+	                    }, {/*28-[40]車種種類*/
                             type : '6',
                             name : 'xspecno'
-                        }, {/*30-[41]未付立帳*/
+                        }, {/*29-[41]未付立帳*/
 	                        type : '8', //select
 	                        name : 'carc',
 	                        value : ('未付立帳').split('.')
-	                    }, {/*31-[42]-列印*/
+	                    }, {/*30-[42]-列印*/
 	                        type : '8', //select
 	                        name : 'prdate',
 	                        value : ('遷入,遷出,報廢,繳銷,報停').split(',')
-	                    }]
+	                    }, {/*31-[43][44]-年份*/
+                            type : '1',
+                            name : 'xcaryear'
+                        }, {/*32-[45]廠牌多選*/
+                            type : '6',
+                            name : 'xcarbrand'
+                        }, {/*33-[46]-排序*/
+	                        type : '5', //select
+	                        name : 'vorder',
+	                        value : ('車行,年份,廠牌').split(',')
+                    	}]
                     });
                     q_getFormat();
 	                q_langShow();
@@ -504,6 +527,11 @@
 				$('#lblXspecno').css("color","#0000ff");
 				$('#lblXspecno').click(function(e) {
                 	q_box("carspec_b2.aspx?;;;;", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
+                });
+                
+                $('#lblXcarbrand').css("color","#0000ff");
+                $('#lblXcarbrand').click(function(e) {
+                	q_box("carbrand_b2.aspx?;;;;", 'carbrand', "90%", "600px", q_getMsg("popCarbrand"));
                 });
                 
                 if(window.parent.q_name=='carpack')
