@@ -406,18 +406,18 @@
 			</tr>
 		</table>
 	</div>
-	<div class='dbbs' > 
+	<div class='dbbs' style="width:1260px;"> 
 		<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 			<tr style='color:White; background:#003366;' >
 				<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
 				<!--<td align="center" style="width:16%;" colspan='2'><a id="lblBdate_s" > </a></td>-->
-				<td align="center" style="width:18%;"><a id='lblProductno_s'> </a></td>
-				<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
-				<td align="center" style="width:8%;"><a id='lblStyle_s'> </a></td>
-				<td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-				<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
-				<td align="center" style="width:8%;"><a id='lblPrice_s'> </a></td>
-				<td align="center" style="width:8%;"><a id='lblDatea_s'> </a></td>
+				<td align="center" style="width:225px;"><a id='lblProductno_s'> </a></td>
+				<td align="center" style="width:250px;"><a id='lblProduct_s'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblStyle_s'> </a></td>
+				<td align="center" style="width:70px;"><a id='lblUnit_s'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
+				<td align="center" style="width:100px;"><a id='lblDatea_s'> </a></td>
 				<td align="center"><a id='lblMemo_s'> </a></td>
 			</tr>
 			<tr  style='background:#cad3ff;'>

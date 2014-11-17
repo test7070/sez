@@ -1212,7 +1212,7 @@
 				<input id="btnSvg" type="button" style="font-size: medium;"/>
 			</div>
 			<div id='Loading'> </div>
-			<div id='pieChart'> </div>
+			<div id='pieChart' style="height: 100%;"> </div>
 			<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
 				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
 				<input type="text" id="txtCurPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;"/>
