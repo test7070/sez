@@ -16,10 +16,15 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="acczt";
-        var q_readonly = ['txtNoa','txtAcc1','txtMon','txtAccno','txtDepl'];
+        var q_readonly = ['txtNoa','txtMoney','txtYear'];
         var bbmNum = [['txtDepl',14,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        
+        aPop = new Array(
+			['txtNamea', '', 'accz', 'namea,acc1,money,year', 'txtNamea,txtAcc1,txtMoney,txtYear', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+		);
+			
         //ajaxPath = ""; //  execute in Root
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -55,7 +60,17 @@
         
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)   
+            	case 'accz':
+            		var as = _q_appendData("accz", "", true);
+            		if(as[0]!=undefined){
+						$('#txtNamea').val(as[0].namea);
+						q_tr('txtMoney',as[0].money);
+						//$('#txtMoney').val(as[0].money);
+						$('#txtYear').val(as[0].year);
+            		}
+            		break;
+                case q_name: 
+                	if (q_cur == 4)   
                         q_Seek_gtPost(); 
                     break;
             }  /// end switch
@@ -65,36 +80,36 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('acczt_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
+            q_box('acczt_s.aspx', q_name + '_s', "500px", "380px", q_getMsg( "popSeek"));
         }
 
         function btnIns() {
-        	return ;
-            //_btnIns();
+        	//return ;
+            _btnIns();
+            
+            if(window.parent.q_name=='accz'){
+				var wParent = window.parent.document;
+				$('#txtAcc1').val(wParent.getElementById("txtAcc1").value);
+				$('#txtNamea').val(wParent.getElementById("txtNamea").value);
+				$('#txtMoney').val(wParent.getElementById("txtMoney").value);
+				$('#txtYear').val(wParent.getElementById("txtYear").value);
+			}
         }
 
         function btnModi() {
-        	return;
-            /*
+        	//return;
             if (emp($('#txtNoa').val()))
                 return;
 
             _btnModi();
             $('#txtMon').focus();
-            */
         }
 
         function btnPrint() {
  
         }
         function btnOk() {
-            var t_err = '';
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
+                        
             var t_acc1 = trim($('#txtAcc1').val());
             var t_mon = trim($('#txtMon').val());
  			$('#txtMon').val($.trim($('#txtMon').val()));
@@ -119,6 +134,9 @@
         
         function refresh(recno) {
             _refresh(recno);
+            
+            t_where = "where=^^acc1 ='"+$('#txtAcc1').val()+"'^^"
+			q_gt('accz', t_where , 0, 0, 0, "", r_accy+'_'+r_cno);
         }
 
         function readonly(t_para, empty) {
@@ -315,9 +333,20 @@
                <td class="td3"></td>            
             </tr>
             <tr>
+               <td class="td1"><span> </span><a id='lblNamea' class="lbl"></a></td>
+               <td class="td2"><input id="txtNamea"  type="text"  class="txt c1"/></td>
+               <td class="td3"></td>            
+            </tr>
+            <tr>
                <td class="td1"><span> </span><a id='lblAcc1' class="lbl"></a></td>
                <td class="td2"><input id="txtAcc1"  type="text"  class="txt c1"/></td>
                <td class="td3"></td>            
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
+               <td class="td2"><input id="txtMoney"  type="text"  class="txt c1 num"/></td>
+               <td class="td3"><span> </span><a id='lblYear' class="lbl"></a></td>
+               <td class="td4"><input id="txtYear"  type="text"  class="txt c1 num"/></td>    
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>

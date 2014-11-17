@@ -12,7 +12,8 @@
 <script type="text/javascript">
     var q_name = "acczt_s";
         aPop = new Array(
-        	['txtNoa', 'lblNoa', 'acc', 'acc1,acc2', 'txtNoa,txtDepl', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+        	['txtNoa', 'lblNoa', 'acc', 'acc1,acc2', 'txtNoa,txtDepl', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        	['txtAcc1', '', 'accz', 'acc1,namea', 'txtAcc1', "accz_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
         );
     $(document).ready(function () {
         main();
@@ -39,11 +40,12 @@
         t_emon = $('#txtEmon').val();
         t_depl = $('#txtDepl').val();
         t_accno = $('#txtAccno').val();
+        t_acc1 = $('#txtAcc1').val();
         
         t_bmon = t_bmon.length > 0 && t_bmon.indexOf("_") > -1 ? t_bmon.substr(0, t_bmon.indexOf("_")) : t_bmon;  /// 100.  .
         t_emon = t_emon.length > 0 && t_emon.indexOf("_") > -1 ? t_emon.substr(0, t_emon.indexOf("_")) : t_emon;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("depl", t_depl) + q_sqlPara2("mon", t_bmon, t_emon) +
+        var t_where = " 1=1 " + q_sqlPara2("acc1", t_acc1) + q_sqlPara2("noa", t_noa) + q_sqlPara2("depl", t_depl) + q_sqlPara2("mon", t_bmon, t_emon) +
                            q_sqlPara2("accno", t_accno) ;
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -67,6 +69,10 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblAcc1'></a></td>
+                <td><input class="txt" id="txtAcc1" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblDepl'></a></td>

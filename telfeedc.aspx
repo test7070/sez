@@ -61,7 +61,7 @@
 	           	}
 	        });
 	        $('#btnOld').click(function () {
-	        	t_where = "where=^^ 1=1^^  top=1"
+	        	t_where = "where=^^ mon <'"+$('#txtMon').val()+"' ^^  top=1"
 	           	q_gt('telfeedc', t_where , 0, 0, 0, "", r_accy);
 	        });
 	        $('#btnUpdate').click(function () {

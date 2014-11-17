@@ -1125,14 +1125,14 @@
 					<tr class="carowner">
 						<td><span> </span><a id="lblAddr_conn" class="lbl"> </a></td>
 						<td colspan="5">
-							<input id="txtZip_home" type="text" class="txt c2"/>
+							<input id="txtZip_conn" type="text" class="txt c2"/>
 							<input id="txtAddr_conn" type="text" class="txt c3"/>
 						</td>
 					</tr>
 					<tr class="carowner">
 						<td><span> </span><a id="lblAddr_home" class="lbl"> </a></td>
 						<td colspan="5">
-							<input id="txtZip_conn" type="text" class="txt c2"/>
+							<input id="txtZip_home" type="text" class="txt c2"/>
 							<input id="txtAddr_home" type="text" class="txt c3"/>
 						</td>
 					</tr>
