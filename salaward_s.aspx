@@ -36,11 +36,12 @@
         t_year = $('#txtYear').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
+        t_typea = $('#cmbTypea').val();
         
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 "  + q_sqlPara2("noa", t_noa) + q_sqlPara2("year", t_year)+q_sqlPara2("datea", t_bdate, t_edate) ;
+        var t_where = " 1=1 "  + q_sqlPara2("noa", t_noa) + q_sqlPara2("year", t_year)+q_sqlPara2("datea", t_bdate, t_edate)+ q_sqlPara2("typea", t_typea) ;
 		
 
         t_where = ' where=^^' + t_where + '^^ ';

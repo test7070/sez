@@ -36,9 +36,11 @@
 					}else{
 						obj.removeAttr('disabled');
 					}
-					if(txtreport=='z_anavcc2_1' ||txtreport=='z_anavcc2_2'){
+					if(txtreport=='z_anavcc2_1' ||txtreport=='z_anavcc2_4'){
 						$('#showpieChart').val('轉換至圓餅圖');
 						$('#showpieChart').show();
+					}else{
+						$('#showpieChart').hide();
 					}
 					obj.val('轉換至列表');
 					$('.prt').hide();
@@ -193,7 +195,7 @@
 						t_bproductno=encodeURI($('#txtProduct1a').val());
 					if(!emp($('#txtProduct2a').val()))
 						t_eproductno=encodeURI($('#txtProduct2a').val());
-					if(txtreport=='z_anavcc2_1' ||txtreport=='z_anavcc2_2' ||txtreport=='z_anavcc2_3'){
+					if(txtreport=='z_anavcc2_1' ||txtreport=='z_anavcc2_2' ||txtreport=='z_anavcc2_3' ||txtreport=='z_anavcc2_4'){
 						if(!emp($('#txtDate1').val()))
 							t_bdate=encodeURI($('#txtDate1').val());
 						if(!emp($('#txtDate2').val()))
@@ -294,6 +296,16 @@
 											comp:as[i].comp,
 											productno:as[i].productno,
 											product:as[i].product,
+											mount:as[i].mount,
+											total:as[i].total,
+											price:dec(as[i].total)-dec(as[i].price)
+										}
+									);
+								}else if(txtreport == 'z_anavcc2_4'){
+									bar[rec].push(
+										{
+											groupano:as[i].groupano,
+											namea:as[i].namea,
 											mount:as[i].mount,
 											total:as[i].total,
 											price:dec(as[i].total)-dec(as[i].price)
@@ -616,7 +628,7 @@
 												'</linearGradient>' +
 											'</defs>';
 							}
-							if(txtreport == 'z_anavcc2_1' || txtreport == 'z_anavcc2_2'){
+							if(txtreport == 'z_anavcc2_1' || txtreport == 'z_anavcc2_2' || txtreport == 'z_anavcc2_4'){
 								for (var i = 0; i < objpostData.length; i++) {	
 									tmpPath +='<g id="chart2_item'+i+'">';
 									//客戶名稱	  
@@ -626,6 +638,8 @@
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+(objpostData[i].comp==''?objpostData[i].custno:objpostData[i].comp)+'</text>';	
 									else if(objpostData[i].product != undefined)
 										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+objpostData[i].product+'</text>';	
+									else if (objpostData[i].namea != undefined)
+										tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+(objpostData[i].namea==''?objpostData[i].groupano:objpostData[i].namea)+'</text>';
 									//銷貨金額
 									t_total = (dec(objpostData[i].total)/10000);
 									//t_mount = dec(objpostData[i].mount);
@@ -986,7 +1000,7 @@
                                 var pointLogo = [x + radius + 20+xbranch, (i-ybranch)* 20 + 30];
                                 var pointText = [x + radius + 35+xbranch, (i-ybranch) * 20 + 40];
                                 tmpPath += '<rect class="blockLogo" id="blockLogo_'+i+'" width="10" height="10" x="' + pointLogo[0] + '" y="' + pointLogo[1] + '" fill=' + fillColor + ' stroke=' + strokeColor + '/>';
-                                tmpPath += '<text class="blockText" id="blockText_'+i+'" x="' + pointText[0] + '" y="' + pointText[1] + '" fill="#000000">' + (obj.data('info').value.data[i].comp!=undefined?(obj.data('info').value.data[i].comp==''?obj.data('info').value.data[i].custno:obj.data('info').value.data[i].comp):obj.data('info').value.data[i].product )+ '</text>';
+                                tmpPath += '<text class="blockText" id="blockText_'+i+'" x="' + pointText[0] + '" y="' + pointText[1] + '" fill="#000000">' + (obj.data('info').value.data[i].comp!=undefined?(obj.data('info').value.data[i].comp==''?obj.data('info').value.data[i].custno:obj.data('info').value.data[i].comp):obj.data('info').value.data[i].namea )+ '</text>';
                                 if (degree != 360)
                                     tmpPath += '<path class="block" id="block_' + i + '" d="M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
                                 else
@@ -1021,9 +1035,9 @@
                             		txttmp+='銷貨金額：'+obj.data('info').value.data[$(this).data('info').index].total+'\n'
                             		txttmp+='毛利：'+round(dec(obj.data('info').value.data[$(this).data('info').index].rate)*100,2)+'%'
                             		alert(txttmp);
-                            	}else if(txtreport=='z_anavcc2_2'){
+                            	}else if(txtreport=='z_anavcc2_4'){
                             		var txttmp='';
-                            		txttmp='產品：'+obj.data('info').value.data[$(this).data('info').index].productno+' '+obj.data('info').value.data[$(this).data('info').index].product+'\n';
+                            		txttmp='類別：'+obj.data('info').value.data[$(this).data('info').index].groupano+' '+obj.data('info').value.data[$(this).data('info').index].namea+'\n';
                             		txttmp+='銷貨金額：'+obj.data('info').value.data[$(this).data('info').index].total+'\n'
                             		txttmp+='毛利：'+round(dec(obj.data('info').value.data[$(this).data('info').index].rate)*100,2)+'%'
                             		alert(txttmp);
