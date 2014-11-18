@@ -19,10 +19,13 @@
 			if(location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;100";
 			}
+			
 			$(document).ready(function() {
 				q_getId();
 				q_gf('', 'z_anavcc2');
 			});
+			
+			var pieshow=false;//判斷是否顯示圓餅圖
 			function printWith(){
 				var t_index = $('#q_report').data('info').radioIndex;
 				txtreport = $('#q_report').data('info').reportData[t_index].report;
@@ -33,10 +36,16 @@
 					}else{
 						obj.removeAttr('disabled');
 					}
+					if(txtreport=='z_anavcc2_1' ||txtreport=='z_anavcc2_2'){
+						$('#showpieChart').val('轉換至圓餅圖');
+						$('#showpieChart').show();
+					}
 					obj.val('轉換至列表');
 					$('.prt').hide();
 					$('#chartCtrl').show();
 					$('#chart').show();
+					$('#pieChart').hide();
+					pieshow=false;
 					obj.attr('name','list');
 					$('#btnRun').click();
 				}else{
@@ -44,9 +53,13 @@
 						return;
 					}
 					obj.val('轉換至圖表');
+					$('#showpieChart').hide();
+					$('#showpieChart').val('轉換至圓餅圖');
 					$('.prt').show();
 					$('#chartCtrl').hide();
 					$('#chart').hide();
+					$('#pieChart').hide();
+					pieshow=false;
 					obj.attr('name','chart');
 					$('#btnOk').click();
 				}
@@ -96,10 +109,36 @@
 				q_langShow();
 				q_popAssign();
 				q_getFormat();
+				
 				printWith();
 				$('#printWith').click(function(){
 					printWith();
 				});
+				
+				$('#showpieChart').click(function(){
+					if($('#showpieChart').val()=='轉換至圓餅圖'){
+						$('.prt').hide();
+						$('#chartCtrl').hide();
+						$('#chart').show();
+						$('#barChart2').hide();
+						$('#pieChart').show();
+						$('#btnRun').click();
+						pieshow=true;
+						$('#showpieChart').val('轉換至長條圖');
+					}else{
+						var obj=$('#printWith');
+						obj.val('轉換至列表');
+						$('.prt').hide();
+						$('#chartCtrl').show();
+						$('#chart').show();
+						$('#pieChart').hide();
+						pieshow=false;
+						obj.attr('name','list');
+						$('#btnRun').click();
+						$('#showpieChart').val('轉換至圓餅圖');
+					}
+				});
+				
 				var lastClick = -1;
 				$('.report').click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
@@ -163,6 +202,7 @@
 							t_bmon=encodeURI($('#txtXmon1').val());
 						if(!emp($('#txtXmon2').val()))
 							t_emon=encodeURI($('#txtXmon2').val());
+							
 						q_func('qtxt.query','z_anavcc2.txt,'+txtreport+','+encodeURI(r_accy) + ';' + t_bdate + ';' + t_edate + ';' +
 						t_bmon + ';' + t_emon + ';' + t_bcustno + ';' + t_ecustno + ';' + t_bsalesno + ';' + t_esalesno + ';' +
 						t_bproductno + ';' + t_eproductno + ';'
@@ -197,6 +237,17 @@
 			}
 
 			function q_gtPost(s2) {
+			}
+			
+			var color=new Array();
+            function getRndColor(s){
+				var getColor = function(){
+					var r = Math.ceil((Math.random()*85)+170).toString(16);//亮色
+					r = r.length==1?'0'+r:r;
+					return r;
+				}
+				var color = (s==undefined)?'#':'';
+				return(color + getColor() + getColor() + getColor());
 			}
 			
 			function q_funcPost(t_func, result) {
@@ -434,9 +485,18 @@
 										);
 									}
 								}
+								color[i]=getRndColor();
 							}
 							
-							//bar[0].sort(function (a,b) { return dec(b.total)-dec(a.total);});
+							if(pieshow){
+								$('#pieChart').pieChart({
+									data : bar[0],
+									x: 250,
+									y: 250,
+									radius: 200
+								});
+								return;
+							}
 							
 							if(txtreport=='z_anavcc2_Custyear'||txtreport=='z_anavcc2_Productyear'){
 								$('#barChart2').barChart({
@@ -447,6 +507,7 @@
 									data : bar
 								});
 							}
+							
 							$('#btnPrevious').unbind('click').click(function(){
 								$('#barChart2').data('info').previous($('#barChart2'));
 							});
@@ -864,6 +925,115 @@
 					});
 					$(this).data('info').init($(this));
 				};
+				
+				//圓餅圖
+				$.fn.pieChart = function(value) {
+                    $(this).data('info', {
+                        value : value,
+                        fillColor : color,
+                        strokeColor : ["#000000"],
+                        focusfillColor : "#FFEEFE",
+                        focusIndex : -1,
+                        init : function(obj) {
+                            obj.addClass('pieChart');
+                            var tmp = 0;
+                            for ( i = 0; i < obj.data('info').value.data.length; i++) {
+                                tmp += dec(obj.data('info').value.data[i].total);
+                            }
+                            var tmpDegree = 0;
+                            for ( i = 0; i < obj.data('info').value.data.length; i++) {
+                                obj.data('info').value.data[i].rate = dec(obj.data('info').value.data[i].total) / tmp;
+                                obj.data('info').value.data[i].degree = 2 * Math.PI * obj.data('info').value.data[i].rate;
+                                obj.data('info').value.data[i].bDegree = tmpDegree;
+                                tmpDegree += obj.data('info').value.data[i].degree;
+                                obj.data('info').value.data[i].eDegree = tmpDegree;
+                                obj.data('info').value.data[i].fillColor = obj.data('info').fillColor[i % obj.data('info').fillColor.length];
+                                obj.data('info').value.data[i].strokeColor = obj.data('info').strokeColor[i % obj.data('info').strokeColor.length];
+                            }
+                            obj.data('info').refresh(obj);
+                        },
+                        refresh : function(obj) {
+                            obj.html('');
+                            var tmpPath = '', shiftX, shiftY, degree, fillColor, strokeColor;
+                            var x = obj.data('info').value.x;
+                            var y = obj.data('info').value.y;
+                            var radius = obj.data('info').value.radius;
+                            var xbranch=0,ybranch=0;//分行
+                            for ( i = 0; i < obj.data('info').value.data.length; i++) {
+                                if (i == obj.data('info').focusIndex) {
+                                    shiftX = Math.round(10 * Math.cos(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
+                                    shiftY = Math.round(10 * Math.sin(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
+                                    fillColor = '"' + obj.data('info').focusfillColor + '"';
+                                    strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
+                                } else {
+                                    shiftX = 0;
+                                    shiftY = 0;
+                                    fillColor = '"' + obj.data('info').value.data[i].fillColor + '"';
+                                    strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
+                                }
+                                degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
+                                obj.data('info').value.data[i].currentFillColor = fillColor;
+                                obj.data('info').value.data[i].currentStrokeColor = strokeColor;
+                                obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
+                                obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
+                                
+                                if(i>14&&i%35==0){//分行
+                                	xbranch+=120;
+                                	ybranch=i;
+                                }
+                                
+                                var pointLogo = [x + radius + 20+xbranch, (i-ybranch)* 20 + 30];
+                                var pointText = [x + radius + 35+xbranch, (i-ybranch) * 20 + 40];
+                                tmpPath += '<rect class="blockLogo" id="blockLogo_'+i+'" width="10" height="10" x="' + pointLogo[0] + '" y="' + pointLogo[1] + '" fill=' + fillColor + ' stroke=' + strokeColor + '/>';
+                                tmpPath += '<text class="blockText" id="blockText_'+i+'" x="' + pointText[0] + '" y="' + pointText[1] + '" fill="#000000">' + (obj.data('info').value.data[i].comp!=undefined?(obj.data('info').value.data[i].comp==''?obj.data('info').value.data[i].custno:obj.data('info').value.data[i].comp):obj.data('info').value.data[i].product )+ '</text>';
+                                if (degree != 360)
+                                    tmpPath += '<path class="block" id="block_' + i + '" d="M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
+                                else
+                                    tmpPath += '<circle class="block" id="block_' + i + '" cx="' + x + '" cy="' + y + '" r="' + radius + '" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
+                            }
+                            obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                            for ( i = 0; i < obj.data('info').value.data.length; i++) {
+                                obj.children('svg').find('.block').eq(i).data('info', {
+                                    index : i
+                                });
+                                obj.children('svg').find('.blockLogo').eq(i).data('info', {
+                                    index : i
+                                });
+                                obj.children('svg').find('.blockText').eq(i).data('info', {
+                                    index : i
+                                });
+                            }
+
+                            obj.children('svg').find('.block,.blockLogo,.blockText').hover(function(e) {
+                                var obj = $(this).parent().parent();
+                                $('#block_'+$(this).data('info').index).attr('fill',obj.data('info').focusfillColor);
+                                $('#blockLogo_'+$(this).data('info').index).attr('fill',obj.data('info').focusfillColor);
+                            }, function(e) {
+                                var obj = $(this).parent().parent();
+                                $('#block_'+$(this).data('info').index).attr('fill',obj.data('info').fillColor[$(this).data('info').index]);
+                                $('#blockLogo_'+$(this).data('info').index).attr('fill',obj.data('info').fillColor[$(this).data('info').index]);
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                            	if(txtreport=='z_anavcc2_1'){
+                            		var txttmp='';
+                            		txttmp='客戶：'+obj.data('info').value.data[$(this).data('info').index].custno+' '+obj.data('info').value.data[$(this).data('info').index].comp+'\n';
+                            		txttmp+='銷貨金額：'+obj.data('info').value.data[$(this).data('info').index].total+'\n'
+                            		txttmp+='毛利：'+round(dec(obj.data('info').value.data[$(this).data('info').index].rate)*100,2)+'%'
+                            		alert(txttmp);
+                            	}else if(txtreport=='z_anavcc2_2'){
+                            		var txttmp='';
+                            		txttmp='產品：'+obj.data('info').value.data[$(this).data('info').index].productno+' '+obj.data('info').value.data[$(this).data('info').index].product+'\n';
+                            		txttmp+='銷貨金額：'+obj.data('info').value.data[$(this).data('info').index].total+'\n'
+                            		txttmp+='毛利：'+round(dec(obj.data('info').value.data[$(this).data('info').index].rate)*100,2)+'%'
+                            		alert(txttmp);
+                            	}
+                            });
+                        }
+                    });
+                    $(this).data('info').init($(this));
+                }
+				
 			})($);
 			function MarkHelp(MarkXpos,MarkYpos,MarkColor,Title,TitleColor){
 				var str = '';
@@ -906,6 +1076,7 @@
 			</div>
 			<div style="display:inline-block;width:2000px;">
 				<input type="button" id="printWith" name="chart">
+				<input type="button" id="showpieChart" name="chart" value="轉換至圓餅圖">
 			</div>
 			<div id="chartCtrl" style="display:inline-block;width:2000px;">
 				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
@@ -917,6 +1088,7 @@
 			</div>
 			<div id="chart">
 				<div id='barChart2'> </div>
+				<div id='pieChart' style="height: 500px"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;display:none;">
 				<!--#include file="../inc/print_ctrl.inc"-->
