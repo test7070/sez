@@ -89,11 +89,14 @@
 
 		</script>
 		<style type="text/css">
+			.q_report .option div .c6 {
+				width: 180px;
+			}
 			.q_report .option div .c3 {
-				width: 110px;
+				width: 150px;
 			}
 			.q_report .option div .text {
-				width: 70px;
+				width: 100px;
 			}
 		</style>
 	</head>
