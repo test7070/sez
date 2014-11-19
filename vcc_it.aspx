@@ -550,6 +550,18 @@
                 return;
             }
             
+            //1031119 王小姐 報廢 bbs數量要=0
+            if($('#cmbTaxtype').val()=='6'){
+            	var t_mount=0;
+            	for (var i = 0; i < q_bbsCount ; i++) {
+            		t_mount=q_add(t_mount,q_float('txtMount_'+i));
+            	}
+            	if(t_mount!=0){
+            		alert('報廢-出貨數量不等於0!!');
+            		return;
+            	}
+            }
+            
             if(emp($('#txtMon').val()))
 				$('#txtMon').val($('#txtDatea').val().substr(0,6));
 				

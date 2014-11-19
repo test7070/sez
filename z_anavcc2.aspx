@@ -112,12 +112,40 @@
 				q_popAssign();
 				q_getFormat();
 				
+				var t_date,t_year,t_month,t_day;
+				t_date = new Date();
+				t_date.setMonth(t_date.getMonth());
+				t_date.setDate(1);
+				t_year = t_date.getUTCFullYear()-1911;
+				t_year = t_year>99?t_year+'':'0'+t_year;
+	            t_month = t_date.getUTCMonth()+1;
+	            t_month = t_month>9?t_month+'':'0'+t_month;
+	            t_day = t_date.getUTCDate();
+	            t_day = t_day>9?t_day+'':'0'+t_day;
+	            $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	            t_date = new Date();
+	            t_date.setMonth(t_date.getMonth());
+	            t_date.setDate(35);
+	            t_date.setDate(0);
+	            t_year = t_date.getUTCFullYear()-1911;
+	            t_year = t_year>99?t_year+'':'0'+t_year;
+	            t_month = t_date.getUTCMonth()+1;
+	            t_month = t_month>9?t_month+'':'0'+t_month;
+	            t_day = t_date.getUTCDate();
+	            t_day = t_day>9?t_day+'':'0'+t_day;
+	            $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+				
 				printWith();
 				$('#printWith').click(function(){
+					$('#barChart2').html('');
+					$('#pieChart').html('');
 					printWith();
 				});
 				
 				$('#showpieChart').click(function(){
+					$('#barChart2').html('');
+					$('#pieChart').html('');
 					if($('#showpieChart').val()=='轉換至圓餅圖'){
 						$('.prt').hide();
 						$('#chartCtrl').hide();
@@ -580,7 +608,7 @@
 						refresh : function(obj,n) {
 							n=dec(n)-1;
 							var objpostData = obj.data('info').postData[n];
-							var objWidth = 1050;
+							var objWidth = 1200;
 							var objHeight = objpostData.length * 50 + 160;
 							//背景
 							var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
@@ -590,6 +618,10 @@
 							var bkN = 12;
 							var strX = 110, strY = 70;					  
 							var t_width = objWidth-255;
+							if(txtreport == 'z_anavcc2_2' || txtreport == 'z_anavcc2_4'){
+								strX = 150;
+								t_width = objWidth-295;
+							}
 							var t_height = objpostData.length * 50+15;
 							for (var i = 0; i < bkN; i++) {
 								x = Math.round(t_width / bkN, 0) * i;
@@ -614,7 +646,8 @@
 							else
 								t_maxMoney = GetBigInteger(dec(objpostData[0].mount)); //X軸最大值
 							*/
-							var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);								
+							var t_X = strX + ((t_maxMoney - t_minMoney)==0?0:(round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0)));	
+									
 							var linearGradientColor = [
 													   ['rgb(206,206,255)','rgb(147,147,255)'],['rgb(255,220,185)','rgb(225,175,96)'],
 													   ['rgb(206,255,206)','rgb(147,255,147)'],['rgb(255,185,220)','rgb(225,96,175)'],
@@ -644,9 +677,9 @@
 									t_total = (dec(objpostData[i].total)/10000);
 									//t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
-									W_total = Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0));
+									W_total = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0)));
 									//W_mount = Math.abs(round(t_mount / (t_maxMoney - t_minMoney) * t_width, 0));
-									W_price = Math.abs(round(t_price / (t_maxMoney - t_minMoney) * t_width, 0));
+									W_price = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_price / (t_maxMoney - t_minMoney) * t_width, 0)));
 									W_total = (W_total == Infinity?0:W_total);
 									//W_mount = (W_mount == Infinity?0:W_mount);
 									W_price = (W_price == Infinity?0:W_price);
@@ -682,9 +715,9 @@
 									t_total = (dec(objpostData[i].total)/10000);
 									//t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
-									W_total = Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0));
+									W_total = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0)));
 									//W_mount = Math.abs(round(t_mount / (t_maxMoney - t_minMoney) * t_width, 0));
-									W_price = Math.abs(round(t_price / (t_maxMoney - t_minMoney) * t_width, 0));
+									W_price = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_price / (t_maxMoney - t_minMoney) * t_width, 0)));
 									W_total = (W_total == Infinity?0:W_total);
 									//W_mount = (W_mount == Infinity?0:W_mount);
 									W_price = (W_price == Infinity?0:W_price);
@@ -728,9 +761,9 @@
 									t_total = (dec(objpostData[i].total)/10000);
 									//t_mount = dec(objpostData[i].mount);
 									t_price = (dec(objpostData[i].price)/10000);
-									W_total = Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0));
+									W_total = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_total / (t_maxMoney - t_minMoney) * t_width, 0)));
 									//W_mount = Math.abs(round(t_mount / (t_maxMoney - t_minMoney) * t_width, 0));
-									W_price = Math.abs(round(t_price / (t_maxMoney - t_minMoney) * t_width, 0));
+									W_price = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_price / (t_maxMoney - t_minMoney) * t_width, 0)));
 									W_total = (W_total == Infinity?0:W_total);
 									//W_mount = (W_mount == Infinity?0:W_mount);
 									W_price = (W_price == Infinity?0:W_price);
@@ -847,8 +880,8 @@
 									t_maxMoney = dec(objpostData[i].total);
 								}
 							}
- 							var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);								
-							var t_Y = strY + t_height - round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_height, 0);
+ 							var t_X = strX + ((t_maxMoney - t_minMoney)==0?0:(round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0)));								
+							var t_Y = strY + ((t_maxMoney - t_minMoney)==0?0:(t_height - round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_height, 0)));
 							var linearGradientColor = [
 													   ['rgb(206,206,255)','rgb(147,147,255)'],['rgb(255,220,185)','rgb(225,175,96)'],
 													   ['rgb(206,255,206)','rgb(147,255,147)'],['rgb(255,185,220)','rgb(225,96,175)'],
@@ -869,7 +902,7 @@
 								var t_range = Math.floor(t_range/i)*i;
 								t_money = t_range;
 								while (t_money < t_maxMoney) {
-									if((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
+									if(((t_maxMoney - t_minMoney)==0?0:((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)))>0.05){
 										y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
 										tmpPath += '<line x1="'+(strX-5)+'" y1="' + y + '" x2="'+strX+'" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 										tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money)+ '</text>';
@@ -881,10 +914,10 @@
 									x = strX - 5;
 	 								y = strY + i*40 + 30;
 	 								t_m01A = dec(objpostData[i].total);
-									w_m01A = Math.abs(round(t_m01A / (t_maxMoney - t_minMoney) * t_height, 0));
+									w_m01A = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_m01A / (t_maxMoney - t_minMoney) * t_height, 0)));
 									x_m01A = 70+(t_height-w_m01A);
 	 								t_m01B = dec(objpostData[i+12].total);
-									w_m01B = Math.abs(round(t_m01B / (t_maxMoney - t_minMoney) * t_height, 0));
+									w_m01B = (t_maxMoney - t_minMoney)==0?0:(Math.abs(round(t_m01B / (t_maxMoney - t_minMoney) * t_height, 0)));
 									x_m01B = 70+(t_height-w_m01B);
 
 	 								//數值線產生
@@ -1037,7 +1070,7 @@
                             		alert(txttmp);
                             	}else if(txtreport=='z_anavcc2_4'){
                             		var txttmp='';
-                            		txttmp='類別：'+obj.data('info').value.data[$(this).data('info').index].groupano+' '+obj.data('info').value.data[$(this).data('info').index].namea+'\n';
+                            		txttmp='類別：'+obj.data('info').value.data[$(this).data('info').index].namea+'\n';
                             		txttmp+='銷貨金額：'+obj.data('info').value.data[$(this).data('info').index].total+'\n'
                             		txttmp+='毛利：'+round(dec(obj.data('info').value.data[$(this).data('info').index].rate)*100,2)+'%'
                             		alert(txttmp);
