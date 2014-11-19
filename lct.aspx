@@ -67,7 +67,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['datea']) {// Dont Save Condition
+                if(!as['datea'] && !as['pay'] && !as['interest']) {// Dont Save Condition
                     as[bbsKey[0]] = '';
                     return;
                 }

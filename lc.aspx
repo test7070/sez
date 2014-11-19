@@ -159,6 +159,7 @@
                         ///q_boxClose 3/4
                         break;
                 }/// end Switch
+                b_pop='';
             }
 
             function q_gtPost(t_name) {
@@ -212,7 +213,6 @@
                         break;
 					case 'recnobbs':
 						refresh(q_recno);
-						qbox=false;
 						break;
                     case q_name:
                     	if (q_cur == 0 && qbox){
@@ -311,6 +311,11 @@
 	                	q_box('lcs.aspx', 'lcs;' + t_where, "98%", "95%", q_getMsg('popLcs'));
 	                }
                 });*/
+               if(qbox){
+               	qbox=false;
+               		t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+					q_gt('lc', t_where, 0, 0, 0, "recnobbs", r_accy);
+               }
             }
 
             function bbsSave(as) {
