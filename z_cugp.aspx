@@ -122,6 +122,9 @@
 						type : '8', //[21]
 						name : 'xshowtgg',
 						value : ('1@只顯示委外廠').split(',')
+					}, {
+						type : '1', //[22][23]
+						name : 'xdate3'
 					}]
 				});
 				if(r_outs==1){
@@ -136,6 +139,9 @@
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate21').mask('999/99/99');
 				$('#txtXdate22').mask('999/99/99');
+				$('#txtXdate31').mask('999/99/99');
+				$('#txtXdate32').mask('999/99/99');
+
 
 				var wParent = window.parent.document;
 

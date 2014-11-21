@@ -172,7 +172,7 @@
                 		t_noq=('000'+(dec(t_noq)+1)).toString().substr(-3);
                 		$('#txtNoq').val(t_noq);
                 		var t_lcnoa = window.parent.document.getElementById('txtNoa').value;
-                    	t_lcnoa = trim(t_lcnoa).replace('.', '');
+                    	t_lcnoa = trim(t_lcnoa);
                 		wrServer(t_lcnoa);
                 		break;
                 	case 'recnobbs':
@@ -248,7 +248,7 @@
                 	alert("請由正常方式進行新增修改資料!!");
                 }else if (t_noa == 'AUTO') {
                     var t_lcnoa = window.parent.document.getElementById('txtNoa').value;
-                    t_lcnoa = trim(t_lcnoa).replace('.', '');
+                    t_lcnoa = trim(t_lcnoa);
                     
                     var t_where = "swhere=^^ noa='"+t_lcnoa+"' ^^ stop=1";
                  	q_gt('lcs', t_where, 0, 0, 0, "getnoq", r_accy);
@@ -277,6 +277,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                
+                if(window.parent.q_name == 'lc' && window.parent.islcpluss && t_para){
+                	btnIns();
+                	window.parent.islcpluss=false;
+                }
             }
 
             function btnMinus(id) {
