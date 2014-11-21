@@ -347,7 +347,7 @@
 							$('#cmbTypec_'+j).text('');
 							q_cmbParse("cmbTypeb_"+j, c_typeb);
 							if(abbs[0]!=undefined)
-								$('#cmbTypeb_'+j).val(abbs[j].typeb);
+								$('#cmbTypeb_'+j).val(abbsNow[j].typeb);
 							
 							c_typec=' @ ';
 							for (i=0;i<t_typec.length;i++){
@@ -360,7 +360,7 @@
 							$('#cmbTypec_'+j).text('');
 							q_cmbParse("cmbTypec_"+j, c_typec);
 							if(abbs[0]!=undefined)
-								$('#cmbTypec_'+j).val(abbs[j].typec);
+								$('#cmbTypec_'+j).val(abbsNow[j].typec);
 						}
 					}
 				//}

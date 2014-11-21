@@ -29,14 +29,14 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtAcc1', 'lblNamea', 'acc', 'acc1,acc2', 'txtAcc1,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno', 'lblAccno', 'acc', 'acc1,acc2', 'txtAccno', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno2', 'lblAccno2', 'acc', 'acc1,acc2', 'txtAccno2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno4', 'lblAccno4', 'acc', 'acc1,acc2', 'txtAccno4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno5', 'lblAccno5', 'acc', 'acc1,acc2', 'txtAccno5', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno6', 'lblAccno6', 'acc', 'acc1,acc2', 'txtAccno6', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', "bank_b.aspx"]);
+            aPop = new Array(['txtNoa', 'lblNamea', 'acc', 'acc1,acc2', 'txtNoa,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno', 'lblAccno', 'acc', 'acc1,acc2', 'txtAccno', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno2', 'lblAccno2', 'acc', 'acc1,acc2', 'txtAccno2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno4', 'lblAccno4', 'acc', 'acc1,acc2', 'txtAccno4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno5', 'lblAccno5', 'acc', 'acc1,acc2', 'txtAccno5', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtAccno6', 'lblAccno6', 'acc', 'acc1,acc2', 'txtAccno6', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', "bank_b.aspx"]);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
-                $('#txtAcc1').focus();
+                $('#txtNoa').focus();
                 q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
             });
 
@@ -48,7 +48,7 @@
                 mainForm(0);
                 // 1=Last  0=Top
             }
-
+			var islcpluss=false;
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd]];
                 bbsMask = [['txtDatea', r_picd]]
@@ -63,7 +63,7 @@
                     }
                 });
 
-                $('#txtAcc1').change(function(e) {
+                $('#txtNoa').change(function(e) {
                     var s1 = trim($(this).val());
                     if (s1.length > 4 && s1.indexOf('.') < 0)
                         $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
@@ -72,8 +72,8 @@
 
                     $(this).val($.trim($(this).val()).toUpperCase());
                     if ($(this).val().length > 0 && q_cur == 1) {
-                        t_where = "where=^^ acc1='" + $(this).val() + "'^^";
-                        q_gt('lc', t_where, 0, 0, 0, "checkAcc1_change", r_accy);
+                        t_where = "where=^^ noa='" + $(this).val() + "'^^";
+                        q_gt('lc', t_where, 0, 0, 0, "checkNoa_change", r_accy);
                     }
                 });
 
@@ -142,6 +142,7 @@
                 $('#btnBank').click(function(e) {
                     q_box('z_bank.aspx', 'z_accc;', "95%", "95%", $('#btnBank').val());
                 });
+                
             }
 			
 			var qbox=false;
@@ -159,6 +160,7 @@
                         ///q_boxClose 3/4
                         break;
                 }/// end Switch
+                b_pop='';
             }
 
             function q_gtPost(t_name) {
@@ -192,27 +194,26 @@
                             $('#txtAccname3').val(as[0].accname3);
                         }
                         break;
-                    case 'checkAcc1_change':
+                    case 'checkNoa_change':
                         var as = _q_appendData("lc", "", true);
                         if (as[0] != undefined) {
-                            alert('已存在 ' + as[0].acc1 + ' ' + as[0].namea);
+                            alert('已存在 ' + as[0].noa + ' ' + as[0].namea);
                         }
                         break;
-                    case 'checkAcc1_btnOk':
+                    case 'checkNoa_btnOk':
                         var as = _q_appendData("lc", "", true);
                         if (as[0] != undefined) {
-                            alert('已存在 ' + as[0].acc1 + ' ' + as[0].namea);
+                            alert('已存在 ' + as[0].noa + ' ' + as[0].namea);
                             Unlock();
                             return;
                         } else {
-                            acc1ok = true;
+                            noaok = true;
                             Unlock();
                             btnOk();
                         }
                         break;
 					case 'recnobbs':
 						refresh(q_recno);
-						qbox=false;
 						break;
                     case q_name:
                     	if (q_cur == 0 && qbox){
@@ -233,7 +234,7 @@
             function btnIns() {
                 _btnIns();
                 refreshBbm();
-                $('#txtAcc1').focus();
+                $('#txtNoa').focus();
             }
 
             function btnModi() {
@@ -248,20 +249,20 @@
                 q_box('z_lc.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
-            var acc1ok = false;
+            var noaok = false;
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtAcc1', q_getMsg('lblAcc1')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
 
-                if (!acc1ok && q_cur == 1) {
+                if (!noaok && q_cur == 1) {
                     Lock();
-                    t_where = "where=^^ acc1='" + $('#txtAcc1').val() + "'^^";
-                    q_gt('lc', t_where, 0, 0, 0, "checkAcc1_btnOk", r_accy);
+                    t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+                    q_gt('lc', t_where, 0, 0, 0, "checkNoa_btnOk", r_accy);
                     return;
                 }
 
@@ -270,7 +271,7 @@
                 else
                     $('#txtWorker2').val(r_name);
 
-                var t_noa = trim($('#txtAcc1').val()).replace('.', '');
+                var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0)
                     q_gtnoa(q_name, t_noa);
                 else
@@ -305,12 +306,19 @@
                 
                $('.dbbs .txt').css('color','green').css('background','RGB(237,237,237)').attr('disabled','disabled');
                
-               /*$('#btnPluss').click(function(e) {
+                $('#btnPluss').click(function(e) {
 	               	if(!emp($('#txtNoa').val())){
+	               		islcpluss=true;
 	                    var t_where = "noa='"+$('#txtNoa').val()+"'";
 	                	q_box('lcs.aspx', 'lcs;' + t_where, "98%", "95%", q_getMsg('popLcs'));
 	                }
-                });*/
+                });
+               
+               if(qbox){
+               	qbox=false;
+               		t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+					q_gt('lc', t_where, 0, 0, 0, "recnobbs", r_accy);
+               }
             }
 
             function bbsSave(as) {
@@ -328,7 +336,7 @@
                 _refresh(recno);
                 refreshBbm();
                 if(emp($('#txtAccno3').val())){
-					var t_noa = trim($('#txtAcc1').val()).replace('.','');
+					var t_noa = $('#txtNoa').val();
 					var t_where = "swhere=^^noa='"+t_noa+"' and isnull(chgdate,'')!='' and '"+q_date()+"'<=isnull(lcdate,'') and isnull(lcno,'')!='' and isnull(lcodate,'')!='' and isnull(coin,'')='' ^^";
 					q_gt('lcs', t_where, 0, 0, 0, "gettotal", r_accy);
 				}else{
@@ -350,9 +358,9 @@
 
             function refreshBbm() {
                 if (q_cur == 1) {
-                    $('#txtAcc1').css('color', 'black').css('background', 'white').removeAttr('readonly');
+                    $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
                 } else {
-                    $('#txtAcc1').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+                    $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
                 }
             }
 
@@ -557,8 +565,8 @@
 				<table class="tview" id="tview"border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20%"><a id='vewAcc1'> </a></td>
-						<td align="center" style="width:30%"><a id='vewNamea'> </a></td>
+						<td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:50%"><a id='vewNamea'> </a></td>
 						<!--<td align="center" style="width:20%"><a id='vewAccno3'> </a></td>
 						<td align="center" style="width:30%"><a id='vewAccname3'> </a></td>-->
 					</tr>
@@ -566,7 +574,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='acc1'>~acc1</td>
+						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='namea'>~namea</td>
 						<!--<td align="center" id='accno3'>~accno3</td>
 						<td align="center" id='accname3'>~accname3</td>-->
@@ -578,8 +586,8 @@
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNamea" class="lbl btn"> </a></td>
 						<td class="td2">
-							<input id="txtAcc1" type="text" class="txt c1"/>
-							<input id="txtNoa" type="text" style="display:none;"/>
+							<input id="txtNoa" type="text" class="txt c1"/>
+							<input id="txtAcc1" type="text" style="display:none;"/>
 						</td>
 						<td class="td4" colspan="2"><input id="txtNamea" type="text" class="txt c1" /></td>
 						<td class="td5"><span> </span><a id="lblCredit" class="lbl"> </a></td>
@@ -661,7 +669,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:30px;height: 31px;">
 						<!--<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />-->
-						<!--<input class="btn"  id="btnPluss" type="button" value='+' style="font-weight: bold;"  />-->
+						<input class="btn"  id="btnPluss" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:50px;"> </td>
