@@ -271,13 +271,13 @@
 			
 			var color=new Array();
             function getRndColor(s){
-				var getColor = function(){
-					var r = Math.ceil((Math.random()*85)+170).toString(16);//亮色
+				var getColor = function(str){
+					var r = Math.ceil((Math.random()*105)+150).toString(16);//亮色
 					r = r.length==1?'0'+r:r;
 					return r;
 				}
 				var color = (s==undefined)?'#':'';
-				return(color + getColor() + getColor() + getColor());
+				return(color + getColor("r") + getColor("g") + getColor("b"));
 			}
 			
 			function q_funcPost(t_func, result) {
@@ -525,7 +525,29 @@
 										);
 									}
 								}
-								color[i]=getRndColor();
+								
+								var t_color=getRndColor();
+								var threshold=Math.ceil((105*3)/as.length);
+								var color_near=true;
+								while(color_near && color.length>0){
+									var r1=parseInt(t_color.substr(1,2),16);
+									var g1=parseInt(t_color.substr(3,2),16);
+									var b1=parseInt(t_color.substr(5,2),16);
+									for (k = 0; k < color.length; k++) {
+										var r2=Math.abs(parseInt(color[k].substr(1,2),16)-r1);
+										var g2=Math.abs(parseInt(color[k].substr(3,2),16)-g1);
+										var b2=Math.abs(parseInt(color[k].substr(5,2),16)-b1);
+										//if(r2<threshold&&g2<threshold&&b2<threshold){
+										if((r2+g2+b2)<threshold && threshold>0){
+											t_color=getRndColor();//取得新的顏色
+											color_near=true;
+											break;
+										}else{
+											color_near=false;
+										}
+									}
+								}
+								color[i]=t_color;
 							}
 							
 							if(pieshow){
