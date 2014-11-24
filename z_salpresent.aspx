@@ -67,7 +67,24 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                }
+				
+				if(q_getPara('sys.comp').indexOf('大昌')>-1 && r_rank<7){
+					$('#txtSssno1a').val(r_userno).attr('disabled','disabled');
+					$('#txtSssno2a').val(r_userno).attr('disabled','disabled');
+					$('#txtSssno1b').val(r_name);
+					$('#txtSssno2b').val(r_name);
+					$('#btnSssno1').data('events')['click'][0].handler=function(){};
+					$('#btnSssno2').data('events')['click'][0].handler=function(){};
+					var delete_report=0;
+					for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+						if($('#q_report').data().info.reportData[i].report=='z_salpresent2')
+							delete_report=i;
+					}
+					if($('#q_report div div').text().indexOf('出缺勤明細表')>-1)
+						$('#q_report div div')[delete_report].remove();
+				}
+					                
+			}
 
             function q_boxClose(s2) {
             }

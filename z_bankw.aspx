@@ -40,6 +40,14 @@
                 q_langShow();
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate2').mask('999/99/99');
+                $('.q_report .option div .label').css('width','100px');
+                $('#txtXbankmoney').val(0).css('text-align','right').keyup(function(e) {
+                	if(e.which>=37 && e.which<=40){return;}
+                	if($(this).val()=='-' || $(this).val()==''){return;}
+                	q_tr('txtXbankmoney',q_float('txtXbankmoney'));
+                	if($(this).val().indexOf('In,fin,ity')>-1 || $(this).val().indexOf('NaN')>-1)
+                		$(this).val(0);
+				});
             }
 
             function q_boxClose(s2) {
