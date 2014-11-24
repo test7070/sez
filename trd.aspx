@@ -258,6 +258,19 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
+                    default:
+                    	try{
+                    		var t_para = JSON.parse(t_name);
+                    		if(t_para.action=="browTrans"){
+                    			var as = _q_appendData("view_trans", "", true);
+                    			if (as[0] != undefined) {
+		                			q_box("trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + as[0].noa + "';" + as[0].accy, 'view_trans', "95%", "95%", q_getMsg("popTrans"));	
+		                		}
+                    		}
+                    	}catch(e){
+                    		
+                    	}
+                    	break;
                 }
             }
 
@@ -377,10 +390,18 @@
             }
 
             function bbsAssign() {
-                _bbsAssign();
-                for (var ix = 0; ix < q_bbsCount; ix++) {
-                    $('#lblNo_' + ix).text(ix + 1);
+                for (var i = 0; i < q_bbsCount; i++) {
+                    $('#lblNo_' + i).text(i + 1);
+                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	$('#txtTranno_' + i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtTranno_', '');
+                            q_gt('view_trans', "where=^^ noa='"+$(this).val()+"' ^^ stop=1", 0, 0, 0, JSON.stringify({action:"browTrans",n:n})); 
+                        });
+                    }
                 }
+                _bbsAssign();
             }
 
             function btnIns() {
