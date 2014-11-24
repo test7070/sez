@@ -37,9 +37,11 @@
 				t_serial = $('#txtSerial').val();
 				t_salesno = $('#txtSalesno').val();
 				
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno);
+				var t_where = " 1=1 " + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno);
+				if (t_noa.length > 0)
+					t_where += " and charindex('" + t_noa + "',noa)>0";
 				if (t_comp.length > 0)
-                    t_where += " and (patindex('%" + t_comp + "%',comp)>0 or patindex('%" + t_comp + "%',nick)>0)";
+                    t_where += " and (charindex('" + t_comp + "',comp)>0 or charindex('" + t_comp + "',nick)>0)";
                     
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
