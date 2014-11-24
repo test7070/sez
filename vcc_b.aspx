@@ -50,6 +50,12 @@
                 	$('#textTypea_'+j).val($('#txtTypea_'+j).val()=='1'?'出':'退');
                 	$('#textTypea_'+j).attr('disabled', 'disabled');
 		            $('#textTypea_'+j).css('background', t_background2);
+		            
+		            if (q_getPara('sys.project').toUpperCase()=='XY'){
+		            	if(!($('#txtPaytype_'+j).val().indexOf('收現')>-1 || $('#txtPaytype_'+j).val().indexOf('貨到現金')>-1)){
+		            		$('#txtTotal_'+j).val(0);
+		            	}
+		            }
                 }
 
                 $('#checkAllCheckbox').click(function() {

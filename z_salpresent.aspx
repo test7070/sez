@@ -69,10 +69,10 @@
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 				
 				if(q_getPara('sys.comp').indexOf('大昌')>-1 && r_rank<7){
-					$('#txtSssno1a')$.val(r_userno).attr('disabled','disabled');
-					$('#txtSssno1b')$.val(r_userno).attr('disabled','disabled');
-					$('#txtSssno2a')$.val(r_name);
-					$('#txtSssno2b')$.val(r_name);
+					$('#txtSssno1a').val(r_userno).attr('disabled','disabled');
+					$('#txtSssno2a').val(r_userno).attr('disabled','disabled');
+					$('#txtSssno1b').val(r_name);
+					$('#txtSssno2b').val(r_name);
 					$('#btnSssno1').data('events')['click'][0].handler=function(){};
 					$('#btnSssno2').data('events')['click'][0].handler=function(){};
 					var delete_report=0;
