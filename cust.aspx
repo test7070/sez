@@ -91,10 +91,7 @@
 			}/// end Main()
 
 			function mainPost() {
-				bbmMask = [
-					['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],
-					['txtGetdate', '99']
-				];
+				bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99']];
 				q_mask(bbmMask);
 				q_gt('custtype', '', 0, 0, 0, "custtype");
 				
@@ -109,16 +106,7 @@
 						['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx']
 					);
 				}
-				/*
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1){
-					q_cmbParse("cmbTypea", q_getPara('cust.typea_it'));
-				}else if (q_getPara('sys.project').toUpperCase() == 'RA') {
-					q_cmbParse("cmbTypea", q_getPara('cust.typea_ra'));
-				}else if (q_getPara('sys.project').toUpperCase() == 'TN') {
-					q_cmbParse("cmbTypea", q_getPara('cust.typea_tn'));
-				} else
-					q_cmbParse("cmbTypea", q_getPara('cust.typea'));
-				*/
+				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbStatus", q_getPara('cust.status'));
@@ -635,6 +623,10 @@
 						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
 						<td><input id="txtTeam" type="text" class="txt c1"/></td>
 						<td><input id="btnConn" type="button" /></td>
+						<td>
+							<input id="chkNotprice" type="checkbox" />
+							<span> </span><a id="lblNotprice"> </a>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblGrp" class="lbl btn"> </a></td>
