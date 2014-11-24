@@ -43,6 +43,8 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					if (emp($('#txtCuamount_' + j).val()))
 						$('#txtCuamount_' + j).val(0);
+						
+					$('#textMount_' + j).val($('#txtMount_' + j).val());
 
 					//排程數量足夠，不再匯入
 					/*if(dec($('#txtMount_' + j).val())<=dec($('#txtCuamount_' + j).val()))
@@ -59,10 +61,28 @@
 				$('#checkAllCheckbox').click(function() {
 					$('input[type=checkbox][id^=chkSel]').each(function() {
 						var t_id = $(this).attr('id').split('_')[1];
-						if (!emp($('#txtProductno_' + t_id).val()) && dec($('#txtMount_' + t_id).val()) > dec($('#txtCuamount_' + t_id).val()))
-							$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
+						if(q_getPara('sys.project').toUpperCase()=='XY'){
+							if (!emp($('#txtProductno_' + t_id).val()))
+								$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
+						}else{
+							if (!emp($('#txtProductno_' + t_id).val()) && dec($('#txtMount_' + t_id).val()) > dec($('#txtCuamount_' + t_id).val()))
+								$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
+						}
 					});
 				});
+				
+				$('#checkZero').click(function() {
+					$('input[type=text][id^=txtMount]').each(function() {
+						var t_id = $(this).attr('id').split('_')[1];
+						if($('#checkZero').prop('checked')){
+							$('#txtMount_'+t_id).val(0);
+						}else{
+							$('#txtMount_'+t_id).val($('#textMount_'+t_id).val());
+						}
+					});
+				});
+				
+				
 				/*//資料多會掛掉
 				 $('#btnTop').hide();
 				 $('#btnPrev').hide();
@@ -71,6 +91,12 @@
 				 */
 				if (q_getPara('sys.comp').indexOf('永勝') > -1) {
 					$('.uu').hide();
+				}
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.weight').hide();
+				}else{
+					$('#checkZero').hide();
+					$('#Zero').hide();
 				}
 			}
 
@@ -89,6 +115,7 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
+			 <input type="checkbox" id="checkZero"/><a id='Zero'>數量不帶入 </a>
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center"><input type="checkbox" id="checkAllCheckbox"/></td>
@@ -96,7 +123,7 @@
 					<!--<td align="center"><a id='lblSpec'></a></td>-->
 					<td align="center"><a id='lblUnit'> </a></td>
 					<td align="center"><a id='lblMount'> </a></td>
-					<td align="center"><a id='lblWeight'></a></td>
+					<td align="center" class="weight"><a id='lblWeight'> </a></td>
 					<td align="center"><a id='lblPrice'> </a></td>
 					<td align="center"><a id='lblNotv'> </a></td>
 					<td align="center" class="uu"><a id='lblCuamount'> </a></td>
@@ -119,8 +146,11 @@
 					</td>
 					<td style="width:8%;">
 						<input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/>
+						<input class="txt" id="textMount.*" type="hidden" style="width:94%; text-align:right;"/>
 					</td>
-					<td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
+					<td style="width:8%;" class="weight">
+						<input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/>
+					</td>
 					<td style="width:8%;">
 						<input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
