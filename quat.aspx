@@ -178,12 +178,6 @@
 					}
 				});
 				
-				//判斷核准是否顯示
-				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					$('.apv').show();
-				}else{
-					$('.apv').hide();
-				}
 			}
 
 			function q_boxClose(s2) {
@@ -278,11 +272,6 @@
 					$('#txtWorker2').val(r_name);
 					
 				sum();
-					
-				//只要修改都會重新送簽核，將核准變回N
-				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					$('#txtApv').val('N');
-				}
 
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
@@ -358,11 +347,6 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtOdate').val(q_date());
 				$('#txtDatea').val(q_cdn(q_date(), 3));
-				
-				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					$('#chkIsproj').attr('checked', false);
-					$('#txtDatea').val(q_date().substr(0,3)+'/12/31');
-				}
 				
 				$('#txtDatea').focus();
 

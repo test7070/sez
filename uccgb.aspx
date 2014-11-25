@@ -54,6 +54,17 @@
 					}
 				}
 			});
+			
+			if (q_getPara('sys.project').toUpperCase()=='XY'){
+				$('.isXY').show();
+			}else{
+				$('.isXY').hide();
+			}
+			
+			$('#txtSpec').click(function(){
+				if (q_cur==1 || q_cur==2)
+					q_msg($('#txtSpec'), "格式：規格1,規格2,規格3,....");
+			});
 		}
 		
 		function q_boxClose(s2) { 
@@ -132,6 +143,7 @@
 				t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
 				q_gt('uccga', t_where, 0, 0, 0, "checkNoa_btnOk", r_accy);
 			}else{
+				Unlock();
 				wrServer($('#txtNoa').val());
 			}
 		 }
@@ -146,8 +158,6 @@
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 			_btnOk(key_value, bbmKey[0], '','',2);
 		}
-
-		
 		
 		function refresh(recno) {
 			_refresh(recno);
@@ -312,9 +322,9 @@
 		<div class="dview" id="dview" style="float: left;"  >
 		   <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
-				<td align="center" style="width:5%"><a id='vewChk'></a></td>				
-				<td align="center" style="width:15%"><a id='vewNoa'></a></td>
-				<td align="center" style="width:25%"><a id='vewNamea'></a></td>								
+				<td align="center" style="width:5%"><a id='vewChk'> </a></td>				
+				<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
+				<td align="center" style="width:25%"><a id='vewNamea'> </a></td>								
 			</tr>
 			 <tr>
 				   <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
@@ -326,21 +336,25 @@
 		<div class='dbbm' style="float: left;">
 		<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>			
 			<tr>
-			   <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+			   <td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 			   <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-			   <td class="td3"></td>
-			   <td class="td4"></td>
+			   <td class="td3"> </td>
+			   <td class="td4"> </td>
 			</tr>
 			<tr>
-			   <td class="td1"><span> </span><a id='lblNamea' class="lbl"></a></td>
+			   <td class="td1"><span> </span><a id='lblNamea' class="lbl"> </a></td>
 			   <td class="td2"><input id="txtNamea"  type="text" class="txt c1"/></td>
 			</tr>
 			<tr>
-			   <td class="td1"><span> </span><a id='lblWorker' class="lbl"></a></td>
+			   <td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			   <td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
-			   <td class="td3"></td>
-			   <td class="td4"></td>
-			</tr>	  
+			   <td class="td3"> </td>
+			   <td class="td4"> </td>
+			</tr>	
+			<tr class="isXY">
+			   <td class="td1"><span> </span><a class="lbl">報價規格</a></td>
+			   <td class="td2" colspan="3"><input id="txtSpec"  type="text" class="txt c1 isXY"/></td>
+			</tr>	
 		</table>
 		</div>
 		</div> 
