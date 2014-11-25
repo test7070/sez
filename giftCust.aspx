@@ -516,7 +516,10 @@
 					</tr>
 					<tr class="tr13">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan="5"><input type="text" id="txtMemo" class="txt c1"/></td>
+						<td class="td2" colspan="5">
+							<!--<input type="text" id="txtMemo" class="txt c1"/>-->
+							<textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
+						</td>
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>

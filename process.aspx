@@ -15,11 +15,15 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			
+			q_tables = 's';
             var q_name = "process";
             var q_readonly = [];
+            var q_readonlys = [];
             var bbmNum = [['txtHours',10,1,1]];
+            var bbsNum = [];
             var bbmMask = [];
+            var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -27,12 +31,16 @@
             brwKey = 'noa';
             $(document).ready(function() {
                 bbmKey = ['noa'];
+                bbsKey = ['noa', 'noq'];
                 brwCount2 = 8
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
 			aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
-							 ['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx']);
+							 ['txtStationgno', 'lblStationgno', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
+							 ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx']
+							 );
+							 
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -50,6 +58,7 @@
 					}
                 });
             }
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -90,11 +99,21 @@
                     return;
                 q_box('process_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
+            
+            function bbsAssign() {
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		            }
+		        }
+		        _bbsAssign();
+		    }
+            
             function btnIns() {
                 _btnIns();
                 refreshBbm();
                 $('#txtNoa').focus();
             }
+            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
@@ -106,11 +125,13 @@
             function btnPrint() {
 
             }
+            
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 Unlock();
             }
+            
             function btnOk() {
                Lock(); 
 				if(q_cur==1){
@@ -119,14 +140,22 @@
                 }else{
                 	wrServer($('#txtNoa').val());
                 }
-                
             }
 
             function wrServer(key_value) {
                 var i;
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
+                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
+            
+            function bbsSave(as) {
+		        if (!as['tggno']&& !as['tgg']) {
+		            as[bbsKey[1]] = '';
+		            return;
+		        }
+		        q_nowf();
+		        return true;
+		    }
 
             function refresh(recno) {
                 _refresh(recno);
@@ -383,6 +412,29 @@
 					</tr>
 				</table>
 			</div>
+		</div>
+		<div class='dbbs'>
+			<table id="tbbs" class='tbbs'>
+				<tr style='color:white; background:#003366;' >
+					<td  align="center" style="width:30px;">
+					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+					</td>
+					<td align="center" style="width:80px;"><a id='lblTggno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblTgg_s'> </a></td>
+				</tr>
+				<tr  style='background:#cad3ff;'>
+					<td align="center">
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="text" style="display: none;" />
+					</td>
+					<td >
+						<input type="text" id="txtTggno.*" style="width:80%;" />
+						<input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+					</td>
+					<td><input type="text" id="txtTgg.*" style="width:95%;" /></td>
+
+				</tr>
+			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
