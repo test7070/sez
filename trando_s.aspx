@@ -29,9 +29,15 @@
 			function q_seekStr() {
 				t_deliveryno = $('#txtDeliveryno').val();
 				t_po = $('#txtPo').val();
-
+				t_tranno = $('#txtTranno').val();
+				t_caseno = $('#txtCaseno').val();
+				
 				var t_where = " 1=1 " + q_sqlPara2("deliveryno", t_deliveryno) + q_sqlPara2("po", t_po);
-
+				if(t_tranno.length>0)
+		       		t_where += " and exists(select noa from trandos where trandos.noa=trando.noa and trandos.tranno='"+t_tranno+"')";
+		       	if(t_caseno.length>0)
+		       		t_where += " and exists(select noa from trandos where trandos.noa=trando.noa and trandos.caseno='"+t_caseno+"')";
+		       			
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -58,6 +64,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblPo'></a></td>
 					<td>
 					<input class="txt" id="txtPo" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTranno'></a></td>
+					<td>
+					<input class="txt" id="txtTranno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCaseno'></a></td>
+					<td>
+					<input class="txt" id="txtCaseno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
