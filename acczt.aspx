@@ -17,7 +17,7 @@
         }
         var q_name="acczt";
         var q_readonly = ['txtNoa','txtMoney','txtYear'];
-        var bbmNum = [['txtDepl',14,0,0,1]]; 
+        var bbmNum = [['txtDepl',14,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         
