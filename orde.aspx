@@ -93,16 +93,6 @@
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-				
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					aPop = new Array(
-						['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucc_b.aspx'],
-						['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-						['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-						['txtCustno', 'lblCust', 'cust', 'noa,nick,paytype,trantype,tel,fax,zip_comp,addr_comp,zip_home,addr_home', 'txtCustno,txtComp,txtPaytype,cmbTrantype,txtTel,txtFax,txtPost,txtAddr,txtPost2,txtAddr2', 'cust_b.aspx'],
-						['ordb_txtTggno_', '', 'tgg', 'noa,comp', 'ordb_txtTggno_,ordb_txtTgg_', '']
-					);
-				}
 
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -199,49 +189,7 @@
 					}
 					$('#div_addr2').hide();
 				});
-				//----------------------------------------------------------------
-				$('#lblOrde2ordb').click(function(){
-					$('#lblOrde2ordb').text('讀取資料中...');
-					$('#lblOrde2ordb').removeClass('btn');
-					
-					var t_where = "where=^^ ['" + q_date() + "','','')  where productno=b.productno ^^";
-					var t_where1 = "where[1]=^^ ua.productno=b.productno and ua.tggno=c.tggno and ub.mount>b.mount and ua.pricedate>='" + q_date() + "' ^^";
-					var t_where2 = "where[2]=^^ cb.productno=b.productno and cb.enda!=1 and cb.cancel!=1 ^^";
-					var t_where3 = "where[3]=^^ a.noa='"+$('#txtNoa').val()+"' and c.noa!='' ^^";
-					q_gt('orde_ordb', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "orde_ordb", r_accy);
-				});
 				
-				$('#btnClose_div_ordb').click(function() {	
-					//寫入ordb
-					var orde_data='';
-					var rows=document.getElementById("table_ordb").rows.length-2;
-					for (var i = 0; i <= rows; i++) {
-						if(dec($('#ordb_txtObmount_'+i).val())>0){
-							orde_data += $('#ordb_txtNoa_'+i).val()+'^';
-							orde_data += $('#ordb_txtNo2_'+i).val()+'^';
-							orde_data += $('#ordb_txtObmount_'+i).val()+'^';
-							orde_data += $('#ordb_txtTggno_'+i).val()+'^';
-							orde_data += $('#ordb_txtInprice_'+i).val();
-						}
-						orde_data=orde_data+'##';
-					}
-					var t_where = r_accy+ ';' + r_userno+ ';' + q_getPara('sys.key_ordb')+ ';' + orde_data;
-					q_func('qtxt.query.ordb', 'orde.txt,orde2ordb,' + t_where);
-					
-					//------------------------------------------------------
-					$('#div_ordb').hide();
-					q_cur=0;
-					$('#lblOrde2ordb').addClass('btn');
-					HiddenTreat();
-				});
-				$('#btnClose_div_ordb2').click(function() {	
-					$('#div_ordb').hide();
-					q_cur=0;
-					$('#lblOrde2ordb').addClass('btn');
-					HiddenTreat();
-				});
-				
-				//------------------------------------------------------------------
 				$('#btnOrdem').click(function() {
 					q_box("ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy + ";" + q_cur, 'ordem', "95%", "95%", q_getMsg('popOrdem'));
 				});
@@ -406,14 +354,9 @@
 							t_msg = "銷售單價：" + dec(as[0].saleprice) + "<BR>";
 						}
 						//客戶售價
-						if(q_getPara('sys.project').toUpperCase()=='XY' && !emp($('#txtProductno_'+b_seq).val())){
-							t_where="where=^^ noa+'_'+odate+'_'+productno in (select MIN(a.noa)+'_'+MIN(a.odate)+'_'+b.productno from view_quat a left join view_quats b on a.noa=b.noa where UPPER(a.apv)='Y' and isnull(b.enda,0)=0 and isnull(b.cancel,0)=0 "+q_sqlPara2("a.custno", $('#txtCustno').val())+" and a.odate>='"+q_date()+"' group by b.productno)";
-							t_where+=" and productno='"+$('#txtProductno_'+b_seq).val()+"' and isnull(enda,0)=0 and isnull(cancel,0)=0 "+q_sqlPara2("custno", $('#txtCustno').val()) +" and odate>='"+q_date()+"' ^^";
-							q_gt('view_quats', t_where, 0, 0, 0, "msg_quat_xy");
-						}else{
-							var t_where = "where=^^ custno='" + $('#txtCustno').val() + "' and datea<'" + q_date() + "' ^^ stop=1";
-							q_gt('quat', t_where, 0, 0, 0, "msg_quat", r_accy);	
-						}
+						var t_where = "where=^^ custno='" + $('#txtCustno').val() + "' and datea<'" + q_date() + "' ^^ stop=1";
+						q_gt('quat', t_where, 0, 0, 0, "msg_quat", r_accy);	
+						
 						break;
 					case 'msg_quat':
 						var as = _q_appendData("quats", "", true);
@@ -425,17 +368,6 @@
 							}
 						}
 						t_msg = t_msg + "最近報價單價：" + quat_price + "<BR>";
-						//最新出貨單價
-						var t_where = "where=^^ custno='" + $('#txtCustno').val() + "' and noa in (select noa from vccs" + r_accy + " where productno='" + $('#txtProductno_' + b_seq).val() + "' and price>0 ) ^^ stop=1";
-						q_gt('vcc', t_where, 0, 0, 0, "msg_vcc", r_accy);
-						break;
-					case 'msg_quat_xy':
-						var as = _q_appendData("view_quats", "", true);
-						if (as[0] != undefined) {
-							t_msg = t_msg + "最近報價單價：" + dec(as[0].price) + "<BR>";
-						}else{
-							t_msg = t_msg + "最近報價單價：無<BR>";
-						}
 						//最新出貨單價
 						var t_where = "where=^^ custno='" + $('#txtCustno').val() + "' and noa in (select noa from vccs" + r_accy + " where productno='" + $('#txtProductno_' + b_seq).val() + "' and price>0 ) ^^ stop=1";
 						q_gt('vcc', t_where, 0, 0, 0, "msg_vcc", r_accy);
@@ -526,42 +458,6 @@
 							sum();
 						}
 						break;
-					case 'keyin_productno_xy':
-						var as = _q_appendData("view_quats", "", true);
-						if (as[0] != undefined) {
-							$('#txtPrice_'+b_seq).val(as[0].price);
-							sum();
-						}
-						break;
-					case 'btnOk_xy':
-						var as = _q_appendData("view_quats", "", true);
-						var error_productno='';
-						var product_in_quat=false;
-						for (var i = 0; i < q_bbsCount; i++) {
-							if(!emp($('#txtProductno_'+i).val())){
-								product_in_quat=false;
-								for (var j = 0; j < as.length; j++) {
-									if(as[j].productno==$('#txtProductno_'+i).val()){
-										product_in_quat=true;
-										if(as[j].price>dec($('#txtPrice_'+i).val())){
-											error_productno+=$('#txtProductno_'+i).val()+' '+$('#txtProduct_'+i).val()+' 訂單單價小於報價單價!!\n'
-										}
-										break;
-									}
-								}
-								if(!product_in_quat){
-									error_productno+=$('#txtProductno_'+i).val()+' '+$('#txtProduct_'+i).val()+' 沒有報價資料!!\n'
-								}
-							}
-						}
-						
-						if(error_productno.length>0){
-							alert(error_productno);
-						}else{
-							check_quat_xy=true;
-							btnOk();
-						}
-						break;	
 					case 'cust':
 						var as = _q_appendData("cust", "", true);
 						if (as[0] != undefined && focus_addr != '') {
@@ -589,21 +485,13 @@
 				if (t_custno.length > 0) {
 					t_where = "noa+'_'+no3 not in (select isnull(quatno,'')+'_'+isnull(no3,'') from view_ordes" + r_accy + " where noa!='" + $('#txtNoa').val() + "' ) and isnull(enda,0)=0 and isnull(cancel,0)=0"
 					t_where = t_where + ' and ' + q_sqlPara("custno", t_custno)+" and datea>='"+$('#txtOdate').val()+"'";
-					
-					if(q_getPara('sys.project').toUpperCase()=='XY'){
-						t_where = "";
-						t_where="noa+'_'+odate+'_'+productno in (select MIN(a.noa)+'_'+MIN(a.odate)+'_'+b.productno from view_quat a left join view_quats b on a.noa=b.noa where UPPER(a.apv)='Y' and isnull(b.enda,0)=0 and isnull(b.cancel,0)=0 "+q_sqlPara2("a.custno", t_custno)+" and a.datea>='"+$('#txtOdate').val()+"' group by b.productno)";
-						t_where+=" and isnull(enda,0)=0 and isnull(cancel,0)=0 "+q_sqlPara2("custno", t_custno) +" and datea>='"+$('#txtOdate').val()+"'";
-					}
-				}
-				else {
+				}else {
 					alert(q_getMsg('msgCustEmp'));
 					return;
 				}
 				q_box("quat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'quats', "95%", "95%", $('#btnQuat').val());
 			}
 			
-			var check_quat_xy=false;
 			function btnOk() {
 				t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('btnAcomp')]]);
@@ -611,15 +499,6 @@
 					alert(t_err);
 					return;
 				}
-				
-				//檢查產品是否在報價單中，並判斷單價，不在報價單中或單價小於報價金額不能存檔
-				if(q_getPara('sys.project').toUpperCase()=='XY' && !check_quat_xy){
-					t_where="where=^^ noa+'_'+odate+'_'+productno in (select MIN(a.noa)+'_'+MIN(a.odate)+'_'+b.productno from view_quat a left join view_quats b on a.noa=b.noa where UPPER(a.apv)='Y' and isnull(b.enda,0)=0 and isnull(b.cancel,0)=0 "+q_sqlPara2("a.custno", $('#txtCustno').val())+" and a.odate>='"+q_date()+"' group by b.productno)";
-					t_where+=" and isnull(enda,0)=0 and isnull(cancel,0)=0 "+q_sqlPara2("custno", $('#txtCustno').val()) +" and odate>='"+q_date()+"' ^^";
-					q_gt('view_quats', t_where, 0, 0, 0, "btnOk_xy");
-					return;
-				}
-				check_quat_xy=false;
 				
 				for(var k=0;k<q_bbsCount;k++){
 					if(emp($('#txtDatea_'+k).val()))
@@ -895,20 +774,6 @@
 				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
 				var hasSpec = q_getPara('sys.isspec');
 				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
-				
-				if(q_getPara('sys.project').toUpperCase()=='XY'){
-					if(emp($('#txtOrdbno').val()) && q_cur<1 && q_cur>2){
-						$('#lblOrde2ordb').show();
-						$('#lblOrdbno').hide();
-					}else{
-						$('#lblOrde2ordb').hide();
-						$('#lblOrdbno').show();
-					}
-					
-				}else{
-					$('#lblOrde2ordb').hide();
-					$('#lblOrdbno').show();
-				}
 			}
 
 			function btnMinus(id) {
@@ -973,39 +838,9 @@
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						break;
-					case 'txtProductno_':
-						if(q_getPara('sys.project').toUpperCase()=='XY' && !emp($('#txtProductno_'+b_seq).val())){
-							var t_custno = trim($('#txtCustno').val());
-							var t_where = '';
-							if (t_custno.length > 0) {
-								t_where="where=^^ noa+'_'+odate+'_'+productno in (select MIN(a.noa)+'_'+MIN(a.odate)+'_'+b.productno from view_quat a left join view_quats b on a.noa=b.noa where UPPER(a.apv)='Y' and isnull(b.enda,0)=0 and isnull(b.cancel,0)=0 "+q_sqlPara2("a.custno", t_custno)+" and a.odate>='"+q_date()+"' group by b.productno)";
-								t_where+=" and productno='"+$('#txtProductno_'+b_seq).val()+"' and isnull(enda,0)=0 and isnull(cancel,0)=0 "+q_sqlPara2("custno", t_custno) +" and odate>='"+q_date()+"' ^^";
-							}else {
-								alert(q_getMsg('msgCustEmp'));
-								$('#txtCustno').focus();
-								$('#btnMinus_'+b_seq).click();
-								return;
-							}
-							q_gt('view_quats', t_where, 0, 0, 0, "keyin_productno_xy");
-						}
-						break;
 				}
 			}
 			
-			function q_funcPost(t_func, result) {
-				switch(t_func) {
-					case 'qtxt.query.ordb':
-						var as = _q_appendData("tmp0", "", true, true);
-						if (as[0] != undefined) {
-							alert("已成功轉成請購單【"+as[i].ordbnos.substr(0,as[i].ordbnos.length-1)+"】!!");
-						} else {
-							alert('轉請購單失敗!!');
-						}
-						break;
-					default:
-						break;
-				}
-			}
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -1230,10 +1065,7 @@
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td class="td2"><input id="txtPost" type="text" class="txt c1"/></td>
 						<td class="td3"colspan='4'><input id="txtAddr" type="text" class="txt c1"/></td>
-						<td class="td7"><span> </span>
-							<a id='lblOrdbno' class="lbl"> </a>
-							<a id='lblOrde2ordb' class="lbl btn"> </a>
-						</td>
+						<td class="td7"><span> </span><a id='lblOrdbno' class="lbl"> </a></td>
 						<td class="td8"><input id="txtOrdbno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr6">
