@@ -48,14 +48,14 @@
                 if(q_getHref()[1]!=undefined){
                 	$('#txtCust1a').val(q_getHref()[1]);
                 	$('#txtCust2a').val(q_getHref()[1]);
-                	$('#txtCust1b').val(q_getHref()[3]);
-                	$('#txtCust2b').val(q_getHref()[3]);
+                	//$('#txtCust1b').val(q_getHref()[1]);
+                	//$('#txtCust2b').val(q_getHref()[1]);
                 }
                 if(q_getHref()[3]!=undefined){
-                	$('#txtProduct1a').val(q_getHref()[5]);
-                	$('#txtProduct2a').val(q_getHref()[5]);
-                	$('#txtProduct1b').val(q_getHref()[7]);
-                	$('#txtProduct2b').val(q_getHref()[7]);
+                	$('#txtProduct1a').val(q_getHref()[3]);
+                	$('#txtProduct2a').val(q_getHref()[3]);
+                	//$('#txtProduct1b').val(q_getHref()[3]);
+                	//$('#txtProduct2b').val(q_getHref()[3]);
                 }
 				if(!emp($.trim($('#txtCust1a').val())) || !emp($.trim($('#txtCust2a').val())) || !emp($.trim($('#txtProduct1a').val())) || !emp($.trim($('#txtProduct2a').val()))){
 					$('#btnOk').click();

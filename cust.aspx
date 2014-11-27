@@ -32,7 +32,7 @@
 				['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'],
 				['txtCustno2', 'lblCustno2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx'],
 				
-				['XyNoa1', '', 'cust', 'noa,comp', '0XyNoa1,XyComp1', 'cust_b.aspx']
+				['XyNoa1', '', 'cust', 'noa,comp', '0XyNoa1,txtXyComp1,txtXyComp2', 'cust_b.aspx']
 			);
 			
 			$(document).ready(function() {
@@ -159,13 +159,13 @@
 				});
 				
 				
-				$('#XyNoa1').click(function(){
+				$('#txtXyNoa1').click(function(){
 					if (q_cur==1 )
-						q_msg($('#XyNoa1'), "請輸入客戶拼音前兩碼或客戶總店編號");
+						q_msg($('#txtXyNoa1'), "請輸入客戶拼音前兩碼或客戶總店編號");
 				});
-				$('#XyNoa2').click(function(){
+				$('#txtXyNoa2').click(function(){
 					if (q_cur==1)
-						q_msg($('#XyNoa2'), "請輸入客戶分店編號或流水號(空白)");
+						q_msg($('#txtXyNoa2'), "請輸入客戶分店編號或流水號(空白)");
 				});
 			}
 
@@ -222,9 +222,9 @@
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
 							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
-							$('#XyNoa1').val($('#XyNoa1').val()+noa_seq);
+							$('#txtXyNoa1').val($('#txtXyNoa1').val()+noa_seq);
 						}else{
-							$('#XyNoa1').val($('#XyNoa1').val()+'001');
+							$('#txtXyNoa1').val($('#txtXyNoa1').val()+'001');
 						}
 						btnOk();
 						break;
@@ -232,11 +232,11 @@
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
 							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
-							$('#XyNoa1').val($('#XyNoa1').val()+noa_seq);
-							$('#XyNoa2').val('001');
+							$('#txtXyNoa1').val($('#txtXyNoa1').val()+noa_seq);
+							$('#txtXyNoa2').val('001');
 						}else{
-							$('#XyNoa1').val($('#XyNoa1').val()+'001');
-							$('#XyNoa2').val('001');
+							$('#txtXyNoa1').val($('#txtXyNoa1').val()+'001');
+							$('#txtXyNoa2').val('001');
 						}
 						btnOk();
 						break;
@@ -244,9 +244,9 @@
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
 							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
-							$('#XyNoa2').val(noa_seq);
+							$('#txtXyNoa2').val(noa_seq);
 						}else{
-							$('#XyNoa2').val('001');
+							$('#txtXyNoa2').val('001');
 						}
 						btnOk();
 						break;
@@ -287,10 +287,12 @@
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('#txtNoa').val('').hide();
 					$('#txtComp').val('').hide();
-					$('#XyNoa1').val('').show();
-					$('#XyNoa2').val('').show();
-					$('#XyComp1').val('').show();
-					$('#XyComp2').val('').show();
+					$('#txtXyNoa1').val('').show();
+					$('#txtXyNoa2').val('').show();
+					$('#txtXyComp1').val('').show();
+					$('#txtXyComp2').val('').show();
+					$('#lblXyNoa2').val('').show();
+					$('#lblXyComp2').val('').show();
 				}
 			}
 
@@ -315,29 +317,29 @@
 			
 			function btnOk() {
 				if (q_getPara('sys.project').toUpperCase()=='XY' && q_cur==1){
-					if($('#XyNoa1').val().length==0){
+					if($('#txtXyNoa1').val().length==0){
 						alert('請輸入客戶編號!!');
 						return;
 					}
 					
-					if($('#XyNoa1').val().length<5 && $('#XyNoa2').val().length==0 && $('#XyComp2').val().length==0 ){//總店流水號 沒有分店
-						t_where = "where=^^ charindex('" + $('#XyNoa1').val() + "',noa)=1 and len(noa)<=5 ^^";
+					if($('#txtXyNoa1').val().length<5 && $('#txtXyNoa2').val().length==0 && $('#txtXyComp2').val().length==0 ){//總店流水號 沒有分店
+						t_where = "where=^^ charindex('" + $('#txtXyNoa1').val() + "',noa)=1 and len(noa)<=5 ^^";
 						q_gt('cust', t_where, 0, 0, 0, "XY_AutoCustno1", r_accy);
 						return;
-					}else if($('#XyNoa1').val().length<5 && $('#XyNoa2').val().length==0 && $('#XyComp2').val().length>0){//總店 分店流水號
-						t_where = "where=^^ charindex('" + $('#XyNoa1').val() + "',noa)=1 and len(noa)<=5^^";
+					}else if($('#txtXyNoa1').val().length<5 && $('#txtXyNoa2').val().length==0 && $('#txtXyComp2').val().length>0){//總店 分店流水號
+						t_where = "where=^^ charindex('" + $('#txtXyNoa1').val() + "',noa)=1 and len(noa)<=5^^";
 						q_gt('cust', t_where, 0, 0, 0, "XY_AutoCustno2", r_accy);
 						return;
-					}else if($('#XyNoa1').val().length>=5 && $('#XyNoa2').val().length==0 && $('#XyComp2').val().length>0){//分店流水號
-						t_where = "where=^^ charindex('" + $('#XyNoa1').val() + "',noa)=1 and len(noa)>5^^";
+					}else if($('#txtXyNoa1').val().length>=5 && $('#txtXyNoa2').val().length==0 && $('#txtXyComp2').val().length>0){//分店流水號
+						t_where = "where=^^ charindex('" + $('#txtXyNoa1').val() + "',noa)=1 and len(noa)>5^^";
 						q_gt('cust', t_where, 0, 0, 0, "XY_AutoCustno3", r_accy);
 						return;
-					}else if($('#XyNoa1').val().length>=5 && $('#XyNoa2').val().length==0 && $('#XyComp2').val().length==0){//只有總店編號
-						$('#txtNoa').val($('#XyNoa1').val());
-						$('#txtComp').val($('#XyComp1').val());
-					}else if($('#XyNoa1').val().length>=5 && $('#XyNoa2').val().length>0){//總店與分店編號 都有打
-						$('#txtNoa').val($('#XyNoa1').val()+'-'+$('#XyNoa2').val());
-						$('#txtComp').val($('#XyComp1').val()+'-'+$('#XyComp2').val());
+					}else if($('#txtXyNoa1').val().length>=5 && $('#txtXyNoa2').val().length==0 && $('#txtXyComp2').val().length==0){//只有總店編號
+						$('#txtNoa').val($('#txtXyNoa1').val());
+						$('#txtComp').val($('#txtXyComp1').val());
+					}else if($('#txtXyNoa1').val().length>=5 && $('#txtXyNoa2').val().length>0){//總店與分店編號 都有打
+						$('#txtNoa').val($('#txtXyNoa1').val()+'-'+$('#txtXyNoa2').val());
+						$('#txtComp').val($('#txtXyComp1').val()+'-'+$('#txtXyComp2').val());
 					}
 				}
 				
@@ -448,17 +450,21 @@
 					if (q_cur == 1) {
 						$('#txtNoa').hide();
 						$('#txtComp').hide();
-						$('#XyNoa1').show();
-						$('#XyNoa2').show();
-						$('#XyComp1').show();
-						$('#XyComp2').show();
+						$('#txtXyNoa1').show();
+						$('#txtXyNoa2').show();
+						$('#txtXyComp1').show();
+						$('#txtXyComp2').show();
+						$('#lblXyNoa2').show();
+						$('#lblXyComp2').show();
 					}else{
 						$('#txtNoa').show();
 						$('#txtComp').show();
-						$('#XyNoa1').hide();
-						$('#XyNoa2').hide();
-						$('#XyComp1').hide();
-						$('#XyComp2').hide();
+						$('#txtXyNoa1').hide();
+						$('#txtXyNoa2').hide();
+						$('#txtXyComp1').hide();
+						$('#txtXyComp2').hide();
+						$('#lblXyNoa2').hide();
+						$('#lblXyComp2').hide();
 					}
 					
 				}
@@ -692,8 +698,9 @@
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td>
 							<input id="txtNoa" type="text" class="txt c1"/>
-							<input id="XyNoa1" type="text" class="txt c6" style="display:none;"/>
-							<input id="XyNoa2" type="text" class="txt c6" style="display:none;"/>
+							<input id="txtXyNoa1" type="text" class="txt c6" style="width:65px;display:none;"/>
+							<a id='lblXyNoa2' class="lbl" style="display:none;float: left;"> 分店<span> </span></a>
+							<input id="txtXyNoa2" type="text" class="txt c6" style="width:45px;display:none;"/>
 						</td>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
 						<td><input id="txtSerial" type="text" class="txt c1"/></td>
@@ -714,8 +721,9 @@
 						<td><span> </span><a id='lblComp' class="lbl"> </a></td>
 						<td colspan='3'>
 							<input id="txtComp" type="text" class="txt c7"/>
-							<input id="XyComp1" type="text" class="txt c6" style="display:none;"/>
-							<input id="XyComp2" type="text" class="txt c6" style="display:none;"/>
+							<input id="txtXyComp1" type="text" class="txt c6" style="display:none;"/>
+							<a id='lblXyComp2' class="lbl" style="display:none;float: left;">　分店<span> </span></a>
+							<input id="txtXyComp2" type="text" class="txt c2" style="display:none;"/>
 						</td>
 						<td><span> </span><a id='lblNick' class="lbl"> </a></td>
 						<td><input id="txtNick" type="text" class="txt c1"/></td>
