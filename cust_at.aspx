@@ -47,6 +47,8 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                q_cmbParse("cmbTypea",' ,'+q_getMsg('at.typea').replace(/\^/g,','));
+                
                 $('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
 					if($(this).val().length>0){
@@ -276,7 +278,7 @@
             }
             function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+                    var key = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
                     var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
                     var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
                     if ((n % 10) == 0)
@@ -451,8 +453,8 @@
 						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblSerial" class="lbl"> </a></td>
 						<td><input id="txtSerial"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblTypea" class="lbl" style="display:none;"> </a></td>
-						<td><select id="cmbTypea"  class="txt c1" style="display:none;"> </select></td>
+						<td><span> </span><a id="lblTypea" class="lbl" > </a></td>
+						<td><select id="cmbTypea"  class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblComp" class="lbl"> </a></td>
@@ -465,6 +467,8 @@
 						<td><input id="txtboss" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblHead" class="lbl"> </a></td>
 						<td><input id="txthead" type="text" class="txt c1"/></td>
+						<td><input id="btnDetail" type="button" style="display:none;"/></td>
+						<td><input id="btnConn" type="button" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTel" class="lbl"> </a></td>
@@ -479,10 +483,12 @@
 						<td><span> </span><a id="lblEmail" class="lbl"> </a></td>
 						<td colspan="2"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
-						<td> </td>
-						<td><input id="btnDetail" type="button" /></td>
-						<td><input id="btnConn" type="button" /></td>
+					<tr>						
+						<td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
+						<td colspan="2">
+							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
+							<input id="txtSales" type="text" style="float:left; width:60%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAddr_fact" class="lbl"> </a></td>
@@ -510,13 +516,6 @@
 						<td colspan="5">
 							<input id="txtZip_home" type="text" style="float:left; width:10%;"/>
 							<input id="txtAddr_home"  type="text" style="float:left; width:90%;"/>
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
-						<td colspan="2">
-							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
-							<input id="txtSales" type="text" style="float:left; width:60%;"/>
 						</td>
 					</tr>
 					<tr style="display:none;">
