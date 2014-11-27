@@ -45,7 +45,7 @@
 
             function refresh() {
                 _refresh();
-                
+                var xy_cust='';
                 for (var j = 0; j < q_bbsCount; j++) {
                 	$('#textTypea_'+j).val($('#txtTypea_'+j).val()=='1'?'出':'退');
                 	$('#textTypea_'+j).attr('disabled', 'disabled');
@@ -55,7 +55,15 @@
 		            	if(!($('#txtPaytype_'+j).val().indexOf('收現')>-1 || $('#txtPaytype_'+j).val().indexOf('貨到現金')>-1)){
 		            		$('#txtTotal_'+j).val(0);
 		            	}
+		            	xy_cust+=(xy_cust.length>0?",":"")+"'"+$('#txtCustno_'+j).val()+"'";
 		            }
+                }
+                $('.isXY').hide();
+                
+                if (q_getPara('sys.project').toUpperCase()=='XY'){
+                	$('.isXY').show();
+                	if(xy_cust.length>0)
+                		q_gt('cust', "where=^^noa in ("+xy_cust+")^^", 0, 0, 0, "", r_accy);
                 }
 
                 $('#checkAllCheckbox').click(function() {
@@ -69,6 +77,22 @@
                 $('#btnNext').hide();
                 $('#btnBott').hide();
             }
+            
+            function q_gtPost(t_name) { 
+            	switch (t_name) {
+            		case 'cust':
+            			var as = _q_appendData("cust", "", true);
+            			for (var i = 0; i < q_bbsCount; i++) {
+            				for (var j = 0; j < as.length; j++) {
+            					if($('#txtCustno_'+i).val()==as[j].noa){
+            						$('#textTrantime_'+i).val(as[j].billmemo)
+            						break;
+            					}
+            				}
+            			}
+            			break;
+            	}
+			}
 
 		</script>
 		<style type="text/css">
@@ -97,6 +121,7 @@
 					<td align="center"><a id='lblComp'> </a></td>
 					<td align="center"><a id='lblTotal'> </a></td>
 					<td align="center"><a id='lblMemo'> </a></td>
+					<td align="center" class="isXY"><a >送貨時間 </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
@@ -134,6 +159,7 @@
 						<input id="txtInvono.*" type="hidden" />
 						<input id="txtInvo.*" type="hidden" />
 					</td>
+					<td class="isXY" style="width:12%;"><input class="txt" id="textTrantime.*" type="text" style="width:98%;"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->
