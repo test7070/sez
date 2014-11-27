@@ -394,7 +394,7 @@
             }
             function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+                    var key = 'ABCDEFGHJKLMNPQRSTUVXYWZIO';
                     var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
                     var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
                     if ((n % 10) == 0)
