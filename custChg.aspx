@@ -30,7 +30,41 @@
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             q_xchg = 1;
             brwCount2 = 20;
-
+			
+			function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				include : ['txtDatea','txtCustno','txtComp','txtCno','txtAcomp','cmbCarteamno','txtMinusitemno','txtMinusitem','txtMinusmoney'
+					,'txtPlusitemno','txtPlusitem','txtPlusmoney','txtAcc1','txtAcc2','txtMemo'],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in curData.include) {
+							if (fbbm[i] == curData.include[j]) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
+			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -109,7 +143,9 @@
             }
 
             function btnIns() {
+                curData.copy();
                 _btnIns();
+                curData.paste();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
