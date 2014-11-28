@@ -211,7 +211,7 @@
             }
 
             function btnPrint() {
-                q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_car2.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -264,6 +264,13 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                for (var i = 0; i < brwCount; i++) {
+                		if($("#chkBrow_"+i).prop('checked')){
+                			$("#chkBrow_"+i).parent().parent().addClass("vewSel");
+                		}else{
+                			$("#chkBrow_"+i).parent().parent().removeClass("vewSel")
+                		}
+                }
                 
                 var rowslength = document.getElementById("table_bbs").rows.length - 1;
 				for (var j = 1; j < rowslength; j++) {
@@ -391,6 +398,9 @@
             .dview {
                 float: left;
                 width: 98%;
+            }
+            .vewSel {
+               background-color: lightpink;
             }
             .tview {
                 margin: 0;
