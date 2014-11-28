@@ -813,8 +813,12 @@
 						<td colspan='4'><input id="txtAddr_home" type="text" class="txt c7"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">E-mail</a></td>
+						<td><span> </span><a id='lblEmail' class="lbl"> </a></td>
 						<td colspan='5'><input id="txtEmail" type="text" class="txt c7"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWeb' class="lbl"> </a></td>
+						<td colspan='5'><input id="txtWeb" type="text" class="txt c7"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCredit" class="lbl" > </a></td>
