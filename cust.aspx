@@ -285,12 +285,26 @@
 				refreshBbm();
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					var t_noa='',t_comp='',t_comp2='';
+					if($('#txtNoa').val()!=''){
+						t_noa=$('#txtNoa').val();
+						if(t_noa.indexOf('-')>-1 && t_noa.length>5){
+							t_comp=$('#txtComp').val().split('-')[0];
+							if($('#txtComp').val().indexOf('-')>-1)
+								t_comp2=$('#txtComp').val().split('-')[1];	
+							t_noa=t_noa.split('-')[0];
+						}else{
+							t_noa=$('#txtNoa').val();
+							t_comp=$('#txtComp').val();
+						}
+					}
+					
 					$('#txtNoa').val('').hide();
 					$('#txtComp').val('').hide();
-					$('#txtXyNoa1').val('').show();
+					$('#txtXyNoa1').val(t_noa).show();
 					$('#txtXyNoa2').val('').show();
-					$('#txtXyComp1').val('').show();
-					$('#txtXyComp2').val('').show();
+					$('#txtXyComp1').val(t_comp).show();
+					$('#txtXyComp2').val(t_comp2).show();
 					$('#lblXyNoa2').val('').show();
 					$('#lblXyComp2').val('').show();
 				}
