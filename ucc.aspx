@@ -211,10 +211,36 @@
 						var as = _q_appendData("ucaucc", "", true);
 						if (as[0] != undefined) {
 							alert('物品編號重複!!');
-							$('#txtNoa').val('').focus();
+							$('#txtNoa').focus();
 						}
 						Unlock();
 						break;
+					case 'btnOk_checkNoa':
+						var as = _q_appendData("ucaucc", "", true);
+						if (as[0] != undefined) {
+							alert('物品編號重複!!');
+							$('#txtNoa').val('').focus();
+						}else{
+							var t_noa = trim($('#txtNoa').val());
+							if (t_noa.length != 0)
+								wrServer(t_noa);
+						}
+						Unlock();
+						break;
+					case 'btnOk_xy_checkNoa':
+						var as = _q_appendData("ucaucc", "", true);
+						if (as[0] != undefined) {
+							var t_seq=as[(as.length-1)].noa.substr(-3);
+							t_seq=('000'+(dec(t_seq)+1)).substr(-3);
+							
+							$('#txtNoa').val(trim($('#txtNoa').val())+'-'+t_seq);
+						}else{
+							$('#txtNoa').val(trim($('#txtNoa').val())+'-001');
+						}
+						
+						wrServer($('#txtNoa').val());
+						Unlock();
+						break;	
 					case 'uccga':
 						var as = _q_appendData("uccga", "", true);
 						if (as[0] != undefined) {
@@ -378,6 +404,10 @@
 				if ($('#Copy').is(':checked')) {
 					curData.paste();
 				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.isXY').show();
+				}
 				$('#txtNoa').focus();
 			}
 
@@ -394,15 +424,29 @@
 			}
 
 			function btnOk() {
-				var t_err = '';
-
-				$('#txtDate2').val(q_date());
-				$('#txtWorker').val(r_name);
-				if (t_err.length > 0) {
-					alert(t_err);
+				var t_noa = trim($('#txtNoa').val());
+				if(t_noa.length==0){
+					alert('請輸入物品編號!!');
 					return;
 				}
-				var t_noa = trim($('#txtNoa').val());
+				
+				$('#txtDate2').val(q_date());
+				$('#txtWorker').val(r_name);
+				
+				if (q_getPara('sys.project').toUpperCase()=='XY' && $('#xy_isprint').prop('checked')){
+					var t_where = "where=^^ left(noa,"+(t_noa.length+1)+")='" + t_noa + "-' ^^";
+					Lock();
+					q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_xy_checkNoa", r_accy);
+					return;
+				}
+				
+				if(t_noa.length > 0 && q_cur==1){
+					var t_where = "where=^^ noa='" + t_noa + "' ^^";
+					Lock();
+					q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_checkNoa", r_accy);
+					return;
+				}
+				
 				if (t_noa.length == 0)
 					q_gtnoa(q_name, t_noa);
 				else
@@ -423,6 +467,7 @@
 			var imagename='';
 			function refresh(recno) {
 				_refresh(recno);
+				$('.isXY').hide();
 				$('#div_stkcost').hide();
 				$('#btnStkcost').removeAttr('disabled');
 				$('#btnStkcost').val(q_getMsg('btnStkcost'));
@@ -623,6 +668,10 @@
 					<td><a id='lblNoa' class="lbl"> </a></td>
 					<td colspan="5">
 						<input type="text" id="txtNoa" class="txt c3"/>
+						<div class="isXY" style="float:left;display: none;">
+							<input id="xy_isprint" type="checkbox" />
+							<span> </span><a> 印刷品</a>
+						</div>
 						<div style="float:left;">
 							<input id="Copy" type="checkbox" />
 							<span> </span><a id="lblCopy"> </a>

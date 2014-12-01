@@ -538,6 +538,11 @@
                 	$('#q_report').find('span.radio').eq(13).parent().click();
             }
 		</script>
+		<style type="text/css">
+			#frameReport table{
+					border-collapse: collapse;
+				}
+		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"

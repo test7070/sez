@@ -61,10 +61,6 @@
 				$('.isXY').hide();
 			}
 			
-			$('#txtSpec').click(function(){
-				if (q_cur==1 || q_cur==2)
-					q_msg($('#txtSpec'), "格式：規格1,規格2,規格3,....");
-			});
 		}
 		
 		function q_boxClose(s2) { 
@@ -354,6 +350,12 @@
 			<tr class="isXY">
 			   <td class="td1"><span> </span><a class="lbl">報價規格</a></td>
 			   <td class="td2" colspan="3"><input id="txtSpec"  type="text" class="txt c1 isXY"/></td>
+			</tr>	
+			<tr class="isXY">
+			   <td class="td1" colspan="4">
+			   		<span style="float: left;"> </span>
+					<a class="lbl" style="float: left;">報價規格填寫格式：規格1#預設值#^下拉選項1^下拉選項2^...^,規格2,規格3,.... </a>
+				</td>
 			</tr>	
 		</table>
 		</div>
