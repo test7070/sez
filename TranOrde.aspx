@@ -19,12 +19,13 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 
-			q_tables = 's';
+			q_tables = 't';
 			var q_name = "tranorde";
 			var q_readonly = ['txtNoa', 'txtTranquatno','txtTweight2','txtTtrannumber', 'txtTranquatnoq', 'txtContract', 'txtWorker', 'txtWorker2','txtCasetype','txtCasetype2'];
 			var q_readonlys = [];
 			var bbsNum = [];
 			var bbsMask = new Array(['txtTrandate', '999/99/99']);
+			var bbtMask = new Array(['txtDatea', '999/99/99']);
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99'], ['txtDldate', '999/99/99'], ['txtCldate', '999/99/99'], 
 					['txtNodate', '999/99/99'], ['txtMadate', '999/99/99'], ['txtRedate', '999/99/99'], ['txtStrdate', '999/99/99'],
@@ -58,6 +59,7 @@
 				var t_where = '';
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
+				bbtKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
@@ -320,10 +322,13 @@
 					sum();
 				});
 				$('#btnTweight2').click(function (e) {
-					if(!emp($('#txtNoa').val())){
+					$('#dbbt').toggle();
+					if(q_cur==1 || q_cur==2)
+						sum();
+					/*if(!emp($('#txtNoa').val())){
 						$('#divTranordet').toggle();
 						sum();
-					}
+					}*/
 				});
 				$('#btnOrdet_Top').click(function(){
 					LoadTranOrdetTable(0);
@@ -370,31 +375,50 @@
 			}
 
 			function display() {
-				$('.x_chk').prop('checked',false);
-				var t_item = $('#txtCasetype').val().split(',');
-				for (var i in t_item ) {
-					n = t_casetype.indexOf(t_item[i]);
-					if (n >= 0)
-						$('#x_chk_' + n).prop('checked', true);
+				try{
+					$('.x_chk').prop('checked',false);
+					var t_item = $('#txtCasetype').val().split(',');
+					for (var i in t_item ) {
+						n = t_casetype.indexOf(t_item[i]);
+						if (n >= 0)
+							$('#x_chk_' + n).prop('checked', true);
+					}
+					$('.y_chk').prop('checked',false);
+					var t_item = $('#txtCasetype2').val().split(',');
+					for (var i in t_item ) {
+						n = t_casetype2.indexOf(t_item[i]);
+						if (n >= 0)
+							$('#y_chk_' + n).prop('checked', true);
+					}
+				}catch(e){
+					alert('display()  error');
 				}
-				$('.y_chk').prop('checked',false);
-				var t_item = $('#txtCasetype2').val().split(',');
-				for (var i in t_item ) {
-					n = t_casetype2.indexOf(t_item[i]);
-					if (n >= 0)
-						$('#y_chk_' + n).prop('checked', true);
-				}
+				
 			}
 
 			function bbsAssign() {
-				_bbsAssign();
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
-					/*if (!$('#txtTrandate_' + i).hasClass('isAssign')) {
-						$('#txtTrandate_' + i).addClass('isAssign');
-					}*/
+                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	
+                    }
 				}
+				_bbsAssign();
 			}
+			function bbtAssign() {
+                for (var i = 0; i < q_bbtCount; i++) {
+                    $('#lblNo__' + i).text(i + 1);
+                    if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+                    	$('#txtWeight__'+i).change(function(e){
+                    		sum();
+                    	});
+                    	$('#txtTrannumber__'+i).change(function(e){
+                    		sum();
+                    	});
+                    }
+                }
+                _bbtAssign();
+            }
 
 			function bbsSave(as) {
 				if (!as['caseno']) {
@@ -406,18 +430,18 @@
 			}
 
 			function sum() {
-				//計算TranOrdet
-				if (q_cur == 1 || q_cur == 2) {
-					var t_weight2 = 0,t_trannumber = 0;
-					for(var i = 0;i< TranOrdeArray.length;i++){
-						if(!emp(TranOrdeArray[i].datea)){
-							t_weight2 = dec(t_weight2) + dec(TranOrdeArray[i].weight2);
-							t_trannumber = dec(t_trannumber) + dec(TranOrdeArray[i].trannumber);
-						}
+				if (!(q_cur == 1 || q_cur == 2))
+					return;
+				var t_weight2 = 0,t_trannumber = 0;
+				for(var i=0;i<q_bbtCount;i++){
+					if($('#txtDatea__'+i).val().length>0){
+						t_weight2 = q_add(t_weight2,q_float('txtWeight2__'+i));
+						t_trannumber = q_add(t_trannumber,q_float('txtTrannumber__'+i));
 					}
-					$('#txtTweight2').val(round(t_weight2,2));
-					$('#txtTtrannumber').val(round(t_trannumber,2));
+						
 				}
+				$('#txtTweight2').val(round(t_weight2,2));
+				$('#txtTtrannumber').val(round(t_trannumber,2));	
 			}
 
 			function q_boxClose(s2) {
@@ -696,8 +720,8 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				q_func('qtxt.query.tranordetinsert','tranordet.txt,tranordetinsert,'+encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
-				TranOrdetNextFields(1);
+				//q_func('qtxt.query.tranordetinsert','tranordet.txt,tranordetinsert,'+encodeURI(r_accy) + ';' + encodeURI($('#txtNoa').val()));
+				//TranOrdetNextFields(1);
 			}
 
 			function refresh(recno) {
@@ -726,7 +750,7 @@
 					}
 				}
 				//載入tranordet
-				var t_noa =trim($('#txtNoa').val()); 
+				/*var t_noa =trim($('#txtNoa').val()); 
 				if(!emp(t_noa) && t_noa != 'AUTO'){
 					
 					t_where = "where=^^noa='" + t_noa + "'^^";
@@ -734,7 +758,7 @@
 					Lock(1,{opacity:0});
 				};
 				TranOrdetNextFields(0);
-				TranOrdetNextFields(1);
+				TranOrdetNextFields(1);*/
 			}
 
 			function readonly(t_para, empty) {
@@ -999,6 +1023,24 @@
 			#tableTranordet tr td input[type="text"]{
 				width:80px;
 			}
+            #tbbt {
+                margin: 0;
+                padding: 2px;
+                border: 2px pink double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: pink;
+                width: 100%;
+            }
+            #tbbt tr {
+                height: 35px;
+            }
+            #tbbt tr td {
+                text-align: center;
+                border: 2px pink double;
+            }
 		</style>
 	</head>
 	<body 
@@ -1499,5 +1541,29 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<div id="dbbt" style="position: absolute;top:250px; left:450px; display:none;width:400px;">
+			<table id="tbbt">
+				<tbody>
+					<tr class="head" style="color:white; background:#003366;">
+						<td style="width:20px;">
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+						</td>
+						<td style="width:20px;"></td>
+						<td style="width:100px; text-align: center;">日期</td>
+						<td style="width:100px; text-align: center;">碼頭重</td>
+						<td style="width:100px; text-align: center;">車次</td>
+					</tr>
+					<tr class="detail">
+						<td>
+							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+							<input class="txt" id="txtNoq..*" type="text" style="display:none;"/>
+						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+						<td><input class="txt" id="txtDatea..*" type="text" style="width:95%;"/></td>
+						<td><input class="txt" id="txtWeight2..*" type="text" style="width:95%;text-align: right;"/></td>
+						<td><input class="txt" id="txtTrannumber..*" type="text" style="width:95%;text-align: right;"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</body>
 </html>
