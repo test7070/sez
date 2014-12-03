@@ -294,6 +294,8 @@
 					$('#div_cugtweek').css('left', $('#div_cugt').offset().left-$('#div_cugtweek').width()-5);
 					
 					var tmp_checkbox='',t_week=1;
+					if(q_holiday==undefined)
+						q_holiday=[];
 					while(week_bdate<=week_edate){
 						if(q_holiday.indexOf(week_bdate)>-1 || getweek(week_bdate)=='日' || (getweek(week_bdate)=='六' && q_getPara('sys.saturday').toString()=='0'))
 							tmp_checkbox += "<div style='float:left;text-align: center;'>&nbsp;<a class='lbl' id='week_" + t_week + "' style='color:red;'>" + week_bdate +"("+getweek(week_bdate)+")</a>&nbsp;<BR>"
