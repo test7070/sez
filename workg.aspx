@@ -522,7 +522,7 @@
 											}else{
 												$('#vtunordb_'+i).text('v');
 											}
-											if(as[j].ordano!=''){
+											if(as[j].ordano!='' && as[j].ordano.substr(0,2)=='OA'){
 												$('#vtunorda_'+i).text('');
 											}else{
 												$('#vtunorda_'+i).text('v');
