@@ -80,13 +80,15 @@
 				t_tggno = $('#txtTggno').val();
 				t_comp = $('#txtComp').val();
 				t_groupano = $('#cmbGroupano').val();
+				t_style = $('#txtStyle').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +
 										q_sqlPara2("product", t_product) +
 										q_sqlPara2("processno", t_processno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
-										q_sqlPara2("tggno", t_tggno);
+										q_sqlPara2("tggno", t_tggno)+
+										q_sqlPara2("style", t_style);
 				if (t_process.length > 0)
 					t_where += " and charindex('" + t_process + "',process)>0";
 				if (t_comp.length > 0)
@@ -118,6 +120,10 @@
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblProduct'> </a></td>
 					<td><input class="txt c1" id="txtProduct" type="text" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek' style="width:20%;"><a id='lblStyle'> </a></td>
+					<td><input class="txt c1" id="txtStyle" type="text" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek' style="width:20%;"><a id='lblTypea'> </a></td>
