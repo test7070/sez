@@ -889,15 +889,16 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1500px;">
+		<div class='dbbs' style="width: 1800px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:30px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:40px;"><a id='lblNoq'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblUno'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:120px;">車型</td>
 					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
@@ -911,9 +912,8 @@
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-					<td>
-						<input id="txtNoq.*" type="text" class="txt c1"/>
-					</td>
+					<td><input id="txtNoq.*" type="text" class="txt c1"/></td>
+					<td><input id="txtUno.*" type="text" class="txt c1"/></td>
 					<td>
 						<input class="btn" id="btnProductno.*" type="button" value='...' style=" font-weight: bold; width: 16%;" />
 						<input id="txtProductno.*" type="text" style="width: 75%;"/>
