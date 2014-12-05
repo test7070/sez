@@ -105,7 +105,7 @@
 							if (t_edate.length == 0)
 								t_edate = '999/99/99'
 							
-							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' ";
+							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' and left(a.noa,2)!='WJ' ";
 						}
 						t_where1 = "where[1]=^^ "+t_where1+" ^^";
 						q_gt('workk_works', t_where+t_where1, 0, 0, 0, "", r_accy);
@@ -152,6 +152,11 @@
 							as[i].unmount=q_sub(dec(as[i].mount),dec(as[i].gmount));
 							as[i].diffmount=q_mul(q_sub(dec(as[i].smount),dec(as[i].unmount)),-1);
 							if(as[i].diffmount<0){
+								as.splice(i, 1);
+								i--;
+								continue;
+							}
+							if(as[i].unmount<0){
 								as.splice(i, 1);
 								i--;
 							}
