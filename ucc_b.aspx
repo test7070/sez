@@ -49,8 +49,10 @@
 			        	$('#combTypea_'+j).text('');
 			        
 			        for (var k = 0; k < fbbs.length; k++) {
-			        	$('#'+fbbs[k]+'_'+j).attr('disabled', 'disabled');
-		            	$('#'+fbbs[k]+'_'+j).css('background', t_background2);
+			        	if(fbbs[k]!='radSel'){
+				        	$('#'+fbbs[k]+'_'+j).attr('disabled', 'disabled');
+			            	$('#'+fbbs[k]+'_'+j).css('background', t_background2);
+		            	}
 					}
 					$('#combTypea_'+j).attr('disabled', 'disabled');
 		            $('#combTypea_'+j).css('background', t_background2);

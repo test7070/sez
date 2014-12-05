@@ -22,35 +22,59 @@
 
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_workgv');
+                //q_gf('', 'z_workgv');
+                q_gt('uccga', '', 0, 0, 0, "");
+                q_gt('uccgb', '', 0, 0, 0, "");
+                q_gt('uccgc', '', 0, 0, 0, "");
+                
             });
+            
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_workgv',
                     options : [{
-                        type : '1',
+                        type : '1',//[1,2]
                         name : 'xmon'
                     }, {
-                        type : '2',
+                        type : '2',//[3,4]
                         name : 'xproduct',
                         dbf : 'ucaucc',
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
-                    },{
-                        type : '8', //[5]
+                    }, {
+						type : '6', //[5]
+						name : 'xstyle'
+					},{
+                        type : '8', //[6]
                         name : 'showworkg',
                         value : "1@只顯示需排產".split(',')
                     },{
-                        type : '8', //[6]
+                        type : '8', //[7]
                         name : 'showordb',
                         value : "1@只顯示需備料".split(',')
                     },{
-                        type : '8', //[7]
+                        type : '8', //[8]
                         name : 'showforecast',
                         value : "1@只顯示有預測資料".split(',')
-                    }]
+                    }, {
+						type : '5', //[9]/
+						name : 'xgroupano',
+						value : uccgaItem.split(',')
+					}, {
+						type : '5', //[10]/
+						name : 'xgroupbno',
+						value : uccgbItem.split(',')
+					}, {
+						type : '5', //[11]/
+						name : 'xgroupcno',
+						value : uccgcItem.split(',')
+					}]
                 });
+                
                 q_popAssign();
+				q_getFormat();
+				q_langShow();
+                
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon1').val(q_date().substr(0, 6));
  				$('.q_report .option:first').css('width','700px')
@@ -58,13 +82,16 @@
 				$('#Xproduct .c2').css('width','130px');
 				$('#Xproduct .c3').css('width','130px');
 				$('#Xmon').css('width','340px');
-				$('#Showworkg').css('width','340px');
-				$('#Showordb').css('width','340px');
-				$('#Showforecast').css('width','340px');
-				$('#chkShowworkg').css('width','250px');
-				$('#chkShowordb').css('width','250px');
-				$('#chkShowforecast').css('width','250px');
-				$('#chkShowforecast [type]=checkbox').prop('checked','ture')
+				$('#Showworkg').css('width','340px').css('height','');
+				$('#Showordb').css('width','340px').css('height','');
+				$('#Showforecast').css('width','340px').css('height','');
+				$('#chkShowworkg').css('width','260px').css('margin-top','5px');
+				$('#chkShowordb').css('width','260px').css('margin-top','5px');
+				$('#chkShowforecast').css('width','260px').css('margin-top','5px');
+				$('#chkShowforecast [type]=checkbox').prop('checked','ture');
+				$('.q_report .option div.a2').css('width','340px');
+				$('.q_report .option div .c5').css('width','240px');
+				$('#Xstyle').css('width','345px');
 				
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
@@ -82,9 +109,40 @@
 
             function q_boxClose(s2) {
             }
-
-            function q_gtPost(s2) {
-            }
+			var firstRun = false;
+			var uccgaItem = '';
+			var uccgbItem = '';
+			var uccgcItem = '';
+			
+            function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'uccga':
+						var as = _q_appendData("uccga", "", true);
+						uccgaItem = "#non@全部";
+						for ( i = 0; i < as.length; i++) {
+							uccgaItem = uccgaItem + (uccgaItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
+						break;
+					case 'uccgb':
+						var as = _q_appendData("uccgb", "", true);
+						uccgbItem = "#non@全部";
+						for ( i = 0; i < as.length; i++) {
+							uccgbItem = uccgbItem + (uccgbItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
+						break;
+					case 'uccgc':
+						var as = _q_appendData("uccgc", "", true);
+						uccgcItem = "#non@全部";
+						for ( i = 0; i < as.length; i++) {
+							uccgcItem = uccgcItem + (uccgcItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].noa + ' . ' + as[i].namea;
+						}
+						break;
+				}
+				if (uccgaItem.length > 0 && uccgbItem.length > 0 && uccgcItem.length > 0 && !firstRun) {
+					q_gf('', 'z_workgv');
+					firstRun=true;
+				}
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"

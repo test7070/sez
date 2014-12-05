@@ -167,7 +167,7 @@
 						$('#btnOrda2ordb').css('font-weight', 'bold');
 						$('#btnOrda2ordb').css('color', 'blue');
 					}
-					if(wParent.getElementById("vtunorda_"+parent_recno).innerHTML==''){
+					if(wParent.getElementById("vtunorda_"+parent_recno).innerHTML=='' && wParent.getElementById("txtOrdano").value.substr(0,2)=='OA'){
 						$('#btnOrdabox').removeAttr('disabled');
 						$('#btnOrdabox').css('font-weight', 'bold');
 						$('#btnOrdabox').css('color', 'blue');
@@ -327,11 +327,15 @@
 						if (as[0] != undefined) {
 							var isordb=false;
 							var isorda=false;
+							var isordano=false;
 							for (var i = 0; i < as.length; i++) {
 								if(as[i].ordano!='')
 									isorda=true;
 								if(as[i].ordbno!='')
 									isordb=true;
+									
+								if(as[i].ordano!='' && as[i].ordano.substr(0,2)=='OA' &&!isordano)
+									isordano=true;
 							}
 							if(isordb){
 								$('#btnOrda').attr('disabled', 'disabled');
@@ -367,8 +371,8 @@
 								$('#btnOrda2ordb').css('font-weight', 'bold');
 								$('#btnOrda2ordb').css('color', 'blue');
 							}
-							if(isorda){
-								$('#btnOrdabox').removeAttr('readonly');
+							if(isorda && isordano){
+								$('#btnOrdabox').removeAttr('disabled');
 								$('#btnOrdabox').css('font-weight', 'bold');
 								$('#btnOrdabox').css('color', 'blue');
 							}else{

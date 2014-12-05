@@ -88,6 +88,25 @@
 					alert(t_err);
 					return;
 				}
+				
+				var t_date,t_year,t_month,t_day;
+				t_date = new Date((dec($('#txtMon').val().substr(0,3))+1911)+'/'+$('#txtMon').val().substr(4,2)+'/01');
+	            t_date.setDate(35);
+	            t_date.setDate(0);
+	            t_year = t_date.getUTCFullYear()-1911;
+	            t_year = t_year>99?t_year+'':'0'+t_year;
+	            t_month = t_date.getUTCMonth()+1;
+	            t_month = t_month>9?t_month+'':'0'+t_month;
+	            t_day = t_date.getDate();
+	            t_day = t_day>9?t_day+'':'0'+t_day;
+	            
+				for (var j = 0; j < q_bbsCount; j++) {
+					if(emp($('#txtDatea_'+j).val()) && !emp($('#txtProductno_'+j).val())){
+						$('#txtDatea_'+j).val(t_year+'/'+t_month+'/'+t_day);
+					}
+				} // j
+				
+				
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if(s1.length == 0 || s1 == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_saleforecast')+ $('#txtMon').val(), '/', ''));

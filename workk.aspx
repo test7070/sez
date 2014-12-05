@@ -87,6 +87,30 @@
 					var t_where = "where=^^ ['" + q_date() + "','','') group by productno order by productno^^";
 					q_gt('work_stk', t_where, 0, 0, 0, "work_stk", r_accy);
 				});
+				
+				$('#btnWorkImport').click(function() {
+					if(q_cur==1 || q_cur==2){
+						if(q_chkEmpField([['txtStationno', q_getMsg('lblStation')],['txtStoreinno', q_getMsg('lblStoreinno')]])!=""){
+							alert(q_chkEmpField([['txtStationno', q_getMsg('lblStation')],['txtStoreinno', q_getMsg('lblStoreinno')]]));
+							return;
+						}
+						
+						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreinno').val() + "','') where productno=b.productno ^^";
+						
+						var t_where1 = "1=1 and isnull(a.enda,0)!='1' and isnull(a.isfreeze,0)!= '1'";
+						t_where1+=" and a.stationno='"+$('#txtStationno').val()+"' ";
+						var t_bdate = $.trim($('#txtBdate').val());
+						var t_edate = $.trim($('#txtEdate').val());
+						if (t_bdate.length > 0 || t_edate.length > 0) {
+							if (t_edate.length == 0)
+								t_edate = '999/99/99'
+							
+							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' ";
+						}
+						t_where1 = "where[1]=^^ "+t_where1+" ^^";
+						q_gt('workk_works', t_where+t_where1, 0, 0, 0, "", r_accy);
+					}
+				});
 
 				$('#btnClose_div_stk').click(function() {
 					$('#div_stk').toggle();
@@ -122,6 +146,26 @@
 			//儲存目前倉庫庫存
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'workk_works':
+						var as = _q_appendData("stkucc", "", true);
+						for (var i = 0; i < as.length; i++) {
+							as[i].unmount=q_sub(dec(as[i].mount),dec(as[i].gmount));
+							as[i].diffmount=q_mul(q_sub(dec(as[i].smount),dec(as[i].unmount)),-1);
+							if(as[i].diffmount<0){
+								as.splice(i, 1);
+								i--;
+							}
+						}
+						as.sort(function(a,b){
+							if (a.productno< b.productno)
+								return -1;
+							if (a.productno > b.productno)
+								return 1;
+							return 0;}
+						);
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtStyle,txtUnit,txtMount', as.length, as, 'productno,product,spec,style,unit,diffmount', '');
+						
+					break;
 					case 'getstore':
 						var as = _q_appendData("store", "", true);
 						var t_storeno=false,t_storeinno=false;
@@ -797,6 +841,7 @@
 							<input id="txtStoreinno" type="text" class="txt c2"/>
 							<input id="txtStorein" type="text" class="txt c3"/>
 						</td>
+						<td class="td5"><input id="btnWorkImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -829,9 +874,10 @@
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:220px;"><a id='lblUno_s'> </a></td>
 					<td align="center" style="width:220px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:220px;"><a id='lblProduct_s'> </a></td>
-					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
+					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:250px"><a id='lblMemo_s'> </a></td>
@@ -842,6 +888,7 @@
 						<input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input id="txtUno.*" type="text" class="txt c1"/></td>
 					<td>
 						<input class="txt" id="txtProductno.*" type="text" style="width:85%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />

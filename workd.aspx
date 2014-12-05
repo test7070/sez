@@ -15,12 +15,14 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			q_desc = 1;
-			q_tables = 's';
+			q_tables = 't';
 			var q_name = "workd";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
+			var decbbt = ['weight', 'mount'];
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtTotal','txtAccno'];
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWk_mount','txtWk_inmount','txtWk_unmount'];
+			var q_readonlyt = [];
 			var bbmNum = [['txtMoney', 15, 0, 1], ['txtTax', 15, 0, 1], ['txtTotal', 15, 0, 1]];
 			var bbsNum = [
 				['txtBorn', 15, 2, 1], ['txtMount', 15, 2, 1], ['txtPrice', 15, 2, 1],
@@ -30,6 +32,7 @@
 			];
 			var bbmMask = [];
 			var bbsMask = [];
+			var bbtNum = [['txtMount', 15, 2, 1],['txtWeight', 15, 2, 1]];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -39,12 +42,15 @@
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx']
+				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx'],
+				['txtUno__', '', 'view_uccc', 'uno,productno,product', '0txtUno__,txtProductno__,txtProduct__', ''],
+				['txtProductno__', '', 'ucaucc', 'noa,product', 'txtProductno__,txtProduct__', '']
 			);
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
+				bbtKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
@@ -466,6 +472,13 @@
 					});
 				}
 			}
+			
+			function bbtAssign() {
+                for (var i = 0; i < q_bbtCount; i++) {
+                    $('#lblNo__' + i).text(i + 1);
+				}
+                _bbtAssign();
+            }
 
 			function btnIns() {
 				_btnIns();
@@ -747,6 +760,27 @@
 			input[type="text"], input[type="button"], select {
 				font-size: medium;
 			}
+			#dbbt {
+                width: 900px;
+            }
+            #tbbt {
+                margin: 0;
+                padding: 2px;
+                border: 2px pink double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: pink;
+                width: 100%;
+            }
+            #tbbt tr {
+                height: 35px;
+            }
+            #tbbt tr td {
+                text-align: center;
+                border: 2px pink double;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -881,24 +915,24 @@
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td style="width:200px;" align="center"><a id='lblProductnos'></a></td>
-					<td style="width:220px;" align="center"><a id='lblProduct_s'></a></td>
-					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'></a></td>
-					<td style="width:30px;" align="center"><a id='lblUnit'></a></td>
-					<td style="width:100px;" align="center"><a id='lblBorn'></a></td>
-					<td style="width:80px;" align="center"><a id='lblWk_mounts'></a></td>
-					<td style="width:80px" align="center"><a id='lblWk_inmounts'></a></td>
-					<td style="width:80px;" align="center"><a id='lblWk_unmounts'></a></td>
-					<td style="width:80px;" align="center"><a id='lblMounts'></a></td>
-					<td style="width:150px;" align="center"><a id='lblStores'></a></td>
-					<td style="width:100px;;" align="center"><a id='lblWmounts'></a></td>
-					<td style="width:100px;" align="center"><a id='lblPrice_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblTotal_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblInmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblOutmount_s'></a></td>
-					<td style="width:100px;" align="center"><a id='lblErrmount'></a></td>
-					<td style="width:200px;" align="center"><a id='lblMemos'></a></td>
-					<td style="width:200px;" align="center"><a id='lblWorknos'></a></td>
+					<td style="width:200px;" align="center"><a id='lblProductnos'> </a></td>
+					<td style="width:220px;" align="center"><a id='lblProduct_s'> </a></td>
+					<td style="width:95px;" align="center" class="isStyle"><a id='lblStyle'> </a></td>
+					<td style="width:30px;" align="center"><a id='lblUnit'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblBorn'> </a></td>
+					<td style="width:80px;" align="center"><a id='lblWk_mounts'> </a></td>
+					<td style="width:80px" align="center"><a id='lblWk_inmounts'> </a></td>
+					<td style="width:80px;" align="center"><a id='lblWk_unmounts'> </a></td>
+					<td style="width:80px;" align="center"><a id='lblMounts'> </a></td>
+					<td style="width:150px;" align="center"><a id='lblStores'> </a></td>
+					<td style="width:100px;;" align="center"><a id='lblWmounts'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblPrice_s'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblTotal_s'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblInmount_s'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblOutmount_s'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblErrmount'> </a></td>
+					<td style="width:200px;" align="center"><a id='lblMemos'> </a></td>
+					<td style="width:200px;" align="center"><a id='lblWorknos'> </a></td>
 					<td style="width:30px;" align="center"><a id='lblStks'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -946,6 +980,34 @@
 					<td align="center">
 						<input class="btn" id="btnStk.*" type="button" value='.' style="width:1%;" />
 					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="dbbt" >
+			<table id="tbbt">
+				<tr class="head" style="color:white; background:#003366;">
+					<td style="width:20px;"><input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/></td>
+					<td style="width:20px;"> </td>
+					<td style="width:200px; text-align: center;"><a id='lblUno_t'> </a></td>
+					<td style="width:200px; text-align: center;"><a id='lblProductno_t'> </a></td>
+					<td style="width:200px; text-align: center;"><a id='lblProduct_t'> </a></td>
+					<td style="width:100px; text-align: center;"><a id='lblMount_t'> </a></td>
+					<td style="width:100px; text-align: center;"><a id='lblWeight_t'> </a></td>
+				</tr>
+				<tr>
+					<td>
+						<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+					</td>
+					<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td>
+						<input class="txt" id="txtUno..*" type="text" style="width:95%;"/>
+						<input id="btnUno..*" type="button" style="display:none;">
+					</td>
+					<td><input class="txt" id="txtProductno..*" type="text" style="width:95%;float:left;"/></td>
+					<td><input class="txt" id="txtProduct..*" type="text" style="width:95%;float:left;"/></td>
+					<td><input class="txt" id="txtMount..*" type="text" style="width:95%;text-align: right;"/></td>
+					<td><input class="txt" id="txtWeight..*" type="text" style="width:95%;text-align: right;"/></td>
 				</tr>
 			</table>
 		</div>
