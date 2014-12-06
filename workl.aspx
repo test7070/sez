@@ -1093,12 +1093,12 @@
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:200px;"><a id='lblUno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:250px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblUno_s'> </a></td>
 					<td align="center" style="width:250px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblStk_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTheory_s'> </a></td>
@@ -1108,7 +1108,6 @@
 						<input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input id="txtUno.*" type="text" class="txt c1"/></td>
 					<td>
 						<input class="txt" id="txtProductno.*" type="text" style="width:85%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:1%;" />
@@ -1120,6 +1119,7 @@
 					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+					<td><input id="txtUno.*" type="text" class="txt c1"/></td>
 					<td>
 						<input id="txtMemo.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" />
