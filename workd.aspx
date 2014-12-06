@@ -43,6 +43,7 @@
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec', 'txtProductno_,txtProduct_,txtSpec_', 'ucaucc_b.aspx'],
+				['txtStoreno__', 'btnStore__', 'store', 'noa,store', 'txtStoreno__,txtStore__', 'store_b.aspx'],
 				['txtUno__', '', 'view_uccc', 'uno,productno,product', '0txtUno__,txtProductno__,txtProduct__', ''],
 				['txtProductno__', '', 'ucaucc', 'noa,product', 'txtProductno__,txtProduct__', '']
 			);
@@ -761,7 +762,7 @@
 				font-size: medium;
 			}
 			#dbbt {
-                width: 900px;
+                width: 1100px;
             }
             #tbbt {
                 margin: 0;
@@ -993,6 +994,7 @@
 					<td style="width:200px; text-align: center;"><a id='lblProduct_t'> </a></td>
 					<td style="width:100px; text-align: center;"><a id='lblMount_t'> </a></td>
 					<td style="width:100px; text-align: center;"><a id='lblWeight_t'> </a></td>
+					<td style="width:200px; text-align: center;"><a id='lblStore_t'> </a></td>
 				</tr>
 				<tr>
 					<td>
@@ -1008,6 +1010,11 @@
 					<td><input class="txt" id="txtProduct..*" type="text" style="width:95%;float:left;"/></td>
 					<td><input class="txt" id="txtMount..*" type="text" style="width:95%;text-align: right;"/></td>
 					<td><input class="txt" id="txtWeight..*" type="text" style="width:95%;text-align: right;"/></td>
+					<td>
+						<input class="btn" id="btnStore..*" type="button" value='.' style="width:1%;float: left;" />
+						<input id="txtStoreno..*" type="text" class="txt c2" style="width: 33%;"/>
+						<input id="txtStore..*" type="text" class="txt c3" style="width: 50%;"/>
+					</td>
 				</tr>
 			</table>
 		</div>

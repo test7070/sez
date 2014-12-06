@@ -41,14 +41,20 @@
 					}, {/*1*/
 						type : '6', //[2]
 						name : 'xnoa'
-					}, {/*1*/
+					}, {
 						type : '0', //[3]
 						name : 'xcubtype',
 						value : q_getPara('cubpi.typea')
-					}, {/*1*/
+					}, {/*2*/
 						type : '6', //[4]
 						name : 'xenddate'
-					}]
+					}, {/*3*/
+                        type : '2',
+                        name : 'product',//[5][6]
+                        dbf : 'ucaucc',
+                        index : 'noa,product',
+                        src : 'ucaucc_b.aspx'
+                    }]
 				});
 				q_langShow();
 				q_popAssign();
