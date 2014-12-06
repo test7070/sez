@@ -17,7 +17,7 @@
 
 			q_tables = 's';
 			var q_name = "cng";
-			var q_readonly = ['txtNoa','txtTgg','txtCardeal','txtStorein','txtStore','txtNamea', 'txtWorker'];
+			var q_readonly = ['txtNoa','txtTgg','txtCardeal','txtStorein','txtStore','txtNamea', 'txtWorker', 'txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [['txtPrice', 10, 0, 1], ['txtTranmoney', 15, 0, 1], ['txtTranadd', 15, 2, 1]];
 			var bbsNum = [['txtMount', 15, 2, 1]];
@@ -200,7 +200,12 @@
 						return;
 					}
 				}
-				$('#txtWorker').val(r_name);
+				
+				if (q_cur == 1)
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
+					
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cng') + $('#txtDatea').val(), '/', ''));
@@ -231,11 +236,6 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
-				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
-					$('.class_it').show();
-				} else {
-					$('.class_it').hide();
-				}
 			}
 
 			function btnModi() {
@@ -269,11 +269,6 @@
 				var thisVal = $('#txtCardealno').val();
 				var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
 				q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
-				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
-					$('.class_it').show();
-				} else {
-					$('.class_it').hide();
-				}
 			}
 
 			function btnPrint() {
@@ -308,12 +303,6 @@
 				$('#lblStorek').css('display', 'none');
 				$('#lblStoreink').css('display', 'none');
 				
-				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1) {
-					$('.class_it').show();
-					$('.it').css('text-align','left');
-				} else {
-					$('.class_it').hide();
-				}
 				HiddenTreat();
 			}
 
@@ -635,18 +624,19 @@
 						<td class='td3'><span> </span><a id="lblTranmoney" class="lbl" > </a></td>
 						<td class="td4"><input id="txtTranmoney" type="text" class="txt c1 num"/></td>
 					</tr>
-					<tr class="tr7">
-						<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
-							<input id="txtWorkkno" type="hidden" />
-						</td>
-					</tr>
 					<tr class="tr5">
 						<td class='td1'><span> </span><a id="lblSssno" class="lbl btn"> </a></td>
 						<td class="td2"><input id="txtSssno" type="text" class="txt c1"/></td>
 						<td class="td2"><input id="txtNamea" type="text" class="txt c1"/></td>
 						<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr7">
+						<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea>
+							<input id="txtWorkkno" type="hidden" />
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -661,7 +651,7 @@
 					<td style="width:25%;" align="center"><a id='lblProducts'> </a></td>
 					<td style="width:4%;" align="center"><a id='lblUnit'> </a></td>
 					<td style="width:8%;" align="center"><a id='lblMounts'> </a></td>
-					<td style="width:8%;" align="center" class="class_it"><a id='lblClass'> </a></td>
+					<td style="width:15%;" align="center"><a id='lblUno'> </a></td>
 					<td align="center"><a id='lblMemos'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -673,7 +663,7 @@
 					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
 					<td><input class="txt c1" id="txtUnit.*" type="text" /></td>
 					<td><input class="txt num c1" id="txtMount.*" type="text"/></td>
-					<td class="class_it"><input class="txt c1" id="txtClass.*" type="text"/></td>
+					<td><input class="txt c1" id="txtUno.*" type="text"/></td>
 					<td>
 						<input class="txt c1" id="txtMemo.*" type="text"/>
 						<input id="txtNoq.*" type="hidden" />
