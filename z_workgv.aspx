@@ -42,30 +42,36 @@
                         index : 'noa,product',
                         src : 'ucaucc_b.aspx'
                     }, {
-						type : '6', //[5]
+                        type : '2',//[5,6]
+                        name : 'xtgg',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
+                    }, {
+						type : '6', //[7]
 						name : 'xstyle'
 					},{
-                        type : '8', //[6]
+                        type : '8', //[8]
                         name : 'showworkg',
                         value : "1@只顯示需排產".split(',')
                     },{
-                        type : '8', //[7]
+                        type : '8', //[9]
                         name : 'showordb',
                         value : "1@只顯示需備料".split(',')
                     },{
-                        type : '8', //[8]
+                        type : '8', //[10]
                         name : 'showforecast',
                         value : "1@只顯示有預測資料".split(',')
                     }, {
-						type : '5', //[9]/
+						type : '5', //[11]/
 						name : 'xgroupano',
 						value : uccgaItem.split(',')
 					}, {
-						type : '5', //[10]/
+						type : '5', //[12]/
 						name : 'xgroupbno',
 						value : uccgbItem.split(',')
 					}, {
-						type : '5', //[11]/
+						type : '5', //[13]/
 						name : 'xgroupcno',
 						value : uccgcItem.split(',')
 					}]
