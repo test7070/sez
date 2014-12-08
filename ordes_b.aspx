@@ -89,8 +89,8 @@
 				 $('#btnNext').hide();
 				 $('#btnBott').hide();
 				 */
-				if (q_getPara('sys.comp').indexOf('永勝') > -1) {
-					$('.uu').hide();
+				if (q_getPara('sys.project').toUpperCase()!='RA') {
+					$('.ra').hide();
 				}
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.weight').hide();
@@ -126,7 +126,7 @@
 					<td align="center" class="weight"><a id='lblWeight'> </a></td>
 					<td align="center"><a id='lblPrice'> </a></td>
 					<td align="center"><a id='lblNotv'> </a></td>
-					<td align="center" class="uu"><a id='lblCuamount'> </a></td>
+					<td align="center" class="ra"><a id='lblCuamount'> </a></td>
 					<td align="center"><a id='lblNoa'> </a></td>
 					<td align="center"><a id='lblCust'> </a></td>
 					<td align="center"><a id='lblMemo'> </a></td>
@@ -157,7 +157,7 @@
 					<td style="width:8%;">
 						<input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
-					<td style="width:8%;" class="uu">
+					<td style="width:8%;" class="ra">
 						<input class="txt" id="txtCuamount.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:11%;">
