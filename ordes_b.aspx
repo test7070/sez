@@ -89,7 +89,7 @@
 				 $('#btnNext').hide();
 				 $('#btnBott').hide();
 				 */
-				if (q_getPara('sys.project').toUpperCase()!='RA') {
+				if (q_getPara('sys.project').toUpperCase()!='RA' && q_getPara('sys.project').toUpperCase()!='ST') {
 					$('.ra').hide();
 				}
 				if(q_getPara('sys.project').toUpperCase()=='XY'){

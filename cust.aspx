@@ -114,8 +114,11 @@
 				q_cmbParse("cmbStatus", q_getPara('cust.status'));
 
 				//後面有需要的公司在顯示
-				$('.btnUcam').hide();
-				// 嘜頭
+				$('.btnUcam').hide();// 嘜頭
+				$('#btnCustm').hide();//稅務資料
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('#btnCustm').show();
+				}
 
 				$('#btnUcam').click(function() {
 					t_where = "custno='" + $('#txtNoa').val() + "'";
@@ -127,6 +130,16 @@
 					} else {
 						t_where = "noa='" + $('#txtNoa').val() + "'";
 						q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
+					}
+				});
+				$('#btnCustm').click(function() {
+					if (q_cur == 1) {
+						return;
+					} else {
+						t_where = "noa='" + $('#txtNoa').val() + "'";
+						if (q_getPara('sys.project').toUpperCase()=='XY'){
+							q_box("custm_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", q_getMsg('btnCustm'));
+						}
 					}
 				});
 				$('#txtNoa').change(function(e) {
@@ -755,10 +768,9 @@
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
 						<td><input id="txtTeam" type="text" class="txt c1"/></td>
-						<td><input id="btnConn" type="button" /></td>
-						<td>
-							<input id="chkNotprice" type="checkbox" />
-							<span> </span><a id="lblNotprice"> </a>
+						<td colspan="2">
+							<input id="btnConn" type="button" />
+							<input id="btnCustm" type="button" />
 						</td>
 					</tr>
 					<tr>
