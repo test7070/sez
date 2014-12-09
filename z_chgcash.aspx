@@ -45,7 +45,8 @@
                 q_gf('', 'z_chgcash');
             });
             function q_gfPost() {
-                q_gt('carteam', '', 0, 0, 0, "");
+                //q_gt('carteam', '', 0, 0, 0, "");
+                t_data.data['carteam'] = '';
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('chgpart', '', 0, 0, 0);
             }
