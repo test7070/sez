@@ -180,6 +180,14 @@
 					if (q_cur==1)
 						q_msg($('#txtXyNoa2'), "請輸入客戶分店編號或流水號(空白)");
 				});
+				
+				$('#txtXyComp1').change(function(){
+					if (q_cur==1 && $('#txtXyNoa1').val().length<=2 && $('#txtXyComp1').val().length>0){
+						//讀羅馬拼音
+						var t_where = "where=^^ ['"+$('#txtXyComp1').val() +"')  ^^";
+						q_gt('cust_xy', t_where, 0, 0, 0, "XY_cust_getpy", r_accy);
+					}
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -229,6 +237,12 @@
 						} else {
 							q_content = "where=^^ salesno='" + r_userno + "'^^";
 							q_gt(q_name, q_content, q_sqlCount, 1);
+						}
+						break;
+					case 'XY_cust_getpy':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							$('#txtXyNoa1').val(as[0].Column1.substr(0,2));
 						}
 						break;
 					case 'XY_AutoCustno1'://總店流水號 沒有分店
