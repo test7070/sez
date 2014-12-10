@@ -346,7 +346,7 @@
 							$('#cmbTypeb_'+j).text('');
 							$('#cmbTypec_'+j).text('');
 							q_cmbParse("cmbTypeb_"+j, c_typeb);
-							if(abbs[0]!=undefined)
+							if(abbsNow[0]!=undefined)
 								$('#cmbTypeb_'+j).val(abbsNow[j].typeb);
 							
 							c_typec=' @ ';
@@ -359,7 +359,7 @@
 							}
 							$('#cmbTypec_'+j).text('');
 							q_cmbParse("cmbTypec_"+j, c_typec);
-							if(abbs[0]!=undefined)
+							if(abbsNow[0]!=undefined)
 								$('#cmbTypec_'+j).val(abbsNow[j].typec);
 						}
 					}
