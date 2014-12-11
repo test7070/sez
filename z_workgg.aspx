@@ -28,7 +28,7 @@
 			var clickIndex = -1;
 			var t_xbdate='#non',t_xedate='#non',t_xbstationno='#non',
 				t_xestationno='#non',t_xbproductno='#non',t_xeproductno='#non',
-				t_xgroupano='#non',t_xshowover='#non',t_xshowfinished='#non',
+				t_xgroupano='#non',t_xshowover='#non',t_xshowfinished='#non',t_xonlyrealwork='#non',
 				t_xbstationgno='#non',t_xestationgno='#non'	;
 
 			function q_gfPost() {
@@ -70,7 +70,11 @@
 						name : 'xshowfinished',
 						value : ('1@只顯示製成品').split(',')
 					}, {
-						type : '2', //[12][13]
+						type : '8', //[12]
+						name : 'xonlyrealwork',
+						value : ('1@排除模擬製令').split(',')
+					}, {
+						type : '2', //[13][14]
 						name : 'xstationgno',
 						dbf : 'stationg',
 						index : 'noa,namea',
@@ -115,6 +119,23 @@
 					btnAuthority(q_name);
 				});
 				$('#Xgroupano select').css('width','200px');
+				
+				$('#Xshowdiff').css('width','300px');
+				$('#chkXshowdiff').css('width','200px');
+				$('#chkXshowdiff span').css('width','160px');
+				
+				$('#Xshowover').css('width','300px');
+				$('#chkXshowover').css('width','200px');
+				$('#chkXshowover span').css('width','160px');
+				
+				$('#Xshowfinished').css('width','300px');
+				$('#chkXshowfinished').css('width','200px');
+				$('#chkXshowfinished span').css('width','160px');
+				
+				$('#Xonlyrealwork').css('width','300px');
+				$('#chkXonlyrealwork').css('width','200px');
+				$('#chkXonlyrealwork span').css('width','160px');
+				
 				$("#btnRun").click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
 					var txtreport = $('#q_report').data('info').reportData[t_index].report;
@@ -172,6 +193,11 @@
 					else{
 						t_xshowfinished='#non'
 					}
+					if($('#chkXonlyrealwork input[type="checkbox"]').prop('checked'))
+						t_xonlyrealwork=encodeURI('1');
+					else{
+						t_xonlyrealwork='#non'
+					}
 					Lock();
 					q_func('qtxt.query.'+txtreport,'z_workgg.txt,'+txtreport+','+
 							t_xbdate + ';' +
@@ -184,6 +210,7 @@
 							t_xeproductno + ';' +
 							t_xshowover + ';' +
 							t_xshowfinished + ';'+
+							t_xonlyrealwork + ';'+
 							t_xbstationgno+';'+t_xestationgno+';'
 					);
 				});
