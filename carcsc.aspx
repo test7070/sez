@@ -234,6 +234,7 @@
                     case 'carcsc.export':
 						alert(result);
 						$('#btnExport_trans').removeAttr('disabled','disabled').val('匯至出車單');
+						location.reload();
                         break;
                 }
             }
