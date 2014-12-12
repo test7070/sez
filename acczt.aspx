@@ -139,8 +139,21 @@
 			q_gt('accz', t_where , 0, 0, 0, "", r_accy+'_'+r_cno);
         }
 
+		var init_seek=(window.parent.q_name=='accz'?true:false);
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if(init_seek){
+            	var as=[];
+            	as[0]="";
+            	as[1]="where=^^ 1=1 ^^ ";
+            	if(window.parent.q_name=='accz'){
+					var wParent = window.parent.document;
+					var t_acc1=wParent.getElementById("txtAcc1").value;
+					as[1]="where=^^ 1=1 and acc1='"+t_acc1+"' ^^ ";
+				}
+            	q_boxClose2(as);
+            	init_seek=false;
+            }
         }
 
         function btnMinus(id) {
