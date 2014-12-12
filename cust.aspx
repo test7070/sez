@@ -32,7 +32,7 @@
 				['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'],
 				['txtCustno2', 'lblCustno2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx'],
 				
-				['XyNoa1', '', 'cust', 'noa,comp', '0XyNoa1,txtXyComp1,txtXyComp2', 'cust_b.aspx']
+				['txtXyNoa1', '', 'cust', 'noa,comp', '0txtXyNoa1,txtXyComp1,txtXyComp2', 'cust_b.aspx']
 			);
 			
 			$(document).ready(function() {
