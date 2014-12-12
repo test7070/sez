@@ -145,7 +145,7 @@
             function btnModi() {
                  if (emp($('#txtNoa').val()))
                     return;
-                _btnModi(1);
+                _btnModi();
                 $('#txtDatea').focus();
             }
 

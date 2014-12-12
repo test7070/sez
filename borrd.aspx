@@ -108,6 +108,7 @@
 						alert('Done!'+result);
 						Unlock();
 						$('#btnProcessInterest').removeAttr('disabled','disabled');
+						location.reload();
 					break;
 				}
 			}
