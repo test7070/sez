@@ -808,10 +808,10 @@
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
 						<td><input id="txtMobile" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="isXY">
-						<td><span> </span><a class="lbl isXY">連絡人員</a></td>
+					<tr class="isXY" style="display: none;">
+						<td><span> </span><a class="lbl isXY" style="display: none;">連絡人員</a></td>
 						<td colspan='3'><input id="textConn" type="text" class="txt c7 isXY "/></td>
-						<td><span> </span><a class="lbl isXY">交貨時間</a></td>
+						<td><span> </span><a class="lbl isXY" style="display: none;">交貨時間</a></td>
 						<td><input id="textTrantime" type="text" class="txt c1 isXY"/></td>
 					</tr>
 					<tr>
@@ -855,11 +855,11 @@
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales" type="text" class="txt c6"/>
 						</td>
-						<td><span> </span><a id="lblCustno2" class="lbl isXY btn">收款客戶</a></td>
+						<td><span> </span><a id="lblCustno2" class="lbl isXY btn" style="display: none;">收款客戶</a></td>
 						<td>
-							<input id="txtCustno2" type="text" class="txt c6 isXY"/>
-							<input id="txtCust2" type="text" class="txt c6 isXY"/>
-							<input id="btnUcam" type="button" style="float: right;" class="btnUcam"/>
+							<input id="txtCustno2" type="text" class="txt c6 isXY" style="display: none;"/>
+							<input id="txtCust2" type="text" class="txt c6 isXY" style="display: none;"/>
+							<input id="btnUcam" type="button" style="float: right;" class="btnUcam" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>
@@ -895,20 +895,20 @@
 						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
 						<td><input id="txtUacc3" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="isXY">
-						<td><span> </span><a class="lbl isXY">貨單開立</a></td>
+					<tr class="isXY" style="display: none;">
+						<td><span> </span><a class="lbl isXY" style="display: none;">貨單開立</a></td>
 						<td><input id="textIsvcc" type="text" class="txt c1 isXY "/></td>
-						<td><span> </span><a class="lbl isXY">課稅方式</a></td>
+						<td><span> </span><a class="lbl isXY" style="display: none;">課稅方式</a></td>
 						<td><input id="textIstax" type="text" class="txt c1 isXY"/></td>
-						<td><span> </span><a class="lbl isXY">驗單需求</a></td>
+						<td><span> </span><a class="lbl isXY" style="display: none;">驗單需求</a></td>
 						<td><input id="textCheckvcc" type="text" class="txt c1 isXY"/></td>
 					</tr>
-					<tr class="isXY">
-						<td><span> </span><a class="lbl isXY">發票開立</a></td>
+					<tr class="isXY" style="display: none;">
+						<td><span> </span><a class="lbl isXY" style="display: none;">發票開立</a></td>
 						<td><input id="textIsinvo" type="text" class="txt c1 isXY"/></td>
-						<td><span> </span><a class="lbl isXY">回郵</a></td>
+						<td><span> </span><a class="lbl isXY" style="display: none;">回郵</a></td>
 						<td><input id="textIspost" type="text" class="txt c1 isXY "/></td>
-						<td><span> </span><a class="lbl isXY">運費單價</a></td>
+						<td><span> </span><a class="lbl isXY" style="display: none;">運費單價</a></td>
 						<td><input id="textTranprice" type="text" class="txt num c1 isXY"/></td>
 					</tr>
 					<tr>
