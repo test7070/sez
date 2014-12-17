@@ -500,6 +500,7 @@
 			
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
+					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 						$('#txtProductno_' + j).change(function() {
 							t_IdSeq = -1;
@@ -1431,6 +1432,7 @@
 					<td align="center" style="width:40px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
+					<td style="width:20px;"></td>
 					<td align="center" style="width:200px;"><a id='lblProductno'></a></td>
 					<td align="center" style="width:260px;"><a id='lblProducts'></a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'></a></td>
@@ -1445,7 +1447,8 @@
 					<td align="center" style="width:200px;"><a id='lblMemos'></a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
-					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />					</td>
+					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 						<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
 						<input id="txtProductno.*" type="text" style="width: 75%;"/>

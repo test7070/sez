@@ -454,6 +454,8 @@
 							<input id="txtComp" type="text" style="float:left; width:80%;"/>
 							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
+						<td><span> </span><a id="lblUmmno" class="lbl"> </a></td>
+						<td><input id="txtUmmno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblFloata' class="lbl"> </a></td>

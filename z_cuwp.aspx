@@ -44,7 +44,7 @@
 				});
 				$('#q_report').click(function(){
 					var t_index = $('#q_report').data('info').radioIndex;
-					if((t_index==0)){
+					if((t_index==0 || t_index==1)){
 						$('.prt').hide();
 						$('#chart,#chartCtrl').show();
 					}else{
@@ -109,7 +109,7 @@
 					if(!emp($('#txtXstationno2a').val()))
 						t_xestationno=encodeURI($('#txtXstationno2a').val());
 					Lock();
-					q_func('qtxt.query.'+txtreport,'z_cuwp.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';' + isSaturday + ';'+ t_xbstationno + ';'+ t_xestationno + ';');
+					q_func('qtxt.query.'+txtreport,'z_cuwp.txt,'+txtreport+','+ t_xbdate + ';' + t_xedate + ';'+ t_xbstationno + ';'+ t_xestationno+ ';' + isSaturday + ';');
 				});
 			}
 			function q_funcPost(t_func, result) {
@@ -205,6 +205,68 @@
 									 Html21+'</tr>'+Html22+'</tr>'+Html23+'</tr>'+Html24+'</tr>'+
 									 Html25+'</tr>'+Html26+'</tr>'+Html27+'</tr>'+Html28+'</tr>'+
 									 Html29+'</tr>'+Html30+'</tr>' + '</table>';
+							$('#chart').html(OutHtm);
+						}
+						break;
+					case 'qtxt.query.z_cuwp3':
+						var as = _q_appendData('tmp0','',true,true);
+						if (as[0] == undefined) {
+							alert('沒有資料!!');
+						}else{
+							var t_color = ['goldenrod','beige','darksalmon','seashell','pink'];
+							var t_colors = ['bisque','aquamarine','lightblue'];
+							var t_date=$('#txtXdate1').val();
+							var t_count=1,tt_count=1;
+							var OutHtm= '';
+							OutHtm+= '<tr><td colspan="2">　　　　　日期→<br>機台↓　　　　　</td>';
+							while(t_date<=$('#txtXdate2').val() &&t_count<32){
+								OutHtm+='<td>'+t_date+'</td>';
+								t_date=q_cdn(t_date,1);
+								t_count++;
+							}
+							OutHtm+= '</tr>';
+							OutHtm= '<table id="cTable" border="1px" cellpadding="0" cellspacing="0" width="'+((t_count*80)+200)+'px">'+OutHtm;
+							
+							for(var i=0;i<as.length;i=i+5){
+								OutHtm+='<tr style="width: 100px;">'
+								OutHtm+='<td rowspan="5">'+((i+5)==as.length?'總計':(as[i].station))+'</td>';
+								OutHtm+='<td style="width: 90px;text-align: left;">排產機時</td>';
+								tt_count=1;
+								while(tt_count<t_count){
+									OutHtm+='<td style="width: 80px;">'+round(dec(eval('as[i].days'+('00'+tt_count).substr(-2))),2)+'</td>';
+									tt_count++;
+								}
+								OutHtm+= '</tr><tr>';
+								OutHtm+='<td style="text-align: left;">編制機時</td>';
+								tt_count=1;
+								while(tt_count<t_count){
+									OutHtm+='<td>'+round(dec(eval('as[i+1].days'+('00'+tt_count).substr(-2))),2)+'</td>';
+									tt_count++;
+								}
+								OutHtm+= '</tr><tr>';
+								OutHtm+='<td style="text-align: left;">標準日機時</td>';
+								tt_count=1;
+								while(tt_count<t_count){
+									OutHtm+='<td>'+round(dec(eval('as[i+2].days'+('00'+tt_count).substr(-2))),2)+'</td>';
+									tt_count++;
+								}
+								OutHtm+= '</tr><tr>';
+								OutHtm+='<td style="text-align: left;">出勤人數</td>';
+								tt_count=1;
+								while(tt_count<t_count){
+									OutHtm+='<td>'+round(dec(eval('as[i+3].days'+('00'+tt_count).substr(-2))),0)+'</td>';
+									tt_count++;
+								}
+								OutHtm+= '</tr><tr>';
+								OutHtm+='<td style="text-align: left;">編制人時</td>';
+								tt_count=1;
+								while(tt_count<t_count){
+									OutHtm+='<td>'+round(eval('as[i+4].days'+('00'+tt_count).substr(-2)),2)+'</td>';
+									tt_count++;
+								}
+								OutHtm+= '</tr>';
+							}
+							OutHtm+= '</table>';
 							$('#chart').html(OutHtm);
 						}
 						break;

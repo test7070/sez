@@ -121,7 +121,7 @@
 	                	var n=$(this).attr('id').split('_')[1];
 	                	var t_type=$('#cmbTypea_'+n).val();
 	                	if(t_type=='A')
-	                    	$('#txtRate_'+n).val(16);
+	                    	$('#txtRate_'+n).val(8);
 	                    if(t_type=='B' || t_type=='C')
 	                    	$('#txtRate_'+n).val(8);
 	                    $('#txtCarmount_'+n).val(dec($('#txtMount_'+n).val()) * dec($('#txtRate_'+n).val()));
