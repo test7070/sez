@@ -100,36 +100,70 @@
                         for (var i = 0; i < as.length; i++) {
                             //as._year年資
                             //as._day特休天數
-                            if (as[i].indate.length > 0)//判斷到職日是否有輸入，若沒輸入則無特休
-                                as[i]._year = dec($('#txtNoa').val()) - dec(as[i].indate.substr(0, 3));
-                            else
-                                as[i]._year = 0;
-
-                            if (as[i]._year == 0 && as[i].indate.substr(4) == '01/01') {
-                                as[i]._year = 1;
-                            }
-                            if (as[i]._year < 1)
-                                as[i]._day = 0;
-                            else if (as[i]._year < 3)
-                                as[i]._day = 7;
-                            else if (as[i]._year < 5)
-                                as[i]._day = 10;
-                            else if (as[i]._year < 10)
-                                as[i]._day = 14;
-                            else {
-                                if (14 + as[i]._year - 9 > 30)
-                                    as[i]._day = 30;
-                                else
-                                    as[i]._day = 14 + as[i]._year - 9;
-                            }
-
-                            as[i]._day = as[i]._day * 8;
-                            
-                            as[i].prevyeartime=0;
-                            for (var j = 0; j < t_salvaca.length; j++) {
-                            	if(t_salvaca[j].sssno==as[i].noa){
-                            		as[i].prevyeartime=dec(t_salvaca[j].nextyeartime);
-                            	}
+                            if(q_getPara('sys.comp').indexOf('祥興')>-1){
+                            	if (as[i].indate.length > 0)//判斷到職日是否有輸入，若沒輸入則無特休
+	                                as[i]._year = dec($('#txtNoa').val()) - dec(as[i].indate.substr(0, 3));
+	                            else
+	                                as[i]._year = 0;
+	                                
+	                            if (as[i]._year == 0 && as[i].indate.substr(4) == '01/01') {
+	                                as[i]._year = 1;
+	                            }
+	                            if (as[i]._year < 1)
+	                                as[i]._day = 0;
+	                            else if (as[i]._year < 3)
+	                                as[i]._day = 7;
+	                            else if (as[i]._year < 5)
+	                                as[i]._day = 10;
+	                            else if (as[i]._year < 10)
+	                                as[i]._day = 14;
+	                            else {
+	                                if (14 + as[i]._year - 9 > 30)
+	                                    as[i]._day = 30;
+	                                else
+	                                    as[i]._day = 14 + as[i]._year - 9;
+	                            }
+	                            as[i]._day = as[i]._day * 8;
+                            }else{
+                            	if (as[i].indate.length > 0){//判斷到職日是否有輸入，若沒輸入則無特休
+	                                as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0, 3))-1+(
+	                                +((12-dec(as[i].indate.substr(4, 2))) /12)
+	                                //+(((30-(dec(as[i].indate.substr(7, 2))==31?30:dec(as[i].indate.substr(7, 2)))) /30)/12)
+	                                );
+	                                
+	                                if (as[i]._year == 0 && as[i].indate.substr(4) == '01/01') {
+	                                	as[i]._year=dec(as[i]._year)+1
+	                                }
+	                            }else{
+	                                as[i]._year = 0;
+								}
+	                                
+								if (dec($('#txtNoa').val()) ==dec(as[i].indate.substr(0, 3)))
+	                                as[i]._day = 0;
+								else if (as[i]._year < 1){
+									//正常
+									as[i]._day = round(as[i]._year*7*8,0);
+									//半天限制
+									//as[i]._day=Math.floor(as[i]._day/4)*4;
+								}else if (as[i]._year < 3)
+	                                as[i]._day = 7*8;
+	                            else if (as[i]._year < 5)
+	                                as[i]._day = 10*8;
+	                            else if (as[i]._year < 10)
+	                                as[i]._day = 14*8;
+	                            else {
+	                                if (14 + Math.floor(as[i]._year) - 9 > 30)
+	                                    as[i]._day = 30*8;
+	                                else
+	                                    as[i]._day = (14 + Math.floor(as[i]._year) - 9)*8;
+	                            }
+	                            
+	                            if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	                            	if(as[i]._day>120){
+	                            		as[i]._day=120;
+	                            	}
+	                            }
+	                            
                             }
                         }
 

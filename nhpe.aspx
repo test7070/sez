@@ -23,7 +23,7 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']
-        ,['txtNoa', '', 'sss', 'noa,namea,id', 'txtNoa,txtNamea,textPassword', 'sss_b.aspx']);
+        ,['txtNoa', '', 'sss', 'noa,namea,id', '0txtNoa,txtNamea,textPassword', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             //brwCoubt2 = 35
