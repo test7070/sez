@@ -52,10 +52,20 @@
 
             }
             
-            var t_qtitle;
             function q_gfPost() {
 				if (q_gfTxt=='qlang.txt'){
-					t_qtitle = xmlString.split('^^');
+					var t_qtitle = xmlString.split('^^');
+					
+					for(var i = 0; i < q_bbsCount; i++) {
+	                	if(t_qtitle!=undefined && emp($('#textTitle_'+i).val())){
+	                		for(var k = 0; k < t_qtitle.length; k++) {
+	                			if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(t_qtitle[k].split(',')[0]).toUpperCase()){
+	                				$('#textTitle_'+i).val(t_qtitle[k].split(',')[2]);
+	                				break;
+	                			}
+	                		}
+	                	}
+	                }
 				}
 				if (q_gfTxt=='_qmenu'){
 					q_gf('qlang.txt', 'qTitle');
@@ -79,17 +89,14 @@
                 _bbsAssign();
                 var t_aspx=$('#q_menu').data().info.text.split('\n');
                 for(var i = 0; i < q_bbsCount; i++) {
-                	for(var j = 0; j < t_aspx.length; j++) {
+                	for(var j = 0; j < t_aspx.length; j++) {                		
                 		if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(t_aspx[j].split(',')[1]).toUpperCase()
                 		|| $.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(t_aspx[j].split('^')[1]).toUpperCase()
                 		){
                 			$('#textTitle_'+i).val(t_aspx[j].split(',')[0]);
-                		}
-                		if(emp($('#textTitle_'+i).val())){
-                			
+                			break;
                 		}
                 	}
-                	
                 	if(q_cur==1||q_cur==2){
 						$('#check_All_'+i).removeAttr('disabled');
 					}else{

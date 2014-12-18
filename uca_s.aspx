@@ -87,8 +87,10 @@
 										q_sqlPara2("processno", t_processno) +
 										q_sqlPara2("typea", t_typea) +
 										q_sqlPara2("groupano", t_groupano) +
-										q_sqlPara2("tggno", t_tggno)+
-										q_sqlPara2("style", t_style);
+										q_sqlPara2("tggno", t_tggno);
+										
+				if (t_style.length > 0)
+					t_where += " and charindex('" + t_style + "',style)>0";
 				if (t_process.length > 0)
 					t_where += " and charindex('" + t_process + "',process)>0";
 				if (t_comp.length > 0)

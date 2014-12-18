@@ -40,7 +40,7 @@
 			brwCount2 = 7;
 			aPop = new Array(
 				['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
-				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
+				['txtProductno_', '', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx'],
 				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 				['txtStationno__', 'btnStation__', 'station__', 'noa,station', 'txtStationno__,txtStation__', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
@@ -1433,25 +1433,25 @@
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td style="width:20px;"></td>
-					<td align="center" style="width:200px;"><a id='lblProductno'></a></td>
-					<td align="center" style="width:260px;"><a id='lblProducts'></a></td>
-					<td align="center" style="width:40px;"><a id='lblUnit_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblMount'></a></td>
+					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:260px;"><a id='lblProducts'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount'> </a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblWeights'></a></td>-->
-					<td align="center" style="width:120px;"><a id='lblMtype_s'></a></td>
-					<td align="center" style="width:150px;"><a id='lblProcessno_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblLoss_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblDividea_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblMul_s'></a></td>
+					<td align="center" style="width:120px;"><a id='lblMtype_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblProcessno_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblLoss_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblDividea_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblMul_s'> </a></td>
 					<!--<td align="center" style="width:15%;"><a id='lblTd'></a></td>-->
-					<td align="center" style="width:200px;"><a id='lblMemos'></a></td>
+					<td align="center" style="width:200px;"><a id='lblMemos'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
-						<input id="txtProductno.*" type="text" style="width: 75%;"/>
+						<!--<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />-->
+						<input id="txtProductno.*" type="text" class="txt c1"/>
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1"/>
@@ -1487,20 +1487,20 @@
 					<td style="width:40px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 					</td>
-					<td style="width:20px;"></td>
-					<td align="center" style="width:145px;"><a id='lblProcess_t'></a></td>
-					<td align="center" style="width:145px;"><a id='lblTgg_t'></a></td>
-					<td align="center" style="width:145px;"><a id='lblStation_t'></a></td>
+					<td style="width:20px;"> </td>
+					<td align="center" style="width:145px;"><a id='lblProcess_t'> </a></td>
+					<td align="center" style="width:145px;"><a id='lblTgg_t'> </a></td>
+					<td align="center" style="width:145px;"><a id='lblStation_t'> </a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblMount_t'></a></td>-->
-					<td align="center" style="width:100px;"><a id='lblPrice_t'></a></td>
+					<td align="center" style="width:100px;"><a id='lblPrice_t'> </a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblEndmount_t'></a></td>-->
-					<td align="center" style="width:75px;"><a id='lblHours_t'></a></td>
-					<td align="center" style="width:175px;"><a id='lblProductno_t'></a></td>
-					<td align="center" style="width:190px;"><a id='lblAssm_t'></a></td>
-					<td align="center" style="width:87px;"><a id='lblWages_t'></a></td>
-					<td align="center" style="width:87px;"><a id='lblMakes_t'></a></td>
-					<td align="center" style="width:103px;"><a id='lblWages_fee_t'></a></td>
-					<td align="center" style="width:103px;"><a id='lblMakes_fee_t'></a></td>
+					<td align="center" style="width:75px;"><a id='lblHours_t'> </a></td>
+					<td align="center" style="width:175px;"><a id='lblProductno_t'> </a></td>
+					<td align="center" style="width:190px;"><a id='lblAssm_t'> </a></td>
+					<td align="center" style="width:87px;"><a id='lblWages_t'> </a></td>
+					<td align="center" style="width:87px;"><a id='lblMakes_t'> </a></td>
+					<td align="center" style="width:103px;"><a id='lblWages_fee_t'> </a></td>
+					<td align="center" style="width:103px;"><a id='lblMakes_fee_t'> </a></td>
 				</tr>
 				<tr>
 					<td>
