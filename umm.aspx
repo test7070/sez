@@ -26,12 +26,6 @@
             brwNowPage = 0;
             brwCount2 = 6;
             brwKey = 'Datea';
-            aPop = new Array(
-            	['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
-            	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            	, ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
-            	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
-            	, ['txtVccno_', '', 'view_vcc', 'noa,comp,unpay,unpay,typea,accy', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_,txtAccy_', '']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -46,6 +40,14 @@
             }
 			
             function mainPost() {
+            	//放在mainPost 避免 r_accy抓不到
+            	aPop = new Array(
+            	['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
+            	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            	, ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
+            	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
+            	, ['txtVccno_', '', 'view_vcc', 'noa,comp,unpay,unpay,typea,accy', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_,txtAccy_', '']);
+            	
                 q_getFormat();
 
                 if (r_rank < 7)
