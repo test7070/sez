@@ -280,7 +280,9 @@
                 	case 'umm_import':
                 		as = _q_appendData(t_name, "", true);
                 		for (var i = 0; i < as.length; i++) {
-							if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+                			if(q_getPara('sys.project').toUpperCase()=='XY'){
+                				as[i].tablea='vcc_xy';
+							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 								as[i].tablea='vcc_it';
 							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 								as[i].tablea='vcc_uu';
@@ -408,7 +410,9 @@
                         */
                         var as = _q_appendData("umm_mon", "", true);
                         for (var i = 0; i < as.length; i++) {
-							if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+                        	if(q_getPara('sys.project').toUpperCase()=='XY'){
+								as[i].tablea='vcc_xy';
+							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 								as[i].tablea='vcc_it';
 							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 								as[i].tablea='vcc_uu';
@@ -658,7 +662,9 @@
                 
                 for (var i = 0; i < q_bbsCount; i++) {
                 	if (emp($('#txtTablea_'+i).val())&&!emp($('#txtVccno_'+i).val())){
-                		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+                		if(q_getPara('sys.project').toUpperCase()=='XY'){
+                			$('#txtTablea_'+i).val('vcc_xy');
+                		}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 							$('#txtTablea_'+i).val('vcc_it');
                     	}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
 							$('#txtTablea_'+i).val('vcc_uu');
