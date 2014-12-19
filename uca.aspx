@@ -502,6 +502,14 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#btnProductno_'+ j).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtProductno_' + b_seq).val()))
+								q_box("z_ucap.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtProductno_'+ b_seq).val() + "' and product='" + $('#txtProduct_'+ b_seq).val() + "';" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+						});
+						
 						$('#txtProductno_' + j).change(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -787,7 +795,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_ucap.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+				q_box("z_ucap.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "' and product='" + $('#txtProduct').val() + "';" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
@@ -1450,8 +1458,8 @@
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<!--<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />-->
-						<input id="txtProductno.*" type="text" class="txt c1"/>
+						<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;float: left;" />
+						<input id="txtProductno.*" type="text" class="txt c1" style="width: 85%;"/>
 					</td>
 					<td>
 						<input id="txtProduct.*" type="text" class="txt c1"/>

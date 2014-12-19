@@ -78,14 +78,24 @@
 				q_langShow();
 				$('#txtXmon').mask('999/99');
 				$('#txtXmon').val(q_date().substr(0, 6));
-				if (window.parent.q_name == 'uca') {
+				/*if (window.parent.q_name == 'uca') {
 					var wParent = window.parent.document;
 					$('#txtSpno1a').val(wParent.getElementById("txtNoa").value);
 					$('#txtSpno2a').val(wParent.getElementById("txtNoa").value);
 					$('#txtSpno1b').val(wParent.getElementById("txtProduct").value);
 					$('#txtSpno2b').val(wParent.getElementById("txtProduct").value);
 					$('#txtXproductno').val(wParent.getElementById("txtNoa").value);
+				}*/
+				
+				if(q_getHref() && window.parent.q_name == 'uca'){
+					$('#txtSpno1a').val(q_getHref()[1]);
+					$('#txtSpno2a').val(q_getHref()[1]);
+					$('#txtSpno1b').val(q_getHref()[3]);
+					$('#txtSpno2b').val(q_getHref()[3]);
+					$('#txtXproductno').val(q_getHref()[1]);
+					$('#btnOk').click();
 				}
+				
 				firstRun = false;
 				
 				$('#txtSpno1a').blur(function() {
