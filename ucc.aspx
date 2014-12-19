@@ -43,7 +43,7 @@
 
 			currentData.prototype = {
 				data : [],
-				exclude : [],
+				exclude : ['txtNoa'],
 				copy : function() {
 					curData.data = new Array();
 					for (var i in fbbm) {
@@ -148,7 +148,19 @@
 					$('#div_stkcost').toggle();
 					$('#btnStkcost').removeAttr('disabled');
 				});
+				
+				$('#btnTmpuccno_xy').click(function(){
+					//檢查編號是否已存在>變更noa
+					xy_newnoa='';
+					xy_newnoa=prompt("請輸入要變更的物品編號");
+					if(xy_newnoa.length>0){
+						var t_where = "where=^^ noa='" + xy_newnoa + "' ^^";
+						q_gt('ucaucc', t_where, 0, 0, 0, "XY_newucc_checkNoa", r_accy);
+					}
+				});
 			}
+			
+			var xy_newnoa=''; 
 
 			function q_boxClose(s2) {
 				var ret;
@@ -227,6 +239,18 @@
 						}
 						Unlock();
 						break;
+					case 'btnOk_xy_checkCust':
+						var as = _q_appendData("cust", "", true);
+						if (as[0] != undefined) {
+							//取得最新流水號
+							var t_noa = trim($('#txtNoa').val());
+							var t_where = "where=^^ left(noa,"+(t_noa.length+1)+")='" + t_noa + "-' ^^";
+							q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_xy_checkNoa", r_accy);
+						}else{
+							alert('該客戶編號不存在，請輸入正確的客戶編號!!');
+							Unlock();
+						}
+						break;
 					case 'btnOk_xy_checkNoa':
 						var as = _q_appendData("ucaucc", "", true);
 						if (as[0] != undefined) {
@@ -237,10 +261,20 @@
 						}else{
 							$('#txtNoa').val(trim($('#txtNoa').val())+'-001');
 						}
-						
 						wrServer($('#txtNoa').val());
 						Unlock();
-						break;	
+						break;
+					case 'XY_newucc_checkNoa':
+						var as = _q_appendData("ucaucc", "", true);
+						if (as[0] != undefined) {
+							alert('物品編號重複!!');
+						}else{
+							//更換產品編號
+							var t_paras = $('#txtNoa').val()+ ';'+xy_newnoa;
+							q_func('qtxt.query.change_tmpuccno', 'cust_ucc_xy.txt,change_tmpuccno,' + t_paras);
+							$('#btnTmpuccno_xy').attr('disabled', 'disabled');
+						}
+						break;
 					case 'uccga':
 						var as = _q_appendData("uccga", "", true);
 						if (as[0] != undefined) {
@@ -408,6 +442,7 @@
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
 				}
+				refreshBbm();
 				$('#txtNoa').focus();
 			}
 
@@ -416,7 +451,8 @@
 					return;
 
 				_btnModi();
-				$('#txtComp').focus();
+				refreshBbm
+				$('#txtProduct').focus();
 			}
 
 			function btnPrint() {
@@ -433,10 +469,11 @@
 				$('#txtDate2').val(q_date());
 				$('#txtWorker').val(r_name);
 				
-				if (q_getPara('sys.project').toUpperCase()=='XY' && $('#xy_isprint').prop('checked')){
-					var t_where = "where=^^ left(noa,"+(t_noa.length+1)+")='" + t_noa + "-' ^^";
+				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && $('#xy_isprint').prop('checked')){
+					//檢查客戶是否存在
+					var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "btnOk_xy_checkCust", r_accy);
 					Lock();
-					q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_xy_checkNoa", r_accy);
 					return;
 				}
 				
@@ -467,7 +504,7 @@
 			var imagename='';
 			function refresh(recno) {
 				_refresh(recno);
-				$('.isXY').hide();
+				refreshBbm();
 				$('#div_stkcost').hide();
 				$('#btnStkcost').removeAttr('disabled');
 				$('#btnStkcost').val(q_getMsg('btnStkcost'));
@@ -492,10 +529,28 @@
 						});
 					}
 				}
+				
+				$('.isXY').hide();
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					if($('#txtNoa').val().substr(0,2)=='##'){
+						$('#btnTmpuccno_xy').show();
+					}else{
+						$('#btnTmpuccno_xy').hide();
+					}
+				}
+			}
+			
+			function refreshBbm() {
+				if (q_cur == 1) {
+					$('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+				} else {
+					$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+				}
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				refreshBbm();
 			}
 
 			function btnMinus(id) {
@@ -551,6 +606,21 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.change_tmpuccno':
+                		$('#btnTmpuccno_xy').removeAttr('disabled');
+						alert('已轉正式物品!!。');
+						var s2=[];
+						s2[0]=q_name + '_s';
+						s2[1]="where=^^ noa='"+xy_newnoa+"' ^^"
+						q_boxClose2(s2);
+						xy_newnoa='';
+						break;
+				}
+			}
+			
 		</script>
 		<style type="text/css">
 			.tview {
@@ -677,6 +747,7 @@
 							<span> </span><a id="lblCopy"> </a>
 						</div>
 					</td>
+					<td><input id="btnTmpuccno_xy" type="button" value="轉正式物品" style="display: none;"/></td>
 				</tr>
 				<tr> 
 					<td><a id='lblProduct' class="lbl"> </a></td>

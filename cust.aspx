@@ -124,6 +124,7 @@
 					t_where = "custno='" + $('#txtNoa').val() + "'";
 					q_box("ucam_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucam', "95%", "95%", q_getMsg('btnUcam'));
 				});
+				
 				$('#btnConn').click(function() {
 					if (q_cur == 1) {
 						return;
@@ -132,6 +133,7 @@
 						q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
 					}
 				});
+				
 				$('#btnCustm').click(function() {
 					if (q_cur == 1) {
 						return;
@@ -142,6 +144,7 @@
 						}
 					}
 				});
+				
 				$('#txtNoa').change(function(e) {
 					$(this).val($.trim($(this).val()).toUpperCase());
 					if ($(this).val().length > 0) {
@@ -155,6 +158,7 @@
 						}
 					}
 				});
+				
 				$('#txtUacc4').change(function() {
 					var s1 = trim($(this).val());
 					if (s1.length > 4 && s1.indexOf('.') < 0)
@@ -163,6 +167,7 @@
 						$(this).val(s1 + '.');
 
 				});
+				
 				$('#btnUsecrd').click(function(){
 					var t_custno = $.trim($('#txtNoa').val());
 					if((t_custno.length > 0) && (t_custno.toUpperCase() != 'AUTO')){
@@ -171,11 +176,11 @@
 					}
 				});
 				
-				
 				$('#txtXyNoa1').click(function(){
 					if (q_cur==1 )
 						q_msg($('#txtXyNoa1'), "請輸入客戶拼音前兩碼或客戶總店編號");
 				});
+				
 				$('#txtXyNoa2').click(function(){
 					if (q_cur==1)
 						q_msg($('#txtXyNoa2'), "請輸入客戶分店編號或流水號(空白)");
@@ -188,8 +193,17 @@
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_cust_getpy", r_accy);
 					}
 				});
+				
+				$('#btnTmpcustno_xy').click(function(){
+					xy_newnoa='';
+					//讀羅馬拼音>產生最新編號>最後更換noa
+					var t_where = "where=^^ ['"+$('#txtComp').val() +"')  ^^";
+					q_gt('cust_xy', t_where, 0, 0, 0, "XY_newcust_getpy", r_accy);
+				});
 			}
-
+			
+			var xy_newnoa=''; 
+			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -243,6 +257,32 @@
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
 							$('#txtXyNoa1').val(as[0].Column1.substr(0,2));
+						}
+						break;
+					case 'XY_newcust_getpy':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							xy_newnoa=as[0].Column1.substr(0,2);
+							//讀取最新的流水號
+							t_where = "where=^^ charindex('" + xy_newnoa + "',noa)=1 and len(noa)<=5 ^^";
+							q_gt('cust', t_where, 0, 0, 0, "XY_newcust_Autonumber", r_accy);
+						}else{
+							alert('轉正式客戶資料錯誤請通知工程師維護!!');
+						}
+						break;
+					case 'XY_newcust_Autonumber':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
+							xy_newnoa=xy_newnoa+noa_seq;
+						}else{
+							xy_newnoa=xy_newnoa+'001';
+						}
+						//更換noa
+						if(!emp($('#txtNoa').val()) && $('#txtNoa').val().substr(0,2)=='##'){
+							var t_paras = $('#txtNoa').val()+ ';'+xy_newnoa;
+							q_func('qtxt.query.change_tmpcustno', 'cust_ucc_xy.txt,change_tmpcustno,' + t_paras);
+							$('#btnTmpcustno_xy').attr('disabled', 'disabled');
 						}
 						break;
 					case 'XY_AutoCustno1'://總店流水號 沒有分店
@@ -386,8 +426,7 @@
 				
 				Lock();
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
-				if ((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())) {
-				} else {
+				if (q_cur==1 && !((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val()))) {
 					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
 					Unlock();
 					return;
@@ -454,8 +493,14 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
+					if($('#txtNoa').val().substr(0,2)=='##'){
+						$('#btnTmpcustno_xy').show();
+					}else{
+						$('#btnTmpcustno_xy').hide();
+					}
 				}else{
 					$('.isXY').hide();
+					$('#btnTmpcustno_xy').hide();
 				}
 			}
 
@@ -520,6 +565,16 @@
 					vccitopen = false;
 					$('#txtNoa').val(window.parent.post_custno);
 				}
+				if(t_para){
+					$('#btnConn').removeAttr('disabled');
+					$('#btnCustm').removeAttr('disabled');
+					$('#btnTmpcustno_xy').removeAttr('disabled');
+				}else{
+					$('#btnConn').attr('disabled', 'disabled');
+					$('#btnCustm').attr('disabled', 'disabled');
+					$('#btnTmpcustno_xy').attr('disabled', 'disabled');	
+				}
+				
 			}
 
 			function btnMinus(id) {
@@ -589,6 +644,20 @@
 					wParent.getElementById("txtSales").value = $('#txtSales').val();
 					wParent.getElementById("txtSalesno2").value = $('#txtSalesno').val();
 					wParent.getElementById("txtSales2").value = $('#txtSales').val();
+				}
+			}
+			
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.change_tmpcustno':
+                		$('#btnTmpcustno_xy').removeAttr('disabled');
+						alert('已轉正式客戶!!。');
+						var s2=[];
+						s2[0]=q_name + '_s';
+						s2[1]="where=^^ noa='"+xy_newnoa+"' ^^"
+						q_boxClose2(s2);
+						xy_newnoa='';
+						break;
 				}
 			}
 		</script>
@@ -785,6 +854,7 @@
 						<td colspan="2">
 							<input id="btnConn" type="button" />
 							<input id="btnCustm" type="button" />
+							<input id="btnTmpcustno_xy" type="button" value="轉正式客戶" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>
