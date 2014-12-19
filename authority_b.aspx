@@ -45,17 +45,18 @@
                 mainBrow(6, t_content, t_sqlname, t_postname);
                 scroll("tbbs","box",1);
                 q_mask(bbmMask);
-                q_gf('_qmenu');
+                //q_gf('_qmenu');
+                q_gf('qlang.txt', 'qTitle');
             }
 
             function q_gtPost(t_name) {
 
             }
             
+            var t_qtitle=undefined;
             function q_gfPost() {
 				if (q_gfTxt=='qlang.txt'){
-					var t_qtitle = xmlString.split('^^');
-					
+					t_qtitle = xmlString.split('^^');
 					for(var i = 0; i < q_bbsCount; i++) {
 	                	if(t_qtitle!=undefined && emp($('#textTitle_'+i).val())){
 	                		for(var k = 0; k < t_qtitle.length; k++) {
@@ -66,9 +67,6 @@
 	                		}
 	                	}
 	                }
-				}
-				if (q_gfTxt=='_qmenu'){
-					q_gf('qlang.txt', 'qTitle');
 				}
 			}
 
@@ -87,16 +85,15 @@
 					});
 				}
                 _bbsAssign();
-                var t_aspx=$('#q_menu').data().info.text.split('\n');
                 for(var i = 0; i < q_bbsCount; i++) {
-                	for(var j = 0; j < t_aspx.length; j++) {                		
-                		if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(t_aspx[j].split(',')[1]).toUpperCase()
-                		|| $.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(t_aspx[j].split('^')[1]).toUpperCase()
-                		){
-                			$('#textTitle_'+i).val(t_aspx[j].split(',')[0]);
-                			break;
-                		}
-                	}
+                	if(t_qtitle!=undefined && emp($('#textTitle_'+i).val())){
+	                	for(var k = 0; k < t_qtitle.length; k++) {
+	                		if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(t_qtitle[k].split(',')[0]).toUpperCase()){
+	                			$('#textTitle_'+i).val(t_qtitle[k].split(',')[2]);
+	                			break;
+	                		}
+	                	}
+	                }
                 	if(q_cur==1||q_cur==2){
 						$('#check_All_'+i).removeAttr('disabled');
 					}else{
@@ -188,7 +185,6 @@
 		</style>
 	</head>
 	<body>
-		<div id="q_menu" style="display: none;"> </div>
 		<div id="box">
 			<div  id="dbbs"  >
 				<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:690px'  >
