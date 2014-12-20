@@ -16,21 +16,20 @@
             }
 
             var q_name = "caraccident";
-            var q_readonly = ['txtNoa'];
-            var bbmNum = [['txtClaimmoney', 10, 0,1], ['txtConciliatorymoney', 10, 0,1]];
-            var bbmMask = [['txtDatea','999/99/99'],['txtClaimdate','999/99/99'],['txtEnddate','999/99/99']];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
+            var bbmNum = [['txtClaimmoney', 10, 0, 1], ['txtConciliatorymoney', 10, 0, 1]];
+            var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 10;
+            brwCount2 = 13;
             //ajaxPath = ""; //  execute in Root
-            aPop = [['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'insurer_b.aspx'],
-                    ['txtDriverno', 'lblDriver', 'driver',  'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+            aPop = [['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'insurer_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
 
             $(document).ready(function() {
-            	if(location.href.indexOf('?') < 0)// debug
+                if (location.href.indexOf('?') < 0)// debug
                 {
                     location.href = location.href + "?;;;noa='001-M9'";
                     return;
@@ -40,7 +39,7 @@
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
@@ -48,8 +47,11 @@
             }///  end Main()
 
             function mainPost() {
-            	q_getFormat();
-            	q_mask(bbmMask);
+                bbmMask = [['txtDatea', r_picd], ['txtClaimdate', r_picd], ['txtEnddate', r_picd], ['txtBirthday', r_picd]];
+
+                q_getFormat();
+                q_mask(bbmMask);
+                q_gt('cardeal', '', 0, 0, 0, "");
             }
 
             function q_boxClose(s2) {
@@ -64,62 +66,50 @@
             }
 
             function q_gtPost(t_name) {
-
                 switch (t_name) {
-                    /*case 'getNoq':
-                    	var as = _q_appendData("caraccident", "", true);
-                    	var t_noq = '000';
-                    	if (as[0] != undefined) {
-                    		for(var i=0;i<as.length;i++){
-                    			t_noq = t_noq<as[0].noq?as[0].noq:t_noq;              
-                    		}
-                    		t_noq = '000'+parseInt(t_noq);
-                    		t_noq = t_noq.substring(t_noq.length-3,t_noq.length);
-                    	}
-                    	var t_carno = $.trim(q_getId()[3].replace(/[carno='*']/g,""));
-	            		if(t_carno.length>0){
-	            			$('#txtCarno').val(t_carno);
-	            			$('#txtNoq').val(t_noq);
-	            			$('#txtDatea').focus(); 
-	        			}else{
-	        				$('#txtCarno').focus(); 
-	        			}
-	        			$('#txtNoa').val('AUTO');
-                    	break;*/
+                    case 'cardeal':
+                        var as = _q_appendData("cardeal", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                        }
+                        q_cmbParse("cmbCardealno", t_item);
+                        if (abbm[q_recno])
+                            $("#cmbCardealno").val(abbm[q_recno].cardealno);
+                        break;
                     case q_name:
-                        if(q_cur == 4)
+                        if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
-                } 
+                }
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)// 1-3
+                if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
                 q_box('caraccident_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
-            	if(q_getId()[3].length>0){
-            		var t_carno = $.trim(q_getId()[3].replace(/[carno='*']/g,""));
-            		_btnIns();
-            		//q_gt('caraccident',"where=^^noa='"+t_carno+"'^^", 0, 0, 0, 'getNoq')
-            		if(t_carno.length>0){
-            			$('#txtCarno').val(t_carno);
-            			$('#txtDatea').focus(); 
-        			}else{
-        				$('#txtCarno').focus(); 
-        			}
-        			$('#txtNoa').val('AUTO');
-            	}else{
-            		_btnIns();
-               		$('#txtCarno').focus(); 	
-               		$('#txtNoa').val('AUTO');
-            	} 
+                if (q_getId()[3].length > 0) {
+                    var t_carno = $.trim(q_getId()[3].replace(/[carno='*']/g, ""));
+                    _btnIns();
+                    if (t_carno.length > 0) {
+                        $('#txtCarno').val(t_carno);
+                        $('#txtDatea').focus();
+                    } else {
+                        $('#txtCarno').focus();
+                    }
+                    $('#txtNoa').val('AUTO');
+                } else {
+                    _btnIns();
+                    $('#txtCarno').focus();
+                    $('#txtNoa').val('AUTO');
+                }
             }
 
             function btnModi() {
-                if(emp($('#txtNoa').val()))
+                if (emp($('#txtNoa').val()))
                     return;
 
                 _btnModi();
@@ -131,40 +121,41 @@
             }
 
             function btnOk() {
- 				$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (!q_cd($('#txtDatea').val())){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
-            	}
- 				$('#txtClaimdate').val($.trim($('#txtClaimdate').val()));
-                if (!q_cd($('#txtClaimdate').val())){
-                	alert(q_getMsg('lblClaimdate')+'錯誤。');
-                	return;
-            	}
- 				$('#txtEnddate').val($.trim($('#txtEnddate').val()));
-                if (!q_cd($('#txtEnddate').val())){
-                	alert(q_getMsg('lblEnddate')+'錯誤。');
-                	return;
-            	}
-            	
-            	var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+                $('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (!q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
+                $('#txtClaimdate').val($.trim($('#txtClaimdate').val()));
+                if (!q_cd($('#txtClaimdate').val())) {
+                    alert(q_getMsg('lblClaimdate') + '錯誤。');
+                    return;
+                }
+                $('#txtEnddate').val($.trim($('#txtEnddate').val()));
+                if (!q_cd($('#txtEnddate').val())) {
+                    alert(q_getMsg('lblEnddate') + '錯誤。');
+                    return;
+                }
+
+                if (q_cur == 1)
+                    $('#txtWorker').val(r_name);
+                if (q_cur == 2)
+                    $('#txtWorker2').val(r_name);
+                $('#txtCardeal').val($('#cmbCardealno').find(":selected").text());
+
                 var t_noa = $('#txtNoa').val();
                 var t_date = $('#txtDatea').val();
-                 if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_caraccident') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-		        else
-		            wrServer(t_noa);
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_caraccident') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
             }
 
-             function wrServer(key_value) {
-		        var i;
-
-		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-		        _btnOk(key_value, bbmKey[0], '', '', 2);
-
-		    }
-
+            function wrServer(key_value) {
+                var i;
+                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+                _btnOk(key_value, bbmKey[0], '', '', 2);
+            }
 
             function refresh(recno) {
                 _refresh(recno);
@@ -226,7 +217,6 @@
             function btnCancel() {
                 _btnCancel();
             }
-			
 
 		</script>
 		<style type="text/css">
@@ -338,83 +328,123 @@
                 padding: 0px;
                 margin: -1px;
             }
-            
-             input[type="text"],input[type="button"] {     
+
+            input[type="text"], input[type="button"] {
                 font-size: medium;
             }
 		</style>
 	</head>
 	<body>
-			<!--#include file="../inc/toolbar.inc"-->
-			<div id='dmain' style="overflow:hidden;">
-				<div class="dview" id="dview" style="float: left;  width:30%;"  >
-					<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
-						<tr>
-							<td align="center" style="width:5%"><a id='vewChk'></a></td>
-							<td align="center" style="width:25%"><a id='vewCarno'></a></td>
-							<td align="center" style="width:25%"><a id='vewDatea'></a></td>
-							<td align="center" style="width:25%"><a id='vewDriver'></a></td>
-						</tr>
-						<tr>
-							<td >
-							<input id="chkBrow.*" type="checkbox" style=''/>
-							</td>
-							<td align="center" id='carno'>~carno</td>
-							<td align="center" id='datea'>~datea</td>
-							<td align="center" id='driver'>~driver</td>
-						</tr>
-					</table>
-				</div>
-				<div class='dbbm' style="width: 70%;float:left">
-					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-						<tr class="tr1">
-							<td class="td1"><span> </span><a id="lblCarno" class="lbl"> </a></td>
-							<td class="td2"><input id="txtCarno" type="text" class="txt c1"/></td>
-							<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>	
-							<td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
-							<td class="td5"><span> </span><a id="lblNoa" class="lbl"> </a></td>	
-							<td class="td6"><input id="txtNoa" type="text" class="txt c1"/></td>
-						</tr>
-						<tr class="tr2">
-							<td class="td1"><span> </span><a id="lblTimeplace" class="lbl"> </a></td>
-							<td class="td2" colspan="5"><input id="txtTimeplace" type="text" class="txt c1"/></td>
-						</tr>
-						<tr class="tr3">
-							<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-							<td class="td2" colspan="2"><input id="txtDriverno" type="text" class="txt c2"/><input id="txtDriver" type="text" class="txt c3"/></td>
-							<td class="td4"><span> </span><a id="lblInsurer" class="lbl btn"> </a></td>
-							<td class="td5" colspan="2"><input id="txtInsurerno" type="text" class="txt c2"/><input id="txtInsurer" type="text" class="txt c3"/></td>
-						</tr>
-						<tr class="tr4">
-							<td class="td1"><span> </span><a id="lblAdversary" class="lbl"> </a></td>	
-							<td class="td2"><input id="txtAdversary" type="text" class="txt c1"/></td>
-							<td class="td3"><span> </span><a id="lblInsurertel" class="lbl"> </a></td>	
-							<td class="td4"><input id="txtInsurertel" type="text" class="txt c1"/></td>	
-							<td class="td5"><span> </span><a id="lblPolice" class="lbl"> </a></td>	
-							<td class="td6" ><input id="txtPolice" type="text" class="txt c1"/></td>
-						</tr>
-						<tr class="tr5">
-							<td class="td1"><span> </span><a id="lblClaimno" class="lbl"> </a></td>
-							<td class="td2"><input id="txtClaimno" type="text" class="txt c1"/></td>
-							<td class="td3"><span> </span><a id="lblClaimdate" class="lbl"> </a></td>	
-							<td class="td4"><input id="txtClaimdate" type="text" class="txt c1"/></td>	
-							<td class="td5"><span> </span><a id="lblEnddate" class="lbl"> </a></td>	
-							<td class="td6"><input id="txtEnddate" type="text" class="txt c1"/></td>	
-						</tr>
-						<tr class="tr6">
-							<td class="td1"><span> </span><a id="lblClaimmoney" class="lbl"> </a></td>
-							<td class="td2"><input id="txtClaimmoney" type="text" class="txt num c1"/></td>
-							<td class="td3"><span> </span><a id="lblConciliatorymoney" class="lbl"> </a></td>	
-							<td class="td4"><input id="txtConciliatorymoney" type="text" class="txt num c1"/></td>	
-								
-						</tr>
-						<tr class="tr7">
-							<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-							<td class="td2" colspan="5"><textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 50px;"></td>
-						</tr>
-					</table>
-				</div>
+		<!--#include file="../inc/toolbar.inc"-->
+		<div id='dmain' style="overflow:hidden;">
+			<div class="dview" id="dview" style="float: left;  width:30%;"  >
+				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+					<tr>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:25%"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:25%"><a id='vewDriver'> </a></td>
+					</tr>
+					<tr>
+						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
+						<td align="center" id='carno'>~carno</td>
+						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='driver'>~driver</td>
+					</tr>
+				</table>
 			</div>
-			<input id="q_sys" type="hidden" />
+			<div class='dbbm' style="width: 70%;float:left">
+				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+					<tr class="tr1">
+						<td><span> </span><a id="lblCarno" class="lbl"> </a></td>
+						<td><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblCardeal" class="lbl"> </a></td>
+						<td>
+							<select id="cmbCardealno" class="txt c1"> </select>
+							<input id="txtCardeal" type="text"  style="display:none;"/>
+						</td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtNoa" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr2">
+						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblTimea" class="lbl"> </a></td>
+						<td><input id="txtTimea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblPlace" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtPlace" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr3">
+						<td><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtDriverno" type="text" class="txt c2"/>
+							<input id="txtDriver" type="text" class="txt c3"/>
+						</td>
+						<td><span> </span><a id="lblId" class="lbl"> </a></td>
+						<td><input id="txtId" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblBirthday" class="lbl"> </a></td>
+						<td><input id="txtBirthday" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr4">
+						<td><span> </span><a id="lblInsurer" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtInsurerno" type="text" class="txt c2"/>
+							<input id="txtInsurer" type="text" class="txt c3"/>
+						</td>
+					</tr>
+					<tr class="tr5">
+						<td><span> </span><a id="lblAdversary" class="lbl"> </a></td>
+						<td><input id="txtAdversary" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblInsurertel" class="lbl"> </a></td>
+						<td><input id="txtInsurertel" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr6">
+						<td><span> </span><a id="lblPolice" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtPolice" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblPolicetel" class="lbl"> </a></td>
+						<td ><input id="txtPolicetel" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblPolicename" class="lbl"> </a></td>
+						<td ><input id="txtPolicename" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr7">
+						<td><span> </span><a id="lblInjuredname" class="lbl"> </a></td>
+						<td><input id="txtInjuredname" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblInjuredid" class="lbl"> </a></td>
+						<td><input id="txtInjuredid" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblInjuredage" class="lbl"> </a></td>
+						<td><input id="txtInjuredage" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblInjuredtel" class="lbl"> </a></td>
+						<td ><input id="txtInjuredtel" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr8">
+						<td><span> </span><a id="lblClaimno" class="lbl"> </a></td>
+						<td><input id="txtClaimno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblClaimdate" class="lbl"> </a></td>
+						<td><input id="txtClaimdate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblClaimmoney" class="lbl"> </a></td>
+						<td><input id="txtClaimmoney" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblConciliatorymoney" class="lbl"> </a></td>
+						<td><input id="txtConciliatorymoney" type="text" class="txt num c1"/></td>
+					</tr>
+					<tr class="tr9">
+						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
+						<td><input id="txtEnddate" type="text" class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr10">
+						<td><span> </span><a id="lblMemo2" class="lbl"> </a></td>
+						<td colspan="3"><textarea id="txtMemo2" rows="5" cols="10" style="width:95%; height: 50px;"> </textarea></td>
+						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td colspan="3"><textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 50px;"> </textarea></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<input id="q_sys" type="hidden" />
 	</body>
 </html>
