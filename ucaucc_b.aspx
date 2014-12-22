@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ucaucc', t_content = ' field=noa,namea,spec', bbsKey = ['noa'], as;
+			var q_name = 'ucaucc', t_content = ' field=noa,product,spec', bbsKey = ['noa'], as;
 			var t_sqlname = 'ucaucc_load';
 			t_postname = q_name;
 			var isBott = false;

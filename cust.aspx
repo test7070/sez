@@ -256,7 +256,29 @@
 					case 'XY_cust_getpy':
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
-							$('#txtXyNoa1').val(as[0].Column1.substr(0,2));
+							var tmp=as[0].Column1;
+							//排除特殊字元
+							tmp=replaceAll(as[0].Column1,"'","");
+							tmp=replaceAll(as[0].Column1," ","");
+							tmp=replaceAll(as[0].Column1,".","");
+							tmp=replaceAll(as[0].Column1,"(","");
+							tmp=replaceAll(as[0].Column1,"+","");
+							tmp=replaceAll(as[0].Column1,"-","");
+							tmp=replaceAll(as[0].Column1,"*","");
+							tmp=replaceAll(as[0].Column1,"/","");
+							tmp=replaceAll(as[0].Column1,"~","");
+							tmp=replaceAll(as[0].Column1,"!","");
+							tmp=replaceAll(as[0].Column1,"@","");
+							tmp=replaceAll(as[0].Column1,"#","");
+							tmp=replaceAll(as[0].Column1,"$","");
+							tmp=replaceAll(as[0].Column1,"%","");
+							tmp=replaceAll(as[0].Column1,"^","");
+							tmp=replaceAll(as[0].Column1,"&","");
+							
+							if(tmp.length==1)
+								tmp=tmp+'Z';
+							
+							$('#txtXyNoa1').val(tmp.substr(0,2));
 						}
 						break;
 					case 'XY_newcust_getpy':
