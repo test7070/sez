@@ -1,84 +1,97 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="Content-Language" content="en-us" />
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src="../script/qj2.js" type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src="../script/qj_mess.js" type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
-    	<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-    var q_name = 'view_ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,unit,mount,weight,noa,no2,price,total,memo,notv,trandate,spec,dime,width,lengthb,lengthc,style,class  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
-    var t_sqlname = 'ordcs_load2'; t_postname = q_name; //brwCount2 = 12;
-    var isBott = false;  /// 是否已按過 最後一頁
-    var txtfield = [], afield, t_data, t_htm;
-    var i, s1;
-    
-    brwCount=-1;
+            var q_name = 'view_ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,unit,mount,weight,noa,no2,price,total,memo,notv,trandate,spec,dime,width,lengthb,lengthc,style,class  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
+            var t_sqlname = 'ordcs_load2';
+            t_postname = q_name;
+            //brwCount2 = 12;
+            var isBott = false;
+            /// 是否已按過 最後一頁
+            var txtfield = [], afield, t_data, t_htm;
+            var i, s1;
 
-    $(document).ready(function () {
-        main();
-    });         /// end ready
+            brwCount = -1;
 
-    function main() {
-        if (dataErr)  /// 載入資料錯誤
-        {
-            dataErr = false;
-            return;
-        }
-        mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
-    }
-    function bbsAssign() {  /// checked 
-        _bbsAssign();
-    }
+            $(document).ready(function() {
+                main();
+            });
 
-    function q_gtPost() { 
-        
-    }
-    function refresh() {
-        _refresh();
-		$('#checkAllCheckbox').click(function(){
-			$('input[type=checkbox][id^=chkSel]').each(function(){
-				var t_id = $(this).attr('id').split('_')[1];
-				if(!emp($('#txtProductno_' + t_id).val()))
-					$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
-			});
-		});
-		$('#btnTop').hide();
-		$('#btnPrev').hide();
-		$('#btnNext').hide();
-		$('#btnBott').hide();
-    }
-</script>
-<style type="text/css">
-	#dmain {
+            function main() {
+                if (dataErr) {
+                    dataErr = false;
+                    return;
+                }
+                mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+            }
+
+            function bbsAssign() {
+				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
+				}
+				_bbsAssign();
+			}
+
+            function q_gtPost() {
+
+            }
+
+            function refresh() {
+                _refresh();
+                $('#checkAllCheckbox').click(function() {
+                    $('input[type=checkbox][id^=chkSel]').each(function() {
+                        var t_id = $(this).attr('id').split('_')[1];
+                        if (!emp($('#txtProductno_' + t_id).val()))
+                            $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
+                    });
+                });
+                $('#btnTop').hide();
+                $('#btnPrev').hide();
+                $('#btnNext').hide();
+                $('#btnBott').hide();
+            }
+		</script>
+		<style type="text/css">
+            #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 300px;
+                border-width: 0px;
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 98%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 450px;
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -95,10 +108,15 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 20%;
             }
             .tbbm .tdZ {
-                width: 2%;
+                width: 1%;
+            }
+            td .schema {
+                display: block;
+                width: 95%;
+                height: 0px;
             }
             .tbbm tr td span {
                 float: right;
@@ -114,44 +132,13 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
-                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 38%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 60%;
-                float: left;
-            }
-            .txt.c4 {
-                width: 15%;
-                float: left;
-            }
-            .txt.c5 {
-                width: 85%;
-                float: left;
-            }
-            .txt.c6 {
                 width: 100%;
                 float: left;
-            }
-            .txt.c7 {
-            	float:left;
-                width: 22%;
-                
-            }
-            .txt.c8 {
-            	float:left;
-                width: 65px;
-                
             }
             .txt.num {
                 text-align: right;
@@ -170,63 +157,73 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-                font-size:medium;
-            }
-            .tbbm textarea {
-            	font-size: medium;
-            }
-            
-             input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
-         .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width: 100%;}
-		 .dbbs .tbbs tr{height:35px;}
-		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
-    .seek_tr
-    {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
-</style>
-</head>
-<body>
-<div  id="dbbs"  >
-        <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
-            <tr style='color:White; background:#003366;' >
-                <td align="center">
+            .dbbs {
+                width: 950px;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+
+            .num {
+                text-align: right;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+        </style>
+	</head>
+	<body>
+		<div id='dbbs' class='dbbs'>
+            <table id="tbbs" class='tbbs'>
+                <tr style='color:white; background:#003366;' >
+					<td align="center" style="width:20px;">
 					<input type="checkbox" id="checkAllCheckbox"/>
-				</td>
-                <td align="center"><a id='lblProductno'> </a></td>
-                <td align="center"><a id='lblProduct'> </a></td>
-                <td align="center"><a id='lblUnit'> </a></td>
-                <td align="center"><a id='lblMount'> </a></td>
-                <!--<td align="center"><a id='lblWeight'></a></td>-->
-                <td align="center"><a id='lblPrice'> </a></td>
-                <!--<td align="center"><a id='lblNotv'></a></td>-->
-                <td align="center"><a id='lblNoa'> </a></td>
-                <td align="center"><a id='lblMemo'> </a></td>
-            </tr>
-            <tr  style='background:#cad3ff;'>
-                <td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"  /></td>
-                <td style="width:10%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
-                <td style="width:15%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
-                <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
-                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
-                <!--<td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>-->
-                <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
-                <!--<td style="width:8%;"><input class="txt" id="txtNotv.*" type="text" style="width:96%; text-align:right;"/></td>-->
-                <td style="width:5%;"><input class="txt" id="txtNoa.*" type="text" style="width:96%;"/><input class="txt" id="txtNo2.*" type="text" /></td>
-                <td style="width:8%;">
-                	<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
-                	<input id="recno.*" type="hidden" />
-                	<input id="txtStyle.*" type="hidden" />
-                	<input id="txtSpec.*" type="hidden" />
+					</td>
+					<td align="center" style="width:20px;"></td>
+					<td align="center" style="width:100px;"><a id='lblProductno'> </a></td>
+					<td align="center" style="width:250px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblUnit'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblPrice'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblNoa'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblMemo'> </a></td>
+				</tr>
+				<tr  style='background:#cad3ff;'>
+					<td align="center"><input id="chkSel.*" type="checkbox"  /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input class="txt"  id="txtProductno.*" type="text" style="width:95%;" /></td>
+					<td>
+					<input class="txt" id="txtProduct.*" type="text" style="width:95%;" />
+					</td>
+					<td>
+					<input class="txt" id="txtUnit.*" type="text" style="width:95%;"/>
+					</td>
+					<td>
+					<input class="txt" id="txtMount.*" type="text" style="width:95%; text-align:right;"/>
+					</td>
+					<td>
+					<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align:right;"/>
+					</td>
+					<td>
+					<input class="txt" id="txtNoa.*" type="text" style="width:75%;float:left;"/>
+					<input class="txt" id="txtNo2.*" type="text" style="width:15%;float:left;"/>
+					</td>
+					<td>
+					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"/>
+					<input id="recno.*" type="hidden" />
+					<input id="txtStyle.*" type="hidden" />
+					<input id="txtSpec.*" type="hidden" />
 					<input id="txtWidth.*" type="hidden" />
 					<input id="txtLengthb.*" type="hidden" />
 					<input id="txtLengthc.*" type="hidden" />
 					<input id="txtDime.*" type="hidden" />
 					<input id="txtClass.*" type="hidden" />
-                </td>
-            </tr>
-        </table>
-  <!--#include file="../inc/pop_ctrl.inc"--> 
- </div>
-</body>
+					</td>
+				</tr>
+			</table>
+			<!--#include file="../inc/pop_ctrl.inc"-->
+		</div>
+	</body>
 </html>
