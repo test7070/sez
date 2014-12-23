@@ -98,6 +98,42 @@
 					q_box("cugt.aspx?;;;noa='" + $('#txtStationno').val() + "' and stationno='"+$('#txtStationno').val()+"'", 'cugt', "60%", "65%", q_getMsg("btnCugt"));
 				});
 				
+				$('#btnCuy').click(function() {
+					//後面針對stationno
+					var t_stationno=$('#txtStationno').val();
+					var t_bdate=$('#txtBdate').val();
+					var t_edate=$('#txtEdate').val();
+					var t_where="1=1";
+					if(t_stationno.length>0){
+						t_where+=" and stationno='"+t_stationno+"'";
+					}
+					if(t_bdate.length>0){
+						t_where+=" and bdate>='"+t_bdate+"'";
+					}
+					if(t_edate.length>0){
+						t_where+=" and bdate<='"+t_edate+"'";
+					}
+					q_box("cuy.aspx?;;;"+t_where+";"+r_accy, 'cuy', "95%", "95%", q_getMsg("btnCuy"));
+				});
+				
+				$('#btnCux').click(function() {
+					//後面針對stationno
+					var t_stationno=$('#txtStationno').val();
+					var t_bdate=$('#txtBdate').val();
+					var t_edate=$('#txtEdate').val();
+					var t_where="1=1";
+					if(t_stationno.length>0){
+						t_where+=" and stationno='"+t_stationno+"'";
+					}
+					if(t_bdate.length>0){
+						t_where+=" and bdate>='"+t_bdate+"'";
+					}
+					if(t_edate.length>0){
+						t_where+=" and bdate<='"+t_edate+"'";
+					}
+					q_box("cux.aspx?;;;"+t_where+";"+r_accy, 'cux', "95%", "95%", q_getMsg("btnCux"));
+				});
+				
                 $('#btnWork').click(function() {
                 	if(emp($('#txtStationno').val())){
                 		alert(q_getMsg('lblStation')+'請先填寫。');
@@ -1270,6 +1306,8 @@
 	            	$('#btnWorkReal').removeAttr('disabled');
 	            	$('#btnWorkRealAll').removeAttr('disabled');
 	            	$('#btnCugt2').removeAttr('disabled');
+	            	$('#btnCuy').removeAttr('disabled');
+	            	$('#btnCux').removeAttr('disabled');
 	            }else{
 	            	$('#btnWork').removeAttr('disabled');
 	            	$('#btnCug').removeAttr('disabled');
@@ -1277,6 +1315,8 @@
 	            	$('#btnWorkReal').attr('disabled', 'disabled');
 	            	$('#btnWorkRealAll').attr('disabled', 'disabled');
 	            	$('#btnCugt2').attr('disabled', 'disabled');
+	            	$('#btnCuy').attr('disabled', 'disabled');
+	            	$('#btnCux').attr('disabled', 'disabled');
 	            }
                 
                 if(q_getPara('sys.isstyle')=='1'){
@@ -1652,7 +1692,7 @@
             }
             .dbbm {
                 float: left;
-                width: 875px;
+                width: 870px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -2020,10 +2060,12 @@
 						<td class="td5" >
 							<input id="btnWork" type="button" style="float: right;"/>
 							<input id="btnCugt" type="button" style="float: right;"/>
+							<input id="btnCuy" type="button" style="float: right;"/>
 						</td>
 						<td class="td5">
 							<input id="btnCug" type="button" style="float: center;"/>
 							<input id="btnCugt2" type="button" style="float: center;"/>
+							<input id="btnCux" type="button" style="float: center;"/>
 						</td>
 					</tr>
 					<tr>
