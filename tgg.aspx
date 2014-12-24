@@ -563,7 +563,7 @@
 						</td>
 					</tr>
 					<tr class="tr12">
-						<td><span> </span><a class="lbl">E-mail</a></td>
+						<td><span> </span><a id="lblEmail" class="lbl"></a></td>
 						<td colspan="5"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -575,7 +575,7 @@
 						<td><span> </span><a id="lblAccount" class="lbl" > </a></td>
 						<td colspan="2"><input id="txtAccount" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="isXY">
+					<tr class="isXY" style="display: none;">
 						<td><span> </span><a class="lbl isXY" >支票抬頭</a></td>
 						<td colspan="2"><input id="textGqbtitle" type="text" class="txt c1 isXY"/></td>
 						<td><span> </span><a class="lbl isXY" >發票</a></td>
