@@ -857,6 +857,37 @@
 			var child_row = 0;//異動子階的欄位數
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'change_date_work':
+                		var as = _q_appendData("view_work", "", true);
+                		var previd='',nowid='',bdate='000/00/00',edate='999/99/99';
+                		for (var i = 0; i < as.length; i++) {
+                			if($('#txtWorkno_' + b_seq).val()==as[i].workno){
+                				previd=as[i].previd;
+                				nowid=as[i].nowid;
+                			}
+                		}
+                		for (var i = 0; i < as.length; i++) {
+                			//母
+                			if(dec(previd)==dec(as[i].nowid) && as[i].cuadate<edate){
+                				edate=as[i].cuadate; //最晚完工日
+                			}
+                			//子
+                			if(dec(nowid)==dec(as[i].previd) && as[i].uindate>bdate){
+                				bdate=as[i].uindate; //最快開工日
+                			}
+                		}
+                		t_error='';
+                		if($('#textDatea_' + b_seq).val()<bdate){
+                			t_error+="子階最晚完工日為"+bdate+"，指定開工日不得早於該日期!!";
+                		}
+                		if($('#textDatea_' + b_seq).val()>edate){
+                			t_error+=(t_error.length>0?'\n':'')+"母階最早應開工日為"+edate+"，指定開工日不得晚於該日期!!";
+                		}
+                		if(t_error.length>0){
+                			alert(t_error);
+                			$('#textDatea_' + b_seq).val('');	
+                		}
+                		break;
                 	case 'getgen':
                 		var as = _q_appendData("station", "", true);
                 		if(as[0]==undefined){
@@ -1112,11 +1143,17 @@
 							b_seq = t_IdSeq;
 						});
 						
-						$('#textDatea_' + i).blur(function() {
+						$('#textDatea_' + i).change(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 		                	//$('#txtCuadate_' + b_seq).val($('#textDatea_' + b_seq).val())
+		                	
+		                	//103/12/24 判斷指定開工日是否有超出母階與子階的開工日與完工日
+		                	if(!emp($('#txtWorkno_' + b_seq).val()) && !emp($('#textDatea_' + b_seq).val())){
+								var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ^^";
+								q_gt('view_work', t_where, 0, 0, 0, "change_date_work", r_accy);
+							}
 						});
 						
 						$('#btnChildchange_' + i).mousedown(function(e) {
