@@ -41,6 +41,8 @@
             ,['textRealbstationno', '', 'station', 'noa,station', 'textRealbstationno', ''],['textRealestationno', '', 'station', 'noa,station', 'textRealestationno', '']
             ,['textRealbstationgno', '', 'stationg', 'noa,namea', 'textRealbstationgno', ''],['textRealestationgno', '', 'stationg', 'noa,namea', 'textRealestationgno', '']
             ,['textRealbtggno', '', 'tgg', 'noa,comp', 'textRealbtggno', ''],['textRealetggno', '', 'tgg', 'noa,comp', 'textRealetggno', '']
+            ,['textUnfinishbstationno', '', 'station', 'noa,station', 'textUnfinishbstationno', ''],['textUnfinishstationno', '', 'station', 'noa,station', 'textUnfinishstationno', '']
+            ,['textUnfinishbprocessno', '', 'process', 'noa,process', 'textUnfinishbprocessno', ''],['textUnfinisheprocessno', '', 'process', 'noa,process', 'textUnfinisheprocessno', '']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -244,7 +246,18 @@
 					q_cur=2;
 				});
 				
+				$('#btnUnfinish').click(function() {
+					$('#textUnfinishedate').val(q_cdn(q_date(),-1));
+					$('#textUnfinishbdate').val(q_date());
+					$('#div_unfinish').css('top', $('#btnUnfinish').offset().top+25);
+					$('#div_unfinish').css('left', $('#btnUnfinish').offset().left-$('#div_unfinish').width()+$('#btnUnfinish').width()+10);
+					$('#div_unfinish').toggle();
+					q_cur=2;
+				});
+				
 				//DIV事件---------------------------------------------------
+				$('#textUnfinishedate').mask('999/99/99');
+				$('#textUnfinishbdate').mask('999/99/99');
 				$('#textCugtbdate').mask('999/99/99');
 				$('#textCugtbdate').datepicker();
 				$('#textCugtedate').mask('999/99/99');
@@ -390,6 +403,25 @@
 				
 				$('#btnClose_div_child').click(function() {
 					$('#div_child').toggle();
+				});
+				
+				$('#btnClose_div_unfinish').click(function() {
+					$('#div_unfinish').toggle();
+					q_cur=0;
+				});
+				
+				$('#btn_div_unfinish').click(function() {
+					var u_edate=trim($('#textUnfinishedate').val())==''?'#non':trim($('#textUnfinishedate').val());
+					var u_bdate=trim($('#textUnfinishbdate').val())==''?'#non':trim($('#textUnfinishbdate').val());
+					var u_bstationno=trim($('#textUnfinishbstationno').val())==''?'#non':trim($('#textUnfinishbstationno').val());
+					var u_estationno=trim($('#textUnfinishstationno').val())==''?'#non':trim($('#textUnfinishstationno').val());
+					var u_bprocessno=trim($('#textUnfinishbprocessno').val())==''?'#non':trim($('#textUnfinishbprocessno').val());
+					var u_eprocessno=trim($('#textUnfinisheprocessno').val())==''?'#non':trim($('#textUnfinisheprocessno').val());
+					
+					$('#btn_div_unfinish').attr('disabled', 'disabled');
+					$('#btn_div_unfinish').val('調整中....');
+					q_func('qtxt.query.unfinish', 'cug.txt,unfinish,'+u_edate+';'+u_bdate+';'+u_bstationno+';'+u_estationno
+					+';'+u_bprocessno+';'+u_eprocessno);
 				});
 				
 				$('#btnDayupdate').click(function() {
@@ -1329,6 +1361,7 @@
                 $('#div_real').hide();
                 $('#div_realweek').hide();
                 $('#div_cugt').hide();
+                $('#div_unfinish').hide();
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
             }
@@ -1483,6 +1516,13 @@
             
 		   function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.unfinish':
+                		alert("未完工調整完成!!");
+                		$('#btn_div_unfinish').removeAttr('disabled');
+                		$('#btn_div_unfinish').val('調整');
+                		q_cur=0;
+                		$('#div_unfinish').toggle();
+                		break;
                 	case 'qtxt.query.cugtchange':
                 		alert("更新完成!!");
                 		$('#btn_div_cugt').removeAttr('disabled');
@@ -1848,6 +1888,43 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="div_unfinish" style="position:absolute; top:0px; left:0px; display:none; width:510px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_unfinish" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">未完工截止日</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishedate' type='text' style='text-align:left;width:80px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">調整開工日</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishbdate' type='text' style='text-align:left;width:80px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">工作線別區間</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishbstationno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textUnfinishstationno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">製程</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishbprocessno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textUnfinisheprocessno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr id='unfinish_close'>
+					<td align="center" colspan='2'>
+						<input id="btn_div_unfinish" type="button" value="調整">
+						<input id="btnClose_div_unfinish" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!---DIV分隔線---->
 		<div id="div_cugt" style="position:absolute; top:0px; left:0px; display:none; width:510px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_cugt" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
@@ -2094,15 +2171,17 @@
 						</td>
 						<td class="td3" ><span> </span><a id='lblHours' class="lbl"> </a></td>
 						<td class="td4"><input id="txtHours"  type="text" class="txt num c1"/></td>
-						<td class="td5" >
-							<input id="btnWork" type="button" style="float: right;"/>
-							<input id="btnCugt" type="button" style="float: right;"/>
-							<input id="btnCuy" type="button" style="float: right;"/>
-						</td>
-						<td class="td5">
-							<input id="btnCug" type="button" style="float: center;"/>
-							<input id="btnCugt2" type="button" style="float: center;"/>
-							<input id="btnCux" type="button" style="float: center;"/>
+					</tr>
+					<tr>
+						<td class="td1"> </td>
+						<td class="td2" colspan="5">
+							<input id="btnWork" type="button" />
+							<input id="btnCug" type="button" />
+							<input id="btnCugt" type="button" />
+							<input id="btnCugt2" type="button"/>
+							<input id="btnCuy" type="button" />
+							<input id="btnCux" type="button"/>
+							<input id="btnUnfinish" type="button"/>
 						</td>
 					</tr>
 					<tr>
