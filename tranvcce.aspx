@@ -14,11 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
-
+ 
             var q_name = "tranvcce";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtCommandid','txtOrdeno'];
             var bbmNum = [];
@@ -28,241 +24,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            q_desc = 1;
             q_xchg = 1;
             brwCount2 = 10;
-
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
-            , ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
-            , ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx']
-            , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'] 
-            , ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'] 
-            , ['txtCaseno', 'lblCaseno', 'view_tranordes', 'caseno,memo,zcaseno', 'txtCaseno', 'tranordes_b.aspx'
-                ,"where=^^ a.noa='txtOrdeno' and not exists(select * from tranvcce"+r_accy+" where noa!='txtNoa' and caseno=a.caseno) ^^" ]
-            );
+            aPop = new Array();
   
-            function tranorde() {
-            }
-
-
-            tranorde.prototype = {
-                data : null,
-                tbCount : 10,
-                curPage : -1,
-                totPage : 0,
-                curIndex : '',
-                init : function(obj) {
-                    //------------------------
-                    $('.tranorde_chk').click(function(e) {
-                        $(".tranorde_chk").not(this).prop('checked', false);
-                        $(".tranorde_chk").not(this).parent().parent().find('td').css('background', 'pink');
-                        $(this).prop('checked', true);
-                        $(this).parent().parent().find('td').css('background', '#FF8800');
-                    });
-                    //------------------------
-                    this.data = new Array();
-                    if (obj[0] != undefined) {
-                        for (var i in obj)
-                        if (obj[i]['noa'] != undefined)
-                            this.data.push(obj[i]);
-                    }
-                    this.totPage = Math.ceil(this.data.length / this.tbCount);
-                    $('#textTotPage').val(this.totPage);
-                    this.sort('noa', false);
-                },
-                sort : function(index, isFloat) {
-                    this.curIndex = index;
-
-                    if (isFloat) {
-                        this.data.sort(function(a, b) {
-                            var m = parseFloat(a[tranorde.curIndex] == undefined ? "0" : a[tranorde.curIndex]);
-                            var n = parseFloat(b[tranorde.curIndex] == undefined ? "0" : b[tranorde.curIndex]);
-                            if (m == n) {
-                                if (a['noa'] < b['noa'])
-                                    return 1;
-                                if (a['noa'] > b['noa'])
-                                    return -1;
-                                return 0;
-                            } else
-                                return n - m;
-                        });
-                    } else {
-                        this.data.sort(function(a, b) {
-                            var m = a[tranorde.curIndex] == undefined ? "" : a[tranorde.curIndex];
-                            var n = b[tranorde.curIndex] == undefined ? "" : b[tranorde.curIndex];
-                            if (m == n) {
-                                if (a['noa'] < b['noa'])
-                                    return 1;
-                                if (a['noa'] > b['noa'])
-                                    return -1;
-                                return 0;
-                            } else {
-                                if (m < n)
-                                    return 1;
-                                if (m > n)
-                                    return -1;
-                                return 0;
-                            }
-                        });
-                    }
-                    this.page(1);
-                },
-                next : function() {
-                    if (this.curPage == this.totPage) {
-                        alert('最末頁。');
-                        return;
-                    }
-                    this.curPage++;
-                    $('#textCurPage').val(this.curPage);
-                    this.refresh();
-                },
-                previous : function() {
-                    if (this.curPage == 1) {
-                        alert('最前頁。');
-                        return;
-                    }
-                    this.curPage--;
-                    $('#textCurPage').val(this.curPage);
-                    this.refresh();
-                },
-                page : function(n) {
-                    if (n <= 0 || n > this.totPage) {
-                        this.curPage = 1;
-                        $('#textCurPage').val(this.curPage);
-                        this.refresh();
-                        return;
-                    }
-                    this.curPage = n;
-                    $('#textCurPage').val(this.curPage);
-                    this.refresh();
-                },
-                refresh : function() {
-                    var n = (this.curPage - 1) * this.tbCount;
-                    for (var i = 0; i < this.tbCount; i++) {
-                        if ((n + i) < this.data.length) {
-                            $('#tranorde_chk' + i).removeAttr('disabled');
-                            $('#tranorde_noa' + i).html(this.data[n+i]['noa']);
-                            $('#tranorde_ctype' + i).html(this.data[n+i]['ctype']);
-                            $('#tranorde_strdate' + i).html(this.data[n+i]['strdate']);
-                            $('#tranorde_nick' + i).html(this.data[n+i]['nick']);
-                            $('#tranorde_addr' + i).html(this.data[n+i]['addr']);
-                            $('#tranorde_product' + i).html(this.data[n+i]['product']);
-                            $('#tranorde_mount' + i).html(this.data[n+i]['mount']);
-                            $('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']);
-                            $('#tranorde_empdock' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['empdock']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['so']+'</a>');
-                            $('#tranorde_port2' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['port2']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['checkself']+ this.data[n+i]['trackno']+'</a>');
-                        } else {
-                            $('#tranorde_chk' + i).attr('disabled', 'disabled');
-                            $('#tranorde_noa' + i).html('');
-                            $('#tranorde_ctype' + i).html('');
-                            $('#tranorde_strdate' + i).html('');
-                            $('#tranorde_nick' + i).html('');
-                            $('#tranorde_addr' + i).html('');
-                            $('#tranorde_product' + i).html('');
-                            $('#tranorde_mount' + i).html('');
-                            $('#tranorde_vccecount' + i).html('');
-                            $('#tranorde_empdock' + i).html('');
-                            $('#tranorde_port2' + i).html('');
-                        }
-                    }
-                    $('#tranorde_chk0').click();
-                    $('#tranorde_chk0').prop('checked', 'true');
-                },
-                browNoa : function(obj){
-                	var noa = $.trim($(obj).html());
-                	if(noa.length>0)
-                		q_box("tranorde.aspx?;;;noa='" + noa + "';"+r_accy, 'tranorde', "95%", "95%", q_getMsg("popTranorde"));
-                },
-                paste : function() {
-                    if (this.totPage <= 0)
-                        return;
-                    var n = (this.curPage - 1) * this.tbCount;
-                    var t_msg = '';
-                    for (var i = 0; i < this.tbCount; i++) {
-                        //alert($('#tranorde_chk'+i).attr('id')+'_'+$('#tranorde_chk'+i).prop('checked'));
-                        if ($('#tranorde_chk' + i).prop('checked')) {
-                            $('#txtOrdeno').val(this.data[n+i]['noa']);
-                            $('#txtCustno').val(this.data[n+i]['custno']);
-                            $('#txtComp').val(this.data[n+i]['comp']);
-                            $('#txtNick').val(this.data[n+i]['nick']);
-                            $('#txtAddrno').val(this.data[n+i]['addrno']);
-                            $('#txtAddr').val(this.data[n+i]['addr']);
-                            $('#txtMemo').val(this.data[n+i]['memo']);
-                            $('#txtMount').val(1);
-                            t_msg = this.data[n+i]['addr'];
-                            //出口
-                            t_msg += (this.data[n+i]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+this.data[n+i]['docketno1']:'');
-                            t_msg += (this.data[n+i]['empdock'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['empdock']+'領':'');
-                        	t_msg += (this.data[n+i]['dock'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['dock']:'');
-                        	t_msg += (this.data[n+i]['boat'].length>0?(t_msg.length>0?',':'')+'船公司'+this.data[n+i]['boat']:'');
-                        	t_msg += (this.data[n+i]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+this.data[n+i]['boatname']:'');
-                        	t_msg += (this.data[n+i]['do1'].length>0?(t_msg.length>0?',':'')+'領編'+this.data[n+i]['do1']:'');
-                        	t_msg += (this.data[n+i]['so'].length>0?(t_msg.length>0?',':'')+'SO:'+this.data[n+i]['so']:'');
-                        	t_msg += (this.data[n+i]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+this.data[n+i]['casepackaddr']:'');
-                        	t_msg += (this.data[n+i]['port'].length>0?(t_msg.length>0?',':'')+'港口'+this.data[n+i]['port']:'');
-                        	t_msg += (this.data[n+i]['casetype'].length>0?(t_msg.length>0?',':'')+'櫃型'+this.data[n+i]['casetype']:'');
-                        	//進口
-                        	t_msg += (this.data[n+i]['port2'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['port2']+'領':'');
-                        	t_msg += (this.data[n+i]['empdock2'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['empdock2']:'');
-                        	t_msg += (this.data[n+i]['takeno'].length>0?(t_msg.length>0?',':'')+'領編'+this.data[n+i]['takeno']:'');
-                        	t_msg += (this.data[n+i]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+this.data[n+i]['casepresent']:'');
-                        	t_msg += (this.data[n+i]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+this.data[n+i]['product2']:'');
-                        	t_msg += (this.data[n+i]['option01'].length>0?(t_msg.length>0?',':'')+'過磅'+this.data[n+i]['option01']:'');
-                        	t_msg += (this.data[n+i]['option02'].length>0?(t_msg.length>0?',':'')+'加工'+this.data[n+i]['option02']:'');
-                        	t_msg += (this.data[n+i]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+this.data[n+i]['containertype']:'');
-                        	t_msg += (this.data[n+i]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+this.data[n+i]['docketno2']:'');
-                        	t_msg += (this.data[n+i]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤'+this.data[n+i]['trackno']:'');
-                            t_msg += (this.data[n+i]['caseassign'].length>0?(t_msg.length>0?',':'')+'指定櫃號'+this.data[n+i]['caseassign']:'');
-                        	t_msg += (this.data[n+i]['do2'].length>0?(t_msg.length>0?',':'')+'提單'+this.data[n+i]['do2']:'');
-                        	t_msg += (this.data[n+i]['checkself'].length>0?(t_msg.length>0?',':'')+'自檢'+this.data[n+i]['checkself']:'');
-                        	t_msg += (this.data[n+i]['checkinstru'].length>0?(t_msg.length>0?',':'')+'儀檢'+this.data[n+i]['checkinstru']:'');
-                        	t_msg += (this.data[n+i]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+this.data[n+i]['casedo']:'');
-                        	t_msg += (this.data[n+i]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+this.data[n+i]['caseopenaddr']:'');
-                        	t_msg += (this.data[n+i]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+this.data[n+i]['casetype2']:'');
-                        	
-                        	$('#txtMsg').val(t_msg);
-                        }
-                    }
-                }
-            }
-            tranorde = new tranorde();
-
-            function currentData() {
-            }
-
-
-            currentData.prototype = {
-                data : [],
-                /*新增時複製的欄位*/
-                include : ['txtDatea'],
-                /*記錄當前的資料*/
-                copy : function() {
-                    this.data = new Array();
-                    for (var i in fbbm) {
-                        var isInclude = false;
-                        for (var j in this.include) {
-                            if (fbbm[i] == this.include[j]) {
-                                isInclude = true;
-                                break;
-                            }
-                        }
-                        if (isInclude) {
-                            this.data.push({
-                                field : fbbm[i],
-                                value : $('#' + fbbm[i]).val()
-                            });
-                        }
-                    }
-                },
-                /*貼上資料*/
-                paste : function() {
-                    for (var i in this.data) {
-                        $('#' + this.data[i].field).val(this.data[i].value);
-                    }
-                }
-            };
-            var curData = new currentData();
-
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -274,49 +39,11 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(1);
             }
 
             function mainPost() {
-            	$('#btnIns').attr('value',$('#btnIns').attr('value')+"(F8)");
-            	$('#btnOk').attr('value',$('#btnOk').attr('value')+"(F9)");
                 q_mask(bbmMask);
-                $('#txtDatea').datepicker();
-                $('#txtTrandate').datepicker();
-                q_cmbParse("combCtype", ('').concat(new Array( '全部','貨櫃','平板','散裝')));
-                q_cmbParse("combDtype", ('').concat(new Array( '全部','出口','進口')));
-                q_cmbParse("combMemo", ('').concat(q_getMsg('combmemo').split('&')));
-                $('#combMemo').click(function(e){
-					if(q_cur==1 || q_cur==2){
-						$('#txtMemo').val($('#combMemo>option:selected').text()+$('#txtMemo').val());
-					}                	
-                });
-				//--------------------------------------------------
-                $('#btnTranorde_refresh').click(function(e) {
-                    t_where = " (isnull(mount,0)>isnull(vccecount,0)) and enda!=1 ";
-                    var t_ctype = $('#combCtype>option:selected').text();
-                    var t_dtype = $('#combDtype>option:selected').text();
-                    if(t_ctype!='全部')
-                    	t_where += (t_where.length>0?' and ':'') + "isnull(ctype,'')='"+t_ctype+"'";
-                    if(t_dtype=='出口')
-                    	t_where += (t_where.length>0?' and ':'') + "len(isnull(empdock,''))>0";
-                    if(t_dtype=='進口')
-                    	t_where += (t_where.length>0?' and ':'') + "len(isnull(port2,''))>0";	
-                    t_where="where=^^"+t_where+"^^";
-                    q_gt('view_tranorde', t_where, 0, 0, 0,'aaa', r_accy);
-                });
-                //自動載入訂單
-                $('#btnTranorde_refresh').click();
-
-                $('#btnTranorde_previous').click(function(e) {
-                    tranorde.previous();
-                });
-                $('#btnTranorde_next').click(function(e) {
-                    tranorde.next();
-                });
-                $('#textCurPage').change(function(e) {
-                    tranorde.page(parseInt($(this).val()));
-                });
             }
 
             function q_boxClose(s2) {
@@ -330,64 +57,11 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'aaa':
-                        var as = _q_appendData("view_tranorde", "", true);
-                        if (as[0] != undefined)
-                            tranorde.init(as);
-                        else
-                        	alert('無資料。');
-                        break;
-                    case 'bbb':
-                    	
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                     default:
-                    	if(t_name.substring(0,3)=='bbb'){ 
-                    		var t_noa = t_name.split('_')[1];
-                    		var t_ordeno = t_name.split('_')[2];
-                    		var t_mount = parseFloat(t_name.split('_')[3]);
-                    		var as = _q_appendData("view_tranorde", "", true);
-	                        if (as[0] != undefined){
-	                        	t_vccecount = (as[0]['vccecount']==undefined?"0":as[0]['vccecount']);
-	                        	t_vccecount = (t_vccecount.length==0?"0":t_vccecount);
-	                        	t_where=" noa='"+t_noa+"'";
-	                        	t_where="where=^^"+t_where+"^^";
-                   				q_gt('tranvcce', t_where, 0, 0, 0, "ccc_"+t_noa+"_"+t_ordeno+"_"+t_mount+"_"+t_vccecount, r_accy);         	
-	                        }else{
-	                        	var t_noa = trim($('#txtNoa').val());
-				                var t_date = trim($('#txtDatea').val());
-				                if (t_noa.length == 0 || t_noa == "AUTO")
-				                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				                else
-				                    wrServer(t_noa);
-	                        }	                    	
-                    	}else if(t_name.substring(0,3)=='ccc'){
-                    		//回寫已收數量
-                    		var t_noa = t_name.split('_')[1];
-                    		var t_ordeno = t_name.split('_')[2];
-                    		var t_mount = parseFloat(t_name.split('_')[3]);
-                    		var t_vccecount = parseFloat(t_name.split('_')[4]);
-                    		var t_curVccecount = t_vccecount + t_mount;
-                    		var as = _q_appendData("tranvcce", "", true);
-                    		if (as[0] != undefined){            
-                    			t_curVccecount -= parseFloat(as[0]['mount']==undefined?"0":as[0]['mount']);
-                    		}
-                    		for(var i in tranorde.data){
-                				if(tranorde.data[i]['noa']==t_ordeno){
-                					tranorde.data[i]['vccecount'] = ''+t_curVccecount;
-                					break;
-                				}
-                			}
-                    		tranorde.refresh();
-                			var t_noa = trim($('#txtNoa').val());
-			                var t_date = trim($('#txtDatea').val());
-			                if (t_noa.length == 0 || t_noa == "AUTO")
-			                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-			                else
-			                    wrServer(t_noa);
-                    	}
                         break;
                 }
             }
@@ -409,15 +83,11 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-
                 q_box('tranvcce_s.aspx', q_name + '_s', "600px", "500px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
                 _btnIns();
-                tranorde.paste();
-                $('#chkSendcommandresult').prop('checked',false);
-                $('#txtCommandid').val('');               
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
             }
@@ -429,7 +99,7 @@
             }
 
             function btnPrint() {
-                q_box('z_tranvcce.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+                q_box("z_tranvccep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_tranvccep', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -454,11 +124,10 @@
                 }
                 if(q_cur ==1){
                 	$('#txtWorker').val(r_name);
-                }else if(q_cur ==2){
-                	$('#txtWorker2').val(r_name);
                 }else{
-                	alert("error: btnok!")
+                	$('#txtWorker2').val(r_name);
                 }
+                
 				var t_carno = $.trim($('#txtCarno').val());
 				var t_msg = $.trim($('#txtMemo').val())
 					+(($('#txtTrandate').val()+$('#txtTrantime').val()).length > 0?',出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'')
