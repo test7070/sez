@@ -36,7 +36,7 @@
 			brwNowPage = 0;
 			brwKey = '';
 			aPop = new Array(
-				['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+				['txtStationno', 'lblStation', 'station', 'noa,station,storeno,store', 'txtStationno,txtStation,txtStoreno,txtStore', 'station_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
@@ -321,6 +321,7 @@
 				if (emp($('#txtMon').val()))
 					$('#txtMon').val($('#txtDatea').val().substr(0, 6));
 
+				/* 判斷暫時拿掉
 				if (!checkok) {
 					var word_where = '';
 					for (var i = 0; i < q_bbsCount; i++) {
@@ -333,26 +334,28 @@
 					var t_where = "where=^^ 1=1 " + word_where + "^^";
 					var t_where1 = "where[1]=^^ noa='" + $('#txtNoa').val() + "' and productno=a.productno and workno=a.noa ^^";
 					q_gt('work_pick', t_where + t_where1, 0, 0, 0, "", r_accy);
-				} else {
+				} else {}
 					checkok = false;
-					//如果表身倉庫沒填，表頭倉庫帶入
-					for (var i = 0; i < q_bbsCount; i++) {
-						if (emp($('#txtStoreno_' + i).val())) {
-							$('#txtStoreno_' + i).val($('#txtStoreno').val());
-							$('#txtStore_' + i).val($('#txtStore').val());
-						}
+				*/
+				//如果表身倉庫沒填，表頭倉庫帶入
+				for (var i = 0; i < q_bbsCount; i++) {
+					if (emp($('#txtStoreno_' + i).val())) {
+						$('#txtStoreno_' + i).val($('#txtStoreno').val());
+						$('#txtStore_' + i).val($('#txtStore').val());
 					}
-					if (q_cur == 1)
-						$('#txtWorker').val(r_name);
-					else
-						$('#txtWorker2').val(r_name);
-					var t_date = $('#txtDatea').val();
-					var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-					if (s1.length == 0 || s1 == "AUTO")
-						q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workbq') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-					else
-						wrServer(s1);
 				}
+				if (q_cur == 1)
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
+					
+				var t_date = $('#txtDatea').val();
+				
+				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+				if (s1.length == 0 || s1 == "AUTO")
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_workbq') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(s1);
 			}
 
 			function _btnSeek() {

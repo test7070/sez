@@ -122,7 +122,7 @@
                 $('#txtDatea').focus();
             }
             function btnPrint() {
-                q_box('z_ordap.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+                //q_box('z_ordap.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
             function btnOk() {
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {

@@ -76,7 +76,7 @@
 				+ q_sqlPara2("a.engineno", t_engineno);
 				
 				if(!emp(t_carno))
-					t_where+= " and (a.noa='"+t_carno+"' or oldnoa='"+t_carno+"' or a.noa=(select noa from carchange where oldcarno='"+t_carno+"')) ";
+					t_where+= " and (charindex('"+t_carno+"',a.noa)>0 or charindex('"+t_carno+"',oldnoa)>0 or a.noa in (select noa from carchange where charindex('"+t_carno+"',oldcarno)>0)) ";
 				
 				t_where = " where=^^" + t_where + " ^^ ";	
 				return t_where;

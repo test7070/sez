@@ -53,6 +53,9 @@
 					},{
 						type : '1',
 						name : 'xdate'
+					},{
+						type : '1',
+						name : 'xindate'
 					}, {
                         type : '8',
                         name : 'xpartno',

@@ -41,6 +41,8 @@
             ,['textRealbstationno', '', 'station', 'noa,station', 'textRealbstationno', ''],['textRealestationno', '', 'station', 'noa,station', 'textRealestationno', '']
             ,['textRealbstationgno', '', 'stationg', 'noa,namea', 'textRealbstationgno', ''],['textRealestationgno', '', 'stationg', 'noa,namea', 'textRealestationgno', '']
             ,['textRealbtggno', '', 'tgg', 'noa,comp', 'textRealbtggno', ''],['textRealetggno', '', 'tgg', 'noa,comp', 'textRealetggno', '']
+            ,['textUnfinishbstationno', '', 'station', 'noa,station', 'textUnfinishbstationno', ''],['textUnfinishstationno', '', 'station', 'noa,station', 'textUnfinishstationno', '']
+            ,['textUnfinishbprocessno', '', 'process', 'noa,process', 'textUnfinishbprocessno', ''],['textUnfinisheprocessno', '', 'process', 'noa,process', 'textUnfinisheprocessno', '']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -96,6 +98,42 @@
 				$('#btnCugt').click(function() {
 					//後面針對stationno
 					q_box("cugt.aspx?;;;noa='" + $('#txtStationno').val() + "' and stationno='"+$('#txtStationno').val()+"'", 'cugt', "60%", "65%", q_getMsg("btnCugt"));
+				});
+				
+				$('#btnCuy').click(function() {
+					//後面針對stationno
+					var t_stationno=$('#txtStationno').val();
+					var t_bdate=$('#txtBdate').val();
+					var t_edate=$('#txtEdate').val();
+					var t_where="1=1";
+					if(t_stationno.length>0){
+						t_where+=" and stationno='"+t_stationno+"'";
+					}
+					if(t_bdate.length>0){
+						t_where+=" and bdate>='"+t_bdate+"'";
+					}
+					if(t_edate.length>0){
+						t_where+=" and bdate<='"+t_edate+"'";
+					}
+					q_box("cuy.aspx?;;;"+t_where+";"+r_accy, 'cuy', "95%", "95%", q_getMsg("btnCuy"));
+				});
+				
+				$('#btnCux').click(function() {
+					//後面針對stationno
+					var t_stationno=$('#txtStationno').val();
+					var t_bdate=$('#txtBdate').val();
+					var t_edate=$('#txtEdate').val();
+					var t_where="1=1";
+					if(t_stationno.length>0){
+						t_where+=" and stationno='"+t_stationno+"'";
+					}
+					if(t_bdate.length>0){
+						t_where+=" and bdate>='"+t_bdate+"'";
+					}
+					if(t_edate.length>0){
+						t_where+=" and bdate<='"+t_edate+"'";
+					}
+					q_box("cux.aspx?;;;"+t_where+";"+r_accy, 'cux', "95%", "95%", q_getMsg("btnCux"));
 				});
 				
                 $('#btnWork').click(function() {
@@ -208,7 +246,18 @@
 					q_cur=2;
 				});
 				
+				$('#btnUnfinish').click(function() {
+					$('#textUnfinishedate').val(q_cdn(q_date(),-1));
+					$('#textUnfinishbdate').val(q_date());
+					$('#div_unfinish').css('top', $('#btnUnfinish').offset().top+25);
+					$('#div_unfinish').css('left', $('#btnUnfinish').offset().left-$('#div_unfinish').width()+$('#btnUnfinish').width()+10);
+					$('#div_unfinish').toggle();
+					q_cur=2;
+				});
+				
 				//DIV事件---------------------------------------------------
+				$('#textUnfinishedate').mask('999/99/99');
+				$('#textUnfinishbdate').mask('999/99/99');
 				$('#textCugtbdate').mask('999/99/99');
 				$('#textCugtbdate').datepicker();
 				$('#textCugtedate').mask('999/99/99');
@@ -354,6 +403,25 @@
 				
 				$('#btnClose_div_child').click(function() {
 					$('#div_child').toggle();
+				});
+				
+				$('#btnClose_div_unfinish').click(function() {
+					$('#div_unfinish').toggle();
+					q_cur=0;
+				});
+				
+				$('#btn_div_unfinish').click(function() {
+					var u_edate=trim($('#textUnfinishedate').val())==''?'#non':trim($('#textUnfinishedate').val());
+					var u_bdate=trim($('#textUnfinishbdate').val())==''?'#non':trim($('#textUnfinishbdate').val());
+					var u_bstationno=trim($('#textUnfinishbstationno').val())==''?'#non':trim($('#textUnfinishbstationno').val());
+					var u_estationno=trim($('#textUnfinishstationno').val())==''?'#non':trim($('#textUnfinishstationno').val());
+					var u_bprocessno=trim($('#textUnfinishbprocessno').val())==''?'#non':trim($('#textUnfinishbprocessno').val());
+					var u_eprocessno=trim($('#textUnfinisheprocessno').val())==''?'#non':trim($('#textUnfinisheprocessno').val());
+					
+					$('#btn_div_unfinish').attr('disabled', 'disabled');
+					$('#btn_div_unfinish').val('調整中....');
+					q_func('qtxt.query.unfinish', 'cug.txt,unfinish,'+u_edate+';'+u_bdate+';'+u_bstationno+';'+u_estationno
+					+';'+u_bprocessno+';'+u_eprocessno);
 				});
 				
 				$('#btnDayupdate').click(function() {
@@ -821,6 +889,37 @@
 			var child_row = 0;//異動子階的欄位數
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'change_date_work':
+                		var as = _q_appendData("view_work", "", true);
+                		var previd='',nowid='',bdate='000/00/00',edate='999/99/99';
+                		for (var i = 0; i < as.length; i++) {
+                			if($('#txtWorkno_' + b_seq).val()==as[i].workno){
+                				previd=as[i].previd;
+                				nowid=as[i].nowid;
+                			}
+                		}
+                		for (var i = 0; i < as.length; i++) {
+                			//母
+                			if(dec(previd)==dec(as[i].nowid) && as[i].cuadate<edate){
+                				edate=as[i].cuadate; //最晚完工日
+                			}
+                			//子
+                			if(dec(nowid)==dec(as[i].previd) && as[i].uindate>bdate){
+                				bdate=as[i].uindate; //最快開工日
+                			}
+                		}
+                		t_error='';
+                		if($('#textDatea_' + b_seq).val()<bdate){
+                			t_error+="子階最晚完工日為"+bdate+"，指定開工日不得早於該日期!!";
+                		}
+                		if($('#textDatea_' + b_seq).val()>edate){
+                			t_error+=(t_error.length>0?'\n':'')+"母階最早應開工日為"+edate+"，指定開工日不得晚於該日期!!";
+                		}
+                		if(t_error.length>0){
+                			alert(t_error);
+                			$('#textDatea_' + b_seq).val('');	
+                		}
+                		break;
                 	case 'getgen':
                 		var as = _q_appendData("station", "", true);
                 		if(as[0]==undefined){
@@ -1076,11 +1175,17 @@
 							b_seq = t_IdSeq;
 						});
 						
-						$('#textDatea_' + i).blur(function() {
+						$('#textDatea_' + i).change(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 		                	//$('#txtCuadate_' + b_seq).val($('#textDatea_' + b_seq).val())
+		                	
+		                	//103/12/24 判斷指定開工日是否有超出母階與子階的開工日與完工日
+		                	if(!emp($('#txtWorkno_' + b_seq).val()) && !emp($('#textDatea_' + b_seq).val())){
+								var t_where = "where=^^ cuano+'-'+cuanoq=(select cuano+'-'+cuanoq from view_work where noa='"+$('#txtWorkno_' + b_seq).val()+"') ^^";
+								q_gt('view_work', t_where, 0, 0, 0, "change_date_work", r_accy);
+							}
 						});
 						
 						$('#btnChildchange_' + i).mousedown(function(e) {
@@ -1256,6 +1361,7 @@
                 $('#div_real').hide();
                 $('#div_realweek').hide();
                 $('#div_cugt').hide();
+                $('#div_unfinish').hide();
 				$('#lblStation').css('display', 'inline');
 				$('#lblStationk').css('display', 'none');
             }
@@ -1270,6 +1376,8 @@
 	            	$('#btnWorkReal').removeAttr('disabled');
 	            	$('#btnWorkRealAll').removeAttr('disabled');
 	            	$('#btnCugt2').removeAttr('disabled');
+	            	$('#btnCuy').removeAttr('disabled');
+	            	$('#btnCux').removeAttr('disabled');
 	            }else{
 	            	$('#btnWork').removeAttr('disabled');
 	            	$('#btnCug').removeAttr('disabled');
@@ -1277,6 +1385,8 @@
 	            	$('#btnWorkReal').attr('disabled', 'disabled');
 	            	$('#btnWorkRealAll').attr('disabled', 'disabled');
 	            	$('#btnCugt2').attr('disabled', 'disabled');
+	            	$('#btnCuy').attr('disabled', 'disabled');
+	            	$('#btnCux').attr('disabled', 'disabled');
 	            }
                 
                 if(q_getPara('sys.isstyle')=='1'){
@@ -1406,6 +1516,13 @@
             
 		   function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.unfinish':
+                		alert("未完工調整完成!!");
+                		$('#btn_div_unfinish').removeAttr('disabled');
+                		$('#btn_div_unfinish').val('調整');
+                		q_cur=0;
+                		$('#div_unfinish').toggle();
+                		break;
                 	case 'qtxt.query.cugtchange':
                 		alert("更新完成!!");
                 		$('#btn_div_cugt').removeAttr('disabled');
@@ -1652,7 +1769,7 @@
             }
             .dbbm {
                 float: left;
-                width: 875px;
+                width: 870px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -1771,6 +1888,43 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		<div id="div_unfinish" style="position:absolute; top:0px; left:0px; display:none; width:510px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_unfinish" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">未完工截止日</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishedate' type='text' style='text-align:left;width:80px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">調整開工日</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishbdate' type='text' style='text-align:left;width:80px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">工作線別區間</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishbstationno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textUnfinishstationno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">製程</td>
+					<td style="background-color: #f8d463;">
+						<input id='textUnfinishbprocessno' type='text' style='text-align:left;width:180px;'/>	~
+						<input id='textUnfinisheprocessno' type='text' style='text-align:left;width: 180px;'/>
+					</td>
+				</tr>
+				<tr id='unfinish_close'>
+					<td align="center" colspan='2'>
+						<input id="btn_div_unfinish" type="button" value="調整">
+						<input id="btnClose_div_unfinish" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!---DIV分隔線---->
 		<div id="div_cugt" style="position:absolute; top:0px; left:0px; display:none; width:510px; background-color: #CDFFCE; border: 5px solid gray;">
 			<table id="table_cugt" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
 				<tr>
@@ -2017,13 +2171,17 @@
 						</td>
 						<td class="td3" ><span> </span><a id='lblHours' class="lbl"> </a></td>
 						<td class="td4"><input id="txtHours"  type="text" class="txt num c1"/></td>
-						<td class="td5" >
-							<input id="btnWork" type="button" style="float: right;"/>
-							<input id="btnCugt" type="button" style="float: right;"/>
-						</td>
-						<td class="td5">
-							<input id="btnCug" type="button" style="float: center;"/>
-							<input id="btnCugt2" type="button" style="float: center;"/>
+					</tr>
+					<tr>
+						<td class="td1"> </td>
+						<td class="td2" colspan="5">
+							<input id="btnWork" type="button" />
+							<input id="btnCug" type="button" />
+							<input id="btnCugt" type="button" />
+							<input id="btnCugt2" type="button"/>
+							<input id="btnCuy" type="button" />
+							<input id="btnCux" type="button"/>
+							<input id="btnUnfinish" type="button"/>
 						</td>
 					</tr>
 					<tr>
