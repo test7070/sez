@@ -695,7 +695,7 @@
 				$('#txtCaddr').val(t_caddr);
 				$('#txtAddr').val(t_addr);
 				sum();
-				$('#txtTranordet').val(SaveTranOrdetStr());
+				$('#txtTranordeta').val(SaveTranOrdetStr());
 				if(q_cur ==1){
 					$('#txtWorker').val(r_name);
 				}else if(q_cur ==2){
@@ -1499,7 +1499,7 @@
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td>
 							<input id="txtWorker2" type="text"  class="txt c1"/>
-							<input id="txtTranordet" type="hidden">
+							<input id="txtTranordeta" type="hidden">
 						</td>
 					</tr>
 					<tr class="schema_tr" style="display:none;"></tr>
