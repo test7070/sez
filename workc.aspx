@@ -141,7 +141,8 @@
 									//var t_where = "where=^^ ordeno ='" + b_ret[i].noa + "' and no2='" + b_ret[i].no2 + "' and tggno!='' and left(tggno,1)!='Z' ";
 									var t_where = "where=^^ charindex('"+b_ret[i].noa+'-'+b_ret[i].no2+"',ordeno)>0 and tggno!='' and left(tggno,1)!='Z' ";
 									t_where+=" and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and mount>inmount"; 
-									t_where+=" and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+									//t_where+=" and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+									t_where+=" and noa like 'W[0-9]%' ";
 									
 									if (!emp($('#txtTggno').val()))
 										t_where += " and tggno='" + $('#txtTggno').val() + "'";
@@ -408,12 +409,14 @@
 							if (!emp($('#txtTggno').val())) {
 								//var t_where = "isnull(enda,0)!=1 and noa+'-'+no2 in (select a.ordeno from work" + r_accy + " a left join works" + r_accy + " b on a.noa=b.noa where a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and a.mount > a.inmount group by a.ordeno,a.no2) ";
 								var t_where = "isnull(enda,0)!=1 and charindex(noa+'-'+no2,(select a.ordeno+',' from view_work a left join view_works b on a.noa=b.noa ";
-								t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+								//t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+								t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1  and a.noa like 'W[0-9]%' ";
 								t_where+=" and a.tggno!='' and a.tggno='" + $('#txtTggno').val() + "' and a.mount>a.inmount and a.ordeno!='' group by a.ordeno FOR XML path('')))>0";
 							} else {
 								//var t_where = "isnull(enda,0)!=1 and noa+'-'+no2 in (select a.ordeno from work" + r_accy + " a left join works" + r_accy + " b on a.noa=b.noa where a.tggno!='' and a.mount > a.inmount group by a.ordeno,a.no2) ";
 								var t_where = "isnull(enda,0)!=1 and charindex(noa+'-'+no2,(select a.ordeno+',' from view_work a left join view_works b on a.noa=b.noa ";
-								t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+								//t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
+								t_where+=" where isnull(a.enda,0)!=1 and  a.noa like 'W[0-9]%' ";
 								t_where+=" and a.tggno!='' and a.mount>a.inmount and a.ordeno!='' group by a.ordeno FOR XML path('')))>0";
 							}
 							
@@ -445,7 +448,8 @@
 							
 							//103/05/20 加上排除模擬製令
 							//t_where += " and SUBSTRING(noa,2,1) LIKE '[0-9]%' "; >>翻頁會出錯
-							t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
+							//t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
+							t_where+=" and noa like 'W[0-9]%' ";
 							
 							q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 							
@@ -475,7 +479,8 @@
 		
 							//t_where+=" and (isnull(mount,0)-isnull(gmount,0))>0"
 							//103/05/20 加上排除模擬製令
-							t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
+							//t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
+							t_where+=" and noa like 'W[0-9]%' ";
 		
 							q_box("works_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'works', "95%", "95%", q_getMsg('popWork'));
 							

@@ -20,7 +20,7 @@
             q_tables = 's';
             var q_name = "workm";
             var q_readonly = ['txtNoa','txtDatea','txtMount','txtWorkno','txtWorker','txtWorker2'];
-            var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate','txtComp'];
+            var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate','txtComp','txtCuano','txtCuanoq'];
             var bbmNum = [['txtMount',12,2,1],['txtHours',10,2,1],['txtPrice',10,2,1]];
             var bbsNum = [];
             var bbmMask = [];
@@ -70,13 +70,22 @@
 		                    alert(t_err);
 	    	                return;
 	        	        }
+	        	        //103/12/26 只能帶入前兩碼是英文的
+	        	        var t_where="productno='"+$('#txtProductno').val()+"' and enda!='1' and noa not like 'W[0-9]%' ";
+	        	        
 	        	        if(!emp($('#txtProcessno').val()))
-	        	        	t_where = "productno='"+$('#txtProductno').val()+"' and processno='"+$('#txtProcessno').val()+"' and enda!='1' ";
-	        	        else
-							t_where = "productno='"+$('#txtProductno').val()+"' and enda!='1' ";
+	        	        	t_where = " and processno='"+$('#txtProcessno').val()+"'";
+	        	        	
+	        	        if(!emp($('#txtStyle').val()))
+	        	        	t_where = " and style='"+$('#txtStyle').val()+"'";
+	        	        	
 						q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('btnWork'));
 					}
                 });
+                
+                $('#btnWorkPrint').click(function() {
+					q_box('z_workp.aspx' + "?;;;noa='" + $('#txtWorkno').val() + "';" + r_accy + ";", '', "95%", "95%", q_getMsg("popPrint"));
+				});
             }
 
             function q_boxClose(s2) {
@@ -97,8 +106,8 @@
 	                        else
 	                        	$('#txtCuadate').val(mindate);
 	                        
-                	  		ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtWorkno,txtProductno,txtProduct,txtStationno,txtStation,txtProcessno,txtProcess,txtMount,txtHours,txtCuadate,txtUindate,txtTggno,txtComp', b_ret.length, b_ret
-	                        , 'noa,productno,product,stationno,station,processno,process,mount,hours,cuadate,uindate,tggno,comp'
+                	  		ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtWorkno,txtProductno,txtProduct,txtStationno,txtStation,txtProcessno,txtProcess,txtMount,txtHours,txtCuadate,txtUindate,txtTggno,txtComp,txtCuano,txtCuanoq', b_ret.length, b_ret
+	                        , 'noa,productno,product,stationno,station,processno,process,mount,hours,cuadate,uindate,tggno,comp,cuano,cuanoq'
 	                        , 'txtProductno');
 	                        sum();
 						}
@@ -122,15 +131,19 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
+				
+				abbm[q_recno]['workno'] = xmlString;
+                $('#txtWorkno').val(xmlString);
             }
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtProcessno', q_getMsg('lblProcess')], ['txtProductno', q_getMsg('lblProduct')]]);
+                t_err = q_chkEmpField([['txtProductno', q_getMsg('lblProduct')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                
                 if((emp($('#txtStationno').val())&&emp($('#txtTggno').val()))||(!emp($('#txtStationno').val())&&!emp($('#txtTggno').val()))){
                 	alert("'"+q_getMsg('lblStation')+"'和'"+q_getMsg('lblTgg')+"'請擇一輸入!!");
                 	return;
@@ -413,7 +426,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 1500px;
+                width: 1800px;
             }
             .tbbs a {
                 font-size: medium;
@@ -467,7 +480,15 @@
 							<input id="txtProcessno"  type="text" class="txt c2"/>
 							<input id="txtProcess"  type="text" class="txt c3"/>
 						</td>
-						<td class="td4"> <input id="btnWork" type="button" /></td>
+						<td class="td4"><input id="btnWork" type="button" /></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblStyle' class="lbl btn"> </a></td>
+						<td class="td2" >
+							<input id="txtStyle"  type="text" class="txt c2" style="width: 175px;"/>
+						</td>
+						<td class="td3"> </td>
+						<td class="td4"><input id="btnWorkPrint" type="button" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a></td>
@@ -522,13 +543,15 @@
 					<td align="center" style="width:160px;"><a id='lblWorkno_s'> </a></td>
 					<td align="center" style="width:173px;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:230px;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:110px;"><a id='lblStation_s'> </a></td>
-					<td align="center" style="width:110px;"><a id='lblTgg_s'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblStation_s'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblTgg_s'> </a></td>
 					<td align="center" style="width:110px;"><a id='lblProcess_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:90px;"><a id='lblHours_s'> </a></td>
-					<td align="center" style="width:90px;"><a id='lblCuadate_s'> </a></td>
-					<td align="center" style="width:90px;"><a id='lblUindate_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblCuadate_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblUindate_s'> </a></td>
+					<td align="center" style="width:130px;"><a id='lblCuano_s'> </a></td>
+					<td align="center" style="width:70px;"><a id='lblCuanoq_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -556,6 +579,8 @@
 					<td><input id="txtHours.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCuadate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtUindate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtCuano.*" type="text" class="txt c1"/></td>
+					<td><input id="txtCuanoq.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>

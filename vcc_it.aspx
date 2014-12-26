@@ -698,6 +698,11 @@
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
+                
+			if(q_date()>=q_cdn($('#txtDatea').val(),3) && r_rank<9){
+				alert('已鎖單!!');
+				 return;
+			}
 			
 			Lock(1,{opacity:0});
 			var t_where =" where=^^ vccno='"+ $('#txtNoa').val()+"'^^";
