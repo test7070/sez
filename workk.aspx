@@ -105,7 +105,7 @@
 							if (t_edate.length == 0)
 								t_edate = '999/99/99'
 							
-							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' and left(a.noa,2)!='WJ' ";
+							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' and a.noa like 'W[0-9]%' ";
 						}
 						t_where1 = "where[1]=^^ "+t_where1+" ^^";
 						q_gt('workk_works', t_where+t_where1, 0, 0, 0, "", r_accy);

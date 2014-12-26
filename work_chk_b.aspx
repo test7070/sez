@@ -199,14 +199,14 @@
 					<input class="txt" id="txtProductno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>
-				<td style="width:6%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
+				<td style="width:7%;"><input class="txt" id="txtMount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>
 				<!--<td style="width:6%;"><input class="txt" id="txtWorkdate.*" type="text" style="width:98%;"  readonly="readonly" /></td>
 				<td style="width:6%;"><input class="txt" id="txtUindate.*" type="text" style="width:98%;"  readonly="readonly" /></td>-->
 				<td class="station" style="width:9%;">
 					<input class="txt" id="txtStationno.*" type="text" style="width:98%;"  readonly="readonly" />
 					<input class="txt" id="txtStation.*" type="text" style="width:98%;"  readonly="readonly" />
 				</td>
-				<td style="width:6%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
+				<td style="width:7%;"><input class="txt" id="txtInmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
 				<!--<td style="width:5%;"><input class="txt" id="txtRmount.*" type="text" style="width:98%; text-align: right;"  readonly="readonly" /></td>
 				<td style="width:5%;"><input class="txt" id="txtWmount.*" type="text" style="width:98%;text-align: right;"  readonly="readonly" /></td>-->
 				<td style="width:10%;">
