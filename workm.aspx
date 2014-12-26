@@ -21,7 +21,7 @@
             var q_name = "workm";
             var q_readonly = ['txtNoa','txtDatea','txtMount','txtWorkno','txtWorker','txtWorker2'];
             var q_readonlys = ['txtWorkno','txtProductno','txtProduct','txtStation','txtProcess','txtMount','txtHours','txtCuadate','txtUindate','txtComp','txtCuano','txtCuanoq'];
-            var bbmNum = [['txtMount',12,2,1],['txtHours',10,2,1],['txtPrice',10,2,1]];
+            var bbmNum = [['txtHours',10,2,1],['txtPrice',10,2,1]];
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];

@@ -702,6 +702,7 @@
             var divdate=false;
             var divkdate=false;
 			var getnewgen=false;
+			var rescheduling=false;
             function scheduling(){
             	if(!getnewgen){
             		q_gt('station', "where=^^noa='"+$('#txtStationno').val()+"' ^^", 0, 0, 0, "getgen", r_accy);
@@ -780,6 +781,7 @@
                 //處理資料
                 //0526 沒有資料預設8小時 機台1台
                 //0513 強制當天會做完所以不處理 拆分兩個work、延後、剩餘一小時不處理等動作
+                //1226 當天沒做完強制拆分兩個work
                 var t_genorg=dec($('#txtGenorg').val())>0?dec($('#txtGenorg').val()):8;//原始產能
                 var t_gen=t_genorg;//目前產能
                 var total_hours=0; //累計機時
@@ -808,6 +810,39 @@
 		                //完工日>>>0513做為判斷是否有變動開工日
 		                //$('#txtUindate_'+i).val($('#txtCuadate_'+i).val());
 		                //-------------------------------------------------------------------
+		                //1226 當天沒做完強制拆分兩個work
+		                if(t_hours>t_gen){ //如果當累積時數超過當日產能進行拆分移至下一天
+		                	var x_hours=q_sub(t_hours,t_gen);//超出時間
+		                	var o_hours=dec($('#txtHours_'+i).val());//原工作時數
+		                	var o_mount=dec($('#txtMount_'+i).val());//原工作數量
+		                	var x_mount1=Math.floor(q_mul(q_div(q_sub(o_hours,x_hours),o_hours),o_mount));//工作數量
+		                	var x_mount2=q_sub(o_mount,x_mount1);//拆分數量
+		                	var x_hours1=round(q_mul(q_div(x_mount1,o_mount),o_hours),3);//工作時數
+		                	var x_hours2=round(q_mul(q_div(x_mount2,o_mount),o_hours),3);//拆分時數
+		                	if(x_mount1==0){
+		                		//時間不夠做一個直接移到下一天
+		                		$('#txtCuadate_'+i).val(q_cdn($('#txtCuadate_'+i).val(),1));
+		                	}else{
+		                		q_bbs_addrow('bbs', i, 1);//當筆插入下一行
+			                	//複製相同資料
+			                	for (var j = 0; j < fbbs.length; j++) {
+			                		$('#'+fbbs[j]+'_'+(i+1)).val($('#'+fbbs[j]+'_'+(i)).val());
+			                	}
+			                	//更新資料
+			                	$('#txtCugunoq_'+i).val($('#txtCugunoq_'+i).val()+'A');
+			                	$('#txtMount_'+i).val(x_mount1);
+			                	$('#txtHours_'+i).val(x_hours1);
+			                	$('#txtCugunoq_'+(i+1)).val($('#txtCugunoq_'+(i+1)).val()+'B');
+			                	$('#txtMount_'+(i+1)).val(x_mount2);
+			                	$('#txtHours_'+(i+1)).val(x_hours2);
+			                	$('#txtCuadate_'+(i+1)).val(q_cdn($('#txtCuadate_'+i).val(),1));
+		                	}
+		                	
+		                	//重新計算
+		                	rescheduling=true;
+		                	break;
+		                }
+		                //-----------------------------------------------------------------------------------------------------
 		                //如果當天是最後一筆且非空白行 插入 空白行分隔
 		                var smount=dec($('#txtSmount').val());
 						if($('#txtCuadate_'+i).val()!=$('#txtCuadate_'+(i+1)).val() && $('#txtNos_'+i).val().length!=5){
@@ -822,6 +857,13 @@
 						}
 		                //-------------------------------------------------------------------
 	                }
+                }
+                
+                //有強制拆分 重新計算
+                if(rescheduling){
+                	rescheduling=false;
+                	scheduling();
+                	return;
                 }
                 
                 //處理格式
@@ -869,6 +911,7 @@
                 t_cugt=undefined;
                 first_rest=true;
                 getnewgen=false
+                rescheduling=false;
                 sum();
                 $('#btnCug').removeAttr('disabled');
                 if(cngisbtnok){
