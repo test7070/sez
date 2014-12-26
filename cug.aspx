@@ -180,6 +180,7 @@
                 	//排序
                 	t_where=t_where+"order by a.datea,a.nos,a.noq,b.rank desc,a.workno^^";
                 	
+                	//103/12/26 抓work
                 	q_gt('cug_work', t_where, 0, 0, 0, "", r_accy);
                 });
                 

@@ -719,6 +719,8 @@
 					$('#btnWork').removeAttr('disabled');
 					$('#txtBdate').datepicker( 'destroy' );
 					$('#txtEdate').datepicker( 'destroy' );
+					$('#txtWbdate').datepicker( 'destroy' );
+					$('#txtWedate').datepicker( 'destroy' );
 					$('#txtSfbdate').datepicker( 'destroy' );
 					$('#txtSfbdate').datepicker( 'destroy' );
 				} else {
@@ -729,6 +731,8 @@
 					$('#btnWork').attr('disabled', 'disabled');
 					$('#txtBdate').datepicker();
 					$('#txtEdate').datepicker();
+					$('#txtWbdate').datepicker();
+					$('#txtWedate').datepicker();
 					$('#txtSfbdate').datepicker();
 					$('#txtSfedate').datepicker();
 				}

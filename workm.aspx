@@ -57,7 +57,7 @@
                 
                 $('#lblWorkno').click(function() {
 					if(!emp($('#txtWorkno').val())){
-						t_where = "noa='"+$('#txtWorkno').val()+"'";
+						t_where = "cuano='"+$('#txtWorkno').val()+"'";
 						q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
 					}
                 });
@@ -121,6 +121,28 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'Modi_checkwork':
+                		var as = _q_appendData("view_work", "", true);
+                		if (as[0] != undefined) {
+                			if($('#txtNoa').val()!=as[0].cuano)
+                				alert('合併製令已轉正式製令禁止修改!!。');
+                			else
+                				_btnModi();	
+                		}else{
+                			alert('製令單遺失!!。');
+                		}
+                		break;
+                	case 'Dele_checkwork':
+                		var as = _q_appendData("view_work", "", true);
+                		if (as[0] != undefined) {
+                			if($('#txtNoa').val()!=as[0].cuano)
+                				alert('合併製令已轉正式製令禁止刪除!!。');
+                			else
+                				_btnDele();	
+                		}else{
+                			alert('製令單遺失!!。');
+                		}
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -180,6 +202,12 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
+				if(!emp($('#txtWorkno').val())){
+					var t_where = "where=^^ cuano='"+$('#txtWorkno').val()+"' ^^";
+					q_gt('view_work', t_where, 0, 0, 0, "Modi_checkwork", r_accy);
+					return;
+				}
+                    
                 _btnModi();
             }
 
@@ -290,6 +318,11 @@
             }
 
             function btnDele() {
+            	if(!emp($('#txtWorkno').val())){
+					var t_where = "where=^^ cuano='"+$('#txtWorkno').val()+"' ^^";
+					q_gt('view_work', t_where, 0, 0, 0, "Dele_checkwork", r_accy);
+					return;
+				}
                 _btnDele();
             }
 
