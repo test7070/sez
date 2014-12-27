@@ -132,6 +132,9 @@
 					
 					var parent_recno=(window.parent.q_recno>=window.parent.brwCount?window.parent.q_recno%window.parent.brwCount:window.parent.q_recno);
 					
+					//103/12/26 預設先代入訂單預交日或製成品入庫日 最晚的日期
+					$('#txtEnddate2').val(wParent.getElementById("txtWedate").value>wParent.getElementById("txtEdate").value?wParent.getElementById("txtWedate").value:wParent.getElementById("txtEdate").value);
+					
 					if(wParent.getElementById("vtunordb_"+parent_recno).innerHTML==''){
 						$('#btnOrda').attr('disabled', 'disabled');
 						$('#btnOrda2ordb').attr('disabled', 'disabled');
