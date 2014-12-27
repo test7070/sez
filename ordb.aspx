@@ -202,7 +202,7 @@
                 $('#chkIsproj').attr('checked', true);
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtOdate').val(q_date());
-                $('#txtDatea').val(q_cdn(q_date(),10));
+                $('#txtDatea').val(q_cdn(q_date(),30));
                 $('#txtOdate').focus();
             }
 			
