@@ -610,7 +610,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBdate' class="lbl" title="對應司機立帳的出車登錄日期，包含符合此日期區間的。"> </a></td>
+						<td><span> </span><a id='lblBdate' class="lbl" title="對應司機立帳的立帳日期，包含符合此日期區間的。"> </a></td>
 						<td>
 						<input id="txtBdate" type="text"  class="txt c1"/>
 						</td>

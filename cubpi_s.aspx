@@ -74,14 +74,14 @@
 				if (t_mech.length > 0)
 					t_where += " and charindex('" + t_mech + "',mech)>0";
 				if (t_ordeno.length > 0)
-					t_where += " and exists(select noa from cubs" + r_accy + " where cubs" + r_accy + ".noa=cub" + r_accy + ".noa and cubs" + r_accy + ".ordeno='" + t_ordeno + "')";
+					t_where += " and exists(select noa from cubs" + r_accy + " where cubs" + r_accy + ".noa=view_cub" + r_accy + ".noa and cubs" + r_accy + ".ordeno='" + t_ordeno + "')";
 				if (t_uno.length > 0)
-					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa and cubt" + r_accy + ".uno='" + t_uno + "')";
+					t_where += " and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=view_cub" + r_accy + ".noa and cubt" + r_accy + ".uno='" + t_uno + "')";
 				if (t_inuno.length > 0)
-					t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa and cubu" + r_accy + ".uno='" + t_inuno + "')";
+					t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=view_cub" + r_accy + ".noa and cubu" + r_accy + ".uno='" + t_inuno + "')";
 				
 				if(t_dime != 0 || t_width != 0 || t_lengthb || t_radius){
-				    t_where +=" and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=cub" + r_accy + ".noa ";
+				    t_where +=" and exists(select noa from cubt" + r_accy + " where cubt" + r_accy + ".noa=view_cub" + r_accy + ".noa ";
 				    if (t_dime != 0)
                         t_where += " and cubt" + r_accy + ".dime=" + t_dime;
                     if (t_width != 0)
@@ -93,7 +93,7 @@
 				    t_where +=")";
 				}
 				if(!(t_bdime==0 && t_edime==0) || !(t_bwidth==0 && t_width==0) || !(t_blength==0 && t_elength==0) || !(t_bradius==0 || t_eradius==0)){
-				    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=cub" + r_accy + ".noa ";
+				    t_where += " and exists(select noa from cubu" + r_accy + " where cubu" + r_accy + ".noa=view_cub" + r_accy + ".noa ";
 				    if (!(t_bdime==0 && t_edime==0))
                         t_where += " and cubu" + r_accy + ".dime between " + t_bdime + " and "+t_edime;
                     if (!(t_bwidth==0 && t_width==0))
