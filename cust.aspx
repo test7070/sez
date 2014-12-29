@@ -194,12 +194,12 @@
 					}
 				});
 				
-				$('#btnTmpcustno_xy').click(function(){
+				/*$('#btnTmpcustno_xy').click(function(){
 					xy_newnoa='';
 					//讀羅馬拼音>產生最新編號>最後更換noa
 					var t_where = "where=^^ ['"+$('#txtComp').val() +"')  ^^";
 					q_gt('cust_xy', t_where, 0, 0, 0, "XY_newcust_getpy", r_accy);
-				});
+				});*/
 			}
 			
 			var xy_newnoa=''; 
@@ -281,7 +281,7 @@
 							$('#txtXyNoa1').val(tmp.substr(0,2));
 						}
 						break;
-					case 'XY_newcust_getpy':
+					/*case 'XY_newcust_getpy':
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
 							xy_newnoa=as[0].Column1.substr(0,2);
@@ -306,7 +306,7 @@
 							q_func('qtxt.query.change_tmpcustno', 'cust_ucc_xy.txt,change_tmpcustno,' + t_paras);
 							$('#btnTmpcustno_xy').attr('disabled', 'disabled');
 						}
-						break;
+						break;*/
 					case 'XY_AutoCustno1'://總店流水號 沒有分店
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
@@ -515,14 +515,14 @@
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
-					if($('#txtNoa').val().substr(0,2)=='##'){
+					/*if($('#txtNoa').val().substr(0,2)=='##'){
 						$('#btnTmpcustno_xy').show();
 					}else{
 						$('#btnTmpcustno_xy').hide();
-					}
+					}*/
 				}else{
 					$('.isXY').hide();
-					$('#btnTmpcustno_xy').hide();
+					//$('#btnTmpcustno_xy').hide();
 				}
 			}
 
@@ -579,6 +579,7 @@
 			}
 
 			var vccitopen = true;
+			var xyopen = true;
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
 				refreshBbm();
@@ -587,14 +588,18 @@
 					vccitopen = false;
 					$('#txtNoa').val(window.parent.post_custno);
 				}
+				if (xyopen && t_para && (window.parent.q_name == 'quat' || window.parent.q_name == 'orde') && q_getPara('sys.project').toUpperCase()=='XY' && window.parent.q_cur==1) {
+					btnIns();
+					xyopen = false;
+				}
 				if(t_para){
 					$('#btnConn').removeAttr('disabled');
 					$('#btnCustm').removeAttr('disabled');
-					$('#btnTmpcustno_xy').removeAttr('disabled');
+					//$('#btnTmpcustno_xy').removeAttr('disabled');
 				}else{
 					$('#btnConn').attr('disabled', 'disabled');
 					$('#btnCustm').attr('disabled', 'disabled');
-					$('#btnTmpcustno_xy').attr('disabled', 'disabled');	
+					//$('#btnTmpcustno_xy').attr('disabled', 'disabled');	
 				}
 				
 			}
@@ -652,7 +657,7 @@
 			}
 
 			function returnparent() {
-				if (window.parent.q_name == 'vcc' && (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)) {
+				if (window.parent.q_name == 'vcc' && (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) && (window.parent.q_cur==1 || window.parent.q_cur==2)) {
 					var wParent = window.parent.document;
 					wParent.getElementById("txtCustno").value = $('#txtNoa').val();
 					wParent.getElementById("txtComp").value = $('#txtComp').val();
@@ -667,11 +672,25 @@
 					wParent.getElementById("txtSalesno2").value = $('#txtSalesno').val();
 					wParent.getElementById("txtSales2").value = $('#txtSales').val();
 				}
+				if ((window.parent.q_name == 'quat' || window.parent.q_name == 'orde' ) && q_getPara('sys.project').toUpperCase()=='XY' && window.parent.q_cur==1) {
+					var wParent = window.parent.document;
+					wParent.getElementById("txtCustno").value = $('#txtNoa').val();
+					wParent.getElementById("txtComp").value = $('#txtComp').val();
+					wParent.getElementById("txtNick").value = $('#txtNick').val();
+					wParent.getElementById("txtPaytype").value = $('#txtPaytype').val();
+					wParent.getElementById("txtTel").value = $('#txtTel').val();
+					wParent.getElementById("txtFax").value = $('#txtFax').val();
+					wParent.getElementById("cmbTrantype").value = $('#cmbTrantype').val();
+					wParent.getElementById("txtPost").value = $('#txtZip_comp').val();
+					wParent.getElementById("txtAddr").value = $('#txtAddr_comp').val();
+					wParent.getElementById("txtSalesno").value = $('#txtSalesno').val();
+					wParent.getElementById("txtSales").value = $('#txtSales').val();
+				}
 			}
 			
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
-                	case 'qtxt.query.change_tmpcustno':
+                	/*case 'qtxt.query.change_tmpcustno':
                 		$('#btnTmpcustno_xy').removeAttr('disabled');
 						alert('已轉正式客戶!!。');
 						var s2=[];
@@ -679,7 +698,7 @@
 						s2[1]="where=^^ noa='"+xy_newnoa+"' ^^"
 						q_boxClose2(s2);
 						xy_newnoa='';
-						break;
+						break;*/
 				}
 			}
 		</script>
@@ -830,9 +849,9 @@
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td>
 							<input id="txtNoa" type="text" class="txt c1"/>
-							<input id="txtXyNoa1" type="text" class="txt c6" style="width:65px;display:none;"/>
+							<input id="txtXyNoa1" type="text" class="txt c6" style="width:60px;display:none;"/>
 							<a id='lblXyNoa2' class="lbl" style="display:none;float: left;"> 分店<span> </span></a>
-							<input id="txtXyNoa2" type="text" class="txt c6" style="width:45px;display:none;"/>
+							<input id="txtXyNoa2" type="text" class="txt c6" style="width:40px;display:none;"/>
 						</td>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
 						<td><input id="txtSerial" type="text" class="txt c1"/></td>
@@ -876,7 +895,7 @@
 						<td colspan="2">
 							<input id="btnConn" type="button" />
 							<input id="btnCustm" type="button" />
-							<input id="btnTmpcustno_xy" type="button" value="轉正式客戶" style="display: none;"/>
+							<!--<input id="btnTmpcustno_xy" type="button" value="轉正式客戶" style="display: none;"/>-->
 						</td>
 					</tr>
 					<tr>

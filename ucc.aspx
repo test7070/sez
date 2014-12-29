@@ -149,7 +149,7 @@
 					$('#btnStkcost').removeAttr('disabled');
 				});
 				
-				$('#btnTmpuccno_xy').click(function(){
+				/*$('#btnTmpuccno_xy').click(function(){
 					//檢查編號是否已存在>變更noa
 					xy_newnoa='';
 					xy_newnoa=prompt("請輸入要變更的物品編號");
@@ -157,7 +157,7 @@
 						var t_where = "where=^^ noa='" + xy_newnoa + "' ^^";
 						q_gt('ucaucc', t_where, 0, 0, 0, "XY_newucc_checkNoa", r_accy);
 					}
-				});
+				});*/
 			}
 			
 			var xy_newnoa=''; 
@@ -264,7 +264,7 @@
 						wrServer($('#txtNoa').val());
 						Unlock();
 						break;
-					case 'XY_newucc_checkNoa':
+					/*case 'XY_newucc_checkNoa':
 						var as = _q_appendData("ucaucc", "", true);
 						if (as[0] != undefined) {
 							alert('物品編號重複!!');
@@ -274,7 +274,7 @@
 							q_func('qtxt.query.change_tmpuccno', 'cust_ucc_xy.txt,change_tmpuccno,' + t_paras);
 							$('#btnTmpuccno_xy').attr('disabled', 'disabled');
 						}
-						break;
+						break;*/
 					case 'uccga':
 						var as = _q_appendData("uccga", "", true);
 						if (as[0] != undefined) {
@@ -531,13 +531,13 @@
 				}
 				
 				$('.isXY').hide();
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
+				/*if (q_getPara('sys.project').toUpperCase()=='XY'){
 					if($('#txtNoa').val().substr(0,2)=='##'){
 						$('#btnTmpuccno_xy').show();
 					}else{
 						$('#btnTmpuccno_xy').hide();
 					}
-				}
+				}*/
 			}
 			
 			function refreshBbm() {
@@ -609,7 +609,7 @@
 			
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
-                	case 'qtxt.query.change_tmpuccno':
+                	/*case 'qtxt.query.change_tmpuccno':
                 		$('#btnTmpuccno_xy').removeAttr('disabled');
 						alert('已轉正式物品!!。');
 						var s2=[];
@@ -617,7 +617,7 @@
 						s2[1]="where=^^ noa='"+xy_newnoa+"' ^^"
 						q_boxClose2(s2);
 						xy_newnoa='';
-						break;
+						break;*/
 				}
 			}
 			
@@ -747,7 +747,7 @@
 							<span> </span><a id="lblCopy"> </a>
 						</div>
 					</td>
-					<td><input id="btnTmpuccno_xy" type="button" value="轉正式物品" style="display: none;"/></td>
+					<!--<td><input id="btnTmpuccno_xy" type="button" value="轉正式物品" style="display: none;"/></td>-->
 				</tr>
 				<tr> 
 					<td><a id='lblProduct' class="lbl"> </a></td>
