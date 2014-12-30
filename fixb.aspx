@@ -91,7 +91,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_fixb.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_fixb.aspx', '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {	
