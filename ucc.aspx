@@ -136,6 +136,7 @@
 						//q_gt('rc2', t_where , 0, 0, 0, "ucc_rc2", r_accy);
 					}
 				});
+				
 				$('#txtNoa').change(function(){
 					var thisVal = $.trim($(this).val());
 					if(thisVal.length > 0){
@@ -144,6 +145,24 @@
 						q_gt('ucaucc', t_where, 0, 0, 0, "checkNoa", r_accy);
 					}
 				});
+				
+				$('#txtProduct').change(function(){
+					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
+						//讀羅馬拼音
+						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
+						return;
+					}
+				});
+				$('#txtSpec').change(function(){
+					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && !$('#xy_isprint').prop('checked')){
+						//讀羅馬拼音
+						var t_where = "where=^^ ['"+$('#txtProduct').val() +"')  ^^";
+						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
+						return;
+					}
+				});
+				
 				$('#btnClose_div_stkcost').click(function() {
 					$('#div_stkcost').toggle();
 					$('#btnStkcost').removeAttr('disabled');
@@ -263,6 +282,64 @@
 						}
 						wrServer($('#txtNoa').val());
 						Unlock();
+						break;
+					case 'btnOk_xy_checkNoa2':
+						var as = _q_appendData("ucaucc", "", true);
+						if (as[0] != undefined) {
+							var t_seq=as[(as.length-1)].noa.substr(-4);
+							t_seq=('0000'+(dec(t_seq)+1)).substr(-4);
+							
+							$('#txtNoa').val(trim($('#txtNoa').val())+t_seq);
+						}else{
+							$('#txtNoa').val(trim($('#txtNoa').val())+'0001');
+						}
+						wrServer($('#txtNoa').val());
+						Unlock();
+						break;	
+					case 'XY_getpy':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							var tmp=as[0].Column1;
+							//排除特殊字元
+							tmp=replaceAll(as[0].Column1,"'","");
+							tmp=replaceAll(as[0].Column1," ","");
+							tmp=replaceAll(as[0].Column1,".","");
+							tmp=replaceAll(as[0].Column1,"(","");
+							tmp=replaceAll(as[0].Column1,"+","");
+							tmp=replaceAll(as[0].Column1,"-","");
+							tmp=replaceAll(as[0].Column1,"*","");
+							tmp=replaceAll(as[0].Column1,"/","");
+							tmp=replaceAll(as[0].Column1,"~","");
+							tmp=replaceAll(as[0].Column1,"!","");
+							tmp=replaceAll(as[0].Column1,"@","");
+							tmp=replaceAll(as[0].Column1,"#","");
+							tmp=replaceAll(as[0].Column1,"$","");
+							tmp=replaceAll(as[0].Column1,"%","");
+							tmp=replaceAll(as[0].Column1,"^","");
+							tmp=replaceAll(as[0].Column1,"&","");
+							
+							if(tmp.length==1)
+								tmp=tmp+'Z';
+							
+							var t_spec='';
+							if($('#txtSpec').val()!='' && $('#txtSpec').val().replace(/[^0-9]/ig, "").length>0){
+								for(var i=0;i<$('#txtSpec').val().length;i++){
+									if(t_spec.length==0){
+										if($('#txtSpec').val().substr(i,1).replace(/[^0-9]/ig, "").length>0){
+											t_spec=$('#txtSpec').val().substr(i,1);
+										}
+									}else{
+										if($('#txtSpec').val().substr(i,1).replace(/[^0-9]/ig, "").length>0){
+											t_spec+=$('#txtSpec').val().substr(i,1);
+										}else{
+											break;
+										}
+									}
+								}
+							}
+							
+							$('#txtNoa').val('B'+tmp.substr(0,2)+t_spec);
+						}
 						break;
 					/*case 'XY_newucc_checkNoa':
 						var as = _q_appendData("ucaucc", "", true);
@@ -469,10 +546,17 @@
 				$('#txtDate2').val(q_date());
 				$('#txtWorker').val(r_name);
 				
-				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY' && $('#xy_isprint').prop('checked')){
-					//檢查客戶是否存在
-					var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' ^^";
-					q_gt('cust', t_where, 0, 0, 0, "btnOk_xy_checkCust", r_accy);
+				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY'){
+					if($('#xy_isprint').prop('checked')){ //印刷
+						//檢查客戶是否存在
+						var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' ^^";
+						q_gt('cust', t_where, 0, 0, 0, "btnOk_xy_checkCust", r_accy);
+					}else{//便品
+						//取得最新流水號
+						var t_noa = trim($('#txtNoa').val());
+						var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' and len(noa)="+(t_noa.length+4)+" ^^";
+						q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_xy_checkNoa2", r_accy);
+					}
 					Lock();
 					return;
 				}
