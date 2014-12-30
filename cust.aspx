@@ -200,6 +200,7 @@
 					var t_where = "where=^^ ['"+$('#txtComp').val() +"')  ^^";
 					q_gt('cust_xy', t_where, 0, 0, 0, "XY_newcust_getpy", r_accy);
 				});*/
+				
 			}
 			
 			var xy_newnoa=''; 
