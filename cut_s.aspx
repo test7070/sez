@@ -61,9 +61,9 @@
 		        if (t_mech.length>0)
                     t_where += " and charindex('" + t_mech + "',mech)>0";
 		       	if(t_ordeno.length>0)
-		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cut"+r_accy+".noa and cuts"+r_accy+".ordeno='"+t_ordeno+"')";
+		       		t_where += " and exists(select noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cut"+r_accy+".noa and view_cuts"+r_accy+".ordeno='"+t_ordeno+"')";
 		       	if(t_bno.length>0)
-		       		t_where += " and exists(select noa from cuts"+r_accy+" where cuts"+r_accy+".noa=cub"+r_accy+".noa and cuts"+r_accy+".bno='"+t_bno+"')";
+		       		t_where += " and exists(select noa from view_cuts"+r_accy+" where view_cuts"+r_accy+".noa=view_cub"+r_accy+".noa and view_cuts"+r_accy+".bno='"+t_bno+"')";
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
