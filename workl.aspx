@@ -107,6 +107,31 @@
 						}
 					}
 				});
+				
+				$('#btnWorkImport').click(function() {
+					if(q_cur==1 || q_cur==2){
+						if(q_chkEmpField([['txtTggno', q_getMsg('lblTgg')],['txtStoreinno', q_getMsg('lblStoreinno')]])!=""){
+							alert(q_chkEmpField([['txtTggno', q_getMsg('lblTgg')],['txtStoreinno', q_getMsg('lblStoreinno')]]));
+							return;
+						}
+						
+						var t_where = "where=^^ ['" + q_date() + "','" + $('#txtStoreinno').val() + "','') where productno=b.productno ^^";
+						
+						var t_where1 = "1=1 and isnull(a.enda,0)!='1' and isnull(a.isfreeze,0)!= '1'";
+						t_where1+=" and a.tggno='"+$('#txtTggno').val()+"' ";
+						var t_bdate = $.trim($('#txtBdate').val());
+						var t_edate = $.trim($('#txtEdate').val());
+						if (t_bdate.length > 0 || t_edate.length > 0) {
+							if (t_edate.length == 0)
+								t_edate = '999/99/99'
+							
+							t_where1+=" and a.cuadate between '"+t_bdate+"' and '"+t_edate+"' and a.noa like 'W[0-9]%' ";
+						}
+						t_where1 = "where[1]=^^ "+t_where1+" ^^";
+						q_gt('workk_works', t_where+t_where1, 0, 0, 0, "", r_accy);
+					}
+				});
+				
 				$('#btnStoreImport').click(function(){
 					if(q_cur==1 || q_cur==2){
 						var storeno = $.trim($('#txtStoreno').val());
@@ -210,8 +235,62 @@
 			//儲存目前倉庫庫存
 			var carnoList = [];
 			var thisCarSpecno = '';
+			var workl_import;
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'workk_works':
+						var as = _q_appendData("stkucc", "", true);
+						for (var i = 0; i < as.length; i++) {
+							as[i].unmount=q_sub(dec(as[i].mount),dec(as[i].gmount));
+							as[i].diffmount=q_mul(q_sub(dec(as[i].smount),dec(as[i].unmount)),-1);
+							if(as[i].diffmount<0){
+								as.splice(i, 1);
+								i--;
+								continue;
+							}
+							if(as[i].unmount<0){
+								as.splice(i, 1);
+								i--;
+							}
+						}
+						as.sort(function(a,b){
+							if (a.productno< b.productno)
+								return -1;
+							if (a.productno > b.productno)
+								return 1;
+							return 0;}
+						);
+						
+						workl_import=as;
+						//讀其他倉庫數量
+						if(emp($('#txtStoreno').val()))
+							var t_where = "where=^^ ['" + q_date() + "','','') where storeno!='"+$('#txtStoreinno').val()+"' group by productno order by productno^^";
+						else
+							var t_where = "where=^^ ['" + q_date() + "','','') where storeno='"+$('#txtStoreno').val()+"' group by productno order by productno^^";
+							
+						q_gt('work_stk', t_where, 0, 0, 0, "workl_work_stk", r_accy);
+						break;
+					case 'workl_work_stk':
+						var as= _q_appendData("stkucc", "", true);
+						for (var i = 0; i < workl_import.length; i++) {
+							for (var j = 0; j < as.length; j++) {
+								if(workl_import[i].productno==as[j].productno){
+									workl_import[i].stkmount=as[j].mount;
+									break;
+								}
+							}
+							if(dec(workl_import[i].stkmount)<=0){
+								workl_import.splice(i, 1);
+								i--;
+								continue;
+							}
+							
+							if(dec(workl_import[i].stkmount)<dec(workl_import[i].diffmount))
+								workl_import[i].diffmount=workl_import[i].stkmount;
+						}
+					 	
+					 	q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtStyle,txtUnit,txtMount', workl_import.length, workl_import, 'productno,product,spec,style,unit,diffmount', '');
+						break;
 					case 'getstore':
 						var as = _q_appendData("store", "", true);
 						var t_storeno=false,t_storeinno=false;
@@ -1018,12 +1097,14 @@
 							<input id="txtStoreinno" type="text" class="txt c2"/>
 							<input id="txtStorein" type="text" class="txt c3"/>
 						</td>
+						<td class="td5"><input id="btnWorkImport" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblTrantype' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
 						<td class="td3"><span> </span><a id="lblTranstyle" class="lbl" > </a></td>
 						<td class="td4"><select id="cmbTranstyle" class="txt c1"> </select></td>
+						<td class="td5"><input id="btnUcas" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCardealno' class="lbl btn"> </a></td>
@@ -1036,7 +1117,6 @@
 							<input id="txtCarno" type="text" class="txt" style="width:90%;"/>
 							<select id="combCarno" style="width: 20px;"> </select>
 						</td>
-						<td class="td5"><input id="btnUcas" type="button" class="txt c5"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblTranstart' class="lbl btn"> </a></td>

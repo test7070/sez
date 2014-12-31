@@ -142,8 +142,8 @@
 				return NewArray.toString();
 			}
 
-			var work_stk;
-			//儲存目前倉庫庫存
+			var work_stk; //儲存目前倉庫庫存
+			var workk_import;
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'workk_works':
@@ -168,9 +168,39 @@
 								return 1;
 							return 0;}
 						);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtStyle,txtUnit,txtMount', as.length, as, 'productno,product,spec,style,unit,diffmount', '');
 						
-					break;
+						workk_import=as;
+						//讀其他倉庫數量
+						if(emp($('#txtStoreno').val()))
+							var t_where = "where=^^ ['" + q_date() + "','','') where storeno!='"+$('#txtStoreinno').val()+"' group by productno order by productno^^";
+						else
+							var t_where = "where=^^ ['" + q_date() + "','','') where storeno='"+$('#txtStoreno').val()+"' group by productno order by productno^^";
+							
+						q_gt('work_stk', t_where, 0, 0, 0, "workk_work_stk", r_accy);
+						
+						//q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtStyle,txtUnit,txtMount', as.length, as, 'productno,product,spec,style,unit,diffmount', '');
+						break;
+					case 'workk_work_stk':
+						var as= _q_appendData("stkucc", "", true);
+						for (var i = 0; i < workk_import.length; i++) {
+							for (var j = 0; j < as.length; j++) {
+								if(workk_import[i].productno==as[j].productno){
+									workk_import[i].stkmount=as[j].mount;
+									break;
+								}
+							}
+							if(dec(workk_import[i].stkmount)<=0){
+								workk_import.splice(i, 1);
+								i--;
+								continue;
+							}
+							
+							if(dec(workk_import[i].stkmount)<dec(workk_import[i].diffmount))
+								workk_import[i].diffmount=workk_import[i].stkmount;
+						}
+					 	
+					 	q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtStyle,txtUnit,txtMount', workk_import.length, workk_import, 'productno,product,spec,style,unit,diffmount', '');
+						break;
 					case 'getstore':
 						var as = _q_appendData("store", "", true);
 						var t_storeno=false,t_storeinno=false;

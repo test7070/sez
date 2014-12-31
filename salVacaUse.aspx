@@ -16,7 +16,7 @@
             }
 
             var q_name = "salvacause";
-            var q_readonly = ['txtNoa', 'txtHr_special', 'txtTot_special', 'txtJob','txtNamea','txtHname','txtPart','txtId'];
+            var q_readonly = ['txtNoa', 'txtHr_special', 'txtTot_special', 'txtJob','txtNamea','txtHname','txtPart','txtId','txtPartno'];
             var bbmNum = [['txtHr_used', 10, 1, 1], ['txtHr_special', 10, 1, 1], ['txtTot_special', 10, 1, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
