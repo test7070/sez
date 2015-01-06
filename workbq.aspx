@@ -20,7 +20,7 @@
 			var q_name = "workbq";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtStation','txtStore','txtAccno','txtWorkbno'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtStation','txtStore','txtAccno','txtWorkbno','txtWorkano'];
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -75,7 +75,7 @@
 							//var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where (a.tggno is null or a.tggno='') and a.stationno='" + $('#txtStationno').val() + "' and (a.mount>a.inmount and b.gmount>0)) ";
 							var t_where = "isnull(enda,0)!=1 and charindex(noa+'-'+no2,(select a.ordeno+',' from view_work a left join view_works b on a.noa=b.noa ";
 							//t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(a.noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0";
-							t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and  and a.noa like 'W[0-9]%' ";
+							t_where+=" where isnull(a.enda,0)!=1 and isnull(a.isfreeze,0)!=1 and  a.noa like 'W[0-9]%' ";
 							t_where+=" and (a.tggno is null or a.tggno='')  and a.stationno='" + $('#txtStationno').val() + "' and (a.mount>a.inmount and b.gmount>0) and a.ordeno!='' group by a.ordeno FOR XML path('')))>0";
 						} else {
 							//var t_where = "enda!=1 and noa+'_'+no2 in (select a.ordeno+'_'+a.no2 from view_work a left join view_works b on a.noa=b.noa where (a.tggno is null or a.tggno='') and a.mount>a.inmount group by a.ordeno,a.no2) ";
@@ -99,7 +99,7 @@
 						var t_where = "where=^^ noa ='" + $('#txtWorkno').val() + "' and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and (tggno is null or tggno='')^^";
 						q_gt('work', t_where, 0, 0, 0, "", r_accy);
 					}else{
-						var t_where = '1=1 ';
+						var t_where = '( 1=1 ';
 						//var t_where += "and enda!=1 and (tggno is null or tggno='') and noa in (select a.noa from work102 a left join works102 b on a.noa=b.noa where (a.mount>a.inmount and b.gmount>0))";
 						t_where += "and isnull(enda,0)!=1 and isnull(isfreeze,0)!=1 and (tggno is null or tggno='')";
 						
@@ -120,7 +120,7 @@
 						}
 						
 						//t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
-						t_where+=" and noa like 'W[0-9]%' ";
+						t_where+=" and noa like 'W[0-9]%' )";
 						
 						//原先的資料
 						t_where += " or noa in (select workno from view_workbqs where noa='" + $('#txtNoa').val() + "')";
@@ -138,6 +138,14 @@
 					if(thisVal.length > 0){
 						var t_where = "noa='" + thisVal + "'";
 						q_box("workb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workb', "95%", "95%", q_getMsg('popWorkb'));
+					}					
+				});
+				
+				$('#txtWorkano').click(function(){
+					var thisVal = $.trim($(this).val());
+					if(thisVal.length > 0){
+						var t_where = "noa='" + thisVal + "'";
+						q_box("worka.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'worka', "95%", "95%", q_getMsg('popWorka'));
 					}					
 				});
 				
@@ -258,8 +266,8 @@
 							}
 							as[i].unmount=q_sub(dec(as[i].mount),dec(as[i].inmount))
 						}
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtWk_mount,txtWk_inmount,txtWk_unmount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno'
-						, as.length, as, 'productno,product,unit,mount,inmount,unmount,unmount,ordeno,no2,memo,price,noa', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtStyle,txtUnit,txtWk_mount,txtWk_inmount,txtWk_unmount,txtBorn,txtOrdeno,txtNo2,txtMemo,txtPrice,txtWorkno'
+						, as.length, as, 'productno,product,spec,style,unit,mount,inmount,unmount,unmount,ordeno,no2,memo,price,noa', '');
 						if (t_stationno.length != 0 || t_station.length != 0) {
 							$('#txtStationno').val(t_stationno);
 							$('#txtStation').val(t_station);
@@ -400,6 +408,7 @@
 							$('#txtMount_'+b_seq).val(0)
 					});
 				}
+				HideField();
 			}
 
 			function btnIns() {
@@ -425,6 +434,16 @@
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+				
+				if (q_cur == 1 || (emp($('#txtWorkano').val()) && emp($('#txtWorkbno').val())))
+					q_func('qtxt.query.c0', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				else {
+					//處理worka b 內容
+					if(!emp($('#txtWorkano').val()))
+						q_func('worka_post.post.a1', r_accy + ',' + $('#txtWorkano').val() + ',0');
+					else
+						q_func('workb_post.post.a1', r_accy + ',' + $('#txtWorkbno').val() + ',0');
+				}
 			}
 
 			function bbsSave(as) {
@@ -441,6 +460,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 				$('#div_stk').hide();
+				HideField();
 			}
 
 			function readonly(t_para, empty) {
@@ -452,6 +472,7 @@
 					$('#btnWork').removeAttr('disabled');
 					$('#btnOrdes').removeAttr('disabled');
 				}
+				HideField();
 			}
 
 			function btnMinus(id) {
@@ -501,7 +522,19 @@
 			}
 
 			function btnDele() {
-				_btnDele();
+				//_btnDele();
+				if (!confirm(mess_dele))
+					return;
+				q_cur = 3;
+				//處理worka內容
+				if(emp($('#txtWorkano').val()) && emp($('#txtWorkbno').val()))
+					q_func('qtxt.query.c2', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				else{
+					if(!emp($('#txtWorkano').val()))
+						q_func('worka_post.post.a2', r_accy + ',' + $('#txtWorkano').val() + ',0');
+					else
+						q_func('workb_post.post.a2', r_accy + ',' + $('#txtWorkbno').val() + ',0');
+				}
 			}
 
 			function btnCancel() {
@@ -521,16 +554,56 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 				abbm[q_recno]['accno'] = xmlString.split(";")[0];
-				var t_noa = $.trim($('#txtNoa').val());
+				/*var t_noa = $.trim($('#txtNoa').val());
 				if((t_noa.length>0) && (r_name.length > 0)){
 					Lock();
 					q_func('qtxt.query.workbq', 'workbq.txt,workbqsave,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
-				}
+				}*/
 			}
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'qtxt.query.workbq':
+					case 'worka_post.post.a1':
+						if(!emp($('#txtWorkbno').val()))
+							q_func('workb_post.post.a1', r_accy + ',' + $('#txtWorkbno').val() + ',0');
+						else
+							q_func('qtxt.query.c0', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'worka_post.post.a2':
+						if(!emp($('#txtWorkbno').val()))
+							q_func('workb_post.post.a2', r_accy + ',' + $('#txtWorkbno').val() + ',0');
+						else
+							q_func('qtxt.query.c2', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;	
+					case 'workb_post.post.a1':
+							q_func('qtxt.query.c0', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'workb_post.post.a2':
+							q_func('qtxt.query.c2', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+						break;
+					case 'qtxt.query.c0':
+						q_func('qtxt.query.c1', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';1');
+						break;
+					case 'qtxt.query.c1':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['workano'] = as[0].workano;
+							abbm[q_recno]['workbno'] = as[0].workbno;
+							$('#txtWorkano').val(as[0].workano);
+							$('#txtWorkbno').val(as[0].workbno);
+							//處理worka b內容
+							if(!emp(as[0].workano))
+								q_func('worka_post.post', r_accy + ',' + $('#txtWorkano').val() + ',1');
+							if(!emp(as[0].workbno))
+								q_func('workb_post.post', r_accy + ',' + $('#txtWorkbno').val() + ',1');
+						}
+						break;
+					case 'qtxt.query.c2':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
+					default:
+						break;
+					/*case 'qtxt.query.workbq':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
 							var workbno = $.trim(as[0].workbno);
@@ -542,7 +615,7 @@
 							}
 						}
 						Unlock();
-						break;
+						break;*/
 				}
 			}
 			
@@ -556,6 +629,13 @@
 				var arr = n.split(".");
 				var re = /(\d{1,3})(?=(\d{3})+$)/g;
 				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+			}
+			
+			function HideField() {
+				var hasStyle = q_getPara('sys.isstyle');
+				var isStyle = (hasStyle.toString()=='1'?$('.isStyle').show():$('.isStyle').hide());
+				var hasSpec = q_getPara('sys.isspec');
+				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
 
 		</script>
@@ -715,8 +795,12 @@
 					<tr>
 						<td><span> </span><a id='lblQcresult' class="lbl"> </a></td>
 						<td><select id="cmbQcresult" class="txt c1"> </select></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblWorkbno' class="lbl"> </a></td>
 						<td><input id="txtWorkbno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblWorkano' class="lbl"> </a></td>
+						<td><input id="txtWorkano" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -740,13 +824,14 @@
 					</td>
 					<td style="width:180px;" align="center"><a id='lblProductnos'> </a></td>
 					<td style="width:200px;" align="center"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td style="width:40px;" align="center"><a id='lblUnit'> </a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_mounts'> </a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_inmounts'> </a></td>
 					<td style="width:100px;" align="center"><a id='lblWk_unmounts'> </a></td>
 					<td style="width:100px;" align="center"><a id='lblBorn'> </a></td>
 					<td style="width:120px;" align="center"><a id='lblMounts'> </a></td>
-					<td style="width:150px;" align="center"><a id='lblQcresults'> </a></td>
+					<td style="width:100px;" align="center"><a id='lblQcresults'> </a></td>
 					<td style="width:150px;" align="center"><a id='lblStores'> </a></td>
 					<td style="width:100px;;" align="center"><a id='lblBkmounts'> </a></td>
 					<td style="width:100px;;" align="center"><a id='lblWmounts'> </a></td>
@@ -765,7 +850,11 @@
 						<input class="txt" id="txtProductno.*" type="text" style="width:80%;" />
 						<input class="btn" id="btnProductno.*" type="button" value='.' style="width:16%;" />
 					</td>
-					<td><input class="txt c1" id="txtProduct.*" type="text"/></td>
+					<td>
+						<input class="txt c1" id="txtProduct.*" type="text"/>
+						<input id="txtSpec.*" type="text" class="txt c1 isSpec"/>
+					</td>
+					<td class="isStyle"><input id="txtStyle.*" type="text" class="txt c1"/></td>
 					<td><input class="txt c1" id="txtUnit.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_mount.*" type="text"/></td>
 					<td><input class="txt c1 num" id="txtWk_inmount.*" type="text"/></td>

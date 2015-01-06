@@ -276,6 +276,12 @@
 							for (var j = 0; j < as.length; j++) {
 								if(workl_import[i].productno==as[j].productno){
 									workl_import[i].stkmount=as[j].mount;
+									
+									if(dec(workl_import[i].diffmount)>dec(as[j].mount))
+										as[j].mount=0;
+									else 
+										as[j].mount=dec(as[j].mount)-dec(workl_import[i].diffmount)
+									
 									break;
 								}
 							}

@@ -42,7 +42,6 @@
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1)
-				q_gf('PAYFORM.txt', '');
 			});
 
 			function main() {
@@ -58,33 +57,18 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbSex", q_getPara('sss.sex'),'s');
+				
+				q_gt('payform', '', 0, 0, 0, "");
+				q_gt('paymark', '', 0, 0, 0, "");
+				q_gt('payremark', '', 0, 0, 0, "");
+				
 				$('#btnIndata').click(function(){
 					var t_mon = $.trim($('#txtMon').val());
 					var t_where = "where=^^ (typea=N'薪資') and (mon=N'"+t_mon+"')";
 					q_gt('salary', t_where, 0, 0, 0, "");
 				});
 			}
-			
-			var t_typea='',c_typea=' @ ',t_typeb='',c_typeb=' @ ',t_typec='',c_typec=' @ ';
-			function q_gfPost() {
-				if (q_gfTxt=='PAYFORM.txt'){
-					t_typea = xmlString.split('\r\n');
-					//處理內容
-					for (i=0;i<t_typea.length;i++){
-						var typea=replaceAll(t_typea[i],' ','').split(';')[0];
-						c_typea=c_typea+','+typea.split('.')[0]+"@"+typea;
-					}
-					
-					q_cmbParse("cmbTypea", c_typea, 's');
-					q_gf('PAYREMARK.txt', '');
-				}else if (q_gfTxt=='PAYREMARK.txt'){
-					t_typeb = xmlString.split('\r\n');
-					q_gf('PAYMARK.txt', '');
-				}else if (q_gfTxt=='PAYMARK.txt'){
-					t_typec = xmlString.split('\r\n');
-				}
-			}
-
+						
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -95,8 +79,26 @@
 				b_pop = '';
 			}
 			var ret;
+			var t_typeb=[],t_typec=[];
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'payform':
+						var as = _q_appendData("payform", "", true);
+		                var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' +as[i].noa+'.'+ as[i].form;
+						}
+						q_cmbParse("cmbTypea", t_item,'s');
+						q_gt('paymark', '', 0, 0, 0, "");
+						break;
+					case 'paymark':
+						t_typec = _q_appendData("paymark", "", true);
+						q_gt('payremark', '', 0, 0, 0, "");
+						break;
+					case 'payremark':
+						t_typeb = _q_appendData("payremark", "", true);
+						refresh(q_recno);  /// 第一次需要重新載入
+						break;
 					case 'salary':
 						var as = _q_appendData("salarys", "", true);
 						var t_mon = $.trim($('#txtMon').val());
@@ -190,24 +192,21 @@
 	                    b_seq = t_IdSeq;
 						if(q_cur==1 || q_cur==2){
 							//處理內容
-							c_typeb=' @ ';
-							for (i=0;i<t_typeb.length;i++){
-								var typeb=t_typeb[i].split('	');
-								if(typeb[1]==$('#cmbTypea_'+b_seq).val())
-									c_typeb=c_typeb+','+typeb[2]+"@"+typeb[3];
-							}
 							$('#cmbTypeb_'+b_seq).text('');
 							$('#cmbTypec_'+b_seq).text('');
+							var c_typeb=' @ ';
+							
+							for (i=0;i<t_typeb.length;i++){
+								if(t_typeb[i].noa==$('#cmbTypea_'+b_seq).val())
+									c_typeb=c_typeb+','+t_typeb[i].inote+"@"+t_typeb[i].kind;
+							}
 							q_cmbParse("cmbTypeb_"+b_seq, c_typeb);
 							
 							//處理內容
-							c_typec=' @ ';
+							var c_typec=' @ ';
 							for (i=0;i<t_typec.length;i++){
-								var typec=t_typec[i].split('	');
-								if(typec[0]==$('#cmbTypea_'+b_seq).val()){
-									var item=typec[1].split('.');
-									c_typec=c_typec+','+item[0]+"@"+typec[1];
-								}
+								if(t_typec[i].payformno==$('#cmbTypea_'+b_seq).val())
+									c_typec=c_typec+','+t_typec[i].noa+"@"+t_typec[i].noa+'.'+t_typec[i].mark;
 							}
 							q_cmbParse("cmbTypec_"+b_seq, c_typec);
 						}
@@ -337,27 +336,25 @@
 				//if((q_cur>2 || q_cur<1)){
 					for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 						if($('#cmbTypea_'+j).val()!=''){
-							c_typeb=' @ ';
+							//處理內容
+							$('#cmbTypeb_'+b_seq).text('');
+							$('#cmbTypec_'+b_seq).text('');
+							var c_typeb=' @ ';
+							
 							for (i=0;i<t_typeb.length;i++){
-								var typeb=t_typeb[i].split('	');
-								if(typeb[1]==$('#cmbTypea_'+j).val())
-									c_typeb=c_typeb+','+typeb[2]+"@"+typeb[3];
+								if(t_typeb[i].noa==$('#cmbTypea_'+j).val())
+									c_typeb=c_typeb+','+t_typeb[i].inote+"@"+t_typeb[i].kind;
 							}
-							$('#cmbTypeb_'+j).text('');
-							$('#cmbTypec_'+j).text('');
 							q_cmbParse("cmbTypeb_"+j, c_typeb);
 							if(abbsNow[0]!=undefined)
 								$('#cmbTypeb_'+j).val(abbsNow[j].typeb);
 							
-							c_typec=' @ ';
+							//處理內容
+							var c_typec=' @ ';
 							for (i=0;i<t_typec.length;i++){
-								var typec=t_typec[i].split('	');
-								if(typec[0]==$('#cmbTypea_'+j).val()){
-									var item=typec[1].split('.');
-									c_typec=c_typec+','+item[0]+"@"+typec[1];
-								}
-							}
-							$('#cmbTypec_'+j).text('');
+								if(t_typec[i].payformno==$('#cmbTypea_'+j).val())
+									c_typec=c_typec+','+t_typec[i].noa+"@"+t_typec[i].noa+'.'+t_typec[i].mark;
+							}					
 							q_cmbParse("cmbTypec_"+j, c_typec);
 							if(abbsNow[0]!=undefined)
 								$('#cmbTypec_'+j).val(abbsNow[j].typec);

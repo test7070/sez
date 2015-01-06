@@ -43,6 +43,8 @@
 				});
 		 	}
 			_bbsAssign();
+			var aspxnamea=window.parent.q_name;
+			
 			for (var j = 0; j < q_bbsCount; j++) {
 				if(!emp($('#txtNoa_'+j).val())){
 					if(dec($('#txtMount_'+j).val())<=0){
@@ -51,18 +53,23 @@
 						$('#txtState_'+j).val('入庫完成');
 					}
 				}
-				var aspxnamea=window.parent.q_name;
-				
 				if(!emp($('#txtState_'+j).val())){
-					if(!(aspxnamea=='workb' || aspxnamea=='workd')){
+					if(!(aspxnamea=='workb' || aspxnamea=='workbq' || aspxnamea=='workd')){
 						$('#chkSel_'+j).attr('disabled','disabled');
+					}else{
+						for (var i = 0; i < window.parent.abbsNow.length; i++) {
+							if(window.parent.abbsNow[i].workno==$('#txtNoa_'+j).val() && $('#txtState_'+j).val()=='入庫完成'){
+								$('#chkSel_'+j).prop('checked',true);
+								break;
+							}
+						}
 					}
 				}
 				//else
 				//	q_gt('view_works', "noa='"+$('#txtNoa_'+j).val()+"'", 0, 0, 0, "view_works", r_accy);
 			}
 			
-			if (window.parent.q_name == 'workb') 
+			if (window.parent.q_name == 'workb' || window.parent.q_name == 'workbq') 
 				$('.tgg').hide();
 				
 			if (window.parent.q_name == 'workd') 
