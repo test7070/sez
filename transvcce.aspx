@@ -693,7 +693,7 @@
                     type: 'POST',
                     data: json,
                     dataType: 'json',
-                    timeout: 5000,
+                    timeout: 30000,
                     success: function(data){
                         for(var i=0;i<data.length;i++){
                             if(data[i]['SendCommandResult']=="true")
