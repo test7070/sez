@@ -46,7 +46,7 @@
             	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	, ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
             	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
-            	, ['txtVccno_', '', 'view_vcc', 'noa,comp,unpay,unpay,typea,accy', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_,txtAccy_', '']);
+            	, ['txtVccno_', '', 'view_vcc', 'noa,comp,unpay,unpay,typea,accy,cno,mon', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_,txtAccy_,txtCno_,txtPaymon_', '']);
             	
                 q_getFormat();
 
@@ -309,6 +309,12 @@
                 		}
                 		
                 		sum();
+                		break;
+                	case 'vcc_cust':
+                		var as = _q_appendData("view_vcc", "", true);
+                		if (as[0] != undefined){
+                			$('#txtCustno_'+b_seq).val(as[0].custno);
+                		}
                 		break;
                 	case 'umm_cust':
                 		var as = _q_appendData("view_vcc", "", true);
@@ -1003,6 +1009,9 @@
 			   				$('#txtUnpayorg_'+b_seq).val(dec($('#txtUnpayorg_'+b_seq).val())*-1);
 			   				$('#txtUnpay_'+b_seq).val(dec($('#txtUnpay_'+b_seq).val())*-1);
 			   			}
+			   			var t_where = "where=^^ noa='"+$('#txtVccno_'+b_seq).val()+"' ^^";
+	            		q_gt('umm_cust', t_where, 0, 0, 0, "vcc_cust", r_accy);
+	            		
 			   			break;
 			   		case 'txtCustno':
                     	getOpay();

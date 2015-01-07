@@ -22,7 +22,9 @@
 			var bbmNum = [['txtMoney',15,0,1],['txtTax',15,0,1]];
 			var bbsNum = [
 				['txtMount',10,0,1],['txtAd_money',15,0,1],['txtCh_meal',15,0,1],
-				['txtMoney',15,0,1],['txtRetire',15,0,1],['txtTax',15,0,1],['txtTax2',15,0,1]
+				['txtMoney',15,0,1],['txtRetire',15,0,1],['txtTax',15,0,1],['txtTax2',15,0,1],
+				['txtSmount',15,0,1],['txtPrice',10,3,1],['txtDistribution',2,0,1],['txtRate',5,2,1],
+				['txtCash',15,0,1],['txtCapital',15,0,1],['txtStock',15,0,1]
 			];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -55,6 +57,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+				bbsMask = [['txtExdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbSex", q_getPara('sss.sex'),'s');
 				
@@ -209,14 +212,16 @@
 									c_typec=c_typec+','+t_typec[i].noa+"@"+t_typec[i].noa+'.'+t_typec[i].mark;
 							}
 							q_cmbParse("cmbTypec_"+b_seq, c_typec);
+							
+							Typechangedisabled();
 						}
 					});
-					/*$('#cmbTypeb_'+j).change(function(){
+					$('#cmbTypeb_'+j).change(function(){
 						t_IdSeq = -1;
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-						q_gf('PAYMARK.txt', '');
-					});*/
+						Typechangedisabled();
+					});
 				}
 				btnTypechange();
 			}
@@ -275,6 +280,7 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				Typechangedisabled();
 			}
 
 			function btnMinus(id) {
@@ -361,6 +367,67 @@
 						}
 					}
 				//}
+			}
+			
+			
+			function Typechangedisabled() {
+				if((q_cur==1 || q_cur==2)){
+					for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+						if($('#cmbTypea_'+j).val()=='50' && $.trim($('#cmbTypeb_'+j).val())==''){
+							$('#txtRetire_'+j).removeAttr('disabled', 'disabled').css('background','white');
+						}else{
+							$('#txtRetire_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+						}
+						
+						if($('#cmbTypea_'+j).val()=='50' && $.trim($('#cmbTypeb_'+j).val())=='E'){
+							$('#txtPrice_'+j).removeAttr('disabled', 'disabled').css('background','white');
+						}else{
+							$('#txtPrice_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+						}
+						
+						if(($('#cmbTypea_'+j).val()=='50' && $.trim($('#cmbTypeb_'+j).val())=='E')
+						|| ($('#cmbTypea_'+j).val()=='54' && $.trim($('#cmbTypeb_'+j).val())=='C')
+						){
+							$('#txtSmount_'+j).removeAttr('disabled', 'disabled').css('background','white');
+						}else{
+							$('#txtSmount_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+						}
+						
+						if(($('#cmbTypea_'+j).val()=='54' && $.trim($('#cmbTypeb_'+j).val())=='C')
+						){
+							$('#txtExdate_'+j).removeAttr('disabled', 'disabled').css('background','white');
+							$('#txtRate_'+j).removeAttr('disabled', 'disabled').css('background','white');
+							$('#txtCash_'+j).removeAttr('disabled', 'disabled').css('background','white');
+							$('#txtCapital_'+j).removeAttr('disabled', 'disabled').css('background','white');
+							$('#txtStock_'+j).removeAttr('disabled', 'disabled').css('background','white');
+						}else{
+							$('#txtExdate_'+j).val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+							$('#txtRate_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+							$('#txtCash_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+							$('#txtCapital_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+							$('#txtStock_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+						}
+						
+						if(($('#cmbTypea_'+j).val()=='54' && ($.trim($('#cmbTypeb_'+j).val())=='C' || $.trim($('#cmbTypeb_'+j).val())=='F'))
+						){
+							$('#txtDistribution_'+j).removeAttr('disabled', 'disabled').css('background','white');
+						}else{
+							$('#txtDistribution_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+						}
+						
+						if($('#cmbTypea_'+j).val()=='54' && $.trim($('#cmbTypeb_'+j).val())=='F'){
+							$('#txtTax2_'+j).removeAttr('disabled', 'disabled').css('background','white');
+						}else{
+							$('#txtTax2_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+						}
+						
+						if($('#cmbTypea_'+j).val()=='55' ){
+							$('#txtTax_'+j).val(0).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+						}else{
+							$('#txtTax_'+j).removeAttr('disabled', 'disabled').css('background','white');
+						}
+					}
+				}
 			}
 		</script>
 		<style type="text/css">
@@ -452,7 +519,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1900px;
+				width: 2300px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -544,7 +611,14 @@
 					<td align="center"><a id='lblCh_meal'> </a></td>
 					<td align="center"><a id='lblMoneys'> </a></td>
 					<td align="center"><a id='lblRetire'> </a></td>
-					<!--<td align="center"><a id='lblRate'> </a></td>-->
+					<td align="center"><a id='lblSmount'> </a></td>
+					<td align="center"><a id='lblPrice'> </a></td>
+					<td align="center"><a id='lblExdate'> </a></td>
+					<td align="center"><a id='lblDistribution'> </a></td>
+					<td align="center"><a id='lblRate'> </a></td>
+					<td align="center"><a id='lblCash'> </a></td>
+					<td align="center"><a id='lblCapital'> </a></td>
+					<td align="center"><a id='lblStock'> </a></td>
 					<td align="center"><a id='lblTaxs'> </a></td>
 					<td align="center"><a id='lblTax2s'> </a></td>
 					<!--<td align="center"><a id='lblMi_moneys'> </a></td>-->
@@ -572,7 +646,14 @@
 					<td><input id="txtCh_meal.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtRetire.*" type="text" class="txt num c1" /></td>
-					<!--<td><input id="txtRate.*" type="text" class="txt num c1" /></td>-->
+					<td><input id="txtSmount.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtExdate.*" type="text" class="txt c1" /></td>
+					<td><input id="txtDistribution.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtRate.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtCash.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtCapital.*" type="text" class="txt num c1" /></td>
+					<td><input id="txtStock.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTax.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTax2.*" type="text" class="txt num c1" /></td>
 					<!--<td><input id="txtMi_money.*" type="text" class="txt num c1"/></td>-->
