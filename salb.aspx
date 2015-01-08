@@ -36,7 +36,9 @@
 			
 			aPop = new Array(
 				['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk', 'txtSssno_,txtNamea_,cmbSex_,txtId_,chkIsclerk_', 'sss_b.aspx']
+				['txtSssno_', 'btnSssno_', 'sss', 'noa,namea,sex,id,isclerk', 'txtSssno_,txtNamea_,cmbSex_,txtId_,chkIsclerk_', 'sss_b.aspx'],
+				['textBserial', '', 'acomp', 'serial,noa,acomp', 'textBserial', 'acomp_b.aspx'],
+				['textEserial', '', 'acomp', 'serial,noa,acomp', 'textEserial', 'acomp_b.aspx']
 			);
 			
 			$(document).ready(function() {
@@ -56,7 +58,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['textYear', '999']];
 				bbsMask = [['txtExdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbSex", q_getPara('sss.sex'),'s');
@@ -69,6 +71,35 @@
 					var t_mon = $.trim($('#txtMon').val());
 					var t_where = "where=^^ (typea=N'薪資') and (mon=N'"+t_mon+"')";
 					q_gt('salary', t_where, 0, 0, 0, "");
+				});
+				
+				$('#btnMedia').click(function() {
+					$('#divMedia').css('top', $('#btnMedia'+b_seq).offset().top+25);
+					$('#divMedia').css('left', $('#btnMedia'+b_seq).offset().left-dec($('#divMedia').css('width')));
+					$('#divMedia').show();
+					$('#textYear').val(dec(q_date().substr(0,3))-1);
+				});
+				$('#btnProduceMedia').click(function() {
+					if(!emp($('#textYear').val())){
+						$('#btnProduceMedia').attr('disabled', 'disabled');
+						var t_paras = $('#textYear').val()+ ';'+$('#textBserial').val()+ ';'+$('#textEserial').val();
+						q_func('qtxt.query.media', 'salb.txt,media,' + t_paras);
+					}else{
+						alert('年度不可空白!!');
+					}
+				});
+				$('#btnCloseMedia').click(function() {
+					$('#divMedia').hide();
+				});
+				$('#textBserial').focusin(function() {
+					q_cur=2
+				}).focusout(function() {
+					q_cur=0
+				});
+				$('#textEserial').focusin(function() {
+					q_cur=2
+				}).focusout(function() {
+					q_cur=0
 				});
 			}
 						
@@ -145,12 +176,35 @@
 							}
 						}
 						break;
+					case 'getserialrar':
+						serialrar = _q_appendData("acomp", "", true);
+						for ( i = 0; i < serialrar.length; i++) {
+	                		setTimeout('openpage('+i+')',1000);
+	                	}
+	                	$('#btnProduceMedia').removeAttr('disabled', 'disabled');
+	                	$('#divMedia').hide();
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
 						break;
 				}
 			}
+			
+			var serialrar=[];
+			function openpage(x) {
+            	var s1 = location.href;
+                var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
+            	//vccacno[x].page=window.open(t_path +'vccadc'+replaceAll(vccacno[x].noa,' ','')+'.xls', "_self", 'directories=no,location=no,menubar=no,resizable=no,scrollbars=no,status=0,toolbar=no,width=100,height=100;');
+            	
+            	var $ifrm = $("<iframe style='display:none' />");
+				//$ifrm.attr("src", t_path +'vccadc'+replaceAll(vccacno[x].noa,' ','')+'.xls');
+				$ifrm.attr("src", t_path +replaceAll(serialrar[x].serial,' ','')+'.rar');
+				$ifrm.appendTo("body");
+				$ifrm.load(function () {
+					//$("body").append("<div>Failed to download <i>'" + dlLink + "'</i>!");
+				});
+            }
 
 			function btnOk() {
 				$('#txtMon').val($.trim($('#txtMon').val()));
@@ -336,8 +390,16 @@
 				_btnCancel();
 			}
 			
-			var typebbs=false;
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.media':
+						var t_where = " where=^^ serial between '"+$('#textBserial').val()+"' and '"+$('#textEserial').val()+"' ^^";
+						q_gt('acomp', '', 0, 0, 0, "getserialrar");
+						break;
+				}
+			}
 			
+			var typebbs=false;
 			function btnTypechange() {
 				//if((q_cur>2 || q_cur<1)){
 					for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
@@ -499,6 +561,10 @@
 				width: 98%;
 				float: left;
 			}
+			.txt.c2 {
+				width: 45%;
+				float: left;
+			}
 			.tbbm td {
 				margin: 0 -1px;
 				padding: 0;
@@ -547,6 +613,28 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
+		<div id="divMedia" style="top:50px;right:180px;position:absolute; display: none;">
+			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
+	            <tr>
+	                <td align="center" style="width:35%"><span> </span><a >年度</a></td>
+	                <td align="center" style="width:65%"><input id="textYear" type="text"  class="txt c2" style=" float: left;"/></td>
+	            </tr>
+	            <tr>
+	                <td align="center" style="width:35%"><span> </span><a>公司統一編號</a></td>
+	                <td style="width:65%">
+	                	<input id="textBserial" type="text" class="txt c2" style=" float: left;"/>
+	                	<a style=" float: left;">~</a>
+	                	<input id="textEserial" type="text" class="txt c2" style=" float: left;"/>
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td align="center" colspan="2">
+	            		<input id="btnProduceMedia" type="button" value="產生"/>
+	            		<input id="btnCloseMedia" type="button"/ value="關閉">
+	                </td>
+	            </tr>
+        	</table>
+		</div>
 		<div id="dmain">
 			<div class="dview" id="dview" style="float: left; width:32%;" >
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
