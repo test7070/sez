@@ -194,7 +194,7 @@
 			var serialrar=[];
 			function openpage(x) {
             	var s1 = location.href;
-                var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
+                var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/htm/');
             	//vccacno[x].page=window.open(t_path +'vccadc'+replaceAll(vccacno[x].noa,' ','')+'.xls', "_self", 'directories=no,location=no,menubar=no,resizable=no,scrollbars=no,status=0,toolbar=no,width=100,height=100;');
             	
             	var $ifrm = $("<iframe style='display:none' />");
