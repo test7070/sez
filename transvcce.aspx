@@ -1146,7 +1146,7 @@
                             </td>
                             <td id='datea' style="text-align: center;">~datea</td>
                             <td id='nick' style="text-align: center;">~nick</td>
-                            <td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
+                            <td id='mount' style="text-align: right;">~mount</td>
                             <td id='carno' style="text-align: left;">~carno</td>
                             <td id='memo2' style="text-align: left;">~memo2</td>
                             <td id='memo3' style="text-align: left;">~memo3</td>
