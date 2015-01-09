@@ -61,16 +61,22 @@
                     $("#cmbCalctype").attr('size', '1');
                 });
                 $('#btnChoutprice').click(function() {
-                    q_func("traneprice.eprice", $('#txtNoa').val());
+                	q_func('qtxt.query.traneprice', 'traneprice.txt,edit,' + encodeURI($('#txtNoa').val())); 	
                 });
             }
-
-            function q_funcPost(t_func, result) {/// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式
-                if (t_func == "traneprice.eprice") {
-                    if (result.length > 0)
-                        alert(t_func + '\r' + result);
-                    else
-                        alert("【單價修改完成】");
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.traneprice':
+                		var as = _q_appendData("tmp0", "", true, true);
+                		if (as[0] != undefined) {
+                        	alert(as[0].msg);
+                        } else {
+                            alert('單價修改錯誤!');
+                        }
+                		break;
+                
+                    default:
+                        break;
                 }
             }
 
@@ -412,8 +418,8 @@
 						</td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="comp,4" style="text-align: center;">~comp,4</td>
-						<td id="inprice,0,1" style="text-align: right;">~inprice,0,1</td>
-						<td id="outprice,0,1" style="text-align: right;">~outprice,0,1</td>
+						<td id="inprice" style="text-align: right;">~inprice</td>
+						<td id="outprice" style="text-align: right;">~outprice</td>
 					</tr>
 				</table>
 			</div>
