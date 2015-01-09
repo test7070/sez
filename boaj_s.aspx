@@ -10,7 +10,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = "vcct_s";
+            var q_name = "boaj_s";
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'bank_b.aspx']);
 
             $(document).ready(function() {

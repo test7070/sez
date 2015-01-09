@@ -14,7 +14,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="vcct";
+        var q_name="boaj";
         var q_readonly = ['txtSono','txtWorker','txtWorker2','txtDatea'];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -46,7 +46,7 @@
         	
         	$('#txtNoa').change(function() {
 				t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                q_gt('vcct', t_where, 0, 0, 0, "check_Noa", r_accy);
+                q_gt('boaj', t_where, 0, 0, 0, "check_Noa", r_accy);
                 
                 //讀取嘜頭選項
 				var t_where="where=^^ custno=(select custno from invo where noa='"+$('#txtNoa').val()+"')^^";
@@ -87,14 +87,14 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'check_Noa':
-                	var as = _q_appendData("vcct", "", true);
+                	var as = _q_appendData("boaj", "", true);
 					if (as[0] != undefined){
 						alert(q_getMsg('lblNoa')+'已存在!!');
 						return;
 					}
                 	break;
 				case 'check_btnOk':
-					var as = _q_appendData("vcct", "", true);
+					var as = _q_appendData("boaj", "", true);
 					if (as[0] != undefined){
 						alert(q_getMsg('lblNoa')+'已存在!!');
 						return;
@@ -124,7 +124,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('vcct_s.aspx', q_name + '_s', "500px", "400px", q_getMsg( "popSeek"));
+            q_box('boaj_s.aspx', q_name + '_s', "500px", "400px", q_getMsg( "popSeek"));
         }
 
 
@@ -160,7 +160,7 @@
 			
           	if(q_cur==1){
 				t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                q_gt('vcct', t_where, 0, 0, 0, "check_btnOk", r_accy);
+                q_gt('boaj', t_where, 0, 0, 0, "check_btnOk", r_accy);
 			}else
 				wrServer($('#txtNoa').val());
         }

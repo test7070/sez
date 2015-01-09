@@ -68,12 +68,12 @@
 				var t_where = "where=^^ 1=1  group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 
-				$('#btnVcct').click(function() {
+				$('#btnBoaj').click(function() {
 					var t_noa = $('#txtNoa').val();
 					var t_where = '';
 					if (t_noa.length > 0)
 						t_where = "noa='" + t_noa + "'";
-					q_box("vcct.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcct', "95%", "95%", q_getMsg('btnVcct'));
+					q_box("boaj.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'boaj', "95%", "95%", q_getMsg('btnBoaj'));
 				});
 
 				$('#lblInvo').click(function() {
@@ -388,12 +388,12 @@
 				_readonly(t_para, empty);
 				HiddenTreat();
 				if (t_para) {
-					$('#btnVcct').removeAttr('disabled');
+					$('#btnBoaj').removeAttr('disabled');
 					$('#btnInvo').removeAttr('disabled');
 					$('#btnPack').removeAttr('disabled');
 					$('#combAddr').attr('disabled', 'disabled');
 				} else {
-					$('#btnVcct').attr('disabled', 'disabled');
+					$('#btnBoaj').attr('disabled', 'disabled');
 					$('#btnInvo').attr('disabled', 'disabled');
 					$('#btnPack').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
@@ -681,7 +681,7 @@
 						<td class="td3" colspan="3"><input id="txtAcomp"  type="text" class="txt c7"/></td>
 						<td class="td3"><span> </span><a id="lblStype" class="lbl"> </a></td>
 						<td class="td4"><select id="cmbStype" class="txt c1"> </select></td>
-						<td class="td6"><input id="btnVcct" type="button"/></td>
+						<td class="td6"><input id="btnBoaj" type="button"/></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
