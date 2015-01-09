@@ -508,11 +508,6 @@
 				refreshBbm();
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
 					$('.it').css('text-align', 'left');
-				if (q_getPara('sys.menu').substring(0,3)=='qfe'){
-					$('.isFe').show();
-				}else{
-					$('.isFe').hide();
-				}
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.isXY').show();
@@ -524,6 +519,12 @@
 				}else{
 					$('.isXY').hide();
 					//$('#btnTmpcustno_xy').hide();
+				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='FE'){
+					$('.isFE').show();
+				}else{
+					$('.isFE').hide();
 				}
 			}
 
@@ -907,8 +908,15 @@
 						</td>
 						<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
 						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblProfit' class="lbl"> </a></td>
-						<td><input id="txtProfit" type="text" class="txt c1 num"/></td>
+						<td>
+							<span> </span><a id='lblProfit' class="lbl isFE"> </a>
+							<a id="lblCustno2" class="lbl isXY btn" style="display: none;">收款客戶</a>
+						</td>
+						<td>
+							<input id="txtProfit" type="text" class="txt c1 num isFE"/>
+							<input id="txtCustno2" type="text" class="txt c6 isXY" style="display: none;"/>
+							<input id="txtCust2" type="text" class="txt c6 isXY" style="display: none;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
@@ -929,6 +937,7 @@
 					<tr>
 						<td><span> </span><a id='lblInvoicetitle' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtInvoicetitle" type="text" class="txt c7"/></td>
+						<td><input id="btnUcam" type="button" style="float: right;" class="btnUcam" style="display: none;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
@@ -961,17 +970,11 @@
 					<tr>
 						<td><span> </span><a id="lblCredit" class="lbl" > </a></td>
 						<td><input id="txtCredit" type="text" class="txt c1 num"/></td>
-						<td class="isFe" colspan="2"><input id="btnUsecrd" type="button"/></td>
+						<td class="isFE" colspan="2"><input id="btnUsecrd" type="button"/></td>
 						<td><span> </span><a id="lblSales" class="lbl btn"> </a></td>
 						<td>
 							<input id="txtSalesno" type="text" class="txt c6"/>
 							<input id="txtSales" type="text" class="txt c6"/>
-						</td>
-						<td><span> </span><a id="lblCustno2" class="lbl isXY btn" style="display: none;">收款客戶</a></td>
-						<td>
-							<input id="txtCustno2" type="text" class="txt c6 isXY" style="display: none;"/>
-							<input id="txtCust2" type="text" class="txt c6 isXY" style="display: none;"/>
-							<input id="btnUcam" type="button" style="float: right;" class="btnUcam" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>
