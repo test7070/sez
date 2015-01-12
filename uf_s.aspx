@@ -110,7 +110,7 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblAccno'></a></td>
 					<td>
-					<input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;text-align: right;" />
+					<input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;text-align: left;" />
 					</td>
 				</tr>
 			</table>
