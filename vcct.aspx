@@ -95,7 +95,13 @@
 						return;
 					}
 					
-					$('#div_vcca').hide();
+					var t_mon=!emp($('#textMon').val())?trim($('#textMon').val()):'#non';
+					var t_bdate=!emp($('#textBdate').val())?trim($('#textBdate').val()):'#non';
+					var t_edate=!emp($('#textEdate').val())?trim($('#textEdate').val()):'#non';
+					var t_vcca=$('#checkVcca').prop('checked')?'1':'#non';
+					var t_rc2a=$('#checkRc2a').prop('checked')?'1':'#non';
+					
+					q_func('qtxt.query.vcct', 'vcct.txt,vcct,'+t_mon+';'+t_bdate+';'+t_edate+';'+t_vcca+';'+t_rc2a);
 				});
 				
 				$('#btnClose_div_vcca').click(function() {
@@ -415,8 +421,22 @@
                 		$('#lblSerial').text(q_getMsg("lblSerial"));
                 	}
                 }
-                
             }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.vcct':
+                		alert("資料匯入完成!!");
+                		$('#div_vcca').hide();
+                		
+                		var s2=[];
+						s2[0]=q_name + '_s';
+						s2[1]="where=^^ datea<='"+q_date()+"' ^^"
+						q_boxClose2(s2);
+                		break;
+                }
+			}
+            
 		</script>
 		<style type="text/css">
             #dmain {
