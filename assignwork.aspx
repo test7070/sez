@@ -291,6 +291,20 @@
                     alert(t_err);
                     return;
                 }
+                
+                //104/01/12費用編號空白 禁止存檔避免傳票產生錯誤
+                t_err=''; 
+                for(var i = 0; i < q_bbsCount; i++) {
+                	if(emp($('#txtProductno_'+i).val()) && !emp($('#txtProduct_'+i).val())){
+                		t_err=t_err+(t_err.length>0?',':'')+$('#txtProduct_'+i).val();
+                	}
+                }
+                
+                if(t_err.length>0){
+                	alert(t_err+" 費用編號禁止空白!!");
+                    return;
+                }
+                
                 if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
 	                var projectno='';
 	                var projectnamea='';
