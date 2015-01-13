@@ -16,8 +16,8 @@
             }
 
             var q_name = "caraccident";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2'];
-            var bbmNum = [['txtClaimmoney', 10, 0, 1], ['txtConciliatorymoney', 10, 0, 1]];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtConciliatorymoney'];
+            var bbmNum = [['txtClaimmoney', 10, 0, 1], ['txtConciliatorymoney', 10, 0, 1], ['txtSelfmoney', 10, 0, 1], ['txtReparationmoney', 10, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -26,7 +26,9 @@
             brwKey = 'noa';
             brwCount2 = 13;
             //ajaxPath = ""; //  execute in Root
-            aPop = [['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'insurer_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+            aPop = [['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'insurer_b.aspx']
+            //,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+            ];
 
             $(document).ready(function() {
                 if (location.href.indexOf('?') < 0)// debug
@@ -52,6 +54,16 @@
                 q_getFormat();
                 q_mask(bbmMask);
                 q_gt('cardeal', '', 0, 0, 0, "");
+                
+                $('#txtClaimmoney').change(function() {
+                	q_tr('txtConciliatorymoney',q_add(q_add(q_float('txtClaimmoney'),q_float('txtSelfmoney')),q_float('txtReparationmoney')));
+				});
+				$('#txtSelfmoney').change(function() {
+                	q_tr('txtConciliatorymoney',q_add(q_add(q_float('txtClaimmoney'),q_float('txtSelfmoney')),q_float('txtReparationmoney')));
+				});
+				$('#txtReparationmoney').change(function() {
+                	q_tr('txtConciliatorymoney',q_add(q_add(q_float('txtClaimmoney'),q_float('txtSelfmoney')),q_float('txtReparationmoney')));
+				});
             }
 
             function q_boxClose(s2) {
@@ -363,8 +375,10 @@
 							<select id="cmbCardealno" class="txt c1"> </select>
 							<input id="txtCardeal" type="text"  style="display:none;"/>
 						</td>
+						<td><span> </span><a id="lblReparationno" class="lbl"> </a></td>
+						<td><input id="txtReparationno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td colspan="3"><input id="txtNoa" type="text" class="txt c1"/></td>
+						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr2">
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
@@ -376,9 +390,9 @@
 					</tr>
 					<tr class="tr3">
 						<td><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtDriverno" type="text" class="txt c2"/>
-							<input id="txtDriver" type="text" class="txt c3"/>
+						<td>
+							<!--<input id="txtDriverno" type="text" class="txt c2"/>-->
+							<input id="txtDriver" type="text" class="txt c1"/>
 						</td>
 						<td><span> </span><a id="lblId" class="lbl"> </a></td>
 						<td><input id="txtId" type="text" class="txt c1"/></td>
@@ -393,6 +407,10 @@
 						</td>
 					</tr>
 					<tr class="tr5">
+						<td><span> </span><a id="lblClaimno" class="lbl"> </a></td>
+						<td><input id="txtClaimno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblClaimdate" class="lbl"> </a></td>
+						<td><input id="txtClaimdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblAdversary" class="lbl"> </a></td>
 						<td><input id="txtAdversary" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblInsurertel" class="lbl"> </a></td>
@@ -417,12 +435,12 @@
 						<td ><input id="txtInjuredtel" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr8">
-						<td><span> </span><a id="lblClaimno" class="lbl"> </a></td>
-						<td><input id="txtClaimno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblClaimdate" class="lbl"> </a></td>
-						<td><input id="txtClaimdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblClaimmoney" class="lbl"> </a></td>
 						<td><input id="txtClaimmoney" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblSelfmoney" class="lbl"> </a></td>
+						<td><input id="txtSelfmoney" type="text" class="txt num c1"/></td>
+						<td><span> </span><a id="lblReparationmoney" class="lbl"> </a></td>
+						<td><input id="txtReparationmoney" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblConciliatorymoney" class="lbl"> </a></td>
 						<td><input id="txtConciliatorymoney" type="text" class="txt num c1"/></td>
 					</tr>

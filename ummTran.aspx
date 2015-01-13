@@ -900,10 +900,11 @@
 		<style type="text/css">
 			#dmain {
 				overflow: hidden;
+				width: 1465px;
 			}
 			.dview {
 				float: left;
-				width: 20%;
+				width: 255px;
 				border-width: 0px;
 			}
 			.tview {
@@ -923,7 +924,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 80%;
+				width: 1010px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -1004,7 +1005,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 100%;
+				width: 1265px;
 			}
 			.tbbs a {
 				font-size: medium;

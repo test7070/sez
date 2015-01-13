@@ -46,7 +46,7 @@
             	bbmMask = [['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
                 q_mask(bbmMask);
                 
-                q_cmbParse("cmbStype", ('').concat(new Array('', '直接外銷')));
+                q_cmbParse("cmbStype", ('').concat(new Array('', '直接外銷','其他')));
                 q_cmbParse("cmbOtype", ('').concat(new Array('', '1@1.外銷貨物', '2@2.外銷有關之勞務', '3@3.免稅商店銷售之貨物', '4@4.銷售與免稅事業之貨物','5@5.國際運輸','6@6.國際運輸用之交通器','7@7.國際運輸之貨物與勞務')));
                 q_cmbParse("cmbPaper", ('').concat(new Array('', '1@1.非經海關出口應附證明文件', '2@2.經海關出口免附證明文件', '3@3.其他')));
                 q_cmbParse("cmbNamea", ('').concat(new Array('', '輸出許可證', '出口報單', '漁業執照', '結匯證實書', '三聯式發票扣抵聯', '佣金計算表')));
