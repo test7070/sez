@@ -101,9 +101,9 @@
                 });
                 
                 $('#txtDate1').mask('999/99/99');
-           //     $('#txtDate1').datepicker(); 打完日期按ENTER會變成當天日期
+                $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
-           //     $('#txtDate2').datepicker();
+                $('#txtDate2').datepicker();
 				$('#chkXpart').children('input').attr('checked', 'checked');
 				if(q_getPara('accc.proj').length==0){
 					$('#txtXproject1').attr('disabled','disabled');
