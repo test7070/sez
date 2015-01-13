@@ -1,7 +1,6 @@
 <%@ Page Language="C#" Debug="true"%>
     <script language="c#" runat="server">     
-        //string savepath = @"D:\t\";
-        string savepath = @"z:\upload\";
+        string savepath = "D:\\t\\";
         public void Page_Load()
         {
             try
