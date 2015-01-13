@@ -15,8 +15,8 @@
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
         <script type="text/javascript">    
             var q_name = "vcct";
-            var q_readonly = [];
-            var bbmNum = [];
+            var q_readonly = ['txtTotal','txtTax'];
+            var bbmNum = [['txtMoney',15,0,1],['txtTax',15,0,1],['txtTotal',15,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -43,6 +43,7 @@
             }
 
             function mainPost() {
+            	bbmMask = [['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
@@ -59,6 +60,61 @@
                         q_gt('vcct', t_where, 0, 0, 0, "checkVcctno_change", r_accy);
                     }
                 });
+                
+				$('#cmbTypea').change(function(e) {
+                	$('#cmbKind').val('');
+                	field_change();
+                });
+                 
+				$('#cmbKind').change(function(e) {
+                	field_change();
+				});
+                 
+				$('#btnVcca').click(function() {
+					$('#div_vcca').show();
+					$('#div_vcca').css('top', $('#btnVcca').offset().top+25);
+					$('#div_vcca').css('left', $('#btnVcca').offset().left-$('#div_vcca').width()+$('#btnVcca').width()+10);
+				});
+				
+				$('#btn_div_vcca').click(function() {
+					if(emp($('#textMon').val()) || emp($('#textBdate').val()) ||emp($('#textEdate').val())){
+						alert('申報月份與發票日期禁止空白');
+						return;
+					}
+					if(dec($('#textMon').val().substr(4,2))%2!=1){
+						alert('申報月份只能單數月份');
+						return;
+					}
+					
+					var b_date=q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01';
+					var e_date=q_cdn($('#textMon').val()+'/01',-1);
+					if(!(($('#textBdate').val()>=b_date && $('#textBdate').val()<=e_date)
+					&& ($('#textEdate').val()>=b_date && $('#textEdate').val()<=e_date))
+					){
+						alert('資料非'+b_date.substr(0,6)+'-'+e_date.substr(0,6));
+						return;
+					}
+					
+					var t_mon=!emp($('#textMon').val())?trim($('#textMon').val()):'#non';
+					var t_bdate=!emp($('#textBdate').val())?trim($('#textBdate').val()):'#non';
+					var t_edate=!emp($('#textEdate').val())?trim($('#textEdate').val()):'#non';
+					var t_vcca=$('#checkVcca').prop('checked')?'1':'#non';
+					var t_rc2a=$('#checkRc2a').prop('checked')?'1':'#non';
+					
+					q_func('qtxt.query.vcct', 'vcct.txt,vcct,'+t_mon+';'+t_bdate+';'+t_edate+';'+t_vcca+';'+t_rc2a);
+				});
+				
+				$('#btnClose_div_vcca').click(function() {
+					$('#div_vcca').hide();
+				});
+				
+				if(dec(q_date().substr(4,2))%2==1)
+					$('#textMon').val(q_date().substr(0,6));
+				else
+					$('#textMon').val(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6));
+				
+				$('#textBdate').val(q_cdn($('#textMon').val()+'/01',-45).substr(0,6)+'/01');
+				$('#textEdate').val(q_cdn($('#textMon').val()+'/01',-1));
             }
 
             function q_boxClose(s2) {
@@ -106,6 +162,10 @@
                 _btnIns();
                 refreshBbm();
                 $('#txtNoa').focus();
+                
+                $('#cmbTypea').val('1');
+                $('#cmbKind').val('21');
+                field_change();
             }
 
             function btnModi() {
@@ -158,6 +218,8 @@
             function refresh(recno) {
                 _refresh(recno);
                 refreshBbm();
+                field_change();
+                $('#div_vcca').hide();
             }
 
             function refreshBbm() {
@@ -170,6 +232,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                 if(t_para){
+					$('#btnVcca').removeAttr('disabled');
+				}else{
+					$('#btnVcca').attr('disabled','disabled');
+				}
             }
 
             function btnMinus(id) {
@@ -223,6 +290,153 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function calTax(){
+				var t_money=dec($('#txtMoney').val()),t_tax=0,t_total=dec($('#txtTotal').val());
+				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
+					switch ($('#cmbTaxtype').val()) {
+						case '0':
+	                    	// 無
+							t_tax = 0;
+							t_total = q_add(t_money,t_tax);
+							break;
+	                    case '1':
+	                        // 應稅
+	                        t_tax = round(q_mul(t_money,t_taxrate), 0);
+	                        t_total = q_add(t_money,t_tax);
+	                        break;
+	                    case '2':
+	                        //零稅率
+	                        t_tax = 0;
+	                        t_total = q_add(t_money,t_tax);
+	                        break;
+	                    case '3':
+	                        // 內含
+	                        t_tax = round(q_mul(q_div(t_money,q_add(1,t_taxrate)),t_taxrate), 0);
+	                        t_total = t_money;
+	                        t_money = q_sub(t_total,t_tax);
+	                        break;
+	                    case '4':
+	                        // 免稅
+	                        t_tax = 0;
+	                        t_total = q_add(t_money,t_tax);
+	                        break;
+	                    case '5':
+	                        // 自定
+	                        $('#txtTax').attr('readonly', false);
+	                        $('#txtTax').css('background-color', 'white').css('color', 'black');
+	                        t_tax = round(q_float('txtTax'), 0);
+	                        t_total = q_add(t_money,t_tax);
+	                        break;
+	                    case '6':
+	                        // 作廢-清空資料
+	                        t_money = 0, t_tax = 0, t_total = 0;
+	                        break;
+	                    default:
+					}
+				
+				$('#txtMoney').val(FormatNumber(t_money));
+				$('#txtTax').val(FormatNumber(t_tax));
+				$('#txtTotal').val(FormatNumber(t_total));
+			}
+			
+			function FormatNumber(n) {
+	            var xx = "";
+	            if(n<0){
+	            	n = Math.abs(n);
+	            	xx = "-";
+				}     		
+				n += "";
+				var arr = n.split(".");
+				var re = /(\d{1,3})(?=(\d{3})+$)/g;
+				return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+			}
+            
+            function field_change() {
+            	var x_kind=$('#cmbKind').val();
+            	$('#cmbKind').text('');
+            	var kind=q_getPara('vcct.kind').split(',');
+                var t_kind='@';
+                for(var i=0;i<kind.length;i++){
+                	if($('#cmbTypea').val()=='1'){
+	                	if(kind[i].split('@')[0].substr(0,1)=='2')
+	                		t_kind=t_kind+(t_kind.length>0?',':'')+kind[i];
+	                }else{
+	                	if(kind[i].split('@')[0].substr(0,1)=='3')
+	                		t_kind=t_kind+(t_kind.length>0?',':'')+kind[i];
+	                }	
+                }
+                q_cmbParse("cmbKind", t_kind);
+                $('#cmbKind').val(x_kind);
+                
+                $('.passtype').hide();
+                $('#cmbPasstype').val('');
+                $('.nondeductible').hide();
+                $('#chkIsnondeductible').prop('checked',false);
+                
+                if($('#cmbTypea').val()=='1'){
+                	$('.typea1').show();
+                	$('.typea2').hide();
+                	$('#cmbSpecialfood').val('');
+                	$('#cmbNotaxnote').val('');
+                	$('#txtMount').show();
+                	$('#txtDutymemo').show();
+                	$('#txtBook').show();
+                	
+                	$('.two').hide();
+                	$('#chkIstwo').prop('checked',false);
+                	$('.self').hide();
+                	$('#chkIsself').prop('checked',false);
+                	
+                	if('25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('#txtMount').removeAttr('disabled').css('background','white');
+                	}else{
+                		$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                	}
+                	
+                	if('28,29'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('#txtDutymemo').removeAttr('disabled').css('background','white');
+                	}else{
+                		$('#txtDutymemo').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+                	}
+                	
+                }else{
+                	$('.typea1').hide();
+                	$('.typea2').show();
+                	
+                	$('#cmbSpecialfood').show();
+                	$('#cmbNotaxnote').show();
+                	$('#txtMount').val('').hide();
+                	$('#txtDutymemo').val('').hide();
+                	$('#txtBook').val('').hide();
+                	
+                	$('.self').show();
+                	
+                	if('32,34'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                		$('.two').show();
+                		$('#lblSerial').text('二聯收銀訖號');
+                	}else{
+                		$('.two').hide();
+                		$('#chkIstwo').prop('checked',false);
+                		$('#lblSerial').text(q_getMsg("lblSerial"));
+                	}
+                }
+            }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query.vcct':
+                		alert("資料匯入完成!!");
+                		$('#div_vcca').hide();
+                		
+                		var s2=[];
+						s2[0]=q_name + '_s';
+						s2[1]="where=^^ datea<='"+q_date()+"' ^^"
+						q_boxClose2(s2);
+                		break;
+                }
+			}
+            
 		</script>
 		<style type="text/css">
             #dmain {
@@ -345,14 +559,43 @@
 	</head>
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
+		<div id="div_vcca" style="position:absolute; top:0px; left:0px; display:none; width:310px; background-color: #CDFFCE; border: 5px solid gray;">
+			<table id="table_vcca" style="width:100%;" border="1" cellpadding='2' cellspacing='0'>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">申報月份</td>
+					<td style="background-color: #f8d463;"><input id='textMon' type='text' style='text-align:left;width:80px;'/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">發票日期</td>
+					<td style="background-color: #f8d463;">
+						<input id='textBdate' type='text' style='text-align:left;width:80px;'/>	~
+						<input id='textEdate' type='text' style='text-align:left;width: 80px;'/>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">銷項發票</td>
+					<td style="background-color: #f8d463;"><input id="checkVcca" type="checkbox" style="float: left;"/></td>
+				</tr>
+				<tr>
+					<td style="background-color: #f8d463;width: 110px;text-align: center;">進項發票</td>
+					<td style="background-color: #f8d463;"><input id="checkRc2a" type="checkbox" style="float: left;"/></td>
+				</tr>
+				<tr id='vcca_close'>
+					<td align="center" colspan='2'>
+						<input id="btn_div_vcca" type="button" value="匯入營業稅">
+						<input id="btnClose_div_vcca" type="button" value="關閉視窗">
+					</td>
+				</tr>
+			</table>
+		</div>
 		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:35%;"  >
+			<div class="dview" id="dview" style="float: left;  width:30%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:30%"><a id='vewMon'></a></td>
-						<td align="center" style="width:30%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:28%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:13%"><a id='vewMon'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -364,7 +607,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 63%;float: left;">
+			<div class='dbbm' style="width: 68%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 					<tr>
 						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
@@ -372,7 +615,7 @@
 						<td><span> </span><a id="lblKind" class="lbl"> </a></td>
 						<td colspan="3"><select id="cmbKind" class="txt c1"> </select></td>
 						<td> </td>
-						<td> </td>
+						<td><input id="btnVcca" type="button"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -387,37 +630,39 @@
 						<td><input id="txtSerial"  type="text" class="txt c1" /></td>
 						<td colspan="4"> 
 							<span style="float: left;"> </span><span style="float: left;"> </span>
-							<a id='lblIstwo' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><input id="chkIstwo" type="checkbox" style="float: left;"/>
-							<a id='lblIsasset' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><input id="chkIsasset" type="checkbox" style="float: left;"/>
-							<a id='lblIsself' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><input id="chkIsself" type="checkbox" style="float: left;"/>
-							<a id='lblIsnondeductible' class="lbl" style="float: left;"> </a><span style="float: left;"> </span><input id="chkIsnondeductible" type="checkbox" style="float: left;"/>
+							<a id='lblIstwo' class="lbl two" style="float: left;"> </a><span style="float: left;" class="two"> </span><input id="chkIstwo" type="checkbox" style="float: left;" class="two"/>
+							<a id='lblIsasset' class="lbl asset" style="float: left;"> </a><span style="float: left;" class="asset"> </span><input id="chkIsasset" type="checkbox" style="float: left;" class="asset"/>
+							<a id='lblIsself' class="lbl self" style="float: left;"> </a><span style="float: left;" class="self"> </span><input id="chkIsself" type="checkbox" style="float: left;" class="self"/>
+							<a id='lblIsnondeductible' class="lbl nondeductible" style="float: left;"> </a><span style="float: left;" class="nondeductible"> </span><input id="chkIsnondeductible" type="checkbox" style="float: left;" class="nondeductible"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
 						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c1"> </select></td>
+						<td><select id="cmbTaxtype" class="txt c1" onchange="calTax();"> </select></td>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td><input id="txtTax"  type="text" class="txt num c1" /></td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal"  type="text" class="txt num c1" /></td>
 					</tr>
-					<tr>
-						<td><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
-						<td><select id="cmbSpecialfood" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
-						<td><select id="cmbNotaxnote" class="txt c1"> </select></td>
+					<tr class="typea1">
 						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td><input id="txtMount"  type="text" class="txt num c1" /></td>
 						<td><span> </span><a id='lblDutymemo' class="lbl"> </a></td>
 						<td><input id="txtDutymemo"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblPasstype' class="lbl"> </a></td>
-						<td><select id="cmbPasstype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblBook' class="lbl"> </a></td>
 						<td><input id="txtBook"  type="text" class="txt num c1" /></td>
+					</tr>
+					<tr class="typea2">
+						<td><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
+						<td><select id="cmbSpecialfood" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
+						<td><select id="cmbNotaxnote" class="txt c1"> </select></td>
+					</tr>
+					<tr class="passtype">
+						<td><span> </span><a id='lblPasstype' class="lbl"> </a></td>
+						<td><select id="cmbPasstype" class="txt c1"> </select></td>
 					</tr>
 				</table>
 			</div>
