@@ -5,7 +5,6 @@
         {
             try
             {
-                //參數
                 System.Text.Encoding encoding = System.Text.Encoding.UTF8;
                 Response.ContentEncoding = encoding;
                 int formSize = Request.TotalBytes;
