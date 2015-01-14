@@ -15,26 +15,15 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
-            }
-            function z_accc() {
-            }
-            z_accc.prototype = {
-                data : {
-                    part : null
-                },
-                keyup : null
-            };
-            t_data = new z_accc();
-
+          	var t_part,t_pro;
+          	
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_accc');
             });
 			
-			var ssspart;
+			
             function q_gfPost() {
                 q_gt('acpart', '', 0, 0, 0, "init1", r_accy+'_'+r_cno);
                 q_gt('ssspart', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "", r_accy+'_'+r_cno);
