@@ -10,8 +10,8 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = "vcct_s";
-			aPop = new Array();
+            var q_name = "tax0_s";
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
 
             $(document).ready(function() {
                 main();
@@ -25,8 +25,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
-                q_cmbParse("cmbKind", q_getPara('vcct.kind'));
+                
 
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
@@ -38,15 +37,12 @@
                 t_serial = $('#txtSerial').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
-                t_typea = $('#cmbTypea').val();
-                t_kind = $('#cmbKind').val();
+                t_custno = $('#txtCustno').val();
                 
                 t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         		t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
-        
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("typea", t_typea) + q_sqlPara2("kind", t_kind)
-                + q_sqlPara2("serial", t_serial);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate)+ q_sqlPara2("serial", t_serial)+ q_sqlPara2("custno", t_custno);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -65,7 +61,7 @@
 		<div style="width:95%; text-align:center;padding:15px;">
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDatea'> </a></td>
+					<td   style="width:35%;" ><a id='lblDatea'>發票日期</a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
@@ -73,23 +69,19 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
-					<td style="width:75%;"><input class="txt" id="txtNoa" type="text" style="width:95%; font-size:medium;" /></td>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'>發票號碼</a></td>
+					<td style="width:75%;">
+					<input class="txt" id="txtNoa" type="text" style="width:95%; font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblSerial'> </a></td>
+					<td class='seek'  style="width:20%;"><a id='lblSerial'>統一編號</a></td>
 					<td style="width:75%;"><input class="txt" id="txtSerial" type="text" style="width:95%; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
-					<td style="width:75%;"><select id="cmbTypea"  style="width:95%; font-size:medium;" > </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblKind'> </a></td>
-					<td style="width:75%;"><select id="cmbKind"  style="width:95%; font-size:medium;" > </select>
-					</td>
-				</tr>
-				
+	                <td class='seek'  style="width:20%;"><a id='lblCust'>買受人</a></td>
+	                <td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtComp" type="text" style="width:135px;font-size:medium;" disabled="disabled" /></td>
+	             </tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>

@@ -24,6 +24,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             //ajaxPath = ""; //  execute in Root
 
             $(document).ready(function() {
@@ -155,7 +156,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('vcct_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('vcct_s.aspx', q_name + '_s', "500px", "350px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -177,7 +178,7 @@
             }
 
             function btnPrint() {
-
+				
             }
 
             function q_stPost() {
@@ -618,6 +619,11 @@
 						<td><input id="btnVcca" type="button"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtCno" type="text" style="float:left; width:25%;">
+							<input id="txtAcomp" type="text" style="float:left; width:75%;"/>
+						</td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
