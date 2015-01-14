@@ -132,7 +132,6 @@
             	$('#txtSerial').val($.trim($('#txtSerial').val()));
                 if (checkId($('#txtSerial').val())!=2){
                 	alert(q_getMsg('lblSerial')+'錯誤。');
-                	return;
                 }
 				t_where = "where=^^ noa!='"+$.trim($('#txtNoa').val())+"' and serial='"+$('#txtSerial').val()+"' ^^";
 				q_gt('vccabuyer', t_where, 0, 0, 0, "", r_accy);
