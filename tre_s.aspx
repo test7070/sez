@@ -75,7 +75,7 @@
                 if (t_driver.length > 0)
                     t_where += " and charindex('" + t_driver + "',driver)>0";     
 				if(t_tranno.length>0)
-		       		t_where += " and exists(select noa from tres"+r_accy+" where tres"+r_accy+".noa=tre"+r_accy+".noa and tres"+r_accy+".tranno='"+t_tranno+"')";
+		       		t_where += " and exists(select noa from view_tres"+r_accy+" where view_tres"+r_accy+".noa=view_tre"+r_accy+".noa and view_tres"+r_accy+".tranno='"+t_tranno+"')";
                 if(t_ispay.length>0)
                     t_where +=" and not exists(select * from tre_accc where CHARINDEX(tre"+r_accy+".noa,treno)>0)";
                 t_where = ' where=^^' + t_where + '^^ ';

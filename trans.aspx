@@ -374,8 +374,10 @@
                         if (as[0] != undefined) {
                         	if(as[0].ordeno.length>0){
                         		alert('轉來的單據禁止修改。');
-                        		Unlock(1);
-                        		return;
+                        		if(r_rank!=9){
+                        			Unlock(1);
+                        			return;
+                        		}
                         	}
                         }
                         Unlock(1);
@@ -592,7 +594,7 @@
 				if (q_chkClose())
              		    return;
 				//避免資料不同步
-				if($.trim($('#txtOrdeno').val()).length>0){
+				if($.trim($('#txtOrdeno').val()).length>0 && r_rank!=9){
 					alert('轉來的單據禁止修改。');
 				}else{
 					Lock(1,{opacity:0});

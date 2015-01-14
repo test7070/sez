@@ -61,7 +61,7 @@
                 if (t_umm == 'N')
                     t_where += " and unpay!=0";
                 if(t_tranno.length>0)
-		       		t_where += " and exists(select noa from trds"+r_accy+" where trds"+r_accy+".noa=trd"+r_accy+".noa and trds"+r_accy+".tranno='"+t_tranno+"')";
+		       		t_where += " and exists(select noa from view_trds"+r_accy+" where view_trds"+r_accy+".noa=view_trd"+r_accy+".noa and view_trds"+r_accy+".tranno='"+t_tranno+"')";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
