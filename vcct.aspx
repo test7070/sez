@@ -70,6 +70,10 @@
 				$('#cmbKind').change(function(e) {
                 	field_change();
 				});
+				
+				$('#txtMoney').change(function(e) {
+                	calTax();
+				});
                  
 				$('#btnVcca').click(function() {
 					$('#div_vcca').show();
@@ -295,6 +299,8 @@
             function calTax(){
 				var t_money=dec($('#txtMoney').val()),t_tax=0,t_total=dec($('#txtTotal').val());
 				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
+				if(!emp($('#cmbSpecialfood').val()))
+					t_taxrate = q_div(parseFloat($('#cmbSpecialfood').val()) , 100);
 					switch ($('#cmbTaxtype').val()) {
 						case '0':
 	                    	// 無
@@ -662,7 +668,7 @@
 					</tr>
 					<tr class="typea2">
 						<td><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
-						<td><select id="cmbSpecialfood" class="txt c1"> </select></td>
+						<td><select id="cmbSpecialfood" class="txt c1" onchange="calTax();"> </select></td>
 						<td><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
 						<td><select id="cmbNotaxnote" class="txt c1"> </select></td>
 					</tr>
