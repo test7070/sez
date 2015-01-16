@@ -24,6 +24,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             //ajaxPath = ""; //  execute in Root
 
             $(document).ready(function() {
@@ -68,6 +69,10 @@
                  
 				$('#cmbKind').change(function(e) {
                 	field_change();
+				});
+				
+				$('#txtMoney').change(function(e) {
+                	calTax();
 				});
                  
 				$('#btnVcca').click(function() {
@@ -155,7 +160,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('vcct_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('vcct_s.aspx', q_name + '_s', "500px", "350px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -177,7 +182,7 @@
             }
 
             function btnPrint() {
-
+				
             }
 
             function q_stPost() {
@@ -294,6 +299,8 @@
             function calTax(){
 				var t_money=dec($('#txtMoney').val()),t_tax=0,t_total=dec($('#txtTotal').val());
 				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
+				if(!emp($('#cmbSpecialfood').val()))
+					t_taxrate = q_div(parseFloat($('#cmbSpecialfood').val()) , 100);
 					switch ($('#cmbTaxtype').val()) {
 						case '0':
 	                    	// 無
@@ -618,6 +625,11 @@
 						<td><input id="btnVcca" type="button"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtCno" type="text" style="float:left; width:25%;">
+							<input id="txtAcomp" type="text" style="float:left; width:75%;"/>
+						</td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
@@ -656,7 +668,7 @@
 					</tr>
 					<tr class="typea2">
 						<td><span> </span><a id='lblSpecialfood' class="lbl"> </a></td>
-						<td><select id="cmbSpecialfood" class="txt c1"> </select></td>
+						<td><select id="cmbSpecialfood" class="txt c1" onchange="calTax();"> </select></td>
 						<td><span> </span><a id='lblNotaxnote' class="lbl"> </a></td>
 						<td><select id="cmbNotaxnote" class="txt c1"> </select></td>
 					</tr>

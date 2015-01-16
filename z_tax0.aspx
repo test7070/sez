@@ -17,51 +17,24 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_401');
+				q_gf('', 'z_tax0');
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_401',
+					fileName : 'z_tax0',
 					options : [{
-						type : '1', //[1,2]
+						type : '1', //[1]
 						name : 'xmon'
 					},{
-						type : '6', //[3]
+						type : '6', //[1]
 						name : 'xdate'
-					},{
-						type : '6', //[4]
-						name : 'x048'
-					},{
-						type : '6', //[5]
-						name : 'x049'
-					},{
-						type : '6', //[6]
-						name : 'x108'
-					},{
-						type : '6', //[7]
-						name : 'x073'
-					},{
-						type : '6', //[8]
-						name : 'x074'
-					},{
-						type : '6', //[9]
-						name : 'x082'
-					},{
-						type : '6', //[10]
-						name : 'x013'
-					},{
-						type : '6', //[11]
-						name : 'x014'
 					}]
 				});
 				q_popAssign();
 
 				$('#txtXmon1').mask('999/99');
 				$('#txtXmon2').mask('999/99');
-				$('#txtXdate').mask('999/99//99');
-				
-				var t_date=(dec(q_date().substr(4,2))%2==0)?q_cdn(q_date().substr(0,6)+'/28',-45).substr(0,6):q_date().substr(0,6);
-				
+				$('#txtXdate').mask('999/99/99');
 				$('#txtXmon1').val(q_date().substr(0,6));
 				$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,6)).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
 				$('#txtXdate').val(q_date());
@@ -81,39 +54,12 @@
 
 				$('#report').css('width','420px');
 				$('.q_report .report div').css('width','200px');
-				
-				$('.option .a1').css('width','300px');
-				$('.q_report .option div .c3').css('width','70px');
-				$('.q_report .option div .c6').css('width','120px');
-				$('#lblX082').css('font-size','10px');
-				
-				$('.option .c5').each(function() {
-					if($(this).attr('id').indexOf('txtXdate')==-1){
-						$(this).css('text-align','right');
-						$(this).keyup(function() {
-							var tmp=$(this).val().replace(/[^\d]/g,'');
-							$(this).val(FormatNumber(tmp));
-						});
-					}
-				});
 			}
 
 			function q_boxClose(s2) {
 			}
 
 			function q_gtPost(s2) {
-			}
-			
-			function FormatNumber(n) {
-	            var xx = "";
-	            if(n<0){
-	            	n = Math.abs(n);
-	            	xx = "-";
-				}     		
-				n += "";
-				var arr = n.split(".");
-				var re = /(\d{1,3})(?=(\d{3})+$)/g;
-				return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 			}
 		</script>
 		<style type="text/css">

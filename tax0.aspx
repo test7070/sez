@@ -15,8 +15,8 @@
         <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
         <script type="text/javascript">    
             var q_name = "tax0";
-            var q_readonly = ['txtTotal','txtTax'];
-            var bbmNum = [['txtMoney',15,0,1],['txtTax',15,0,1],['txtTotal',15,0,1]];
+            var q_readonly = ['txtNoa','txtDatea','txtMoney','txtSerial','txtCno','txtAcomp'];
+            var bbmNum = [['txtMoney',15,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -43,11 +43,14 @@
             }
 
             function mainPost() {
+            	$('#btnIns').hide();
+            	
             	bbmMask = [['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbStype", ('').concat(new Array('', '直接外銷','其他')));
-                q_cmbParse("cmbOtype", ('').concat(new Array('', '1@1.外銷貨物', '2@2.外銷有關之勞務', '3@3.免稅商店銷售之貨物', '4@4.銷售與免稅事業之貨物','5@5.國際運輸','6@6.國際運輸用之交通器','7@7.國際運輸之貨物與勞務')));
+                q_cmbParse("cmbOtype", ('').concat(new Array('', '1@1.外銷貨物', '2@2.與外銷有關之勞務，或在國內提供而在國外使用之勞務', '3@3.依法設立之免稅商店銷售或過境旅客之貨物', '4@4.銷售與保稅區營業人供營運之貨物或勞務','5@5.國際間之運輸。但外國運輸事業在中華民國境內經營國際運輸業務者，應以各該國對中華民國國際運輸事業予以相等待遇或免徵類似稅捐者為限'
+                ,'6@6.國際運輸用之船舶、航空器及遠洋漁船','7@7.銷售與國際運輸用之船舶、航空器及遠洋漁船所使用之貨物或修繕勞務','8@8.保稅區營業人銷售與課稅區營業人未輸往課稅區而直接出口之貨物','9@9.保稅區營業人銷售與課稅區營業人存入自由港區事業或海關管理之保稅倉庫、物流中心以供外銷之貨物')));
                 q_cmbParse("cmbPaper", ('').concat(new Array('', '1@1.非經海關出口應附證明文件', '2@2.經海關出口免附證明文件', '3@3.其他')));
                 q_cmbParse("cmbNamea", ('').concat(new Array('', '輸出許可證', '出口報單', '漁業執照', '結匯證實書', '三聯式發票扣抵聯', '佣金計算表')));
                 
@@ -131,7 +134,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('tax0_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
+                q_box('tax0_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -149,7 +152,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_tax0.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function q_stPost() {
@@ -262,55 +265,7 @@
                 _btnCancel();
             }
             
-            function calTax(){
-				var t_money=dec($('#txtMoney').val()),t_tax=0,t_total=dec($('#txtTotal').val());
-				var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')) , 100);
-					switch ($('#cmbTaxtype').val()) {
-						case '0':
-	                    	// 無
-							t_tax = 0;
-							t_total = q_add(t_money,t_tax);
-							break;
-	                    case '1':
-	                        // 應稅
-	                        t_tax = round(q_mul(t_money,t_taxrate), 0);
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '2':
-	                        //零稅率
-	                        t_tax = 0;
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '3':
-	                        // 內含
-	                        t_tax = round(q_mul(q_div(t_money,q_add(1,t_taxrate)),t_taxrate), 0);
-	                        t_total = t_money;
-	                        t_money = q_sub(t_total,t_tax);
-	                        break;
-	                    case '4':
-	                        // 免稅
-	                        t_tax = 0;
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '5':
-	                        // 自定
-	                        $('#txtTax').attr('readonly', false);
-	                        $('#txtTax').css('background-color', 'white').css('color', 'black');
-	                        t_tax = round(q_float('txtTax'), 0);
-	                        t_total = q_add(t_money,t_tax);
-	                        break;
-	                    case '6':
-	                        // 作廢-清空資料
-	                        t_money = 0, t_tax = 0, t_total = 0;
-	                        break;
-	                    default:
-					}
-				
-				$('#txtMoney').val(FormatNumber(t_money));
-				$('#txtTax').val(FormatNumber(t_tax));
-				$('#txtTotal').val(FormatNumber(t_total));
-			}
-			
+            			
 			function FormatNumber(n) {
 	            var xx = "";
 	            if(n<0){
@@ -478,20 +433,25 @@
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:28%"><a id='vewNoa'>發票號碼</a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'>發票日期</a></td>
+						<td align="center" style="width:28%"><a id='vewNoa'>發票號碼</a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
-						<td align="center" id='noa'>~noa</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='noa'>~noa</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm' style="width: 68%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+					<tr>
+						<td><span> </span><a id="lblAcomp" class="lbl">公司</a></td>
+						<td colspan="3">
+							<input id="txtCno" type="text" style="float:left; width:25%;">
+							<input id="txtAcomp" type="text" style="float:left; width:75%;"/>
+						</td>
+					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl">發票號碼</a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
@@ -518,23 +478,23 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblOtype' class="lbl">外銷方式</a></td>
-						<td colspan="2"><select id="cmbOtype" class="txt c1"> </select></td>
+						<td colspan="3"><select id="cmbOtype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblMoney' class="lbl">銷售金額</a></td>
 						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPaper' class="lbl">外銷文件</a></td>
-						<td colspan="2"><select id="cmbPaper" class="txt c1"> </select></td>
+						<td colspan="3"><select id="cmbPaper" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblSerial' class="lbl">統一編號</a></td>
 						<td><input id="txtSerial"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNamea' class="lbl">文件名稱</a></td>
-						<td colspan="2"><select id="cmbNamea" class="txt c1"> </select></td>
+						<td colspan="3"><select id="cmbNamea" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPno' class="lbl">文件號碼</a></td>
-						<td colspan="2"><input id="txtPno"  type="text" class="txt c1" /></td>
+						<td colspan="3"><input id="txtPno"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblPtype' class="lbl">文件類別</a></td>
 						<td><input id="txtPtype"  type="text" class="txt c1" /></td>
 					</tr>

@@ -55,10 +55,9 @@
                 q_mask(bbsMask);
 
                 $('#btnIndata').click(function() {
-                    if (!emp($('#txtNoa').val())) {
-                    	//找去年移至下年度的特休
-                    	var t_where = "where=^^ noa='"+dec($('#txtNoa').val())-1+"' ^^";
-                        q_gt('salvaca', t_where, 0, 0, 0, "salvaca_indata", r_accy);
+                    if (q_cur==1 || q_cur==2) {
+                    	var t_where = "where=^^ isnull(outdate,'')='' and noa!='Z001' "+(q_getPara('sys.comp').indexOf('大昌')>-1?"and jobno not in ('00','97','98','99')":'') +" ^^";
+                        q_gt('sss', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
 
@@ -79,12 +78,6 @@
 			var t_salvaca;
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'salvaca_indata':
-                		t_salvaca = _q_appendData("salvacas", "", true);
-                		
-                		var t_where = "where=^^ outdate is null OR outdate='' ^^";
-                        q_gt('sss', t_where, 0, 0, 0, "", r_accy);
-                		break;
                     case 'sss':
                         var as = _q_appendData("sss", "", true);
 
@@ -127,8 +120,7 @@
                             }else{
                             	if (as[i].indate.length > 0){//判斷到職日是否有輸入，若沒輸入則無特休
 	                                as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0, 3))-1+(
-	                                +((12-dec(as[i].indate.substr(4, 2))) /12)
-	                                //+(((30-(dec(as[i].indate.substr(7, 2))==31?30:dec(as[i].indate.substr(7, 2)))) /30)/12)
+	                                +((12-dec(as[i].indate.substr(4, 2))+(dec(as[i].indate.substr(7, 2))>15 && q_getPara('sys.comp').indexOf('大昌')>-1 ?0:1))/12)
 	                                );
 	                                
 	                                if (as[i]._year == 0 && as[i].indate.substr(4) == '01/01') {
