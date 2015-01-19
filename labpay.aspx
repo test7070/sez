@@ -288,6 +288,12 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
+                    
+				if($('#txtDatea').val()<='104/01/15'){
+					alert('該單據禁止修改!!(若有需修改請聯絡工程師)');
+            		return;
+				}
+                    
 				if (q_chkClose())
              		    return;
 				if(t_payaccs[0]!= undefined || t_vcc[0]!=undefined){
@@ -638,7 +644,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblVccno" class="lbl btn"></a></td>
-						<td class="td2" colspan="2">
+						<td class="td2" colspan="3">
 							<input id="txtBvccno"  type="text" style="float:left; width:45%;"/>
 							<span style="float:left; width:5px;"> </span><span style="float:left; width:15px; font-weight: bold;font-size: 15px;">～</span><span style="float:left; width:5px;"> </span>
 							<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
