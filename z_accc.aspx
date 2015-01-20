@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -201,6 +201,24 @@
 			        	}
 		        	}
 		        }
+var s2 = q_getId2(), s4;
+
+if ($.trim(s2[3]).length > 0) {
+    s4 = s2[3].split(',');
+    if( s4[4]=="True" )// Detail
+    {
+        $('#txtXacc1a').val(s4[0]);
+        $('#txtXacc2a').val(s4[1]);
+    }
+    else {//not  Detail
+        $('#q_report .report').find('div').eq(1).click();
+        $('#txtYacc1a').val(s4[0]);
+        $('#txtYacc2a').val(s4[1]);
+    }
+    $('#txtDate1').val(s4[2]);
+    $('#txtDate2').val(s4[3]);
+    $('#btnOk').click();
+}
             }
             function q_boxClose(t_name) {
             }
