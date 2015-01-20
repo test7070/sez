@@ -2,6 +2,5 @@
 *.pyc
 *.pyo
 *.project
-
 .git
 git
