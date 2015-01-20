@@ -25,7 +25,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
+                q_cmbParse("cmbTypea", '@全部,'+q_getPara('vcct.typea'));
                 q_cmbParse("cmbKind", q_getPara('vcct.kind'));
 
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];

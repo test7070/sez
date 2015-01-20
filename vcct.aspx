@@ -378,7 +378,6 @@
                 
                 $('.passtype').hide();
                 $('#cmbPasstype').val('');
-                $('.nondeductible').hide();
                 $('#chkIsnondeductible').prop('checked',false);
                 
                 if($('#cmbTypea').val()=='1'){
@@ -390,12 +389,13 @@
                 	$('#txtDutymemo').show();
                 	$('#txtBook').show();
                 	
+                	$('.nondeductible').show();
                 	$('.two').hide();
                 	$('#chkIstwo').prop('checked',false);
                 	$('.self').hide();
                 	$('#chkIsself').prop('checked',false);
                 	
-                	if('25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
+                	if('22,25,26,27'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){ //彙加張數
                 		$('#txtMount').removeAttr('disabled').css('background','white');
                 	}else{
                 		$('#txtMount').val('').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
@@ -418,6 +418,7 @@
                 	$('#txtBook').val('').hide();
                 	
                 	$('.self').show();
+                	$('.nondeductible').hide();
                 	
                 	if('32,34'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
                 		$('.two').show();
