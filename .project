@@ -4,14 +4,31 @@
 	<comment></comment>
 	<projects>
 	</projects>
+<<<<<<< HEAD
 	<buildSpec>
+=======
+<<<<<<< HEAD
+	<buildSpec>
+=======
+	<buildSpec>		
+>>>>>>> 37411e26772c3eb5601c7eb61d3bde8e2de86fc6
+>>>>>>> cf2465dffc7d9361cad4b51e31def213879f5c90
 		<buildCommand>
 			<name>com.aptana.ide.core.unifiedBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
+<<<<<<< HEAD
 	<natures>
 		<nature>com.aptana.projects.webnature</nature>
 	</natures>
+=======
+<<<<<<< HEAD
+	<natures>
+		<nature>com.aptana.projects.webnature</nature>
+	</natures>
+=======
+>>>>>>> 37411e26772c3eb5601c7eb61d3bde8e2de86fc6
+>>>>>>> cf2465dffc7d9361cad4b51e31def213879f5c90
 </projectDescription>
