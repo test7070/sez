@@ -1,8 +1,14 @@
 *.class
 *.pyc
 *.pyo
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
 *.project
 *.pydevproject
 .git
 git
 
+>>>>>>> 37411e26772c3eb5601c7eb61d3bde8e2de86fc6
+>>>>>>> cf2465dffc7d9361cad4b51e31def213879f5c90
