@@ -379,6 +379,7 @@
                 $('.passtype').hide();
                 $('#cmbPasstype').val('');
                 $('#chkIsnondeductible').prop('checked',false);
+                $('.nondeductible').hide();//目前不開放抵扣
                 
                 if($('#cmbTypea').val()=='1'){
                 	$('.typea1').show();
@@ -389,7 +390,6 @@
                 	$('#txtDutymemo').show();
                 	$('#txtBook').show();
                 	
-                	$('.nondeductible').show();
                 	$('.two').hide();
                 	$('#chkIstwo').prop('checked',false);
                 	$('.self').hide();
@@ -418,7 +418,6 @@
                 	$('#txtBook').val('').hide();
                 	
                 	$('.self').show();
-                	$('.nondeductible').hide();
                 	
                 	if('32,34'.indexOf($('#cmbKind').val())>-1 && $('#cmbKind').val()!=''){
                 		$('.two').show();

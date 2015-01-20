@@ -52,7 +52,7 @@
                 q_cmbParse("cmbOtype", ('').concat(new Array('', '1@1.外銷貨物', '2@2.與外銷有關之勞務，或在國內提供而在國外使用之勞務', '3@3.依法設立之免稅商店銷售或過境旅客之貨物', '4@4.銷售與保稅區營業人供營運之貨物或勞務','5@5.國際間之運輸。但外國運輸事業在中華民國境內經營國際運輸業務者，應以各該國對中華民國國際運輸事業予以相等待遇或免徵類似稅捐者為限'
                 ,'6@6.國際運輸用之船舶、航空器及遠洋漁船','7@7.銷售與國際運輸用之船舶、航空器及遠洋漁船所使用之貨物或修繕勞務','8@8.保稅區營業人銷售與課稅區營業人未輸往課稅區而直接出口之貨物','9@9.保稅區營業人銷售與課稅區營業人存入自由港區事業或海關管理之保稅倉庫、物流中心以供外銷之貨物')));
                 q_cmbParse("cmbPaper", ('').concat(new Array('', '1@1.非經海關出口應附證明文件', '2@2.經海關出口免附證明文件', '3@3.其他')));
-                q_cmbParse("cmbNamea", ('').concat(new Array('', '輸出許可證', '出口報單', '漁業執照', '結匯證實書', '三聯式發票扣抵聯', '佣金計算表')));
+                q_cmbParse("cmbNamea", ('').concat(new Array('', '輸出許可證', '出口報單', '漁業執照', '結匯證實書', '三聯式發票扣抵聯', '佣金計算表','銷售契約及出口報單','銷售契約及進口證明文件')));
                 
                 $('#txtNoa').change(function(e) {
                     $(this).val($.trim($(this).val()).toUpperCase());
@@ -194,6 +194,7 @@
                 _refresh(recno);
                 refreshBbm();
                 $('#div_tax0').hide();
+                field_change();
             }
 
             function refreshBbm() {
@@ -291,7 +292,20 @@
                 		break;
                 }
 			}
-            
+			
+			function field_change() {
+				if($('#cmbPaper').val()=='2'){
+					$('.paper1').hide();
+					$('.paper2').show();
+					$('#lblPno').text('報關號碼');
+					$('#cmbNamea').val('');
+				}else{
+					$('.paper1').show();
+					$('.paper2').hide();
+					$('#lblPno').text('文件號碼');
+				}
+				
+           }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -336,7 +350,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                /*width: 9%;*/
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -429,12 +443,12 @@
 			</table>
 		</div>
 		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:30%;"  >
+			<div class="dview" id="dview" style="float: left;  width:25%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'>發票日期</a></td>
-						<td align="center" style="width:28%"><a id='vewNoa'>發票號碼</a></td>
+						<td align="center" style="width:40%"><a id='vewDatea'>發票日期</a></td>
+						<td align="center" style="width:55%"><a id='vewNoa'>發票號碼</a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -443,8 +457,18 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 68%;float: left;">
+			<div class='dbbm' style="width: 73%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+					<tr style="height: 0px;">
+						<td style="width: 120px;"> </td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 110px;"> </td>
+						<td style="width: 50px;"> </td>
+						<td style="width: 110px;"> </td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl">公司</a></td>
 						<td colspan="3">
@@ -464,39 +488,39 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCust' class="lbl">買受人</a></td>
-						<td><input id="txtCustno"  type="text" class="txt c1" /></td>
-						<td colspan="2"><input id="txtComp"  type="text" class="txt c1" /></td>
+						<!--<td><input id="txtCustno"  type="text" class="txt c1" /></td>-->
+						<td colspan="3"><input id="txtComp"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblEdate' class="lbl">結匯日期</a></td>
 						<td><input id="txtEdate"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblProduct' class="lbl">貨品名稱</a></td>
-						<td><input id="txtProductno"  type="text" class="txt c1" /></td>
-						<td colspan="2"><input id="txtProduct"  type="text" class="txt c1" /></td>
+						<!--<td><input id="txtProductno"  type="text" class="txt c1" /></td>-->
+						<td colspan="3"><input id="txtProduct"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblMount' class="lbl">貨品數量</a></td>
 						<td><input id="txtMount"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblOtype' class="lbl">外銷方式</a></td>
+						<td><span> </span><a id='lblOtype' class="lbl">適用零稅率規定</a></td>
 						<td colspan="3"><select id="cmbOtype" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblMoney' class="lbl">銷售金額</a></td>
 						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPaper' class="lbl">外銷文件</a></td>
-						<td colspan="3"><select id="cmbPaper" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblPaper' class="lbl">通關方式</a></td>
+						<td colspan="3"><select id="cmbPaper" class="txt c1" onchange="field_change()"> </select></td>
 						<td><span> </span><a id='lblSerial' class="lbl">統一編號</a></td>
 						<td><input id="txtSerial"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
-						<td><span> </span><a id='lblNamea' class="lbl">文件名稱</a></td>
-						<td colspan="3"><select id="cmbNamea" class="txt c1"> </select></td>
+					<tr class="paper1">
+						<td><span> </span><a id='lblNamea' class="lbl paper1">文件名稱</a></td>
+						<td colspan="3"><select id="cmbNamea" class="txt c1 paper1"> </select></td>
 					</tr>
 					<tr>
+						<td class="paper2"><span> </span><a id='lblPtype' class="lbl paper2">報單類別</a></td>
+						<td class="paper2"><input id="txtPtype"  type="text" class="txt c1 paper2" /></td>
 						<td><span> </span><a id='lblPno' class="lbl">文件號碼</a></td>
 						<td colspan="3"><input id="txtPno"  type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblPtype' class="lbl">文件類別</a></td>
-						<td><input id="txtPtype"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblOdate' class="lbl">報關日期</a></td>

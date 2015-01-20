@@ -15,7 +15,8 @@
         var t_sqlname = 'salinsures_load';
         t_postname = q_name;
         var isBott = false;
-
+		q_desc = 1;
+		
         var afield, t_htm;
         var i, s1;
         var q_readonly = [];

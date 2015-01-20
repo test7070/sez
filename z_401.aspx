@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -55,16 +55,17 @@
 					}]
 				});
 				q_popAssign();
+                q_getFormat();
+                q_langShow();
 
 				$('#txtXmon1').mask('999/99');
 				$('#txtXmon2').mask('999/99');
 				$('#txtXdate').mask('999/99//99');
-				
 				var t_date=(dec(q_date().substr(4,2))%2==0)?q_cdn(q_date().substr(0,6)+'/28',-45).substr(0,6):q_date().substr(0,6);
-				
-				$('#txtXmon1').val(q_date().substr(0,6));
-				$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,6)).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
+				//$('#txtXmon1').val(q_date().substr(0,6));
+				//$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,6)).attr('disabled', 'disabled').css('background','RGB(237,237,237)');
 				$('#txtXdate').val(q_date());
+				$('#txtXmon2').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
 				
 				$('#txtXmon1').blur(function() {
 					if(!emp($('#txtXmon1').val())){
@@ -74,9 +75,25 @@
 						}
 						
 						$('#txtXmon2').val(q_cdn($('#txtXmon1').val()+'/01',45).substr(0,6));
+						
+						//申報日期
+						var t_mon=q_cdn($('#txtXmon2').val()+'/01',45).substr(0,6);
+						t_where = "where=^^ out_date='" + t_mon + "'^^";
+                        q_gt('z401', t_where, 0, 0, 0, "z401_108", r_accy);
 					}else{
 						$('#txtXmon2').val('');
 					}
+				});
+				
+				//將原本的指令砍掉
+				$('#btnOk').data('events').click.splice(0, 1);
+				$('#btnOk').click(function() {
+					if(emp($('#txtXmon1').val()) || emp($('#txtXmon2').val())){
+						alert('請輸入月份!!');
+						return;
+					}
+					Lock(); 
+					$('#q_report').data('info').execute($('#q_report'));
 				});
 
 				$('#report').css('width','420px');
@@ -101,8 +118,33 @@
 			function q_boxClose(s2) {
 			}
 
-			function q_gtPost(s2) {
-			}
+			function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'z401_108':
+                        var as = _q_appendData("z401", "", true);
+                        if (as[0] != undefined) {
+                            $('#txtX048').val(dec(as[0].t48)-dec(as[0].t44));
+                            $('#txtX049').val(dec(as[0].t49)-dec(as[0].t46));
+                            $('#txtX108').val(as[0].t108);
+                            $('#txtX073').val(as[0].t73);
+                            $('#txtX074').val(as[0].t74);
+                            $('#txtX082').val(as[0].t82);
+                            $('#txtX013').val(as[0].t13);
+                            $('#txtX014').val(as[0].t14);
+                        }else{
+                        	var t_mon=q_cdn($('#txtXmon2').val()+'/01',45).substr(0,6);
+							t_where = "where=^^ out_date<'" + t_mon + "'^^";
+	                        q_gt('z401', t_where, 0, 0, 0, "z401_115", r_accy);
+                        }
+                        break;
+					case 'z401_115':
+						var as = _q_appendData("z401", "", true);
+						if (as[0] != undefined) {
+                            $('#txtX108').val(as[0].t115);
+                        }
+						break;
+                }  /// end switch
+            }
 			
 			function FormatNumber(n) {
 	            var xx = "";

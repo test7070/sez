@@ -31,6 +31,8 @@
 					}]
 				});
 				q_popAssign();
+                q_getFormat();
+                q_langShow();
 
 				$('#txtXmon1').mask('999/99');
 				$('#txtXmon2').mask('999/99');
