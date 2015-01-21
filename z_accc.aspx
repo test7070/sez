@@ -201,24 +201,27 @@
 			        	}
 		        	}
 		        }
-var s2 = q_getId2(), s4;
-
-if ($.trim(s2[3]).length > 0) {
-    s4 = s2[3].split(',');
-    if( s4[4]=="True" )// Detail
-    {
-        $('#txtXacc1a').val(s4[0]);
-        $('#txtXacc2a').val(s4[1]);
-    }
-    else {//not  Detail
-        $('#q_report .report').find('div').eq(1).click();
-        $('#txtYacc1a').val(s4[0]);
-        $('#txtYacc2a').val(s4[1]);
-    }
-    $('#txtDate1').val(s4[2]);
-    $('#txtDate2').val(s4[3]);
-    $('#btnOk').click();
-}
+		        if(q_getPara('sys.comp').indexOf('旭暉')>=0){
+		        	$('#chkXpart').children('input').prop('checked',true)
+		        }
+				var s2 = q_getId2(), s4;
+				
+				if ($.trim(s2[3]).length > 0) {
+				    s4 = s2[3].split(',');
+				    if( s4[4]=="True" )// Detail
+				    {
+				        $('#txtXacc1a').val(s4[0]);
+				        $('#txtXacc2a').val(s4[1]);
+				    }
+				    else {//not  Detail
+				        $('#q_report .report').find('div').eq(1).click();
+				        $('#txtYacc1a').val(s4[0]);
+				        $('#txtYacc2a').val(s4[1]);
+				    }
+				    $('#txtDate1').val(s4[2]);
+				    $('#txtDate2').val(s4[3]);
+				    $('#btnOk').click();
+				}
             }
             function q_boxClose(t_name) {
             }
