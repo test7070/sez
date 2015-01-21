@@ -202,7 +202,7 @@
 		        	}
 		        }
 		        if(q_getPara('sys.comp').indexOf('旭暉')>=0){
-		        	$('#chkXpart').children('input').prop('true');
+		        	$('#chkXpart').children('input').prop('checked',true)
 		        }
 				var s2 = q_getId2(), s4;
 				

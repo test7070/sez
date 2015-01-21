@@ -75,7 +75,9 @@
 		        		}
 		        	}
 		        }
-
+				if(q_getPara('sys.comp').indexOf('旭暉')>=0){
+		        	$('#chkXpart').children('input').prop('checked',true)
+		        }
                 var t_accc3=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
                 t_accc3  =  t_accc3.replace('accc3=','');
                 $('#txtXaccc31').val(t_accc3);
