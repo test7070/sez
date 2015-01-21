@@ -113,6 +113,49 @@
 						});
 					}
 				});
+				
+				$('.prt').show();
+				$('#MediaCtrl').hide();
+				
+				$('#q_report').click(function(){
+					if($('#q_report').data('info').radioIndex==1){
+						$('.prt').hide();
+						$('#MediaCtrl').show();
+					}else{
+						$('.prt').show();
+						$('#MediaCtrl').hide();
+					}
+				});
+				
+				$('#btnRun').click(function(){
+					var t_index = $('#q_report').data('info').radioIndex;
+					var txtreport = $('#q_report').data('info').reportData[t_index].report;
+					if(emp($('#txtXmon1').val()) || emp($('#txtXmon2').val())){
+						alert('請輸入月份!!');
+						return;
+					}
+					if(t_index==1){
+						var t_bmon=emp($('#txtXmon1').val())?'#non':$('#txtXmon1').val();
+						var t_emon=emp($('#txtXmon2').val())?'#non':$('#txtXmon2').val();
+						var t_datea=emp($('#txtXdate').val())?'#non':$('#txtXdate').val();
+						var t_048=emp($('#txtX048').val())?'#non':$('#txtX048').val();
+						var t_049=emp($('#txtX049').val())?'#non':$('#txtX049').val();
+						var t_108=emp($('#txtX108').val())?'#non':$('#txtX108').val();
+						var t_073=emp($('#txtX073').val())?'#non':$('#txtX073').val();
+						var t_074=emp($('#txtX074').val())?'#non':$('#txtX074').val();
+						var t_082=emp($('#txtX082').val())?'#non':$('#txtX082').val();
+						var t_013=emp($('#txtX013').val())?'#non':$('#txtX013').val();
+						var t_014=emp($('#txtX014').val())?'#non':$('#txtX014').val();
+						
+						q_func('qtxt.query.'+txtreport,'z_401.txt,'+txtreport+','+
+							t_bmon + ';' +t_emon + ';' + t_datea + ';' +
+							t_048 + ';' +t_049 + ';' +t_108 + ';' +
+							t_073 + ';' +t_074 + ';' +t_082 + ';' +
+							t_013 + ';'+t_014 + ';'
+						);
+					}
+				});
+				
 			}
 
 			function q_boxClose(s2) {
@@ -157,6 +200,36 @@
 				var re = /(\d{1,3})(?=(\d{3})+$)/g;
 				return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
 			}
+			
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.media':
+						var as = _q_appendData('tmp0','',true,true);
+						if (as[0] == undefined) {
+							alert('沒有資料!!');
+						}else{
+							serialrar = as;
+							for ( i = 0; i < serialrar.length; i++) {
+		                		setTimeout('openpage('+i+')',1000);
+		                	}
+						}
+					break;
+				}
+			}
+					
+			var serialrar=[];
+			function openpage(x) {
+            	var s1 = location.href;
+                var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/htm/');
+            	
+            	var $ifrm = $("<iframe style='display:none' />");
+				$ifrm.attr("src", t_path +replaceAll(serialrar[x].serial,' ','')+'.rar');
+				$ifrm.appendTo("body");
+				$ifrm.load(function () {
+					//$("body").append("<div>Failed to download <i>'" + dlLink + "'</i>!");
+				});
+            }	
+			
 		</script>
 		<style type="text/css">
 			#frameReport table{
@@ -168,10 +241,14 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
+			</div>
+			<div id="MediaCtrl" style="display:inline-block;width:2000px;">
+				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
+				<input type="button" id="btnXXX" style="float:left; width:80px;font-size: medium;" value="權限"/>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
