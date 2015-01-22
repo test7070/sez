@@ -16,11 +16,12 @@
 			}
 			q_tables = 's';
 			var q_name = "ucachg";
-			var q_readonly = ['txtNoa','txtKdate','txtWorker','txtWorker2'];
-			var q_readonlys = ['txtOrgproductno','txtOrgproduct','txtOrgprocessno','txtOrgprocess'];
+			var q_readonly = ['txtNoa','txtKdate','txtWorker','txtWorker2','txtApv','txtRev'];
+			var q_readonlys = ['txtOrgproductno','txtOrgproduct','txtOrgprocessno','txtOrgprocess','txtOrgspec','txtOrgunit','txtOrgmount','cmbOrgmtype','txtOrgloss','txtOrgdividea','txtOrgmul','txtOrgmemo'];
 			var bbmNum = [];
 			var bbmMask = [];
-			var bbsNum = [['txtMount', 15, 0, 1],['txtLoss', 15, 2, 1],['txtDividea', 15, 0, 1],['txtMul', 15, 2, 1]];
+			var bbsNum = [['txtOrgmount', 15, 2, 1],['txtOrgloss', 15, 2, 1],['txtOrgdividea', 15, 0, 1],['txtOrgmul', 15, 2, 1],
+									['txtMount', 15, 2, 1],['txtLoss', 15, 2, 1],['txtDividea', 15, 0, 1],['txtMul', 15, 2, 1]];
 			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -30,11 +31,8 @@
 			q_desc = 1;
 			aPop = new Array(
 	        	['txtProductno', 'lblProductno', 'uca', 'noa,product', 'txtProductno,txtProduct', 'uca_b.aspx'],
-	        	//['txtOrgproductno_', 'btnOrgproductno_', 'ucas', 'productno,product,processno,process,unit,mount,mtype,processno,process,loss,memo',
-	        	// 'txtOrgproductno_,txtOrgproduct_,txtOrgprocessno_,txtOrgprocess_,txtUnit_,txtMount_,cmbMtype_,txtProcessno_,txtProcess_,txtLoss_,txtMemo_', 'ucas_b.aspx'],
-	        	//['txtOrgprocessno_', 'btnOrgprocessno_', 'process', 'noa,process', 'txtOrgprocessno_,txtOrgprocess_', 'process_b.aspx'],
 	        	['txtProcessno_', 'btnProcessno_', 'process', 'noa,process', 'txtProcessno_,txtProcess_', 'process_b.aspx'],
-	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucaucc_b.aspx']
+	        	['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_,txtProcessno_', 'ucaucc_b.aspx']
 			);
 			$(document).ready(function () {
 				bbmKey = ['noa'];
@@ -57,7 +55,10 @@
 				bbmMask = [['txtDatea',r_picd],['txtKdate',r_picd]];
 				bbsMask = [];
 				q_mask(bbmMask);
-				q_cmbParse("cmbMtype", q_getPara('uca.mtype'),'s');
+				q_cmbParse("cmbMtype", '@,'+q_getPara('uca.mtype'),'s');
+				q_cmbParse("cmbOrgmtype", '@,'+q_getPara('uca.mtype'),'s');
+				q_cmbParse("cmbTypea", ('').concat(new Array('', '1@新增物料','2@修改物料','3@刪除物料')),'s');
+				
 				$('#btnUcachgDo').click(function(){
                 	//var t_noa = trim($('#txtNoa').val());
 					//q_func('qtxt.query.ucachg','ucachg.txt,ucachg,'+r_accy + ';' + t_noa + ';'+ r_name);
@@ -67,6 +68,9 @@
                 	//清空表身資料
 					for (var i = 0; i < q_bbsCount; i++) {
 						$('#btnMinus_' + i).click();
+						$('#cmbTypea_' + i).val('');
+						$('#cmbOrgmtype_' + i).val('');
+						$('#cmbMtype_' + i).val('');
 					}
 				});
 			}
@@ -74,7 +78,7 @@
 				switch(t_func) {
 					/*case 'qtxt.query.ucachg':
 						alert('作業完畢');
-					break;*/
+					break;
 					case 'qtxt.query.u1':
 						//呼叫workf.post
 						q_func('qtxt.query.u2', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';1');//新增,修改
@@ -82,16 +86,18 @@
 					case 'qtxt.query.u3':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;
+					*/
 				}
 			}
 			
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				if(q_cur == 2)
+				/*if(q_cur == 2)
 					q_func('qtxt.query.u1', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';0');//修改
 				else
 					q_func('qtxt.query.u2', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';1');//新增,修改
+				*/
 			}
 			
 			function q_boxClose(s2) {
@@ -105,20 +111,22 @@
 							//寫入資料
 							$('#txtOrgproductno_'+b_seq).val(b_ret[0].productno);
 							$('#txtOrgproduct_'+b_seq).val(b_ret[0].product);
+							$('#txtOrgspec_'+b_seq).val(b_ret[0].spec);
 							$('#txtOrgprocessno_'+b_seq).val(b_ret[0].processno);
 							$('#txtOrgprocess_'+b_seq).val(b_ret[0].process);
-							$('#txtUnit_'+b_seq).val(b_ret[0].unit);
-							$('#txtMount_'+b_seq).val(b_ret[0].mount);
-							$('#cmbMtype_'+b_seq).val(b_ret[0].mtype);
-							$('#txtLoss_'+b_seq).val(b_ret[0].loss);
+							$('#txtOrgunit_'+b_seq).val(b_ret[0].unit);
+							$('#txtOrgmount_'+b_seq).val(b_ret[0].mount);
+							$('#cmbOrgmtype_'+b_seq).val(b_ret[0].mtype);
+							$('#txtOrgloss_'+b_seq).val(b_ret[0].loss);
+							$('#txtOrgdividea_'+b_seq).val(b_ret[0].dividea);
+							$('#txtOrgmul_'+b_seq).val(b_ret[0].mul);
+							$('#txtOrgmemo_'+b_seq).val(b_ret[0].memo);
 							$('#txtUcanoq_'+b_seq).val(b_ret[0].noq);
 							//紀錄當時ucas的資料
 							var t_orgdata=b_ret[0].noa+'&&'+b_ret[0].noq+'&&'+b_ret[0].productno+'&&'+b_ret[0].product+'&&'
-							+b_ret[0].processno+'&&'+b_ret[0].process+'&&'+b_ret[0].unit+'&&'+b_ret[0].mount+'&&'
+							+b_ret[0].spec+'&&'+b_ret[0].processno+'&&'+b_ret[0].process+'&&'+b_ret[0].unit+'&&'+b_ret[0].mount+'&&'
 							+b_ret[0].mtype+'&&'+b_ret[0].loss+'&&'+b_ret[0].dividea+'&&'+b_ret[0].mul+'&&'+b_ret[0].memo;
-							
 							$('#txtOrgdata_'+b_seq).val(t_orgdata);
-							
 						}
 						break;
 					case q_name + '_s':
@@ -130,6 +138,45 @@
 			
 			function q_gtPost(t_name) { 
 				switch (t_name) {
+					case 'ucasnoq':
+                        var as = _q_appendData("ucas", "", true);
+                        if (as[0] != undefined) {
+                            $('#txtOrgproductno_'+b_seq).val(as[0].productno);
+							$('#txtOrgproduct_'+b_seq).val(as[0].product);
+							$('#txtOrgspec_'+b_seq).val(as[0].spec);
+							$('#txtOrgprocessno_'+b_seq).val(as[0].processno);
+							$('#txtOrgprocess_'+b_seq).val(as[0].process);
+							$('#txtOrgunit_'+b_seq).val(as[0].unit);
+							$('#txtOrgmount_'+b_seq).val(as[0].mount);
+							$('#cmbOrgmtype_'+b_seq).val(as[0].mtype);
+							$('#txtOrgloss_'+b_seq).val(as[0].loss);
+							$('#txtOrgdividea_'+b_seq).val(as[0].dividea);
+							$('#txtOrgmul_'+b_seq).val(as[0].mul);
+							$('#txtOrgmemo_'+b_seq).val(as[0].memo);
+							$('#txtUcanoq_'+b_seq).val(as[0].noq);
+							//紀錄當時ucas的資料
+							var t_orgdata=as[0].noa+'&&'+as[0].noq+'&&'+as[0].productno+'&&'+as[0].product+'&&'
+							+as[0].spec+'&&'+as[0].processno+'&&'+as[0].process+'&&'+as[0].unit+'&&'+as[0].mount+'&&'
+							+as[0].mtype+'&&'+as[0].loss+'&&'+as[0].dividea+'&&'+as[0].mul+'&&'+as[0].memo;
+							$('#txtOrgdata_'+b_seq).val(t_orgdata);
+                        }else{
+                        	alert(q_getMsg('lblUcanoq_s')+' '+$('#txtUcanoq_'+b_seq).val()+' 不存在!!');
+                        	$('#txtOrgproductno_'+b_seq).val('');
+							$('#txtOrgproduct_'+b_seq).val('');
+							$('#txtOrgspec_'+b_seq).val('');
+							$('#txtOrgprocessno_'+b_seq).val('');
+							$('#txtOrgprocess_'+b_seq).val('');
+							$('#txtOrgunit_'+b_seq).val('');
+							$('#txtOrgmount_'+b_seq).val('');
+							$('#cmbOrgmtype_'+b_seq).val('');
+							$('#txtOrgloss_'+b_seq).val('');
+							$('#txtOrgdividea_'+b_seq).val('');
+							$('#txtOrgmul_'+b_seq).val('');
+							$('#txtOrgmemo_'+b_seq).val('');
+							$('#txtOrgdata_'+b_seq).val('');
+                        	$('#txtUcanoq_'+b_seq).val('').focus();
+                        }
+                        break;
 					case q_name: 
 						if (q_cur == 4)   
 						      q_Seek_gtPost();
@@ -152,6 +199,10 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
+				if(!emp($('#txtRev').val())){
+					alert('變更單已完成變更，禁止修改!!!');
+					return;
+				}
 				_btnModi();
 				$('#txtDatea').focus();
 			}
@@ -167,6 +218,24 @@
 					alert(t_err);
 					return;
 				}
+				
+				for(var i = 0; i < q_bbsCount; i++) {
+					if(!emp($('#txtUcanoq_'+i).val())){
+						for(var j = i+1; j < q_bbsCount; j++) {
+							if($('#txtUcanoq_'+i).val()==$('#txtUcanoq_'+j).val() && !emp($('#txtUcanoq_'+j).val())){
+								t_err=$('#txtUcanoq_'+i).val();
+								break;
+							}
+						}
+					}
+					if(t_err.length>0)
+						break;
+				}
+				if (t_err.length > 0) {
+					alert('項次【'+t_err+'】重複!!');
+					return;
+				}
+				
 				if(q_cur==1)
 					$('#txtWorker').val(r_name);
 				else
@@ -189,28 +258,48 @@
 			function bbsAssign() {  /// 表身運算式
 				for(var i = 0; i < q_bbsCount; i++) {
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-						$('#btnOrgproductno_' + i).click(function(){
+						$('#cmbTypea_'+i).change(function() {field_change();});
+						$('#txtUcanoq_' + i).change(function(){
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							var t_err = '';
-							t_err = q_chkEmpField([['txtProductno', q_getMsg('lblProductno')]]);
+							t_err = q_chkEmpField([['txtProductno', q_getMsg('lblProductno')],['cmbTypea_'+b_seq, q_getMsg('lblTypea_s')]]);
+							if (t_err.length > 0) {
+								alert(t_err);
+								$('#txtUcanoq_'+b_seq).val('');
+								return;
+							}
+							var t_where = ' 1=1 ';
+							var t_productno = trim($('#txtProductno').val());
+							var t_noq = trim($('#txtUcanoq_'+b_seq).val());
+							t_where += " and noa='"+t_productno+"' and noq='"+t_noq+"'";
+							t_where = "where=^^ "+t_where+" ^^";
+                        	q_gt('ucas', t_where, 0, 0, 0, "ucasnoq", r_accy);
+						});
+						$('#btnUcanoq_' + i).click(function(){
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							var t_err = '';
+							t_err = q_chkEmpField([['txtProductno', q_getMsg('lblProductno')],['cmbTypea_'+b_seq, q_getMsg('lblTypea_s')]]);
 							if (t_err.length > 0) {
 								alert(t_err);
 								return;
 							}
 							var t_where = ' 1=1 ';
 							var t_productno = trim($('#txtProductno').val());
-							t_where += q_sqlPara2('noa',t_productno);
+							t_where += " and noa='"+t_productno+"'";
 							q_box("ucas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucas', "95%", "80%", q_getMsg('popUcas'));
 						});
 					}
 				}
 				_bbsAssign();
+				field_change();
 			}
 
 			function bbsSave(as) {
-				if(!as['productno']&&!as['orgproductno']) {
+				if(!as['typea']){
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -224,10 +313,16 @@
 	
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if(q_cur == 0 && !emp($('#txtNoa').val()))
+				/*if(q_cur == 0 && !emp($('#txtNoa').val()))
 					$('#btnUcachgDo').removeAttr('disabled');
 				else
 					$('#btnUcachgDo').attr('disabled','disabled');
+				*/
+				for(var i = 0; i < q_bbsCount; i++) {
+					$('#cmbOrgmtype_'+i).attr('disabled','disabled');
+				}
+				if(!t_para)
+					field_change();
 			}
 	
 			function btnMinus(id) {
@@ -273,16 +368,62 @@
 			}
 	
 			function btnDele() {
-				//_btnDele();
-				if (!confirm(mess_dele))
+				if(!emp($('#txtRev').val())){
+					alert('變更單已完成變更，禁止刪除!!!');
+					return;
+				}
+				_btnDele();
+				/*if (!confirm(mess_dele))
 					return;
 				q_cur = 3;
 				//處理workc內容
-				q_func('qtxt.query.u3', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';0');//刪除
+				q_func('qtxt.query.u3', 'ucachg.txt,post,' + encodeURI($('#txtNoa').val()) + ';0');//刪除*/
 			}
 	
 			function btnCancel() {
 				_btnCancel();
+			}
+			function field_change() {
+				for(var i = 0; i < q_bbsCount; i++) {
+					if($('#cmbTypea_'+i).val()=='1'){
+						$('#txtUcanoq_'+i).attr('disabled','disabled').val('');
+						$('#btnUcanoq_'+i).attr('disabled','disabled');
+					}else{
+						$('#txtUcanoq_'+i).removeAttr('disabled');
+						$('#btnUcanoq_'+i).removeAttr('disabled');
+					}
+					if($('#cmbTypea_'+i).val()=='3'){
+						$('#txtProductno_'+i).attr('disabled','disabled').val('');
+						$('#btnProductno_'+i).attr('disabled','disabled');
+						$('#txtProduct_'+i).attr('disabled','disabled').val('');
+						$('#txtSpec_'+i).attr('disabled','disabled').val('');
+						$('#txtProcessno_'+i).attr('disabled','disabled').val('');
+						$('#btnProcessno_'+i).attr('disabled','disabled');
+						$('#txtProcess_'+i).attr('disabled','disabled').val('');
+						$('#txtUnit_'+i).attr('disabled','disabled').val('');
+						$('#txtMount_'+i).attr('disabled','disabled').val('');
+						$('#cmbMtype_'+i).attr('disabled','disabled').val('');
+						$('#txtLoss_'+i).attr('disabled','disabled').val('');
+						$('#txtDividea_'+i).attr('disabled','disabled').val('');
+						$('#txtMul_'+i).attr('disabled','disabled').val('');
+						$('#txtMemo_'+i).attr('disabled','disabled').val('');
+					}else{
+						$('#txtProductno_'+i).removeAttr('disabled');
+						$('#btnProductno_'+i).removeAttr('disabled');
+						$('#txtProduct_'+i).removeAttr('disabled');
+						$('#txtSpec_'+i).removeAttr('disabled');
+						$('#txtProcessno_'+i).removeAttr('disabled');
+						$('#btnProcessno_'+i).removeAttr('disabled');
+						$('#txtProcess_'+i).removeAttr('disabled');
+						$('#txtUnit_'+i).removeAttr('disabled');
+						$('#txtMount_'+i).removeAttr('disabled');
+						$('#cmbMtype_'+i).removeAttr('disabled');
+						$('#txtLoss_'+i).removeAttr('disabled');
+						$('#txtDividea_'+i).removeAttr('disabled');
+						$('#txtMul_'+i).removeAttr('disabled');
+						$('#txtMemo_'+i).removeAttr('disabled');
+					}
+				}
 			}
 		</script>
 		<style type="text/css">
@@ -354,7 +495,7 @@
 				float:left;
 			}
 			.txt.c1{
-				width:95%;
+				width:96%;
 			}
 			.num{
 				text-align:right;
@@ -366,7 +507,7 @@
 			}
 			.dbbs {
 				float:left;
-				width: 100%;
+				width: 1640px;
 			}
 			.tbbs {
 				width:100%;
@@ -377,6 +518,12 @@
 			input[type="text"], input[type="button"] {
 				font-size: medium;
 			}
+			select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
 	    </style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -416,12 +563,14 @@
 							<input id="txtProductno"  type="text" class="txt" style="width:30%;"/>
 							<input id="txtProduct"  type="text" class="txt" style="width:68%;"/>
 						</td>
+						<td><span> </span><a id="lblRev" class="lbl"> </a></td>
+						<td><input id="txtRev"  type="text"  class="txt c1"/></td>
 					</tr>  
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo"  type="text" class="txt" style="width: 98%;" /></td>
-						<td><span> </span><a id="lblApv" class="lbl"> </a></td>
-						<td><input id="txtApv"  type="text"  class="txt c1"/></td>
+						<!--<td><span> </span><a id="lblApv" class="lbl"> </a></td>
+						<td><input id="txtApv"  type="text"  class="txt c1"/></td>-->
 						<!--<td><input id="btnUcachgDo"  type="button"/></td>-->
 					</tr>
 					<tr>
@@ -435,55 +584,79 @@
 			<div class='dbbs' >
 				<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1'>
 					<tr style='color:White; background:#003366;' >
-						<td align="center" style="width:1%;">
-							<input class="txt btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
-						</td>
-						<td align="center" style="width:12%;"><a id='lblOrgproductno_s'></a></td>
-						<td align="center" style="width:12%;"><a id='lblOrgprocessno_s'></a></td>
-						<td align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
-						<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
-						<td align="center" style="width:6%;"><a id='lblMount_s'></a></td>
-						<td align="center" style="width:8%;"><a id='lblMtype_s'></a></td>
-						<td align="center" style="width:12%;"><a id='lblProcessno_s'></a></td>
-						<td align="center" style="width:6%;"><a id='lblLoss_s'></a></td>
-						<td align="center" style="width:6%;"><a id='lblDividea_s'></a></td>
-						<td align="center" style="width:6%;"><a id='lblMul_s'></a></td>
-						<td align="center" ><a id='lblMemo_s'></a></td>
+						<td align="center" style="width:1%;"><input class="txt btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /></td>
+						<td align="center" style="width:6.5%;"><a id='lblTypea_s'> </a></td>
+						<td align="center" style="width:5%;"><a id='lblUcanoq_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblOrgproductno_s'> </a><br><a id='lblProductno_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblOrgproduct_s'> </a><br><a id='lblProduct_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblOrgspec_s'> </a><br><a id='lblSpec_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblOrgprocessno_s'> </a><br><a id='lblProcessno_s'> </a></td>
+						<td align="center" style="width:10%;"><a id='lblOrgprocess_s'> </a><br><a id='lblProcess_s'> </a></td>
+						<td align="center" style="width:4%;"><a id='lblOrgunit_s'> </a><br><a id='lblUnit_s'> </a></td>
+						<td align="center" style="width:5%;"><a id='lblOrgmount_s'> </a><br><a id='lblMount_s'> </a></td>
+						<td align="center" style="width:6.5%;"><a id='lblOrgmtype_s'> </a><br><a id='lblMtype_s'> </a></td>
+						<td align="center" style="width:5%;"><a id='lblOrgloss_s'> </a><br><a id='lblLoss_s'> </a></td>
+						<td align="center" style="width:5%;"><a id='lblOrgdividea_s'> </a><br><a id='lblDividea_s'> </a></td>
+						<td align="center" style="width:5%;"><a id='lblOrgmul_s'> </a><br><a id='lblMul_s'> </a></td>
+						<td align="center" ><a id='lblOrgmemo_s'> </a><br><a id='lblMemo_s'> </a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
+						<td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+						<td><select id="cmbTypea.*" class="txt c1"> </select></td>
 						<td>
-							<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
+							<input id="txtUcanoq.*" type="text" class="txt c1" style="width: 65%;"/>
+							<input class="btn" id="btnUcanoq.*" type="button" value='.' style=" font-weight: bold;" />
 						</td>
 						<td>
-							<input id="txtOrgproductno.*" type="text" class="txt" style="width: 79%;"/>
-							<input class="btn" id="btnOrgproductno.*" type="button" value='.' style=" font-weight: bold;" />
+							<input id="txtOrgproductno.*" type="text" class="txt c1"/>
+							<input id="txtProductno.*" type="text" class="txt" style="width: 83%;"/>
+							<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
+						</td>
+						<td>
 							<input id="txtOrgproduct.*" type="text" class="txt c1"/>
+							<input id="txtProduct.*" type="text" class="txt c1"/>
+						</td>
+						<td>
+							<input id="txtOrgspec.*" type="text" class="txt c1"/>
+							<input id="txtSpec.*" type="text" class="txt c1"/>
 						</td>
 						<td>
 							<input id="txtOrgprocessno.*" type="text" class="txt c1"/>
-							<!--<input class="btn" id="btnOrgprocessno.*" type="button" value='.' style=" font-weight: bold;" />-->
-							<input id="txtOrgprocess.*" type="text" class="txt c1"/>
-						</td>
-						<td>
-							<input id="txtProductno.*" type="text" class="txt" style="width: 79%;"/>
-							<input class="btn" id="btnProductno.*" type="button" value='.' style=" font-weight: bold;" />
-							<input id="txtProduct.*" type="text" class="txt c1"/>
-						</td>
-						<td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-						<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
-						<td><select id="cmbMtype.*" class="txt c1"> </select></td>
-						<td>
-							<input id="txtProcessno.*" type="text" class="txt" style="width: 79%;"/>
+							<input id="txtProcessno.*" type="text" class="txt" style="width: 83%;"/>
 							<input class="btn" id="btnProcessno.*" type="button" value='.' style=" font-weight: bold;" />
+						</td>
+						<td>
+							<input id="txtOrgprocess.*" type="text" class="txt c1"/>
 							<input id="txtProcess.*" type="text" class="txt c1"/>
 						</td>
-						<td><input id="txtLoss.*" type="text" class="txt num c1" /></td>
-						<td><input id="txtDividea.*" type="text" class="txt num c1" /></td>
-						<td><input id="txtMul.*" type="text" class="txt num c1" /></td>
 						<td>
+							<input id="txtOrgunit.*" type="text" class="txt c1"/>
+							<input id="txtUnit.*" type="text" class="txt c1"/>
+						</td>
+						<td>
+							<input id="txtOrgmount.*" type="text" class="txt num c1" />
+							<input id="txtMount.*" type="text" class="txt num c1" />
+						</td>
+						<td>
+							<select id="cmbOrgmtype.*" class="txt c1"> </select>
+							<select id="cmbMtype.*" class="txt c1"> </select>
+						</td>
+						<td>
+							<input id="txtOrgloss.*" type="text" class="txt num c1" />
+							<input id="txtLoss.*" type="text" class="txt num c1" />
+						</td>
+						<td>
+							<input id="txtOrgdividea.*" type="text" class="txt num c1" />
+							<input id="txtDividea.*" type="text" class="txt num c1" />
+						</td>
+						<td>
+							<input id="txtOrgmul.*" type="text" class="txt num c1" />
+							<input id="txtMul.*" type="text" class="txt num c1" />
+						</td>
+						<td>
+							<input id="txtOrgmemo.*" type="text" class="txt c1"/>
 							<input id="txtMemo.*" type="text" class="txt c1"/>
 							<input id="txtOrgdata.*" type="hidden"/>
-							<input id="txtUcanoq.*" type="hidden"/>
 							<input id="txtNoq.*" type="hidden" />
 							<input id="recno.*" type="hidden" />
 						</td>
