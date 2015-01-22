@@ -39,6 +39,8 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 
+                if(q_getPara('accc.proj')!="1")
+            		$('.Project').addClass('hide');
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
@@ -55,6 +57,7 @@
                 q_getFormat();
                 bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
+            	
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -189,7 +192,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-
             }
 
             function readonly(t_para, empty) {
@@ -397,6 +399,9 @@
                 position: absolute;
                 z-index: 50;
             }
+            .hide{
+            	display:none;
+            }
 		</style>
 	</head>
 	<body>
@@ -445,9 +450,9 @@
 						<td><input id="txtPart"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblProj' class="lbl"> </a></td>
-						<td><input id="txtProjno"  type="text"  class="txt c1"/></td>
-						<td><input id="txtProj"  type="text"  class="txt c1"/></td>
+						<td class="Project"><span> </span><a id='lblProj' class="lbl"> </a></td>
+						<td class="Project"><input id="txtProjno"  type="text"  class="txt c1"/></td>
+						<td class="Project"><input id="txtProj"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
@@ -463,7 +468,7 @@
 					<td style="width:200px;"><a id='lblAcc2_s'></a></td>
 					<td style="width:80px;"><a id='lblMoney_s'></a></td>
 					<td style="width:120px;"><a id='lblPartno_s'></a></td>
-					<td style="width:120px;"><a id='lblProj_s'></a></td>
+					<td style="width:120px;"  class="Project"><a id='lblProj_s'></a></td>
 					<td style="width:80px;"><a id='lblWeight_s'></a></td>
 					<td style="width:200px;"><a id='lblMemo_s'></a></td>
 				</tr>
@@ -488,7 +493,7 @@
 						<input class="txt" id="txtPart.*" type="text" style="width:45%; float:left;"/>
 						<input id="btnPart.*" type="button" style="display:none;">
 					</td>
-					<td>
+					<td class="Project">
 						<input class="txt" id="txtProjno.*" type="text" style="width:45%; float:left;"/>
 						<input class="txt" id="txtProj.*" type="text" style="width:45%; float:left;"/>
 						<input id="btnProj.*" type="button" style="display:none;">
