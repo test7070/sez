@@ -68,6 +68,7 @@
                 q_popAssign();
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon2').mask('999/99');
+                
             }
             function q_boxClose(t_name) {
             }
