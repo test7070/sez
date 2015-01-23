@@ -288,6 +288,7 @@
 			var z_cno = r_cno, z_acomp = r_comp, z_nick = r_comp.substr(0, 2);
 			var carnoList = [];
 			var thisCarSpecno = '';
+			var ordcoverrate = [],rc2soverrate = [];
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'getCardealCarno' :
@@ -465,6 +466,73 @@
 						check_startdate=true;
 						btnOk();
 						break;
+					case 'ordc_overrate':
+						ordcoverrate = _q_appendData('view_ordc', '', true);
+						if (ordcoverrate[0] != undefined) {
+							//抓已進貨數量
+							var t_where ='';
+							for (var i = 0; i < ordcoverrate.length; i++) {
+								t_where=t_where+" or ordeno='"+ordcoverrate[i].noa+"'";
+							}
+							if(t_where.length>0){
+								t_where = "where=^^ (1=0 "+t_where+") and noa!='"+$('#txtNoa').val()+"' ^^";
+								q_gt('view_rc2s', t_where, 0, 0, 0, "rc2s_overrate",'');
+							}
+						}else{
+							check_ordc_overrate=true;
+							btnOk();
+						}
+						break;
+					case 'rc2s_overrate':
+						rc2soverrate = _q_appendData('view_rc2s', '', true);
+						//抓ordcs的資料
+						var t_where ='';
+						for (var i = 0; i < ordcoverrate.length; i++) {
+							t_where=t_where+" or noa='"+ordcoverrate[i].noa+"'";
+						}
+						if(t_where.length>0){
+							t_where = "where=^^ 1=0 "+t_where+" ^^";
+							q_gt('view_ordcs', t_where, 0, 0, 0, "ordcs_overrate",'');
+						}
+						break;
+					case 'ordcs_overrate':
+						var as = _q_appendData('view_ordcs', '', true);
+						var t_msg='';
+						//計算超交數量
+						for (var j = 0; j < as.length; j++) {
+							as[j].overmount=as[j].mount;
+							for (var i = 0; i < ordcoverrate.length; i++) {
+								if(ordcoverrate[i].noa==as[j].noa){
+									as[j].overmount=q_mul(as[j].mount,q_add(1,q_div(dec(ordcoverrate[i].overrate),100)));
+								}
+							}
+						}
+						//寫入已入庫數量
+						for (var j = 0; j < as.length; j++) {
+							as[j].rc2smount=0;
+							for (var i = 0; i < rc2soverrate.length; i++) {
+								if(as[j].noa==rc2soverrate[i].ordeno && as[j].no2==rc2soverrate[i].no2){
+									as[j].rc2smount=q_add(dec(as[j].rc2smount),dec(rc2soverrate[i].mount));			
+								}
+							}
+						}
+						//判斷是否超交
+						for (var i = 0; i < q_bbsCount; i++) {
+							for (var j = 0; j < as.length; j++) {
+								if (!emp($('#txtOrdeno_'+i).val()) && $('#txtOrdeno_'+i).val()==as[j].noa && $('#txtNo2_'+i).val()==as[j].no2	
+									&& (q_sub(dec(as[j].overmount),dec(as[j].rc2smount))< dec($('#txtMount_'+i).val()))){
+									t_msg=t_msg+(t_msg.length>0?',':'')+$('#txtProduct_'+i).val();
+								}
+							}
+						}
+						
+						if(t_msg.length>0){
+							alert(t_msg+'進貨數量高於允需超交數量!!');
+						}else{
+							check_ordc_overrate=true;
+							btnOk();
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -478,9 +546,9 @@
 				var t_where = " kind!='2' &&";
 				if (t_tggno.length > 0) {
 					if (t_ordeno.length > 0)
-						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && datea>='"+q_date()+"' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && datea>='"+$('#txtDatea').val()+"' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
 					else
-						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && datea>='"+q_date()+"' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
+						t_where = "isnull(b.enda,0)=0 && isnull(cancel,'0')='0' && datea>='"+$('#txtDatea').val()+"' && isnull(view_ordcs.enda,0)=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
 					t_where = t_where;
 				} else {
 					var t_err = q_chkEmpField([['txtTggno', q_getMsg('lblTgg')]]);
@@ -499,12 +567,36 @@
 			}
 			
 			var check_startdate=false;
+			var check_ordc_overrate=false;
 			function btnOk() {
 				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtDatea', q_getMsg('lblDatea')], ['txtTggno', q_getMsg('lblTgg')], ['txtCno', q_getMsg('lblAcomp')]]);
 				// 檢查空白
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
+				}
+				/*$('#txtMon').val($.trim($('#txtMon').val()));
+				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+					alert(q_getMsg('lblMon') + '錯誤。');
+					return;
+				}
+				
+				if (emp($('#txtMon').val()))
+					$('#txtMon').val($('#txtDatea').val().substr(0, 6));*/
+					
+				//檢查是否有超交	
+				if(!check_ordc_overrate){
+					var t_where ='';
+					for (var i = 0; i < q_bbsCount; i++) {
+						if (!emp($('#txtOrdeno_'+i).val()) && t_where.indexOf($('#txtOrdeno_'+i).val())==-1){
+							t_where=t_where+" or noa='"+$('#txtOrdeno_'+i).val()+"'";
+						}
+					}
+					if(t_where.length>0){
+						t_where = "where=^^ (1=0 "+t_where+") and isnull(overrate,0)>0 ^^";
+						q_gt('view_ordc', t_where, 0, 0, 0, "ordc_overrate",'');
+						return;
+					}
 				}
 				
 				//判斷起算日,寫入帳款月份
@@ -514,16 +606,7 @@
 					return;
 				}
 				check_startdate=false;
-				
-				/*$('#txtMon').val($.trim($('#txtMon').val()));
-				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
-					alert(q_getMsg('lblMon') + '錯誤。');
-					return;
-				}
-				
-				if (emp($('#txtMon').val()))
-					$('#txtMon').val($('#txtDatea').val().substr(0, 6));*/
-				
+				check_ordc_overrate=false;
 				sum();
 				
 				if (q_cur == 1)
