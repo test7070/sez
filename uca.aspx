@@ -23,7 +23,7 @@
 			var decbbs = ['weight', 'uweight', 'price'];
 			var decbbm = ['weight', 'hours', 'pretime', 'mount', 'wages', 'makes'/*, 'mechs', 'trans'*/, 'molds', 'packs', 'uweight', 'price'];
 			var decbbt = [];
-			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds'];
+			var q_readonly = ['textCosta','txtModel','txtStationg', 'textCostb', 'textCostc', 'textCostd', 'textCostw', 'textCostm', 'textCostp', 'textCostt', 'textCosttotal', 'textStk', 'textOrdemount', 'textPlanmount', 'textIntmount', 'textAvaistk','txtMolds','txtRev'];
 			var q_readonlys = [];
 			var q_readonlyt = ['txtAssm'];
 			var bbmNum = [['txtPrice', 12, 2, 1],['txtPreday', 12, 0, 1],['txtHours', 10, 3, 1],['txtMinutes', 10, 3, 1],['txtPretime', 12, 2, 1],['txtBadperc', 12, 2, 1],['txtUweight', 12, 2, 1],['txtMakes', 15, 2, 1],['txtPacks', 15, 2, 1],['txtWages', 15, 2, 1]/*,['txtMechs', 15, 2, 1],['txtTrans', 15, 2, 1]*/,['txtSafemount', 15, 2, 1]];
@@ -784,6 +784,7 @@
 				}
 				$('#txtKdate').val(q_date());
 				$('#txtKdate').focus();
+				$('#txtRev').val('001');
 			}
 
 			function btnModi() {
@@ -812,6 +813,7 @@
 				}
 				q_nowf();
 				as['noa'] = abbm2['noa'];
+				as['rev'] = abbm2['rev'];
 				if (t_err) {
 					alert(t_err);
 					return false;
@@ -1425,6 +1427,8 @@
 							<input id="txtModelno" type="text" class="txt" style="width: 45%;"/>
 							<input id="txtModel" type="text" class="txt" style="width: 53%;"/>
 						</td>
+						<td class="td5"><span> </span><a id="lblRev" class="lbl"> </a></td>
+						<td class="td6"><input id="txtRev" type="text" class="txt c1" style="width: 40%;"/></td>
 						<!--
 						<td class="td5"><span> </span><a id="lblTrans" class="lbl"> </a></td>
 						<td class="td6"><input id="txtTrans" type="text" class="txt c1 num"/></td>
