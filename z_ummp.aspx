@@ -21,12 +21,16 @@
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_ummp',
-                        options : [ {
+                    fileName : 'z_ummp',
+                    options : [ {
                         type : '1',
                         name : 'xnoa'
-                    }]
-                    });
+                    },{
+						type : '0',
+						name : 'xworker',
+						value : r_name
+					}]
+                });
                 q_popAssign();
                 
 	            var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
