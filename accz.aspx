@@ -16,7 +16,7 @@
 			}
 
 			var q_name = "accz";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtNoa','txtFixmoney','txtFixdate'];
 			var bbmNum = [
 				['txtMount', 10, 0, 1], ['txtRate', 3, 2, 1], ['txtMoney', 14, 0, 1],
 				['txtFixmoney', 14, 0, 1], ['txtAccumulat', 14, 0, 1], ['txtEndvalue', 14, 0, 1],['txtYear',10,0,1]
@@ -118,6 +118,9 @@
 				});
 				$('#btnAccz').click(function() {
 					q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popAccz"));
+				});
+				$('#btnAcczf').click(function() {
+					q_box("acczf.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" + r_accy, 'acczf', "450px", "", q_getMsg('btnAcczf'));
 				});
 				$('#btnZ_acczs').click(function() {
 					q_box('z_acczs.aspx' + "?;;;;" + r_accy, '', '95%', '95%', q_getMsg("popAcczs"));
@@ -229,10 +232,18 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'acczf':
+						setTimeout('getfix()',1000);
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
 				}
+				b_pop = '';
+			}
+			function getfix() {
+				var t_where = "where=^^ acc1 = '" + $('#txtAcc1').val() + "'^^";
+				q_gt(q_name, t_where, 0, 0, 0, "getfix", r_accy + '_' + r_cno);
 			}
 
 			function q_gtPost(t_name) {
@@ -259,6 +270,16 @@
 							key_value = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val($('#txtAcc1').val());
 							_btnOk(key_value, bbmKey[0], '', '', 2);
 						}
+					case 'getfix':
+						var as = _q_appendData(q_name, "", true);
+						if (as[0] != undefined){
+							q_tr('txtFixmoney',as[0].fixmoney);
+							$('#txtFixdate').val(as[0].fixdate);
+						}else{
+							q_tr('txtFixmoney',0);
+							$('#txtFixdate').val('');							
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -596,7 +617,7 @@
 						<td class="td2"><input id="txtFixmoney" type="text" class="txt num c1" /></td>
 						<td class="td3"><span> </span><a id='lblFixdate' class="lbl"> </a></td>
 						<td class="td4"><input id="txtFixdate" type="text" class="txt c1" /></td>
-						<td class="td5"></td>
+						<td class="td5"><input id="btnAcczf" type="button" /></td>
 						<td class="td6"></td>
 					</tr>
 					<tr>
