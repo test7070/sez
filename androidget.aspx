@@ -5,9 +5,9 @@
             string source = Request.QueryString["source"];
             string catalog = Request.QueryString["catalog"];
             string tablea = Request.QueryString["tablea"];
-            string fielda = Request.QueryString["field"];
-            string swhere = Request.QueryString["swhere"];
-
+            string fielda = Request.QueryString["fielda"];
+            string swhere = Request.QueryString["swhere"].Replace("%20", " ");
+            
             string connstring = "Data Source=" + source + ",1799;Network Library=DBMSSOCN;Initial Catalog=" + catalog + ";User ID=sa;Password=artsql963";
             System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection();
             conn.ConnectionString = connstring;
@@ -25,9 +25,9 @@
                 else
                 {
                     if (fielda == null)
-                        query = "select * from " + tablea + "where=" + swhere;
+                        query = "select * from " + tablea + " where " + swhere;
                     else
-                        query = "select " + fielda + " from " + tablea + "where=" + swhere;
+                        query = "select " + fielda + " from " + tablea + " where " + swhere;
                 }
                 
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(query, conn); 
@@ -57,13 +57,3 @@
         }
         
     </script>
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>android Read</title>
-
-    </head>
-    <body>
-
-    </body>
-</html>
