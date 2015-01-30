@@ -88,8 +88,8 @@
 							return;
 						}
 						
-						$('#txtWbdate').val(q_cdn($('#txtBdate').val(),-1));
-						$('#txtWedate').val(q_cdn($('#txtEdate').val(),-1));
+						$('#txtWbdate').val(q_cdn($('#txtBdate').val(),-dec(q_getPara('orde.preborn'))));
+						$('#txtWedate').val(q_cdn($('#txtEdate').val(),-dec(q_getPara('orde.preborn'))));
 						
 						var sbdate='',sedate='';
 						if (emp($('#txtSfbdate').val())) {
@@ -214,13 +214,13 @@
 						}else{
 							sbdate=$('#txtSfbdate').val();
 						}
-						$('#txtWbdate').val(q_cdn(sbdate,-1));
+						$('#txtWbdate').val(q_cdn(sbdate,-dec(q_getPara('orde.preborn'))));
 						
 						if (emp($('#txtSfedate').val())) {
 							sedate='999/99/99';
 						}else{
 							sedate=$('#txtSfedate').val();
-							$('#txtWedate').val(q_cdn($('#txtSfedate').val(),-1));
+							$('#txtWedate').val(q_cdn($('#txtSfedate').val(),-dec(q_getPara('orde.preborn'))));
 						}
 						var t_where = "where=^^ ['" + q_date() + "','','') where productno=b.productno ^^"
 						

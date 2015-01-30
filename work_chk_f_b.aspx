@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		var q_name = 'work' , t_content = ' field=noa,kdate,rank,workdate,uindate,cuadate,ordeno,no2,enddate,mount,rmount,inmount,wmount,memo,productno,product,process,station,processno,stationno,unit,modelno,model,hours,tggno,comp', bbsKey = ['noa'], as, t_where = '';
+		var q_name = 'view_work' , t_content = ' field=noa,kdate,rank,workdate,uindate,cuadate,ordeno,no2,enddate,mount,rmount,inmount,wmount,memo,productno,product,process,station,processno,stationno,unit,modelno,model,hours,tggno,comp', bbsKey = ['noa'], as, t_where = '';
 		var t_sqlname = 'work_f_load'; t_postname = q_name;
 		var isBott = false;  /// 是否已按過 最後一頁
 		var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';

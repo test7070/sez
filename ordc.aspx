@@ -113,7 +113,7 @@
                             return;
                         }
 
-                        t_where = "(noa in (select noa from view_ordb where salesno='" + t_salesno + "' and '"+$('#txtOdate').val()+"' <=datea ) and isnull(enda,0)=0 and isnull(apv,'')='Y' and isnull(kind,'')='"+t_kind+"' " + q_sqlPara2("tggno", t_tggno) + q_sqlPara("noa", t_ordbno) + ")";
+                        t_where = "(noa in (select noa from view_ordb where salesno='" + t_salesno + "' and '"+$('#txtOdate').val()+"' <=datea ) and isnull(enda,0)=0 and isnull(apv,'')='Y' and isnull(kind,'')='"+t_kind+"' " + q_sqlPara2("tggno", t_tggno) + q_sqlPara2("noa", t_ordbno) + ")";
                         t_where += " or (noa+'_'+no3 in (select ordbno+'_'+no3 from view_ordcs where noa='" + $('#txtNoa').val() + "')) ";
 
                     } else {
@@ -140,7 +140,7 @@
                      alert('請輸入' + q_getMsg('lblTgg'));
                      return;
                      }*/
-                    q_box('ordbs_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
+                    q_box("ordbs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy , 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
                 });
             }
 
