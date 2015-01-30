@@ -86,7 +86,7 @@
 				//+ q_sqlPara2("cno", t_cno)
 				;
 				if (t_comp.length>0)
-                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                    t_where += " and charindex('" + t_comp + "',comp)>0";
 				if (t_carno.length>0)
                     t_where += " and exists(select noa from carcsas where carcsas.noa=carcsa.noa and carcsas.carno='"+t_carno+"')";
                 if (t_driverno.length>0)

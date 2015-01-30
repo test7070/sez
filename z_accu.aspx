@@ -19,7 +19,7 @@
           	
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_acbej');
+                q_gf('', 'z_accu');
             });
 			
 			
@@ -51,21 +51,15 @@
             }
             function initfinish(){
             	$('#q_report').q_report({
-                    fileName : 'z_acbej',
+                    fileName : 'z_accu',
                     options : [ {/*1 [1],[2]*/
                         type : '1',
                         name : 'xmon'
-                    }, {/*2 [3][4] 含子科目*/
-                        type : '2',
-                        name : 'xacc',
-                        dbf : 'acc',
-                        index : 'acc1,acc2',
-                        src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*3 [5]*/
+                    }, {/*2 [3]*/
                         type : '8',
                         name : 'xproj',
                         value : t_proj.split(',')
-                    }, {/*4 [6]*/
+                    }, {/*3 [4]*/
                         type : '8',
                         name : 'xpart',
                         value : t_part.split(',')
@@ -75,22 +69,6 @@
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon2').mask('999/99');
                 
-                $('#txtXacc1a').change(function(e) {
-                	var patt = /^(\d{4})([^\.,.]*)$/g;
-                	if(patt.test($(this).val()))
-                    	$(this).val($(this).val().replace(patt,"$1.$2"));
-                    else if((/^(\d{4})$/).test($(this).val())){
-                    	$(this).val($(this).val()+'.');
-                    }
-        		});
-        		$('#txtXacc2a').change(function(e) {
-                	var patt = /^(\d{4})([^\.,.]*)$/g;
-                	if(patt.test($(this).val()))
-                    	$(this).val($(this).val().replace(patt,"$1.$2"));
-                    else if((/^(\d{4})$/).test($(this).val())){
-                    	$(this).val($(this).val()+'.');
-                    }
-        		});
             }
             function q_boxClose(t_name) {
             }
