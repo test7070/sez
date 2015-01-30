@@ -418,6 +418,7 @@
 				$('#txtMon').val(q_date().substr(0, 6));
 				$('#txtDatea').focus();
 				$('#cmbTaxtype').val('1');
+				Fieldchange();
 			}
 
 			function btnModi() {
@@ -425,6 +426,7 @@
 					return;
 				_btnModi();
 				$('#txtProduct').focus();
+				Fieldchange();
 			}
 
 			function btnPrint() {
@@ -637,7 +639,23 @@
 				var hasSpec = q_getPara('sys.isspec');
 				var isSpec = (hasSpec.toString()=='1'?$('.isSpec').show():$('.isSpec').hide());
 			}
-
+			function Fieldchange() {
+				if(!r_modi && r_rank<'7'){
+					$('#cmbQcresult').attr('disabled', 'disabled');
+					for(var i=0;i<q_bbsCount;i++){
+						$('#cmbQcresult_'+i).attr('disabled', 'disabled');
+						$('#txtMount_'+i).attr('disabled', 'disabled');
+						$('#btnStore_'+i).attr('disabled', 'disabled');
+						$('#txtStoreno_'+i).attr('disabled', 'disabled');
+						$('#txtBkmount_'+i).attr('disabled', 'disabled');
+						$('#txtWmount_'+i).attr('disabled', 'disabled');
+						$('#txtInmount_'+i).attr('disabled', 'disabled');
+						$('#txtOutmount_'+i).attr('disabled', 'disabled');
+						$('#txtErrmount_'+i).attr('disabled', 'disabled');
+						$('#txtErrmemo_'+i).attr('disabled', 'disabled');
+					}
+				}
+			}
 		</script>
 		<style type="text/css">
 			.tview {
