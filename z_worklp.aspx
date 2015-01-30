@@ -41,16 +41,22 @@
 						src : 'station_b.aspx'
 					}, {
 						type : '2',
+						name : 'xtggno',
+						dbf : 'tgg',
+						index : 'noa,comp',
+						src : 'tgg_b.aspx'
+					},{
+						type : '2',
 						name : 'xproductno',
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
 					}, {
 						type : '2',
-						name : 'xtggno',
-						dbf : 'tgg',
-						index : 'noa,comp',
-						src : 'tgg_b.aspx'
+						name : 'xstoreno',
+						dbf : 'store',
+						index : 'noa,store',
+						src : 'store_b.aspx'
 					}]
 				});
 				q_popAssign();
@@ -60,10 +66,14 @@
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate2').datepicker();
-				$('.q_report .option:first').css('width','700px')
-				$('#Xproductno').css('width','690px');
-				$('#Xproductno .c2').css('width','130px');
-				$('#Xproductno .c3').css('width','130px');
+							
+				$('.q_report .report').css('width','420px');
+				$('.q_report .report div').css('width','200px');
+				$('.q_report .option:first').css('width','700px');
+				$('.q_report .option div.a1').css('width','690px');
+				$('.q_report .option div .c2').css('width','130px');
+				$('.q_report .option div .c3').css('width','130px');
+				
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
