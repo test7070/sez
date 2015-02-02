@@ -6,8 +6,8 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
@@ -19,15 +19,17 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 
-			q_desc = 1;
-			q_tables = 's';
+			
+			q_tables = 't';
 			var q_name = "vcca";
 			var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker', 'txtTrdno', 'txtVccno'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];
 			var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
+			var bbtNum = [];
 			var bbmMask = [];
 			var bbsMask = [];
+			var bbtMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -39,12 +41,11 @@
 			, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
 			, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
 			q_xchg = 1;
+			q_desc = 1;
 			brwCount2 = 20;
 
 			function currentData() {
 			}
-
-
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
@@ -80,6 +81,7 @@
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
+				bbtKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1);
 			});
@@ -124,12 +126,23 @@
 					q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
 				});
 				$('#lblVccno').click(function() {
-					if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
-						q_pop('txtVccno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + ($('#txtDatea').val().substring(0, 3)<'101'?r_accy:$('#txtDatea').val().substring(0, 3)) + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-					else if (q_getPara('sys.comp').indexOf('裕承隆') > -1)
-						q_pop('txtVccno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-					else
-						q_pop('txtVccno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+					t_vccno = $('#txtVccno').val();
+					
+					if(t_vccno.length>0){
+						if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
+							q_pop('txtVccno', "vcc_it.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + ($('#txtDatea').val().substring(0, 3)<'101'?r_accy:$('#txtDatea').val().substring(0, 3)) + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+						else if (q_getPara('sys.comp').indexOf('裕承隆') > -1)
+							q_pop('txtVccno', "vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+						else
+							q_pop('txtVccno', "vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+					}else{
+						if(q_cur==1 || q_cur==2){
+							t_vccano = $('#txtNoa').val();
+							t_custno = $('#txtCustno').val();
+							t_where = "b.custno='"+t_custno+"' and (c.noa='"+t_vccano+"' or c.noa is null)";
+							q_box("vccavcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({vccano:t_vccano,custno:t_custno}), "vccavcc", "95%", "95%", '');
+						}
+					}
 				});
 
 				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
@@ -141,12 +154,23 @@
 
 			function q_boxClose(s2) {
 				var ret;
-				switch (b_pop) {/// 重要：不可以直接 return ，最後需執行 originalClose();
+				switch (b_pop) {
+					case 'vccavcc':
+                        if (b_ret != null) {
+                        	as = b_ret;
+                        	for(var i=0;i<q_bbtCount;i++){
+                        		$('#btnMinut__'+i).click();
+                        	}
+                    		q_gridAddRow(bbtHtm, 'tbbt', 'txtVccaccy,txtVccno,txtVccnoq,txtProduct,txtMount,txtWeight,txtPrice,txtMoney'
+                        	, as.length, as, 'accy,noa,noq,product,mount,weight,price,total', '','');
+                        }else{
+                        	Unlock(1);
+                        }
+                        break;
 					case q_name + '_s':
 						q_boxClose2(s2);
-						///   q_boxClose 3/4
 						break;
-				}/// end Switch
+				}
 				b_pop = '';
 			}
 
@@ -266,6 +290,14 @@
 				}
 				_bbsAssign();
 			}
+			function bbtAssign() {
+                for (var i = 0; i < q_bbtCount; i++) {
+                    $('#lblNo__' + i).text(i + 1);
+                    if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+                    }
+                }
+                _bbtAssign();
+            }
 
 			function btnIns() {
 				curData.copy();
@@ -528,118 +560,143 @@
 			}
 		</script>
 		<style type="text/css">
-			#dmain {
-				overflow: hidden;
-			}
-			.dview {
-				float: left;
-				width: 1080px;
-				border-width: 0px;
-			}
-			.tview {
-				border: 5px solid gray;
-				font-size: medium;
-				background-color: black;
-			}
-			.tview tr {
-				height: 30px;
-			}
-			.tview td {
-				padding: 2px;
-				text-align: center;
-				border-width: 0px;
-				background-color: #FFFF66;
-				color: blue;
-			}
-			.dbbm {
-				float: left;
-				width: 950px;
-				/*margin: -1px;
-				 border: 1px black solid;*/
-				border-radius: 5px;
-			}
-			.tbbm {
-				padding: 0px;
-				border: 1px white double;
-				border-spacing: 0;
-				border-collapse: collapse;
-				font-size: medium;
-				color: blue;
-				background: #cad3ff;
-				width: 100%;
-			}
-			.tbbm tr {
-				height: 35px;
-			}
-			.tbbm tr td {
-				width: 10%;
-			}
-			.tbbm .tdZ {
-				width: 2%;
-			}
-			.tbbm tr td span {
-				float: right;
-				display: block;
-				width: 5px;
-				height: 10px;
-			}
-			.tbbm tr td .lbl {
-				float: right;
-				color: blue;
-				font-size: medium;
-			}
-			.tbbm tr td .lbl.btn {
-				color: #4297D7;
-				font-weight: bolder;
-			}
-			.tbbm tr td .lbl.btn:hover {
-				color: #FF8F19;
-			}
-			.txt.c1 {
-				width: 100%;
-				float: left;
-			}
-			.txt.c2 {
-				width: 40%;
-				float: left;
-			}
-			.txt.c3 {
-				width: 60%;
-				float: left;
-			}
-			.num {
-				text-align: right;
-			}
-			.tbbm td {
-				margin: 0 -1px;
-				padding: 0;
-			}
-			.tbbm td input[type="text"] {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-				float: left;
-			}
-			.tbbm select {
-				border-width: 1px;
-				padding: 0px;
-				margin: -1px;
-			}
-			.dbbs {
-				width: 1260px;
-			}
-			.tbbs a {
-				font-size: medium;
-			}
-			input[type="text"], input[type="button"] {
-				font-size: medium;
-			}
-			.num {
-				text-align: right;
-			}
-			select {
-				font-size: medium;
-			}
+            #dmain {
+                overflow: visible;
+            }
+            .dview {
+                float: left;
+                width: 1000px;
+                border-width: 0px;
+            }
+            .tview {
+                border: 5px solid gray;
+                font-size: medium;
+                background-color: black;
+            }
+            .tview tr {
+                height: 100%;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .dbbm {
+                float: left;
+                width: 100%;
+                /*margin: -1px;
+                 border: 1px black solid;*/
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 16%;
+            }
+            .tbbm .tdZ {
+                width: 1%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 100%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+            .dbbs {
+                width: 1200px;
+            }
+            .dbbs .tbbs {
+                margin: 0;
+                padding: 2px;
+                border: 2px lightgrey double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                /*background: #cad3ff;*/
+                background: lightgrey;
+                width: 100%;
+            }
+            .dbbs .tbbs tr {
+                height: 35px;
+            }
+            .dbbs .tbbs tr td {
+                text-align: center;
+                border: 2px lightgrey double;
+            }
+            .dbbs .tbbs select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
+            #dbbt {
+                width: 1200px;
+            }
+            #tbbt {
+                margin: 0;
+                padding: 2px;
+                border: 2px pink double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: pink;
+                width: 100%;
+            }
+            #tbbt tr {
+                height: 35px;
+            }
+            #tbbt tr td {
+                text-align: center;
+                border: 2px pink double;
+            }
 
 		</style>
 	</head>
@@ -796,5 +853,42 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<div id="dbbt" >
+			<table id="tbbt">
+				<tbody>
+					<tr class="head" style="color:white; background:#003366;">
+						<td style="width:20px;">
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+						</td>
+						<td style="width:20px;"></td>
+						<td style="width:120px; text-align: center;">出貨單號</td>
+						<td style="width:200px; text-align: center;">品名</td>
+						<td style="width:100px; text-align: center;">數量</td>
+						<td style="width:100px; text-align: center;">重量</td>
+						<td style="width:100px; text-align: center;">單價</td>
+						<td style="width:100px; text-align: center;">金額</td>
+					</tr>
+					<tr>
+						<td>
+							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+						</td>
+						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+						<td>
+							<input class="txt" id="txtVccaccy..*" type="text" style="width:95%;display:none;"/>
+							<input class="txt" id="txtVccno..*" type="text" style="width:75%;float:left;"/>
+							<input class="txt" id="txtVccnoq..*" type="text" style="width:15%;float:left;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtProduct..*" type="text" style="width:95%;float:left;"/>
+						</td>
+						<td><input class="txt" id="txtMount..*" type="text" style="width:95%;text-align: right;"/></td>
+						<td><input class="txt" id="txtWeight..*" type="text" style="width:95%;text-align: right;"/></td>
+						<td><input class="txt" id="txtPrice..*" type="text" style="width:95%;text-align: right;"/></td>
+						<td><input class="txt" id="txtMoney..*" type="text" style="width:95%;text-align: right;"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</body>
 </html>
