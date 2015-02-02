@@ -33,6 +33,10 @@
             }
 
             function mainPost() {
+            	$('#btnTop').hide();
+            	$('#btnPrev').hide();
+            	$('#btnNext').hide();
+            	$('#btnBott').hide();
             }
 
             function bbsAssign() {

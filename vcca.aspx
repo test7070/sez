@@ -158,6 +158,9 @@
 					case 'vccavcc':
                         if (b_ret != null) {
                         	as = b_ret;
+                        	for(var i=0;i<q_bbtCount;i++){
+                        		$('#btnMinut__'+i).click();
+                        	}
                     		q_gridAddRow(bbtHtm, 'tbbt', 'txtVccaccy,txtVccno,txtVccnoq,txtProduct,txtMount,txtWeight,txtPrice,txtMoney'
                         	, as.length, as, 'accy,noa,noq,product,mount,weight,price,total', '','');
                         }else{
@@ -872,9 +875,9 @@
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td>
-							<input class="txt" id="txtVccaccy..*" type="text" style="width:95%;"/>
-							<input class="txt" id="txtVccno..*" type="text" style="width:95%;"/>
-							<input class="txt" id="txtVccnoq..*" type="text" style="width:95%;"/>
+							<input class="txt" id="txtVccaccy..*" type="text" style="width:95%;display:none;"/>
+							<input class="txt" id="txtVccno..*" type="text" style="width:75%;float:left;"/>
+							<input class="txt" id="txtVccnoq..*" type="text" style="width:15%;float:left;"/>
 						</td>
 						<td>
 							<input class="txt" id="txtProduct..*" type="text" style="width:95%;float:left;"/>
