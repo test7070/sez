@@ -142,6 +142,19 @@
 						if(!emp($('#txtWorkfno_'+i).val()))
 						t_where += " or noa='" + $('#txtWorkfno_'+i).val() + "'"
 					}
+					
+					if (!emp($('#txtTggno').val())) {
+						t_where += "and tggno='" + $('#txtTggno').val() + "'";
+					}
+					
+					var t_bdate = $.trim($('#txtBdate').val());
+					var t_edate = $.trim($('#txtEdate').val());
+					if (t_bdate.length > 0 || t_edate.length > 0) {
+						if (t_edate.length == 0)
+							t_edate = '999/99/99'
+						t_where += " and datea between '" + t_bdate + "' and '" + t_edate + "'";
+					}
+					
 					q_box("workfs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workfs', "95%", "95%", q_getMsg('PopWorkfs'));
 				});
 				

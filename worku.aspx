@@ -66,11 +66,33 @@
 				});
 				//1020729 排除已完全入庫&&完全未領料的成品
 				$('#btnWorkf').click(function() {
-					var thisVal = $.trim($('#txtWorkfno').val());
+					/*var thisVal = $.trim($('#txtWorkfno').val());
 					if(thisVal.length > 0){
 						var t_where = "where=^^ noa=N'" + thisVal + "'";
 						q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
+					}*/
+					var thisVal = $.trim($('#txtWorkfno').val());
+					var t_where='1=1 and tmount>0  and (tmount-mount-bkmount-wmount)>0 ';
+					if(thisVal.length > 0){
+						t_where += " and noa='" + $('#txtWorkfno').val() + "'";
 					}
+					if (!emp($('#txtTggno').val())) {
+						t_where += "and tggno='" + $('#txtTggno').val() + "'";
+					}
+					
+					var t_bdate = $.trim($('#txtBdate').val());
+					var t_edate = $.trim($('#txtEdate').val());
+					if (t_bdate.length > 0 || t_edate.length > 0) {
+						if (t_edate.length == 0)
+							t_edate = '999/99/99'
+						t_where += " and datea between '" + t_bdate + "' and '" + t_edate + "'";
+					}
+					
+					for(var i=0;i<q_bbsCount;i++){
+						if(!emp($('#txtWorkfno_'+i).val()))
+						t_where += " or noa='" + $('#txtWorkfno_'+i).val() + "'"
+					}
+					q_box("workfs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workfs', "95%", "95%", q_getMsg('PopWorkfs'));
 				});
 				//1020729 排除已完全入庫&&完全未領料的成品,0816取消但會顯示狀態
 				$('#btnWork').click(function() {
@@ -121,6 +143,25 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop ) {
+					case 'workfs':
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0){
+								b_pop = '';
+								return;
+							}
+							var workf_where='';
+							for (var i = 0; i < b_ret.length; i++) {
+								workf_where=workf_where+(workf_where.length>0?',':'')+"'"+b_ret[i].noa+'-'+b_ret[i].noq+"'";
+							}
+							
+							if(workf_where.length > 0){
+								var t_where = "where=^^ noa+'-'+noq in ("+workf_where+") ";
+								q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
+							}
+							
+						}
+						break;
 					case 'ordes':
 						if (q_cur > 0 && q_cur < 4) {
 							b_ret = getb_ret();
