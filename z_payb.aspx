@@ -15,20 +15,20 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		aPop = new Array(['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno', "tgg_b.aspx"]);
-			
-			t_isinit = false;
+            aPop = new Array(['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno', "tgg_b.aspx"]);
+
+            t_isinit = false;
             t_part = '';
             $(document).ready(function() {
-            	q_getId();
-            	q_gf('', 'z_payb');
+                q_getId();
+                q_gf('', 'z_payb');
             });
-             function q_gfPost() {
+            function q_gfPost() {
                 q_gt('part', '', 0, 0, 0);
             }
-            
-           function q_gtPost(t_name) {
-            	 switch (t_name) {
+
+            function q_gtPost(t_name) {
+                switch (t_name) {
                     case 'part':
                         t_part = '';
                         var as = _q_appendData("part", "", true);
@@ -37,71 +37,86 @@
                         }
                         loadFinish();
                         break;
-                }  
+                }
             }
-           function loadFinish(){
-               $('#q_report').q_report({
-                        fileName : 'z_payb',
-                        options : [{/*[1][2]-日期 1-1*/
-                            type : '1',
-                            name : 'date'
-                        },{/*[3][4]-廠商 1-2*/
-                            type : '2',
-                            name : 'tggno',
-                            dbf : 'tgg',
-                            index : 'noa,comp',
-                            src : 'tgg_b.aspx'
-                        },{/*[5]-簽核 1-4*/
-                            type : '5',
-                            name : 'xsignend',
-                            value : ('全部,簽核,未簽核').split(',')
-                        }, {/*[6]-部門 1-8*/
-                            type : '5',
-                            name : 'tpart',
-                            value : [q_getPara('report.all')].concat(t_part.split(','))
-                        }]
-                    });
-                    q_langShow();
+
+            function loadFinish() {
+                $('#q_report').q_report({
+                    fileName : 'z_payb',
+                    options : [{/*[1][2]-日期 1-1*/
+                        type : '1',
+                        name : 'date'
+                    }, {/*[3][4]-廠商 1-2*/
+                        type : '2',
+                        name : 'tggno',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
+                    }, {/*[5]-簽核 1-4*/
+                        type : '5',
+                        name : 'xsignend',
+                        value : ('全部,簽核,未簽核').split(',')
+                    }, {/*[6]-部門 1-8*/
+                        type : '5',
+                        name : 'tpart',
+                        value : [q_getPara('report.all')].concat(t_part.split(','))
+                    }, {/*[7]*/
+                        type : '6',
+                        name : 'xnoa'
+                    }]
+                });
+                q_langShow();
                 q_popAssign();
                 $('#txtDate1').mask('999/99/99');
-                 $('#txtDate1').datepicker();
-                 $('#txtDate2').mask('999/99/99');
-                 $('#txtDate2').datepicker(); 
-                 var t_date,t_year,t_month,t_day;
-                    t_date = new Date();
-                    t_date.setDate(1);
-                    t_year = t_date.getUTCFullYear()-1911;
-                    t_year = t_year>99?t_year+'':'0'+t_year;
-                    t_month = t_date.getUTCMonth()+1;
-                    t_month = t_month>9?t_month+'':'0'+t_month;
-                    t_day = t_date.getUTCDate();
-                    t_day = t_day>9?t_day+'':'0'+t_day;
-                    $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-                    t_date = new Date();
-                    t_date.setDate(35);
-                    t_date.setDate(0);
-                    t_year = t_date.getUTCFullYear()-1911;
-                    t_year = t_year>99?t_year+'':'0'+t_year;
-                    t_month = t_date.getUTCMonth()+1;
-                    t_month = t_month>9?t_month+'':'0'+t_month;
-                    t_day = t_date.getUTCDate();
-                    t_day = t_day>9?t_day+'':'0'+t_day;
-                    $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-                    
-           }
-          function q_boxClose(s2) {
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
+                
+                var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            }catch(e){
+	            }    
+	            if(t_para.length==0 || t_para.noa==undefined){
+	            }else{
+	            	$('#txtXnoa').val(t_para.noa);
+	            }
+                var t_date, t_year, t_month, t_day;
+                t_date = new Date();
+                t_date.setDate(1);
+                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 1;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+                t_date = new Date();
+                t_date.setDate(35);
+                t_date.setDate(0);
+                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+                t_month = t_date.getUTCMonth() + 1;
+                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+                t_day = t_date.getUTCDate();
+                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+
             }
-           
+
+            function q_boxClose(s2) {
+            }
+
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"> </div>
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;">
 			<div id="container">
-				<div id="q_report"> </div>
+				<div id="q_report"></div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
