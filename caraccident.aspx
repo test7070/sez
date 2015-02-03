@@ -27,7 +27,7 @@
             brwCount2 = 13;
             //ajaxPath = ""; //  execute in Root
             aPop = [['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'insurer_b.aspx']
-            //,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+            ,['txtDriver', 'lblDriver', 'carowner', 'namea,idno,birthday', '0txtDriver,txtId,txtBirthday', 'carowner_b.aspx']
             ];
 
             $(document).ready(function() {

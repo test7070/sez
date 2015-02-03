@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 		//該資料不含半成品
-			var q_name = 'view_ucaucc2', t_content = ' field=tablea,noa,product,unit,spec,typea,groupano,price,tggno,comp,safemount,style', bbsKey = ['noa'], as;
+			var q_name = 'view_ucaucc2', t_content = ' field=tablea,noa,product,unit,spec,typea,groupano,price,tggno,comp,safemount,style,stdmount', bbsKey = ['noa'], as;
 			var t_sqlname = 'ucaucc2_load';
 			t_postname = q_name;
 			var isBott = false;

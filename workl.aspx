@@ -434,24 +434,29 @@
 						$('#div_stk').toggle();
 						break;
 					case 'btnOK_bbsstkchk':
-						var bbs_seq = t_name.substr('btnOK_bbsstkchk_'.length, t_name.length)
 						var as = _q_appendData("stkucc", "", true);
-						//將之前領料的加回去
-						for (var j = 0; j < abbsNow.length; j++) {
-							if (abbsNow[j].productno == as[0].productno) {
-								as[0].mount = dec(as[0].mount) + dec(abbsNow[j].mount);
+						if (as[0] != undefined) {
+							//將之前領料的加回去
+							for (var j = 0; j < abbsNow.length; j++) {
+								if (abbsNow[j].productno == as[0].productno) {
+									as[0].mount = dec(as[0].mount) + dec(abbsNow[j].mount);
+								}
 							}
-						}
-						//判斷同一產品全部領料
-						for (var i = 0; i < q_bbsCount; i++) {
-							if ($('#txtProductno_' + i).val() == as[0].productno) {
-								as[0].mount = dec(as[0].mount) - dec($('#txtMount_' + i).val())
+							//判斷同一產品全部領料
+							for (var i = 0; i < q_bbsCount; i++) {
+								if ($('#txtProductno_' + i).val() == as[0].productno) {
+									as[0].mount = dec(as[0].mount) - dec($('#txtMount_' + i).val())
+								}
 							}
-						}
-
-						//寫入訊息
-						if (as[0].mount < 0) {
-							btnok_msg += as[0].product + "數量不足：" + (-1 * dec(as[0].mount)).toString() + "\n";
+	
+							//寫入訊息
+							if (as[0].mount < 0) {
+								btnok_msg += as[0].product + "數量不足：" + (-1 * dec(as[0].mount)).toString() + "\n";
+							}
+						}else{
+							alert($('#txtStore').val()+'無產品庫存!!');
+							Unlock();
+							break;
 						}
 
 						stkchkcount2++;
