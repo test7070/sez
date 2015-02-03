@@ -24,9 +24,10 @@
 			var q_name = "vcca";
 			var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker', 'txtTrdno', 'txtVccno'];
 			var q_readonlys = [];
+			var q_readonlyt = ['txtVccaccy','txtVccno','txtVccnoq'];
 			var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];
 			var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
-			var bbtNum = [];
+			var bbtNum = [['txtMoney',15,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			var bbtMask = [];
@@ -141,6 +142,14 @@
 							t_custno = $('#txtCustno').val();
 							t_where = "b.custno='"+t_custno+"' and (c.noa='"+t_vccano+"' or c.noa is null)";
 							q_box("vccavcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({vccano:t_vccano,custno:t_custno}), "vccavcc", "95%", "95%", '');
+						}else{
+							var t_noa = '';
+							for(var i=0;i<q_bbtCount;i++){
+								if($('#txtVccno__'+i).val().length>0)
+									t_noa += (t_noa.length>0?" or ":"")+"noa='"+$('#txtVccno__'+i).val()+"'";
+							}
+							if(t_noa.length>0)
+								q_box("vccst.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+t_noa + ";" + r_accy, 'vcc', "95%", "95%", q_getMsg("popVcc"));
 						}
 					}
 				});
@@ -294,6 +303,18 @@
                 for (var i = 0; i < q_bbtCount; i++) {
                     $('#lblNo__' + i).text(i + 1);
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+                    	$('#txtVccno__'+i).bind('contextmenu',function(e) {
+	                    	/*滑鼠右鍵*/
+	                    	e.preventDefault();
+	                    	var n = $(this).attr('id').replace('txtVccno__','');
+	                    	var t_accy = $('#txtVccaccy__'+n).val();
+	                    	var t_tablea = 'vccst';
+	                    	if(t_tablea.length>0 && $(this).val().indexOf('TAX')==-1 && !($(this).val().indexOf('-')>-1 && $(this).val().indexOf('/')>-1)){//稅額和月結排除
+	                    		//t_tablea = t_tablea + q_getPara('sys.project');
+	                    		//q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "'", t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
+	                    		q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
+	                    	}
+	                    });
                     }
                 }
                 _bbtAssign();
@@ -343,9 +364,15 @@
 					/// no2 為空，不存檔
 					return;
 				}
-
 				q_nowf();
-
+				return true;
+			}
+			function bbtSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
+				if (!as['vccno']) {//不存檔條件
+					as[bbsKey[1]] = '';
+					return;
+				}
+				q_nowf();
 				return true;
 			}
 

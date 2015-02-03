@@ -14,7 +14,8 @@
             //, t_where = '';
             var t_sqlname = 'vccavcc';
             t_postname = q_name;
-            brwCount2 = 50;
+            brwCount = -1;
+			brwCount2 = 0;
 			q_bbsFit = 1;
 
             $(document).ready(function() {
