@@ -38,11 +38,24 @@
             	$('#btnPrev').hide();
             	$('#btnNext').hide();
             	$('#btnBott').hide();
+            	
+            	$('#btnChkAll').click(function(e){
+            		for(var i=0;i<q_bbsCount;i++){
+                		if($('#txtNoa_'+i).val().length>0){
+                			$('#chkSel_'+i).prop('checked',true);
+                		}
+                	}
+            	});
+            	$('#btnChkAll2').click(function(e){
+            		for(var i=0;i<q_bbsCount;i++){
+                		if($('#txtNoa_'+i).val().length>0){
+                			$('#chkSel_'+i).prop('checked',!$('#chkSel_'+i).prop('checked'));
+                		}
+                	}
+            	});
             }
 
             function bbsAssign() {
-                
-
                 var isCheck = false;
                 for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {    
                 	$('#lblNo_' + j).text(j + 1);
@@ -85,10 +98,11 @@
 		</style>
 	</head>
 	<body>
+		<input id="btnChkAll" type="button" value="全選"/><input id="btnChkAll2" type="button" value="反選"/><a>滑鼠左鍵點擊出貨單號，可全選(反選)該單號所有筆數。</a>
 		<div id="dbbs">
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
-					<td class="td1" align="center" style="width:25px;">&nbsp;</td>
+					<td class="td1" align="center" style="width:25px;"></td>
 					<td class="td1" align="center" style="width:25px;">&nbsp;</td>
 					<td class="td2" align="center" style="width:40px;display:none;"><a id='lblAccy'>年度</a></td>
 					<td class="td3" align="center" style="width:80px;"><a id='lblNoa'>出貨單號</a></td>
