@@ -41,13 +41,25 @@
             }
 
             function bbsAssign() {
-                _bbsAssign();
+                
 
                 var isCheck = false;
                 for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {    
                 	$('#lblNo_' + j).text(j + 1);
                     $('#chkSel_'+j).prop('checked',$('#txtVccano_'+j).val().length>0);
+                    $('#txtNoa_'+j).click(function(e){
+                    	var n = $(this).attr('id').replace('txtNoa_',''); 
+                    	var t_noa = $(this).val();
+                    	var t_chk = $('#chkSel_'+n).prop('checked');
+                    	console.log(t_chk);
+                    	for(var i=0;i<q_bbsCount;i++){
+                    		if(t_noa == $('#txtNoa_'+i).val()){
+                    			$('#chkSel_'+i).prop('checked',!t_chk);
+                    		}
+                    	}
+                    });
                 }
+                _bbsAssign();
             }
 
             function q_gtPost() {
@@ -78,9 +90,9 @@
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:25px;">&nbsp;</td>
 					<td class="td1" align="center" style="width:25px;">&nbsp;</td>
-					<td class="td2" align="center" style="width:80px;"><a id='lblAccy'> </a></td>
+					<td class="td2" align="center" style="width:40px;display:none;"><a id='lblAccy'>年度</a></td>
 					<td class="td3" align="center" style="width:80px;"><a id='lblNoa'>出貨單號</a></td>
-					<td class="td3" align="center" style="width:80px;"><a id='lblNoq'> </a></td>
+					<td class="td3" align="center" style="width:40px;"><a id='lblNoq'>序</a></td>
 					<td class="td3" align="center" style="width:80px;"><a id='lblProduct'>品名</a></td>
 					<td class="td3" align="center" style="width:80px;"><a id='lblMount'>數量</a></td>
 					<td class="td3" align="center" style="width:80px;"><a id='lblWeight'>重量</a></td>
@@ -93,7 +105,7 @@
 						<input type="text" id="txtVccano.*" class="txt" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtAccy.*" class="txt" style="width:95%;"/></td>
+					<td style="display:none;"><input type="text" id="txtAccy.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtNoa.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtNoq.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtProduct.*" class="txt" style="width:95%;"/></td>
