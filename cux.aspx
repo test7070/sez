@@ -727,39 +727,39 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbs'>
-				<table id="tbbs" class='tbbs'>
-					<tr style='color:white; background:#003366;' >
-						<td style="width:20px;">
-							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
-						</td>
-						<td style="width:120px; text-align: center;"><a id='lblWorktime_s'> </a></td>
-						<td style="width:80px; text-align: center;"><a id='lblManagermans_s'> </a></td>
-						<td style="width:360px; text-align: center;"><a id='lblManager_s'> </a></td>
-						<td style="width:80px; text-align: center;"><a id='lblHours_s'> </a></td>
-						<td style="width:80px; text-align: center;"><a id='lblAddhours_s'> </a></td>
-						<td style="width:40px;"><a id='lblIsovertime_s'> </a></td>
-					</tr>
-					<tr style='background:#cad3ff;'>
-						<td>
-							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-							<input class="txt" id="txtNoq.*" type="text" style="display: none;"/>
-						</td>
-						<td>
-							<input type="text" id="txtWorktime.*" style="float:left; width:90px;" />
-							<select id="combWorktime.*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:19px;"> </select>
-						</td>
-						<td><input id="txtManagermans.*" type="text" class="txt num c3"/></td>
-						<td>
-							<select id="combPartno3.*" class="txt" style="width:100px;"> </select>
-							<input id="txtManager.*" type="text" class="txt" style="width: 230px;"/>
-						</td>
-						<td><input id="txtHours.*" type="text" class="txt num c3"/></td>
-						<td><input id="txtAddhours.*" type="text" class="txt num c3"/></td>
-						<td><input id="chkIsovertime.*" type="checkbox" /></td>
-					</tr>
-				</table>
-			</div>
+		</div>
+		<div class='dbbs'>
+			<table id="tbbs" class='tbbs'>
+				<tr style='color:white; background:#003366;' >
+					<td style="width:20px;">
+						<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+					</td>
+					<td style="width:120px; text-align: center;"><a id='lblWorktime_s'> </a></td>
+					<td style="width:80px; text-align: center;"><a id='lblManagermans_s'> </a></td>
+					<td style="width:360px; text-align: center;"><a id='lblManager_s'> </a></td>
+					<td style="width:80px; text-align: center;"><a id='lblHours_s'> </a></td>
+					<td style="width:80px; text-align: center;"><a id='lblAddhours_s'> </a></td>
+					<td style="width:40px;"><a id='lblIsovertime_s'> </a></td>
+				</tr>
+				<tr style='background:#cad3ff;'>
+					<td>
+						<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+						<input class="txt" id="txtNoq.*" type="text" style="display: none;"/>
+					</td>
+					<td>
+						<input type="text" id="txtWorktime.*" style="float:left; width:90px;" />
+						<select id="combWorktime.*" class="txt" style="float:left;margin-left:3px;margin-top:2px;width:19px;"> </select>
+					</td>
+					<td><input id="txtManagermans.*" type="text" class="txt num c3"/></td>
+					<td>
+						<select id="combPartno3.*" class="txt" style="width:100px;"> </select>
+						<input id="txtManager.*" type="text" class="txt" style="width: 230px;"/>
+					</td>
+					<td><input id="txtHours.*" type="text" class="txt num c3"/></td>
+					<td><input id="txtAddhours.*" type="text" class="txt num c3"/></td>
+					<td><input id="chkIsovertime.*" type="checkbox" /></td>
+				</tr>
+			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
