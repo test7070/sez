@@ -102,7 +102,25 @@
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('lblAccc'), true);
 				});
 				$('#lblOrdc').click(function() {
-					lblOrdc();
+					var t_tggno = trim($('#txtTggno').val());
+					var t_ordeno = trim($('#txtOrdeno').val());
+					var t_where = '';
+					if (t_tggno.length > 0) {
+						t_where = "tggno='"+t_tggno+"'";
+						if($('#cmbTypea').val()=='1'){
+							t_where +="isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 ";
+						}else{
+							t_where +=" and odate>='"+q_cdn(q_date(),-60)+"' and isnull(c1,0) >0";
+						}
+						if (t_ordeno.length > 0)
+							t_where=t_where+q_sqlPara2("noa", t_ordeno);
+							
+						t_where = t_where;
+					} else {
+						alert(q_getMsg('msgTggEmp'));
+						return;
+					}
+					q_box("ordcs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));
 				});
 				$('#lblInvono').click(function() {
 					t_where = '';
@@ -282,23 +300,6 @@
 			function coin_chg() {
 				var t_where = "where=^^ ('" + $('#txtDatea').val() + "' between bdate and edate) and coin='"+$('#cmbCoin').find("option:selected").text()+"' ^^";
 				q_gt('flors', t_where, 0, 0, 0, "");
-			}
-			
-			function lblOrdc() {
-				var t_tggno = trim($('#txtTggno').val());
-				var t_ordeno = trim($('#txtOrdeno').val());
-				var t_where = '';
-				if (t_tggno.length > 0) {
-					if (t_ordeno.length > 0)
-						t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "") + "&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");
-					else
-						t_where = "b.enda=0 && view_ordcs.enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");
-					t_where = t_where;
-				} else {
-					alert(q_getMsg('msgTggEmp'));
-					return;
-				}
-				q_box("ordcs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));
 			}
 
 			function q_stPost() {

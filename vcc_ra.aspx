@@ -129,10 +129,16 @@
 					var t_custno = trim($('#txtCustno').val());
 					var t_where = '';
 					if (t_custno.length > 0) {
-						t_where = "noa in (select noa from orde" + r_accy + " where enda!='1') && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
+						t_where = "custno='"+t_custno+"' ";
+						if($('#cmbTypea').val()=='1'){
+							t_where += " and isnull(enda,0)!=1 && isnull(cancel,0)!=1 and (isnull(mount,0)!=0 or isnull(weight,0)!=0)";
+						}else{
+							t_where += " and odate>='"+q_cdn(q_date(),-60)+"' and isnull(c1,0) >0";
+						}
 						if (!emp($('#txtOrdeno').val()))
-							t_where += " && charindex(noa,'" + $('#txtOrdeno').val() + "')>0";
-						t_where = t_where;
+								t_where += " and charindex(noa,'" + $('#txtOrdeno').val() + "')>0";
+						t_where="("+t_where+")";
+						//t_where += " or noa+'-'+no2 in (select ordeno+'-'+no2 from view_vccs where noa='"+$('#txtNoa').val()+"' ) ";
 					} else {
 						alert(q_getMsg('msgCustEmp'));
 						return;
@@ -209,8 +215,13 @@
 					}
 					if(PnoArray.length > 0){
 						var t_where = 'where=^^ 1=1 ';
-						t_where += "and ((select isnull(enda,0) from view_orde where noa=view_ordes.noa)!=1) ";//BBM未結案
-						t_where += "and (isnull(enda,0)!=1) ";//BBS未結案
+						if($('#cmbTypea').val()=='1'){
+							t_where += "and ((select isnull(enda,0) from view_orde where noa=view_ordes.noa)!=1) ";//BBM未結案
+							t_where += "and (isnull(enda,0)!=1) ";//BBS未結案
+						}else{
+							t_where += " and odate>='"+q_cdn(q_date(),-60)+"' and isnull(c1,0) >0";
+						}
+						
 						t_where += "and (custno=N'"+t_custno+"')";
 						t_where += "and (productno in (" +PnoArray.toString()+ "))";
 						q_gt('view_ordes', t_where, 0, 0, 0, "GetOrdeList");
