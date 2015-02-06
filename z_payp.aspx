@@ -53,15 +53,12 @@
                 $('#btnOk2').click(function(e) {
                     switch($('#q_report').data('info').radioIndex) {
                         case 0:
-                            $('#cmbPaperSize').val('LETTER');
                             $('#chkLandScape').prop('checked',false);
                             break;
                         case 1:
-                            $('#cmbPaperSize').val('A5');
                             $('#chkLandScape').prop('checked',true);
                             break;
                         default:
-                            $('#cmbPaperSize').val('A4');
                             $('#chkLandScape').prop('checked',false);
                             break;
                     }
