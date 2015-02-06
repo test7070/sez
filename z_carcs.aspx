@@ -133,7 +133,9 @@
 						type : '6', name : 'xboatno'
 					}, {/*21*///[29]
                         type : '5', name : 'xisoutside', value : ['#non@全部','N@公司車','Y@外車']
-                    }]
+                    }, {/*22*///[30]  請車單號
+						type : '6', name : 'xordeno'
+					}]
 				});
 				q_popAssign();
 				q_langShow();
