@@ -60,6 +60,10 @@
                     	},{/*[12][13] 付款日 3-1*/
                         	type : '1',
                         	name : 'paydate'
+                    	},{/*[14]*/
+                        	type : '0',
+                        	name : 'r_name',
+                        	value :r_name
                     	}]
                     });
                 q_popAssign();
