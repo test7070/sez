@@ -166,6 +166,7 @@
 				switch (b_pop) {
 					case 'vccavcc':
                         if (b_ret != null) {
+                        	$("#dbbt").show();
                         	as = b_ret;
                         	for(var i=0;i<q_bbtCount;i++){
                         		$('#btnMinut__'+i).click();
@@ -477,6 +478,14 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				t_count = 0
+				for(var i=0;i<q_bbtCount;i++)
+					if($('#txtVccno__'+i).val().length>0)
+						t_count ++;
+				if(t_count>0)
+					$("#dbbt").show();
+				else
+					$("#dbbt").hide();
 			}
 
 			function readonly(t_para, empty) {
@@ -834,7 +843,7 @@
 						<td><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
 						<td><input id="txtVccno"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr style="display:none;">
 						<td></td>
 						<td></td>
 						<td></td>
@@ -880,7 +889,7 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="dbbt" >
+		<div id="dbbt" style="display:none;">
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
