@@ -338,6 +338,9 @@
                         $('#combMemo').val(0);
                     }                   
                 });
+                $('#btnSendMsgClose').click(function(e){
+                	$('#divSendMsg').hide();
+                });
                 //--------------------------------------------------
                 $('#textDate').datepicker();
                 $('#divImport').mousedown(function(e) {
@@ -660,7 +663,7 @@
                 $('#aSendMsg').text('');
                 _sendData = new Array();
                 _nSuccess = 0;
-            	_nErroe = 0;
+            	_nError = 0;
             
                 var t_noa = $.trim($('#txtNoa').val());
                 var t_noq,t_carno,t_sendid,t_msg;
@@ -695,32 +698,43 @@
             		Unlock();
             		return;
             	}
-            	$('#aSendMsg').text('資料傳送中....共 '+_sendData.length+' 筆!');
-            	
-            	var json = JSON.stringify(t_array);
+            	var json = JSON.stringify(_sendData[n]);
                 $.ajax({
-                    url: 'SendCommand.aspx',
+                	n:n,
+                    url: 'SendCommand2.aspx',
                     type: 'POST',
+                    headers: { 'database': q_db },
                     data: json,
-                    dataType: 'json',
-                    timeout: 30000,
+                    dataType: 'text',
+                    timeout: 10000,
                     success: function(data){
-                        for(var i=0;i<data.length;i++){
-                            if(data[i]['SendCommandResult']=="true")
-                                $('#chkSendcommandresult_'+data[i]["n"]).prop('checked',true);  
-                            $('#txtCommandid_'+data[i]["n"]).val(data[i]['CommandId']);
-                            $("#chkIssend_"+data[i]["n"]).prop('checked',false); 
-                            for(var j=0;j<abbs.length;j++){
-                                if(abbs[j].noa==data[i]["noa"] && abbs[j].noq==data[i]["noq"]){
+                    	try{
+                    		tmp = JSON.parse(data);
+                    		if(tmp['SendCommandResult'].toLowerCase()=="true"){
+                    			$('#chkSendcommandresult_'+tmp["n"]).prop('checked',true);  
+                    			_nSuccess++;
+                    		}else{
+                    			_nError++;
+                    		}
+                    		$('#txtCommandid_'+tmp["n"]).val(tmp['CommandId']);
+                            $("#chkIssend_"+tmp["n"]).prop('checked',false); 
+                			for(var j=0;j<abbs.length;j++){
+                                if(abbs[j].noa==tmp["noa"] && abbs[j].noq==tmp["noq"]){
                                     abbs[j].issend = "false";
-                                    abbs[j].sendcommandresult = (data[i]['SendCommandResult']=="true"?"true":"false");
-                                    abbs[j].commandid = data[i]['CommandId'];
+                                    abbs[j].sendcommandresult = (tmp['SendCommandResult']=="true"?"true":"false");
+                                    abbs[j].commandid = tmp['CommandId'];
                                     break;
                                 }
                             } 
-                        }  
+                    	}catch(e){
+                    	}
                     },
-                    complete: function(){                    
+                    complete: function(){   
+                    	$('#aSendMsg').html('資料傳送中....共 '+_sendData.length+' 筆!'
+		            		+(_nSuccess>0?'<br>已成功 '+_nSuccess+' 筆':'')
+		            		+(_nError>0?'<br>失敗 '+_nSuccess+' 筆':'')
+		            	);
+                    	sendCommand_1(this.n+1);                 
                     },
                     error: function(jqXHR, exception) {
                         var errmsg = '資料傳送異常。\n';
@@ -1111,7 +1125,8 @@
             <!--#include file="../inc/toolbar.inc"-->
             <input type="button" id="btn1" style="width:100px;float:left;" value="司機回傳">
         </div>
-        <div id="divSendMsg" style="width:400px;height:150px;display:none;background-color:yellow;">
+        <div id="divSendMsg" style="width:400px;height:100px;display:none;background-color:yellow;">
+        	<input type="button" id="btnSendMsgClose" style="width:100px;float:left;" value="關閉">
         	<a id="aSendMsg"></a>
         </div>
         <div style="overflow: auto;display:block;width:1400px;">
