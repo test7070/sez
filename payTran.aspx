@@ -239,6 +239,19 @@
 			}
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'calcopay':
+						console.log('q_gtPost  calcopay');
+						var as = _q_appendData("paybs", "", true);
+						if (as[0] != undefined) {
+							var yufu_total = 0;
+							for ( i = 0; i < as.length; i++) {
+								t_total = as[i].kind=='預付'?parseFloat(as[i].total):0;
+								yufu_total = q_add(yufu_total,t_total);
+							}
+							q_tr('txtOpay', yufu_total);
+						}
+						checkGqb_bbs(q_bbsCount - 1);
+						break;
 					case 'part':
 						var as = _q_appendData("part", "", true);
 						if (as[0] != undefined) {
@@ -560,15 +573,28 @@
 				}
 				//20130201只要預付單號有預付，預付金額=SUM(BBS沖帳金額)
 				//1020618取消此功能//102/07/04恢復此功能
+				var t_where = '';
 				if ($('#txtRc2no').val().indexOf('預付') > -1) {
-					var yufu_total = 0;
+					/*var yufu_total = 0;
 					for (var i = 0; i < q_bbsCount; i++) {
 						yufu_total += q_float('txtPaysale_' + i);
 					}
-					q_tr('txtOpay', yufu_total);
+					q_tr('txtOpay', yufu_total);*/
+					var t_noa = '';
+					for(var i=0;i<q_bbsCount;i++){
+						if(q_float('txtPaysale_' + i)!=0 && $('#txtTablea_'+i).val().toLowerCase() == 'payb' && $('#txtRc2no_'+i).val().length>0){
+							t_noa += (t_noa.length>0?' or ':'') + "noa='"+$('#txtRc2no_'+i).val()+"'";
+						}
+					}
+					if(t_noa.length>0)
+						t_where = 'where=^^'+t_noa+'^^'; 
 				}
-				//先檢查BBS沒問題才存檔
-				checkGqb_bbs(q_bbsCount - 1);
+				if(t_where.length>0){
+					q_gt('paybs', t_where, 0, 0, 0, "calcopay");
+				}else{
+					//先檢查BBS沒問題才存檔
+					checkGqb_bbs(q_bbsCount - 1);
+				}
 			}
 			function checkGqb_bbs(n) {
 				if (n < 0) {
