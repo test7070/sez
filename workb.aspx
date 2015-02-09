@@ -548,12 +548,12 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 				
-				if (q_cur == 1 || emp($('#txtWorkano').val()))
+				/*if (q_cur == 1 || emp($('#txtWorkano').val()))
 					q_func('qtxt.query.c0', 'workb.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 				else {
 					//處理worka內容
 					q_func('worka_post.post.a1', r_accy + ',' + $('#txtWorkano').val() + ',0');
-				}
+				}*/
 				
 			}
 
@@ -636,8 +636,8 @@
 			}
 
 			function btnDele() {
-				//_btnDele();
-				if (!confirm(mess_dele))
+				_btnDele();
+				/*if (!confirm(mess_dele))
 					return;
 				q_cur = 3;
 				//處理worka內容
@@ -645,6 +645,7 @@
 					q_func('qtxt.query.c2', 'workb.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 				else
 					q_func('worka_post.post.a2', r_accy + ',' + $('#txtWorkano').val() + ',0');
+				*/
 			}
 
 			function btnCancel() {
@@ -678,7 +679,7 @@
 			
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'worka_post.post.a1':
+					/*case 'worka_post.post.a1':
 						//呼叫workb.post
 						q_func('qtxt.query.c0', 'workb.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 						break;
@@ -701,7 +702,7 @@
 						break;
 					case 'qtxt.query.c2':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
-						break;
+						break;*/
 					default:
 						break;
 				}

@@ -437,7 +437,7 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
 				
-				if (q_cur == 1 || (emp($('#txtWorkano').val()) && emp($('#txtWorkbno').val())))
+				/*if (q_cur == 1 || (emp($('#txtWorkano').val()) && emp($('#txtWorkbno').val())))
 					q_func('qtxt.query.c0', 'workbq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 				else {
 					//處理worka b 內容
@@ -445,7 +445,7 @@
 						q_func('worka_post.post.a1', r_accy + ',' + $('#txtWorkano').val() + ',0');
 					else
 						q_func('workb_post.post.a1', r_accy + ',' + $('#txtWorkbno').val() + ',0');
-				}
+				}*/
 			}
 
 			function bbsSave(as) {
@@ -524,8 +524,8 @@
 			}
 
 			function btnDele() {
-				//_btnDele();
-				if (!confirm(mess_dele))
+				_btnDele();
+				/*if (!confirm(mess_dele))
 					return;
 				q_cur = 3;
 				//處理worka內容
@@ -536,7 +536,7 @@
 						q_func('worka_post.post.a2', r_accy + ',' + $('#txtWorkano').val() + ',0');
 					else
 						q_func('workb_post.post.a2', r_accy + ',' + $('#txtWorkbno').val() + ',0');
-				}
+				}*/
 			}
 
 			function btnCancel() {
@@ -555,7 +555,8 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				abbm[q_recno]['accno'] = xmlString.split(";")[0];
+				abbm[q_recno]['workano'] = xmlString.split(";")[0];
+				abbm[q_recno]['workbno'] = xmlString.split(";")[1];
 				/*var t_noa = $.trim($('#txtNoa').val());
 				if((t_noa.length>0) && (r_name.length > 0)){
 					Lock();
@@ -565,7 +566,7 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					case 'worka_post.post.a1':
+					/*case 'worka_post.post.a1':
 						if(!emp($('#txtWorkbno').val()))
 							q_func('workb_post.post.a1', r_accy + ',' + $('#txtWorkbno').val() + ',0');
 						else
@@ -604,7 +605,7 @@
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;
 					default:
-						break;
+						break;*/
 					/*case 'qtxt.query.workbq':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
