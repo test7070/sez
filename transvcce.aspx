@@ -681,22 +681,24 @@
                             n : n,
                             sendid : t_sendid,
                             CarId: encodeURI(t_carno),
-                            Message : '回傳代碼:'+t_sendid+'.'+t_msg,//encodeURI('回傳代碼:'+t_sendid+'.'+t_msg),
+                            Message : encodeURI('回傳代碼:'+t_sendid+'.'+t_msg),
                             StatusCode : "1"                 
                         });
                     }    
                 }
                 
                 var json = JSON.stringify(t_array);
-                
                 console.log(json);
                 $.ajax({
                     url: 'SendCommand.aspx',
                     type: 'POST',
                     data: json,
-                    dataType: 'json',
+                    dataType: 'text',
                     timeout: 300000,
                     success: function(data){
+                    	console.log("Return:");
+                    	console.log(data);
+                    	data = JSON.parse(data);
                         for(var i=0;i<data.length;i++){
                             if(data[i]['SendCommandResult']=="true")
                                 $('#chkSendcommandresult_'+data[i]["n"]).prop('checked',true);  
