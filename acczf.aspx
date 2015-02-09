@@ -116,8 +116,9 @@
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:1%; max-width:20px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-					<td class="td2" align="center" style="width:40%;"><a id='lblFixdate'> </a></td>
-					<td class="td3" align="center" style="width:49%;"><a id='lblFixmoney'> </a></td>
+					<td class="td2" align="center" style="width:30%;"><a id='lblFixdate'> </a></td>
+					<td class="td3" align="center" style="width:39%;"><a id='lblFixmoney'> </a></td>
+					<td class="td3" align="center" style="width:20%;"><a id='lblYear'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -126,6 +127,7 @@
 					</td>
 					<td class="td3"><input id="txtFixdate.*" type="text" class="txt c1" style="width:95%;"/></td>
 					<td class="td4"><input id="txtFixmoney.*" type="text" class="txt c1" style="width:95%; text-align: right;"/></td>
+					<td class="td3"><input id="txtYear.*" type="text" class="txt c1" style="width:95%;"/></td>
 				</tr>
 			</table>
 			
