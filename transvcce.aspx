@@ -668,7 +668,7 @@
                     t_carno = $.trim($('#txtCarno_'+n).val());
                     t_sendid = $.trim($('#txtSendid_'+n).val());
                     t_msg = $.trim($('#txtMemo').val());
-                    t_msg += (t_msg.length>0?',':'')+(($('#txtTrandate').val()+$('#txtTrantime').val()).length>0?'出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'');
+                    t_msg += (t_msg.length>0?',':'')+(($('#txtTrandate').val()+$('#txtTrantime').val()).length>0?'出車時間'+$('#txtTrandate').val()+'_'+$('#txtTrantime').val():'');
                     t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtAddr_'+n).val());
                     t_msg += (t_msg.length>0?',':'')+ $.trim($('#txtMsg_'+n).val());    
                     t_msg = t_msg.replace(/\u002c/g,'.');  
@@ -681,19 +681,21 @@
                             n : n,
                             sendid : t_sendid,
                             CarId: encodeURI(t_carno),
-                            Message : encodeURI('回傳代碼:'+t_sendid+'.'+t_msg),
+                            Message : '回傳代碼:'+t_sendid+'.'+t_msg,//encodeURI('回傳代碼:'+t_sendid+'.'+t_msg),
                             StatusCode : "1"                 
                         });
                     }    
                 }
                 
                 var json = JSON.stringify(t_array);
+                
+                console.log(json);
                 $.ajax({
                     url: 'SendCommand.aspx',
                     type: 'POST',
                     data: json,
                     dataType: 'json',
-                    timeout: 30000,
+                    timeout: 300000,
                     success: function(data){
                         for(var i=0;i<data.length;i++){
                             if(data[i]['SendCommandResult']=="true")
@@ -710,7 +712,8 @@
                             } 
                         }  
                     },
-                    complete: function(){                    
+                    complete: function(){ 
+                    	Unlock();                   
                     },
                     error: function(jqXHR, exception) {
                         var errmsg = '資料傳送異常。\n';
@@ -731,7 +734,6 @@
                         }
                     }
                 });
-                Unlock();
             }
             function btnOk() {
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
