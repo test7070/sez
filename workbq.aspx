@@ -20,7 +20,7 @@
 			var q_name = "workbq";
 			var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
 			var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtStation','txtStore','txtAccno','txtWorkbno','txtWorkano'];
+			var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2','txtStation','txtStationg','txtStore','txtAccno','txtWorkbno','txtWorkano'];
 			var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq', 'txtWorkno','txtWorkfno','txtWorkfnoq','txtStore','txtWk_mount','txtWk_inmount','txtWk_unmount'];
 			var bbmNum = [];
 			var bbsNum = [
@@ -37,6 +37,7 @@
 			brwKey = '';
 			aPop = new Array(
 				['txtStationno', 'lblStation', 'station', 'noa,station,storeno,store', 'txtStationno,txtStation,txtStoreno,txtStore', 'station_b.aspx'],
+				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucaucc_b.aspx']
@@ -66,6 +67,12 @@
 				
 				$('#lblAccno').click(function() {
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
+				});
+				
+				$('#lblStationmore').click(function() {
+					if (q_cur == 1 || q_cur == 2) {
+						q_box("station_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;;", 'stationmore', "420px", "", q_getMsg('popStation'));
+					}
 				});
 				
 				//1020729 排除已完全入庫&&完全未領料的成品
@@ -120,8 +127,13 @@
 						}
 						
 						//t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
-						t_where+=" and noa like 'W[0-9]%' )";
+						if (!emp($('#txtStationgno').val())) 
+							t_where+=" and stationno in (select noa from station where stationgno='"+$('#txtStationgno').val()+"')";
+							
+						if (!emp($('#textStationno').val())) 
+							t_where+=" and charindex(stationno,'"+$('#textStationno').val()+"')>0";
 						
+						t_where+=" and noa like 'W[0-9]%' )";
 						//原先的資料
 						t_where += " or noa in (select workno from view_workbqs where noa='" + $('#txtNoa').val() + "')";
 	
@@ -210,6 +222,20 @@
 							$('#txtTgg').val(b_ret[0].comp);
 							var t_where = "where=^^ noa in(" + getInStr(b_ret) + ")^^";
 							q_gt('work', t_where, 0, 0, 0, "", r_accy);
+						}
+						break;
+					case 'stationmore':
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0){
+								b_pop = '';
+								return;
+							}
+							var stationno_more='';
+							for (var i = 0; i < b_ret.length; i++) {
+								stationno_more=stationno_more+(stationno_more.length>0?',':'')+b_ret[i].noa;
+							}
+							$('#textStationno').val(stationno_more);
 						}
 						break;
 					case q_name + '_s':
@@ -430,6 +456,7 @@
 			}
 
 			function btnPrint() {
+				q_box('z_workbqp.aspx' + "?;;;noa=" + $.trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", m_print);
 			}
 
 			function wrServer(key_value) {
@@ -794,11 +821,15 @@
 							<input id="txtStationno" type="text" class="txt" style='width:45%;'/>
 							<input id="txtStation" type="text" class="txt" style='width:48%;'/>
 						</td>
-						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblStationg' class="lbl btn"> </a></td>
 						<td>
-							<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
-							<input id="txtStore" type="text" class="txt" style='width:48%;'/>
+							<input id="txtStationgno" type="text" class="txt" style='width:45%;'/>
+							<input id="txtStationg" type="text" class="txt" style='width:48%;'/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStationmore' class="lbl btn">多選線別</a></td>
+						<td colspan="3"><input id="textStationno" type="text" class="txt c1" style="width: 98%;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
@@ -814,6 +845,11 @@
 					<tr>
 						<td><span> </span><a id='lblQcresult' class="lbl"> </a></td>
 						<td><select id="cmbQcresult" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtStoreno" type="text" class="txt" style='width:45%;'/>
+							<input id="txtStore" type="text" class="txt" style='width:48%;'/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorkbno' class="lbl"> </a></td>
