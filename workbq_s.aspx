@@ -10,7 +10,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = "workb_s";
+			var q_name = "workbq_s";
 			$(document).ready(function() {
 				main();
 			});
