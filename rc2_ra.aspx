@@ -96,6 +96,8 @@
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				
+				$('#lblOrdb_ra').text('進貨憑單');
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				$('#lblAccc').click(function() {
@@ -103,17 +105,17 @@
 				});
 				$('#lblOrdc').click(function() {
 					var t_tggno = trim($('#txtTggno').val());
-					var t_ordeno = trim($('#txtOrdeno').val());
+					var t_ordcno = trim($('#txtOrdcno').val());
 					var t_where = '';
 					if (t_tggno.length > 0) {
 						t_where = "tggno='"+t_tggno+"'";
 						if($('#cmbTypea').val()=='1'){
-							t_where +="isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 ";
+							t_where +=" and isnull(b.enda,0)=0 && isnull(view_ordcs.enda,0)=0 ";
 						}else{
 							t_where +=" and odate>='"+q_cdn(q_date(),-60)+"' and isnull(c1,0) >0";
 						}
-						if (t_ordeno.length > 0)
-							t_where=t_where+q_sqlPara2("noa", t_ordeno);
+						if (t_ordcno.length > 0)
+							t_where=t_where+"and charindex(noa,'"+t_ordcno+"') >0";
 							
 						t_where = t_where;
 					} else {
@@ -175,7 +177,12 @@
 								return;
 							}
 							var i, j = 0;
-							$('#txtOrdcno').val(b_ret[0].noa);
+							var t_ordcno='';
+							for (i=0 ;i<b_ret.length;i++){
+								if(t_ordcno.indexOf(b_ret[i].noa)==-1)
+									t_ordcno=t_ordcno+(t_ordcno.length>0?',':'')+b_ret[i].noa;
+							}
+							$('#txtOrdcno').val(t_ordcno);
 							ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret, 'uno,productno,product,unit,mount,noa,no2,price,total,memo', 'txtProductno,txtProduct');
 							bbsAssign();
 							sum();
@@ -883,10 +890,14 @@
 						<td class="td2" colspan='7' ><input id="txtMemo" type="text" class="txt" style="width:98%;"/></td>
 					</tr>
 					<tr class="tr10">
-						<td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
+						<td class="td7"><span> </span><a id='lblOrdb_ra' class="lbl"> </a></td>
+						<td class="td8"><input id="txtOrdbno" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

@@ -93,7 +93,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtZipname', '99:99']];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
@@ -104,6 +104,8 @@
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				var t_where = "where=^^ 1=1  group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
+				
+				$('#lblDatea_ra').text('日期/時間');
 				
 				$('#txtPost').change(function(){
 					GetTranPrice();
@@ -753,6 +755,8 @@
 			
 			var mouse_point,vcc_bbs_row,orde_row,vcc_b_seq;
 			function bbsAssign() {
+				$('#lblRackmount_s').text('料架數量');
+				$('#lblStyle_s_ra').text('車型');
 				for (var i = 0; i < q_bbsCount; i++) {
 					if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 						$('#combOrdelist_'+i).change(function(){
@@ -879,6 +883,7 @@
 				$('#txtCno').val(z_cno);
 				$('#txtAcomp').val(z_acomp);
 				$('#txtDatea').val(q_date());
+				$('#txtZipname').val(padL(new Date().getHours(), '0', 2)+':'+padL(new Date().getMinutes(),'0',2));
 				$('#cmbTypea').val('1');
 				$('#txtDatea').focus();
 				$('#cmbTaxtype').val('1');
@@ -1311,9 +1316,9 @@
 							<span style="float: left;"> </span>
 							<select id="cmbStype"> </select>
 						</td>
-						<td class="td4" style="width: 108px;"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td4" style="width: 108px;"><span> </span><a id='lblDatea_ra' class="lbl"> </a></td>
 						<td class="td5" style="width: 108px;"><input id="txtDatea" type="text"  class="txt c1"/></td>
-						<td class="td6" style="width: 108px;"> </td>
+						<td class="td6" style="width: 108px;"><input id="txtZipname" type="text"  class="txt c1"/></td>
 						<td class="td7" style="width: 108px;"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td8" style="width: 108px;"><input id="txtNoa" type="text" class="txt c1" /></td>
 					</tr>
@@ -1419,12 +1424,13 @@
 					<td align="center" style="width:180px"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:230px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:120px;">車型</td>
+					<td align="center" style="width:120px;"><a id='lblStyle_s_ra'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblStore_s'> </a></td>
 					<td align="center" style="width:150px;" class="isRack"><a id='lblRackno_s'> </a></td>
+					<td align="center" style="width:150px;" class="isRack"><a id='lblRackmount_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblStk_s'> </a></td>
@@ -1457,6 +1463,7 @@
 						<input class="btn"  id="btnRackno.*" type="button" value='.' style="float:left;" />
 						<input id="txtRackno.*" type="text" class="txt c1" style="width: 70%"/>
 					</td>
+					<td class="isRack"><input id="txtLengthc.*" type="text" class="txt num c1"/></td>
 					<td>
 						<input id="txtMemo.*" type="text" class="txt c1"/>
 						<select id="combOrdelist.*" style="width: 10%;"> </select>

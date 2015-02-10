@@ -20,7 +20,7 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtFixmoney',10,0,1]];
+            var bbsNum = [['txtFixmoney',10,0,1],['txtYear',5,0,1]];
             var bbmMask = [];
             var bbsMask = [['txtFixdate', '999/99/99']];
 
