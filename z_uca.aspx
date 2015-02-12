@@ -68,6 +68,16 @@
 						type : '8',
 						name : 'allucc',//[15]
 						value : '1@顯示所有物品'.split(',')
+					}, {
+						type : '2', //[16][17]
+						name : 'xtgg',
+						dbf : 'tgg',
+						index : 'noa,comp',
+						src : 'tgg_b.aspx'
+					}, {
+						type : '0', //[18]
+						name : 'xucctype',
+						value : q_getPara('uccst.typea')
 					}]
 				});
 				q_popAssign();

@@ -44,7 +44,7 @@
 				t_partno = $.trim($('#txtPartno').val());
 				t_part = $.trim($('#txtPart').val());
 				t_custno = $.trim($('#txtCustno').val());
-				t_comp = $.trim($('#txtComp').val());
+				//t_comp = $.trim($('#txtComp').val()); //1040212 不以客戶名稱查詢
 			    t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         		t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
@@ -54,7 +54,7 @@
 					+q_sqlPara2("partno", t_partno)
 					+q_sqlPara2("part", t_part)
 					+q_sqlPara2("custno", t_custno)
-					+q_sqlPara2("comp", t_comp)
+					//+q_sqlPara2("comp", t_comp)
 					+q_sqlPara2("namea", t_namea)
 
 				t_where = ' where=^^' + t_where + '^^ ';
@@ -104,7 +104,7 @@
 					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
 					<td>
 					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
-					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" disabled="disabled" />
 					</td>
 				</tr>
 			</table>

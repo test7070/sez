@@ -71,7 +71,10 @@
 				
 				$('#lblStationmore').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
-						q_box("station_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;;", 'stationmore', "420px", "", q_getMsg('popStation'));
+						if(emp($('#txtStationgno').val()))
+							q_box("station_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;;", 'stationmore', "420px", "", q_getMsg('popStation'));
+						else
+							q_box("station_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";stationgno='"+$('#txtStationgno').val()+"';;", 'stationmore', "420px", "", q_getMsg('popStation'));
 					}
 				});
 				
