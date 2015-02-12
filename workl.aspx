@@ -534,6 +534,12 @@
 				Unlock();
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
+				//if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkcno').val()))
+				q_func('qtxt.query.c0', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				/*else {
+					//處理workc內容
+					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+				}*/
 			}
 
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
@@ -685,13 +691,7 @@
 
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-
-				//if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkcno').val()))
-				q_func('qtxt.query.c0', 'workl.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-				/*else {
-					//處理workc內容
-					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
-				}*/
+				
 			}
 
 			var mouse_point;

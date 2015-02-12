@@ -383,6 +383,13 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
+					
+				//if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkano').val()))
+				q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				/*else {
+					//處理worka內容
+					q_func('worka_post.post.a1', r_accy + ',' + $('#txtWorkano').val() + ',0');
+				}*/
 			}
 
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
@@ -499,13 +506,6 @@
 
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-
-				//if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkano').val()))
-				q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-				/*else {
-					//處理worka內容
-					q_func('worka_post.post.a1', r_accy + ',' + $('#txtWorkano').val() + ',0');
-				}*/
 			}
 
 			var mouse_point;
