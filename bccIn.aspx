@@ -90,14 +90,11 @@
                 	
                 	if(q_getPara('sys.comp').indexOf('大昌')>-1){
                 		t_err = q_chkEmpField([['txtBuyerno', q_getMsg('lblBuyer')]]);
-	                
 		                if(t_err.length > 0) {
 		                    alert(t_err);
 		                    return;
 		                }
-		                
                 		t_where+=" and ((apv='Y' and noa in (select noa from view_ordc where isnull(enda,0)!='1')) or (noa+'_'+no2 in (select ordcno+'_'+no2 from bccins where noa='"+$('#txtNoa').val()+"'))) ";
-                		
                 	}else{
                 		if(emp($('#txtOrdcno').val())&&emp($('#txtTggno').val())){
 	                		alert('請先輸入'+q_getMsg('lblOrdcno')+'或'+q_getMsg('lblTgg')+'。');
@@ -115,23 +112,29 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                	case 'ordc':
-                		if (q_cur > 0 && q_cur < 4) {
-                        b_ret = getb_ret();
-                        if (!b_ret || b_ret.length == 0)
-                            return;
-                        
-						for (var j = 0; j < q_bbsCount; j++) {
-                			$('#btnMinus_'+j).click();
-			         	}
-						
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtBccno,txtBccname,txtUnit,txtMount,txtMount2,txtPrice,txtTotal,txtMemo,txtOrdcno,txtNo2', b_ret.length, b_ret
-                                                           , 'productno,product,unit,mount,mount,price,total,memo,noa,no2'
-                                                           , '');   /// 最後 aEmpField 不可以有【數字欄位】
-						}
-                		break;
+                    case 'ordc':
+                        if (q_cur > 0 && q_cur < 4) {
+                            b_ret = getb_ret();
+                            if (!b_ret || b_ret.length == 0)
+                                return;
+
+                            for (var j = 0; j < q_bbsCount; j++) {
+                                $('#btnMinus_' + j).click();
+                            }
+
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtBccno,txtBccname,txtUnit,txtMount,txtMount2,txtPrice,txtTotal,txtMemo,txtOrdcno,txtNo2', b_ret.length, b_ret, 'productno,product,unit,mount,mount,price,total,memo,noa,no2', '');
+                            /// 最後 aEmpField 不可以有【數字欄位】
+                            
+                            if(emp($('#txtTggno').val())){
+                            	//取得採購的資料
+								var t_where = "where=^^ noa='" + b_ret[0].noa + "' ^^";
+								q_gt('ordc', t_where, 0, 0, 0, "", r_accy);
+							}
+                            
+                        }
+                        break;
                     case q_name + '_s':
-                        q_boxClose2(s2);                   
+                        q_boxClose2(s2);
                         break;
                 }
                 b_pop = '';
@@ -175,6 +178,16 @@
 		                    $("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
+		            case 'ordc':
+		            	var ordc = _q_appendData("ordc", "", true);
+						if (ordc[0] != undefined) {
+							$('#txtTggno').val(ordc[0].tggno);
+							$('#txtTgg').val(ordc[0].tgg);
+							$('#cmbPartno').val(ordc[0].partno);
+							$('#txtPart').val(ordc[0].part);
+							$('#cmbTaxtype').val(ordc[0].taxtype);
+						}
+		            	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
