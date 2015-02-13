@@ -562,6 +562,14 @@
             	}
             }
             
+            //104/02/12 出貨時倉庫沒打直接帶預設倉庫RAA000
+            for (var i = 0; i < q_bbsCount ; i++) {
+            	if(emp($('#txtStoreno_'+i).val())){
+            		$('#txtStoreno_'+i).val('RAA000');
+            		$('#txtStore_'+i).val('英特瑞');
+            	}	
+            }
+            
             if(emp($('#txtMon').val()))
 				$('#txtMon').val($('#txtDatea').val().substr(0,6));
 				

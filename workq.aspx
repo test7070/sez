@@ -566,14 +566,6 @@
 				var i;
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-				
-				if (q_cur == 1 || emp($('#txtWorkcno').val()))
-					q_func('qtxt.query.c0', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-				else {
-					//處理workc d內容
-					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
-					q_func('workd_post.post.a1', r_accy + ',' + $('#txtWorkdno').val() + ',0');
-				}
 			}
 
 			function bbsSave(as) {
@@ -689,6 +681,13 @@
 					Lock();
 					q_func('qtxt.query.workq', 'workq.txt,workqsave,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
 				}*/
+				if (q_cur == 1 || emp($('#txtWorkcno').val()))
+					q_func('qtxt.query.c0', 'workq.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				else {
+					//處理workc d內容
+					q_func('workc_post.post.a1', r_accy + ',' + $('#txtWorkcno').val() + ',0');
+					q_func('workd_post.post.a1', r_accy + ',' + $('#txtWorkdno').val() + ',0');
+				}
 			}
 
 			function q_funcPost(t_func, result) {
