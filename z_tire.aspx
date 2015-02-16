@@ -55,13 +55,19 @@
 					}, {/*7*/
 						type : '6',
 						name : 'xcarplateno'
+					}, {/*7*/
+						type : '6',
+						name : 'xdate'
 					}]
 				});
 				q_popAssign();
 				$('#txtMon1').mask('999/99');
 				$('#txtMon2').mask('999/99');
 				$('#txtXmon').mask('999/99');
-			
+				$('#txtXdate').mask('999/99/99');
+				$('#txtXdate').datepicker();
+				$('#txtXdate').val(q_date);
+				
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
