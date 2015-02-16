@@ -380,34 +380,34 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1" /></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNamea' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblNamea' class="lbl"> </a></td>
 						<td class="td2"><input id="txtNamea" type="text" class="txt c1"/></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblHours' class="lbl"></a></td>
 						<td class="td2"><input id="txtHours" type="text" class="txt c1 num"/></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		<div class='dbbs'>
+		<div class='dbbs' style="display: none;">
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width: 2%;">
