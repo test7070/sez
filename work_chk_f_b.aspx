@@ -63,7 +63,18 @@
 				var as = _q_appendData("store", "", true);
 				if (as[0] != undefined) {
 					t_storeno=as[0].noa;
-					t_store=as[0].store
+					t_store=as[0].store;
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#textStoreno2_'+j).val(t_storeno).attr('disabled', 'disabled');
+						$('#textStore2_'+j).val(t_store).attr('disabled', 'disabled');
+						$('#btnStore2_'+j).hide();
+					}
+				}else{
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#textStoreno2_'+j).val('').attr('disabled', 'disabled');
+						$('#textStore2_'+j).val('').attr('disabled', 'disabled');
+						$('#btnStore2_'+j).hide();
+					}
 				}
 			}
 			
@@ -89,7 +100,7 @@
 				});
 			});*/
 			
-			if(!emp($('#txtTggno_0').val())){
+			if(!emp($('#txtTggno_0').val()) && r_outs=='1'){
 				q_gt('store', "where=^^tggno='"+$('#txtTggno_0').val()+"'^^", 0, 0, 0, "store", r_accy);
 			}
 						

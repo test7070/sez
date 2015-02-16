@@ -36,7 +36,7 @@
 			brwNowPage = 0;
 			brwKey = '';
 			aPop = new Array(
-				['txtStationno', 'lblStation', 'station', 'noa,station,storeno,store', 'txtStationno,txtStation,txtStoreno,txtStore', 'station_b.aspx'],
+				['txtStationno', '', 'station', 'noa,station,storeno,store', 'txtStationno,txtStation,txtStoreno,txtStore', 'station_b.aspx'],
 				['txtStationgno', 'lblStationg', 'stationg', 'noa,namea', 'txtStationgno,txtStationg', 'stationg_b.aspx'],
 				['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
 				['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx'],
@@ -69,14 +69,23 @@
 					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 				});
 				
-				$('#lblStationmore').click(function() {
+				$('#lblStation').click(function() {
+					if (q_cur == 1 || q_cur == 2) {
+						if(emp($('#txtStationgno').val()))
+							q_box("station_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;;", 'station', "420px", "", q_getMsg('popStation'));
+						else
+							q_box("station_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";stationgno='"+$('#txtStationgno').val()+"';;", 'station', "420px", "", q_getMsg('popStation'));
+					}
+				});
+				
+				/*$('#lblStationmore').click(function() {
 					if (q_cur == 1 || q_cur == 2) {
 						if(emp($('#txtStationgno').val()))
 							q_box("station_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;;", 'stationmore', "420px", "", q_getMsg('popStation'));
 						else
 							q_box("station_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";stationgno='"+$('#txtStationgno').val()+"';;", 'stationmore', "420px", "", q_getMsg('popStation'));
 					}
-				});
+				});*/
 				
 				//1020729 排除已完全入庫&&完全未領料的成品
 				$('#btnOrdes').click(function() {
@@ -241,6 +250,17 @@
 							$('#textStationno').val(stationno_more);
 						}
 						break;
+					case 'station':
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0){
+								b_pop = '';
+								return;
+							}
+							var t_where = "where=^^ noa ='"+b_ret[0].noa+"' ^^";
+							q_gt('station', t_where, 0, 0, 0, "", r_accy);
+						}
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -342,7 +362,15 @@
 							alert(pickerror + ' 入庫與領料比例不符!!');
 						}
 						break;
-
+					case 'station':
+						var as = _q_appendData("station", "", true);
+						if (as[0] != undefined) {
+							$('#txtStationno').val(as[0].noa);
+							$('#txtStation').val(as[0].station);
+							$('#txtStoreno').val(as[0].storeno);
+							$('#txtStore').val(as[0].store);
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -830,10 +858,10 @@
 							<input id="txtStationg" type="text" class="txt" style='width:48%;'/>
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblStationmore' class="lbl btn">多選線別</a></td>
 						<td colspan="3"><input id="textStationno" type="text" class="txt c1" style="width: 98%;"/></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id='lblBdate' class="lbl"> </a></td>
 						<td>
