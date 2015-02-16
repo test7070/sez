@@ -171,11 +171,9 @@
 				});
 				
 				$('#btnUsecrd').click(function(){
-					if(q_cur==1 || q_cur==2){
-						var t_custno = $('#txtNoa').val();
-						var t_where = " noa='"+t_custno+"'";
-						q_box("usecrd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, JSON.stringify({action:'usecrd',custno:t_custno}), "95%", "95%", q_getMsg('usecrd'));					
-					}
+					var t_custno = $('#txtNoa').val();
+					var t_where = " noa='"+t_custno+"'";
+					q_box("usecrd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, JSON.stringify({action:'usecrd',custno:t_custno}), "95%", "95%", q_getMsg('usecrd'));					
 				});
 				
 				$('#txtXyNoa1').click(function(){
@@ -205,7 +203,6 @@
 			}
 			
 			var xy_newnoa=''; 
-			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -217,7 +214,9 @@
 							t_para = JSON.parse(b_pop);
 							if(t_para.action=='usecrd'){
 								console.log('boxclose usecrd');
-								q_gt('usecrd', "where=^^noa='"+t_para.custno+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_para.custno}));	
+								setTimeout(function(){
+									q_gt('usecrd', "where=^^noa='"+t_para.custno+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_para.custno}));	
+								},1000);
 							}else{
 								
 							}
@@ -366,11 +365,18 @@
 								t_credit = 0;
 								if(as[0] != undefined){
 									for(var i=0;i<as.length;i++){
-										t_credit += round(as[i].credit,0);
+										try{
+											if(parseFloat(as[i].credit)>0)
+												console.log(as[i].credit);
+											t_credit += round(parseFloat(as[i].credit),0);
+										}catch(e){
+											
+										}
 									}
-									console.log(t_credit);
 								}
+								
 								$('#txtCredit').val(t_credit);
+								abbm[q_recno].credit = t_credit;
 								if(t_para.issave){
 									Save();
 								}
@@ -638,12 +644,12 @@
 					$('#btnConn').removeAttr('disabled');
 					$('#btnCustm').removeAttr('disabled');
 					//$('#btnTmpcustno_xy').removeAttr('disabled');
-					$('#btnUsecrd').attr('disabled', 'disabled');
+					//$('#btnUsecrd').attr('disabled', 'disabled');
 				}else{
 					$('#btnConn').attr('disabled', 'disabled');
 					$('#btnCustm').attr('disabled', 'disabled');
 					//$('#btnTmpcustno_xy').attr('disabled', 'disabled');	
-					$('#btnUsecrd').removeAttr('disabled');
+					//$('#btnUsecrd').removeAttr('disabled');
 				}
 				
 			}
