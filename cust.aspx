@@ -216,7 +216,7 @@
 								console.log('boxclose usecrd');
 								setTimeout(function(){
 									q_gt('usecrd', "where=^^noa='"+t_para.custno+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_para.custno}));	
-								},1000);
+								},1500);
 							}else{
 								
 							}
