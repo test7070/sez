@@ -758,10 +758,12 @@
 					$('#btnOrdei').removeAttr('disabled');
 					$('#combAddr').attr('disabled', 'disabled');
 					$('#txtOdate').datepicker( 'destroy' );
+					$('#btnOrdem').removeAttr('disabled');
 				} else {
 					$('#btnOrdei').attr('disabled', 'disabled');
 					$('#combAddr').removeAttr('disabled');
 					$('#txtOdate').datepicker();
+					$('#btnOrdem').attr('disabled', 'disabled');
 				}	
 				
 				$('#div_addr2').hide();
@@ -1000,7 +1002,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:25%"><a id='vewOdate'> </a></td>
 						<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:40%"><a id='vewComp'> </a></td>
 					</tr>

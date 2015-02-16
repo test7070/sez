@@ -1009,6 +1009,8 @@
 			                	for (var j = 0; j < fbbs.length; j++) {
 			                		$('#'+fbbs[j]+'_'+(i+1)).val($('#'+fbbs[j]+'_'+(i)).val());
 			                	}
+			                	//刪除舊資料
+			                	del_cugunoq=del_cugunoq+(del_cugunoq.length>0?'&':'')+$('#txtCugunoq_'+i).val();
 			                	//更新資料
 			                	$('#txtCugunoq_'+i).val($('#txtCugunoq_'+i).val()+'A');
 			                	$('#txtMount_'+i).val(x_mount1);
@@ -1148,6 +1150,8 @@
                 		}else{
                 			$('#txtGenorg').val(dec(as[0].gen)>0?dec(as[0].gen):8);
                 			$('#txtSmount').val(dec(as[0].hours)!=0?Math.ceil(q_div(as[0].gen,as[0].hours)):1);
+                			if($('#txtSmount').val()=='0')
+                				$('#txtSmount').val('1');
                 			getnewgen=true;
                 			scheduling();
                 		}

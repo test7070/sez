@@ -72,7 +72,8 @@
 						}
 					}
 				}
-                $('#btnOk').click();
+				if(hrefList[0]!="")
+                	$('#btnOk').click();
             }
 
             function q_boxClose(s2) {

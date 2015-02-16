@@ -75,26 +75,22 @@
 				var t_noa = $('#txtNoa').val();
 				switch (table) {
 					case 'ordemt':
-//						if (!as['pack']) {  // Dont Save Condition
-//							as[t_key] = '';   /// noa  empty --> dont save
-//							return false;
-//							break;
-//						}
+						if (!as['pack']&&!as['packno']) {  // Dont Save Condition
+							as[t_key] = '';   /// noa  empty --> dont save
+							return false;
+							break;
+						}
 						as[t_key] = t_noa;
 						break;
 					default:
-//						if (!as['manu']) {  // Dont Save Condition
-//							as[t_key] = '';   /// noa  empty --> dont save
-//							return false;
-//							break;
-//						}
+						if (!as['manu'] && !as['manuno']) {  // Dont Save Condition
+							as[t_key] = '';   /// noa  empty --> dont save
+							return false;
+							break;
+						}
 						as[t_key] = t_noa;
 				}
 				return true;
-			}
-
-			function btnModi() {
-				_btnModi();
 			}
 
 			function q_gtPost(t_postname) {
@@ -112,6 +108,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				$('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
 			}
 
 			function readonly(t_para, empty) {
