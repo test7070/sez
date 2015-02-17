@@ -6,9 +6,13 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			this.errorHandler = null;
 			function onPageError(error) {
@@ -16,7 +20,7 @@
 			}
 
 			var q_name = "cust";
-			var q_readonly = ['txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
+			var q_readonly = ['txtCredit','txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
 			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1],['textTranprice', 10, 0, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
@@ -82,15 +86,13 @@
 			};
 			var curData = new currentData();
 
-			////////////////// end Ready
 			function main() {
 				if (dataErr) {
 					dataErr = false;
 					return;
 				}
 				mainForm(0);
-				// 1=Last 0=Top
-			}/// end Main()
+			}
 
 			function mainPost() {
 				bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99']];
@@ -169,11 +171,9 @@
 				});
 				
 				$('#btnUsecrd').click(function(){
-					var t_custno = $.trim($('#txtNoa').val());
-					if((t_custno.length > 0) && (t_custno.toUpperCase() != 'AUTO')){
-						var t_where = "noa='" + t_custno + "'";
-						q_box("usecrd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'usecrd', "95%", "450px", q_getMsg('btnUsecrd'));
-					}
+					var t_custno = $('#txtNoa').val();
+					var t_where = " noa='"+t_custno+"'";
+					q_box("usecrd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, JSON.stringify({action:'usecrd',custno:t_custno}), "95%", "95%", q_getMsg('usecrd'));					
 				});
 				
 				$('#txtXyNoa1').click(function(){
@@ -200,16 +200,29 @@
 					var t_where = "where=^^ ['"+$('#txtComp').val() +"')  ^^";
 					q_gt('cust_xy', t_where, 0, 0, 0, "XY_newcust_getpy", r_accy);
 				});*/
-				
 			}
 			
 			var xy_newnoa=''; 
-			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
 					case q_name + '_s':
 						q_boxClose2(s2);
+						break;
+					default:
+						try{
+							t_para = JSON.parse(b_pop);
+							if(t_para.action=='usecrd'){
+								console.log('boxclose usecrd');
+								setTimeout(function(){
+									q_gt('usecrd', "where=^^noa='"+t_para.custno+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_para.custno}));	
+								},1500);
+							}else{
+								
+							}
+						}catch(e){
+							console.log(e.message);
+						}
 						break;
 				}
 				b_pop = '';
@@ -343,6 +356,36 @@
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
+						break;
+					default:
+						try{
+							t_para = JSON.parse(t_name);
+							if(t_para.action=='usecrd'){
+								var as = _q_appendData("usecrd", "", true);
+								t_credit = 0;
+								if(as[0] != undefined){
+									for(var i=0;i<as.length;i++){
+										try{
+											if(parseFloat(as[i].credit)>0)
+												console.log(as[i].credit);
+											t_credit += round(parseFloat(as[i].credit),0);
+										}catch(e){
+											
+										}
+									}
+								}
+								
+								$('#txtCredit').val(t_credit);
+								abbm[q_recno].credit = t_credit;
+								if(t_para.issave){
+									Save();
+								}
+							}else{
+								
+							}
+						}catch(e){
+							console.log('gtpost:'+e.message);
+						}
 						break;
 				} /// end switch
 			}
@@ -483,7 +526,10 @@
 					var t_invomemo=$('#textIsvcc').val()+'##'+$('#textIsinvo').val()+'##'+$('#textIstax').val()+'##'+$('#textCheckvcc').val()+'##'+$('#textIspost').val()+'##'+$('#textTranprice').val();
 					$('#txtInvomemo').val(t_invomemo);
 				}
-				
+				var t_noa = $('#txtNoa').val();
+				q_gt('usecrd', "where=^^noa='"+t_noa+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_noa,issave:true}));	
+			}
+			function Save(){
 				if (q_cur == 1) {
 					t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
 					q_gt('cust', t_where, 0, 0, 0, "checkCustno_btnOk", r_accy);
@@ -598,10 +644,12 @@
 					$('#btnConn').removeAttr('disabled');
 					$('#btnCustm').removeAttr('disabled');
 					//$('#btnTmpcustno_xy').removeAttr('disabled');
+					//$('#btnUsecrd').attr('disabled', 'disabled');
 				}else{
 					$('#btnConn').attr('disabled', 'disabled');
 					$('#btnCustm').attr('disabled', 'disabled');
 					//$('#btnTmpcustno_xy').attr('disabled', 'disabled');	
+					//$('#btnUsecrd').removeAttr('disabled');
 				}
 				
 			}
