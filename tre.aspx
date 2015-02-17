@@ -33,6 +33,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             q_desc = 1;
+            q_bbsLen = 20;
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTggcomp', 'tgg_b.aspx'],
