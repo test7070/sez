@@ -14,11 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
-
+		
 			var q_name = "cust";
 			var q_readonly = ['txtCredit','txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
 			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1],['textTranprice', 10, 0, 1]];
@@ -171,6 +167,7 @@
 				});
 				
 				$('#btnUsecrd').click(function(){
+					_usecrd_credit = 0;//由usecrd.aspx  覆寫資料
 					var t_custno = $('#txtNoa').val();
 					var t_where = " noa='"+t_custno+"'";
 					q_box("usecrd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" +t_where, JSON.stringify({action:'usecrd',custno:t_custno}), "95%", "95%", q_getMsg('usecrd'));					
@@ -212,11 +209,14 @@
 					default:
 						try{
 							t_para = JSON.parse(b_pop);
+							//資料由 usecrd.aspx更新
 							if(t_para.action=='usecrd'){
-								console.log('boxclose usecrd');
+								//$('#txtCredit').val(_usecrd_credit);
+								//abbm[q_recno].credit = _usecrd_credit;
+								/*console.log('boxclose usecrd');
 								setTimeout(function(){
 									q_gt('usecrd', "where=^^noa='"+t_para.custno+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_para.custno}));	
-								},1500);
+								},1500);*/
 							}else{
 								
 							}
@@ -360,7 +360,7 @@
 					default:
 						try{
 							t_para = JSON.parse(t_name);
-							if(t_para.action=='usecrd'){
+							/*if(t_para.action=='usecrd'){
 								var as = _q_appendData("usecrd", "", true);
 								t_credit = 0;
 								if(as[0] != undefined){
@@ -382,7 +382,7 @@
 								}
 							}else{
 								
-							}
+							}*/
 						}catch(e){
 							console.log('gtpost:'+e.message);
 						}
@@ -526,8 +526,12 @@
 					var t_invomemo=$('#textIsvcc').val()+'##'+$('#textIsinvo').val()+'##'+$('#textIstax').val()+'##'+$('#textCheckvcc').val()+'##'+$('#textIspost').val()+'##'+$('#textTranprice').val();
 					$('#txtInvomemo').val(t_invomemo);
 				}
-				var t_noa = $('#txtNoa').val();
-				q_gt('usecrd', "where=^^noa='"+t_noa+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_noa,issave:true}));	
+				/*
+				 * 
+				 *var t_noa = $('#txtNoa').val();
+				 *q_gt('usecrd', "where=^^noa='"+t_noa+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_noa,issave:true}));	
+				*/
+				Save();
 			}
 			function Save(){
 				if (q_cur == 1) {
