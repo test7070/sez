@@ -75,6 +75,9 @@
 							type : '5',
 							name : 'typea',
 							value : ('#non@全部,'+q_getPara('bcc.type')).split(',')
+						},{/*1*/
+							type : '6',
+							name : 'xdate'
 						}]
                     });
                     q_popAssign();
@@ -106,6 +109,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXdate').val(q_date());
 	                
 					$('#chkXstore').children('input').attr('checked', 'checked');
                 }
