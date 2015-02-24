@@ -115,6 +115,10 @@
 				$('.btnUcam').hide();// 嘜頭
 				$('#btnCustm').hide();//稅務資料
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					var xy_taxtype='',xy_taxtmp=q_getPara('sys.taxtype').split(',');
+					for(var i=0;i<xy_taxtmp.length;i++)
+						xy_taxtype=xy_taxtype+(xy_taxtype.length>0?',':'')+xy_taxtmp[i].split('@')[1]+'@'+xy_taxtmp[i].split('@')[1];
+					q_cmbParse("combIstax", xy_taxtype);
 					$('#btnCustm').show();
 				}
 
@@ -523,7 +527,7 @@
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('#txtConntel').val($('#textConn').val());
 					$('#txtBillmemo').val($('#textTrantime').val());
-					var t_invomemo=$('#textIsvcc').val()+'##'+$('#textIsinvo').val()+'##'+$('#textIstax').val()+'##'+$('#textCheckvcc').val()+'##'+$('#textIspost').val()+'##'+$('#textTranprice').val();
+					var t_invomemo=$('#textIsvcc').val()+'##'+$('#textIsinvo').val()+'##'+$('#combIstax').val()+'##'+$('#textCheckvcc').val()+'##'+$('#textIspost').val()+'##'+$('#textTranprice').val();
 					$('#txtInvomemo').val(t_invomemo);
 				}
 				/*
@@ -592,7 +596,7 @@
 						$('#textTrantime').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtBillmemo').val());
 						$('#textIsvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[0]);
 						$('#textIsinvo').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[1]);
-						$('#textIstax').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[2]);
+						$('#combIstax').css('color', 'black').css('background', 'white').removeAttr('disabled').val(t_invomemo[2]);
 						$('#textCheckvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[3]);
 						$('#textIspost').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[4]);
 						$('#textTranprice').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[5]);
@@ -601,7 +605,7 @@
 						$('#textTrantime').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtBillmemo').val());
 						$('#textIsvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[0]);
 						$('#textIsinvo').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[1]);
-						$('#textIstax').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[2]);
+						$('#combIstax').css('color', 'black').css('background', 'RGB(237,237,238)').attr('disabled', 'disabled').val(t_invomemo[2]);
 						$('#textCheckvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[3]);
 						$('#textIspost').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[4]);
 						$('#textTranprice').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[5]);
@@ -1066,7 +1070,10 @@
 						<td><span> </span><a class="lbl isXY" style="display: none;">貨單開立</a></td>
 						<td><input id="textIsvcc" type="text" class="txt c1 isXY "/></td>
 						<td><span> </span><a class="lbl isXY" style="display: none;">課稅方式</a></td>
-						<td><input id="textIstax" type="text" class="txt c1 isXY"/></td>
+						<td>
+							<!--<input id="textIstax" type="text" class="txt c1 isXY"/>-->
+							<select id="combIstax" class="txt c1 isXY"> </select>
+						</td>
 						<td><span> </span><a class="lbl isXY" style="display: none;">驗單需求</a></td>
 						<td><input id="textCheckvcc" type="text" class="txt c1 isXY"/></td>
 					</tr>
