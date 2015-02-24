@@ -388,13 +388,7 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-					
-				//if (q_cur == 1 || emp($('#txtCngno').val()) || emp($('#txtWorkano').val()))
-				q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-				/*else {
-					//處理worka內容
-					q_func('worka_post.post.a1', r_accy + ',' + $('#txtWorkano').val() + ',0');
-				}*/
+				//q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 			}
 
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
@@ -632,8 +626,6 @@
 				if (!confirm(mess_dele))
 					return;
 				q_cur = 3;
-				//處理worka內容
-				//q_func('worka_post.post.a2', r_accy + ',' + $('#txtWorkano').val() + ',0');
 				q_func('qtxt.query.c2', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 			}
 
@@ -644,28 +636,16 @@
 			//0325 拿掉 workano 不產生領料
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					/*case 'worka_post.post.a1':
-						//呼叫workk.post
-						q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-						break;*/
-					/*case 'worka_post.post.a2':
-						//呼叫workk.post
-						q_func('qtxt.query.c2', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
-						break;*/
-					case 'qtxt.query.c0':
+					/*case 'qtxt.query.c0':
 						q_func('qtxt.query.c1', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';1');
 						break;
 					case 'qtxt.query.c1':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
 							abbm[q_recno]['cngno'] = as[0].cngno;
-							//abbm[q_recno]['workano'] = as[0].workano;
 							$('#txtCngno').val(as[0].cngno);
-							//$('#txtWorkano').val(as[0].workano);
 						}
-						//處理worka內容
-						//q_func('worka_post.post', r_accy + ',' + $('#txtWorkano').val() + ',1');
-						break;
+						break;*/
 					case 'qtxt.query.c2':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;
