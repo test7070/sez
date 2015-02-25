@@ -11,9 +11,9 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "cust_s";
-			aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,nick', 'txtNoa', 'cust_b.aspx']
-			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,nick', 'txtSerial', 'cust_b.aspx']
-			,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno', 'sss_b.aspx']
+			aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,nick', 'txtNoa', '']
+			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,nick', 'txtSerial', '']
+			,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno', '']
 			);
 			$(document).ready(function() {
 				main();
