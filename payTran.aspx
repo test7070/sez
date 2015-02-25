@@ -440,11 +440,11 @@
 							var as = _q_appendData("chk2s", "", true);
 							if (as[0] != undefined) {
 								alert('支票【' + t_checkno + '】已託收，託收單號【' + as[0].noa + '】');
-								Unlock(1);
-							} else {
+								//Unlock(1);
+							} //else {
 								var t_where = " where=^^ checkno='" + t_checkno + "'^^";
 								q_gt('ufs', t_where, 0, 0, 0, "gqb_status2_" + t_sel + "_" + t_checkno, r_accy);
-							}
+							//}
 						} else if (t_name.substring(0, 11) == 'gqb_status2') {
 							//檢查GQB
 							var t_sel = parseFloat(t_name.split('_')[2]);
@@ -452,10 +452,10 @@
 							var as = _q_appendData("ufs", "", true);
 							if (as[0] != undefined) {
 								alert('支票【' + t_checkno + '】已兌現，兌現單號【' + as[0].noa + '】');
-								Unlock(1);
-							} else {
+							//	Unlock(1);
+							} //else {
 								checkGqbStatus_btnModi(t_sel - 1);
-							}
+							//}
 						} else if (t_name.substring(0, 11) == 'gqb_statusA') {
 							//檢查GQB
 							var t_sel = parseFloat(t_name.split('_')[2]);
@@ -463,11 +463,11 @@
 							var as = _q_appendData("chk2s", "", true);
 							if (as[0] != undefined) {
 								alert('支票【' + t_checkno + '】已託收，託收單號【' + as[0].noa + '】');
-								Unlock(1);
-							} else {
+								//Unlock(1);
+							} //else {
 								var t_where = " where=^^ checkno='" + t_checkno + "'^^";
 								q_gt('ufs', t_where, 0, 0, 0, "gqb_statusB_" + t_sel + "_" + t_checkno, r_accy);
-							}
+							//}
 						} else if (t_name.substring(0, 11) == 'gqb_statusB') {
 							//檢查GQB
 							var t_sel = parseFloat(t_name.split('_')[2]);
@@ -475,10 +475,10 @@
 							var as = _q_appendData("ufs", "", true);
 							if (as[0] != undefined) {
 								alert('支票【' + t_checkno + '】已兌現，兌現單號【' + as[0].noa + '】');
-								Unlock(1);
-							} else {
+								//Unlock(1);
+							} //else {
 								checkGqbStatus_btnDele(t_sel - 1);
-							}
+							//}
 						}
 						break;
 				}
