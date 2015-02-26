@@ -12,7 +12,7 @@
 		<script type="text/javascript">
 			var q_name = "car2_s";
 			
-			aPop = [['txtCarno', 'lblCarno', 'car2', 'a.noa,carownerno,carowner', 'txtCarno', 'car2_b.aspx'],
+			aPop = [['txtCarno', 'lblCarno', 'car2', 'a.noa,carownerno,carowner', 'txtCarno,txtCarownerno', 'car2_b.aspx'],
 						['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno', 'carowner_b.aspx'], 
 				 		['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx']];
 

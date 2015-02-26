@@ -30,7 +30,7 @@
 						name : 'xmon'
 					}, {
 						type : '1', //[3][4]
-						name : 'xdate'
+						name : 'ydate'
 					}, {
 						type : '2', //[5][6]
 						name : 'xsno',
@@ -48,10 +48,10 @@
 				$('#txtXmon').mask('999/99');
 				$('#txtXyears').mask('999');
 				$('#txtXyears').val(q_date().substring(0,3));
-				$('#txtXdate1').mask('999/99/99');
-				$('#txtXdate1').datepicker();
-				$('#txtXdate2').mask('999/99/99');
-				$('#txtXdate2').datepicker();
+				$('#txtYdate1').mask('999/99/99');
+				$('#txtYdate1').datepicker();
+				$('#txtYdate2').mask('999/99/99');
+				$('#txtYdate2').datepicker();
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -61,7 +61,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtXdate1').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtYdate1').val(t_year + '/' + t_month + '/' + t_day);
 				$('#txtXmon').val(t_year + '/' + t_month);
 
 				t_date = new Date();
@@ -73,7 +73,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtYdate2').val(t_year + '/' + t_month + '/' + t_day);
 			}
 
 			function q_boxClose(s2) {

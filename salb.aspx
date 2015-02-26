@@ -688,7 +688,7 @@
 					</td>
 					<td align="center"><a id='lblSssno'> </a></td>
 					<td align="center"><a id='lblNamea'> </a></td>
-					<td align="center"><a id='lblId'> </a></td>
+					<td align="center" style="display: none;"><a id='lblId'> </a></td>
 					<td align="center" style="width: 20px;"><a id='vewIsclerk'> </a></td>
 					<td align="center" style="width: 90px;"><a id='lblTypea'> </a></td>
 					<td align="center" style="width: 90px;"><a id='lblTypeb'> </a></td>
@@ -712,7 +712,7 @@
 					<!--<td align="center"><a id='lblMi_moneys'> </a></td>-->
 					<td align="center" style="width: 40px;"><a id='lblSex'> </a></td>
 					<td align="center"><a id='lblComp'> </a></td>
-					<td align="center" style="width: 250px;"><a id='lblAddr'> </a></td>
+					<td align="center" style="width: 250px;display: none;"><a id='lblAddr'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -723,7 +723,7 @@
 						<input id="txtSssno.*" type="text" class="txt" style="width:70%;"/>
 					</td>
 					<td><input id="txtNamea.*" type="text" class="txt c1"/></td>
-					<td><input id="txtId.*" type="text" class="txt c1"/></td>
+					<td style="display: none;"><input id="txtId.*" type="text" class="txt c1" style="display: none;"/></td>
 					<td><input id="chkIsclerk.*" type="checkbox"/></td>
 					<td><select id="cmbTypea.*" class="txt c1"> </select></td>
 					<td><select id="cmbTypeb.*" class="txt c1"> </select></td>
@@ -750,7 +750,7 @@
 						<input id="txtCno.*" type="text" class="txt c1"/>
 						<input id="txtNoq.*" type="hidden" />
 					</td>
-					<td><input id="txtAddr.*" type="text" class="txt c1"/></td>
+					<td style="display: none;"><input id="txtAddr.*" type="text" class="txt c1" style="display: none;"/></td>
 				</tr>
 			</table>
 		</div>
