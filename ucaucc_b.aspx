@@ -52,6 +52,7 @@
 					<th align="center" ></th>
 					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
 					<th align="center" style='color:Blue;' ><a id='lblProduct'></a></th>
+					<th align="center" style='color:Blue;' ><a id='lblSpec'></a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -60,8 +61,11 @@
 					<td style="width:20%;">
 						<input class="txt" id="txtNoa.*" type="text" style="width:98%;" readonly="readonly" />
 					</td>
-					<td style="width:75%;">
+					<td style="width:30%;">
 						<input class="txt" id="txtProduct.*" type="text" style="width:98%;" readonly="readonly" />
+					</td>
+					<td style="width:40%;">
+						<input class="txt" id="txtSpec.*" type="text" style="width:98%;" readonly="readonly" />
 					</td>
 				</tr>
 			</table>
