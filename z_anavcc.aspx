@@ -79,6 +79,13 @@
                         type : '5', //[20]
                         name : 'vccstype',
                         value : q_getPara('sys.comp').indexOf('永勝')>-1?(' @全部,'+q_getPara('vcc.stype_uu')).split(','):(' @全部,'+q_getPara('vcc.stype')).split(',')
+					}, {
+						type : '6', //[21]
+						name : 'lostdate'
+					}, {
+                        type : '5', //[22]
+                        name : 'lostorder',
+                        value : "0@交易日,1@業務".split(',')
 					}]
 				});
 				q_popAssign();
@@ -96,6 +103,7 @@
 				$('#txtXbmon2').val(r_accy+'/12').mask('999/99');
 				$('#txtXemon1').val(r_accy+'/01').mask('999/99');
 				$('#txtXemon2').val(r_accy+'/12').mask('999/99');
+				$('#txtLostdate').val(100);
 				//$('#Xuccgroupano select').css('width','150px');
 			}
 

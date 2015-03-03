@@ -723,6 +723,7 @@
 					$('#txtWedate').datepicker( 'destroy' );
 					$('#txtSfbdate').datepicker( 'destroy' );
 					$('#txtSfbdate').datepicker( 'destroy' );
+					$('#copyunprepare').attr('disabled', 'disabled');
 				} else {
 					$('#btnOrde').removeAttr('disabled');
 					$('#btnWorkg').removeAttr('disabled');
@@ -735,6 +736,7 @@
 					$('#txtWedate').datepicker();
 					$('#txtSfbdate').datepicker();
 					$('#txtSfedate').datepicker();
+					$('#copyunprepare').removeAttr('disabled').prop('checked',false);
 				}
 				change_field();
 				var hasStyle = q_getPara('sys.isstyle');
@@ -877,6 +879,20 @@
 								var t_noq = padL((dec(n)+1), '0', 3);
 								var t_where = "workgnoa='" + t_noa + "' and workgnoq='" + t_noq + "'";
 								q_box("z_born.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'born', "95%", "95%", q_getMsg('lblBorn'));
+							}
+						});
+						
+						$('#copyunprepare').click(function() {
+							if(q_cur==1 || q_cur==2){
+								for (var j = 0; j < q_bbsCount; j++) {
+									if(!emp($('#txtProductno_'+j).val())){
+										if($('#copyunprepare').prop('checked')){
+												q_tr('txtForecastprepare_'+j,q_float('txtUnprepare_'+j));
+										}else{
+											q_tr('txtForecastprepare_'+j,0);
+										}
+									}			
+								}
 							}
 						});
 					}
@@ -1302,7 +1318,10 @@
 						<td style="width:90px;" class="sf"><a id='lblSaleforecast_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblPrepare_s'> </a></td>
 						<td style="width:90px;" class="sf"><a id='lblUnprepare_s'> </a></td>
-						<td style="width:120px;" class="sf"><a id='lblForecastprepare_s' style="color: red;font-weight: bold;"> </a></td>
+						<td style="width:140px;" class="sf">
+							<a id='lblForecastprepare_s' style="color: red;font-weight: bold;"> </a>
+							<input id="copyunprepare" type="checkbox">
+						</td>
 						<td style="width:110px;"><a id='lblUnmount_s'> </a></td>
 						<td style="width:110px;"><a id='lblOrdemount_s'> </a></td>
 						<td style="width:80px;"><a id='lblStkmount_s'> </a></td>
