@@ -388,7 +388,7 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				//q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
+				q_func('qtxt.query.c0', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';0');
 			}
 
 			var btnok_bbsstkchk = false, stkchkcount = 0, stkchkcount2 = 0, btnok_msg = '';
@@ -636,7 +636,7 @@
 			//0325 拿掉 workano 不產生領料
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-					/*case 'qtxt.query.c0':
+					case 'qtxt.query.c0':
 						q_func('qtxt.query.c1', 'workk.txt,post,' + r_accy + ';' + encodeURI($('#txtNoa').val()) + ';1');
 						break;
 					case 'qtxt.query.c1':
@@ -645,7 +645,7 @@
 							abbm[q_recno]['cngno'] = as[0].cngno;
 							$('#txtCngno').val(as[0].cngno);
 						}
-						break;*/
+						break;
 					case 'qtxt.query.c2':
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;
