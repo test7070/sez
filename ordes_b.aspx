@@ -50,6 +50,8 @@
 					/*if(dec($('#txtMount_' + j).val())<=dec($('#txtCuamount_' + j).val()))
 					 $('#chkSel_'+j).attr('disabled','disabled');*/
 				}
+				if(q_getPara('sys.isspec')!='1')
+					$('.isSpec').hide();
 			}
 
 			function q_gtPost() {
@@ -98,6 +100,8 @@
 					$('#checkZero').hide();
 					$('#Zero').hide();
 				}
+				if(q_getPara('sys.isspec')!='1')
+					$('.isSpec').hide();
 			}
 
 		</script>
@@ -119,8 +123,8 @@
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center"><input type="checkbox" id="checkAllCheckbox"/></td>
-					<td align="center"><a id='lblProductno'> </a>/<a id='lblProduct'> </a></td>
-					<!--<td align="center"><a id='lblSpec'></a></td>-->
+					<td align="center"><a id='lblProductno'> </a></td>
+					<td align="center"><a id='lblProduct'> </a> <a id='lblSpec' class="isSpec"> </a></td>
 					<td align="center"><a id='lblUnit'> </a></td>
 					<td align="center"><a id='lblMount'> </a></td>
 					<td align="center" class="weight"><a id='lblWeight'> </a></td>
@@ -133,9 +137,10 @@
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
+					<td style="width:15%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
 					<td style="width:15%;">
-						<input class="txt"  id="txtProductno.*" type="text" style="width:98%;" />
 						<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
+						<input class="txt isSpec" id="txtSpec.*" type="text" style="width:98%;" />
 					</td>
 					<!--<td style="width:18%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" />
 					<input class="txt" id="txtDime.*" type="text"  style="width:25%;text-align:right;" />x
@@ -164,7 +169,7 @@
 						<input class="txt" id="txtNoa.*" type="text" style="width:98%;"/>
 						<input class="txt" id="txtNo2.*" type="text"  style="width:98%;"/>
 					</td>
-					<td style="width:15%;">
+					<td style="width:13%;">
 						<input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/>
 					</td>
 					<td>
@@ -176,7 +181,6 @@
 						<input id="txtStationhours.*" type="hidden" />
 						<input id="txtStationgen.*" type="hidden" />
 						<input id="txtStyle.*" type="hidden" />
-						<input id="txtSpec.*" type="hidden" />
 						<input id="txtWidth.*" type="hidden" />
 						<input id="txtLengthb.*" type="hidden" />
 						<input id="txtLengthc.*" type="hidden" />

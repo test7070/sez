@@ -9,7 +9,7 @@
 	<script src='../script/mask.js' type="text/javascript"></script>
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
-		var q_name = 'view_quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,unit,mount,notv,noa,no3,price  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
+		var q_name = 'view_quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,unit,mount,notv,noa,no3,price,spec  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
 		var t_sqlname = 'view_quats';
 		t_postname = q_name;
 		brwCount = -1;
@@ -35,6 +35,8 @@
 			if(q_getPara('sys.project').toUpperCase()=='XY'){
 				$('.XY').hide();
 			}
+			if(q_getPara('sys.isspec')!='1')
+				$('.isSpec').hide();
 		}
 		function q_gtPost() { 
 	
@@ -48,6 +50,11 @@
 						$(this).attr('checked',$('#checkAllCheckbox').is(':checked'));
 				});
 			});
+			if(q_getPara('sys.project').toUpperCase()=='XY'){
+				$('.XY').hide();
+			}
+			if(q_getPara('sys.isspec')!='1')
+				$('.isSpec').hide();
 		}
 	</script>
 	<style type="text/css">
@@ -74,7 +81,7 @@
 					<input type="checkbox" id="checkAllCheckbox"/>
 				</td>
 				<td align="center"><a id='lblProductno'> </a></td>
-				<td align="center"><a id='lblProduct'> </a></td>
+				<td align="center"><a id='lblProduct'> </a> <a id='lblSpec' class="isSpec"> </a></td>
 				<td align="center"><a id='lblUnit'> </a></td>
 				<td align="center"><a id='lblMount'> </a></td>
 				<td align="center"><a id='lblPrice'> </a></td>
@@ -85,7 +92,10 @@
 			<tr  style='background:#cad3ff;'>
 				<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"  /></td>
 				<td style="width:15%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
-				<td style="width:15%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
+				<td style="width:15%;">
+					<input class="txt" id="txtProduct.*" type="text" style="width:98%;" />
+					<input class="txt isSpec" id="txtSpec.*" type="text" style="width:98%;" />
+				</td>
 				<td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
 				<td style="width:8%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
 				<td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
