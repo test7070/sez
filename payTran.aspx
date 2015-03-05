@@ -1172,7 +1172,7 @@
                     <td align="center" style="width:1%;"></td>
                     <td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
                     <td align="center" style="width:8%;"><a id='lblMoney'></a></td>
-                    <td align="center" style="width:4%;"><a id='lblIndate'></a></td>
+                    <td align="center" style="width:4%;min-width:90px;"><a id='lblIndate'></a></td>
                     <td align="center" style="width:8%;"><a id='lblCheckno'></a></td>
                     <td align="center" style="width:5%;"><a id='lblBank'></a></td>
                     <td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
