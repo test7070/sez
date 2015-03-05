@@ -139,7 +139,6 @@
 				t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
 				q_gt('uccga', t_where, 0, 0, 0, "checkNoa_btnOk", r_accy);
 			}else{
-				Unlock();
 				wrServer($('#txtNoa').val());
 			}
 		 }
@@ -153,6 +152,7 @@
 
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 			_btnOk(key_value, bbmKey[0], '','',2);
+			Unlock();
 		}
 		
 		function refresh(recno) {

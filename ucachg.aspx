@@ -537,12 +537,12 @@
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk' class="lbl"> </a></td>
-						<td align="center" style="width:40%"><a id='vewNoa' class="lbl"> </a></td>
+						<td align="center" style="width:40%"><a id='vewProductno' class="lbl"> </a></td>
 						<td align="center" style="width:25%"><a id='vewDatea' class="lbl"> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='productno'>~productno</td>
 						<td align="center" id='datea'>~datea</td>
 					</tr>
 				</table>
