@@ -286,12 +286,12 @@
 					case 'btnOk_xy_checkNoa2':
 						var as = _q_appendData("ucaucc", "", true);
 						if (as[0] != undefined) {
-							var t_seq=as[(as.length-1)].noa.substr(-4);
-							t_seq=('0000'+(dec(t_seq)+1)).substr(-4);
+							var t_seq=as[(as.length-1)].noa.substr(-3);
+							t_seq=('000'+(dec(t_seq)+1)).substr(-3);
 							
 							$('#txtNoa').val(trim($('#txtNoa').val())+t_seq);
 						}else{
-							$('#txtNoa').val(trim($('#txtNoa').val())+'0001');
+							$('#txtNoa').val(trim($('#txtNoa').val())+'001');
 						}
 						wrServer($('#txtNoa').val());
 						Unlock();
@@ -318,8 +318,9 @@
 							tmp=replaceAll(as[0].Column1,"^","");
 							tmp=replaceAll(as[0].Column1,"&","");
 							
-							if(tmp.length==1)
-								tmp=tmp+'Z';
+							//104/03/05 便品編號規格改為 2碼羅馬+規格4碼後面補0+流水號3碼
+							
+							tmp=tmp+'ZZ';
 							
 							var t_spec='';
 							if($('#txtSpec').val()!='' && $('#txtSpec').val().replace(/[^0-9]/ig, "").length>0){
@@ -337,8 +338,9 @@
 									}
 								}
 							}
-							
-							$('#txtNoa').val('B'+tmp.substr(0,2)+t_spec);
+							t_spec=t_spec+'0000';
+							//$('#txtNoa').val('B'+tmp.substr(0,2)+t_spec);
+							$('#txtNoa').val(tmp.substr(0,2)+t_spec.substr(0,4));
 						}
 						break;
 					/*case 'XY_newucc_checkNoa':
