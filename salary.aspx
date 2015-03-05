@@ -743,7 +743,11 @@
             table_change();
         }
         function btnPrint() {
-			q_box('z_salary.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+        	if (q_getPara('sys.project').toUpperCase()=='RB'){
+        		q_box('z_salaryp_rb.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+        	}else{	
+				q_box('z_salary.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+			}
         }
 
         function wrServer(key_value) {
