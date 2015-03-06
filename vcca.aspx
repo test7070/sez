@@ -479,9 +479,14 @@
 			function refresh(recno) {
 				_refresh(recno);
 				t_count = 0
-				for(var i=0;i<q_bbtCount;i++)
-					if($('#txtVccno__'+i).val().length>0)
-						t_count ++;
+				try{
+					for(var i=0;i<q_bbtCount;i++)
+						if($('#txtVccno__'+i).val().length>0)
+							t_count ++;
+				}catch(e){
+					
+				}
+				
 				if(t_count>0)
 					$("#dbbt").show();
 				else
