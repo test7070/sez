@@ -42,6 +42,8 @@
 					$('#lblNo_' + i).text(i + 1);
 				}
 				_bbsAssign();
+				if(q_getPara('sys.isspec')!='1')
+					$('.isSpec').hide();
 			}
 
             function q_gtPost() {
@@ -57,6 +59,9 @@
                             $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
                     });
                 });
+                if(q_getPara('sys.isspec')!='1')
+					$('.isSpec').hide();
+                
                 $('#btnTop').hide();
                 $('#btnPrev').hide();
                 $('#btnNext').hide();
@@ -160,7 +165,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 950px;
+                width: 100%;
             }
             .tbbs a {
                 font-size: medium;
@@ -183,7 +188,7 @@
 					</td>
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:100px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:250px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:250px;"><a id='lblProduct'> </a> <a id='lblSpec' class="isSpec"> </a></td>
 					<td align="center" style="width:80px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice'> </a></td>
@@ -195,31 +200,26 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input class="txt"  id="txtProductno.*" type="text" style="width:95%;" /></td>
 					<td>
-					<input class="txt" id="txtProduct.*" type="text" style="width:95%;" />
+						<input class="txt" id="txtProduct.*" type="text" style="width:95%;" />
+						<input class="txt isSpec" id="txtSpec.*" type="text" style="width:98%;" />
+					</td>
+					<td><input class="txt" id="txtUnit.*" type="text" style="width:95%;"/></td>
+					<td><input class="txt" id="txtMount.*" type="text" style="width:95%; text-align:right;"/></td>
+					<td><input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align:right;"/></td>
+					<td>
+						<input class="txt" id="txtNoa.*" type="text" style="width:75%;float:left;"/>
+						<input class="txt" id="txtNo2.*" type="text" style="width:15%;float:left;"/>
 					</td>
 					<td>
-					<input class="txt" id="txtUnit.*" type="text" style="width:95%;"/>
-					</td>
-					<td>
-					<input class="txt" id="txtMount.*" type="text" style="width:95%; text-align:right;"/>
-					</td>
-					<td>
-					<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align:right;"/>
-					</td>
-					<td>
-					<input class="txt" id="txtNoa.*" type="text" style="width:75%;float:left;"/>
-					<input class="txt" id="txtNo2.*" type="text" style="width:15%;float:left;"/>
-					</td>
-					<td>
-					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"/>
-					<input id="recno.*" type="hidden" />
-					<input id="txtStyle.*" type="hidden" />
-					<input id="txtSpec.*" type="hidden" />
-					<input id="txtWidth.*" type="hidden" />
-					<input id="txtLengthb.*" type="hidden" />
-					<input id="txtLengthc.*" type="hidden" />
-					<input id="txtDime.*" type="hidden" />
-					<input id="txtClass.*" type="hidden" />
+						<input class="txt" id="txtMemo.*" type="text" style="width:95%;"/>
+						<input id="recno.*" type="hidden" />
+						<input id="txtStyle.*" type="hidden" />
+						<input id="txtSpec.*" type="hidden" />
+						<input id="txtWidth.*" type="hidden" />
+						<input id="txtLengthb.*" type="hidden" />
+						<input id="txtLengthc.*" type="hidden" />
+						<input id="txtDime.*" type="hidden" />
+						<input id="txtClass.*" type="hidden" />
 					</td>
 				</tr>
 			</table>
