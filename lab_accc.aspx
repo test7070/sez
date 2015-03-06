@@ -144,7 +144,7 @@
 						
             function btnOk() {
                 $('#txtWorker').val(r_name);
-                if($('#txtSalesno').val()==0){
+                if($('#txtSalesno').val().length==0){
                     alert(q_getMsg('lblSalesno') + '錯誤。');
                     return;
                 }
