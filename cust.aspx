@@ -444,6 +444,8 @@
 					$('#txtXyComp2').val(t_comp2).show();
 					$('#lblXyNoa2').val('').show();
 					$('#lblXyComp2').val('').show();
+					$('#txtSalesno').val(r_userno);
+					$('#txtSales').val(r_name);
 				}
 			}
 
