@@ -724,7 +724,7 @@
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>             
+                <td style="width:1%;" align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;width: 100%;" /></td>             
                 <td >
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width: 1%;" />
                 	<input  id="txtProductno.*" type="text"  class="txt c3" style="width:85%"/>

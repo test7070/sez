@@ -52,7 +52,8 @@
             bbmMask = [['txtDatea', r_picd],['txtChgdate', r_picd],['txtBkdate',r_picd],['txtVccdate',r_picd],['txtVbdate',r_picd],['txtVedate',r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('ummb.typea')); 
-           
+            
+            $('#lblVccdate').text('換貨日');
              
              $('#btnVccs').click(function () {
              	//換單 不匯入直接在BBM打單號和換單帳款月份
@@ -62,8 +63,6 @@
                 var t_vccno = trim($('#txtVccno').val());
 	            var t_where = "1=1";
 	            if($('#cmbTypea').val()=='1'){//退貨--->建立 退貨單 
-	            	//1030124永勝林先生換單還是可以退貨
-					//"&& noa not in (select noa from view_vcc where isnull(cardeal,'') in (select noa from ummb where typea='3')) " //換單不可再退貨
 					t_where+=(t_custno.length > 0 ? q_sqlPara2("custno", t_custno) : "")
 					+q_sqlPara2("datea", t_vbdate,t_vedate)
 					+(t_vccno.length > 0 ? q_sqlPara2("noa", t_vccno): "")+"&& typea='1' && noa not in (select noa from view_vcc where unpay>=0 and payed>0)"
@@ -666,12 +665,12 @@
         <div class='dbbm' style="width: 68%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr>
+            	<td class="td1"><span> </span><a id='lblTypea' class="lbl"> </a></td>
+				<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
             	<td class="td3"><span> </span><a id='lblDatea' class="lbl" > </a></td>
 				<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
 				<td class="td5"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 				<td class="td6"><input id="txtNoa"   type="text" class="txt c1"/></td>
-				<td class="td1" style="display: none;"><span> </span><a id='lblTypea' class="lbl"> </a></td>
-				<td class="td2" style="display: none;"><select id="cmbTypea" class="txt c1" style="display: none;"> </select></td> 
             </tr>   
             <tr>
             	<td class="td1"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
@@ -699,24 +698,26 @@
              <tr style="display: none;">
             	<td class="td5"><span> </span><a id='lblChgdate' class="lbl"> </a></td>
 				<td class="td6"><input id="txtChgdate"  type="text"  class="txt c1" style="display: none;"/></td> 
-                <td class="td5"><span> </span><a id='lblVccdate' class="lbl" > </a></td>
-				<td class="td6"><input id="txtVccdate"  type="text" class="txt c1" style="display: none;"/></td>
-				<td class="td3"><span> </span><a id='lblSaleno' class="lbl" > </a></td>
-				<td class="td4"><input id="txtSaleno"  type="text" class="txt c1" style="display: none;"/></td>
             </tr>
             <tr>
-            	<td class="td1"><span> </span><a id='lblBkvccno' class="lbl" > </a></td>
-				<td class="td2"><input id="txtBkvccno"  type="text" class="txt c1"/></td>
-				<td class="td5"><span> </span><a id='lblBkdate' class="lbl" > </a></td>
+            	<td class="td5"><span> </span><a id='lblBkdate' class="lbl" > </a></td>
 				<td class="td6"><input id="txtBkdate"  type="text" class="txt c1"/></td>
+				<td class="td5"><span> </span><a id='lblVccdate' class="lbl" > </a></td>
+				<td class="td6"><input id="txtVccdate"  type="text" class="txt c1"/></td>
 				<td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 				<td class="td6"><input id="txtWorker"  type="text"  class="txt c1"/></td>
             </tr>
             <tr>
-            	<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-                <td class="td2" colspan='3' ><input id="txtMemo"  type="text"  style="width: 98%;"/></td>
-                <td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+            	<td class="td1"><span> </span><a id='lblBkvccno' class="lbl" > </a></td>
+				<td class="td2"><input id="txtBkvccno"  type="text" class="txt c1"/></td>
+				<td class="td3"><span> </span><a id='lblSaleno' class="lbl" > </a></td>
+				<td class="td4"><input id="txtSaleno"  type="text" class="txt c1"/></td>
+				<td class="td7"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 				<td class="td8"><input id="txtWorker2"  type="text"  class="txt c1"/></td>
+            </tr>
+            <tr>
+            	<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+                <td class="td2" colspan='5' ><input id="txtMemo"  type="text"  style="width: 98%;"/></td>
 			</tr>
         </table>
         </div> 
@@ -736,7 +737,7 @@
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>             
+                <td style="width:1%;" align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;width: 100%;" /></td>
                 <td >
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width: 1%;" />
                 	<input  id="txtProductno.*" type="text"  class="txt c3" style="width:85%"/>
