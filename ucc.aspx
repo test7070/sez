@@ -556,7 +556,7 @@
 					}else{//便品
 						//取得最新流水號
 						var t_noa = trim($('#txtNoa').val());
-						var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' and len(noa)="+(t_noa.length+4)+" ^^";
+						var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' and len(noa)="+(t_noa.length+3)+" ^^";
 						q_gt('ucaucc', t_where, 0, 0, 0, "btnOk_xy_checkNoa2", r_accy);
 					}
 					Lock();
