@@ -952,17 +952,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBoss' class="lbl"> </a></td>
-						<td><input id="txtboss" type="text" class="txt c1"/></td>
+						<td><input id="txtBoss" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblHead' class="lbl"> </a></td>
-						<td><input id="txthead" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblStatus' class="lbl"> </a></td>
-						<td><select id="cmbStatus" class="txt c1"> </select></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
-						<td><input id="txtTeam" type="text" class="txt c1"/></td>
+						<td><input id="txtHead" type="text" class="txt c1"/></td>
 						<td colspan="2">
 							<input id="btnConn" type="button" />
 							<input id="btnCustm" type="button" />
@@ -970,13 +962,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblGrp" class="lbl btn"> </a></td>
-						<td>
-							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
-							<input id="txtGrpname" type="text" style="float:left; width:60%;"/>
-						</td>
-						<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
-						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblType' class="lbl"> </a></td>
+						<td><select id="cmbTypea" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblStatus' class="lbl"> </a></td>
+						<td><select id="cmbStatus" class="txt c1"> </select></td>
 						<td>
 							<span> </span><a id='lblProfit' class="lbl isFE"> </a>
 							<a id="lblCustno2" class="lbl isXY btn" style="display: none;">收款客戶</a>
@@ -986,6 +975,17 @@
 							<input id="txtCustno2" type="text" class="txt c6 isXY" style="display: none;"/>
 							<input id="txtCust2" type="text" class="txt c6 isXY" style="display: none;"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblGrp" class="lbl btn"> </a></td>
+						<td>
+							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
+							<input id="txtGrpname" type="text" style="float:left; width:60%;"/>
+						</td>
+						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
+						<td><input id="txtTeam" type="text" class="txt c1"/></td>
+						<!--<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
+						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>

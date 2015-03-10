@@ -147,7 +147,7 @@
         }
 
         function btnPrint() {
-
+			q_box('z_authority.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + " and namea=" + trim($('#txtNamea').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';
