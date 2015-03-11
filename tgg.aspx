@@ -89,11 +89,13 @@
 			}
 
 			function mainPost() {
-				if(q_getPara('sys.project').toUpperCase()=='RA'){
+				/*if(q_getPara('sys.project').toUpperCase()=='RA'){
 					q_cmbParse("cmbTypea", q_getPara('tgg_ra.typea'));
 				}else{
 					q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
-				}
+				}*/
+				q_gt('tggtype', '', 0, 0, 0, "tggtype");
+				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				$('#txtNoa').change(function(e) {
@@ -163,6 +165,18 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'tggtype':
+						var as = _q_appendData("tggtype", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
+							}
+							q_cmbParse("cmbTypea", t_item);
+							if(abbm[q_recno])
+								$("#cmbTypea").val(abbm[q_recno].typea);
+						}
+						break;
 					case 'checkTggno_change':
 						var as = _q_appendData("tgg", "", true);
 						if (as[0] != undefined) {
