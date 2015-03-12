@@ -89,11 +89,13 @@
 			}
 
 			function mainPost() {
-				if(q_getPara('sys.project').toUpperCase()=='RA'){
+				/*if(q_getPara('sys.project').toUpperCase()=='RA'){
 					q_cmbParse("cmbTypea", q_getPara('tgg_ra.typea'));
 				}else{
 					q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
-				}
+				}*/
+				q_gt('tggtype', '', 0, 0, 0, "tggtype");
+				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				$('#txtNoa').change(function(e) {
@@ -140,6 +142,15 @@
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
 				});
+				
+				$('#txtComp').change(function() {
+					if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY'){
+						//讀羅馬拼音
+						var t_where = "where=^^ ['"+$('#txtComp').val() +"')  ^^";
+						q_gt('cust_xy', t_where, 0, 0, 0, "XY_getpy", r_accy);	
+						return;
+					}
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -154,6 +165,18 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'tggtype':
+						var as = _q_appendData("tggtype", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].namea);
+							}
+							q_cmbParse("cmbTypea", t_item);
+							if(abbm[q_recno])
+								$("#cmbTypea").val(abbm[q_recno].typea);
+						}
+						break;
 					case 'checkTggno_change':
 						var as = _q_appendData("tgg", "", true);
 						if (as[0] != undefined) {
@@ -170,6 +193,46 @@
 							wrServer($('#txtNoa').val());
 						}
 						break;
+					case 'XY_getpy':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							var tmp=as[0].Column1;
+							//排除特殊字元
+							tmp=replaceAll(as[0].Column1,"'","");
+							tmp=replaceAll(as[0].Column1," ","");
+							tmp=replaceAll(as[0].Column1,".","");
+							tmp=replaceAll(as[0].Column1,"(","");
+							tmp=replaceAll(as[0].Column1,"+","");
+							tmp=replaceAll(as[0].Column1,"-","");
+							tmp=replaceAll(as[0].Column1,"*","");
+							tmp=replaceAll(as[0].Column1,"/","");
+							tmp=replaceAll(as[0].Column1,"~","");
+							tmp=replaceAll(as[0].Column1,"!","");
+							tmp=replaceAll(as[0].Column1,"@","");
+							tmp=replaceAll(as[0].Column1,"#","");
+							tmp=replaceAll(as[0].Column1,"$","");
+							tmp=replaceAll(as[0].Column1,"%","");
+							tmp=replaceAll(as[0].Column1,"^","");
+							tmp=replaceAll(as[0].Column1,"&","");
+							
+							tmp=tmp+'ZZ';
+							
+							$('#txtNoa').val(tmp.substr(0,2));
+						}
+						break;
+					case 'btnOk_xy_checkNoa2':
+						var as = _q_appendData("tgg", "", true);
+						if (as[0] != undefined) {
+							var t_seq=as[(as.length-1)].noa.substr(-2);
+							t_seq=('00'+(dec(t_seq)+1)).substr(-2);
+							
+							$('#txtNoa').val(trim($('#txtNoa').val())+t_seq);
+						}else{
+							$('#txtNoa').val(trim($('#txtNoa').val())+'01');
+						}
+						wrServer($('#txtNoa').val());
+						Unlock();
+						break;	
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -247,6 +310,15 @@
 					$('#txtConntel').val($('#textGqbtitle').val())
 					$('#txtExt').val($('#textInvo').val())
 					$('#txtPost').val($('#textPost').val())
+				}
+				
+				if (q_cur==1 && q_getPara('sys.project').toUpperCase()=='XY'){
+					//取得最新流水號
+					var t_noa = trim($('#txtNoa').val());
+					var t_where = "where=^^ left(noa,"+(t_noa.length)+")='" + t_noa + "' and len(noa)="+(t_noa.length+2)+" ^^";
+					q_gt('tgg', t_where, 0, 0, 0, "btnOk_xy_checkNoa2", r_accy);
+					Lock();
+					return;
 				}
 						
 				if (q_cur == 1) {
