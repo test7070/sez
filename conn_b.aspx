@@ -50,20 +50,35 @@
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
 				$('#btnBott').hide();
+				
             }
 
             function bbsAssign() {/// 表身運算式
                 _bbsAssign();
             }
-
+			
+			var maxnoq='000';
+			var search_noq=false;
             function btnOk() {
                 sum();
 
                 t_key = q_getHref();
+                if(!search_noq){
+					q_gt('conn', "where=^^noa='"+t_key[1]+"'^^", 0, 0, 0, "conn_maxnoq");
+					return;
+				}
+				
+                for (var i = 0; i < q_bbsCount; i++) {
+                	$('#txtTypea_'+i).val($.trim(t_key[3]));
+                	if(emp($('#txtNoq_'+i).val())){
+                		maxnoq=('000'+(dec(maxnoq)+1)).substr(-3);
+                		$('#txtNoq_'+i).val(maxnoq);
+                	}
+                }
 
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
             }
-
+			
             function bbsSave(as) {
                 if (!as['namea'] && !as['tel'] && !as['addr'] && !as['mobile']) {
                     as[bbsKey[0]] = '';
@@ -88,6 +103,7 @@
                     abbsDele[i][bbsKey[0]] = t_key[1];
                 }
                 $('#btnPlus').click();
+                
             }
 
             function boxStore() {
@@ -102,8 +118,17 @@
             function sum() {
             }
 
-            function q_gtPost(t_postname) {  /// 資料下載後 ...
-                //        q_gtPost2(t_postname);
+            function q_gtPost(t_name) {  /// 資料下載後 ...
+                switch (t_name) {
+					case 'conn_maxnoq':
+					var as = _q_appendData("conn", "", true);
+					if (as[0] != undefined) {
+						maxnoq=as[as.length-1].noq;
+					}
+					search_noq=true;
+					btnOk();
+					break;
+				}
             }
 
             function readonly(t_para, empty) {
@@ -151,41 +176,22 @@
 					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
-					<td style="width:1%;">
-					<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  />
-					</td>
-					<td style="width:6%;">
-					<input class="txt"  id="txtNamea.*" type="text" style="width:98%;"  />
-					</td>
-					<td style="width:6%;">
-					<input class="txt" id="txtJob.*" type="text" style="width:98%;"   />
-					</td>
-					<td style="width:6%;">
-					<input class="txt" id="txtPart.*" type="text" style="width:98%;"   />
-					</td>
-					<td style="width:10%;">
-					<input class="txt" id="txtTel.*" type="text" style="width:94%;"  />
-					</td>
-					<td style="width:5%;">
-					<input class="txt" id="txtExt.*" type="text" style="width:94%; text-align:right"  />
-					</td>
-					<td style="width:10%;">
-					<input class="txt" id="txtFax.*" type="text" style="width:94%;"  />
-					</td>
-					<td style="width:10%;">
-					<input class="txt" id="txtMobile.*" type="text" style="width:98%;"   />
-					</td>
-					<td style="width:12%;">
-					<input class="txt" id="txtEmail.*" type="text" style="width:98%;"   />
-					</td>
+					<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  /></td>
+					<td style="width:6%;"><input class="txt"  id="txtNamea.*" type="text" style="width:98%;"  /></td>
+					<td style="width:6%;"><input class="txt" id="txtJob.*" type="text" style="width:98%;"   /></td>
+					<td style="width:6%;"><input class="txt" id="txtPart.*" type="text" style="width:98%;"   /></td>
+					<td style="width:10%;"><input class="txt" id="txtTel.*" type="text" style="width:94%;"  /></td>
+					<td style="width:5%;"><input class="txt" id="txtExt.*" type="text" style="width:94%; text-align:right"  /></td>
+					<td style="width:10%;"><input class="txt" id="txtFax.*" type="text" style="width:94%;"  /></td>
+					<td style="width:10%;"><input class="txt" id="txtMobile.*" type="text" style="width:98%;"   /></td>
+					<td style="width:12%;"><input class="txt" id="txtEmail.*" type="text" style="width:98%;"   /></td>
 					<td style="width:15%;">
-					<input class="txt" id="txtAddr.*" type="text" maxlength='90' style="width:98%;"  />
-					<input id="txtNoq.*" type="hidden" />
-					<input id="recno.*" type="hidden" />
+						<input class="txt" id="txtAddr.*" type="text" maxlength='90' style="width:98%;"  />
+						<input id="txtNoq.*" type="hidden" />
+						<input id="txtTypea.*" type="hidden" />
+						<input id="recno.*" type="hidden" />
 					</td>
-					<td style="width:20%;">
-					<input class="txt" id="txtMemo.*" type="text" style="width:98%;"  />
-					</td>
+					<td style="width:20%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->
