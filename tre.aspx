@@ -33,7 +33,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             q_desc = 1;
-            q_bbsLen = 20;
+            //q_bbsLen = 20;
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTggcomp', 'tgg_b.aspx'],
@@ -99,7 +99,7 @@
 		            		return;
 		            	}
 						Lock(1,{opacity:0});
-	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name+', ');
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
