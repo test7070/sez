@@ -22,6 +22,7 @@
                 q_gf('', 'z_vccadc');
             });
             function q_gfPost() {
+            	//要輸入過發票後,該公司選項才會出現
             	q_gt('acomp', 'where=^^ exists(select top 1 noa from vcca where acomp.noa=vcca.cno) ^^', 0, 0, 0);
             }
 			function q_gtPost(t_name) {
