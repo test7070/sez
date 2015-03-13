@@ -139,7 +139,8 @@
 					if (q_cur == 1) {
 						return;
 					}
-					t_where = "noa='" + $('#txtNoa').val() + "'";
+					//104/03/13用 typea 區分客戶(1)與廠商(2)
+					t_where = "noa='" + $('#txtNoa').val() + "' and typea='2' ";
 					q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
 				});
 				

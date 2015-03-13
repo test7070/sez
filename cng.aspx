@@ -186,7 +186,7 @@
 						}else{
 							$('#txtPrice').val(0);
 						}
-						sun();
+						sum();
 						break;
 					case q_name:
 						if (q_cur == 4)
