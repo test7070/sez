@@ -106,7 +106,7 @@
                 $('#txtOdate2').datepicker();
                 $('#txtEnddate1').mask('999/99/99');
                 $('#txtEnddate1').datepicker();
-                $('#txtEnddate1').val();
+                $('#txtEnddate1').val(q_cdn(q_date(),-60));
                 $('#txtEnddate2').mask('999/99/99');
                 $('#txtEnddate2').datepicker();
                 $('#txtEnddate2').val(q_date());
