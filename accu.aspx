@@ -34,13 +34,12 @@
             , ['txtPartno_', 'btnPart_', 'acpart', 'noa,part', 'txtPartno_,txtPart_', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             , ['txtProj_', 'btnProj_', 'proj', 'noa,proj', 'txtProjno_,txtProj_', "proj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             , ['txtPartno', 'lblPart', 'acpart', 'noa,part', 'txtPartno,txtPart', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            , ['txtProj', 'lblProj', 'proj', 'noa,proj', 'txtProjno,txtProj', "proj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            , ['txtProjno', 'lblProj', 'proj', 'noa,proj', 'txtProjno,txtProj', "proj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 
-                if(q_getPara('accc.proj')!="1")
-            		$('.Project').addClass('hide');
+                
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
@@ -57,7 +56,8 @@
                 q_getFormat();
                 bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
-            	
+            	if(q_getPara('accc.proj')!="1")
+            		$('.Project').addClass('hide');
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
