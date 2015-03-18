@@ -68,9 +68,16 @@
 					$('#txtFdate_'+i).datepicker();
 				 }
 			}
-
+			
+			var maxno4='000',search_no4=false;
 			function btnOk() {
                 t_key = q_getHref();
+                
+                if(!search_no4){
+					q_gt('ordbt', "where=^^noa='"+t_key[1]+"'^^", 0, 0, 0, "ordbt_maxno4",r_accy);
+					return;
+				}
+                
 				var no3='';
 				for(var j=0;j<t_key.length;j++){
 					if(t_key[j]=='no3'){
@@ -79,6 +86,10 @@
 				}
 				for(var k=0;k<q_bbsCount;k++){
 					$('#txtNo3_'+k).val(no3);
+					if(emp($('#txtNo4_'+k).val())){
+                		maxno4=('000'+(dec(maxno4)+1)).substr(-3);
+                		$('#txtNo4_'+k).val(maxno4);
+                	}
 				}
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
@@ -103,12 +114,18 @@
 				_refresh();
 			}
 
-			function q_gtPost(t_postname) {
-				switch (t_postname) {
-					case q_name:
+			function q_gtPost(t_name) {  /// 資料下載後 ...
+                switch (t_name) {
+					case 'ordbt_maxno4':
+						var as = _q_appendData("ordbt", "", true);
+						if (as[0] != undefined) {
+							maxno4=as[as.length-1].no4;
+						}
+						search_no4=true;
+						btnOk();
 						break;
 				}
-			}
+            }
 
 			function q_popPost(s1) {
 				switch (s1) {

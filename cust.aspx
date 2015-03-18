@@ -130,6 +130,10 @@
 					for(var i=0;i<xy_taxtmp.length;i++)
 						xy_taxtype=xy_taxtype+(xy_taxtype.length>0?',':'')+xy_taxtmp[i].split('@')[1]+'@'+xy_taxtmp[i].split('@')[1];
 					q_cmbParse("combIstax", xy_taxtype);
+					q_cmbParse("combIsvcc", '@,須@須,不須@不須');
+					q_cmbParse("combCheckvcc", '@,須@須,不須@不須');
+					q_cmbParse("combIsinvo", '@,隨貨@隨貨,月結@月結');
+					q_cmbParse("combIspost", '@,不計@不計,親送收現@親送收現,親送不收現@親送不收現,郵寄附回郵@郵寄附回郵,郵寄@郵寄');
 					$('#btnCustm').show();
 				}
 
@@ -541,7 +545,7 @@
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('#txtConntel').val($('#textConn').val());
 					$('#txtBillmemo').val($('#textTrantime').val());
-					var t_invomemo=$('#textIsvcc').val()+'##'+$('#textIsinvo').val()+'##'+$('#combIstax').val()+'##'+$('#textCheckvcc').val()+'##'+$('#textIspost').val()+'##'+$('#textTranprice').val();
+					var t_invomemo=$('#combIsvcc').val()+'##'+$('#combIsinvo').val()+'##'+$('#combIstax').val()+'##'+$('#combCheckvcc').val()+'##'+$('#combIspost').val()+'##'+$('#textTranprice').val();
 					$('#txtInvomemo').val(t_invomemo);
 				}
 				/*
@@ -608,20 +612,20 @@
 					if (q_cur == 1 || q_cur==2) {
 						$('#textConn').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtConntel').val());
 						$('#textTrantime').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtBillmemo').val());
-						$('#textIsvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[0]);
-						$('#textIsinvo').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[1]);
+						$('#combIsvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[0]);
+						$('#combIsinvo').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[1]);
 						$('#combIstax').css('color', 'black').css('background', 'white').removeAttr('disabled').val(t_invomemo[2]);
-						$('#textCheckvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[3]);
-						$('#textIspost').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[4]);
+						$('#combCheckvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[3]);
+						$('#combIspost').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[4]);
 						$('#textTranprice').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[5]);
 					} else {
 						$('#textConn').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtConntel').val());
 						$('#textTrantime').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtBillmemo').val());
-						$('#textIsvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[0]);
-						$('#textIsinvo').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[1]);
+						$('#combIsvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[0]);
+						$('#combIsinvo').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[1]);
 						$('#combIstax').css('color', 'black').css('background', 'RGB(237,237,238)').attr('disabled', 'disabled').val(t_invomemo[2]);
-						$('#textCheckvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[3]);
-						$('#textIspost').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[4]);
+						$('#combCheckvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[3]);
+						$('#combIspost').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[4]);
 						$('#textTranprice').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[5]);
 					}
 					
@@ -1082,20 +1086,32 @@
 					</tr>
 					<tr class="isXY" style="display: none;">
 						<td><span> </span><a class="lbl isXY" style="display: none;">貨單開立</a></td>
-						<td><input id="textIsvcc" type="text" class="txt c1 isXY "/></td>
+						<td>
+							<!--<input id="textIsvcc" type="text" class="txt c1 isXY "/>-->
+							<select id="combIsvcc" class="txt c1 isXY"> </select>
+						</td>
 						<td><span> </span><a class="lbl isXY" style="display: none;">課稅方式</a></td>
 						<td>
 							<!--<input id="textIstax" type="text" class="txt c1 isXY"/>-->
 							<select id="combIstax" class="txt c1 isXY"> </select>
 						</td>
 						<td><span> </span><a class="lbl isXY" style="display: none;">驗單需求</a></td>
-						<td><input id="textCheckvcc" type="text" class="txt c1 isXY"/></td>
+						<td>
+							<!--<input id="textCheckvcc" type="text" class="txt c1 isXY"/>-->
+							<select id="combCheckvcc" class="txt c1 isXY"> </select>
+						</td>
 					</tr>
 					<tr class="isXY" style="display: none;">
 						<td><span> </span><a class="lbl isXY" style="display: none;">發票開立</a></td>
-						<td><input id="textIsinvo" type="text" class="txt c1 isXY"/></td>
-						<td><span> </span><a class="lbl isXY" style="display: none;">回郵</a></td>
-						<td><input id="textIspost" type="text" class="txt c1 isXY "/></td>
+						<td>
+							<!--<input id="textIsinvo" type="text" class="txt c1 isXY"/>-->
+							<select id="combIsinvo" class="txt c1 isXY"> </select>
+						</td>
+						<td><span> </span><a class="lbl isXY" style="display: none;">寄單方式</a></td>
+						<td>
+							<!--<input id="textIspost" type="text" class="txt c1 isXY "/>-->
+							<select id="combIspost" class="txt c1 isXY"> </select>
+						</td>
 						<td><span> </span><a class="lbl isXY" style="display: none;">運費單價</a></td>
 						<td><input id="textTranprice" type="text" class="txt num c1 isXY"/></td>
 					</tr>
