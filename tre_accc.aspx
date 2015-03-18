@@ -688,7 +688,7 @@
 						<td colspan="2">
 						<input id="btnAccc" type="button"/>
 						</td>
-						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a></td>
+						<td colspan="3" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a></td>
 					</tr>
 					<tr>
 						<td></td>
