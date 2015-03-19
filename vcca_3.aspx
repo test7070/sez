@@ -680,6 +680,10 @@
 						<td><span> </span><a id='lblTrdno' class="lbl btn"> </a></td>
 						<td colspan="2"><input id="txtTrdno"  type="text" class="txt c1"/>	</td>
 					</tr>
+					<tr>
+						<td></td>
+						<td colspan="4" style="color:red;">已請款再修改，須重新執行請款!</td>
+					</tr>
 				</table>
 			</div>
 		</div>
