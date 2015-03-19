@@ -622,7 +622,13 @@
                     $('#txtUnit_' + i).focusout(function () { sum(); });
                     //$('#txtWeight_' + i).focusout(function () { sum(); });
                     $('#txtPrice_' + i).focusout(function () {
-                    	 sum(); 
+                    	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+		                if(q_cur==1 || q_cur==2){
+		                	$('#txtPrice_'+b_seq).val(round($('#txtPrice_'+b_seq).val(),3));
+                    		 sum(); 
+                    	}
                     });
                     
                     $('#txtMount_' + i).focusout(function () { 
@@ -657,6 +663,7 @@
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
 		                    tb_seq=b_seq;
+		                    $('#txtPrice_'+b_seq).val(round($('#txtPrice_'+b_seq).val(),3));
 	                    	if(!emp($('#txtProductno_'+b_seq).val())){
 	                    		//金額
 								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
@@ -759,7 +766,8 @@
             if (q_cur == 1 || q_cur == 2) {
             	var s2 = xmlString.split(';');
             	abbm[q_recno]['accno'] = s2[0];
-            	abbm[q_recno]['invono'] = s2[1];
+            	if(s2[1]!=undefined)
+            		abbm[q_recno]['invono'] = s2[1];
                 //abbm[q_recno]['accno'] = xmlString;   /// 存檔後， server 傳回 xmlString 
                 //$('#txtAccno').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
             }
