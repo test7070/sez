@@ -133,7 +133,7 @@
 					q_cmbParse("combIsvcc", '@,須@須,不須@不須');
 					q_cmbParse("combCheckvcc", '@,須@須,不須@不須');
 					q_cmbParse("combIsinvo", '@,隨貨@隨貨,月結@月結');
-					q_cmbParse("combIspost", '@,不計@不計,親送收現@親送收現,親送不收現@親送不收現,郵寄附回郵@郵寄附回郵,郵寄@郵寄');
+					q_cmbParse("combIspost", '@,不寄@不寄,送單收現@送單收現,送單@送單,郵寄附回郵@郵寄附回郵,郵寄@郵寄');
 					$('#btnCustm').show();
 				}
 
