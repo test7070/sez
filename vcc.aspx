@@ -228,7 +228,7 @@
 				});
 				
 				$('#btnClose_div_stk').click(function() {
-					$('#div_stk').toggle();
+					$('#div_stk').hide();
 				});
 				
 				if (isinvosystem)
@@ -748,17 +748,27 @@
 						$('#txtMount_' + i).focusout(function() {
 							if (q_cur == 1 || q_cur == 2)
 								sum();
+								$('#btnClose_div_stk').click();
 						});
 						
-						$('#txtMount_' + i).focusin(function() {
+						$('#txtMount_' + i).focusin(function(e) {
 							if (q_cur == 1 || q_cur == 2) {
 								t_IdSeq = -1;
 								q_bodyId($(this).attr('id'));
 								b_seq = t_IdSeq;
 								if (!emp($('#txtProductno_' + b_seq).val())) {
 									//庫存
-									var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "')  ^^";
-									q_gt('calstk', t_where, 0, 0, 0, "msg_stk", r_accy);
+									//var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "')  ^^";
+									//q_gt('calstk', t_where, 0, 0, 0, "msg_stk", r_accy);
+									//顯示DIV 104/03/21
+									mouse_point=e;
+									mouse_point.pageY=$('#txtMount_'+b_seq).offset().top;
+									mouse_point.pageX=$('#txtMount_'+b_seq).offset().left;
+									document.getElementById("stk_productno").innerHTML = $('#txtProductno_' + b_seq).val();
+									document.getElementById("stk_product").innerHTML = $('#txtProduct_' + b_seq).val();
+									//庫存
+									var t_where = "where=^^ ['" + q_date() + "','','" + $('#txtProductno_' + b_seq).val() + "') ^^";
+									q_gt('calstk', t_where, 0, 0, 0, "msg_stk_all", r_accy);
 								}
 							}
 						});
