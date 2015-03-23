@@ -88,7 +88,7 @@
 					}, {
 						type : '8',
 						name : 'allucc',//[20]
-						value : '1@顯示所有物品'.split(',')
+						value : '1@顯示零庫存產品'.split(',')
 					}]
 				});
 				q_popAssign();
