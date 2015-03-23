@@ -30,9 +30,9 @@
 
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
-       if(q_getPara('sys.comp').indexOf('永勝') > -1)
+       /*if(q_getPara('sys.comp').indexOf('永勝') > -1)
         	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype_uu'));
-        else
+        else*/
         	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype'));
         	
         $('#txtComp').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');

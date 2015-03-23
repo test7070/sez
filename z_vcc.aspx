@@ -62,14 +62,14 @@
             
             function q_gfPost() {
             	var ucctype=q_getPara('ucc.typea') + ',' + q_getPara('uca.typea');
-	            if(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
+	            /*if(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
 	            {
 	            	ucctype= q_getPara('ucc.typea_it');
-	            }
+	            }*/
 	            var vccstype=q_getPara('vcc.stype');
-	            if(q_getPara('sys.comp').indexOf('永勝') > -1){
+	            /*if(q_getPara('sys.comp').indexOf('永勝') > -1){
 	            	vccstype=q_getPara('vcc.stype_uu');
-	            }
+	            }*/
             	
                 $('#q_report').q_report({
                     fileName : 'z_vcc',

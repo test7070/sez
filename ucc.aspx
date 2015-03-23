@@ -84,9 +84,9 @@
 				q_getFormat();
 				bbmMask = [['txtCdate', r_picd]];
 				q_mask(bbmMask);
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1)
+				/*if (q_getPara('sys.comp').indexOf('英特瑞') > -1)
 					q_cmbParse("cmbTypea", q_getPara('ucc.typea_it'));//IR
-				else
+				else*/
 					q_cmbParse("cmbTypea", q_getPara('ucc.typea')+(q_getPara('sys.comp').indexOf('安美得') > -1?',null@其他':''));
 
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));

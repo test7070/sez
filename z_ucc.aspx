@@ -51,7 +51,7 @@
 					}, {
 						type : '5',
 						name : 'ucctype', //[10]
-						value : [q_getPara('report.all')].concat((q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it').split(',') : q_getPara('ucc.typea').split(','))
+						value : [q_getPara('report.all')].concat(q_getPara('ucc.typea').split(','))//[q_getPara('report.all')].concat((q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it').split(',') : q_getPara('ucc.typea').split(','))
 					}, {
 						type : '5',
 						name : 'outtypea', //[11]
@@ -67,7 +67,7 @@
 					}, {
 						type : '0', //[14]
 						name : 'xucctype',
-						value : (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it') : q_getPara('ucc.typea')
+						value : q_getPara('ucc.typea')//(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it') : q_getPara('ucc.typea')
 					}, {
 						type : '0', //[15]
 						name : 'showprice',

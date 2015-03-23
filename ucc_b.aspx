@@ -38,9 +38,9 @@
 					if($('#combTypea_'+j).length<1)
 						continue;
 					
-			        if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
+			        /*if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
 						q_cmbParse("combTypea_"+j, q_getPara('ucc.typea_it'));	//IR
-					else
+					else*/
 						q_cmbParse("combTypea_"+j, q_getPara('ucc.typea'));	// 需在 main_form() 後執行，才會載入 系統參數
 			        
 			        if(!emp($('#txtTypea_'+j).val()))

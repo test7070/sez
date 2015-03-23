@@ -43,7 +43,7 @@
                     }, {//[6]
                         type : '0',
                         name : 'typea',
-                        value : q_getPara('ucc.typea_uu')
+                        value : q_getPara('ucc.typea')//q_getPara('ucc.typea_uu')
                     }]
                 });
                 q_popAssign();

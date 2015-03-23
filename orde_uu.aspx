@@ -74,7 +74,8 @@
 			bbmMask = [['txtOdate', r_picd ],['txtMon', r_picm ]];  
 			q_mask(bbmMask);			
 			bbsMask = [['txtDatea', r_picd ]];  
-			q_cmbParse("cmbStype", q_getPara('orde.stype_uu')); // 需在 main_form() 後執行，才會載入 系統參數  
+			//q_cmbParse("cmbStype", q_getPara('orde.stype_uu')); // 需在 main_form() 後執行，才會載入 系統參數
+			q_cmbParse("cmbStype", q_getPara('orde.stype'));  
 			//q_cmbParse("cmbCoin", q_getPara('sys.coin'));	 /// q_cmbParse 會加入 fbbm
 			q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
 			q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
@@ -975,7 +976,7 @@
 				<tr>
 					<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 					<td align="center" id='odate'>~odate</td>
-					<td align="center" id='stype=orde.stype_uu'>~stype=orde.stype_uu</td>
+					<td align="center" id='stype=orde.stype'>~stype=orde.stype</td>
 					<td align="center" id='noa'>~noa</td>
 					<td align="center" id='comp,4' style="text-align: left;" >~comp,4</td>
 				</tr>

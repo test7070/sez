@@ -93,7 +93,8 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
-				q_cmbParse("cmbStype", q_getPara('vcc.stype_uu'));
+				//q_cmbParse("cmbStype", q_getPara('vcc.stype_uu'));
+				q_cmbParse("cmbStype", q_getPara('vcc.stype'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("combPay", q_getPara('vcc.paytype'));
@@ -975,7 +976,7 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='typea=vcc.typea'>~typea=vcc.typea</td>
-						<td align="center" id='stype=vcc.stype_uu'>~stype=vcc.stype_uu</td>
+						<td align="center" id='stype=vcc.stype'>~stype=vcc.stype</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='comp,4' style="text-align: left;">~comp,4</td>

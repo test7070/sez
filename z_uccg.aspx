@@ -40,7 +40,7 @@
 	                    }, {
 							type : '5',
 							name : 'ucctype', //[6]
-							value : [q_getPara('report.all')].concat((q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)?q_getPara('ucc.typea_it').split(','):q_getPara('ucc.typea').split(','))
+							value : [q_getPara('report.all')].concat(q_getPara('ucc.typea').split(',')) //[q_getPara('report.all')].concat((q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)?q_getPara('ucc.typea_it').split(','):q_getPara('ucc.typea').split(','))
 	                    }
                     ]
                 });

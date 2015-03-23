@@ -78,7 +78,7 @@
 					},{
                         type : '5', //[20]
                         name : 'vccstype',
-                        value : q_getPara('sys.comp').indexOf('永勝')>-1?(' @全部,'+q_getPara('vcc.stype_uu')).split(','):(' @全部,'+q_getPara('vcc.stype')).split(',')
+                        value : (' @全部,'+q_getPara('vcc.stype')).split(',')
 					}, {
 						type : '6', //[21]
 						name : 'lostdate'
