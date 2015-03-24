@@ -157,7 +157,7 @@
                         var as = _q_appendData('authority', '', true);
                         if (as[0] != undefined) {
                         	if(q_getPara('sys.comp').indexOf('大昌')>-1){
-	                            if (r_rank >= 7)
+	                            if (r_rank >= 7 || r_userno=='020110') //104/03/24 職務變動姮瑜可以看到全部的資料
 	                                q_content = "";
 	                            else if (as.length > 0 && as[0]["pr_modi"] == "true")
 	                                q_content = "where=^^partno='" + ssspartno + "'^^";

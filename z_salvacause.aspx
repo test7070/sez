@@ -37,13 +37,19 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
+                    },{
+                    	type : '2',
+                        name : 'xpart',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
                 
-                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+                var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa').val(t_noa).width(100);
                 
@@ -56,12 +62,57 @@
                 $('#txtYdate2').mask('999/99/99');
                 $('#txtYdate2').datepicker();
                 
-                 
+                 if (r_rank < 8 && q_content==''){
+					q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 1);
+                }
             }
 
             function q_boxClose(s2) {
             }
-            function q_gtPost(s2) {
+            
+            var ssspartno = '',ssspart='',sssgroup='',sssjob='';
+            function q_gtPost(t_name) {
+            	switch (t_name) {
+            		case 'authority':
+                        var as = _q_appendData('authority', '', true);
+                        if (as[0] != undefined) {
+                        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	                            if (r_rank >= 7 || r_userno=='020110'){//104/03/24 職務變動姮瑜可以看到全部的資料
+	                                
+	                            }else if (as.length > 0 && as[0]["pr_modi"] == "true"){
+	                                $('#txtXpart1a').val(ssspartno).attr('disabled','disabled');
+	                                $('#txtXpart1b').val(ssspart);
+	                                $('#txtXpart2a').val(ssspartno).attr('disabled','disabled');
+	                                $('#txtXpart2b').val(ssspart);
+	                                $('#btnXpart1').hide();
+	                                $('#btnXpart2').hide();
+	                            }else{
+	                                $('#txtSss1a').val(r_userno).attr('disabled','disabled');
+	                                $('#txtSss1b').val(r_name);
+	                                $('#txtSss2a').val(r_userno).attr('disabled','disabled');
+	                                $('#txtSss2b').val(r_name);
+	                                $('#btnSss1').hide();
+	                                $('#btnSss2').hide();
+	                                $('#txtXpart1a').val(ssspartno).attr('disabled','disabled');
+	                                $('#txtXpart1b').val(ssspart);
+	                                $('#txtXpart2a').val(ssspartno).attr('disabled','disabled');
+	                                $('#txtXpart2b').val(ssspart);
+	                                $('#btnXpart1').hide();
+	                                $('#btnXpart2').hide();
+								}
+							}
+                        }
+                        
+                        break;
+	            	case 'sss':
+	                        var as = _q_appendData('sss', '', true);
+	                        if (as[0] != undefined) {
+	                            ssspartno = as[0].partno;
+	                            ssspart = as[0].part;
+		                        q_gt('authority', "where=^^a.noa='z_salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
+	                        }
+	                        break;
+				}
             }
 		</script>
 	</head>
