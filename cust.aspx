@@ -16,7 +16,7 @@
 		<script type="text/javascript">
 		
 			var q_name = "cust";
-			var q_readonly = ['txtCredit','txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
+			var q_readonly = "";
 			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1],['textTranprice', 10, 0, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
@@ -89,6 +89,12 @@
 			}
 
 			function mainPost() {
+				if (q_getPara('sys.project').toUpperCase()=='FE'){
+					q_readonly = ['txtCredit','txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
+				}else{
+					q_readonly = ['txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
+				}
+				
 				bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99']];
 				q_mask(bbmMask);
 				q_gt('custtype', '', 0, 0, 0, "custtype");
@@ -671,6 +677,8 @@
 					$('#btnCustm').removeAttr('disabled');
 					//$('#btnTmpcustno_xy').removeAttr('disabled');
 					//$('#btnUsecrd').attr('disabled', 'disabled');
+					
+					
 				}else{
 					$('#btnConn').attr('disabled', 'disabled');
 					$('#btnCustm').attr('disabled', 'disabled');
