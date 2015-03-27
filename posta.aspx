@@ -126,7 +126,7 @@
 		}
 
 		function bbsSave(as) {
-			if (!as['useno'] || !as['comp'] || !as['zipcode'] || !as['addr']) {  
+			if (!as['useno'] && !as['comp'] && !as['zipcode'] && !as['addr']) {  
 				as[bbsKey[1]] = '';   
 				return;
 			}
