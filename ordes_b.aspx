@@ -96,10 +96,10 @@
 				}
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
 					$('.weight').hide();
-				}else{
-					$('#checkZero').hide();
-					$('#Zero').hide();
+					$('#checkZero').show();
+					$('#Zero').show();
 				}
+				
 				if(q_getPara('sys.isspec')!='1')
 					$('.isSpec').hide();
 			}
@@ -119,7 +119,7 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
-			 <input type="checkbox" id="checkZero"/><a id='Zero'>數量不帶入 </a>
+			 <input type="checkbox" id="checkZero" style="display: none;"/><a id='Zero' style="display: none;">數量不帶入 </a>
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center"><input type="checkbox" id="checkAllCheckbox"/></td>
