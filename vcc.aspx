@@ -629,6 +629,11 @@
 							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
+						//取得車號下拉式選單
+						var thisVal = $('#txtCardealno').val();
+						var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
+						q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
+						bbsGetOrdeList();
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -830,13 +835,8 @@
 				Lock(1, {
 					opacity : 0
 				});
-				//取得車號下拉式選單
-				var thisVal = $('#txtCardealno').val();
-				var t_where = "where=^^ noa=N'" + thisVal + "' ^^";
-				q_gt('cardeal', t_where, 0, 0, 0, "getCardealCarno");
 				var t_where = " where=^^ vccno='" + $('#txtNoa').val() + "'^^";
 				q_gt('umms', t_where, 0, 0, 0, 'btnModi', r_accy);
-				bbsGetOrdeList();
 			}
 
 			function btnPrint() {
