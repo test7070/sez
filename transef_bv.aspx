@@ -158,6 +158,7 @@
 
             function mainPost() {
             	document.title='託運單作業';
+            	$("#lblCust").text('公司名稱');
             	q_cmbParse("cmbCalctype", "手寫託運單,edi託運單");
                 q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
                 $('#btnIns').val($('#btnIns').val() + "(F8)");
@@ -166,11 +167,6 @@
                 $('#textEdate').datepicker();
                 bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd],['textBdate',r_picd],['textEdate',r_picd]];
                 q_mask(bbmMask);
-                
-               /* $('#btnCode97').click(function(){
-                   var t_where = "where=^^ noa='"+$('#txtBmiles').val()+"'  group by post,addr^^";
-					q_gt('addr3', t_where, 0, 0, 0, "");
-                });*/
                 
                 $('#txtPrice').change(function(){
                     sum();
@@ -254,18 +250,26 @@
             }
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	/*case 'addr3':
-                		var as = _q_appendData("addr3", "", true);
+                	case 'addr2':
+                		var as = _q_appendData("addr2", "", true);
                 		if (as[0] != undefined) {
-                			//不產生97
+                			//不產生96條碼
                 		}else{
-                			//產生97
-                			
-                			
-                			
-                			$('#txtPo').val('XXXXXXXX');
+                			//產生96條碼
+                			var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
+					             q_gt('view_transef', t_where, 0, 0, 0, "transef96");
                 		}
-                		break;*/
+                		break;
+                	case 'transef96':
+                		var as = _q_appendData("view_transef", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtPo').val('96'+('0000000'+(dec(as[0].po.substr(2,7))+1)).substr(-7)+(dec(as[0].po.substr(2,7))+1%7))
+                		}
+                		else
+                			$('#txtPo').val('9600000011');
+                			
+                		btnOk();
+                		break;
                     case 'getPrice_driver':
                         var t_price = 0;
                         var as = _q_appendData("addrs", "", true);
@@ -372,6 +376,7 @@
                 $('#txtNoq').val('001');
                 trans.refresh();
                 $('#txtDatea').focus();
+                
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -404,15 +409,6 @@
                     Unlock(1);
                     return;
                 }
-                /*if($('#txtDatea').val().substring(0,3)!=r_accy){
-                    alert('年度異常錯誤，請切換到【'+$('#txtDatea').val().substring(0,3)+'】年度再作業。');
-                    Unlock(1);
-                    return;
-                }*/
-                /*if(!isEdit()){
-                    Unlock(1);
-                    return;
-                }*/
                 var t_days = 0;
                 var t_date1 = $('#txtDatea').val();
                 var t_date2 = $('#txtTrandate').val();
@@ -432,6 +428,13 @@
                 }else{
                     alert("error: btnok!");
                 }
+                
+                if(emp($('#txtPo').val())){
+                	var t_where = "where=^^ noa='"+$('#txtCaseend').val()+"' and isnull(siteno,'') !='' ^^";
+					q_gt('addr2', t_where, 0, 0, 0, "");
+					return;
+				}
+				
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (q_cur ==1)
@@ -538,7 +541,7 @@
             .tview {
                 border: 5px solid gray;
                 font-size: medium;
-                background-color: white;
+                background-color: black;
             }
             .tview tr {
                 height: 30px;
@@ -665,7 +668,7 @@
                         <td id="atel" style="text-align: center;">~atel</td>
                         <td id="aaddr" style="text-align: center;">~aaddr</td>
                         <td id="unit" style="text-align: center;">~unit</td>
-                        <td id="bmiles" style="text-align: right;">~bmiles</td>
+                        <td id="caseend" style="text-align: center;">~caseend</td>
                         <td id="price,0" style="text-align: right;">~price,0</td>
                         <td id="straddr" style="text-align: center;">~straddr</td>
                         <td id="endaddr" style="text-align: center;">~endaddr</td>
@@ -697,30 +700,37 @@
                         <td><input id="txtUnit"  type="text" class="txt c1"/></td>
                     </tr>   
                     <tr>
-                    	<td><span> </span><a class="lbl"> 預購單號 </a></td>
+                    	<td><span> </span><a class="lbl"> 單據編號 </a></td>
 						<td colspan="2">
 						<input type="text" id="txtNoa" class="txt c1"/>
 						</td>
                         <td><span> </span><a class="lbl">來源表單編號</a></td>
-                        <td colspan="2"><input id="txtSo"  type="text" class="txt c1"/></td>
-                        <input id="txtNoq"  type="text" style="display:none;"/>
+                        <td colspan="2">
+                        	<input id="txtSo"  type="text" class="txt c1"/>
+                        	<input id="txtNoq"  type="text" style="display:none;"/>
+                        </td>
+                        
                     </tr>
                     <tr>
-                    	<td><span> </span><a class="lbl"> 公司名稱</a></td>
+                    	<td><span> </span><a id='lblCust' class="lbl btn"></a></td>
 						<td colspan="3">
 						<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
 						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
 						<input type="text" id="txtNick" class="txt" style="display:none; " />
 						</td>
-						<td><span> </span><a id="lblBmiles" class="lbl">郵遞區號</a></td>
-                        <td><input id="txtBmiles"  type="text" class="txt c1 num"/></td>
+						<td><span> </span><a class="lbl">郵遞區號</a></td>
+                        <td><input id="txtCaseend"  type="text" class="txt c1 "/></td>
                         
                     </tr>
                     <tr>
                         <td><span> </span><a class="lbl">姓名</a></td>
                         <td><input id="txtAddressee"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">電話</a></td>
-                        <td><input id="txtAtel"  type="text" class="txt c1"/></td>
+                        <td colspan="2"><input id="txtAtel"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">行動電話</a></td>
+                        <td colspan="2"><input id="txtBoat"  type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
                         <td><span> </span><a class="lbl">地址</a></td>
                         <td colspan="3"><input id="txtAaddr"  type="text" class="txt c1"/></td>
                     </tr>
@@ -733,14 +743,13 @@
                             <input id="txtEndaddr"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                    	<td><span> </span><a class="lbl"> 96條碼 </a></td>
+                    	<td><span> </span><a class="lbl"> 97條碼 </a></td>
 						<td colspan="2">
-						<input type="text" id="txtContract" class="txt c1"/>
+						<input type="text" id="txtBoatname" class="txt c1" style="width:70%"/>
 						</td>
-						<td><span> </span><a class="lbl"> 97條碼 </a></td>
+						<td><span> </span><a class="lbl"> 96條碼 </a></td>
 						<td colspan="2" >
-							<input type="text" id="txtPo" class="txt c1" style="width:50%"/>
-							<input type="button" id="btnCode97" style="width:60px;" value="產生">
+							<input type="text" id="txtPo" class="txt c1" style="width:70%"/>
 						</td>
                     	<td><span> </span><a class="lbl"> 託運單形式 </a></td>
 						<td><select id="cmbCalctype" class="txt c1"> </select></td>

@@ -39,7 +39,7 @@
 			q_desc = 1;
 			brwCount2 = 15;
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
-			['txtComp', 'lblCust', 'cust', 'comp,noa,nick', '0txtComp,txtCustno,txtNick', 'cust_b.aspx']);
+			['txtComp', 'lblCust', 'cust', 'comp,noa,nick', 'txtComp,txtCustno,txtNick', 'cust_b.aspx']);
 
 			$(document).ready(function() {
 				var t_where = '';
@@ -88,6 +88,7 @@
 				q_cmbParse("cmbDeliveryno", "1,2,3");
 				q_cmbParse("cmbContainertype", "手寫託運單,edi託運單");
 				document.title='預購作業'
+				$("#lblCust").text('公司名稱');
 				$('#btnUnpresent').click(function() {
 					q_pop('', "carpresent.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy + '_' + r_cno, '', '', '', "92%", "1054px", q_getMsg('popCarpresent'), true);
 
@@ -476,6 +477,10 @@
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
+				if ($('#chkEnda').prop("checked")){
+					alert("'已結案無法更動!!'");
+					return;
+				}
 				_btnModi();
 				$('#txtDatea').focus();
 			}
@@ -660,6 +665,10 @@
 			}
 
 			function btnDele() {
+			if ($('#chkEnda').prop("checked")){
+			    alert('已結案無法刪除!!');
+				 return;
+			 }
 				_btnDele();
 			}
 
@@ -733,7 +742,7 @@
 				padding: 2px;
 				text-align: center;
 				border-width: 0px;
-				background-color: #FFFF66;
+				background-color: #FFEA00;
 				color: blue;
 			}
 			.dbbm {
@@ -984,8 +993,8 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:120px; color:black;"><a> 公司名稱 </a></td>
-						<td align="center" style="width:100px; color:black;"><a> 件數 </a></td>
+						<td align="center" style="width:120px; color:black;"><a>公司名稱</a></td>
+						<td align="center" style="width:100px; color:black;"><a>件數</a></td>
 
 					</tr>
 					<tr>
@@ -1012,7 +1021,7 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl"> 預購單號 </a></td>
+						<td><span> </span><a class="lbl">單據編號</a></td>
 						<td colspan="2">
 						<input type="text" id="txtNoa" class="txt c1"/>
 						</td>
@@ -1020,9 +1029,11 @@
 						<td>
 						<input type="text" id="txtDatea" class="txt c1"/>
 						</td>
+						<td><span> </span><a class="lbl">結案</a></td>
+						<td><input id="chkEnda" type="checkbox" style=' '/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl"> 公司名稱</a></td>
+						<td><span> </span><a id='lblCust' class="lbl btn"></a></td>
 						<td colspan="3">
 						<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
 						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
@@ -1030,29 +1041,29 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">速配袋號 </a></td>
+						<td><span> </span><a class="lbl">速配袋號</a></td>
 						<td><select id="cmbDeliveryno" class="txt c1"> </select></td>
-						<td><span> </span><a class="lbl">件數 </a></td>
+						<td><span> </span><a class="lbl">件數</a></td>
 						<td>
 						<input type="text" id="txtMount" class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl"> 起始號碼 </a></td>
+						<td><span> </span><a class="lbl">預購起始號碼</a></td>
 						<td colspan="2"><input type="text" id="txtDocketno1" class="txt c1"/> </td>
-						<td><span> </span><a class="lbl"> 迄止號碼 </a></td>
+						<td><span> </span><a class="lbl">預購迄止號碼</a></td>
 						<td colspan="2"><input type="text" id="txtDocketno2" class="txt c1"/> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl"> 已使用 </a></td>
+						<td><span> </span><a class="lbl">已使用</a></td>
 						<td>
 						<input type="text" id="txtBoat" class="txt c1 num"/>
 						</td>
-						<td><span> </span><a class="lbl"> 未使用 </a></td>
+						<td><span> </span><a class="lbl">未使用</a></td>
 						<td>
 						<input type="text" id="txtPort" class="txt c1 num"/>
 						</td>
-						<td><span> </span><a class="lbl"> 託運單形式 </a></td>
+						<td><span> </span><a class="lbl">託運單形式</a></td>
 						<td><select id="cmbContainertype" class="txt c1"> </select></td>
 					</tr>
 		</div>

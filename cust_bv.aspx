@@ -499,9 +499,13 @@
 					<tr>
 						<td><span> </span><a class="lbl"> 聯絡人 </a></td>
 						<td><input id="txtboss" type="text" class="txt c1"/> </td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtTel" type="text" class="txt c1"/></td>
-					</tr>
+						<td><span> </span><a class="lbl"> 電話2</a></td>
+						<td colspan="2"><input id="txtConnfax" type="text" class="txt c1"/></td>
+					</tr>	
 					<tr>
 						<td><span> </span><a class="lbl"> 收件地址 </a></td>
 						<td colspan="5">
