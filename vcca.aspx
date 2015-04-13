@@ -207,7 +207,7 @@
 					case 'vccar':
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
-							alert("請檢查發票日期及公司有無設定，或發票已輸入。");
+							alert("請檢查發票號碼主檔設定，或發票已輸入。");
 							Unlock(1);
 						} else {
 							//紙本發票才需判斷，先註解
