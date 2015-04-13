@@ -27,7 +27,11 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = "noa";
-            brwCount2 = 5;
+            brwCount2 = 10;
+            
+            aPop = new Array(['txtSiteno', 'lblSiteno', 'addr3', 'noa,namea', 'txtSiteno,txtSite', 'addr3_b.aspx'], 
+			['txtSite', 'lblSite', 'addr3', 'comp,,namea', 'txtSiteno,txtSite', 'addr3_b.aspx']);
+			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -42,6 +46,12 @@
                 mainForm(0);
             }
             function mainPost() {
+            	document.title='郵遞區號主檔';
+            	$("#lblNoa").text('郵遞區號');
+            	$("#lblSiteno").text('站所代碼');
+            	$("#lblSite").text('站所名稱');
+  
+            	
             }
             function q_boxClose(s2) {
                 switch (b_pop) {
@@ -56,7 +66,7 @@
                     case 'checkAddr2':
                         var as = _q_appendData("addr2", "", true);
                         if (as[0] != undefined) {
-                            alert('已存在 ' + as[0].noa + ' ' + as[0].addr);
+                            alert('已存在 ' + as[0].noa + ' ' + as[0].area + as[0].addr);
                             Unlock(1);
                             return;
                         }
@@ -166,7 +176,7 @@
             }
             .dview {
                 float: left;
-                width: 250px;
+                width: 450px;
                 border-width: 0px;
             }
             .tview {
@@ -291,15 +301,23 @@
                 <table class="tview" id="tview">
                     <tr>
                         <td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-                        <td align="center" style="width:80px; color:black;"><a id='vewNoa'> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a> 郵遞區號 </a></td>
+                        <td align="center" style="width:120px; color:black;"><a> 縣市地區 </a></td>
                         <td align="center" style="width:120px; color:black;"><a id='vewAddr'> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a> 站所代碼 </a></td>
+                        <td align="center" style="width:120px; color:black;"><a> 站所名稱 </a></td>
+                        
                     </tr>
                     <tr>
                         <td >
                         <input id="chkBrow.*" type="checkbox" style=' '/>
                         </td>
                         <td id='noa' style="text-align: center;">~noa</td>
+                        <td id='area' style="text-align: center;">~area</td>
                         <td id='addr' style="text-align: center;">~addr</td>
+                        <td id='siteno' style="text-align: center;">~siteno</td>
+                        <td id='site' style="text-align: center;">~site</td>
+                         
                     </tr>
                 </table>
             </div>
@@ -319,9 +337,27 @@
                         </td>
                     </tr>
                     <tr>
+                        <td><span> </span><a class="lbl"> 縣市地區 </a></td>
+                        <td>
+                        <input id="txtArea" type="text" class="txt c1"/>
+                        </td>
+                    </tr>
+                    <tr>
                         <td><span> </span><a id='lblAddr' class="lbl"> </a></td>
-                        <td colspan="3">
+                        <td>
                         <input id="txtAddr" type="text" class="txt c1"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id='lblSiteno' class="lbl btn"></a></td>
+                        <td>
+                        <input id="txtSiteno" type="text" class="txt c1"/>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td><span> </span><a id='lblSite' class="lbl btn"></a></td>
+                        <td>
+                        <input id="txtSite" type="text" class="txt c1"/>
                         </td>
                     </tr>
                 </table>
