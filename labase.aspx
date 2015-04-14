@@ -271,6 +271,7 @@
 
         function q_boxClose(s2) { 
             var ret;
+            ret = getb_ret();
             if(s2[0]=='sss'){
             	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 				  	if($('#txtNoa').val().substr(0,1)=='G'){
@@ -280,8 +281,13 @@
 					}
 				}
             }
-            
-            switch (b_pop) {   
+            if (q_cur==2) {
+				if (ret==null) {
+            		$('#txtNoa').val(org_noa);
+            		$('#txtNamea').val(org_namea);
+            	}
+            }
+            switch (b_pop) {
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -530,7 +536,6 @@
             			q_tr('txtHe_person',q_float('txtHe_person')-q_float('txtAs_health'))
             		break;
                 case q_name: 
-                	
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -575,8 +580,7 @@
                 alert(t_err);
                 return;
             }
-			
-			
+            
               if(q_cur==1)
 	           	$('#txtWorker').val(r_name);
 	        else
@@ -654,10 +658,15 @@
 		    $('#txtInsur_fund').val(0.025);
 			//$('#txtInsur_disaster').val(0.34);
         }
+        
+        var org_noa='';
+        var org_namea='';
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            org_noa=$('#txtNoa').val();
+            org_namea=$('#txtNamea').val();
             $('#txtNoa').attr('disabled', 'disabled');
             $('#txtNamea').attr('disabled', 'disabled');
             $('#chkIsforeign').attr('disabled', 'disabled');
