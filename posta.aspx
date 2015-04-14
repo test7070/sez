@@ -24,7 +24,9 @@
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array(
-			['txtUseno_', 'btnUseno_', 'custtgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'custtgg_b.aspx']
+			//['txtUseno_', 'btnUseno_', 'custtgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'custtgg_b.aspx']
+			['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx'],
+			['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']
 		);
 
 		$(document).ready(function () {
@@ -49,6 +51,7 @@
 			bbmMask = [];
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('posta.typea'));
+			q_cmbParse("cmbKind",'客戶,廠商');
 		}
 		
 		function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -369,24 +372,28 @@
 				<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
 						<td class="td2" colspan="3"><input id="txtComp" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblTel" class="lbl" > </a></td>
-						<td class="td4"><input id="txtTel" type="text" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id="lblKind" class="lbl" > </a></td>
+						<td class="td6"><select id="cmbKind" class="txt c1"> </select></td>
 				</tr>
 				<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblTel" class="lbl" > </a></td>
+						<td class="td2" colspan="3"><input id="txtTel" type="text" class="txt c1"/></td>
+				</tr>
+				<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input id="txtAddr" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>
-
 		<div class='dbbs' > 
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-					<td align="center" style="width: 15%;"><a id='lblUseno_s'> </a></td>
+					<td align="center" style="width: 13%;"><a id='lblUseno_s'> </a></td>
 					<td align="center" style="width: 25%;"><a id='lblComp_s'> </a></td>
 					<td align="center" style="width: 8%;"><a id='lblZipcode_s'> </a></td>
-					<td align="center"><a id='lblAddr_s'> </a></td>
+					<td align="center" ><a id='lblAddr_s'> </a></td>
+					<td align="center" style="width: 25%;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
@@ -400,6 +407,7 @@
 					<td><input id="txtComp.*" type="text" class="txt c1"/></td>
 					<td><input id="txtZipcode.*" type="text" class="txt c1" /></td>
 					<td><input id="txtAddr.*" type="text" class="txt c1" /></td>
+					<td><input id="txtMemo.*" type="text" class="txt c1" /></td>
 				</tr>
 			</table>
 		</div>
