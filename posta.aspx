@@ -23,11 +23,7 @@
 		var bbmMask = [];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-		aPop = new Array(
-			//['txtUseno_', 'btnUseno_', 'custtgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'custtgg_b.aspx']
-			['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx'],
-			['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']
-		);
+		aPop = new Array();
 
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -52,6 +48,15 @@
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('posta.typea'));
 			q_cmbParse("cmbKind",'客戶,廠商');
+			
+			$('#cmbKind').change(function() {
+				if($('#cmbKind').val()=='廠商')
+					aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
+				else
+					aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']);
+			});
+			q_popAssign();
+			$('#cmbKind').change();
 		}
 		
 		function q_boxClose(s2) { ///   q_boxClose 2/4 
