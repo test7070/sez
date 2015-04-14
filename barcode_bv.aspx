@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Debug="true"%>
+<%@ Page Language="C#" Debug="true"%>
     <script language="c#" runat="server">     
         
         public class Para
@@ -15,6 +15,14 @@
         }
         public void Page_Load()
         {
+            //圖片
+            int width = 250, height = 250;
+            System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height);
+            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bm);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.Default;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            g.Clear(System.Drawing.Color.White);
+            //
             string connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=dc";
             
             string noa = "";
@@ -23,7 +31,17 @@
                 noa = Request.QueryString["noa"];
             }
             if (noa.Length == 0)
+            {
+                System.IO.MemoryStream stream = new System.IO.MemoryStream();
+                bm.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+
+                Response.ContentType = "application/x-msdownload;";
+                Response.AddHeader("Content-transfer-encoding", "binary");
+                Response.AddHeader("Content-Disposition", "attachment;filename=barcode.bmp");
+                Response.BinaryWrite(stream.ToArray());
+                Response.End();
                 return;
+            }
             //資料
             System.Data.DataTable dt = new System.Data.DataTable();
             using (System.Data.SqlClient.SqlConnection connSource = new System.Data.SqlClient.SqlConnection(connectionString))
@@ -71,13 +89,7 @@
             }
             
             
-            //圖片
-            int width = 250, height = 250;
-            System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height);
-            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bm);
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.Default;
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            g.Clear(System.Drawing.Color.White);
+            
 
             
             //外框
@@ -136,10 +148,6 @@
             //barcode
             System.Drawing.Bitmap barcodeImage = getBarcode(pa.barcode, "code39");
             g.DrawImage(barcodeImage, 77, 90, barcodeImage.Width, barcodeImage.Height);
-
-            //save
-          //  g.DrawImage(bm, new System.Drawing.PointF(0.0F, 0.0F));
-         //   g.Dispose();
             
             //bitmap to stream
             System.IO.MemoryStream stream = new System.IO.MemoryStream();
