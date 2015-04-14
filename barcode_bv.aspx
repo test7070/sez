@@ -15,6 +15,7 @@
         }
         public void Page_Load()
         {
+            System.IO.MemoryStream stream = new System.IO.MemoryStream();
             //圖片
             int width = 250, height = 250;
             System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height);
@@ -24,7 +25,7 @@
             g.Clear(System.Drawing.Color.White);
             //
             string connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=dc";
-            
+        
             string noa = "";
             if (Request.QueryString["noa"] != null && Request.QueryString["noa"].Length > 0)
             {
@@ -32,7 +33,6 @@
             }
             if (noa.Length == 0)
             {
-                System.IO.MemoryStream stream = new System.IO.MemoryStream();
                 bm.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
 
                 Response.ContentType = "application/x-msdownload;";
@@ -49,7 +49,7 @@
                 System.Data.SqlClient.SqlDataAdapter adapter = new System.Data.SqlClient.SqlDataAdapter();
                 connSource.Open();
                 string queryString = @"select top 1 datea,trandate,'' --指定配送
-	                                    ,isnull(price,0),'XX',[weight],mount,boatname barcode
+	                                    ,isnull(price,0),so,[weight],mount,boatname barcode
 	                                    ,addressee,atel+'  '+boat,caseend+aaddr --zipcode+addr
 	                                    ,endaddr memo,'',''
 	                                    ,custno,comp,''
@@ -70,8 +70,8 @@
                 pa.s2 = System.DBNull.Value.Equals(r.ItemArray[3]) ? 0 : (float)(System.Decimal)r.ItemArray[3];
                 pa.s3 = System.DBNull.Value.Equals(r.ItemArray[4]) ? "" : (System.String)r.ItemArray[4];
 
-                pa.weight = System.DBNull.Value.Equals(r.ItemArray[5]) ? 0 : (float)(System.Double)r.ItemArray[5];
-                pa.count = System.DBNull.Value.Equals(r.ItemArray[6]) ? 0 : (float)(System.Double)r.ItemArray[6];
+                pa.weight = System.DBNull.Value.Equals(r.ItemArray[5]) ? 0 : (float)(System.Decimal)r.ItemArray[5];
+                pa.count = System.DBNull.Value.Equals(r.ItemArray[6]) ? 0 : (float)(System.Decimal)r.ItemArray[6];
 
                 pa.barcode = System.DBNull.Value.Equals(r.ItemArray[7]) ? "" : (System.String)r.ItemArray[7];
 
@@ -87,10 +87,10 @@
                 pa.sender_line2 = System.DBNull.Value.Equals(r.ItemArray[15]) ? "" : (System.String)r.ItemArray[15];
                 pa.sender_line3 = System.DBNull.Value.Equals(r.ItemArray[16]) ? "" : (System.String)r.ItemArray[16];
             }
-            
-            
-            
-
+			//置中
+			System.Drawing.StringFormat stringFormat = new System.Drawing.StringFormat();
+            stringFormat.Alignment = System.Drawing.StringAlignment.Center;
+            stringFormat.LineAlignment = System.Drawing.StringAlignment.Center;
             
             //外框
             g.DrawRectangle(System.Drawing.Pens.Black, 0, 10, width - 1, height - 11);
@@ -126,9 +126,11 @@
             
             g.DrawString(pa.s1, new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(40, 20));
             g.DrawString(pa.s2.ToString(), new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(40, 45));
-            g.DrawString(pa.s3, new System.Drawing.Font("新細明體", 50, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Blue, new System.Drawing.PointF(130, 20));
 
-            g.DrawString(pa.weight.ToString() + "KG", new System.Drawing.Font("新細明體", 12), System.Drawing.Brushes.Blue, new System.Drawing.PointF(2, 90));
+            g.DrawString(pa.s3, new System.Drawing.Font("新細明體", 50, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Blue, new System.Drawing.PointF(175, 50), stringFormat);
+
+            g.DrawString(pa.weight.ToString(), new System.Drawing.Font("新細明體", 12), System.Drawing.Brushes.Blue, new System.Drawing.PointF(18, 95),stringFormat);
+            g.DrawString("KG", new System.Drawing.Font("新細明體", 12), System.Drawing.Brushes.Blue, new System.Drawing.PointF(2, 105));
             g.DrawString(pa.count.ToString(), new System.Drawing.Font("新細明體", 12), System.Drawing.Brushes.Blue, new System.Drawing.PointF(50, 90));
 
             g.DrawString(pa.barcode, new System.Drawing.Font("新細明體", 7), System.Drawing.Brushes.Blue, new System.Drawing.PointF(130, 115));
@@ -150,7 +152,6 @@
             g.DrawImage(barcodeImage, 77, 90, barcodeImage.Width, barcodeImage.Height);
             
             //bitmap to stream
-            System.IO.MemoryStream stream = new System.IO.MemoryStream();
             bm.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
             
             Response.ContentType = "application/x-msdownload;";

@@ -398,6 +398,7 @@
             }
 
             function q_stPost() {
+            	$('#barcodeImg').attr('src', 'barcode_bv.aspx?noa=' +$('#txtNoa').val()+'&time='+(new Date).getTime());
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 Unlock(1);
@@ -461,7 +462,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 trans.refresh();
-                $('#barcodeImg').attr('src', 'barcode_bv.aspx?noa=' +$('#txtNoa').val());
+                $('#barcodeImg').attr('src', 'barcode_bv.aspx?noa=' +$('#txtNoa').val()+'&time='+(new Date).getTime());
             }
 
             function readonly(t_para, empty) {
