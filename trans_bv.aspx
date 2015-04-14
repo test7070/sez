@@ -22,7 +22,7 @@
 			var q_name = "trans";
 			var q_readonly = ['txtMiles','txtNoa'];
 			var bbmNum = [['txtMount',10,3,1]];
-			var bbmMask = [['txtDatea','999/99/99'],['txtTrandate','999/99/99'],['txtMon','999/99'],['txtMon2','999/99'],['txtLtime','99:99'],['txtStime','99:99'],['txtDtime','99:99']];
+			var bbmMask = [['txtDatea','999/99/99'],['txtTrandate','999/99/99'],['txtMon','999/99'],['txtMon2','999/99'],['txtLtime','99:99'],['txtAdd3','99:99'],['txtAdd4','99:99']];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -795,16 +795,13 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" class="txt c1"/></td>
+						<td colspan='2'>
+							<input id="txtDatea"  type="text" class="txt c1" style="float:left;width:60%;"/>
+						    <input id="txtAdd3"   type="text" class="txt c1" style="float:left;width:40%;"/>
 						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td><input id="txtTrandate"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td>
-							<input id="txtNoa"  type="text" class="txt c1"/>
-							<input id="txtNoq"  type="text" style="display:none;"/>
-						</td>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td><input id="txtSerial"  type="text"  class="txt c1"/></td>
+						<td colspan='2'>
+							<input id="txtTrandate"  type="text" class="txt c1" style="float:left;width:60%;"/>
+						    <input id="txtAdd4"   type="text" class="txt c1" style="float:left;width:40%;"/>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
@@ -817,6 +814,19 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td>
+							<input id="txtNoa"  type="text" class="txt c1"/>
+							<input id="txtNoq"  type="text" style="display:none;"/>
+						</td>
+						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td><input id="txtSerial"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input id="txtMount"  type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
@@ -825,12 +835,6 @@
 						<td colspan="3">
 							<input id="txtStraddr"  type="text" style="float:left;width:100%;"/>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
-						<td><input id="txtMount"  type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
