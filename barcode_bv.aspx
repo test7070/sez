@@ -34,7 +34,7 @@
         {
             System.Drawing.Bitmap bm = new System.Drawing.Bitmap(width, height);
             System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bm);
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             g.Clear(System.Drawing.Color.White);
 
@@ -129,16 +129,16 @@
             g.DrawString("代收款", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(30, 50), stringFormat);
             g.DrawString("重  量", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(30, 72), stringFormat);
             g.DrawString("總件數", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(100, 72), stringFormat);
-            g.DrawString("收", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 140), stringFormat);
-            g.DrawString("貨", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 157), stringFormat);
-            g.DrawString("人", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 174), stringFormat);
+            g.DrawString("收", new System.Drawing.Font("新細明體", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 140), stringFormat);
+            g.DrawString("貨", new System.Drawing.Font("新細明體", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 157), stringFormat);
+            g.DrawString("人", new System.Drawing.Font("新細明體", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 174), stringFormat);
             
-            g.DrawString("備", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 205), stringFormat);
+            g.DrawString("備", new System.Drawing.Font("新細明體", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 205), stringFormat);
             g.DrawString("註", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 230), stringFormat);
             
-            g.DrawString("寄", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 260), stringFormat);
-            g.DrawString("貨", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 275), stringFormat);
-            g.DrawString("人", new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 290), stringFormat);
+            g.DrawString("寄", new System.Drawing.Font("新細明體", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 260), stringFormat);
+            g.DrawString("貨", new System.Drawing.Font("新細明體", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 275), stringFormat);
+            g.DrawString("人", new System.Drawing.Font("新細明體", 10), System.Drawing.Brushes.Black, new System.Drawing.PointF(14, 290), stringFormat);
             
             //value 
             g.DrawString(pa.s2.ToString(), new System.Drawing.Font("新細明體", 11), System.Drawing.Brushes.Blue, new System.Drawing.PointF(100, 48), stringFormat);
@@ -160,15 +160,16 @@
 
             g.DrawString(pa.bag + " 號袋", new System.Drawing.Font("新細明體", 20), System.Drawing.Brushes.Blue, new System.Drawing.PointF(65, 320), stringFormat);
             //barcode
-            System.Drawing.Bitmap barcodeImage = getBarcode(pa.barcode96, "code39");
-            g.DrawImage(barcodeImage, 130, 85, barcodeImage.Width, barcodeImage.Height);
-            g.DrawString(pa.barcode96, new System.Drawing.Font("新細明體", 7), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 122), stringFormat);
+            GetCode(pa.barcode96,ref g, 130, 85);
+            //g.DrawImage(barcodeImage, 130, 85, barcodeImage.Width, barcodeImage.Height);
+            g.DrawString(pa.barcode96, new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 120), stringFormat);
 
-            System.Drawing.Bitmap barcodeImage97 = getBarcode(pa.barcode97, "code39");
-            g.DrawImage(barcodeImage97, 130, 300, barcodeImage.Width, barcodeImage.Height);
-            g.DrawString(pa.barcode97, new System.Drawing.Font("新細明體", 7), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 337), stringFormat);
+            GetCode(pa.barcode96, ref g, 130, 300);
+            //g.DrawImage(barcodeImage97, 130, 300, barcodeImage.Width, barcodeImage.Height);
+            g.DrawString(pa.barcode97, new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 335), stringFormat);
             //bitmap to stream
             bm.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+          
             Response.ContentType = "application/x-msdownload;";
             Response.AddHeader("Content-transfer-encoding", "binary");
             Response.AddHeader("Content-Disposition", "attachment;filename=barcode.bmp");
@@ -218,6 +219,95 @@
             aay.Write(formData);
             aax.Close();
         }*/
+        public void GetCode(string strSource, ref System.Drawing.Graphics objGraphics, int x, int y)
+        {
+            //int x = 0; //左邊界
+            //int y = 0; //上邊界
+            int WidLength = 3; //粗BarCode長度
+            int NarrowLength = 1; //細BarCode長度
+            int BarCodeHeight = 30; //BarCode高度
+            int intSourceLength = strSource.Length;
+            string strEncode = "010010100"; //編碼字串 初值為 起始符號 *
+
+            string AlphaBet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"; //Code39的字母
+
+            string[] Code39 = //Code39的各字母對應碼
+          {
+               /* 0 */ "000110100",
+               /* 1 */ "100100001",
+               /* 2 */ "001100001",
+               /* 3 */ "101100000",
+               /* 4 */ "000110001",
+               /* 5 */ "100110000",
+               /* 6 */ "001110000",
+               /* 7 */ "000100101",
+               /* 8 */ "100100100",
+               /* 9 */ "001100100",
+               /* A */ "100001001",
+               /* B */ "001001001",
+               /* C */ "101001000",
+               /* D */ "000011001",
+               /* E */ "100011000",
+               /* F */ "001011000",
+               /* G */ "000001101",
+               /* H */ "100001100",
+               /* I */ "001001100",
+               /* J */ "000011100",
+               /* K */ "100000011",
+               /* L */ "001000011",
+               /* M */ "101000010",
+               /* N */ "000010011",
+               /* O */ "100010010",
+               /* P */ "001010010",
+               /* Q */ "000000111",
+               /* R */ "100000110",
+               /* S */ "001000110",
+               /* T */ "000010110",
+               /* U */ "110000001",
+               /* V */ "011000001",
+               /* W */ "111000000",
+               /* X */ "010010001",
+               /* Y */ "110010000",
+               /* Z */ "011010000",
+               /* - */ "010000101",
+               /* . */ "110000100",
+               /*' '*/ "011000100",
+               /* $ */ "010101000",
+               /* / */ "010100010",
+               /* + */ "010001010",
+               /* % */ "000101010",
+               /* * */ "010010100"
+          };
+            strSource = strSource.ToUpper();
+
+  
+
+            for (int i = 0; i < intSourceLength; i++)
+            {
+                if (AlphaBet.IndexOf(strSource[i]) == -1 || strSource[i] == '*') //檢查是否有非法字元
+                {
+                    objGraphics.DrawString("含有非法字元", System.Drawing.SystemFonts.DefaultFont, System.Drawing.Brushes.Red, x, y);
+                    return;
+                }
+                //查表編碼
+                strEncode = string.Format("{0}0{1}", strEncode, Code39[AlphaBet.IndexOf(strSource[i])]);
+            }
+
+            strEncode = string.Format("{0}0010010100", strEncode); //補上結束符號 *
+
+            int intEncodeLength = strEncode.Length; //編碼後長度
+            int intBarWidth;
+
+            for (int i = 0; i < intEncodeLength; i++) //依碼畫出Code39 BarCode
+            {
+                intBarWidth = strEncode[i] == '1' ? WidLength : NarrowLength;
+                objGraphics.FillRectangle(i % 2 == 0 ? System.Drawing.Brushes.Black : System.Drawing.Brushes.White,
+                  x, y, intBarWidth, BarCodeHeight);
+                x += intBarWidth;
+            }
+            return;
+        }
+        
         public System.Drawing.Bitmap GetCode39(string strSource)
         {
           int x = 0; //左邊界
@@ -287,7 +377,6 @@
             BarCodeHeight + (y * 2));
  
           System.Drawing.Graphics objGraphics = System.Drawing.Graphics.FromImage(objBitmap); //宣告GDI+繪圖介面
- 
           //填上底色
           objGraphics.FillRectangle(System.Drawing.Brushes.White, 0, 0, objBitmap.Width, objBitmap.Height);
  
