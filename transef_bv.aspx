@@ -38,14 +38,7 @@
             function sum() {
                 if(q_cur!=1 && q_cur!=2)
                     return;
-                var t_price = q_float('txtPrice');
-                var t_total = round(t_price,0);
-                var t_total2 = round(q_add(t_price2,t_price3),0);
-                var t_unpack = q_float('txtTolls') + q_float('txtReserve') + q_float('txtOverh')
-                    +q_float('txtOverw')+q_float('txtCommission')+q_float('txtCommission2');
-                $('#txtTotal').val(q_trv(t_total));
-                $('#txtTotal2').val(q_trv(t_total2));
-                $('#txtUnpack').val(q_trv(t_unpack));
+                
             }
             
                 
