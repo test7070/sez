@@ -19,14 +19,13 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 
-			q_tables = 't';
-			var q_name = "tranorde";
-			var q_readonly = ['txtNoa','txtBoat','txtPort'];
+			q_tables = 's';
+			var q_name = "tboat";
+			var q_readonly = ['txtNoa'];
 			var q_readonlys = [];
 			var bbsNum = [];
 			var bbsMask = new Array(['txtTrandate', '999/99/99']);
-			var bbtMask = new Array(['txtDatea', '999/99/99']);
-			var bbmNum = new Array(['txtMount',10,0,1], ['txtBoat',10,0,1], ['txtPort',10,0,1]);
+			var bbmNum = new Array(['txtMount',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -36,17 +35,16 @@
 			q_alias = '';
 			q_desc = 1;
 			brwCount2 = 15;
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
-			['txtComp', 'lblCust', 'cust', 'comp,noa,nick', 'txtComp,txtCustno,txtNick', 'cust_b.aspx']);
+			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa', 'txtCustno', 'cust_b.aspx']);
 
 			$(document).ready(function() {
 				var t_where = '';
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
-				bbtKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
+			
 			function main() {
 				if (dataErr) {
 					dataErr = false;
@@ -58,17 +56,21 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
+					case 'qtxt.query.tboat1':
+		        		
+		           	break;
 				}
 			}
 
 			function mainPost() {
 				q_mask(bbmMask);
-				q_cmbParse("cmbDeliveryno", "1,2,3");
-				q_cmbParse("cmbContainertype", "手寫託運單,edi託運單");
-				document.title='預購作業'
-				$("#lblCust").text('公司名稱');
+				document.title='客戶派遣'
+				$("#lblCustno").text('客戶編號');
+				$("#lblDatea").text('登錄日期');
+				
 				
 			}
+			
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
@@ -78,14 +80,9 @@
 				}
 				_bbsAssign();
 			}
-			function bbtAssign() {
-                for (var i = 0; i < q_bbtCount; i++) {
-                    $('#lblNo__' + i).text(i + 1);
-                    if (!$('#btnMinut__' + i).hasClass('isAssign')) {
-                    }
-                }
-                _bbtAssign();
-            }
+			
+			
+
 			function bbsSave(as) {
 				if (!as['caseno']) {
 					as[bbsKey[1]] = '';
@@ -94,19 +91,24 @@
 				q_nowf();
 				return true;
 			}
+			
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
+				
 			}
+			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
 				}
 				b_pop = '';
 			}
+			
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case q_name:
@@ -119,26 +121,19 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('tranorde_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
+				q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
 				_btnIns();
-				
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#chkEnda').prop('checked',false);
 				$('#txtDatea').focus();
-
 			}
 
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
-				if ($('#chkEnda').prop("checked")){
-					alert("'已結案無法更動!!'");
-					return;
-				}
 				_btnModi();
 				$('#txtDatea').focus();
 			}
@@ -148,43 +143,27 @@
 			}
 
 			function btnOk() {
+				
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
 				if (checkId($('#txtDatea').val()) == 0) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					return;
 				}
-				$('#txtCaddr').val();
-				var t_addr='',t_caddr = '',t_item,t_str;
-				for(var i=1;i<=5;i++){
-				    if($('#textAddr'+i).val().length>0){
-                        t_addr += (t_addr.length>0?'<br>':'')+$('#textAddr'+i).val();
-                    }
-					if($.trim($('#textAddr'+i).val()).length==0){
-						$('#textAddrno'+i).val('');
-						$('#textAddr'+i).val('');
-					}
-					t_str = $.trim($('#textAddrno'+i).val());
-					t_item = '';
-					for(var j=0;j<t_str.length;j++){
-						t_item += (t_item.length==0?'':' ') + t_str.substring(j,j+1).charCodeAt(0);
-					}
-					t_caddr += (i==1?'':',')+t_item;
-
-					t_str = $.trim($('#textAddr'+i).val());
-					t_item = '';
-					for(var j=0;j<t_str.length;j++){
-						t_item += (t_item.length==0?'':' ') + t_str.substring(j,j+1).charCodeAt(0);
-					}
-					t_caddr += ','+t_item;
-				}
-				$('#txtCaddr').val(t_caddr);
-				$('#txtAddr').val(t_addr);
+				
+				
 				sum();
-				$('#txtTranordeta').val(SaveTranOrdetStr());
+				
+				if(q_cur ==1){
+					$('#txtWorker').val(r_name);
+				}else if(q_cur ==2){
+					$('#txtWorker2').val(r_name);
+				}else{
+					alert("error: btnok!");
+				}
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranorde') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tboat') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
 					wrServer(t_noa);
 			}
@@ -198,6 +177,10 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
+				if(q_cur==1)
+					q_func('qtxt.query.tboat1', 'tboat.txt,cust_tgg,' + encodeURI($('#txtNoa').val()));
+					
+					
 			}
 
 			function refresh(recno) {
@@ -206,7 +189,6 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				
 			}
 
 			function btnMinus(id) {
@@ -255,10 +237,6 @@
 			}
 
 			function btnDele() {
-			if ($('#chkEnda').prop("checked")){
-			    alert('已結案無法刪除!!');
-				 return;
-			 }
 				_btnDele();
 			}
 
@@ -268,14 +246,6 @@
 
 			function q_popPost(id) {
 				switch(id){
-					case 'txtCustno':
-						var t_carno = $.trim($('#txtCustno').val());
-						if(q_cur==1 && t_carno.length>0){
-							for(var i=1;i<=5;i++)
-								if($.trim($('#textAddr'+i).val()).length==0)
-									$('#textAddrno'+i).val(t_carno+'-');
-						}
-						break;
 				}
 			}
 
@@ -465,14 +435,15 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
+		
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:120px; color:black;"><a>公司名稱</a></td>
+						<td align="center" style="width:80px; color:black;"><a>登錄日期</a></td>
+						<td align="center" style="width:120px; color:black;"><a>聯絡人</a></td>
 						<td align="center" style="width:100px; color:black;"><a>件數</a></td>
 
 					</tr>
@@ -481,7 +452,7 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='worker' style="text-align: center;">~worker</td>
 						<td id='mount' style="text-align: right;">~mount</td>
 					</tr>
 				</table>
@@ -501,54 +472,29 @@
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">單據編號</a></td>
-						<td colspan="2">
+						<td>
 						<input type="text" id="txtNoa" class="txt c1"/>
 						</td>
+						<td></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtDatea" class="txt c1"/>
 						</td>
-						<td><span> </span><a class="lbl">結案</a></td>
-						<td><input id="chkEnda" type="checkbox" style=' '/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblCust' class="lbl btn"></a></td>
-						<td colspan="3">
-						<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
-						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
-						<input type="text" id="txtNick" class="txt" style="display:none; " />
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a class="lbl">速配袋號</a></td>
-						<td><select id="cmbDeliveryno" class="txt c1"> </select></td>
-						<td></td>
 						<td><span> </span><a class="lbl">件數</a></td>
 						<td>
 						<input type="text" id="txtMount" class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">預購起始號碼</a></td>
-						<td><input type="text" id="txtDocketno1" class="txt c1"/> </td>
-						<td> </td>
-						<td><span> </span><a class="lbl">預購迄止號碼</a></td>
-						<td><input type="text" id="txtDocketno2" class="txt c1"/> </td>
-					</tr>
-					<tr>
-						<td><span> </span><a class="lbl">已使用</a></td>
+						<td><span> </span><a class="lbl">聯絡人</a></td>
 						<td>
-						<input type="text" id="txtBoat" class="txt c1 num"/>
+						<input type="text" id="txtworker" class="txt c1 "/>
 						</td>
 						<td></td>
-						<td><span> </span><a class="lbl">未使用</a></td>
-						<td>
-						<input type="text" id="txtPort" class="txt c1 num"/>
-						</td>
-						<td></td>
-						<td><span> </span><a class="lbl">託運單形式</a></td>
-						<td><select id="cmbContainertype" class="txt c1"> </select></td>
+						<td><span> </span><a class="lbl">備註</a></td>
+						<td colspan="2"><input type="text" id="txtmemo" class="txt c1"></td>
 					</tr>
+					
 		</div>
 	</body>
 </html>

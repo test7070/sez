@@ -32,7 +32,7 @@
             //q_xchg = 1;
             brwCount2 = 10;
             //不能彈出瀏覽視窗
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial', 'txtCustno,txtComp,txtNick,txtSerial', 'cust_b.aspx']
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,boss,tel,addr_comp,addr_fact,sales', 'txtCustno,txtComp,txtNick,txtSerial,txtWorker,txtPo,txtStraddr,txtOrdeno,txtWorker2', 'cust_b.aspx']
 			);
 			function currentData() {
             }
@@ -150,10 +150,11 @@
 			function mainPost() {
 				$("#lblDatea").text('資料時間');
 				$("#lblTrandate").text('讀取時間');
+				$("#lblNoa").text('單據編號');
 				$("#lblSerial").text('統一編碼');
 				$("#lblCust").text('公司名稱');
 				$("#lblStraddr").text('地址');
-				$("#lblInmount").text('件數');
+				$("#lblMount").text('件數');
 				$("#lblPo").text('電話');
 				$("#lblOrdeno").text('發送局');
 				$("#lblWorker").text('聯絡人');
@@ -418,6 +419,7 @@
 
 			function btnIns() {
 				_btnIns();
+				$('#txtDatea').val(q_date());
 				$('#txtNoa').val('AUTO');
 				$('#txtNoq').val('001');
 				$('#txtDatea').focus();
@@ -444,11 +446,6 @@
             		Unlock(1);
             		return;
 				}
-				if($('#txtTrandate').val().length == 0 || !q_cd($('#txtTrandate').val())){
-					alert(q_getMsg('lblTrandate')+'錯誤。');
-            		Unlock(1);
-            		return;
-				}
 				if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2){
          			alert(q_getMsg('lblSerial')+'錯誤。');
          			Unlock();
@@ -461,11 +458,6 @@
                 t_date1 = new Date(dec(t_date1.substr(0, 3)) + 1911, dec(t_date1.substring(4, 6)) - 1, dec(t_date1.substring(7, 9)));
                 t_date2 = new Date(dec(t_date2.substr(0, 3)) + 1911, dec(t_date2.substring(4, 6)) - 1, dec(t_date2.substring(7, 9)));
                 t_days = Math.abs(t_date2 - t_date1) / (1000 * 60 * 60 * 24) + 1;
-				if(t_days>60){
-					alert(q_getMsg('lblDatea')+'、'+q_getMsg('lblTrandate')+'相隔天數不可多於60天。');
-					Unlock(1);
-            		return;
-				}
 				//---------------------------------------------------------------
 				for(var i in trans.calctype){
         		}
@@ -501,6 +493,13 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if (t_para) {
+					$('#txtDatea').datepicker( 'destroy' );
+					
+				} else {
+					$('#txtDatea').removeClass('hasDatepicker')
+					$('#txtDatea').datepicker();
+				}
 			}
 
 			function btnMinus(id) {
@@ -798,6 +797,7 @@
 						<td colspan='2'>
 							<input id="txtDatea"  type="text" class="txt c1" style="float:left;width:60%;"/>
 						    <input id="txtAdd3"   type="text" class="txt c1" style="float:left;width:40%;"/>
+						<td> </td>
 						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
 						<td colspan='2'>
 							<input id="txtTrandate"  type="text" class="txt c1" style="float:left;width:60%;"/>

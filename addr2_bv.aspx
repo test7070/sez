@@ -29,8 +29,7 @@
             brwKey = "noa";
             brwCount2 = 10;
             
-            aPop = new Array(['txtSiteno', 'lblSiteno', 'addr3', 'noa,namea', 'txtSiteno,txtSite', 'addr3_b.aspx'], 
-			['txtSite', 'lblSite', 'addr3', 'comp,,namea', 'txtSiteno,txtSite', 'addr3_b.aspx']);
+            aPop = new Array(['txtSiteno', 'lblSiteno', 'addr3', 'noa,namea', 'txtSiteno,txtSite', 'addr3_b.aspx'] );
 			
             $(document).ready(function() {
                 bbmKey = ['noa'];

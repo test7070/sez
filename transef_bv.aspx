@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "transef";
-            var q_readonly = ['txtNoa','txtOrdeno','txtWorker','txtWorker2','txtUnpack'];
+            var q_readonly = ['txtNoa','txtOrdeno','txtUnpack'];
             var bbmNum = [['txtPrice',10,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -36,23 +36,14 @@
                 string = string.replace(/.*\'all\'=\'all\' and (\d*)=\d*.*/g,'$1');
                 brwCount2 = parseInt(string);
             }
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
-			['txtComp', 'lblCust', 'cust', 'comp,noa,nick', '0txtComp,txtCustno,txtNick', 'cust_b.aspx']);
-            /*aPop = new Array(['txtUccno','lblUcc','ucc','noa,product','txtUccno,txtProduct','ucc_b.aspx']
-                ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
-                ,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
-                ,['txtCarno', 'lblCarno', 'car2', 'a.noa,driver,driverno', 'txtCarno,txtDriver,txtDriverno', 'car2_b.aspx']
-                ,['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']
-                ,['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
-                ,['txtSaddr', '', 'view_road', 'memo', '0txtSaddr', 'road_b.aspx']
-                ,['txtAaddr', '', 'view_road', 'memo', '0txtAaddr', 'road_b.aspx']);*/
-           
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,boss,tel,connfax,zip_comp,addr_comp,zip_fact', 'txtCustno,txtComp,txtNick,txtAddressee,txtAtel,txtBoat,txtCaseend,txtAaddr,txtAccno', 'cust_b.aspx'], 
+			['txtCaseend', 'lblCaseend', 'addr2', 'noa,siteno', 'txtCaseend,txtAccno', 'addr2_b.aspx']
+			);
+        
             function sum() {
                 if(q_cur!=1 && q_cur!=2)
                     return;
                 var t_price = q_float('txtPrice');
-                var t_price2 = q_float('txtPrice2');
-                var t_price3 = q_float('txtPrice3');
                 var t_total = round(t_price,0);
                 var t_total2 = round(q_add(t_price2,t_price3),0);
                 var t_unpack = q_float('txtTolls') + q_float('txtReserve') + q_float('txtOverh')
@@ -159,6 +150,9 @@
             function mainPost() {
             	document.title='託運單作業';
             	$("#lblCust").text('公司名稱');
+            	$("#lblCaseend").text('郵遞區號');
+            	
+            	q_cmbParse("cmbCarno", "1,2,3");
             	q_cmbParse("cmbCalctype", "手寫託運單,edi託運單");
                 q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
                 $('#btnIns').val($('#btnIns').val() + "(F8)");
@@ -169,12 +163,6 @@
                 q_mask(bbmMask);
                 
                 $('#txtPrice').change(function(){
-                    sum();
-                });
-                $('#txtPrice2').change(function(){
-                    sum();
-                });
-                $('#txtPrice3').change(function(){
                     sum();
                 });
                 $('#txtDiscount').change(function(){
@@ -263,35 +251,13 @@
                 	case 'transef96':
                 		var as = _q_appendData("view_transef", "", true);
                 		if (as[0] != undefined) {
-                			$('#txtPo').val('96'+('0000000'+(dec(as[0].po.substr(2,7))+1)).substr(-7)+(dec(as[0].po.substr(2,7))+1%7))
+                			$('#txtPo').val('96'+('0000000'+(dec(as[0].po.substr(2,7))+1)).substr(-7)+((dec(as[0].po.substr(2,7))+1)%7))
                 		}
                 		else
                 			$('#txtPo').val('9600000011');
                 			
                 		btnOk();
-                		break;
-                    case 'getPrice_driver':
-                        var t_price = 0;
-                        var as = _q_appendData("addrs", "", true);
-                        if(as[0]!=undefined){
-                            t_price = as[0].driverprice;
-                        }
-                        $('#txtPrice2').val(t_price);
-                        $('#txtPrice3').val(0);
-                        
-                        sum();
-                        break; 
-                    case 'getPrice_driver2':
-                        var t_price = 0;
-                        var as = _q_appendData("addrs", "", true);
-                        if(as[0]!=undefined){
-                            t_price = as[0].driverprice2;
-                        }
-                        $('#txtPrice2').val(0);
-                        $('#txtPrice3').val(t_price);
-                        
-                        sum();
-                        break;    
+                		break;   
                     case 'getPrice_cust':
                         var t_price = 0;
                         var as = _q_appendData("addrs", "", true);
@@ -373,6 +339,7 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
+                $('#txtDatea').val(q_date());
                 $('#txtNoq').val('001');
                 trans.refresh();
                 $('#txtDatea').focus();
@@ -404,22 +371,13 @@
                     Unlock(1);
                     return;
                 }
-                if($('#txtTrandate').val().length == 0 || !q_cd($('#txtTrandate').val())){
-                    alert('配送日期錯誤。');
-                    Unlock(1);
-                    return;
-                }
+
                 var t_days = 0;
                 var t_date1 = $('#txtDatea').val();
                 var t_date2 = $('#txtTrandate').val();
                 t_date1 = new Date(dec(t_date1.substr(0, 3)) + 1911, dec(t_date1.substring(4, 6)) - 1, dec(t_date1.substring(7, 9)));
                 t_date2 = new Date(dec(t_date2.substr(0, 3)) + 1911, dec(t_date2.substring(4, 6)) - 1, dec(t_date2.substring(7, 9)));
                 t_days = Math.abs(t_date2 - t_date1) / (1000 * 60 * 60 * 24) + 1;
-                if(t_days>60){
-                    alert('發送日期、配送日期相隔天數不可多於60天。');
-                    Unlock(1);
-                    return;
-                }
                 sum();
                 if(q_cur ==1){
                     $('#txtWorker').val(r_name);
@@ -456,10 +414,12 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-           if (t_para) {
-					$('#btnCode97').attr('disabled', 'disabled');
+           		if (t_para) {
+					$('#txtDatea').datepicker( 'destroy' );
+					
 				} else {
-					$('#btnCode97').removeAttr('disabled');
+					$('#txtDatea').removeClass('hasDatepicker')
+					$('#txtDatea').datepicker();
 				}
             }
 
@@ -704,12 +664,12 @@
 						<td colspan="2">
 						<input type="text" id="txtNoa" class="txt c1"/>
 						</td>
+						<td></td>
                         <td><span> </span><a class="lbl">來源表單編號</a></td>
                         <td colspan="2">
                         	<input id="txtSo"  type="text" class="txt c1"/>
                         	<input id="txtNoq"  type="text" style="display:none;"/>
                         </td>
-                        
                     </tr>
                     <tr>
                     	<td><span> </span><a id='lblCust' class="lbl btn"></a></td>
@@ -717,10 +677,15 @@
 						<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
 						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
 						<input type="text" id="txtNick" class="txt" style="display:none; " />
-						</td>
-						<td><span> </span><a class="lbl">郵遞區號</a></td>
-                        <td><input id="txtCaseend"  type="text" class="txt c1 "/></td>
-                        
+						</td>   
+						 <td><span> </span><a class="lbl">重量</a></td>
+                        <td>
+                        	<input id="txtWeight"  type="text" class="txt c1"/>
+                        </td>
+                          <td><span> </span><a class="lbl">件數</a></td>
+                        <td>
+                        	<input id="txtMount"  type="text" class="txt c1"/>
+                        </td>
                     </tr>
                     <tr>
                         <td><span> </span><a class="lbl">姓名</a></td>
@@ -731,8 +696,12 @@
                         <td colspan="2"><input id="txtBoat"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
+                    	<td><span> </span><a id='lblCaseend' class="lbl"></a></td>
+                        <td><input id="txtCaseend"  type="text" class="txt c1 "/></td>
                         <td><span> </span><a class="lbl">地址</a></td>
                         <td colspan="3"><input id="txtAaddr"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">到著站</a></td>
+                        <td><input id="txtAccno"  type="text" class="txt c1 "/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a class="lbl">商品內容</a></td>
@@ -743,6 +712,13 @@
                             <input id="txtEndaddr"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
+                    	<td><span> </span><a class="lbl"> 速配袋號 </a></td>
+						<td><select id="cmbCarno" class="txt c1"> </select></td>
+						<td></td>
+						<td><span> </span><a class="lbl"> 託運單形式 </a></td>
+						<td><select id="cmbCalctype" class="txt c1"> </select></td>
+                    </tr>	
+                    <tr>
                     	<td><span> </span><a class="lbl"> 97條碼 </a></td>
 						<td colspan="2">
 						<input type="text" id="txtBoatname" class="txt c1" style="width:70%"/>
@@ -751,8 +727,8 @@
 						<td colspan="2" >
 							<input type="text" id="txtPo" class="txt c1" style="width:70%"/>
 						</td>
-                    	<td><span> </span><a class="lbl"> 託運單形式 </a></td>
-						<td><select id="cmbCalctype" class="txt c1"> </select></td>
+						<td><span> </span><a class="lbl">已傳入大貨追(Y/N)</a></td>
+                        <td><input id="txtMon"  type="text" class="txt c1 "/></td>
                     </tr>
                 </table>
             </div>
