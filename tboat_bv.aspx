@@ -68,6 +68,8 @@
 				$("#lblCustno").text('客戶編號');
 				$("#lblDatea").text('登錄日期');
 				
+				//$("#btnModi").
+				
 				
 			}
 			
@@ -490,6 +492,8 @@
 						<td>
 						<input type="text" id="txtworker" class="txt c1 "/>
 						</td>
+						<td> <span> </span><a id='lblCustno' class="lbl btn"></a></td>
+						<td><input type="text" id="txtCustno" class="txt c1" /> </td>
 						<td></td>
 						<td><span> </span><a class="lbl">備註</a></td>
 						<td colspan="2"><input type="text" id="txtmemo" class="txt c1"></td>
