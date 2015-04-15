@@ -21,12 +21,12 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtNoa','txtCustno','txtCust','txtDatea'];
 			var q_readonlys = [];
+			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
-			var bbsMask = new Array(['txtTrandate', '999/99/99']);
-			var bbmNum = new Array(['txtMount',10,0,1]);
-			var bbmMask = new Array(['txtDatea', '999/99/99']);
+			var bbmMask = [];
+			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -35,13 +35,19 @@
 			q_alias = '';
 			q_desc = 1;
 			brwCount2 = 15;
-			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa', 'txtCustno', 'cust_b.aspx']);
+			aPop = new Array();
 
 			$(document).ready(function() {
 				var t_where = '';
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
+				
+				 if (r_outs==1)
+					q_content = "where=^^custno='" + r_userno + "'^^";
+				else
+					q_content = "";
+				
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
 			
@@ -57,7 +63,7 @@
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
 					case 'qtxt.query.tboat1':
-		        		
+		        		alert('派遣成功!!!');
 		           	break;
 				}
 			}
@@ -66,11 +72,13 @@
 				q_mask(bbmMask);
 				document.title='客戶派遣'
 				$("#lblCustno").text('客戶編號');
+				$("#lblMount").text('件數');
 				$("#lblDatea").text('登錄日期');
 				
-				//$("#btnModi").
-				
-				
+				$("#btnModi").hide();
+				$("#btnDele").hide();
+				if(r_outs==0)
+					$("#btnIns").hide();
 			}
 			
 			function bbsAssign() {
@@ -82,9 +90,6 @@
 				}
 				_bbsAssign();
 			}
-			
-			
-
 			function bbsSave(as) {
 				if (!as['caseno']) {
 					as[bbsKey[1]] = '';
@@ -103,7 +108,6 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
-					
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -113,6 +117,18 @@
 			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'cust':
+						var as = _q_appendData("cust", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtCustno').val(as[0].noa);
+                			$('#txtCust').val(as[0].comp);
+                			$('#txtNick').val(as[0].nick);
+                			$('#txtWorker').val(as[0].boss);
+                		}else{
+                			alert('客戶資料載入錯誤!!');
+                			$('#btnCancel').val();
+                		}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -123,14 +139,17 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
+				//q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtDatea').focus();
+				$('#txtWorker').focus();
+				
+				var t_where = "where=^^ noa='"+r_userno+"' ^^";
+				q_gt('cust', t_where, 0, 0, 0, "");
 			}
 
 			function btnModi() {
@@ -145,23 +164,14 @@
 			}
 
 			function btnOk() {
-				
-				$('#txtDatea').val($.trim($('#txtDatea').val()));
-				if (checkId($('#txtDatea').val()) == 0) {
-					alert(q_getMsg('lblDatea') + '錯誤。');
+				var t_err = '';
+				t_err = q_chkEmpField([['txtCustno', q_getMsg('lblCustno')], ['txtWorker', q_getMsg('聯絡人')], ['txtMount', q_getMsg('lblMount')]]);
+				if (t_err.length > 0) {
+					alert(t_err);
 					return;
 				}
 				
 				
-				sum();
-				
-				if(q_cur ==1){
-					$('#txtWorker').val(r_name);
-				}else if(q_cur ==2){
-					$('#txtWorker2').val(r_name);
-				}else{
-					alert("error: btnok!");
-				}
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
@@ -180,9 +190,7 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 				if(q_cur==1)
-					q_func('qtxt.query.tboat1', 'tboat.txt,cust_tgg,' + encodeURI($('#txtNoa').val()));
-					
-					
+					q_func('qtxt.query.tboat1', 'tboat.txt,tboat1,' + encodeURI($('#txtNoa').val()));
 			}
 
 			function refresh(recno) {
@@ -251,36 +259,6 @@
 				}
 			}
 
-			function checkId(str) {
-				if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-					var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-					var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-					var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-					if ((n % 10) == 0)
-						return 1;
-				} else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-					var key = '12121241';
-					var n = 0;
-					var m = 0;
-					for (var i = 0; i < 8; i++) {
-						n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-						m += Math.floor(n / 10) + n % 10;
-					}
-					if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-						return 2;
-				} else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
-					var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-					if (regex.test(str))
-						return 3;
-				} else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
-					str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
-					var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-					if (regex.test(str))
-						return 4
-				}
-				return 0;
-				//錯誤
-			}
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -463,42 +441,37 @@
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
 						<td><input type="text" id="txtCaddr" style="display:none;"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">單據編號</a></td>
-						<td>
-						<input type="text" id="txtNoa" class="txt c1"/>
-						</td>
-						<td></td>
+						<td><input type="text" id="txtNoa" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtDatea" class="txt c1"/>
-						</td>
-						<td><span> </span><a class="lbl">件數</a></td>
-						<td>
-						<input type="text" id="txtMount" class="txt c1 num"/>
+						<td><input type="text" id="txtDatea" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblCustno" class="lbl"> </a></td>
+						<td><input type="text" id="txtCustno" class="txt c1"/></td>
+						<td colspan="2">
+							<input type="text" id="txtCust" class="txt c1"/>
+							<input type="hidden" id="txtNick" class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">聯絡人</a></td>
-						<td>
-						<input type="text" id="txtworker" class="txt c1 "/>
-						</td>
-						<td> <span> </span><a id='lblCustno' class="lbl btn"></a></td>
-						<td><input type="text" id="txtCustno" class="txt c1" /> </td>
-						<td></td>
-						<td><span> </span><a class="lbl">備註</a></td>
-						<td colspan="2"><input type="text" id="txtmemo" class="txt c1"></td>
+						<td><input type="text" id="txtWorker" class="txt c1 "/></td>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input type="text" id="txtMount" class="txt c1 num"/></td>
 					</tr>
-					
+					<tr>
+						<td><span> </span><a id="lblMemo" class="lbl"></a></td>
+						<td colspan="3"><input type="text" id="txtMemo" class="txt c1"></td>
+					</tr>
+				</table>
 		</div>
 	</body>
 </html>

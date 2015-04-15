@@ -38,14 +38,7 @@
             function sum() {
                 if(q_cur!=1 && q_cur!=2)
                     return;
-                var t_price = q_float('txtPrice');
-                var t_total = round(t_price,0);
-                var t_total2 = round(q_add(t_price2,t_price3),0);
-                var t_unpack = q_float('txtTolls') + q_float('txtReserve') + q_float('txtOverh')
-                    +q_float('txtOverw')+q_float('txtCommission')+q_float('txtCommission2');
-                $('#txtTotal').val(q_trv(t_total));
-                $('#txtTotal2').val(q_trv(t_total2));
-                $('#txtUnpack').val(q_trv(t_unpack));
+                
             }
             
                 
@@ -60,7 +53,7 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(1);
+                mainForm(0);
             }
 
             function mainPost() {
@@ -78,9 +71,7 @@
                 $('#btnOk').val($('#btnOk').val() + "(F9)");
                 $('#textBdate').datepicker();
                 $('#textEdate').datepicker();
-                
-                
-               // q_xchgForm();
+
             }
             function q_boxClose(s2) {
                 var ret;
@@ -128,15 +119,7 @@
             }
             function q_popPost(id) {
                 switch(id) {
-                    case 'txtStraddrno':
-                        trans.priceChange();
-                        break;
-                    case 'txtEndaddrno':
-                        trans.priceChange();
-                        break;
-                    case 'txtUccno':
-                        trans.priceChange();
-                        break;
+                    
                     default:
                         break;
                 }
@@ -147,6 +130,7 @@
                     return;
                 q_box('trans_ef_s.aspx', q_name + '_s', "550px", "95%", q_getMsg("popSeek"));
             }
+            
             function btnIns() {
                 
                 _btnIns();

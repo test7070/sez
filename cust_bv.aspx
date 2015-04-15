@@ -498,7 +498,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl"> 聯絡人 </a></td>
-						<td><input id="txtboss" type="text" class="txt c1"/> </td>
+						<td><input id="txtBoss" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
