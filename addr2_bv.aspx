@@ -109,6 +109,8 @@
                     Unlock(1);
                     return;
                 }
+                
+                $('#txtMemo').val($('#txtArea').val()+$('#txtAddr').val());
                 if (q_cur == 1) {
                     t_where = "where=^^ noa='" + t_noa + "'^^";
                     q_gt('addr2', t_where, 0, 0, 0, "checkAddr2", r_accy);
@@ -332,32 +334,25 @@
                     <tr>
                         <td><span> </span><a id='lblNoa' class="lbl"> </a></td>
                         <td>
-                        <input id="txtNoa"  type="text" class="txt c1"/>
+                        	<input id="txtNoa"  type="text" class="txt c1"/>
+                        	<input id="txtMemo" type="hidden" class="txt c1"/>
                         </td>
                     </tr>
                     <tr>
                         <td><span> </span><a class="lbl"> 縣市地區 </a></td>
-                        <td>
-                        <input id="txtArea" type="text" class="txt c1"/>
-                        </td>
+                        <td><input id="txtArea" type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id='lblAddr' class="lbl"> </a></td>
-                        <td>
-                        <input id="txtAddr" type="text" class="txt c1"/>
-                        </td>
+                        <td><input id="txtAddr" type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id='lblSiteno' class="lbl btn"></a></td>
-                        <td>
-                        <input id="txtSiteno" type="text" class="txt c1"/>
-                        </td>
+                        <td><span> </span><a id='lblSiteno' class="lbl btn"> </a></td>
+                        <td><input id="txtSiteno" type="text" class="txt c1"/></td>
                     </tr>
                      <tr>
-                        <td><span> </span><a id='lblSite' class="lbl btn"></a></td>
-                        <td>
-                        <input id="txtSite" type="text" class="txt c1"/>
-                        </td>
+                        <td><span> </span><a id='lblSite' class="lbl btn"> </a></td>
+                        <td><input id="txtSite" type="text" class="txt c1"/></td>
                     </tr>
                 </table>
             </div>

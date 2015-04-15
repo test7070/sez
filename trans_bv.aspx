@@ -32,7 +32,7 @@
             //q_xchg = 1;
             brwCount2 = 10;
             //不能彈出瀏覽視窗
-            aPop = new Array(['txtTrdno', 'lblSerial', 'cust', 'serial,noa,comp,nick,boss,tel,addr_comp,addr_fact,sales', 'txtTrdno,txtCustno,txtComp,txtNick,txtWorker,txtPo,txtStraddr,txtOrdeno,txtWorker2', 'cust_b.aspx']);
+            aPop = new Array(['txtTrdno', 'lblSerial', 'cust', 'serial,noa,comp,nick,boss,tel,addr_comp,addr_fact,sales', 'txtTrdno,txtCustno,txtComp,txtNick,txtShip,txtPo,txtStraddr,txtOrdeno,txtBoat', 'cust_b.aspx']);
             	
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -58,8 +58,8 @@
 				$("#lblMount").text('件數');
 				$("#lblPo").text('電話');
 				$("#lblOrdeno").text('發送局');
-				$("#lblWorker").text('聯絡人');
-				$("#lblWorker2").text('宅配員');
+				$("#lblShip").text('聯絡人');
+				$("#lblBoat").text('宅配員');
 				
 				document.title='派遣作業';
 
@@ -451,14 +451,14 @@
 							<input id="txtComp"  type="text" style="float:left;width:70%;"/>
 							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
-						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblBoat" class="lbl"> </a></td>
+						<td><input id="txtBoat" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td><input id="txtMount"  type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblShip" class="lbl"> </a></td>
+						<td><input id="txtShip" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
 						<td><input id="txtPo"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblStraddr" class="lbl"> </a></td>

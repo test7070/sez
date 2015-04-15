@@ -21,12 +21,12 @@
 
 			q_tables = 's';
 			var q_name = "tboat2";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust'];
 			var q_readonlys = [];
-			var bbsNum = [];
-			var bbsMask = new Array(['txtTrandate', '999/99/99']);
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
+			var bbsNum = [];
+			var bbsMask = new Array();
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -35,7 +35,9 @@
 			q_alias = '';
 			q_desc = 1;
 			brwCount2 = 15;
-			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa', 'txtCustno', 'cust_b.aspx']);
+			aPop = new Array(
+				['txtPost', 'lblPost', 'addr2', 'noa,memo,siteno,site', 'txtPost,txtBoatname,txtMemo', 'addr2_b.aspx']
+			);
 
 			$(document).ready(function() {
 				var t_where = '';
@@ -56,7 +58,17 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
-				
+					case 'qtxt.query.tboat2':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							if(as[0]=='success')
+		        				alert('轉口資料更新完成!!');
+		        			else
+		        				alert('轉口資料更新失敗!!');
+		        		}else{
+		        			alert('資料更新執行錯誤!!');
+		        		}
+		        	break;
 				}
 			}
 
@@ -64,10 +76,17 @@
 				q_mask(bbmMask);
 				document.title='轉口作業'
 				$("#lblCustno").text('客戶編號');
-				$("#lblCust").text('地址');
 				$("#lblDatea").text('登錄日期');
 				
+				$('#txtNoa').change(function() {
+					var t_where = "where=^^ noa='" + $(this).val() + "'^^";
+					q_gt('tboat2', t_where, 0, 0, 0, "checkCode97", r_accy);
+				});
 				
+				$('#txtPost').change(function() {
+					var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+					q_gt('addr2', t_where, 0, 0, 0, "");
+				});
 			}
 			
 			function bbsAssign() {
@@ -80,8 +99,6 @@
 				_bbsAssign();
 			}
 			
-			
-
 			function bbsSave(as) {
 				if (!as['caseno']) {
 					as[bbsKey[1]] = '';
@@ -110,6 +127,73 @@
 			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'checkCode97':
+                        var as = _q_appendData("tboat2", "", true);
+                        if (as[0] != undefined) {
+                            alert('97碼( ' + as[0].noa + ')已存在!!');
+                        }else{
+                        	var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
+							q_gt('view_transef', t_where, 0, 0, 0, "");
+                        }
+						break;
+					case 'checkCode97_btnOk':
+						var as = _q_appendData("tboat2", "", true);
+                        if (as[0] != undefined) {
+                            alert('97碼( ' + as[0].noa + ')已存在!!');
+                            Unlock();
+                            return;
+                        } else {
+                        	if(emp($('#txtMemo').val()) && emp($('#txtShip').val())){
+								//產生96條碼
+			                	var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
+								q_gt('view_transef', t_where, 0, 0, 0, "transef96");
+							}else{
+                        		$('#txtWorker').val(r_name);
+                            	wrServer($('#txtNoa').val());
+                           }
+                        }
+						break;
+					case 'transef96':
+                		var as = _q_appendData("view_transef", "", true);
+                		if (as[0] != undefined)
+                			$('#txtShip').val('96'+('0000000'+(dec(as[0].po.substr(2,7))+1)).substr(-7)+((dec(as[0].po.substr(2,7))+1)%7))
+                		else
+                			$('#txtShip').val('9600000011');
+                			
+                		$('#txtWorker').val(r_name);
+						wrServer($('#txtNoa').val());
+                		break;   
+					case 'view_transef':
+						var as = _q_appendData("view_transef", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtCustno').val(as[0].custno);
+                			$('#txtCust').val(as[0].comp);
+                			$('#txtNick').val(as[0].nick);
+                			$('#txtShip').val(as[0].po);
+                			if(as[0].custno!=''){
+                				var t_where = "where=^^ noa='"+as[0].custno+"' ^^";
+								q_gt('cust', t_where, 0, 0, 0, "");
+							}
+                		}else{
+                			alert('客戶資料載入錯誤!!');
+                		}
+						break;
+					case 'cust':
+						var as = _q_appendData("view_transef", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtNamea').val(as[0].boss);
+                			$('#txtTel').val(as[0].tel);
+                			$('#txtPost').val(as[0].zip_comp);
+                			$('#txtBoatname').val(as[0].addr_comp);
+                			$('#txtMemo').val(as[0].zip_fact);
+						}
+						break;
+					case 'addr2':
+						var as = _q_appendData("addr2", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtMemo').val(as[0].siteno);
+                		}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -125,9 +209,9 @@
 
 			function btnIns() {
 				_btnIns();
-				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtDatea').focus();
+				$('#txtNoa').focus();
+				refreshBbm();
 			}
 
 			function btnModi() {
@@ -135,6 +219,7 @@
 					return;
 				_btnModi();
 				$('#txtDatea').focus();
+				refreshBbm();
 			}
 
 			function btnPrint() {
@@ -142,29 +227,23 @@
 			}
 
 			function btnOk() {
-				
-				$('#txtDatea').val($.trim($('#txtDatea').val()));
-				if (checkId($('#txtDatea').val()) == 0) {
-					alert(q_getMsg('lblDatea') + '錯誤。');
+				Lock();
+				var t_err = '';
+				t_err = q_chkEmpField([['txtNoa', '97編碼']]);
+				if (t_err.length > 0) {
+					alert(t_err);
+					Unlock();
 					return;
 				}
 				
+				if (q_cur == 1) {
+					var t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
+					q_gt('tboat2', t_where, 0, 0, 0, "checkCode97_btnOk", r_accy);
+                } else {
+                	$('#txtWorker2').val(r_name);
+                    wrServer($('#txtNoa').val());
+                }
 				
-				sum();
-				
-				if(q_cur ==1){
-					$('#txtWorker').val(r_name);
-				}else if(q_cur ==2){
-					$('#txtWorker2').val(r_name);
-				}else{
-					alert("error: btnok!");
-				}
-				var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tboat') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(t_noa);
 			}
 
 			function wrServer(key_value) {
@@ -176,15 +255,27 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
+				q_func('qtxt.query.tboat2', 'tboat.txt,tboat2,' + encodeURI($('#txtNoa').val()));
+				Unlock();
 			}
 
 			function refresh(recno) {
 				_refresh(recno);
+				refreshBbm();
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				refreshBbm();
 			}
+			
+			function refreshBbm() {
+                if (q_cur == 1) {
+                    $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+                } else {
+                    $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+                }
+            }
 
 			function btnMinus(id) {
 				_btnMinus(id);
@@ -440,7 +531,6 @@
 						<td align="center" style="width:80px; color:black;"><a>登錄日期</a></td>
 						<td align="center" style="width:120px; color:black;"><a>客戶編號</a></td>
 						<td align="center" style="width:120px; color:black;"><a>姓名</a></td>
-
 					</tr>
 					<tr>
 						<td >
@@ -448,65 +538,59 @@
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='custno' style="text-align: center;">~custno</td>
-						<td id='worker' style="text-align: right;">~worker</td>
+						<td id='worker' style="text-align: center;">~worker</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td><input type="text" id="txtCaddr" style="display:none;"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">單據編號</a></td>
-						<td>
-						<input type="text" id="txtNoa" class="txt c1"/>
-						</td>
-						<td></td>
+						<td><span> </span><a class="lbl">97編碼</a></td>
+						<td><input type="text" id="txtNoa" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtDatea" class="txt c1"/>
-						</td>
+						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td> <span> </span><a id='lblCustno' class="lbl btn"></a></td>
+						<td> <span> </span><a id='lblCustno' class="lbl"> </a></td>
 						<td><input type="text" id="txtCustno" class="txt c1" /> </td>
-						<td></td>
-						<td> <span> </span><a id='lblCust' class="lbl "></a></td>
-						<td colspan="3"> 
-						<input type="text" id="txtCust" class="txt c1"/> </td>
-				
+						<td colspan="3">
+							<input type="text" id="txtCust" class="txt c1"/>
+							<input type="hidden" id="txtNick" class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">姓名</a></td>
-						<td>
-						<input type="text" id="txtworker" class="txt c1 "/>
-						</td>
-						<td></td>
+						<td><input type="text" id="txtNamea" class="txt c1 "/></td>
 						<td><span> </span><a class="lbl">電話</a></td>
-						<td colspan="2">
-						<input type="text" id="txtworker2" class="txt c1 "/>
-						</td>
+						<td colspan="2"><input type="text" id="txtTel" class="txt c1 "/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">97編碼</a></td>
-						<td colspan="2"><input type="text" id="txtboatname" class="txt c1"/> </td>
-						<td><span> </span><a class="lbl">96編碼</a></td>
-						<td colspan="2"><input type="text" id="txtship" class="txt c1"/> </td>
+						<td><span> </span><a id='lblPost' class="lbl">郵遞區號</a></td>
+						<td><input type="text" id="txtPost" class="txt c1 "/></td>
+						<td><span> </span><a class="lbl">地址</a></td>
+						<td colspan="2"><input type="text" id="txtBoatname" class="txt c1 "/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">到著站</a></td>
-						<td colspan="2"><input type="text"id="txtmemo" class="txt c1"> </td>
+						<td><input type="text"id="txtMemo" class="txt c1"> </td>
+						<td><span> </span><a class="lbl">96編碼</a></td>
+						<td><input type="text" id="txtShip" class="txt c1"/> </td>
 					</tr>
+					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input type="text" id="txtWorker" class="txt c1 "/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input type="text" id="txtWorker2" class="txt c1 "/></td>
+					</tr>
+				</table>
 		</div>
 	</body>
 </html>
