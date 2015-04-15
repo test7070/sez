@@ -418,12 +418,22 @@
                     $('#txtNick').val($('#txtComp').val());
                 $('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
+                
+                if (q_getPara('sys.project').toUpperCase()!='DC'){
+					var t_err = q_chkEmpField([['cmbCno', q_getMsg('lblAcomp')]]);
+					if (t_err.length > 0) {
+						alert(t_err);
+						Unlock(1);
+						return;
+					}
+				}
 
                 if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
             		Unlock(1);
             		return;
 				}
+				
                 if (!q_cd($('#txtPaydate').val())){
                 	alert(q_getMsg('lblPaydate')+'錯誤。'); 
                 	Unlock(1);
@@ -541,8 +551,10 @@
                 getPaydate(q_date());
                 $('#txtMon').val(q_date().substr(0, 6));
                 $('#txtDatea').focus();
-                $('#cmbCno').val(z_cno);
-                $('#txtAcomp').val(z_acomp);
+                if (q_getPara('sys.project').toUpperCase()!='DC'){
+                	$('#cmbCno').val(z_cno);
+                	$('#txtAcomp').val(z_acomp);
+                }
             }
 
             function btnModi() {

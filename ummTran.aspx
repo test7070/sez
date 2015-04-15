@@ -548,13 +548,16 @@
 						return;
 					}
 				}
-				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['cmbCno', q_getMsg('lblAcomp')]]);
-				// 檢查空白
-				if (t_err.length > 0) {
-					alert(t_err);
-					Unlock(1);
-					return;
+				var t_err = '';
+				if (q_getPara('sys.project').toUpperCase()!='DC'){
+					t_err = q_chkEmpField([['cmbCno', q_getMsg('lblAcomp')]]);
+					if (t_err.length > 0) {
+						alert(t_err);
+						Unlock(1);
+						return;
+					}
 				}
+				
 				if ($.trim($('#txtCustno').val()) == 0) {
 					alert(m_empty + q_getMsg('lblCust'));
 					Unlock(1);
