@@ -60,7 +60,7 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(1);
+                mainForm(0);
             }
 
             function mainPost() {
@@ -78,9 +78,7 @@
                 $('#btnOk').val($('#btnOk').val() + "(F9)");
                 $('#textBdate').datepicker();
                 $('#textEdate').datepicker();
-                
-                
-               // q_xchgForm();
+
             }
             function q_boxClose(s2) {
                 var ret;
@@ -128,15 +126,7 @@
             }
             function q_popPost(id) {
                 switch(id) {
-                    case 'txtStraddrno':
-                        trans.priceChange();
-                        break;
-                    case 'txtEndaddrno':
-                        trans.priceChange();
-                        break;
-                    case 'txtUccno':
-                        trans.priceChange();
-                        break;
+                    
                     default:
                         break;
                 }
@@ -147,6 +137,7 @@
                     return;
                 q_box('trans_ef_s.aspx', q_name + '_s', "550px", "95%", q_getMsg("popSeek"));
             }
+            
             function btnIns() {
                 
                 _btnIns();
