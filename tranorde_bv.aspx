@@ -171,7 +171,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('tranorde_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
+				q_box('tranorde_bv_s.aspx', q_name + '_s', "500px", "430px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
