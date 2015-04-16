@@ -197,11 +197,7 @@
 			}
 
 			function btnPrint() {
-<<<<<<< HEAD
-				q_box('z_tranorde_bv.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
-=======
 				q_box("z_tranorde_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'tranorde', "95%", "95%", m_print);
->>>>>>> f7341577b4f8867e28da028c232cb3a26b555447
 			}
 
 			function btnOk() {
