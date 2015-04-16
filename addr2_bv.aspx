@@ -80,7 +80,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('addr2_tb_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('addr2_bv_s.aspx', q_name + '_s', "500px", "350px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();

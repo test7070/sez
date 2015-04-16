@@ -176,7 +176,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
+				q_box('tboat2_bv_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
@@ -528,7 +528,7 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">97編碼</a></td>
+						<td><span> </span><a class="lbl">97條碼</a></td>
 						<td><input type="text" id="txtCode" class="txt c1"/>
 							<input type="text" id="txtNoa" class="txt c1" style="display: none;"/>
 						</td>
