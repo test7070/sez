@@ -97,7 +97,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				//q_box('trans_s.aspx', q_name + '_s', "550px", "95%", q_getMsg("popSeek"));
+				q_box('trans_bv_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
@@ -111,20 +111,24 @@
 				$('#txtNoq').val('001');
 				$('#txtDatea').focus();
 			}
+			
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
 				$('#txtNamea').focus();
 			}
+			
 			function btnPrint() {
-				//q_box('z_trans.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				//q_box('z_trans_bv.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
+			
 			function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 Unlock(1);
             }
+            
 			function btnOk() {
 				Lock(1,{opacity:0});
 				//日期檢查

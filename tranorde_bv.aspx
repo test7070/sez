@@ -59,11 +59,6 @@
 				mainForm(0);
 			}
 
-			function q_funcPost(t_func, result) {
-				switch(t_func) {
-				}
-			}
-
 			function mainPost() {
 				q_mask(bbmMask);
 				q_cmbParse("cmbDeliveryno", "1,2,3");
@@ -71,15 +66,15 @@
 				document.title='預購作業'
 				$("#lblCust").text('公司名稱');
 				
-				$('#txtDocketno1').change(function() {
+				$('#txtMount').change(function() {
 					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
-						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+1)).substr(-8));
+						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+(dec($('#txtMount').val())-1))).substr(-8));
 					}
 				});
 				
-				$('#txtMount').change(function() {
-					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
-						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+1)).substr(-8));
+				$('#txtDocketno1').blur(function() {
+					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
+						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+(dec($('#txtMount').val())-1))).substr(-8));
 					}
 				});
 			}
@@ -109,10 +104,12 @@
 				q_nowf();
 				return true;
 			}
+			
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
 			}
+			
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -122,8 +119,48 @@
 				}
 				b_pop = '';
 			}
+			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getused':
+						var as = _q_appendData("view_transef", "", true);
+                		$('#txtBoat').val(as.length);
+                		$('#txtPort').val(dec($('#txtMount').val())-as.length);
+                		if(as.length==dec($('#txtMount').val())){
+                			$('#chkEnda').prop('checked',true);
+                		}
+						break;
+					case 'btnModi_getused':
+							var as = _q_appendData("view_transef", "", true);
+						$('#txtBoat').val(as.length);
+                		$('#txtPort').val(dec($('#txtMount').val())-as.length);
+                		if(as.length==dec($('#txtMount').val())){
+                			$('#chkEnda').prop('checked',true);
+                		}
+						if(as.length>0){
+							alert('預購單已使用禁止修改!!');
+						}else{
+							_btnModi();
+							$('#txtDatea').focus();
+						}
+						break;
+					case 'btnDele_getused':
+						var as = _q_appendData("view_transef", "", true);
+						$('#txtBoat').val(as.length);
+                		$('#txtPort').val(dec($('#txtMount').val())-as.length);
+                		if(as.length==dec($('#txtMount').val())){
+                			$('#chkEnda').prop('checked',true);
+                		}
+						if(as.length>0){
+							alert('預購單已使用禁止刪除!!');
+						}else{
+							//未使用
+							if (!confirm(mess_dele))
+								return;
+							q_cur = 3;
+							q_func('qtxt.query.t3', 'tboat.txt,post,' + encodeURI(r_accy)+';'+encodeURI($('#txtNoa').val()) + ';0');//刪除
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -139,27 +176,28 @@
 
 			function btnIns() {
 				_btnIns();
-				
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#chkEnda').prop('checked',false);
 				$('#txtDatea').focus();
-
 			}
 
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
 				if ($('#chkEnda').prop("checked")){
-					alert("'已結案無法更動!!'");
+					alert("'已結案無法修改!!'");
 					return;
 				}
-				_btnModi();
-				$('#txtDatea').focus();
+				
+				//判斷是否已被使用 
+				var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(addressee,'')!='' ^^";
+				q_gt('view_transef', t_where, 0, 0, 0, "btnModi_getused");
+				
 			}
 
 			function btnPrint() {
-				//q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_tranorde_bv.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
@@ -168,34 +206,15 @@
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					return;
 				}
-				$('#txtCaddr').val();
-				var t_addr='',t_caddr = '',t_item,t_str;
-				for(var i=1;i<=5;i++){
-				    if($('#textAddr'+i).val().length>0){
-                        t_addr += (t_addr.length>0?'<br>':'')+$('#textAddr'+i).val();
-                    }
-					if($.trim($('#textAddr'+i).val()).length==0){
-						$('#textAddrno'+i).val('');
-						$('#textAddr'+i).val('');
-					}
-					t_str = $.trim($('#textAddrno'+i).val());
-					t_item = '';
-					for(var j=0;j<t_str.length;j++){
-						t_item += (t_item.length==0?'':' ') + t_str.substring(j,j+1).charCodeAt(0);
-					}
-					t_caddr += (i==1?'':',')+t_item;
-
-					t_str = $.trim($('#textAddr'+i).val());
-					t_item = '';
-					for(var j=0;j<t_str.length;j++){
-						t_item += (t_item.length==0?'':' ') + t_str.substring(j,j+1).charCodeAt(0);
-					}
-					t_caddr += ','+t_item;
+				
+				var t_err = '';
+				t_err = q_chkEmpField([['cmbContainertype', '託運單形式'],['txtMount', '件數'],['txtDocketno1', '預購起始號碼'],['txtDocketno2', '預購迄止號碼']]);
+				if (t_err.length > 0) {
+					alert(t_err);
+					Unlock();
+					return;
 				}
-				$('#txtCaddr').val(t_caddr);
-				$('#txtAddr').val(t_addr);
-				sum();
-				$('#txtTranordeta').val(SaveTranOrdetStr());
+				
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
@@ -210,18 +229,44 @@
 				_btnOk(key_value, bbmKey[0], '', '', 2);
 			}
 			
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.t1':
+						q_func('qtxt.query.t2', 'tboat.txt,post,' +encodeURI(r_accy)+';'+ encodeURI($('#txtNoa').val()) + ';1');//新增,修改
+						break;
+					case 'qtxt.query.t3':
+						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
+						break;
+				}
+			}
+			
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
+				if(q_cur == 2)
+					q_func('qtxt.query.t1', 'tboat.txt,post,' +encodeURI(r_accy)+';'+encodeURI($('#txtNoa').val()) + ';0');//修改
+				else
+					q_func('qtxt.query.t2', 'tboat.txt,post,' +encodeURI(r_accy)+';'+ encodeURI($('#txtNoa').val()) + ';1');//新增,修改
+				
 			}
 
 			function refresh(recno) {
 				_refresh(recno);
+				getused();
+			}
+			
+			function getused() {
+				var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (!(t_noa.length == 0 || t_noa == "AUTO")){
+					var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(addressee,'')!='' ^^";
+					q_gt('view_transef', t_where, 0, 0, 0, "getused");
+				}
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				
+				getused();
 			}
 
 			function btnMinus(id) {
@@ -270,11 +315,16 @@
 			}
 
 			function btnDele() {
-			if ($('#chkEnda').prop("checked")){
-			    alert('已結案無法刪除!!');
-				 return;
-			 }
-				_btnDele();
+				if ($('#chkEnda').prop("checked")){
+				    alert('已結案無法刪除!!');
+					 return;
+				 }
+				
+				//判斷是否已被使用 
+				var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(addressee,'')!='' ^^";
+				q_gt('view_transef', t_where, 0, 0, 0, "btnDele_getused");
+				
+				//_btnDele();
 			}
 
 			function btnCancel() {
@@ -283,14 +333,7 @@
 
 			function q_popPost(id) {
 				switch(id){
-					case 'txtCustno':
-						var t_carno = $.trim($('#txtCustno').val());
-						if(q_cur==1 && t_carno.length>0){
-							for(var i=1;i<=5;i++)
-								if($.trim($('#textAddr'+i).val()).length==0)
-									$('#textAddrno'+i).val(t_carno+'-');
-						}
-						break;
+					
 				}
 			}
 

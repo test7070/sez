@@ -31,16 +31,10 @@
             brwCount = 6;
             brwCount2 = 10;
             
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,boss,tel,connfax,zip_comp,addr_comp,zip_fact', 'txtCustno,txtComp,txtNick,txtAddressee,txtAtel,txtBoat,txtCaseend,txtAaddr,txtAccno', 'cust_b.aspx'], 
-			['txtCaseend', 'lblCaseend', 'addr2', 'noa,siteno', 'txtCaseend,txtAccno', 'addr2_b.aspx']
+            aPop = new Array(
+            	['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,boss,tel,connfax,zip_comp,addr_comp,zip_fact', 'txtCustno,txtComp,txtNick,txtAddressee,txtAtel,txtBoat,txtCaseend,txtAaddr,txtAccno', 'cust_b.aspx'], 
+				['txtCaseend', 'lblCaseend', 'addr2', 'noa,siteno', 'txtCaseend,txtAccno', 'addr2_b.aspx']
 			);
-        
-            function sum() {
-                if(q_cur!=1 && q_cur!=2)
-                    return;
-                
-            }
-            
                 
             $(document).ready(function() {
 				bbmKey = ['noa'];
@@ -67,10 +61,11 @@
             	q_cmbParse("cmbCarno", "1,2,3");
             	q_cmbParse("cmbCalctype", "手寫託運單,edi託運單");
                 q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
-                $('#btnIns').val($('#btnIns').val() + "(F8)");
-                $('#btnOk').val($('#btnOk').val() + "(F9)");
                 $('#textBdate').datepicker();
                 $('#textEdate').datepicker();
+                
+                $('#btnIns').hide();
+                $('#btnDele').hide();
 
             }
             function q_boxClose(s2) {
@@ -87,16 +82,6 @@
             }
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'addr2':
-                		var as = _q_appendData("addr2", "", true);
-                		if (as[0] != undefined) {
-                			//不產生96條碼
-                		}else{
-                			//產生96條碼
-                			var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
-					             q_gt('view_transef', t_where, 0, 0, 0, "transef96");
-                		}
-                		break;
                 	case 'transef96':
                 		var as = _q_appendData("view_transef", "", true);
                 		if (as[0] != undefined) {
@@ -145,9 +130,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-
                 _btnModi();
-                sum();
             }
             
             function btnPrint() {
@@ -157,6 +140,8 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
+				if(!emp($('#txtBoatname').val()))
+                	q_func('qtxt.query.ordeused', 'tboat.txt,ordeused,' + encodeURI($('#txtBoatname').val()));
                 Unlock(1);
             }
             
@@ -175,7 +160,7 @@
                 t_date1 = new Date(dec(t_date1.substr(0, 3)) + 1911, dec(t_date1.substring(4, 6)) - 1, dec(t_date1.substring(7, 9)));
                 t_date2 = new Date(dec(t_date2.substr(0, 3)) + 1911, dec(t_date2.substring(4, 6)) - 1, dec(t_date2.substring(7, 9)));
                 t_days = Math.abs(t_date2 - t_date1) / (1000 * 60 * 60 * 24) + 1;
-                sum();
+                
                 if(q_cur ==1){
                     $('#txtWorker').val(r_name);
                 }else if(q_cur ==2){
@@ -184,9 +169,10 @@
                     alert("error: btnok!");
                 }
                 
-                if(emp($('#txtPo').val())){
-                	var t_where = "where=^^ noa='"+$('#txtCaseend').val()+"' and isnull(siteno,'') !='' ^^";
-					q_gt('addr2', t_where, 0, 0, 0, "");
+                if(emp($('#txtAccno').val()) && emp($('#txtPo').val())){
+                	//產生96條碼
+                	var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
+					q_gt('view_transef', t_where, 0, 0, 0, "transef96");
 					return;
 				}
 				
@@ -395,12 +381,13 @@
                 <table class="tview" id="tview">
                     <tr>
                         <td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
-                        <td align="center" style="width:100px; color:black;">來源表單編號</td>
+                        <td align="center" style="width:100px; color:black;">公司</td>
+                        <td align="center" style="width:100px; color:black;">97條碼</td>
                         <td align="center" style="width:100px; color:black;">姓名</td>
                         <td align="center" style="width:120px; color:black;">電話</td>
-                        <td align="center" style="width:200px; color:black;">地址</td>
-                        <td align="center" style="width:80px; color:black;">審件等級</td>
                         <td align="center" style="width:80px; color:black;">郵遞區號</td>
+                        <td align="center" style="width:80px; color:black;">到著站</td>
+                        <td align="center" style="width:80px; color:black;">審件等級</td>
                         <td align="center" style="width:80px; color:black;">代收貨款</td>
                         <td align="center" style="width:140px; color:black;">商品內容</td>
                         <td align="center" style="width:180px; color:black;">備註</td>
@@ -408,12 +395,13 @@
                     </tr>
                     <tr>
                         <td ><input id="chkBrow.*" type="checkbox"/></td>
-                        <td id="so" style="text-align: center;">~so</td>
+                        <td id="nick" style="text-align: center;">~nick</td>
+                        <td id="boatname" style="text-align: center;">~boatname</td>
                         <td id="addressee" style="text-align: center;">~addressee</td>
                         <td id="atel" style="text-align: center;">~atel</td>
-                        <td id="aaddr" style="text-align: center;">~aaddr</td>
-                        <td id="unit" style="text-align: center;">~unit</td>
                         <td id="caseend" style="text-align: center;">~caseend</td>
+                        <td id="accno" style="text-align: center;">~accno</td>
+                        <td id="unit" style="text-align: center;">~unit</td>
                         <td id="price,0" style="text-align: right;">~price,0</td>
                         <td id="straddr" style="text-align: center;">~straddr</td>
                         <td id="endaddr" style="text-align: center;">~endaddr</td>
@@ -489,17 +477,20 @@
                         <td><input id="txtUnit"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
+                    	<td><span> </span><a class="lbl"> 託運單形式 </a></td>
+						<td><select id="cmbCalctype" class="txt c1"> </select></td>
                     	<td><span> </span><a class="lbl"> 速配袋號 </a></td>
 						<td><select id="cmbCarno" class="txt c1"> </select></td>
-						<td><span> </span><a class="lbl"> 託運單形式 </a></td>
-						<td><select id="cmbCalctype" class="txt c1"> </select></td>
 						<td><span> </span><a class="lbl"> 單據編號 </a></td>
 						<td>
 							<input type="text" id="txtNoa" class="txt c1"/>
 							<input id="txtNoq"  type="text" style="display:none;"/>
 						</td>
                         <td><span> </span><a class="lbl">來源表單編號</a></td>
-                        <td><input id="txtSo"  type="text" class="txt c1"/></td>
+                        <td>
+                        	<input id="txtSo"  type="text" class="txt c1"/>
+                        	<input id="txtTraceno"  type="hidden" class="txt c1"/><!--tranorde單號-->
+                        </td>
                     </tr>	
                 </table>
             </div>
