@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "transef";
-            var q_readonly = ['txtNoa','txtOrdeno','txtUnpack'];
+            var q_readonly = ['txtNoa','txtMon'];
             var bbmNum = [['txtPrice',10,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -151,7 +151,7 @@
             }
             
             function btnPrint() {
-                q_box('z_tran_ef.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+                q_box('z_transef_bv.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
             
             function q_stPost() {
@@ -280,7 +280,7 @@
             }
             .dview {
                 float: left;
-                width: 100%; 
+                width: 1250px; 
                 border-width: 0px; 
             }
             .tview {
@@ -300,7 +300,7 @@
             }
             .dbbm {
                 float: left;
-                width: 950px;
+                width: 1250px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -435,26 +435,12 @@
                         <td class="tdZ"> </td>
                     </tr>
                     <tr>
-                    	<td><span> </span><a class="lbl">發送日期</a></td>
-                        <td><input id="txtDatea"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">配送日期</a></td>
-                        <td><input id="txtTrandate"  type="text" class="txt c1"/></td>
-                    	<td><span> </span><a class="lbl">代收貨款</a></td>
-                        <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
-                        <td><span> </span><a class="lbl">審件等級</a></td>
-                        <td><input id="txtUnit"  type="text" class="txt c1"/></td>
-                    </tr>   
-                    <tr>
-                    	<td><span> </span><a class="lbl"> 單據編號 </a></td>
-						<td colspan="2">
-						<input type="text" id="txtNoa" class="txt c1"/>
-						</td>
-						<td></td>
-                        <td><span> </span><a class="lbl">來源表單編號</a></td>
-                        <td colspan="2">
-                        	<input id="txtSo"  type="text" class="txt c1"/>
-                        	<input id="txtNoq"  type="text" style="display:none;"/>
-                        </td>
+                    	<td><span> </span><a class="lbl"> 97條碼 </a></td>
+						<td><input type="text" id="txtBoatname" class="txt c1" style="width:70%"/></td>
+						<td><span> </span><a class="lbl"> 96條碼 </a></td>
+						<td ><input type="text" id="txtPo" class="txt c1" style="width:70%"/></td>
+						<td><span> </span><a class="lbl">已傳入大貨追</a></td>
+                        <td><input id="txtMon"  type="text" class="txt c1 "/></td>
                     </tr>
                     <tr>
                     	<td><span> </span><a id='lblCust' class="lbl btn"></a></td>
@@ -463,25 +449,21 @@
 						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
 						<input type="text" id="txtNick" class="txt" style="display:none; " />
 						</td>   
-						 <td><span> </span><a class="lbl">重量</a></td>
-                        <td>
-                        	<input id="txtWeight"  type="text" class="txt c1"/>
-                        </td>
-                          <td><span> </span><a class="lbl">件數</a></td>
-                        <td>
-                        	<input id="txtMount"  type="text" class="txt c1"/>
-                        </td>
-                    </tr>
+                    	<td><span> </span><a class="lbl">發送日期</a></td>
+                        <td><input id="txtDatea"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">配送日期</a></td>
+                        <td><input id="txtTrandate"  type="text" class="txt c1"/></td>
+                    </tr>   
                     <tr>
                         <td><span> </span><a class="lbl">姓名</a></td>
                         <td><input id="txtAddressee"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">電話</a></td>
-                        <td colspan="2"><input id="txtAtel"  type="text" class="txt c1"/></td>
+                        <td colspan="3"><input id="txtAtel"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">行動電話</a></td>
-                        <td colspan="2"><input id="txtBoat"  type="text" class="txt c1"/></td>
+                        <td><input id="txtBoat"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
-                    	<td><span> </span><a id='lblCaseend' class="lbl"></a></td>
+                    	<td><span> </span><a id='lblCaseend' class="lbl"> </a></td>
                         <td><input id="txtCaseend"  type="text" class="txt c1 "/></td>
                         <td><span> </span><a class="lbl">地址</a></td>
                         <td colspan="3"><input id="txtAaddr"  type="text" class="txt c1"/></td>
@@ -497,24 +479,28 @@
                             <input id="txtEndaddr"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
+                        <td><span> </span><a class="lbl">件數</a></td>
+                        <td><input id="txtMount"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">重量</a></td>
+                        <td><input id="txtWeight"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">代收貨款</a></td>
+                        <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
+                        <td><span> </span><a class="lbl">審件等級</a></td>
+                        <td><input id="txtUnit"  type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
                     	<td><span> </span><a class="lbl"> 速配袋號 </a></td>
 						<td><select id="cmbCarno" class="txt c1"> </select></td>
-						<td></td>
 						<td><span> </span><a class="lbl"> 託運單形式 </a></td>
 						<td><select id="cmbCalctype" class="txt c1"> </select></td>
+						<td><span> </span><a class="lbl"> 單據編號 </a></td>
+						<td>
+							<input type="text" id="txtNoa" class="txt c1"/>
+							<input id="txtNoq"  type="text" style="display:none;"/>
+						</td>
+                        <td><span> </span><a class="lbl">來源表單編號</a></td>
+                        <td><input id="txtSo"  type="text" class="txt c1"/></td>
                     </tr>	
-                    <tr>
-                    	<td><span> </span><a class="lbl"> 97條碼 </a></td>
-						<td colspan="2">
-						<input type="text" id="txtBoatname" class="txt c1" style="width:70%"/>
-						</td>
-						<td><span> </span><a class="lbl"> 96條碼 </a></td>
-						<td colspan="2" >
-							<input type="text" id="txtPo" class="txt c1" style="width:70%"/>
-						</td>
-						<td><span> </span><a class="lbl">已傳入大貨追</a></td>
-                        <td><input id="txtMon"  type="text" class="txt c1 "/></td>
-                    </tr>
                 </table>
             </div>
         </div>

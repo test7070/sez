@@ -23,11 +23,11 @@
 			var q_name = "tranorde";
 			var q_readonly = ['txtNoa','txtBoat','txtPort'];
 			var q_readonlys = [];
+			var bbmNum = [['txtMount',10,0,1], ['txtBoat',10,0,1], ['txtPort',10,0,1]];
+			var bbmMask = [['txtDatea', '999/99/99'],['txtDocketno1', '9999999999'],['txtDocketno2', '9999999999']];
 			var bbsNum = [];
-			var bbsMask = new Array(['txtTrandate', '999/99/99']);
-			var bbtMask = new Array(['txtDatea', '999/99/99']);
-			var bbmNum = new Array(['txtMount',10,0,1], ['txtBoat',10,0,1], ['txtPort',10,0,1]);
-			var bbmMask = new Array(['txtDatea', '999/99/99']);
+			var bbsMask = [];
+			var bbtMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -36,8 +36,10 @@
 			q_alias = '';
 			q_desc = 1;
 			brwCount2 = 15;
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
-			['txtComp', 'lblCust', 'cust', 'comp,noa,nick', 'txtComp,txtCustno,txtNick', 'cust_b.aspx']);
+			aPop = new Array(
+				['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
+				['txtComp', 'lblCust', 'cust', 'comp,noa,nick', 'txtComp,txtCustno,txtNick', 'cust_b.aspx']
+			);
 
 			$(document).ready(function() {
 				var t_where = '';
@@ -47,6 +49,7 @@
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
+			
 			function main() {
 				if (dataErr) {
 					dataErr = false;
@@ -68,7 +71,19 @@
 				document.title='預購作業'
 				$("#lblCust").text('公司名稱');
 				
+				$('#txtDocketno1').change(function() {
+					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
+						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+1)).substr(-8));
+					}
+				});
+				
+				$('#txtMount').change(function() {
+					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
+						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+1)).substr(-8));
+					}
+				});
 			}
+			
 			function bbsAssign() {
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_' + i).text(i + 1);
@@ -489,66 +504,51 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td><input type="text" id="txtCaddr" style="display:none;"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> <input type="text" id="txtCaddr" style="display:none;"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">單據編號</a></td>
-						<td colspan="2">
-						<input type="text" id="txtNoa" class="txt c1"/>
-						</td>
+						<td><input type="text" id="txtNoa" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtDatea" class="txt c1"/>
-						</td>
-						<td><span> </span><a class="lbl">結案</a></td>
-						<td><input id="chkEnda" type="checkbox" style=' '/></td>
+						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCust' class="lbl btn"></a></td>
+						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td colspan="3">
-						<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
-						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
-						<input type="text" id="txtNick" class="txt" style="display:none; " />
+							<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
+							<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
+							<input type="text" id="txtNick" class="txt" style="display:none; " />
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a class="lbl">託運單形式</a></td>
+						<td><select id="cmbContainertype" class="txt c1"> </select></td>
 						<td><span> </span><a class="lbl">速配袋號</a></td>
 						<td><select id="cmbDeliveryno" class="txt c1"> </select></td>
-						<td></td>
-						<td><span> </span><a class="lbl">件數</a></td>
-						<td>
-						<input type="text" id="txtMount" class="txt c1 num"/>
-						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a class="lbl">件數</a></td>
+						<td><input type="text" id="txtMount" class="txt c1 num"/></td>
 						<td><span> </span><a class="lbl">預購起始號碼</a></td>
 						<td><input type="text" id="txtDocketno1" class="txt c1"/> </td>
-						<td> </td>
 						<td><span> </span><a class="lbl">預購迄止號碼</a></td>
 						<td><input type="text" id="txtDocketno2" class="txt c1"/> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">已使用</a></td>
-						<td>
-						<input type="text" id="txtBoat" class="txt c1 num"/>
-						</td>
-						<td></td>
+						<td><input type="text" id="txtBoat" class="txt c1 num"/></td>
 						<td><span> </span><a class="lbl">未使用</a></td>
-						<td>
-						<input type="text" id="txtPort" class="txt c1 num"/>
-						</td>
-						<td></td>
-						<td><span> </span><a class="lbl">託運單形式</a></td>
-						<td><select id="cmbContainertype" class="txt c1"> </select></td>
+						<td><input type="text" id="txtPort" class="txt c1 num"/></td>
+						<td><span> </span><a class="lbl">結案</a></td>
+						<td><input id="chkEnda" type="checkbox" style=' '/></td>
 					</tr>
+				</table>
 		</div>
 	</body>
 </html>
