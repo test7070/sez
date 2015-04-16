@@ -38,7 +38,7 @@
 
             Response.ContentType = "application/x-msdownload;";
             Response.AddHeader("Content-transfer-encoding", "binary");
-            Response.AddHeader("Content-Disposition", "attachment;filename=code39.bmp");
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + (barcode.Length==0?"code39":barcode) + ".bmp");
             Response.BinaryWrite(stream.ToArray());
             Response.End();
         }
