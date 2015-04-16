@@ -13,8 +13,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-            var q_name = "trans_s";
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx']);
+            var q_name = "tboat2_bv_s";
+			aPop = new Array();
             $(document).ready(function() {
                 main();
             });
@@ -28,23 +28,13 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
+                bbmMask = [];
                 q_mask(bbmMask);
-                $('#txtBdate').datepicker();
-				$('#txtEdate').datepicker(); 
-				$('#txtBtrandate').datepicker();
-				$('#txtEtrandate').datepicker(); 
-                $('#txtNoa').focus();
                 
                 $('#lblNoa').text('單據編號');
-                $('#lblDatea').text('資料時間');
-                $('#lblTrandate').text('讀取時間');
-                $('#lblTrdno').text('統一編碼');
                 $('#lblCustno').text('公司編號');
                 $('#lblComp').text('公司名稱');
-                $('#lblOrdeno').text('發送局');
-                $('#lblBoat').text('宅配員');
-                
+                $('#txtNoa').focus();
             }
 
             function q_gtPost(t_name) {
@@ -55,29 +45,14 @@
 
             function q_seekStr() {
                 t_noa = $.trim($('#txtNoa').val());
-		        t_bdate = $('#txtBdate').val();
-		        t_edate = $('#txtEdate').val();
-		        t_btrandate = $('#txtBtrandate').val();
-		        t_etrandate = $('#txtEtrandate').val();
-		        t_trdno = $.trim($('#txtTrdno').val());
-		        t_custno = $.trim($('#txtCustno').val());
+                t_custno = $.trim($('#txtCustno').val());
 		        t_comp = $.trim($('#txtComp').val());
-		        t_ordeno = $.trim($('#txtOrdeno').val());
-		        t_boat = $.trim($('#txtBoat').val());
-
-		        var t_where = " 1=1 " 
-		        + q_sqlPara2("noa", t_noa) 
-		        + q_sqlPara2("datea", t_bdate, t_edate) 
-		        + q_sqlPara2("trandate", t_btrandate, t_etrandate) 
-		        + q_sqlPara2("trdno", t_trdno) 
-		        + q_sqlPara2("custno", t_custno) 
-		        + q_sqlPara2("ordeno", t_ordeno) 
-		        + q_sqlPara2("boat", t_boat) 
-		        ;
+		        
+		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno)  ;
 		        
 		        if (t_comp.length>0)
                     t_where += " and charindex('" + t_comp + "',comp)>0";
-                
+		        
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
@@ -103,40 +78,12 @@
 					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDatea'> </a></td>
-					<td style="width:65%;  ">
-					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblTrandate'> </a></td>
-					<td style="width:65%;  ">
-						<input class="txt" id="txtBtrandate" type="text" style="width:90px; font-size:medium;" />
-						<span style="display:inline-block; vertical-align:middle">&sim;</span>
-						<input class="txt" id="txtEtrandate" type="text" style="width:93px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTrdno'> </a></td>
-					<td><input class="txt" id="txtTrdno" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
-				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
 					<td><input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
 					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblOrdeno'> </a></td>
-					<td><input class="txt" id="txtOrdeno" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblBoat'> </a></td>
-					<td><input class="txt" id="txtBoat" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
