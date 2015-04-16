@@ -172,7 +172,7 @@
           
             Response.ContentType = "application/x-msdownload;";
             Response.AddHeader("Content-transfer-encoding", "binary");
-            Response.AddHeader("Content-Disposition", "attachment;filename=barcode.bmp");
+            Response.AddHeader("Content-Disposition", "attachment;filename="+noa+".bmp");
             Response.BinaryWrite(stream.ToArray());
             Response.End();
         }
