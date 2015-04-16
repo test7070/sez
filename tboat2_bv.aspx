@@ -78,9 +78,9 @@
 				$("#lblCustno").text('客戶編號');
 				$("#lblDatea").text('登錄日期');
 				
-				$('#txtNoa').change(function() {
-					var t_where = "where=^^ noa='" + $(this).val() + "'^^";
-					q_gt('tboat2', t_where, 0, 0, 0, "checkCode97", r_accy);
+				$('#txtCode').change(function() {
+					var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
+					q_gt('view_transef', t_where, 0, 0, 0, "");
 				});
 				
 				$('#txtPost').change(function() {
@@ -127,41 +127,13 @@
 			
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'checkCode97':
-                        var as = _q_appendData("tboat2", "", true);
-                        if (as[0] != undefined) {
-                            alert('97碼( ' + as[0].noa + ')已存在!!');
-                        }else{
-                        	var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
-							q_gt('view_transef', t_where, 0, 0, 0, "");
-                        }
-						break;
-					case 'checkCode97_btnOk':
-						var as = _q_appendData("tboat2", "", true);
-                        if (as[0] != undefined) {
-                            alert('97碼( ' + as[0].noa + ')已存在!!');
-                            Unlock();
-                            return;
-                        } else {
-                        	if(emp($('#txtMemo').val()) && emp($('#txtShip').val())){
-								//產生96條碼
-			                	var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
-								q_gt('view_transef', t_where, 0, 0, 0, "transef96");
-							}else{
-                        		$('#txtWorker').val(r_name);
-                            	wrServer($('#txtNoa').val());
-                           }
-                        }
-						break;
 					case 'transef96':
                 		var as = _q_appendData("view_transef", "", true);
                 		if (as[0] != undefined)
                 			$('#txtShip').val('96'+('0000000'+(dec(as[0].po.substr(2,7))+1)).substr(-7)+((dec(as[0].po.substr(2,7))+1)%7))
                 		else
                 			$('#txtShip').val('9600000011');
-                			
-                		$('#txtWorker').val(r_name);
-						wrServer($('#txtNoa').val());
+                		btnOk();
                 		break;   
 					case 'view_transef':
 						var as = _q_appendData("view_transef", "", true);
@@ -209,9 +181,9 @@
 
 			function btnIns() {
 				_btnIns();
+				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtNoa').focus();
-				refreshBbm();
+				$('#txtCode').focus();
 			}
 
 			function btnModi() {
@@ -219,30 +191,43 @@
 					return;
 				_btnModi();
 				$('#txtDatea').focus();
-				refreshBbm();
 			}
 
 			function btnPrint() {
-				//q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				//q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtCode').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
 				Lock();
 				var t_err = '';
-				t_err = q_chkEmpField([['txtNoa', '97編碼']]);
+				t_err = q_chkEmpField([['txtCode', '97編碼']]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					Unlock();
 					return;
 				}
 				
-				if (q_cur == 1) {
-					var t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
-					q_gt('tboat2', t_where, 0, 0, 0, "checkCode97_btnOk", r_accy);
-                } else {
-                	$('#txtWorker2').val(r_name);
-                    wrServer($('#txtNoa').val());
-                }
+				if(emp($('#txtMemo').val()) && emp($('#txtShip').val())){
+					//產生96條碼
+			        var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
+					q_gt('view_transef', t_where, 0, 0, 0, "transef96");
+					return;
+				}
+				
+				if(q_cur ==1){
+					$('#txtWorker').val(r_name);
+				}else if(q_cur ==2){
+					$('#txtWorker2').val(r_name);
+				}else{
+					alert("error: btnok!");
+				}
+				
+				var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tboat2') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
 				
 			}
 
@@ -255,27 +240,17 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				q_func('qtxt.query.tboat2', 'tboat.txt,tboat2,' + encodeURI($('#txtNoa').val()));
+				q_func('qtxt.query.tboat2', 'tboat.txt,tboat2,' + encodeURI($('#txtCode').val()));
 				Unlock();
 			}
 
 			function refresh(recno) {
 				_refresh(recno);
-				refreshBbm();
 			}
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				refreshBbm();
 			}
-			
-			function refreshBbm() {
-                if (q_cur == 1) {
-                    $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
-                } else {
-                    $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
-                }
-            }
 
 			function btnMinus(id) {
 				_btnMinus(id);
@@ -554,7 +529,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">97編碼</a></td>
-						<td><input type="text" id="txtNoa" class="txt c1"/></td>
+						<td><input type="text" id="txtCode" class="txt c1"/>
+							<input type="text" id="txtNoa" class="txt c1" style="display: none;"/>
+						</td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
