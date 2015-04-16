@@ -162,11 +162,11 @@
             //barcode
             GetCode(pa.barcode96,ref g, 130, 85);
             //g.DrawImage(barcodeImage, 130, 85, barcodeImage.Width, barcodeImage.Height);
-            g.DrawString(pa.barcode96, new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 120), stringFormat);
+            g.DrawString(pa.barcode96, new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 121), stringFormat);
 
-            GetCode(pa.barcode96, ref g, 130, 300);
+            GetCode(pa.barcode97, ref g, 130, 300);
             //g.DrawImage(barcodeImage97, 130, 300, barcodeImage.Width, barcodeImage.Height);
-            g.DrawString(pa.barcode97, new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 335), stringFormat);
+            g.DrawString(pa.barcode97, new System.Drawing.Font("新細明體", 8), System.Drawing.Brushes.Blue, new System.Drawing.PointF(220, 337), stringFormat);
             //bitmap to stream
             bm.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
           
