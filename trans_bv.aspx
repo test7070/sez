@@ -120,7 +120,7 @@
 			}
 			
 			function btnPrint() {
-				//q_box('z_trans_bv.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_trans_bv.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 			
 			function q_stPost() {
