@@ -95,30 +95,41 @@
             
             doc1.Open();
             iTextSharp.text.pdf.PdfContentByte cb = pdfWriter.DirectContent;
-            for (int i = 0; i < barcode.Count; i++)
+            if (barcode.Count == 0)
             {
-                if (i != 0)
-                {
-                    //Insert page
-                    doc1.NewPage();
-                }
-                
-                //TEXT
-                cb.SetColorFill(iTextSharp.text.BaseColor.BLACK);
+                cb.SetColorFill(iTextSharp.text.BaseColor.RED);
                 cb.BeginText();
-                cb.SetFontAndSize(bfChinese, 12);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, "到著站", 10, 77, 0);
-                cb.SetFontAndSize(bfNumber, 45);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).s3, 10, 28, 0);
-                cb.SetFontAndSize(bfChinese, 12);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode96, 120, 35, 0);
+                cb.SetFontAndSize(bfChinese, 30);
+                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, "無資料", 20, 20, 0);
                 cb.EndText();
-                //圖片 96
-                System.IO.MemoryStream img_barcode = new System.IO.MemoryStream();
-                GetCode39(((Para)barcode[i]).barcode96).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                img.SetAbsolutePosition(90,56);
-                doc1.Add(img);
+            }
+            else
+            {
+                for (int i = 0; i < barcode.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        //Insert page
+                        doc1.NewPage();
+                    }
+
+                    //TEXT
+                    cb.SetColorFill(iTextSharp.text.BaseColor.BLACK);
+                    cb.BeginText();
+                    cb.SetFontAndSize(bfChinese, 12);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, "到著站", 10, 77, 0);
+                    cb.SetFontAndSize(bfNumber, 45);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).s3, 10, 28, 0);
+                    cb.SetFontAndSize(bfChinese, 12);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode96, 120, 35, 0);
+                    cb.EndText();
+                    //圖片 96
+                    System.IO.MemoryStream img_barcode = new System.IO.MemoryStream();
+                    GetCode39(((Para)barcode[i]).barcode96).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
+                    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
+                    img.SetAbsolutePosition(90, 56);
+                    doc1.Add(img);
+                }
             }
             doc1.Close();
             Response.ContentType = "application/octec-stream;";
