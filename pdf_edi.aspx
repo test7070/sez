@@ -15,14 +15,15 @@
 
             public string bag;
             public string barcode97;
-        }     
+        }
+        
         System.IO.MemoryStream stream = new System.IO.MemoryStream();
         string connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=dc";
         public void Page_Load()
         {
             //參數
             string bno = "", eno ="";
-	        int str = 0;
+            int str = 0;
             if (Request.QueryString["bno"] != null && Request.QueryString["bno"].Length > 0)
             {
                 bno = Request.QueryString["bno"];
@@ -91,10 +92,10 @@
             iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(doc1, stream);
             //font
             iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\msjh.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
+            iTextSharp.text.pdf.BaseFont bfNumber = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\ariblk.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
             
             doc1.Open();
             iTextSharp.text.pdf.PdfContentByte cb = pdfWriter.DirectContent;
-
             for (int i = 0; i < barcode.Count; i++)
             {
                 if ((str + i) != 0 && (str + i) % 6 == 0)
@@ -175,7 +176,7 @@
                 cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT,"KG", positions[(str + i) % 6, 0] + 55, positions[(str + i) % 6, 1] + 175, 0);
                 cb.SetFontAndSize(bfChinese, 16);
                 cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT, ((Para)barcode[i]).count.ToString(), positions[(str + i) % 6, 0] + 90, positions[(str + i) % 6, 1] + 175, 0);
-                cb.SetFontAndSize(bfChinese, 50);
+                cb.SetFontAndSize(bfNumber, 50);
                 cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_CENTER, ((Para)barcode[i]).s3, positions[(str + i) % 6, 0] + 200, positions[(str + i) % 6, 1] + 215, 0);
                 cb.SetFontAndSize(bfChinese, 8);
                 cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode96, positions[(str + i) % 6, 0] + 170, positions[(str + i) % 6, 1] + 163, 0);
@@ -198,13 +199,13 @@
                 System.IO.MemoryStream img_barcode = new System.IO.MemoryStream();
                 GetCode39(((Para)barcode[i]).barcode96).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 110, positions[(str + i) % 6, 1] + 170);
+                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 170);
                 doc1.Add(img);
                 //圖片 97
                 img_barcode = new System.IO.MemoryStream();
                 GetCode39(((Para)barcode[i]).barcode97).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
                 img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 110, positions[(str + i) % 6, 1] + 10);
+                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 10);
                 doc1.Add(img);
             }
             doc1.Close();
