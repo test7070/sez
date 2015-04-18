@@ -73,47 +73,57 @@
                 barcode.Add(pa);
             }
             //-----PDF--------------------------------------------------------------------------------------------------
-  
+            //10*15
             var doc1 = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(283, 425), 5, 5, 0, 0);
             iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(doc1, stream);
             //font
             iTextSharp.text.pdf.BaseFont bfChinese = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\msjh.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
             iTextSharp.text.pdf.BaseFont bfNumber = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\windows\fonts\ariblk.ttf", iTextSharp.text.pdf.BaseFont.IDENTITY_H, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
-            
             doc1.Open();
             iTextSharp.text.pdf.PdfContentByte cb = pdfWriter.DirectContent;
-            for (int i = 0; i < barcode.Count; i++)
+            if (barcode.Count == 0)
             {
-                if (i != 0 )
-                {
-                    //Insert page
-                    doc1.NewPage();
-                }
-                cb.SetColorStroke(iTextSharp.text.BaseColor.BLACK);
-                
-                //TEXT
-                cb.SetColorFill(iTextSharp.text.BaseColor.BLACK);
+                cb.SetColorFill(iTextSharp.text.BaseColor.RED);
                 cb.BeginText();
-                cb.SetFontAndSize(bfChinese, 20);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).bag+" 號袋", 50, 396, 0);
-                cb.SetFontAndSize(bfChinese, 16);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).station, 226,245,0);
-                cb.SetFontAndSize(bfChinese, 10);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).serial, 57, 262, 0);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).nick, 117, 262, 0);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).addr, 57, 250, 0);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).tel, 57, 238, 0);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode, 150, 170, 0);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode, 28, 88, 0);
-                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).serial, 155,70, 0);
+                cb.SetFontAndSize(bfChinese, 50);
+                cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, "無資料", 20, 300, 0);
                 cb.EndText();
+            }else
+            {
+                
+                for (int i = 0; i < barcode.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        //Insert page
+                        doc1.NewPage();
+                    }
+                    cb.SetColorStroke(iTextSharp.text.BaseColor.BLACK);
 
-                //圖片 97
-                System.IO.MemoryStream img_barcode = new System.IO.MemoryStream();
-                GetCode39(((Para)barcode[i]).barcode).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                img.SetAbsolutePosition(113,184);
-                doc1.Add(img);
+                    //TEXT
+                    cb.SetColorFill(iTextSharp.text.BaseColor.BLACK);
+                    cb.BeginText();
+                    cb.SetFontAndSize(bfChinese, 20);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).bag + " 號袋", 50, 396, 0);
+                    cb.SetFontAndSize(bfChinese, 16);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).station, 226, 245, 0);
+                    cb.SetFontAndSize(bfChinese, 10);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).serial, 57, 262, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).nick, 117, 262, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).addr, 57, 250, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).tel, 57, 238, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode, 150, 170, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode, 28, 88, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).serial, 155, 70, 0);
+                    cb.EndText();
+
+                    //圖片 97
+                    System.IO.MemoryStream img_barcode = new System.IO.MemoryStream();
+                    GetCode39(((Para)barcode[i]).barcode).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
+                    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
+                    img.SetAbsolutePosition(113, 184);
+                    doc1.Add(img);
+                }
             }
             doc1.Close();
             Response.ContentType = "application/octec-stream;";
