@@ -15,17 +15,14 @@
 
             public string bag;
             public string barcode97;
-        }
-        
+        }     
         System.IO.MemoryStream stream = new System.IO.MemoryStream();
-        int width = 360, height = 500;//圖片大小
-        //string connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=dc";
-        string connectionString = "Data Source=59.125.143.171,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=dc";
+        string connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=dc";
         public void Page_Load()
         {
             //參數
             string bno = "", eno ="";
-            int str = 0;
+	        int str = 0;
             if (Request.QueryString["bno"] != null && Request.QueryString["bno"].Length > 0)
             {
                 bno = Request.QueryString["bno"];
@@ -38,8 +35,6 @@
             {
                 str = Convert.ToInt32(Request.QueryString["str"]);
             }
-            bno = "9799999991";
-            eno = "9799999993";
             //資料
             System.Data.DataTable dt = new System.Data.DataTable();
             using (System.Data.SqlClient.SqlConnection connSource = new System.Data.SqlClient.SqlConnection(connectionString))
@@ -203,13 +198,13 @@
                 System.IO.MemoryStream img_barcode = new System.IO.MemoryStream();
                 GetCode39(((Para)barcode[i]).barcode96).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 170);
+                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 110, positions[(str + i) % 6, 1] + 170);
                 doc1.Add(img);
                 //圖片 97
                 img_barcode = new System.IO.MemoryStream();
                 GetCode39(((Para)barcode[i]).barcode97).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
                 img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 10);
+                img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 110, positions[(str + i) % 6, 1] + 10);
                 doc1.Add(img);
             }
             doc1.Close();
