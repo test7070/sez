@@ -38,6 +38,38 @@
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                $('#txtBnoa').mask('9999999999');
+                $('#txtEnoa').mask('9999999999');
+                
+                $('.prt').hide();
+                
+                $('#txtBnoa').change(function() {
+                	if(!emp($('#txtBnoa').val()) &&(/^97[0-9]{8}$/g).test($('#txtBnoa').val())){
+                		alert('請輸入正確的97條碼!!!');
+                	}
+				});
+				
+				$('#txtEnoa').change(function() {
+                	if(!emp($('#txtEnoa').val()) &&(/^97[0-9]{8}$/g).test($('#txtEnoa').val())){
+                		alert('請輸入正確的97條碼!!!');
+                	}
+				});
+                
+                $('#btnDownloadPdf').click(function() {
+                	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
+                		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())){
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8)),dec($('#txtEnoa').val().substr(-8))))<300)
+                				window.open("http://59.125.143.171/dcz/pdf_tranorde.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val());
+                			else
+                				alert('條碼範圍不得超逾300張!!!');
+                		}else{
+                			alert('請輸入正確的97條碼!!!');
+                		}
+                	}else{
+                		alert('請輸入97條碼!!!');
+                	}
+                	
+				});
             }
 
             function q_boxClose(t_name) {
@@ -56,7 +88,10 @@
 			<div id="container">
 				<div id="qReport"></div>
 			</div>
-			<div class="prt" style="margin-left: -40px;">
+			<div style="float: left; width: 100%;">
+				<input class="btn" id="btnDownloadPdf" type="button" value='列印' style=" font-weight: bold;font-size: 16px;color: blue;" />
+			</div>
+			<div class="prt" style="margin-left: -40px;" >
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
