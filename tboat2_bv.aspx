@@ -194,7 +194,7 @@
 			}
 
 			function btnPrint() {
-				//q_box('z_tranorde.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtCode').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_tboat2_bv.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtCode').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
