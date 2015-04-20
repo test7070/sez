@@ -67,7 +67,11 @@
 				$("#lblCust").text('公司名稱');
 				
 				$('#txtMount').change(function() {
-					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
+					if(emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
+						//取目前97最大碼
+						var t_where = "where=^^ boatname=(select MAX(boatname) from view_transef) ^^";
+						q_gt('view_transef', t_where, 0, 0, 0, "GetMax97code");
+					}else if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
 						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+(dec($('#txtMount').val())-1))).substr(-8));
 					}
 				});
@@ -122,6 +126,18 @@
 			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'GetMax97code':
+						var as = _q_appendData("view_transef", "", true);
+						var maxcode='9700000000',endcode='9700000000';
+						if (as[0] != undefined){
+							var maxcode=as[0].boatname;
+							maxcode='97'+('00000000'+q_add(dec(maxcode),1)).substr(-8);
+						}
+						endcode='97'+('00000000'+q_add(dec(maxcode),dec($('#txtMount').val()))).substr(-8);
+						
+						$('#txtDocketno1').val(maxcode);
+						$('#txtDocketno2').val(endcode);
+						break;
 					case 'getused':
 						var as = _q_appendData("view_transef", "", true);
                 		$('#txtBoat').val(as.length);

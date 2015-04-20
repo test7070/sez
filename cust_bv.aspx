@@ -32,7 +32,11 @@
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
             , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']
-            , ['txtZip_fact', '', 'addr2', 'siteno,site', 'txtZip_fact,txtAddr_fact', 'addr2_b.aspx']);
+            , ['txtZip_fact', '', 'addr2', 'siteno,site', 'txtZip_fact,txtAddr_fact', 'addr2_b.aspx']
+            , ['txtZip_comp', '', 'addr2', 'noa,memo', 'txtZip_comp,txtAddr_comp', 'addr2_b.aspx']
+            , ['txtZip_invo', '', 'addr2', 'noa,memo', 'txtZip_invo,txtAddr_invo', 'addr2_b.aspx']
+            
+            );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();

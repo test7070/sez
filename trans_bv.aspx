@@ -399,6 +399,7 @@
 						<td align="center" style="width:120px; color:black;"><a> 地址 </a></td>
 						<td align="center" style="width:60px; color:black;"><a> 件數</a></td>
 						<td align="center" style="width:120px; color:black;"><a> 電話 </a></td>
+						<td align="center" style="width:120px; color:black;"><a> 宅配員 </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
@@ -408,6 +409,7 @@
 						<td id="straddr" style="text-align: center;">~straddr</td>
 						<td id="mount" style="text-align: right;">~mount</td>
 						<td id="po" style="text-align: center;">~po</td>
+						<td id="boat" style="text-align: center;">~boat</td>
 					</tr>
 				</table>
 			</div>
