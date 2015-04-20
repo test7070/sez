@@ -4,32 +4,26 @@
         {
             try
             {
-                //banktran.aspx  用
-                string targetUrl = "http://127.0.0.1/htm/obtdta.txt";
-                System.Net.HttpWebRequest request = System.Net.HttpWebRequest.Create(targetUrl) as System.Net.HttpWebRequest;
-                request.Method = "GET";
-                request.ContentType = "text/xml;";
-                request.Timeout = 10000;
-                // 取得回應資料
-                string result = "";
-                using (System.Net.HttpWebResponse response = request.GetResponse() as System.Net.HttpWebResponse)
+                string filename = "obtdta";
+                if (Request.QueryString["file"] != null && Request.QueryString["file"].Length > 0)
                 {
-                    using (System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("Big5")))
-                    {
-                        result = sr.ReadToEnd();
-                    }
+                    filename = Request.QueryString["file"];
                 }
+                string filePath = @"C:\inetpub\wwwroot\htm\" + filename + ".txt";
+                System.IO.StreamReader streamReader = new System.IO.StreamReader(filePath, System.Text.Encoding.GetEncoding("Big5"));
+                string text = streamReader.ReadToEnd();
+                streamReader.Close();
                 Response.ContentType = "application/x-msdownload;";
                 Response.AddHeader("Content-transfer-encoding", "binary");
-                Response.AddHeader("Content-Disposition", "attachment;filename=obtdta.txt");
-                Response.Write(result.ToString());
+                Response.AddHeader("Content-Disposition", "attachment;filename="+filename+".txt");
+                Response.Write(text);
             }
             catch (Exception ex)
             {
                 Response.ContentType = "application/x-msdownload;";
                 Response.AddHeader("Content-transfer-encoding", "binary");
                 Response.AddHeader("Content-Disposition", "attachment;filename=error.txt");
-                Response.Write(ex.Message);
+                Response.Write(ex.Message );
             }
             finally
             {

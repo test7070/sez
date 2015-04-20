@@ -131,14 +131,23 @@
 
                 var s1 = location.href;
                 var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
-                if (t_func == 'banktran.gen') {
+                /*if (t_func == 'banktran.gen') {
                     window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
                     return;
                 }
                 if (t_func == 'banktran.gen2') {
                     window.open(t_path + 'obtdta2.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
                     return;
-                }
+                }*/
+                
+                if (t_func == 'banktran.gen') {
+			    	$('#xdownload').attr('src','obtdta.aspx?file=obtdta');
+			    	return;
+				}
+				if (t_func == 'banktran.gen2'){
+					$('#xdownload').attr('src','obtdta.aspx?file=obtdta2');
+             		return;
+             	}
 
                 if (result.length > 0) {
                     var s2 = result.split(';');
@@ -717,6 +726,7 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<iframe id="xdownload" style="display:none;"></iframe>
 	</body>
 </html>
 

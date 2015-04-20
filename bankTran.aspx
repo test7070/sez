@@ -80,7 +80,7 @@
 				var t_memo =  result.split(';')[1];
 				var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
 				if (t_func == 'banktran.gen') {
-				    $('#xdownload').attr('src','obtdta.aspx');
+				    $('#xdownload').attr('src','obtdta.aspx?file=obtdta');
 					//window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
 					$('#txtAccno').val(t_accno);
 				}
