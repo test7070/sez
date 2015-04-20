@@ -21,7 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = ['txtNoa','txtCustno','txtCust','txtDatea'];
+			var q_readonly = ['txtNoa','txtCust','txtDatea'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
@@ -35,7 +35,9 @@
 			q_alias = '';
 			q_desc = 1;
 			brwCount2 = 15;
-			aPop = new Array();
+			aPop = new Array(
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick,boss', 'txtCustno,txtCust,txtNick,txtWorker', 'cust_b.aspx']
+			);
 
 			$(document).ready(function() {
 				var t_where = '';
@@ -71,7 +73,8 @@
 			function mainPost() {
 				q_mask(bbmMask);
 				document.title='客戶派遣'
-				$("#lblCustno").text('客戶編號');
+				$("#lblCustno").text('客戶編號').hide();
+				$('#lblCust').text('客戶編號').hide();
 				$("#lblMount").text('件數');
 				$("#lblDatea").text('登錄日期');
 				
@@ -79,8 +82,11 @@
 				$("#btnDele").hide();
 				$("#btnSeek").hide();
 				if(r_outs==0){
-					$("#btnIns").hide();
 					$("#btnSeek").show();
+					$("#lblCustno").show()
+				}else{
+					q_readonly.push('txtCustno');
+					$("#lblCust").show()
 				}
 			}
 			
@@ -151,8 +157,10 @@
 				$('#txtDatea').val(q_date());
 				$('#txtWorker').focus();
 				
-				var t_where = "where=^^ noa='"+r_userno+"' ^^";
-				q_gt('cust', t_where, 0, 0, 0, "");
+				if(r_outs==1){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}
 			}
 
 			function btnModi() {
@@ -457,7 +465,10 @@
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCustno" class="lbl"> </a></td>
+						<td><span> </span>
+							<a id="lblCustno" class="lbl btn"> </a>
+							<a id="lblCust" class="lbl"> </a>
+						</td>
 						<td><input type="text" id="txtCustno" class="txt c1"/></td>
 						<td colspan="2">
 							<input type="text" id="txtCust" class="txt c1"/>
