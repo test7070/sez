@@ -609,6 +609,8 @@
                 		$('#txtCaritemno1b').val(t_caritem);
                 		$('#txtCaritemno2a').val(t_caritemno);
                 		$('#txtCaritemno2b').val(t_caritem);
+                		$('#txtDate1').val(wParent.getElementById("txtDate1").value);
+						$('#txtDate2').val(wParent.getElementById("txtDate2").value);
                 	}
                 	
                 	if(t_report=='z_car26'){

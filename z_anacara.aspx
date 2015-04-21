@@ -33,9 +33,9 @@
 						if(now_report=='z_anacara02'){
 							if(!emp($('#txtMon2').val()))
 								$('#txtMon1').val(('000'+(dec($('#txtMon2').val().substr(0,3))-1)).substr(-3)+$('#txtMon2').val().substr(-3));
-						}if(now_report=='z_anacara03'){
-							$('#txtMon1').val(q_date().substr(0,3)+'/01/01');
-							$('#txtMon2').val(q_date().substr(0,3)+'/12/31');
+						}else if(now_report=='z_anacara03'){
+							$('#txtMon1').val(q_date().substr(0,3)+'/01');
+							$('#txtMon2').val(q_date().substr(0,3)+'/12');
 						}else{
 							if(!emp($('#txtDate1').val()))
 								$('#txtMon1').val($('#txtDate1').val().substr(0,6));
