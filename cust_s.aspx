@@ -11,7 +11,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "cust_s";
-			aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,comp,nick', 'txtNoa', '']
+			aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,comp,nick,invoicetitle', 'txtNoa', '']
 			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,comp,nick', 'txtSerial', '']
 			,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno', '']
 			,['txtGrpno', 'lblGrp', 'cust', 'noa,comp,nick', 'txtGrpno', '']
