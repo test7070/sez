@@ -20,7 +20,7 @@
 			var decbbs = ['money', 'total', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
 			var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney', 'totalus'];
 			var q_readonly = ['txtNoa', 'txtAcomp', 'txtTgg', 'txtWorker', 'txtWorker2','txtTranstart','txtMoney','txtTotal'];
-			var q_readonlys = ['txtNoq'];
+			var q_readonlys = ['txtNoq','txtAcc2'];
 			var bbmNum = [];
 			var bbsNum = [];
 			var bbmMask = [];
@@ -43,7 +43,8 @@
 				['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,product,unit,spec', 'txtProductno_,txtProduct_,txtUnit_,txtSpec_', 'ucaucc_b.aspx'],
 				['txtUno_', 'btnUno_', 'view_uccc', 'uno', 'txtUno_', 'uccc_seek_b.aspx?;;;1=0', '95%', '60%'],
 				['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx'],
-				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx']
+				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx'],
+				['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtStoreno_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 			);
 
 			var isinvosystem = false;
@@ -99,11 +100,7 @@
 				
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
-				/*if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
-					q_cmbParse("cmbStype", q_getPara('rc2.stype_it'));
-				else*/
-					q_cmbParse("cmbStype", q_getPara('rc2.stype'));
-				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
+				q_cmbParse("cmbStype", q_getPara('rc2.stype'));
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
@@ -653,6 +650,16 @@
 						$('#btnMinus_' + j).click(function() {
 							btnMinus($(this).attr('id'));
 						});
+						$('#txtAcc1_' + j).bind('contextmenu', function(e) {
+	                        /*滑鼠右鍵*/
+	                        e.preventDefault();
+	                        var n = $(this).attr('id').replace('txtAcc1_', '');
+	                        $('#btnAcc_'+n).click();
+	                    }).change(function() {
+	                        var patt = /^(\d{4})([^\.,.]*)$/g;
+		                    $(this).val($(this).val().replace(patt,"$1.$2"));
+	                        sum();
+	                    });
 						$('#txtUnit_' + j).change(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
@@ -790,6 +797,12 @@
 					return (hasSpec.toString()=='1');
 				}else if(returnType=='rack'){
 					return (hasRackComp.toString()=='1');
+				}
+				
+				$('.acc').hide();
+				if (q_getPara('sys.project').toUpperCase()=='SH'){
+					$('.floata').hide();
+					$('.acc').show();
 				}
 			}
 			
@@ -1224,7 +1237,7 @@
 						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
 						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td>
 					</tr>
-					<tr class="tr9">
+					<tr class="tr9 floata">
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td class="td2" ><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td class="td3" ><input id="txtFloata" type="text" class="txt num c1" /></td>
@@ -1251,20 +1264,21 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1300px;">
+		<div class='dbbs' style="width: 1260px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:1%;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
 					<td align="center" style="width:180px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:220px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:230px;"><a id='lblProduct'> </a></td>
 					<td align="center" style="width:95px;" class="isStyle"><a id='lblStyle'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrices'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotals'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblStore_s'> </a></td>
+					<td align="center" style="width:120px;" class="acc"><a id='lblAcc1'> </a><br><a id='lblAcc2'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblStore_s'> </a></td>
 					<td align="center" style="width:80px;" class="isRack"><a id='lblRackno_s'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblMemos'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblRecord_s'> </a></td>
@@ -1287,6 +1301,11 @@
 					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1" /></td>
+					<td class="acc">
+						<input type="text" id="txtAcc1.*"  style="width:95%; float:left;" title="點擊滑鼠右鍵，列出明細。" class="acc"/>
+						<input type="text" id="txtAcc2.*"  style="width:95%; float:left;" class="acc"/>
+						<input type="button" id="btnAcc.*" style="display:none;"/>
+					</td>
 					<td>
 						<input id="txtStoreno.*" type="text" class="txt c1" style="width: 65%"/>
 						<input class="btn" id="btnStoreno.*" type="button" value='.' style=" font-weight: bold;" />
