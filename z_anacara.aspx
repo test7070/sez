@@ -29,6 +29,17 @@
                 $('#q_report').click(function(e) {
 					//客戶請款單與應收對帳簡要表>>正常隱藏業務選項>>>不然會造成金額問題
 					now_report=$('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report;
+					if(now_report=='z_anacara02'){
+						$('#lblMon').text('比較月份');
+						$('#lblDate').text('收款日期');
+						$('#Mon .dash').text('-');
+					}else{
+						$('#lblMon').text(q_getMsg("lblMon"));
+						$('#lblDate').text(q_getMsg("lblDate"));
+						$('#Mon .dash').text('~');
+					}
+					
+					
 					if(chg_report!=now_report){
 						if(now_report=='z_anacara02'){
 							if(!emp($('#txtMon2').val()))

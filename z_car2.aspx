@@ -617,6 +617,15 @@
 						$('#txtXmon').val(t_mon);
                 	}
                 	
+                	if(t_report=='z_cara1'){
+                		var t_carno=replaceAll(t_para[3],"carno='","");
+                		t_carno=t_carno.substr(0,t_carno.length-1);
+						$('#txtMon1').val(t_mon);
+						$('#txtMon2').val(t_mon);
+						$('#txtTcarno1').val(t_carno);
+						$('#txtTcarno2').val(t_carno);
+                	}
+                	
                 	$('#btnOk').click();
                 }
             }
