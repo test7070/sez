@@ -519,7 +519,7 @@
                 $('#btnMontax').val('監理稅金收單作業');
                 
                 $('#btnNotice').val('驗車通知作業');
-                if(iscarno<3){
+                if(iscarno<4){
 	                if(window.parent.q_name=='cara' || window.parent.q_name=='car2'){
 	                	var wParent = window.parent.document;
 						$('#txtTcarno1').val(wParent.getElementById("txtCarno").value);
