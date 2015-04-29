@@ -696,7 +696,10 @@
 
 			function btnPrint() {
                 var t_where = "noa='" + $.trim($('#txtNoa').val()) + "'";
-                q_box("z_ordep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
+                 if (q_getPara('sys.project') =='ra')
+                	q_box("z_ordep_ra.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
+                else
+               	    q_box("z_ordep.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, '', "95%", "95%", q_getMsg('popPrint'));
 			}
 
 			function wrServer(key_value) {

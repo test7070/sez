@@ -31,6 +31,7 @@
 				q_gt('part', '', 0, 0, 0, "");
 				q_cmbParse("cmbStatus", "@全部,Y@已收完,N@未收完");
 				q_cmbParse("cmbStype", '@全部,'+q_getPara('vcc.stype'));
+				q_cmbParse("cmbTypea", '@全部,'+q_getPara('vcc.typea'));
 				$('#txtNoa').focus();
 			}
 			function q_gtPost(t_name) {
@@ -70,11 +71,13 @@
 				t_ordeno = $('#txtOrdeno').val();
 				t_salesno = $('#txtSalesno').val();
 				t_stype = $('#cmbStype').val();
+				t_typea = $('#cmbTypea').val();
 				
 				var t_where = " 1=1 "
 				+ q_sqlPara2("cno", t_cno)
 				+ q_sqlPara2("partno", t_partno)
 				+ q_sqlPara2("partno2", t_partno2)
+				+q_sqlPara2("typea", t_typea)
 				+q_sqlPara2("stype", t_stype)
 				+ q_sqlPara2("noa", t_noa)
 				+ q_sqlPara2("mon", t_mon)
@@ -138,6 +141,10 @@
 					<td style="width: 30%;"><a id='lblStatus'> </a></td>
 					<td style="width: 70%;"><select id="cmbStatus"> </select></td>
 				</tr>
+				<tr class='seek_tr'>
+	                <td class='seek'  style="width:20%;"><a id='lblTypea'> </a></td>
+	                <td><select id="cmbTypea" class="txt c1" style="font-size:medium;"> </select></td>
+	             </tr>
 				<tr class='seek_tr'>
 	                <td class='seek'  style="width:20%;"><a id='lblStype'> </a></td>
 	                <td><select id="cmbStype" class="txt c1" style="font-size:medium;"> </select></td>

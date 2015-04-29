@@ -109,7 +109,7 @@
                 		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
                 		return;
                 	}
-                	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','')^^", 0, 0, 0, "pay_import");
+                	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','"+q_getPara('rc2.d4taxtype')+"')^^", 0, 0, 0, "pay_import");
 		        });
 		        $('#btnMon').click(function (e) {
 		        	var t_noa = $.trim($('#txtNoa').val());
@@ -142,8 +142,8 @@
 		               			t_money -= q_float('txtMoney_' + i);
 		               		else
 		               			t_money += q_float('txtMoney_' + i);
-		               			
-		               			t_money+=q_float('txtChgs_' + i);
+		               			//104/04/29費用不算在付款金額
+		               			//t_money+=q_float('txtChgs_' + i);
 		               }
 						
 		               var t_unpay, t_pay=0;
@@ -462,7 +462,8 @@
 		               	t_money -= q_float('txtMoney_' + j);
 		            else*/
 		               	t_money += q_float('txtMoney_' + j);
-		            	t_money+=q_float('txtChgs_' + j);
+						//104/04/29費用不算在付款金額
+		            	//t_money+=q_float('txtChgs_' + j);
 		            t_sale += q_float('txtUnpayorg_' + j);
 		            t_pay += q_float('txtPaysale_' + j);
 		        }
@@ -511,7 +512,8 @@
 		        for (var i = 0; i < q_bbsCount; i++) {
 		        	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
 		            t_money = q_float('txtMoney_' + i);
-		            t_chgs = q_float('txtChgs_' + i);
+		            //104/04/29費用不算在付款金額
+		            //t_chgs = q_float('txtChgs_' + i);
                     if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money + t_chgs > 0) {
 		                    t_err = true;
 		                    break;

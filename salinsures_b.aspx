@@ -220,35 +220,35 @@
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 					</td>
                 <td >
-                	<input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" />
-                	<input class="txt c1" id="txtNoa.*" type="hidden"   readonly="readonly" />
-                	<input class="txt c1" id="txtNoq.*" type="hidden"   readonly="readonly" />
-                	<input class="txt c1" id="txtSysgen.*" type="hidden"   readonly="readonly" />
+                	<input class="txt c1" id="txtMon.*" type="text"   />
+                	<input class="txt c1" id="txtNoa.*" type="hidden"   />
+                	<input class="txt c1" id="txtNoq.*" type="hidden"   />
+                	<input class="txt c1" id="txtSysgen.*" type="hidden"   />
                 </td>
-                <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtLa_person.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtLa_comp.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtRe_person.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtRe_comp.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtTotal1.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtTotal2.*" type="text"   readonly="readonly" /></td>
-                <!--<td ><input class="txt c1" id="txtPayc.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtPay.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtUnpay.*" type="text"  readonly="readonly" /></td>-->
-                <td ><input class="txt num c1" id="txtSalary.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtSa_retire.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtSa_labor.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtSa_health.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  /></td>
+                <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  /></td>
+                <td ><input class="txt num c1" id="txtLa_person.*"  type="text"   /></td>
+                <td ><input class="txt num c1" id="txtLa_comp.*"  type="text"   /></td>
+                <td ><input class="txt num c1" id="txtRe_person.*"  type="text"   /></td>
+                <td ><input class="txt num c1" id="txtRe_comp.*"  type="text"  /></td>
+                <td ><input class="txt num c1" id="txtDisaster.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtTotal1.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtTotal2.*" type="text"   /></td>
+                <!--<td ><input class="txt c1" id="txtPayc.*" type="text"   /></td>
+                <td ><input class="txt num c1" id="txtPay.*" type="text"   /></td>
+                <td ><input class="txt num c1" id="txtUnpay.*" type="text"  /></td>-->
+                <td ><input class="txt num c1" id="txtSalary.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtSa_retire.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtSa_labor.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtSa_health.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td >
-                	<input class="txt c1" id="txtCno.*" type="text"  readonly="readonly"  style="width: 20%;"/>
+                	<input class="txt c1" id="txtCno.*" type="text"   style="width: 20%;"/>
                 	<input id="btnCno.*" type="button" value="." style="width: 1%;" />
-                	<input class="txt c1" id="txtComp.*" type="text"  readonly="readonly"  style="width: 65%;"/>
+                	<input class="txt c1" id="txtComp.*" type="text"   style="width: 65%;"/>
                 </td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text"  readonly="readonly" /></td>
-                <td class="hidecust"><input class="txt c1" id="txtCustno.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text"  /></td>
+                <td class="hidecust"><input class="txt c1" id="txtCustno.*" type="text"  /></td>
             </tr>
         </table>
 			<!--#include file="../inc/pop_modi.inc"-->

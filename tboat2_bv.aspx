@@ -505,7 +505,7 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
 						<td align="center" style="width:80px; color:black;"><a>登錄日期</a></td>
 						<td align="center" style="width:120px; color:black;"><a>客戶編號</a></td>
-						<td align="center" style="width:120px; color:black;"><a>姓名</a></td>
+						<td align="center" style="width:120px; color:black;"><a>操作者</a></td>
 					</tr>
 					<tr>
 						<td >
