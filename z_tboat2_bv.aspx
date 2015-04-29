@@ -74,7 +74,7 @@
                 		if((/^96[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^96[0-9]{8}$/g).test($('#txtEnoa').val()) &&
                 		($('#txtBnoa').val().substr(2,7)%7)==$('#txtBnoa').val().substr(-1)&&($('#txtEnoa').val().substr(2,7)%7)==$('#txtEnoa').val().substr(-1)){
                 			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(2,7)),dec($('#txtEnoa').val().substr(2,7))))<300)
-                				window.open("./pdf_barcode96.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val());
+                				window.open("./pdf_barcode96.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
                 				alert('條碼範圍不得超逾300張!!!');
                 		}else{

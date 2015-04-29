@@ -77,7 +77,7 @@
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
                 		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())){
                 			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8)),dec($('#txtEnoa').val().substr(-8))))<300)
-                				window.open("./pdf_edi.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&str="+$('#Str .cmb').val());
+                				window.open("./pdf_edi.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&str="+$('#Str .cmb').val()+"&db="+q_db);
                 			else
                 				alert('條碼範圍不得超逾300張!!!');
                 		}else{
