@@ -135,7 +135,7 @@
             }
             
             function btnPrint() {
-                q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'transef', "95%", "95%", m_print);
+                //q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'transef', "95%", "95%", m_print);
             }
             
             function q_stPost() {
@@ -388,6 +388,7 @@
                         <td align="center" style="width:80px; color:black;">袋號</td>
                         <td align="center" style="width:80px; color:black;">件數</td>
                         <td align="center" style="width:80px; color:black;">發送所</td>
+                        <td align="center" style="width:120px; color:black;">訂單號碼</td>
                         <!--<td align="center" style="width:80px; color:black;">審件等級</td>
                         <td align="center" style="width:80px; color:black;">代收貨款</td>
                         <td align="center" style="width:140px; color:black;">商品內容</td>
@@ -401,6 +402,7 @@
                         <td id="carno" style="text-align: center;">~carno</td>
                         <td id="mount,10,0,1" style="text-align: center;">~mount,10,0,1</td>
                         <td id="accno" style="text-align: center;">~accno</td>
+                        <td id="traceno" style="text-align: center;">~traceno</td>
                         <!--<td id="unit" style="text-align: center;">~unit</td>
                         <td id="price,0" style="text-align: right;">~price,0</td>
                         <td id="straddr" style="text-align: center;">~straddr</td>
