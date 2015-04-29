@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "transef";
-            var q_readonly = ['txtNoa','txtBoatname','txtPo','','txtMon','cmbCalctype','cmbCarno'];
+            var q_readonly = ['txtNoa','txtBoatname','txtPo','','txtMon','cmbCalctype','cmbCarno','txtIo'];
             var bbmNum = [['txtPrice',10,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -432,7 +432,7 @@
 						<td ><input type="text" id="txtPo" class="txt c1" style="width:70%"/></td>
 						<!--<td><span> </span><a class="lbl">已傳入大貨追</a></td>
                         <td><input id="txtMon"  type="text" class="txt c1 "/></td>-->
-                        <td><span> </span><a id="lblZip" class="lbl"></a></td>
+                        <td><span> </span><a id="lblZip" class="lbl"> </a></td>
                         <td><input id="txtCaseuse"  type="text" class="txt c1 "/></td>
                         <td><span> </span><a class="lbl">到著站</a></td>
                         <td>
@@ -493,6 +493,8 @@
 							<input id="txtNoq"  type="text" style="display:none;"/>
 							<input id="txtTraceno"  type="hidden" class="txt c1"/><!--tranorde單號-->
 						</td>
+						<td><span> </span><a class="lbl">托運單</a></td>
+						<td><input type="text" id="txtIo" class="txt c1" /></td>
                     </tr>
                 </table>
             </div>

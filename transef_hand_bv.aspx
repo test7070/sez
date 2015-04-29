@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "transef";
-            var q_readonly = ['txtNoa','txtMon','cmbCalctype','cmbCarno','txtTraceno'];
+            var q_readonly = ['txtNoa','txtMon','cmbCalctype','cmbCarno','txtTraceno','txtIo'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -436,6 +436,8 @@
 							<input type="text" id="txtComp" class="txt" style="width:80%;float: left; " />
 							<input type="text" id="txtNick" class="txt" style="display:none; " />
 						</td> 
+						<td><span> </span><a class="lbl">托運單</a></td>
+						<td><input type="text" id="txtIo" class="txt c1" /></td>
                     </tr>
                     <!--<tr>
                     	<td><span> </span><a class="lbl">發送日期</a></td>
