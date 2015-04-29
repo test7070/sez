@@ -391,7 +391,7 @@
 			}
 			.dview {
 				float: left;
-				width: 320px;
+				width: 420px;
 				border-width: 0px;
 			}
 			.tview {
@@ -411,7 +411,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 850px;
+				width: 750px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -544,10 +544,11 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:120px; color:black;"><a>公司名稱</a></td>
-						<td align="center" style="width:100px; color:black;"><a>件數</a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:120px; color:black;"><a>訂單編號</a></td>
+						<td align="center" style="width:100px; color:black;"><a>公司名稱</a></td>
+						<td align="center" style="width:80px; color:black;"><a>件數</a></td>
 
 					</tr>
 					<tr>
@@ -555,8 +556,9 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='mount,0,1' style="text-align: right;">~mount,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -572,7 +574,7 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">單據編號</a></td>
+						<td><span> </span><a class="lbl">訂單編號</a></td>
 						<td><input type="text" id="txtNoa" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
@@ -608,6 +610,7 @@
 						<td><input id="chkEnda" type="checkbox" style=' '/></td>
 					</tr>
 				</table>
+			</div>
 		</div>
 	</body>
 </html>

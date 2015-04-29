@@ -109,7 +109,7 @@
                 		alert('請先輸入'+q_getMsg('lblTgg')+'!!');
                 		return;
                 	}
-                	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','')^^", 0, 0, 0, "pay_import");
+                	q_gt('pay_import',"where=^^['"+t_noa+"','"+t_tggno+"','"+t_tggno2+"','"+t_mon+"','"+q_getPara('rc2.d4taxtype')+"')^^", 0, 0, 0, "pay_import");
 		        });
 		        $('#btnMon').click(function (e) {
 		        	var t_noa = $.trim($('#txtNoa').val());
