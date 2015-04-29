@@ -41,17 +41,31 @@
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
                 
+                var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            }catch(e){
+	            }    
+	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
+	            	
+	            }else{
+	            	$('#txtBnoa').val(t_para.bnoa);
+                	$('#txtEnoa').val(t_para.enoa);
+	            }
+                
                 $('.prt').hide();
                 
                 $('#txtBnoa').change(function() {
-                	if(!emp($('#txtBnoa').val()) &&(/^97[0-9]{8}$/g).test($('#txtBnoa').val())){
-                		alert('請輸入正確的97條碼!!!');
+                	if(!emp($(this).val())){
+                		if(!(/^97[0-9]{8}$/g).test($(this).val()))
+                			alert('請輸入正確的97條碼!!!');
                 	}
 				});
 				
 				$('#txtEnoa').change(function() {
-                	if(!emp($('#txtEnoa').val()) &&(/^97[0-9]{8}$/g).test($('#txtEnoa').val())){
-                		alert('請輸入正確的97條碼!!!');
+                	if(!emp($(this).val())){
+                		if(!(/^97[0-9]{8}$/g).test($(this).val()))
+                			alert('請輸入正確的97條碼!!!');
                 	}
 				});
                 
@@ -59,7 +73,7 @@
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
                 		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())){
                 			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8)),dec($('#txtEnoa').val().substr(-8))))<300)
-                				window.open("http://59.125.143.171/dcz/pdf_tranorde.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val());
+                				window.open("./pdf_tranorde.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val());
                 			else
                 				alert('條碼範圍不得超逾300張!!!');
                 		}else{

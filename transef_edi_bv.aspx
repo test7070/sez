@@ -136,7 +136,7 @@
             }
             
             function btnPrint() {
-                q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'transef', "95%", "95%", m_print);
+                q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim($('#txtBoatname').val()),enoa:trim($('#txtBoatname').val())}) + ";" + r_accy + "_" + r_cno, 'transef', "95%", "95%", m_print);
             }
             
             function q_stPost() {
@@ -394,7 +394,6 @@
                         <td align="center" style="width:80px; color:black;">代收貨款</td>
                         <td align="center" style="width:140px; color:black;">商品內容</td>
                         <td align="center" style="width:180px; color:black;">備註</td>
-
                     </tr>
                     <tr>
                         <td ><input id="chkBrow.*" type="checkbox"/></td>

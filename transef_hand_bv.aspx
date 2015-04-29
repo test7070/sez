@@ -135,7 +135,7 @@
             }
             
             function btnPrint() {
-                //q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'transef', "95%", "95%", m_print);
+                q_box("z_tranorde_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim($('#txtBoatname').val()),enoa:trim($('#txtBoatname').val())}) + ";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
             }
             
             function q_stPost() {
