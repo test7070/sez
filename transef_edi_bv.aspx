@@ -19,7 +19,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "transef";
-            var q_readonly = ['txtNoa','txtBoatname','txtPo','','txtMon','cmbCalctype','cmbCarno','txtIo'];
+            var q_readonly = ['txtNoa','txtBoatname','txtPo','','txtMon','cmbCalctype','cmbCarno','txtIo','txtTreno'];
             var bbmNum = [['txtPrice',10,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -487,6 +487,8 @@
                         <td><input id="txtUnit"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">代收貨款</a></td>
                         <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
+                    </tr>
+                    <tr>
                         <td><span> </span><a class="lbl"> 單據編號 </a></td>
 						<td>
 							<input type="text" id="txtNoa" class="txt c1"/>
@@ -495,6 +497,8 @@
 						</td>
 						<td><span> </span><a class="lbl">托運單</a></td>
 						<td><input type="text" id="txtIo" class="txt c1" /></td>
+						<td><span> </span><a class="lbl">上傳檔名</a></td>
+						<td><input type="text" id="txtTreno" class="txt c1" /></td>
                     </tr>
                 </table>
             </div>

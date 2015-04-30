@@ -44,11 +44,23 @@
 
 		function mainPost() { 
 			q_getFormat();
-			bbmMask = [];
+			bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
 			q_mask(bbmMask);
+			$("#lblMon").text('帳款月份');
 			q_cmbParse("cmbTypea", q_getPara('posta.typea'));
 			q_cmbParse("cmbKind",'客戶,廠商');
 			
+		 	$('#btnInput').click(function () {
+		 		if($('#cmbKind').val()=='廠商')	{
+            		var t_where = "where=^^ EXISTS ( select b.noa from tgg_2s b where b.noa = tgg.noa and b.mon <= '"+$('#txtMon').val()+"'and b.unpay>0) ^^";
+            		q_gt('tgg', t_where, 0, 0, 0, "", r_accy);
+                }
+            	else{
+            		var t_where = "where=^^ EXISTS ( select b.noa from cust_2s b where b.noa = cust.noa and b.mon <= '"+$('#txtMon').val()+"'and b.unpay>0) ^^";
+            		q_gt('cust', t_where, 0, 0, 0, "", r_accy);
+            	}
+            });
+		
 			$('#cmbKind').change(function() {
 				if($('#cmbKind').val()=='廠商')
 					aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
@@ -74,6 +86,24 @@
 				case q_name: if (q_cur == 4)   
 						q_Seek_gtPost();
 					break;
+				case 'tgg':
+					var as = _q_appendData("tgg", "", true);
+					for(i=0;i<as.length;i++){
+						if (as[i].addr_home=='')
+						as[i].addr_home = as[i].addr_comp;
+						}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr', as.length, as, 'noa,comp,zip_home,addr_home', '');
+	
+     
+            	break;
+            	case 'cust':
+            		var as = _q_appendData("cust", "", true);
+            		for(i=0;i<as.length;i++){
+						if (as[i].addr_home=='')
+						as[i].addr_home = as[i].addr_comp;
+						}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr', as.length, as, 'noa,comp,zip_home,addr_home', '');
+            	break;
 			}  /// end switch
 		}
 
@@ -114,6 +144,7 @@
 			$('#txtAddr').val(q_getPara('sys.addr'));
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtDatea').val(q_date()).focus();
+			$('#txtMon').val(q_date().substr(0,6));
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
@@ -150,6 +181,12 @@
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			if (t_para){
+				$('#btnInput').attr('disabled', 'disabled');
+			}
+			else {
+				$('#btnInput').removeAttr('disabled', 'disabled');
+			}
 		}
 
 		function btnMinus(id) {
@@ -383,6 +420,10 @@
 				<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblTel" class="lbl" > </a></td>
 						<td class="td2" colspan="3"><input id="txtTel" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id="lblMon" class="lbl" > </a></td>
+						<td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
+						<td class="td7"><input id="btnInput" type="button" value="帳款匯入" /></td> 
+						
 				</tr>
 				<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
