@@ -235,6 +235,18 @@
                     Lock();
 					q_gt('view_vcc', t_where, 0, 0, 0,'aaa', r_accy);
                 });
+                
+                $('#btnPrint').click(function() {
+                	var t_bnoa=$('#transef_boatname'+0).text();
+                	var t_enoa=$('#transef_boatname'+(transef_count-1)).text();
+                	if(t_bnoa>t_enoa){
+                		var tmp=t_bnoa;
+                		t_bnoa=t_enoa;
+                		t_enoa=tmp;
+                	}
+                	                	
+                	q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim(t_bnoa),enoa:trim(t_enoa)}) + ";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
+				});
             }
             
 			function q_boxClose(s2) {
@@ -499,6 +511,7 @@
 		<div id='q_acDiv'> </div>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type='button' id='btnAuthority' name='btnAuthority' style='font-size:16px;' value='權限'/>
+		<input type='button' id='btnPrint'  style='font-size:16px;' value='列印'/>
 		<div id="vcc" style="float:left;width:1260px;"> </div> 
 		<div id="vcc_control" style="width:1200px;"> </div> 
 		<div id="transef" style="float:left;width:1260px;"> </div> 

@@ -45,17 +45,6 @@
                 
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
-                var t_para = new Array();
-	            try{
-	            	t_para = JSON.parse(q_getId()[3]);
-	            }catch(e){
-	            }    
-	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
-	            	
-	            }else{
-	            	$('#txtBnoa').val(t_para.bnoa);
-                	$('#txtEnoa').val(t_para.enoa);
-	            }
 	            
                 $('.prt').hide();
                 
@@ -88,6 +77,21 @@
                 	}
                 	
 				});
+				
+				
+				var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            }catch(e){
+	            }    
+	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
+	            	
+	            }else{
+	            	$('#txtBnoa').val(t_para.bnoa);
+                	$('#txtEnoa').val(t_para.enoa);
+                	if(!emp($('#txtBnoa').val()) && !emp($('#txtEnoa').val()))
+                		$('#btnDownloadPdf').click();
+	            }
             }
 
             function q_boxClose(t_name) {

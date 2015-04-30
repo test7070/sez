@@ -243,6 +243,17 @@
                     Lock();
 					q_gt('view_tranorde', t_where, 0, 0, 0,'aaa', r_accy);
                 });
+                
+                $('#btnPrint').click(function() {
+                	var t_bnoa=$('#transef_boatname'+0).text();
+                	var t_enoa=$('#transef_boatname'+(transef_count-1)).text();
+                	if(t_bnoa>t_enoa){
+                		var tmp=t_bnoa;
+                		t_bnoa=t_enoa;
+                		t_enoa=tmp;
+                	}                	                	
+                	q_box("z_tranorde_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim(t_bnoa),enoa:trim(t_enoa)}) + ";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
+				});
             }
             
 			function q_boxClose(s2) {
@@ -264,25 +275,16 @@
 					case 'show_transef':
 						var as = _q_appendData("view_transef", "", true);
 						transef_count=as.length;
-						var string = "<table id='transef_table' style='width:2400px;'>";
+						var string = "<table id='transef_table' style='width:1230px;'>";
 	                    string+='<tr id="transef_header">';
 	                    string+='<td id="transef_sel" align="center" style="width:20px; color:black;"></td>';
 	                    string+='<td id="transef_boatname" align="center" style="width:160px; color:black;">97條碼</td>';
-	                    string+='<td id="transef_po" align="center" style="width:160px; color:black;">96條碼</td>';
-	                    string+='<td id="transef_caseuse" align="center" style="width:80px; color:black;">zip</td>';
-	                    string+='<td id="transef_accno" align="center" style="width:100px; color:black;">到著所簡碼</td>';
-	                    string+='<td id="transef_uccno" align="center" style="width:120px; color:black;">到著所名稱</td>';
 	                    string+='<td id="transef_carno" align="center" style="width:60px; color:black;">袋號</td>';
-	                    string+='<td id="transef_so" align="center" style="width:120px; color:black;">來源表單編號</td>';
-	                    string+='<td id="transef_addressee" align="center" style="width:100px; color:black;">姓名</td>';
-	                    string+='<td id="transef_caseend" align="center" style="width:80px; color:black;">郵遞區號</td>';
+	                    string+='<td id="transef_custno" align="center" style="width:80px; color:black;">客戶代號</td>';
+	                    string+='<td id="transef_comp" align="center" style="width:80px; color:black;">客戶簡稱</td>';
 	                    string+='<td id="transef_aaddr" align="center" style="width:300px; color:black;">地址</td>';
-	                    string+='<td id="transef_boat" align="center" style="width:150px; color:black;">行動電話</td>';
 	                    string+='<td id="transef_atel" align="center" style="width:150px; color:black;">電話</td>';
-	                    string+='<td id="transef_endaddr" align="center" style="color:black;">備註</td>';
-	                    string+='<td id="transef_straddr" align="center" style="width:230px; color:black;">商品內容</td>';
-	                    string+='<td id="transef_unit" align="center" style="width:80px; color:black;">審件等級</td>';
-	                    string+='<td id="transef_price" align="center" style="width:120px; color:black;">代收貨款</td>';
+	                    string+='<td id="transef_uccno" align="center" style="width:100px; color:black;">發送所</td>';
 	                    string+='</tr>';
 	                    
 	                    var t_color = ['DarkBlue','DarkRed'];
@@ -290,21 +292,12 @@
 	                        string+='<tr id="tranorde_tr'+i+'">';
 	                        string+='<td style="text-align: center; font-weight: bolder; color:black;">'+(i+1)+'</td>';
 	                        string+='<td id="transef_boatname'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].boatname+'</td>';
-	                        string+='<td id="transef_po'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].po+'</td>';
-	                        string+='<td id="transef_caseuse'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseuse+'</td>';
-	                        string+='<td id="transef_accno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].accno+'</td>';
-	                        string+='<td id="transef_uccno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].uccno+'</td>';
 	                        string+='<td id="transef_carno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].carno+'</td>';
-	                        string+='<td id="transef_so'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].so+'</td>';
-	                        string+='<td id="transef_addressee'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].addressee+'</td>';
-	                        string+='<td id="transef_caseend'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseend+'</td>';
+	                        string+='<td id="transef_custno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseuse+'</td>';
+	                        string+='<td id="transef_comp'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseuse+'</td>';
 	                        string+='<td id="transef_aaddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].aaddr+'</td>';
-	                        string+='<td id="transef_boat'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].boat+'</td>';
 	                        string+='<td id="transef_atel'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].atel+'</td>';
-	                        string+='<td id="transef_endaddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].endaddr+'</td>';
-	                        string+='<td id="transef_straddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].straddr+'</td>';
-	                        string+='<td id="transef_unit'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].unit+'</td>';
-	                        string+='<td id="transef_price'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].price+'</td>';	                        
+	                        string+='<td id="transef_uccno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].accno+'</td>';
 	                        string+='</tr>';
 	                    }
 	                    string+='</table>';
@@ -507,6 +500,7 @@
 		<div id='q_acDiv'> </div>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type='button' id='btnAuthority' name='btnAuthority' style='font-size:16px;' value='權限'/>
+		<input type='button' id='btnPrint'  style='font-size:16px;' value='列印'/>
 		<div id="tranorde" style="float:left;width:1260px;"> </div> 
 		<div id="tranorde_control" style="width:1200px;"> </div> 
 		<div id="transef" style="float:left;width:1260px;"> </div> 
