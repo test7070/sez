@@ -124,6 +124,18 @@
                 		$('#carnotice').hide();
                 	}
                 	
+                	now_report=$('#q_report').data().info.reportData[$('#q_report').data().info.radioIndex].report;
+					if(now_report=='z_car27'){
+						$('#lblXmon').text('截止月份');
+					}else{
+						$('#lblXmon').text(q_getMsg("lblXmon"));
+						if(emp($('#txtXmon').val()))
+							$('#txtXmon').val(q_date().substr(0,6));
+					}
+					
+					if(window.parent.q_name!='z_anacara' && now_report=='z_car27'){
+						$('#Xmon').hide();
+					}
                 });
             });
             
@@ -519,7 +531,7 @@
                 $('#btnMontax').val('監理稅金收單作業');
                 
                 $('#btnNotice').val('驗車通知作業');
-                if(iscarno<3){
+                if(iscarno<4){
 	                if(window.parent.q_name=='cara' || window.parent.q_name=='car2'){
 	                	var wParent = window.parent.document;
 						$('#txtTcarno1').val(wParent.getElementById("txtCarno").value);
@@ -574,10 +586,8 @@
 					});
 					
                 	if(t_report=='z_car27'){
-						$('#txtDate1').val(t_mon+'/01');
-						var t_enddate=q_cdn(q_cdn(t_mon+'/01',45).substr(0,6)+'/01',-1);
-						$('#txtEnddate').val(t_enddate);
-						$('#txtDate2').val(t_enddate);
+						$('#txtXmon').val(t_mon);
+						$('#txtEnddate').val('');
 						
 						var t_specno=replaceAll(t_para[3],"specno='","");
                 		t_specno=t_specno.substr(0,t_specno.length-1);
@@ -593,28 +603,66 @@
             			}
             			xcarspec=xcarspec.substr(0,xcarspec.length-1);
 						$('#txtXspecno').val(xcarspec);
-                	}
-                	if(t_report=='z_car35'){
-						$('#txtDate1').val('');
-						$('#txtDate2').val('');
-						$('#txtMon1').val(t_mon);
-						$('#txtMon2').val(t_mon);
 						
+						var t_diff=replaceAll(t_para[4],"diff='","");
+                		t_diff=t_diff.substr(0,t_diff.length-1);
+						if(t_diff=='Y' || t_diff=='X'){
+							var t_bmon=replaceAll(t_para[5],"bmon='","");
+                			t_bmon=t_bmon.substr(0,t_bmon.length-1);
+							
+							$('#txtDate1').val(t_bmon+'/01');
+							$('#txtDate2').val(q_cdn(q_cdn(t_mon+'01',45).substr(0,6)+'/01',-1));
+							
+							$("#chkPrdate input").prop('checked',true)	
+						}
+						if(t_diff=='X'){
+							xcarspec='';
+							for (var i = 0; i < carspec_arr.length; i++) {
+								if(carspec_arr[i].noa.substr(0,1)=='A' || carspec_arr[i].noa.substr(0,1)=='B' || carspec_arr[i].noa.substr(0,1)=='C')
+									xcarspec+=carspec_arr[i].noa+'.';
+	            			}
+	            			xcarspec=xcarspec.substr(0,xcarspec.length-1);
+							$('#txtXspecno').val(xcarspec);
+						}
+						
+                	}
+                	if(t_report=='z_car35'){						
 						var t_caritemno=replaceAll(t_para[3],"caritemno='","");
                 		t_caritemno=t_caritemno.substr(0,t_caritemno.length-1);
                 		var t_caritem=replaceAll(t_para[4],"caritem='","");
                 		t_caritem=t_caritem.substr(0,t_caritem.length-1);
+                		var t_isdate=replaceAll(t_para[5],"isdate='","");
+                		t_isdate=t_isdate.substr(0,t_isdate.length-1);
                 		
                 		$('#txtCaritemno1a').val(t_caritemno);
                 		$('#txtCaritemno1b').val(t_caritem);
                 		$('#txtCaritemno2a').val(t_caritemno);
                 		$('#txtCaritemno2b').val(t_caritem);
-                		$('#txtDate1').val(wParent.getElementById("txtDate1").value);
-						$('#txtDate2').val(wParent.getElementById("txtDate2").value);
+                		
+                		if(t_isdate=='N'){
+	                		$('#txtDate1').val('');
+							$('#txtDate2').val('');
+							$('#txtMon1').val(t_mon);
+							$('#txtMon2').val(t_mon);
+						}else{
+							$('#txtDate1').val(wParent.getElementById("txtDate1").value);
+							$('#txtDate2').val(wParent.getElementById("txtDate2").value);
+							$('#txtMon1').val('');
+							$('#txtMon2').val('');	
+						}
                 	}
                 	
                 	if(t_report=='z_car26'){
 						$('#txtXmon').val(t_mon);
+                	}
+                	
+                	if(t_report=='z_cara1'){
+                		var t_carno=replaceAll(t_para[3],"carno='","");
+                		t_carno=t_carno.substr(0,t_carno.length-1);
+						$('#txtMon1').val(t_mon);
+						$('#txtMon2').val(t_mon);
+						$('#txtTcarno1').val(t_carno);
+						$('#txtTcarno2').val(t_carno);
                 	}
                 	
                 	$('#btnOk').click();

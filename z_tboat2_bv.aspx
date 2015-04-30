@@ -41,17 +41,31 @@
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
                 
+                var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            }catch(e){
+	            }    
+	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
+	            	
+	            }else{
+	            	$('#txtBnoa').val(t_para.bnoa);
+                	$('#txtEnoa').val(t_para.enoa);
+	            }
+                
                 $('.prt').hide();
                 
-                $('#txtBnoa').change(function() {
-                	if(!emp($('#txtBnoa').val()) &&(/^96[0-9]{8}$/g).test($('#txtBnoa').val())&&($(this).val().substr(2,7)%7)==$(this).val().substr(-1)){
-                		alert('請輸入正確的96條碼!!!');
+                $('#txtBnoa').blur(function() {
+                	if(!emp($(this).val())){
+                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(2,7))%7)==$(this).val().substr(-1)))
+                			alert('請輸入正確的96條碼!!!');
                 	}
 				});
 				
-				$('#txtEnoa').change(function() {
-                	if(!emp($('#txtEnoa').val()) &&(/^96[0-9]{8}$/g).test($('#txtEnoa').val())&&($(this).val().substr(2,7)%7)==$(this).val().substr(-1)){
-                		alert('請輸入正確的96條碼!!!');
+				$('#txtEnoa').blur(function() {
+                	if(!emp($(this).val())){
+                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(2,7))%7)==$(this).val().substr(-1)))
+                			alert('請輸入正確的96條碼!!!');
                 	}
 				});
                 
@@ -60,7 +74,7 @@
                 		if((/^96[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^96[0-9]{8}$/g).test($('#txtEnoa').val()) &&
                 		($('#txtBnoa').val().substr(2,7)%7)==$('#txtBnoa').val().substr(-1)&&($('#txtEnoa').val().substr(2,7)%7)==$('#txtEnoa').val().substr(-1)){
                 			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(2,7)),dec($('#txtEnoa').val().substr(2,7))))<300)
-                				window.open("http://59.125.143.171/dcz/pdf_barcode96.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val());
+                				window.open("./pdf_barcode96.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
                 				alert('條碼範圍不得超逾300張!!!');
                 		}else{

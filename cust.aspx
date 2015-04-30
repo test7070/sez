@@ -756,7 +756,7 @@
 					wParent.getElementById("txtSalesno2").value = $('#txtSalesno').val();
 					wParent.getElementById("txtSales2").value = $('#txtSales').val();
 				}
-				if ((window.parent.q_name == 'quat' || window.parent.q_name == 'orde' ) && q_getPara('sys.project').toUpperCase()=='XY' && window.parent.q_cur==1) {
+				if ((window.parent.q_name == 'quat' || window.parent.q_name == 'orde' ) && (q_getPara('sys.project').toUpperCase()=='XY' || q_getPara('sys.project').toUpperCase()=='RB') && window.parent.q_cur==1) {
 					var wParent = window.parent.document;
 					wParent.getElementById("txtCustno").value = $('#txtNoa').val();
 					wParent.getElementById("txtComp").value = $('#txtComp').val();

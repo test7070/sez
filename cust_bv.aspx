@@ -32,7 +32,7 @@
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
             , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']
-            , ['txtZip_fact', '', 'addr2', 'siteno,site', 'txtZip_fact,txtAddr_fact', 'addr2_b.aspx']
+            , ['txtZip_fact', 'lblSiteno', 'addr3', 'noa,namea', 'txtZip_fact,txtAddr_fact', 'addr3_b.aspx']
             , ['txtZip_comp', '', 'addr2', 'noa,memo', 'txtZip_comp,txtAddr_comp', 'addr2_b.aspx']
             , ['txtZip_invo', '', 'addr2', 'noa,memo', 'txtZip_invo,txtAddr_invo', 'addr2_b.aspx']
             
@@ -88,6 +88,7 @@
                 //q_cmbParse("cmbBillday", q_getPara('cust.billday'));
                 
                 $("#lblSales").text('集貨員');
+                $('#lblSiteno').text('發送站');
       
 				$('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
@@ -525,7 +526,7 @@
 					</tr>
 							</tr>
 						<tr>
-						<td><span> </span><a class="lbl"> 發送站 </a></td>
+						<td><span> </span><a id="lblSiteno" class="lbl btn"></a></td>
 						<td colspan="5">
 							<input id="txtZip_fact" type="text" style="float:left; width:10%;"/>
 							<input id="txtAddr_fact"  type="text" style="float:left; width:90%;"/>
@@ -534,7 +535,7 @@
 					<tr>
 						<td><span> </span><a class="lbl"> 工號 </a></td>
 						<td><input id="txtChkstatus"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblSales" class="lbl btn" ></a></td>
+						<td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
 						<td>
 							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
 							<input id="txtSales" type="text" style="float:left; width:60%;"/>

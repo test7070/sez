@@ -429,15 +429,11 @@
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td colspan='2'>
-							<input id="txtDatea"  type="text" class="txt c1" style="float:left;width:60%;"/>
+							<input id="txtDatea"  type="text" class="txt c1" style="float:left;width:40%;"/>
 						    <input id="txtAdd3"   type="text" class="txt c1" style="float:left;width:40%;"/>
 						</td>
 						<td> </td>
-						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td colspan='2'>
-							<input id="txtTrandate"  type="text" class="txt c1" style="float:left;width:60%;"/>
-						    <input id="txtAdd4"   type="text" class="txt c1" style="float:left;width:40%;"/>
-						</td>
+						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSerial' class="lbl btn"> </a></td>
@@ -447,34 +443,39 @@
 							<input id="txtNoa"  type="text" class="txt c1"/>
 							<input id="txtNoq"  type="text" style="display:none;"/>
 						</td>
-						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
-						<td colspan="3"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
+						<td colspan='2'>
+							<input id="txtTrandate"  type="text" class="txt c1" style="float:left;width:40%;"/>
+						    <input id="txtAdd4"   type="text" class="txt c1" style="float:left;width:40%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl"> </a></td>
 						<td colspan="3">
 							<input id="txtCustno"  type="text" style="float:left;width:30%;"/>
-							<input id="txtComp"  type="text" style="float:left;width:70%;"/>
+							<input id="txtComp"  type="text" style="float:left;width:69%;"/>
 							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
-						<td><span> </span><a id="lblBoat" class="lbl"> </a></td>
-						<td><input id="txtBoat" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
-						<td><input id="txtMount"  type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblShip" class="lbl"> </a></td>
 						<td><input id="txtShip" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
 						<td><input id="txtPo"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblBoat" class="lbl"> </a></td>
+						<td><input id="txtBoat" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input id="txtMount"  type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblStraddr" class="lbl"> </a></td>
 						<td colspan="3">
 							<input id="txtStraddr"  type="text" style="float:left;width:100%;"/>
 						</td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="7">
+						<td colspan="3">
 							<input id="txtMemo"  type="text" class="txt c1"/>
 							<input id="txtCardno"  type="hidden" class="txt c1"/>
 						</td>

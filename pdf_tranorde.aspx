@@ -7,9 +7,13 @@
         }
         
         System.IO.MemoryStream stream = new System.IO.MemoryStream();
-        string connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database=dc";
+        string connectionString="";
         public void Page_Load()
         {
+        	string db = "dc";
+        	if(Request.QueryString["db"] !=null && Request.QueryString["db"].Length>0)
+        		db= Request.QueryString["db"];
+        	connectionString = "Data Source=127.0.0.1,1799;Persist Security Info=True;User ID=sa;Password=artsql963;Database="+db;
             //參數
             string bno = "", eno ="";
             if (Request.QueryString["bno"] != null && Request.QueryString["bno"].Length > 0)

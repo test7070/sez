@@ -21,9 +21,9 @@
 
 			q_tables = 's';
 			var q_name = "tboat2";
-			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust'];
+			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsPrint'];
 			var q_readonlys = [];
-			var bbmNum = new Array();
+			var bbmNum = new Array(['txtMount',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
 			var bbsNum = [];
 			var bbsMask = new Array();
@@ -74,7 +74,7 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
-				document.title='轉口作業'
+				document.title='轉聯運作業'
 				$("#lblCustno").text('客戶編號');
 				$("#lblDatea").text('登錄日期');
 				
@@ -194,7 +194,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_tboat2_bv.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtCode').val() + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				q_box("z_tboat2_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim($('#txtShip').val()),enoa:trim($('#txtShip').val())}) + ";" + r_accy + "_" + r_cno, 'tboat2', "95%", "95%", m_print);
 			}
 
 			function btnOk() {
@@ -502,17 +502,17 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a>登錄日期</a></td>
-						<td align="center" style="width:120px; color:black;"><a>客戶編號</a></td>
-						<td align="center" style="width:120px; color:black;"><a>姓名</a></td>
+						<td align="center" style="width:120px; color:black;"><a>聯運件數</a></td>
+						<td align="center" style="width:120px; color:black;"><a>操作者</a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='custno' style="text-align: center;">~custno</td>
+						<td id='mount,0,1' style="text-align: right;">~mount,0,1</td>
 						<td id='worker' style="text-align: center;">~worker</td>
 					</tr>
 				</table>
@@ -556,10 +556,16 @@
 						<td colspan="2"><input type="text" id="txtBoatname" class="txt c1 "/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a class="lbl">聯運件數</a></td>
+						<td><input type="text"id="txtMount" class="txt num c1"> </td>
 						<td><span> </span><a class="lbl">到著站</a></td>
 						<td><input type="text"id="txtMemo" class="txt c1"> </td>
+					</tr>
+					<tr>
 						<td><span> </span><a class="lbl">96編碼</a></td>
 						<td><input type="text" id="txtShip" class="txt c1"/> </td>
+						<td><span> </span><a class="lbl">條碼</a></td>
+						<td><input type="text" id="txtIsPrint" class="txt c1"/> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>

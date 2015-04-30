@@ -46,12 +46,16 @@
 				['txtTranstartno', 'lblTranstart', 'addr2', 'noa,post','txtTranstartno,txtTranstart', 'addr2_b.aspx']
 			);
 
+			var isinvosystem = false;
+			//購買發票系統
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
+				//判斷是否有買發票系統
+				q_gt('ucca', 'stop=1 ', 0, 0, 0, "ucca_invo");
 				q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 			});
 
@@ -64,26 +68,14 @@
 			}
 
 			function sum() {
-				var t1 = 0, t_unit, t_mount, t_weight = 0,t_money=0, t_tax = 0, t_total = 0;
+				var t1 = 0, t_unit, t_mount, t_weight = 0;
+				var t_money = 0;
 				for (var j = 0; j < q_bbsCount; j++) {
-					t_unit = $('#txtUnit_' + j).val();
-					t_mount = q_float('txtMount_' + j);
-					t_weight=+q_float('txtMount_' + j);
-					$('#txtTotal_' + j).val(round(q_mul(q_float('txtPrice_' + j), dec(t_mount)), 0));
 					t_money = q_add(t_money, q_float('txtTotal_' + j));
+					t_weight += q_float('txtMount_' + j);
 				}
-				if($('#chkAtax').prop('checked')){
-					var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
-					t_tax = round(q_mul(t_money, t_taxrate), 0);
-					t_total = q_add(t_money, t_tax);
-				}else{
-					t_tax = q_float('txtTax');
-					t_total = q_add(t_money, t_tax);
-				}
-				$('#txtMoney').val(FormatNumber(t_money));
-				$('#txtTax').val(FormatNumber(t_tax));
-				$('#txtTotal').val(FormatNumber(t_total));
-				
+				q_tr('txtMoney', t_money);
+				q_tr('txtTotal', q_add(q_float('txtMoney'), q_float('txtTax')));
 				var price = dec($('#txtPrice').val());
 				var addMoney = dec(q_getPara('sys.tranadd'));
 				var addMul = dec($('#txtTranadd').val());
@@ -94,6 +86,7 @@
 				}
 				total = q_add(q_mul(addMoney,addMul),price);
 				q_tr('txtTranmoney', total);
+				calTax();
 				q_tr('txtTotalus', q_mul(q_float('txtTotal'), q_float('txtFloata')));
 			}
 
@@ -106,11 +99,14 @@
 				
 				q_cmbParse("cmbTranstyle", q_getPara('sys.transtyle'));
 				q_cmbParse("cmbTypea", q_getPara('rc2.typea'));
-				q_cmbParse("cmbStype", q_getPara('rc2.stype'));
+				/*if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
+					q_cmbParse("cmbStype", q_getPara('rc2.stype_it'));
+				else*/
+					q_cmbParse("cmbStype", q_getPara('rc2.stype'));
 				//q_cmbParse("cmbCoin", q_getPara('sys.coin'));
 				q_cmbParse("combPaytype", q_getPara('rc2.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
-				//q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 				
@@ -125,15 +121,6 @@
 				$('#txtMon').click(function(){
 					if ($('#txtMon').attr("readonly")=="readonly" && (q_cur==1 || q_cur==2))
 						q_msg($('#txtMon'), "月份要另外設定，請在"+q_getMsg('lblMemo')+"的第一個字打'*'字");
-				});
-				
-				$('#chkAtax').click(function() {
-					refreshBbm();
-					sum();
-				});
-				
-				$('#txtTax').change(function() {
-					sum();
 				});
 				
 				$('#lblAccc').click(function() {
@@ -229,6 +216,9 @@
 				$('#cmbTranstyle').change(function() {
 					GetTranPrice();
 				});
+				
+				if (isinvosystem)
+					$('.istax').hide();
 					
 				$('#txtPrice').change(function(){
 					sum();
@@ -247,17 +237,6 @@
 					$('#txtTranadd').hide()
 				}
 			}
-			
-			function refreshBbm() {
-                if (q_cur == 1 || q_cur==2) {
-					if($('#chkAtax').prop('checked'))
-						$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
-					else
-						$('#txtTax').css('color', 'black').css('background', 'white').removeAttr('readonly');  
-                }else{
-                	$('#txtTax').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
-                }
-            }
 
 			function GetTranPrice() {
 				var Post2 = $.trim($('#txtPost2').val());
@@ -350,6 +329,15 @@
 							$('#txtPrice').val(0);
 						}
 						sum();
+						break;
+					case 'ucca_invo':
+						var as = _q_appendData("ucca", "", true);
+						if (as[0] != undefined) {
+							isinvosystem = true;
+							$('.istax').hide();
+						} else {
+							isinvosystem = false;
+						}
 						break;
 					case 'cno_acomp':
 						var as = _q_appendData("acomp", "", true);
@@ -711,7 +699,6 @@
 				}
 				_bbsAssign();
 				HiddenTreat();
-				refreshBbm();
 			}
 
 			function btnIns() {
@@ -783,9 +770,10 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				if (isinvosystem)
+					$('.istax').hide();
 				HiddenTreat();
 				stype_chang();
-				refreshBbm();
 			}
 
 			function HiddenTreat(returnType){
@@ -829,7 +817,6 @@
 					$('#txtMon').removeAttr('readonly');
 				else
 					$('#txtMon').attr('readonly', 'readonly');
-				refreshBbm();
 			}
 
 			function btnMinus(id) {
@@ -928,6 +915,61 @@
 				var arr = n.split(".");
 				var re = /(\d{1,3})(?=(\d{3})+$)/g;
 				return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+			}
+
+			function calTax() {
+				var t_money = 0, t_tax = 0, t_total = 0;
+				for (var j = 0; j < q_bbsCount; j++) {
+					t_money += q_float('txtTotal_' + j);
+				}
+				t_total = t_money;
+				if (!isinvosystem) {
+					var t_taxrate = q_div(parseFloat(q_getPara('sys.taxrate')), 100);
+					switch ($('#cmbTaxtype').val()) {
+						case '0':
+							// 無
+							t_tax = 0;
+							t_total = q_add(t_money, t_tax);
+							break;
+						case '1':
+							// 應稅
+							t_tax = round(q_mul(t_money, t_taxrate), 0);
+							t_total = q_add(t_money, t_tax);
+							break;
+						case '2':
+							//零稅率
+							t_tax = 0;
+							t_total = q_add(t_money, t_tax);
+							break;
+						case '3':
+							// 內含
+							t_tax = round(q_mul(q_div(t_money, q_add(1, t_taxrate)), t_taxrate), 0);
+							t_total = t_money;
+							t_money = q_sub(t_total, t_tax);
+							break;
+						case '4':
+							// 免稅
+							t_tax = 0;
+							t_total = q_add(t_money, t_tax);
+							break;
+						case '5':
+							// 自定
+							$('#txtTax').attr('readonly', false);
+							$('#txtTax').css('background-color', 'white').css('color', 'black');
+							t_tax = round(q_float('txtTax'), 0);
+							t_total = q_add(t_money, t_tax);
+							break;
+						case '6':
+							// 作廢-清空資料
+							t_money = 0, t_tax = 0, t_total = 0;
+							break;
+						default:
+							break;
+					}
+				}
+				$('#txtMoney').val(FormatNumber(t_money));
+				$('#txtTax').val(FormatNumber(t_tax));
+				$('#txtTotal').val(FormatNumber(t_total));
 			}
 		</script>
 		<style type="text/css">
@@ -1177,24 +1219,27 @@
 						<td class="td4" ><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td class="td5" colspan='2' >
 							<input id="txtTax" type="text" class="txt num c1 istax" style="width: 49%;" />
-							<!--<select id="cmbTaxtype" class="txt c1" style="width: 49%;" onchange="calTax();"> </select>-->
-							<input id="chkAtax" type="checkbox" />
+							<select id="cmbTaxtype" class="txt c1" style="width: 49%;" onchange="calTax();"> </select>
 						</td>
-						<td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
-						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax" /></td>
+						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
+						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblFloata' class="lbl"> </a></td>
 						<td class="td2" ><select id="cmbCoin" class="txt c1" onchange='coin_chg()'> </select></td>
 						<td class="td3" ><input id="txtFloata" type="text" class="txt num c1" /></td>
 						<td class="td4"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
-						<td class="td5" colspan='2'><input id="txtTotalus" type="text" class="txt num c1" /></td>
-						<td class="td7"><span> </span><a id='lblTranmoney' class="lbl"> </a></td>
-						<td class="td8"><input id="txtTranmoney" type="text" class="txt num c1" /></td>
+						<td class="td5" colspan='2'>
+							<input id="txtTotalus" type="text" class="txt num c1" />
+						</td>
+						<td class="td7"><span> </span><a id='lblTotal' class="lbl istax"> </a></td>
+						<td class="td8"><input id="txtTotal" type="text" class="txt num c1 istax" /></td>
 					</tr>
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan='7' ><input id="txtMemo" type="text" class="txt" style="width:98%;"/></td>
+						<td class="td2" colspan='7' >
+							<input id="txtMemo" type="text" class="txt" style="width:98%;"/>
+						</td>
 					</tr>
 					<tr class="tr11">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>

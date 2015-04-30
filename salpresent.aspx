@@ -54,6 +54,10 @@
             bbsMask = [['txtClockin', '99:99:99'],['txtClockout', '99:99:99']];
             q_mask(bbsMask);
             
+            if(q_getPara('sys.project').toUpperCase()=='RB'){
+            	q_readonlys = ['txtW133','txtW166','txtW100','txtHr_special']
+            }
+            
              $('#chkHoliday').click(function () {
             	table_change();
             });
