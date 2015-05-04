@@ -157,8 +157,8 @@
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                             }
                             q_cmbParse("cmbPartno", t_item,"s");
-                            
                             for (var j = 0; j < q_bbsCount; j++) {
+                            	if(abbs[j])
                             	$('#cmbPartno_'+j).val(abbs[j].partno);
                             }
                         }
