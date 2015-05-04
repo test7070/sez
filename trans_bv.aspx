@@ -161,6 +161,11 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				var now_page=Math.floor((dec($('#pageNow').val())/brwCount));
+				for (var i = 0; i < brwCount; i++) {
+                	$('#vtkey_'+i).text((now_page*brwCount)+i+1);
+                }
+				
 				
 			}
 
@@ -393,23 +398,36 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
-						<td align="center" style="width:80px; color:black;"><a> 資料時間 </a></td>
-						<td align="center" style="width:80px; color:black;"><a> 讀取時間 </a></td>
+						<td align="center" style="width:50px; color:black;"><a> 序號 </a></td>
+						<td align="center" style="width:70px; color:black;"><a> 資料時間 </a></td>
+						<td align="center" style="width:80px; color:black;"><a> 統一編號 </a></td>
+						<td align="center" style="width:110px; color:black;"><a> 單據編號 </a></td>
 						<td align="center" style="width:80px; color:black;"><a> 公司名稱 </a></td>
-						<td align="center" style="width:120px; color:black;"><a> 地址 </a></td>
+						<td align="center" style="width:80px; color:black;"><a> 聯絡人 </a></td>
+						<td align="center" style="width:80px; color:black;"><a> 電話 </a></td>
+						<td align="center" style="width:180px; color:black;"><a> 地址 </a></td>
+						<td align="center" style="width:70px; color:black;"><a> 讀取時間 </a></td>
+						<td align="center" style="width:120px; color:black;"><a> 發送局 </a></td>
+						<td align="center" style="width:80px; color:black;"><a> 宅配員 </a></td>
 						<td align="center" style="width:60px; color:black;"><a> 件數</a></td>
-						<td align="center" style="width:120px; color:black;"><a> 電話 </a></td>
-						<td align="center" style="width:120px; color:black;"><a> 宅配員 </a></td>
+						<td align="center" style="width:120px; color:black;"><a> 備註 </a></td>
+						
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
+						<td id="key" style="text-align: center;"></td>
 						<td id="datea" style="text-align: center;">~datea</td>
-						<td id="trandate" style="text-align: center;">~trandate</td>
+						<td id="trdno" style="text-align: center;">~trdno</td>
+						<td id="noa" style="text-align: center;">~noa</td>
 						<td id="nick" style="text-align: center;">~nick</td>
-						<td id="straddr" style="text-align: center;">~straddr</td>
-						<td id="mount" style="text-align: right;">~mount</td>
+						<td id="ship" style="text-align: center;">~ship</td>
 						<td id="po" style="text-align: center;">~po</td>
+						<td id="straddr" style="text-align: center;">~straddr</td>
+						<td id="trandate" style="text-align: center;">~trandate</td>
+						<td id="ordeno" style="text-align: center;">~ordeno</td>
 						<td id="boat" style="text-align: center;">~boat</td>
+						<td id="mount" style="text-align: right;">~mount</td>
+						<td id="memo" style="text-align: center;">~memo</td>
 					</tr>
 				</table>
 			</div>

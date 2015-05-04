@@ -51,9 +51,25 @@
 				$('#btnNext').hide();
 				$('#btnBott').hide();
 				
+				q_gt('part', '', 0, 0, 0, "");
+				
+				   /* $("#cmbPartno").focus(function() {
+                	var len = $(this).children().length > 0 ? $(this).children().length : 1;
+                    	$(this).attr('size', len + "");
+                	}).blur(function() {
+                    	$(this).attr('size', '1');
+                	});*/
             }
 
             function bbsAssign() {/// 表身運算式
+            	for (var j = 0; j < q_bbsCount; j++) {	
+            		$('#cmbPartno_'+j).change(function() {
+                	var len = $(this).children().length > 0 ? $(this).children().length : 1;
+                    	$(this).attr('size', len + "");
+                	}).blur(function() {
+                    	$(this).attr('size', '1');
+                	});
+				}
                 _bbsAssign();
             }
 			
@@ -75,8 +91,13 @@
                 		$('#txtNoq_'+i).val(maxnoq);
                 	}
                 }
+                
+                for (var i = 0; i < q_bbsCount; i++){
+                	$('#txtPart_'+i).val($('#cmbPartno_'+i).find(":selected").text());
+               	 }
 
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+                
             }
 			
             function bbsSave(as) {
@@ -128,6 +149,20 @@
 					search_noq=true;
 					btnOk();
 					break;
+				    case 'part':
+                        var as = _q_appendData("part", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                            }
+                            q_cmbParse("cmbPartno", t_item,"s");
+                            for (var j = 0; j < q_bbsCount; j++) {
+                            	if(abbs[j])
+                            	$('#cmbPartno_'+j).val(abbs[j].partno);
+                            }
+                        }
+                    break;
 				}
             }
 
@@ -174,24 +209,28 @@
 					<td align="center"><a id='lblEmail'></a></td>
 					<td align="center"><a id='lblAddr'></a></td>
 					<td align="center"><a id='lblMemo'></a></td>
+					<td align="center"><a id='lblBill'></a></td>
+					
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  /></td>
 					<td style="width:6%;"><input class="txt"  id="txtNamea.*" type="text" style="width:98%;"  /></td>
 					<td style="width:6%;"><input class="txt" id="txtJob.*" type="text" style="width:98%;"   /></td>
-					<td style="width:6%;"><input class="txt" id="txtPart.*" type="text" style="width:98%;"   /></td>
+					<td style="width:6%;"><select id="cmbPartno.*" class="txt c1"> </select> <input class="txt" id="txtPart.*" type="text" style="display: none;"   /></td>
 					<td style="width:10%;"><input class="txt" id="txtTel.*" type="text" style="width:94%;"  /></td>
 					<td style="width:5%;"><input class="txt" id="txtExt.*" type="text" style="width:94%; text-align:right"  /></td>
 					<td style="width:10%;"><input class="txt" id="txtFax.*" type="text" style="width:94%;"  /></td>
 					<td style="width:10%;"><input class="txt" id="txtMobile.*" type="text" style="width:98%;"   /></td>
 					<td style="width:12%;"><input class="txt" id="txtEmail.*" type="text" style="width:98%;"   /></td>
-					<td style="width:15%;">
+					<td style="width:20%;">
 						<input class="txt" id="txtAddr.*" type="text" maxlength='90' style="width:98%;"  />
 						<input id="txtNoq.*" type="hidden" />
 						<input id="txtTypea.*" type="hidden" />
 						<input id="recno.*" type="hidden" />
 					</td>
-					<td style="width:20%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  /></td>
+					<td style="width:10%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  /></td>
+					<td style="width:5%;"><input class="txt" id="chkBill.*" type="checkbox" style="width:94%;"/></td>
+					
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_modi.inc"-->

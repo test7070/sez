@@ -22,8 +22,10 @@
 		var bbsNum = [];
 		var bbmMask = [];
 		var bbsMask = [];
+		q_desc = 1;
 		q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
 		aPop = new Array();
+		
 
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -50,14 +52,17 @@
 			q_cmbParse("cmbTypea", q_getPara('posta.typea'));
 			q_cmbParse("cmbKind",'客戶,廠商');
 			
+			
 		 	$('#btnInput').click(function () {
 		 		if($('#cmbKind').val()=='廠商')	{
-            		var t_where = "where=^^ EXISTS ( select b.noa from tgg_2s b where b.noa = tgg.noa and b.mon <= '"+$('#txtMon').val()+"'and b.unpay>0) ^^";
-            		q_gt('tgg', t_where, 0, 0, 0, "", r_accy);
+            		var t_where = "where=^^ EXISTS ( select c.noa from tgg_2s c where c.noa = a.noa and c.mon <= '"+$('#txtMon').val()+"'and c.unpay>0) ^^";
+            		var t_where1 = "where[1]=^^a.noa=noa and isnull(bill,0)=1 ^^";
+            		q_gt('tgg_conn', t_where+t_where1, 0, 0, 0, "", r_accy);
                 }
             	else{
-            		var t_where = "where=^^ EXISTS ( select b.noa from cust_2s b where b.noa = cust.noa and b.mon <= '"+$('#txtMon').val()+"'and b.unpay>0) ^^";
-            		q_gt('cust', t_where, 0, 0, 0, "", r_accy);
+            		var t_where = "where=^^ EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '"+$('#txtMon').val()+"'and c.unpay>0) ^^";
+            		var t_where1 = "where[1]=^^a.noa=noa and isnull(bill,0)=1 ^^";
+            		q_gt('cust_conn', t_where+t_where1, 0, 0, 0, "", r_accy);
             	}
             });
 		
@@ -85,24 +90,24 @@
 			switch (t_name) {
 				case q_name: if (q_cur == 4)   
 						q_Seek_gtPost();
-					break;
-				case 'tgg':
-					var as = _q_appendData("tgg", "", true);
+					break;		
+				case 'tgg_conn':
+					var as = _q_appendData("tgg_conn", "", true);
 					for(i=0;i<as.length;i++){
-						if (as[i].addr_home=='')
-						as[i].addr_home = as[i].addr_comp;
+						if (as[i].addr_invo=='')
+						as[i].addr_invo = as[i].addr_comp;
 						}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr', as.length, as, 'noa,comp,zip_home,addr_home', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn', as.length, as, 'noa,comp,zip_invo,addr_invo,cpart,cname', '');
 	
-     
             	break;
-            	case 'cust':
-            		var as = _q_appendData("cust", "", true);
+            	case 'cust_conn':
+            		var as = _q_appendData("cust_conn", "", true);
             		for(i=0;i<as.length;i++){
-						if (as[i].addr_home=='')
-						as[i].addr_home = as[i].addr_comp;
+						if (as[i].addr_invo=='')
+						as[i].addr_invo = as[i].addr_comp;
 						}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr', as.length, as, 'noa,comp,zip_home,addr_home', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn', as.length, as, 'noa,comp,zip_invo,addr_invo,cpart,cname', '');
+            	
             	break;
 			}  /// end switch
 		}
@@ -434,12 +439,14 @@
 		<div class='dbbs' > 
 			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:White; background:#003366;' >
-					<td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-					<td align="center" style="width: 13%;"><a id='lblUseno_s'> </a></td>
-					<td align="center" style="width: 25%;"><a id='lblComp_s'> </a></td>
+					<td align="center" style="width: 1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+					<td align="center" style="width: 15%;"><a id='lblUseno_s'> </a></td>
+					<td align="center" style="width: 15%;"><a id='lblComp_s'> </a></td>
 					<td align="center" style="width: 8%;"><a id='lblZipcode_s'> </a></td>
-					<td align="center" ><a id='lblAddr_s'> </a></td>
-					<td align="center" style="width: 25%;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width: 38%;"><a id='lblAddr_s'> </a></td>
+					<td align="center" style="width: 8%;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width: 8%;"><a id='lblPart_s'> </a></td>
+					<td align="center" style="width: 8%;"><a id='lblConn_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
@@ -454,6 +461,8 @@
 					<td><input id="txtZipcode.*" type="text" class="txt c1" /></td>
 					<td><input id="txtAddr.*" type="text" class="txt c1" /></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1" /></td>
+					<td><input id="txtPart.*" type="text" class="txt c1" /></td>
+					<td><input id="txtConn.*" type="text" class="txt c1" /></td>
 				</tr>
 			</table>
 		</div>
