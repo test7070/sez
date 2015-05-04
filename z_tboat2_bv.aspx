@@ -85,6 +85,10 @@
                 	}
                 	
 				});
+				
+				$('#btnAuthority').click(function(e) {
+					btnAuthority(q_name);
+				});
             }
 
             function q_boxClose(t_name) {
@@ -105,6 +109,7 @@
 			</div>
 			<div style="float: left; width: 100%;">
 				<input class="btn" id="btnDownloadPdf" type="button" value='列印' style=" font-weight: bold;font-size: 16px;color: blue;" />
+				<input class="btn" id="btnAuthority" type="button" value="權限" style=" font-weight: bold;font-size: 16px;color: blue;"/>
 			</div>
 			<div class="prt" style="margin-left: -40px;" >
 				<!--#include file="../inc/print_ctrl.inc"-->
