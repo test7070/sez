@@ -86,7 +86,7 @@
 
             function mainPost() {
                 //q_cmbParse("cmbBillday", q_getPara('cust.billday'));
-                
+                document.title='1.1客戶資料';
                 $("#lblSales").text('集貨員');
                 $('#lblSiteno').text('發送站');
       

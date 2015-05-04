@@ -63,7 +63,7 @@
 				q_mask(bbmMask);
 				q_cmbParse("cmbDeliveryno", "1,2,3");
 				q_cmbParse("cmbContainertype", "手寫託運單,edi託運單");
-				document.title='預購作業'
+				document.title='2.1預購作業'
 				$("#lblCust").text('公司名稱');
 				
 				$('#txtMount').change(function() {

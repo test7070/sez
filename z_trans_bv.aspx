@@ -37,6 +37,7 @@
 				
                 q_popAssign();
                 q_langShow();
+                document.title='2.2使用控管表'
                 
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();

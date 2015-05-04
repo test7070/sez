@@ -46,11 +46,11 @@
                     string+='<td id="tranorde_datea" onclick="tranorde.sort(\'datea\',false)" title="登錄日期" align="center" style="width:80px; color:black;">登錄日期</td>';
                     string+='<td id="tranorde_custno" onclick="tranorde.sort(\'custno\',false)" title="客戶代號" align="center" style="width:150px; color:black;">客戶代號</td>';
                     string+='<td id="tranorde_comp" onclick="tranorde.sort(\'comp\',false)" title="客戶簡稱" align="center" style="width:150px; color:black;">客戶簡稱</td>';
-                    string+='<td id="tranorde_deliveryno" onclick="tranorde.sort(\'mount\',true)" title="袋號" align="center" style="width:100px; color:black;">袋號</td>';
+                    string+='<td id="tranorde_deliveryno" onclick="tranorde.sort(\'deliveryno\',false)" title="袋號" align="center" style="width:100px; color:black;">袋號</td>';
                     string+='<td id="tranorde_mount" onclick="tranorde.sort(\'mount\',true)" title="件數" align="center" style="width:100px; color:black;">件數</td>';
-                    string+='<td id="tranorde_docketno1" onclick="tranorde.sort(\'mount\',true)" title="預購起始號碼" align="center" style="width:100px; color:black;">預購起始號碼</td>';
-                    string+='<td id="tranorde_docketno2" onclick="tranorde.sort(\'mount\',true)" title="預購迄止號碼" align="center" style="width:100px; color:black;">預購迄止號碼</td>';
-                    string+='<td id="tranorde_print" onclick="tranorde.sort(\'mount\',true)" title="托運單" align="center" style="width:100px; color:black;">托運單</td>';
+                    string+='<td id="tranorde_docketno1" onclick="tranorde.sort(\'docketno1\',false)" title="預購起始號碼" align="center" style="width:100px; color:black;">預購起始號碼</td>';
+                    string+='<td id="tranorde_docketno2" onclick="tranorde.sort(\'docketno2\',false)" title="預購迄止號碼" align="center" style="width:100px; color:black;">預購迄止號碼</td>';
+                    string+='<td id="tranorde_print" title="托運單" align="center" style="width:100px; color:black;">托運單</td>';
                     string+='</tr>';
                     
                     var t_color = ['DarkBlue','DarkRed'];
@@ -224,10 +224,10 @@
                 q_langShow();
                 q_popAssign();
                 q_cur=2;
-                document.title='手寫託運單總表';
+                document.title='3.1手寫託運單總表';
                 
                 t_where="where=^^ containertype='手寫託運單' ^^";
-				q_gt('view_tranorde', t_where, 0, 0, 0,'aaa', r_accy);
+				q_gt('view_tranorde_bv', t_where, 0, 0, 0,'aaa', r_accy);
                 
                 $('#btnVcc_refresh').click(function(e) {
                     var t_where = "1=1 ";
@@ -241,7 +241,7 @@
                     
                     t_where="where=^^"+t_where+" and containertype='手寫託運單' ^^";
                     Lock();
-					q_gt('view_tranorde', t_where, 0, 0, 0,'aaa', r_accy);
+					q_gt('view_tranorde_bv', t_where, 0, 0, 0,'aaa', r_accy);
                 });
                 
                 $('#btnPrint').click(function() {
@@ -266,6 +266,14 @@
 				b_pop = '';
 			}
 			
+			function compare(a,b) {
+				if (a.boatname+a.custno< b.boatname+b.custno)
+					return -1;
+				if (a.boatname+a.custno > b.boatname+b.custno)
+					return 1;
+				return 0;
+			}
+			
 			var mouse_point;
 			var tranorde_n='';//目前tranorde的列數
 			var transef_count=0;//目前bbs的資料數
@@ -274,6 +282,7 @@
 				switch (t_name) {
 					case 'show_transef':
 						var as = _q_appendData("view_transef", "", true);
+						as.sort(compare);
 						transef_count=as.length;
 						var string = "<table id='transef_table' style='width:1230px;'>";
 	                    string+='<tr id="transef_header">';

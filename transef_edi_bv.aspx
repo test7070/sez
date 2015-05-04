@@ -48,7 +48,7 @@
                     string+='<td id="vcc_custno" onclick="vcc.sort(\'custno\',false)" title="客戶代號" align="center" style="width:150px; color:black;">客戶代號</td>';
                     string+='<td id="vcc_comp" onclick="vcc.sort(\'comp\',false)" title="客戶簡稱" align="center" style="width:150px; color:black;">客戶簡稱</td>';
                     string+='<td id="vcc_mount" onclick="vcc.sort(\'mount\',true)" title="筆數" align="center" style="width:100px; color:black;">筆數</td>';
-                    string+='<td id="vcc_print" onclick="vcc.sort(\'mount\',true)" title="托運單" align="center" style="width:100px; color:black;">托運單</td>';
+                    string+='<td id="vcc_print" onclick="vcc.sort(\'print\',false)" title="托運單" align="center" style="width:100px; color:black;">托運單</td>';
                     string+='</tr>';
                     
                     var t_color = ['DarkBlue','DarkRed'];
@@ -106,7 +106,7 @@
                     }
                     this.totPage = Math.ceil(this.data.length / this.tbCount);
                     $('#textTotPage').val(this.totPage);
-                    this.sort('noa', false);
+                    this.sort('datea', false);
                     Unlock();
                 },
                 sort : function(index, isFloat) {
@@ -218,8 +218,8 @@
                 q_cur=2;
                 document.title='EDI託運單總表';
                 
-                t_where="where=^^1=1 ^^";
-				q_gt('view_vcc', t_where, 0, 0, 0,'aaa', r_accy);
+                t_where="where=^^1=1  order by datea desc,custno^^ top=1000";
+				q_gt('view_vcc_bv', t_where, 0, 0, 0,'aaa', r_accy);
                 
                 $('#btnVcc_refresh').click(function(e) {
                     var t_where = "1=1 ";
@@ -233,7 +233,7 @@
                     
                     t_where="where=^^"+t_where+"^^";
                     Lock();
-					q_gt('view_vcc', t_where, 0, 0, 0,'aaa', r_accy);
+					q_gt('view_vcc_bv', t_where, 0, 0, 0,'aaa', r_accy);
                 });
                 
                 $('#btnPrint').click(function() {
@@ -259,6 +259,14 @@
 				b_pop = '';
 			}
 			
+			function compare(a,b) {
+				if (a.boatname+a.po+a.so< b.boatname+b.po+b.so)
+					return -1;
+				if (a.boatname+a.po+a.so > b.boatname+b.po+b.so)
+					return 1;
+				return 0;
+			}
+			
 			var mouse_point;
 			var vcc_n='';//目前vcc的列數
 			var transef_count=0;//目前bbs的資料數
@@ -267,6 +275,7 @@
 				switch (t_name) {
 					case 'show_transef':
 						var as = _q_appendData("view_transef", "", true);
+						as.sort(compare);
 						transef_count=as.length;
 						var string = "<table id='transef_table' style='width:2400px;'>";
 	                    string+='<tr id="transef_header">';
