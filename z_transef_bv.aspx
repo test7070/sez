@@ -42,6 +42,7 @@
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                document.title='4.3 EDI託運單列印'
                 
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');

@@ -216,7 +216,7 @@
                 q_langShow();
                 q_popAssign();
                 q_cur=2;
-                document.title='EDI託運單總表';
+                document.title='4.2 EDI上傳總表';
                 
                 t_where="where=^^1=1  order by datea desc,custno^^ top=1000";
 				q_gt('view_vcc_bv', t_where, 0, 0, 0,'aaa', r_accy);

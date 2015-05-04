@@ -38,6 +38,8 @@
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                document.title='3.2手寫託運單套表列印(補印用)'
+                
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
                 

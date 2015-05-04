@@ -48,6 +48,9 @@
 
 		var t_copyStatus=false;
         function mainPost() {
+        	if(q_getPara('sys.project').toUpperCase()=='BV')
+        		document.title='7.1員工密碼設定'	
+        		
         	var t_where='';
         	if (r_rank < 8) {
                 t_where = "where=^^noa='" + r_userno + "'^^";

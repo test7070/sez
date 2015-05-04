@@ -74,7 +74,7 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
-				document.title='轉聯運作業'
+				document.title='3.3轉聯運作業'
 				$("#lblCustno").text('客戶編號');
 				$("#lblDatea").text('登錄日期');
 				
@@ -151,7 +151,7 @@
                 		}
 						break;
 					case 'cust':
-						var as = _q_appendData("view_transef", "", true);
+						var as = _q_appendData("cust", "", true);
                 		if (as[0] != undefined) {
                 			$('#txtNamea').val(as[0].boss);
                 			$('#txtTel').val(as[0].tel);
