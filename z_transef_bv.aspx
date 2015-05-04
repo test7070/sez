@@ -45,17 +45,6 @@
                 
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
-                var t_para = new Array();
-	            try{
-	            	t_para = JSON.parse(q_getId()[3]);
-	            }catch(e){
-	            }    
-	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
-	            	
-	            }else{
-	            	$('#txtBnoa').val(t_para.bnoa);
-                	$('#txtEnoa').val(t_para.enoa);
-	            }
 	            
                 $('.prt').hide();
                 
@@ -88,6 +77,25 @@
                 	}
                 	
 				});
+				
+				
+				var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            }catch(e){
+	            }    
+	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
+	            	
+	            }else{
+	            	$('#txtBnoa').val(t_para.bnoa);
+                	$('#txtEnoa').val(t_para.enoa);
+                	if(!emp($('#txtBnoa').val()) && !emp($('#txtEnoa').val()))
+                		$('#btnDownloadPdf').click();
+	            }
+	            
+	            $('#btnAuthority').click(function(e) {
+					btnAuthority(q_name);
+				});
             }
 
             function q_boxClose(t_name) {
@@ -108,6 +116,7 @@
 			</div>
 			<div style="float: left; width: 100%;">
 				<input class="btn" id="btnDownloadPdf" type="button" value='列印' style=" font-weight: bold;font-size: 16px;color: blue;" />
+				<input class="btn" id="btnAuthority" type="button" value="權限" style=" font-weight: bold;font-size: 16px;color: blue;"/>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->

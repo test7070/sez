@@ -45,7 +45,7 @@
                 mainForm(0);
             }
             function mainPost() {
-            	document.title='配送區維護';
+            	document.title='1.2配送行政區維護';
             	$("#lblNoa").text('郵遞區號');
             	$("#lblSiteno").text('站所代碼');
             	$("#lblSite").text('站所名稱');

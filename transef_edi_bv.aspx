@@ -1,508 +1,529 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-    <head>
-        <title> </title>
-        <script src="../script/jquery.min.js" type="text/javascript"></script>
-        <script src='../script/qj2.js' type="text/javascript"></script>
-        <script src='qset.js' type="text/javascript"></script>
-        <script src='../script/qj_mess.js' type="text/javascript"></script>
-        <script src="../script/qbox.js" type="text/javascript"></script>
-        <script src='../script/mask.js' type="text/javascript"></script>
-        <link href="../qbox.css" rel="stylesheet" type="text/css" />
-        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-        <script src="css/jquery/ui/jquery.ui.core.js"></script>
-        <script src="css/jquery/ui/jquery.ui.widget.js"></script>
-        <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
-        <script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
-            var q_name = "transef";
-            var q_readonly = ['txtNoa','txtBoatname','txtPo','','txtMon','cmbCalctype','cmbCarno','txtIo','txtTreno'];
-            var bbmNum = [['txtPrice',10,0,1]];
-            var bbmMask = [];
-            q_sqlCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'noa';
-            q_desc = 1;
-            //q_xchg = 1;
-            brwCount = 6;
-            brwCount2 = 10;
-            
-            aPop = new Array(
-            	['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,boss,tel,connfax,zip_comp,addr_comp,zip_fact,addr_fact', 'txtCustno,txtComp,txtNick,txtAddressee,txtAtel,txtBoat,txtCaseend,txtAaddr,txtAccno,txtUccno', 'cust_b.aspx'], 
-				['txtCaseuse', 'lblZip', 'addr2', 'noa,siteno,site', 'txtCaseuse,txtAccno,txtUccno', 'addr2_b.aspx']
-			);
-                
-            $(document).ready(function() {
-				bbmKey = ['noa'];
-                q_brwCount();
-                q_content = "where=^^left(calctype,3)='edi'^^";
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-                
-            });
-            function main() {
-                if (dataErr) {
-                    dataErr = false;
-                    return;
-                }
-                mainForm(0);
-            }
+	<head>
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
 
-            function mainPost() {
-                bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd],['textBdate',r_picd],['textEdate',r_picd]];
-                q_mask(bbmMask);
-                
-                document.title='託運單作業';
-            	$("#lblCust").text('客戶');
-            	$("#lblCaseend").text('郵遞區號');
-            	$("#lblZip").text('ZIP');
-            	
-            	q_cmbParse("cmbCarno", "1,2,3");
-            	q_cmbParse("cmbCalctype", "手寫託運單,edi託運單");
-                q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
-                $('#textBdate').datepicker();
-                $('#textEdate').datepicker();
-                
-                $('#btnIns').hide();
-                $('#btnDele').hide();
-
+			var q_name = "transef";
+			
+			aPop = new Array();
+						
+			function vcc() {
             }
-            function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        break;
-                }
-            }
-            function q_funcPost(t_func, result) {
-                switch(t_func) {
-                }
-            }
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                	case 'transef96':
-                		var as = _q_appendData("view_transef", "", true);
-                		if (as[0] != undefined) {
-                			$('#txtPo').val('96'+('0000000'+(dec(as[0].po.substr(2,7))+1)).substr(-7)+((dec(as[0].po.substr(2,7))+1)%7))
-                		}
-                		else
-                			$('#txtPo').val('9600000011');
-                			
-                		btnOk();
-                		break;   
+            vcc.prototype = {
+                data : null,
+                tbCount : 10,
+                curPage : -1,
+                totPage : 0,
+                curIndex : '',
+                curCaddr : null,
+                lock : function(){
+                    for(var i=0;i<this.tbCount;i++){
+                        if($('#vcc_chk' + i).attr('disabled')!='disabled'){
+                            $('#vcc_chk' + i).addClass('lock').attr('disabled', 'disabled');
+                        }
+                    }
+                },
+                unlock : function(){
+                    for(var i=0;i<this.tbCount;i++){
+                        if($('#vcc_chk' + i).hasClass('lock')){
+                            $('#vcc_chk' + i).removeClass('lock').removeAttr('disabled');
+                        }
+                    }
+                },
+                load : function(){
+                    var string = "<table id='vcc_table' style='width:1250px;'>";
+                    string+='<tr id="vcc_header">';
+                    string+='<td id="vcc_chk" align="center" style="width:20px; color:black;">選</td>';
+                    string+='<td id="vcc_noa" onclick="vcc.sort(\'noa\',false)" title="上傳編號" align="center" style="width:120px; color:black;display:none;">上傳編號</td>';
+                    string+='<td id="vcc_memo" onclick="vcc.sort(\'memo\',false)" title="上傳檔案" align="center" style="width:120px; color:black;">上傳檔案</td>';
+                    string+='<td id="vcc_datea" onclick="vcc.sort(\'datea\',false)" title="上傳日期" align="center" style="width:80px; color:black;">上傳日期</td>';
+                    string+='<td id="vcc_custno" onclick="vcc.sort(\'custno\',false)" title="客戶代號" align="center" style="width:150px; color:black;">客戶代號</td>';
+                    string+='<td id="vcc_comp" onclick="vcc.sort(\'comp\',false)" title="客戶簡稱" align="center" style="width:150px; color:black;">客戶簡稱</td>';
+                    string+='<td id="vcc_mount" onclick="vcc.sort(\'mount\',true)" title="筆數" align="center" style="width:100px; color:black;">筆數</td>';
+                    string+='<td id="vcc_print" onclick="vcc.sort(\'print\',false)" title="托運單" align="center" style="width:100px; color:black;">托運單</td>';
+                    string+='</tr>';
                     
-                    case q_name:
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
-                    default:
-                       
-                        break;
-                }
-            }
-            function q_popPost(id) {
-                switch(id) {
+                    var t_color = ['DarkBlue','DarkRed'];
+                    for(var i=0;i<this.tbCount;i++){
+                        string+='<tr id="vcc_tr'+i+'">';
+                        string+='<td style="text-align: center;"><input id="vcc_chk'+i+'" class="vcc_chk" type="checkbox"/></td>';
+                        string+='<td id="vcc_noa'+i+'" style="text-align: center;display:none;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_memo'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_datea'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_custno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_comp'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_mount'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_print'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='</tr>';
+                    }
+                    string+='</table>';
                     
-                    default:
-                        break;
-                }
-            }
+                    $('#vcc').append(string);
+                    string='';
+                    string+='<a id="lblCust" style="float:left;">客戶編號</a><input id="textCustno"  type="text" style="float:left;width:130px;"/>';
+                    string+='<a style="float:left;">上傳日期</a><input id="textBdate"  type="text" style="float:left;width:80px;"/><a style="float:left;">~</a><input id="textEdate"  type="text" style="float:left;width:80px;"/>';
+                    string+='<input id="btnVcc_refresh"  type="button" style="float:left;width:100px;" value="查詢"/>';
+                    string+='<input id="btnVcc_previous" onclick="vcc.previous()" type="button" style="float:left;width:100px;" value="上一頁"/>';
+                    string+='<input id="btnVcc_next" onclick="vcc.next()" type="button" style="float:left;width:100px;" value="下一頁"/>';
+                    string+='<input id="textCurPage" onchange="vcc.page(parseInt($(this).val()))" type="text" style="float:left;width:100px;text-align: right;"/>';
+                    string+='<span style="float:left;display:block;width:10px;font-size: 25px;">/</span>';
+                    string+='<input id="textTotPage"  type="text" readonly="readonly" style="float:left;width:100px;color:green;"/>';
+                    $('#vcc_control').append(string);
+                    
+                    $('#textBdate').mask('999/99/99');
+                    $('#textEdate').mask('999/99/99');
+                    
+                },
+                init : function(obj) {
+                    $('.vcc_chk').click(function(e) {
+                        $(".vcc_chk").not(this).prop('checked', false);
+                        $(".vcc_chk").not(this).parent().parent().find('td').css('background', 'pink');
+                        $(this).prop('checked', true);
+                        $(this).parent().parent().find('td').css('background', '#FF8800');
+                        
+                        //顯示BBS的資料
+                        var n=$(this).attr('id').replace('vcc_chk','')
+                        vcc_n=n;
+                        var t_where="where=^^treno='"+$('#vcc_noa'+n).text()+"' ^^";
+						q_gt('view_transef', t_where, 0, 0, 0,'show_transef', r_accy);
+                        $('#transef').html('');
+                    });
+                    
+                    this.data = new Array();
+                    if (obj[0] != undefined) {
+                        for (var i in obj)
+                            if (obj[i]['noa'] != undefined ){
+                                this.data.push(obj[i]);
+                            }
+                    }
+                    this.totPage = Math.ceil(this.data.length / this.tbCount);
+                    $('#textTotPage').val(this.totPage);
+                    this.sort('datea', false);
+                    Unlock();
+                },
+                sort : function(index, isFloat) {
+                    //訂單排序
+                    this.curIndex = index;
 
-            function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)
-                    return;
-                //q_box('transef_bv_s.aspx', q_name + '_s', "500px", "530px", q_getMsg("popSeek"));
-            }
-            
-            function btnIns() {
-                
-                _btnIns();
-
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtNoq').val('001');
-
-                $('#txtDatea').focus();
-                
-            }
-            function btnModi() {
-                if (emp($('#txtNoa').val()))
-                    return;
-                _btnModi();
-            }
-            
-            function btnPrint() {
-                q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim($('#txtBoatname').val()),enoa:trim($('#txtBoatname').val())}) + ";" + r_accy + "_" + r_cno, 'transef', "95%", "95%", m_print);
-            }
-            
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-				if(!emp($('#txtBoatname').val()))
-                	q_func('qtxt.query.ordeused', 'tboat.txt,ordeused,' + encodeURI($('#txtBoatname').val()));
-                Unlock(1);
-            }
-            
-            function btnOk() {
-                Lock(1,{opacity:0});
-                //日期檢查
-                if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
-                    alert('發送日期錯誤。');
-                    Unlock(1);
-                    return;
-                }
-
-                var t_days = 0;
-                var t_date1 = $('#txtDatea').val();
-                var t_date2 = $('#txtTrandate').val();
-                t_date1 = new Date(dec(t_date1.substr(0, 3)) + 1911, dec(t_date1.substring(4, 6)) - 1, dec(t_date1.substring(7, 9)));
-                t_date2 = new Date(dec(t_date2.substr(0, 3)) + 1911, dec(t_date2.substring(4, 6)) - 1, dec(t_date2.substring(7, 9)));
-                t_days = Math.abs(t_date2 - t_date1) / (1000 * 60 * 60 * 24) + 1;
-                
-                if(q_cur ==1){
-                    $('#txtWorker').val(r_name);
-                }else if(q_cur ==2){
-                    $('#txtWorker2').val(r_name);
-                }else{
-                    alert("error: btnok!");
-                }
-                
-                if(emp($('#txtAccno').val()) && emp($('#txtPo').val())){
-                	//產生96條碼
-                	var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
-					q_gt('view_transef', t_where, 0, 0, 0, "transef96");
-					return;
-				}
-				
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if (q_cur ==1)
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trans') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);        
-            }
-            
-            function wrServer(key_value) {
-                var i;
-                $('#txtNoa').val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
-            }
-
-            function refresh(recno) {
-                _refresh(recno);
-            }
-
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-           		if (t_para) {
-					$('#txtDatea').datepicker( 'destroy' );
-					
-				} else {
-					$('#txtDatea').removeClass('hasDatepicker')
-					$('#txtDatea').datepicker();
-				}
-            }
-
-            function btnMinus(id) {
-                _btnMinus(id);
-            }
-
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
-
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
-
-            function btnSeek() {
-                _btnSeek();
-            }
-
-            function btnTop() {
-                _btnTop();
-            }
-
-            function btnPrev() {
-                _btnPrev();
-            }
-
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
-
-            function btnNext() {
-                _btnNext();
-            }
-
-            function btnNextPage() {
-                _btnNextPage();
-            }
-
-            function btnBott() {
-                _btnBott();
-            }
-
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
-
-            function btnDele() {
-                if (q_chkClose())
+                    if (isFloat) {
+                        this.data.sort(function(a, b) {
+                            var m = parseFloat(a[vcc.curIndex] == undefined ? "0" : a[vcc.curIndex]);
+                            var n = parseFloat(b[vcc.curIndex] == undefined ? "0" : b[vcc.curIndex]);
+                            if (m == n) {
+                                if (a['noa'] < b['noa'])
+                                    return 1;
+                                if (a['noa'] > b['noa'])
+                                    return -1;
+                                return 0;
+                            } else
+                                return n - m;
+                        });
+                    } else {
+                        this.data.sort(function(a, b) {
+                            var m = a[vcc.curIndex] == undefined ? "" : a[vcc.curIndex];
+                            var n = b[vcc.curIndex] == undefined ? "" : b[vcc.curIndex];
+                            if (m == n) {
+                                if (a['noa'] < b['noa'])
+                                    return 1;
+                                if (a['noa'] > b['noa'])
+                                    return -1;
+                                return 0;
+                            } else {
+                                if (m < n)
+                                    return 1;
+                                if (m > n)
+                                    return -1;
+                                return 0;
+                            }
+                        });
+                    }
+                    this.page(1);
+                },
+                next : function() {
+                    if (this.curPage == this.totPage) {
+                        alert('最末頁。');
                         return;
-                _btnDele();
-            }
+                    }
+                    this.curPage++;
+                    $('#textCurPage').val(this.curPage);
+                    this.refresh();
+                },
+                previous : function() {
+                    if (this.curPage == 1) {
+                        alert('最前頁。');
+                        return;
+                    }
+                    this.curPage--;
+                    $('#textCurPage').val(this.curPage);
+                    this.refresh();
+                },
+                page : function(n) {
+                    if (n <= 0 || n > this.totPage) {
+                        this.curPage = 1;
+                        $('#textCurPage').val(this.curPage);
+                        this.refresh();
+                        return;
+                    }
+                    this.curPage = n;
+                    $('#textCurPage').val(this.curPage);
+                    this.refresh();
+                },
+                refresh : function() {
+                    //頁面更新
+                    var n = (this.curPage - 1) * this.tbCount;
+                    for (var i = 0; i < this.tbCount; i++) {
+                        if ((n + i) < this.data.length) {
+                            $('#vcc_chk' + i).removeAttr('disabled');
+                            $('#vcc_noa' + i).html(this.data[n+i]['noa']);
+                            $('#vcc_memo' + i).html(this.data[n+i]['memo']);
+                            $('#vcc_datea' + i).html(this.data[n+i]['datea']);
+                            $('#vcc_custno' + i).html(this.data[n+i]['custno']);
+                            $('#vcc_comp' + i).html(this.data[n+i]['comp']);
+                            $('#vcc_mount' + i).html(this.data[n+i]['mount']);
+                        } else {
+                            $('#vcc_chk' + i).attr('disabled', 'disabled');
+                            $('#vcc_noa' + i).html('');
+                            $('#vcc_memo' + i).html('');
+                            $('#vcc_datea' + i).html('');
+                            $('#vcc_custno' + i).html('');
+                            $('#vcc_comp' + i).html('');
+                            $('#vcc_mount' + i).html('');
+                        }
+                    }
+                    $('#vcc_chk0').click();
+                    $('#vcc_chk0').prop('checked', 'true');
+                }
+            };
+            vcc = new vcc();
 
-            function btnCancel() {
-                _btnCancel();
+			$(document).ready(function() {		
+				_q_boxClose();
+                q_getId();
+                q_gf('', q_name);
+                vcc.load();
+			});
+			
+			function q_gfPost() {
+				q_getFormat();
+                q_langShow();
+                q_popAssign();
+                q_cur=2;
+                document.title='EDI託運單總表';
+                
+                t_where="where=^^1=1  order by datea desc,custno^^ top=1000";
+				q_gt('view_vcc_bv', t_where, 0, 0, 0,'aaa', r_accy);
+                
+                $('#btnVcc_refresh').click(function(e) {
+                    var t_where = "1=1 ";
+                    var t_custno = $('#textCustno').val();
+                    var t_bdate = $('#textBdate').val();
+                    var t_edate = $('#textEdate').val();
+					t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
+					t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
+                    
+                    t_where += q_sqlPara2("custno", t_custno)+ q_sqlPara2("isnull(datea,'')", t_bdate,t_edate);
+                    
+                    t_where="where=^^"+t_where+"^^";
+                    Lock();
+					q_gt('view_vcc_bv', t_where, 0, 0, 0,'aaa', r_accy);
+                });
+                
+                $('#btnPrint').click(function() {
+                	var t_bnoa=$('#transef_boatname'+0).text();
+                	var t_enoa=$('#transef_boatname'+(transef_count-1)).text();
+                	if(t_bnoa>t_enoa){
+                		var tmp=t_bnoa;
+                		t_bnoa=t_enoa;
+                		t_enoa=tmp;
+                	}
+                	                	
+                	q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim(t_bnoa),enoa:trim(t_enoa)}) + ";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
+				});
             }
             
-        </script>
-        <style type="text/css">
-            #dmain {
-                overflow: hidden;
-            }
-            .dview {
-                float: left;
-                width: 1250px; 
-                border-width: 0px; 
-            }
-            .tview {
+			function q_boxClose(s2) {
+				var ret;
+				switch (b_pop) {
+					case q_name + '_s':
+						q_boxClose2(s2);
+						break;
+				}
+				b_pop = '';
+			}
+			
+			function compare(a,b) {
+				if (a.boatname+a.po+a.so< b.boatname+b.po+b.so)
+					return -1;
+				if (a.boatname+a.po+a.so > b.boatname+b.po+b.so)
+					return 1;
+				return 0;
+			}
+			
+			var mouse_point;
+			var vcc_n='';//目前vcc的列數
+			var transef_count=0;//目前bbs的資料數
+			var bbs_n='';//目前觸發的bbs指標
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'show_transef':
+						var as = _q_appendData("view_transef", "", true);
+						as.sort(compare);
+						transef_count=as.length;
+						var string = "<table id='transef_table' style='width:2400px;'>";
+	                    string+='<tr id="transef_header">';
+	                    string+='<td id="transef_sel" align="center" style="width:20px; color:black;"></td>';
+	                    string+='<td id="transef_boatname" align="center" style="width:160px; color:black;">97條碼</td>';
+	                    string+='<td id="transef_po" align="center" style="width:160px; color:black;">96條碼</td>';
+	                    string+='<td id="transef_caseuse" align="center" style="width:80px; color:black;">zip</td>';
+	                    string+='<td id="transef_accno" align="center" style="width:100px; color:black;">到著所簡碼</td>';
+	                    string+='<td id="transef_uccno" align="center" style="width:120px; color:black;">到著所名稱</td>';
+	                    string+='<td id="transef_carno" align="center" style="width:60px; color:black;">袋號</td>';
+	                    string+='<td id="transef_so" align="center" style="width:120px; color:black;">來源表單編號</td>';
+	                    string+='<td id="transef_addressee" align="center" style="width:100px; color:black;">姓名</td>';
+	                    string+='<td id="transef_caseend" align="center" style="width:80px; color:black;">郵遞區號</td>';
+	                    string+='<td id="transef_aaddr" align="center" style="width:300px; color:black;">地址</td>';
+	                    string+='<td id="transef_boat" align="center" style="width:150px; color:black;">行動電話</td>';
+	                    string+='<td id="transef_atel" align="center" style="width:150px; color:black;">電話</td>';
+	                    string+='<td id="transef_endaddr" align="center" style="color:black;">備註</td>';
+	                    string+='<td id="transef_straddr" align="center" style="width:230px; color:black;">商品內容</td>';
+	                    string+='<td id="transef_unit" align="center" style="width:80px; color:black;">審件等級</td>';
+	                    string+='<td id="transef_price" align="center" style="width:120px; color:black;">代收貨款</td>';
+	                    string+='</tr>';
+	                    
+	                    var t_color = ['DarkBlue','DarkRed'];
+	                    for(var i=0;i<as.length;i++){
+	                        string+='<tr id="vcc_tr'+i+'">';
+	                        string+='<td style="text-align: center; font-weight: bolder; color:black;">'+(i+1)+'</td>';
+	                        string+='<td id="transef_boatname'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].boatname+'</td>';
+	                        string+='<td id="transef_po'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].po+'</td>';
+	                        string+='<td id="transef_caseuse'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseuse+'</td>';
+	                        string+='<td id="transef_accno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].accno+'</td>';
+	                        string+='<td id="transef_uccno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].uccno+'</td>';
+	                        string+='<td id="transef_carno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].carno+'</td>';
+	                        string+='<td id="transef_so'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].so+'</td>';
+	                        string+='<td id="transef_addressee'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].addressee+'</td>';
+	                        string+='<td id="transef_caseend'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseend+'</td>';
+	                        string+='<td id="transef_aaddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].aaddr+'</td>';
+	                        string+='<td id="transef_boat'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].boat+'</td>';
+	                        string+='<td id="transef_atel'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].atel+'</td>';
+	                        string+='<td id="transef_endaddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].endaddr+'</td>';
+	                        string+='<td id="transef_straddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].straddr+'</td>';
+	                        string+='<td id="transef_unit'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].unit+'</td>';
+	                        string+='<td id="transef_price'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].price+'</td>';	                        
+	                        string+='</tr>';
+	                    }
+	                    string+='</table>';
+	                    
+	                    $('#transef').html(string);
+						break;
+                    case 'aaa':
+                        var GG = _q_appendData("view_vcc", "", true);
+                        if (GG[0] != undefined)
+                            vcc.init(GG);
+                        else{
+                            Unlock();
+                            alert('無資料。');
+                        }
+                        break;
+					case q_name:
+						if (q_cur == 4)
+							q_Seek_gtPost();
+						break;
+					default:
+                        if(t_name.substring(0,15)=='getvccAccy'){
+                            var t_noa = t_name.split('_')[1];
+                            var GG = _q_appendData("view_vcc", "", true);
+                            if(GG[0]!=undefined){
+                                q_box("vcc.aspx?;;;noa='" + t_noa + "';"+GG[0].accy, 'vcc', "95%", "95%", q_getMsg("popvcc"));
+                            }else{
+                                alert('查無檔案資料。');
+                            }
+                        }
+                        break;
+				}
+			}
+			
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	
+                }
+			}
+			
+		</script>
+		<style type="text/css">
+			#dmain {
+				overflow: hidden;
+			}
+			.dview {
+				float: left;
+				width: 98%;
+			}
+			.tview {
+				margin: 0;
+				padding: 2px;
+				border: 1px black double;
+				border-spacing: 0;
+				font-size: medium;
+				background-color: #FFFF66;
+				color: blue;
+			}
+			.tview td {
+				padding: 2px;
+				text-align: center;
+				border: 1px black solid;
+			}
+			.dbbm {
+				float: left;
+				width: 98%;
+				margin: -1px;
+				border: 1px black solid;
+				border-radius: 5px;
+			}
+			.tbbm {
+				padding: 0px;
+				border: 1px white double;
+				border-spacing: 0;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: #cad3ff;
+				width: 100%;
+			}
+			.tbbm tr {
+				height: 35px;
+			}
+			.tbbm tr td {
+				width: 9%;
+			}
+			.tbbm .tdZ {
+				width: 2%;
+			}
+			.tbbm tr td span {
+				float: right;
+				display: block;
+				width: 5px;
+				height: 10px;
+			}
+			.tbbm tr td .lbl {
+				float: right;
+				color: blue;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn {
+				color: #4297D7;
+				font-weight: bolder;
+				font-size: medium;
+			}
+			.tbbm tr td .lbl.btn:hover {
+				color: #FF8F19;
+			}
+			.txt.c1 {
+				width: 98%;
+				float: left;
+			}
+			.txt.c2 {
+				width: 38%;
+				float: left;
+			}
+			.txt.c3 {
+				width: 60%;
+				float: left;
+			}
+			.txt.num {
+				text-align: right;
+			}
+			.tbbm td {
+				margin: 0 -1px;
+				padding: 0;
+			}
+			.tbbm td input[type="text"] {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				float: left;
+			}
+			.tbbm select {
+				border-width: 1px;
+				padding: 0px;
+				margin: -1px;
+				font-size: medium;
+			}
+
+			input[type="text"], input[type="button"] {
+				font-size: medium;
+			}
+			.dbbs .tbbs {
+				margin: 0;
+				padding: 2px;
+				border: 2px lightgrey double;
+				border-spacing: 1px;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: #cad3ff;
+				width: 100%;
+			}
+			.dbbs .tbbs tr {
+				height: 35px;
+			}
+			.dbbs .tbbs tr td {
+				text-align: center;
+				border: 2px lightgrey double;
+			}
+			#vcc_table {
                 border: 5px solid gray;
                 font-size: medium;
-                background-color: black;
+                background-color: white;
             }
-            .tview tr {
+            #vcc_table tr {
                 height: 30px;
             }
-            .tview td {
+            #vcc_table td {
                 padding: 2px;
                 text-align: center;
                 border-width: 0px;
-                background-color: #FFFF66;
+                background-color: pink;
                 color: blue;
             }
-            .dbbm {
-                float: left;
-                width: 1250px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
-                border-radius: 5px;
+            #vcc_header td:hover{
+                background : yellow;
+                cursor : pointer;
             }
-            .tbbm {
-                padding: 0px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
+            
+            #transef_table {
+                border: 5px solid gray;
                 font-size: medium;
+                background-color: white;
+            }
+            #transef_table tr {
+                height: 30px;
+            }
+            #transef_table td {
+                padding: 2px;
+                text-align: center;
+                border-width: 0px;
+                background-color: bisque;
                 color: blue;
-                background: #cad3ff;
-                width: 100%;
             }
-            .tbbm tr {
-                height: 35px;
-            }
-            .tbbm tr td {
-                width: 9%;
-            }
-            .tbbm .tdZ {
-                width: 2%;
-            }
-            .tbbm tr td span {
-                float: right;
-                display: block;
-                width: 5px;
-                height: 10px;
-            }
-            .tbbm tr td .lbl {
-                float: right;
-                color: blue;
-                font-size: medium;
-            }
-            .tbbm tr td .lbl.btn {
-                color: #4297D7;
-                font-weight: bolder;
-            }
-            .tbbm tr td .lbl.btn:hover {
-                color: #FF8F19;
-            }
-            .txt.c1 {
-                width: 100%;
-                float: left;
-            }
-            .txt.num {
-                text-align: right;
-            }
-            .tbbm td {
-                margin: 0 -1px;
-                padding: 0;
-            }
-            .tbbm td input[type="text"] {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                float: left;
-            }
-            .tbbm select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-            }
-            .tbbs input[type="text"] {
-                width: 98%;
-            }
-            .tbbs a {
-                font-size: medium;
-            }
-            .num {
-                text-align: right;
-            }
-            .bbs {
-                float: left;
-            }
-            input[type="text"], input[type="button"] {
-                font-size: medium;
-            }
-            select {
-                font-size: medium;
-            }
-        </style>
-    </head>
-    <body ondragstart="return false" draggable="false"
-    ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
-    ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-    ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-    >
-        <!--#include file="../inc/toolbar.inc"-->
-        <div id="dmain">
-            <div class="dview" id="dview">
-                <table class="tview" id="tview">
-                    <tr>
-                        <td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
-                        <td align="center" style="width:100px; color:black;">97條碼</td>
-                        <td align="center" style="width:100px; color:black;">96條碼</td>
-                        <td align="center" style="width:100px; color:black;">客戶</td>
-                        <td align="center" style="width:100px; color:black;">姓名</td>
-                        <td align="center" style="width:120px; color:black;">電話</td>
-                        <td align="center" style="width:80px; color:black;">郵遞區號</td>
-                        <td align="center" style="width:80px; color:black;">到著站</td>
-                        <td align="center" style="width:80px; color:black;">審件等級</td>
-                        <td align="center" style="width:80px; color:black;">代收貨款</td>
-                        <td align="center" style="width:140px; color:black;">商品內容</td>
-                        <td align="center" style="width:180px; color:black;">備註</td>
-                    </tr>
-                    <tr>
-                        <td ><input id="chkBrow.*" type="checkbox"/></td>
-                        <td id="boatname" style="text-align: center;">~boatname</td>
-                        <td id="po" style="text-align: center;">~po</td>
-                        <td id="nick" style="text-align: center;">~nick</td>
-                        <td id="addressee" style="text-align: center;">~addressee</td>
-                        <td id="atel" style="text-align: center;">~atel</td>
-                        <td id="caseend" style="text-align: center;">~caseend</td>
-                        <td id="accno" style="text-align: center;">~accno</td>
-                        <td id="unit" style="text-align: center;">~unit</td>
-                        <td id="price,0" style="text-align: right;">~price,0</td>
-                        <td id="straddr" style="text-align: center;">~straddr</td>
-                        <td id="endaddr" style="text-align: center;">~endaddr</td>
-
-                    </tr>
-                </table>
-            </div>
-            <div class="dbbm">
-                <table class="tbbm"  id="tbbm">
-                    <tr style="height:1px;">
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td class="tdZ"> </td>
-                    </tr>
-                    <tr>
-                    	<td><span> </span><a class="lbl"> 97條碼 </a></td>
-						<td><input type="text" id="txtBoatname" class="txt c1" style="width:70%"/></td>
-						<td><span> </span><a class="lbl"> 96條碼 </a></td>
-						<td ><input type="text" id="txtPo" class="txt c1" style="width:70%"/></td>
-						<!--<td><span> </span><a class="lbl">已傳入大貨追</a></td>
-                        <td><input id="txtMon"  type="text" class="txt c1 "/></td>-->
-                        <td><span> </span><a id="lblZip" class="lbl"> </a></td>
-                        <td><input id="txtCaseuse"  type="text" class="txt c1 "/></td>
-                        <td><span> </span><a class="lbl">到著站</a></td>
-                        <td>
-                        	<input id="txtAccno"  type="text" class="txt c1 " style="width: 48%;"/>
-                        	<input id="txtUccno"  type="text" class="txt c1 " style="width: 48%;"/>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<td><span> </span><a class="lbl"> 託運單形式 </a></td>
-						<td><select id="cmbCalctype" class="txt c1"> </select></td>
-                    	<td><span> </span><a class="lbl"> 速配袋號 </a></td>
-						<td><select id="cmbCarno" class="txt c1"> </select></td>
-                    	<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
-							<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
-							<input type="text" id="txtNick" class="txt" style="display:none; " />
-						</td>
-                    	<!--<td><span> </span><a class="lbl">發送日期</a></td>
-                        <td><input id="txtDatea"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">配送日期</a></td>
-                        <td><input id="txtTrandate"  type="text" class="txt c1"/></td>-->
-                    </tr>   
-                    <tr>
-                    	<td><span> </span><a class="lbl">來源表單編號</a></td>
-                        <td><input id="txtSo"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">姓名</a></td>
-                        <td><input id="txtAddressee"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">電話</a></td>
-                        <td><input id="txtAtel"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">行動電話</a></td>
-                        <td><input id="txtBoat"  type="text" class="txt c1"/></td>
-                    </tr>
-                    <tr>
-                    	<td><span> </span><a id='lblCaseend' class="lbl"> </a></td>
-                        <td><input id="txtCaseend"  type="text" class="txt c1 "/></td>
-                        <td><span> </span><a class="lbl">地址</a></td>
-                        <td colspan="3"><input id="txtAaddr"  type="text" class="txt c1"/></td>
-                    </tr>
-                    <tr>
-                        <td><span> </span><a class="lbl">備註</a></td>
-                        <td colspan="3"><input id="txtEndaddr"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">商品內容</a></td>
-                        <td colspan="3"><input id="txtStraddr"  type="text" class="txt c1"/></td>
-                    </tr>
-                    <tr>
-                        <!--<td><span> </span><a class="lbl">件數</a></td>
-                        <td><input id="txtMount"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">重量</a></td>
-                        <td><input id="txtWeight"  type="text" class="txt c1"/></td>-->
-                        <td><span> </span><a class="lbl">審件等級</a></td>
-                        <td><input id="txtUnit"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">代收貨款</a></td>
-                        <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
-                    </tr>
-                    <tr>
-                        <td><span> </span><a class="lbl"> 單據編號 </a></td>
-						<td>
-							<input type="text" id="txtNoa" class="txt c1"/>
-							<input id="txtNoq"  type="text" style="display:none;"/>
-							<input id="txtTraceno"  type="hidden" class="txt c1"/><!--tranorde單號-->
-						</td>
-						<td><span> </span><a class="lbl">托運單</a></td>
-						<td><input type="text" id="txtIo" class="txt c1" /></td>
-						<td><span> </span><a class="lbl">上傳檔名</a></td>
-						<td><input type="text" id="txtTreno" class="txt c1" /></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-      <input id="q_sys" type="hidden" />
-    </body>
+		</style>
+	</head>
+	<body>
+		<div id='q_menu'> </div>
+		<div id='q_acDiv'> </div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type='button' id='btnAuthority' name='btnAuthority' style='font-size:16px;' value='權限'/>
+		<input type='button' id='btnPrint'  style='font-size:16px;' value='列印'/>
+		<div id="vcc" style="float:left;width:1260px;"> </div> 
+		<div id="vcc_control" style="width:1200px;"> </div> 
+		<div id="transef" style="float:left;width:1260px;"> </div> 
+		<!--<input type='button' id='btnEnda' style='font-size:16px;float: left;'/>-->
+	</body>
 </html>
