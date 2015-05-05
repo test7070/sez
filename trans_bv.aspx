@@ -49,7 +49,7 @@
 			}
 
 			function mainPost() {
-				$("#lblDatea").text('資料時間');
+				$("#lblDatea").text('派遣時間');
 				$("#lblTrandate").text('讀取時間');
 				$("#lblNoa").text('單據編號');
 				$("#lblSerial").text('統一編碼');
@@ -60,6 +60,7 @@
 				$("#lblOrdeno").text('發送局');
 				$("#lblShip").text('聯絡人');
 				$("#lblBoat").text('宅配員');
+				$("#lblCasecust").text('CS');
 				
 				document.title='派遣作業';
 
@@ -120,7 +121,7 @@
 			}
 			
 			function btnPrint() {
-				q_box('z_trans_bv.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_tboat_bv.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 			
 			function q_stPost() {
@@ -397,7 +398,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
 						<td align="center" style="width:50px; color:black;"><a> 序號 </a></td>
-						<td align="center" style="width:70px; color:black;"><a> 資料時間 </a></td>
+						<td align="center" style="width:70px; color:black;"><a> 派遣時間 </a></td>
 						<td align="center" style="width:80px; color:black;"><a> 統一編號 </a></td>
 						<td align="center" style="width:110px; color:black;"><a> 單據編號 </a></td>
 						<td align="center" style="width:80px; color:black;"><a> 公司名稱 </a></td>
@@ -473,7 +474,9 @@
 							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
-						<td colspan="3"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+						<td><input id="txtOrdeno"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input id="txtMount"  type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblShip" class="lbl"> </a></td>
@@ -482,8 +485,8 @@
 						<td><input id="txtPo"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblBoat" class="lbl"> </a></td>
 						<td><input id="txtBoat" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
-						<td><input id="txtMount"  type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblCasecust" class="lbl"> </a></td>
+						<td><input id="txtCasecust" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblStraddr" class="lbl"> </a></td>

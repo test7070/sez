@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 
-			var q_name = "transef_edi";
+			var q_name = "transef_edi_bv";
 			
 			aPop = new Array();
 						
@@ -45,6 +45,7 @@
                     string+='<td id="vcc_noa" onclick="vcc.sort(\'noa\',false)" title="上傳編號" align="center" style="width:120px; color:black;display:none;">上傳編號</td>';
                     string+='<td id="vcc_memo" onclick="vcc.sort(\'memo\',false)" title="上傳檔案" align="center" style="width:120px; color:black;">上傳檔案</td>';
                     string+='<td id="vcc_datea" onclick="vcc.sort(\'datea\',false)" title="上傳日期" align="center" style="width:80px; color:black;">上傳日期</td>';
+                    string+='<td id="vcc_datea" onclick="vcc.sort(\'datea\',false)" title="時間" align="center" style="width:80px; color:black;">時間</td>';
                     string+='<td id="vcc_custno" onclick="vcc.sort(\'custno\',false)" title="客戶代號" align="center" style="width:150px; color:black;">客戶代號</td>';
                     string+='<td id="vcc_comp" onclick="vcc.sort(\'comp\',false)" title="客戶簡稱" align="center" style="width:150px; color:black;">客戶簡稱</td>';
                     string+='<td id="vcc_mount" onclick="vcc.sort(\'mount\',true)" title="筆數" align="center" style="width:100px; color:black;">筆數</td>';
@@ -58,6 +59,7 @@
                         string+='<td id="vcc_noa'+i+'" style="text-align: center;display:none;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='<td id="vcc_memo'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='<td id="vcc_datea'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_mon'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='<td id="vcc_custno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='<td id="vcc_comp'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='<td id="vcc_mount'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
@@ -185,6 +187,7 @@
                             $('#vcc_noa' + i).html(this.data[n+i]['noa']);
                             $('#vcc_memo' + i).html(this.data[n+i]['memo']);
                             $('#vcc_datea' + i).html(this.data[n+i]['datea']);
+                            $('#vcc_mon' + i).html(this.data[n+i]['mon']);
                             $('#vcc_custno' + i).html(this.data[n+i]['custno']);
                             $('#vcc_comp' + i).html(this.data[n+i]['comp']);
                             $('#vcc_mount' + i).html(this.data[n+i]['mount']);
@@ -194,6 +197,7 @@
                             $('#vcc_noa' + i).html('');
                             $('#vcc_memo' + i).html('');
                             $('#vcc_datea' + i).html('');
+                            $('#vcc_mon' + i).html('');
                             $('#vcc_custno' + i).html('');
                             $('#vcc_comp' + i).html('');
                             $('#vcc_mount' + i).html('');

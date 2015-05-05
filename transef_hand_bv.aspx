@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 
-			var q_name = "transef_hand";
+			var q_name = "transef_hand_bv";
 			
 			aPop = new Array();
 						
