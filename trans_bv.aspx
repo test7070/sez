@@ -165,8 +165,6 @@
 				for (var i = 0; i < brwCount; i++) {
                 	$('#vtkey_'+i).text((now_page*brwCount)+i+1);
                 }
-				
-				
 			}
 
 			function readonly(t_para, empty) {

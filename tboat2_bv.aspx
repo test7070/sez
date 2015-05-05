@@ -21,7 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat2";
-			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsPrint'];
+			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint'];
 			var q_readonlys = [];
 			var bbmNum = new Array(['txtMount',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
@@ -34,7 +34,7 @@
 			brwKey = 'noa';
 			q_alias = '';
 			q_desc = 1;
-			brwCount2 = 15;
+			brwCount2 = 10;
 			aPop = new Array(
 				['txtPost', 'lblPost', 'addr2', 'noa,memo,siteno,site', 'txtPost,txtBoatname,txtMemo', 'addr2_b.aspx']
 			);
@@ -126,28 +126,35 @@
 			}
 			
 			function q_gtPost(t_name) {
-				switch (t_name) {
-					case 'transef96':
-                		var as = _q_appendData("view_transef", "", true);
-                		if (as[0] != undefined)
-                			$('#txtShip').val('96'+('0000000'+(dec(as[0].po.substr(2,7))+1)).substr(-7)+((dec(as[0].po.substr(2,7))+1)%7))
-                		else
-                			$('#txtShip').val('9600000011');
-                		btnOk();
-                		break;   
+				switch (t_name) {  
 					case 'view_transef':
 						var as = _q_appendData("view_transef", "", true);
                 		if (as[0] != undefined) {
                 			$('#txtCustno').val(as[0].custno);
                 			$('#txtCust').val(as[0].comp);
                 			$('#txtNick').val(as[0].nick);
+                			$('#txtNamea').val(as[0].addressee);
+                			$('#txtTel').val(as[0].atel);
+                			$('#txtPost').val(as[0].caseend);
+                			$('#txtBoatname').val(as[0].aaddr);
+                			$('#txtMemo').val(as[0].accno);
                 			$('#txtShip').val(as[0].po);
-                			if(as[0].custno!=''){
+                			
+                			if(emp($('#txtShip').val())){
+                				//104/05/05 96條碼產生方式變動為9712345672>9612345676
+                				var t_code97=$('#txtCode').val();
+                				var t_code96='96'+t_code97.substr(2,7);
+                				//加入檢查碼
+                				t_code96=t_code96+(dec(t_code96)%6);
+								$('#txtShip').val(t_code96)
+							}
+                			
+                			/*if(as[0].custno!=''){
                 				var t_where = "where=^^ noa='"+as[0].custno+"' ^^";
 								q_gt('cust', t_where, 0, 0, 0, "");
-							}
+							}*/
                 		}else{
-                			alert('客戶資料載入錯誤!!');
+                			alert('97條碼資料載入錯誤!!');
                 		}
 						break;
 					case 'cust':
@@ -207,13 +214,6 @@
 					return;
 				}
 				
-				if(emp($('#txtMemo').val()) && emp($('#txtShip').val())){
-					//產生96條碼
-			        var t_where = "where=^^ po=(select Max(po) from view_transef) ^^";
-					q_gt('view_transef', t_where, 0, 0, 0, "transef96");
-					return;
-				}
-				
 				if(q_cur ==1){
 					$('#txtWorker').val(r_name);
 				}else if(q_cur ==2){
@@ -246,6 +246,10 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				var now_page=Math.floor((dec($('#pageNow').val())/brwCount));
+				for (var i = 0; i < brwCount; i++) {
+                	$('#vtseq_'+i).text((now_page*brwCount)+i+1);
+                }
 			}
 
 			function readonly(t_para, empty) {
@@ -348,7 +352,7 @@
 			}
 			.dview {
 				float: left;
-				width: 320px;
+				width: 1250px;
 				border-width: 0px;
 			}
 			.tview {
@@ -503,17 +507,33 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a>登錄日期</a></td>
-						<td align="center" style="width:120px; color:black;"><a>聯運件數</a></td>
-						<td align="center" style="width:120px; color:black;"><a>操作者</a></td>
+						<td align="center" style="width:40px; color:black;"><a>序號</a></td>
+						<td align="center" style="width:100px; color:black;"><a>97條碼</a></td>
+						<td align="center" style="width:100px; color:black;"><a>96條碼</a></td>
+						<td align="center" style="width:100px; color:black;"><a>客戶編號</a></td>
+						<td align="center" style="width:100px; color:black;"><a>簡稱</a></td>
+						<td align="center" style="width:100px; color:black;"><a>姓名</a></td>
+						<td align="center" style="width:50px; color:black;"><a>ZIP</a></td>
+						<td align="center" style="width:220px; color:black;"><a>地址</a></td>
+						<td align="center" style="width:120px; color:black;"><a>電話</a></td>
+						<td align="center" style="width:120px; color:black;"><a>行動電話</a></td>
+						<td align="center" style="width:80px; color:black;"><a>代收貨款</a></td>
+						<td align="center" style="width:75px; color:black;"><a>聯運條碼</a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=' '/>
-						</td>
-						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='mount,0,1' style="text-align: right;">~mount,0,1</td>
-						<td id='worker' style="text-align: center;">~worker</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td id='seq' style="text-align: center;"> </td>
+						<td id='code' style="text-align: center;">~code</td>
+						<td id='ship' style="text-align: center;">~ship</td>
+						<td id='custno' style="text-align: center;">~custno</td>
+						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='namea' style="text-align: center;">~namea</td>
+						<td id='zip' style="text-align: center;">~zip</td>
+						<td id='boatname' style="text-align: center;">~boatname</td>
+						<td id='tel' style="text-align: center;">~tel</td>
+						<td id='mobile' style="text-align: center;">~mobile</td>
+						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
+						<td id='isprint' style="text-align: center;">~isprint</td>
 					</tr>
 				</table>
 			</div>
@@ -564,16 +584,17 @@
 					<tr>
 						<td><span> </span><a class="lbl">96編碼</a></td>
 						<td><input type="text" id="txtShip" class="txt c1"/> </td>
-						<td><span> </span><a class="lbl">條碼</a></td>
-						<td><input type="text" id="txtIsPrint" class="txt c1"/> </td>
+						<td><span> </span><a class="lbl">聯運條碼</a></td>
+						<td><input type="text" id="txtIsprint" class="txt c1"/> </td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input type="text" id="txtWorker" class="txt c1 "/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input type="text" id="txtWorker2" class="txt c1 "/></td>
-					</tr>
+					</tr>-->
 				</table>
+			</div>
 		</div>
 	</body>
 </html>
