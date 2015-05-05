@@ -67,18 +67,31 @@
 				$("#lblCust").text('公司名稱');
 				
 				$('#txtMount').change(function() {
+					//104/05/05 97碼產生方式 同96 最後一碼為檢查碼
 					if(emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
 						//取目前97最大碼
 						var t_where = "where=^^ boatname=(select MAX(boatname) from view_transef) ^^";
 						q_gt('view_transef', t_where, 0, 0, 0, "GetMax97code");
 					}else if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
-						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+(dec($('#txtMount').val())-1))).substr(-8));
+						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
+						endcode=endcode+(endcode%6);
+						$('#txtDocketno2').val(endcode);
 					}
 				});
 				
 				$('#txtDocketno1').blur(function() {
 					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
-						$('#txtDocketno2').val('97'+('00000000'+(dec($('#txtDocketno1').val())+(dec($('#txtMount').val())-1))).substr(-8));
+						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
+						endcode=endcode+(endcode%6);
+						$('#txtDocketno2').val(endcode);
+					}
+				});
+				
+				$('#txtDocketno2').blur(function() {
+					if(!emp($('#txtDocketno2').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
+						var begcode='97'+('0000000'+(dec($('#txtDocketno2').val().substr(-8).substr(0,7))-(dec($('#txtMount').val())-1))).substr(-7);
+						begcode=begcode+(begcode%6);
+						$('#txtDocketno1').val(begcode);
 					}
 				});
 			}
@@ -128,12 +141,14 @@
 				switch (t_name) {
 					case 'GetMax97code':
 						var as = _q_appendData("view_transef", "", true);
-						var maxcode='9700000000',endcode='9700000000';
+						var maxcode='9700000004',endcode='9700000004';
 						if (as[0] != undefined){
 							var maxcode=as[0].boatname;
-							maxcode='97'+('00000000'+q_add(dec(maxcode),1)).substr(-8);
+							maxcode='97'+('0000000'+(dec(maxcode.substr(-8).substr(0,7))+1)).substr(-7);
+							maxcode=maxcode+(maxcode%6);
 						}
-						endcode='97'+('00000000'+q_add(dec(maxcode),dec($('#txtMount').val()))).substr(-8);
+						endcode='97'+('0000000'+(dec(maxcode.substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
+						endcode=endcode+(endcode%6);
 						
 						$('#txtDocketno1').val(maxcode);
 						$('#txtDocketno2').val(endcode);

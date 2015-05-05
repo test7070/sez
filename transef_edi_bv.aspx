@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 
-			var q_name = "transef";
+			var q_name = "transef_edi";
 			
 			aPop = new Array();
 						
@@ -188,6 +188,7 @@
                             $('#vcc_custno' + i).html(this.data[n+i]['custno']);
                             $('#vcc_comp' + i).html(this.data[n+i]['comp']);
                             $('#vcc_mount' + i).html(this.data[n+i]['mount']);
+                            $('#vcc_print' + i).html(this.data[n+i]['isprint']);
                         } else {
                             $('#vcc_chk' + i).attr('disabled', 'disabled');
                             $('#vcc_noa' + i).html('');
@@ -196,6 +197,7 @@
                             $('#vcc_custno' + i).html('');
                             $('#vcc_comp' + i).html('');
                             $('#vcc_mount' + i).html('');
+                            $('#vcc_print' + i).html('');
                         }
                     }
                     $('#vcc_chk0').click();

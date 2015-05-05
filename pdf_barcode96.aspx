@@ -52,7 +52,11 @@
 	                                    ,endaddr memo,straddr,''
 	                                    ,custno,comp,boatname barcode97,carno bag
                                     from view_transef
-                                    where po between @bno and @eno";
+                                    where po between @bno and @eno
+                                    
+                                    EXEC('update tboat2 set isprint=''已列印'' where ship between '''+@bno+''' and '''+@eno+'''')
+                                    
+                                    ";
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(queryString, connSource);
                 cmd.Parameters.AddWithValue("@bno", bno);
                 cmd.Parameters.AddWithValue("@eno", eno);

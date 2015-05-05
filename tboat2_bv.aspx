@@ -23,7 +23,7 @@
 			var q_name = "tboat2";
 			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint'];
 			var q_readonlys = [];
-			var bbmNum = new Array(['txtMount',10,0,1]);
+			var bbmNum = new Array(['txtMount',10,0,1],['txtTotal',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
 			var bbsNum = [];
 			var bbsMask = new Array();
@@ -87,6 +87,11 @@
 					var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
 					q_gt('addr2', t_where, 0, 0, 0, "");
 				});
+				
+				$('#txtBoatname').change(function() {
+					var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(area,'"+$(this).val()+"')>0 and charindex(road,'"+$(this).val()+"')>0 ^^";
+					q_gt('view_road', t_where, 0, 0, 0, "getzip1");
+				});
 			}
 			
 			function bbsAssign() {
@@ -139,6 +144,9 @@
                 			$('#txtBoatname').val(as[0].aaddr);
                 			$('#txtMemo').val(as[0].accno);
                 			$('#txtShip').val(as[0].po);
+                			$('#txtMobile').val(as[0].boat);
+                			$('#txtZip').val(as[0].caseuse);
+                			$('#txtTotal').val(as[0].price);
                 			
                 			if(emp($('#txtShip').val())){
                 				//104/05/05 96條碼產生方式變動為9712345672>9612345676
@@ -172,6 +180,30 @@
                 		if (as[0] != undefined) {
                 			$('#txtMemo').val(as[0].siteno);
                 		}
+						break;
+					case 'getzip1':
+						var as = _q_appendData("view_road", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtZip').val(as[0].zipcode);
+						}else{
+							var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(area,'"+$(this).val()+"')>0 ^^";
+							q_gt('view_road', t_where, 0, 0, 0, "getzip2");
+						}
+						break;
+					case 'getzip2':
+						var as = _q_appendData("view_road", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtZip').val(as[0].zipcode);
+						}else{
+							var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(road,'"+$(this).val()+"')>0 ^^";
+							q_gt('view_road', t_where, 0, 0, 0, "getzip3");
+						}
+						break;
+					case 'getzip3':
+						var as = _q_appendData("view_road", "", true);
+                		if (as[0] != undefined) {
+                			$('#txtZip').val(as[0].zipcode);
+						}
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -222,6 +254,15 @@
 					alert("error: btnok!");
 				}
 				
+				if(emp($('#txtShip').val())){
+                	//104/05/05 96條碼產生方式變動為9712345672>9612345676
+                	var t_code97=$('#txtCode').val();
+                	var t_code96='96'+t_code97.substr(2,7);
+                	//加入檢查碼
+                	t_code96=t_code96+(dec(t_code96)%6);
+					$('#txtShip').val(t_code96)
+				}
+				
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
@@ -246,7 +287,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				var now_page=Math.floor((dec($('#pageNow').val())/brwCount));
+				var now_page=Math.floor(((dec($('#pageNow').val())-1)/brwCount));
 				for (var i = 0; i < brwCount; i++) {
                 	$('#vtseq_'+i).text((now_page*brwCount)+i+1);
                 }
@@ -372,7 +413,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 850px;
+				width: 1050px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -545,20 +586,24 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
+						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">97條碼</a></td>
-						<td><input type="text" id="txtCode" class="txt c1"/>
+						<td>
+							<input type="text" id="txtCode" class="txt c1"/>
 							<input type="text" id="txtNoa" class="txt c1" style="display: none;"/>
 						</td>
+						<td><span> </span><a class="lbl">96編碼</a></td>
+						<td><input type="text" id="txtShip" class="txt c1"/> </td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td> <span> </span><a id='lblCustno' class="lbl"> </a></td>
 						<td><input type="text" id="txtCustno" class="txt c1" /> </td>
-						<td colspan="3">
+						<td colspan="2">
 							<input type="text" id="txtCust" class="txt c1"/>
 							<input type="hidden" id="txtNick" class="txt c1"/>
 						</td>
@@ -567,23 +612,29 @@
 						<td><span> </span><a class="lbl">姓名</a></td>
 						<td><input type="text" id="txtNamea" class="txt c1 "/></td>
 						<td><span> </span><a class="lbl">電話</a></td>
-						<td colspan="2"><input type="text" id="txtTel" class="txt c1 "/></td>
+						<td><input type="text" id="txtTel" class="txt c1 "/></td>
+						<td><span> </span><a class="lbl">行動電話</a></td>
+						<td><input type="text" id="txtMobile" class="txt c1 "/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblZip' class="lbl">ZIP</a></td>
+						<td><input type="text" id="txtZip" class="txt c1 "/></td>
 						<td><span> </span><a id='lblPost' class="lbl">郵遞區號</a></td>
 						<td><input type="text" id="txtPost" class="txt c1 "/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a class="lbl">地址</a></td>
-						<td colspan="2"><input type="text" id="txtBoatname" class="txt c1 "/></td>
+						<td colspan="3"><input type="text" id="txtBoatname" class="txt c1 "/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">到著站</a></td>
+						<td><input type="text"id="txtMemo" class="txt c1"> </td>
+						<td><span> </span><a class="lbl">代收貨款</a></td>
+						<td><input type="text"id="txtTotal" class="txt num c1"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">聯運件數</a></td>
 						<td><input type="text"id="txtMount" class="txt num c1"> </td>
-						<td><span> </span><a class="lbl">到著站</a></td>
-						<td><input type="text"id="txtMemo" class="txt c1"> </td>
-					</tr>
-					<tr>
-						<td><span> </span><a class="lbl">96編碼</a></td>
-						<td><input type="text" id="txtShip" class="txt c1"/> </td>
 						<td><span> </span><a class="lbl">聯運條碼</a></td>
 						<td><input type="text" id="txtIsprint" class="txt c1"/> </td>
 					</tr>

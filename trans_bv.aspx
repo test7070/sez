@@ -161,7 +161,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				var now_page=Math.floor((dec($('#pageNow').val())/brwCount));
+				var now_page=Math.floor(((dec($('#pageNow').val())-1)/brwCount));
 				for (var i = 0; i < brwCount; i++) {
                 	$('#vtkey_'+i).text((now_page*brwCount)+i+1);
                 }
