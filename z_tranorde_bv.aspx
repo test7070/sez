@@ -38,29 +38,34 @@
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                document.title='3.2手寫託運單套表列印(補印用)'
+                
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
                 
                 $('.prt').hide();
                 
-                $('#txtBnoa').change(function() {
+                $('#txtBnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!(/^97[0-9]{8}$/g).test($(this).val()))
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%6 == dec($(this).val().substr(-1))))
                 			alert('請輸入正確的97條碼!!!');
                 	}
 				});
 				
-				$('#txtEnoa').change(function() {
+				$('#txtEnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!(/^97[0-9]{8}$/g).test($(this).val()))
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%6 == dec($(this).val().substr(-1))))
                 			alert('請輸入正確的97條碼!!!');
                 	}
 				});
                 
                 $('#btnDownloadPdf').click(function() {
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
-                		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8)),dec($('#txtEnoa').val().substr(-8))))<300)
+                		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())
+                		&& dec($('#txtBnoa').val().substr(0,9))%6 == dec($('#txtBnoa').val().substr(-1))
+                		&& dec($('#txtEnoa').val().substr(0,9))%6 == dec($('#txtEnoa').val().substr(-1))
+                		){
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<300)
                 				window.open("./pdf_tranorde.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
                 				alert('條碼範圍不得超逾300張!!!');

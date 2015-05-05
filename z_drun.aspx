@@ -53,6 +53,9 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+                
+                if(q_getPara('sys.project').toUpperCase()=='BV')
+        			document.title='7.2使用紀錄查詢'
             }
 
             function q_boxClose(s2) {

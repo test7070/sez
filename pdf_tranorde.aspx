@@ -38,7 +38,9 @@
 	                while @str<=@eno
 	                begin
 		                insert into @list(barcode)values(@str)
-		                set @str = right('0000000000'+cast(CAST(@str as decimal)+1 as nvarchar),10)
+		                set @str = '97'+right('00000000'+cast(cast(left(right(@str,8),7) as int)+1 as nvarchar(10)),7)
+		                set @str = @str+cast(cast(@str as int )% 6 as nvarchar(10))
+		                
 		                set @n = @n-1
 		                if(@n<0)
 			                break
@@ -55,7 +57,13 @@
 	                left join @list c on c.barcode between a.docketno1 and a.docketno2
 	                where c.barcode is not null
 	                and len(ISNULL(a.docketno1,''))>0
-	                order by c.barcode";
+	                order by c.barcode
+	                
+	                declare @accy nvarchar(20)=isnull((select top 1 b.accy from @list a left join view_transef b on a.barcode=b.boatname and isnull(b.accy,'')!='' order by accy desc),'')
+	                if(@accy!='')
+						EXEC('update transef'+@accy+' set io=''已列印'' where boatname between '''+@bno+''' and '''+@eno+'''')
+	                
+	                ";
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(queryString, connSource);
                 cmd.Parameters.AddWithValue("@bno", bno);
                 cmd.Parameters.AddWithValue("@eno", eno);

@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 
-			var q_name = "transef";
+			var q_name = "transef_hand_bv";
 			
 			aPop = new Array();
 						
@@ -194,6 +194,7 @@
                             $('#tranorde_mount' + i).html(this.data[n+i]['mount']);
                             $('#tranorde_docketno1' + i).html(this.data[n+i]['docketno1']);
                             $('#tranorde_docketno2' + i).html(this.data[n+i]['docketno2']);
+                            $('#tranorde_print' + i).html(this.data[n+i]['isprint']);
                         } else {
                             $('#tranorde_chk' + i).attr('disabled', 'disabled');
                             $('#tranorde_noa' + i).html('');
@@ -204,6 +205,7 @@
                             $('#tranorde_mount' + i).html('');
                             $('#tranorde_docketno1' + i).html('');
                             $('#tranorde_docketno2' + i).html('');
+                            $('#tranorde_print' + i).html('');
                         }
                     }
                     $('#tranorde_chk0').click();
@@ -259,6 +261,20 @@
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
+					case 'transef_bv':
+						var n='0';
+						$('.tranorde_chk').each(function(index) {
+							if($(this).prop('checked'))
+								n=$(this).attr('id').replace('tranorde_chk','')
+						});
+                        var t_where="where=^^traceno='"+$('#tranorde_noa'+n).text()+"' ^^";
+						q_gt('view_transef', t_where, 0, 0, 0,'show_transef', r_accy);
+                        $('#transef').html('');
+						break;
+					case 'transorde':
+						t_where="where=^^ containertype='手寫託運單' ^^";
+						q_gt('view_tranorde_bv', t_where, 0, 0, 0,'aaa', r_accy);
+						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
@@ -294,6 +310,8 @@
 	                    string+='<td id="transef_aaddr" align="center" style="width:300px; color:black;">地址</td>';
 	                    string+='<td id="transef_atel" align="center" style="width:150px; color:black;">電話</td>';
 	                    string+='<td id="transef_uccno" align="center" style="width:100px; color:black;">發送所</td>';
+	                    string+='<td id="transef_edit" align="center" style="width:55px; color:black;">修改</td>';
+	                    string+='<td id="transef_traceno" style="display:none;">訂單編號</td>';
 	                    string+='</tr>';
 	                    
 	                    var t_color = ['DarkBlue','DarkRed'];
@@ -302,16 +320,26 @@
 	                        string+='<td style="text-align: center; font-weight: bolder; color:black;">'+(i+1)+'</td>';
 	                        string+='<td id="transef_boatname'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].boatname+'</td>';
 	                        string+='<td id="transef_carno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].carno+'</td>';
-	                        string+='<td id="transef_custno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseuse+'</td>';
-	                        string+='<td id="transef_comp'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].caseuse+'</td>';
+	                        string+='<td id="transef_custno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].custno+'</td>';
+	                        string+='<td id="transef_comp'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].nick+'</td>';
 	                        string+='<td id="transef_aaddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].aaddr+'</td>';
 	                        string+='<td id="transef_atel'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].atel+'</td>';
 	                        string+='<td id="transef_uccno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].accno+'</td>';
+	                        string+='<td id="transef_edit'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"><input id="btnTransef_edit'+i+'"  type="button" style="float:center;width:50px;" value="修改"/></td>';
+	                        string+='<td id="transef_traceno'+i+'" style="display:none;">'+as[i].traceno+'</td>';
 	                        string+='</tr>';
 	                    }
 	                    string+='</table>';
 	                    
 	                    $('#transef').html(string);
+	                    
+	                    for(var j=0;j<transef_count;j++){
+	                    	$('#btnTransef_edit'+j).click(function() {
+	                    		var beq=replaceAll($(this).attr('id'),'btnTransef_edit','')
+	                    		q_box("transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";traceno='"+$('#transef_traceno'+beq).text()+"' and boatname='"+$('#transef_boatname'+beq).text()+"';" + r_accy, 'transef_bv', "1150px", "300px", '手寫託運單');
+							});
+	                    }
+	                    
 						break;
                     case 'aaa':
                         var GG = _q_appendData("view_tranorde", "", true);

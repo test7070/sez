@@ -21,7 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = ['txtNoa','txtCust','txtDatea'];
+			var q_readonly = ['txtNoa','txtCust','txtDatea','txtInvodate'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
@@ -72,7 +72,7 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
-				document.title='客戶派遣'
+				document.title='5.1派遣功能_客戶'
 				$("#lblCustno").text('客戶編號').hide();
 				$('#lblCust').text('客戶編號').hide();
 				$("#lblMount").text('件數');
@@ -155,6 +155,10 @@
 				_btnIns();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
+				var timeDate= new Date();
+				var tHours = timeDate.getHours();
+				var tMinutes = timeDate.getMinutes();
+				$('#txtInvodate').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
 				$('#txtWorker').focus();
 				
 				if(r_outs==1){
@@ -278,7 +282,7 @@
 			}
 			.dview {
 				float: left;
-				width: 320px;
+				width: 580px;
 				border-width: 0px;
 			}
 			.tview {
@@ -298,7 +302,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 850px;
+				width: 650px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -317,13 +321,13 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 12%;
+				/*width: 12%;*/
 			}
 			.tbbm .tr2, .tbbm .tr3, .tbbm .tr4 {
 				background-color: #FFEC8B;
 			}
 			.tbbm .tdZ {
-				width: 1%;
+				/*width: 1%;*/
 			}
 			.tbbm tr td span {
 				float: right;
@@ -433,7 +437,9 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:80px; color:black;"><a>登錄日期</a></td>
+						<td align="center" style="width:85px; color:black;"><a>登錄日期</a></td>
+						<td align="center" style="width:85px; color:black;"><a>時間</a></td>
+						<td align="center" style="width:120px; color:black;"><a>單據編號</a></td>
 						<td align="center" style="width:120px; color:black;"><a>聯絡人</a></td>
 						<td align="center" style="width:100px; color:black;"><a>件數</a></td>
 
@@ -443,6 +449,8 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='invodate' style="text-align: center;">~invodate</td>
+						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='worker' style="text-align: center;">~worker</td>
 						<td id='mount' style="text-align: right;">~mount</td>
 					</tr>
@@ -451,18 +459,21 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td><input type="text" id="txtCaddr" style="display:none;"></td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td style="width:130px; "> </td>
+						<td style="width:170px; "> </td>
+						<td style="width:130px; "> </td>
+						<td style="width:170px; "> </td>
+						<td style="width:10px; "> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">單據編號</a></td>
 						<td><input type="text" id="txtNoa" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input type="text" id="txtDatea" class="txt c1"/></td>
+						<td>
+							<input type="text" id="txtDatea" class="txt c1" style="width: 49%;"/>
+							<input type="text" id="txtInvodate" class="txt c1" style="width: 49%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span>

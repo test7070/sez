@@ -52,7 +52,13 @@
 	                                    ,endaddr memo,straddr,''
 	                                    ,custno,comp,boatname barcode97,carno bag
                                     from view_transef
-                                    where boatname between @bno and @eno";
+                                    where boatname between @bno and @eno
+                                    
+                                    declare @accy nvarchar(20)=isnull((select top 1 accy from view_transef  where boatname between @bno and @eno and isnull(accy,'')!='' order by accy desc),'')
+					                if(@accy!='')
+										EXEC('update transef'+@accy+' set io=''已列印'' where boatname between '''+@bno+''' and '''+@eno+'''')
+                                    
+                                    ";
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(queryString, connSource);
                 cmd.Parameters.AddWithValue("@bno", bno);
                 cmd.Parameters.AddWithValue("@eno", eno);
