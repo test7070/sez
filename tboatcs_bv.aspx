@@ -45,6 +45,11 @@
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				
+				 if (r_outs==1)
+					q_content = "where=^^custno='" + r_userno + "'^^";
+				else
+					q_content = "";
+				
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
 			
@@ -67,10 +72,22 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
-				document.title='5.1派遣功能_客戶'
-				$("#lblCustno").text('客戶編號');
+				document.title='5.2 派遣功能_CS'
+				$("#lblCustno").text('客戶編號').hide();
+				$('#lblCust').text('客戶編號').hide();
 				$("#lblMount").text('件數');
 				$("#lblDatea").text('登錄日期');
+				
+				$("#btnModi").hide();
+				$("#btnDele").hide();
+				$("#btnPrint").hide();
+				if(r_outs==0){
+					$("#lblCustno").show()
+					$("#btnPrint").show();
+				}else{
+					q_readonly.push('txtCustno');
+					$("#lblCust").show()
+				}
 			}
 			
 			function bbsAssign() {
@@ -131,7 +148,10 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "320px", q_getMsg("popSeek"));
+				if (r_outs==1)
+					q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
+				else
+					q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "320px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
@@ -142,14 +162,19 @@
 				var tHours = timeDate.getHours();
 				var tMinutes = timeDate.getMinutes();
 				$('#txtInvodate').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
-				$('#txtCustno').focus();
+				$('#txtWorker').focus();
+				
+				if(r_outs==1){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}
 			}
 
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				$('#txtCustno').focus();
+				$('#txtDatea').focus();
 			}
 
 			function btnPrint() {
@@ -163,10 +188,9 @@
 					alert(t_err);
 					return;
 				}
-				
 				//判斷重哪個作業寫入
 				if(q_cur==1)
-					$('#txtInvono').val('1');
+					$('#txtInvono').val('2');
 				
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
@@ -186,8 +210,7 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 				/*if(q_cur==1)
-					q_func('qtxt.query.tboat1', 'tboat.txt,tboat1,' + encodeURI($('#txtNoa').val()));
-				*/
+					q_func('qtxt.query.tboat1', 'tboat.txt,tboat1,' + encodeURI($('#txtNoa').val()));*/
 			}
 
 			function refresh(recno) {
@@ -419,12 +442,13 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
 						<td align="center" style="width:85px; color:black;"><a>登錄日期</a></td>
 						<td align="center" style="width:85px; color:black;"><a>時間</a></td>
 						<td align="center" style="width:120px; color:black;"><a>單據編號</a></td>
 						<td align="center" style="width:120px; color:black;"><a>聯絡人</a></td>
 						<td align="center" style="width:100px; color:black;"><a>件數</a></td>
+						<td align="center" style="width:100px; color:black;"><a>CS</a></td>
 					</tr>
 					<tr>
 						<td >
@@ -435,6 +459,7 @@
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='worker' style="text-align: center;">~worker</td>
 						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='taxtype' style="text-align: center;">~taxtype</td>
 					</tr>
 				</table>
 			</div>
@@ -458,13 +483,25 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
+						<td><span> </span>
+							<a id="lblCustno" class="lbl btn"> </a>
+							<a id="lblCust" class="lbl"> </a>
+						</td>
 						<td><input type="text" id="txtCustno" class="txt c1"/></td>
 						<td colspan="2">
 							<input type="text" id="txtCust" class="txt c1"/>
 							<input type="hidden" id="txtNick" class="txt c1"/>
-							<input type="hidden" id="txtInvono"/>
 						</td>
+					</tr>
+					<tr class="trans" style="display: none;">
+						<td><span> </span><a class="lbl">統一編號</a></td>
+						<td><input type="text" id="txtSerial" class="txt c1 "/></td>
+						<td><span> </span><a id="lblTel" class="lbl">電話</a></td>
+						<td><input type="text" id="txtTel" class="txt c1"/></td>
+					</tr>
+					<tr class="trans" style="display: none;">
+						<td><span> </span><a id="lblAddr" class="lbl">地址</a></td>
+						<td colspan="3"><input type="text" id="txtAddr" class="txt c1 "/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">聯絡人</a></td>
@@ -473,8 +510,26 @@
 						<td><input type="text" id="txtMount" class="txt c1 num"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a class="lbl">CS</a></td>
+						<td><input type="text" id="txtTaxtype" class="txt c1 "/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input type="text" id="txtMemo" class="txt c1"></td>
+					</tr>
+					<tr class="trans" style="display: none;">
+						<td><span> </span><a id="lblRdate" class="lbl">讀取時間</a></td>
+						<td>
+							<input type="text" id="txtRdate" class="txt c1" style="width: 49%;"/>
+							<input type="text" id="txtRtime" class="txt c1" style="width: 49%;"/>
+							<input type="hidden" id="txtInvono"/>
+						</td>
+					</tr>
+					<tr class="trans" style="display: none;">
+						<td><span> </span><a class="lbl">發送局</a></td>
+						<td><input type="text" id="txtTypea" class="txt c1 "/></td>
+						<td><span> </span><a class="lbl">宅配員</a></td>
+						<td><input type="text" id="txtWorker2" class="txt c1 "/></td>
 					</tr>
 				</table>
 			</div>
