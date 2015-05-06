@@ -53,12 +53,6 @@
 				
 				q_gt('part', '', 0, 0, 0, "");
 				
-				   /* $("#cmbPartno").focus(function() {
-                	var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    	$(this).attr('size', len + "");
-                	}).blur(function() {
-                    	$(this).attr('size', '1');
-                	});*/
             }
 
             function bbsAssign() {/// 表身運算式
