@@ -46,9 +46,9 @@
 				q_brwCount();
 				
 				 if (r_outs==1)
-					q_content = "where=^^custno='" + r_userno + "'^^";
+					q_content = "where=^^invono='2' and custno='" + r_userno + "'^^";
 				else
-					q_content = "";
+					q_content = " invono='2' ";
 				
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
@@ -78,8 +78,8 @@
 				$("#lblMount").text('件數');
 				$("#lblDatea").text('登錄日期');
 				
-				$("#btnModi").hide();
-				$("#btnDele").hide();
+				//$("#btnModi").hide();
+				//$("#btnDele").hide();
 				$("#btnPrint").hide();
 				if(r_outs==0){
 					$("#lblCustno").show()
@@ -118,6 +118,9 @@
 				var ret;
 				switch (b_pop) {
 					case q_name + '_s':
+						s2[1]=replaceAll(replaceAll(s2[1],'where=^^',''),'^^','');
+						s2[1]="where=^^ "+s2[1]+" and invono='2' ^^"
+						
 						q_boxClose2(s2);
 						break;
 				}
