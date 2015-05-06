@@ -39,7 +39,7 @@
 	                begin
 		                insert into @list(barcode)values(@str)
 		                set @str = '97'+right('00000000'+cast(cast(left(right(@str,8),7) as int)+1 as nvarchar(10)),7)
-		                set @str = @str+cast(cast(@str as int )% 6 as nvarchar(10))
+		                set @str = @str+cast(cast(@str as int )% 7 as nvarchar(10))
 		                
 		                set @n = @n-1
 		                if(@n<0)
