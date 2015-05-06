@@ -75,6 +75,14 @@
 			     $('#txtFloata').change(function () {
 	            	sum();
 			     });
+			     
+			     $('#btnTggx').click(function() {
+                    q_box('tgg.aspx' + "?;;;;" + r_accy , '', "95%", "600px", "廠商主檔");
+                });
+                $('#btnBccx').click(function() {
+                    q_box('bcc.aspx' + "?;;;;" + r_accy, '', "95%", "600px", "資材主檔");
+
+                });
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -685,9 +693,12 @@
                 	<select id="cmbApv" class="txt c1 lef" name="D1" > </select>
                 </td> 
             </tr>
+            
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-                <td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width: 99%; height: 50px;"> </textarea></td> 
+                <td class="td2" colspan='5'><textarea id="txtMemo" rows="5" cols="10" style="width: 99%; height: 50px;"> </textarea></td>
+                <td align="center"><input id="btnTggx" type="button" value="廠商主檔" style="float: center;"/></td>
+				<td align="center"><input id="btnBccx" type="button" value="資材主檔" style="float: center;"/></td>
             </tr>
         </table>
         </div>
