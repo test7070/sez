@@ -33,7 +33,7 @@
                 string queryString = @"declare @list table(
 		                barcode nvarchar(20)
 	                )
-	                declare @n int = 300
+	                declare @n int = 10000
 	                declare @str nvarchar(20) = @bno
 	                while @str<=@eno
 	                begin

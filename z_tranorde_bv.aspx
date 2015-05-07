@@ -65,10 +65,10 @@
                 		&& dec($('#txtBnoa').val().substr(0,9))%7 == dec($('#txtBnoa').val().substr(-1))
                 		&& dec($('#txtEnoa').val().substr(0,9))%7 == dec($('#txtEnoa').val().substr(-1))
                 		){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<300)
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<10000)
                 				window.open("./pdf_tranorde.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
-                				alert('條碼範圍不得超逾300張!!!');
+                				alert('條碼範圍不得超逾10000張!!!');
                 		}else{
                 			alert('請輸入正確的97條碼!!!');
                 		}
