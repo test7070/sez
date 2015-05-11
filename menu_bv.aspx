@@ -172,7 +172,7 @@
 					</li>
 					<li>查詢作業
 						<ol>
-							<li><a>寄收狀況查詢</a></li>
+							<li><a id="z_transef_seek_bv" class="z_transef_seek_bv">寄收狀況查詢</a></li>
 						</ol>
 					</li>
 					<li>其他工具程式
