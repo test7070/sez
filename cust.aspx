@@ -103,6 +103,7 @@
 					aPop = new Array(
 						['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 						['txtAddr_fact', '', 'view_road', 'memo,zipcode', '0txtAddr_fact,txtZip_fact', 'road_b.aspx'],
+						['txtAddr_fact2', '', 'view_road', 'memo,zipcode', '0txtAddr_fact2,txtZip_fact2', 'road_b.aspx'],
 						['txtAddr_comp', '', 'view_road', 'memo,zipcode', '0txtAddr_comp,txtZip_comp', 'road_b.aspx'],
 						['txtAddr_invo', '', 'view_road', 'memo,zipcode', '0txtAddr_invo,txtZip_invo', 'road_b.aspx'],
 						['txtAddr_home', '', 'view_road', 'memo,zipcode', '0txtAddr_home,txtZip_home', 'road_b.aspx'],
@@ -117,6 +118,7 @@
 						['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'],
 						['txtCustno2', 'lblCustno2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx'],
 						['txtAddr_fact', '', 'view_road', 'memo,zipcode', '0txtAddr_fact,txtZip_fact', 'road_b.aspx'],
+						['txtAddr_fact2', '', 'view_road', 'memo,zipcode', '0txtAddr_fact2,txtZip_fact2', 'road_b.aspx'],
 						['txtAddr_comp', '', 'view_road', 'memo,zipcode', '0txtAddr_comp,txtZip_comp', 'road_b.aspx'],
 						['txtAddr_invo', '', 'view_road', 'memo,zipcode', '0txtAddr_invo,txtZip_invo', 'road_b.aspx'],
 						['txtAddr_home', '', 'view_road', 'memo,zipcode', '0txtAddr_home,txtZip_home', 'road_b.aspx'],
@@ -1002,11 +1004,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td colspan='5'><input id="txtTel" type="text" class="txt c7"/></td>
-					</tr>
-					<tr>
+						<td><input id="txtTel" type="text" class="txt c7"/></td>
 						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
-						<td colspan='3'><input id="txtFax" type="text" class="txt c7"/></td>
+						<td><input id="txtFax" type="text" class="txt c7"/></td>
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
 						<td><input id="txtMobile" type="text" class="txt c1"/></td>
 					</tr>
@@ -1022,14 +1022,19 @@
 						<td><input id="btnUcam" type="button" style="float: right;" class="btnUcam" style="display: none;"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblAddr_comp' class="lbl"> </a></td>
+						<td><input id="txtZip_comp" type="text" class="txt c1"/></td>
+						<td colspan='4'><input id="txtAddr_comp" type="text" class="txt c7"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
 						<td><input id="txtZip_fact" type="text" class="txt c1"></td>
 						<td colspan='4'><input id="txtAddr_fact" type="text" class="txt c7"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAddr_comp' class="lbl"> </a></td>
-						<td><input id="txtZip_comp" type="text" class="txt c1"/></td>
-						<td colspan='4'><input id="txtAddr_comp" type="text" class="txt c7"/></td>
+						<td><span> </span><a id='lblAddr_fact2' class="lbl"> </a></td>
+						<td><input id="txtZip_fact2" type="text" class="txt c1"></td>
+						<td colspan='4'><input id="txtAddr_fact2" type="text" class="txt c7"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_invo' class="lbl"> </a></td>

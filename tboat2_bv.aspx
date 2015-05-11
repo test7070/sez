@@ -153,7 +153,7 @@
                 				var t_code97=$('#txtCode').val();
                 				var t_code96='96'+t_code97.substr(2,7);
                 				//加入檢查碼
-                				t_code96=t_code96+(dec(t_code96)%6);
+                				t_code96=t_code96+(dec(t_code96)%7);
 								$('#txtShip').val(t_code96)
 							}
                 			
@@ -259,7 +259,7 @@
                 	var t_code97=$('#txtCode').val();
                 	var t_code96='96'+t_code97.substr(2,7);
                 	//加入檢查碼
-                	t_code96=t_code96+(dec(t_code96)%6);
+                	t_code96=t_code96+(dec(t_code96)%7);
 					$('#txtShip').val(t_code96)
 				}
 				

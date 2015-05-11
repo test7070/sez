@@ -74,7 +74,7 @@
 						q_gt('view_transef', t_where, 0, 0, 0, "GetMax97code");
 					}else if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
 						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
-						endcode=endcode+(endcode%6);
+						endcode=endcode+(endcode%7);
 						$('#txtDocketno2').val(endcode);
 					}
 				});
@@ -82,7 +82,7 @@
 				$('#txtDocketno1').blur(function() {
 					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
 						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
-						endcode=endcode+(endcode%6);
+						endcode=endcode+(endcode%7);
 						$('#txtDocketno2').val(endcode);
 					}
 				});
@@ -90,7 +90,7 @@
 				$('#txtDocketno2').blur(function() {
 					if(!emp($('#txtDocketno2').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
 						var begcode='97'+('0000000'+(dec($('#txtDocketno2').val().substr(-8).substr(0,7))-(dec($('#txtMount').val())-1))).substr(-7);
-						begcode=begcode+(begcode%6);
+						begcode=begcode+(begcode%7);
 						$('#txtDocketno1').val(begcode);
 					}
 				});
@@ -145,10 +145,10 @@
 						if (as[0] != undefined){
 							var maxcode=as[0].boatname;
 							maxcode='97'+('0000000'+(dec(maxcode.substr(-8).substr(0,7))+1)).substr(-7);
-							maxcode=maxcode+(maxcode%6);
+							maxcode=maxcode+(maxcode%7);
 						}
 						endcode='97'+('0000000'+(dec(maxcode.substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
-						endcode=endcode+(endcode%6);
+						endcode=endcode+(endcode%7);
 						
 						$('#txtDocketno1').val(maxcode);
 						$('#txtDocketno2').val(endcode);

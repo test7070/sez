@@ -47,14 +47,14 @@
                 
                 $('#txtBnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%6 == dec($(this).val().substr(-1))))
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
                 			alert('請輸入正確的97條碼!!!');
                 	}
 				});
 				
 				$('#txtEnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%6 == dec($(this).val().substr(-1))))
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
                 			alert('請輸入正確的97條碼!!!');
                 	}
 				});
@@ -62,13 +62,13 @@
                 $('#btnDownloadPdf').click(function() {
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
                 		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())
-                		&& dec($('#txtBnoa').val().substr(0,9))%6 == dec($('#txtBnoa').val().substr(-1))
-                		&& dec($('#txtEnoa').val().substr(0,9))%6 == dec($('#txtEnoa').val().substr(-1))
+                		&& dec($('#txtBnoa').val().substr(0,9))%7 == dec($('#txtBnoa').val().substr(-1))
+                		&& dec($('#txtEnoa').val().substr(0,9))%7 == dec($('#txtEnoa').val().substr(-1))
                 		){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<300)
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<10000)
                 				window.open("./pdf_tranorde.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
-                				alert('條碼範圍不得超逾300張!!!');
+                				alert('條碼範圍不得超逾10000張!!!');
                 		}else{
                 			alert('請輸入正確的97條碼!!!');
                 		}
