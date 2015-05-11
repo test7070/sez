@@ -25,14 +25,32 @@
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_workmp',
-                        options : [{
-						type : '0',
-						name : 'accy',
-                        value : r_accy
-                    },{
-                        type : '6',
-                        name : 'xnoa'
-                    }]
+	                        options : [{
+							type : '0',
+							name : 'accy',
+	                        value : r_accy
+	                    },{
+	                        type : '6',
+	                        name : 'xnoa'
+	                    }, {
+							type : '1', //[3][4]
+							name : 'xdate'
+						}, {
+							type : '2', //[5][6]
+							name : 'xproduct',
+							dbf : 'uca',
+							index : 'noa,product',
+							src : 'uca_b.aspx'
+						}, {
+							type : '2', //[7][8]
+							name : 'xprocess',
+							dbf : 'process',
+							index : 'noa,process',
+							src : 'process_b.aspx'
+						},{
+	                        type : '6',
+	                        name : 'xstyle'
+	                    }]
                     });
                 q_popAssign();
                if(window.parent.q_name=='workm'){
@@ -43,6 +61,10 @@
 				//$('#txtXdate').datepicker();
 				//$('#txtXdate').mask('999/99/99');
 				//$('#txtXdate').val(q_date());
+				$('#txtXdate1').datepicker().mask('999/99/99');
+				$('#txtXdate2').datepicker().mask('999/99/99');
+				$('#txtXdate1').val(q_date());
+				$('#txtXdate2').val(q_cdn(q_date(),15));
 			}
 
             function q_boxClose(s2) {

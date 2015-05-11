@@ -32,7 +32,7 @@
 				t_xbstationgno='#non',t_xestationgno='#non'	;
 
 			function q_gfPost() {
-				$('#q_report').q_report({
+				$('#q_report').q_report({//0511
 					fileName : 'z_workgg',
 					options : [{
 						type : '0', //[1]
