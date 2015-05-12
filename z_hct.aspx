@@ -35,7 +35,28 @@
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99//99');
 				$('#txtXdate2').datepicker();
+				
+				$('#btnXXX').click(function(e) {
+                    btnAuthority(q_name);
+                });
+				
 
+              	$('#btnRun').click(function(){
+					var t_index = $('#q_report').data('info').radioIndex;
+					var txtreport = $('#q_report').data('info').reportData[t_index].report;
+					if(emp($('#txtXdate1').val()) || emp($('#txtXdate2').val())){
+						alert('請輸入日期!!');
+						return;
+					}
+					if(t_index==1){
+						var t_bdatea=emp($('#txtXdate1').val())?'#non':$('#txtXdate1').val();
+						var t_edatea=emp($('#txtXdate2').val())?'#non':$('#txtXdate2').val();
+						
+						q_func('qtxt.query.'+txtreport,'z_hct.txt,'+txtreport+','+
+							t_bdatea + ';' +t_edatea + ';' 
+						);
+					}
+				});
 				
 			}
 
@@ -51,8 +72,33 @@
             }
 			
 			function q_funcPost(t_func, result) {
-				
+				switch(t_func) {
+					case 'qtxt.query.z_hct':
+						var as = _q_appendData('tmp0','',true,true);
+						if (as[0] == undefined) {
+							alert('沒有資料!!');
+						}else{
+							filenametxt = as;
+							for ( i = 0; i < filenametxt.length; i++) {
+		                		setTimeout('openpage('+i+')',1000);
+		                	}
+						}
+					break;
+				}
 			}
+			
+			var filenametxt=[];
+			function openpage(x) {
+            	var s1 = location.href;
+                var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/htm/');
+            	
+            	var $ifrm = $("<iframe style='display:none' />");
+				$ifrm.attr("src", t_path +replaceAll(filenametxt[x].filename,' ','')+'.rar');
+				$ifrm.appendTo("body");
+				$ifrm.load(function () {
+					//$("body").append("<div>Failed to download <i>'" + dlLink + "'</i>!");
+				});
+            }	
 					
 			
 		</script>

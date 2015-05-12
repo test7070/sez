@@ -67,6 +67,10 @@
 				$('#txtXdate').val(q_date());
 				$('#txtXmon2').attr('disabled', 'disabled').css('background','RGB(237,237,237)');
 				
+				$('#btnXXX').click(function(e) {
+                    btnAuthority(q_name);
+                });
+				
 				$('#txtXmon1').blur(function() {
 					if(!emp($('#txtXmon1').val())){
 						if(dec($('#txtXmon1').val().substr(4,2))%2==0){
