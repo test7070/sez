@@ -32,7 +32,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			q_desc = 1;
+			
 			brwCount2 = 8;
 			$(document).ready(function() {
 				bbmKey = ['noa'];

@@ -141,6 +141,7 @@
 							<li><a id="cust" class="cust_bv">客戶資料</a></li>
 							<li><a id="addr2" class="addr2_bv">行政區配送維護</a></li>
 							<li><a id="addr3" class="addr3_bv">發送所簡碼維護</a></li>
+							<li><a id="sss" class="sss">客戶資料</a></li>
 						</ol>
 					</li>
 					<li>預購系統
