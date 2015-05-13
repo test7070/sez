@@ -80,18 +80,30 @@
 				});
 				
 				$('#txtDocketno1').blur(function() {
-					if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
-						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
-						endcode=endcode+(endcode%7);
-						$('#txtDocketno2').val(endcode);
+					if(q_cur==1 || q_cur==2){
+						if(!emp($(this).val())){
+	                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
+	                			alert('請輸入正確的97條碼!!!');
+	                	}
+						if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
+							var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
+							endcode=endcode+(endcode%7);
+							$('#txtDocketno2').val(endcode);
+						}
 					}
 				});
 				
 				$('#txtDocketno2').blur(function() {
-					if(!emp($('#txtDocketno2').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
-						var begcode='97'+('0000000'+(dec($('#txtDocketno2').val().substr(-8).substr(0,7))-(dec($('#txtMount').val())-1))).substr(-7);
-						begcode=begcode+(begcode%7);
-						$('#txtDocketno1').val(begcode);
+					if(q_cur==1 || q_cur==2){
+						if(!emp($(this).val())){
+	                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
+	                			alert('請輸入正確的97條碼!!!');
+	                	}
+						if(!emp($('#txtDocketno2').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
+							var begcode='97'+('0000000'+(dec($('#txtDocketno2').val().substr(-8).substr(0,7))-(dec($('#txtMount').val())-1))).substr(-7);
+							begcode=begcode+(begcode%7);
+							$('#txtDocketno1').val(begcode);
+						}
 					}
 				});
 			}
@@ -139,6 +151,15 @@
 			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getrepeat':
+						var as = _q_appendData("tranorde", "", true);
+						if(as.length>0){
+							alert('預購號碼重複!!【'+as[0].noa+'】');
+						}else{
+							orde_repeat=true;
+							btnOk();
+						}
+						break;
 					case 'GetMax97code':
 						var as = _q_appendData("view_transef", "", true);
 						var maxcode='9700000004',endcode='9700000004';
@@ -230,7 +251,8 @@
 			function btnPrint() {
 				q_box("z_tranorde_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim($('#txtDocketno1').val()),enoa:trim($('#txtDocketno2').val())}) + ";" + r_accy + "_" + r_cno, 'tranorde', "95%", "95%", m_print);
 			}
-
+			
+			var orde_repeat=false;
 			function btnOk() {
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
 				if (checkId($('#txtDatea').val()) == 0) {
@@ -245,6 +267,28 @@
 					Unlock();
 					return;
 				}
+				
+                if(!((/^97[0-9]{8}$/g).test($('#txtDocketno1').val()) 
+                && dec($('#txtDocketno1').val().substr(0,9))%7 == dec($('#txtDocketno1').val().substr(-1)))){
+                	alert('預購起始號碼請輸入正確的97條碼!!!');
+                	Unlock();
+					return;
+                }
+                
+                if(!((/^97[0-9]{8}$/g).test($('#txtDocketno2').val()) 
+                && dec($('#txtDocketno2').val().substr(0,9))%7 == dec($('#txtDocketno2').val().substr(-1)))){
+                	alert('預購迄止號碼請輸入正確的97條碼!!!');
+                	Unlock();
+					return;
+                }
+                
+                //檢查預購單號範圍是否重覆
+                if(!orde_repeat){
+	                var t_where = "where=^^ ('"+$('#txtDocketno1').val()+"' >= docketno1 and '"+$('#txtDocketno1').val()+"' <= docketno2) or ('"+$('#txtDocketno2').val()+"' >= docketno1 and '"+$('#txtDocketno2').val()+"' <= docketno2) ^^";
+					q_gt('tranorde', t_where, 0, 0, 0, "getrepeat",r_accy);
+					return;
+                }
+                orde_repeat=false;
 				
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());

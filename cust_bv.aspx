@@ -29,13 +29,12 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
             , ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx']
-            , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-            , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
+            , ['txtSalesno', 'lblSales', 'sss', 'noa,namea,mobile1', 'txtSalesno,txtSales,txtMobile', 'sss_b.aspx']
             , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']
             , ['txtZip_fact', 'lblSiteno', 'addr3', 'noa,namea', 'txtZip_fact,txtAddr_fact', 'addr3_b.aspx']
             , ['txtZip_comp', '', 'addr2', 'noa,memo', 'txtZip_comp,txtAddr_comp', 'addr2_b.aspx']
             , ['txtZip_invo', '', 'addr2', 'noa,memo', 'txtZip_invo,txtAddr_invo', 'addr2_b.aspx']
-            
+            , ['txtChkstatus', 'lblSnumber', 'sss', 'ft_date,noa,namea,mobile1', 'txtChkstatus,txtSalesno,txtSales,txtMobile', 'sss_b.aspx']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -526,14 +525,14 @@
 					</tr>
 							</tr>
 						<tr>
-						<td><span> </span><a id="lblSiteno" class="lbl btn"></a></td>
+						<td><span> </span><a id="lblSiteno" class="lbl btn"> </a></td>
 						<td colspan="5">
 							<input id="txtZip_fact" type="text" style="float:left; width:10%;"/>
 							<input id="txtAddr_fact"  type="text" style="float:left; width:90%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl"> 工號 </a></td>
+						<td><span> </span><a id="lblSnumber" class="lbl"> 工號 </a></td>
 						<td><input id="txtChkstatus"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
 						<td>

@@ -310,7 +310,7 @@
 	                    string+='<td id="transef_aaddr" align="center" style="width:300px; color:black;">地址</td>';
 	                    string+='<td id="transef_atel" align="center" style="width:150px; color:black;">電話</td>';
 	                    string+='<td id="transef_uccno" align="center" style="width:100px; color:black;">發送所</td>';
-	                    string+='<td id="transef_edit" align="center" style="width:55px; color:black;">修改</td>';
+	                    //string+='<td id="transef_edit" align="center" style="width:55px; color:black;">修改</td>';
 	                    string+='<td id="transef_traceno" style="display:none;">訂單編號</td>';
 	                    string+='</tr>';
 	                    
@@ -325,7 +325,7 @@
 	                        string+='<td id="transef_aaddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].aaddr+'</td>';
 	                        string+='<td id="transef_atel'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].atel+'</td>';
 	                        string+='<td id="transef_uccno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].accno+'</td>';
-	                        string+='<td id="transef_edit'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"><input id="btnTransef_edit'+i+'"  type="button" style="float:center;width:50px;" value="修改"/></td>';
+	                        //string+='<td id="transef_edit'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"><input id="btnTransef_edit'+i+'"  type="button" style="float:center;width:50px;" value="修改"/></td>';
 	                        string+='<td id="transef_traceno'+i+'" style="display:none;">'+as[i].traceno+'</td>';
 	                        string+='</tr>';
 	                    }
@@ -333,12 +333,12 @@
 	                    
 	                    $('#transef').html(string);
 	                    
-	                    for(var j=0;j<transef_count;j++){
+	                    /*for(var j=0;j<transef_count;j++){
 	                    	$('#btnTransef_edit'+j).click(function() {
 	                    		var beq=replaceAll($(this).attr('id'),'btnTransef_edit','')
 	                    		q_box("transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";traceno='"+$('#transef_traceno'+beq).text()+"' and boatname='"+$('#transef_boatname'+beq).text()+"';" + r_accy, 'transef_bv', "1150px", "300px", '手寫託運單');
 							});
-	                    }
+	                    }*/
 	                    
 						break;
                     case 'aaa':

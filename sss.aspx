@@ -60,6 +60,7 @@
                 q_getFormat();
                 
                 if(q_getPara('sys.project').toUpperCase()=='BV'){
+                	document.title='1.4員工資料';
                 	$('#lblFt_date').text('工號');
                 	bbmMask = [['txtBirthday', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999'], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
                 }else{
