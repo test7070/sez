@@ -21,7 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat2";
-			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint'];
+			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint','txtLdate','txtLtime'];
 			var q_readonlys = [];
 			var bbmNum = new Array(['txtMount',10,0,1],['txtTotal',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
@@ -287,10 +287,6 @@
 
 			function refresh(recno) {
 				_refresh(recno);
-				var now_page=Math.floor(((dec($('#pageNow').val())-1)/brwCount));
-				for (var i = 0; i < brwCount; i++) {
-                	$('#vtseq_'+i).text((now_page*brwCount)+i+1);
-                }
 			}
 
 			function readonly(t_para, empty) {
@@ -393,7 +389,7 @@
 			}
 			.dview {
 				float: left;
-				width: 1250px;
+				width: 350px;
 				border-width: 0px;
 			}
 			.tview {
@@ -413,7 +409,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 1050px;
+				width: 900px;
 				/*margin: -1px;
 				 border: 1px black solid;*/
 				border-radius: 5px;
@@ -495,7 +491,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 950px;
+				width: 900px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -548,33 +544,15 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:40px; color:black;"><a>序號</a></td>
-						<td align="center" style="width:100px; color:black;"><a>97條碼</a></td>
-						<td align="center" style="width:100px; color:black;"><a>96條碼</a></td>
-						<td align="center" style="width:100px; color:black;"><a>客戶編號</a></td>
-						<td align="center" style="width:100px; color:black;"><a>簡稱</a></td>
-						<td align="center" style="width:100px; color:black;"><a>姓名</a></td>
-						<td align="center" style="width:50px; color:black;"><a>ZIP</a></td>
-						<td align="center" style="width:220px; color:black;"><a>地址</a></td>
-						<td align="center" style="width:120px; color:black;"><a>電話</a></td>
-						<td align="center" style="width:120px; color:black;"><a>行動電話</a></td>
-						<td align="center" style="width:80px; color:black;"><a>代收貨款</a></td>
-						<td align="center" style="width:75px; color:black;"><a>聯運條碼</a></td>
+						<td align="center" style="width:100px; color:black;"><a>登錄日期</a</td>
+						<td align="center" style="width:200px; color:black;"><a>客戶簡稱</a></td>
+						<td align="center" style="width:100px; color:black;"><a>聯運件數</a</td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td id='seq' style="text-align: center;"> </td>
-						<td id='code' style="text-align: center;">~code</td>
-						<td id='ship' style="text-align: center;">~ship</td>
-						<td id='custno' style="text-align: center;">~custno</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='namea' style="text-align: center;">~namea</td>
-						<td id='zip' style="text-align: center;">~zip</td>
-						<td id='boatname' style="text-align: center;">~boatname</td>
-						<td id='tel' style="text-align: center;">~tel</td>
-						<td id='mobile' style="text-align: center;">~mobile</td>
-						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
-						<td id='isprint' style="text-align: center;">~isprint</td>
+						<td id='mount' style="text-align: right;">~mount</td>
 					</tr>
 				</table>
 			</div>
@@ -635,6 +613,11 @@
 					<tr>
 						<td><span> </span><a class="lbl">聯運件數</a></td>
 						<td><input type="text"id="txtMount" class="txt num c1"> </td>
+						<td><span> </span><a class="lbl">聯運時間</a></td>
+						<td>
+							<input type="text"id="txtLdate" class="txt c3">
+							<input type="text"id="txtLtime" class="txt c2"> 
+						</td>
 						<td><span> </span><a class="lbl">聯運條碼</a></td>
 						<td><input type="text" id="txtIsprint" class="txt c1"/> </td>
 					</tr>

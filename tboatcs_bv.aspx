@@ -166,6 +166,7 @@
 				var tMinutes = timeDate.getMinutes();
 				$('#txtInvodate').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
 				$('#txtWorker').focus();
+				$('#txtTaxtype').val(r_name);
 				
 				if(r_outs==1){
 					var t_where = "where=^^ noa='"+r_userno+"' ^^";

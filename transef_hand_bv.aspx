@@ -324,7 +324,7 @@
 	                        string+='<td id="transef_comp'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].nick+'</td>';
 	                        string+='<td id="transef_aaddr'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].aaddr+'</td>';
 	                        string+='<td id="transef_atel'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].atel+'</td>';
-	                        string+='<td id="transef_uccno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].accno+'</td>';
+	                        string+='<td id="transef_uccno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].uccno+'</td>';
 	                        //string+='<td id="transef_edit'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"><input id="btnTransef_edit'+i+'"  type="button" style="float:center;width:50px;" value="修改"/></td>';
 	                        string+='<td id="transef_traceno'+i+'" style="display:none;">'+as[i].traceno+'</td>';
 	                        string+='</tr>';
