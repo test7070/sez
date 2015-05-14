@@ -209,6 +209,9 @@
 						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
 						getTheory(n);
 					});
+					$('#txtWeight_' + j).change(function() {
+						TotWeight();
+					});
 					$('#txtMount_' + j).change(function() {
 						var n = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
 						var t_ordeno = $.trim($('#txtOrdeno_' + n).val());
@@ -253,6 +256,7 @@
 			}
 
 			function btnOk() {
+				TotWeight();
 			    bbsReSort();
                 t_key = q_getHref();
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
@@ -381,7 +385,6 @@
 
 			function refresh() {
 				_refresh();
-				//q_popPost('txtProductno_');
 				$('input[id*="txtProduct_"]').each(function() {
 					thisId = $(this).attr('id').split('_')[$(this).attr('id').split('_').length - 1];
 					$(this).attr('OldValue', $('#txtProductno_' + thisId).val());
@@ -391,6 +394,14 @@
 					var t_where = 'where=^^ (1=1) and (uno in(' + UnoList + '))^^';
 					q_gt('uccy', t_where, 0, 0, 0, 'deleUccy', r_accy);
 				}
+				TotWeight();
+			}
+			function TotWeight(){
+				var totWeight = 0;
+				for(var i=0;i<q_bbsCount;i++){
+					totWeight = q_add(totWeight,q_float('txtWeight_'+i));
+				}
+				$('#totWeight').text(totWeight);
 			}
 
 			var StyleList = '';
@@ -555,7 +566,7 @@
 					</td>
 					<td align="center" style="width:180px;"><a id='lblSize'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'></a></td>
-					<td align="center" style="width:120px;"><a id='lblWeight'></a></td>
+					<td align="center" style="width:120px;"><a id='lblWeight'></a><br><a id='totWeight'></a></td>
 					<td align="center" style="width:120px;display:none;"><a id='lblInweight'></a></td>
 					<td align="center" style="width:80px;display:none;"><a id='lblWaste'></a></td>
 					<td align="center" style="width:80px;display:none;"><a id='lblGmount'></a></td>
