@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -31,7 +31,9 @@
             aPop = new Array(['txtSalesno', 'lblSalesno', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
             , ['txtBcustno', '', 'cust', 'noa,comp', 'txtBcustno,txtBcust', 'cust_b.aspx']
             , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-            , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+            , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+            , ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']
+            );
             brwCount2 = 8;
 
             $(document).ready(function() {
@@ -469,36 +471,30 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-						<input id="txtNoa" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtNoa" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea"  type="text" class="txt c1"/>
-						</td>
+						<td><input id="txtDatea"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td>
-						<input id="txtMon"  type="text" class="txt c1"/>
-						</td>
+						<td><input id="txtMon"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSalesno' class="lbl btn"> </a></td>
 						<td colspan="2">
-						<input id="txtSalesno"  type="text" style="float:left; width:40%;"/>
-						<input id="txtSales"  type="text" style="float:left; width:60%;"/>
+							<input id="txtSalesno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtSales"  type="text" style="float:left; width:60%;"/>
 						</td>
 					</tr>
 					<tr id="hiddenCust">
@@ -509,10 +505,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPart' class="lbl"> </a></td>
-						<td>
-							<input id="txtPartno"  type="text" style="display:none;"/>
-							<input id="txtPart"  type="text" class="txt c1"/>
+						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input id="txtPartno"  type="text" class="txt c1" style="width:40%;"/>
+							<input id="txtPart"  type="text" class="txt c1" style="width:40%;"/>
 						</td>
 					</tr>
 					<!--<tr>
@@ -525,9 +521,9 @@
 					<tr>
 						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
 						<td colspan="3">
-						<input id="txtBdate"  type="text" style="float:left; width:45%;"/>
-						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
-						<input id="txtEdate"  type="text" style="float:left; width:45%;"/>
+							<input id="txtBdate"  type="text" style="float:left; width:45%;"/>
+							<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
+							<input id="txtEdate"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
 					<!--<tr>
@@ -541,9 +537,9 @@
 					<tr>
 						<td><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
 						<td colspan="3">
-						<input id="txtBvccno"  type="text" style="float:left; width:45%;"/>
-						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
-						<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
+							<input id="txtBvccno"  type="text" style="float:left; width:45%;"/>
+							<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
+							<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
 					<tr>

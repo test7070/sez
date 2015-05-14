@@ -17,12 +17,12 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_trans_bv');
+                q_gf('', 'z_tboat_bv');
             });
             
             function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_trans_bv',
+					fileName : 'z_tboat_bv',
 					options : [{
 						type : '1',/*[1][2]*/
 						name : 'date'
@@ -32,12 +32,19 @@
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
-                    }]
+                    },{
+						type : '6',/*[5]*/
+						name : 'xsite'
+					},{
+						type : '5',/*[6]*/
+						name : 'read',
+						value : " @全部,1@已讀取,2@未讀取".split(',')
+					}]
 				});
 				
                 q_popAssign();
                 q_langShow();
-                document.title='2.2使用控管表'
+                document.title='5.3派遣控管表'
                 
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();

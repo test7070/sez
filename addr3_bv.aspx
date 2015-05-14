@@ -32,7 +32,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			q_desc = 1;
+			
 			brwCount2 = 8;
 			$(document).ready(function() {
 				bbmKey = ['noa'];
@@ -55,7 +55,7 @@
 				mainForm(0);
 			}
 			function mainPost() {
-				document.title='站所主檔';
+				document.title='1.3發送所簡碼維護';
 				$("#lblNoa").text('站所代碼');
 				$("#lblNamea").text('站所名稱');
 				q_getFormat();

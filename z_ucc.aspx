@@ -89,7 +89,19 @@
 						type : '8',
 						name : 'allucc',//[20]
 						value : '1@顯示零庫存產品'.split(',')
-					}]
+					}, {
+                        type : '0', //[21]
+                        name : 'mountprecision',
+                        value : q_getPara('vcc.mountPrecision')
+                    }, {
+                        type : '0', //[22]
+                        name : 'weightprecision',
+                        value : q_getPara('vcc.weightPrecision')
+                    }, {
+                        type : '0', //[23]
+                        name : 'priceprecision',
+                        value : q_getPara('vcc.pricePrecision')
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();

@@ -450,7 +450,7 @@
 							//t_where += " and SUBSTRING(noa,2,1) LIKE '[0-9]%' "; >>翻頁會出錯
 							//t_where += " and len(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(SUBSTRING(noa,2,1),'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9',''))=0 ";
 							t_where+=" and noa like 'W[0-9]%' ";
-							t_where += " and (select count(*) from view_works where noa=view_work.noa)>0";
+							t_where += " and (select count(*) from view_works where noa=view_work"+r_accy+".noa)>0";
 							
 							q_box("work_chk_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('popWork'));
 							

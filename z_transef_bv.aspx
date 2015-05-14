@@ -42,41 +42,34 @@
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                document.title='4.3 EDI託運單列印'
                 
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
-                var t_para = new Array();
-	            try{
-	            	t_para = JSON.parse(q_getId()[3]);
-	            }catch(e){
-	            }    
-	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
-	            	
-	            }else{
-	            	$('#txtBnoa').val(t_para.bnoa);
-                	$('#txtEnoa').val(t_para.enoa);
-	            }
 	            
                 $('.prt').hide();
                 
                 $('#txtBnoa').change(function() {
                 	if(!emp($(this).val())){
-                		if(!(/^97[0-9]{8}$/g).test($(this).val()))
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
                 			alert('請輸入正確的97條碼!!!');
                 	}
 				});
 				
 				$('#txtEnoa').change(function() {
                 	if(!emp($(this).val())){
-                		if(!(/^97[0-9]{8}$/g).test($(this).val()))
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
                 			alert('請輸入正確的97條碼!!!');
                 	}
 				});
                 
                 $('#btnDownloadPdf').click(function() {
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
-                		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8)),dec($('#txtEnoa').val().substr(-8))))<300)
+                		if((/^97[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^97[0-9]{8}$/g).test($('#txtEnoa').val())
+                		&& dec($('#txtBnoa').val().substr(0,9))%7 == dec($('#txtBnoa').val().substr(-1))
+                		&& dec($('#txtEnoa').val().substr(0,9))%7 == dec($('#txtEnoa').val().substr(-1))
+                		){
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<300)
                 				window.open("./pdf_edi.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&str="+$('#Str .cmb').val()+"&db="+q_db);
                 			else
                 				alert('條碼範圍不得超逾300張!!!');
@@ -87,6 +80,25 @@
                 		alert('請輸入97條碼!!!');
                 	}
                 	
+				});
+				
+				
+				var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            }catch(e){
+	            }    
+	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
+	            	
+	            }else{
+	            	$('#txtBnoa').val(t_para.bnoa);
+                	$('#txtEnoa').val(t_para.enoa);
+                	if(!emp($('#txtBnoa').val()) && !emp($('#txtEnoa').val()))
+                		$('#btnDownloadPdf').click();
+	            }
+	            
+	            $('#btnAuthority').click(function(e) {
+					btnAuthority(q_name);
 				});
             }
 
@@ -108,6 +120,7 @@
 			</div>
 			<div style="float: left; width: 100%;">
 				<input class="btn" id="btnDownloadPdf" type="button" value='列印' style=" font-weight: bold;font-size: 16px;color: blue;" />
+				<input class="btn" id="btnAuthority" type="button" value="權限" style=" font-weight: bold;font-size: 16px;color: blue;"/>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->

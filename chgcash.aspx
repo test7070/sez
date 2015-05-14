@@ -205,20 +205,37 @@
 		        for (var i = 0; i < q_bbsCount; i++) {
 		            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
 		        }
+		        
 		        if ($('#txtSssno').val().length == 0)
 		            $('#txtNamea').val('');
 		        if (!$("#chkCarchg").prop("checked")) {
 		            $('#cmbCarteamno').val('');
 		        }
+		        
 		        if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 		            alert(q_getMsg('lblDatea') + '錯誤。');
 		            return;
 		        }
-		        if($('#cmbDc').val() == 3){
-		        	if(($('#txtAcc1').val() == '') || ($('#txtAcc2').val() == '') || $('#txtAcc1').val().substring(0,4) !='1112'){
-		        		alert('請輸入' + q_getMsg('lblAcc1') + '且為1112開頭' );
+		       
+		       //104/05/13 開放1111可以輸入
+		       if($('#cmbDc').val() == 3){
+		        	if( ($('#txtAcc1').val() == '') || ($('#txtAcc2').val() == '') || ($('#txtAcc1').val().substring(0,4) !='1111' && $('#txtAcc1').val().substring(0,4) !='1112') ){
+		        		alert('請輸入' + q_getMsg('lblAcc1') + '且為1111或1112開頭' );
 		        		return;
 		        	}
+		        }
+		        
+		        //104/05/13 判斷表身一定要有資料才能存檔
+		        var bbs_count=false;
+		        for (var i = 0; i < q_bbsCount; i++) {
+		        	if(!emp($('#txtAcc1_'+i).val())){
+		        		bbs_count=true;
+		        		break;
+		        	}
+		        }
+		        if(!bbs_count){
+		        	alert('表身無資料。');
+		            return;
 		        }
 		        
 		        if(emp($('#txtPartno').val()) || $('#txtPartno').val()=='0'){
@@ -227,6 +244,7 @@
 		        }
 		        
 		        sum();
+		        
 		        if(q_cur ==1){
 	            	$('#txtWorker').val(r_name);
 	            }else if(q_cur ==2){
@@ -611,13 +629,9 @@
 					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDatea"  type="text"  class="txt c1"/>
-						</td>
+						<td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblTime" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtTime"  type="text"  class="txt c1"/>
-						</td>
+						<td class="td4"><input id="txtTime"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 						<td class="td7"> </td>
@@ -629,21 +643,20 @@
 						<td><select id="cmbDc" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblSss" class="lbl btn"> </a></td>
 						<td>
-						<input id="txtSssno"  type="text"  class="txt c4"/>
-						<input id="txtNamea" type="text"  class="txt c4"/>
-						<input id="txtPartno"  type="hidden"/>
-						<input id="txtPart" type="hidden"/>
+							<input id="txtSssno"  type="text"  class="txt c4"/>
+							<input id="txtNamea" type="text"  class="txt c4"/>
+							<input id="txtPartno"  type="hidden"/>
+							<input id="txtPart" type="hidden"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblChgpart" class="lbl"> </a></td>
-						<td><select id="cmbChgpartno" class="txt c1"> </select>
-						<input id="txtChgpart"  type="text" style="display: none;"/>
+						<td>
+							<select id="cmbChgpartno" class="txt c1"> </select>
+							<input id="txtChgpart"  type="text" style="display: none;"/>
 						</td>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney" type="text" class="txt num c1"/>
-						</td>
+						<td><input id="txtMoney" type="text" class="txt num c1"/></td>
 						<td><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtAcc2" type="text" class="txt c1"/>
@@ -669,9 +682,7 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
+					<td  align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:80px;"><a id='lblPart_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblAcc_s'> </a></td>
@@ -680,8 +691,8 @@
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="text" style="display: none;" />
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
@@ -689,16 +700,12 @@
 						<input id="txtPart.*"  type="text" style="display: none;"/>
 					</td>
 					<td>
-					<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-					<input type="text" id="txtAcc1.*"  style="width:35%;"/>
-					<input type="text" id="txtAcc2.*"  style="width:45%;"/>
+						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+						<input type="text" id="txtAcc1.*"  style="width:35%;"/>
+						<input type="text" id="txtAcc2.*"  style="width:45%;"/>
 					</td>
-					<td >
-					<input type="text" id="txtMemo.*" style="width:95%;" />
-					</td>
-					<td>
-					<input type="text" id="txtMoney.*" style="width:95%;text-align: right;" />
-					</td>
+					<td ><input type="text" id="txtMemo.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtMoney.*" style="width:95%;text-align: right;" /></td>
 
 				</tr>
 			</table>
