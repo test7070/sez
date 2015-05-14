@@ -93,7 +93,7 @@
                 var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/htm/');
             	
             	var $ifrm = $("<iframe style='display:none' />");
-				$ifrm.attr("src", t_path +replaceAll(filenametxt[x].filename,' ','')+'.rar');
+				$ifrm.attr("src", t_path +replaceAll(filenametxt[x].filename,' ','')+'.txt');
 				$ifrm.appendTo("body");
 				$ifrm.load(function () {
 					//$("body").append("<div>Failed to download <i>'" + dlLink + "'</i>!");
