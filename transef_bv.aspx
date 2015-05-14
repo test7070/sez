@@ -39,10 +39,10 @@
             $(document).ready(function() {
 				bbmKey = ['noa'];
                 q_brwCount();
-                if(q_content!=""){
+                /*if(q_content!=""){
                 	q_content="where=^^"+replaceAll(replaceAll(q_content,"where=^^",""),"^^","")+"and left(calctype,2)='手寫' "+"^^";
                 }else
-                	q_content = "where=^^left(calctype,2)='手寫'^^";
+                	q_content = "where=^^left(calctype,2)='手寫'^^";*/
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
                 
             });
@@ -69,15 +69,12 @@
                 $('#textEdate').datepicker();
                 
                 $('#btnIns').hide();
+                $('#btnModi').hide();
                 $('#btnDele').hide();
                 $('#btnSeek').hide();
                 $('#btnPrint').hide();
-                $('#btnPrevPage').hide();
-                $('#btnPrev').hide();
-                $('#btnNext').hide();
-                $('#btnNextPage').hide();
-                $('#pageNow').hide();
-                $('#pageAll').hide();
+                $('#btnOk').hide();
+                $('#btnCancel').hide();
             }
             function q_boxClose(s2) {
                 var ret;
@@ -349,39 +346,39 @@
     >
         <!--#include file="../inc/toolbar.inc"-->
         <div id="dmain">
-            <div class="dview" id="dview" style="display: none;">
+            <div class="dview" id="dview">
                 <table class="tview" id="tview">
                     <tr>
                         <td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
-                        <td align="center" style="width:100px; color:black;">97條碼</td>
-                        <td align="center" style="width:100px; color:black;">客戶代號</td>
+                        <!--<td align="center" style="width:100px; color:black;">客戶代號</td>-->
                         <td align="center" style="width:100px; color:black;">客戶簡稱</td>
-                        <td align="center" style="width:80px; color:black;">袋號</td>
-                        <td align="center" style="width:80px; color:black;">件數</td>
-                        <td align="center" style="width:80px; color:black;">發送所</td>
-                        <td align="center" style="width:120px; color:black;">訂單號碼</td>
-                        <!--<td align="center" style="width:80px; color:black;">審件等級</td>
+                        <td align="center" style="width:100px; color:black;">97條碼</td>
+                        <td align="center" style="width:100px; color:black;">姓名</td>
+                        <td align="center" style="width:100px; color:black;">電話</td>
+                        <td align="center" style="width:100px; color:black;">郵遞區號</td>
+                        <td align="center" style="width:140px; color:black;">地址</td>
+                        <td align="center" style="width:80px; color:black;">速配袋號</td>
                         <td align="center" style="width:80px; color:black;">代收貨款</td>
                         <td align="center" style="width:140px; color:black;">商品內容</td>
-                        <td align="center" style="width:180px; color:black;">備註</td>-->
+                        <td align="center" style="width:180px; color:black;">備註</td>
                     </tr>
                     <tr>
                         <td ><input id="chkBrow.*" type="checkbox"/></td>
-                        <td id="boatname" style="text-align: center;">~boatname</td>
-                        <td id="custno" style="text-align: center;">~custno</td>
+                        <!--<td id="custno" style="text-align: center;">~custno</td>-->
                         <td id="nick" style="text-align: center;">~nick</td>
+                        <td id="boatname" style="text-align: center;">~boatname</td>
+                        <td id="addressee" style="text-align: center;">~addressee</td>
+                        <td id="atel" style="text-align: center;">~atel</td>
+                        <td id="caseend" style="text-align: center;">~caseend</td>
+                        <td id="aaddr" style="text-align: center;">~aaddr</td>
                         <td id="carno" style="text-align: center;">~carno</td>
-                        <td id="mount,10,0,1" style="text-align: center;">~mount,10,0,1</td>
-                        <td id="accno" style="text-align: center;">~accno</td>
-                        <td id="traceno" style="text-align: center;">~traceno</td>
-                        <!--<td id="unit" style="text-align: center;">~unit</td>
                         <td id="price,0" style="text-align: right;">~price,0</td>
                         <td id="straddr" style="text-align: center;">~straddr</td>
-                        <td id="endaddr" style="text-align: center;">~endaddr</td>-->
+                        <td id="endaddr" style="text-align: center;">~endaddr</td>
                     </tr>
                 </table>
             </div>
-            <div class="dbbm">
+            <div class="dbbm" style="display: none;">
                 <table class="tbbm"  id="tbbm">
                     <tr style="height:1px;">
                         <td> </td>
@@ -397,10 +394,12 @@
                     <tr>
                     	<td><span> </span><a class="lbl"> 97條碼 </a></td>
 						<td><input type="text" id="txtBoatname" class="txt c1" /></td>
-						<!--<td><span> </span><a class="lbl"> 96條碼 </a></td>
+						<td><span> </span><a class="lbl"> 96條碼 </a></td>
 						<td ><input type="text" id="txtPo" class="txt c1" style="width:70%"/></td>
 						<td><span> </span><a class="lbl">已傳入大貨追</a></td>
-                        <td><input id="txtMon"  type="text" class="txt c1 "/></td>-->
+                        <td><input id="txtMon"  type="text" class="txt c1 "/></td>
+					</tr>
+					<tr> 
                         <td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input type="text" id="txtCustno" class="txt" style="width:20%;float: left; " />
@@ -410,18 +409,18 @@
 						<td><span> </span><a class="lbl">托運單</a></td>
 						<td><input type="text" id="txtIo" class="txt c1" /></td>
                     </tr>
-                    <!--<tr>
+                    <tr>
                     	<td><span> </span><a class="lbl">發送日期</a></td>
                         <td><input id="txtDatea"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">配送日期</a></td>
                         <td><input id="txtTrandate"  type="text" class="txt c1"/></td>
-                    </tr>-->
-                    <!--<tr>
+                    </tr>
+                    <tr>
                         <td><span> </span><a class="lbl">姓名</a></td>
-                        <td><input id="txtAddressee"  type="text" class="txt c1"/></td>-->
-                        <!--<td><span> </span><a class="lbl">行動電話</a></td>
+                        <td><input id="txtAddressee"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">行動電話</a></td>
                         <td><input id="txtBoat"  type="text" class="txt c1"/></td>
-                    </tr>-->
+                    </tr>
                     <tr>
                     	<td><span> </span><a id='lblCaseend' class="lbl"> </a></td>
                         <td><input id="txtCaseend"  type="text" class="txt c1 "/></td>
@@ -430,36 +429,38 @@
                         <td><span> </span><a class="lbl">發送所</a></td>
                         <td><input id="txtAccno"  type="text" class="txt c1 "/></td>
                     </tr>
-                    <!--<tr>
+                    <tr>
                         <td><span> </span><a class="lbl">商品內容</a></td>
                         <td colspan="3"><input id="txtStraddr"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">備註</a></td>
                         <td colspan="3"><input id="txtEndaddr"  type="text" class="txt c1"/></td>
-                    </tr>-->
+                    </tr>
                     <tr>
                         <td><span> </span><a class="lbl">件數</a></td>
                         <td><input id="txtMount"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">電話</a></td>
                         <td colspan="3"><input id="txtAtel"  type="text" class="txt c1"/></td>
-                        <!--<td><span> </span><a class="lbl">重量</a></td>
+                        <td><span> </span><a class="lbl">重量</a></td>
                         <td><input id="txtWeight"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">代收貨款</a></td>
                         <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
                         <td><span> </span><a class="lbl">審件等級</a></td>
-                        <td><input id="txtUnit"  type="text" class="txt c1"/></td>-->
+                        <td><input id="txtUnit"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
                     	<td><span> </span><a class="lbl"> 託運單形式 </a></td>
 						<td><select id="cmbCalctype" class="txt c1"> </select></td>
                     	<td><span> </span><a class="lbl"> 速配袋號 </a></td>
-						<td style="display: none;"><select id="cmbCarno" class="txt c1"> </select></td>
-						<td style="display: none;"><span> </span><a class="lbl"> 單據編號 </a></td>
+						<td><select id="cmbCarno" class="txt c1"> </select></td>
+						<td><span> </span><a class="lbl"> 單據編號 </a></td>
 						<td>
 							<input type="text" id="txtNoa" class="txt c1"/>
 							<input id="txtNoq"  type="text" style="display:none;"/>
 						</td>
-                        <!--<td><span> </span><a class="lbl">來源表單編號</a></td>
-                        <td><input id="txtSo"  type="text" class="txt c1"/></td>-->
+					</tr>
+                    <tr>
+                        <td><span> </span><a class="lbl">來源表單編號</a></td>
+                        <td><input id="txtSo"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">訂單編號</a></td>
                         <td><input id="txtTraceno"  type="text" class="txt c1"/></td>
                     </tr>	
