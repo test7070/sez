@@ -121,7 +121,7 @@
 						var t_where = "1=1 and enda!=1 and cut='1' ";
 						t_where += q_sqlPara2('odate', t_bdate, t_edate) + q_sqlPara2('dime', t_bdime, t_edime) + q_sqlPara2('radius', t_bradius, t_eradius) + q_sqlPara2('width', t_bwidth, t_ewidth) + q_sqlPara2('style', t_style) + q_sqlPara2('productno', t_productno) + q_sqlPara2('mechno', t_mechno);
 						t_where += " and (notv > 0) and kind='B2'";
-						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'view_ordes', "95%", "95%", q_getMsg('popOrde'));
+						q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'view_ordes', "95%", "95%", q_getMsg('popOrde'));
 						//q_gt('view_ordes', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
