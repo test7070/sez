@@ -19,14 +19,21 @@
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_tboat2_bv');
+                
             });
+            
             function q_gfPost() {
                 $('#qReport').q_report({
                     fileName : 'z_tboat2_bv',
                     options : [{
-                        type : '0',
-                        name : 'path',
-                        value : location.href.toLowerCase().replace(/(.*)(z_tranorde_bv.aspx)(.*)/g,'$1')
+                        type : '1',
+                        name : 'xdate'
+                    }, {
+                        type : '2',
+                        name : 'xcust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     },{
                         type : '6',
                         name : 'bnoa'
@@ -35,11 +42,17 @@
                         name : 'enoa'
                     }]
                 });
+                
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
+                
                 $('#txtBnoa').mask('9999999999');
                 $('#txtEnoa').mask('9999999999');
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate2').mask('999/99/99');
+                
+                $('.q_report .option div .c6').css('width','90px');
                 
                 var t_para = new Array();
 	            try{
@@ -57,14 +70,14 @@
                 
                 $('#txtBnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(2,7))%7)==$(this).val().substr(-1)))
+                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(0,9))%7)==$(this).val().substr(-1)))
                 			alert('請輸入正確的96條碼!!!');
                 	}
 				});
 				
 				$('#txtEnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(2,7))%7)==$(this).val().substr(-1)))
+                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(0,9))%7)==$(this).val().substr(-1)))
                 			alert('請輸入正確的96條碼!!!');
                 	}
 				});
@@ -72,8 +85,8 @@
                 $('#btnDownloadPdf').click(function() {
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
                 		if((/^96[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^96[0-9]{8}$/g).test($('#txtEnoa').val()) &&
-                		($('#txtBnoa').val().substr(2,7)%7)==$('#txtBnoa').val().substr(-1)&&($('#txtEnoa').val().substr(2,7)%7)==$('#txtEnoa').val().substr(-1)){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(2,7)),dec($('#txtEnoa').val().substr(2,7))))<300)
+                		($('#txtBnoa').val().substr(0,9)%7)==$('#txtBnoa').val().substr(-1)&&($('#txtEnoa').val().substr(0,9)%7)==$('#txtEnoa').val().substr(-1)){
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(0,9)),dec($('#txtEnoa').val().substr(0,9))))<300)
                 				window.open("./pdf_barcode96.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
                 				alert('條碼範圍不得超逾300張!!!');
@@ -89,6 +102,16 @@
 				$('#btnAuthority').click(function(e) {
 					btnAuthority(q_name);
 				});
+				
+				$('#qReport').click(function(){
+					if($('#qReport').data('info').radioIndex==0){
+						$('.prt').hide();
+						$('.download').show();
+					}else{
+						$('.prt').show();
+						$('.download').hide();
+					}
+				});
             }
 
             function q_boxClose(t_name) {
@@ -102,12 +125,12 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="qReport"></div>
+				<div id="qReport"> </div>
 			</div>
-			<div style="float: left; width: 100%;">
+			<div class="download" style="float: left; width: 100%;">
 				<input class="btn" id="btnDownloadPdf" type="button" value='列印' style=" font-weight: bold;font-size: 16px;color: blue;" />
 				<input class="btn" id="btnAuthority" type="button" value="權限" style=" font-weight: bold;font-size: 16px;color: blue;"/>
 			</div>

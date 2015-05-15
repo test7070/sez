@@ -440,8 +440,10 @@
                         <td><input id="txtMount"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">電話</a></td>
                         <td colspan="3"><input id="txtAtel"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">重量</a></td>
-                        <td><input id="txtWeight"  type="text" class="txt c1"/></td>
+                    </tr>
+                    <tr>
+                    	<td><span> </span><a class="lbl">重量</a></td>
+                    	<td><input id="txtWeight"  type="text" class="txt c1"/></td>
                         <td><span> </span><a class="lbl">代收貨款</a></td>
                         <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
                         <td><span> </span><a class="lbl">審件等級</a></td>

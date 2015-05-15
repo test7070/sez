@@ -70,7 +70,11 @@
                     
                     $('#vcc').append(string);
                     string='';
-                    string+='<a id="lblCust" style="float:left;">客戶編號</a><input id="textCustno"  type="text" style="float:left;width:130px;"/>';
+                    if(r_outs==1)
+                    	string+='<a id="lblCust" style="float:left;display:none;">客戶編號</a><input id="textCustno"  type="text" style="float:left;width:130px;display:none;"/>';
+                    else
+                    	string+='<a id="lblCust" style="float:left;">客戶編號</a><input id="textCustno"  type="text" style="float:left;width:130px;"/>';
+                    	
                     string+='<a style="float:left;">上傳日期</a><input id="textBdate"  type="text" style="float:left;width:80px;"/><a style="float:left;">~</a><input id="textEdate"  type="text" style="float:left;width:80px;"/>';
                     string+='<input id="btnVcc_refresh"  type="button" style="float:left;width:100px;" value="查詢"/>';
                     string+='<input id="btnVcc_previous" onclick="vcc.previous()" type="button" style="float:left;width:100px;" value="上一頁"/>';
@@ -224,8 +228,15 @@
                 q_cur=2;
                 document.title='4.2 EDI上傳總表';
                 
-                t_where="where=^^1=1  order by datea desc,custno^^ top=1000";
+                if(r_outs==1)
+                	t_where="where=^^1=1 and custno='"+r_userno+"' order by datea desc,custno^^ top=1000";
+                else
+                	t_where="where=^^1=1  order by datea desc,custno^^ top=1000";
 				q_gt('view_vcc_bv', t_where, 0, 0, 0,'aaa', r_accy);
+				
+				$('#btnAuthority').click(function(e) {
+					btnAuthority(q_name);
+				});
                 
                 $('#btnVcc_refresh').click(function(e) {
                     var t_where = "1=1 ";
@@ -236,6 +247,9 @@
 					t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
                     
                     t_where += q_sqlPara2("custno", t_custno)+ q_sqlPara2("isnull(datea,'')", t_bdate,t_edate);
+                    
+                    if(r_outs==1)
+                    	t_where=t_where+" and custno='"+r_userno+"' ";
                     
                     t_where="where=^^"+t_where+"^^";
                     Lock();
@@ -526,7 +540,7 @@
 		<div id='q_acDiv'> </div>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type='button' id='btnAuthority' name='btnAuthority' style='font-size:16px;' value='權限'/>
-		<input type='button' id='btnPrint'  style='font-size:16px;' value='列印'/>
+		<input type='button' id='btnPrint'  style='font-size:16px;' value='列印總表'/>
 		<div id="vcc" style="float:left;width:1260px;"> </div> 
 		<div id="vcc_control" style="width:1200px;"> </div> 
 		<div id="transef" style="float:left;width:1260px;"> </div> 

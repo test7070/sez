@@ -42,7 +42,7 @@
 					}
 					
 					//外部廠商開放的網頁id
-					var outs_aspx=['tboat'];
+					var outs_aspx=['tboat','uploaddc','transef_edi_bv','z_transef_bv'];
 					
 					//處理開放網頁
 					if(child!='download'){
@@ -148,6 +148,7 @@
 						<ol>
 							<li><a id="tranorde" class="tranorde_bv">預購作業</a></li>
 							<li><a id="z_trans_bv" class="z_trans_bv">使用情況控管表</a></li>
+							<li><a id="borr" class="borr_bv">條碼使用登錄作業</a></li>
 						</ol>
 					</li>
 					<li>手寫託運單作業

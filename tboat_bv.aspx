@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -21,7 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = ['txtNoa','txtCust','txtDatea','txtInvodate'];
+			var q_readonly = ['txtNoa','txtCust','txtDatea','txtInvodate','txtRdate','txtRtime'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
@@ -44,6 +44,11 @@
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
+				
+				if (r_outs==1)
+					q_content = "where=^^invono='1' and custno='" + r_userno + "'^^";
+				else
+					q_content = "where=^^invono='1'^^";
 				
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
@@ -68,9 +73,29 @@
 			function mainPost() {
 				q_mask(bbmMask);
 				document.title='5.1派遣功能_客戶'
-				$("#lblCustno").text('客戶編號');
+				$("#lblCustno").text('客戶編號').hide();
+				$("#lblCust").text('客戶編號').hide();
 				$("#lblMount").text('件數');
 				$("#lblDatea").text('登錄日期');
+				
+				//$("#btnModi").hide();
+				//$("#btnDele").hide();
+				$("#btnPrint").hide();
+				if(r_outs==0){
+					$("#lblCustno").show()
+					$("#btnPrint").show();
+				}else{
+					q_readonly.push('txtCustno');
+					$("#lblCust").show()
+				}
+				
+				/*$('#txtCustno').change(function() {
+					if(!emp($(this).val())){
+						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+						q_gt('cust', t_where, 0, 0, 0, "");
+					}
+				});*/
+				
 			}
 			
 			function bbsAssign() {
@@ -101,6 +126,9 @@
 				var ret;
 				switch (b_pop) {
 					case q_name + '_s':
+						s2[1]=replaceAll(replaceAll(s2[1],'where=^^',''),'^^','');
+						s2[1]="where=^^ "+s2[1]+" and invono='1' ^^"
+						
 						q_boxClose2(s2);
 						break;
 				}
@@ -116,9 +144,16 @@
                 			$('#txtCust').val(as[0].comp);
                 			$('#txtNick').val(as[0].nick);
                 			$('#txtWorker').val(as[0].boss);
+                			
+                			$('#txtSerial').val(as[0].serial);
+                			$('#txtTel').val(as[0].tel);
+                			$('#txtAddr').val(as[0].addr_comp);
+                			$('#txtTypea').val(as[0].addr_fact);
+                			$('#txtWorker2').val(as[0].sales);
                 		}else{
                 			alert('客戶資料載入錯誤!!');
-                			$('#btnCancel').val();
+                			if(r_outs==1)
+                				$('#btnCancel').click();
                 		}
 						break;
 					case q_name:
@@ -131,7 +166,10 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "320px", q_getMsg("popSeek"));
+				if (r_outs==1)
+					q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
+				else
+					q_box('tboat_bv_s.aspx', q_name + '_s', "500px", "320px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
@@ -143,6 +181,11 @@
 				var tMinutes = timeDate.getMinutes();
 				$('#txtInvodate').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
 				$('#txtCustno').focus();
+				
+				if(r_outs==1){
+					var t_where = "where=^^ noa='"+r_userno+"' ^^";
+					q_gt('cust', t_where, 0, 0, 0, "");
+				}
 			}
 
 			function btnModi() {
@@ -253,6 +296,13 @@
 
 			function q_popPost(id) {
 				switch(id){
+					case 'txtCustno':
+						if(!emp($('#txtCustno').val())){
+							var t_where = "where=^^ noa='"+$('#txtCustno').val()+"' ^^";
+							q_gt('cust', t_where, 0, 0, 0, "");
+						}
+					
+						break;
 				}
 			}
 
@@ -458,13 +508,26 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
+						<td><span> </span>
+							<a id="lblCustno" class="lbl btn"> </a>
+							<a id="lblCust" class="lbl"> </a>
+						</td>
 						<td><input type="text" id="txtCustno" class="txt c1"/></td>
 						<td colspan="2">
 							<input type="text" id="txtCust" class="txt c1"/>
 							<input type="hidden" id="txtNick" class="txt c1"/>
 							<input type="hidden" id="txtInvono"/>
 						</td>
+					</tr>
+					<tr class="trans" style="display: none;">
+						<td><span> </span><a class="lbl">統一編號</a></td>
+						<td><input type="text" id="txtSerial" class="txt c1 "/></td>
+						<td><span> </span><a id="lblTel" class="lbl">電話</a></td>
+						<td><input type="text" id="txtTel" class="txt c1"/></td>
+					</tr>
+					<tr class="trans" style="display: none;">
+						<td><span> </span><a id="lblAddr" class="lbl">地址</a></td>
+						<td colspan="3"><input type="text" id="txtAddr" class="txt c1 "/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">聯絡人</a></td>
@@ -475,6 +538,19 @@
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input type="text" id="txtMemo" class="txt c1"></td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">讀取時間</a></td>
+						<td>
+							<input type="text" id="txtRdate" class="txt c3 "/>
+							<input type="text" id="txtRtime" class="txt c2 "/>
+						</td>
+					</tr>
+					<tr class="trans" style="display: none">
+						<td><span> </span><a class="lbl">發送局</a></td>
+						<td><input type="text" id="txtTypea" class="txt c1 "/></td>
+						<td><span> </span><a class="lbl">宅配員</a></td>
+						<td><input type="text" id="txtWorker2" class="txt c1 "/></td>
 					</tr>
 				</table>
 			</div>

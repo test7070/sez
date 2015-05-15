@@ -70,8 +70,8 @@
 					//104/05/05 97碼產生方式 同96 最後一碼為檢查碼
 					if(emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
 						//取目前97最大碼
-						var t_where = "where=^^ boatname=(select MAX(boatname) from view_transef) ^^";
-						q_gt('view_transef', t_where, 0, 0, 0, "GetMax97code");
+						var t_where = "where=^^ docketno2=(select MAX(docketno2) from tranorde"+r_accy+") ^^";
+						q_gt('tranorde', t_where, 0, 0, 0, "GetMax97code",r_accy);
 					}else if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
 						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
 						endcode=endcode+(endcode%7);
@@ -161,10 +161,10 @@
 						}
 						break;
 					case 'GetMax97code':
-						var as = _q_appendData("view_transef", "", true);
+						var as = _q_appendData("tranorde", "", true);
 						var maxcode='9700000004',endcode='9700000004';
 						if (as[0] != undefined){
-							var maxcode=as[0].boatname;
+							var maxcode=as[0].docketno2;
 							maxcode='97'+('0000000'+(dec(maxcode.substr(-8).substr(0,7))+1)).substr(-7);
 							maxcode=maxcode+(maxcode%7);
 						}
@@ -238,12 +238,12 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				if ($('#chkEnda').prop("checked")){
-					alert("'已結案無法修改!!'");
+					alert("已結案無法修改!!");
 					return;
 				}
 				
 				//判斷是否已被使用 
-				var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(addressee,'')!='' ^^";
+				var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(trandate,'')!='' ^^";
 				q_gt('view_transef', t_where, 0, 0, 0, "btnModi_getused");
 				
 			}
@@ -284,7 +284,7 @@
                 
                 //檢查預購單號範圍是否重覆
                 if(!orde_repeat){
-	                var t_where = "where=^^ ('"+$('#txtDocketno1').val()+"' >= docketno1 and '"+$('#txtDocketno1').val()+"' <= docketno2) or ('"+$('#txtDocketno2').val()+"' >= docketno1 and '"+$('#txtDocketno2').val()+"' <= docketno2) ^^";
+	                var t_where = "where=^^ noa!='"+$('#txtNoa').val()+"' and ( ('"+$('#txtDocketno1').val()+"' >= docketno1 and '"+$('#txtDocketno1').val()+"' <= docketno2) or ('"+$('#txtDocketno2').val()+"' >= docketno1 and '"+$('#txtDocketno2').val()+"' <= docketno2) )^^";
 					q_gt('tranorde', t_where, 0, 0, 0, "getrepeat",r_accy);
 					return;
                 }
@@ -334,7 +334,7 @@
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (!(t_noa.length == 0 || t_noa == "AUTO")){
-					var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(addressee,'')!='' ^^";
+					var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(trandate,'')!='' ^^";
 					q_gt('view_transef', t_where, 0, 0, 0, "getused");
 				}
 			}
@@ -396,7 +396,7 @@
 				 }
 				
 				//判斷是否已被使用 
-				var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(addressee,'')!='' ^^";
+				var t_where = "where=^^ traceno='"+$('#txtNoa').val()+"' and isnull(trandate,'')!='' ^^";
 				q_gt('view_transef', t_where, 0, 0, 0, "btnDele_getused");
 				
 				//_btnDele();
