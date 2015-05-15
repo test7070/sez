@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -21,7 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = ['txtNoa','txtCust','txtDatea','txtInvodate'];
+			var q_readonly = ['txtNoa','txtCust','txtDatea','txtInvodate','txtRdate','txtRtime'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
@@ -45,7 +45,7 @@
 				bbsKey = ['noa', 'noq'];
 				q_brwCount();
 				
-				 if (r_outs==1)
+				if (r_outs==1)
 					q_content = "where=^^invono='2' and custno='" + r_userno + "'^^";
 				else
 					q_content = " invono='2' ";
@@ -74,7 +74,7 @@
 				q_mask(bbmMask);
 				document.title='5.2 派遣功能_CS'
 				$("#lblCustno").text('客戶編號').hide();
-				$('#lblCust').text('客戶編號').hide();
+				$("#lblCust").text('客戶編號').hide();
 				$("#lblMount").text('件數');
 				$("#lblDatea").text('登錄日期');
 				
@@ -88,6 +88,13 @@
 					q_readonly.push('txtCustno');
 					$("#lblCust").show()
 				}
+				
+				/*$('#txtCustno').change(function() {
+					if(!emp($(this).val())){
+						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+						q_gt('cust', t_where, 0, 0, 0, "");
+					}
+				});*/
 			}
 			
 			function bbsAssign() {
@@ -136,9 +143,16 @@
                 			$('#txtCust').val(as[0].comp);
                 			$('#txtNick').val(as[0].nick);
                 			$('#txtWorker').val(as[0].boss);
+                			
+                			$('#txtSerial').val(as[0].serial);
+                			$('#txtTel').val(as[0].tel);
+                			$('#txtAddr').val(as[0].addr_comp);
+                			$('#txtTypea').val(as[0].addr_fact);
+                			$('#txtWorker2').val(as[0].sales);
                 		}else{
                 			alert('客戶資料載入錯誤!!');
-                			$('#btnCancel').val();
+                			if(r_outs==1)
+                				$('#btnCancel').click();
                 		}
 						break;
 					case q_name:
@@ -165,7 +179,7 @@
 				var tHours = timeDate.getHours();
 				var tMinutes = timeDate.getMinutes();
 				$('#txtInvodate').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
-				$('#txtWorker').focus();
+				$('#txtCustno').focus();
 				$('#txtTaxtype').val(r_name);
 				
 				if(r_outs==1){
@@ -178,7 +192,7 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				$('#txtDatea').focus();
+				$('#txtCustno').focus();
 			}
 
 			function btnPrint() {
@@ -192,6 +206,7 @@
 					alert(t_err);
 					return;
 				}
+				
 				//判斷重哪個作業寫入
 				if(q_cur==1)
 					$('#txtInvono').val('2');
@@ -280,6 +295,13 @@
 
 			function q_popPost(id) {
 				switch(id){
+					case 'txtCustno':
+						if(!emp($('#txtCustno').val())){
+							var t_where = "where=^^ noa='"+$('#txtCustno').val()+"' ^^";
+							q_gt('cust', t_where, 0, 0, 0, "");
+						}
+					
+						break;
 				}
 			}
 
@@ -446,7 +468,7 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:85px; color:black;"><a>登錄日期</a></td>
 						<td align="center" style="width:85px; color:black;"><a>時間</a></td>
 						<td align="center" style="width:120px; color:black;"><a>單據編號</a></td>
@@ -495,6 +517,7 @@
 						<td colspan="2">
 							<input type="text" id="txtCust" class="txt c1"/>
 							<input type="hidden" id="txtNick" class="txt c1"/>
+							<input type="hidden" id="txtInvono"/>
 						</td>
 					</tr>
 					<tr class="trans" style="display: none;">
@@ -516,18 +539,15 @@
 					<tr>
 						<td><span> </span><a class="lbl">CS</a></td>
 						<td><input type="text" id="txtTaxtype" class="txt c1 "/></td>
+						<td><span> </span><a class="lbl">讀取時間</a></td>
+						<td>
+							<input type="text" id="txtRdate" class="txt c3 "/>
+							<input type="text" id="txtRtime" class="txt c2 "/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input type="text" id="txtMemo" class="txt c1"></td>
-					</tr>
-					<tr class="trans" style="display: none;">
-						<td><span> </span><a id="lblRdate" class="lbl">讀取時間</a></td>
-						<td>
-							<input type="text" id="txtRdate" class="txt c1" style="width: 49%;"/>
-							<input type="text" id="txtRtime" class="txt c1" style="width: 49%;"/>
-							<input type="hidden" id="txtInvono"/>
-						</td>
 					</tr>
 					<tr class="trans" style="display: none;">
 						<td><span> </span><a class="lbl">發送局</a></td>

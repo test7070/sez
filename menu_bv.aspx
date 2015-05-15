@@ -42,7 +42,7 @@
 					}
 					
 					//外部廠商開放的網頁id
-					var outs_aspx=['tboat'];
+					var outs_aspx=['tboat','uploaddc','transef_edi_bv','z_transef_bv'];
 					
 					//處理開放網頁
 					if(child!='download'){

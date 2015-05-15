@@ -70,14 +70,14 @@
                 
                 $('#txtBnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(2,7))%7)==$(this).val().substr(-1)))
+                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(0,9))%7)==$(this).val().substr(-1)))
                 			alert('請輸入正確的96條碼!!!');
                 	}
 				});
 				
 				$('#txtEnoa').blur(function() {
                 	if(!emp($(this).val())){
-                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(2,7))%7)==$(this).val().substr(-1)))
+                		if(!((/^96[0-9]{8}$/g).test($(this).val())&&(dec($(this).val().substr(0,9))%7)==$(this).val().substr(-1)))
                 			alert('請輸入正確的96條碼!!!');
                 	}
 				});
@@ -85,8 +85,8 @@
                 $('#btnDownloadPdf').click(function() {
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
                 		if((/^96[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^96[0-9]{8}$/g).test($('#txtEnoa').val()) &&
-                		($('#txtBnoa').val().substr(2,7)%7)==$('#txtBnoa').val().substr(-1)&&($('#txtEnoa').val().substr(2,7)%7)==$('#txtEnoa').val().substr(-1)){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(2,7)),dec($('#txtEnoa').val().substr(2,7))))<300)
+                		($('#txtBnoa').val().substr(0,9)%7)==$('#txtBnoa').val().substr(-1)&&($('#txtEnoa').val().substr(0,9)%7)==$('#txtEnoa').val().substr(-1)){
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(0,9)),dec($('#txtEnoa').val().substr(0,9))))<300)
                 				window.open("./pdf_barcode96.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
                 				alert('條碼範圍不得超逾300張!!!');
@@ -104,7 +104,7 @@
 				});
 				
 				$('#qReport').click(function(){
-					if($('#qReport').data('info').radioIndex==2){
+					if($('#qReport').data('info').radioIndex==0){
 						$('.prt').hide();
 						$('.download').show();
 					}else{

@@ -238,7 +238,7 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				if ($('#chkEnda').prop("checked")){
-					alert("'已結案無法修改!!'");
+					alert("已結案無法修改!!");
 					return;
 				}
 				

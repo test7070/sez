@@ -147,6 +147,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				$('#txtCheckno').val(replaceAll($('#txtCheckno').val(),'chr(10)','\n'));
 			}
 
 			function readonly(t_para, empty) {

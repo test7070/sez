@@ -230,6 +230,10 @@
                 
                 t_where="where=^^ containertype='手寫託運單' ^^";
 				q_gt('view_tranorde_bv', t_where, 0, 0, 0,'aaa', r_accy);
+				
+				$('#btnAuthority').click(function(e) {
+					btnAuthority(q_name);
+				});
                 
                 $('#btnVcc_refresh').click(function(e) {
                     var t_where = "1=1 ";

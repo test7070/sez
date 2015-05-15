@@ -61,7 +61,7 @@
 					case 'qtxt.query.tboat2':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
-							if(as[0]=='success')
+							if(as[0].msg=='success')
 		        				alert('轉口資料更新完成!!');
 		        			else
 		        				alert('轉口資料更新失敗!!');
@@ -79,18 +79,38 @@
 				$("#lblDatea").text('登錄日期');
 				
 				$('#txtCode').change(function() {
+					if(!emp($(this).val())){
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
+                			alert('請輸入正確的97條碼!!!');
+                			$(this).val('');
+                			return;
+                	}
+                	
 					var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
 					q_gt('view_transef', t_where, 0, 0, 0, "");
 				});
 				
+				$('#txtShip').change(function() {
+					if(!emp($(this).val())){
+                		if(!((/^96[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
+                			alert('請輸入正確的96條碼!!!');
+                			$(this).val('');
+                			return;
+                	}
+				});
+				
 				$('#txtPost').change(function() {
-					var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
-					q_gt('addr2', t_where, 0, 0, 0, "");
+					if(!emp($(this).val())){
+						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
+						q_gt('addr2', t_where, 0, 0, 0, "");
+					}
 				});
 				
 				$('#txtBoatname').change(function() {
-					var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(area,'"+$(this).val()+"')>0 and charindex(road,'"+$(this).val()+"')>0 ^^";
-					q_gt('view_road', t_where, 0, 0, 0, "getzip1");
+					if(!emp($(this).val())){
+						var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(area,'"+$(this).val()+"')>0 and charindex(road,'"+$(this).val()+"')>0 ^^";
+						q_gt('view_road', t_where, 0, 0, 0, "getzip1");
+					}
 				});
 			}
 			
@@ -157,6 +177,10 @@
 								$('#txtShip').val(t_code96)
 							}
                 			
+							if(!emp($('#txtBoatname').val())){
+	                			var t_where = "where=^^ charindex(city,'"+$('#txtBoatname').val()+"')>0 and charindex(area,'"+$('#txtBoatname').val()+"')>0 and charindex(road,'"+$('#txtBoatname').val()+"')>0 ^^";
+								q_gt('view_road', t_where, 0, 0, 0, "getzip1");
+							}
                 			/*if(as[0].custno!=''){
                 				var t_where = "where=^^ noa='"+as[0].custno+"' ^^";
 								q_gt('cust', t_where, 0, 0, 0, "");
