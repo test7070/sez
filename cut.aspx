@@ -135,7 +135,7 @@
 						if (!emp(t_custno))
 							t_where += q_sqlPara2('custno', t_custno);
 						t_where += " and kind='" +$('#cmbKind').val()+ "'";
-						q_box("ordests_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+						q_box("ordestt_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 					}
 				});
 			}
