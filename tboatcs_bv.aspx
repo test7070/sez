@@ -48,7 +48,7 @@
 				if (r_outs==1)
 					q_content = "where=^^invono='2' and custno='" + r_userno + "'^^";
 				else
-					q_content = " invono='2' ";
+					q_content = "where=^^invono='2'^^";
 				
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 			});
