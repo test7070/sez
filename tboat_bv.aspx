@@ -36,7 +36,7 @@
 			q_desc = 1;
 			brwCount2 = 15;
 			aPop = new Array(
-				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick,boss', 'txtCustno,txtCust,txtNick,txtWorker', 'cust_b.aspx']
+				//['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick,boss', 'txtCustno,txtCust,txtNick,txtWorker', 'cust_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -73,8 +73,7 @@
 			function mainPost() {
 				q_mask(bbmMask);
 				document.title='5.1派遣功能_客戶'
-				$("#lblCustno").text('客戶編號').hide();
-				$("#lblCust").text('客戶編號').hide();
+				$("#lblCustno").text('客戶編號');
 				$("#lblMount").text('件數');
 				$("#lblDatea").text('登錄日期');
 				
@@ -82,19 +81,26 @@
 				//$("#btnDele").hide();
 				$("#btnPrint").hide();
 				if(r_outs==0){
-					$("#lblCustno").show()
 					$("#btnPrint").show();
 				}else{
-					q_readonly.push('txtCustno');
-					$("#lblCust").show()
+					q_readonly.push('cmbCustno');
 				}
 				
-				/*$('#txtCustno').change(function() {
+				//客戶下拉
+				if(r_outs==0){
+					var t_where = "where=^^ 1=1 ^^";
+				}else{
+					var t_where = "where=^^ 1=1 and noa='"+r_userno+"' ^^";
+				}
+				
+				q_gt('cust', t_where, 0, 0, 0, "cmbcust");
+				
+				$('#cmbCustno').change(function() {
 					if(!emp($(this).val())){
 						var t_where = "where=^^ noa='"+$(this).val()+"' ^^";
 						q_gt('cust', t_where, 0, 0, 0, "");
 					}
-				});*/
+				});
 				
 			}
 			
@@ -137,10 +143,24 @@
 			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'cmbcust':
+						var as = _q_appendData("cust", "", true);
+						if (as[0] != undefined) {
+							var t_item = "@";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + $.trim(as[i].noa) + '@' + $.trim(as[i].comp);
+							}
+							q_cmbParse("cmbCustno", t_item);
+							if(abbm[q_recno])
+								$("#cmbCustno").val(abbm[q_recno].custno);
+						}
+                		break;
+					
+						break;
 					case 'cust':
 						var as = _q_appendData("cust", "", true);
                 		if (as[0] != undefined) {
-                			$('#txtCustno').val(as[0].noa);
+                			$('#cmbCustno').val(as[0].noa);
                 			$('#txtCust').val(as[0].comp);
                 			$('#txtNick').val(as[0].nick);
                 			$('#txtWorker').val(as[0].boss);
@@ -180,9 +200,10 @@
 				var tHours = timeDate.getHours();
 				var tMinutes = timeDate.getMinutes();
 				$('#txtInvodate').val(padL(tHours, '0', 2)+':'+padL(tMinutes, '0', 2));
-				$('#txtCustno').focus();
+				$('#cmbCustno').focus();
 				
 				if(r_outs==1){
+					$('#cmbCustno').val(r_userno);
 					var t_where = "where=^^ noa='"+r_userno+"' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "");
 				}
@@ -192,7 +213,7 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				$('#txtCustno').focus();
+				$('#cmbCustno').focus();
 			}
 
 			function btnPrint() {
@@ -201,7 +222,7 @@
 
 			function btnOk() {
 				var t_err = '';
-				t_err = q_chkEmpField([['txtCustno', q_getMsg('lblCustno')], ['txtWorker', '聯絡人'], ['txtMount', q_getMsg('lblMount')]]);
+				t_err = q_chkEmpField([['cmbCustno', q_getMsg('lblCustno')], ['txtWorker', '聯絡人'], ['txtMount', q_getMsg('lblMount')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
@@ -509,12 +530,13 @@
 					</tr>
 					<tr>
 						<td><span> </span>
-							<a id="lblCustno" class="lbl btn"> </a>
-							<a id="lblCust" class="lbl"> </a>
+							<a id="lblCustno" class="lbl"> </a>
+							<!--<a id="lblCust" class="lbl"> </a>-->
 						</td>
-						<td><input type="text" id="txtCustno" class="txt c1"/></td>
-						<td colspan="2">
-							<input type="text" id="txtCust" class="txt c1"/>
+						<td colspan="3">
+							<select id="cmbCustno" class="txt c1"> </select>
+							<!--<input type="text" id="txtCustno" class="txt c1"/>-->
+							<input type="hidden" id="txtCust" class="txt c1"/>
 							<input type="hidden" id="txtNick" class="txt c1"/>
 							<input type="hidden" id="txtInvono"/>
 						</td>
