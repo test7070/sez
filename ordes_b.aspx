@@ -91,6 +91,8 @@
 				 $('#btnNext').hide();
 				 $('#btnBott').hide();
 				 */
+				$('.datea').hide();
+				
 				if (q_getPara('sys.project').toUpperCase()!='RA' && q_getPara('sys.project').toUpperCase()!='ST') {
 					$('.ra').hide();
 				}
@@ -98,6 +100,10 @@
 					$('.weight').hide();
 					$('#checkZero').show();
 					$('#Zero').show();
+				}
+				if(q_getPara('sys.project').toUpperCase()=='RB'){
+					$('.weight').hide();
+					$('.datea').show();
 				}
 				
 				if(q_getPara('sys.isspec')!='1')
@@ -133,6 +139,7 @@
 					<td align="center" class="ra"><a id='lblCuamount'> </a></td>
 					<td align="center"><a id='lblNoa'> </a></td>
 					<td align="center"><a id='lblCust'> </a></td>
+					<td align="center" class="datea"><a id='lblDatea'> </a></td>
 					<td align="center"><a id='lblMemo'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -172,11 +179,13 @@
 					<td style="width:13%;">
 						<input class="txt" id="txtComp.*" type="text" style="width:96%; text-align:left;"/>
 					</td>
+					<td style="width:10%;" class="datea">
+						<input class="txt" id="txtDatea.*" type="text" style="width:96%; text-align:left;"/>
+					</td>
 					<td>
 						<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
 						<input id="recno.*" type="hidden" />
 						<input id="txtTotal.*" type="hidden" />
-						<input id="txtDatea.*" type="hidden" />
 						<input id="txtUcahours.*" type="hidden" />
 						<input id="txtStationhours.*" type="hidden" />
 						<input id="txtStationgen.*" type="hidden" />

@@ -39,6 +39,7 @@
 				t_salesno = $('#txtSalesno').val();
 				t_grpno = $('#txtGrpno').val();
 				t_invoicetitle = $('#txtInvoicetitle').val();
+				t_memo = $('#txtMemo').val();
 				
 				var t_where = " 1=1 " + q_sqlPara2("serial", t_serial)+ q_sqlPara2("salesno", t_salesno)+ q_sqlPara2("grpno", t_grpno);
 				if (t_noa.length > 0)
@@ -47,6 +48,8 @@
                     t_where += " and (charindex('" + t_comp + "',comp)>0 or charindex('" + t_comp + "',nick)>0)";
                 if (t_invoicetitle.length > 0)
 					t_where += " and charindex('" + t_invoicetitle + "',invoicetitle)>0";
+				if (t_memo.length > 0)
+					t_where += " and charindex('" + t_memo + "',memo)>0";
                     
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -87,6 +90,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblGrp'> </a></td>
 					<td><input class="txt" id="txtGrpno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblMemo'> </a></td>
+					<td><input class="txt" id="txtMemo" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
