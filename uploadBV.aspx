@@ -44,7 +44,7 @@
                 q_langShow();
                 $('#txtUserno').val(r_userno);
 
-                t_where = "where=^^ custno='" + r_userno + "' and isnull(enda,0)=0 ^^";
+                t_where = "where=^^ custno='" + r_userno + "' and isnull(enda,0)=0 and left(containertype,3)='edi' ^^";
                 q_gt('view_tranorde', t_where, 0, 0, 0, 'gettranorde', r_accy);
 
             }

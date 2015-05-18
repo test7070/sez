@@ -292,7 +292,7 @@
                		 Unlock();
                 	return;
                 }
-                if (!q_cd($('#txtFt_date').val())){
+                if (q_getPara('sys.project').toUpperCase()!='BV' && !q_cd($('#txtFt_date').val())){
                 	alert(q_getMsg('lblFt_date')+'錯誤。');
                 	Unlock();
                 	return;
