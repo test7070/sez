@@ -53,6 +53,18 @@
                             $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
                     });
                 });
+                
+                if(q_getPara('sys.project').toUpperCase()=='RB'){
+                	$('.odate').hide();
+                	$('.stype').hide();
+                	$('.cno').hide();
+                	$('.custno').hide();
+                	$('.enda').hide();
+                	$('.money').hide();
+                	$('.memo').hide();
+                }else{
+                	$('.datea').hide();
+                }
             }
 
 		</script>
@@ -79,14 +91,15 @@
 						<!--<input type="checkbox" id="checkAllCheckbox"/>-->
 					</td>
 					<td align="center" style="width:12%;"><a id='lblNoa'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblOdate'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblStype'> </a></td>
+					<td align="center" style="width:8%;" class="odate"><a id='lblOdate'> </a></td>
+					<td align="center" style="width:8%;" class="datea"><a id='lblDatea'> </a></td>
+					<td align="center" style="width:8%;" class="stype"><a id='lblStype'> </a></td>
 					<!--<td align="center" style="width:8%;"><a id='lblKind'> </a></td>-->
-					<td align="center" style="width:18%;"><a id='lblAcomp'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblCust'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblEnda'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblTotal'> </a></td>
-					<td align="center"><a id='lblMemo'> </a></td>
+					<td align="center" style="width:18%;" class="cno"><a id='lblAcomp'> </a></td>
+					<td align="center" style="width:20%;" class="custno"><a id='lblCust'> </a></td>
+					<td align="center" style="width:5%;" class="enda"><a id='lblEnda'> </a></td>
+					<td align="center" style="width:10%;" class="money"><a id='lblTotal'> </a></td>
+					<td align="center"><a id='lblMemo' class="memo"> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -94,20 +107,21 @@
 						<!--<input id="chkSel.*" type="checkbox"/>-->
 					</td>
 					<td><input class="txt"  id="txtNoa.*" type="text" style="width:98%;" /></td>
-					<td><input class="txt"  id="txtOdate.*" type="text" style="width:98%;" /></td>
-					<td><select id="cmbStype.*" class="txt c1"> </select></td>
+					<td class="odate"><input class="txt"  id="txtOdate.*" type="text" style="width:98%;" /></td>
+					<td class="datea"><input class="txt"  id="txtDatea.*" type="text" style="width:98%;" /></td>
+					<td class="stype"><select id="cmbStype.*" class="txt c1"> </select></td>
 					<!--<td><select id="cmbKind.*" class="txt c1"> </select></td>-->
-					<td>
+					<td class="cno">
 						<input class="txt"  id="txtCno.*" type="text" style="width:25%;" />
 						<input class="txt"  id="txtAcomp.*" type="text" style="width:70%;" />
 					</td>
-					<td>
+					<td class="custno">
 						<input class="txt"  id="txtCustno.*" type="text" style="width:25%;" />
 						<input class="txt"  id="txtComp.*" type="text" style="width:70%;" />
 					</td>
-					<td align="center"><input id="chkEnda.*" type="checkbox"/></td>
-					<td><input class="txt"  id="txtMoney.*" type="text" style="width:98%;text-align: right;" /></td>
-					<td><input class="txt"  id="txtMemo.*" type="text" style="width:98%;" /></td>
+					<td class="enda" align="center"><input id="chkEnda.*" type="checkbox"/></td>
+					<td class="money" ><input class="txt"  id="txtMoney.*" type="text" style="width:98%;text-align: right;" /></td>
+					<td class="memo" ><input class="txt"  id="txtMemo.*" type="text" style="width:98%;" /></td>
 				</tr>
 			</table>
 		</div>
