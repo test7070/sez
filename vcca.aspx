@@ -111,6 +111,7 @@
 				}).click(function(e) {
 					sum();
 				});
+				
 				$('#txtNoa').change(function(e) {
 					$('#txtNoa').val($('#txtNoa').val().toUpperCase());
 				});
@@ -394,6 +395,27 @@
 					t_money += t_moneys;
 					t_mount += t_mounts;
 				}
+				
+				//銷貨客戶
+				$('#txtCustno').attr('readonly', false);
+				$('#txtComp').attr('readonly', false);
+				//統一編號
+				$('#txtSerial').attr('readonly', false);
+				//產品金額
+				$('#txtMoney').attr('readonly', false);
+				//帳款月份
+				$('#txtMon').attr('readonly', false);
+				//營業稅
+				$('#txtTax').attr('readonly', false);
+				//總計
+				$('#txtTotal').attr('readonly', false);
+				//買受人
+				$('#txtBuyerno').attr('readonly', false);
+				$('#txtBuyer').attr('readonly', false);
+				for (var k = 0; k < q_bbsCount; k++) {
+					$('#txtMount_'+k).attr('readonly', false);
+					$('#txtMoney_'+k).attr('readonly', false);
+				}
 
 				t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
 				switch ($('#cmbTaxtype').val()) {
@@ -434,40 +456,26 @@
 					case '6':
 						// 作廢-清空資料
 						t_money = 0, t_tax = 0, t_total = 0;
-						$('#txtCustno').val('');
 						//銷貨客戶
-						$('#txtCustno').attr('readonly', true);
-						$('#txtComp').val('');
-						$('#txtComp').attr('readonly', true);
-						$('#txtSerial').val('');
+						$('#txtCustno').val('').attr('readonly', true);
+						$('#txtComp').val('').attr('readonly', true);
 						//統一編號
-						$('#txtSerial').attr('readonly', true);
-						$('#txtMoney').val(0);
+						$('#txtSerial').val('').attr('readonly', true);
 						//產品金額
-						$('#txtMoney').attr('readonly', true);
-						$('#txtMon').val('');
+						$('#txtMoney').val(0).attr('readonly', true);
 						//帳款月份
-						$('#txtMon').attr('readonly', true);
-						$('#txtTax').val(0);
+						$('#txtMon').val('').attr('readonly', true);
 						//營業稅
-						$('#txtTax').attr('readonly', true);
-						$('#txtTotal').val(0);
+						$('#txtTax').val(0).attr('readonly', true);
 						//總計
-						$('#txtTotal').attr('readonly', true);
-						$('#txtChkno').val('');
-						//檢查號碼
-						$('#txtChkno').attr('readonly', true);
-						$('#txtAccno').val('');
-						//轉會計傳票編號
-						$('#txtAccno').attr('readonly', true);
-						$('#txtBuyerno').val('');
+						$('#txtTotal').val(0).attr('readonly', true);
 						//買受人
-						$('#txtBuyerno').attr('readonly', true);
-						$('#txtBuyer').val('');
-						//
-						$('#txtBuyer').attr('readonly', true);
-						$('#txtMemo').val('');
-						//發票備註
+						$('#txtBuyerno').val('').attr('readonly', true);
+						$('#txtBuyer').val('').attr('readonly', true);
+						for (var k = 0; k < q_bbsCount; k++) {
+							$('#txtMount_'+k).val(0).attr('readonly', true);
+							$('#txtMoney_'+k).val(0).attr('readonly', true);
+						}
 						break;
 					default:
 				}
@@ -821,7 +829,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c1" ></select></td>
+						<td><select id="cmbTaxtype" class="txt c1" > </select></td>
 						<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtBuyerno"  type="text"  style="float:left; width:30%;"/>
