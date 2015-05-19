@@ -215,18 +215,24 @@
                     cb.SetFontAndSize(bfChinese, 25);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).bag + " 號袋", positions[(str + i) % 6, 0] + 30, positions[(str + i) % 6, 1] + 15, 0);
                     cb.EndText();
+                    System.IO.MemoryStream img_barcode = null;
+                    iTextSharp.text.Image img = null;
                     //圖片 96
-                    System.IO.MemoryStream img_barcode = new System.IO.MemoryStream();
-                    GetCode39(((Para)barcode[i]).barcode96).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
-                    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                    img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 170);
-                    doc1.Add(img);
+                    if(((Para)barcode[i]).barcode96.Length>0){
+	                    img_barcode = new System.IO.MemoryStream();
+	                    GetCode39(((Para)barcode[i]).barcode96).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
+	                    img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
+	                    img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 170);
+	                    doc1.Add(img);
+                   	}
                     //圖片 97
-                    img_barcode = new System.IO.MemoryStream();
-                    GetCode39(((Para)barcode[i]).barcode97).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
-                    img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
-                    img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 10);
-                    doc1.Add(img);
+                    if(((Para)barcode[i]).barcode97.Length>0){
+	                    img_barcode = new System.IO.MemoryStream();
+	                    GetCode39(((Para)barcode[i]).barcode97).Save(img_barcode, System.Drawing.Imaging.ImageFormat.Bmp);
+	                    img = iTextSharp.text.Image.GetInstance(img_barcode.ToArray());
+	                    img.SetAbsolutePosition(positions[(str + i) % 6, 0] + 120, positions[(str + i) % 6, 1] + 10);
+	                    doc1.Add(img);
+                    }
                 }
             }
             doc1.Close();
