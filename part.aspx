@@ -44,6 +44,10 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                
+                if(q_getPara('sys.project').toUpperCase()=='BV')
+                	document.title='1.5部門主檔';
+                
                 $('#txtNoa').change(function(e) {
                     $(this).val($.trim($(this).val()).toUpperCase());
                     if ($(this).val().length > 0) {

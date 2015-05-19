@@ -21,7 +21,8 @@
 
 			q_tables = 's';
 			var q_name = "tboat2";
-			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint','txtLdate','txtLtime'];
+			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint'
+			,'txtNamea','txtTel','txtMobile','txtZip','txtPost','txtBoatname','txtSiteno','txtSite','txtShip'];
 			var q_readonlys = [];
 			var bbmNum = new Array(['txtMount',10,0,1],['txtTotal',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
@@ -36,7 +37,7 @@
 			q_desc = 1;
 			brwCount2 = 10;
 			aPop = new Array(
-				['txtPost', 'lblPost', 'addr2', 'noa,memo,siteno,site', 'txtPost,txtBoatname,txtMemo', 'addr2_b.aspx']
+				['txtPost', 'lblPost', 'addr2', 'noa,memo,siteno,site', 'txtPost,txtBoatname,txtSiteno,txtSite', 'addr2_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -58,6 +59,16 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
+					case 'etc.h96':
+						if(result.substr(0,2)=="^@"){//  傳回值前兩碼=^@   要產生96
+                			//104/05/05 96條碼產生方式變動為9712345672>9612345676
+                			var t_code97=$('#txtCode').val();
+                			var t_code96='96'+t_code97.substr(2,7);
+                			//加入檢查碼
+                			t_code96=t_code96+(dec(t_code96)%7);
+							$('#txtShip').val(t_code96)
+						}
+						break;
 					case 'qtxt.query.tboat2':
 						var as = _q_appendData("tmp0", "", true, true);
 						if (as[0] != undefined) {
@@ -80,17 +91,18 @@
 				
 				$('#txtCode').change(function() {
 					if(!emp($(this).val())){
-                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
+                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1)))){
                 			alert('請輸入正確的97條碼!!!');
                 			$(this).val('');
                 			return;
+                		}
                 	}
                 	
 					var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
 					q_gt('view_transef', t_where, 0, 0, 0, "");
 				});
 				
-				$('#txtShip').change(function() {
+				/*$('#txtShip').change(function() {
 					if(!emp($(this).val())){
                 		if(!((/^96[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
                 			alert('請輸入正確的96條碼!!!');
@@ -111,7 +123,7 @@
 						var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(area,'"+$(this).val()+"')>0 and charindex(road,'"+$(this).val()+"')>0 ^^";
 						q_gt('view_road', t_where, 0, 0, 0, "getzip1");
 					}
-				});
+				});*/
 			}
 			
 			function bbsAssign() {
@@ -162,20 +174,23 @@
                 			$('#txtTel').val(as[0].atel);
                 			$('#txtPost').val(as[0].caseend);
                 			$('#txtBoatname').val(as[0].aaddr);
-                			$('#txtMemo').val(as[0].accno);
+                			$('#txtSiteno').val(as[0].accno);
+                			$('#txtSite').val(as[0].uccno);
                 			$('#txtShip').val(as[0].po);
                 			$('#txtMobile').val(as[0].boat);
                 			$('#txtZip').val(as[0].caseuse);
                 			$('#txtTotal').val(as[0].price);
                 			
-                			if(emp($('#txtShip').val())){
+                			/*if(emp($('#txtShip').val())){
                 				//104/05/05 96條碼產生方式變動為9712345672>9612345676
                 				var t_code97=$('#txtCode').val();
                 				var t_code96='96'+t_code97.substr(2,7);
                 				//加入檢查碼
                 				t_code96=t_code96+(dec(t_code96)%7);
 								$('#txtShip').val(t_code96)
-							}
+							}*/
+							//讀地址判斷是否產生96碼
+                			q_func("etc.h96", as[0].aaddr); //傳回值前兩碼=^@   要產生96
                 			
 							if(!emp($('#txtBoatname').val())){
 	                			var t_where = "where=^^ charindex(city,'"+$('#txtBoatname').val()+"')>0 and charindex(area,'"+$('#txtBoatname').val()+"')>0 and charindex(road,'"+$('#txtBoatname').val()+"')>0 ^^";
@@ -189,20 +204,22 @@
                 			alert('97條碼資料載入錯誤!!');
                 		}
 						break;
-					case 'cust':
+					/*case 'cust':
 						var as = _q_appendData("cust", "", true);
                 		if (as[0] != undefined) {
                 			$('#txtNamea').val(as[0].boss);
                 			$('#txtTel').val(as[0].tel);
                 			$('#txtPost').val(as[0].zip_comp);
                 			$('#txtBoatname').val(as[0].addr_comp);
-                			$('#txtMemo').val(as[0].zip_fact);
+                			$('#txtSiteno').val(as[0].zip_fact);
+                			$('#txtSite').val(as[0].addr_fact);
 						}
-						break;
+						break;*/
 					case 'addr2':
 						var as = _q_appendData("addr2", "", true);
                 		if (as[0] != undefined) {
-                			$('#txtMemo').val(as[0].siteno);
+                			$('#txtSiteno').val(as[0].siteno);
+                			$('#txtSite').val(as[0].site);
                 		}
 						break;
 					case 'getzip1':
@@ -278,14 +295,14 @@
 					alert("error: btnok!");
 				}
 				
-				if(emp($('#txtShip').val())){
+				/*if(emp($('#txtShip').val())){
                 	//104/05/05 96條碼產生方式變動為9712345672>9612345676
                 	var t_code97=$('#txtCode').val();
                 	var t_code96='96'+t_code97.substr(2,7);
                 	//加入檢查碼
                 	t_code96=t_code96+(dec(t_code96)%7);
 					$('#txtShip').val(t_code96)
-				}
+				}*/
 				
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
@@ -627,25 +644,26 @@
 					<tr>
 						<td><span> </span><a class="lbl">地址</a></td>
 						<td colspan="3"><input type="text" id="txtBoatname" class="txt c1 "/></td>
+						<td><span> </span><a class="lbl">到著站</a></td>
+						<td>
+							<input type="text"id="txtSiteno" class="txt c2"> 
+							<input type="text"id="txtSite" class="txt c3">
+						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">到著站</a></td>
-						<td><input type="text"id="txtMemo" class="txt c1"> </td>
 						<td><span> </span><a class="lbl">代收貨款</a></td>
 						<td><input type="text"id="txtTotal" class="txt num c1"> </td>
-					</tr>
-					<tr>
 						<td><span> </span><a class="lbl">聯運件數</a></td>
 						<td><input type="text"id="txtMount" class="txt num c1"> </td>
+						<td><span> </span><a class="lbl">聯運條碼</a></td>
+						<td><input type="text" id="txtIsprint" class="txt c1"/> </td>
+					</tr>
+					<!--<tr>
 						<td><span> </span><a class="lbl">聯運時間</a></td>
 						<td>
 							<input type="text"id="txtLdate" class="txt c3">
 							<input type="text"id="txtLtime" class="txt c2"> 
 						</td>
-						<td><span> </span><a class="lbl">聯運條碼</a></td>
-						<td><input type="text" id="txtIsprint" class="txt c1"/> </td>
-					</tr>
-					<!--<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input type="text" id="txtWorker" class="txt c1 "/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>

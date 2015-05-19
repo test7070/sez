@@ -142,13 +142,14 @@
 							<li><a id="addr2" class="addr2_bv">行政區配送維護</a></li>
 							<li><a id="addr3" class="addr3_bv">發送所簡碼維護</a></li>
 							<li><a id="sss" class="sss">員工資料</a></li>
+							<li><a id="part" class="part">部門主檔</a></li>
+							<li><a id="salm" class="salm">職稱主檔</a></li>
 						</ol>
 					</li>
 					<li>預購系統
 						<ol>
 							<li><a id="tranorde" class="tranorde_bv">預購作業</a></li>
 							<li><a id="z_trans_bv" class="z_trans_bv">使用情況控管表</a></li>
-							<li><a id="borr" class="borr_bv">條碼使用登錄作業</a></li>
 						</ol>
 					</li>
 					<li>手寫託運單作業
