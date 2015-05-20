@@ -141,6 +141,10 @@
 						$('.download').hide();
 					}
 				});
+				
+				if(window.parent.q_name == 'transef_edi_bv'){
+					$('#qReport div div .radio').last().removeClass('nonselect').addClass('select').click();
+				}
             }
 
             function q_boxClose(t_name) {

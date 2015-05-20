@@ -21,8 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat2";
-			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint'
-			,'txtNamea','txtTel','txtMobile','txtZip','txtPost','txtBoatname','txtSiteno','txtSite','txtShip'];
+			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint','txtShip'];
 			var q_readonlys = [];
 			var bbmNum = new Array(['txtMount',10,0,1],['txtTotal',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
@@ -628,7 +627,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">姓名</a></td>
+						<td><span> </span><a class="lbl">收件人</a></td>
 						<td><input type="text" id="txtNamea" class="txt c1 "/></td>
 						<td><span> </span><a class="lbl">電話</a></td>
 						<td><input type="text" id="txtTel" class="txt c1 "/></td>
@@ -636,19 +635,19 @@
 						<td><input type="text" id="txtMobile" class="txt c1 "/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblZip' class="lbl">ZIP</a></td>
-						<td><input type="text" id="txtZip" class="txt c1 "/></td>
+						<!--<td><span> </span><a id='lblZip' class="lbl">ZIP</a></td>
+						<td><input type="text" id="txtZip" class="txt c1 "/></td>-->
 						<td><span> </span><a id='lblPost' class="lbl">郵遞區號</a></td>
 						<td><input type="text" id="txtPost" class="txt c1 "/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a class="lbl">地址</a></td>
-						<td colspan="3"><input type="text" id="txtBoatname" class="txt c1 "/></td>
 						<td><span> </span><a class="lbl">到著站</a></td>
 						<td>
 							<input type="text"id="txtSiteno" class="txt c2"> 
 							<input type="text"id="txtSite" class="txt c3">
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">地址</a></td>
+						<td colspan="3"><input type="text" id="txtBoatname" class="txt c1 "/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">代收貨款</a></td>

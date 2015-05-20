@@ -265,7 +265,7 @@
                 		t_enoa=tmp;
                 	}
                 	                	
-                	q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim(t_bnoa),enoa:trim(t_enoa)}) + ";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
+                	q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";bnoa=" + trim(t_bnoa)+" and enoa="+trim(t_enoa) + ";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
 				});
             }
             

@@ -21,7 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = ['txtNoa','txtCust','txtDatea','txtInvodate','txtRdate','txtRtime'];
+			var q_readonly = ['txtNoa','txtCust','txtDatea','txtInvodate','txtRdate','txtRtime','txtSms'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1]];
 			var bbsNum = [];
@@ -561,7 +561,11 @@
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input type="text" id="txtMemo" class="txt c1"></td>
 					</tr>
-					<tr>
+					<tr class="trans">
+						<td><span> </span><a class="lbl">已派遣</a></td>
+						<td><input type="text" id="txtSms" class="txt c1 "/></td>
+					</tr>
+					<tr class="trans" style="display: none">
 						<td><span> </span><a class="lbl">讀取時間</a></td>
 						<td>
 							<input type="text" id="txtRdate" class="txt c3 "/>
