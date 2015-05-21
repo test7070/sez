@@ -95,10 +95,9 @@
                 			$(this).val('');
                 			return;
                 		}
+                		var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
+						q_gt('view_transef', t_where, 0, 0, 0, "");
                 	}
-                	
-					var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
-					q_gt('view_transef', t_where, 0, 0, 0, "");
 				});
 				
 				/*$('#txtShip').change(function() {
@@ -586,7 +585,7 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a>登錄日期</a</td>
 						<td align="center" style="width:200px; color:black;"><a>客戶簡稱</a></td>
-						<td align="center" style="width:100px; color:black;"><a>聯運件數</a</td>
+						<td align="center" style="width:100px; color:black;"><a>聯運件數</a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
