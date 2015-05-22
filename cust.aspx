@@ -337,7 +337,7 @@
 					case 'XY_newcust_Autonumber':
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
-							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
+							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.slice(-3)))?0:dec(as[as.length-1].noa.slice(-3)))+1)).slice(-3);
 							xy_newnoa=xy_newnoa+noa_seq;
 						}else{
 							xy_newnoa=xy_newnoa+'001';
@@ -352,7 +352,7 @@
 					case 'XY_AutoCustno1'://總店流水號 沒有分店
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
-							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
+							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.slice(-3)))?0:dec(as[as.length-1].noa.slice(-3)))+1)).slice(-3);
 							$('#txtXyNoa1').val($('#txtXyNoa1').val()+noa_seq);
 						}else{
 							$('#txtXyNoa1').val($('#txtXyNoa1').val()+'001');
@@ -362,7 +362,7 @@
 					case 'XY_AutoCustno2'://總店 分店流水號
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
-							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
+							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.slice(-3)))?0:dec(as[as.length-1].noa.slice(-3)))+1)).slice(-3);
 							$('#txtXyNoa1').val($('#txtXyNoa1').val()+noa_seq);
 							$('#txtXyNoa2').val('001');
 						}else{
@@ -374,12 +374,23 @@
 					case 'XY_AutoCustno3'://分店流水號
 						var as = _q_appendData("cust", "", true);
 						if(as[0] != undefined){
-							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.substr(-3)))?0:dec(as[as.length-1].noa.substr(-3)))+1)).substr(-3);
+							var noa_seq=('000'+((isNaN(dec(as[as.length-1].noa.slice(-3)))?0:dec(as[as.length-1].noa.slice(-3)))+1)).slice(-3);
 							$('#txtXyNoa2').val(noa_seq);
 						}else{
 							$('#txtXyNoa2').val('001');
 						}
 						btnOk();
+						break;
+					case 'GetMaxCustno_yc':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							maxno=isNaN(dec(as[0].noa.slice(-4)))?'0':as[0].noa.slice(-4);
+							maxno=('0000'+(dec(maxno)+1)).slice(-4);
+							$('#txtNoa').val('C'+maxno);
+						}else{
+							$('#txtNoa').val('C0001');
+						}
+						
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -444,6 +455,11 @@
 				
 				$('#txtNoa').focus();
 				refreshBbm();
+				
+				if (q_getPara('sys.project').toUpperCase()=='YC'){
+					t_where = "where=^^ noa=(select MAX(noa) from cust where left(noa,1)='C' ) ^^";
+					q_gt('cust', t_where, 0, 0, 0, "GetMaxCustno_yc", r_accy);
+				}
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					var t_noa='',t_comp='',t_comp2='';
