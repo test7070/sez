@@ -172,7 +172,10 @@
 		                    var t_color = ['DarkBlue','DarkRed'];
 		                    for(var i=0;i<as.length;i++){
 		                        string+='<tr id="vcc_tr'+i+'">';
-		                        string+='<td style="text-align: center;"><input id="vcc_chk'+i+'" class="vcc_chk" type="checkbox"/></td>';
+		                        if (as[i].isprint=='已列印')
+		                        	string+='<td style="text-align: center;"><input id="vcc_chk'+i+'" class="vcc_chk" type="checkbox" disabled="disabled"/></td>';
+		                        else
+		                        	string+='<td style="text-align: center;"><input id="vcc_chk'+i+'" class="vcc_chk" type="checkbox"/></td>';
 		                        string+='<td id="vcc_noa'+i+'" style="display:none;color:'+t_color[i%t_color.length]+'">'+as[i].noa+'</td>';
 		                        string+='<td id="vcc_datea'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].datea+'</td>';
 		                        string+='<td id="vcc_mon'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'">'+as[i].mon+'</td>';
