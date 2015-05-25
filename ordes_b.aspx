@@ -66,6 +66,9 @@
 						if(q_getPara('sys.project').toUpperCase()=='XY'){
 							if (!emp($('#txtProductno_' + t_id).val()))
 								$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
+						}else if(q_getPara('sys.project').toUpperCase()=='YC'){
+							if (!emp($('#txtProductno_' + t_id).val()))
+								$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
 						}else{
 							if (!emp($('#txtProductno_' + t_id).val()) && dec($('#txtMount_' + t_id).val()) > dec($('#txtCuamount_' + t_id).val()))
 								$(this).attr('checked', $('#checkAllCheckbox').is(':checked'));

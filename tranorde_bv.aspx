@@ -73,7 +73,7 @@
 						var t_where = "where=^^ docketno2=(select MAX(docketno2) from tranorde"+r_accy+") ^^";
 						q_gt('tranorde', t_where, 0, 0, 0, "GetMax97code",r_accy);
 					}else if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val())){
-						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
+						var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().slice(-8).substr(0,7))+(dec($('#txtMount').val())-1))).slice(-7);
 						endcode=endcode+(endcode%7);
 						$('#txtDocketno2').val(endcode);
 					}
@@ -82,11 +82,11 @@
 				$('#txtDocketno1').blur(function() {
 					if(q_cur==1 || q_cur==2){
 						if(!emp($(this).val())){
-	                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
+	                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().slice(-1))))
 	                			alert('請輸入正確的97條碼!!!');
 	                	}
 						if(!emp($('#txtDocketno1').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
-							var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
+							var endcode='97'+('0000000'+(dec($('#txtDocketno1').val().slice(-8).substr(0,7))+(dec($('#txtMount').val())-1))).slice(-7);
 							endcode=endcode+(endcode%7);
 							$('#txtDocketno2').val(endcode);
 						}
@@ -96,11 +96,11 @@
 				$('#txtDocketno2').blur(function() {
 					if(q_cur==1 || q_cur==2){
 						if(!emp($(this).val())){
-	                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().substr(-1))))
+	                		if(!((/^97[0-9]{8}$/g).test($(this).val()) && dec($(this).val().substr(0,9))%7 == dec($(this).val().slice(-1))))
 	                			alert('請輸入正確的97條碼!!!');
 	                	}
 						if(!emp($('#txtDocketno2').val())&&!emp($('#txtMount').val()) &&(q_cur==1 || q_cur==2)){
-							var begcode='97'+('0000000'+(dec($('#txtDocketno2').val().substr(-8).substr(0,7))-(dec($('#txtMount').val())-1))).substr(-7);
+							var begcode='97'+('0000000'+(dec($('#txtDocketno2').val().slice(-8).substr(0,7))-(dec($('#txtMount').val())-1))).slice(-7);
 							begcode=begcode+(begcode%7);
 							$('#txtDocketno1').val(begcode);
 						}
@@ -165,10 +165,10 @@
 						var maxcode='9700000004',endcode='9700000004';
 						if (as[0] != undefined){
 							var maxcode=as[0].docketno2;
-							maxcode='97'+('0000000'+(dec(maxcode.substr(-8).substr(0,7))+1)).substr(-7);
+							maxcode='97'+('0000000'+(dec(maxcode.slice(-8).substr(0,7))+1)).slice(-7);
 							maxcode=maxcode+(maxcode%7);
 						}
-						endcode='97'+('0000000'+(dec(maxcode.substr(-8).substr(0,7))+(dec($('#txtMount').val())-1))).substr(-7);
+						endcode='97'+('0000000'+(dec(maxcode.slice(-8).substr(0,7))+(dec($('#txtMount').val())-1))).slice(-7);
 						endcode=endcode+(endcode%7);
 						
 						$('#txtDocketno1').val(maxcode);
@@ -269,14 +269,14 @@
 				}
 				
                 if(!((/^97[0-9]{8}$/g).test($('#txtDocketno1').val()) 
-                && dec($('#txtDocketno1').val().substr(0,9))%7 == dec($('#txtDocketno1').val().substr(-1)))){
+                && dec($('#txtDocketno1').val().substr(0,9))%7 == dec($('#txtDocketno1').val().slice(-1)))){
                 	alert('預購起始號碼請輸入正確的97條碼!!!');
                 	Unlock();
 					return;
                 }
                 
                 if(!((/^97[0-9]{8}$/g).test($('#txtDocketno2').val()) 
-                && dec($('#txtDocketno2').val().substr(0,9))%7 == dec($('#txtDocketno2').val().substr(-1)))){
+                && dec($('#txtDocketno2').val().substr(0,9))%7 == dec($('#txtDocketno2').val().slice(-1)))){
                 	alert('預購迄止號碼請輸入正確的97條碼!!!');
                 	Unlock();
 					return;

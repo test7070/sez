@@ -59,8 +59,8 @@
 	            	t_para = JSON.parse(q_getId()[3]);
 	            }catch(e){
 	            }    
-	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined){
-	            	
+	            if(t_para.length==0 || t_para.bnoa==undefined || t_para.enoa==undefined || t_para.bnoa=='' || t_para.enoa==''){
+	            	$('#un96code').text('轉聯運作業 無96編碼!!請手動輸入');
 	            }else{
 	            	$('#txtBnoa').val(t_para.bnoa);
                 	$('#txtEnoa').val(t_para.enoa);
@@ -86,13 +86,14 @@
                 	if(!emp($('#txtBnoa').val())&&!emp($('#txtEnoa').val())){
                 		if((/^96[0-9]{8}$/g).test($('#txtBnoa').val()) && (/^96[0-9]{8}$/g).test($('#txtEnoa').val()) &&
                 		($('#txtBnoa').val().substr(0,9)%7)==$('#txtBnoa').val().substr(-1)&&($('#txtEnoa').val().substr(0,9)%7)==$('#txtEnoa').val().substr(-1)){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(0,9)),dec($('#txtEnoa').val().substr(0,9))))<300)
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(0,9)),dec($('#txtEnoa').val().substr(0,9))))<2000)
                 				window.open("./pdf_barcode96.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&db="+q_db);
                 			else
-                				alert('條碼範圍不得超逾300張!!!');
+                				alert('條碼範圍不得超逾2000張!!!');
                 		}else{
                 			alert('請輸入正確的96條碼!!!');
                 		}
+                		$('#un96code').text('');
                 	}else{
                 		alert('請輸入96條碼!!!');
                 	}
@@ -131,6 +132,7 @@
 				<div id="qReport"> </div>
 			</div>
 			<div class="download" style="float: left; width: 100%;">
+				<p><a id='un96code' style="text-decoration:none;color:darkorange; font-size: 25px;  font-weight: bold;"> </a></p>
 				<input class="btn" id="btnDownloadPdf" type="button" value='列印' style=" font-weight: bold;font-size: 16px;color: blue;" />
 				<input class="btn" id="btnAuthority" type="button" value="權限" style=" font-weight: bold;font-size: 16px;color: blue;"/>
 			</div>

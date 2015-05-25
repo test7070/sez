@@ -234,6 +234,17 @@
 						wrServer($('#txtNoa').val());
 						Unlock();
 						break;	
+					case 'GetMaxTggno_yc':
+						var as = _q_appendData("cust", "", true);
+						if(as[0] != undefined){
+							maxno=isNaN(dec(as[0].noa.slice(-4)))?'0':as[0].noa.slice(-4);
+							maxno=('0000'+(dec(maxno)+1)).slice(-4);
+							$('#txtNoa').val('A'+maxno);
+						}else{
+							$('#txtNoa').val('A0001');
+						}
+						
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -258,6 +269,11 @@
 				}
 				$('#Copy').removeAttr('checked');
 				$('#txtNoa').focus();
+				
+				if (q_getPara('sys.project').toUpperCase()=='YC'){
+					t_where = "where=^^ noa=(select MAX(noa) from tgg where left(noa,1)='A' ) ^^";
+					q_gt('tgg', t_where, 0, 0, 0, "GetMaxTggno_yc", r_accy);
+				}
 			}
 
 			function btnModi() {

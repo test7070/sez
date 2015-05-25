@@ -21,8 +21,7 @@
 
 			q_tables = 's';
 			var q_name = "tboat2";
-			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint'
-			,'txtNamea','txtTel','txtMobile','txtZip','txtPost','txtBoatname','txtSiteno','txtSite','txtShip'];
+			var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtCustno','txtCust','txtIsprint','txtShip'];
 			var q_readonlys = [];
 			var bbmNum = new Array(['txtMount',10,0,1],['txtTotal',10,0,1]);
 			var bbmMask = new Array(['txtDatea', '999/99/99']);
@@ -96,10 +95,9 @@
                 			$(this).val('');
                 			return;
                 		}
+                		var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
+						q_gt('view_transef', t_where, 0, 0, 0, "");
                 	}
-                	
-					var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
-					q_gt('view_transef', t_where, 0, 0, 0, "");
 				});
 				
 				/*$('#txtShip').change(function() {
@@ -587,7 +585,7 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a>登錄日期</a</td>
 						<td align="center" style="width:200px; color:black;"><a>客戶簡稱</a></td>
-						<td align="center" style="width:100px; color:black;"><a>聯運件數</a</td>
+						<td align="center" style="width:100px; color:black;"><a>聯運件數</a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -628,7 +626,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">姓名</a></td>
+						<td><span> </span><a class="lbl">收件人</a></td>
 						<td><input type="text" id="txtNamea" class="txt c1 "/></td>
 						<td><span> </span><a class="lbl">電話</a></td>
 						<td><input type="text" id="txtTel" class="txt c1 "/></td>
@@ -636,19 +634,19 @@
 						<td><input type="text" id="txtMobile" class="txt c1 "/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblZip' class="lbl">ZIP</a></td>
-						<td><input type="text" id="txtZip" class="txt c1 "/></td>
+						<!--<td><span> </span><a id='lblZip' class="lbl">ZIP</a></td>
+						<td><input type="text" id="txtZip" class="txt c1 "/></td>-->
 						<td><span> </span><a id='lblPost' class="lbl">郵遞區號</a></td>
 						<td><input type="text" id="txtPost" class="txt c1 "/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a class="lbl">地址</a></td>
-						<td colspan="3"><input type="text" id="txtBoatname" class="txt c1 "/></td>
 						<td><span> </span><a class="lbl">到著站</a></td>
 						<td>
 							<input type="text"id="txtSiteno" class="txt c2"> 
 							<input type="text"id="txtSite" class="txt c3">
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">地址</a></td>
+						<td colspan="3"><input type="text" id="txtBoatname" class="txt c1 "/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">代收貨款</a></td>
