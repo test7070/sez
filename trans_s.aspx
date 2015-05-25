@@ -85,7 +85,8 @@
 		        t_tre = $.trim($('#cmbTre').val());
 		        t_carteam = $.trim($('#cmbCarteam').val());
 		        t_calctype = $.trim($('#cmbCalctype').val());
-
+				t_custorde = $.trim($('#txtCustorde').val());
+				
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("carteamno", t_carteam)
 		        + q_sqlPara2("calctype", t_calctype)
@@ -99,7 +100,9 @@
 		        + q_sqlPara2("po", t_po);
 		        if (t_caseno.length>0)
                     t_where += " and (charindex('" + t_caseno + "',caseno)>0 or charindex('" + t_caseno + "',caseno2)>0)";
-                    
+                if (t_custorde.length>0)
+                    t_where += " and charindex('" + t_custorde + "',custorde)>0 ";
+                        
 		        if (t_comp.length>0)
                     t_where += " and charindex('" + t_comp + "',comp)>0";
                 if (t_driver.length>0)
@@ -231,6 +234,13 @@
 					<input class="txt" id="txtStraddrno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCustorde'>憑單號碼</a></td>
+					<td>
+					<input class="txt" id="txtCustorde" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
