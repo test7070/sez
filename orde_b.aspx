@@ -99,7 +99,7 @@
 					<td align="center" style="width:20%;" class="custno"><a id='lblCust'> </a></td>
 					<td align="center" style="width:5%;" class="enda"><a id='lblEnda'> </a></td>
 					<td align="center" style="width:10%;" class="money"><a id='lblTotal'> </a></td>
-					<td align="center"><a id='lblMemo' class="memo"> </a></td>
+					<td align="center" class="memo"><a id='lblMemo'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
