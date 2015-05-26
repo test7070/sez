@@ -58,6 +58,20 @@
 
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
+					case 'etc.h96.btnOK':
+						if(result.substr(0,2)=="^@"){//  傳回值前兩碼=^@   要產生96
+                			//104/05/05 96條碼產生方式變動為9712345672>9612345676
+                			var t_code97=$('#txtCode').val();
+                			var t_code96='96'+t_code97.substr(2,7);
+                			//加入檢查碼
+                			t_code96=t_code96+(dec(t_code96)%7);
+							$('#txtShip').val(t_code96)
+						}else{
+							$('#txtShip').val('');
+						}
+						etc96=true;
+						btnOk();
+						break;
 					case 'etc.h96':
 						if(result.substr(0,2)=="^@"){//  傳回值前兩碼=^@   要產生96
                 			//104/05/05 96條碼產生方式變動為9712345672>9612345676
@@ -66,6 +80,8 @@
                 			//加入檢查碼
                 			t_code96=t_code96+(dec(t_code96)%7);
 							$('#txtShip').val(t_code96)
+						}else{
+							$('#txtShip').val('');
 						}
 						break;
 					case 'qtxt.query.tboat2':
@@ -115,13 +131,15 @@
 						q_gt('addr2', t_where, 0, 0, 0, "");
 					}
 				});
-				
+				*/
 				$('#txtBoatname').change(function() {
 					if(!emp($(this).val())){
+						q_func("etc.h96", $(this).val()); //傳回值前兩碼=^@   要產生96
+                		
 						var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(area,'"+$(this).val()+"')>0 and charindex(road,'"+$(this).val()+"')>0 ^^";
 						q_gt('view_road', t_where, 0, 0, 0, "getzip1");
 					}
-				});*/
+				});
 			}
 			
 			function bbsAssign() {
@@ -225,7 +243,7 @@
                 		if (as[0] != undefined) {
                 			$('#txtZip').val(as[0].zipcode);
 						}else{
-							var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(area,'"+$(this).val()+"')>0 ^^";
+							var t_where = "where=^^ charindex(city,'"+$('#txtBoatname').val()+"')>0 and charindex(area,'"+$('#txtBoatname').val()+"')>0 ^^";
 							q_gt('view_road', t_where, 0, 0, 0, "getzip2");
 						}
 						break;
@@ -234,7 +252,7 @@
                 		if (as[0] != undefined) {
                 			$('#txtZip').val(as[0].zipcode);
 						}else{
-							var t_where = "where=^^ charindex(city,'"+$(this).val()+"')>0 and charindex(road,'"+$(this).val()+"')>0 ^^";
+							var t_where = "where=^^ charindex(city,'"+$('#txtBoatname').val()+"')>0 and charindex(road,'"+$('#txtBoatname').val()+"')>0 ^^";
 							q_gt('view_road', t_where, 0, 0, 0, "getzip3");
 						}
 						break;
@@ -274,7 +292,8 @@
 			function btnPrint() {
 				q_box("z_tboat2_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({bnoa:trim($('#txtShip').val()),enoa:trim($('#txtShip').val())}) + ";" + r_accy + "_" + r_cno, 'tboat2', "95%", "95%", m_print);
 			}
-
+			
+			var etc96=false;
 			function btnOk() {
 				Lock();
 				var t_err = '';
@@ -285,6 +304,13 @@
 					return;
 				}
 				
+				if(!emp($('#txtBoatname').val()) && !etc96){
+					q_func("etc.h96.btnOK", $('#txtBoatname').val()); //傳回值前兩碼=^@   要產生96
+					return;
+				}
+				
+				etc96=false;
+				
 				if(q_cur ==1){
 					$('#txtWorker').val(r_name);
 				}else if(q_cur ==2){
@@ -292,15 +318,6 @@
 				}else{
 					alert("error: btnok!");
 				}
-				
-				/*if(emp($('#txtShip').val())){
-                	//104/05/05 96條碼產生方式變動為9712345672>9612345676
-                	var t_code97=$('#txtCode').val();
-                	var t_code96='96'+t_code97.substr(2,7);
-                	//加入檢查碼
-                	t_code96=t_code96+(dec(t_code96)%7);
-					$('#txtShip').val(t_code96)
-				}*/
 				
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
