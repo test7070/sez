@@ -17,6 +17,7 @@
             }
             q_desc=1;
 			q_tables = 's';
+			q_copy=1;
             var q_name = "giftsend";
             var q_readonly = ['txtNoa','txtWorker','txtTotal'];
             var q_readonlys = [];
