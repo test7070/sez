@@ -58,7 +58,9 @@
 				document.title='1.3發送所簡碼維護';
 				$("#lblNoa").text('站所代碼');
 				$("#lblNamea").text('站所名稱');
+				$("#lblCode").text('站所全碼');
 				q_getFormat();
+				bbmMask = [['txtOdate', '9999']];
 				q_mask(bbmMask);
 				
 				$('#txtNoa').change(function(e) {
@@ -427,9 +429,12 @@
                     </tr>
                     <tr>   
                         <td><span> </span><a id="lblNamea" class="lbl"> </a></td>
-                        <td colspan="2">
-                        	<input id="txtNamea" type="text"  class="txt c1"/></td> 
-                        </tr>
+                        <td colspan="2"><input id="txtNamea" type="text"  class="txt c1"/></td> 
+					</tr>
+					<tr>   
+                        <td><span> </span><a id="lblCode" class="lbl"> </a></td>
+                        <td><input id="txtCode" type="text"  class="txt c1"/></td> 
+					</tr>
                     <tr> </tr>
                 </table>
             </div>
