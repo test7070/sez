@@ -60,7 +60,7 @@
 				$("#lblNamea").text('站所名稱');
 				$("#lblCode").text('站所全碼');
 				q_getFormat();
-				bbmMask = [['txtOdate', '9999']];
+				bbmMask = [['txtCode', '9999']];
 				q_mask(bbmMask);
 				
 				$('#txtNoa').change(function(e) {
