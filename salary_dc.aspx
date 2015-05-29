@@ -890,7 +890,7 @@
 					return;
 				}
 				_btnModi();
-				if($('#txtDatea').val()<q_date()){
+				if($('#txtDatea').val()<q_date() && r_rank<8){ //104/05/26 欣芸 r_rank>=8 還是可以改
 					$('#tbbm').find('input').attr('disabled','disabled');
 					$('#tbbs').find('input').attr('disabled','disabled');
 					$('#tbbs').find('.justMemo').removeAttr('disabled');

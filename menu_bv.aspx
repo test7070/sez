@@ -49,20 +49,28 @@
 						if(r_outs==1){//外部廠商
 							if(outs_aspx.indexOf(child)>-1 && t_permit){//有在開放的網頁 且有權限
 								$(this).click(function() {
-									window.open($(this).attr('class')+".aspx?"+q_getId()[0]+";"+q_getId()[1]+";"+q_getId()[2]+";;"+q_getId()[4]);
+									window.open($(this).child.attr('class')+".aspx?"+q_getId()[0]+";"+q_getId()[1]+";"+q_getId()[2]+";;"+q_getId()[4]);
 								});
 							}else{
-								$(this).css('cursor','auto').css('color','rgb(200,200,200)').css('text-decoration','none');
+								//$(this).css('cursor','auto').css('color','rgb(200,200,200)').css('text-decoration','none');
+								$(this).parent().remove();
 							}
 						}else{//正常帳號
 							if (r_rank < 8 && !t_permit){ //沒有執行權限
-								$(this).css('cursor','auto').css('color','rgb(200,200,200)').css('text-decoration','none');
+								//$(this).css('cursor','auto').css('color','rgb(200,200,200)').css('text-decoration','none');
+								$(this).parent().remove();
 							}else{//有權限
 								$(this).click(function() {
 									window.open($(this).attr('class')+".aspx?"+q_getId()[0]+";"+q_getId()[1]+";"+q_getId()[2]+";;"+q_getId()[4]);
 								});
 							}
 						}
+					}
+				});
+				
+				$('.leftbox ol li ').each(function(index) {
+					if($(this).html().indexOf('</a>')==-1){
+						$(this).remove();
 					}
 				});
 
