@@ -60,7 +60,11 @@
             		q_gt('tgg_conn', t_where+t_where1, 0, 0, 0, "", r_accy);
                 }
             	else{
-            		var t_where = "where=^^ EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '"+$('#txtMon').val()+"'and c.unpay>0) ^^";
+            		var t_where = "EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '"+$('#txtMon').val()+"'and c.unpay>0) ";
+            		if (q_getPara('sys.project').toUpperCase()=='XY'){
+            			t_where=t_where+" and charindex('郵寄',invomemo)>0 "
+            		}
+            		t_where="where=^^ "+t_where+" ^^";
             		var t_where1 = "where[1]=^^a.noa=noa and isnull(bill,0)=1 ^^";
             		q_gt('cust_conn', t_where+t_where1, 0, 0, 0, "", r_accy);
             	}
@@ -103,10 +107,15 @@
             	case 'cust_conn':
             		var as = _q_appendData("cust_conn", "", true);
             		for(i=0;i<as.length;i++){
+            			as[i].memo='';
 						if (as[i].addr_invo=='')
-						as[i].addr_invo = as[i].addr_comp;
+							as[i].addr_invo = as[i].addr_comp;
+						if (q_getPara('sys.project').toUpperCase()=='XY'){
+							if(as[i].invomemo.indexOf('附回郵')>-1)
+								as[i].memo='附回郵';
 						}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn', as.length, as, 'noa,comp,zip_invo,addr_invo,cpart,cname', '');
+					}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_invo,addr_invo,cpart,cname,memo', '');
             	
             	break;
 			}  /// end switch

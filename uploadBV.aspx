@@ -57,6 +57,15 @@
                             $("input[name='btnFile1']").attr('disabled', 'disabled');
                             $("input[name='btnUpload']").attr('disabled', 'disabled');
 							$('#untranorde').text(r_userno+" "+r_name+" 無預購單!!!");
+							q_cmbParse("combDeliveryno", '@');
+                        }else{ //有預購單 顯示袋號
+                        	as.sort(function(a,b){return dec(a.deliveryno)-dec(b.deliveryno);});//袋號排序
+                        	var t_item = "";
+							for (i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].deliveryno + '@' + as[i].deliveryno;
+							}
+							q_cmbParse("combDeliveryno", t_item);
+                        	$('.deliveryno').show();
                         }
                         break;
                 }
@@ -184,7 +193,7 @@
 	                                    return;
 	                                }
 	
-	                                System.IO.FileStream fs = new System.IO.FileStream(savepath +"EDIFSD_"+ filename.Substring(0, end) + "^$__" + t_userno + filename.Substring(end), System.IO.FileMode.OpenOrCreate);
+	                                System.IO.FileStream fs = new System.IO.FileStream(savepath + ( filename.StartsWith("EDIFSD_") ?"" : "EDIFSD_" )+ filename.Substring(0, end)+"_^_"+Request.Form["combDeliveryno"] + "^$__" + t_userno + filename.Substring(end), System.IO.FileMode.OpenOrCreate);
 	
 	                                System.IO.BinaryWriter w = new System.IO.BinaryWriter(fs);
 	                                w.Write((byte[])obj[1]);
@@ -239,6 +248,7 @@
 		</p>
 		<div>
 			<form id="Form1" name='form1' method='post' action='uploadBV.aspx' runat="server" enctype='multipart/form-data' style='width:725px'>
+				<p><a class="deliveryno" style="display: none;">袋號</a><select id='combDeliveryno' style="display: none;" class="deliveryno" name="combDeliveryno"> </select></p>
 				<input type='file' name='btnFile1' style='font-size:16px;' onclick='getAddr()'/>
 				<input type='hidden' name='txtAddr' style='font-size:16px;'/>
 				<asp:TextBox ID="TextBox1"  name="TextBox1" runat="server" Visible="false"></asp:TextBox>
@@ -252,3 +262,4 @@
 
 	</body>
 </html>
+

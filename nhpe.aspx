@@ -190,15 +190,17 @@
 
         function readonly(t_para, empty) {
             if (r_rank < 8)
-                q_readonly = ['txtPartno', 'txtPart', 'txtQ_id', 'txtRank', 'txtCredit', 'combCopy'];
+                q_readonly = ['txtPartno', 'txtPart', 'txtQ_id', 'txtRank', 'txtCredit', 'combCopy','chkOuts'];
             _readonly(t_para, empty);
 
             if (r_rank < 8) {
                 $('#btnCopy').attr('disabled', 'disabled');
                 $('#combCopy').attr('disabled', 'disabled');
-                $('#btnAdd').attr('disabled', 'disabled');
-                $('#btnIns').attr('disabled', 'disabled');
-                $('#btnDele').attr('disabled', 'disabled');
+                //$('#btnAdd').attr('disabled', 'disabled');
+                $('#btnIns').hide();
+                $('#btnSeek').hide();
+                $('#btnPrint').hide();
+                $('#btnDele').hide();
             }
             if(!t_para){
                 $('#btnCopy').attr('disabled', 'disabled');

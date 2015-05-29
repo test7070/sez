@@ -46,11 +46,40 @@
                 scroll("tbbs","box",1);
                 q_mask(bbmMask);
                 //q_gf('_qmenu');
-                q_gf('qlang.txt', 'qTitle');
+                q_gt('qtitle','where=^^ 1=1 ^^', 0, 0, 0, "", r_accy);
+                
             }
 
             function q_gtPost(t_name) {
-
+				switch (t_name) {
+					case 'qtitle':
+						var as = _q_appendData("qtitle", "", true);
+						var qf_qlang=false; //判斷是否有空白title 如果有再去抓qlang
+						
+						if (as[0] != undefined) {
+							for(var i = 0; i < q_bbsCount; i++) {
+								for(var j = 0; j < as.length; j++) {
+									if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(as[j].noa).toUpperCase()){
+		                				$('#textTitle_'+i).val(as[j].title);
+		                				break;
+		                			}
+								}
+							}
+							//檢查是否還有空白title
+							for(var i = 0; i < q_bbsCount; i++) {
+								if(emp($('#textTitle_'+i).val()))
+									qf_qlang=true;
+								if(qf_qlang)
+									break;
+							}
+						}else{
+							qf_qlang=true;
+						}
+						
+						if(qf_qlang)
+							q_gf('qlang.txt', 'qTitle');
+						break;
+				}
             }
             
             var t_qtitle=undefined;
@@ -67,6 +96,7 @@
 	                		}
 	                	}
 	                }
+	                qf_qlang=false;
 				}
 			}
 
