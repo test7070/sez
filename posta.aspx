@@ -71,10 +71,17 @@
             });
 		
 			$('#cmbKind').change(function() {
-				if($('#cmbKind').val()=='廠商')
-					aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
-				else
-					aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']);
+				if($('#cmbKind').val()=='廠商'){
+					if(q_getPara('sys.project').toUpperCase()=='XY')
+						aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
+					else
+						aPop = new Array(['txtUseno_', 'btnUseno_', 'tgg', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'tgg_b.aspx']);
+				}else{
+					if(q_getPara('sys.project').toUpperCase()=='XY')
+						aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_invo,zip_invo', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']);
+					else
+						aPop = new Array(['txtUseno_', 'btnUseno_', 'cust', 'noa,comp,addr_home,zip_home', 'txtUseno_,txtComp_,txtAddr_,txtZipcode_', 'cust_b.aspx']);
+				}
 			});
 			q_popAssign();
 			$('#cmbKind').change();
@@ -92,30 +99,43 @@
 
 		function q_gtPost(t_name) {  
 			switch (t_name) {
-				case q_name: if (q_cur == 4)   
+				case q_name: 
+					if (q_cur == 4)   
 						q_Seek_gtPost();
-					break;		
+					break;
+				case 'cust_post_xy':
+					var as = _q_appendData("cust", "", true);
+					if (as[0] != undefined) {
+						$('#txtMemo_'+b_seq).val('附回郵');
+					}
+					break;
+				case 'conn_xy':
+					var as = _q_appendData("conn", "", true);
+					if (as[0] != undefined) {
+						$('#txtPart_'+b_seq).val(as[0].part);
+						$('#txtConn_'+b_seq).val(as[0].namea);
+					}
+					break;	
 				case 'tgg_conn':
 					var as = _q_appendData("tgg_conn", "", true);
 					for(i=0;i<as.length;i++){
-						if (as[i].addr_invo=='')
-						as[i].addr_invo = as[i].addr_comp;
-						}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn', as.length, as, 'noa,comp,zip_invo,addr_invo,cpart,cname', '');
-	
+						if (as[i].addr_invo!='' && q_getPara('sys.project').toUpperCase()=='XY')
+							as[i].addr_comp = as[i].addr_invo;
+					}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname', '');
             	break;
             	case 'cust_conn':
             		var as = _q_appendData("cust_conn", "", true);
             		for(i=0;i<as.length;i++){
             			as[i].memo='';
-						if (as[i].addr_invo=='')
-							as[i].addr_invo = as[i].addr_comp;
+						if (as[i].addr_invo!='' && q_getPara('sys.project').toUpperCase()=='XY')
+							as[i].addr_comp = as[i].addr_invo;
 						if (q_getPara('sys.project').toUpperCase()=='XY'){
 							if(as[i].invomemo.indexOf('附回郵')>-1)
 								as[i].memo='附回郵';
 						}
 					}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_invo,addr_invo,cpart,cname,memo', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname,memo', '');
             	
             	break;
 			}  /// end switch
@@ -145,6 +165,11 @@
 
 		function bbsAssign() {  
 			for (var j = 0; j < q_bbsCount; j++) {
+				$('#txtUseno_' + j).click(function() {
+					t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+				});
 			}
 			_bbsAssign();
 		}
@@ -251,6 +276,20 @@
 
 		function btnCancel() {
 			_btnCancel();
+		}
+		function q_popPost(s1) {
+			switch (s1) {
+				case 'txtUseno_':
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					if($('#cmbKind').val()!='廠商'){
+						t_where="where=^^ noa='"+$('#txtUseno_'+b_seq).val()+"' and charindex('附回郵',invomemo)>0 ^^";
+						q_gt('cust', t_where, 0, 0, 0, "cust_post_xy", r_accy);
+					}
+					t_where="where=^^ noa='"+$('#txtUseno_'+b_seq).val()+"' and isnull(bill,0)=1^^";
+					q_gt('conn', t_where, 0, 0, 0, "conn_xy", r_accy);
+				}
+				break;		
+			}
 		}
 	</script>
 	<style type="text/css">

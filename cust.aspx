@@ -126,6 +126,20 @@
 					);
 				}
 				
+				if (q_getPara('sys.project').toUpperCase()=='YC'){
+					aPop = new Array(
+						['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+						['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'],
+						['txtGrpno', 'lblGrp', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'],
+						['txtCustno2', 'lblCustno2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx'],
+						['txtZip_fact', '', 'view_road', 'zipcode,memo', '0txtZip_fact,txtAddr_fact', 'road_b.aspx'],
+						['txtZip_fact2', '', 'view_road', 'zipcode,memo', '0txtZip_fact2,txtAddr_fact2', 'road_b.aspx'],
+						['txtZip_comp', '', 'view_road', 'zipcode,memo', '0txtZip_comp,txtAddr_comp', 'road_b.aspx'],
+						['txtZip_invo', '', 'view_road', 'zipcode,memo', '0txtZip_invo,txtAddr_invo', 'road_b.aspx'],
+						['txtZip_home', '', 'view_road', 'zipcode,memo', '0txtZip_home,txtAddr_home', 'road_b.aspx']
+					);
+				}
+				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbStatus", q_getPara('cust.status'));

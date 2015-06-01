@@ -42,11 +42,11 @@
 					}
 					
 					//外部廠商開放的網頁id
-					var outs_aspx=['tboat','uploaddc','transef_edi_bv','z_transef_bv'];
+					var outs_aspx=['tboat','uploaddc','transef_edi_bv','z_transef_bv','nhpe'];
 					
 					//處理開放網頁
 					if(child!='download'){
-						if(r_outs==1){//外部廠商
+						/*if(r_outs==1){//外部廠商
 							if(outs_aspx.indexOf(child)>-1 && t_permit){//有在開放的網頁 且有權限
 								$(this).click(function() {
 									window.open($(this).attr('class')+".aspx?"+q_getId()[0]+";"+q_getId()[1]+";"+q_getId()[2]+";;"+q_getId()[4]);
@@ -64,6 +64,25 @@
 									window.open($(this).attr('class')+".aspx?"+q_getId()[0]+";"+q_getId()[1]+";"+q_getId()[2]+";;"+q_getId()[4]);
 								});
 							}
+						}*/
+						if (r_rank < 8 && !t_permit){ //沒有執行權限
+							$(this).parent().remove();
+						}else if (r_rank < 8 && (child=='tboat' || child=='tboatcs')){
+							if ((child=='tboat' && r_outs==1) || (child=='tboatcs' && r_outs==0 )){
+								$(this).click(function() {
+									window.open($(this).attr('class')+".aspx?"+q_getId()[0]+";"+q_getId()[1]+";"+q_getId()[2]+";;"+q_getId()[4]);
+								});
+							}else{
+								$(this).parent().remove();
+							}
+						}else{//有權限
+							$(this).click(function() {
+								window.open($(this).attr('class')+".aspx?"+q_getId()[0]+";"+q_getId()[1]+";"+q_getId()[2]+";;"+q_getId()[4]);
+							});
+						}
+					}else{
+						if(r_outs==1){
+							$(this).parent().remove();
 						}
 					}
 				});

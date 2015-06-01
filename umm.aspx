@@ -111,8 +111,8 @@
                             t_money -= q_float('txtMoney_' + i);
                         else*/
                             t_money += q_float('txtMoney_' + i);
-						//104/04/29費用不算在收款金額
-                        //t_money += q_float('txtChgs_' + i);
+						//104/04/29費用不算在收款金額//0601恢復改為-
+                        t_money -= q_float('txtChgs_' + i);
                     }
 
                     var t_unpay, t_pay = 0;
@@ -252,8 +252,8 @@
                         t_money -= q_float('txtMoney_' + j);
                     else*/
                         t_money += q_float('txtMoney_' + j);
-					//104/04/29費用不算在收款金額
-                    //t_money += q_float('txtChgs_' + j);
+					//104/04/29費用不算在收款金額//0601恢復並改為-
+                    t_money -= q_float('txtChgs_' + j);
                     t_sale += q_float('txtUnpayorg_' + j);
                     t_pay += q_float('txtPaysale_' + j);
                 }
@@ -644,9 +644,9 @@
                 	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
                 	
                     t_money = q_float('txtMoney_' + i);
-                    //104/04/29費用不算在收款金額
-                    //t_chgs = q_float('txtChgs_' + i);
-                    if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money + t_chgs > 0) {
+                    //104/04/29費用不算在收款金額//0601恢復並改為-
+                    t_chgs = q_float('txtChgs_' + i);
+                    if ($.trim($('#txtAcc1_' + i).val()).length == 0 && t_money - t_chgs > 0) {
                         t_err = true;
                         break;
                     }
@@ -657,7 +657,7 @@
                 sum();
                 
                 if (t_err) {
-                    alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
+                    alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money - t_chgs));
                     Unlock(1);
                     return false;
                 }
@@ -667,8 +667,8 @@
                 	$('#txtCheckno_'+i).val($.trim($('#txtCheckno_'+i).val()));
                 	
                     t_money += q_float('txtMoney_' + i);
-                    //104/04/29費用不算在收款金額
-                    //t_chgs += q_float('txtChgs_' + i);
+                    //104/04/29費用不算在收款金額//0601恢復並改為-
+                   t_chgs += q_float('txtChgs_' + i);
                 }
                 
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -700,7 +700,7 @@
                 var t_opay = q_float('txtOpay');
                 var t_unopay = q_float('txtUnopay');
                 var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
-                var t2 = t_money + t_chgs;
+                var t2 = t_money - t_chgs;
                 if (t1 != t2) {
                     alert('收款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
                    	Unlock(1);

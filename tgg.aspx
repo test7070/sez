@@ -235,7 +235,7 @@
 						Unlock();
 						break;	
 					case 'GetMaxTggno_yc':
-						var as = _q_appendData("cust", "", true);
+						var as = _q_appendData("tgg", "", true);
 						if(as[0] != undefined){
 							maxno=isNaN(dec(as[0].noa.slice(-4)))?'0':as[0].noa.slice(-4);
 							maxno=('0000'+(dec(maxno)+1)).slice(-4);
