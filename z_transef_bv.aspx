@@ -24,8 +24,9 @@
                 $('#qReport').q_report({
                     fileName : 'z_transef_bv',
                     options : [{
-                        type : '6',
-                        name : 'xdate'
+                        type : '0',
+                        name : 'xnoa',
+                        value : ''
                     }, {
                         type : '2',
                         name : 'xcust',
@@ -61,7 +62,7 @@
                 	$('#btnXcust1').hide();
                 	$('#btnXcust2').hide();
                 }
-                
+                $('#txtXnoa').attr('disabled','disabled');
                 $('#txtBnoa').attr('disabled','disabled');
                 $('#txtEnoa').attr('disabled','disabled');
                 $('#txtBnoa').mask('9999999999');
@@ -98,9 +99,14 @@
                 		&& dec($('#txtBnoa').val().substr(0,9))%7 == dec($('#txtBnoa').val().substr(-1))
                 		&& dec($('#txtEnoa').val().substr(0,9))%7 == dec($('#txtEnoa').val().substr(-1))
                 		){
-                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<300)
+                			if(Math.abs(q_sub(dec($('#txtBnoa').val().substr(-8).substr(0,7)),dec($('#txtEnoa').val().substr(-8).substr(0,7))))<300){
                 				window.open("./pdf_edi.aspx?bno="+$('#txtBnoa').val()+"&eno="+$('#txtEnoa').val()+"&str="+$('#Str .cmb').val()+"&db="+q_db);
-                			else
+                				$('.vcc_chk').each(function(index) {
+									var n=$(this).attr('id').replace('vcc_chk','')
+									$('#vcc_chk'+n).prop('checked',false).attr('disabled','disabled');
+									$('#vcc_print'+n).text('已列印');
+								});
+                			}else
                 				alert('條碼範圍不得超逾300張!!!');
                 		}else{
                 			alert('請輸入正確的97條碼!!!');
@@ -141,10 +147,30 @@
 						$('.download').hide();
 					}
 				});
-				
+				$('#btnOk').hide();
 				if(window.parent.q_name == 'transef_edi_bv'){
+					var delete_report=0;
+					for(var i=0;i<$('#qReport').data().info.reportData.length;i++){
+						if($('#qReport').data().info.reportData[i].report=='z_transef_bv01')
+							delete_report=i;
+					}
+					if($('#qReport div div').text().indexOf('EDI託運單')>-1)
+						$('#qReport div div')[delete_report].remove();
+					
 					$('#qReport div div .radio').last().removeClass('nonselect').addClass('select').click();
-					$('#btnOk').click();
+					if(q_getHref()[1]!=undefined || q_getHref()[1]!=''){
+						$('#qReport').data().info.options[0].value=q_getHref()[1];
+						t_where="where=^^noa='"+q_getHref()[1]+"' order by datea desc,custno^^";
+						q_gt('view_vcc_bv', t_where, 0, 0, 0,'getisprint', r_accy);
+					}
+				}else{
+					var delete_report=0;
+					for(var i=0;i<$('#qReport').data().info.reportData.length;i++){
+						if($('#qReport').data().info.reportData[i].report=='z_transef_bv02')
+							delete_report=i;
+					}
+					if($('#qReport div div').text().indexOf('託運總表')>-1)
+						$('#qReport div div')[delete_report].remove();
 				}
             }
 
@@ -154,6 +180,20 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
+            		case 'getisprint':
+            			var as = _q_appendData("view_vcc", "", true);
+                        if (as[0] != undefined){
+                        	if(as[0].isprint==''){
+                        		alert('託運單尚未列印!!')
+                        	}else{
+                        		$('#btnOk').click();
+                        		var wParent = window.parent.document;
+								wParent.getElementById("vcc_ordeno"+q_getHref()[3]).innerHTML = '已列印';
+                        	}
+                        }else{
+                        	alert('資料錯誤!!!')
+                        }
+            			break;
             		case 'view_vcc_bv':
             			var as = _q_appendData("view_vcc", "", true);
                         if (as[0] != undefined){

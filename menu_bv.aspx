@@ -209,7 +209,7 @@
 						<ol>
 							<li><a id="nhpe" class="nhpe">員工密碼設定</a></li>
 							<li><a id="z_drun" class="z_drun">使用紀錄查詢</a></li>
-							<li><a id="download" href="http://59.125/143.170/g.exe">連線程式下載</a></li>
+							<li><a id="download" href="http://59.125.143.170/g.exe">連線程式下載</a></li>
 						</ol>
 					</li>
 				</ol>

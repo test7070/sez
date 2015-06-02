@@ -37,7 +37,12 @@
 
                     $('#examplecsv')[0].href = s1.substr(0, k) + '/edifsd_example.csv';
                 });
-
+				
+				$("input[name='btnFile1']").change(function() {
+					var filename=$("input[name='btnFile1']")[0].files[0].name;
+					t_where = "where=^^ custno='" + r_userno + "' and memo='"+filename+"' ^^";
+                	q_gt('view_vcc', t_where, 0, 0, 0, 'filerepet', r_accy);
+				});
             });
 
             function q_gfPost() {
@@ -46,11 +51,17 @@
 
                 t_where = "where=^^ custno='" + r_userno + "' and isnull(enda,0)=0 and left(containertype,3)='edi' ^^";
                 q_gt('view_tranorde', t_where, 0, 0, 0, 'gettranorde', r_accy);
-
             }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'filerepet':
+                		var as = _q_appendData("view_vcc", "", true);
+                        if (as[0] != undefined) {//表示檔案名稱重覆
+                        	alert('檔案資料重覆!!!  請更改上傳檔名');
+                        	$("input[name='btnFile1']").val('');
+                        }
+                		break;
                     case 'gettranorde':
                         var as = _q_appendData("view_tranorde", "", true);
                         if (as[0] == undefined) {//表示沒有預購單

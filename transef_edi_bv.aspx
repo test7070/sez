@@ -49,7 +49,7 @@
                     string+='<td id="vcc_custno" onclick="vcc.sort(\'custno\',false)" title="客戶代號" align="center" style="width:150px; color:black;">客戶代號</td>';
                     string+='<td id="vcc_comp" onclick="vcc.sort(\'comp\',false)" title="客戶簡稱" align="center" style="width:150px; color:black;">客戶簡稱</td>';
                     string+='<td id="vcc_mount" onclick="vcc.sort(\'mount\',true)" title="筆數" align="center" style="width:100px; color:black;">筆數</td>';
-                    string+='<td id="vcc_print" onclick="vcc.sort(\'print\',false)" title="托運單" align="center" style="width:100px; color:black;">托運單</td>';
+                    string+='<td id="vcc_ordeno" onclick="vcc.sort(\'ordeno\',false)" title="總表" align="center" style="width:100px; color:black;">總表</td>';
                     string+='</tr>';
                     
                     var t_color = ['DarkBlue','DarkRed'];
@@ -63,7 +63,7 @@
                         string+='<td id="vcc_custno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='<td id="vcc_comp'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='<td id="vcc_mount'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
-                        string+='<td id="vcc_print'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
+                        string+='<td id="vcc_ordeno'+i+'" style="text-align: center;color:'+t_color[i%t_color.length]+'"></td>';
                         string+='</tr>';
                     }
                     string+='</table>';
@@ -195,7 +195,7 @@
                             $('#vcc_custno' + i).html(this.data[n+i]['custno']);
                             $('#vcc_comp' + i).html(this.data[n+i]['comp']);
                             $('#vcc_mount' + i).html(this.data[n+i]['mount']);
-                            $('#vcc_print' + i).html(this.data[n+i]['isprint']);
+                            $('#vcc_ordeno' + i).html(this.data[n+i]['ordeno']);
                         } else {
                             $('#vcc_chk' + i).attr('disabled', 'disabled');
                             $('#vcc_noa' + i).html('');
@@ -205,7 +205,7 @@
                             $('#vcc_custno' + i).html('');
                             $('#vcc_comp' + i).html('');
                             $('#vcc_mount' + i).html('');
-                            $('#vcc_print' + i).html('');
+                            $('#vcc_ordeno' + i).html('');
                         }
                     }
                     $('#vcc_chk0').click();
@@ -257,15 +257,22 @@
                 });
                 
                 $('#btnPrint').click(function() {
-                	var t_bnoa=$('#transef_boatname'+0).text();
+                	/*var t_bnoa=$('#transef_boatname'+0).text();
                 	var t_enoa=$('#transef_boatname'+(transef_count-1)).text();
                 	if(t_bnoa>t_enoa){
                 		var tmp=t_bnoa;
                 		t_bnoa=t_enoa;
                 		t_enoa=tmp;
-                	}
-                	                	
-                	q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";bnoa=" + trim(t_bnoa)+" and enoa="+trim(t_enoa) + ";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
+                	}*/
+                	for (var i=0;i<vcc.tbCount;i++){
+                		var vcc_noa='',vcc_n=0;
+                		if($('#vcc_chk'+i).prop('checked')){
+                			vcc_n=i;
+                			vcc_noa=$('#vcc_noa'+i).text();
+                			break;
+                		}
+                	} 	
+                	q_box("z_transef_bv.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";xnoa=" + trim(vcc_noa)+" and n="+vcc_n+";" + r_accy + "_" + r_cno, 'transorde', "95%", "95%", m_print);
 				});
             }
             
