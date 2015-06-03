@@ -180,11 +180,13 @@
             }
             var iscarno=0;
 			var sssno='',xcardealno='',carspec_arr=[],xcarspec='';
+			var x_t_item=false,x_xcardealno=false,x_sssno=false,x_xcarspec=false;
             function q_gtPost(t_name) {
             	  switch (t_name) {
             	  	case 'carspec':
             	  		carspec_arr = _q_appendData("carspec", "", true);
             	  		xcarspec='.';
+            	  		x_xcarspec=true;
             	  		break;
             	  	case 'sss':
             			var as = _q_appendData("sss", "", true);
@@ -193,22 +195,26 @@
             			}
             			sssno=sssno.substr(0,sssno.length-1);
             			$('#textSSSno').val(sssno);
+            			x_sssno=true;
             		break;
             		case 'cardeal':
                         var as = _q_appendData("cardeal", "", true);
                         for( i = 0; i < as.length; i++) {
                             xcardealno = xcardealno + (xcardealno.length>0?',':'') + as[i].noa +'@' + as[i].comp;
                         }
-                        q_cmbParse("combCardealno", xcardealno);
+                        if(xcardealno.length>0)
+                        	q_cmbParse("combCardealno", xcardealno);
+                        x_xcardealno=true;
                         break;
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
                         for( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
-                        }    
+                        }
+                        x_t_item=true;
                         break;
                   }
-                     if(t_item.length>0 &&xcardealno.length>0&&sssno.length>0 && xcarspec.length>0){
+                     if(x_t_item && x_xcardealno && x_sssno && x_xcarspec){
 	                $('#q_report').q_report({
 	                    fileName : 'z_car2',
                         options : [{/*1-[1][2]-月份*/
