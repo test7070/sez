@@ -292,26 +292,66 @@
 				}  /// end switch
 			}
             function getUno(){
-            	var t_buno='　';
- 				var t_datea='　';
- 				var t_style='　';
- 				for(var i=0;i<q_bbsCount;i++){
- 					if(i!=0){
- 						t_buno += '&';
- 						t_datea += '&';
- 						t_style += '&';
- 					}
- 					if($('#txtBno_'+i).val().length==0){
- 						t_buno += $('#txtUno').val();
-	 					t_datea += $('#txtDatea').val();
-	 					t_style += $('#txtStyle_'+i).val();
- 					}	
- 				}
-				q_func('qtxt.query.getuno', 'uno.txt,getuno,'+t_buno+';' + t_datea + ';' + t_style +';');
+            	if(q_getPara('sys.project')=='bd' || q_getPara('sys.project')=='rs'){
+	            	var t_buno='　';
+	 				var t_datea='　';
+	 				var t_style='　';
+	 				for(var i=0;i<q_bbsCount;i++){
+	 					if(i!=0){
+	 						t_buno += '&';
+	 						t_datea += '&';
+	 						t_style += '&';
+	 					}
+	 					if($('#txtBno_'+i).val().length==0){
+	 						t_buno += $('#txtUno').val();
+		 					t_datea += $('#txtDatea').val();
+		 					t_style += $('#txtStyle_'+i).val();
+	 					}	
+	 				}
+					q_func('qtxt.query.getuno', 'uno.txt,getuno,'+t_buno+';' + t_datea + ';' + t_style +';');
+            	}else{
+            		var t_buno='　';
+	 				var t_datea='　';
+	 				var t_style='　';
+	 				for(var i=0;i<q_bbsCount;i++){
+	 					if(i!=0){
+	 						t_buno += '&';
+	 					}
+	 					if($('#txtBno_'+i).val().length==0){
+	 						t_buno += $('#txtUno').val();
+	 					}	
+	 				}
+					q_func('qtxt.query.getuno_norm', 'uno.txt,getuno_norm,'+t_buno+';');
+            	}
             }
             
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.getuno_norm':
+                        var as = _q_appendData("tmp0", "", true, true);
+                       	if(as[0]!=undefined){
+                       		if(as.length!=q_bbsCount){
+                       			alert('批號取得異常。');
+                       		}else{
+                       			for(var i=0;i<q_bbsCount;i++){
+                       				if($('#txtBno_'+i).val().length==0){
+		                        		$('#txtBno_'+i).val(as[i].uno);
+		                        	}
+		                        }
+                       		}
+                       	}
+                       	if (q_cur == 1)
+							$('#txtWorker').val(r_name);
+						else
+							$('#txtWorker2').val(r_name);
+						sum();
+						var t_noa = trim($('#txtNoa').val());
+						var t_date = trim($('#txtDatea').val());
+						if (t_noa.length == 0 || t_noa == "AUTO")	 
+							q_gtnoa(q_name, replaceAll(q_getPara('sys.key_cut') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+						else
+							wrServer(t_noa);
+                        break;
                     case 'qtxt.query.getuno':
                         var as = _q_appendData("tmp0", "", true, true);
                        	if(as[0]!=undefined){
