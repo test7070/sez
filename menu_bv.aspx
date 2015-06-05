@@ -118,30 +118,23 @@
 			
 			ol {
 			  list-style-type: none;
-			  counter-reset: item;
 			  margin: 0;
 			  padding: 0.3em;
-			  margin-left: 1em;
+			  margin-left: 2em;
 			}
 			
 			ol > li {
 			  display: table;
-			  counter-increment: item;
 			  margin-bottom: 0.6em;
 			}
 			
 			ol > li:before {
-			  content: counters(item, ".") ". ";
 			  display: table-cell;
 			  padding-right: 0.6em;    
 			}
 			
 			li ol > li {
 			  margin: 0;
-			}
-			
-			li ol > li:before {
-			  content: counters(item, ".") " ";
 			}
 			
 			.leftbox a{
@@ -163,53 +156,53 @@
 			</div>
 			<div class="leftbox" style="height: 700px;">
 				<ol>
-					<li>基本資料主檔
+					<li>1.　基本資料主檔
 						<ol>
-							<li><a id="cust" class="cust_bv">客戶資料</a></li>
-							<li><a id="addr2" class="addr2_bv">行政區配送維護</a></li>
-							<li><a id="addr3" class="addr3_bv">發送所簡碼維護</a></li>
-							<li><a id="sss" class="sss">員工資料</a></li>
-							<li><a id="part" class="part">部門主檔</a></li>
-							<li><a id="salm" class="salm">職稱主檔</a></li>
+							<li>1.1　<a id="cust" class="cust_bv">客戶資料</a></li>
+							<li>1.2　<a id="addr2" class="addr2_bv">行政區配送維護</a></li>
+							<li>1.3　<a id="addr3" class="addr3_bv">發送所簡碼維護</a></li>
+							<li>1.4　<a id="sss" class="sss">員工資料</a></li>
+							<li>1.5　<a id="part" class="part">部門主檔</a></li>
+							<li>1.6　<a id="salm" class="salm">職稱主檔</a></li>
 						</ol>
 					</li>
-					<li>預購系統
+					<li>2.　預購系統
 						<ol>
-							<li><a id="tranorde" class="tranorde_bv">預購作業</a></li>
-							<li><a id="z_trans_bv" class="z_trans_bv">使用情況控管表</a></li>
+							<li>2.1　<a id="tranorde" class="tranorde_bv">預購作業</a></li>
+							<li>2.2　<a id="z_trans_bv" class="z_trans_bv">使用情況控管表</a></li>
 						</ol>
 					</li>
-					<li>手寫託運單作業
+					<li>3.　手寫託運單作業
 						<ol>
-							<li><a id="transef_hand_bv" class="transef_hand_bv">手寫單總表</a></li>
-							<li><a id="z_tranorde_bv" class="z_tranorde_bv">手寫託運單套表列印(補印用)</a></li>
-							<li><a id="tboat2" class="tboat2_bv">轉聯運作業</a></li>
+							<li>3.1　<a id="transef_hand_bv" class="transef_hand_bv">手寫單總表</a></li>
+							<li>3.2　<a id="z_tranorde_bv" class="z_tranorde_bv">手寫託運單套表列印(補印用)</a></li>
+							<li>3.3　<a id="tboat2" class="tboat2_bv">轉聯運作業</a></li>
 						</ol>
 					</li>
-					<li>EDI託運單作業
+					<li>4.　EDI託運單作業
 						<ol>
-							<li><a id="uploaddc" class="uploadbv">EDI資料上傳</a></li>
-							<li><a id="transef_edi_bv" class="transef_edi_bv">EDI上傳總表</a></li>
-							<li><a id="z_transef_bv" class="z_transef_bv">EDI託運單列印</a></li>
+							<li>4.1　<a id="uploaddc" class="uploadbv">EDI資料上傳</a></li>
+							<li>4.2　<a id="transef_edi_bv" class="transef_edi_bv">EDI上傳總表</a></li>
+							<li>4.3　<a id="z_transef_bv" class="z_transef_bv">EDI託運單列印</a></li>
 						</ol>
 					</li>
-					<li>派遣作業
+					<li>5.　派遣作業
 						<ol>
-							<li><a id="tboat" class="tboat_bv">派遣作業_客戶</a></li>
-							<li><a id="tboatcs" class="tboatcs_bv">派遣作業_CS</a></li>
-							<li><a id="z_tboat_bv" class="z_tboat_bv">派遣控管表</a></li>
+							<li>5.1　<a id="tboat" class="tboat_bv">派遣作業_客戶</a></li>
+							<li>5.2　<a id="tboatcs" class="tboatcs_bv">派遣作業_CS</a></li>
+							<li>5.3　<a id="z_tboat_bv" class="z_tboat_bv">派遣控管表</a></li>
 						</ol>
 					</li>
-					<li>查詢作業
+					<li>6.　查詢作業
 						<ol>
-							<li><a id="z_hct_bv" class="z_hct_bv">寄收狀況查詢</a></li>
+							<li>6.1　<a id="z_hct_bv" class="z_hct_bv">寄收狀況查詢</a></li>
 						</ol>
 					</li>
-					<li>其他工具程式
+					<li>7.　其他工具程式
 						<ol>
-							<li><a id="nhpe" class="nhpe">員工密碼設定</a></li>
-							<li><a id="z_drun" class="z_drun">使用紀錄查詢</a></li>
-							<li><a id="download" href="http://59.125.143.170/g.exe">連線程式下載</a></li>
+							<li>7.1　<a id="nhpe" class="nhpe">員工密碼設定</a></li>
+							<li>7.2　<a id="z_drun" class="z_drun">使用紀錄查詢</a></li>
+							<li>7.3　<a id="download" href="http://59.125.143.170/g.exe">連線程式下載</a></li>
 						</ol>
 					</li>
 				</ol>

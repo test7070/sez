@@ -45,24 +45,23 @@
                     dataErr = false;
                     return;
                 }
+                q_gt('part', '', 0, 0, 0, "");
                 mainBrow(6, t_content, t_sqlname, t_postname);
 				$('#btnTop').hide();
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
 				$('#btnBott').hide();
 				
-				q_gt('part', '', 0, 0, 0, "");
-				
             }
 
             function bbsAssign() {/// 表身運算式
             	for (var j = 0; j < q_bbsCount; j++) {	
-            		$('#cmbPartno_'+j).change(function() {
+            		/*$('#cmbPartno_'+j).change(function() {
                 	var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     	$(this).attr('size', len + "");
                 	}).blur(function() {
                     	$(this).attr('size', '1');
-                	});
+                	});*/
 				}
                 _bbsAssign();
             }
@@ -151,6 +150,7 @@
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                             }
                             q_cmbParse("cmbPartno", t_item,"s");
+                            _refresh();
                             for (var j = 0; j < q_bbsCount; j++) {
                             	if(abbs[j])
                             	$('#cmbPartno_'+j).val(abbs[j].partno);

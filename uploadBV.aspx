@@ -71,10 +71,24 @@
 							q_cmbParse("combDeliveryno", '@');
                         }else{ //有預購單 顯示袋號
                         	as.sort(function(a,b){return dec(a.deliveryno)-dec(b.deliveryno);});//袋號排序
-                        	var t_item = "";
-							for (i = 0; i < as.length; i++) {
+                        	var t_item = "0@0混搭"; //混搭
+                        	var d1=0,d2=0,d3=0;
+                        	for (i = 0; i < as.length; i++){
+                        		d1=q_add(d1,dec(as[i].tweight2));
+                        		d2=q_add(d2,dec(as[i].ttrannumber));
+                        		d3=q_add(d3,dec(as[i].thirdprice));
+                        	}
+                        	if(d1>0)
+                        		t_item = t_item + (t_item.length > 0 ? ',' : '') + '1@1';
+                        	if(d2>0)
+                        		t_item = t_item + (t_item.length > 0 ? ',' : '') + '2@2';
+                        	if(d3>0)
+                        		t_item = t_item + (t_item.length > 0 ? ',' : '') + '3@3';
+                        	
+							/*for (i = 0; i < as.length; i++) {
 								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].deliveryno + '@' + as[i].deliveryno;
-							}
+							}*/
+							
 							q_cmbParse("combDeliveryno", t_item);
                         	$('.deliveryno').show();
                         }

@@ -21,9 +21,11 @@
 
 			q_tables = 't';
 			var q_name = "tranorde";
-			var q_readonly = ['txtNoa','txtBoat','txtPort'];
+			var q_readonly = ['txtNoa','txtBoat','txtPort','txtEf','txtPrice'];
 			var q_readonlys = [];
-			var bbmNum = [['txtMount',10,0,1], ['txtBoat',10,0,1], ['txtPort',10,0,1]];
+			var bbmNum = [['txtMount',10,0,1], ['txtBoat',10,0,1], ['txtPort',10,0,1]
+			, ['txtTweight2',10,0,1], ['txtEta',10,0,1], ['txtTtrannumber',10,0,1], ['txtEtc',10,0,1], ['txtThirdprice',10,0,1], ['txtEtd',10,0,1]
+			, ['txtEf',10,0,1], ['txtPrice',10,0,1]];
 			var bbmMask = [['txtDatea', '999/99/99'],['txtDocketno1', '9999999999'],['txtDocketno2', '9999999999']];
 			var bbsNum = [];
 			var bbsMask = [];
@@ -61,7 +63,7 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
-				q_cmbParse("cmbDeliveryno", "1,2,3");
+				//q_cmbParse("cmbDeliveryno", "1,2,3");
 				q_cmbParse("cmbContainertype", "手寫託運單,edi託運單");
 				document.title='2.1預購作業'
 				$("#lblCust").text('公司名稱');
@@ -104,6 +106,23 @@
 							begcode=begcode+(begcode%7);
 							$('#txtDocketno1').val(begcode);
 						}
+					}
+				});
+				
+				$('.c3').change(function() {
+					var t_mount=0,t_total=0;
+					//1號袋
+					t_mount=q_add(t_mount,q_float('txtTweight2'));
+					t_total=q_add(t_total,q_mul(q_float('txtTweight2'),q_float('txtEta')));
+					//2號袋
+					t_mount=q_add(t_mount,q_float('txtTtrannumber'));
+					t_total=q_add(t_total,q_mul(q_float('txtTtrannumber'),q_float('txtEtc')));
+					//3號袋
+					t_mount=q_add(t_mount,q_float('txtThirdprice'));
+					t_total=q_add(t_total,q_mul(q_float('txtThirdprice'),q_float('txtEtd')));
+					if(t_mount>0 && t_total>0){
+						$('#txtPrice').val(t_total);
+						$('#txtEf').val(round(q_div(t_total,t_mount),0));
 					}
 				});
 			}
@@ -267,6 +286,18 @@
 					Unlock();
 					return;
 				}
+				
+				//檢查多袋是否與總袋數量相同
+				var t_mount=0;
+				t_mount=q_add(t_mount,q_float('txtTweight2'));//1號袋
+				t_mount=q_add(t_mount,q_float('txtTtrannumber'));//2號袋
+				t_mount=q_add(t_mount,q_float('txtThirdprice'));//3號袋
+				if (t_mount!=q_float('txtMount')) {
+					alert('總件數與分配號袋件數不符!!!');
+					Unlock();
+					return;
+				}
+					
 				
                 if(!((/^97[0-9]{8}$/g).test($('#txtDocketno1').val()) 
                 && dec($('#txtDocketno1').val().substr(0,9))%7 == dec($('#txtDocketno1').val().slice(-1)))){
@@ -649,16 +680,58 @@
 					<tr>
 						<td><span> </span><a class="lbl">託運單形式</a></td>
 						<td><select id="cmbContainertype" class="txt c1"> </select></td>
-						<td><span> </span><a class="lbl">速配袋號</a></td>
-						<td><select id="cmbDeliveryno" class="txt c1"> </select></td>
+						<!--<td><span> </span><a class="lbl">速配袋號</a></td>
+						<td><select id="cmbDeliveryno" class="txt c1"> </select></td>-->
 					</tr>
 					<tr>
-						<td><span> </span><a class="lbl">件數</a></td>
+						<td><span> </span><a class="lbl">總件數</a></td>
 						<td><input type="text" id="txtMount" class="txt c1 num"/></td>
 						<td><span> </span><a class="lbl">預購起始號碼</a></td>
 						<td><input type="text" id="txtDocketno1" class="txt c1"/> </td>
 						<td><span> </span><a class="lbl">預購迄止號碼</a></td>
 						<td><input type="text" id="txtDocketno2" class="txt c1"/> </td>
+					</tr>
+					<tr style="background-color: skyblue;">
+						<td><span> </span><a class="lbl">速配袋號</a></td>
+						<td style="text-align: center;background-color: skyblue;"><span> </span><a class="lbl" style="float: none;">件數</a></td>
+						<td style="text-align: center;background-color: skyblue;"><span> </span><a class="lbl" style="float: none;">單價</a></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr style="background-color: skyblue;">
+						<td><span> </span><a class="lbl">1號袋</a></td>
+						<td style="text-align: center;background-color: skyblue;"><input type="text" id="txtTweight2" class="txt c3 num" style="float: none;"/></td>
+						<td style="text-align: center;background-color: skyblue;"><input type="text" id="txtEta" class="txt c3 num" style="float: none;"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr style="background-color: skyblue;">
+						<td><span> </span><a class="lbl">2號袋</a></td>
+						<td style="text-align: center;"><input type="text" id="txtTtrannumber" class="txt c3 num" style="float: none;"/></td>
+						<td style="text-align: center;"><input type="text" id="txtEtc" class="txt c3 num" style="float: none;"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr style="background-color: skyblue;">
+						<td><span> </span><a class="lbl">3號袋</a></td>
+						<td style="text-align: center;"><input type="text" id="txtThirdprice" class="txt c3 num" style="float: none;"/></td>
+						<td style="text-align: center;"><input type="text" id="txtEtd" class="txt c3 num" style="float: none;"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">均價</a></td>
+						<td><input type="text" id="txtEf" class="txt c1 num"/></td>
+						<td><span> </span><a class="lbl">合計</a></td>
+						<td><input type="text" id="txtPrice" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">已使用</a></td>
