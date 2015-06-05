@@ -64,6 +64,10 @@
                 	});*/
 				}
                 _bbsAssign();
+                for (var j = 0; j < q_bbsCount; j++) {
+					if(abbs[j])
+						$('#cmbPartno_'+j).val(abbs[j].partno);
+				}
             }
 			
 			var maxnoq='000';
