@@ -48,11 +48,11 @@
             function q_gfPost() {
                 q_langShow();
                 $('#txtUserno').val(r_userno);
-
-                t_where = "where=^^ custno='" + r_userno + "' and isnull(enda,0)=0 and left(containertype,3)='edi' ^^";
-                q_gt('view_tranorde', t_where, 0, 0, 0, 'gettranorde', r_accy);
+				
+				t_where = "where=^^ noa='" + r_userno + "' ^^";
+                q_gt('cust', t_where, 0, 0, 0, 'getcusttypea', r_accy);
             }
-
+			var t_custtypea='';
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'filerepet':
@@ -62,6 +62,19 @@
                         	$("input[name='btnFile1']").val('');
                         }
                 		break;
+                	case 'getcusttypea':
+                		var as = _q_appendData("cust", "", true);
+                		if (as[0] != undefined) {//表示沒有預購單
+                			t_custtypea=as[0].typea;
+                			t_where = "where=^^ custno='" + r_userno + "' and isnull(enda,0)=0 and left(containertype,3)='edi' ^^";
+		                	q_gt('view_tranorde', t_where, 0, 0, 0, 'gettranorde', r_accy);
+                		}else{
+                			$("input[name='btnFile1']").attr('disabled', 'disabled');
+                            $("input[name='btnUpload']").attr('disabled', 'disabled');
+							$('#untranorde').text(r_userno+" "+r_name+" 無預購單!!!");
+							q_cmbParse("combDeliveryno", '@');
+                		}
+                		break;
                     case 'gettranorde':
                         var as = _q_appendData("view_tranorde", "", true);
                         if (as[0] == undefined) {//表示沒有預購單
@@ -70,11 +83,28 @@
 							$('#untranorde').text(r_userno+" "+r_name+" 無預購單!!!");
 							q_cmbParse("combDeliveryno", '@');
                         }else{ //有預購單 顯示袋號
-                        	as.sort(function(a,b){return dec(a.deliveryno)-dec(b.deliveryno);});//袋號排序
                         	var t_item = "";
+                        	if(t_custtypea=='0')
+                        		t_item = "0@0混搭"; //混搭
+                        		
+                        	var d1=0,d2=0,d3=0;
+                        	for (i = 0; i < as.length; i++){
+                        		d1=q_add(d1,dec(as[i].tweight2));
+                        		d2=q_add(d2,dec(as[i].ttrannumber));
+                        		d3=q_add(d3,dec(as[i].thirdprice));
+                        	}
+                        	if(d1>0)
+                        		t_item = t_item + (t_item.length > 0 ? ',' : '') + '1@1號袋';
+                        	if(d2>0)
+                        		t_item = t_item + (t_item.length > 0 ? ',' : '') + '2@2號袋';
+                        	if(d3>0)
+                        		t_item = t_item + (t_item.length > 0 ? ',' : '') + '3@3號袋';
+                        	
+							/*as.sort(function(a,b){return dec(a.deliveryno)-dec(b.deliveryno);});//袋號排序
 							for (i = 0; i < as.length; i++) {
 								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].deliveryno + '@' + as[i].deliveryno;
-							}
+							}*/
+							
 							q_cmbParse("combDeliveryno", t_item);
                         	$('.deliveryno').show();
                         }

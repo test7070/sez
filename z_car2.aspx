@@ -19,7 +19,7 @@
 						 ['txtTcarno2', '', 'car2', 'a.noa,carownerno,carowner', 'txtTcarno2', 'car2_b.aspx']
 		);
             t_item = "";
-           	
+           	var t_init=false;
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -214,7 +214,7 @@
                         x_t_item=true;
                         break;
                   }
-                     if(x_t_item && x_xcardealno && x_sssno && x_xcarspec){
+                     if(!t_init && x_t_item && x_xcardealno && x_sssno && x_xcarspec){
 	                $('#q_report').q_report({
 	                    fileName : 'z_car2',
                         options : [{/*1-[1][2]-月份*/
@@ -356,6 +356,7 @@
 	                        value : ('車行,年份,廠牌').split(',')
                     	}]
                     });
+                    t_init=true;
                     q_getFormat();
 	                q_langShow();
 	                q_popAssign();

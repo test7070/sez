@@ -88,6 +88,7 @@
                 document.title='1.1客戶資料';
                 $("#lblSales").text('集貨員');
                 $('#lblSiteno').text('發送站');
+                q_cmbParse("cmbTypea",'0@混搭,1@單袋');
       
 				$('#txtNoa').change(function(e){
                 	$(this).val($.trim($(this).val()).toUpperCase());    	
@@ -503,6 +504,9 @@
 					<tr>
 						<td><span> </span><a class="lbl"> 聯絡人 </a></td>
 						<td><input id="txtBoss" type="text" class="txt c1"/> </td>
+						<td><span> </span><a class="lbl">袋號類型</a></td>
+						<td><select id="cmbTypea" class="txt c1"> </select></td>
+						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTel' class="lbl"> </a></td>

@@ -44,14 +44,16 @@
                 q_mask(bbmMask);
                 mainForm(0);
             }
+            
             function mainPost() {
             	document.title='1.2配送行政區維護';
             	$("#lblNoa").text('郵遞區號');
             	$("#lblSiteno").text('站所代碼');
             	$("#lblSite").text('站所名稱');
-  
-            	
+            	$("#lblUnit").text('配送單位');        
+            	q_cmbParse("cmbUnit", "FSD,聯運,未開線");
             }
+            
             function q_boxClose(s2) {
                 switch (b_pop) {
                     case q_name + '_s':
@@ -305,31 +307,25 @@
                         <td align="center" style="width:120px; color:black;"><a> 郵遞區號 </a></td>
                         <td align="center" style="width:120px; color:black;"><a> 縣市地區 </a></td>
                         <td align="center" style="width:120px; color:black;"><a id='vewAddr'> </a></td>
-                        <td align="center" style="width:120px; color:black;"><a> 站所代碼 </a></td>
-                        <td align="center" style="width:120px; color:black;"><a> 站所名稱 </a></td>
-                        
+                        <td align="center" style="width:120px; color:black;"><a> 配送單位 </a></td>
                     </tr>
                     <tr>
-                        <td >
-                        <input id="chkBrow.*" type="checkbox" style=' '/>
-                        </td>
+                        <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                         <td id='noa' style="text-align: center;">~noa</td>
                         <td id='area' style="text-align: center;">~area</td>
                         <td id='addr' style="text-align: center;">~addr</td>
-                        <td id='siteno' style="text-align: center;">~siteno</td>
-                        <td id='site' style="text-align: center;">~site</td>
-                         
+                        <td id='unit' style="text-align: center;">~unit</td>
                     </tr>
                 </table>
             </div>
             <div class='dbbm'>
                 <table class="tbbm"  id="tbbm">
                     <tr style="height:1px;">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="tdZ"></td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td class="tdZ"> </td>
                     </tr>
                     <tr>
                         <td><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -347,13 +343,17 @@
                         <td><input id="txtAddr" type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
+                        <td><span> </span><a id='lblUnit' class="lbl"> </a></td>
+                        <td><select id="cmbUnit" class="text cl"> </select></td>
+                    </tr>
+                    <!--<tr>
                         <td><span> </span><a id='lblSiteno' class="lbl btn"> </a></td>
                         <td><input id="txtSiteno" type="text" class="txt c1"/></td>
                     </tr>
                      <tr>
                         <td><span> </span><a id='lblSite' class="lbl btn"> </a></td>
                         <td><input id="txtSite" type="text" class="txt c1"/></td>
-                    </tr>
+                    </tr>-->
                 </table>
             </div>
         </div>

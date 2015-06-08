@@ -55,7 +55,10 @@
 
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) 
                 + q_sqlPara2("custno", t_custno) + q_sqlPara2("deliveryno", t_deliveryno) 
-                + q_sqlPara2("containertype", t_containertype) + q_sqlPara2( t_docketno,"docketno1","docketno2");
+                + q_sqlPara2("containertype", t_containertype);
+                 
+                if(t_docketno.length>0)
+                	t_where=t_where+ q_sqlPara2( t_docketno,"docketno1","docketno2");
                 
                 if (t_comp.length>0)
                     t_where += " and charindex('" + t_comp + "',comp)>0";

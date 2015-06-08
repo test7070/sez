@@ -27,15 +27,19 @@
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {//[2]
+					}, {//[2][3]
 						type : '2',
 						name : 'custno',
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
-					}, {/*[3][4]*/
+					}, {/*[4][5]*/
 						type : '1',
 						name : 'xmon'
+					}, {
+						type : '0', //[6] 
+						name : 'xproject',
+						value : q_getPara('sys.project').toUpperCase()
 					}]
 				});
 				q_popAssign();

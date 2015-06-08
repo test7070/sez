@@ -81,7 +81,7 @@
 							delete_report=i;
 					}
 					if($('#q_report div div').text().indexOf('出缺勤明細表')>-1)
-						$('#q_report div div')[delete_report].remove();
+						$('#q_report div div').eq(delete_report).hide();
 				}
 					                
 			}

@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ucc', t_content = ' field=noa,product,unit,spec,vccacc1,vccacc2 order=odate', bbsKey = ['noa'], as;
+			var q_name = 'ucc', t_content = ' field=noa,product,unit,spec,stdmount,vccacc1,vccacc2 order=odate', bbsKey = ['noa'], as;
 			 var t_sqlname = 'ucc_load';
             t_postname = q_name;
             brwCount2 = 30;
@@ -52,7 +52,7 @@
 
 			function refresh() {
 				_refresh();
-				 if(window.parent.q_name=='uca'){
+				 /*if(window.parent.q_name=='uca'){
 					 var wParent = window.parent.document;
 					 var b_seq= wParent.getElementById("text_Noq").value
 					 xuccno= wParent.getElementById("txtTd_"+b_seq).value;
@@ -66,7 +66,7 @@
 								$('#chkSel_'+j)[0].checked = "true";
 						}
 	                }
-               }
+               }*/
 			}
 		</script>
 		<style type="text/css">

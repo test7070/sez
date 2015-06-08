@@ -155,7 +155,7 @@
 							delete_report=i;
 					}
 					if($('#qReport div div').text().indexOf('EDI託運單')>-1)
-						$('#qReport div div')[delete_report].remove();
+						$('#qReport div div').eq(delete_report).hide();
 					
 					$('#qReport div div .radio').last().removeClass('nonselect').addClass('select').click();
 					if(q_getHref()[1]!=undefined || q_getHref()[1]!=''){
@@ -170,7 +170,7 @@
 							delete_report=i;
 					}
 					if($('#qReport div div').text().indexOf('託運總表')>-1)
-						$('#qReport div div')[delete_report].remove();
+						$('#qReport div div').eq(delete_report).hide();
 				}
             }
 
