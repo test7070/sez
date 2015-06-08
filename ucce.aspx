@@ -53,6 +53,14 @@
 			}
 
 			function mainPost() {
+				if (q_getPara('sys.project').toUpperCase()=='RB'){
+					aPop = new Array(
+						['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+						['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx'],
+						['txtProductno_', 'btnProduct_', 'ucc', 'noa,product,spec,unit', 'txtProductno_,txtProduct_,txtSpec_,txtUnit_', 'ucc_b2.aspx'],
+						['txtStoreno_', 'btnStoreno_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
+					);
+				}
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd]];
 				q_mask(bbmMask);
@@ -72,6 +80,19 @@
 					case q_name + '_s':
 						q_boxClose2(s2);
 						break;
+				}
+				if(s2[0]!=undefined){
+					if(s2[0]=='ucc' && q_getPara('sys.project').toUpperCase()=='RB'){
+						if (q_cur > 0 && q_cur < 4) {
+							b_ret = getb_ret();
+							if (!b_ret || b_ret.length == 0)
+								return;
+							if (b_ret.length>0)
+								b_ret.splice(0, 1);
+							if (b_ret.length>0)
+								ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtUnit', b_ret.length, b_ret, 'noa,product,spec,unit', 'txtProductno,txtProduct,txtSpec');
+						}
+					}
 				}
 				b_pop = '';
 			}

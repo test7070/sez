@@ -170,10 +170,23 @@
 			
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getcusttypea':
+						var as = _q_appendData("cust", "", true);
+						if (as[0] != undefined){
+							t_custtypea=as[0].typea;
+							custtypea=true;
+							btnOk();
+						}else{
+							alert('客戶資料不存在!!!');
+							Unlock();
+						}
+						break;
 					case 'getrepeat':
 						var as = _q_appendData("tranorde", "", true);
 						if(as.length>0){
 							alert('預購號碼重複!!【'+as[0].noa+'】');
+							custtypea=false;
+							Unlock();
 						}else{
 							orde_repeat=true;
 							btnOk();
@@ -272,6 +285,7 @@
 			}
 			
 			var orde_repeat=false;
+			var t_custtypea='',custtypea=false;
 			function btnOk() {
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
 				if (checkId($('#txtDatea').val()) == 0) {
@@ -280,28 +294,43 @@
 				}
 				
 				var t_err = '';
-				t_err = q_chkEmpField([['cmbContainertype', '託運單形式'],['txtMount', '件數'],['txtDocketno1', '預購起始號碼'],['txtDocketno2', '預購迄止號碼']]);
+				t_err = q_chkEmpField([['cmbContainertype', '託運單形式'],['txtMount', '件數'],['txtDocketno1', '預購起始號碼'],['txtDocketno2', '預購迄止號碼'],['txtCustno', '公司編號']]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					Unlock();
 					return;
 				}
 				
+				if(!custtypea){
+					t_where = "where=^^ noa='" + $('#txtCustno').val() + "' ^^";
+	                q_gt('cust', t_where, 0, 0, 0, 'getcusttypea', r_accy);
+	                return;
+               }
+				
 				//檢查多袋是否與總袋數量相同
-				var t_mount=0;
-				t_mount=q_add(t_mount,q_float('txtTweight2'));//1號袋
-				t_mount=q_add(t_mount,q_float('txtTtrannumber'));//2號袋
-				t_mount=q_add(t_mount,q_float('txtThirdprice'));//3號袋
+				var t_mount=0,t_mount1=0,t_mount2=0,t_mount3=0;
+				t_mount1=q_add(t_mount,q_float('txtTweight2'));//1號袋
+				t_mount2=q_add(t_mount,q_float('txtTtrannumber'));//2號袋
+				t_mount3=q_add(t_mount,q_float('txtThirdprice'));//3號袋
+				t_mount=q_add(q_add(q_add(t_mount,t_mount1),t_mount2),t_mount3);
 				if (t_mount!=q_float('txtMount')) {
 					alert('總件數與分配號袋件數不符!!!');
+					custtypea=false;
+					Unlock();
+					return;
+				}	
+				
+				if(t_custtypea!='0' && ((t_mount1!=0?1:0)+(t_mount2!=0?1:0)+(t_mount3!=0?1:0))!=1 ){
+					alert('客戶使用袋號類型非混搭!!!');
+					custtypea=false;
 					Unlock();
 					return;
 				}
-					
 				
                 if(!((/^97[0-9]{8}$/g).test($('#txtDocketno1').val()) 
                 && dec($('#txtDocketno1').val().substr(0,9))%7 == dec($('#txtDocketno1').val().slice(-1)))){
                 	alert('預購起始號碼請輸入正確的97條碼!!!');
+                	custtypea=false;
                 	Unlock();
 					return;
                 }
@@ -309,6 +338,7 @@
                 if(!((/^97[0-9]{8}$/g).test($('#txtDocketno2').val()) 
                 && dec($('#txtDocketno2').val().substr(0,9))%7 == dec($('#txtDocketno2').val().slice(-1)))){
                 	alert('預購迄止號碼請輸入正確的97條碼!!!');
+                	custtypea=false;
                 	Unlock();
 					return;
                 }
@@ -320,6 +350,7 @@
 					return;
                 }
                 orde_repeat=false;
+                custtypea=false;
 				
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
