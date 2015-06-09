@@ -107,15 +107,16 @@
 					sum();
 				});	
 				$('#btnVcc').click(function(e){
-					if(trim($('#txtCustno').val()).toUpperCase() == 'H249'){
+					//2015/06/09
+					/*if(trim($('#txtCustno').val()).toUpperCase() == 'H249'){
 						alert('銷貨客戶 H249 不產生請款單。');
 						return;
 					}
-					else{
+					else{*/
 						Lock(1,{opacity:0});
 						$('#btnVcc').val('請稍後。').attr('disabled','disabled');
 						q_func('vcca.genvcc',$('#txtNoa').val());
-					}
+					//}
 				});	
 				$('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
