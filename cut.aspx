@@ -302,7 +302,7 @@
 	 						t_datea += '&';
 	 						t_style += '&';
 	 					}
-	 					if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0){
+	 					if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0 && $('#txtWaste_'+i).val().length==0){
 	 						t_buno += $('#txtUno').val();
 		 					t_datea += $('#txtDatea').val();
 		 					t_style += $('#txtStyle_'+i).val();
@@ -317,7 +317,7 @@
 	 					if(i!=0){
 	 						t_buno += '&';
 	 					}
-	 					if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0){
+	 					if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0 && $('#txtWaste_'+i).val().length==0){
 	 						t_buno += $('#txtUno').val();
 	 					}	
 	 				}
@@ -334,7 +334,7 @@
                        			alert('批號取得異常。');
                        		}else{
                        			for(var i=0;i<q_bbsCount;i++){
-                       				if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0){
+                       				if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0 && $('#txtWaste_'+i).val().length==0){
 		                        		$('#txtBno_'+i).val(as[i].uno);
 		                        	}
 		                        }
@@ -359,7 +359,7 @@
                        			alert('批號取得異常。');
                        		}else{
                        			for(var i=0;i<q_bbsCount;i++){
-                       				if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0){
+                       				if($('#txtBno_'+i).val().length==0 && q_float('txtMount_'+i)!=0 && $('#txtWaste_'+i).val().length==0){
 		                        		$('#txtBno_'+i).val(as[i].uno);
 		                        	}
 		                        }
