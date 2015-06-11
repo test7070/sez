@@ -35,7 +35,8 @@
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_part = $('#txtPart').val();
-				var t_where = " 1=1 " + q_sqlPara2("accc3", t_baccc3, t_eaccc3) + q_sqlPara2("accc2", t_bdate, t_edate)+ q_sqlPara2("accc1", t_accc1);
+				t_worker = $('#txtWorker').val();
+				var t_where = " 1=1 " + q_sqlPara2("accc3", t_baccc3, t_eaccc3) + q_sqlPara2("accc2", t_bdate, t_edate)+ q_sqlPara2("accc1", t_accc1)+ q_sqlPara2("worker", t_worker);
 				if(t_part.length>0)
                     t_where += " and exists(select accc3 from acccs"+r_accy+"_"+r_cno+" where acccs"+r_accy+"_"+r_cno+".accc3=accc"+r_accy+"_"+r_cno+".accc3 and acccs"+r_accy+"_"+r_cno+".part='"+t_part+"')";
 				
@@ -58,30 +59,30 @@
                 <tr class='seek_tr'>
                     <td   style="width:35%;" ><a id='lblDatea'> </a></td>
                     <td style="width:65%;  ">
-                    <input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-                    <span style="display:inline-block; vertical-align:middle">&sim;</span>
-                    <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+	                    <input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+	                    <span style="display:inline-block; vertical-align:middle">&sim;</span>
+	                    <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
                     </td>
                 </tr>
                 <tr class='seek_tr'>
                     <td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
                     <td style="width:65%;  ">
-                    <input class="txt" id="txtBaccc3" type="text" style="width:90px; font-size:medium;" />
-                    <span style="display:inline-block; vertical-align:middle">&sim;</span>
-                    <input class="txt" id="txtEaccc3" type="text" style="width:93px; font-size:medium;" />
+	                    <input class="txt" id="txtBaccc3" type="text" style="width:90px; font-size:medium;" />
+	                    <span style="display:inline-block; vertical-align:middle">&sim;</span>
+	                    <input class="txt" id="txtEaccc3" type="text" style="width:93px; font-size:medium;" />
                     </td>
                 </tr>
                 <tr class='seek_tr'>
                     <td class='seek'  style="width:20%;"><a id='lblPart'> </a></td>
-                    <td>
-                    <input class="txt" id="txtPart" type="text" style="width:215px; font-size:medium;" />
-                    </td>
+                    <td><input class="txt" id="txtPart" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
                 <tr class='seek_tr'>
                     <td class='seek'  style="width:20%;"><a id='lblAccc1'> </a></td>
-                    <td>
-                    <select id="cmbAccc1" style='width:88%;font-size: medium;'> </select>
-                    </td>
+                    <td><select id="cmbAccc1" style='width:88%;font-size: medium;'> </select></td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblWorker'> </a></td>
+                    <td><input class="txt" id="txtWorker" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
             </table>
             <!--#include file="../inc/seek_ctrl.inc"-->
