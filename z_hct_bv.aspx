@@ -43,6 +43,10 @@
                     }, {/*3*/
                         type : '6',
                         name : 'xcode'
+                    },{
+                        type : '0',
+                        name : 'worker',
+                        value : r_userno
                     }]
                 });
                 q_popAssign();
