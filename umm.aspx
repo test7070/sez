@@ -292,6 +292,8 @@
 								as[i].memo=as[i].memo+as[i].invono;
 							}else if (q_getPara('sys.comp').indexOf('楊家') > -1|| q_getPara('sys.comp').indexOf('德芳') > -1){
 								as[i].tablea='vcc_tn';
+							}else if(q_getPara('sys.comp').indexOf('傑期')>-1){
+								as[i].tablea='vcc_pk';
 							}else{
 								if(q_getPara('sys.steel')=='1'){
 									as[i].tablea='vccst';
