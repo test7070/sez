@@ -504,7 +504,7 @@
 					<tr>
 						<td><span> </span><a class="lbl"> 聯絡人 </a></td>
 						<td><input id="txtBoss" type="text" class="txt c1"/> </td>
-						<td><span> </span><a class="lbl">袋號類型</a></td>
+						<td><span> </span><a class="lbl">交易類型</a></td>
 						<td><select id="cmbTypea" class="txt c1"> </select></td>
 						
 					</tr>
