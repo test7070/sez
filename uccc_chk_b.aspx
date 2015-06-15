@@ -25,6 +25,7 @@
 				try{
 	            	t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
 	            	$('#textProductno').val(t_para.productno);
+	            	$('#textProduct').val(t_para.product);
 	            	$('#textBdime').val(t_para.bdime);
 	            	$('#textEdime').val(t_para.edime);
 	            	$('#textWidth').val(t_para.width);
@@ -317,6 +318,7 @@
 					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
+					<td align="center" style="width:2%;"><a id='lblSource_st'>國別</a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
 				</tr>
 			</table>
@@ -335,6 +337,7 @@
 					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
+					<td align="center" style="width:2%;"><a id='lblSource_st'>國別</a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -368,6 +371,9 @@
 					</td>
 					<td style="width:4%;">
 					<input id="txtLaststoreno.*" type="text" class="txt c2" readonly="readonly"/>
+					</td>
+					<td style="width:2%;">
+					<input id="txtSource.*" type="text" class="txt c2" readonly="readonly"/>
 					</td>
 					<td >
 					<input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/>
