@@ -25,9 +25,11 @@
 				try{
 	            	t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
 	            	$('#textProductno').val(t_para.productno);
+	            	$('#textProduct').val(t_para.product);
 	            	$('#textBdime').val(t_para.bdime);
 	            	$('#textEdime').val(t_para.edime);
-	            	$('#textWidth').val(t_para.width);
+	            	$('#textBwidth').val(t_para.width);
+	            	$('#textEwidth').val(t_para.width);
 	            	$('#textLengthb').val(t_para.blength);            	
 	            }catch(e){
 	            }
@@ -131,7 +133,8 @@
 				t_radius = q_float('textRadius');
 				t_bdime = q_float('textBdime');
 				t_edime = q_float('textEdime');
-				t_width = q_float('textWidth');
+				t_bwidth = q_float('textBwidth');
+				t_ewidth = q_float('textEwidth');
 				t_lengthb = q_float('textLengthb');
 				t_weight = q_float('textWeight');
 				t_kind = trim($('#combTypea').val());
@@ -142,7 +145,9 @@
 							(q_getPara('sys.comp').substring(0,2)=='裕承'?(t_radius>0?' and radius='+t_radius+' ':'') :(t_radius>0?' and radius>='+t_radius+' ':''))+
 							(t_bdime>0?' and dime>='+t_bdime+' ':'') + 
 							(t_edime>0?' and dime<='+t_edime+' ':'') + 
-							(q_getPara('sys.comp').substring(0,2)=='裕承'?(t_width>0?' and width='+t_width+' ':'') :(t_width>0?' and width>='+t_width+' ':''))+
+							(t_bwidth>0?' and width>='+t_bwidth+' ':'') + 
+							(t_ewidth>0?' and width<='+t_ewidth+' ':'') + 
+							//(q_getPara('sys.comp').substring(0,2)=='裕承'?(t_width>0?' and width='+t_width+' ':'') :(t_width>0?' and width>='+t_width+' ':''))+
 							(t_lengthb>0?' and (lengthb=0 or lengthb>='+t_lengthb+') ':'') + 
 						//	(t_weight>0?' and weight>='+t_weight+' ':'') + 
 							q_sqlPara2("kind", t_kind);
@@ -317,6 +322,7 @@
 					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
+					<td align="center" style="width:2%;"><a id='lblSource_st'>國別</a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
 				</tr>
 			</table>
@@ -335,6 +341,7 @@
 					<td align="center" style="width:4%;"><a id='lblMount_st'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblEweight_st'> </a></td>
 					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
+					<td align="center" style="width:2%;"><a id='lblSource_st'>國別</a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -368,6 +375,9 @@
 					</td>
 					<td style="width:4%;">
 					<input id="txtLaststoreno.*" type="text" class="txt c2" readonly="readonly"/>
+					</td>
+					<td style="width:2%;">
+					<input id="txtSource.*" type="text" class="txt c2" readonly="readonly"/>
 					</td>
 					<td >
 					<input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/>
@@ -413,7 +423,9 @@
 					</td>
 					<td><span class="lbl">寬度</span></td>
 					<td>
-					<input id="textWidth" type="text" class="txt c1 num"/>
+						<input id="textBwidth" type="text" class="txt num" style="float:left;width:40%;"/>
+						<span style="float:left;">~</span>
+						<input id="textEwidth" type="text" class="txt num" style="float:left;width:40%;"/>
 					</td>
 					<td><span class="lbl">長度</span></td>
 					<td>
