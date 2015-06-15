@@ -137,10 +137,23 @@
 						type : '6', name : 'xordeno'
 					}, {/*23*///[31]
 						type : '5', name : 'yinterval', value : [q_getPara('report.all')].concat(q_getPara('carcsa.interval').split(','))
+					}, {/*24*///[32][33]
+						type : '1', name : 'bdate'
+					}, {/*25*///[34][35]
+						type : '1', name : 'edate'
 					}]
 				});
 				q_popAssign();
 				q_langShow();
+				$('#txtBdate1').mask('999/99/99');
+				$('#txtBdate1').datepicker();
+				$('#txtBdate2').mask('999/99/99');
+				$('#txtBdate2').datepicker();
+				$('#txtEdate1').mask('999/99/99');
+				$('#txtEdate1').datepicker();
+				$('#txtEdate2').mask('999/99/99');
+				$('#txtEdate2').datepicker();
+				
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
