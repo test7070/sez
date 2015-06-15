@@ -197,25 +197,26 @@
 	<body>
 		<div  id="dbbs"  >
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: 14px;'  >
-				<tr style='color:White; background:#003366;' >
-					<td align="center">
-					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
+				<tr style='color:white; background:#003366;' >
+					<td align="center" style="width:1%;">
+						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center"><a id='lblNamea'></a></td>
-					<td align="center"><a id='lblJob'></a></td>
-					<td align="center"><a id='lblPart'></a></td>
-					<td align="center"><a id='lblTel'></a></td>
-					<td align="center"><a id='lblExt'></a></td>
-					<td align="center"><a id='lblFax'></a></td>
-					<td align="center"><a id='lblMobile'></a></td>
-					<td align="center"><a id='lblEmail'></a></td>
-					<td align="center"><a id='lblAddr'></a></td>
-					<td align="center"><a id='lblMemo'></a></td>
-					<td align="center"><a id='lblBill'></a></td>
+					<td align="center" style="width:1%;"><a>輸入日期</a></td>
+					<td align="center" style="width:1%;"><a>出貨類型</a></td>
+					<td align="center" style="width:1%;"><a>說明</a></td>
+					<td align="center" style="width:1%;"><a>運費</a></td>
+					<td align="center" style="width:1%;"><a>板數/趟次</a></td>
+					<td align="center" style="width:1%;"><a>件數/才數</a></td>
+					<td align="center" style="width:1%;"><a>發送地</a></td>
+					<td align="center" style="width:1%;"><a>到著地</a></td>
+					<td align="center" style="width:1%;"><a>里程數</a></td>
 					
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
-					<td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  /></td>
+					<td >
+						<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  />
+						<input id="recno.*" type="hidden" />
+					</td>
 					<td style="width:6%;"><input class="txt"  id="txtNamea.*" type="text" style="width:98%;"  /></td>
 					<td style="width:6%;"><input class="txt" id="txtJob.*" type="text" style="width:98%;"   /></td>
 					<td style="width:6%;"><select id="cmbPartno.*" class="txt c1"> </select> <input class="txt" id="txtPart.*" type="text" style="display: none;"   /></td>
@@ -228,7 +229,7 @@
 						<input class="txt" id="txtAddr.*" type="text" maxlength='90' style="width:98%;"  />
 						<input id="txtNoq.*" type="hidden" />
 						<input id="txtTypea.*" type="hidden" />
-						<input id="recno.*" type="hidden" />
+						
 					</td>
 					<td style="width:10%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  /></td>
 					<td style="width:5%;"><input class="txt" id="chkBill.*" type="checkbox" style="width:94%;"/></td>
