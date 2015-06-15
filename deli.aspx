@@ -27,7 +27,7 @@
             var bbsNum = [['txtMount', 15, 0, 1],['txtPrice', 10, 2, 1],['txtMoney', 15, 0, 1],['txtCointotal', 15, 0, 1],['txtTotal', 15, 0, 1]
             						,['txtTariffrate', 5, 2, 1],['txtCointariff', 15, 0, 1],['txtTariff', 15, 0, 1],['txtTraderate', 5, 2, 1],['txtTrade', 15, 0, 1]
             						,['txtCommodityrate', 5, 2, 1],['txtCommoditytax', 15, 0, 1],['txtVatbase', 15, 0, 1],['txtVat', 15, 0, 1],['txtCasemount', 15, 0, 1]
-            						,['txtWeight', 15, 2, 1],['txtCuft', 15, 2, 1]];
+            						,['txtMweight', 15, 2, 1],['txtCuft', 15, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -93,9 +93,9 @@
             				t_cointotaldiv=(t_mount==0?0:q_div(q_float('txtInmount_'+j),t_mount));
             			}else if($('#cmbFeetype').val()=='3'){
             				for (var k = 0; k < q_bbsCount; k++) {
-            					t_mount=q_add(t_mount,q_float('txtWeight_'+k));
+            					t_mount=q_add(t_mount,q_float('txtMweight_'+k));
             				}
-            				t_cointotaldiv=(t_mount==0?0:q_div(q_float('txtWeight_'+j),t_mount));
+            				t_cointotaldiv=(t_mount==0?0:q_div(q_float('txtMweight_'+j),t_mount));
             			}else if($('#cmbFeetype').val()=='4'){
             				for (var k = 0; k < q_bbsCount; k++) {
             					t_mount=q_add(t_mount,q_float('txtCuft_'+k));
@@ -802,10 +802,11 @@
 					<td align="center" style="width:115px;"><a id='lblVatbase_s'> </a><BR><a id='lblVat_s'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblCaseno_s'> </a><BR><a id='lblCasetype_s'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblCasemount_s'> </a></td>
-					<td align="center" style="width:115px;"><a id='lblWeight_s'> </a><BR><a id='lblCuft_s'> </a></td>
+					<td align="center" style="width:115px;"><a id='lblMweight_s'> </a><BR><a id='lblCuft_s'> </a></td>
 					<td align="center" style="width:115px;"><a id='lblInvoiceno_s'> </a></td>
 					<!--<td align="center" style="width:115px;"><a id='lblBlmoney_s'> </a><BR><a id='lblLcmoney_s'> </a></td>-->
 					<td align="center"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:115px;"><a id='lblUno_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -849,7 +850,7 @@
 					</td>
 					<td ><input class="txt num c1" id="txtCasemount.*" type="text"  />	</td>
 					<td >
-						<input class="txt num c1" id="txtWeight.*" type="text"  />
+						<input class="txt num c1" id="txtMweight.*" type="text"  />
 						<input class="txt num c1" id="txtCuft.*" type="text"  />
 					</td>
 					<td ><input class="txt c1" id="txtInvoiceno.*" type="text"  />	</td>
@@ -863,6 +864,7 @@
 						<input class="txt c4" id="txtNo2.*" type="text" />
 						<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
 					</td>
+					<td ><input class="txt c1" id="txtUno.*" type="text"  /></td>
 				</tr>
 			</table>
 		</div>
