@@ -24,6 +24,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            q_copy=1;
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             //ajaxPath = ""; //  execute in Root
 
@@ -162,9 +163,14 @@
                     return;
                 q_box('vcct_s.aspx', q_name + '_s', "500px", "350px", q_getMsg("popSeek"));
             }
-
+			
             function btnIns() {
+            	t_noa=$('#txtNoa').val();
                 _btnIns();
+                if(t_noa.length>0 && $('#chekQcopy').prop('checked')){
+                	t_noa=t_noa.substr(0,7);
+                	$('#txtNoa').val(t_noa);
+                }
                 refreshBbm();
                 $('#txtNoa').focus();
                 
