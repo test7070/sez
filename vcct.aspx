@@ -45,7 +45,7 @@
             }
 
             function mainPost() {
-            	bbmMask = [['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
+            	bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
