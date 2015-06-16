@@ -55,6 +55,10 @@
                 q_cmbParse("cmbNotaxnote", q_getPara('vcct.notaxnote'));
                 q_cmbParse("cmbPasstype", q_getPara('vcct.passtype'));
                 
+                if(q_getPara('sys.project').toUpperCase()=='RB'){
+                	$('.typea2').hide();
+                }
+                
                 $('#txtNoa').change(function(e) {
                     $(this).val($.trim($(this).val()).toUpperCase());
                     if ($(this).val().length > 0) {
@@ -415,7 +419,12 @@
                 	
                 }else{
                 	$('.typea1').hide();
-                	$('.typea2').show();
+                	
+                	if(q_getPara('sys.project').toUpperCase()=='RB'){
+	                	$('.typea2').hide();
+	                }else{
+                		$('.typea2').show();
+                	}
                 	
                 	$('#cmbSpecialfood').show();
                 	$('#cmbNotaxnote').show();
