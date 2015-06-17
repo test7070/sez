@@ -21,7 +21,7 @@
 
 			q_tables = 't';
 			var q_name = "tranorde";
-			var q_readonly = ['txtNoa','txtBoat','txtPort','txtEf','txtPrice'];
+			var q_readonly = ['txtNoa','txtBoat','txtPort','txtEf','txtPrice','txtCasetype'];
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1], ['txtBoat',10,0,1], ['txtPort',10,0,1]
 			, ['txtTweight2',10,0,1], ['txtEta',10,0,1], ['txtTtrannumber',10,0,1], ['txtEtc',10,0,1], ['txtThirdprice',10,0,1], ['txtEtd',10,0,1]
@@ -39,8 +39,8 @@
 			q_desc = 1;
 			brwCount2 = 15;
 			aPop = new Array(
-				['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
-				['txtComp', 'lblCust', 'cust', 'comp,noa,nick', 'txtComp,txtCustno,txtNick', 'cust_b.aspx']
+				['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,typea', 'txtCustno,txtComp,txtNick,cmbCasetype', 'cust_b.aspx'], 
+				['txtComp', 'lblCust', 'cust', 'comp,noa,nick,typea', 'txtComp,txtCustno,txtNick,cmbCasetype', 'cust_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -65,6 +65,7 @@
 				q_mask(bbmMask);
 				//q_cmbParse("cmbDeliveryno", "1,2,3");
 				q_cmbParse("cmbContainertype", "手寫託運單,edi託運單");
+				q_cmbParse("cmbCasetype",'0@混搭,1@單袋');
 				document.title='2.1預購作業'
 				$("#lblCust").text('公司名稱');
 				
@@ -551,13 +552,13 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 12%;
+				/*width: 12%;*/
 			}
 			.tbbm .tr2, .tbbm .tr3, .tbbm .tr4 {
 				background-color: #FFEC8B;
 			}
 			.tbbm .tdZ {
-				width: 1%;
+				/*width: 1%;*/
 			}
 			.tbbm tr td span {
 				float: right;
@@ -686,13 +687,13 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td> <input type="text" id="txtCaddr" style="display:none;"></td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
+						<td style="width: 108px;"> </td>
+						<td style="width: 108px;"> </td>
+						<td style="width: 108px;"> </td>
+						<td style="width: 108px;"> </td>
+						<td style="width: 108px;"> </td>
+						<td style="width: 108px;"> </td>
+						<td class="tdZ" style="width: 20px;"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">訂單編號</a></td>
@@ -702,9 +703,11 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
-							<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
+						<td>
+							<input type="text" id="txtCustno" class="txt" style="width:98%;float: left; " />
+						</td>
+						<td colspan="2">
+							<input type="text" id="txtComp" class="txt" style="width:98%;float: left; " />
 							<input type="text" id="txtNick" class="txt" style="display:none; " />
 						</td>
 					</tr>
@@ -713,6 +716,8 @@
 						<td><select id="cmbContainertype" class="txt c1"> </select></td>
 						<!--<td><span> </span><a class="lbl">速配袋號</a></td>
 						<td><select id="cmbDeliveryno" class="txt c1"> </select></td>-->
+						<td><span> </span><a class="lbl">交易類型</a></td>
+						<td><select id="cmbCasetype" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a class="lbl">總件數</a></td>
