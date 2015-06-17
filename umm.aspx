@@ -704,7 +704,7 @@
                 var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
                 var t2 = t_money - t_chgs;
                 if (t1 != t2) {
-                    alert('收款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
+                    alert('收款金額  － 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
                    	Unlock(1);
                     return false;
                 }
