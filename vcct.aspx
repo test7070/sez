@@ -45,7 +45,7 @@
             }
 
             function mainPost() {
-            	bbmMask = [['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
+            	bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['textBdate', r_picd],['textEdate', r_picd],['textMon', r_picm]];
                 q_mask(bbmMask);
                 
                 q_cmbParse("cmbTypea", q_getPara('vcct.typea'));
@@ -54,6 +54,10 @@
                 q_cmbParse("cmbSpecialfood", q_getPara('vcct.specialfood'));
                 q_cmbParse("cmbNotaxnote", q_getPara('vcct.notaxnote'));
                 q_cmbParse("cmbPasstype", q_getPara('vcct.passtype'));
+                
+                if(q_getPara('sys.project').toUpperCase()=='RB'){
+                	$('.typea2').hide();
+                }
                 
                 $('#txtNoa').change(function(e) {
                     $(this).val($.trim($(this).val()).toUpperCase());
@@ -415,7 +419,12 @@
                 	
                 }else{
                 	$('.typea1').hide();
-                	$('.typea2').show();
+                	
+                	if(q_getPara('sys.project').toUpperCase()=='RB'){
+	                	$('.typea2').hide();
+	                }else{
+                		$('.typea2').show();
+                	}
                 	
                 	$('#cmbSpecialfood').show();
                 	$('#cmbNotaxnote').show();
