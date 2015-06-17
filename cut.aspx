@@ -1093,7 +1093,7 @@
 		<style type="text/css">
 			.dview {
 				float: left;
-				width: 400px;
+				width: 500px;
 				border-width: 0px;
 			}
 			.tview {
@@ -1204,13 +1204,13 @@
 		<div style="overflow: auto;display:block;">
 			<!--#include file="../inc/toolbar.inc"-->
 		</div>
-		<div style="overflow: auto;display:block;width:1400px;">
+		<div style="overflow: auto;display:block;width:1500px;">
 			<div class="dview" id="dview"  >
 				<table class="tview" id="tview"	>
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewUno'> </a></td>
+						<td align="center" style="width:200px; color:black;"><a id='vewUno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'> </a></td>
 						<td align="center" style="width:50px; color:black;"><a id='vewDime'> </a></td>
 						<td align="center" style="width:50px; color:black;"><a id='vewEweight'> </a></td>
