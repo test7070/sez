@@ -16,6 +16,7 @@
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
             var i, s1;
+            q_desc=1;
             $(document).ready(function() {
                 if (!q_paraChk())
                     return;
