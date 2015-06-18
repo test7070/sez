@@ -22,8 +22,8 @@
 		    function q_funcPost( func,result) {
 		        $('#txtMessage').text(" 已轉入資料庫");
 		        if(result.length>0 && result.indexOf('^@')>-1){
-		        	var t_tr=result.split('\r');
-		        	var divtable="<table>";
+		        	var t_tr=result.split('\\r');
+		        	var divtable="<table id='edi_table'>";
 		        	for (var i=0;i<t_tr.length;i++){
 		        		divtable+="<tr>";
 		        		var t_td=t_tr[i].split('^@');
@@ -33,6 +33,7 @@
 		        		divtable+="</tr>";	
 		        	}
 		        	divtable+="</table>";
+		        	$('#divMemo').html(divtable);
 		        }
 		    }
 		    
@@ -40,6 +41,22 @@
 		        q_langShow();
 		    }
 		</script>
+		<style type="text/css">
+			#edi_table {
+                border: 5px solid gray;
+                font-size: medium;
+                background-color: white;
+            }
+            #edi_table tr {
+                height: 30px;
+            }
+            #edi_table td {
+                padding: 2px;
+                text-align: center;
+                border-width: 0px;
+                background-color: blanchedalmond;
+            }
+		</style>
 	</head>
 <body>
     <div id='q_menu'> </div>

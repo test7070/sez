@@ -21,23 +21,14 @@
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_payp',
-                        options : [ {
-                        type : '1',
-                        name : 'xnoa'
-                    },{
-	                    type : '0',
-	                    name : 'r_tel',
-	                    value : q_getPara('sys.tel')
-	                    },{
-	                    type : '0',
-	                    name : 'r_addr',
-	                    value : q_getPara('sys.addr')
-	                    }]
-                    });
+						fileName : 'z_payp',
+						options : [ {
+						type : '1',
+						name : 'xnoa'
+					}]
+				});
                 q_popAssign();
-                $('#txtR_tel').val(q_getPara('sys.tel'));
-	            $('#txtR_addr').val(q_getPara('sys.addr'));           
+                
            		var t_para = new Array();
 	            try{
 	            	t_para = JSON.parse(q_getId()[3]);
