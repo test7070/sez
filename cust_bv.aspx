@@ -31,7 +31,7 @@
             , ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx']
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea,mobile1,ft_date', 'txtSalesno,txtSales,txtMobile,txtChkstatus', 'sss_b.aspx']
             , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']
-            , ['txtZip_fact', 'lblSiteno', 'addr3', 'noa,namea', 'txtZip_fact,txtAddr_fact', 'addr3_b.aspx']
+            , ['txtZip_fact', 'lblSiteno', 'addr3', 'code,namea', 'txtZip_fact,txtAddr_fact', 'addr3_b.aspx']
             , ['txtZip_comp', '', 'addr2', 'noa,memo', 'txtZip_comp,txtAddr_comp', 'addr2_b.aspx']
             , ['txtZip_invo', '', 'addr2', 'noa,memo', 'txtZip_invo,txtAddr_invo', 'addr2_b.aspx']
             , ['txtChkstatus', 'lblSnumber', 'sss', 'ft_date,noa,namea,mobile1', 'txtChkstatus,txtSalesno,txtSales,txtMobile', 'sss_b.aspx']
