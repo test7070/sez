@@ -65,7 +65,7 @@
 				t_accno = $.trim($('#txtAccno').val());
 				t_bpaydate = $('#txtBpaydate').val();
 				t_epaydate = $('#txtEpaydate').val();
-				
+				t_rc2no = $.trim($('#txtRc2no').val());
 
 				var t_where = " 1=1 "
 				+ q_sqlPara2("cno", t_cno)
@@ -82,6 +82,8 @@
                 	t_where += " and unpay=0";
                 if(t_status=='N')
                 	t_where += " and unpay!=0";
+            	if(t_rc2no.length>0)
+		       		t_where += " and exists(select noa from paybs where paybs.noa=payb.noa and paybs.rc2no='"+t_rc2no+"')";
 				t_where = ' where=^^ ' + t_where + ' ^^ ';
 				return t_where;
 			}
@@ -157,6 +159,10 @@
 				<tr class='seek_tr'>
 					<td><a id='lblAccno'> </a></td>
 					<td><input class="txt" id="txtAccno" type="text"/></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblRc2no'>進貨單號</a></td>
+					<td><input class="txt" id="txtRc2no" type="text"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
