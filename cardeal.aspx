@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
-		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"></script>
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -45,54 +48,55 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
-					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('cardeal', t_where, 0, 0, 0, "checkCardealno_change", r_accy);
-						}else{
-							Lock();
-							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-							Unlock();
-						}
-					}
+                $('#txtNoa').change(function(e) {
+                    $(this).val($.trim($(this).val()).toUpperCase());
+                    if ($(this).val().length > 0) {
+                        if ((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())) {
+                            t_where = "where=^^ noa='" + $(this).val() + "'^^";
+                            q_gt('cardeal', t_where, 0, 0, 0, "checkCardealno_change", r_accy);
+                        } else {
+                            Lock();
+                            alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
+                            Unlock();
+                        }
+                    }
                 });
             }
 
             function q_boxClose(s2) {
-            	 var ret;
+                var ret;
                 switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
-                
-            }   //
+
+                } //
             }
 
             function q_gtPost(t_name) {
-            	 switch (t_name) {
-               case 'checkCardealno_change':
-                		var as = _q_appendData("cardeal", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].comp);
+                switch (t_name) {
+                    case 'checkCardealno_change':
+                        var as = _q_appendData("cardeal", "", true);
+                        if (as[0] != undefined) {
+                            alert('已存在 ' + as[0].noa + ' ' + as[0].comp);
                         }
-                		break;
-                case 'checkCardealno_btnOk':
-                		var as = _q_appendData("cardeal", "", true);
-                        if (as[0] != undefined){
-                        	alert('已存在 '+as[0].noa+' '+as[0].comp);
+                        break;
+                    case 'checkCardealno_btnOk':
+                        var as = _q_appendData("cardeal", "", true);
+                        if (as[0] != undefined) {
+                            alert('已存在 ' + as[0].noa + ' ' + as[0].comp);
                             Unlock();
                             return;
-                        }else{
-                        	wrServer($('#txtNoa').val());
+                        } else {
+                            wrServer($('#txtNoa').val());
                         }
-                		break;
-                case q_name: if (q_cur == 4)   
-                        q_Seek_gtPost();
-                    break;
-           		 }  /// end switch
+                        break;
+                    case q_name:
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
+                        break;
+                }  /// end switch
             }
 
             function _btnSeek() {
@@ -118,25 +122,27 @@
             function btnPrint() {
 
             }
-			function q_stPost() {
+
+            function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 Unlock();
-        }
+            }
+
             function btnOk() {
-                Lock(); 
-           $('#txtNoa').val($.trim($('#txtNoa').val()));   	
-           	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-			}else{
-				alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-				Unlock();
-			return;
-			} 
-			if(q_cur==1){
-                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                Lock();
+                $('#txtNoa').val($.trim($('#txtNoa').val()));
+                if ((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())) {
+                } else {
+                    alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
+                    Unlock();
+                    return;
+                }
+                if (q_cur == 1) {
+                    t_where = "where=^^ noa='" + $('#txtNoa').val() + "'^^";
                     q_gt('cardeal', t_where, 0, 0, 0, "checkCardealno_btnOk", r_accy);
-                }else{
-                	wrServer($('#txtNoa').val());
+                } else {
+                    wrServer($('#txtNoa').val());
                 }
             }
 
@@ -151,16 +157,17 @@
 
             function refresh(recno) {
                 _refresh(recno);
-				refreshBbm();
-				if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)
-					$('.it').css('text-align','left');
+                refreshBbm();
+                if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1)
+                    $('.it').css('text-align', 'left');
             }
-			function refreshBbm(){
-            	if(q_cur==1){
-            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
-            	}else{
-            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
-            	}
+
+            function refreshBbm() {
+                if (q_cur == 1) {
+                    $('#txtNoa').css('color', 'black').css('background', 'white').removeAttr('readonly');
+                } else {
+                    $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
+                }
             }
 
             function readonly(t_para, empty) {
@@ -225,8 +232,8 @@
             }
             .dview {
                 float: left;
-                width: 1000px; 
-                border-width: 0px; 
+                width: 1000px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -246,8 +253,8 @@
             .dbbm {
                 float: left;
                 width: 1000px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -262,13 +269,13 @@
             }
             .tbbm tr {
                 height: 35px;
-            } 
+            }
             .tbbm tr td {
                 width: 8%;
             }
             .tbbm .tdZ {
                 width: 1%;
-            }     
+            }
             .tbbm tr td span {
                 float: right;
                 display: block;
@@ -287,7 +294,7 @@
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
-            }    
+            }
             .tbbm td {
                 margin: 0 -1px;
                 padding: 0;
@@ -331,7 +338,9 @@
 						<td style="width:120px; color:black;"><a id='vewSerial'> </a></td>
 					</tr>
 					<tr>
-						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
+						<td>
+						<input id="chkBrow.*" type="checkbox" style=''/>
+						</td>
 						<td id="noa" style="text-align: center;">~noa</td>
 						<td id="nick" style="text-align: center;" class="it">~nick</td>
 						<td id="boss" style="text-align: center;" class="it">~boss</td>
@@ -343,43 +352,61 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="trZ"> </td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="trZ"></td>
 					</tr>
 					<tr class="tr1">
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtNoa"  type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblComp'  class="lbl"> </a></td>
-						<td class="td2" colspan="3"><input id="txtComp"  type="text" class="txt c1"/></td>
+						<td class="td2" colspan="3">
+						<input id="txtComp"  type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblNick' class="lbl"> </a></td>
-						<td class="td2"><input id="txtNick"  type="text" class="txt c1"/></td>
+						<td class="td2">
+						<input id="txtNick"  type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblBoss' class="lbl"> </a></td>
-						<td class="td2"><input id="txtBoss"  type="text" class="txt c1"/></td>
+						<td class="td2">
+						<input id="txtBoss"  type="text" class="txt c1"/>
+						</td>
 						<td class="td3"><span> </span><a id='lblUacc1' class="lbl"> </a></td>
-						<td class="td4"><input id="txtUacc1"   type="text" class="txt c1"/></td>
+						<td class="td4">
+						<input id="txtUacc1"   type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblTel1' class="lbl"> </a></td>
-						<td class="td2"><input id="txtTel1"  type="text" class="txt c1"/></td>
+						<td class="td2">
+						<input id="txtTel1"  type="text" class="txt c1"/>
+						</td>
 						<td class="td3"><span> </span><a id='lblUacc2' class="lbl"> </a></td>
-						<td class="td4"><input id="txtUacc2"    type="text"  class="txt c1"/></td>
+						<td class="td4">
+						<input id="txtUacc2"    type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td class="td2"><input id="txtSerial"  type="text" class="txt c1"/> </td>
+						<td class="td2">
+						<input id="txtSerial"  type="text" class="txt c1"/>
+						</td>
 						<td class="td3"><span> </span><a id='lblUacc3' class="lbl"> </a></td>
-						<td class="td4"><input id="txtUacc3"   type="text"  class="txt c1"/></td>
+						<td class="td4">
+						<input id="txtUacc3"   type="text"  class="txt c1"/>
+						</td>
 					</tr>
 				</table>
 			</div>
