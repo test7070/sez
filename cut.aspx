@@ -480,6 +480,15 @@
 				if($('#combType2A').is(":visible")){
 					$('#txtType2').val($('#combType2A').val());
 				}
+				//廢料   入庫批號不能同時輸入
+				for(var i=0;i<q_bbsCount;i++){
+					if($('#txtWaste_'+i).val().length>0 && $('#txtBno_'+i).val().length>0){
+						alert((i+1)+'：廢料、入庫批號只能擇一輸入。')
+						Unlock(1);
+						return;
+					}
+				}
+				
 				//裕承隆 暫時先不檢查
 				/*var t_err = CheckInputError();
 				if(t_err.length>0){
