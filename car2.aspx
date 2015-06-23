@@ -734,7 +734,7 @@
                 var t_noa = replaceAll($('#txtNoa').val(),' ','');
                 replaceAll($('#txtCarno').val(t_noa),' ','')
                 wrServer(t_noa);
-                if(q_cur=='1'&& q_getPara('sys.project').toUpperCase()=="DC")
+                if(q_cur=='1'&& q_getPara('sys.comp').substring(0,2)=="大昌")
                 	$("#btnCarinsurance").click();
             }
 
