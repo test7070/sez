@@ -60,7 +60,7 @@
 			function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
-				bbsMask = [['txtStyle', "A"]];
+				bbsMask = [];
 				q_mask(bbmMask);
 				q_cmbParse("cmbItype", q_getPara('uccc.itype'));
 				q_cmbParse("cmbTypea", q_getPara('cut.typea'));
@@ -1372,7 +1372,7 @@
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:150px;" align="center"><a id='lblCustno'> </a><br><a id='lblCustno'> </a></td>
-					<td align="center" style="width:30px;"><a id='lblStyle_st'> </a></td>
+					<td align="center" style="width:30px;"><a id='lblStyle_st'>型</a></td>
 					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a><br><a id='lblSpecs'> </a></td>
 					<td align="center" style="width:240px;"><a id='lblSizea_st'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblMounts'> </a></td>
