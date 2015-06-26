@@ -200,6 +200,11 @@
 						}
 					}
 				});
+				
+				if(q_getPara('sys.project').toUpperCase()=="PK"){ //104/06/25 潘小姐 只要顯示外銷
+					var s2=new Array(q_name+'_s',"where=^^stype='3' ^^ ");
+                	q_boxClose2(s2);
+				}
 			}
 			
 			//addr2控制事件vvvvvv-------------------
@@ -677,6 +682,8 @@
 				$('#txtAcomp').val(z_acomp);
 				$('#txtOdate').val(q_date());
 				$('#txtOdate').focus();
+				if(q_getPara('sys.project').toUpperCase()=="PK")
+					$('#cmbStype').val('3');
 
 				var t_where = "where=^^ 1=1 group by post,addr^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
@@ -772,6 +779,9 @@
 				$('#div_addr2').hide();
 				readonly_addr2();
 				HiddenTreat();
+				
+				if(q_getPara('sys.project').toUpperCase()=="PK")
+					$('#cmbStype').attr('disabled', 'disabled');
 			}
 			
 			function HiddenTreat() {
