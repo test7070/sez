@@ -24,7 +24,7 @@
             var q_readonlys = [];
             var bbmNum = [];
             //var bbmNum_comma = [];
-            var bbsNum = [['txtMoney', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1],['txtCmoney', 10, 0, 1],['txtVmoney', 10, 0, 1]];
             //var bbsNum_comma = ['txtMoney'];
             var bbmMask = [];
             var bbsMask = [['txtBdate', '999/99/99'], ['txtInmon', '999/99'], ['txtEdate', '999/99/99'], ['txtStopdate', '999/99/99']];
@@ -59,7 +59,7 @@
             }
 
             function bbsAssign() {
-            	for(var j = 0; j < q_bbsCount; j++) {
+            	for(var j = 0; j < (q_bbsCount==0?1:q_bbsCount); j++) {
            			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
            				$('#txtInsurerno_'+j).change(function () {
            					t_IdSeq = -1;
@@ -72,6 +72,23 @@
 								$('#txtInmon_'+b_seq).val($('#txtBdate_'+b_seq).val().substr(0,6));
 							}
            				});
+           				$('#txtCmoney_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(q_cur==1 || q_cur==2)
+								$('#txtMoney_'+b_seq).val(q_add(q_float('txtCmoney_'+b_seq),q_float('txtVmoney_'+b_seq)));
+           				});
+           				
+           				$('#txtVmoney_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							if(q_cur==1 || q_cur==2)
+								$('#txtMoney_'+b_seq).val(q_add(q_float('txtCmoney_'+b_seq),q_float('txtVmoney_'+b_seq)));
+           				});
+           				
            			}
            		}
                 _bbsAssign();//'tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
@@ -134,54 +151,38 @@
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td class="td2" align="center" style="width:20%;"><a id='lblInsurer'></a></td>
-					<td class="td3" align="center" style="width:8%;"><a id='lblBdate'></a></td>
-					<td class="td4" align="center" style="width:8%;"><a id='lblEdate'></a></td>
-					<td class="td5" align="center" style="width:7%;"><a id='lblInmon'></a></td>
-					<td class="td6" align="center" style="width:9%;"><a id='lblMoney'></a></td>
-					<td class="td7" align="center" style="width:6%;"><a id='lblKind'></a></td>
-					<td class="td8" align="center" style="width:9%;"><a id='lblInsuresheet'></a></td>
-					<td class="td9" align="center" style="width:9%;"><a id='lblInsurecard'></a></td>
-					<td class="td10" align="center" style="width:8%;"><a id='lblStopdate'></a></td>
-					<td class="td11" align="center" ><a id='lblMemo'></a></td>
+					<td class="td2" align="center" style="width:15%;"><a id='lblInsurer'> </a></td>
+					<td class="td3" align="center" style="width:7%;"><a id='lblBdate'> </a></td>
+					<td class="td4" align="center" style="width:7%;"><a id='lblEdate'> </a></td>
+					<td class="td5" align="center" style="width:6%;"><a id='lblInmon'> </a></td>
+					<td class="td6" align="center" style="width:7%;"><a id='lblCmoney'> </a></td>
+					<td class="td6" align="center" style="width:7%;"><a id='lblVmoney'> </a></td>
+					<td class="td6" align="center" style="width:7%;"><a id='lblMoney'> </a></td>
+					<td class="td7" align="center" style="width:6%;"><a id='lblKind'> </a></td>
+					<td class="td8" align="center" style="width:9%;"><a id='lblInsuresheet'> </a></td>
+					<td class="td9" align="center" style="width:9%;"><a id='lblInsurecard'> </a></td>
+					<td class="td10" align="center" style="width:7%;"><a id='lblStopdate'> </a></td>
+					<td class="td11" align="center" ><a id='lblMemo'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td class="td1" align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
-					</td>
+					<td class="td1" align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
 					<td class="td2">
-					<input class="txt"  id="txtInsurerno.*" type="text" style="width:20%;"  />
-					<input class="txt" id="txtInsurer.*" type="text" style="width:73%;"   />
-					<input class="txt c1"  id="txtNoa.*" type="hidden"  />
-                    <input id="txtNoq.*" type="hidden" />
+						<input class="txt"  id="txtInsurerno.*" type="text" style="width:20%;"  />
+						<input class="txt" id="txtInsurer.*" type="text" style="width:70%;"   />
+						<input class="txt c1"  id="txtNoa.*" type="hidden"  />
+	                    <input id="txtNoq.*" type="hidden" />
 					</td>
-					<td class="td3">
-					<input class="txt" id="txtBdate.*" type="text" style="width:95%; text-align:center;"  />
-					</td>
-					<td class="td4">
-					<input class="txt" id="txtEdate.*" type="text" style="width:95%; text-align:center;"  />
-					</td>
-					<td class="td5">
-					<input class="txt" id="txtInmon.*" type="text" style="width:95%; text-align:center;"   />
-					</td>
-					<td class="td6">
-					<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"  />
-					</td>
-					<td class="td7">
-					<input class="txt" id="txtKind.*" type="text" style="width:95%;"  />
-					</td>
-					<td class="td8">
-					<input class="txt" id="txtInsuresheet.*" type="text" style="width:95%;"  />
-					</td>
-					<td class="td9">
-					<input class="txt" id="txtInsurecard.*" type="text" style="width:95%;"  />
-					</td>
-					<td class="td10">
-					<input class="txt" id="txtStopdate.*" type="text" style="width:95%; text-align:center;"  />
-					</td>
-					<td class="td11">
-                    	<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
-                    </td>
+					<td class="td3"><input class="txt" id="txtBdate.*" type="text" style="width:95%; text-align:center;"  /></td>
+					<td class="td4"><input class="txt" id="txtEdate.*" type="text" style="width:95%; text-align:center;"  /></td>
+					<td class="td5"><input class="txt" id="txtInmon.*" type="text" style="width:95%; text-align:center;"   /></td>
+					<td class="td6"><input class="txt" id="txtCmoney.*" type="text" style="width:95%; text-align: right;"  /></td>
+					<td class="td6"><input class="txt" id="txtVmoney.*" type="text" style="width:95%; text-align: right;"  /></td>
+					<td class="td6"><input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"  /></td>
+					<td class="td7"><input class="txt" id="txtKind.*" type="text" style="width:95%;"  /></td>
+					<td class="td8"><input class="txt" id="txtInsuresheet.*" type="text" style="width:95%;"  /></td>
+					<td class="td9"><input class="txt" id="txtInsurecard.*" type="text" style="width:95%;"  /></td>
+					<td class="td10"><input class="txt" id="txtStopdate.*" type="text" style="width:95%; text-align:center;"  /></td>
+					<td class="td11"><input class="txt" id="txtMemo.*" type="text" style="width:95%;"  /></td>
 				</tr>
 			</table>
 		</div>
