@@ -96,6 +96,10 @@
 			}
 
 			function mainPost() {
+				if (q_getPara('sys.project').toUpperCase()=='YC'){
+					bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
+				}
+				
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
