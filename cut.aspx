@@ -480,14 +480,7 @@
 				if($('#combType2A').is(":visible")){
 					$('#txtType2').val($('#combType2A').val());
 				}
-				//廢料   入庫批號不能同時輸入
-				for(var i=0;i<q_bbsCount;i++){
-					if($('#txtWaste_'+i).val().length>0 && $('#txtBno_'+i).val().length>0){
-						alert((i+1)+'：廢料、入庫批號只能擇一輸入。')
-						Unlock(1);
-						return;
-					}
-				}
+				
 				
 				//裕承隆 暫時先不檢查
 				/*var t_err = CheckInputError();
@@ -1373,6 +1366,8 @@
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:150px;" align="center"><a id='lblCustno'> </a><br><a id='lblCustno'> </a></td>
 					<td align="center" style="width:30px;"><a id='lblStyle_st'>型</a></td>
+					<td align="center" style="width:120px;"><a>品號<BR>品名</a></td>
+					
 					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a><br><a id='lblSpecs'> </a></td>
 					<td align="center" style="width:240px;"><a id='lblSizea_st'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblMounts'> </a></td>
@@ -1385,7 +1380,6 @@
 					<td style="width:50px;" align="center">入庫<br>倉庫</td>
 					<td style="width:150px;" align="center"><a id='lblMemos'> </a></td>
 					<td style="width:50px;" align="center" ><a id='lbltime'> </a></td>
-					<td align="center" style="width:120px;"><a>品號<BR>品名</a></td>
 					<td style="width:50px;" align="center">加工<br>單價</td>
 					<td style="width:80px;" align="center"><a id='lblMweight'> </a></td>
 					<td style="width:120px;" align="center"><a id='lblOrdenos'> </a></td>
@@ -1407,6 +1401,12 @@
 					<td><input type="text" id="txtStyle.*" style="width:95%;text-align:center;" />
 						<input id="btnStyle.*" type="button" style="display:none;" value="."/>
 					</td>
+					<td>
+						<input id="txtProductno.*" type="text" style="width:95%;" />
+						<input type="text" id="txtProduct.*" style="width:95%;" />
+						<input class="btn" id="btnProduct.*" type="button" style="display:none;"/>
+					</td>
+					
 					<td>
 						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
 						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >x</div>
@@ -1433,11 +1433,7 @@
 					<td><input id="txtStoreno.*" type="text" class="txt c2"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c2"/></td>
 					<td><input id="txtTime.*" type="text" class="txt c2"/></td>
-					<td>
-						<input id="txtProductno.*" type="text" style="width:95%;" />
-						<input type="text" id="txtProduct.*" style="width:95%;" />
-						<input class="btn" id="btnProduct.*" type="button" style="display:none;"/>
-					</td>
+					
 					<td><input id="txtWprice.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtMweight.*" type="text" class="txt c2 num"/></td>
 					<td><input id="txtOrdeno.*" type="text" class="txt c2"/></td>
