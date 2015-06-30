@@ -21,11 +21,11 @@
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
-				q_gf('', 'z_quatp_vu');
+				q_gf('', 'z_accc_pk');
 			});  
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_quatp_vu',
+                    fileName : 'z_accc_pk',
                     options : [{/* [1]*/
                         type : '0',
                         name : 'accy',
