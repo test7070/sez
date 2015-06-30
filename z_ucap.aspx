@@ -101,14 +101,18 @@
 				$('#txtSpno1a').blur(function() {
 					if(!emp($('#txtSpno1a').val()) &&!emp($('#txtSpno2a').val())){
 						if($('#txtSpno2a').val()<$('#txtSpno1a').val()){
-							alert('【'+$('#txtSpno2a').val()+'】編號小於【'+$('#txtSpno1a').val()+'】編號');
+							//alert('【'+$('#txtSpno2a').val()+'】編號小於【'+$('#txtSpno1a').val()+'】編號');
+							$('#txtSpno2a').val($('#txtSpno1a').val());
+							$('#txtSpno2b').val($('#txtSpno1b').val());
 						}
 					}
 				});
 				$('#txtSpno2a').blur(function() {
 					if(!emp($('#txtSpno1a').val()) &&!emp($('#txtSpno2a').val())){
 						if($('#txtSpno2a').val()<$('#txtSpno1a').val()){
-							alert('【'+$('#txtSpno2a').val()+'】編號小於【'+$('#txtSpno1a').val()+'】編號');
+							//alert('【'+$('#txtSpno2a').val()+'】編號小於【'+$('#txtSpno1a').val()+'】編號');
+							$('#txtSpno1a').val($('#txtSpno2a').val());
+							$('#txtSpno1b').val($('#txtSpno2b').val());
 						}
 					}
 				});

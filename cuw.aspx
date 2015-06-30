@@ -390,8 +390,8 @@
 									usetime = dec(WorkTimeArray[h].minutes);
 								}
 							}
-							var btime = dec(thisVal.split('-')[0]);
-							var etime = dec(thisVal.split('-')[1]);
+							var btime = thisVal.split('-')[0];
+							var etime = thisVal.split('-')[1];
 							if((thisVal.indexOf('-') > -1) && (usetime==-1)){
 								btime = (Math.floor(btime/100)*60)+(btime%100);
 								etime = (Math.floor(etime/100)*60)+(etime%100);
