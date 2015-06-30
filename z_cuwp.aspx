@@ -119,7 +119,7 @@
 						if (as[0] == undefined) {
 							alert('沒有資料!!');
 						}else{
-							var OutHtm= '<table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
+							var OutHtm= '日期區間：'+$('#txtXdate1').val()+'~'+$('#txtXdate2').val()+'<BR><table id="tTable" border="1px" cellpadding="0" cellspacing="0">';
 							var Html01='<tr><td class="tMain tTitle" colspan="2">　　工作中心→<br>項目↓</td>';
 							var Html02='<tr><td class="tMain tLeft" colspan="2">基本產能</td>';
 							var Html03='<tr><td class="tMain tLeft" colspan="2">工時</td>';
@@ -169,7 +169,7 @@
 								Html01 += '<td class="tMain tTitle" valign="middle">'+as[k].stationno+ '<br>' + as[k].station +'</td>';
 								Html02 += '<td class="tNum">'+as[k].gen+'</td>';
 								Html03 += '<td class="tNum">'+as[k].hours+'</td>';
-								Html04 += '<td class="tNum">'+as[k].workhours+'</td>';
+								Html04 += '<td class="tNum">'+round(dec(as[k].workhours),2)+'</td>';
 								Html05 += '<td class="tNum tSum">'+t_workhours+'</td>';
 								Html06 += '<td class="tNum">'+as[k].workmount+'</td>';
 								Html07 += '<td class="tNum tSum">'+t_workmount+'</td>';

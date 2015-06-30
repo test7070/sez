@@ -31,9 +31,14 @@
        /*if(q_getPara('sys.comp').indexOf('永勝') > -1)
         	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype_uu'));
         else*/
-        	q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype'));
+        q_cmbParse("cmbStype", '@全部,'+q_getPara('orde.stype'));
 
         $('#txtBdate').focus();
+        
+        if(q_getPara('sys.project').toUpperCase()=="PK"){ //104/06/25 潘小姐 只要顯示外銷
+        	$('.pk').hide();
+        	$('#cmbStype').val('3')
+        }
     }
 
     function q_seekStr() {   ///  搜尋按下時，執行
@@ -71,34 +76,34 @@
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
             <tr class='seek_tr'>
-                <td   style="width:35%;" ><a id='lblDatea'></a></td>
+                <td   style="width:35%;" ><a id='lblDatea'> </a></td>
                 <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
                 <span style="display:inline-block; vertical-align:middle">～</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
-            <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblStype'></a></td>
+            <tr class='seek_tr pk'>
+                <td class='seek'  style="width:20%;"><a id='lblStype'> </a></td>
                 <td><select id="cmbStype" class="txt c1" style="font-size:medium;"> </select></td>
              </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
                 <td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtComp" type="text" style="width:115px;font-size:medium;" /></td>
              </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblSales'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblSales'> </a></td>
                 <td><input class="txt" id="txtSalesno" type="text" style="width:90px; font-size:medium;" />&nbsp;
                 	<input class="txt" id="txtSales" type="text" style="width:115px; font-size:medium;" /></td>
              </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblQuatno'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblQuatno'> </a></td>
                 <td><input class="txt" id="txtQuatno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblContract'></a></td>
+                <td class='seek'  style="width:20%;"><a id='lblContract'> </a></td>
                 <td><input class="txt" id="txtContract" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
