@@ -34,19 +34,9 @@
                         type : '0',
                         name : 'xname',
                         value : r_name 
-                    }, {/*1-1[3][4]*/
-                        type : '2',
-                        name : 'cust',
-                        dbf  : 'cust',
-                        index: 'noa,comp',
-                        src  : 'cust_b.aspx'
-                    }, {/*1-2 [5][6]*/
+                    }, {/*1-1[3]*/
                         type : '1',
-                        name : 'date'
-                    }, {/*1-3 [7]*/
-                        type : '8',
-                        name : 'xoption01',
-                        value : q_getMsg('toption01').split('&')
+                        name : 'accc',
                     }]
                 });
                 q_popAssign();
