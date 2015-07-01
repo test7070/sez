@@ -126,7 +126,7 @@
                     cb.BeginText();
                     cb.SetFontAndSize(bfChinese, 12);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, "到著站", 10, 77, 0);
-                    cb.SetFontAndSize(bfNumber, 45);
+                    cb.SetFontAndSize(bfNumber, 40);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).s3, 10, 28, 0);
                     cb.SetFontAndSize(bfChinese, 12);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode96, 120, 35, 0);

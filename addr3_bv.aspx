@@ -56,9 +56,9 @@
 			}
 			function mainPost() {
 				document.title='1.3發送所簡碼維護';
-				$("#lblNoa").text('站所代碼');
+				$("#lblNoa").text('站所簡碼');
 				$("#lblNamea").text('站所名稱');
-				$("#lblCode").text('站所全碼');
+				$("#lblCode").text('站所代號');
 				q_getFormat();
 				bbmMask = [['txtCode', '9999']];
 				q_mask(bbmMask);

@@ -190,10 +190,10 @@
 
                     cb.SetColorFill(iTextSharp.text.BaseColor.BLUE);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT, ((Para)barcode[i]).s2.ToString(), positions[(str + i) % 6, 0] + 95, positions[(str + i) % 6, 1] + 225, 0);
-                    cb.SetFontAndSize(bfChinese, 16);
-                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT, ((Para)barcode[i]).weight.ToString(), positions[(str + i) % 6, 0] + 38, positions[(str + i) % 6, 1] + 175, 0);
-                    cb.SetFontAndSize(bfChinese, 12);
-                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT, "KG", positions[(str + i) % 6, 0] + 55, positions[(str + i) % 6, 1] + 175, 0);
+                    //cb.SetFontAndSize(bfChinese, 16);
+                    //cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT, ((Para)barcode[i]).weight.ToString(), positions[(str + i) % 6, 0] + 38, positions[(str + i) % 6, 1] + 175, 0);
+                    //cb.SetFontAndSize(bfChinese, 12);
+                    //cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT, "KG", positions[(str + i) % 6, 0] + 55, positions[(str + i) % 6, 1] + 175, 0);
                     cb.SetFontAndSize(bfChinese, 16);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_RIGHT, ((Para)barcode[i]).count.ToString(), positions[(str + i) % 6, 0] + 90, positions[(str + i) % 6, 1] + 175, 0);
                     cb.SetFontAndSize(bfNumber, 50);

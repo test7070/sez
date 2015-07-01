@@ -3,7 +3,7 @@
         
         public class Para
         {
-            public string barcode, bag, serial, nick, addr, tel, station;
+            public string barcode, bag, serial, nick, addr, tel, station, custno;
         }
         
         System.IO.MemoryStream stream = new System.IO.MemoryStream();
@@ -52,6 +52,7 @@
                         ,b.addr_comp addr
                         ,b.tel tel
                         ,b.addr_fact station
+                        ,a.custno custno
                     from view_tranorde a
 	                left join cust b on a.custno=b.noa
 	                left join @list c on c.barcode between a.docketno1 and a.docketno2
@@ -82,6 +83,7 @@
                 pa.addr = System.DBNull.Value.Equals(r.ItemArray[4]) ? "" : (System.String)r.ItemArray[4];
                 pa.tel = System.DBNull.Value.Equals(r.ItemArray[5]) ? "" : (System.String)r.ItemArray[5];
                 pa.station = System.DBNull.Value.Equals(r.ItemArray[6]) ? "" : (System.String)r.ItemArray[6];
+                pa.custno = System.DBNull.Value.Equals(r.ItemArray[7]) ? "" : (System.String)r.ItemArray[7];
                 barcode.Add(pa);
             }
             //-----PDF--------------------------------------------------------------------------------------------------
@@ -126,7 +128,7 @@
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).tel, 57, 238, 0);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode, 150, 170, 0);
                     cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).barcode, 28, 88, 0);
-                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).serial, 155, 70, 0);
+                    cb.ShowTextAligned(iTextSharp.text.pdf.PdfContentByte.ALIGN_LEFT, ((Para)barcode[i]).custno, 155, 70, 0);
                     cb.EndText();
 
                     //圖片 97
