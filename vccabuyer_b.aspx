@@ -11,12 +11,14 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'vccabuyer', t_content = ' field=noa,serial,buyer', bbsKey = ['noa'], as;
+            var q_name = 'vccabuyer', t_content = ' field=noa,buyer,serial', bbsKey = ['noa'], as;
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;
             $(document).ready(function() {
+                 if(!q_paraChk())
+                    return;
                 main();
             });
             /// end ready
@@ -52,7 +54,8 @@
 					<input name="sel"  id="radSel.*" type="radio" />
 					</td>
 					<td style="width:20%;">
-					<input class="txt" id="txtSerial.*" type="text" style="width:98%;"  readonly="readonly" />
+						<input class="txt" id="txtSerial.*" type="text" style="width:98%;"  readonly="readonly" />
+						<input class="txt" id="txtNoa.*" type="text" style="display:none;"  readonly="readonly" />
 					</td>
 					<td style="width:75%;">
 					<input class="txt" id="txtBuyer.*" type="text" style="width:98%;"  readonly="readonly" />
