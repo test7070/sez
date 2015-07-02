@@ -243,6 +243,12 @@
                 } else {
                     $('#txtNoa').css('color', 'green').css('background', 'RGB(237,237,237)').attr('readonly', 'readonly');
                 }
+                if(q_getPara('sys.project').toUpperCase()=='RB' && $('#cmbTypea').val()=='1' ){
+					$('.rb').show();
+					$('#lblSono').text('銷貨單號');
+				}else{
+					$('.rb').hide();
+				}
             }
 
             function readonly(t_para, empty) {
@@ -690,6 +696,10 @@
 					<tr class="passtype">
 						<td><span> </span><a id='lblPasstype' class="lbl"> </a></td>
 						<td><select id="cmbPasstype" class="txt c1"> </select></td>
+					</tr>
+					<tr class="rb">
+						<td><span> </span><a id='lblSono' class="lbl"> </a></td>
+						<td><input id="txtSono"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
