@@ -41,6 +41,8 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
+				
+				
 				$('#txtNoa').change(function(e) {
 					if ($(this).val().length > 0) {
 						t_where = "where=^^ noa='" + $(this).val() + "'^^";
@@ -133,6 +135,11 @@
 			function refresh(recno) {
 				_refresh(recno);
 				refreshBbm();
+				if(q_getPara('sys.comp').substring(0,2)=='聯琦'){
+					$('title').text('皮膜主檔');
+					$('#vewNoa').text('皮膜');
+					$('#lblNoa').text('皮膜');
+				}
 			}
 
 			function refreshBbm() {
