@@ -158,12 +158,6 @@
 						}
 					}
 				});
-
-				if (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) {
-					$('#lblTrdno').hide();
-					$('#txtTrdno').hide();
-				}
-
 			}
 
 			function q_boxClose(s2) {
@@ -253,26 +247,43 @@
 				Lock(1, {
 					opacity : 0
 				});
+				
+				var t_err = '';
+				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtDatea', q_getMsg('lblDatea')], ['txtCno', q_getMsg('lblAcomp')]]);
+				if (t_err.length > 0) {
+					alert(t_err);
+					Unlock(1);
+					return;
+				}
+				
 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
 					alert(q_getMsg('lblDatea') + '錯誤。');
 					return;
 				}
+				
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
+				
 				if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())) {
 					alert(q_getMsg('lblNoa') + '錯誤。');
 					Unlock(1);
 					return;
 				}
+				
 				if ($.trim($('#txtMon').val()).length == 0)
 					$('#txtMon').val($('#txtDatea').val().substring(0, 6));
+					
 				$('#txtMon').val($.trim($('#txtMon').val()));
+				
 				if (!(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
 					alert(q_getMsg('lblMon') + '錯誤。');
 					Unlock(1);
 					return;
 				}
+				
 				$('#txtWorker').val(r_name);
+				
 				sum();
+				
 				var t_where = '';
 				if (q_cur == 1) {
 					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))" + " and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";

@@ -713,7 +713,7 @@
 					<td align="center" style="width: 40px;"><a id='lblSex'> </a></td>
 					<td align="center"><a id='lblComp'> </a></td>
 					<td align="center" style="width: 250px;display: none;"><a id='lblAddr'> </a></td>
-					<td align="center" style="width: 200px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width: 200px;"><a id='lblMemo_s'> </a><BR><a>(二代健保請註明獎金/兼職)</a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
