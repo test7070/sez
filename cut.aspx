@@ -1440,7 +1440,7 @@
 					<td>
 						<input id="txtStoreno.*" type="text" class="txt c2"/>
 						<input id="txtStore.*" type="text" class="txt c2"/>
-						<input id="btnStore" type="button" style="display:none;"/>
+						<input id="btnStore.*" type="button" style="display:none;"/>
 					</td>
 					<td><input id="txtMemo.*" type="text" class="txt c2"/></td>
 					<td><input id="txtTime.*" type="text" class="txt c2"/></td>
