@@ -585,7 +585,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2300px;
+				width: 2500px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -713,6 +713,7 @@
 					<td align="center" style="width: 40px;"><a id='lblSex'> </a></td>
 					<td align="center"><a id='lblComp'> </a></td>
 					<td align="center" style="width: 250px;display: none;"><a id='lblAddr'> </a></td>
+					<td align="center" style="width: 200px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -751,6 +752,7 @@
 						<input id="txtNoq.*" type="hidden" />
 					</td>
 					<td style="display: none;"><input id="txtAddr.*" type="text" class="txt c1" style="display: none;"/></td>
+					<td><input id="txtMemo.*" type="text" class="txt c1" /></td>
 				</tr>
 			</table>
 		</div>
