@@ -129,7 +129,11 @@
 							type : '5', //[25]
 							name : 'xcoin', //幣別
 							value : z_coin.split(',')
-						}]
+						}, {
+	                        type : '0', //[26]
+	                        name : 'rc2taxtype',
+	                        value : q_getPara('rc2.d4taxtype')
+	                    }]
 					});
 					q_popAssign();
 					$('#txtDate1').mask('999/99/99');

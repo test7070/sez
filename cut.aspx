@@ -39,6 +39,7 @@
 			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
 			, ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_', 'ucc_b.aspx']
             , ['txtStyle_', 'btnStyle_', 'style', 'noa,product', 'txtStyle_', 'style_b.aspx']
+            , ['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 			);
 			q_desc = 1;
 			brwCount2 = 11;
@@ -529,6 +530,12 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtStoreno_' + j).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtStoreno_', '');
+                            $('#btnStore_'+n).click();
+                        });
 						$('#txtCustno_' + j).bind('contextmenu', function(e) {
                             /*滑鼠右鍵*/
                             e.preventDefault();
@@ -1430,7 +1437,11 @@
 					<td><input id="txtWeight.*" type="text"  class="txt c2 num"/></td>
 					<td><input id="txtWaste.*" type="text" class="txt c2"/></td>
 					<td><input id="txtBno.*" type="text" class="txt c2"/></td>
-					<td><input id="txtStoreno.*" type="text" class="txt c2"/></td>
+					<td>
+						<input id="txtStoreno.*" type="text" class="txt c2"/>
+						<input id="txtStore.*" type="text" class="txt c2"/>
+						<input id="btnStore.*" type="button" style="display:none;"/>
+					</td>
 					<td><input id="txtMemo.*" type="text" class="txt c2"/></td>
 					<td><input id="txtTime.*" type="text" class="txt c2"/></td>
 					

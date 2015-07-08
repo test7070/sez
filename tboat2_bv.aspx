@@ -68,7 +68,7 @@
 							$('#txtShip').val(t_code96)
 							
 							var t_site=result.split("^@");
-							$('#txtSiteno').val(t_site[3]);
+							$('#txtSiteno').val(replaceAll(t_site[3],'<BR>',''));
 							$('#txtSite').val(t_site[2]);
 						}else{
 							$('#txtShip').val('');
@@ -79,14 +79,16 @@
 					case 'etc.h96':
 						if(result.substr(0,2)=="^@"){//  傳回值前兩碼=^@   要產生96
                 			//104/05/05 96條碼產生方式變動為9712345672>9612345676
-                			var t_code97=$('#txtCode').val();
-                			var t_code96='96'+t_code97.substr(2,7);
-                			//加入檢查碼
-                			t_code96=t_code96+(dec(t_code96)%7);
-							$('#txtShip').val(t_code96)
+                			if(!emp($('#txtCode').val())){
+	                			var t_code97=$('#txtCode').val();
+	                			var t_code96='96'+t_code97.substr(2,7);
+	                			//加入檢查碼
+	                			t_code96=t_code96+(dec(t_code96)%7);
+								$('#txtShip').val(t_code96);
+							}
 							
 							var t_site=result.split("^@");
-							$('#txtSiteno').val(t_site[3]);
+							$('#txtSiteno').val(replaceAll(t_site[3],'<BR>',''));
 							$('#txtSite').val(t_site[2]);
 						}else{
 							$('#txtShip').val('');
@@ -119,6 +121,13 @@
                 			$(this).val('');
                 			return;
                 		}
+                		//104/07/01 只要轉運就產生96碼
+	                	var t_code97=$('#txtCode').val();
+	                	var t_code96='96'+t_code97.substr(2,7);
+	                	//加入檢查碼
+	                	t_code96=t_code96+(dec(t_code96)%7);
+						$('#txtShip').val(t_code96);
+                		
                 		var t_where = "where=^^ boatname='"+$(this).val()+"' ^^";
 						q_gt('view_transef', t_where, 0, 0, 0, "");
                 	}
@@ -194,16 +203,17 @@
                 			$('#txtCustno').val(as[0].custno);
                 			$('#txtCust').val(as[0].comp);
                 			$('#txtNick').val(as[0].nick);
-                			$('#txtNamea').val(as[0].addressee);
-                			$('#txtTel').val(as[0].atel);
-                			$('#txtPost').val(as[0].caseend);
-                			$('#txtBoatname').val(as[0].aaddr);
-                			$('#txtSiteno').val(as[0].accno);
-                			$('#txtSite').val(as[0].uccno);
+                			//$('#txtNamea').val(as[0].addressee);
+                			//$('#txtTel').val(as[0].atel);
+                			//$('#txtPost').val(as[0].caseend);
+                			//$('#txtBoatname').val(as[0].aaddr);
+                			//$('#txtSiteno').val(as[0].accno);
+                			//$('#txtSite').val(as[0].uccno);
                 			$('#txtShip').val(as[0].po);
-                			$('#txtMobile').val(as[0].boat);
-                			$('#txtZip').val(as[0].caseuse);
-                			$('#txtTotal').val(as[0].price);
+                			//$('#txtMobile').val(as[0].boat);
+                			//$('#txtZip').val(as[0].caseuse);
+                			//$('#txtTotal').val(as[0].price);
+                			$('#txtMount').val(1);
                 			
                 			/*if(emp($('#txtShip').val())){
                 				//104/05/05 96條碼產生方式變動為9712345672>9612345676
@@ -214,7 +224,7 @@
 								$('#txtShip').val(t_code96)
 							}*/
 							//讀地址判斷是否產生96碼
-                			q_func("etc.h96", as[0].aaddr); //傳回值前兩碼=^@   要產生96
+                			//q_func("etc.h96", as[0].aaddr); //傳回值前兩碼=^@   要產生96
                 			
 							if(!emp($('#txtBoatname').val())){
 	                			var t_where = "where=^^ charindex(city,'"+$('#txtBoatname').val()+"')>0 and charindex(area,'"+$('#txtBoatname').val()+"')>0 and charindex(road,'"+$('#txtBoatname').val()+"')>0 ^^";
@@ -676,8 +686,8 @@
 					<tr>
 						<td><span> </span><a class="lbl">代收貨款</a></td>
 						<td><input type="text"id="txtTotal" class="txt num c1"> </td>
-						<td><span> </span><a class="lbl">聯運件數</a></td>
-						<td><input type="text"id="txtMount" class="txt num c1"> </td>
+						<td style="display: none;"><span> </span><a class="lbl">聯運件數</a></td>
+						<td style="display: none;"><input type="text"id="txtMount" class="txt num c1"> </td>
 						<td><span> </span><a class="lbl">聯運條碼</a></td>
 						<td><input type="text" id="txtIsprint" class="txt c1"/> </td>
 					</tr>

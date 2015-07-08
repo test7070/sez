@@ -72,7 +72,7 @@
 						q_gt('view_workfs', t_where, 0, 0, 0, "getWorkfs", r_accy);
 					}*/
 					var thisVal = $.trim($('#txtWorkfno').val());
-					var t_where='1=1 and tmount>0  and (tmount-mount-bkmount-wmount)>0 ';
+					var t_where='1=1 and born>0  and (born-mount-bkmount-wmount)>0 ';
 					if(thisVal.length > 0){
 						t_where += " and noa='" + $('#txtWorkfno').val() + "'";
 					}

@@ -66,7 +66,7 @@
                 for (var j = 0; j < q_bbsCount; j++) {
                 	t_coinretiremoney=q_add(t_coinretiremoney,q_float('txtMoney_'+j));
                 	t_cointotal=q_add(t_cointotal,q_float('txtCointotal_'+j));
-                	t_total=q_add(t_total,q_float('txtCointotal_'+j));
+                	t_total=q_add(t_total,q_float('txtTotal_'+j));
                 	t_cointariff=q_add(t_cointariff,q_float('txtCointariff_'+j));
                 	t_tariff=q_add(t_tariff,q_float('txtTariff_'+j));
                 	t_trade=q_add(t_tariff,q_float('txtTrade_'+j));

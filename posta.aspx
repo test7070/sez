@@ -106,7 +106,11 @@
 				case 'cust_post_xy':
 					var as = _q_appendData("cust", "", true);
 					if (as[0] != undefined) {
-						$('#txtMemo_'+b_seq).val('附回郵');
+						var t_memo=as[0].invomemo;
+						t_memo=t_memo.substring(t_memo.indexOf('郵寄附回郵')+2,t_memo.length);
+						t_memo=t_memo.substring(0,t_memo.indexOf('##'));
+						$('#txtMemo_'+b_seq).val(t_memo);
+						//$('#txtMemo_'+b_seq).val('附回郵');
 					}
 					break;
 				case 'conn_xy':
@@ -132,7 +136,7 @@
 							as[i].addr_comp = as[i].addr_invo;
 						if (q_getPara('sys.project').toUpperCase()=='XY'){
 							if(as[i].invomemo.indexOf('附回郵')>-1)
-								as[i].memo='附回郵';
+								as[i].memo=as[i].memo.substring(2,as[i].memo.length);
 						}
 					}
             		q_gridAddRow(bbsHtm, 'tbbs', 'txtUseno,txtComp,txtZipcode,txtAddr,txtPart,txtConn,txtMemo', as.length, as, 'noa,comp,zip_comp,addr_comp,cpart,cname,memo', '');

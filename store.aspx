@@ -46,6 +46,14 @@
 
 			function mainPost() {
 				q_mask(bbmMask);
+				if(q_getPara('sys.project').toUpperCase()=='RB'){
+					aPop = new Array(
+						['txtTggno', 'lblTgg', 'store', 'noa,part', 'txtTggno,txtTgg', 'part_b.aspx']
+					);
+					$('#lblTgg').text('對應部門');
+				}
+				
+				
 				$('#txtNoa').change(function(e) {
 					$(this).val($.trim($(this).val()).toUpperCase());
 					if ($(this).val().length > 0) {

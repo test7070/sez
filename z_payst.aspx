@@ -89,6 +89,10 @@
                         type : '8',
                         name : 'xoption01',
                         value : q_getMsg('toption01').split('&')
+                    }, {
+                        type : '0', //[24]
+                        name : 'rc2taxtype',
+                        value : q_getPara('rc2.d4taxtype')
                     }]
                 });
                 q_popAssign();
