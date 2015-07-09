@@ -365,9 +365,9 @@
 					q_box('z_vccadc.aspx?;;;' + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 				} else if (q_getPara('sys.comp').indexOf('英特瑞') > -1) {
 					q_box('z_vccap_it.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
-				}else if (q_getPara('sys.project') == sh) {
+				}else if (q_getPara('sys.project') == 'sh') {
 					q_box('z_vccap_sh.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
-				} else {
+				}else {
 					q_box('z_vccap.aspx?;;;' + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 				}
 			}
