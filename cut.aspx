@@ -23,7 +23,8 @@
 			var q_readonly = ['txtNoa', 'txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker', 'txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [['txtPrice', 10, 2, 1],['txtTranmoney',10,0,1],['txtGweight',10,3,1]];
-			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1],['txtTheory',10,3,1],['txtHweight',10,3,1],['txtWeight',10,3,1]];
+			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1]
+				,['txtTheory',10,3,1],['txtHweight',10,3,1],['txtWeight',10,3,1],['txtDivide',10,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
