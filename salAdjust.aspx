@@ -166,6 +166,12 @@
 					}
 				}
 				_bbsAssign();
+				if (q_getPara('sys.project').toUpperCase()=='DJ'){
+					$('#lblMoney').text('底薪');
+		            $('#lblBo_admin').text('責任加給');
+		            $('#lblBo_special').text('技術加給');
+		            $('#lblBo_full').text('全勤獎金');
+	           }
 			}
 			
 			function btnOk() {

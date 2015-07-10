@@ -51,8 +51,8 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('uccag.typea'));
                 $('#lblAccno').click(function() {
-                	if(!emp($('#txtAccno').val()))
-                    	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
+                	//if(!emp($('#txtAccno').val()))
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";charindex('" + $('#txtNoa').val() + "',zno)>0;" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
                 });
 				if(r_rank <= 8){
 					if ((/^.*(uccag,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
