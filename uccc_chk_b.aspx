@@ -56,6 +56,11 @@
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
 				$('#btnBott').hide();
+				
+				if(q_getPara('project')=='pk')
+					$('.pk').show();
+				else
+					$('.pk').hide();
 			}
 
 			var SeekF = new Array();
@@ -126,6 +131,7 @@
 			}
 
 			function SeekStr() {
+				t_uno = trim($('#textUno').val());
 				t_ordeno = trim($('#textOrdeno').val());
 				t_productno = trim($('#textProductno').val());
 				t_storeno = trim($('#textStoreno').val());
@@ -138,21 +144,25 @@
 				t_lengthb = q_float('textLengthb');
 				t_weight = q_float('textWeight');
 				t_kind = trim($('#combTypea').val());
-				var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno) + 
-							q_sqlPara2("productno", t_productno) + 
-							(q_getPara('sys.comp').substring(0,2)=='裕承'?" and storeno='"+t_storeno+"'":q_sqlPara2("storeno", t_storeno))+
-							q_sqlPara2("class", t_class) + 
-							(q_getPara('sys.comp').substring(0,2)=='裕承'?(t_radius>0?' and radius='+t_radius+' ':'') :(t_radius>0?' and radius>='+t_radius+' ':''))+
-							(t_bdime>0?' and dime>='+t_bdime+' ':'') + 
-							(t_edime>0?' and dime<='+t_edime+' ':'') + 
-							(t_bwidth>0?' and width>='+t_bwidth+' ':'') + 
-							(t_ewidth>0?' and width<='+t_ewidth+' ':'') + 
-							//(q_getPara('sys.comp').substring(0,2)=='裕承'?(t_width>0?' and width='+t_width+' ':'') :(t_width>0?' and width>='+t_width+' ':''))+
-							(t_lengthb>0?' and (lengthb=0 or lengthb>='+t_lengthb+') ':'') + 
-						//	(t_weight>0?' and weight>='+t_weight+' ':'') + 
-							q_sqlPara2("kind", t_kind);
-							
-				//alert(t_where);			
+				var t_where = "";
+				
+				if(t_uno.length==0){
+					t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno) + 
+						q_sqlPara2("productno", t_productno) + 
+						(q_getPara('sys.comp').substring(0,2)=='裕承'?" and storeno='"+t_storeno+"'":q_sqlPara2("storeno", t_storeno))+
+						q_sqlPara2("class", t_class) + 
+						(q_getPara('sys.comp').substring(0,2)=='裕承'?(t_radius>0?' and radius='+t_radius+' ':'') :(t_radius>0?' and radius>='+t_radius+' ':''))+
+						(t_bdime>0?' and dime>='+t_bdime+' ':'') + 
+						(t_edime>0?' and dime<='+t_edime+' ':'') + 
+						(t_bwidth>0?' and width>='+t_bwidth+' ':'') + 
+						(t_ewidth>0?' and width<='+t_ewidth+' ':'') + 
+						//(q_getPara('sys.comp').substring(0,2)=='裕承'?(t_width>0?' and width='+t_width+' ':'') :(t_width>0?' and width>='+t_width+' ':''))+
+						(t_lengthb>0?' and (lengthb=0 or lengthb>='+t_lengthb+') ':'') + 
+					//	(t_weight>0?' and weight>='+t_weight+' ':'') + 
+						q_sqlPara2("kind", t_kind);
+				}else{
+					t_where = " 1=1 " + q_sqlPara2("uno", t_uno);
+				}		
 				return t_where;
 			}
 
@@ -324,6 +334,9 @@
 					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
 					<td align="center" style="width:2%;"><a id='lblSource_st'>國別</a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
+					<td align="center" style="width:4%;" class="pk"><a>實際厚</a></td>
+					<td align="center" style="width:4%;" class="pk"><a>實際寬</a></td>
+					<td align="center" style="width:4%;" class="pk"><a>實際長</a></td>
 				</tr>
 			</table>
 		</div>
@@ -343,6 +356,9 @@
 					<td align="center" style="width:4%;"><a id='lblStoreno_st'> </a></td>
 					<td align="center" style="width:2%;"><a id='lblSource_st'>國別</a></td>
 					<td align="center"><a id='lblMemo_st'> </a></td>
+					<td align="center" style="width:4%;" class="pk"><a>實際厚</a></td>
+					<td align="center" style="width:4%;" class="pk"><a>實際寬</a></td>
+					<td align="center" style="width:4%;" class="pk"><a>實際長</a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td align="center" style="width:2%;"><input id="chkSel.*" type="checkbox" name="chkSel"/></td>
@@ -379,9 +395,10 @@
 					<td style="width:2%;">
 					<input id="txtSource.*" type="text" class="txt c2" readonly="readonly"/>
 					</td>
-					<td >
-					<input id="txtMemo.*" type="text" class="txt c2" readonly="readonly"/>
-					</td>
+					<td><input id="txtMemo.*" type="text" class="txt c2" readonly="readonly" class="pk"/></td>
+					<td><input id="txtTdime.*" type="text" class="txt c2" readonly="readonly" class="pk"/></td>
+					<td><input id="txtTwidth.*" type="text" class="txt c2" readonly="readonly" class="pk"/></td>
+					<td><input id="txtTlength.*" type="text" class="txt c2" readonly="readonly" class="pk"/></td>
 				</tr>
 			</table>
 		</div>
@@ -428,13 +445,13 @@
 						<input id="textEwidth" type="text" class="txt num" style="float:left;width:40%;"/>
 					</td>
 					<td><span class="lbl">長度</span></td>
-					<td>
-					<input id="textLengthb" type="text" class="txt c1 num"/>
-					</td>
+					<td><input id="textLengthb" type="text" class="txt c1 num"/></td>
 					
 				</tr>
 				<tr>
-					<td colspan="12" align="center">
+					<td><span class="lbl">批號</span></td>
+					<td colspan="4"><input id="textUno" type="text" class="txt c1"/></td>
+					<td colspan="7">
 					<input type="button" id="btnToSeek" value="查詢">
 					</td>
 				</tr>

@@ -23,7 +23,8 @@
 			var q_readonly = ['txtNoa', 'txtProductno', 'txtProduct', 'txtSpec', 'txtDime', 'txtWidth', 'txtLengthb', 'txtRadius', 'txtOweight', 'txtEweight', 'txtTotalout', 'txtTheyout', 'txtWorker', 'txtWorker2'];
 			var q_readonlys = [];
 			var bbmNum = [['txtPrice', 10, 2, 1],['txtTranmoney',10,0,1],['txtGweight',10,3,1]];
-			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1],['txtTheory',10,3,1],['txtHweight',10,3,1],['txtWeight',10,3,1]];
+			var bbsNum = [['textSize1', 10, 3, 1], ['textSize2', 10, 2, 1], ['textSize3', 10, 3, 1], ['textSize4', 10, 2, 1]
+				,['txtTheory',10,3,1],['txtHweight',10,3,1],['txtWeight',10,3,1],['txtDivide',10,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -39,6 +40,7 @@
 			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']
 			, ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_', 'ucc_b.aspx']
             , ['txtStyle_', 'btnStyle_', 'style', 'noa,product', 'txtStyle_', 'style_b.aspx']
+            , ['txtStoreno_', 'btnStore_', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']
 			);
 			q_desc = 1;
 			brwCount2 = 11;
@@ -529,6 +531,12 @@
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtStoreno_' + j).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtStoreno_', '');
+                            $('#btnStore_'+n).click();
+                        });
 						$('#txtCustno_' + j).bind('contextmenu', function(e) {
                             /*滑鼠右鍵*/
                             e.preventDefault();
@@ -1365,9 +1373,9 @@
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td style="width:150px;" align="center"><a id='lblCustno'> </a><br><a id='lblCustno'> </a></td>
-					<td align="center" style="width:30px;"><a id='lblStyle_st'>型</a></td>
 					<td align="center" style="width:120px;"><a>品號<BR>品名</a></td>
-					
+					<td align="center" style="width:30px;"><a id='lblStyle_st'>型</a></td>
+					<td align="center" style="width:80px;"><a>等級</a></td>
 					<td align="center" style="width:340px;" id='Size'><a id='lblSize_help'> </a><br><a id='lblSpecs'> </a></td>
 					<td align="center" style="width:240px;"><a id='lblSizea_st'> </a></td>
 					<td style="width:50px;" align="center"><a id='lblMounts'> </a></td>
@@ -1398,15 +1406,15 @@
 						<input id="txtCustno.*" type="text" style="width: 95%; float:left;"/>
 						<input id="txtCust.*" type="text" style="width: 95%; float:left;"/>
 					</td>
-					<td><input type="text" id="txtStyle.*" style="width:95%;text-align:center;" />
-						<input id="btnStyle.*" type="button" style="display:none;" value="."/>
-					</td>
 					<td>
 						<input id="txtProductno.*" type="text" style="width:95%;" />
 						<input type="text" id="txtProduct.*" style="width:95%;" />
 						<input class="btn" id="btnProduct.*" type="button" style="display:none;"/>
 					</td>
-					
+					<td><input type="text" id="txtStyle.*" style="width:95%;text-align:center;" />
+						<input id="btnStyle.*" type="button" style="display:none;" value="."/>
+					</td>
+					<td><input id="txtClass.*" type="text" style='width: 95%;'/></td>
 					<td>
 						<input class="txt num" id="textSize1.*" type="text" style="float: left;width:55px;" disabled="disabled"/>
 						<div id="x1.*" style="float: left;display:block;width:20px;padding-top: 4px;" >x</div>
@@ -1430,7 +1438,11 @@
 					<td><input id="txtWeight.*" type="text"  class="txt c2 num"/></td>
 					<td><input id="txtWaste.*" type="text" class="txt c2"/></td>
 					<td><input id="txtBno.*" type="text" class="txt c2"/></td>
-					<td><input id="txtStoreno.*" type="text" class="txt c2"/></td>
+					<td>
+						<input id="txtStoreno.*" type="text" class="txt c2"/>
+						<input id="txtStore.*" type="text" class="txt c2"/>
+						<input id="btnStore.*" type="button" style="display:none;"/>
+					</td>
 					<td><input id="txtMemo.*" type="text" class="txt c2"/></td>
 					<td><input id="txtTime.*" type="text" class="txt c2"/></td>
 					
