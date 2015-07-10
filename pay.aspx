@@ -527,10 +527,18 @@
 		            return false;
 		        }
 		        sum();
+		        
+		        t_money=0,t_chgs=0;
+                for (var i = 0; i < q_bbsCount; i++) {
+                    t_money += q_float('txtMoney_' + i);
+                    //104/04/29費用不算在收款金額//0601恢復並改為-
+                   t_chgs += q_float('txtChgs_' + i);
+                }
+                
 		        var t_opay = q_float('txtOpay');
 		        var t_unopay = q_float('txtUnopay');
 		        var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
-		        var t2 = q_float('txtTotal')-t_chgs;
+		        var t2 = t_money-t_chgs;
 		        if (t1 != t2) {
 		            alert('付款金額  － 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預付 －　預付沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
 		            Unlock(1);

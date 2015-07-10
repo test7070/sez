@@ -757,7 +757,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('umm_s.aspx', q_name + '_s', "600px", "600px", q_getMsg("popSeek"));
+                q_box('umm_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {

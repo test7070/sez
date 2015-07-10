@@ -74,6 +74,15 @@
                 	$('#btnCartax').hide();
                 }
                 
+                if(q_getPara('sys.project').toUpperCase()=="VA"){
+                	$('.carexpense').eq(0).hide();
+                	$(".btns").show();
+                	$('.bcartax').hide();
+                	$('.bcarlender').hide();
+                	$('.bcarsalary').hide();
+                	$('.bsale').hide();
+                }
+                
                 q_gt('carbrand', '', 0, 0, 0, "");
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
@@ -106,9 +115,13 @@
 				$(".carexpense").hide();
 				$("#btnCarexpense").toggle(function(e) {
 					$(".carexpense").show();
+					if(q_getPara('sys.project').toUpperCase()=="VA"){
+                		$('.carexpense').eq(0).hide();
+                	}
 				}, function(e) {
 					$(".carexpense").hide();
 				});
+				
 				$(".sale").hide();
 				$("#btnSale").toggle(function(e) {
 					$(".sale").show();
@@ -136,7 +149,7 @@
 					q_box("carlender.aspx?;;;noa='" + $('#txtCarownerno').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
 				});
 				$('#btnCaraccident').click(function(e) {
-					q_box("caraccident.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'caraccident', "90%", "600px", q_getMsg("popCaraccident"));
+					q_box("caraccident.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'caraccident', "95%", "95%", q_getMsg("popCaraccident"));
 				});
 				$('#btnCarchange').click(function(e) {
 					q_box("carchange.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'carchange', "90%", "600px", q_getMsg("popCarchange"));
@@ -1253,19 +1266,19 @@
 					</tr>
 					<tr class="btns">
 						<td> </td>
-						<td><input id="btnCarinsurance" type="button" style="width:80%;"/> </td>					
-						<td><input id="btnCaraccident" type="button" style="width:80%;"/> </td>
-						<td><input id="btnCarchange" type="button" style="width:80%;"/> </td>
-						<td><input id="btnOil" type="button" style="width:80%;"/> </td>	
-						<td><input id="btnCartax" type="button" style="width:80%;"/> </td>
+						<td class="bcarinsurance"><input id="btnCarinsurance" type="button" style="width:80%;"/> </td>					
+						<td class="bcaraccident"><input id="btnCaraccident" type="button" style="width:80%;"/> </td>
+						<td class="bcarchange"><input id="btnCarchange" type="button" style="width:80%;"/> </td>
+						<td class="boil"><input id="btnOil" type="button" style="width:80%;"/> </td>
+						<td class="bcartax"><input id="btnCartax" type="button" style="width:80%;"/> </td>
 					</tr>
 					<tr class="btns">
 						<td> </td>
-						<td><input id="btnCarexpense" type="button" style="width:80%;"/> </td>
-						<td><input id="btnSale" type="button" style="width:80%;"/> </td>	
-						<td><input id="btnCarsalary" type="button" style="width:80%;"/></td>
-						<td><input id="btnCarlender" type="button" style="width:80%;"/></td>
-						<td><input id="btnCarnochange" type="button" /></td>
+						<td class="bcarexpense"><input id="btnCarexpense" type="button" style="width:80%;"/> </td>
+						<td class="bsale"><input id="btnSale" type="button" style="width:80%;"/> </td>	
+						<td class="bcarsalary"><input id="btnCarsalary" type="button" style="width:80%;"/></td>
+						<td class="bcarlender"><input id="btnCarlender" type="button" style="width:80%;"/></td>
+						<td class="bcarnochange"><input id="btnCarnochange" type="button" /></td>
 					</tr>
 					<tr class="carexpense">
 						<td><span> </span><a id="lblAuto" class="lbl"> </a></td>

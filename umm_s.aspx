@@ -15,6 +15,7 @@
 		<script type="text/javascript">
             var q_name = "umm_s";
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
+			var bbmNum = new Array(['txtMoney', 15, 0, 1]);
             $(document).ready(function() {
                 main();
             });
@@ -35,6 +36,9 @@
                 $('#txtBdate').datepicker();
 				$('#txtEdate').datepicker(); 
                 $('#txtNoa').focus();
+                if (q_getPara('sys.project').toUpperCase()!='YC'){
+                	$('.yc').hide();
+                }
             }
 
             function q_gtPost(t_name) {
@@ -70,6 +74,7 @@
                 t_checkno = $.trim($('#txtCheckno').val());
                 t_accno = $.trim($('#txtAccno').val());
 				t_vccno = $.trim($('#txtVccno').val());
+				t_money = $.trim($('#txtMoney').val());
 				
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
@@ -89,6 +94,9 @@
                 if (t_mon.length>0){
                     t_where += "and ('"+t_mon+"'=case when isnull(mon,'')='' then left(datea,6) else mon end "
                         +" or exists(select noa from umms where umms.noa=umm.noa and charindex('"+t_mon+"',umms.memo2)>0) )";
+                }
+                if(t_money!=0){
+                	t_where += " and exists(select noa from umms where umms.noa=umm.noa and money="+t_money+")";
                 }
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -111,11 +119,11 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblPart'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblPart'> </a></td>
 					<td><select id="cmbPart" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblAcomp'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblAcomp'> </a></td>
 					<td><select id="cmbCno" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
@@ -125,16 +133,14 @@
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'> </a></td>
 					<td style="width:65%;  ">
-					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+						<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+						<span style="display:inline-block; vertical-align:middle">&sim;</span>
+						<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblMon'> </a></td>
-					<td>
-					<input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td><input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
@@ -155,6 +161,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblVccno'> </a></td>
 					<td><input class="txt" id="txtVccno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr yc'>
+					<td class='seek'  style="width:20%;"><a id='lblMoney'>收款金額</a></td>
+					<td><input class="txt" id="txtMoney" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
