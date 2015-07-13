@@ -626,7 +626,7 @@
 		                q_bodyId($(this).attr('id'));
 		                b_seq = t_IdSeq;
 		                if(q_cur==1 || q_cur==2){
-		                	$('#txtPrice_'+b_seq).val(round($('#txtPrice_'+b_seq).val(),3));
+		                	$('#txtPrice_'+b_seq).val(round(dec($('#txtPrice_'+b_seq).val()),3));
                     		 sum(); 
                     	}
                     });
@@ -663,7 +663,7 @@
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
 		                    tb_seq=b_seq;
-		                    $('#txtPrice_'+b_seq).val(round($('#txtPrice_'+b_seq).val(),3));
+		                    $('#txtPrice_'+b_seq).val(round(dec($('#txtPrice_'+b_seq).val()),3));
 	                    	if(!emp($('#txtProductno_'+b_seq).val())){
 	                    		//金額
 								var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^ stop=1";
