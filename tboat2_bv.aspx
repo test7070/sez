@@ -68,7 +68,7 @@
 							$('#txtShip').val(t_code96)
 							
 							var t_site=result.split("^@");
-							$('#txtSiteno').val(replaceAll(t_site[3],'<BR>',''));
+							$('#txtSiteno').val(replaceAll(t_site[1],'<BR>',''));
 							$('#txtSite').val(t_site[2]);
 						}else{
 							$('#txtShip').val('');
@@ -88,7 +88,7 @@
 							}
 							
 							var t_site=result.split("^@");
-							$('#txtSiteno').val(replaceAll(t_site[3],'<BR>',''));
+							$('#txtSiteno').val(replaceAll(t_site[1],'<BR>',''));
 							$('#txtSite').val(t_site[2]);
 						}else{
 							$('#txtShip').val('');

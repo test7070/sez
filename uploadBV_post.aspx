@@ -28,7 +28,7 @@
 		        		divtable+="<tr>";
 		        		var t_td=t_tr[i].split('^@');
 		        		for (var j=0;j<t_td.length;j++){
-		        			divtable+="<td>"+t_td[j]+"</td>";
+		        			divtable+="<td>"+replaceAll(t_td[j],'^^$','')+"</td>";
 		        		}
 		        		divtable+="</tr>";	
 		        	}

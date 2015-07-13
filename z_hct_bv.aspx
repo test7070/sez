@@ -24,6 +24,11 @@
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_hct_bv');
+                $('#q_report').click(function() {
+                	if(r_outs==1){
+	                	$('#Xcustno').hide();	
+	                }
+				});
             });
 
             function q_gfPost() {
@@ -47,7 +52,17 @@
                         type : '0',
                         name : 'worker',
                         value : r_userno
-                    }]
+                    },{
+                        type : '0',
+                        name : 'xouts',
+                        value : r_outs
+                    }, {
+						type : '2', //[4][5]
+						name : 'xcustno',
+						dbf : 'cust',
+						index : 'noa,comp',
+						src : 'comp_b.aspx'
+					}]
                 });
                 q_popAssign();
                 q_langShow();
@@ -77,6 +92,10 @@
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtXdate2').val(t_year + '/' + t_month + '/' + t_day);
+                
+                if(r_outs==1){
+                	$('#Xcustno').hide();	
+                }
             }
 
             function q_gtPost(t_name) {

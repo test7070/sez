@@ -47,7 +47,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd],['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('uccag.typea'));
                 $('#lblAccno').click(function() {
@@ -62,9 +62,17 @@
 		       		$('#btnGen').click(function() {show_confirm();});
 		       	}
 		       	if(q_getPara('sys.comp').substring(0,3)=='裕承隆'){
-		       	    $('#lblTgg').css('display','');
-		       	    $('#txtTggno').css('display','');
+		       	   $('.tgg').show();
+		       	}else{
+		       		$('.tgg').hide();
 		       	}
+		       	
+		       	if(q_getPara('sys.project').toUpperCase()=='PK'){
+		       	   $('.edate').show();
+		       	}else{
+		       		$('.edate').hide();
+		       	}
+		       	
 		       	/*$('#txtMon').focusout(function(){
 		       		var t_Mon = trim($(this).val());
 		        	var myDate = new Date(dec(t_Mon.substr( 0,3))+1911,dec(t_Mon.substr( 4,5)),0);
@@ -384,9 +392,15 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
-						<td><input id="txtBdate" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblTgg' class="lbl" style="display:none;"> </a></td>
-                        <td><input id="txtTggno" type="text" class="txt" style="display:none;"/></td>
+						<td colspan="2">
+							<input id="txtBdate" type="text" class="txt c1" style="width: 45%;" />
+							<a class="lbl edate" style="float: left;">~</a>
+							<input id="txtEdate" type="text" class="txt c1 edate" style="width: 45%;"/>
+						</td>
+					</tr>
+					<tr class="tgg">
+						<td><span> </span><a id='lblTgg' class="lbl tgg"> </a></td>
+                        <td><input id="txtTggno" type="text" class="txt c1 tgg"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
