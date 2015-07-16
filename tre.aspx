@@ -99,7 +99,7 @@
 		            		return;
 		            	}
 						Lock(1,{opacity:0});
-	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name+', ');
+	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
