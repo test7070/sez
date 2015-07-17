@@ -71,6 +71,10 @@
                         $(this).attr('checked', $('#checkAllCheckbox').is(':checked'));
                     });
                 });
+                
+                if (q_getPara('sys.project').toUpperCase()=='RB'){
+                	$('.isRB').hide();
+                }
 
                 $('#btnTop').hide();
                 $('#btnPrev').hide();
@@ -116,25 +120,25 @@
 					</td>
 					<td align="center"><a id='lblDatea'> </a></td>
 					<td align="center"><a id='lblNoa'> </a></td>
-					<td align="center"><a id='lblTypea'> </a></td>
-					<td align="center"><a id='lblCustno'> </a></td>
-					<td align="center"><a id='lblComp'> </a></td>
-					<td align="center"><a id='lblTotal'> </a></td>
-					<td align="center"><a id='lblMemo'> </a></td>
-					<td align="center" class="isXY"><a >送貨時間 </a></td>
+					<td align="center" class="isRB"><a id='lblTypea'> </a></td>
+					<td align="center" class="isRB"><a id='lblCustno'> </a></td>
+					<td align="center" class="isRB"><a id='lblComp'> </a></td>
+					<td align="center" class="isRB"><a id='lblTotal'> </a></td>
+					<td align="center" class="isRB"><a id='lblMemo'> </a></td>
+					<td align="center" class="isXY isRB"><a >送貨時間 </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;" align="center"><input id="chkSel.*" type="checkbox"/></td>
 					<td style="width:8%;"><input class="txt"  id="txtDatea.*" type="text" style="width:98%;" /></td>
 					<td style="width:12%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"/></td>
-					<td style="width:5%;">
+					<td style="width:5%;" class="isRB">
 						<input class="txt" id="textTypea.*" type="text" style="width:98%;"/>
 						<input class="txt" id="txtTypea.*" type="hidden"/>
 					</td>
-					<td style="width:10%;"><input class="txt" id="txtCustno.*" type="text" style="width:98%;"/></td>
-					<td style="width:18%;"><input class="txt" id="txtComp.*" type="text" style="width:98%;"/></td>
-					<td style="width:10%;"><input class="txt" id="txtTotal.*" type="text" style="width:94%; text-align:right;"/></td>
-					<td>
+					<td style="width:10%;" class="isRB"><input class="txt" id="txtCustno.*" type="text" style="width:98%;"/></td>
+					<td style="width:18%;" class="isRB"><input class="txt" id="txtComp.*" type="text" style="width:98%;"/></td>
+					<td style="width:10%;" class="isRB"><input class="txt" id="txtTotal.*" type="text" style="width:94%; text-align:right;"/></td>
+					<td class="isRB">
 						<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
 						<input id="recno.*" type="hidden" />
 						<input id="txtStype.*" type="hidden" />
@@ -159,7 +163,7 @@
 						<input id="txtInvono.*" type="hidden" />
 						<input id="txtInvo.*" type="hidden" />
 					</td>
-					<td class="isXY" style="width:12%;"><input class="txt" id="textTrantime.*" type="text" style="width:98%;"/></td>
+					<td class="isXY isRB" style="width:12%;"><input class="txt" id="textTrantime.*" type="text" style="width:98%;"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->

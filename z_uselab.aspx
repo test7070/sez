@@ -40,6 +40,12 @@
 						type : '0', //[6] 
 						name : 'xproject',
 						value : q_getPara('sys.project').toUpperCase()
+					}, {//[7][8]
+						type : '2',
+						name : 'tggno',
+						dbf : 'tgg',
+						index : 'noa,comp',
+						src : 'tgg_b.aspx'
 					}]
 				});
 				q_popAssign();
