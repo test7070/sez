@@ -96,6 +96,15 @@
             	q_func('banktran.gen', $('#txtNoa').val()+',4');
             });
             
+            if (q_getPara('sys.project').toUpperCase()!='RB'){
+            	$('#btnPost').hide();
+            }
+            
+            $('#btnPost').click(function() {
+            	if(!emp($('#txtNoa').val()) &&!(q_cur==1 || q_cur==2))
+            		q_func('qtxt.query.postmedia', 'salary.txt,post_media,' +$('#txtNoa').val());
+            });
+            
             //隱藏控制
             $('#btnHidesalary').click(function() {
             	if($('#btnHidesalary').val().indexOf("隱藏")>-1){
@@ -297,12 +306,16 @@
 		}
 		
 		function q_funcPost(t_func, result) {
-		        
 		        var s1 = location.href;
 		        var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
 		        if (t_func == 'banktran.gen') {
 		            window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
 		            return;
+		        }
+		        
+		        if(t_func=='qtxt.query.postmedia'){
+		        	window.open(t_path + 'htm/PSBP-PAY-NEW.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		        	return;
 		        }
 
 		        if (result.length > 0) {
@@ -1542,6 +1555,7 @@
             <td class="td6"><input id="txtPlus"  type="text" class="txt num c1"/></td>
             <td class="td7"><span> </span><a id="lblMinus" class="lbl"> </a></td>
             <td class="td8"><input id="txtMinus"  type="text" class="txt num c1"/></td>
+            <td class="td9" colspan="2"><input id="btnPost" type="button" style="float: right;"/></td>
         </tr>
         <tr>
            	<td class="td1"><span> </span><a id="lblCh_health" class="lbl"> </a></td>

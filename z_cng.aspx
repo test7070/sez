@@ -94,6 +94,10 @@
                     }, {
                         type : '6',
                         name : 'xenddate'
+                    },{
+                        type : '0',
+                        name : 'project',
+                        value : q_getPara('sys.project').toUpperCase()
                     }]
                 });
 
