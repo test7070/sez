@@ -158,7 +158,10 @@
 					q_cmbParse("combIspost", '@,不寄單@不寄單,不寄單扣貨款@不寄單扣貨款,送單收現@送單收現,送單@送單,郵寄附回郵@郵寄附回郵,郵寄@郵寄,郵寄附回郵不寄單@郵寄附回郵不寄單');
 					$('#btnCustm').show();
 				}
-
+				if (q_getPara('sys.project').toUpperCase()=='XY'){
+					$('.isRB').show();
+				}
+				
 				$('#btnUcam').click(function() {
 					t_where = "custno='" + $('#txtNoa').val() + "'";
 					q_box("ucam_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucam', "95%", "95%", q_getMsg('btnUcam'));
@@ -1013,12 +1016,12 @@
 						<td><select id="cmbStatus" class="txt c1"> </select></td>
 						<td>
 							<span> </span><a id='lblProfit' class="lbl isFE"> </a>
-							<a id="lblCustno2" class="lbl isXY btn" style="display: none;">收款客戶</a>
+							<a id="lblCustno2" class="lbl isXY isRB btn" style="display: none;">收款客戶</a>
 						</td>
 						<td>
 							<input id="txtProfit" type="text" class="txt c1 num isFE"/>
-							<input id="txtCustno2" type="text" class="txt c6 isXY" style="display: none;"/>
-							<input id="txtCust2" type="text" class="txt c6 isXY" style="display: none;"/>
+							<input id="txtCustno2" type="text" class="txt c6 isXY isRB" style="display: none;"/>
+							<input id="txtCust2" type="text" class="txt c6 isXY isRB" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>

@@ -54,6 +54,15 @@
 				q_popAssign();
 				$('#txtXyear').mask('999');
 				$('#txtXyear').val(q_date().substr(0,3));
+				
+				if(q_getPara('sys.comp').indexOf('大昌')==-1){
+					for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+						if($('#q_report').data().info.reportData[i].report=='z_salaward5')
+							$('#q_report div div').eq(i).hide();
+						if($('#q_report').data().info.reportData[i].report=='z_salaward10')
+							$('#q_report div div').eq(i).hide();
+					}
+				}
 			}
 
 			function q_boxClose(s2) {

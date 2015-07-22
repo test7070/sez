@@ -422,7 +422,7 @@
                 q_gt('umms', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
 
-            function btnPrint() {
+            function btnPrint() {                       
                 q_box('z_trd.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 

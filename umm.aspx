@@ -1245,17 +1245,17 @@
 						<td style="width: 30px;"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td>
 							<input id="txtNoa" type="text" class="txt c1"/>
 							<input id="txtPart" type="text" style="display:none;"/>
 							<input id="txtCheckno" type="text" style="display:none;"/>
 						</td>
-						<td><span> </span><a id='lblDatea' class="lbl"></a></td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblMon' class="lbl"></a></td>
+						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblPayc' class="lbl btn"></a></td>
+						<td><span> </span><a id='lblPayc' class="lbl btn"> </a></td>
 						<td><input id="txtPayc"  type="text" class="txt c1"/></td>
 						<td class="tdZ"><input type="button" id="btnTip" value="?" style="float:right;" onclick="tipShow()"/></td>
 					</tr>
