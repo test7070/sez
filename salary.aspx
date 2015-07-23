@@ -96,13 +96,13 @@
             	q_func('banktran.gen', $('#txtNoa').val()+',4');
             });
             
-            if (q_getPara('sys.project').toUpperCase()!='RB'){
+            if (q_getPara('sys.project').toUpperCase()=='DC' && q_getPara('sys.project').toUpperCase()=='IT'){
             	$('#btnPost').hide();
             }
             
             $('#btnPost').click(function() {
             	if(!emp($('#txtNoa').val()) &&!(q_cur==1 || q_cur==2))
-            		q_func('qtxt.query.postmedia', 'salary.txt,post_media,' +$('#txtNoa').val());
+            		q_func('qtxt.query.postmedia', 'bankpost.txt,salary_media,' +$('#txtNoa').val());
             });
             
             //隱藏控制
