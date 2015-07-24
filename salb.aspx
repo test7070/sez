@@ -69,8 +69,12 @@
 				
 				$('#btnIndata').click(function(){
 					var t_mon = $.trim($('#txtMon').val());
-					var t_where = "where=^^ (typea=N'薪資') and (mon=N'"+t_mon+"')";
-					q_gt('salary', t_where, 0, 0, 0, "");
+					if(t_mon.length>0 && (q_cur==1 || q_cur==2)){
+						var t_where = "where=^^ (typea=N'薪資') and (mon=N'"+t_mon+"') ^^";
+						q_gt('salary', t_where, 0, 0, 0, "");	
+					}else{
+						alert('請輸入年份/月份!!');
+					}
 				});
 				
 				$('#btnMedia').click(function() {
@@ -113,7 +117,7 @@
 				b_pop = '';
 			}
 			var ret;
-			var t_typeb=[],t_typec=[];
+			var t_typeb=[],t_typec=[],t_salary=[];
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'payform':
@@ -140,41 +144,77 @@
 							alert(t_mon+'尚未建立[薪資作業]');
 						}else{
 							for(var k=0;k<as.length;k++){
-								var s_money = dec(as[k].total5)-0-dec(as[k].addmoney);
+								//排除勞健保 其他加減項  伙食費
+								var s_money = dec(as[k].total5)-dec(as[k].plus)+dec(as[k].minus)-dec(as[k].meals)
+								+dec(as[k].borrow)+dec(as[k].ch_labor)+dec(as[k].ch_labor_self)+dec(as[k].ch_health)+dec(as[k].hplus2)
+								+dec(as[k].tax)+dec(as[k].tax5)+dec(as[k].welfare);
 								as[k]['tmp_money'] = s_money;
+								//as[k]['tmp_food_money'] = dec(as[k].meals);
 								as[k]['tmp_food_money'] = 0;
+								as[k]['raise_num'] = 0;
+								as[k]['addmoney'] = 0;
+								as[k]['typea'] = '50';
+								as[k]['typeb'] = '';
 							}
 							for(var j=0;j<q_bbsCount;j++){
 								$('#btnMinus_'+j).click();
 							}
-							ret = q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal',as.length, as,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money','txtSssno');
-							var SssArray = [];
-							for(var i=0;i<ret.length;i++){
-								var thisSssno = $.trim($('#txtSssno_'+ret[i]).val());
-								SssArray.push("'"+thisSssno+"'");
-							}
-							if(SssArray.length > 0){
-								var t_where = "where=^^ noa in (" + SssArray.toString() + ")";
-								q_gt('sss', t_where, 0, 0, 0, "salaryGetSSS");
-							}
+							
+							t_salary=as;
+							q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal,cmbTypea,cmbTypeb'
+							,as.length, as,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money,typea,typeb','txtSssno');
+						}
+						
+						//匯入其他項目salchg
+						var t_mon = $.trim($('#txtMon').val());
+						var t_where = "where=^^ mon='"+t_mon+"' and salbtypea!='' ^^";
+						q_gt('salchg', t_where, 0, 0, 0, "salchg");
+						break;
+					case 'salchg':
+						var as = _q_appendData("salchg", "", true);
+						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,cmbTypec,txtMoney',as.length, as
+						,'sssno,namea,salbtypea,salbtypeb,salbtypec,plus','txtSssno');
+						
+						if(t_salary.length+as.length==q_bbsCount)
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtNoq', 1);
+							
+						var SssArray = [];
+						for(var i=0;i<q_bbsCount;i++){
+							var t_sssno = $.trim($('#txtSssno_'+i).val());
+							if(t_sssno.length>0)
+								SssArray.push("'"+t_sssno+"'");
+							$('#cmbTypea_'+i).change(); 
+							$('#btnMinus_'+i).click();
+						}
+						
+						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal,cmbTypea,cmbTypeb'
+						,t_salary.length, t_salary,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money,typea,typeb','txtSssno');
+						
+						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,cmbTypec,txtMoney',as.length, as
+						,'sssno,namea,salbtypea,salbtypeb,salbtypec,plus','txtSssno');
+						
+						if(SssArray.length > 0){
+							var t_where = "where=^^ noa in (" + SssArray.toString() + ") ^^";
+							q_gt('sss', t_where, 0, 0, 0, "salaryGetSSS");
 						}
 						break;
 					case 'salaryGetSSS':
 						var as = _q_appendData("sss", "", true);
 						for(var j=0;j<as.length;j++){
 							var sss_noa = $.trim(as[j].noa);
-							for(var k=0;k<ret.length;k++){
-								var ret_sss = $.trim($('#txtSssno_'+ret[k]).val());
+							for(var k=0;k<q_bbsCount;k++){
+								var ret_sss = $.trim($('#txtSssno_'+k).val());
 								if(sss_noa==ret_sss){
-									$('#txtId_'+ret[k]).val($.trim(as[j].id));
-									$('#cmbSex_'+ret[k]).val($.trim(as[j].sex));
+									$('#txtId_'+k).val($.trim(as[j].id));
+									$('#cmbSex_'+k).val($.trim(as[j].sex));
 									if(as[j].isclerk)
-										$('#chkIsclerk'+ret[k]).prop('checked',true);
-									$('#txtAddr_'+ret[k]).val(($.trim(as[j].addr_conn)=='同上'?$.trim(as[j].addr_home):$.trim(as[j].addr_conn)));
+										$('#chkIsclerk'+k).prop('checked',true);
+									$('#txtAddr_'+k).val(($.trim(as[j].addr_conn)=='同上'?$.trim(as[j].addr_home):$.trim(as[j].addr_conn)));
 									break;
 								}
 							}
 						}
+						Typechangedisabled();
 						break;
 					case 'getserialrar':
 						serialrar = _q_appendData("acomp", "", true);
@@ -694,9 +734,9 @@
 					<td align="center" style="width: 90px;"><a id='lblTypeb'> </a></td>
 					<td align="center" style="width: 90px;"><a id='lblTypec'> </a></td>
 					<!--<td align="center"><a id='lblWtno'> </a></td>-->
-					<td align="center"><a id='lblMount'> </a></td>
-					<td align="center"><a id='lblAd_money'> </a></td>
-					<td align="center"><a id='lblCh_meal'> </a></td>
+					<td align="center" style="display: none;"><a id='lblMount'> </a></td>
+					<td align="center" style="display: none;"><a id='lblAd_money'> </a></td>
+					<td align="center" style="display: none;"><a id='lblCh_meal'> </a></td>
 					<td align="center"><a id='lblMoneys'> </a></td>
 					<td align="center"><a id='lblRetire'> </a></td>
 					<td align="center"><a id='lblSmount'> </a></td>
@@ -730,9 +770,9 @@
 					<td><select id="cmbTypeb.*" class="txt c1"> </select></td>
 					<td><select id="cmbTypec.*" class="txt c1"> </select></td>
 					<!--<td><input id="txtWtno.*" type="text" class="txt c1"/></td>-->
-					<td><input id="txtMount.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtAd_money.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtCh_meal.*" type="text" class="txt num c1"/></td>
+					<td style="display: none;"><input id="txtMount.*" type="text" class="txt num c1" /></td>
+					<td style="display: none;"><input id="txtAd_money.*" type="text" class="txt num c1" /></td>
+					<td style="display: none;"><input id="txtCh_meal.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtRetire.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtSmount.*" type="text" class="txt num c1" /></td>
