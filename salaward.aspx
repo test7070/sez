@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src="../script/qj2.js" type="text/javascript"></script>
 		<script src="qset.js" type="text/javascript"></script>
@@ -68,6 +68,7 @@
 						q_gt('salaward_midautumn', t_where + t_where1 + t_where2 + t_where3 + t_where4, 0, 0, 0, "", r_accy);
 					}
 				});
+				
 				$('#cmbTypea').change(function() {
 					table_change();
 					if ($('#cmbTypea').find("option:selected").text().indexOf('年終') > -1) {
@@ -80,6 +81,16 @@
 						$('#btnMinus_' + j).click();
 					}
 				});
+				
+				if (q_getPara('sys.project').toUpperCase()=='DC' && q_getPara('sys.project').toUpperCase()=='IT'){
+	            	$('#btnPost').hide();
+	            }
+	            
+	            $('#btnPost').click(function() {
+	            	if(!emp($('#txtNoa').val()) &&!(q_cur==1 || q_cur==2))
+	            		q_func('qtxt.query.postmedia', 'bankpost.txt,salaward_media,' +$('#txtNoa').val());
+	            });
+				
 				$("#btnHidesss").click(function() {
 					if ($('#btnHidesss').val().indexOf("隱藏") > -1) {
 						$("#hide_Sssno").hide();
@@ -243,6 +254,14 @@
 					window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
 					return;
 				}
+				if (t_func == 'banktran.gen') {
+					window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+					return;
+				}
+				if(t_func=='qtxt.query.postmedia'){
+		        	window.open(t_path + 'htm/PSBP-PAY-NEW.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		        	return;
+		        }
 				if (result.length > 0) {
 					var s2 = result.split(';');
 					for (var i = 0; i < s2.length; i++) {
@@ -1018,9 +1037,9 @@
 			<div class="dview" id="dview" style="float: left; width:32%;">
 				<table class="tview" id="tview" border="1" cellpadding='2' cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:25%"><a id='vewYear'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:25%"><a id='vewYear'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -1034,17 +1053,15 @@
 					<tr>
 						<td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-						<td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class='td3'><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class='td1'><span> </span><a id="lblYear" class="lbl"> </a></td>
 						<td class="td2"><input id="txtYear" type="text" class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblTypea" class="lbl"></a></td>
-						<td class="td4"><select id="cmbTypea" class="txt c1"></select></td>
-						<td class='td5'>
-							<input id="btnImport" type="button" style="width: auto;font-size: medium;"/>
-						</td>
+						<td class="td3"><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>
+						<td class='td5'><input id="btnImport" type="button" style="width: auto;font-size: medium;"/></td>
 					</tr>
 					<tr>
 						<td class='td1'><span> </span><a id="lblTotal" class="lbl"> </a></td>
@@ -1053,12 +1070,9 @@
 						<td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class='td1' colspan="2">
-							<input id="btnBank" type="button" style="float: right;"/>
-						</td>
-						<td class='td3' colspan="2">
-							<input id="btnBank2" type="button" style="float: right;"/>
-						</td>
+						<td class='td1' colspan="2"><input id="btnBank" type="button" style="float: right;"/></td>
+						<td class='td3' colspan="2"><input id="btnBank2" type="button" style="float: right;"/></td>
+						<td><input id="btnPost" type="button" style="float: right;"/></td>
 					</tr>
 				</table>
 			</div>
@@ -1067,10 +1081,8 @@
 			<div class='dbbs' >
 				<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' style="width: 3820px;background:#cad3ff;" >
 					<tr style='color:White; background:#003366;' >
-						<td align="center" style="width:30px;">
-							<input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" />
-						</td>
-						<td align="center" style="width:35px;"><a id='vewChks'></a></td>
+						<td align="center" style="width:30px;"><input class="btn" id="btnPlus" type="button" value='+' style="font-weight: bold;" /></td>
+						<td align="center" style="width:35px;"><a id='vewChks'> </a></td>
 						<td id="hide_Sssno" align="center" style="width:80px;"><a id='lblSssno_s'> </a></td>
 						<td align="center" style="width:100px;"><a id='lblNamea_s'> </a></td>
 						<td id="hide_Part" align="center" style="width:100px;"><a id='lblPart_s'> </a></td>
@@ -1118,9 +1130,7 @@
 					<tr id="trSel.*">
 						<td><input class="btn" id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
 						<td><input id="checkSel.*" type="checkbox"/></td>
-						<td id='hide_Sssno.*' >
-							<input id="txtSssno.*" type="text" class="txt c1"/>
-						</td>
+						<td id='hide_Sssno.*' ><input id="txtSssno.*" type="text" class="txt c1"/></td>
 						<td><input id="txtNamea.*" type="text" class="txt c1"/></td>
 						<td id='hide_Part.*' >
 							<input id="txtPart.*" type="text" class="txt c1"/>
@@ -1130,113 +1140,47 @@
 							<input id="txtJob.*" type="text" class="txt c1"/>
 							<input id="txtJobno.*" type="hidden"/>
 						</td>
-						<td id='hide_Indate.*'>
-							<input id="txtIndate.*" type="text" class="txt c1" />
-						</td>
-						<td id='hide_Total1.*'>
-							<input id="txtTotal1.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Late.*'>
-							<input id="txtLate.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Leaveearly.*'>
-							<input id="txtLeaveearly.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Person.*'>
-							<input id="txtPerson.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Sick.*'>
-							<input id="txtSick.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Leave.*'>
-							<input id="txtLeave.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Marriageleave.*'>
-							<input id="txtMarriageleave.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Bereavementleave.*'>
-							<input id="txtBereavementleave.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Total2.*'>
-							<input id="txtTotal2.*" type="text" class="txt num c1" />
-						</td>
+						<td id='hide_Indate.*'><input id="txtIndate.*" type="text" class="txt c1" /></td>
+						<td id='hide_Total1.*'><input id="txtTotal1.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Late.*'><input id="txtLate.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Leaveearly.*'><input id="txtLeaveearly.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Person.*'><input id="txtPerson.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Sick.*'><input id="txtSick.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Leave.*'><input id="txtLeave.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Marriageleave.*'><input id="txtMarriageleave.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Bereavementleave.*'><input id="txtBereavementleave.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Total2.*'><input id="txtTotal2.*" type="text" class="txt num c1" /></td>
 						<!--<td><input id="txtLeavewithoutpay.*" type="text" class="txt num c1" /></td>-->
-						<td id='hide_Greatmerits.*'>
-							<input id="txtGreatmeriy.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Minormerits.*'>
-							<input id="txtMinormerits.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Commend.*'>
-							<input id="txtCommend.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Majordemerits.*'>
-							<input id="txtMajordemerits.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Peccadillo.*'>
-							<input id="txtPeccadillo.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Reprimand.*'>
-							<input id="txtReprimand.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Total3.*'>
-							<input id="txtTotal3.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Total4.*'>
-							<input id="txtTotal4.*" type="text" class="txt num c1" />
-						</td>
+						<td id='hide_Greatmerits.*'><input id="txtGreatmeriy.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Minormerits.*'><input id="txtMinormerits.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Commend.*'><input id="txtCommend.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Majordemerits.*'><input id="txtMajordemerits.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Peccadillo.*'><input id="txtPeccadillo.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Reprimand.*'><input id="txtReprimand.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Total3.*'><input id="txtTotal3.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Total4.*'><input id="txtTotal4.*" type="text" class="txt num c1" /></td>
 						<td id='hide_Memo.*'>
 							<input id="txtMemo.*" type="text" class="txt c1" />
 							<input id="txtNoq.*" type="hidden" />
 						</td>
-						<td id='hide_Salary.*'>
-							<input id="txtSalary.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Bo_admin.*'>
-							<input id="txtBo_admin.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Bo_traffic.*'>
-							<input id="txtBo_traffic.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Bo_special.*'>
-							<input id="txtBo_special.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Bo_oth.*'>
-							<input id="txtBo_oth.*" type="text" class="txt num c1" />
-						</td>
+						<td id='hide_Salary.*'><input id="txtSalary.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Bo_admin.*'><input id="txtBo_admin.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Bo_traffic.*'><input id="txtBo_traffic.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Bo_special.*'><input id="txtBo_special.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Bo_oth.*'><input id="txtBo_oth.*" type="text" class="txt num c1" /></td>
 						<td><input id="txtMoney.*" type="text" class="txt num c1" /></td>
 						<td><input id="txtOldmidmon.*" type="text" class="txt num c1" /></td>
 						<td><input id="txtOldaward.*" type="text" class="txt num c1" /></td>
-						<td id='hide_Awardmon.*'>
-							<input id="txtAwardmon.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Total5.*'>
-							<input id="txtTotal5.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Total6.*'>
-							<input id="txtTotal6.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Total7.*'>
-							<input id="txtTotal7.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Total8.*'>
-							<input id="txtTotal8.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Firstmoney.*'>
-							<input id="txtFirstmoney.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Secondmoney.*'>
-							<input id="txtSecondmoney.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Adjustmoney.*'>
-							<input id="txtAdjustmoney.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Sugmoney.*'>
-							<input id="txtSugmoney.*" type="text" class="txt num c1" />
-						</td>
-						<td id='hide_Chkmoney.*'>
-							<input id="txtChkmoney.*" type="text" class="txt num c1" />
-						</td>
+						<td id='hide_Awardmon.*'><input id="txtAwardmon.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Total5.*'><input id="txtTotal5.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Total6.*'><input id="txtTotal6.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Total7.*'><input id="txtTotal7.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Total8.*'><input id="txtTotal8.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Firstmoney.*'><input id="txtFirstmoney.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Secondmoney.*'><input id="txtSecondmoney.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Adjustmoney.*'><input id="txtAdjustmoney.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Sugmoney.*'><input id="txtSugmoney.*" type="text" class="txt num c1" /></td>
+						<td id='hide_Chkmoney.*'><input id="txtChkmoney.*" type="text" class="txt num c1" /></td>
 						<td><input id="txtMemo2.*" type="text" class="txt c1" /></td>
 					</tr>
 				</table>

@@ -96,13 +96,13 @@
             	q_func('banktran.gen', $('#txtNoa').val()+',4');
             });
             
-            if (q_getPara('sys.project').toUpperCase()!='RB'){
+            if (q_getPara('sys.project').toUpperCase()=='DC' && q_getPara('sys.project').toUpperCase()=='IT'){
             	$('#btnPost').hide();
             }
             
             $('#btnPost').click(function() {
             	if(!emp($('#txtNoa').val()) &&!(q_cur==1 || q_cur==2))
-            		q_func('qtxt.query.postmedia', 'salary.txt,post_media,' +$('#txtNoa').val());
+            		q_func('qtxt.query.postmedia', 'bankpost.txt,salary_media,' +$('#txtNoa').val());
             });
             
             //隱藏控制
@@ -441,9 +441,6 @@
 			                    //全勤獎金
 			                    if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1))
 			                    	as[i].bo_full=as[i].bo_full/2;
-			                    
-			                    //伙食費
-			                    as[i].meals=0;	
 			                    	
 			                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 			                    	as[i].meals=2400;//104/05/04 改成2400(原1800)

@@ -38,7 +38,8 @@
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
-				brwCount2 = 5;
+				brwCount2 = 2;
+				q_bbsLen = 15;
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 

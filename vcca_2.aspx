@@ -660,16 +660,7 @@
 						<input id="txtComp" type="text" style="float:left; width:70%;"/>
 						<input id="txtNick" type="text"  style="display:none;"/>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtProductno"  type="text"  style="float:left; width:25%;"/>
-							<input id="txtProduct"  type="text"  style="float:left; width:75%;"/>
-						</td>
-						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>
-						<td><input id="txtUnit"  type="text" class="txt c1"/></td>
-					</tr>
+					</tr>				
 					<tr>
 						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td><input id="txtMount"  type="text"  class="txt num c1"/></td>
@@ -686,7 +677,15 @@
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal"  type="text"  class="txt num c1"/>	</td>
 					</tr>
-					
+					<tr>
+						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtProductno"  type="text"  style="float:left; width:25%;"/>
+							<input id="txtProduct"  type="text"  style="float:left; width:75%;"/>
+						</td>
+						<td><span> </span><a id='lblUnit' class="lbl"> </a></td>
+						<td><input id="txtUnit"  type="text" class="txt c1"/></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
 						<td colspan='5'><input id="txtMemo"  type="text"  class="txt c1"/>	</td>
