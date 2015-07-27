@@ -364,6 +364,30 @@
             	case 'sssr':
             		sssr = _q_appendData("sssr", "", true);
             		
+            		if (q_getPara('sys.project').toUpperCase()=='RB'){//出勤 判斷 上月21~本月20 薪資 算當月
+		        		var t_premon=q_cdn($('#txtMon').val()+'/01',-1).substr(0,6);//上月
+		        		var t_prelastday=q_cdn($('#txtMon').val()+'/01',-1).substr(-2);//上月最後一天
+		        		//薪資結算為上月21~本月20
+		        		if($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1){
+			        		date_1=t_premon+'/21';
+			        		date_2=$('#txtMon').val()+'/05';
+			        		dtmp=q_add(q_sub(dec(t_prelastday),20),5);
+			        	}else if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1){
+			        		date_1=$('#txtMon').val()+'/06';
+			        		date_2=$('#txtMon').val()+'/20';
+			        		dtmp=15;
+			        	}else{
+			        		date_1=t_premon+'/21';
+			        		date_2=$('#txtMon').val()+'/20';
+			        		if($('#txtMon').val().substr( 4,5)=="02")
+			        			dtmp=q_add(q_sub(dec(t_prelastday),20),20);
+			        		else
+			        			dtmp=30;
+			        	}
+			        	date_3=t_premon+'/21';
+			        	date_4=$('#txtMon').val()+'/05';
+		        	}
+            		
             		var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa!='Z001'^^";//後面是不要匯入軒威//a.noa not in (select sno from salarys where mon='"+$('#txtMon').val()+"')  and
 	            	var t_where1 = "where[1]=^^ bdate between '"+date_1+"' and '"+date_2+"' ^^";
 	            	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa and noa>=a.indate ^^";
@@ -371,6 +395,7 @@
 	            	var t_where4 = "where[4]=^^ noa between '"+date_3+"' and '"+date_4+"' and sssno=a.noa ^^";
 	            	var t_where5 = "where[5]=^^ sysgen='1' and mon='"+$('#txtMon').val()+"' ^^";
 	            	
+	            	getdtmp();
 	            	if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 	            		q_gt('salary_it_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5 , 0, 0, 0, "salaryst_import", r_accy);
 	            	}else{
@@ -1089,30 +1114,6 @@
         	}
         	date_3=$('#txtMon').val()+'/01';
         	date_4=$('#txtMon').val()+'/15';
-        	
-        	if (q_getPara('sys.project').toUpperCase()=='RB'){
-        		var t_premon=q_cdn($('#txtMon').val()+'/01',-1).substr(0,6);//上月
-        		var t_prelastday=q_cdn($('#txtMon').val()+'/01',-1).substr(-2);//上月最後一天
-        		//薪資結算為上月21~本月20
-        		if($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1){
-	        		date_1=t_premon+'/21';
-	        		date_2=$('#txtMon').val()+'/05';
-	        		dtmp=q_add(q_sub(dec(t_prelastday),20),5);
-	        	}else if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1){
-	        		date_1=$('#txtMon').val()+'/06';
-	        		date_2=$('#txtMon').val()+'/20';
-	        		dtmp=15;
-	        	}else{
-	        		date_1=t_premon+'/21';
-	        		date_2=$('#txtMon').val()+'/20';
-	        		if($('#txtMon').val().substr( 4,5)=="02")
-	        			dtmp=q_add(q_sub(dec(t_prelastday),20),20);
-	        		else
-	        			dtmp=30;
-	        	}
-	        	date_3=t_premon+'/21';
-	        	date_4=$('#txtMon').val()+'/05';
-        	}
         }
         
         function table_change() {
