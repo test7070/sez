@@ -231,7 +231,24 @@
 				$('#txtXyComp1').change(function(){
 					if (q_cur==1 && $('#txtXyNoa1').val().length<=2 && $('#txtXyComp1').val().length>0){
 						//讀羅馬拼音
-						var t_where = "where=^^ ['"+$('#txtXyComp1').val() +"')  ^^";
+						var t_comp=$('#txtXyComp1').val();
+						t_comp=replaceAll(t_comp,"'","");
+						t_comp=replaceAll(t_comp," ","");
+						t_comp=replaceAll(t_comp,".","");
+						t_comp=replaceAll(t_comp,"(","");
+						t_comp=replaceAll(t_comp,"+","");
+						t_comp=replaceAll(t_comp,"-","");
+						t_comp=replaceAll(t_comp,"*","");
+						t_comp=replaceAll(t_comp,"/","");
+						t_comp=replaceAll(t_comp,"~","");
+						t_comp=replaceAll(t_comp,"!","");
+						t_comp=replaceAll(t_comp,"@","");
+						t_comp=replaceAll(t_comp,"#","");
+						t_comp=replaceAll(t_comp,"$","");
+						t_comp=replaceAll(t_comp,"%","");
+						t_comp=replaceAll(t_comp,"^","");
+						t_comp=replaceAll(t_comp,"&","");
+						var t_where = "where=^^ ['"+t_comp +"')  ^^";
 						q_gt('cust_xy', t_where, 0, 0, 0, "XY_cust_getpy", r_accy);
 					}
 				});
