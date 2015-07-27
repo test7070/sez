@@ -82,10 +82,8 @@
 					}
 				});
 				
-				if (q_getPara('sys.project').toUpperCase()=='DC' && q_getPara('sys.project').toUpperCase()=='IT'){
-	            	$('#btnPost').hide();
-	            }
-	            
+				
+	            $('#btnPost').hide();
 	            $('#btnPost').click(function() {
 	            	if(!emp($('#txtNoa').val()) &&!(q_cur==1 || q_cur==2))
 	            		q_func('qtxt.query.postmedia', 'bankpost.txt,salaward_media,' +$('#txtNoa').val());
