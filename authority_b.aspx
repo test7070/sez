@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'authority', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 100;
+            var q_name = 'authority', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 150;
             var t_sqlname = 'authority_load';
             t_postname = q_name;
             var isBott = false;
@@ -49,18 +49,19 @@
                 q_gt('qtitle','where=^^ 1=1 ^^', 0, 0, 0, "", r_accy);
                 
             }
-
+			
+			var as_qlang=[];
             function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'qtitle':
-						var as = _q_appendData("qtitle", "", true);
+						as_qlang = _q_appendData("qtitle", "", true);
 						var qf_qlang=false; //判斷是否有空白title 如果有再去抓qlang
 						
-						if (as[0] != undefined) {
+						if (as_qlang[0] != undefined) {
 							for(var i = 0; i < q_bbsCount; i++) {
-								for(var j = 0; j < as.length; j++) {
-									if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(as[j].noa).toUpperCase()){
-		                				$('#textTitle_'+i).val(as[j].title);
+								for(var j = 0; j < as_qlang.length; j++) {
+									if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(as_qlang[j].noa).toUpperCase()){
+		                				$('#textTitle_'+i).val(as_qlang[j].title);
 		                				break;
 		                			}
 								}
@@ -116,6 +117,14 @@
 				}
                 _bbsAssign();
                 for(var i = 0; i < q_bbsCount; i++) {
+                	if (as_qlang[0] != undefined) {
+						for(var j = 0; j < as_qlang.length; j++) {
+							if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(as_qlang[j].noa).toUpperCase()){
+		               			$('#textTitle_'+i).val(as_qlang[j].title);
+		               			break;
+		               		}
+						}
+					}
                 	if(t_qtitle!=undefined && emp($('#textTitle_'+i).val())){
 	                	for(var k = 0; k < t_qtitle.length; k++) {
 	                		if($.trim($('#txtNoa_'+i).val()).toUpperCase()==$.trim(t_qtitle[k].split(',')[0]).toUpperCase()){
