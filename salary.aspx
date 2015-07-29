@@ -23,7 +23,10 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-        aPop = new Array(['txtSno_', 'lblSno', 'sss', 'noa,namea', 'txtSno_,txtNamea_', 'sss_b.aspx']);
+        aPop = new Array(
+        	['txtSno_', 'lblSno', 'sss', 'noa,namea,partno,part', 'txtSno_,txtNamea_,txtPartno_,txtPart_', 'sss_b.aspx'],
+        	['txtPartno_', 'btnPartno_', 'part', 'noa,part', 'txtPartno_,txtPart_', "part_b.aspx"]
+        );
 		q_desc=1;
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -1115,7 +1118,7 @@
         
         function table_change() {
         	getdtmp();
-        	$('#tbbs').css("width","5200px");
+        	$('#tbbs').css("width","5350px");
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
 				$('#lblHrmoney').hide();
@@ -1198,7 +1201,7 @@
 	            $('.hid_tax').show();
 	            $('.hid_tax5').show();
             }else{//外勞
-            	$('#tbbs').css("width","6200px");
+            	$('#tbbs').css("width","6350px");
             	//bbm
             	$('#lblHrmoney').hide();
             	$('#lblDaymoney').hide();
@@ -1408,7 +1411,7 @@
                 float: right;
             }
             .txt.c3 {
-                width: 50%;
+                width: 60%;
                 float: left;
             }
             .txt.c4 {
@@ -1572,7 +1575,7 @@
             <td class="td7"><span> </span><a id="lblBorrow" class="lbl"> </a></td>
             <td class="td8"><input id="txtBorrow"  type="text" class="txt num c1"/></td>
             <td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-            <td class="td10"><input id="txtWorker" type="text" class="txt c1"/><input id="txtDatea" type="hidden" class="txt c1"/></td>
+            <td class="td10"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
         </table>
         </div>
@@ -1585,6 +1588,7 @@
                 <td align="center" class="td0" style="width: 26px;"><a id='vewChks'> </a></td>
                 <td align="center" class="td1" style="width: 100px;"><a id='lblSno'> </a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblNamea'> </a></td>
+                <td align="center" style="width: 130px;"><a id='lblPart'> </a></td>
                 <td align="center" class="td2 hid_money" style="width: 100px;"><a id='lblMoneys'> </a></td>
                 <td align="center" class="td2 hid_daymoney" style="width: 100px;"><a id='lblDaymoneys'> </a><a id='lblHrmoneys'> </a></td>
                 <td align="center" class="td2 hid_pubmoney" style="width: 100px;"><a id='lblPubmoneys'> </a></td>
@@ -1650,6 +1654,11 @@
                 <td ><input id="checkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtSno.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
+                <td>
+					<input type="button" id="btnPartno.*" style="width:1%;float:left;" value=".">
+					<input class="txt c4" id="txtPartno.*" type="text" />
+					<input class="txt c3" id="txtPart.*" type="text" />
+				</td>
                 <td class='hid_money'><input class="txt num c1" id="txtMoney.*" type="text" /></td>
                 <td class='hid_daymoney'><input class="txt num c1" id="txtDaymoney.*" type="text" /></td>
                 <td class='hid_pubmoney'><input class="txt num c1" id="txtPubmoney.*" type="text" /></td>
@@ -1712,11 +1721,7 @@
                 <td class='hid_ch_labor1'><input class="txt num c1" id="txtCh_labor1.*" type="text" /></td>
                 <td class='hid_ch_labor2'><input class="txt num c1" id="txtCh_labor2.*" type="text" /></td>
                 <td class='hid_health_insures'><input class="txt num c1" id="txtCh_health_insure.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text" />
-                	<input class="txt c1" id="txtMemo2.*" type="hidden" />
-                	<input class="txt c1" id="txtPartno.*" type="hidden" />
-                	<input class="txt c1" id="txtPart.*" type="hidden" />
-                </td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text" /><input class="txt c1" id="txtMemo2.*" type="hidden" /></td>
            </tr>
         </table>
         </div>
