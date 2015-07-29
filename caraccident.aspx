@@ -49,7 +49,7 @@
             }///  end Main()
 
             function mainPost() {
-                bbmMask = [['txtDatea', r_picd], ['txtClaimdate', r_picd], ['txtEnddate', r_picd], ['txtBirthday', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtClaimdate', r_picd], ['txtEnddate', r_picd], ['txtBirthday', r_picd], ['txtTimea', '99:99']];
 
                 q_getFormat();
                 q_mask(bbmMask);
@@ -341,7 +341,7 @@
                 margin: -1px;
             }
 
-            input[type="text"], input[type="button"] {
+            input[type="text"], input[type="button"] ,select{
                 font-size: medium;
             }
 		</style>
