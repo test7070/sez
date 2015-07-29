@@ -26,7 +26,7 @@
 			var q_readonlys = [];
 			var q_readonlyt = ['txtVccaccy','txtVccno','txtVccnoq'];
 			var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];
-			var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
+			var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
 			var bbtNum = [['txtMoney',15,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -98,6 +98,9 @@
 			function mainPost() {
 				if (q_getPara('sys.project').toUpperCase()=='YC'){
 					bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
+				}
+				if (q_getPara('sys.comp').substring(0,2)=='傑期'){
+					bbsNum = [['txtMount', 15, 2], ['txtGmount', 15, 2], ['txtEmount', 15, 2], ['txtPrice', 15, 4], ['txtTotal', 15, 0]];
 				}
 				
 				q_getFormat();
