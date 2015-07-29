@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
+    <title> </title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
         <script src='qset.js' type="text/javascript"></script>
@@ -468,10 +468,10 @@
 			                    	as[i].bo_full=as[i].bo_full/2;
 			                    	
 			                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
-			                    	as[i].meals=2400;//104/05/04 改成2400(原1800)
+			                    	//as[i].meals=2400;//104/05/04 改成2400(原1800)
 			                    	//如果請假每超過8小時要扣60(1800/30)
 			                    	if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))>=8){
-			                    		as[i].meals=2400-Math.floor((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8)*60
+			                    		as[i].meals=dec(as[i].meals)-Math.floor((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8)*60
 			                    	}
 			                    }
 			                    as[i].memo2='';
@@ -1118,7 +1118,7 @@
         
         function table_change() {
         	getdtmp();
-        	$('#tbbs').css("width","5350px");
+        	$('#tbbs').css("width","5400px");
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
 				$('#lblHrmoney').hide();
@@ -1201,7 +1201,7 @@
 	            $('.hid_tax').show();
 	            $('.hid_tax5').show();
             }else{//外勞
-            	$('#tbbs').css("width","6350px");
+            	$('#tbbs').css("width","6400px");
             	//bbm
             	$('#lblHrmoney').hide();
             	$('#lblDaymoney').hide();
@@ -1588,7 +1588,7 @@
                 <td align="center" class="td0" style="width: 26px;"><a id='vewChks'> </a></td>
                 <td align="center" class="td1" style="width: 100px;"><a id='lblSno'> </a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblNamea'> </a></td>
-                <td align="center" style="width: 130px;"><a id='lblPart'> </a></td>
+                <td align="center" style="width: 160px;"><a id='lblPart'> </a></td>
                 <td align="center" class="td2 hid_money" style="width: 100px;"><a id='lblMoneys'> </a></td>
                 <td align="center" class="td2 hid_daymoney" style="width: 100px;"><a id='lblDaymoneys'> </a><a id='lblHrmoneys'> </a></td>
                 <td align="center" class="td2 hid_pubmoney" style="width: 100px;"><a id='lblPubmoneys'> </a></td>
