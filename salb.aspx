@@ -454,7 +454,7 @@
 									c_typeb=c_typeb+','+t_typeb[i].inote+"@"+t_typeb[i].kind;
 							}
 							q_cmbParse("cmbTypeb_"+j, c_typeb);
-							if(abbsNow[0]!=undefined)
+							if(abbsNow!=undefined)
 								$('#cmbTypeb_'+j).val(abbsNow[j].typeb);
 							
 							//處理內容
@@ -464,7 +464,7 @@
 									c_typec=c_typec+','+t_typec[i].noa+"@"+t_typec[i].noa+'.'+t_typec[i].mark;
 							}					
 							q_cmbParse("cmbTypec_"+j, c_typec);
-							if(abbsNow[0]!=undefined)
+							if(abbsNow!=undefined)
 								$('#cmbTypec_'+j).val(abbsNow[j].typec);
 						}
 					}
