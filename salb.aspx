@@ -117,7 +117,7 @@
 				b_pop = '';
 			}
 			var ret;
-			var t_typeb=[],t_typec=[],t_salary=[];
+			var t_typeb=[],t_typec=[],t_salary=[],t_salaward=[];
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'payform':
@@ -140,9 +140,7 @@
 					case 'salary':
 						var as = _q_appendData("salarys", "", true);
 						var t_mon = $.trim($('#txtMon').val());
-						if(as.length == 0){
-							alert(t_mon+'尚未建立[薪資作業]');
-						}else{
+						if(as.length >0){
 							for(var k=0;k<as.length;k++){
 								//排除勞健保 其他加減項  伙食費
 								var s_money = dec(as[k].total5)-dec(as[k].plus)+dec(as[k].minus)-dec(as[k].meals)
@@ -163,6 +161,28 @@
 							t_salary=as;
 							q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal,cmbTypea,cmbTypeb'
 							,as.length, as,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money,typea,typeb','txtSssno');
+						}else{
+							t_salary=[];
+						}
+						//匯入獎金
+						var t_mon = $.trim($('#txtMon').val());
+						var t_where = "where=^^ year='"+t_mon+"' ^^";
+						q_gt('salaward', t_where, 0, 0, 0, "salaward");
+						break;
+					case 'salaward':
+						var as = _q_appendData("salawards", "", true);
+						if(as.length >0){
+							for(var i=0;i<as.length;i++){
+								as[i].memo=as[i].memo+(as[i].memo.length>0?',':'')+'獎金';
+								as[i]['typea'] = '50';
+								as[i]['typeb'] = '';
+							}
+							
+							t_salaward=as;
+							q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,txtMoney,txtTax,txtMemo',as.length, as
+							,'sssno,namea,typea,typeb,money,tax,memo','txtSssno');
+						}else{
+							t_salaward=[];
 						}
 						
 						//匯入其他項目salchg
@@ -175,7 +195,7 @@
 						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,cmbTypec,txtMoney',as.length, as
 						,'sssno,namea,salbtypea,salbtypeb,salbtypec,plus','txtSssno');
 						
-						if(t_salary.length+as.length==q_bbsCount)
+						if(t_salary.length+as.length+t_salaward==q_bbsCount)
 							q_gridAddRow(bbsHtm, 'tbbs', 'txtNoq', 1);
 							
 						var SssArray = [];
@@ -190,8 +210,11 @@
 						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,txtMount,txtAd_money,txtMoney,txtCh_meal,cmbTypea,cmbTypeb'
 						,t_salary.length, t_salary,'sno,namea,raise_num,addmoney,tmp_money,tmp_food_money,typea,typeb','txtSssno');
 						
-						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,cmbTypec,txtMoney',as.length, as
-						,'sssno,namea,salbtypea,salbtypeb,salbtypec,plus','txtSssno');
+						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,txtMoney,txtTax,txtMemo'
+						,t_salaward.length, t_salaward,'sssno,namea,typea,typeb,money,tax,memo','txtSssno');
+						
+						q_gridAddRow(bbsHtm, 'tbbs','txtSssno,txtNamea,cmbTypea,cmbTypeb,cmbTypec,txtMoney'
+						,as.length, as	,'sssno,namea,salbtypea,salbtypeb,salbtypec,plus','txtSssno');
 						
 						if(SssArray.length > 0){
 							var t_where = "where=^^ noa in (" + SssArray.toString() + ") ^^";
@@ -454,8 +477,10 @@
 									c_typeb=c_typeb+','+t_typeb[i].inote+"@"+t_typeb[i].kind;
 							}
 							q_cmbParse("cmbTypeb_"+j, c_typeb);
-							if(abbsNow!=undefined)
-								$('#cmbTypeb_'+j).val(abbsNow[j].typeb);
+							if(abbsNow!=undefined){
+								if(abbsNow.length>0)
+								$('#cmbTypeb_'+j).val(abbsNow[j].typeb);	
+							}
 							
 							//處理內容
 							var c_typec=' @ ';
@@ -464,8 +489,10 @@
 									c_typec=c_typec+','+t_typec[i].noa+"@"+t_typec[i].noa+'.'+t_typec[i].mark;
 							}					
 							q_cmbParse("cmbTypec_"+j, c_typec);
-							if(abbsNow!=undefined)
-								$('#cmbTypec_'+j).val(abbsNow[j].typec);
+							if(abbsNow!=undefined){
+								if(abbsNow.length>0)
+									$('#cmbTypec_'+j).val(abbsNow[j].typec);
+							}
 						}
 					}
 				//}
@@ -633,7 +660,7 @@
 			.num {
 				text-align: right;
 			}
-			input[type="text"], input[type="button"] {
+			input[type="text"], input[type="button"] ,select{
 				font-size: medium;
 			}
 			.tbbs {
