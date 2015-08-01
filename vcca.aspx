@@ -413,7 +413,7 @@
 				for (var k = 0; k < q_bbsCount; k++) {
 					t_mounts = q_float('txtMount_' + k);
 					t_prices = q_float('txtPrice_' + k);
-					t_moneys = round(t_mounts * t_prices, 0);
+					t_moneys = round(q_mul(t_mounts,t_prices),0);
 					$('#txtMoney_' + k).val(t_moneys);
 					t_money += t_moneys;
 					t_mount += t_mounts;
