@@ -883,7 +883,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
-						<td colspan='5'><input id="txtMemo"  type="text"  class="txt c1"/></td>
+						<td colspan='5'><textarea id="txtMemo" rows="3" class="txt c1" style="height: 50px;" > </textarea></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
