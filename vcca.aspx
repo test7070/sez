@@ -188,6 +188,26 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'getvccadate':
+						as = _q_appendData('dbo.getvccadate', "", true);
+						t_date = '';
+                		if(as[0]!=undefined){
+                			t_date = as[0].datea;
+                		}
+                		if(t_date.length>0 && $('#txtDatea').val()<t_date){
+                			alert('日期不可小於 '+t_date);
+                			Unlock(1);
+                			return;
+                		}else{
+                			var t_where = '';
+							if (q_cur == 1) {
+								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))" + " and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
+							} else {
+								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
+							}
+							q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+                		}
+						break;
 					case 'getAcomp':
 						var as = _q_appendData("acomp", "", true);
 						if (as[0] != undefined) {
@@ -250,7 +270,7 @@
 				Lock(1, {
 					opacity : 0
 				});
-				
+
 				var t_err = '';
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtDatea', q_getMsg('lblDatea')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
@@ -287,13 +307,7 @@
 				
 				sum();
 				
-				var t_where = '';
-				if (q_cur == 1) {
-					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))" + " and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
-				} else {
-					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
-				}
-				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+				q_gt('getvccadate',"where=^^[N'"+$('#txtNoa').val()+"')^^", 0, 0, 0, "getvccadate"); 
 			}
 
 			function _btnSeek() {
