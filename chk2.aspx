@@ -21,8 +21,8 @@
             var q_readonlys = ['txtCheckno'];
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
-            var bbmMask = [['txtDatea', '999/99/99']];
-            var bbsMask = [['txtDatea', '999/99/99']];
+            var bbmMask = [];
+            var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -52,6 +52,7 @@
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
+                bbsMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
 
                 $('#btnGqb').click(function() {

@@ -22,7 +22,7 @@
             var q_name = "gqb";
             var q_readonly = ['txtWorker','txtWorker2','txtTdate','txtEnda','txtTbankno','txtTbank','txtTacc1','txtEndaccno','txtAcc1','txtBkaccno','txtUsage'];
             var bbmNum = [['txtMoney', 10, 0]];
-            var bbmMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99'], ['txtTdate', '999/99/99']];
+            var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -35,6 +35,7 @@
             , ['txtTcompno', 'lblTcomp', 'view_cust_tgg', 'noa,comp', '0txtTcompno,txtTcomp', 'view_cust_tgg_b.aspx']
             , ['txtCompno', 'lblComp', 'view_cust_tgg', 'noa,comp', '0txtCompno,txtComp', 'view_cust_tgg_b.aspx']
             , ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+            
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -50,10 +51,14 @@
                 mainForm(1);
             }
             function mainPost() {
+            	bbmMask = [['txtDatea', r_picd], ['txtIndate', r_picd], ['txtTdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
-                $('#txtDatea').datepicker();
-                $('#txtIndate').datepicker();
+				
+				if(r_len==3){
+					$('#txtDatea').datepicker();
+					$('#txtIndate').datepicker();
+				}
                 
                 $('#txtMoney').focus(function() {
                 	$('#ui-datepicker-title').hide();

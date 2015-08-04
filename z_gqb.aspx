@@ -95,54 +95,34 @@
 					}]
                 });
                 q_popAssign();
+                q_getFormat();
                 q_langShow();
+                
+				if(r_len==3){
+					$('#txtDate1').datepicker();
+					$('#txtDate2').datepicker();
+					$('#txtXchkdate1').datepicker();
+					$('#txtXchkdate2').datepicker();
+					$('#txtIndate1').datepicker();
+					$('#txtIndate2').datepicker();
+					$('#txtUdate1').datepicker();
+					$('#txtUdate2').datepicker();
+					$('#txtYdate1').datepicker();
+					$('#txtYdate2').datepicker();
+				}
+                
 				$('#txtR_tel').val(q_getPara('sys.tel'));
 	            $('#txtR_addr').val(q_getPara('sys.addr'));
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-                $('#txtXchkdate1').mask('999/99/99');
-                $('#txtXchkdate1').datepicker();
-                $('#txtXchkdate2').mask('999/99/99');
-                $('#txtXchkdate2').datepicker();
-
-                $('#txtIndate1').mask('999/99/99');
-                $('#txtIndate1').datepicker();
-                $('#txtIndate2').mask('999/99/99');
-                $('#txtIndate2').datepicker();
-                
-                $('#txtUdate1').mask('999/99/99');
-                $('#txtUdate1').datepicker();
-                $('#txtUdate2').mask('999/99/99');
-                $('#txtUdate2').datepicker();
-                var t_date, t_year, t_month, t_day;
-                t_date = new Date();
-                t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                //$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
-				//$('#txtIndate1').val(t_year + '/' + t_month + '/' + t_day);
-                t_date = new Date();
-                t_date.setDate(35);
-                t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                //$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
-                //$('#txtIndate2').val(t_year + '/' + t_month + '/' + t_day);
-
-                $('#txtYdate1').mask('999/99/99');
-                $('#txtYdate1').datepicker();
-                $('#txtYdate2').mask('999/99/99');
-                $('#txtYdate2').datepicker();
+                $('#txtDate1').mask(r_picd);
+                $('#txtDate2').mask(r_picd);
+                $('#txtXchkdate1').mask(r_picd);
+                $('#txtXchkdate2').mask(r_picd);
+                $('#txtIndate1').mask(r_picd);
+                $('#txtIndate2').mask(r_picd);
+                $('#txtUdate1').mask(r_picd);
+                $('#txtUdate2').mask(r_picd);
+                $('#txtYdate1').mask(r_picd);
+                $('#txtYdate2').mask(r_picd);
 
                 $('#txtYacc1').change(function() {
                     var s1 = trim($(this).val());
@@ -164,10 +144,10 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->

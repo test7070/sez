@@ -31,10 +31,17 @@
                         }]
                     });
                 q_popAssign();
+                q_getFormat();
+                q_langShow();
+                
                 if(q_getId()[5])
                 	$('#txtXnoa').val(q_getId()[5].substring(4));
-                $('#txtDate').mask('999/99/99');
-                $('#txtDate').datepicker();
+                $('#txtDate').mask(r_picd);
+                
+                if(r_len==3){
+                	$('#txtDate').datepicker();
+                }
+                
                 $('#txtDate').val(q_date());
             }
 

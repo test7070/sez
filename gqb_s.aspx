@@ -32,18 +32,21 @@
 			}
 
 			function q_gfPost() {
-				q_getFormat();
-				q_langShow();
+				q_popAssign();
+                q_getFormat();
+                q_langShow();
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBindate', r_picd], ['txtEindate', r_picd],['txtBtdate', r_picd], ['txtEtdate', r_picd]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", '@全部,'+q_getPara('gqb.typea'));
-				$('#txtBdate').datepicker();
-				$('#txtEdate').datepicker();
-				$('#txtBindate').datepicker();
-				$('#txtEindate').datepicker();
-				$('#txtBtdate').datepicker();
-				$('#txtEtdate').datepicker(); 
+				if(r_len==3){
+					$('#txtBdate').datepicker();
+					$('#txtEdate').datepicker();
+					$('#txtBindate').datepicker();
+					$('#txtEindate').datepicker();
+					$('#txtBtdate').datepicker();
+					$('#txtEtdate').datepicker(); 
+				}
 				$('#txtGqbno').focus();
 			}
 
