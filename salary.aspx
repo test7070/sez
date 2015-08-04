@@ -470,8 +470,9 @@
 			                    if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 			                    	//as[i].meals=2400;//104/05/04 改成2400(原1800)
 			                    	//如果請假每超過8小時要扣60(1800/30)
+			                    	var meals_price=q_div(dec(as[i].meals),30)
 			                    	if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))>=8){
-			                    		as[i].meals=dec(as[i].meals)-Math.floor((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8)*60
+			                    		as[i].meals=dec(as[i].meals)-Math.floor((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8)*meals_price
 			                    	}
 			                    }
 			                    as[i].memo2='';
