@@ -61,17 +61,26 @@
 					}, {/*1-1 [13]*/
 						type : '6',
 						name : 'xepart'
-					}]
+					}, {/*  [14]*/
+                        type : '0',
+                        name : 'xlen',
+                        value : r_len
+                    }]
 				});
+				
+				q_popAssign();
+                q_getFormat();
+                q_langShow();
+				
 				$('#txtDate1').mask('99/99');
 				$('#txtDate2').mask('99/99');
-				$('#txtXbmon1').mask('999/99');
-				$('#txtXbmon2').mask('999/99');
-				$('#txtXemon1').mask('999/99');
-				$('#txtXemon2').mask('999/99');
-				/*$('#txtDate1').mask('999/99/99');
+				$('#txtXbmon1').mask(r_picm);
+				$('#txtXbmon2').mask(r_picm);
+				$('#txtXemon1').mask(r_picm);
+				$('#txtXemon2').mask(r_picm);
+				/*$('#txtDate1').mask(r_picd);
 				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
+				$('#txtDate2').mask(r_picd);
 				$('#txtDate2').datepicker();*/
 
 				$('#Xbmon').css('width','370px');
@@ -97,8 +106,6 @@
 						$(this).val($(this).val()+'.');
 					}
 				});
-				q_popAssign();
-				q_langShow();
 				
 				if(q_getPara('acc.lockPart')=='1' && r_rank<8){
 		        	$('#txtPart1a').val(r_partno);

@@ -85,7 +85,7 @@
                 });
                 
                 $('#txtDatea').change(function() {
-                    $('#txtMon').val($('#txtDatea').val().substr(0,6));
+                    $('#txtMon').val($('#txtDatea').val().substr(0,r_lenm));
                 });
                 
             }

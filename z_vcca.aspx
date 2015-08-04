@@ -28,7 +28,6 @@
                 q_gt('acomp', 'stop=1 ', 0, 0, 0);
             }
 			
-			
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'acomp':
@@ -102,16 +101,27 @@
                     }*/]
                 });
                 
-                $('#txtXmon1').mask('999/99');
-                $('#txtXmon2').mask('999/99');
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate2').mask('999/99/99');
-				$('#txtXdate1').datepicker();
-				$('#txtXdate2').datepicker();
+                q_popAssign();
+                q_getFormat();
+                q_langShow();
+                
+                var r_1911=1911;
+				if(r_len==4){//西元年
+					r_1911=0;
+				}else{
+					$('#txtXdate1').datepicker();
+					$('#txtXdate2').datepicker();
+				}
+                
+                $('#txtXmon1').mask(r_picm);
+                $('#txtXmon2').mask(r_picm);
+                $('#txtXdate1').mask(r_picd);
+                $('#txtXdate2').mask(r_picd);
+                
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();
                 t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_date.getUTCFullYear() - r_1911;
                 t_year = t_year > 99 ? t_year + '' : '0' + t_year;
                 t_month = t_date.getUTCMonth() + 1;
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
@@ -122,7 +132,7 @@
                 t_date = new Date();
                 t_date.setDate(35);
                 t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - 1911;
+                t_year = t_date.getUTCFullYear() - r_1911;
                 t_year = t_year > 99 ? t_year + '' : '0' + t_year;
                 t_month = t_date.getUTCMonth() + 1;
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
@@ -145,9 +155,6 @@
                 $('#txtXcno').val(z_cno);
                 $('#txtXacomp').val(z_acomp);
                 
-                q_popAssign();
-                q_langShow();
-
                 /*$("input[type='checkbox'][value='checkAll']").click(function() {
                     if ($(this).next('span').text() == '全選') {
                         $("input[type='checkbox'][value!='']").attr('checked', true);
@@ -169,10 +176,10 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
