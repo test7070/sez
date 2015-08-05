@@ -398,9 +398,15 @@
 			}
 
 			function btnIns() {
+				var t_q_bbsCount=q_bbsCount;
             	if($('#checkCopy').is(':checked'))
             		curData.copy();
                 _btnIns();
+                
+                while(t_q_bbsCount>q_bbsCount){
+                	q_gridAddRow(bbsHtm, 'tbbs', 'txtNo3', 1);
+                }
+                
             	if($('#checkCopy').is(':checked'))
 	                curData.paste();
 				$('#chkIsproj').attr('checked',true);

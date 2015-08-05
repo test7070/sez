@@ -82,7 +82,8 @@
                     case 'chk2_gqb':
                         var as = _q_appendData("gqb", "", true);
                         //if(as.length>q_bbsCount)
-                        q_gridAddRow(bbsHtm, 'tbbs', 'chkSel,txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp', as.length, as, 'sel,gqbno,bank,bankno,account,indate,money,tcompno,tcomp', '');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'chkSel,txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp,txtCompno,txtComp'
+                        , as.length, as, 'sel,gqbno,bank,bankno,account,indate,money,tcompno,tcomp,compno,comp', '');
                         Unlock();
                         break;
                     case q_name:
@@ -437,9 +438,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 					</tr>
 					<tr>
-						<td>
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='datea'>~datea</td>
 						<td id='money,0,1' style="text-align: right;" >~money,0,1</td>
 					</tr>
@@ -450,59 +449,47 @@
 					<tr class="tr0" style="height:1px;">
 						<td><input id="txtCheckno"type="text" style="display:none;"/></td>
 						<td><input id="txtCmoney"type="text" style="display:none;"/></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl" > </a></td>
-						<td colspan="2">
-						<input id="txtNoa"type="text" class="txt c1"/>
-						</td>
+						<td colspan="2"><input id="txtNoa"type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea"  type="text" class="txt c1"/>
-						</td>
+						<td><input id="txtDatea"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblBank" class="lbl btn" > </a></td>
 						<td colspan="2">
-						<input id="txtBankno" type="text" style="float:left; width:40%;"/>
-						<input id="txtBank"  type="text" style="float:left; width:60%;"/>
+							<input id="txtBankno" type="text" style="float:left; width:40%;"/>
+							<input id="txtBank"  type="text" style="float:left; width:60%;"/>
 						</td>
 						<td><span> </span><a id="lblAccount" class="lbl" > </a></td>
-						<td colspan="2">
-						<input id="txtAccount" type="text" class="txt c1" />
-						</td>
+						<td colspan="2"><input id="txtAccount" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney"  type="text" class="txt num c1" />
-						</td>
+						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
 						<td> </td>
 						<td><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
 						<td colspan="2">
-						<input id="txtCno" type="text" style="float:left; width:25%;"/>
-						<input id="txtAcomp"  type="text" style="float:left; width:73%;"/>
+							<input id="txtCno" type="text" style="float:left; width:25%;"/>
+							<input id="txtAcomp"  type="text" style="float:left; width:73%;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAccl"  class="lbl btn"> </a></td>
-						<td>
-						<input id="txtAccl"  type="text" class="txt c1" />
-						</td>
+						<td><input id="txtAccl"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl" > </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id="lblWorker2" class="lbl" > </a></td>
 						<td><input id="txtWorker2"  type="text" class="txt c1" /></td>
-						<td>
-						<input type="button" id="btnGqb" class="txt c1" value="票據匯入">
-						</td>
+						<td><input type="button" id="btnGqb" class="txt c1" value="票據匯入"></td>
 					</tr>
 				</table>
 			</div>
@@ -513,12 +500,13 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:20px;"></td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:20px;"><a id='vewChks'> </a></td>
 					<td align="center" style="width:100px;"><a id='vewCheckno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='vewBank_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewBankno_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewAccount_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='vewComp_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewDatea_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewMoney_s'> </a></td>
 					<td align="center" style="width:160px;display:none;"><a id='vewTcomp_s'> </a></td>
@@ -526,30 +514,25 @@
 				</tr>
 				<tr id="trSel.*" style='background:#cad3ff;'>
 					<td style="width:1%;">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="text" style="display: none;" />
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td ><input id="chkSel.*" type="checkbox"/></td>
+					<td ><input class="txt c1" id="txtCheckno.*" onclick="browGqb(this)" type="text"  style="width: 95%"/></td>
+					<td ><input id="txtBank.*" type="text" style="width: 95%;"/></td>
+					<td ><input class="txt c1" id="txtBankno.*" type="text"  style="width: 95%"/></td>
+					<td ><input class="txt c1" id="txtAccount.*" type="text"  style="width: 95%"/></td>
 					<td >
-					<input id="chkSel.*" type="checkbox"/>
+						<input class="txt c1" id="txtCompno.*" type="hidden"/>
+						<input class="txt c1" id="txtComp.*" type="text"  style="width: 95%"/>
 					</td>
-					<td >
-					<input class="txt c1" id="txtCheckno.*" onclick="browGqb(this)" type="text"  style="width: 95%"/>
-					</td>
-					<td >
-					<input id="txtBank.*" type="text" style="width: 95%;"/>
-					<td >
-					<input class="txt c1" id="txtBankno.*" type="text"  style="width: 95%"/>
-					</td><td >
-					<input class="txt c1" id="txtAccount.*" type="text"  style="width: 95%"/>
-					</td><td >
-					<input class="txt c1" id="txtDatea.*" type="text"  style="width: 95%"/>
-					</td><td >
-					<input class="txt num c1" id="txtMoney.*" type="text" style="width: 95%"/>
-					</td><td style="display:none;">
-					<input id="btnTcomp.*" type="button" value="." style="float:left;width: 1%;"/>
-					<input id="txtTcompno.*" type="text" style="width: 25%;float: left;"/>
-					<input id="txtTcomp.*" type="text" style="width: 50%;float: left;"/>
+					<td ><input class="txt c1" id="txtDatea.*" type="text"  style="width: 95%"/></td>
+					<td ><input class="txt num c1" id="txtMoney.*" type="text" style="width: 95%"/></td>
+					<td style="display:none;">
+						<input id="btnTcomp.*" type="button" value="." style="float:left;width: 1%;"/>
+						<input id="txtTcompno.*" type="text" style="width: 25%;float: left;"/>
+						<input id="txtTcomp.*" type="text" style="width: 50%;float: left;"/>
 					</td>
 					
 				</tr>
