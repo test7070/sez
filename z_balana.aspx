@@ -32,10 +32,17 @@
 					}, {
 						type : '6',
 						name : 'cdate'
-					}]
+					}, {/*  [3]*/
+                        type : '0',
+                        name : 'xlen',
+                        value : r_len
+                    }]
 				});
+				
 				q_popAssign();
-				$('#txtCdate').mask('999/99/99');
+				q_getFormat();
+				q_langShow();
+				$('#txtCdate').mask(r_picd);
 				$('#txtCdate').val(q_date());
 			}
 			function q_boxClose(s2) {

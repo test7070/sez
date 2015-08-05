@@ -22,7 +22,7 @@
 			var q_name = "tgg";
 			var q_readonly = ['txtWorker', 'txtKdate', 'txtUacc1', 'txtUacc2', 'txtUacc3'];
 			var bbmNum = [['txtDueday', 10, 0]];
-			var bbmMask = [['txtChkdate', '999/99/99'], ['txtStartdate', '99'], ['txtGetdate', '99']];
+			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -84,11 +84,12 @@
 					dataErr = false;
 					return;
 				}
-				q_mask(bbmMask);
 				mainForm(0);
 			}
 
 			function mainPost() {
+				bbmMask = [['txtChkdate', r_picd], ['txtStartdate', '99'], ['txtGetdate', '99']];
+				q_mask(bbmMask);
 				/*if(q_getPara('sys.project').toUpperCase()=='RA'){
 					q_cmbParse("cmbTypea", q_getPara('tgg_ra.typea'));
 				}else{
