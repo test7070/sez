@@ -38,10 +38,26 @@
                         type : '8',
                         name : 'xoption01',
                         value : q_getMsg('toption01').split('&')
+                    },{/*  [6]*/
+                        type : '0',
+                        name : 'accy',
+                        value : r_accy + "_" + r_cno
+                    }, {/*  [7]*/
+                        type : '0',
+                        name : 'xlen',
+                        value : r_len
                     }]
                 });
+                
                 q_popAssign();
+                q_getFormat();
                 q_langShow();
+                
+                var r_1911=1911;
+				if(r_len==4){//西元年
+					r_1911=0;
+				}
+                
                 $('#txtAcc1a').change(function(e) {
                     var patt = /^(\d{4})([^\.,.]*)$/g;
                     $(this).val($(this).val().replace(patt,"$1.$2"));
@@ -51,12 +67,12 @@
                     $(this).val($(this).val().replace(patt,"$1.$2"));
                 });
 
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate2').mask('999/99/99');
+                $('#txtDate1').mask(r_picd);
+                $('#txtDate2').mask(r_picd);
                  var t_date,t_year,t_month,t_day;
                     t_date = new Date();
                     t_date.setDate(1);
-                    t_year = t_date.getUTCFullYear()-1911;
+                    t_year = t_date.getUTCFullYear()-r_1911;
                     t_year = t_year>99?t_year+'':'0'+t_year;
                     t_month = t_date.getUTCMonth()+1;
                     t_month = t_month>9?t_month+'':'0'+t_month;
@@ -67,7 +83,7 @@
                     t_date = new Date();
                     t_date.setDate(35);
                     t_date.setDate(0);
-                    t_year = t_date.getUTCFullYear()-1911;
+                    t_year = t_date.getUTCFullYear()-r_1911;
                     t_year = t_year>99?t_year+'':'0'+t_year;
                     t_month = t_date.getUTCMonth()+1;
                     t_month = t_month>9?t_month+'':'0'+t_month;

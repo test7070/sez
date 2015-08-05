@@ -22,7 +22,7 @@
             var bbmNum = [];
             var bbsNum = [['txtFixmoney',10,0,1],['txtYear',5,0,1]];
             var bbmMask = [];
-            var bbsMask = [['txtFixdate', '999/99/99']];
+            var bbsMask = [];
 
             aPop = new Array();
 
@@ -45,6 +45,7 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
+                bbsMask = [['txtFixdate', r_picd]];
                 q_mask(bbmMask);
             }
 
