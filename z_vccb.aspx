@@ -27,6 +27,10 @@
                     options : [ {
                         type : '6',
                         name : 'xnoa'
+                    },{
+                    	type : '0',
+                        name : 'xlen',
+                        value : r_len
                     }]
                 });
                 q_popAssign();

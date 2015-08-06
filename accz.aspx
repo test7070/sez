@@ -97,7 +97,7 @@
 				});
 				$('#btnChangeaccno').click(function() {
 					var mon = $('#textMon').val();
-					if (!emp(mon) && mon.length == 6) {
+					if (!emp(mon) && mon.length == r_lenm) {
 						q_func('accz.gen', mon + ',' + r_name);
 						Lock();
 						$('#btnChangeaccno').attr('disabled', 'disabled');
@@ -552,13 +552,13 @@
 			<div class='dbbm' style="width: 73%;float: left;">
 				<table class="tbbm" id="tbbm" border="0" cellpadding='2' cellspacing='5'>
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr style="display: none;">
 						<td class="td1" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -567,10 +567,10 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td class="td3"></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcc1' class="lbl"> </a></td>
@@ -583,8 +583,8 @@
 						<td class="td2"><input id="txtNamea" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblIndate' class="lbl"> </a></td>
 						<td class="td4"><input id="txtIndate" type="text" class="txt c1" /></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcc' class="lbl btn"> </a></td>
@@ -609,8 +609,8 @@
 						<td class="td2"><input id="txtMoney" type="text" class="txt num c1" /></td>
 						<td class="td3"><span> </span><a id='lblYear' class="lbl"> </a></td>
 						<td class="td4"><input id="txtYear" type="text" class="txt num c1"/></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblFixmoney' class="lbl"> </a></td>
@@ -618,12 +618,12 @@
 						<td class="td3"><span> </span><a id='lblFixdate' class="lbl"> </a></td>
 						<td class="td4"><input id="txtFixdate" type="text" class="txt c1" /></td>
 						<td class="td5"><input id="btnAcczf" type="button" /></td>
-						<td class="td6"></td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAccumulat' class="lbl"> </a></td>
 						<td class="td2"><input id="txtAccumulat" type="text" class="txt num c1" /></td>
-						<td class="td3"></td>
+						<td class="td3"> </td>
 						<td class="td4">
 							<div id="Changeaccno">
 								<table>
@@ -644,7 +644,7 @@
 							<input id="btnTurncut" type="button" />
 						</td>
 						<td class="td5"><input id="btnAcczs" type="button" /></td>
-						<td class="td6"></td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblEndvalue' class="lbl"> </a></td>
@@ -655,7 +655,7 @@
 						</td>
 						<td class="td4"><input id="btnAcczt" type="button" /></td>
 						<td class="td5"><input id="btnZ_acczs" type="button" /></td>
-						<td class="td6"></td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblRate' class="lbl"> </a></td>
@@ -665,16 +665,16 @@
 							<span> </span><a id="lblNscrapvalue" class="txt"> </a>
 						</td>
 						<td class="td4"><input id="btnAccza" type="button" /></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
-						<td class="td1"></td>
-						<td class="td2"></td>
-						<td class="td3"></td>
+						<td class="td1"> </td>
+						<td class="td2"> </td>
+						<td class="td3"> </td>
 						<td class="td4"><input id="btnAccz" type="button" /></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>

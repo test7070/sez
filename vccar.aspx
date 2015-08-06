@@ -58,8 +58,10 @@
                 q_mask(bbmMask);
                 bbsMask = [['txtDatea', r_picd]];
 				
-				$('#txtBdate').datepicker();
-				$('#txtEdate').datepicker();
+				if(r_len==3){
+					$('#txtBdate').datepicker();
+					$('#txtEdate').datepicker();
+				}
 				
                 $('#txtBinvono').focus(function(e){
                 	$(this).css("color","black");

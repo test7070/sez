@@ -293,7 +293,7 @@
 				}
 				
 				if ($.trim($('#txtMon').val()).length == 0)
-					$('#txtMon').val($('#txtDatea').val().substring(0, 6));
+					$('#txtMon').val($('#txtDatea').val().substring(0, r_lenm));
 					
 				$('#txtMon').val($.trim($('#txtMon').val()));
 				
