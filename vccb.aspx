@@ -238,7 +238,11 @@
             }
 
             function btnPrint() {
-				q_box('z_vccb.aspx'+ "?;;" + ";noa='"+ $('#txtNoa').val()+"'", '', "95%", "95%", q_getMsg("popPrint"));
+            	if (q_getPara('sys.project') == 'pk') {
+					q_box('z_vccb_pk.aspx' + "?;;;noa=" + trim($('#txtNoa').val())+";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
+				}else{
+					q_box('z_vccb.aspx'+ "?;;" + ";noa='"+ $('#txtNoa').val()+"'", '', "95%", "95%", q_getMsg("popPrint"));
+				}
             }
 			function typea_chg(){
 				if($('#cmbTypea').val() == 1 || $('#cmbTypea').val() == 2){
