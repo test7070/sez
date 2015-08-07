@@ -40,8 +40,8 @@
             }
 			
             function mainPost() {
-            	//if(q_getPara('sys.project').toUpperCase()=='RB')
-            	//	q_bbsLen=10;
+            	if(q_getPara('sys.project').toUpperCase()=='RB')
+            		q_bbsLen=10;
             	
             	//放在mainPost 避免 r_accy抓不到
             	aPop = new Array(
