@@ -13,7 +13,7 @@
 		    q_desc = 1
 		    q_tables = 's';
 		    var q_name = "pay";
-		    var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2','txtRc2no'];
+		    var q_readonly = ['txtWorker', 'txtWorker2', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2','txtRc2no'];
 		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2','txtCno','txtCoin'];
 		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
@@ -792,12 +792,16 @@
 		        	$("#btnVcc").removeAttr("disabled");
 		        	$("#btnMon").removeAttr("disabled");
 		        	$("#btnAuto").removeAttr("disabled");
-		        	
 		        }else{
 		        	$("#btnVcc").attr("disabled","disabled");
 		        	$("#btnMon").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
 		        }
+		        
+		        if(q_cur==1)
+                    $('#txtNoa').removeAttr('disabled');
+                else
+                    $('#txtNoa').attr('disabled', 'disabled');
 		    }
 
 		    function btnMinus(id) {
