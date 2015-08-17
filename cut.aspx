@@ -345,6 +345,8 @@
             
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.updatecuts':
+                		break;
                 	case 'qtxt.query.getuno_norm':
                         var as = _q_appendData("tmp0", "", true, true);
                        	if(as[0]!=undefined){
@@ -402,6 +404,7 @@
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
 				var s1 = xmlString.split(';');
+				q_func('qtxt.query.updatecuts', 'cut.txt,updatecuts,'+$('#txtNoa').val());
 				Unlock(1);
 			}
 
