@@ -248,7 +248,7 @@
             		p20=0,p35=0,p50=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0;
             		var as = _q_appendData("postages", "", true);
             		if(as[0]!=undefined){
-            			for (var i = 0; i < ass.length; i++) {
+            			for (var i = 0; i < as.length; i++) {
             				if(as[i].storeno==$('#txtStoreno').val() || $('#txtStoreno').val().length==0){
 	            				p20+=dec(as[i].p20)
 	            				p35+=dec(as[i].p35)
