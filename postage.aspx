@@ -138,7 +138,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_postagep.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {

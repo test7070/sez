@@ -53,8 +53,7 @@
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('send.typea'));
             
-            q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
-            
+            q_gt('postage_stk', "where=^^1=1^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
             
 			$('#btnCheck').click(function () {
 	           $('#txtChecker').val(r_name);
@@ -92,7 +91,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資2.0庫存剩'+p20+'張');
 	        }).blur(function () {
 				q_msg();
@@ -104,7 +103,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資3.5庫存剩'+p35+'張');
 	        }).blur(function () {
 				q_msg();
@@ -116,7 +115,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資5.0庫存剩'+p50+'張');
 	        }).blur(function () {
 				q_msg();
@@ -128,7 +127,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資10.0庫存剩'+p100+'張'); 
 	        }).blur(function () {
 				q_msg();
@@ -140,7 +139,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資12.0庫存剩'+p120+'張');
 	        }).blur(function () {
 				q_msg();
@@ -152,7 +151,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資13.0庫存剩'+p130+'張');
 	        }).blur(function () {
 				q_msg();
@@ -164,7 +163,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資15.0庫存剩'+p150+'張');
 	        }).blur(function () {
 				q_msg();
@@ -176,7 +175,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資20.0庫存剩'+p200+'張');
 	        }).blur(function () {
 				q_msg();
@@ -188,7 +187,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資25.0庫存剩'+p250+'張');
 	        }).blur(function () {
 				q_msg();
@@ -200,7 +199,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資32.0庫存剩'+p320+'張');
 	        }).blur(function () {
 				q_msg();
@@ -245,32 +244,25 @@
 		                else
 		                    ischecker = false;
 		                break;
-            	case 'postage':
-            		var as = _q_appendData("postage", "", true);
-            				if(as[0]!=undefined){
-            					for (var i = 0; i < as.length; i++) {
-            						if(as[i].noa=='2.0')
-            							p20=dec(as[i].mount)
-            						else if(as[i].noa=='3.5')
-            							p35=dec(as[i].mount)
-            						else if(as[i].noa=='5.0')
-            							p50=dec(as[i].mount)
-            						else if(as[i].noa=='10.0')
-            							p100=dec(as[i].mount)
-            						else if(as[i].noa=='12.0')
-            							p120=dec(as[i].mount)
-            						else if(as[i].noa=='13.0')
-            							p130=dec(as[i].mount)
-            						else if(as[i].noa=='15.0')
-            							p150=dec(as[i].mount)
-            						else if(as[i].noa=='20.0')
-            							p200=dec(as[i].mount)
-            						else if(as[i].noa=='25.0')
-            							p250=dec(as[i].mount)
-            						else if(as[i].noa=='32.0')
-            							p320=dec(as[i].mount)
-            					}
+            	case 'postagestk':
+            		p20=0,p35=0,p50=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0;
+            		var as = _q_appendData("postages", "", true);
+            		if(as[0]!=undefined){
+            			for (var i = 0; i < ass.length; i++) {
+            				if(as[i].storeno==$('#txtStoreno').val() || $('#txtStoreno').val().length==0){
+	            				p20+=dec(as[i].p20)
+	            				p35+=dec(as[i].p35)
+	            				p50+=dec(as[i].p50)
+	            				p100+=dec(as[i].p100)
+	            				p120+=dec(as[i].p120)
+	            				p130+=dec(as[i].p130)
+	            				p150+=dec(as[i].p150)
+	            				p200+=dec(as[i].p200)
+	            				p250+=dec(as[i].p250)
+	            				p320+=dec(as[i].p320)
             				}
+            			}
+            		}
             		break;
                 case 'sss':  
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
@@ -334,11 +326,11 @@
         }
 
         function btnPrint() {
- 			q_box('z_postoutp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+ 			q_box('z_postoutp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtStoreno', q_getMsg('lblStore')]]);
 
             if( t_err.length > 0) {
                 alert(t_err);
