@@ -30,7 +30,7 @@
 			brwKey = 'noa';
 			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,addr_home', 'txtCustno,txtComp,txtAddr', 'cust_b.aspx']
 			,['txtCno', 'lblCno', 'acomp', 'noa,acomp,ename', 'txtCno','acomp_b.aspx']
-			,['txtProductno_', 'btnProductno_', 'ucc', 'noa,engpro,unit', 'txtProductno_,txtDescription_,txtUnit_,txtMarks_', 'ucc_b.aspx']
+			,['txtProductno_', 'btnProductno_', 'ucaucc', 'noa,engpro,unit', 'txtProductno_,txtDescription_,txtUnit_,txtMarks_', 'ucaucc_b.aspx']
 				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype', '']
 				//['txtOrdeno', '', 'orde', 'noa,comp,addr2,taxtype,tax,money,total,coin,floata,totalus', 'txtOrdeno,txtComp,txtAddr,cmbTaxtype,txtTax,txtMoney,txtTotal,cmbCoin,txtFloata,txtTotalus', '']
 			);
