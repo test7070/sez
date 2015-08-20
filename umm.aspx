@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -40,6 +40,9 @@
             }
 			
             function mainPost() {
+            	if(q_getPara('sys.project').toUpperCase()=='RB')
+            		q_bbsLen=10;
+            	
             	//放在mainPost 避免 r_accy抓不到
             	aPop = new Array(
             	['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtComp', 'cust_b.aspx']
@@ -64,7 +67,7 @@
 		         $('#txtDatea').blur(function() {
 		         	if(!emp($('#txtDatea').val())&&(q_cur==1 || q_cur==2)){
 		         		
-		         		if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1 || q_getPara('sys.comp').indexOf('永勝')>-1 || q_getPara('sys.project').toUpperCase()=='XY'){
+		         		if(q_getPara('sys.project').toUpperCase()=='IT' || q_getPara('sys.project').toUpperCase()=='UU' || q_getPara('sys.project').toUpperCase()=='XY'){
 		         			$('#txtMon').val($('#txtDatea').val().substr(0,6));
 		         		}else{
                     		var d = new Date(dec($('#txtDatea').val().substr(0,3))+1911, dec($('#txtDatea').val().substr(4,2))-1, dec($('#txtDatea').val().substr(7,2)));
@@ -285,9 +288,9 @@
                 		for (var i = 0; i < as.length; i++) {
                 			if(q_getPara('sys.project').toUpperCase()=='XY'){
                 				as[i].tablea='vcc_xy';
-							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+							}else if(q_getPara('sys.project').toUpperCase()=='IT'){
 								as[i].tablea='vcc_it';
-							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
+							}else if(q_getPara('sys.project').toUpperCase()=='UU'){
 								as[i].tablea='vcc_uu';
 								as[i].memo=as[i].memo+as[i].invono;
 							}else if (q_getPara('sys.comp').indexOf('楊家') > -1|| q_getPara('sys.comp').indexOf('德芳') > -1){
@@ -423,9 +426,9 @@
                         for (var i = 0; i < as.length; i++) {
                         	if(q_getPara('sys.project').toUpperCase()=='XY'){
 								as[i].tablea='vcc_xy';
-							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+							}else if(q_getPara('sys.project').toUpperCase()=='IT'){
 								as[i].tablea='vcc_it';
-							}else if(q_getPara('sys.comp').indexOf('永勝')>-1){
+							}else if(q_getPara('sys.project').toUpperCase()=='UU'){
 								as[i].tablea='vcc_uu';
 								as[i].memo=as[i].memo+as[i].invono;
 							}else if (q_getPara('sys.comp').indexOf('楊家') > -1|| q_getPara('sys.comp').indexOf('德芳') > -1){
@@ -771,6 +774,12 @@
                         var n = $(this).attr('id').replace('txtAcc1_', '');
                         $('#btnAcc_'+n).click();
                     }).change(function() {
+                    	var n = $(this).attr('id').replace('txtAcc1_','');
+                    	if($(this).val()=="=" && n>0){
+                    		$('#txtAcc1_'+n).val($('#txtAcc1_'+(dec(n)-1)).val());
+                    		$('#txtAcc2_'+n).val($('#txtAcc2_'+(dec(n)-1)).val());
+                    	}
+                    	
                         var patt = /^(\d{4})([^\.,.]*)$/g;
 	                    $(this).val($(this).val().replace(patt,"$1.$2"));
                         sum();

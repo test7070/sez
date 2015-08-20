@@ -17,64 +17,23 @@
 		<script type="text/javascript">
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_postin');
+                q_gf('', 'z_postagep');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_postin',
+                    fileName : 'z_postagep',
                     options : [{
-                        type : '1',
-                        name : 'date'
-                    }, {
-                        type : '2',
-                        name : 'part',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'sss',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'store',
-                        dbf : 'store',
-                        index : 'noa,store',
-                        src : 'store_b.aspx'
+                        type : '6',
+                        name : 'xdate'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
 
-                $('#txtDate1').mask(r_picd);
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask(r_picd);
-                $('#txtDate2').datepicker();
+                $('#txtXdate').mask(r_picd);
+                $('#txtXdate').val(q_date());                
 
-                var t_date, t_year, t_month, t_day;
-                t_date = new Date();
-                t_date.setDate(1);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
-
-                t_date = new Date();
-                t_date.setDate(35);
-                t_date.setDate(0);
-                t_year = t_date.getUTCFullYear() - 1911;
-                t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-                t_month = t_date.getUTCMonth() + 1;
-                t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
             }
 
             function q_boxClose(s2) {

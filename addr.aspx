@@ -164,6 +164,9 @@
 				for (var i = 0; i < q_bbsCount; i++) {
 				}
 				_bbsAssign();
+				if(q_getPara('sys.comp').substring(0,2)=='集鑫'){
+					$('.va').show();
+				}
 			}
 			function btnIns() {
 				_btnIns();
@@ -621,6 +624,7 @@
                     </td>
                     <td align="center" style="width:80px;"><a id='lblDatea_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblCustprice_s'> </a></td>
+                    <td align="center" style="width:80px;display:none;" class="va"><a>客戶補噸</a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice2_s'> </a></td>
                     <td align="center" style="width:80px;display: none;"><a id='lblCommission_s'> </a></td>
@@ -637,9 +641,9 @@
                     <td >
                     <input type="text" id="txtDatea.*" style="width:95%;" />
                     </td>
-                    <td >
-                    <input type="text" id="txtCustprice.*" style="width:95%;text-align:right;" />
-                    </td>
+                    <td><input type="text" id="txtCustprice.*" style="width:95%;text-align:right;" /></td>
+                    <td class="va" style="display:none;"><input type="text" id="txtCustmount.*" style="width:95%;text-align:right;" /></td>
+                    
                     <td >
                     <input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />
                     </td>

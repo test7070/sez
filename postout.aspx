@@ -24,7 +24,9 @@
 		['txtSssno', 'lblSss', 'sssall', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sssall_b.aspx'],
 		['txtSenderno', 'lblSend', 'acomp', 'noa,nick','txtSenderno,txtSender', 'acomp_b.aspx'],
 		['txtReceiverno_cust', 'lblReceiver_cust', 'cust', 'noa,comp','txtReceiverno_cust,txtReceiver_cust', 'cust_b.aspx'],
-		['txtReceiverno_tgg', 'lblReceiver_tgg', 'tgg', 'noa,comp','txtReceiverno_tgg,txtReceiver_tgg', 'tgg_b.aspx']);
+		['txtReceiverno_tgg', 'lblReceiver_tgg', 'tgg', 'noa,comp','txtReceiverno_tgg,txtReceiver_tgg', 'tgg_b.aspx'],
+		['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']);
+		
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -51,8 +53,7 @@
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('send.typea'));
             
-            q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
-            
+            q_gt('postage_stk', "where=^^1=1^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
             
 			$('#btnCheck').click(function () {
 	           $('#txtChecker').val(r_name);
@@ -90,7 +91,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資2.0庫存剩'+p20+'張');
 	        }).blur(function () {
 				q_msg();
@@ -102,7 +103,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資3.5庫存剩'+p35+'張');
 	        }).blur(function () {
 				q_msg();
@@ -114,7 +115,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資5.0庫存剩'+p50+'張');
 	        }).blur(function () {
 				q_msg();
@@ -126,7 +127,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資10.0庫存剩'+p100+'張'); 
 	        }).blur(function () {
 				q_msg();
@@ -138,7 +139,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資12.0庫存剩'+p120+'張');
 	        }).blur(function () {
 				q_msg();
@@ -150,7 +151,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資13.0庫存剩'+p130+'張');
 	        }).blur(function () {
 				q_msg();
@@ -162,7 +163,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資15.0庫存剩'+p150+'張');
 	        }).blur(function () {
 				q_msg();
@@ -174,7 +175,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資20.0庫存剩'+p200+'張');
 	        }).blur(function () {
 				q_msg();
@@ -186,7 +187,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資25.0庫存剩'+p250+'張');
 	        }).blur(function () {
 				q_msg();
@@ -198,7 +199,7 @@
 	           	}
 	           	sum();
 	        }).focus(function () {
-				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				//q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 				q_msg( $(this), '郵資32.0庫存剩'+p320+'張');
 	        }).blur(function () {
 				q_msg();
@@ -243,32 +244,25 @@
 		                else
 		                    ischecker = false;
 		                break;
-            	case 'postage':
-            		var as = _q_appendData("postage", "", true);
-            				if(as[0]!=undefined){
-            					for (var i = 0; i < as.length; i++) {
-            						if(as[i].noa=='2.0')
-            							p20=dec(as[i].mount)
-            						else if(as[i].noa=='3.5')
-            							p35=dec(as[i].mount)
-            						else if(as[i].noa=='5.0')
-            							p50=dec(as[i].mount)
-            						else if(as[i].noa=='10.0')
-            							p100=dec(as[i].mount)
-            						else if(as[i].noa=='12.0')
-            							p120=dec(as[i].mount)
-            						else if(as[i].noa=='13.0')
-            							p130=dec(as[i].mount)
-            						else if(as[i].noa=='15.0')
-            							p150=dec(as[i].mount)
-            						else if(as[i].noa=='20.0')
-            							p200=dec(as[i].mount)
-            						else if(as[i].noa=='25.0')
-            							p250=dec(as[i].mount)
-            						else if(as[i].noa=='32.0')
-            							p320=dec(as[i].mount)
-            					}
+            	case 'postagestk':
+            		p20=0,p35=0,p50=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0;
+            		var as = _q_appendData("postages", "", true);
+            		if(as[0]!=undefined){
+            			for (var i = 0; i < as.length; i++) {
+            				if(as[i].storeno==$('#txtStoreno').val() || $('#txtStoreno').val().length==0){
+	            				p20+=dec(as[i].p20)
+	            				p35+=dec(as[i].p35)
+	            				p50+=dec(as[i].p50)
+	            				p100+=dec(as[i].p100)
+	            				p120+=dec(as[i].p120)
+	            				p130+=dec(as[i].p130)
+	            				p150+=dec(as[i].p150)
+	            				p200+=dec(as[i].p200)
+	            				p250+=dec(as[i].p250)
+	            				p320+=dec(as[i].p320)
             				}
+            			}
+            		}
             		break;
                 case 'sss':  
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
@@ -332,11 +326,11 @@
         }
 
         function btnPrint() {
- 			q_box('z_postoutp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+ 			q_box('z_postoutp.aspx', '', "95%", "95%", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtStoreno', q_getMsg('lblStore')]]);
 
             if( t_err.length > 0) {
                 alert(t_err);
@@ -556,9 +550,9 @@
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:40%"><a id='vewNamea'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+                <td align="center" style="width:40%"><a id='vewNamea'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -570,69 +564,72 @@
         <div class='dbbm' style="width: 74%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
-          	   <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+          	   <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
+               <td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
                <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
-               <td class="td5"><span> </span><a id="lblChecker" class="lbl"></a></td>
+               <td class="td5"><span> </span><a id="lblChecker" class="lbl"> </a></td>
                <td class="td6"><input id="txtChecker" type="text" class="txt c1"/></td>
                <td class="td7"><input id="btnCheck" type="button" /></td>
             </tr>
             <tr class="tr2">
-               <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
+               <td class="td1"><span> </span><a id="lblSss" class="lbl btn" > </a></td>
                <td class="td2" colspan="2"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea"  type="text"  class="txt c3"/></td>
-               <td class="td3" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
+               <td class="td3" ><span> </span><a id="lblPart" class="lbl btn"> </a></td>
                <td class="td4" colspan="2"><input id="txtPartno"  type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td> 
             </tr>
             <tr class="tr3">
-               <td class="td1"><span> </span><a id="lblSend" class="lbl btn" ></a></td>
+               <td class="td1"><span> </span><a id="lblSend" class="lbl btn" > </a></td>
                <td class="td2" colspan="2"><input id="txtSenderno"  type="text"  class="txt c2"/><input id="txtSender" type="text"  class="txt c3"/></td>
-               <td class="td4"><span> </span><a id="lblReceiver_cust" class="lbl btn" style="font-size: 14px;"></a></td>
+               <td class="td4"><span> </span><a id="lblReceiver_cust" class="lbl btn" style="font-size: 14px;"> </a></td>
                <td class="td5"colspan="2"><input id="txtReceiverno_cust" type="text"  class="txt c2"/><input id="txtReceiver_cust"  type="text"  class="txt c3"/></td>
-               <td class="td7"><span> </span><a id="lblReceiver_tgg" class="lbl btn" style="font-size: 14px;"></a></td>
+               <td class="td7"><span> </span><a id="lblReceiver_tgg" class="lbl btn" style="font-size: 14px;"> </a></td>
                <td class="td8"colspan="2"><input id="txtReceiverno_tgg" type="text"  class="txt c2"/><input id="txtReceiver_tgg"  type="text"  class="txt c3"/></td>            
             </tr> 
            <tr class="tr4">
-           		<td class="td1"><span> </span><a id='lblPostal_code' class="lbl"></a></td>
+           		<td class="td1"><span> </span><a id='lblPostal_code' class="lbl"> </a></td>
                <td class="td2"><input id="txtPostal_code" type="text" class="txt c1"/></td>      
-               <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+               <td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
                <td class="td2" colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>               
             </tr> 
             <tr class="tr5">
-               <td class="td1" ><span> </span><a id="lblPtype" class="lbl"></a></td>
-               <td class="td1" ><select id="cmbTypea" class="txt c1"></select></td>
+               <td class="td1" ><span> </span><a id="lblPtype" class="lbl"> </a></td>
+               <td class="td1" ><select id="cmbTypea" class="txt c1"> </select></td>
+               <td class="td1" ><span> </span><a id="lblStore" class="lbl btn"> </a></td>
+               <td class="td1" ><input id="txtStoreno" type="text" class="txt c1"/></td>
+               <td class="td1" ><input id="txtStore" type="text" class="txt c1"/></td>
             </tr> 
             <tr class="tr6">
-               <td class="td1"><span> </span><a id="lblPosts" class="lbl"></a></td>
-               <td class="td2"><span> </span><a id="lblP20" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblPosts" class="lbl"> </a></td>
+               <td class="td2"><span> </span><a id="lblP20" class="lbl"> </a></td>
                <td class="td3"><input id="txtP20" type="text"  class="txt num c3" /></td>
-               <td class="td4"><span> </span><a id="lblP35" class="lbl"></a></td>
+               <td class="td4"><span> </span><a id="lblP35" class="lbl"> </a></td>
                <td class="td5"><input id="txtP35" type="text"  class="txt num c3" /></td>
-               <td class="td6"><span> </span><a id="lblP50" class="lbl"></a></td>
+               <td class="td6"><span> </span><a id="lblP50" class="lbl"> </a></td>
                <td class="td7"><input id="txtP50" type="text" class="txt num c3" /></td>
-               <td class="td8"><span> </span><a id="lblP100" class="lbl"></a></td>
+               <td class="td8"><span> </span><a id="lblP100" class="lbl"> </a></td>
                <td class="td9"><input id="txtP100" type="text" class="txt num c3" /></td>
             </tr>      
              <tr class="tr7">
-             	<td class="td1"></td>
-             	<td class="td2"><span> </span><a id="lblP120" class="lbl"></a></td>
+             	<td class="td1"> </td>
+             	<td class="td2"><span> </span><a id="lblP120" class="lbl"> </a></td>
                <td class="td3"><input id="txtP120" type="text" class="txt num c3" /></td>
-               <td class="td4"><span> </span><a id="lblP130" class="lbl"></a></td>
+               <td class="td4"><span> </span><a id="lblP130" class="lbl"> </a></td>
                <td class="td5"><input id="txtP130" type="text" class="txt num c3" /></td>
-               <td class="td6"><span> </span><a id="lblP150" class="lbl"></a></td>
+               <td class="td6"><span> </span><a id="lblP150" class="lbl"> </a></td>
                <td class="td7"><input id="txtP150" type="text" class="txt num c3" /></td>
-             	<td class="td8"><span> </span><a id="lblP200" class="lbl"></a></td>
+             	<td class="td8"><span> </span><a id="lblP200" class="lbl"> </a></td>
                <td class="td9"><input id="txtP200" type="text" class="txt num c3" /></td>              
             </tr>
             <tr class="tr8">
-             	<td class="td1"></td>
-               <td class="td2"><span> </span><a id="lblP250" class="lbl"></a></td>
+             	<td class="td1"> </td>
+               <td class="td2"><span> </span><a id="lblP250" class="lbl"> </a></td>
                <td class="td3"><input id="txtP250" type="text" class="txt num c3" /></td>
-               <td class="td4"><span> </span><a id="lblP320" class="lbl"></a></td>
+               <td class="td4"><span> </span><a id="lblP320" class="lbl"> </a></td>
                <td class="td5"><input id="txtP320" type="text" class="txt num c3" /></td>
-               <td class="td6"></td>
+               <td class="td6"> </td>
                <td class="td7"><input id="txtWorker" type="hidden" class="txt c1" /></td>
-               <td class="td8"><span> </span><a id="lblTotal" class="lbl"></a></td>
+               <td class="td8"><span> </span><a id="lblTotal" class="lbl"> </a></td>
                <td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>                 
             </tr> 
         </table>
