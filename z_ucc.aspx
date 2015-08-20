@@ -60,48 +60,48 @@
 						type : '5', //[12]
 						name : 'xgroupano',
 						value : uccgaItem.split(',')
-					}, {//2-4
+					}, {
 						type : '0', //[13]
 						name : 'xgroupas',
 						value : uccgaItem
-					}, {//3-1
+					}, {
 						type : '0', //[14]
 						name : 'xucctype',
 						value : q_getPara('ucc.typea')//(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it') : q_getPara('ucc.typea')
-					}, {//3-2
+					}, {
 						type : '0', //[15]
 						name : 'showprice',
 						value : (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) && r_rank < '7' ? '0' : '1'
-					}, {//3-3
+					}, {
 						type : '0', //[16] //判斷公司
 						name : 'acomp',
 						value : q_getPara('sys.comp')
-					}, {//3-4
+					}, {//2-4
 						type : '2', //[17][18]
 						name : 'xtgg',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
-					}, {//4-1
+					}, {//3-1
 						type : '6',
 						name : 'edate' //[19]
-					}, {//4-2
+					}, {//3-2
 						type : '8',
 						name : 'allucc',//[20]
 						value : '1@顯示零庫存產品'.split(',')
-					}, {//4-3
+					}, {
                         type : '0', //[21]
                         name : 'mountprecision',
                         value : q_getPara('vcc.mountPrecision')
-                    }, {//4-4
+                    }, {
                         type : '0', //[22]
                         name : 'weightprecision',
                         value : q_getPara('vcc.weightPrecision')
-                    }, {//5-1
+                    }, {
                         type : '0', //[23]
                         name : 'priceprecision',
                         value : q_getPara('vcc.pricePrecision')
-                    }, {//5-2
+                    }, {//3-3
                         type : '6', //[24]
                         name : 'xucc'
                     }]
@@ -123,10 +123,35 @@
 				
 				$('#Allucc').css('width','300px').css('height','30px');
 				$('#Allucc .label').css('width','0px');
+				
+				$('#Xucc').css("width","605px");
+				$('#txtXucc').css("width","515px");
+				$('#lblXucc').css("color","#0000ff");
+				$('#lblXucc').click(function(e) {
+                	q_box("ucc_b2.aspx?;;;;", 'ucc', "90%", "600px", q_getMsg("popUcc"));
+                });
 			}
 
 			function q_boxClose(s2) {
-			}
+                var ret;
+                switch (b_pop) {
+                	case 'ucc':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xucc='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xucc+=ret[i].noa+'.'
+                        	}
+                        }
+                        xucc=xucc.substr(0,xucc.length-1);
+                        $('#txtXucc').val(xucc);
+                        break;	
+					
+                }   /// end Switch
+				b_pop = '';
+            }
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
