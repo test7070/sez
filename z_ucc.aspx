@@ -30,77 +30,80 @@
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {
+					}, {//1-1
 						type : '1',
 						name : 'date' //[2][3]
-					}, {
+					}, {//1-2
 						type : '2',
 						name : 'product', //[4][5]
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
-					}, {
+					}, {//1-3
 						type : '2',
 						name : 'storeno', //[6][7]
 						dbf : 'store',
 						index : 'noa,store',
 						src : 'store_b.aspx'
-					}, {
+					}, {//1-4
 						type : '1',
 						name : 'ordeno' //[8][9]
-					}, {
+					}, {//2-1
 						type : '5',
 						name : 'ucctype', //[10]
 						value : [q_getPara('report.all')].concat(q_getPara('ucc.typea').split(','))//[q_getPara('report.all')].concat((q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it').split(',') : q_getPara('ucc.typea').split(','))
-					}, {
+					}, {//2-2
 						type : '5',
 						name : 'outtypea', //[11]
 						value : ('all@全部,out@委外,notout@非委外').split(',')
-					}, {
+					}, {//2-3
 						type : '5', //[12]
 						name : 'xgroupano',
 						value : uccgaItem.split(',')
-					}, {
+					}, {//2-4
 						type : '0', //[13]
 						name : 'xgroupas',
 						value : uccgaItem
-					}, {
+					}, {//3-1
 						type : '0', //[14]
 						name : 'xucctype',
 						value : q_getPara('ucc.typea')//(q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) ? q_getPara('ucc.typea_it') : q_getPara('ucc.typea')
-					}, {
+					}, {//3-2
 						type : '0', //[15]
 						name : 'showprice',
 						value : (q_getPara('sys.comp').indexOf('英特瑞') > -1 || q_getPara('sys.comp').indexOf('安美得') > -1) && r_rank < '7' ? '0' : '1'
-					}, {
+					}, {//3-3
 						type : '0', //[16] //判斷公司
 						name : 'acomp',
 						value : q_getPara('sys.comp')
-					}, {
+					}, {//3-4
 						type : '2', //[17][18]
 						name : 'xtgg',
 						dbf : 'tgg',
 						index : 'noa,comp',
 						src : 'tgg_b.aspx'
-					}, {
+					}, {//4-1
 						type : '6',
 						name : 'edate' //[19]
-					}, {
+					}, {//4-2
 						type : '8',
 						name : 'allucc',//[20]
 						value : '1@顯示零庫存產品'.split(',')
-					}, {
+					}, {//4-3
                         type : '0', //[21]
                         name : 'mountprecision',
                         value : q_getPara('vcc.mountPrecision')
-                    }, {
+                    }, {//4-4
                         type : '0', //[22]
                         name : 'weightprecision',
                         value : q_getPara('vcc.weightPrecision')
-                    }, {
+                    }, {//5-1
                         type : '0', //[23]
                         name : 'priceprecision',
                         value : q_getPara('vcc.pricePrecision')
+                    }, {//5-2
+                        type : '6', //[24]
+                        name : 'xucc'
                     }]
 				});
 				q_popAssign();
