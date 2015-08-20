@@ -399,12 +399,16 @@
                 
                 if($('#cmbTypea').val()=='1'){
                 	$('.typea1').show();
+                	if(q_getPara('sys.project').toUpperCase()=='RB'){
+                		$('.rb').show();
+                		$('.rbnobook').show();
+                	}
                 	$('.typea2').hide();
                 	$('#cmbSpecialfood').val('');
                 	$('#cmbNotaxnote').val('');
-                	$('#txtMount').show();
+                	/*$('#txtMount').show();
                 	$('#txtDutymemo').show();
-                	$('#txtBook').show();
+                	$('#txtBook').show();*/
                 	
                 	$('.two').hide();
                 	$('#chkIstwo').prop('checked',false);
@@ -428,15 +432,18 @@
                 	
                 	if(q_getPara('sys.project').toUpperCase()=='RB'){
 	                	$('.typea2').hide();
+	                	$('.typea1').show();
+	                	$('.rbnobook').hide();
+	                	$('.rb').hide();
 	                }else{
                 		$('.typea2').show();
                 	}
                 	
                 	$('#cmbSpecialfood').show();
                 	$('#cmbNotaxnote').show();
-                	$('#txtMount').val('').hide();
+                	/*$('#txtMount').val('').hide();
                 	$('#txtDutymemo').val('').hide();
-                	$('#txtBook').val('').hide();
+                	$('#txtBook').val('').hide();*/
                 	
                 	$('.self').show();
                 	
@@ -680,10 +687,10 @@
 						<td><input id="txtTotal"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr class="typea1">
-						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td><input id="txtMount"  type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblDutymemo' class="lbl"> </a></td>
-						<td><input id="txtDutymemo"  type="text" class="txt c1" /></td>
+						<td class="rbnobook"><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td class="rbnobook"><input id="txtMount"  type="text" class="txt num c1" /></td>
+						<td class="rbnobook"><span> </span><a id='lblDutymemo' class="lbl"> </a></td>
+						<td class="rbnobook"><input id="txtDutymemo"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblBook' class="lbl"> </a></td>
 						<td><input id="txtBook"  type="text" class="txt num c1" /></td>
 					</tr>
