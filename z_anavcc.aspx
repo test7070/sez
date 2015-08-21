@@ -86,6 +86,10 @@
                         type : '5', //[22]
                         name : 'lostorder',
                         value : "0@交易日,1@業務".split(',')
+					}, {
+                        type : '5', //[23]
+                        name : 'xorder',
+                        value : "money@金額,mount@數量".split(',')
 					}]
 				});
 				q_popAssign();
