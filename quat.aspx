@@ -725,8 +725,8 @@
 						<td colspan='2'><input id="txtTotalus"	type="text" class="txt c1 num"/></td>
 						<!--<td class="label2"><span> </span><a id='lblWeight' class="lbl"> </a></td>
 						<td colspan='2' ><input id="txtWeight" type="text" class="txt c1 num" /></td>-->
-						<td><span> </span><a id='lblApv' class="lbl apv"> </a></td>
-						<td><input id="txtApv" type="text" class="txt c1 apv" /></td>
+						<!--<td><span> </span><a id='lblApv' class="lbl apv"> </a></td>
+						<td><input id="txtApv" type="text" class="txt c1 apv" /></td>-->
 					</tr>
 					<tr class="tr10">
 						<td align="right">
@@ -756,7 +756,7 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1270px;">
+		<div class='dbbs' style="width: 1260px;">
 			<table id="tbbs" class='tbbs' border="1" cellpadding='2' cellspacing='1' >
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:40px;">
@@ -779,7 +779,7 @@
 					<td><input class="btn" id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
 					<td align="center">
 						<input id="txtProductno.*" type="text" class="txt c1" />
-						<input class="btn" id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
+						<input class="btn" id="btnProduct.*" type="button" value='.' style=" font-weight: bold;" />
 						<input id="txtNo3.*" type="text" class="txt c6" />
 					</td>
 					<td>

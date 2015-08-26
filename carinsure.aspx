@@ -159,8 +159,8 @@
 					<td class="td6" align="center" style="width:7%;"><a id='lblVmoney'> </a></td>
 					<td class="td6" align="center" style="width:7%;"><a id='lblMoney'> </a></td>
 					<td class="td7" align="center" style="width:6%;"><a id='lblKind'> </a></td>
-					<td class="td8" align="center" style="width:9%;"><a id='lblInsuresheet'> </a></td>
 					<td class="td9" align="center" style="width:9%;"><a id='lblInsurecard'> </a></td>
+					<td class="td8" align="center" style="width:9%;"><a id='lblInsuresheet'> </a></td>
 					<td class="td10" align="center" style="width:7%;"><a id='lblStopdate'> </a></td>
 					<td class="td11" align="center" ><a id='lblMemo'> </a></td>
 				</tr>
@@ -179,8 +179,8 @@
 					<td class="td6"><input class="txt" id="txtVmoney.*" type="text" style="width:95%; text-align: right;"  /></td>
 					<td class="td6"><input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"  /></td>
 					<td class="td7"><input class="txt" id="txtKind.*" type="text" style="width:95%;"  /></td>
-					<td class="td8"><input class="txt" id="txtInsuresheet.*" type="text" style="width:95%;"  /></td>
 					<td class="td9"><input class="txt" id="txtInsurecard.*" type="text" style="width:95%;"  /></td>
+					<td class="td8"><input class="txt" id="txtInsuresheet.*" type="text" style="width:95%;"  /></td>
 					<td class="td10"><input class="txt" id="txtStopdate.*" type="text" style="width:95%; text-align:center;"  /></td>
 					<td class="td11"><input class="txt" id="txtMemo.*" type="text" style="width:95%;"  /></td>
 				</tr>
