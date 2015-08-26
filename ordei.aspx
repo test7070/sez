@@ -389,9 +389,9 @@
         <div class="dview" id="dview" style="float: left;" >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewLcno'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:25%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:40%"><a id='vewLcno'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -412,109 +412,111 @@
 				<td> </td>
 		  </tr>
           	<tr class="tr2">
-               <td class="td1"><span> </span><a id="lblLcno" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblLcno" class="lbl"> </a></td>
                <td class="td2" colspan="2"><input id="txtLcno" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblLcdated" class="lbl"> </a></td>
+               <td class="td2" ><input id="txtLcdated" type="text" class="txt c1"/></td>
                <!--//依訂單
                	<td class="td4"><span> </span><a id="lblTrantype" class="lbl"></a></td>
                <td class="td5"><select id="cmbTrantype" class="txt c1"> </select></td>--> 
             </tr>
             <tr class="tr3">
-               <td class="td1"><span> </span><a id="lblBdock" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblBdock" class="lbl"> </a></td>
                <td class="td2" colspan="2"><input id="txtBdock" type="text" class="txt c1"/></td>
-               <td class="td4"><span> </span><a id="lblEdock" class="lbl"></a></td>
+               <td class="td4"><span> </span><a id="lblEdock" class="lbl"> </a></td>
                <td class="td5" colspan="2"><input id="txtEdock" type="text" class="txt c1"/></td>
                 
             </tr>
             <tr class="tr4">
-               <td class="td1"><span> </span><a id="lblConn" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblConn" class="lbl"> </a></td>
                <td class="td2" colspan="2"><input id="txtConn" type="text" class="txt c1"/></td>
-               <td class="td4"><span> </span><a id="lblGoal" class="lbl"></a></td>
+               <td class="td4"><span> </span><a id="lblGoal" class="lbl"> </a></td>
                <td class="td5" colspan="2"><input id="txtGoal" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblAgent" class="lbl btn"></a></td>
+               <td class="td1"><span> </span><a id="lblAgent" class="lbl btn"> </a></td>
                <td class="td2" colspan="2">
                		<input id="txtAgentno" type="text" class="txt c2"/>
                		<input id="txtAgent" type="text" class="txt c3"/>
                	</td>
-               <td class="td4"><span> </span><a id="lblBcomp" class="lbl btn"></a></td>
+               <td class="td4"><span> </span><a id="lblBcomp" class="lbl btn"> </a></td>
                <td class="td5" colspan="2">
                		<input id="txtBcompno" type="text" class="txt c2"/>
                		<input id="txtBcomp" type="text" class="txt c3"/>
                	</td> 
             </tr>
 			<tr class="trX">
-               <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"></a></td>
+               <td class="td1"><span> </span><a id="lblInspection_comp" class="lbl btn"> </a></td>
                <td class="td2" colspan="2">
                		<input id="txtInspection_compno" type="text" class="txt c2"/>
                		<input id="txtInspection_comp" type="text" class="txt c3"/>
                	</td>
-               <td class="td3"><span> </span><a id="lblTrancomp" class="lbl btn"></a></td>
+               <td class="td3"><span> </span><a id="lblTrancomp" class="lbl btn"> </a></td>
                <td class="td4" colspan="2">
                		<input id="txtTrancompno" type="text" class="txt c2"/>
                		<input id="txtTrancomp" type="text" class="txt c3"/>
                	</td>
             </tr>
             <tr class="trX">
-               <td class="td1"><span> </span><a id="lblBank" class="lbl btn"></a></td>
+               <td class="td1"><span> </span><a id="lblBank" class="lbl btn"> </a></td>
                <td class="td2" colspan="2">
                		<input id="txtBankno" type="text" class="txt c2"/>
                		<input id="txtBank" type="text" class="txt c3"/>
                </td>
-               <td class="td3"><span> </span><a id="lblNegotiatingbank" class="lbl btn"></a></td>
+               <td class="td3"><span> </span><a id="lblNegotiatingbank" class="lbl btn"> </a></td>
                <td class="td4" colspan="2">
                		<input id="txtNegotiatingbankno" type="text" class="txt c2"/>
                		<input id="txtNegotiatingbank" type="text" class="txt c3"/>
 				</td>
             </tr>
             <tr class="trX">
-               <td class="td1"><span> </span><a id="lblCommissionpercent" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblCommissionpercent" class="lbl"> </a></td>
                <td class="td2"><input id="txtCommissionpercent" type="text" class="txt num c1"/></td>
                <td>%</td>
-               <td class="td3"><span> </span><a id="lblAccount" class="lbl"></a></td>
+               <td class="td3"><span> </span><a id="lblAccount" class="lbl"> </a></td>
                <td class="td4" colspan="2"><input id="txtAccount" type="text" class="txt c1"/></td>
             </tr>
             <tr class="trX">
-               <td class="td1"><span> </span><a id="lblConsignee" class="lbl btn"></a></td>
+               <td class="td1"><span> </span><a id="lblConsignee" class="lbl btn"> </a></td>
                <td class="td2" colspan="2">
 					<input id="txtConsigneeno" type="text" class="txt c2"/>
 					<input id="txtConsignee" type="text" class="txt c3"/>
                </td>
-               <td class="td3"><span> </span><a id="lblNotify" class="lbl btn"></a></td>
+               <td class="td3"><span> </span><a id="lblNotify" class="lbl btn"> </a></td>
                <td class="td4" colspan="2">
                		<input id="txtNotifyno" type="text" class="txt c2"/>
                		<input id="txtNotify" type="text" class="txt c3"/>
                	</td>
             </tr>
             <tr class="trY">
-				<td class="td1"><span> </span><a id="lblInvoicememo" class="lbl"></a></td>
+				<td class="td1"><span> </span><a id="lblInvoicememo" class="lbl"> </a></td>
 				<td class="td2" colspan="5">
 				<!--<input id="txtInvoicememo" type="text" class="txt c1"/>-->
 				<textarea id="txtInvoicememo"  rows='15' cols='50' style="width:98%; height: 60px;"> </textarea>
 				</td>
             </tr>
             <tr class="trY">
-               <td class="td1"><span> </span><a id="lblPackinglistmemo" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblPackinglistmemo" class="lbl"> </a></td>
                <td class="td2" colspan="5">
                <!--<input id="txtPackinglistmemo" type="text" class="txt c1"/>-->
                <textarea id="txtPackinglistmemo"  rows='15' cols='50' style="width:98%; height: 60px;"> </textarea>
                </td> 
             </tr>
             <tr class="trZ">
-               <td class="td1"><span> </span><a id="lblTggno" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblTggno" class="lbl"> </a></td>
                <td class="td2" colspan="2"><input id="txtTgg" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblBusinesstype" class="lbl"></a></td>
+               <td class="td3"><span> </span><a id="lblBusinesstype" class="lbl"> </a></td>
                <td class="td4" colspan="2"><input id="txtBusinesstype" type="text" class="txt c1"/></td>
             </tr>
             <tr class="trZ">
-               <td class="td1"><span> </span><a id="lblCointype" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblCointype" class="lbl"> </a></td>
                <td class="td2" ><select id="cmbCoin"  class="txt c1"> </select></td>
                <td class="td3" ><input id="txtFloata" type="text" class="txt num c1"/></td>
-               <td class="td4"><span> </span><a id="lblPaymentterms" class="lbl"></a></td>
+               <td class="td4"><span> </span><a id="lblPaymentterms" class="lbl"> </a></td>
                <td class="td5" colspan="2"><input id="txtPaymentterms" type="text" class="txt c1"/></td>
             </tr>
              <tr class="tr4">
-				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"></a></td>
+				<td class="td1"><span> </span><a id="lblMarkno" class="lbl"> </a></td>
 				<td class="td2"><select id="cmbMarkno" class="txt c1"> </select></td> 
 		  	</tr>
             <tr class="tr5">
@@ -528,9 +530,9 @@
                </td> 
             </tr>
             <tr class="tr6">
-               <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
                <td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblWorker2" class="lbl"></a></td>
+               <td class="td3"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
                <td class="td4"><input id="txtWorker2" type="text" class="txt c1"/></td>
             </tr>
         </table>
