@@ -67,6 +67,7 @@
 
                 if (q_getPara('sys.project').toUpperCase() == 'GU') {
 					$('#btnPack').hide();
+					$('.isgenvcc').hide();
                 }
                 
                 $('#btnPack').click(function() {
@@ -351,11 +352,11 @@
 
             function btnDele() {
                 //_btnDele();
+                //刪除
                 if (!confirm(mess_dele))
                     return;
                 q_cur = 3;
                 q_func('qtxt.query.u3', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
-                //刪除
             }
 
             function btnCancel() {
@@ -586,7 +587,7 @@
 						<td><span> </span><a id="lblAmount" class="lbl"> </a></td>
 						<td><input id="txtAmount" type="text" class="txt c1 num" /></td>
 						<td><input id="btnPack" type="button"/></td>
-						<td><span style="float: left;"> </span>
+						<td class="isgenvcc"><span style="float: left;"> </span>
 							<input id="chkIsgenvcc" type="checkbox" style="float: left;"/>
 							<a id='lblIsgenvcc' class="lbl" style="float: left;"> </a>
 						</td>
