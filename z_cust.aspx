@@ -19,6 +19,19 @@
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_cust');
+                
+                $('#q_report').click(function(e) {
+					if(q_getPara('sys.project').toUpperCase()=='RB'){
+						var delete_report=999;
+						for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
+							if($('#q_report').data().info.reportData[i].report=='z_cust03')
+								delete_report=i;
+						}
+						if($('#q_report div div').text().indexOf('員工基本資料')>-1){
+							$('#q_report div div').eq(delete_report).hide();
+						}
+					}
+				});
             });
             function q_gfPost() {
                 $('#q_report').q_report({
@@ -71,6 +84,7 @@
                 q_getFormat();
                 q_langShow();
                 $('#chkXoption03').children('input').attr('checked', 'checked');
+                
             }
 
             function q_boxClose(s2) {

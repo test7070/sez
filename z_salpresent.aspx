@@ -75,7 +75,7 @@
 					$('#txtSssno2b').val(r_name);
 					$('#btnSssno1').data('events')['click'][0].handler=function(){};
 					$('#btnSssno2').data('events')['click'][0].handler=function(){};
-					var delete_report=0;
+					var delete_report=999;
 					for(var i=0;i<$('#q_report').data().info.reportData.length;i++){
 						if($('#q_report').data().info.reportData[i].report=='z_salpresent2')
 							delete_report=i;

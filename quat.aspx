@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -14,7 +14,7 @@
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
 			}
-
+			q_copy=1;
 			q_desc = 1;
 			q_tables = 's';
 			var q_name = "quat";
@@ -54,58 +54,6 @@
 				}
 				mainForm(1);
 			}
-
-			function currentData() {
-			}
-
-			currentData.prototype = {
-				data : [],
-				exclude : ['txtNoa', 'chkEnda'], //bbm
-				excludes : ['chkEnda'], //bbs
-				copy : function() {
-					this.data = new Array();
-					for (var i in fbbm) {
-						var isExclude = false;
-						for (var j in this.exclude) {
-							if (fbbm[i] == this.exclude[j]) {
-								isExclude = true;
-								break;
-							}
-						}
-						if (!isExclude) {
-							this.data.push({
-								field : fbbm[i],
-								value : $('#' + fbbm[i]).val()
-							});
-						}
-					}
-					//bbs
-					for (var i in fbbs) {
-						for (var j = 0; j < q_bbsCount; j++) {
-							var isExcludes = false;
-							for (var k in this.excludes) {
-								if (fbbs[i] == this.excludes[k]) {
-									isExcludes = true;
-									break;
-								}
-							}
-							if (!isExcludes) {
-								this.data.push({
-									field : fbbs[i] + '_' + j,
-									value : $('#' + fbbs[i] + '_' + j).val()
-								});
-							}
-						}
-					}
-				},
-				/*貼上資料*/
-				paste : function() {
-					for (var i in this.data) {
-						$('#' + this.data[i].field).val(this.data[i].value);
-					}
-				}
-			};
-			var curData = new currentData();
 
 			function sum() {
 				var t1 = 0, t_unit, t_mount, t_weight = 0, t_total = 0;
@@ -336,11 +284,7 @@
 			}
 
 			function btnIns() {
-				if ($('#checkCopy').is(':checked'))
-					curData.copy();
 				_btnIns();
-				if ($('#checkCopy').is(':checked'))
-					curData.paste();
 				
 				$('#chkIsproj').attr('checked', true);
 				
@@ -648,13 +592,7 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm" style="width: 872px;">
 					<tr class="tr1">
-						<td class="td1" style="width: 108px;">
-							<input id="checkCopy" type="checkbox" style="float:left;"/>
-							<span> </span>
-							<a id='lblCopy' class="lbl" style="float:left;"> </a>
-							<span> </span>
-							<a id='lblStype' class="lbl"> </a>
-						</td>
+						<td class="td1" style="width: 108px;"><span> </span><a id='lblStype' class="lbl"> </a></td>
 						<td class="td2" style="width: 108px;"><select id="cmbStype" class="txt c1"> </select></td>
 						<td class="td3" style="width: 108px;"><span> </span><a id='lblOdate' class="lbl"> </a></td>
 						<td class="td4" style="width: 108px;"><input id="txtOdate" type="text" class="txt c1"/></td>
