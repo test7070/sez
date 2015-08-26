@@ -146,6 +146,9 @@
 
 				//後面有需要的公司在顯示
 				$('.btnUcam').hide();// 嘜頭
+				if (q_getPara('sys.project').toUpperCase()=='GU'){
+					$('.btnUcam').show();
+				}
 				$('#btnCustm').hide();//稅務資料
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					var xy_taxtype='',xy_taxtmp=q_getPara('sys.taxtype').split(',');
