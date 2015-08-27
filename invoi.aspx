@@ -221,14 +221,18 @@
 			function q_stPost() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return false;
-				if(q_cur != 2)
+				if(q_cur == 2 && !emp($('#txtRc2no').val()))
+					q_func('rc2_post.post.modi' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+$('#txtRc2no').val()+',0');
+				else
 					q_func('qtxt.query.u2', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));//新增,修改
 			}
 			
 			function q_funcPost(t_func, result) {
 				switch(t_func) {
+					case 'rc2_post.post.modi':
+						q_func('qtxt.query.u1', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));
+						break;
 					case 'qtxt.query.u1':
-						//呼叫workf.post
 						q_func('qtxt.query.u2', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));//新增,修改
 						break;
 					case 'qtxt.query.u2':
@@ -238,15 +242,14 @@
 							$('#txtRc2no').val(as[0].rc2no);
 							
 							if(as[0].rc2no.length>0){
-								q_func('rc2_post.post' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+as[0].rc2no+',0');
 								q_func('rc2_post.post' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+as[0].rc2no+',1');
 							}
 						}
 						break;
+					case 'rc2_post.post.dele':
+						q_func('qtxt.query.u3', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));//刪除
+						break;
 					case 'qtxt.query.u3':
-						if($('#txtRc2no').val().length>0){
-							q_func('rc2_post.post' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+$('#txtRc2no').val()+',0');
-						}
 						_btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
 						break;
 				}
@@ -258,9 +261,6 @@
 				xmlSql = '';
 				if (q_cur == 2) 
 					xmlSql = q_preXml();
-					
-				if(q_cur == 2)
-					q_func('qtxt.query.u1', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));
 	
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
@@ -326,7 +326,9 @@
 				if (!confirm(mess_dele))
 					return;
 				q_cur = 3;
-				q_func('qtxt.query.u3', 'invoi.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;'+q_getPara('sys.key_rc2')+';'+q_getPara('rc2.pricePrecision')+';'+r_userno+';'+r_name+';'+q_getPara('sys.dateformat'));//刪除				
+				if($('#txtRc2no').val().length>0){
+					q_func('rc2_post.post.dele' ,(dec($('#txtDatea').val().substr(0,4))-1911)+','+$('#txtRc2no').val()+',0');
+				}
 			}
 	
 			function btnCancel() {
