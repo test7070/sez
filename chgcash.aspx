@@ -685,6 +685,7 @@
 					<td  align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:80px;"><a id='lblPart_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblProj_s'>專案代號</a></td>
 					<td align="center" style="width:200px;"><a id='lblAcc_s'> </a></td>
 					<td align="center" style="width:300px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
@@ -699,6 +700,7 @@
 						<select id="cmbPartno.*" class="txt c1"> </select>
 						<input id="txtPart.*"  type="text" style="display: none;"/>
 					</td>
+					<td><input type="text" id="txtProj.*"  /></td>
 					<td>
 						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 						<input type="text" id="txtAcc1.*"  style="width:35%;"/>
