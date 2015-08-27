@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -91,7 +91,12 @@
                         t_where = "noa='" + t_noa + "'";
                         q_box("vcc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + (dec($('#txtDatea').val().substr(0, 4)) - 1911), 'vcc', "95%", "95%", '');
                     }
-                });
+                }).change(function() {
+                	if (q_getPara('sys.project').toUpperCase() == 'GU' && !emp($('#txtVccno').val())) {
+                		t_where = "where=^^ noa='" + $('#txtVccno').val() + "'^^";
+                    	q_gt('view_vcc', t_where, 0, 0, 0, "getvcc", r_accy);
+                	}
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -152,6 +157,72 @@
                             wrServer($('#txtNoa').val());
                         }
                         break;
+					case 'getvcc':
+						var as = _q_appendData("view_vcc", "", true);
+                        if (as[0] != undefined) {
+                        	$('#txtCustno').val(as[0].custno);
+                        	$('#txtComp').val(as[0].comp);
+                        	if(as[0].addr2.length>0)
+                        		$('#txtAddr').val(as[0].addr2);
+                        	else
+                        		$('#txtAddr').val(as[0].addr);
+                        		
+                        	$('#txtShipped').val(as[0].acomp);
+                        		
+                        	if(as[0].trantype=='海運')
+                        		$('#txtPer').val('sea freight');	
+                        	if(as[0].trantype=='空運')
+                        		$('#txtPer').val('air freight');
+                        	if(as[0].trantype=='快遞')
+                        		$('#txtPer').val('express');	
+                        	
+                        	$('#txtCno').val(as[0].cno);
+                        	$('#txtPno').val(as[0].ordeno);	
+                        	$('#cmbCoin').val(as[0].coin);
+                        	$('#txtFloata').val(as[0].floata);
+                        	
+	                        t_where = "where=^^ noa='" + $('#txtVccno').val() + "'^^";
+	                    	q_gt('boaj', t_where, 0, 0, 0, "getboaj", r_accy);
+	                    	
+	                    	t_where = "where=^^ noa='" + as[0].ordeno + "'^^";
+	                    	q_gt('view_orde', t_where, 0, 0, 0, "getorde", r_accy);	
+                        }
+						break;
+					case 'getboaj':
+						var as = _q_appendData("boaj", "", true);
+                        if (as[0] != undefined) {
+                        	$('#txtSailing').val(as[0].saildate);
+                        	$('#txtClosing').val(as[0].cldate);
+                        	$('#txtFroma').val(as[0].bdock);
+                        	$('#txtToa').val(as[0].edock);
+                        	$('#txtEtd').val(as[0].etd);
+                        	$('#txtEta').val(as[0].eta);
+                        }
+						break;
+					case 'getorde':
+						var as = _q_appendData("view_orde", "", true);
+                        if (as[0] != undefined) {
+							$('#txtContract').val(as[0].contract);
+							t_where = "where=^^ noa='" + as[0].noa + "'^^";
+	                    	q_gt('view_ordes', t_where, 0, 0, 0, "getordes", r_accy);	
+							
+							t_where = "where=^^ noa='" + as[0].noa + "'^^";
+	                    	q_gt('ordei', t_where, 0, 0, 0, "getordei", as[0].accy);
+						}
+						break;
+					case 'getordes':
+						var as = _q_appendData("view_ordes", "", true);
+                        
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtDescription,txtUnit,txtQuantity,txtPrice,txtAmount,txtMemo'
+						, as.length, as, 'productno,product,unit,mount,price,total,memo', 'txtProductno,txtProduct');
+						break;
+					case 'getordei':
+						var as = _q_appendData("ordei", "", true);
+                        if (as[0] != undefined) {
+							$('#txtLcno').val(as[0].lcno);
+							$('#txtAttn').val(as[0].conn);
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -245,17 +316,24 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                if (q_cur != 2)
-                    q_func('qtxt.query.u2', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
-                //新增,修改
+                //修改出貨單號
+                if (q_getPara('sys.project').toUpperCase() == 'GU') {
+                	q_func('qtxt.query.u2', 'invo.txt,changvccinvo,' + encodeURI(r_accy)+';'+ encodeURI($('#txtNoa').val()) );
+                }else{
+                	if(q_cur == 2 && !emp($('#txtVccno').val()))
+	                	q_func('vcc_post.post.modi', (dec($('#txtDatea').val().substr(0, 4)) - 1911) + ',' + $('#txtVccno').val() + ',0');
+					else                	
+	                    q_func('qtxt.query.u2', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
+                }
             }
 
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'vcc_post.post.modi':
+                		q_func('qtxt.query.u1', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
+                		break;
                     case 'qtxt.query.u1':
-                        //呼叫workf.post
                         q_func('qtxt.query.u2', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';1;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
-                        //新增,修改
                         break;
                     case 'qtxt.query.u2':
                         var as = _q_appendData("tmp0", "", true, true);
@@ -264,15 +342,14 @@
                             $('#txtVccno').val(as[0].vccno);
 
                             if (as[0].vccno.length > 0) {
-                                q_func('vcc_post.post', (dec($('#txtDatea').val().substr(0, 4)) - 1911) + ',' + as[0].vccno + ',0');
                                 q_func('vcc_post.post', (dec($('#txtDatea').val().substr(0, 4)) - 1911) + ',' + as[0].vccno + ',1');
                             }
                         }
                         break;
+					case 'vcc_post.post.dele':
+						q_func('qtxt.query.u3', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
+						break;
                     case 'qtxt.query.u3':
-                        if ($('#txtVccno').val().length > 0) {
-                            q_func('vcc_post.post', (dec($('#txtDatea').val().substr(0, 4)) - 1911) + ',' + $('#txtVccno').val() + ',0');
-                        }
                         _btnOk($('#txtNoa').val(), bbmKey[0], ( bbsHtm ? bbsKey[1] : ''), '', 3)
                         break;
                 }
@@ -284,9 +361,6 @@
                 xmlSql = '';
                 if (q_cur == 2)
                     xmlSql = q_preXml();
-
-                if (q_cur == 2)
-                    q_func('qtxt.query.u1', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
@@ -356,7 +430,9 @@
                 if (!confirm(mess_dele))
                     return;
                 q_cur = 3;
-                q_func('qtxt.query.u3', 'invo.txt,post,' + encodeURI($('#txtNoa').val()) + ';0;' + q_getPara('sys.key_vcc') + ';' + q_getPara('vcc.pricePrecision') + ';' + r_userno + ';' + r_name + ';' + q_getPara('sys.dateformat'));
+                if ($('#txtVccno').val().length > 0) {
+					q_func('vcc_post.post.dele', (dec($('#txtDatea').val().substr(0, 4)) - 1911) + ',' + $('#txtVccno').val() + ',0');
+				}
             }
 
             function btnCancel() {
