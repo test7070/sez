@@ -590,7 +590,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1900px;
+                width: 2000px;
             }
             .tbbs a {
                 font-size: medium;
@@ -666,7 +666,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:120px;"><a> 登錄日期<br>交運日期</a></td>
+					<td align="center" style="width:150px;"><a> 登錄日期<br>交運日期</a></td>
 					<td align="center" style="width:100px;"><a> 車牌</a></td>
 					<td align="center" style="width:100px;"><a> 司機</a></td>
 					<td align="center" style="width:100px;"><a> 客戶</a></td>
