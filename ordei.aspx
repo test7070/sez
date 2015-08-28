@@ -197,7 +197,8 @@
        
         function refresh(recno) {
             _refresh(recno);
-            
+            $('#txtInvoicememo').val(replaceAll($('#txtInvoicememo').val(),'chr(10)','\n'));
+			$('#txtPackinglistmemo').val(replaceAll($('#txtPackinglistmemo').val(),'chr(10)','\n')) ;
             $('#txtMain').val(replaceAll($('#txtMain').val(),'chr(10)','\n'));
             $('#txtSide').val(replaceAll($('#txtSide').val(),'chr(10)','\n')) ;
             $('#txtMain').val($('#txtMain').val().replace(/　/g,' '));
