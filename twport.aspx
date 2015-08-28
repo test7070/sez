@@ -31,6 +31,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            brwCount = 5;
             
             q_desc = 1;
             aPop = new Array(
@@ -62,51 +63,20 @@
         		q_gt('carteam', '', 0, 0, 0, 'init_1');
 
                 //export
-                $('#divExport').mousedown(function(e) {
-                	if(e.button==2){               		
-	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
-	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
-                	}
-                }).mousemove(function(e) {
-                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
-                		$(this).css('top',$(this).data('xtop')+e.clientY);
-                		$(this).css('left',$(this).data('xleft')+e.clientX);
-                	}
-                }).bind('contextmenu', function(e) {
-	            	if(e.target.nodeName!='INPUT')
-                		e.preventDefault();
-		        });
-                
-                $('#btn2').click(function(e){
-                	$('#divExport').toggle();
-                	$('#textBBdate').focus();
-                });
-                $('#btnDivexport').click(function(e){
-                	$('#divExport').hide();
-                });
-                $('#textBBdate').keydown(function(e){
-                	if(e.which==13)
-                		$('#textEEdate').focus();		
-                });
-                $('#textEEdate').keydown(function(e){
-                	if(e.which==13)
-                		$('#btnDivexport').focus();		
-                });
                 $('#btnExport').click(function(e){
-                	var t_accy = r_accy;
-                	var t_bdate = $.trim($('#textBBdate').val());
-                	var t_edate = $.trim($('#textEEdate').val());
-                	if(r_accy.length==0 || t_bdate.length==0 || t_edate==0){
-                		alert('參數異常。');
-                		return;
+                	var t_noa = $.trim($('#txtNoa').val());
+                	if (confirm("將匯出資料至出車單，是否繼續?")){
+                		Lock(1,{opacity:0});
+                		q_func('qtxt.query.twport2tran', 'twport.txt,twport2tran,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
                 	}
-                	Lock();
-                	q_func('qtxt.query.twport2tran', 'twport.txt,twport2tran,' + encodeURI(r_accy) + ';' + encodeURI(t_bdate) + ';' + encodeURI(t_edate));
                 });
                 
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.twport2tran':
+                    	location.reload();
+                    break;
                     default:
                     break;
                 }
@@ -325,16 +295,16 @@
                 		$('#txtDiscount_'+i).change(function(){
                 			sum();
                 		});
-                		$('#txtTranno_'+i).click(function(e){
-                			var t_noa = $.trim($(this).val());
+                		$('#txtTranno_'+i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtTranno_', '');
+                            var t_noa = $.trim($(this).val());
+                            var t_accy = $('#txtTranaccy_'+n).val();
                 			if(t_noa.length>0)
-                				q_pop('', "trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
-                		});
-                		$('#txtTransvcceno_'+i).click(function(e){
-                			var t_noa = $.trim($(this).val());
-                			if(t_noa.length>0)
-                				q_pop('', "transvcce.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTransvcce'), true);
-                		});
+                				q_pop('', "trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + t_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
+                        });
+                		
                     }
                 }
                 _bbsAssign();
@@ -414,17 +384,10 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 $('#btnPlus').attr('disabled','disabled');
-                if(q_cur==1){
-                	$('#btn1').removeAttr('disabled');
-                }else{
-                	$('#btn1').attr('disabled','disabled');
-                	$('#divImport').hide();
-                }
                 if(q_cur==1 || q_cur==2){
-                	$('#btn2').attr('disabled','disabled');
-                	$('#divExport').hide();
+                	$('#btnExport').attr('disabled','disabled');
                 }else{
-                	$('#btn2').removeAttr('disabled');
+                	$('#btnExport').removeAttr('disabled');
                 }
             }
             function btnMinus(id) {
@@ -627,7 +590,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1900px;
+                width: 2000px;
             }
             .tbbs a {
                 font-size: medium;
@@ -649,32 +612,6 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:120px;background:RGB(237,237,237);"> 
-			<table style="border:4px solid gray; width:100%; height: 100%;">
-				<tr style="height:1px;background-color: pink;">
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-				</tr>
-				<tr>		
-					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;color: blue;"><a>登錄日期</a></td>
-					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
-						<input type="text" id="textBBdate" style="float:left;width:40%;"/>
-						<span style="float:left;width:5%;">~</span>
-						<input type="text" id="textEEdate" style="float:left;width:40%;"/>
-					</td>
-				</tr>	
-				<tr>
-					<td colspan="2" align="center" style="background-color: pink;">
-						<input type="button" id="btnExport" value="匯出"/>	
-					</td>
-					<td colspan="2" align="center" style=" background-color: pink;">
-						<input type="button" id="btnDivexport" value="關閉"/>	
-					</td>
-				</tr>
-			</table>
-		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="dmain">
 			<div class="dview" id="dview">
@@ -717,7 +654,7 @@
 					<tr>
 						<td><span> </span><a class="lbl">匯入時間</a></td>
 						<td colspan="2"><input id="txtQtime" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btn2" value="匯出" style="float:left;"/></td>
+						<td><input type="button" id="btnExport" value="匯出" style="float:left;"/></td>
 					</tr>
 				</table>
 			</div>
@@ -729,15 +666,16 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:120px;"><a> 登錄日期<br>交運日期</a></td>
+					<td align="center" style="width:150px;"><a> 登錄日期<br>交運日期</a></td>
 					<td align="center" style="width:100px;"><a> 車牌</a></td>
 					<td align="center" style="width:100px;"><a> 司機</a></td>
 					<td align="center" style="width:100px;"><a> 客戶</a></td>
 					<td align="center" style="width:100px;"><a> 計算類別<br>車隊 </a></td>
-					<td align="center" style="width:150px;"><a> 起迄地點</a></td>
+					<td align="center" style="width:200px;"><a> 起迄地點</a></td>
 					<td align="center" style="width:100px;"><a> 產品</a></td>
-					<td align="center" style="width:200px;"><a> 櫃號</a></td>
-					<td align="center" style="width:100px;"><a> 里程數<br>起/迄</a></td>
+					<td align="center" style="width:220px;"><a> 櫃號</a></td>
+					<td align="center" style="width:40px;"><a> 檢查</a></td>
+					<td align="center" style="width:150px;"><a> PO<br>憑單</a></td>
 					<td align="center" style="width:100px;"><a> 收數量</a></td>
 					<td align="center" style="width:120px;"><a> 客戶單價</a></td>
 					<td align="center" style="width:100px;"><a> 收金額</a></td>
@@ -746,10 +684,10 @@
 					<td align="center" style="width:120px;"><a> 外車單價</a></td>
 					<td align="center" style="width:100px;"><a> 折扣</a></td>
 					<td align="center" style="width:100px;"><a> 發金額</a></td>
-					
+					<td align="center" style="width:100px;"><a> 送達時間</a></td>
 					<td align="center" style="width:100px;"><a> 通行費<br>寄櫃費 </a></td>
 					<td align="center" style="width:100px;"><a> 總重<br>淨重 </a></td>
-					<td align="center" style="width:100px;"><a> PO<br>憑單</a></td>
+					<td align="center" style="width:100px;"><a> 里程數<br>起/迄</a></td>
 					<td align="center" style="width:100px;"><a> 外務</a></td>
 					<td align="center" style="width:200px;"><a> 備註</a></td>
 					<!--<td align="center" style="width:200px;"><a> 派車單</a></td>-->
@@ -793,11 +731,10 @@
 						<input type="text" id="txtCaseno.*" style="width:95%;float:left;" />
 						<input type="text" id="txtCaseno2.*" style="width:95%;float:left;display:none;" />
 					</td>
+					<td><input type="checkbox" id="chkValidation.*" style="width:95%;float:left;" /></td>
 					<td>
-						<input type="text" id="txtBmiles.*" style="width:95%;float:left;text-align: right;" />
-						<input type="text" id="txtEmiles.*" style="width:95%;float:left;text-align: right;color:darkred;" />
-						<input type="text" id="txtMiles.*" style="width:95%;float:left;text-align: right;display:none;" />
-						<input type="text" id="txtGps.*" style="width:20%;float:left;text-align: right;display:none;" />
+						<input type="text" id="txtPo.*" style="width:95%;float:left;" />
+						<input type="text" id="txtCustorde.*" style="width:95%;float:left;" />
 					</td>
 					<td>
 						<input type="text" id="txtInmount.*" style="width:95%;text-align: right;" />
@@ -815,6 +752,7 @@
 					<td><input type="text" id="txtPrice3.*" style="width:95%;text-align: right;" /></td>
 					<td><input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" /></td>
 					<td><input type="text" id="txtTotal2.*" style="width:95%;text-align: right;" /></td>					
+					<td><input type="text" id="txtDtime.*" style="width:95%;" /></td>					
 					<td>
 						<input type="text" id="txtTolls.*" style="width:95%;text-align: right;" />
 						<input type="text" id="txtReserve.*" style="width:95%;text-align: right;" />
@@ -824,8 +762,10 @@
 						<input type="text" id="txtWeight.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-						<input type="text" id="txtPo.*" style="width:95%;float:left;" />
-						<input type="text" id="txtCustorde.*" style="width:95%;float:left;" />
+						<input type="text" id="txtBmiles.*" style="width:95%;float:left;text-align: right;" />
+						<input type="text" id="txtEmiles.*" style="width:95%;float:left;text-align: right;color:darkred;" />
+						<input type="text" id="txtMiles.*" style="width:95%;float:left;text-align: right;display:none;" />
+						<input type="text" id="txtGps.*" style="width:20%;float:left;text-align: right;display:none;" />
 					</td>
 					<td>
 						<input type="text" id="txtSalesno.*" style="width:95%;float:left;" />
@@ -841,6 +781,7 @@
 					<td>
 						<input type="text" id="txtTranno.*" style="width:95%;" />
 						<input type="text" id="txtTrannoq.*" style="display:none;" />
+						<input type="text" id="txtTranaccy.*" style="display:none;" />
 					</td>
 				</tr>
 			</table>
