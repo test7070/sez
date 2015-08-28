@@ -325,16 +325,16 @@
                 		$('#txtDiscount_'+i).change(function(){
                 			sum();
                 		});
-                		$('#txtTranno_'+i).click(function(e){
-                			var t_noa = $.trim($(this).val());
+                		$('#txtTranno_'+i).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtTranno_', '');
+                            var t_noa = $.trim($(this).val());
+                            var t_accy = $('#txtTranaccy_'+n).val();
                 			if(t_noa.length>0)
-                				q_pop('', "trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
-                		});
-                		$('#txtTransvcceno_'+i).click(function(e){
-                			var t_noa = $.trim($(this).val());
-                			if(t_noa.length>0)
-                				q_pop('', "transvcce.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + r_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTransvcce'), true);
-                		});
+                				q_pop('', "trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='"+t_noa+"';" + t_accy + '_' + r_cno+";", 'trans', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
+                        });
+                		
                     }
                 }
                 _bbsAssign();
@@ -737,6 +737,7 @@
 					<td align="center" style="width:150px;"><a> 起迄地點</a></td>
 					<td align="center" style="width:100px;"><a> 產品</a></td>
 					<td align="center" style="width:200px;"><a> 櫃號</a></td>
+					<td align="center" style="width:40px;"><a> 檢查</a></td>
 					<td align="center" style="width:100px;"><a> 里程數<br>起/迄</a></td>
 					<td align="center" style="width:100px;"><a> 收數量</a></td>
 					<td align="center" style="width:120px;"><a> 客戶單價</a></td>
@@ -793,6 +794,7 @@
 						<input type="text" id="txtCaseno.*" style="width:95%;float:left;" />
 						<input type="text" id="txtCaseno2.*" style="width:95%;float:left;display:none;" />
 					</td>
+					<td><input type="checkbox" id="chkValidation.*" style="width:95%;float:left;" /></td>
 					<td>
 						<input type="text" id="txtBmiles.*" style="width:95%;float:left;text-align: right;" />
 						<input type="text" id="txtEmiles.*" style="width:95%;float:left;text-align: right;color:darkred;" />
@@ -841,6 +843,7 @@
 					<td>
 						<input type="text" id="txtTranno.*" style="width:95%;" />
 						<input type="text" id="txtTrannoq.*" style="display:none;" />
+						<input type="text" id="txtTranaccy.*" style="display:none;" />
 					</td>
 				</tr>
 			</table>
