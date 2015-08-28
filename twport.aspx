@@ -384,17 +384,10 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 $('#btnPlus').attr('disabled','disabled');
-                if(q_cur==1){
-                	$('#btn1').removeAttr('disabled');
-                }else{
-                	$('#btn1').attr('disabled','disabled');
-                	$('#divImport').hide();
-                }
                 if(q_cur==1 || q_cur==2){
-                	$('#btn2').attr('disabled','disabled');
-                	$('#divExport').hide();
+                	$('#btnExport').attr('disabled','disabled');
                 }else{
-                	$('#btn2').removeAttr('disabled');
+                	$('#btnExport').removeAttr('disabled');
                 }
             }
             function btnMinus(id) {
@@ -678,11 +671,11 @@
 					<td align="center" style="width:100px;"><a> 司機</a></td>
 					<td align="center" style="width:100px;"><a> 客戶</a></td>
 					<td align="center" style="width:100px;"><a> 計算類別<br>車隊 </a></td>
-					<td align="center" style="width:150px;"><a> 起迄地點</a></td>
+					<td align="center" style="width:200px;"><a> 起迄地點</a></td>
 					<td align="center" style="width:100px;"><a> 產品</a></td>
-					<td align="center" style="width:200px;"><a> 櫃號</a></td>
+					<td align="center" style="width:220px;"><a> 櫃號</a></td>
 					<td align="center" style="width:40px;"><a> 檢查</a></td>
-					<td align="center" style="width:100px;"><a> 里程數<br>起/迄</a></td>
+					<td align="center" style="width:150px;"><a> PO<br>憑單</a></td>
 					<td align="center" style="width:100px;"><a> 收數量</a></td>
 					<td align="center" style="width:120px;"><a> 客戶單價</a></td>
 					<td align="center" style="width:100px;"><a> 收金額</a></td>
@@ -691,10 +684,10 @@
 					<td align="center" style="width:120px;"><a> 外車單價</a></td>
 					<td align="center" style="width:100px;"><a> 折扣</a></td>
 					<td align="center" style="width:100px;"><a> 發金額</a></td>
-					
+					<td align="center" style="width:100px;"><a> 送達時間</a></td>
 					<td align="center" style="width:100px;"><a> 通行費<br>寄櫃費 </a></td>
 					<td align="center" style="width:100px;"><a> 總重<br>淨重 </a></td>
-					<td align="center" style="width:100px;"><a> PO<br>憑單</a></td>
+					<td align="center" style="width:100px;"><a> 里程數<br>起/迄</a></td>
 					<td align="center" style="width:100px;"><a> 外務</a></td>
 					<td align="center" style="width:200px;"><a> 備註</a></td>
 					<!--<td align="center" style="width:200px;"><a> 派車單</a></td>-->
@@ -740,10 +733,8 @@
 					</td>
 					<td><input type="checkbox" id="chkValidation.*" style="width:95%;float:left;" /></td>
 					<td>
-						<input type="text" id="txtBmiles.*" style="width:95%;float:left;text-align: right;" />
-						<input type="text" id="txtEmiles.*" style="width:95%;float:left;text-align: right;color:darkred;" />
-						<input type="text" id="txtMiles.*" style="width:95%;float:left;text-align: right;display:none;" />
-						<input type="text" id="txtGps.*" style="width:20%;float:left;text-align: right;display:none;" />
+						<input type="text" id="txtPo.*" style="width:95%;float:left;" />
+						<input type="text" id="txtCustorde.*" style="width:95%;float:left;" />
 					</td>
 					<td>
 						<input type="text" id="txtInmount.*" style="width:95%;text-align: right;" />
@@ -761,6 +752,7 @@
 					<td><input type="text" id="txtPrice3.*" style="width:95%;text-align: right;" /></td>
 					<td><input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" /></td>
 					<td><input type="text" id="txtTotal2.*" style="width:95%;text-align: right;" /></td>					
+					<td><input type="text" id="txtDtime.*" style="width:95%;" /></td>					
 					<td>
 						<input type="text" id="txtTolls.*" style="width:95%;text-align: right;" />
 						<input type="text" id="txtReserve.*" style="width:95%;text-align: right;" />
@@ -770,8 +762,10 @@
 						<input type="text" id="txtWeight.*" style="width:95%;text-align: right;" />
 					</td>
 					<td>
-						<input type="text" id="txtPo.*" style="width:95%;float:left;" />
-						<input type="text" id="txtCustorde.*" style="width:95%;float:left;" />
+						<input type="text" id="txtBmiles.*" style="width:95%;float:left;text-align: right;" />
+						<input type="text" id="txtEmiles.*" style="width:95%;float:left;text-align: right;color:darkred;" />
+						<input type="text" id="txtMiles.*" style="width:95%;float:left;text-align: right;display:none;" />
+						<input type="text" id="txtGps.*" style="width:20%;float:left;text-align: right;display:none;" />
 					</td>
 					<td>
 						<input type="text" id="txtSalesno.*" style="width:95%;float:left;" />

@@ -14,7 +14,9 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "workj_s";
-			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
+			aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', '0txtCustno', 'cust_b.aspx']
+				,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', '0txtDriverno', 'driver_b.aspx']
+                ,['txtCarno', 'lblCarno', 'car2', 'a.noa', '0txtCarno', 'car2_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -86,15 +88,15 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblCarno'>車牌</a></td>
 					<td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblDriverno'>司機編號</a></td>
 					<td><input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCaseno'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblCaseno'>櫃號</a></td>
 					<td><input class="txt" id="txtCaseno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
