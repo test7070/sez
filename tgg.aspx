@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -95,6 +95,10 @@
 				}else{
 					q_cmbParse("cmbTypea", q_getPara('tgg.typea'));
 				}*/
+				if(q_getPara('sys.project').toUpperCase()=='XY'){
+					q_cmbParse("cmbConn", q_getPara('sys.taxtype'));
+				}
+				
 				q_gt('tggtype', '', 0, 0, 0, "tggtype");
 				
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
@@ -622,7 +626,7 @@
 						<td colspan="2"><input id="txtMobile" type="text" class="txt c1"/></td>
 						<td><input id="btnConn" type="button"/></td>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"></select></td>
+						<td><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
@@ -653,7 +657,7 @@
 						</td>
 					</tr>
 					<tr class="tr12">
-						<td><span> </span><a id="lblEmail" class="lbl"></a></td>
+						<td><span> </span><a id="lblEmail" class="lbl"> </a></td>
 						<td colspan="5"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -681,6 +685,8 @@
 							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
 							<input id="txtSales" type="text" style="float:left; width:60%;"/>
 						</td>
+						<td class="isXY"><span> </span><a class="lbl isXY" >稅別</a></td>
+						<td class="isXY"><select id="cmbConn" class="txt c1 isXY"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblService' class="lbl"> </a></td>
@@ -708,7 +714,7 @@
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td><input id="txtPaytype" type="text" class="txt c1"/></td>
 						<td>
-							<select id="combPaytype" style="float:left; width:20px;"></select>
+							<select id="combPaytype" style="float:left; width:20px;"> </select>
 							<span> </span><a id='lblTrantype' class="lbl"> </a>
 						</td>
 						<td><select id="cmbTrantype" class="txt c1"> </select></td>
