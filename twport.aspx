@@ -31,6 +31,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            brwCount = 5;
             
             q_desc = 1;
             aPop = new Array(
@@ -62,51 +63,20 @@
         		q_gt('carteam', '', 0, 0, 0, 'init_1');
 
                 //export
-                $('#divExport').mousedown(function(e) {
-                	if(e.button==2){               		
-	                	$(this).data('xtop',parseInt($(this).css('top')) - e.clientY);
-	                	$(this).data('xleft',parseInt($(this).css('left')) - e.clientX);
-                	}
-                }).mousemove(function(e) {
-                	if(e.button==2 && e.target.nodeName!='INPUT'){             	
-                		$(this).css('top',$(this).data('xtop')+e.clientY);
-                		$(this).css('left',$(this).data('xleft')+e.clientX);
-                	}
-                }).bind('contextmenu', function(e) {
-	            	if(e.target.nodeName!='INPUT')
-                		e.preventDefault();
-		        });
-                
-                $('#btn2').click(function(e){
-                	$('#divExport').toggle();
-                	$('#textBBdate').focus();
-                });
-                $('#btnDivexport').click(function(e){
-                	$('#divExport').hide();
-                });
-                $('#textBBdate').keydown(function(e){
-                	if(e.which==13)
-                		$('#textEEdate').focus();		
-                });
-                $('#textEEdate').keydown(function(e){
-                	if(e.which==13)
-                		$('#btnDivexport').focus();		
-                });
                 $('#btnExport').click(function(e){
-                	var t_accy = r_accy;
-                	var t_bdate = $.trim($('#textBBdate').val());
-                	var t_edate = $.trim($('#textEEdate').val());
-                	if(r_accy.length==0 || t_bdate.length==0 || t_edate==0){
-                		alert('參數異常。');
-                		return;
+                	var t_noa = $.trim($('#txtNoa').val());
+                	if (confirm("將匯出資料至出車單，是否繼續?")){
+                		Lock(1,{opacity:0});
+                		q_func('qtxt.query.twport2tran', 'twport.txt,twport2tran,' + encodeURI(t_noa) + ';' + encodeURI(r_name));
                 	}
-                	Lock();
-                	q_func('qtxt.query.twport2tran', 'twport.txt,twport2tran,' + encodeURI(r_accy) + ';' + encodeURI(t_bdate) + ';' + encodeURI(t_edate));
                 });
                 
             }
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                	case 'qtxt.query.twport2tran':
+                    	location.reload();
+                    break;
                     default:
                     break;
                 }
@@ -649,32 +619,6 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:400px;height:120px;background:RGB(237,237,237);"> 
-			<table style="border:4px solid gray; width:100%; height: 100%;">
-				<tr style="height:1px;background-color: pink;">
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-					<td style="width:25%;"> </td>
-				</tr>
-				<tr>		
-					<td style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;color: blue;"><a>登錄日期</a></td>
-					<td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
-						<input type="text" id="textBBdate" style="float:left;width:40%;"/>
-						<span style="float:left;width:5%;">~</span>
-						<input type="text" id="textEEdate" style="float:left;width:40%;"/>
-					</td>
-				</tr>	
-				<tr>
-					<td colspan="2" align="center" style="background-color: pink;">
-						<input type="button" id="btnExport" value="匯出"/>	
-					</td>
-					<td colspan="2" align="center" style=" background-color: pink;">
-						<input type="button" id="btnDivexport" value="關閉"/>	
-					</td>
-				</tr>
-			</table>
-		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id="dmain">
 			<div class="dview" id="dview">
@@ -717,7 +661,7 @@
 					<tr>
 						<td><span> </span><a class="lbl">匯入時間</a></td>
 						<td colspan="2"><input id="txtQtime" type="text" class="txt c1"/></td>
-						<td><input type="button" id="btn2" value="匯出" style="float:left;"/></td>
+						<td><input type="button" id="btnExport" value="匯出" style="float:left;"/></td>
 					</tr>
 				</table>
 			</div>
