@@ -183,6 +183,10 @@
 					if (!emp($('#txtTggno').val())) {
 						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
+						if(q_getPara('sys.project').toUpperCase()=='XY'){
+							var t_where =" noa='"+$('#txtTggno').val()+"'";
+							q_gt('tgg', "where=^^ "+t_where+" ^^", 0, 0, 0, "xytggdata");
+						}
 					}
 				});
 
@@ -312,6 +316,12 @@
 			var ordcoverrate = [],rc2soverrate = [];
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'xytggdata':
+						var as = _q_appendData("tgg", "", true);
+						if (as[0] != undefined) {
+							$('#cmbTaxtype').val(as[0].conn);
+						}
+						break;
 					case 'getCardealCarno' :
 						var as = _q_appendData("cardeals", "", true);
 						carnoList = as;
@@ -913,6 +923,10 @@
 						if (!emp($('#txtTggno').val())) {
 							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
+							if(q_getPara('sys.project').toUpperCase()=='XY'){
+								var t_where =" noa='"+$('#txtTggno').val()+"'";
+								q_gt('tgg', "where=^^ "+t_where+" ^^", 0, 0, 0, "xytggdata");
+							}
 						}
 						break;
 				}
