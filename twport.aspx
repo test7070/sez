@@ -667,7 +667,7 @@
 					</td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:150px;"><a> 登錄日期<br>交運日期</a></td>
-					<td align="center" style="width:100px;"><a> 車牌</a></td>
+					<td align="center" style="width:120px;"><a> 車牌</a></td>
 					<td align="center" style="width:100px;"><a> 司機</a></td>
 					<td align="center" style="width:100px;"><a> 客戶</a></td>
 					<td align="center" style="width:100px;"><a> 計算類別<br>車隊 </a></td>
