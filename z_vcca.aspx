@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+            aPop = new Array(['txtXcno', 'lblXcno', 'acomp', 'noa,acomp', 'txtXcno,txtXacomp', 'acomp_b.aspx']);
             t_cno = '';
             t_isinit = false;
             var z_cno=r_cno,z_acomp=r_comp;
