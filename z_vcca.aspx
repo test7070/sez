@@ -151,7 +151,7 @@
                 t_input.disabled='disabled'
                 tmp.parentNode.appendChild(t_input,tmp);
                 aPop.push(['txtXcno','lblXcno','acomp','noa,acomp','txtXcno,txtXacomp','acomp_b.aspx']);
-                
+                 
                 $('#txtXcno').val(z_cno);
                 $('#txtXacomp').val(z_acomp);
                 
