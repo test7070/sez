@@ -51,7 +51,6 @@
 			}
 
 			function q_gtPost() {
-
 			}
 			
 			var xuccno=''
