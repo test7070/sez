@@ -25,6 +25,24 @@
 					return;
 				}
 				mainBrow();
+				
+				$('#btnSearch').click(function() {
+					var t_where="1=1";
+					if(!emp($('#txtNoa').val())){
+						t_where+=" and charindex('"+$('#txtNoa').val()+"',noa)>0";
+					}
+					if(!emp($('#txtProductno').val())){
+						t_where+=" and charindex('"+$('#txtProductno').val()+"',product)>0";
+					}
+					for(var i=0; i<abbs.length; i++){
+						if(abbs[i].sel==true || abbs[i].sel=="true"){
+							t_noa=t_noa+(t_noa.length>0?',':'')+"'"+abbs[i].noa+"'"; 
+						}
+					}
+					
+					//t_where="where=^^"+t_where+"^^"
+					location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
+				});
 			}
 
 			function q_gtPost() {
@@ -93,6 +111,13 @@
 					</td>
 				</tr>
 			</table>
+			<div>
+				<a>物品編號</a>
+				<input class="txt" id="txtNoa" type="text" style="width:130px;" />
+				<a>物品名稱 </a>
+				 <input class="txt" id="txtProductno" type="text" style="width:200px;" />
+				 <input type="button" id="btnSearch" style="border-style: none; width: 36px; height: 36px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;">
+			 </div>
 			<!--#include file="../inc/brow_ctrl.inc"-->
 		</div>
 
