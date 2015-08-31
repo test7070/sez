@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -43,7 +43,11 @@
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'no3'];
 				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+				//q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+				
+				//104/08/31 業務只能看到自己的
+            	q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "sales_vcc");
+				
 				q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
 				q_gt('sss', "where=^^noa='"+r_userno+"'^^", 0, 0, 0, "sssissales");
 				q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
@@ -207,6 +211,17 @@
 			var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'sales_vcc':
+						var as = _q_appendData('sss', '', true);
+	                    if (as[0] != undefined) {
+							if (as[0].issales == 'true' && as[0].job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的出貨單
+								q_content = "where=^^salesno='" + r_userno + "'^^";
+		                    } else if (as[0].issales == 'true' && as[0].job.indexOf('經理') > -1 && r_rank <= '5') {
+		                    	q_content = "where=^^salesno in (select noa from sss where salesgroup= '" + as[0].salesgroup + "') ^^"; //只能看到群組的
+		                   }
+	                    }
+						q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+						break;
 					case 'payaccount':
 					var as = _q_appendData("sss", "", true);
                         if (as[0] != undefined) {
