@@ -458,7 +458,7 @@
 							$('#txtMon').val($('#txtDatea').val().substr(0, 6));
 						}else{
 							var t_date=$('#txtDatea').val();
-							var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+							var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,1);
 				    		nextdate.setMonth(nextdate.getMonth() +1)
 				    		t_date=''+(nextdate.getFullYear()-1911)+'/'+(nextdate.getMonth()<9?'0':'')+(nextdate.getMonth()+1);
 							$('#txtMon').val(t_date);
