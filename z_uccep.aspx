@@ -42,6 +42,9 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					},{
+						type :'6',//[8]
+						name :'xnoa'
 					}]
 				});
 				q_popAssign();
