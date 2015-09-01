@@ -176,9 +176,9 @@
 					var as = _q_appendData('sss', '', true);
 					if (as[0] != undefined) {
 						if (as[0].issales == 'true' && as[0].job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的出貨單
-							q_content = "where=^^salesno='" + r_userno + "'^^";
+							q_content = "where=^^salesno='" + r_userno + "' "+(q_getId()[3].length>0?('and '+q_getId()[3]):'')+"^^";
 						} else if (as[0].issales == 'true' && as[0].job.indexOf('經理') > -1 && r_rank <= '5') {
-							q_content = "where=^^salesno in (select noa from sss where salesgroup= '" + as[0].salesgroup + "') ^^"; //只能看到群組的
+							q_content = "where=^^salesno in (select noa from sss where salesgroup= '" + as[0].salesgroup + "') "+(q_getId()[3].length>0?('and '+q_getId()[3]):'')+"^^"; //只能看到群組的
 						}
 					}
 					q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
