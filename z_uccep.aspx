@@ -42,6 +42,9 @@
 						dbf : 'ucaucc',
 						index : 'noa,product',
 						src : 'ucaucc_b.aspx'
+					},{
+						type :'6',//[8]
+						name :'xnoa'
 					}]
 				});
 				q_popAssign();
@@ -52,6 +55,11 @@
 				$('#txtXdate1').datepicker();
 				$('#txtXdate2').mask('999/99/99');
 				$('#txtXdate2').datepicker();
+				
+				  if (q_getId()[3] != undefined) {
+                    $('#txtXnoa').val(q_getId()[3].replace('noa=', ''));
+
+                }
 			}
 
 			function q_boxClose(s2) {
