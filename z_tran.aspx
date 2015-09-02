@@ -259,6 +259,16 @@
                         type : '8',
                         name : 'wdetail',
                         value : ['detail@明細']
+                    }, {/*41-[51][52]出車單號*///*11-1
+                        type : '1',
+                        name : 'xnoa'
+                    }, {/*42-[53]貨櫃號碼*///*11-2
+                        type : '6',
+                        name : 'xcaseno'
+                    }, {/*43-[54]貨櫃號碼*///*11-3
+                        type : '8',
+                        name : 'xoption30',
+                        value : q_getMsg('toption30').split('&')
                     }]
                 });
                 q_popAssign();
@@ -574,6 +584,20 @@
                                 return false;
                             }
                             break;
+                         case 25:
+                            //請款明細(港務局)
+                            if (msg_trandate.length > 0) {
+                                alert(msg_trandate);
+                                return false;
+                            }
+                            break;
+                          case 26:
+                            //港務局報表
+                            if (msg_trandate.length > 0) {
+                                alert(msg_trandate);
+                                return false;
+                            }
+                            break;        
                         default:
                             alert('Undefined,radio');
                             break;
