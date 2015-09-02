@@ -15,10 +15,23 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+            t_cno = '';
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_rc2a');
+            	q_gt('acomp', 'where=^^ exists(select top 1 noa from vcca where acomp.noa=vcca.cno) ^^', 0, 0, 0);
             });
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acomp':
+                        t_cno = '';
+                        var as = _q_appendData("acomp", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_cno += (t_cno.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                        }
+                        q_gf('', 'z_rc2a');
+                        break;
+                }
+			}
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_rc2a',
@@ -40,10 +53,14 @@
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
-                    }]
+                    }, {//6  [12]
+                        type : '8',
+                        name : 'xcno',
+                        value : t_cno.split(',')
+                     }]
                 });
                 q_popAssign();
-                
+                q_langShow();
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
