@@ -53,7 +53,7 @@
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
-                    }, {//6  [12]
+                    }, {//  [9]
                         type : '8',
                         name : 'xcno',
                         value : t_cno.split(',')
