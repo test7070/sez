@@ -26,7 +26,7 @@
             var q_readonlys = ['txtTranno', 'txtTrannoq'];
             var bbmNum = [];
             var bbsNum = [['txtTax', 10, 0, 1], ['txtDepreciation', 10, 0, 1]];
-            var bbmMask = [];
+            var bbmMask = [['textMon', '999/99']];
             var bbsMask = [['txtMon', '999/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -40,7 +40,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
             });
             function main() {
                 if (dataErr) {
@@ -53,6 +53,12 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
+                
+                $('#btnUpdatedata').click(function(e){
+                	var t_mon = $.trim($('#textMon').val());
+                	if(t_mon.length>0)
+                		q_func('qtxt.query.updatedata', 'cart.txt,updatedata,' + t_mon );
+                });
             }
 
             function q_boxClose(s2) {
@@ -96,7 +102,18 @@
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 Unlock();
-            }	
+            }
+            function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.updatedata':
+						var as = _q_appendData("tmp0", "", true, true);
+						location.reload();
+						break;
+					default:
+						break;
+				}
+			}
+				
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
@@ -165,6 +182,13 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(t_para){
+                	$('#btnUpdatedata').removeAttr('disabled');
+                	$('#textMon').removeAttr('readonly');
+                }else{
+                	$('#btnUpdatedata').attr('disabled','disabled');
+                	$('#textMon').attr('readonly','readonly');
+                }
             }
 
             function btnMinus(id) {
@@ -386,8 +410,14 @@
 						<td><input id="txtCaryear" type="text"  class="txt c1"/> </td>
 					</tr>
 					<tr></tr>
-					<tr></tr>
-					<tr></tr>
+					<tr>
+						<td><span> </span><a class="lbl">匯入月份</a></td>
+						<td><input id="textMon" type="text"  class="txt c1"/> </td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td><input id="btnUpdatedata" type="button"  class="txt c1" value="保牌燃費、折舊匯入"/> </td>
+					</tr>
 					<tr></tr>
 					<tr></tr>
 					<tr></tr>
