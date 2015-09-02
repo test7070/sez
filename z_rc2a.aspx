@@ -93,8 +93,6 @@
 
             function q_boxClose(s2) {
             }
-            function q_gtPost(s2) {
-            }
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
