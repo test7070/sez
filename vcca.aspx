@@ -39,7 +39,8 @@
 			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 			, ['txtAddress', '', 'view_road', 'memo,zipcode', '0txtAddress,txtZip', 'road_b.aspx']
 			, ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,serial,zip_invo,addr_invo', 'txtCustno,txtComp,txtNick,txtSerial,txtZip,txtAddress', 'cust_b.aspx']
-			, ['txtBuyerno', 'lblBuyer', 'vccabuyer', 'noa,buyer,serial', '0txtBuyerno,txtBuyer,txtSerial', 'vccabuyer_b.aspx']
+			, ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', '0txtBuyerno,txtBuyer,txtSerial,txtMemo', 'cust_b.aspx']
+			, ['txtSerial', 'lblSerial', 'vccabuyer', 'serial,noa,buyer', '0txtSerial,txtBuyerno,txtBuyer', 'vccabuyer_b.aspx']
 			, ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
 			q_xchg = 1;
 			q_desc = 1;
@@ -185,7 +186,30 @@
 				}
 				b_pop = '';
 			}
-
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.getvccadate':
+						var as = _q_appendData("tmp0", "", true, true);
+						t_date = '';
+                		if(as[0]!=undefined){
+                			t_date = as[0].datea;
+                		}
+                		if(t_date.length>0 && $('#txtDatea').val()<t_date){
+                			alert('日期不可小於 '+t_date);
+                			Unlock(1);
+                			return;
+                		}else{
+                			var t_where = '';
+							if (q_cur == 1) {
+								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))" + " and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
+							} else {
+								t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) " + " and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
+							}
+							q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+                		}
+						break;
+				}
+			}
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'getvccadate':
@@ -307,7 +331,8 @@
 				
 				sum();
 				
-				q_gt('getvccadate',"where=^^[N'"+$('#txtNoa').val()+"')^^", 0, 0, 0, "getvccadate"); 
+				q_func('qtxt.query.getvccadate', 'vcca.txt,getvccadate,' +$('#txtNoa').val());
+				//q_gt('getvccadate',"where=^^[N'"+$('#txtNoa').val()+"')^^", 0, 0, 0, "getvccadate"); 
 			}
 
 			function _btnSeek() {

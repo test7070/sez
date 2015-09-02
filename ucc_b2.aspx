@@ -36,22 +36,63 @@
 					if(!emp($('#txtProductno').val())){
 						t_where+=" and charindex('"+$('#txtProductno').val()+"',product)>0";
 					}
+					var t_noa='';
+					for(var i=0; i<abbs.length; i++){
+						if(abbs[i].sel==true || abbs[i].sel=="true"){
+							t_noa=t_noa+(t_noa.length>0?',':'')+"'"+abbs[i].noa+"'"; 
+						}
+					}
+					if(t_noa.length>0)
+						t_where+=" or noa in ("+t_noa+")";
+					
 					//t_where="where=^^"+t_where+"^^"
 					location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
 				});
 			}
 
 			function q_gtPost() {
-
 			}
 			
 			var xuccno=''
 			function bbsAssign() {
                 _bbsAssign();
+                if(isbtnBott && !isbtnTop){
+                	isbtnTop=true;
+                	for (var i=0;i<t_noa.length;i++){
+	                	for(var j=0; j<abbs.length; j++){
+		               			if(t_noa[i]==abbs[j].noa){
+		               				abbs[j].sel=true
+		               				break;
+							}
+						}
+	                }
+					$('#btnTop').click();
+					_refresh();
+				}
+				if(t_noa.length>0 && !isbtnBott && !isbtnTop){
+					isbtnBott=true;
+					setTimeout(function(){
+						$('#btnBott').click()
+					}, 1000);
+					//$('#btnBott').click();
+				}
             }
-
+			
+			var isbtnBott=false,isbtnTop=false,t_noa="";
 			function refresh() {
+                for (var i=0;i<q_getHref().length;i++){
+                	if(q_getHref()[i]!=undefined){
+	                	if(q_getHref()[i].indexOf('or noa in')>-1){
+	                		t_noa=q_getHref()[i].substring(q_getHref()[i].indexOf('or noa in'));
+	                		t_noa=t_noa.replace("or noa in ('",'');
+	                		t_noa=t_noa.replace("')",'');
+	                		t_noa=t_noa.split("','");
+	                		break;
+	                	}
+                	}
+                }
 				_refresh();
+				
 				 /*if(window.parent.q_name=='uca'){
 					 var wParent = window.parent.document;
 					 var b_seq= wParent.getElementById("text_Noq").value
@@ -67,6 +108,9 @@
 						}
 	                }
                }*/
+			}
+			function readonly(t_para, empty) {
+				_readonly(t_para, empty);
 			}
 		</script>
 		<style type="text/css">

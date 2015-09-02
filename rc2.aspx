@@ -183,6 +183,10 @@
 					if (!emp($('#txtTggno').val())) {
 						var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' group by post,addr^^";
 						q_gt('custaddr', t_where, 0, 0, 0, "");
+						if(q_getPara('sys.project').toUpperCase()=='XY'){
+							var t_where =" noa='"+$('#txtTggno').val()+"'";
+							q_gt('tgg', "where=^^ "+t_where+" ^^", 0, 0, 0, "xytggdata");
+						}
 					}
 				});
 
@@ -312,6 +316,12 @@
 			var ordcoverrate = [],rc2soverrate = [];
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'xytggdata':
+						var as = _q_appendData("tgg", "", true);
+						if (as[0] != undefined) {
+							$('#cmbTaxtype').val(as[0].conn);
+						}
+						break;
 					case 'getCardealCarno' :
 						var as = _q_appendData("cardeals", "", true);
 						carnoList = as;
@@ -470,7 +480,7 @@
 							$('#txtMon').val($('#txtDatea').val().substr(0, 6));
 						}else{
 							var t_date=$('#txtDatea').val();
-							var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+							var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,1);
 				    		nextdate.setMonth(nextdate.getMonth() +1)
 				    		t_date=''+(nextdate.getFullYear()-1911)+'/'+(nextdate.getMonth()<9?'0':'')+(nextdate.getMonth()+1);
 							$('#txtMon').val(t_date);
@@ -913,6 +923,10 @@
 						if (!emp($('#txtTggno').val())) {
 							var t_where = "where=^^ noa='" + $('#txtTggno').val() + "' ^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
+							if(q_getPara('sys.project').toUpperCase()=='XY'){
+								var t_where =" noa='"+$('#txtTggno').val()+"'";
+								q_gt('tgg', "where=^^ "+t_where+" ^^", 0, 0, 0, "xytggdata");
+							}
 						}
 						break;
 				}

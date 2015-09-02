@@ -149,7 +149,7 @@
 				});
 				$('#btnOk').hide();
 				if(window.parent.q_name == 'transef_edi_bv'){
-					var delete_report=0;
+					var delete_report=999;
 					for(var i=0;i<$('#qReport').data().info.reportData.length;i++){
 						if($('#qReport').data().info.reportData[i].report=='z_transef_bv01')
 							delete_report=i;
@@ -164,7 +164,7 @@
 						q_gt('view_vcc_bv', t_where, 0, 0, 0,'getisprint', r_accy);
 					}
 				}else{
-					var delete_report=0;
+					var delete_report=999;
 					for(var i=0;i<$('#qReport').data().info.reportData.length;i++){
 						if($('#qReport').data().info.reportData[i].report=='z_transef_bv02')
 							delete_report=i;

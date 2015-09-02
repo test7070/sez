@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,typea,stype,datea,mon,cno,acomp,custno,comp,paytype,trantype,tel,fax,post,addr,post2,addr2,cardealno,cardeal,carno,salesno,sales,money,tax,total,memo,invono,invo", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,typea,stype,datea,mon,cno,acomp,custno,comp,paytype,trantype,tel,fax,post,addr,post2,addr2,cardealno,cardeal,carno,salesno,sales,money,tax,total,memo,invono,invo,unpay,payed", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'view_vcc';
             t_postname = q_name;
@@ -47,7 +47,10 @@
                 _refresh();
                 var xy_cust='';
                 for (var j = 0; j < q_bbsCount; j++) {
-                	$('#textTypea_'+j).val($('#txtTypea_'+j).val()=='1'?'出':'退');
+                	if($('#txtTypea_'+j).val()=='1')
+                		$('#textTypea_'+j).val('出');
+                	if($('#txtTypea_'+j).val()=='2')
+                		$('#textTypea_'+j).val('退');
                 	$('#textTypea_'+j).attr('disabled', 'disabled');
 		            $('#textTypea_'+j).css('background', t_background2);
 		            
@@ -162,6 +165,8 @@
 						<input id="txtTax.*" type="hidden" />
 						<input id="txtInvono.*" type="hidden" />
 						<input id="txtInvo.*" type="hidden" />
+						<input id="txtUnpay.*" type="hidden" />
+						<input id="txtPayed.*" type="hidden" />
 					</td>
 					<td class="isXY isRB" style="width:12%;"><input class="txt" id="textTrantime.*" type="text" style="width:98%;"/></td>
 				</tr>

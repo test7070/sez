@@ -104,7 +104,11 @@
                     }, {//3-3
                         type : '6', //[24]
                         name : 'xucc'
-                    }]
+                    }, {
+						type : '0', //[25] 
+						name : 'xproject',
+						value : q_getPara('sys.project').toUpperCase()
+					}]
 				});
 				q_popAssign();
 				q_getFormat();

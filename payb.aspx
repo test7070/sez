@@ -60,6 +60,10 @@
                 q_mask(bbmMask);
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
+                
+                if(q_db.substr( 0,2)!='dc')
+                	$('#btnFix').hide();
+                
                 $("#cmbCno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");

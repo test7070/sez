@@ -34,7 +34,10 @@
 			bbmKey = ['noa'];
 			bbsKey = ['noa', 'no2'];
 			q_brwCount();  // 計算 合適  brwCount 
-			q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+			//q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+			//104/08/31 業務只能看到自己的
+            q_gt('sss', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "sales_vcc");
+			
 			q_gt('acomp', 'stop=1 ', 0, 0, 0, "cno_acomp");
 			q_gt('flors_coin', '', 0, 0, 0, "flors_coin");
 			$('#txtOdate').focus();
@@ -169,6 +172,17 @@
 		var z_cno=r_cno,z_acomp=r_comp,z_nick=r_comp.substr(0,2);
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
+				case 'sales_vcc':
+					var as = _q_appendData('sss', '', true);
+					if (as[0] != undefined) {
+						if (as[0].issales == 'true' && as[0].job.indexOf('經理') < 0 && r_rank <= '5') {//一般業務只能看到自己的出貨單
+							q_content = "where=^^salesno='" + r_userno + "' "+(q_getId()[3].length>0?('and '+q_getId()[3]):'')+"^^";
+						} else if (as[0].issales == 'true' && as[0].job.indexOf('經理') > -1 && r_rank <= '5') {
+							q_content = "where=^^salesno in (select noa from sss where salesgroup= '" + as[0].salesgroup + "') "+(q_getId()[3].length>0?('and '+q_getId()[3]):'')+"^^"; //只能看到群組的
+						}
+					}
+					q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+					break;
 				case 'checkOrde_btnOk':
 					var as = _q_appendData("orde", "", true);
                         if (as[0] != undefined){
@@ -383,7 +397,7 @@
 		function _btnSeek() {
 			if (q_cur > 0 && q_cur < 4)  // 1-3
 				return;
-			q_box('orde_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
+			q_box('orde_it_s.aspx', q_name + '_s', "500px", "420px", q_getMsg("popSeek"));
 		}
 
 		function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫

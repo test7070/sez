@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -145,6 +145,12 @@
 				q_cmbParse("cmbTypea", q_getPara('uca.typea'));
 				q_cmbParse("cmbMtype", q_getPara('uca.mtype'), 's');
 				q_gt('uccga', '', 0, 0, 0, "");
+				
+				$('#btnUploadimg').click(function() {
+					t_where = "noa='" + $('#txtNoa').val() + "'";
+					q_box("uploadimg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'uploadimg', "680px", "650px", q_getMsg('btnUploadimg'));
+				});
+				
 				$('#btnUcctd').click(function() {
 					t_where = "noa='" + $('#txtNoa').val() + "'";
 					q_box("ucctd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ucctd', "680px", "650px", q_getMsg('btnUcctd'));
@@ -279,6 +285,10 @@
 						break;
 					case 'ucab':
 						getMolds();
+						break;
+					case 'uploadimg':
+						var t_where = "where=^^noa='" + $('#txtNoa').val() + "'^^";
+						q_gt('uca', t_where, 0, 0, 0, "uploadimg_noa", r_accy);
 						break;
 					case q_name + '_s':
 						q_boxClose2(s2);
@@ -443,6 +453,33 @@
 						$('#div_stk').css('top', $('#div_stkcost').offset().top);
 						$('#div_stk').css('left', $('#div_stkcost').offset().left - parseInt($('#div_stk').css('width')));
 						$('#div_stk').toggle();
+						break;
+					case 'uploadimg_noa':
+						var as = _q_appendData("uca", "", true);
+						if (as[0] != undefined) {
+							abbm[q_recno]['images'] = as[0].images;
+							$('#txtImages').val(as[0].images);
+						}
+						$('.images').html('');
+						if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
+							imagename=$('#txtImages').val().split(';');
+							imagename.sort();
+							var imagehtml="<table width='1260px'><tr>";
+							for (var i=0 ;i<imagename.length;i++){
+								if(imagename[i]!='')
+									imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"?"+new Date()+"'> </td>"
+							}
+							imagehtml+="</tr></table>";
+							$('.images').html(imagehtml);
+							
+							for (var i=0 ;i<imagename.length;i++){
+								$('#images_'+i).click(function() {
+									var n = $(this).attr('id').split('_')[1];
+									t_where = "noa='" + $('#txtNoa').val() + "'";
+									q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+								});
+							}
+						}
 						break;
 					case q_name:
 						if (q_cur == 4){
@@ -868,8 +905,27 @@
 				$('#div_stkcost').hide();
 				$('#btnStkcost').removeAttr('disabled');
 				$('#btnStkcost').val(q_getMsg('btnStkcost'));
-
 				//format();
+				$('.images').html('');
+				if(!emp($('#txtImages').val())&&!emp($('#txtNoa').val())){
+					imagename=$('#txtImages').val().split(';');
+					imagename.sort();
+					var imagehtml="<table width='1260px'><tr>";
+					for (var i=0 ;i<imagename.length;i++){
+						if(imagename[i]!='')
+							imagehtml+="<td><img id='images_"+i+"' style='cursor: pointer;' width='200px' src='../images/upload/"+$('#txtNoa').val()+'_'+imagename[i]+"?"+new Date()+"'> </td>"
+					}
+					imagehtml+="</tr></table>";
+					$('.images').html(imagehtml);
+					
+					for (var i=0 ;i<imagename.length;i++){
+						$('#images_'+i).click(function() {
+							var n = $(this).attr('id').split('_')[1];
+							t_where = "noa='" + $('#txtNoa').val() + "'";
+							q_box("../images/upload/"+$('#txtNoa').val()+'_'+imagename[n]+"?;;;;;"+new Date(), 'image', "85%", "85%", "");
+						});
+					}
+				}
 			}
 
 			function readonly(t_para, empty) {
@@ -1430,7 +1486,10 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='3'><input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/></td>
+						<td class="td2" colspan='3'>
+							<input id="txtMemo" type="text" class="txt c1" style="width: 99%;"/>
+							<input type="hidden" id="txtImages" class="txt c1"/>
+						</td>
 						<td class="td1"><span> </span><a id="lblBadperc" class="lbl"> </a></td>
 						<td class="td2"><input id="txtBadperc" type="text" class="txt c1 num"/></td>
 					</tr>
@@ -1439,7 +1498,7 @@
 						<td class="td1"><span> </span><a id="lblMechs" class="lbl" style="font-size: 14px;"> </a></td>
 						<td class="td2"><input id="txtMechs" type="text" class="txt c1 num"/></td>
 						-->
-						<td class="td3"><span> </span><a id="lblMakes" class="lbl" style="font-size: 14px;"></a></td>
+						<td class="td3"><span> </span><a id="lblMakes" class="lbl" style="font-size: 14px;"> </a></td>
 						<td class="td4"><input id="txtMakes" type="text" class="txt c1 num"/></td>
 						<td class="td1"><span> </span><a id="lblMolds" class="lbl" style="font-size: 14px;"> </a></td>
 						<td class="td2"><input id="txtMolds" type="text" class="txt c1 num"/></td>
@@ -1455,7 +1514,9 @@
 							<input id="txtModel" type="text" class="txt" style="width: 53%;"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblRev" class="lbl"> </a></td>
-						<td class="td6"><input id="txtRev" type="text" class="txt c1" style="width: 40%;"/></td>
+						<td class="td6"><input id="txtRev" type="text" class="txt c1" style="width: 30%;"/>
+							<input id="btnUploadimg" type="button"  />
+						</td>
 						<!--
 						<td class="td5"><span> </span><a id="lblTrans" class="lbl"> </a></td>
 						<td class="td6"><input id="txtTrans" type="text" class="txt c1 num"/></td>
@@ -1471,7 +1532,7 @@
 					<td align="center" style="width:40px;">
 						<input class="btn" id="btnPlus" type="button" value='＋' style="font-weight: bold;" />
 					</td>
-					<td style="width:20px;"></td>
+					<td style="width:20px;"> </td>
 					<td align="center" style="width:200px;"><a id='lblProductno'> </a></td>
 					<td align="center" style="width:260px;"><a id='lblProducts'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
@@ -1584,6 +1645,7 @@
 				</tr>
 			</table>
 		</div>
+		<div class='images' style="float: left;"> </div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
