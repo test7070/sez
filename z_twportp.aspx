@@ -29,7 +29,7 @@
             });
             function q_gfPost() {
                 $('#qReport').q_report({
-                    fileName : 'z_trans',
+                    fileName : 'z_twportp',
                     options : [{
                         type : '1',
                         name : 'xtrandate'
@@ -54,6 +54,9 @@
                     }, {
                         type : '6',
                         name : 'xpo'
+                    }, {
+                        type : '6',
+                        name : 'xtranno'
                     }, {
                         type : '8', //select
                         name : 'xcarteamno',
@@ -121,7 +124,7 @@
                         for( i = 0; i < as.length; i++) {
                             t_item2 = t_item2 + (t_item2.length>0?',':'') + as[i].noa+as[i].noq +'@' + as[i].typea;
                         }    
-                        q_gf('', 'z_trans');
+                        q_gf('', 'z_twportp');
                         break;
                 }
             }
