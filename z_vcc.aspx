@@ -154,6 +154,12 @@
                         type : '0', //[25] //判斷是否顯示規格
                         name : 'isspec',
                         value : q_getPara('sys.isspec')
+                    }, {
+                        type : '6', //[26] //4-4
+                        name : 'multcust'
+                    }, {
+                        type : '6', //[27] //5-1
+                        name : 'multucc'
                     }]
                 });
                 q_popAssign();
@@ -265,10 +271,50 @@
 	                });
 	                	
 				}
-				
+				$('#txtMultcust').css("width","205px");
+				$('#lblMultcust').css("color","#0000ff");
+				$('#lblMultcust').click(function(e) {
+                	q_box("cust_b2.aspx?;;;;", 'cust', "40%", "620px", q_getMsg("popCust"));
+                });
+                $('#Multucc').css("width","605px");
+				$('#txtMultucc').css("width","515px");
+				$('#lblMultucc').css("color","#0000ff");
+				$('#lblMultucc').click(function(e) {
+                	q_box("ucc_b2.aspx?;;;;", 'ucc', "40%", "620px", q_getMsg("popUcc"));
+                });
             }
 
             function q_boxClose(s2) {
+            	var ret;
+                switch (b_pop) {
+                	case 'cust':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xcust='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xcust+=ret[i].noa+'.'
+                        	}
+                        }
+                        xcust=xcust.substr(0,xcust.length-1);
+                        $('#txtMultcust').val(xcust);
+                        break;	
+                    case 'ucc':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xucc='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xucc+=ret[i].noa+'.'
+                        	}
+                        }
+                        xucc=xucc.substr(0,xucc.length-1);
+                        $('#txtMultucc').val(xucc);
+                        break;	    
+                }   /// end Switch
+				b_pop = '';		
             }
             
 			//交換div位置
