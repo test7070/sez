@@ -156,7 +156,7 @@
         }
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
-            if (!as['level1']) {  //不存檔條件
+            if (!as['level1'] && !as['level2']) {  //不存檔條件
                 as[bbsKey[1]] = '';   /// no2 為空，不存檔
                 return;
             }
