@@ -265,10 +265,14 @@
                     }, {/*42-[53]貨櫃號碼*///*11-2
                         type : '6',
                         name : 'xcaseno'
-                    }, {/*43-[54]貨櫃號碼*///*11-3
+                    }, {/*43-[54]*///*11-3
                         type : '8',
                         name : 'xoption30',
                         value : q_getMsg('toption30').split('&')
+                    }, {/*44-[55]品名(20、40)*///*11-4
+                        type : '5',
+                        name : 'xproduct',
+                        value : q_getMsg('xproduct').split('&')
                     }]
                 });
                 q_popAssign();

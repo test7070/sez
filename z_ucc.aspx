@@ -132,8 +132,10 @@
 				$('#txtXucc').css("width","515px");
 				$('#lblXucc').css("color","#0000ff");
 				$('#lblXucc').click(function(e) {
-                	q_box("ucc_b2.aspx?;;;;", 'ucc', "90%", "600px", q_getMsg("popUcc"));
+                	q_box("ucc_b2.aspx?;;;;", 'ucc', "40%", "620px", q_getMsg("popUcc"));
                 });
+                
+                
 			}
 
 			function q_boxClose(s2) {

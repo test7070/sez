@@ -702,7 +702,7 @@
 					<td>
 						<input type="text" id="txtDatea.*" style="width:95%;" />
 						<input type="text" id="txtMon.*" style="display:none;" />
-						<input type="text" id="txtTrandate.*" style="width:95%;" />
+						<input type="text" id="txtTrandate.*" style="width:95%;color:darkred;" />
 						<input type="text" id="txtMon2.*" style="display:none;" />
 					</td>
 					<td><input type="text" id="txtCarno.*" style="width:95%;" /></td>

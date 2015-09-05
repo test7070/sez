@@ -38,7 +38,7 @@
                         name : 'xdatea'
                     }, {
                         type : '2',
-                        name : 'driver',
+                        name : 'xdriver',
                         dbf : 'driver',
                         index : 'noa,namea',
                         src : 'driver_b.aspx'
@@ -59,7 +59,7 @@
                         name : 'xtranno'
                     }, {
                         type : '8', //select
-                        name : 'xcarteamno',
+                        name : 'xcarteam',
                         value : t_item.split(',')
                     }, {
                         type : '8', //mutiple select
@@ -82,8 +82,8 @@
                   
                 t_item = "";
                 t_item2 = "";
-                $('#chkXcarteamno').children('input').attr('checked','checked');
-                $('#chkXcalctype').children('input').attr('checked','checked');
+                //$('#chkXcarteam').children('input').attr('checked','checked');
+                //$('#chkXcalctype').children('input').attr('checked','checked');
                 
                 var t_date,t_year,t_month,t_day;
                 t_date = new Date();
