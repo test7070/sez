@@ -61,6 +61,12 @@
                         type : '0', //[13] //判斷顯示小數點與其他判斷
                         name : 'acomp',
                         value : q_getPara('sys.comp')
+                    }, {
+                        type : '6', //[14]
+                        name : 'multtgg'
+                    }, {
+                        type : '6', //[15]
+                        name : 'multucc'
                     }]
 				});
 				q_popAssign();
@@ -91,9 +97,51 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+				
+				$('#txtMulttgg').css("width","205px");
+				$('#lblMulttgg').css("color","#0000ff");
+				$('#lblMulttgg').click(function(e) {
+                	q_box("tgg_b2.aspx?;;;;", 'tgg', "40%", "620px", q_getMsg("popTgg"));
+                });
+                $('#Multucc').css("width","605px");
+				$('#txtMultucc').css("width","515px");
+				$('#lblMultucc').css("color","#0000ff");
+				$('#lblMultucc').click(function(e) {
+                	q_box("ucc_b2.aspx?;;;;", 'ucc', "40%", "620px", q_getMsg("popUcc"));
+                });
 			}
 
 			function q_boxClose(s2) {
+				var ret;
+                switch (b_pop) {
+                	case 'tgg':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xtgg='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xtgg+=ret[i].noa+'.'
+                        	}
+                        }
+                        xtgg=xtgg.substr(0,xtgg.length-1);
+                        $('#txtMulttgg').val(xtgg);
+                        break;	
+                    case 'ucc':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xucc='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xucc+=ret[i].noa+'.'
+                        	}
+                        }
+                        xucc=xucc.substr(0,xucc.length-1);
+                        $('#txtMultucc').val(xucc);
+                        break;	    
+                }   /// end Switch
+				b_pop = '';	
 			}
 
 			function q_gtPost(s2) {
