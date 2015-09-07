@@ -96,6 +96,10 @@
 				}
 				
 				bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99']];
+				if (q_getPara('sys.project').toUpperCase()=='RB'){
+					bbmMask = [['txtChkdate', r_picd], ['txtDueday', '999'], ['txtStartdate', '99'],['txtGetdate', '99'],['txtNoa','AAAA']];
+				}
+				
 				q_mask(bbmMask);
 				q_gt('custtype', '', 0, 0, 0, "custtype");
 				
@@ -193,14 +197,15 @@
 				
 				$('#txtNoa').change(function(e) {
 					$(this).val($.trim($(this).val()).toUpperCase());
-					if ($(this).val().length > 0) {
+					if (q_getPara('sys.project').toUpperCase()=='RB'){
+						return;//彩虹不判斷後面四碼由電腦產生
+					}
+					if ($(this).val().length > 0){
 						if ((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())) {
 							t_where = "where=^^ noa='" + $(this).val() + "'^^";
 							q_gt('cust', t_where, 0, 0, 0, "checkCustno_change", r_accy);
 						} else {
-							Lock();
 							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。' + String.fromCharCode(13) + 'EX: A01、A01-001');
-							Unlock();
 						}
 					}
 				});
@@ -429,6 +434,18 @@
 						}
 						
 						break;
+					case 'RB_AutoCustno':
+						var as = _q_appendData("cust", "", true);
+						if($('#txtNoa').val().length==4){
+							if(as[0] != undefined){
+								var noa_seq=('0000'+((isNaN(dec(as[as.length-1].noa.slice(-4)))?0:dec(as[as.length-1].noa.slice(-4)))+1)).slice(-4);
+								$('#txtNoa').val($('#txtNoa').val()+noa_seq);
+							}else{	
+								$('#txtNoa').val($('#txtNoa').val()+'0001');
+							}
+						}
+						btnOk();
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -571,6 +588,13 @@
 						$('#txtNoa').val($('#txtXyNoa1').val()+'-'+$('#txtXyNoa2').val());
 						$('#txtComp').val($('#txtXyComp1').val()+'-'+$('#txtXyComp2').val());
 					}
+				}
+				
+				if (q_getPara('sys.project').toUpperCase()=='RB' && $('#txtNoa').val().length==4){
+					//彩虹後面四碼由電腦產生
+					t_where = "where=^^ noa=(select MAX(noa) from cust where charindex('" + $('#txtNoa').val() + "',noa)=1 and len(noa)=8 ) ^^";
+					q_gt('cust', t_where, 0, 0, 0, "RB_AutoCustno", r_accy);
+					return;
 				}
 				
 				Lock();
