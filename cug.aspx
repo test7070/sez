@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -24,7 +24,7 @@
             q_tables = 's';
             var q_name = "cug";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtStation','txtProcess','txtGenorg','txtHours','txtSmount','txtKdate'];
-            var q_readonlys = ['txtProductno','txtProduct','txtSpec','txtStyle','txtMount','txtWorkno','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours','txtPretime'];
+            var q_readonlys = ['txtProductno','txtProduct','txtSpec','txtStyle','txtMount','txtOrgcuadate','txtOrguindate','txtOrdeno','txtWorkgno','txtThours','txtPretime'];//,'txtWorkno'
             var bbmNum = [['txtSmount', 10, 0, 1]];
             var bbsNum = [];
             var bbmMask = [];
@@ -177,6 +177,9 @@
                 	t_edate=!emp($('#txtEdate').val())?$('#txtEdate').val():'999/99/99';
                 	t_where=t_where+"(a.datea between '"+t_bdate+"' and '"+t_edate+"' ) and ";
                 	t_where=t_where+"a.stationno='"+$('#txtStationno').val()+"' ";
+                	
+                	t_where=t_where+"and a.workno not like 'W[0-9]%' ";
+                	
                 	//排序
                 	t_where=t_where+"order by a.datea,a.nos,a.noq,b.rank desc,a.workno^^";
                 	
@@ -1271,6 +1274,51 @@
                             q_Seek_gtPost();
                         break;
                 }  /// end switch
+                //判斷是否存在cugu
+                if(t_name.indexOf('cug_work_')>-1){
+                	var n=replaceAll(t_name,'cug_work_','');
+                	var as = _q_appendData("view_cugu", "", true);
+                	if(as[0]!=undefined){
+                		if(!emp($('#txtStationno').val()) && as[0].a.stationno!=$('#txtStationno').val()){
+                			alert("【"+$('#txtWorkno_' + n).val()+"】工作線別為"+as[0].a.stationno+"!!");
+							$('#btnMinus_'+n).click();
+                		}else{
+                			if(emp($('#txtStationno').val())){
+                				$('#txtStationno').val(as[0].stationno);
+                				$('#txtStation').val(as[0].station);
+                				$('#txtStationno').attr('disabled', 'disabled');
+								$('#lblStationk').css('display', 'inline').text($('#lblStation').text());
+								$('#lblStation').css('display', 'none');
+                			}
+                			
+	                		//表示存在
+	                		$('#txtNos_'+n).val(as[0].nos);
+	                		$('#txtNoq_'+n).val(as[0].noq);
+	                		$('#txtProcessno_'+n).val(as[0].processno);
+	                		$('#txtProcess_'+n).val(as[0].process);
+	                		$('#txtProductno_'+n).val(as[0].productno);
+	                		$('#txtProduct_'+n).val(as[0].product);
+	                		$('#txtSpec_'+n).val(as[0].spec);
+	                		$('#txtStyle_'+n).val(as[0].style);
+	                		$('#txtMount_'+n).val(as[0].mount);
+	                		$('#txtHours_'+n).val(as[0].hours);
+	                		$('#txtCuadate_'+n).val(as[0].cuadate);
+	                		$('#txtUindate_'+n).val(as[0].uindate);
+	                		$('#txtOrgcuadate_'+n).val(as[0].orgcuadate);
+	                		$('#txtOrguindate_'+n).val(as[0].orguindate);
+	                		$('#txtWorkno_'+n).val(as[0].workno);
+	                		$('#txtWorkgno_'+n).val(as[0].workgno);
+	                		$('#txtOrdeno_'+n).val(as[0].workgno);
+	                		$('#txtPretime_'+n).val(as[0].pretime);
+	                		$('#txtCugunoq_'+n).val(as[0].cugunoq);
+	                		$('#txtNosold_'+n).val(as[0].nos);
+                		}
+					}else{
+						alert("【"+$('#txtWorkno_' + n).val()+"】製令不存在!!");
+						$('#btnMinus_'+n).click();
+					}
+                }
+                
             }
 
             function q_stPost() {
@@ -1380,7 +1428,32 @@
 								t_where = "noa='"+$('#txtWorkno_' + b_seq).val()+"'";
 								q_box("work.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'work', "95%", "95%", q_getMsg('PopWork'));
 							}
-		                });
+		                }).change(function() {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtWorkno_' + b_seq).val())){
+								if(	$('#txtWorkno_'+b_seq).val().substr(1,1).replace(/[^\d]/g,'')!=''){//表示正式製令
+									alert("【"+$('#txtWorkno_' + b_seq).val()+"】非模擬製令!!");
+									$('#btnMinus_'+b_seq).click();
+									return;
+								}
+								var bbs_exists=false;
+								for (var j = 0; j < q_bbsCount; j++) {
+									if($('#txtWorkno_'+j).val()==$('#txtWorkno_' + b_seq).val() && b_seq!=j){
+										bbs_exists=true;
+										break;
+									}
+								}
+								if(bbs_exists){
+									alert("表身已存在【"+$('#txtWorkno_' + b_seq).val()+"】製令!!");
+									$('#btnMinus_'+b_seq).click();
+								}else{
+									t_where = "where=^^a.workno='"+$('#txtWorkno_' + b_seq).val()+"'^^";
+									q_gt('cug_work', t_where, 0, 0, 0, 'cug_work_'+b_seq, r_accy);
+								}
+		                	}
+						});
 		                
 		                $('#txtOrdeno_'+i).click(function() {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -1533,6 +1606,12 @@
 					
 					if(q_cur==1 || q_cur==2){
 						if(!emp($('#txtWorkno_'+i).val())){
+							$('#txtWorkno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						}else{
+							$('#txtWorkno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						}
+						
+						if(!emp($('#txtWorkno_'+i).val())){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtNos_'+i).css('color','black').css('background','white').removeAttr('readonly');
@@ -1659,6 +1738,12 @@
 					//$('#txtUindate_'+i).css('background-color','rgb(237, 237, 238)');
 					
 					if(q_cur==1 || q_cur==2){
+						if(!emp($('#txtWorkno_'+i).val())){
+							$('#txtWorkno_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+						}else{
+							$('#txtWorkno_'+i).css('color','black').css('background','white').removeAttr('readonly');
+						}
+						
 						if(!emp($('#txtWorkno_'+i).val())){
 							$('#txtProcess_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
 							$('#txtHours_'+i).css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');

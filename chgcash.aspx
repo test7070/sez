@@ -689,7 +689,6 @@
 					<td align="center" style="width:200px;"><a id='lblAcc_s'> </a></td>
 					<td align="center" style="width:300px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblProj_s'>專案代號</a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -709,8 +708,6 @@
 					</td>
 					<td ><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 					<td><input type="text" id="txtMoney.*" style="width:95%;text-align: right;" /></td>
-					<td><input type="text" id="txtProj.*"  /></td>
-
 				</tr>
 			</table>
 		</div>

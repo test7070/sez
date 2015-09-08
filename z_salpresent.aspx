@@ -15,6 +15,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		    aPop = new Array(['txtNoa', 'lblNoa', 'sssall', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx']);	
+			
            if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -37,7 +39,7 @@
                         name : 'sssno',
                         dbf : 'sss',
                         index : 'noa,namea',
-                        src : 'sss_b.aspx'
+                        src : 'sssall_b.aspx'
                         }]
                     });
                 q_popAssign();
