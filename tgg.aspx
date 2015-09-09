@@ -256,12 +256,11 @@
 						}else{
 							$('#txtNoa').val('A0001');
 						}
-						
 						break;
 					case 'MAXTggno':
 						var as = _q_appendData("tgg", "", true);
 						if(as[0] != undefined){
-							q_msg($('#txtNoa'), "最大編號："+as[(as.length-1)].noa);
+							q_msg($('#txtNoa'), "最後編號："+as[(as.length-1)].noa);
 						}
 						break;
 					case q_name:
