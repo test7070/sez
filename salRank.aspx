@@ -74,6 +74,14 @@
 		           		q_gt('salrank', t_where , 0, 0, 0, "", r_accy);
 		        }
 	        });
+	        
+	        if (q_getPara('sys.project').toUpperCase()=='DJ'){
+		        $('#lblMoney').text('底薪');
+				$('#lblBo_admin').text('主管加給');
+				$('#lblBo_special').text('技術加給');
+				$('#lblBo_full').text('全勤獎金');
+				$('#lblBo_oth').text('特別責任加給');
+			}
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -127,6 +135,9 @@
 
         function bbsAssign() {  /// 表身運算式
             _bbsAssign();
+            if (q_getPara('sys.project').toUpperCase()=='DJ'){
+		        $('#lblMoneys').text('底薪');
+			}
         }
 
         function btnIns() {
