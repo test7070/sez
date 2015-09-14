@@ -96,7 +96,7 @@
                 barcode.Add(pa);
             }
             //-----PDF--------------------------------------------------------------------------------------------------
-            int[,] positions = new int[6, 2] { { 5, 570 }, { 305, 570 }, { 5, 285 }, { 305, 285 }, { 5, 0 }, { 305, 0 } };
+            int[,] positions = new int[6, 2] { { 5, 570 }, { 295, 570 }, { 5, 285 }, { 295, 285 }, { 5, 0 }, { 295, 0 } };
 
             var doc1 = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 5, 5, 0, 0);
             iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(doc1, stream);

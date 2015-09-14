@@ -87,12 +87,16 @@
                         	if(t_custtypea=='0')
                         		t_item = "0@0混搭"; //混搭
                         		
-                        	var d1=0,d2=0,d3=0;
+                        	var d1=0,d2=0,d3=0,d4=0;
                         	for (i = 0; i < as.length; i++){
                         		d1=q_add(d1,dec(as[i].tweight2));
                         		d2=q_add(d2,dec(as[i].ttrannumber));
                         		d3=q_add(d3,dec(as[i].thirdprice));
+                        		d4=q_add(d4,dec(as[i].option01));
                         	}
+                        	
+                        	if(d4>0)
+                        		t_item = t_item + (t_item.length > 0 ? ',' : '') + '9@本地件';
                         	if(d1>0)
                         		t_item = t_item + (t_item.length > 0 ? ',' : '') + '1@1號袋';
                         	if(d2>0)
