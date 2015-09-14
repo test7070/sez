@@ -609,7 +609,7 @@
 						<td><span> </span><a id="lblTranno" class="lbl btn"> </a></td>
 						<td><input id="txtTranno"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblQtime" class="lbl btn"> </a></td>
-                        <td><input id="txtQtime"  type="text"  class="txt c1"/></td>
+                        <td colspan="3"><input id="txtQtime"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
