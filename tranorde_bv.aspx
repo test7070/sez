@@ -25,7 +25,7 @@
 			var q_readonlys = [];
 			var bbmNum = [['txtMount',10,0,1], ['txtBoat',10,0,1], ['txtPort',10,0,1]
 			, ['txtTweight2',10,0,1], ['txtEta',10,0,1], ['txtTtrannumber',10,0,1], ['txtEtc',10,0,1], ['txtThirdprice',10,0,1], ['txtEtd',10,0,1]
-			, ['txtEf',10,0,1], ['txtPrice',10,0,1]];
+			, ['txtEf',10,0,1], ['txtPrice',10,0,1], ['txtOption01',10,0,1], ['txtVocc',10,0,1]];
 			var bbmMask = [['txtDatea', '999/99/99'],['txtDocketno1', '9999999999'],['txtDocketno2', '9999999999']];
 			var bbsNum = [];
 			var bbsMask = [];
@@ -112,6 +112,9 @@
 				
 				$('.c3').change(function() {
 					var t_mount=0,t_total=0;
+					//本地件
+					t_mount=q_add(t_mount,q_float('txtOption01'));
+					t_total=q_add(t_total,q_mul(q_float('txtOption01'),q_float('txtVocc')));
 					//1號袋
 					t_mount=q_add(t_mount,q_float('txtTweight2'));
 					t_total=q_add(t_total,q_mul(q_float('txtTweight2'),q_float('txtEta')));
@@ -309,11 +312,12 @@
                }
 				
 				//檢查多袋是否與總袋數量相同
-				var t_mount=0,t_mount1=0,t_mount2=0,t_mount3=0;
+				var t_mount=0,t_mount1=0,t_mount2=0,t_mount3=0,t_mount4=0;
+				t_mount4=q_add(t_mount,q_float('txtOption01'));//本地件
 				t_mount1=q_add(t_mount,q_float('txtTweight2'));//1號袋
 				t_mount2=q_add(t_mount,q_float('txtTtrannumber'));//2號袋
 				t_mount3=q_add(t_mount,q_float('txtThirdprice'));//3號袋
-				t_mount=q_add(q_add(q_add(t_mount,t_mount1),t_mount2),t_mount3);
+				t_mount=q_add(q_add(q_add(q_add(t_mount,t_mount1),t_mount2),t_mount3),t_mount4);
 				if (t_mount!=q_float('txtMount')) {
 					alert('總件數與分配號袋件數不符!!!');
 					custtypea=false;
@@ -321,7 +325,7 @@
 					return;
 				}	
 				
-				if(t_custtypea!='0' && ((t_mount1!=0?1:0)+(t_mount2!=0?1:0)+(t_mount3!=0?1:0))!=1 ){
+				if(t_custtypea!='0' && ((t_mount1!=0?1:0)+(t_mount2!=0?1:0)+(t_mount3!=0?1:0)+(t_mount4!=0?1:0))!=1 ){
 					alert('客戶使用袋號類型非混搭!!!');
 					custtypea=false;
 					Unlock();
@@ -731,6 +735,15 @@
 						<td><span> </span><a class="lbl">速配袋號</a></td>
 						<td style="text-align: center;background-color: skyblue;"><span> </span><a class="lbl" style="float: none;">件數</a></td>
 						<td style="text-align: center;background-color: skyblue;"><span> </span><a class="lbl" style="float: none;">單價</a></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr style="background-color: skyblue;">
+						<td><span> </span><a class="lbl">本地件</a></td>
+						<td style="text-align: center;background-color: skyblue;"><input type="text" id="txtOption01" class="txt c3 num" style="float: none;"/></td>
+						<td style="text-align: center;background-color: skyblue;"><input type="text" id="txtVocc" class="txt c3 num" style="float: none;"/></td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
