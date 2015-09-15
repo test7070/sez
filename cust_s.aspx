@@ -37,6 +37,7 @@
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
 				t_comp = $('#txtComp').val();
+				t_boss = $('#txtBoss').val();
 				t_serial = $('#txtSerial').val();
 				t_salesno = $('#txtSalesno').val();
 				t_grpno = $('#txtGrpno').val();
@@ -50,6 +51,8 @@
 					t_where += " and charindex('" + t_noa + "',noa)>0";
 				if (t_comp.length > 0)
                     t_where += " and (charindex('" + t_comp + "',comp)>0 or charindex('" + t_comp + "',nick)>0)";
+                if (t_boss.length > 0)
+					t_where += " and charindex('" + t_boss + "',boss)>0";    
                 if (t_invoicetitle.length > 0)
 					t_where += " and charindex('" + t_invoicetitle + "',invoicetitle)>0";
 				if (t_memo.length > 0)
@@ -82,6 +85,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
 					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblBoss'> </a></td>
+					<td><input class="txt" id="txtBoss" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblSerial'> </a></td>
