@@ -115,7 +115,15 @@
 							Unlock();
 						}
 					}
+				}).keyup(function() {
+					if (q_getPara('sys.project').toUpperCase()=='RB'){
+						if(!emp($(this).val())){
+							t_where = "where=^^ noa like '" + $(this).val() + "%'^^";
+							q_gt('tgg', t_where, 0, 0, 0, "MAXTggno", r_accy);
+						}
+					}
 				});
+				
 				$("#cmbTypea").focus(function() {
 					var len = $(this).children().length > 0 ? $(this).children().length : 1;
 					$(this).attr('size', len + "");
@@ -248,7 +256,12 @@
 						}else{
 							$('#txtNoa').val('A0001');
 						}
-						
+						break;
+					case 'MAXTggno':
+						var as = _q_appendData("tgg", "", true);
+						if(as[0] != undefined){
+							q_msg($('#txtNoa'), "最後編號："+as[(as.length-1)].noa);
+						}
 						break;
 					case q_name:
 						if (q_cur == 4)

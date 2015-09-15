@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -143,6 +143,13 @@
 						var t_where = "where=^^ noa='" + thisVal + "' ^^";
 						Lock();
 						q_gt('ucaucc', t_where, 0, 0, 0, "checkNoa", r_accy);
+					}
+				}).keyup(function() {
+					if (q_getPara('sys.project').toUpperCase()=='RB'){
+						if(!emp($(this).val())){
+							t_where = "where=^^ noa like '" + $(this).val() + "%'^^";
+							q_gt('ucc', t_where, 0, 0, 0, "MAXUccno", r_accy);
+						}
 					}
 				});
 				
@@ -485,6 +492,12 @@
 						storeno = storeno.substr(1, storeno.length);
 						var t_where = "where=^^ ['" + q_date() + "','" + storeno + "','"+$('#txtNoa').val()+"') ^^";
 						q_gt('calstk', t_where, 0, 0, 0, "ucc_stk", r_accy);
+						break;
+					case 'MAXUccno':
+						var as = _q_appendData("ucc", "", true);
+						if(as[0] != undefined){
+							q_msg($('#txtNoa'), "最後編號："+as[(as.length-1)].noa);
+						}
 						break;
 					case q_name:
 						if (q_cur == 4)

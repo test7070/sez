@@ -192,7 +192,6 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#chkIselectric').prop('checked',true);
                 $('#txtNoa').focus();
             }
 
