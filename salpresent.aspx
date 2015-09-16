@@ -155,7 +155,10 @@
             q_box('salpresent_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function bbsAssign() {  /// ???B??
+        function bbsAssign() {
+        	$('.tbbs .num').change(function() {
+        		if(q_cur==1 || q_cur==2){sum();}
+			});
             _bbsAssign();
             table_change();
         }
@@ -165,7 +168,6 @@
             _btnIns();
             $('#txtNoa').val(q_date());
             $('#txtNoa').focus();
-            
             
             //判斷當天是否新增過
             var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^";
@@ -198,16 +200,6 @@
             q_nowf();
             as['date'] = abbm2['date'];
 
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
@@ -289,7 +281,7 @@
         }
         
         function table_change() {
-            if($('#chkHoliday')[0].checked){
+            if($('#chkHoliday').prop('checked')){
             	//bbm
             	$('#hid_w133a').hide();
             	$('#hid_w133b').hide();
@@ -305,6 +297,10 @@
 			    	$('#hid_w133s_'+j).hide();
 				    $('#hid_w166s_'+j).hide();
 				    $('#hid_w100s_'+j).show();
+				    
+				    $('#txtW100_'+j).val(q_add(dec($('#txtW133_'+j).val()),dec($('#txtW166_'+j).val())));
+				    $('#txtW133_'+j).val(0);
+				    $('#txtW166_'+j).val(0);
 			    }
             }else{
             	//bbm
@@ -322,8 +318,18 @@
 			    	$('#hid_w133s_'+j).show();
 				    $('#hid_w166s_'+j).show();
 				    $('#hid_w100s_'+j).hide();
+				    
+				    if(dec($('#txtW100_'+j).val())>2){
+				    	$('#txtW133_'+j).val(2);
+				    	$('#txtW166_'+j).val(q_sub($('#txtW100_'+j).val(),2));
+				    }else{
+				    	$('#txtW133_'+j).val($('#txtW100_'+j).val());
+				    	$('#txtW166_'+j).val(0);
+				    }
+				    $('#txtW100_'+j).val(0);
 			    }
             }
+            sum();
         }
 
 			function checkId(str) {
