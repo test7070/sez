@@ -89,6 +89,10 @@
 			}
 
 			function mainPost() {
+				if(q_getPara('sys.comp').substring(0,2)=="傑期"){
+					$('.pk').show();
+				}
+				
 				if (q_getPara('sys.project').toUpperCase()=='FE'){
 					q_readonly = ['txtCredit','txtWorker', 'txtKdate', 'txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3','txtCust2'];
 				}else{
@@ -1212,6 +1216,12 @@
 							<input id="txtBillmemo" type="hidden" />
 							<input id="txtInvomemo" type="hidden" />
 							<input id="txtConntel" type="hidden" />
+						</td>
+					</tr>
+					<tr class="pk" style="display:none;">
+						<td><span> </span><a class="lbl">訂單備註</a></td>
+						<td colspan='5'>
+							<textarea id="txtMemo2" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
 						</td>
 					</tr>
 				</table>
