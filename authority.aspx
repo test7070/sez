@@ -200,6 +200,15 @@
 		
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			
+			
+			for (var j = 0; j < q_bbsCount; j++) {
+				if(t_para){
+					$('#check_All_'+j).attr('disabled', 'disabled');
+				}else{
+					$('#check_All_'+j).removeAttr('disabled');
+				}
+			}
 		}
 		
 		function btnMinus(id) {
