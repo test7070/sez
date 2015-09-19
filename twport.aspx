@@ -506,7 +506,7 @@
             }
             .dview {
                 float: left;
-                width: 150px;
+                width: 250px;
                 border-width: 0px;
             }
             .tview {
@@ -620,10 +620,12 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id="vewChk"> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id="vewDatea">日期</a></td>
+						<td align="center" style="width:100px; color:black;"><a id="vewCarno">車牌</a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
 						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="carno" style="text-align: center;">~carno</td>
 					</tr>
 				</table>
 			</div>
@@ -641,6 +643,10 @@
 						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl">日期</a></td>
 						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblCarno" class="lbl">車牌</a></td>
+						<td><input id="txtCarno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl">備註</a></td>
