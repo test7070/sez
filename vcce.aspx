@@ -65,7 +65,7 @@
 				q_cmbParse("cmbStype", q_getPara('orde.stype'));
 				q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
 
-				var t_where = "where=^^ 1=1  group by post,addr^^";
+				var t_where = "where=^^ 1=1  ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 
 				$('#btnBoaj').click(function() {
@@ -309,7 +309,7 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
-				var t_where = "where=^^ 1=1  group by post,addr^^";
+				var t_where = "where=^^ 1=1  ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
 
