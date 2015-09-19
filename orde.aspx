@@ -94,7 +94,7 @@
 				q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 
-				var t_where = "where=^^ 1=1 group by post,addr^^";
+				var t_where = "where=^^ 1=1 ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 
 				$('#btnOrdei').click(function() {
@@ -685,7 +685,7 @@
 				if(q_getPara('sys.project').toUpperCase()=="PK")
 					$('#cmbStype').val('3');
 
-				var t_where = "where=^^ 1=1 group by post,addr^^";
+				var t_where = "where=^^ 1=1 ^^";
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
 
@@ -696,7 +696,7 @@
 				$('#txtOdate').focus();
 
 				if (!emp($('#txtCustno').val())) {
-					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr ^^";
+					var t_where = "where=^^ noa='" + $('#txtCustno').val() + "'  ^^";
 					q_gt('custaddr', t_where, 0, 0, 0, "");
 				}
 			}
@@ -849,7 +849,7 @@
 				switch (s1) {
 					case 'txtCustno':
 						if (!emp($('#txtCustno').val())) {
-							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "' group by post,addr^^";
+							var t_where = "where=^^ noa='" + $('#txtCustno').val() + "'^^";
 							q_gt('custaddr', t_where, 0, 0, 0, "");
 						}
 						break;
