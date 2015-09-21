@@ -188,6 +188,7 @@
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtDatea').val(q_date()).focus();
 			$('#txtMon').val(q_date().substr(0,6));
+			$('#cmbTypea').val('2');//預設掛號
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
