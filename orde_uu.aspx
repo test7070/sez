@@ -83,7 +83,7 @@
 			q_gt('uccga', '', 0, 0, 0, "");
 			q_cmbParse("combworker", 'O@業助O,L@業助L');
 			
-			var t_where = "where=^^ 1=1  group by post,addr^^";
+			var t_where = "where=^^ 1=1 ^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
 			//$('#txtFloata').change(function () {sum();});
 			$('#txtTotal').change(function () {sum();});
@@ -559,7 +559,7 @@
 			if(r_userno=='13')
 				$('#combworker').val('L');
 				
-			var t_where = "where=^^ 1=1  group by post,addr^^";
+			var t_where = "where=^^ 1=1  ^^";
 			q_gt('custaddr', t_where, 0, 0, 0, "");
 		}
 		function btnModi() {
