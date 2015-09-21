@@ -195,6 +195,8 @@
 						t_where = "noa='" + $('#txtNoa').val() + "'";
 						if (q_getPara('sys.project').toUpperCase()=='XY'){
 							q_box("custm_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", q_getMsg('btnCustm'));
+						}else{
+							q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", q_getMsg('btnCustm'));
 						}
 					}
 				});
