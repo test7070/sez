@@ -17,7 +17,7 @@
 		
 			var q_name = "cust";
 			var q_readonly = "";
-			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1],['textTranprice', 10, 0, 1]];
+			var bbmNum = [['txtCredit', 10, 0, 1],['txtProfit', 10, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -159,14 +159,6 @@
 				}
 				$('#btnCustm').hide();//稅務資料
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					var xy_taxtype='',xy_taxtmp=q_getPara('sys.taxtype').split(',');
-					for(var i=0;i<xy_taxtmp.length;i++)
-						xy_taxtype=xy_taxtype+(xy_taxtype.length>0?',':'')+xy_taxtmp[i].split('@')[1]+'@'+xy_taxtmp[i].split('@')[1];
-					q_cmbParse("combIstax", xy_taxtype);
-					q_cmbParse("combIsvcc", '@,須@須,不須@不須');
-					q_cmbParse("combCheckvcc", '@,須@須,不須@不須');
-					q_cmbParse("combIsinvo", '@,隨貨@隨貨,月結@月結');
-					q_cmbParse("combIspost", '@,不寄單@不寄單,不寄單扣貨款@不寄單扣貨款,送單收現@送單收現,送單@送單,郵寄附回郵@郵寄附回郵,郵寄@郵寄,郵寄附回郵不寄單@郵寄附回郵不寄單');
 					$('#btnCustm').show();
 				}
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
@@ -633,17 +625,6 @@
 					
 				$('#txtWorker').val(r_name);
 				
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					$('#txtConntel').val($('#textConn').val());
-					$('#txtBillmemo').val($('#textTrantime').val());
-					var t_invomemo=$('#combIsvcc').val()+'##'+$('#combIsinvo').val()+'##'+$('#combIstax').val()+'##'+$('#combCheckvcc').val()+'##'+$('#combIspost').val()+'##'+$('#textTranprice').val();
-					$('#txtInvomemo').val(t_invomemo);
-				}
-				/*
-				 * 
-				 *var t_noa = $('#txtNoa').val();
-				 *q_gt('usecrd', "where=^^noa='"+t_noa+"'^^", 0, 0, 0, JSON.stringify({action:"usecrd",custno:t_noa,issave:true}));	
-				*/
 				Save();
 			}
 			function Save(){
@@ -699,27 +680,6 @@
 				}
 				
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
-					var t_invomemo=$('#txtInvomemo').val().split('##');
-					if (q_cur == 1 || q_cur==2) {
-						$('#textConn').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtConntel').val());
-						$('#textTrantime').css('color', 'black').css('background', 'white').removeAttr('readonly').val($('#txtBillmemo').val());
-						$('#combIsvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[0]);
-						$('#combIsinvo').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[1]);
-						$('#combIstax').css('color', 'black').css('background', 'white').removeAttr('disabled').val(t_invomemo[2]);
-						$('#combCheckvcc').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[3]);
-						$('#combIspost').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[4]);
-						$('#textTranprice').css('color', 'black').css('background', 'white').removeAttr('readonly').val(t_invomemo[5]);
-					} else {
-						$('#textConn').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtConntel').val());
-						$('#textTrantime').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val($('#txtBillmemo').val());
-						$('#combIsvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[0]);
-						$('#combIsinvo').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[1]);
-						$('#combIstax').css('color', 'black').css('background', 'RGB(237,237,238)').attr('disabled', 'disabled').val(t_invomemo[2]);
-						$('#combCheckvcc').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[3]);
-						$('#combIspost').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[4]);
-						$('#textTranprice').css('color', 'black').css('background', 'RGB(237,237,238)').attr('readonly', 'readonly').val(t_invomemo[5]);
-					}
-					
 					if (q_cur == 1) {
 						$('#txtNoa').hide();
 						$('#txtComp').hide();
@@ -739,7 +699,6 @@
 						$('#lblXyNoa2').hide();
 						$('#lblXyComp2').hide();
 					}
-					
 				}
 			}
 
@@ -1093,12 +1052,6 @@
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
 						<td><input id="txtMobile" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="isXY" style="display: none;">
-						<td><span> </span><a class="lbl isXY" style="display: none;">連絡人員</a></td>
-						<td colspan='3'><input id="textConn" type="text" class="txt c7 isXY "/></td>
-						<td><span> </span><a class="lbl isXY" style="display: none;">交貨時間</a></td>
-						<td><input id="textTrantime" type="text" class="txt c1 isXY"/></td>
-					</tr>
 					<tr>
 						<td><span> </span><a id='lblInvoicetitle' class="lbl"> </a></td>
 						<td colspan='3'><input id="txtInvoicetitle" type="text" class="txt c7"/></td>
@@ -1180,45 +1133,9 @@
 						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
 						<td><input id="txtUacc3" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="isXY" style="display: none;">
-						<td><span> </span><a class="lbl isXY" style="display: none;">貨單開立</a></td>
-						<td>
-							<!--<input id="textIsvcc" type="text" class="txt c1 isXY "/>-->
-							<select id="combIsvcc" class="txt c1 isXY"> </select>
-						</td>
-						<td><span> </span><a class="lbl isXY" style="display: none;">課稅方式</a></td>
-						<td>
-							<!--<input id="textIstax" type="text" class="txt c1 isXY"/>-->
-							<select id="combIstax" class="txt c1 isXY"> </select>
-						</td>
-						<td><span> </span><a class="lbl isXY" style="display: none;">驗單需求</a></td>
-						<td>
-							<!--<input id="textCheckvcc" type="text" class="txt c1 isXY"/>-->
-							<select id="combCheckvcc" class="txt c1 isXY"> </select>
-						</td>
-					</tr>
-					<tr class="isXY" style="display: none;">
-						<td><span> </span><a class="lbl isXY" style="display: none;">發票開立</a></td>
-						<td>
-							<!--<input id="textIsinvo" type="text" class="txt c1 isXY"/>-->
-							<select id="combIsinvo" class="txt c1 isXY"> </select>
-						</td>
-						<td><span> </span><a class="lbl isXY" style="display: none;">寄單方式</a></td>
-						<td>
-							<!--<input id="textIspost" type="text" class="txt c1 isXY "/>-->
-							<select id="combIspost" class="txt c1 isXY"> </select>
-						</td>
-						<td><span> </span><a class="lbl isXY" style="display: none;">運費單價</a></td>
-						<td><input id="textTranprice" type="text" class="txt num c1 isXY"/></td>
-					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan='5'>
-							<textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea>
-							<input id="txtBillmemo" type="hidden" />
-							<input id="txtInvomemo" type="hidden" />
-							<input id="txtConntel" type="hidden" />
-						</td>
+						<td colspan='5'><textarea id="txtMemo" rows='5' cols='10' style="width:99%; height: 50px;"> </textarea></td>
 					</tr>
 					<tr class="pk" style="display:none;">
 						<td><span> </span><a class="lbl">訂單備註</a></td>
