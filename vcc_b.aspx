@@ -66,7 +66,7 @@
                 if (q_getPara('sys.project').toUpperCase()=='XY'){
                 	$('.isXY').show();
                 	if(xy_cust.length>0)
-                		q_gt('cust', "where=^^noa in ("+xy_cust+")^^", 0, 0, 0, "", r_accy);
+                		q_gt('custm', "where=^^noa in ("+xy_cust+")^^", 0, 0, 0, "", r_accy);
                 }
 
                 $('#checkAllCheckbox').click(function() {
@@ -87,12 +87,12 @@
             
             function q_gtPost(t_name) { 
             	switch (t_name) {
-            		case 'cust':
-            			var as = _q_appendData("cust", "", true);
+            		case 'custm':
+            			var as = _q_appendData("custm", "", true);
             			for (var i = 0; i < q_bbsCount; i++) {
             				for (var j = 0; j < as.length; j++) {
             					if($('#txtCustno_'+i).val()==as[j].noa){
-            						$('#textTrantime_'+i).val(as[j].billmemo)
+            						$('#textTrantime_'+i).val(as[j].trantime)
             						break;
             					}
             				}
