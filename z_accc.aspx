@@ -98,8 +98,11 @@
                         name : 'xoption03',
                         value : q_getMsg('toption03').split('&')
                     }, {/* [11][12]*/
-                        type : '1',
-                        name : 'xproject'
+                        type : '2',
+                        name : 'xproject',
+                        dbf : 'proj',
+                        index : 'noa,proj',
+                        src : "proj_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno                     
                     }, {/*  [13]*/
                         type : '0',
                         name : 'xlen',
