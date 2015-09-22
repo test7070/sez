@@ -3,15 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" />
+<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "proj_s";
-	aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
+	aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
+					 ['txtNoa', 'lblNoa', 'proj', 'noa,proj', 'txtNoa,txtProj', 'proj_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready

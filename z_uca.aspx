@@ -53,6 +53,7 @@
 						type : '5',
 						name : 'ucctype', //[11]
 						value : [q_getPara('report.all')].concat(q_getPara('uccst.typea').split(','))
+						
 					}, {
 						type : '5',
 						name : 'outtypea', //[12]
@@ -78,12 +79,24 @@
 						type : '0', //[18]
 						name : 'xucctype',
 						value : q_getPara('uccst.typea')
-					}]
+					}, {
+                        type : '6', //[19]
+                        name : 'xuca'
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-
+				
+				
+				
+				$('#lblXuca').css("color","#0000ff");
+				
+				$('#lblXuca').click(function(e) {
+                	q_box("uca_b2.aspx?;;;;", 'uca', "60%", "620px", q_getMsg("popUcc"));
+                });
+                if(r_comp == "社團法人台灣彩虹愛家生命教育協會")
+					$('.c4').val('2');
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
@@ -97,14 +110,17 @@
 				$('#q_report .option ').css('width','800px');
 				$('.option .a1').css('width','790px');
 				$('.option .a2').css('width','390px');
-				$('.c6').css('width','90px');
+				$('#Xuca').css("width","605px");
+
+			/*	$('.c6').css('width','90px');
 				$('.c2').css('width','150px');
 				$('.c3').css('width','150px');
-				$('.c5').css('width','150px');
-				$('.cmb').css('width','150px');
+				
+				$('.c5').css('width','px');
+				$('.cmb').css('width','150px');*/
 				$('#Allucc').css('width','390px').css('height','30px');
 				$('#Allucc .label').css('width','0px');
-				
+				$('#txtXuca').css("width","515px");
 				 q_cmbParse('cmbType','製成品,原料,全部')
                 $('#btnCostbcc').click(function(e) {
                     $('#divExport').toggle();
@@ -134,6 +150,24 @@
 			
 
 			function q_boxClose(s2) {
+				 var ret;
+                switch (b_pop) {
+                	case 'uca':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xuca='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xuca+=ret[i].noa+'.'
+                        	}
+                        }
+                        xuca=xuca.substr(0,xuca.length-1);
+                        $('#txtXuca').val(xuca);
+                        break;	
+					
+                }   /// end Switch
+				b_pop = '';
 			}
 			
 
@@ -184,7 +218,7 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
-			<input type="button" id="btnCostbcc" value="庫存匯入"/>
+			<input type="button" id="btnCostbcc" value="轉盤點單"/>
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>

@@ -11,7 +11,9 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = 'ucc', t_content = ' field=noa,product,unit,spec,stdmount,vccacc1,vccacc2 order=odate', bbsKey = ['noa'], as;
-			 var t_sqlname = 'ucc_load';
+
+		    var t_sqlname = 'ucc_load';
+		
             t_postname = q_name;
             brwCount2 = 30;
 			var isBott = false;
@@ -27,7 +29,7 @@
 					return;
 				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
-				
+			
 				$('#btnSearch').click(function() {
 					var t_where="1=1";
 					if(!emp($('#txtNoa').val())){
@@ -131,6 +133,7 @@
 					<td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
 					<td style="width:63%;"><input class="txt" id="txtProduct.*" type="text" style="width:99%;"  readonly="readonly" /></td>
 					<td style="width:8%;"><input class="txt" id="txtUnit.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+				</tr>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->

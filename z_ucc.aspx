@@ -253,8 +253,9 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
-			<input type="button" id="btnCostbcc" value="庫存匯入"/>
+			<input type="button" id="btnCostbcc" value="轉盤點單"/>
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
