@@ -62,7 +62,7 @@
             	else{
             		var t_where = "EXISTS ( select c.noa from cust_2s c where c.noa = a.noa and c.mon <= '"+$('#txtMon').val()+"'and c.unpay>0) ";
             		if (q_getPara('sys.project').toUpperCase()=='XY'){
-            			t_where=t_where+" and charindex('郵寄',invomemo)>0 "
+            			t_where=t_where+" and EXISTS (select * from custm where noa=a.noa and charindex('郵寄',postmemo)>0 )"
             		}
             		t_where="where=^^ "+t_where+" ^^";
             		var t_where1 = "where[1]=^^a.noa=noa and isnull(bill,0)=1 ^^";
@@ -104,11 +104,11 @@
 						q_Seek_gtPost();
 					break;
 				case 'cust_post_xy':
-					var as = _q_appendData("cust", "", true);
+					var as = _q_appendData("custm", "", true);
 					if (as[0] != undefined) {
-						var t_memo=as[0].invomemo;
-						t_memo=t_memo.substring(t_memo.indexOf('郵寄附回郵')+2,t_memo.length);
-						t_memo=t_memo.substring(0,t_memo.indexOf('##'));
+						var t_memo=as[0].postmemo;
+						t_memo=t_memo.substring(2,t_memo.length);
+						//t_memo=t_memo.substring(0,t_memo.indexOf('##'));
 						$('#txtMemo_'+b_seq).val(t_memo);
 						//$('#txtMemo_'+b_seq).val('附回郵');
 					}
@@ -135,7 +135,7 @@
 						if (as[i].addr_invo!='' && q_getPara('sys.project').toUpperCase()=='XY')
 							as[i].addr_comp = as[i].addr_invo;
 						if (q_getPara('sys.project').toUpperCase()=='XY'){
-							if(as[i].invomemo.indexOf('附回郵')>-1)
+							if(as[i].postmemo.indexOf('附回郵')>-1)
 								as[i].memo=as[i].memo.substring(2,as[i].memo.length);
 						}
 					}
@@ -188,6 +188,7 @@
 			$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 			$('#txtDatea').val(q_date()).focus();
 			$('#txtMon').val(q_date().substr(0,6));
+			$('#cmbTypea').val('2');//預設掛號
 		}
 		function btnModi() {
 			if (emp($('#txtNoa').val()))
@@ -286,8 +287,8 @@
 				case 'txtUseno_':
 				if(q_getPara('sys.project').toUpperCase()=='XY'){
 					if($('#cmbKind').val()!='廠商'){
-						t_where="where=^^ noa='"+$('#txtUseno_'+b_seq).val()+"' and charindex('附回郵',invomemo)>0 ^^";
-						q_gt('cust', t_where, 0, 0, 0, "cust_post_xy", r_accy);
+						t_where="where=^^ noa='"+$('#txtUseno_'+b_seq).val()+"' and charindex('附回郵',postmemo)>0 ^^";
+						q_gt('custm', t_where, 0, 0, 0, "cust_post_xy", r_accy);
 					}
 					t_where="where=^^ noa='"+$('#txtUseno_'+b_seq).val()+"' and isnull(bill,0)=1^^";
 					q_gt('conn', t_where, 0, 0, 0, "conn_xy", r_accy);
