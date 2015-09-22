@@ -104,10 +104,38 @@
 				$('.cmb').css('width','150px');
 				$('#Allucc').css('width','390px').css('height','30px');
 				$('#Allucc .label').css('width','0px');
+				
+				 q_cmbParse('cmbType','製成品,原料,全部')
+                $('#btnCostbcc').click(function(e) {
+                    $('#divExport').toggle();
+                    $('#textDate').val(q_date());
+                });
+                $('#btnDivexport').click(function(e) {
+                    $('#divExport').hide();
+                });
+                $('#btnExport').click(function(e) {
+                  	var type=$('#cmbType').find("option:selected").text()
+                  	if(confirm('匯入過程需要等待幾分鐘確定要執行?')){
+        				if(type=='製成品'){
+        					Lock(1);
+        					q_func( 'qtxt.query.stkucc','stkucc.txt,stkucc,');
+        				}else if(type=='原料'){
+        					Lock(1);   
+        					q_func( 'qtxt.query.stkuca' ,'stkucc.txt,stkuca,');     				
+        				}else if(type=='全部'){
+        					Lock(1);      			
+ 	     					q_func( 'qtxt.query.stkallucc' ,'stkucc.txt,stkucc,');
+        				
+        				} 
+        			}
+                });
 			}
+			
+			
 
 			function q_boxClose(s2) {
 			}
+			
 
 			function q_gtPost(s2) {
 				switch (s2) {
@@ -124,6 +152,28 @@
 						break;
 				}
 			}
+			
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                   	case 'qtxt.query.stkucc':
+						alert('製成品匯入完成。');
+                        Unlock(1);
+                        break;
+                    case 'qtxt.query.stkuca':
+						alert('原料匯入完成。');
+                        Unlock(1);
+                        break;
+                    case 'qtxt.query.stkallucc':
+                    	 q_func( 'qtxt.query.stkalluca' ,'stkucc.txt,stkuca,'); 
+                        break;
+                    case 'qtxt.query.stkalluca':
+						alert('全部匯入完成。');
+                        Unlock(1);
+                        break;
+                    default:
+                        break;
+                }
+            }
 		</script>
 		<style type="text/css">
 		</style>
@@ -134,12 +184,35 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
+			<input type="button" id="btnCostbcc" value="庫存匯入"/>
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
-			<div class="prt" style="margin-left: -40px;">
+			<div class="prt" style="margin-left: -40px;">			
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
+		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:200px;height:120px;background:RGB(237,237,237);">
+            <table style="border:4px solid gray; width:100%; height: 100%;">
+                <tr style="height:1px;background-color: pink;">
+                    <td style="width:25%;"></td>
+                    <td style="width:25%;"></td>
+                    <td style="width:25%;"></td>
+                </tr>
+                <tr>
+                     <td   align="center"  colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
+                           <select type="text" id="cmbType" style="float:left;width:40%;"/select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center" style="background-color: pink;">
+                    <input type="button" id="btnExport" value="匯入"/>
+                    </td>
+                    <td colspan="2" align="center" style=" background-color: pink;">
+                    <input type="button" id="btnDivexport" value="關閉"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
 	</body>
 </html>
