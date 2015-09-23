@@ -156,7 +156,7 @@
                 $('#txtMon2').val(t_year + '/' + t_month);
                 
                 if(q_getPara('sys.project') != 'va')
-                	$('#q_report div div').eq('7').hide();         
+                	$('#q_report div div').eq('8').hide();         
             }
 		</script>
 	</head>
