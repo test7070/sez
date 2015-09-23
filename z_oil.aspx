@@ -155,8 +155,8 @@
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtMon2').val(t_year + '/' + t_month);
                 
-                if(q_getPara('sys.project') == 'va')
-                	$('#q_report div div').eq('7').hide();         
+                if(q_getPara('sys.project') != 'va')
+                	$('#q_report div div').eq('8').hide();         
             }
 		</script>
 	</head>

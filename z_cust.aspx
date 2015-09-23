@@ -15,10 +15,15 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+            
+            var custtypeItem='';
+            
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_cust');
+                if (custtypeItem.length == 0) {
+					q_gt('custtype', '', 0, 0, 0, "");
+				}
                 
                 $('#q_report').click(function(e) {
 					if(q_getPara('sys.project').toUpperCase()=='RB'){
@@ -78,6 +83,10 @@
                         type : '5',
                         name : 'xsort03',
                         value : q_getMsg('tsort03').split('&')
+                    }, {/*8-[13]*/
+                        type : '5',
+                        name : 'xcusttype', 
+                        value : custtypeItem.split(',')
                     }]
                 });
                 q_popAssign();
@@ -90,8 +99,18 @@
             function q_boxClose(s2) {
             }
 
-            function q_gtPost(s2) {
-            }
+            function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'custtype':
+						var as = _q_appendData("custtype", "", true);
+						custtypeItem = "#non@全部";
+						for ( i = 0; i < as.length; i++) {
+							custtypeItem = custtypeItem + (custtypeItem.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+						}
+						q_gf('', 'z_cust');
+						break;
+				}
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
