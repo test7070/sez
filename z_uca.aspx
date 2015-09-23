@@ -97,6 +97,8 @@
                 });
                 if(r_comp == "社團法人台灣彩虹愛家生命教育協會")
 					$('.c4').val('2');
+				if(r_rank <8)
+					$('#btnCostbcc').attr('disabled', 'disabled')
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');

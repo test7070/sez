@@ -113,7 +113,8 @@
 				q_popAssign();
 				q_getFormat();
 				q_langShow();
-
+				if(r_rank <8)
+					$('#btnCostbcc').attr('disabled', 'disabled')
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
