@@ -371,7 +371,18 @@
 					alert(t_err);
 					return;
 				}
+				
+				for (var j = 0; j < q_bbsCount; j++) {
+					if ($('#cmbTypea').find("option:selected").text().indexOf('年終') == -1) {
+						$('#txtFirstmoney_'+j).val($('#txtChkmoney_'+j).val());
+						$('#txtSecondmoney_'+j).val(0);
+					}else{
+						$('#txtChkmoney_'+j).val(0);
+					}	
+				}
+				
 				$('#txtWorker').val(r_name);
+				
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
 					q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
@@ -820,9 +831,10 @@
 
 			function btnMinus(id) {
 				_btnMinus(id);
-				for (var k = 0; k < q_bbsCount; k++) {
+				/*for (var k = 0; k < q_bbsCount; k++) {
 					sum(k);
-				}
+				}*/
+				countBBMTotal();
 			}
 
 			function btnPlus(org_htm, dest_tag, afield) {

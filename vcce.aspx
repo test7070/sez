@@ -309,7 +309,11 @@
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+<<<<<<< HEAD
+				var t_where = "where=^^ 1=1  ^^";
+=======
 				var t_where = "where=^^ 1=1 ^^";
+>>>>>>> 2bd17a5dee1a3f632ad3c323afccf89e081ee98f
 				q_gt('custaddr', t_where, 0, 0, 0, "");
 			}
 
