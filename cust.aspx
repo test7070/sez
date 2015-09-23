@@ -161,7 +161,11 @@
 				if (q_getPara('sys.project').toUpperCase()=='XY'){
 					$('#btnCustm').show();
 				}
-				if (q_getPara('sys.project').toUpperCase()=='XY'){
+				if (q_getPara('sys.project').toUpperCase()=='VU'){
+					$('#btnCustm').val('工地名稱');
+					$('#btnCustm').show();
+				}
+				if (q_getPara('sys.project').toUpperCase()=='RB'){
 					$('.isRB').show();
 				}
 				
@@ -186,9 +190,11 @@
 					} else {
 						t_where = "noa='" + $('#txtNoa').val() + "'";
 						if (q_getPara('sys.project').toUpperCase()=='XY'){
-							q_box("custm_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", q_getMsg('btnCustm'));
+							q_box("custm_xy.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
+						}else if (q_getPara('sys.project').toUpperCase()=='VU'){
+							q_box("custm_vu.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
 						}else{
-							q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", q_getMsg('btnCustm'));
+							q_box("custm_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custm', "600px", "700px", $('#btnCustm').val());
 						}
 					}
 				});
