@@ -11,18 +11,18 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = 'ucc', t_content = ' field=noa,product,unit,spec,stdmount,vccacc1,vccacc2 order=odate', bbsKey = ['noa'], as;
-
 		    var t_sqlname = 'ucc_load';
-		
             t_postname = q_name;
             brwCount2 = 30;
 			var isBott = false;
 			/// 是否已按過 最後一頁
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i, s1;
+			
 			$(document).ready(function() {
 				main();
 			});
+			
 			function main() {
 				if (dataErr) {
 					dataErr = false;
@@ -133,7 +133,6 @@
 					<td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
 					<td style="width:63%;"><input class="txt" id="txtProduct.*" type="text" style="width:99%;"  readonly="readonly" /></td>
 					<td style="width:8%;"><input class="txt" id="txtUnit.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-				</tr>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->
