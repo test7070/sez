@@ -1102,7 +1102,7 @@
                         </td>
                         <td></td>
                         <td>
-                        <input id="btnExplain" type="button"  />
+                        <input id="btnExplain" type="button" style="display:none;" />
                         </td>
 
                     </tr>
