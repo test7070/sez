@@ -87,7 +87,7 @@
 				});
 				
 				$('#txtDatea').blur(function() {
-					if(!emp($(this).val())){
+					if(!emp($(this).val()) && (q_cur==1 || q_cur==2)){
 						if(dec($(this).val().substr(4,2))%2==1)
 							$('#txtMon').val(q_cdn($(this).val().substr(0,6)+'/01',62).substr(0,6));
 						else
@@ -212,7 +212,7 @@
 
             function btnOk() {
             	var t_err = '';
-				t_err = q_chkEmpField([['cmbKind', q_getMsg('lblKind')], ['txtNoa', q_getMsg('lblNoa')], ['txtMon', q_getMsg('lblMon')], ['txtDatea', q_getMsg('lblDatea')]]);
+				t_err = q_chkEmpField([['cmbKind', q_getMsg('lblKind')], ['txtNoa', q_getMsg('lblNoa')], ['txtMon', q_getMsg('lblMon')], ['txtDatea', q_getMsg('lblDatea')], ['txtCno', q_getMsg('lblAcomp')]]);
 				if (t_err.length > 0) {
 					alert(t_err);
 					return;
