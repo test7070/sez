@@ -86,6 +86,15 @@
 					$('#div_vcca').css('left', $('#btnVcca').offset().left-$('#div_vcca').width()+$('#btnVcca').width()+10);
 				});
 				
+				$('#txtDatea').blur(function() {
+					if(!emp($(this).val())){
+						if(dec($(this).val().substr(4,2))%2==1)
+							$('#txtMon').val(q_cdn($(this).val().substr(0,6)+'/01',62).substr(0,6));
+						else
+							$('#txtMon').val(q_cdn($(this).val().substr(0,6)+'/01',45).substr(0,6));
+					}
+				});
+				
 				$('#btn_div_vcca').click(function() {
 					if(emp($('#textMon').val()) || emp($('#textBdate').val()) ||emp($('#textEdate').val())){
 						alert('申報月份與發票日期禁止空白');
@@ -202,6 +211,13 @@
             }
 
             function btnOk() {
+            	var t_err = '';
+				t_err = q_chkEmpField([['cmbKind', q_getMsg('lblKind')], ['txtNoa', q_getMsg('lblNoa')], ['txtMon', q_getMsg('lblMon')], ['txtDatea', q_getMsg('lblDatea')]]);
+				if (t_err.length > 0) {
+					alert(t_err);
+					return;
+				}
+            	
                 Lock();
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 /*if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
@@ -707,6 +723,10 @@
 					<tr class="rb">
 						<td><span> </span><a id='lblSono' class="lbl"> </a></td>
 						<td><input id="txtSono"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="7"><input id="txtMemo"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
