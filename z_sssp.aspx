@@ -67,7 +67,7 @@
                 
                 //1030909 副總 不讓員工列印
                 if(q_getPara('sys.comp').indexOf('大昌')>-1){
-	                $('.prt input').not("#btnOk").not("#btnTop").not("#btnPrev").not("#btnNext").not("#btnBott").not("#txtPageno").not("#txtEnd").hide();
+	                $('.prt input').not('#btnAuthority').not("#btnOk").not("#btnTop").not("#btnPrev").not("#btnNext").not("#btnBott").not("#txtPageno").not("#txtEnd").hide();
 	                $('.prt select').hide();
 	                $('.prt a').hide();
                 }
