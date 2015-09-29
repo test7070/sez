@@ -245,9 +245,9 @@
                 t_tot_special = dec($('#txtTot_special').val()) + dec($('#txtHr_used').val())
                 _btnModi();
                 $('#txtHr_used').focus();
-                $('#txtDatea').attr('readonly', true);
-                $('#txtSssno').attr('readonly', true);
-                $('#txtNamea').attr('readonly', true);
+                
+                if(r_rank<8 && !q_authRun(2))
+                	$('#txtSssno').attr('readonly', true);
             }
 
             function btnPrint() {
