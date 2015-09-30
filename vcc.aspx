@@ -697,7 +697,9 @@
 					return;
 				}
 				//判斷起算日,寫入帳款月份
-				if(!check_startdate&&emp($('#txtMon').val())){
+				//104/09/30 如果備註沒有*字就重算帳款月份
+				//if(!check_startdate && emp($('#txtMon').val())){
+				if(!check_startdate && $('#txtMemo').val().substr(0,1)!='*'){	
 					var t_where = "where=^^ noa='"+$('#txtCustno').val()+"' ^^";
 					q_gt('cust', t_where, 0, 0, 0, "startdate", r_accy);
 					return;
