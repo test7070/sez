@@ -69,29 +69,10 @@
 				 }
 			}
 			
-			var maxno4='000',search_no4=false;
 			function btnOk() {
                 t_key = q_getHref();
-                
-                if(!search_no4){
-					q_gt('ordbt', "where=^^noa='"+t_key[1]+"'^^", 0, 0, 0, "ordbt_maxno4",r_accy);
-					return;
-				}
-                
-				var no3='';
-				for(var j=0;j<t_key.length;j++){
-					if(t_key[j]=='no3'){
-						no3 = t_key[(j+1)];
-					}
-				}
-				for(var k=0;k<q_bbsCount;k++){
-					$('#txtNo3_'+k).val(no3);
-					if(emp($('#txtNo4_'+k).val())){
-                		maxno4=('000'+(dec(maxno4)+1)).substr(-3);
-                		$('#txtNo4_'+k).val(maxno4);
-                	}
-				}
-                _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+				//q_gt('ordbt', "where=^^noa='"+t_key[1]+"'^^", 0, 0, 0, "ordbt_maxno4",r_accy);
+				_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 			}
 
 			function bbsSave(as) {
@@ -105,6 +86,7 @@
 
 			function btnModi() {
 				var t_key = q_getHref();
+				
 				if (!t_key)
 					return;
 				_btnModi(1);
@@ -117,12 +99,25 @@
 			function q_gtPost(t_name) {  /// 資料下載後 ...
                 switch (t_name) {
 					case 'ordbt_maxno4':
+						maxno4='000';
 						var as = _q_appendData("ordbt", "", true);
 						if (as[0] != undefined) {
 							maxno4=as[as.length-1].no4;
 						}
-						search_no4=true;
-						btnOk();
+						var no3='';
+						for(var j=0;j<t_key.length;j++){
+							if(t_key[j]=='no3'){
+								no3 = t_key[(j+1)];
+							}
+						}
+						for(var k=0;k<q_bbsCount;k++){
+							$('#txtNo3_'+k).val(no3);
+							if(emp($('#txtNo4_'+k).val())){
+		                		maxno4=('000'+(dec(maxno4)+1)).substr(-3);
+		                		$('#txtNo4_'+k).val(maxno4);
+		                	}
+						}
+		                _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 						break;
 				}
             }
