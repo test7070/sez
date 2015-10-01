@@ -274,13 +274,13 @@
 				$('#txtMultcust').css("width","205px");
 				$('#lblMultcust').css("color","#0000ff");
 				$('#lblMultcust').click(function(e) {
-                	q_box("cust_b2.aspx?;;;;", 'cust', "40%", "620px", q_getMsg("popCust"));
+                	q_box("cust_b2.aspx?;;;;", 'cust', "600px", "90%", q_getMsg("popCust"));
                 });
                 $('#Multucc').css("width","605px");
 				$('#txtMultucc').css("width","515px");
 				$('#lblMultucc').css("color","#0000ff");
 				$('#lblMultucc').click(function(e) {
-                	q_box("ucc_b2.aspx?;;;;", 'ucc', "40%", "620px", q_getMsg("popUcc"));
+                	q_box("ucaucc_b2.aspx?;;;;", 'ucc', "600px", "990%", q_getMsg("popUcc"));
                 });
             }
 
