@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -123,8 +123,12 @@
             }
 			
 			var ssspartno = '',sssgroup='',sssjob='';
+			var holiday;//存放holiday的資料
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'holiday':
+	            		holiday = _q_appendData("holiday", "", true);
+	            	break;
                 	case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as[0] != undefined) {
@@ -135,7 +139,7 @@
 	                                q_content = "where=^^partno='" + ssspartno + "'^^";
 	                            else
 	                                q_content = "where=^^sssno='" + r_userno + "'^^";
-							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+							}else if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
 								if (r_rank >= 8)
 	                                q_content = "";
 	                             else if (as.length > 0 && as[0]["pr_ins"] == "true"&&sssjob.indexOf('經理')>-1)
@@ -156,7 +160,7 @@
                         if (as[0] != undefined) {
                             ssspartno = as[0].partno;
                             sssjob=as[0].job;
-                            if(q_getPara('sys.comp').indexOf('英特瑞')>-1){
+                            if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
     	                        q_gt('sss', "where=^^ salesgroup='" + as[0].salesgroup + "'^^", 0, 0, 0, "sss_salesgroup");
                             }else{
 	                            q_gt('authority', "where=^^a.noa='trip' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
@@ -240,7 +244,46 @@
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     Unlock();
                     return;
-                }     
+                }
+                
+                //104/10/02 限制2天後不能修改
+				var t_date=q_date();
+				var x_day=2,t_day=1;
+				
+				while(t_day<x_day){
+					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+					nextdate.setDate(nextdate.getDate() -1)
+					t_date=''+(nextdate.getFullYear()-1911)+'/';
+					//月份
+					t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+					//日期
+					t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+					
+					//六日跳過
+					if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+					||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+					){continue;}
+			               	
+					//假日跳過
+					if(holiday){
+						var isholiday=false;
+						for(var i=0;i<holiday.length;i++){
+							if(holiday[i].noa==t_date){
+								isholiday=true;
+								break;
+							}
+						}
+						if(isholiday) continue;
+					}
+					t_day++;
+				}
+				
+				if(r_rank<9 && t_date>$('#txtDatea').val()){
+					alert('外勤日期已超過兩天禁止新增!!');
+					Unlock();
+					return;
+				}
+                
                 for (var i = 0; i < q_bbsCount; i++) {
                     for (var j = 0; j < q_bbsCount; j++) {
                         if (!emp($('#txtBtime_' + i).val()) && !emp($('#txtEtime_' + i).val()) && i != j && !emp($('#txtBtime_' + j).val()) && !emp($('#txtEtime_' + j).val()) && ($('#txtBtime_' + i).val() < $('#txtBtime_' + j).val() && $('#txtEtime_' + i).val() > $('#txtBtime_' + j).val() || $('#txtEtime_' + i).val() > $('#txtEtime_' + j).val() && $('#txtBtime_' + i).val() < $('#txtEtime_' + j).val())) {
@@ -326,6 +369,43 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
+                    
+				//104/10/02 限制2天後不能修改
+				var t_date=q_date();
+				var x_day=2,t_day=1;
+				
+				while(t_day<x_day){
+					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+					nextdate.setDate(nextdate.getDate() -1)
+					t_date=''+(nextdate.getFullYear()-1911)+'/';
+					//月份
+					t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
+					//日期
+					t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
+					
+					//六日跳過
+					if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
+					||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+					){continue;}
+			               	
+					//假日跳過
+					if(holiday){
+						var isholiday=false;
+						for(var i=0;i<holiday.length;i++){
+							if(holiday[i].noa==t_date){
+								isholiday=true;
+								break;
+							}
+						}
+						if(isholiday) continue;
+					}
+					t_day++;
+				}
+				
+				if(r_rank<9 && t_date>$('#txtDatea').val()){
+					alert('外勤日期已超過兩天禁止修改!!');
+					return;
+				}
                 _btnModi();
                 $('#txtMemo').focus();
             }
@@ -364,6 +444,7 @@
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
             function refresh(recno) {
                 _refresh(recno);
+                q_gt('holiday', "where=^^ noa<='"+q_date()+"' and isnull(iswork,0)=0 ^^ stop=50" , 0, 0, 0, "", r_accy);
             }
 
             function readonly(t_para, empty) {
