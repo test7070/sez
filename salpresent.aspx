@@ -232,10 +232,10 @@
             for (var j = 0; j < q_bbsCount; j++) {
             	if(!emp($('#txtSssno_'+j).val()))
             		t_mount++;
-				t_w100+=dec($('#txtW100_'+j).val());
-				t_w133+=dec($('#txtW133_'+j).val());
-				t_w166+=dec($('#txtW166_'+j).val());
-				t_hr_special+=dec($('#txtHr_special_'+j).val());
+				t_w100=q_add(t_w100,dec($('#txtW100_'+j).val()));
+				t_w133=q_add(t_w133,dec($('#txtW133_'+j).val()));
+				t_w166=q_add(t_w166,dec($('#txtW166_'+j).val()));
+				t_hr_special=q_add(t_hr_special,dec($('#txtHr_special_'+j).val()));
             }  // j
             
             $('#txtW100').val(t_w100);
@@ -245,6 +245,7 @@
             
             $('#txtMount').val(t_mount);
         }
+        
         function refresh(recno) {
             _refresh(recno);
 			table_change();
