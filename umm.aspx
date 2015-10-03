@@ -49,7 +49,9 @@
             	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	, ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
             	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']
-            	, ['txtVccno_', '', 'view_vcc', 'noa,comp,unpay,unpay,typea,accy,cno,mon', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_,txtAccy_,txtCno_,txtPaymon_', '']);
+            	//104/10/03 Vccno不提供apop 會出現系統lag問題
+            	//, ['txtVccno_', '', 'view_vcc', 'noa,comp,unpay,unpay,typea,accy,cno,mon', 'txtVccno_,txtMemo2_,txtUnpayorg_,txtUnpay_,textTypea_,txtAccy_,txtCno_,txtPaymon_', '']
+            	);
             	
                 q_getFormat();
 
@@ -315,12 +317,6 @@
                 		}
                 		
                 		sum();
-                		break;
-                	case 'vcc_cust':
-                		var as = _q_appendData("view_vcc", "", true);
-                		if (as[0] != undefined){
-                			$('#txtCustno_'+b_seq).val(as[0].custno);
-                		}
                 		break;
                 	case 'umm_cust':
                 		var as = _q_appendData("view_vcc", "", true);
@@ -588,6 +584,39 @@
                     			checkGqbStatus_btnDele(t_sel-1);
                     		//}
                     	}
+                    	//檢查vccno是否存在
+                    	if(t_name.substring(0,11)=='vccnocheck_'){
+                    		var n = t_name.split('_')[1];
+                    		var as = _q_appendData("view_vcc", "", true);
+                    		if(as[0]!=undefined){
+                    			var t_unpay=q_mul((as[0].typea=='2'?-1:1),dec(as[0].unpay));
+                    			
+                    			$('#txtMemo2_'+n).val(as[0].comp);
+	                    		$('#txtCno_'+n).val(as[0].cno);
+	                    		$('#txtVccno_'+n).val(as[0].noa);
+	                    		$('#txtAccy_'+n).val(as[0].accy);
+	                    		$('#txtTablea_'+n).val('');
+	                    		$('#textTypea_'+n).val(as[0].typea);
+	                    		$('#txtCustno_'+n).val(((as[0].custno2!='' && as[0].custno2!=undefined)?as[0].custno2:as[0].custno));
+	                    		$('#txtPaymon_'+n).val(as[0].mon);
+	                    		$('#txtPaysale_'+n).val('');
+	                    		$('#txtUnpayorg_'+n).val(t_unpay);
+	                    		$('#txtUnpay_'+n).val(t_unpay);
+                    		}else{
+                    			//資料清空
+	                    		$('#txtMemo2_'+n).val('');
+	                    		$('#txtCno_'+n).val('');
+	                    		$('#txtVccno_'+n).val('');
+	                    		$('#txtAccy_'+n).val('');
+	                    		$('#txtTablea_'+n).val('');
+	                    		$('#textTypea_'+n).val('');
+	                    		$('#txtCustno_'+n).val('');
+	                    		$('#txtPaymon_'+n).val('');
+	                    		$('#txtPaysale_'+n).val('');
+	                    		$('#txtUnpayorg_'+n).val('');
+	                    		$('#txtUnpay_'+n).val('');
+                    		}
+                    	}
                         break;
                 }
             }
@@ -784,12 +813,14 @@
 	                    $(this).val($(this).val().replace(patt,"$1.$2"));
                         sum();
                     });
+                    
                     $('#txtBankno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
                         var n = $(this).attr('id').replace('txtBankno_', '');
                         $('#btnBank_'+n).click();
                     });
+                    
                     $('#txtVccno_'+i).bind('contextmenu',function(e) {
                     	/*滑鼠右鍵*/
                     	e.preventDefault();
@@ -801,7 +832,26 @@
                     		//q_box(t_tablea+".aspx?;;;noa='" + $(this).val() + "'", t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));	
                     		q_box(t_tablea+".aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, t_tablea, "95%", "95%", q_getMsg("pop"+t_tablea));
                     	}
-                    });
+                    }).change(function() {
+                    	var n = $(this).attr('id').replace('txtVccno_','');
+                    	if(emp($('#txtVccno_'+n).val())){
+                    		//資料清空
+                    		$('#txtMemo2_'+n).val('');
+                    		$('#txtCno_'+n).val('');
+                    		$('#txtVccno_'+n).val('');
+                    		$('#txtAccy_'+n).val('');
+                    		$('#txtTablea_'+n).val('');
+                    		$('#textTypea_'+n).val('');
+                    		$('#txtCustno_'+n).val('');
+                    		$('#txtPaymon_'+n).val('');
+                    		$('#txtPaysale_'+n).val('');
+                    		$('#txtUnpayorg_'+n).val('');
+                    		$('#txtUnpay_'+n).val('');
+                    	}else{
+                    		var t_where = "where=^^ noa='"+$('#txtVccno_'+n).val()+"' ^^";
+	            			q_gt('view_vcc', t_where, 0, 0, 0, "vccnocheck_"+n, r_accy);
+                    	}
+					});
 					
                     $('#txtMoney_' + i).change(function(e) {
                         sum();
@@ -1024,13 +1074,7 @@
             function q_popPost(s1) {
 			   	switch (s1) {
 			        case 'txtVccno_':
-			   			if($('#textTypea_'+b_seq).val()=='2'){
-			   				$('#txtUnpayorg_'+b_seq).val(dec($('#txtUnpayorg_'+b_seq).val())*-1);
-			   				$('#txtUnpay_'+b_seq).val(dec($('#txtUnpay_'+b_seq).val())*-1);
-			   			}
-			   			var t_where = "where=^^ noa='"+$('#txtVccno_'+b_seq).val()+"' ^^";
-	            		q_gt('umm_cust', t_where, 0, 0, 0, "vcc_cust", r_accy);
-	            		
+			   			
 			   			break;
 			   		case 'txtCustno':
                     	getOpay();
