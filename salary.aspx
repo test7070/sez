@@ -73,25 +73,26 @@
             	check_insed();
             });
             
-            $('#txtMon').blur(function () {
-            	if($('#txtMon').val().length!=6||$('#txtMon').val().indexOf('/')!=3){
-            		if($('#txtMon').val().length==5&&$('#txtMon').val().indexOf('/')==-1)
-            			$('#txtMon').val($('#txtMon').val().substr(0,3)+'/'+$('#txtMon').val().substr(3,2));
-            		else{
+			$('#txtMon').blur(function () {
+            	if(q_cur==1 || q_cur==2){
+            		if(emp($('#txtMon').val())){
+            			var t_datea=emp($('#txtDatea').val())?q_date():$('#txtDatea').val();
+            			$('#txtMon').val(t_datea.subsrt(0,r_lenm));
+            		}
+            		if($('#txtMon').val().length!=r_lenm || $('#txtMon').val().indexOf('/')!=r_len){
             			alert('月份欄位錯誤請，重新輸入!!!');
             			$('#txtMon').focus();
             			return;
             		}
+            		getdtmp();
+            		check_insed();
             	}
-            	
-            	getdtmp();
-            	check_insed();
             });
             
             $('#btnInput').click(function () {
             	//抓取停職資料
             	if(q_cur==1 ||q_cur==2){
-            		q_gt('sssr',"where=^^ '"+$('#txtMon').val()+"' between left(stopdate,6) and left(dbo.q_cdn(reindate,-1),6) ^^", 0, 0, 0, "sssr", r_accy);
+            		q_gt('sssr',"where=^^ '"+$('#txtMon').val()+"' between left(stopdate,"+r_lenm+") and left(dbo.q_cdn(reindate,-1),"+r_lenm+") ^^", 0, 0, 0, "sssr", r_accy);
 		        }
             });
             
@@ -268,19 +269,22 @@
 		function endacheck(x_datea,x_day) {
 			//102/06/21 7月份開始資料3日後不能在處理
 			var t_date=x_datea,t_day=1;
-                
+            var t_1911=1911;
+            if(r_len==4)
+            	t_1911=0;
+            
 			while(t_day<x_day){
-				var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				var nextdate=new Date(dec(t_date.substr(0,r_len))+t_1911,dec(t_date.substr((r_len+1),2))-1,dec(t_date.substr((r_lenm+1),2)));
 				nextdate.setDate(nextdate.getDate() +1)
-				t_date=''+(nextdate.getFullYear()-1911)+'/';
+				t_date=''+(nextdate.getFullYear()-t_1911)+'/';
 				//月份
 				t_date=t_date+((nextdate.getMonth()+1)<10?('0'+(nextdate.getMonth()+1)+'/'):((nextdate.getMonth()+1)+'/'));
 				//日期
 				t_date=t_date+(nextdate.getDate()<10?('0'+(nextdate.getDate())):(nextdate.getDate()));
 	                	
 				//六日跳過
-				if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0 //日
-				||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6 //六
+				if(new Date(dec(t_date.substr(0,r_len))+t_1911,dec(t_date.substr((r_len+1),2))-1,dec(t_date.substr((r_lenm+1),2))).getDay()==0 //日
+				||new Date(dec(t_date.substr(0,r_len))+t_1911,dec(t_date.substr((r_len+1),2))-1,dec(t_date.substr((r_lenm+1),2))).getDay()==6 //六
 				){continue;}
 	                	
 				//假日跳過
@@ -363,9 +367,8 @@
             		break;
             	case 'sssr':
             		sssr = _q_appendData("sssr", "", true);
-            		
             		if (q_getPara('sys.project').toUpperCase()=='RB'){//出勤 判斷 上月21~本月20 薪資 算當月
-		        		var t_premon=q_cdn($('#txtMon').val()+'/01',-1).substr(0,6);//上月
+		        		var t_premon=q_cdn($('#txtMon').val()+'/01',-1).substr(0,r_lenm);//上月
 		        		var t_prelastday=q_cdn($('#txtMon').val()+'/01',-1).substr(-2);//上月最後一天
 		        		//薪資結算為上月21~本月20
 		        		if($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1){
@@ -415,9 +418,9 @@
 		                    	if(as[i].indate>=date_1){//計算工作天數
 		                    		var t_date=as[i].indate,inday=0;
 		                    		if(!emp(as[i].outdate))//當月離職
-		                    			inday=dec(as[i].outdate.substr(7,2))-dec(t_date.substr(7,2))+1
+		                    			inday=dec(as[i].outdate.substr((r_lenm+1),2))-dec(t_date.substr((r_lenm+1),2))+1
 		                    		else
-		                    			inday=dec(date_2.substr(7,2))-dec(t_date.substr(7,2))+1
+		                    			inday=dec(date_2.substr((r_lenm+1),2))-dec(t_date.substr((r_lenm+1),2))+1
 		                    		
 		                    		if(inday>30)
 		                    			inday=30;
@@ -431,7 +434,7 @@
 		                    	//離職員工
 		                    	if(as[i].indate<date_1&&!emp(as[i].outdate)){
 		                    		var t_date=as[i].outdate,inday=0;
-		                    		inday=dec(t_date.substr(7,2))-dec(date_1.substr(7,2))+1
+		                    		inday=dec(t_date.substr((r_lenm+1),2))-dec(date_1.substr((r_lenm+1),2))+1
 		                    		
 		                    		if(inday>30) inday=30;
 		                    		
@@ -746,7 +749,7 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
-            $('#txtMon').val(q_date().substr( 0,6));
+            $('#txtMon').val(q_date().substr(0,r_lenm));
             $('#txtMon').focus();
             $('#cmbPerson').val("本國");
             $('#cmbMonkind').val("本月");
@@ -1095,7 +1098,11 @@
         }
         
         function getdtmp() {
-        	var myDate = new Date(dec($('#txtMon').val().substr( 0,3))+1911,dec($('#txtMon').val().substr( 4,5)),0);
+        	var t_1911=1911;
+            if(r_len==4)
+            	t_1911=0;
+        	var myDate = new Date(dec($('#txtMon').val().substr(0,r_len))+t_1911,dec($('#txtMon').val().substr((r_len+1),5)),0);
+
         	var lastday=myDate.getDate();	//取當月最後一天
         	if($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1){
         		date_1=$('#txtMon').val()+'/01';
@@ -1108,7 +1115,7 @@
         	}else{
         		date_1=$('#txtMon').val()+'/01';
         		date_2=$('#txtMon').val()+'/'+lastday;
-        		if($('#txtMon').val().substr( 4,5)=="02")
+        		if($('#txtMon').val().substr((r_len+1),5)=="02")
         			dtmp=lastday;
         		else
         			dtmp=30;
