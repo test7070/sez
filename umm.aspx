@@ -65,16 +65,21 @@
 		        q_gt('acomp', '', 0, 0, 0, "");
 		        //q_cmbParse("combAcc1", '1111@現金,1121@應收票據');
 		        
-		        
 		         $('#txtDatea').blur(function() {
 		         	if(!emp($('#txtDatea').val())&&(q_cur==1 || q_cur==2)){
-		         		
 		         		if(q_getPara('sys.project').toUpperCase()=='IT' || q_getPara('sys.project').toUpperCase()=='UU' || q_getPara('sys.project').toUpperCase()=='XY' || q_getPara('sys.project').toUpperCase()=='RB'){
-		         			$('#txtMon').val($('#txtDatea').val().substr(0,6));
+		         			$('#txtMon').val($('#txtDatea').val().substr(0,r_lenm));
 		         		}else{
-                    		var d = new Date(dec($('#txtDatea').val().substr(0,3))+1911, dec($('#txtDatea').val().substr(4,2))-1, dec($('#txtDatea').val().substr(7,2)));
+		         			var d='';
+		         			if(r_len==3)//民國年
+	                    		d = new Date(dec($('#txtDatea').val().substr(0,r_len))+1911, dec($('#txtDatea').val().substr((r_len+1),2))-1, 1);
+	                    	else//西元年
+	                    		d = new Date(dec($('#txtDatea').val().substr(0,r_len)), dec($('#txtDatea').val().substr((r_len+1),2))-1, 1);
 							d.setMonth(d.getMonth() - 1);
-							$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
+							if(r_len==3)//民國年
+								$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
+							else//西元年
+								$('#txtMon').val(d.getFullYear()+'/'+('0'+(d.getMonth()+1)).slice(-2));
 						}
 					}
                 });

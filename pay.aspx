@@ -57,9 +57,16 @@
 		        
 		        $('#txtDatea').blur(function() {
 		         	if(!emp($('#txtDatea').val())&&(q_cur==1 || q_cur==2)){
-                    	var d = new Date(dec($('#txtDatea').val().substr(0,3))+1911, dec($('#txtDatea').val().substr(4,2))-1, dec($('#txtDatea').val().substr(7,2)));
+                    	var d='';
+		         		if(r_len==3)//民國年
+	                    	d = new Date(dec($('#txtDatea').val().substr(0,r_len))+1911, dec($('#txtDatea').val().substr((r_len+1),2))-1, 1);
+	                    else//西元年
+	                    	d = new Date(dec($('#txtDatea').val().substr(0,r_len)), dec($('#txtDatea').val().substr((r_len+1),2))-1, 1);
 						d.setMonth(d.getMonth() - 1);
-						$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
+						if(r_len==3)//民國年
+							$('#txtMon').val(d.getFullYear()-1911+'/'+('0'+(d.getMonth()+1)).slice(-2));
+						else//西元年
+							$('#txtMon').val(d.getFullYear()+'/'+('0'+(d.getMonth()+1)).slice(-2));
 					}
                 });
 		        
