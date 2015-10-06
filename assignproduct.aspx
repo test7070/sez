@@ -136,7 +136,7 @@
 				}
 				if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('assignproduct', t_where, 0, 0, 0, "checkCarbrandno_btnOk", r_accy);
+                    q_gt('assignproduct', t_where, 0, 0, 0, "checkAssignproduct_btnOk", r_accy);
                 }else{
                 	wrServer($('#txtNoa').val());
                 }
