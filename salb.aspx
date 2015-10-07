@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -83,6 +83,7 @@
 					$('#divMedia').show();
 					$('#textYear').val(dec(q_date().substr(0,3))-1);
 				});
+				
 				$('#btnProduceMedia').click(function() {
 					if(!emp($('#textYear').val())){
 						$('#btnProduceMedia').attr('disabled', 'disabled');
@@ -92,18 +93,33 @@
 						alert('年度不可空白!!');
 					}
 				});
+				
 				$('#btnCloseMedia').click(function() {
 					$('#divMedia').hide();
 				});
+				
 				$('#textBserial').focusin(function() {
 					q_cur=2
 				}).focusout(function() {
 					q_cur=0
 				});
+				
 				$('#textEserial').focusin(function() {
 					q_cur=2
 				}).focusout(function() {
 					q_cur=0
+				});
+				
+				$('#btnDividend').click(function() {
+					if($('#btnDividend').val().indexOf('隱藏')>-1){
+						$('.dividend').hide();
+						$('.dbbs').css('width','1260px');
+						$('#btnDividend').val('股利顯示');
+					}else{
+						$('.dbbs').css('width','2300px');
+						$('.dividend').show();
+						$('#btnDividend').val('股利隱藏');
+					}
 				});
 			}
 						
@@ -652,7 +668,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2500px;
+				width: 2300px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -738,7 +754,7 @@
 						<td class="td2"><input id="txtMoney" type="text" class="txt num c1" /></td>
 						<td class="td3"><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td class="td4"><input id="txtTax" type="text" class="txt num c1" /></td>
-						<td class="td5"> </td>
+						<td class="td5"><input id="btnDividend" type="button" value="股利隱藏" /></td>
 						<td class="td6">
 							<!--<input id="btnEnd" type="button" />-->
 							<input id="btnMedia" type="button" />
@@ -766,16 +782,16 @@
 					<td align="center" style="display: none;"><a id='lblCh_meal'> </a></td>
 					<td align="center"><a id='lblMoneys'> </a></td>
 					<td align="center"><a id='lblRetire'> </a></td>
-					<td align="center"><a id='lblSmount'> </a></td>
-					<td align="center"><a id='lblPrice'> </a></td>
-					<td align="center"><a id='lblExdate'> </a></td>
-					<td align="center"><a id='lblDistribution'> </a></td>
-					<td align="center"><a id='lblRate'> </a></td>
-					<td align="center"><a id='lblCash'> </a></td>
-					<td align="center"><a id='lblCapital'> </a></td>
-					<td align="center"><a id='lblStock'> </a></td>
+					<td align="center" class="dividend"><a id='lblSmount'> </a></td>
+					<td align="center" class="dividend"><a id='lblPrice'> </a></td>
+					<td align="center" class="dividend"><a id='lblExdate'> </a></td>
+					<td align="center" class="dividend"><a id='lblDistribution'> </a></td>
+					<td align="center" class="dividend"><a id='lblRate'> </a></td>
+					<td align="center" class="dividend"><a id='lblCash'> </a></td>
+					<td align="center" class="dividend"><a id='lblCapital'> </a></td>
+					<td align="center" class="dividend"><a id='lblStock'> </a></td>
 					<td align="center"><a id='lblTaxs'> </a></td>
-					<td align="center"><a id='lblTax2s'> </a></td>
+					<td align="center" class="dividend"><a id='lblTax2s'> </a></td>
 					<!--<td align="center"><a id='lblMi_moneys'> </a></td>-->
 					<td align="center" style="width: 40px;"><a id='lblSex'> </a></td>
 					<td align="center"><a id='lblComp'> </a></td>
@@ -802,16 +818,16 @@
 					<td style="display: none;"><input id="txtCh_meal.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtRetire.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtSmount.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtExdate.*" type="text" class="txt c1" /></td>
-					<td><input id="txtDistribution.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtRate.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtCash.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtCapital.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtStock.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtSmount.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtPrice.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtExdate.*" type="text" class="txt c1" /></td>
+					<td class="dividend"><input id="txtDistribution.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtRate.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtCash.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtCapital.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtStock.*" type="text" class="txt num c1" /></td>
 					<td><input id="txtTax.*" type="text" class="txt num c1" /></td>
-					<td><input id="txtTax2.*" type="text" class="txt num c1" /></td>
+					<td class="dividend"><input id="txtTax2.*" type="text" class="txt num c1" /></td>
 					<!--<td><input id="txtMi_money.*" type="text" class="txt num c1"/></td>-->
 					<td><select id="cmbSex.*" class="txt c1"> </select></td>
 					<td>

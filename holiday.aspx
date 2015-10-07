@@ -116,6 +116,7 @@
                     Unlock();
                     return;
                 }
+                $('#txtWorker').val(r_name);
                 wrServer(t_noa);
             }
 

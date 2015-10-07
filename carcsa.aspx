@@ -87,7 +87,7 @@
             		Lock(1,{opacity:0});
             		q_gt('calctype', '', 0, 0, 0, 'carcsaInit_1');
             	}
-			}
+			};
 			var carcsa = new carcsaData();
 			
 			
@@ -608,6 +608,8 @@
                 }
                 
                 $('#txtMount').val(FormatNumber(t_mount));
+                $('#txtTimes').val(FormatNumber(t_mount));
+                
                 $('#txtWeight').val(FormatNumber(t_weight));
                 $('#txtInmoney').val(FormatNumber(t_inmoney));
      

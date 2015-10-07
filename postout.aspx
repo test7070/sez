@@ -84,6 +84,10 @@
 				q_msg();
 	        });
 	        
+	        $('#txtStoreno').change(function () {
+				q_gt('postage_stk', "where=^^ a.storeno='"+$('#txtStoreno').val()+"' ^^" , 0, 0, 0, "postagestk", r_accy);//讀出庫存
+	        });
+	        
 			$('#txtP20').change(function () {
 				if(p20<dec($('#txtP20').val())){
 					alert('郵資庫存數量不足');

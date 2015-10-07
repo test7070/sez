@@ -35,8 +35,10 @@
                 q_mask(bbmMask);
 				q_gt('part', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0, "");
-                $('#txtBdate').datepicker();
-				$('#txtEdate').datepicker(); 
+                if(r_len==3){
+	                $('#txtBdate').datepicker();
+					$('#txtEdate').datepicker();
+				} 
                 $('#txtNoa').focus();
             }
 			function q_gtPost(t_name) {
