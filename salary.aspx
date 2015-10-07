@@ -631,7 +631,7 @@
                 return;
             }
             
-            if(insed&&q_cur==1&&!(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1)){
+            if(insed&&q_cur==1&&!(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1 || q_getPara('sys.project').toUpperCase()=='RB' )){
             	alert('該薪資作業已做過!!!');
                 return;
             }
