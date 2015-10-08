@@ -247,7 +247,8 @@
                 }
                 
                 //104/10/02 限制2天後不能修改
-				var t_date=q_date();
+                //104/10/08 新增可以輸入兩天前的資料
+				/*var t_date=q_date();
 				var x_day=2,t_day=1;
 				
 				while(t_day<x_day){
@@ -282,7 +283,7 @@
 					alert('外勤日期已超過兩天禁止新增!!');
 					Unlock();
 					return;
-				}
+				}*/
                 
                 for (var i = 0; i < q_bbsCount; i++) {
                     for (var j = 0; j < q_bbsCount; j++) {
