@@ -116,7 +116,7 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-                
+                $('#lblYproject').css('font-weight','bolder').css('color','blue');
                 $('#lblYproject').click(function(e) {
                 	q_box("proj_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'proj', "450px", "600px", q_getMsg("popProj"));
                 });
