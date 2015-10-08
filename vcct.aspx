@@ -214,7 +214,7 @@
             }
 
             function btnPrint() {
-				
+				q_box('z_vcct.aspx' + "?;;;noa='" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function q_stPost() {
