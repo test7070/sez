@@ -118,7 +118,7 @@
                 q_langShow();
                 
                 $('#lblYproject').click(function(e) {
-                	q_box("acpart_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'acpart', "450px", "600px", q_getMsg("popAcpart"));
+                	q_box("proj_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'proj', "450px", "600px", q_getMsg("popProj"));
                 });
                 $('#Yproject').css('width','98%');
                 $('#txtYproject').css('width','85%');
@@ -271,7 +271,7 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                	case 'acpart':
+                	case 'proj':
                         ret = getb_ret();
                         if(ret==null)
                         	return;
