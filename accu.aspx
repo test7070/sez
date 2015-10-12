@@ -14,6 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			q_copy=1;
             q_tables = 's';
             var q_name = "accu";
             var q_readonly = ['txtNoa', 'txtTotal'];
@@ -112,7 +113,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('accu_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('accu_s.aspx', q_name + '_s', "500px", "410px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -124,7 +125,17 @@
                             e.preventDefault();
                             var n = $(this).attr('id').replace('txtAcc1_', '');
                             $('#btnAcc1_'+n).click();
-                        });
+                        }).change(function() {
+	                    	var n = $(this).attr('id').replace('txtAcc1_','');
+	                    	if($(this).val()=="=" && n>0){
+	                    		$('#txtAcc1_'+n).val($('#txtAcc1_'+(dec(n)-1)).val());
+	                    		$('#txtAcc2_'+n).val($('#txtAcc2_'+(dec(n)-1)).val());
+	                    	}
+                    	
+	                        var patt = /^(\d{4})([^\.,.]*)$/g;
+		                    $(this).val($(this).val().replace(patt,"$1.$2"));
+                        
+                    	});
                         $('#txtPartno_' + i).bind('contextmenu', function(e) {
                             /*滑鼠右鍵*/
                             e.preventDefault();
@@ -148,7 +159,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-                $('#txtMon').val(q_date().substring(0, r_len));
+                //$('#txtMon').val(q_date().substring(0, r_len));
 
                 $('#txtMon').focus();
             }

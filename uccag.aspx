@@ -249,20 +249,20 @@
                 border-width: 0px;
             }
             .tview {
-                border: 5px solid gray;
-                font-size: medium;
-                background-color: black;
-            }
-            .tview tr {
-                height: 30px;
-            }
+				margin: 0;
+				padding: 2px;
+				border: 1px black double;
+				border-spacing: 0;
+				font-size: medium;
+				background-color: #FFFF66;
+				color: blue;
+				width: 100%;
+			}
             .tview td {
-                padding: 2px;
-                text-align: center;
-                border-width: 0px;
-                background-color: #FFFF66;
-                color: blue;
-            }
+				padding: 5px;
+				text-align: center;
+				border: 1px black solid;
+			}
             .dbbm {
                 float: left;
                 width: 700px;
@@ -372,6 +372,7 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
+						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
@@ -385,13 +386,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td><span> </span><a id='lblMon' class="lbl" style="font-size:13px;"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1" > </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
+						<td><span> </span><a id='lblDate' class="lbl" style="font-size:13px;"> </a></td>
 						<td colspan="2">
 							<input id="txtBdate" type="text" class="txt c1" style="width: 45%;" />
 							<a class="lbl edate" style="float: left;">~</a>
