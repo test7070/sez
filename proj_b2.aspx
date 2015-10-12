@@ -47,6 +47,10 @@
 					}
 					location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
 				});
+				
+				parent.$.fn.colorbox.resize({
+					height : "750px"
+				});
 			}
 			function mainPost() {
 				parent.$.fn.colorbox.resize({
