@@ -30,6 +30,23 @@
 					return;
 				}
 				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+				
+				$('#btnSearch').click(function() {
+					var t_where="1=1";
+					if($('#textProjno').val().length>0){
+						t_where+=" and charindex('"+$('#textProjno').val()+"',noa)>0";
+					}
+					if($('#textProj').val().length>0){
+						t_where+=" and charindex('"+$('#textProj').val()+"',proj)>0";
+					}
+					var t_noa='';
+					for(var i=0; i<abbs.length; i++){
+						if(abbs[i].sel==true || abbs[i].sel=="true"){
+							t_noa=t_noa+(t_noa.length>0?',':'')+"'"+abbs[i].noa+"'"; 
+						}
+					}
+					location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
+				});
 			}
 
 			function q_gtPost() {
@@ -114,6 +131,15 @@
 				</table>
 			</div>
 			<!--#include file="../inc/pop_ctrl.inc"-->
+			<div>
+				<a>專案編號</a>
+				<input class="txt" id="textProjno" type="text" style="width:150px;" />
+			</div>
+			<div>
+				<a>專案名稱 </a>
+				 <input class="txt" id="textProj" type="text" style="width:150px;" />
+				 <input type="button" id="btnSearch" style="border-style: none; width: 36px; height: 36px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;">
+			 </div>
 		</div>
 	</body>
 </html>
