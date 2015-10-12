@@ -48,8 +48,15 @@
 					location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
 				});
 			}
+			function mainPost() {
+				parent.$.fn.colorbox.resize({
+					height : "750px"
+				});
+			}
+
 
 			function q_gtPost() {
+				
 			}
 			
 			//var xuccno=''
@@ -116,7 +123,7 @@
 					</tr>
 				</table>
 			</div>
-			<div style="width:350px;height:600px;overflow: scroll;" >
+			<div style="width:350px;height:500px;overflow-y: scroll;" >
 				<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:100%' >
 					<tr style="height:1px;">
 						<td align="center" style="width:30px;"> </td>

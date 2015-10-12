@@ -41,7 +41,7 @@
                 
                 
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             function main() {
@@ -162,7 +162,7 @@
             }
 
             function btnPrint() {
-                q_box('z_accu.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_accu.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
