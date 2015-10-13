@@ -59,12 +59,13 @@
             }
             
              $('#chkHoliday').click(function () {
+             	if(q_getPara('sys.project').toUpperCase()=='VU'){
+             		table_change();
+	        		return;
+	            }
+             	
              	if($('#chkHoliday').prop('checked')){
 					for (var j = 0; j < q_bbsCount; j++) {
-				    	$('#hid_w133s_'+j).hide();
-					    $('#hid_w166s_'+j).hide();
-					    $('#hid_w100s_'+j).show();
-					    
 					    $('#txtW100_'+j).val(q_add(dec($('#txtW133_'+j).val()),dec($('#txtW166_'+j).val())));
 					    $('#txtW133_'+j).val(0);
 					    $('#txtW166_'+j).val(0);
@@ -81,12 +82,16 @@
 					    $('#txtW100_'+j).val(0);
 				    }
              	}
-             	
             	table_change();
             });
             
             $('#btnInput').click(function () {
-            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where ('"+$('#txtNoa').val()+"' between bdate and edate) and hr_used>=8 and hname not like '遲到' and hname not like '早退' ) and noa!='Z001' and noa!='010132' and (jobno not between '97' and '99')^^";
+            	var t_where=''
+            	if(q_getPara('sys.project').toUpperCase()=='DC'){
+            		t_where = "where=^^ (isnull(outdate,'')='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where ('"+$('#txtNoa').val()+"' between bdate and edate) and hr_used>=8 and hname not like '遲到' and hname not like '早退' ) and noa!='Z001' and noa!='010132' and (jobno not between '97' and '99')^^";
+            	}else{
+            		t_where = "where=^^ (isnull(outdate,'')='' or outdate >'"+$('#txtNoa').val()+"') and noa!='Z001' ^^";
+            	}
             	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
             });
             
@@ -113,7 +118,7 @@
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		for (var j = 0; j < as.length; j++) {
-            			if(q_getPara('sys.comp').indexOf('英特瑞')>-1 || q_getPara('sys.comp').indexOf('安美得')>-1){
+            			if(q_getPara('sys.project').toUpperCase()=='IT'){
             				if(as[j].typea.indexOf('中班')>-1){
             					as[j].clockin='16:00';
             					as[j].clockout='00:00';
@@ -124,9 +129,12 @@
             					as[j].clockin='09:00';
             					as[j].clockout='18:00';
             				}
-            			}else{
+            			}else if(q_getPara('sys.project').toUpperCase()=='DC'){
             				as[j].clockin='08:00';
             				as[j].clockout='17:30';
+            			}else{
+            				as[j].clockin='08:00';
+            				as[j].clockout='17:00';
             			}
             		}
             		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtClockin,txtClockout', as.length, as, 'noa,namea,clockin,clockout', '');
@@ -141,7 +149,7 @@
 	                 	else
 	                 		insed=false;
                 	}
-                	if (q_cur == 4)   // ?d??
+                	if (q_cur == 4)
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -153,7 +161,7 @@
                 	alert(q_getMsg('lblNoa')+'錯誤。');
                 	return;
             }       	
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ??d??? 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -184,6 +192,10 @@
 			});
             _bbsAssign();
             table_change();
+            if(q_getPara('sys.project').toUpperCase()=='VU'){
+            	$('#lblW133').text('加班時數');
+            	$('#lblW133_s').text('加班時數');
+            }
         }
 		
 		var insed=false;
@@ -221,7 +233,7 @@
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];
+            as['datea'] = abbm2['datea'];
 
             return true;
         }
@@ -305,40 +317,20 @@
         }
         
         function table_change() {
-            if($('#chkHoliday').prop('checked')){
-            	//bbm
-            	$('#hid_w133a').hide();
-            	$('#hid_w133b').hide();
-            	$('#hid_w166a').hide();
-            	$('#hid_w166b').hide();
-			    $('#hid_w100a').show();
-			    $('#hid_w100b').show();
-			    //bbs
-			    $('#hid_w133s').hide();
-			    $('#hid_w166s').hide();
-			    $('#hid_w100s').show();
-			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#hid_w133s_'+j).hide();
-				    $('#hid_w166s_'+j).hide();
-				    $('#hid_w100s_'+j).show();
-			    }
+        	if(q_getPara('sys.project').toUpperCase()=='VU'){
+        		$('.w133').show();
+	            $('.w166').hide();
+				$('.w100').show();
             }else{
-            	//bbm
-            	$('#hid_w133a').show();
-            	$('#hid_w133b').show();
-            	$('#hid_w166a').show();
-            	$('#hid_w166b').show();
-			    $('#hid_w100a').hide();
-			    $('#hid_w100b').hide();
-			    //bbs
-			    $('#hid_w133s').show();
-			    $('#hid_w166s').show();
-			    $('#hid_w100s').hide();
-			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#hid_w133s_'+j).show();
-				    $('#hid_w166s_'+j).show();
-				    $('#hid_w100s_'+j).hide();
-			    }
+            	if($('#chkHoliday').prop('checked')){
+	            	$('.w133').hide();
+	            	$('.w166').hide();
+				    $('.w100').show();
+	            }else{
+	            	$('.w133').show();
+	            	$('.w166').show();
+				    $('.w100').hide();
+	            }
             }
             sum();
         }
@@ -540,38 +532,38 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
-            <td class='td1'><span> </span><a id="lblNoa" class="lbl" > </a></td>
-            <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <!--<td class="td3"><input id="txtDay" type="text" class="txt c1" /></td> 
-            <td class='td4'><input id="txtRein" type="text" class="txt c1" /></td>
-            <td class="td5"><span> </span><a id="lblHours" class="lbl" > </a></td>--> 
+            <td ><span> </span><a id="lblNoa" class="lbl" > </a></td>
+            <td ><input id="txtNoa"  type="text" class="txt c1"/></td>
+            <!--<td><input id="txtDay" type="text" class="txt c1" /></td> 
+            <td><input id="txtRein" type="text" class="txt c1" /></td>
+            <td><span> </span><a id="lblHours" class="lbl" > </a></td>--> 
             <td class='td6'><input id="chkHoliday" type="checkbox" style=' '/><span> </span><a id="lblHoliday" > </a></td>
             <td class="td7"><input id="btnInput" type="button" /></td> 
         </tr>             
         <!--<tr class="tr2">
-            <td class='td1'><span> </span><a id="lblData" class="lbl" > </a></td>
-            <td class="td2" colspan="3"><input id="txtData"  type="text" class="txt c1"/></td> 
-            <td class='td5'><input id="btnGlance" type="button" /></td>
+            <td ><span> </span><a id="lblData" class="lbl" > </a></td>
+            <td colspan="3"><input id="txtData"  type="text" class="txt c1"/></td> 
+            <td><input id="btnGlance" type="button" /></td>
         </tr>-->   
         <tr class="tr3">
-            <td class='td1' id='hid_w133a'><span> </span><a id="lblW133" class="lbl" > </a></td>
-            <td class="td2" id='hid_w133b'><input id="txtW133"  type="text" class="txt num c1"/></td>
-            <td class='td3' id='hid_w166a'><span> </span><a id="lblW166" class="lbl" > </a></td>
-            <td class="td4" id='hid_w166b'><input id="txtW166"  type="text" class="txt num c1"/></td> 
-            <td class='td5' id='hid_w100a'><span> </span><a id="lblW100" class="lbl" > </a></td>
-            <td class="td6" id='hid_w100b'><input id="txtW100"  type="text" class="txt num c1"/></td>
+            <td class='w133'><span> </span><a id="lblW133" class="lbl" > </a></td>
+            <td class='w133'><input id="txtW133"  type="text" class="txt num c1"/></td>
+            <td class='w166'><span> </span><a id="lblW166" class="lbl" > </a></td>
+            <td class='w166'><input id="txtW166"  type="text" class="txt num c1"/></td> 
+            <td class='w100'><span> </span><a id="lblW100" class="lbl" > </a></td>
+            <td class='w100'><input id="txtW100"  type="text" class="txt num c1"/></td>
         </tr>
         <!--<tr class="tr4">
-            <td class='td1'><span> </span><a id="lblW200" class="lbl" > </a></td>
-            <td class="td2"><input id="txtW200"  type="text" class="txt num c1"/></td>
-            <td class='td3'><span> </span><a id="lblW300" class="lbl" > </a></td>
-            <td class="td4"><input id="txtW300"  type="text" class="txt num c1"/></td>
+            <td><span> </span><a id="lblW200" class="lbl" > </a></td>
+            <td><input id="txtW200"  type="text" class="txt num c1"/></td>
+            <td><span> </span><a id="lblW300" class="lbl" > </a></td>
+            <td><input id="txtW300"  type="text" class="txt num c1"/></td>
         </tr>-->
         <tr class="tr4">
-            <td class='td1'><span> </span><a id="lblHr_special" class="lbl" > </a></td>
-            <td class="td2"><input id="txtHr_special"  type="text" class="txt num c1"/></td>
-            <td class='td3'><span> </span><a id="lblMount" class="lbl" > </a></td>
-            <td class="td4"><input id="txtMount"  type="text" class="txt num c1"/></td>
+            <td><span> </span><a id="lblHr_special" class="lbl" > </a></td>
+            <td><input id="txtHr_special"  type="text" class="txt num c1"/></td>
+            <td><span> </span><a id="lblMount" class="lbl" > </a></td>
+            <td><input id="txtMount"  type="text" class="txt num c1"/></td>
         </tr>                                                                                                    
         </table>
         </div>
@@ -585,9 +577,9 @@
                 <td align="center"><a id='lblClockin_s'> </a></td>
                 <td align="center"><a id='lblClockout_s'> </a></td>
                 <td align="center"><a id='lblCardno_s'> </a></td>
-                <td align="center" id='hid_w133s'><a id='lblW133_s'> </a></td>
-                <td align="center" id='hid_w166s'><a id='lblW166_s'> </a></td>
-                <td align="center" id='hid_w100s'><a id='lblW100_s'> </a></td>
+                <td align="center" class='w133'><a id='lblW133_s'> </a></td>
+                <td align="center" class='w166'><a id='lblW166_s'> </a></td>
+                <td align="center" class='w100'><a id='lblW100_s'> </a></td>
                 <!--<td align="center"><a id='lblW200_s'> </a></td>
                 <td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center"><a id='lblHr_special_s'> </a></td>
@@ -602,9 +594,9 @@
                 <td ><input class="txt c1" id="txtClockin.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtClockout.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtCardno.*"type="text" /></td>
-                <td id='hid_w133s.*'><input class="txt num c1" id="txtW133.*"type="text" /></td>
-                <td id='hid_w166s.*'><input class="txt num c1" id="txtW166.*"type="text" /></td>
-                <td id='hid_w100s.*'><input class="txt num c1" id="txtW100.*"type="text" /></td>
+                <td class='w133'><input class="txt num c1" id="txtW133.*"type="text" /></td>
+                <td class='w166'><input class="txt num c1" id="txtW166.*"type="text" /></td>
+                <td class='w100'><input class="txt num c1" id="txtW100.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtW200.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
                 <td ><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
