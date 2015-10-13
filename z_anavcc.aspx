@@ -90,7 +90,13 @@
                         type : '5', //[23]
                         name : 'xorder',
                         value : "money@金額,mount@數量".split(',')
-					}]
+					},{
+                        type : '6', //[24] //4-4
+                      	name : 'multcust'
+                    },{
+                        type : '6', //[25] //5-1
+                      	name : 'multucc'
+                    }]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -135,9 +141,52 @@
 				$('#txtXemon2').val(r_accy+'/12').mask('999/99');
 				$('#txtLostdate').val(100);
 				//$('#Xuccgroupano select').css('width','150px');
+				
+				$('#Multcust').css("width","607px");
+				$('#txtMultcust').css("width","515px");
+				$('#lblMultcust').css("color","#0000ff");
+				$('#lblMultcust').click(function(e) {
+	                q_box("cust_b2.aspx?;;;;", 'cust', "600px", "90%", q_getMsg("popCust"));
+	            });
+	            
+	            $('#Multucc').css("width","607px");
+				$('#txtMultucc').css("width","515px");
+				$('#lblMultucc').css("color","#0000ff");
+				$('#lblMultucc').click(function(e) {
+	                q_box("ucc_b2.aspx?;;;;", 'ucc', "600px", "90%", q_getMsg("popUcc"));
+	            });
 			}
 
 			function q_boxClose(s2) {
+				var ret;
+                switch (b_pop) {
+                	case 'cust':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xcust='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xcust+=ret[i].noa+'.'
+                        	}
+                        }
+                        xcust=xcust.substr(0,xcust.length-1);
+                        $('#txtMultcust').val(xcust);
+                        break;	
+                    case 'ucc':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xucc='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xucc+=ret[i].noa+'.'
+                        	}
+                        }
+                        xucc=xucc.substr(0,xucc.length-1);
+                        $('#txtMultucc').val(xucc);
+                        break;	    
+                }	
 			}
 
 			function q_gtPost(t_name) {
