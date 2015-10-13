@@ -41,7 +41,7 @@
 					}
 					
 					//t_where="where=^^"+t_where+"^^"
-					location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
+					location.href = "http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";"+t_where+";"+r_accy;
 				});
 			}
 
