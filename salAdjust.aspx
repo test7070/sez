@@ -172,6 +172,14 @@
 		            $('#lblBo_special').text('技術加給');
 		            $('#lblBo_full').text('全勤獎金');
 	           }
+	           if (q_getPara('sys.project').toUpperCase()=='VU'){
+	            	$('#lblMoney').text('底薪');
+	            	$('#lblBo_admin').text('銷貨獎金');
+	            	$('#lblBo_traffic').text('裁剪噸數獎金');
+	            	$('#lblBo_special').text('績效獎金');
+	            	$('#lblBo_oth').text('其他獎金');
+	            	$('#lblBo_full').text('全勤獎金');
+	            }
 			}
 			
 			function btnOk() {
