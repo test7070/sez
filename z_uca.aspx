@@ -106,6 +106,7 @@
 				$('#txtDate1').val(q_date().substr(0,6)+'/01');
 				$('#txtDate2').val(q_cdn(q_cdn(q_date().substr(0,6)+'/01',45).substr(0,6)+'/01',-1));
 				$('#Xgroupano select').removeClass('c4');
+				$('#Xgroupano select').val('#non');
 				$('#txtEdate').mask('999/99/99');
 				$('#txtEdate').val(q_date().substr(0,3)+'/12/31');
 				
