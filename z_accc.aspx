@@ -107,12 +107,21 @@
                         type : '0',
                         name : 'xlen',
                         value : r_len
+                    }, {/* [14]*/
+                        type : '6',
+                        name : 'yproject'
                     }]
                 });
-
+				
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                $('#lblYproject').css('font-weight','bolder').css('color','blue');
+                $('#lblYproject').click(function(e) {
+                	q_box("proj_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'proj', "450px", "600px", q_getMsg("popProj"));
+                });
+                $('#Yproject').css('width','98%');
+                $('#txtYproject').css('width','85%');
                 
                 var r_1911=1911;
 				if(r_len==4){//西元年
@@ -259,7 +268,25 @@
 
             }
 
-            function q_boxClose(t_name) {
+            function q_boxClose(s2) {
+                var ret;
+                switch (b_pop) {
+                	case 'proj':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xucc='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xucc+=ret[i].noa+'.';
+                        	}
+                        }
+                        xucc=xucc.substr(0,xucc.length-1);
+                        $('#txtYproject').val(xucc);
+                        break;	
+					
+                }   /// end Switch
+				b_pop = '';
             }
 		</script>
 	</head>

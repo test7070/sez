@@ -62,9 +62,8 @@
                         index : 'acc1,acc2',
                         src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
                     }, {/*3 [5]*/
-                        type : '8',
-                        name : 'xproj',
-                        value : t_proj.split(',')
+                        type : '6',
+                        name : 'xproj'
                     }, {/*4 [6]*/
                         type : '8',
                         name : 'xpart',
@@ -91,8 +90,33 @@
                     	$(this).val($(this).val()+'.');
                     }
         		});
+        		
+        		$('#lblXproj').css('font-weight','bolder').css('color','blue');
+                $('#lblXproj').click(function(e) {
+                	q_box("proj_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'proj', "450px", "600px", q_getMsg("popProj"));
+                });
+                $('#Xproj').css('width','98%');
+                $('#txtXproj').css('width','85%');
             }
-            function q_boxClose(t_name) {
+            function q_boxClose(s2) {
+                var ret;
+                switch (b_pop) {
+                	case 'proj':
+                        ret = getb_ret();
+                        if(ret==null)
+                        	return;
+                        var xucc='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xucc+=ret[i].noa+'.';
+                        	}
+                        }
+                        xucc=xucc.substr(0,xucc.length-1);
+                        $('#txtXproj').val(xucc);
+                        break;	
+					
+                }   
+				b_pop = '';
             }
 		</script>
 	</head>
