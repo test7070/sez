@@ -77,8 +77,8 @@
 				+ q_sqlPara2("cno", t_cno)
 				+ q_sqlPara2("partno", t_partno)
 				+ q_sqlPara2("partno2", t_partno2)
-				+q_sqlPara2("typea", t_typea)
-				+q_sqlPara2("stype", t_stype)
+				+ q_sqlPara2("typea", t_typea)
+				+ q_sqlPara2("stype", t_stype)
 				+ q_sqlPara2("noa", t_noa)
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("datea", t_bdate, t_edate)
@@ -96,6 +96,9 @@
                 	
 				if(t_ordeno.length>0)
                 	t_where += " and (noa in (select noa from view_vccs where ordeno='"+t_ordeno+"') or noa in (select noa from view_vcc where ordeno='"+t_ordeno+"'))";
+                
+               	if(q_getPara('sys.project').toUpperCase()=='RB' && t_invono.length>0) 
+                	t_where += " or (part2='"+t_invono+"')";
                 	
 				t_where = ' where=^^ ' + t_where + ' ^^ ';
 				return t_where;
