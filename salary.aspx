@@ -54,9 +54,13 @@
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             
-            q_cmbParse("cmbPerson", q_getPara('person.typea'));
-            //q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪','外勞','時薪')));
-            q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
+            if (q_getPara('sys.project').toUpperCase()=='VU'){
+            	q_cmbParse("cmbPerson", "本國,日薪");
+            	q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期')));
+            }else{
+            	q_cmbParse("cmbPerson", q_getPara('person.typea'));
+            	q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
+            }
             q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
 			
 			$('#txtDatea').focusout(function () {
@@ -194,32 +198,62 @@
             });
             
             $('#btnHideaddmoney').click(function() {
-            	if($('#btnHideaddmoney').val().indexOf("隱藏")>-1){
-					$(".hid_ostand").hide();
-					$(".hid_addh2_1").hide();
-					$(".hid_addh2_2").hide();
-					$(".hid_addmoney").hide();
-					$(".hid_addh100").hide();
-					$(".hid_addh46_1").hide();
-					$(".hid_addh46_2").hide();
-					$(".hid_tax_other2").hide();
-					$(".hid_meals").hide();
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-900)+"px");
-	            	scroll("tbbs","box",1);
-					$("#btnHideaddmoney").val("加班費顯示");
-				}else{
-					$(".hid_ostand").show();
-					$(".hid_addh2_1").show();
-					$(".hid_addh2_2").show();
-					$(".hid_addmoney").show();
-					$(".hid_addh100").show();
-					$(".hid_addh46_1").show();
-					$(".hid_addh46_2").show();
-					$(".hid_tax_other2").show();
-					$(".hid_meals").show();
-	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+900)+"px");
-	            	 scroll("tbbs","box",1);
-					$("#btnHideaddmoney").val("加班費隱藏");
+            	if (q_getPara('sys.project').toUpperCase()=='VU'){
+            		if($('#btnHideaddmoney').val().indexOf("隱藏")>-1){
+						$(".hid_ostand").hide();
+						$(".hid_addh2_1").hide();
+						$(".hid_addh2_2").hide();
+						$(".hid_addmoney").hide();
+						$(".hid_addh100").hide();
+						$(".hid_addh46_1").hide();
+						$(".hid_addh46_2").hide();
+						$(".hid_tax_other2").hide();
+						$(".hid_meals").hide();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-500)+"px");
+		            	scroll("tbbs","box",1);
+						$("#btnHideaddmoney").val("加班費顯示");
+					}else{
+						$(".hid_ostand").show();
+						$(".hid_addh2_1").show();
+						$(".hid_addh2_2").hide();
+						$(".hid_addmoney").show();
+						$(".hid_addh100").hide();
+						$(".hid_addh46_1").hide();
+						$(".hid_addh46_2").hide();
+						$(".hid_tax_other2").show();
+						$(".hid_meals").show();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+500)+"px");
+		            	 scroll("tbbs","box",1);
+						$("#btnHideaddmoney").val("加班費隱藏");
+					}
+            	}else{
+	            	if($('#btnHideaddmoney').val().indexOf("隱藏")>-1){
+						$(".hid_ostand").hide();
+						$(".hid_addh2_1").hide();
+						$(".hid_addh2_2").hide();
+						$(".hid_addmoney").hide();
+						$(".hid_addh100").hide();
+						$(".hid_addh46_1").hide();
+						$(".hid_addh46_2").hide();
+						$(".hid_tax_other2").hide();
+						$(".hid_meals").hide();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-900)+"px");
+		            	scroll("tbbs","box",1);
+						$("#btnHideaddmoney").val("加班費顯示");
+					}else{
+						$(".hid_ostand").show();
+						$(".hid_addh2_1").show();
+						$(".hid_addh2_2").show();
+						$(".hid_addmoney").show();
+						$(".hid_addh100").show();
+						$(".hid_addh46_1").show();
+						$(".hid_addh46_2").show();
+						$(".hid_tax_other2").show();
+						$(".hid_meals").show();
+		            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+900)+"px");
+		            	 scroll("tbbs","box",1);
+						$("#btnHideaddmoney").val("加班費隱藏");
+					}
 				}
             });
             
@@ -785,11 +819,13 @@
             	$('#lblBo_traffic').text('裁剪獎金');
             	$('#lblBo_special').text('績效獎金');
             	$('#lblBo_oth').text('其他獎金');
+            	$('#lblDatea').text('發薪日');
             	$('#lblMoneys').text('底薪');
             	$('#lblBo_admins').text('銷貨獎金');
             	$('#lblBo_traffics').text('裁剪噸數獎金');
             	$('#lblBo_specials').text('績效獎金');
             	$('#lblBo_oths').text('其他獎金');
+            	$('#lblAddh2_1s').text('加班時數');
             }
         }
 
@@ -1226,6 +1262,10 @@
         function table_change() {
         	getdtmp();
         	$('#tbbs').css("width","5400px");
+        	if (q_getPara('sys.project').toUpperCase()=='VU'){
+        		$('#tbbs').css("width","5000px");
+        	}
+        	
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
 				$('#lblHrmoney').hide();
@@ -1395,6 +1435,13 @@
 			$(".hid_addh46_2").show();
 			$(".hid_tax_other2").show();
 			$(".hid_meals").show();
+			
+			if (q_getPara('sys.project').toUpperCase()=='VU'){
+				$(".hid_addh2_2").hide();
+				$(".hid_addh100").hide();
+				$(".hid_addh46_1").hide();
+				$(".hid_addh46_2").hide();
+			}
 			
 			$('#btnHidesalary').val("薪資隱藏");
 			$('#btnHideday').val("出勤隱藏");

@@ -320,7 +320,7 @@
         	if(q_getPara('sys.project').toUpperCase()=='VU'){
         		$('.w133').show();
 	            $('.w166').hide();
-				$('.w100').show();
+				$('.w100').hide();
             }else{
             	if($('#chkHoliday').prop('checked')){
 	            	$('.w133').hide();
