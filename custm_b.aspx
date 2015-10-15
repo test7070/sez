@@ -54,7 +54,8 @@
             function mainPost() {
                 q_mask(bbmMask);
                 $('#txtNoa').val(q_getHref()[1]);
-
+				
+				q_cmbParse("cmbStype", q_getPara('orde.stype'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbWtype", q_getPara('custm.wtype'));
                 q_cmbParse("cmbQtype", q_getPara('custm.qtype'));
@@ -127,18 +128,18 @@
 		</script>
 	</head>
 	<body>
-		<div class='dbbm' style="width: 68%;">
+		<div class='dbbm' style="width: 100%;">
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 				<tr>
 					<td><a id="lblStype" > </a></td>
-					<td><input id="txtStype" maxlength='14' type="text" style='width:98%;'/></td>
+					<td><select id="cmbStype"  style='width:98%;'> </select></td>
 					<td >
 						<input id="chkStypefix" type="checkbox" style=' '/>
 						<a id="vewChkstype"> </a>
 					</td>
 					<td> </td>
 					<td> </td>
-					<td> </td>
+					<td><input id="txtNoa" type="hidden" /></td>
 				</tr>
 				<tr>
 					<td><a id="lblTaxtype"> </a></td>
