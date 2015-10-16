@@ -47,8 +47,8 @@
                 }
                 
                 q_gt(q_name, q_content, q_sqlCount, 1)
-
             });
+            
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -308,7 +308,7 @@
                 $('#btnChange').click(function(e) {
                 	if(!emp($('#txtChangecarno').val())&&q_cur==2){
                 		var t_where = "where=^^ a.noa ='"+$('#txtChangecarno').val()+"' ^^";
-						q_gt('car2', t_where, 0, 0, 0, "");
+						q_gt('car2', t_where, 0, 0, 0, "modicar2");
 					}
 				});
 
@@ -414,7 +414,7 @@
 				//1020904 車牌新增時判斷是否已存在
 				$('#txtNoa').change(function() {
                     var t_where = "where=^^ a.noa ='"+$('#txtNoa').val()+"' ^^";
-					q_gt('car2', t_where, 0, 0, 0, "");
+					q_gt('car2', t_where, 0, 0, 0, "inscar2");
                 });
                 
                 $('#txtEngineno').click(function () {
@@ -560,34 +560,31 @@
                         if(abbm[q_recno])
                         	$("#cmbCarstyleno").val(abbm[q_recno].carstyleno);
                         break;
+					case 'inscar2':
+						var as = _q_appendData("car2", "", true);
+	                    if(as[0]!=undefined){
+	                    	alert($('#txtNoa').val()+'車牌重覆!!');
+	                    	$('#txtNoa').val('');
+	                    	$('#txtNoa').focus();
+	                    }
+						break;
+					case 'modicar2':
+						var as = _q_appendData("car2", "", true);
+	                    if(as[0]==undefined){
+	                    	if(!emp($('#txtChangecarno').val())){
+	                			q_func( 'changecarno.change', $('#txtNoa').val()+','+$('#txtChangecarno').val());
+                				//q_func( 'cara.carnoChange', 't_old,t_new');
+							}
+	                    }else{
+	                    	alert('車牌重覆!!');
+	                    }
+						break;
                     case q_name:
-                    	
                         if (q_cur == 4)
                             q_Seek_gtPost();
-                            
-                        if (q_cur == 1)
-                        {
-                        	var as = _q_appendData("car2", "", true);
-	                    	if(as[0]!=undefined){
-	                    		alert($('#txtNoa').val()+'車牌重覆!!');
-	                    		$('#txtNoa').val('');
-	                    		$('#txtNoa').focus();
-	                    	}
+                        if(q_refresh!= 'reload'){
+                        	
                         }
-
-                        if (q_cur == 2)
-                        {
-                        	var as = _q_appendData("car2", "", true);
-	                    	if(as[0]==undefined){
-	                    		if(!emp($('#txtChangecarno').val())){
-	                				q_func( 'changecarno.change', $('#txtNoa').val()+','+$('#txtChangecarno').val());
-                					//q_func( 'cara.carnoChange', 't_old,t_new');
-								}
-	                    	}else{
-	                    		alert('車牌重覆!!');
-	                    	}
-                        }
-
                         break;
                 }
             }
