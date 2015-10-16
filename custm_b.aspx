@@ -54,7 +54,8 @@
             function mainPost() {
                 q_mask(bbmMask);
                 $('#txtNoa').val(q_getHref()[1]);
-
+				
+				q_cmbParse("cmbStype", q_getPara('orde.stype'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbWtype", q_getPara('custm.wtype'));
                 q_cmbParse("cmbQtype", q_getPara('custm.qtype'));
@@ -127,21 +128,21 @@
 		</script>
 	</head>
 	<body>
-		<div class='dbbm' style="width: 68%;">
+		<div class='dbbm' style="width: 100%;">
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 				<tr>
-					<td><a id="lblStype" > </a></td>
-					<td><input id="txtStype" maxlength='14' type="text" style='width:98%;'/></td>
+					<td><a id="lblStype" style="float:right;"> </a></td>
+					<td><select id="cmbStype"  style='width:98%;'> </select></td>
 					<td >
 						<input id="chkStypefix" type="checkbox" style=' '/>
 						<a id="vewChkstype"> </a>
 					</td>
 					<td> </td>
 					<td> </td>
-					<td> </td>
+					<td><input id="txtNoa" type="hidden" /></td>
 				</tr>
 				<tr>
-					<td><a id="lblTaxtype"> </a></td>
+					<td><a id="lblTaxtype" style="float:right;"> </a></td>
 					<td><select id="cmbTaxtype"  style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
@@ -149,7 +150,7 @@
 					<td> </td>
 				</tr>
 				<tr>
-					<td><a id="lblQtype"> </a></td>
+					<td><a id="lblQtype" style="float:right;"> </a></td>
 					<td><select id="cmbQtype" style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
@@ -157,7 +158,7 @@
 					<td> </td>
 				</tr>
 				<tr>
-					<td><a id="lblWtype"> </a></td>
+					<td><a id="lblWtype" style="float:right;"> </a></td>
 					<td><select id="cmbWtype"   style='width:98%;'> </select></td>
 					<td> </td>
 					<td> </td>
@@ -165,15 +166,15 @@
 					<td> </td>
 				</tr>
 				<tr>
-					<td><a id="lblVccad" > </a></td>
+					<td><a id="lblVccad" style="float:right;"> </a></td>
 					<td><input id="txtVccad" type="text" style='width:98%;'/></td>
-					<td><a id="lblP23"> </a></td>
+					<td><a id="lblP23" style="float:right;"> </a></td>
 					<td><input id="txtP23"maxlength="10" type="text" style="width:98%;" /></td>
 					<td> </td>
 					<td> </td>
 				</tr>
 				<tr>
-					<td><a id="lblBcomp" > </a></td>
+					<td><a id="lblBcomp" style="float:right;"> </a></td>
 					<td><input id="txtBcomp" maxlength='40' type="text" style='width:98%;'/></td>
 					<td> </td>
 					<td> </td>
@@ -181,7 +182,7 @@
 					<td> </td>
 				</tr>
 				<tr>
-					<td><a id="lblBoat" > </a></td>
+					<td><a id="lblBoat" style="float:right;"> </a></td>
 					<td><input id="txtBoat" maxlength='20' type="text" style='width:98%;'/></td>
 					<td> </td>
 					<td> </td>
