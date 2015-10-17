@@ -73,7 +73,10 @@
                         name : 'xyear'
                     }]
                 });
-                q_popAssign();               	
+                q_popAssign(); 
+                
+                $('#txtXmon1').mask(r_picm);
+                $('#txtXmon2').mask(r_picm);            	
      
                 $('#txtXacc1a').change(function(e) {
                 	var patt = /^(\d{4})([^\.,.]*)$/g;
