@@ -289,12 +289,14 @@
                 switch (b_pop) {
                 	case 'cust':
                         ret = getb_ret();
-                        if(ret==null)
+                        if(ret==null){
+                        	b_pop = '';
                         	return;
+                        }
                         var xcust='';
                         if(ret[0]!=undefined){
                         	for (var i = 0; i < ret.length; i++) {
-                        		xcust+=ret[i].noa+'.'
+                        		xcust+=ret[i].noa+','
                         	}
                         }
                         xcust=xcust.substr(0,xcust.length-1);
@@ -302,12 +304,14 @@
                         break;	
                     case 'ucc':
                         ret = getb_ret();
-                        if(ret==null)
+                        if(ret==null){
+                        	b_pop = '';	
                         	return;
+                        }
                         var xucc='';
                         if(ret[0]!=undefined){
                         	for (var i = 0; i < ret.length; i++) {
-                        		xucc+=ret[i].noa+'.'
+                        		xucc+=ret[i].noa+','
                         	}
                         }
                         xucc=xucc.substr(0,xucc.length-1);
