@@ -83,7 +83,7 @@
 
                         for (var j = 0; j < q_bbsCount; j++) {
                             for (var i = 0; i < as.length; i++) {
-                                if (as[i].noa == $('#txtSssno_' + j).val() || dec($('#txtNoa').val()) - dec(as[i].indate.substr(0, 3)) < 0) {
+                                if (as[i].noa == $('#txtSssno_' + j).val() || dec($('#txtNoa').val()) - dec(as[i].indate.substr(0, r_len)) < 0) {
                                     as.splice(i, 1);
                                     i--;
                                 }
@@ -95,11 +95,11 @@
                             //as._day特休天數
                             if(q_getPara('sys.comp').indexOf('祥興')>-1){
                             	if (as[i].indate.length > 0)//判斷到職日是否有輸入，若沒輸入則無特休
-	                                as[i]._year = dec($('#txtNoa').val()) - dec(as[i].indate.substr(0, 3));
+	                                as[i]._year = dec($('#txtNoa').val()) - dec(as[i].indate.substr(0, r_len));
 	                            else
 	                                as[i]._year = 0;
 	                                
-	                            if (as[i]._year == 0 && as[i].indate.substr(4) == '01/01') {
+	                            if (as[i]._year == 0 && as[i].indate.substr(r_len+1) == '01/01') {
 	                                as[i]._year = 1;
 	                            }
 	                            if (as[i]._year < 1)
@@ -119,18 +119,18 @@
 	                            as[i]._day = as[i]._day * 8;
                             }else{
                             	if (as[i].indate.length > 0){//判斷到職日是否有輸入，若沒輸入則無特休
-	                                as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0, 3))-1+(
-	                                +((12-dec(as[i].indate.substr(4, 2))+(dec(as[i].indate.substr(7, 2))>15 && q_getPara('sys.comp').indexOf('大昌')>-1 ?0:1))/12)
+	                                as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0, r_len))-1+(
+	                                +((12-dec(as[i].indate.substr((r_len+1), 2))+(dec(as[i].indate.substr((r_lenm+1), 2))>15 && q_getPara('sys.comp').indexOf('大昌')>-1 ?0:1))/12)
 	                                );
 	                                
-	                                if (as[i]._year == 0 && as[i].indate.substr(4) == '01/01') {
+	                                if (as[i]._year == 0 && as[i].indate.substr(r_len+1) == '01/01') {
 	                                	as[i]._year=dec(as[i]._year)+1
 	                                }
 	                            }else{
 	                                as[i]._year = 0;
 								}
 	                                
-								if (dec($('#txtNoa').val()) ==dec(as[i].indate.substr(0, 3)))
+								if (dec($('#txtNoa').val()) ==dec(as[i].indate.substr(0, r_len)))
 	                                as[i]._day = 0;
 								else if (as[i]._year < 1){
 									//正常
@@ -218,7 +218,7 @@
 
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val(q_date().substr(0, 3));
+                $('#txtNoa').val(q_date().substr(0, r_len));
                 $('#txtSssno_0').focus();
             }
 
@@ -494,22 +494,16 @@
 			<div class='dbbm' style="width: 68%;float:left">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 					<tr>
-						<td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtNoa"  type="text" class="txt c1"/>
-						</td>
-						<td class='td3'>
-						<input id="btnIndata" type="button" />
-						</td>
-						<td class="td4"></td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td><input id="btnIndata" type="button" /></td>
+						<td> </td>
 					</tr>
 					<tr>
-						<td class='td1'><span> </span><a id="lblTotal" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtTotal"  type="text" class="txt num c1"/>
-						</td>
-						<td class='td3'></td>
-						<td class="td4"></td>
+						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td><input id="txtTotal"  type="text" class="txt num c1"/></td>
+						<td> </td>
+						<td> </td>
 					</tr>
 				</table>
 			</div>
