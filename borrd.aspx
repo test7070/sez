@@ -169,8 +169,9 @@
                 _btnModi();
 				var x_day=q_getPara('sys.modiday'),t_day=1;
 				var t_date=q_date();
-						
-				while(r_rank<=7 && t_day<x_day){
+				
+				//2015/10/20  欣芸:拿掉日 期檢查		
+				/*while(r_rank<=7 && t_day<x_day){
 					var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
 					nextdate.setDate(nextdate.getDate() -1)
 					t_date=''+(nextdate.getFullYear()-1911)+'/';
@@ -207,7 +208,7 @@
 						$('#txtFixmoney_'+j).attr('disabled', 'disabled');
 						$('#txtMemo_'+j).attr('disabled', 'disabled');
 					}
-				}
+				}*/
                 $('#txtDatea').focus();
             }
 
