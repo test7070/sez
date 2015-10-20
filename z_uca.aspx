@@ -109,6 +109,9 @@
 				$('#Xgroupano select').val('#non');
 				$('#txtEdate').mask('999/99/99');
 				$('#txtEdate').val(q_date().substr(0,3)+'/12/31');
+				$('#txtExportDate').val(q_date());
+				$('#txtExportDate').mask('999/99/99'); //2015/10/20轉點單加日期
+				$('#txtExportDate').datepicker();
 				
 				$('#q_report .option ').css('width','800px');
 				$('.option .a1').css('width','790px');
@@ -137,13 +140,13 @@
                   	if(confirm('匯入過程需要等待幾分鐘確定要執行?')){
         				if(type=='製成品'){
         					Lock(1);
-        					q_func( 'qtxt.query.stkucc','stkucc.txt,stkucc,');
+        					q_func( 'qtxt.query.stkucc','stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';');
         				}else if(type=='原料'){
         					Lock(1);   
-        					q_func( 'qtxt.query.stkuca' ,'stkucc.txt,stkuca,');     				
+        					q_func( 'qtxt.query.stkuca' ,'stkucc.txt,stkuca,' + $('#txtExportDate').val()+ ';');     				
         				}else if(type=='全部'){
         					Lock(1);      			
- 	     					q_func( 'qtxt.query.stkallucc' ,'stkucc.txt,stkucc,');
+ 	     					q_func( 'qtxt.query.stkallucc' ,'stkucc.txt,stkucc,' + $('#txtExportDate').val()+ ';');
         				
         				} 
         			}
@@ -229,24 +232,26 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
-		<div id="divExport" style="display:none;position:absolute;top:100px;left:600px;width:200px;height:120px;background:RGB(237,237,237);">
-            <table style="border:4px solid gray; width:100%; height: 100%;">
-                <tr style="height:1px;background-color: pink;">
-                    <td style="width:25%;"></td>
-                    <td style="width:25%;"></td>
-                    <td style="width:25%;"></td>
+		<div id="divExport" style="display:none;position:absolute;top:200px;left:450px;width:200px;height:120px;background:RGB(237,237,237);">
+            <table style="border:3px solid gray; width:100%; height: 100%;">              
+                <tr>
+                	
+                    <td colspan="4" align="center" style="background-color: pink;">
+                    	<label style="width:30%;" >日期</label>
+                    	<input type="text" id="txtExportDate" style="width:70%;" />
+                    </td>
                 </tr>
                 <tr>
-                     <td   align="center"  colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
-                           <select type="text" id="cmbType" style="float:left;width:40%;"/select>
+                    <td align="center" colspan="4" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
+                         <select type="text" id="cmbType" style="float:left;width:100%;"/select>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center" style="background-color: pink;">
-                    <input type="button" id="btnExport" value="匯入"/>
+                    <input type="button" id="btnExport" style="width:70%;" value="匯入" />
                     </td>
                     <td colspan="2" align="center" style=" background-color: pink;">
-                    <input type="button" id="btnDivexport" value="關閉"/>
+                    <input type="button" id="btnDivexport" style="width:70%;" value="關閉"/>
                     </td>
                 </tr>
             </table>
