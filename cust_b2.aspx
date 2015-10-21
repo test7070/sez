@@ -62,7 +62,7 @@
                     for (var i = 0; i < t_noa.length; i++) {
                         for (var j = 0; j < abbs.length; j++) {
                             if (t_noa[i] == abbs[j].noa) {
-                                abbs[j].sel = true
+                                abbs[j].sel = "true"
                                 break;
                             }
                         }
