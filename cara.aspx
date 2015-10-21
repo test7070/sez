@@ -231,11 +231,11 @@
                 			unpay+=dec(as[i].unpay);
                 		}
                 		q_tr('textUnpay',unpay);
-                		if(refresh_modi2){
+                		/*if(refresh_modi2){
                 			refresh_modi2=false;
                 			_refresh(q_recno);
                 			btnModi();
-                		}
+                		}*/
                 	break;
                 	case 'sss':
             			var as = _q_appendData("sss", "", true);
@@ -328,7 +328,7 @@
                     		}
                     		sum();
                 		break;
-                		case 'caritem':
+                	case 'caritem':
                 		var as = _q_appendData("caritem", "", true);
                     		if(as[0]!=undefined){
                     			if(as[0].typea=='1'){
@@ -343,7 +343,9 @@
                     		sum();
                 		break;
                     case q_name:
-                    	/*if(dateimport){
+                        if(q_cur == 4)
+                            q_Seek_gtPost();
+                            /*if(dateimport){
                     		var as = _q_appendData("cara", "", true);
                     		if(as[0]!=undefined){
                     			//上月息額取上一張累計息額並判斷來源
@@ -365,12 +367,10 @@
 					        q_gt('car2', t_where , 0, 0, 0, "", r_accy);
 					        
                     	}*/
-                    	if(refresh_modi){
+                    	/*if(refresh_modi){
                     		_refresh(q_recno);
                     		refresh_modi2=true;
-                    	}
-                        if(q_cur == 4)
-                            q_Seek_gtPost();
+                    	}*/
                         break;
                 }  /// end switch
             }
@@ -578,14 +578,14 @@
                     return;
                 }
                 _btnModi();
-                if(!refresh_modi){
+                /*if(!refresh_modi){
             		refresh_modi=true;
             		btnCancel();
-            		q_gt(q_name, "where=^^noa='"+$('#txtNoa').val()+"'^^", q_sqlCount, 1);
+            		//q_gt(q_name, "where=^^noa='"+$('#txtNoa').val()+"'^^", q_sqlCount, 1);
             		return;
             	}else{
             		refresh_modi=false;
-            	}
+            	}*/
                 
 				//禁止修改
 				$('#txtCarowner').attr('disabled', 'disabled');
