@@ -221,7 +221,7 @@
                 });
                 
                 if (q_getPara('sys.comp').indexOf('旭暉') >= 0) {
-                    $('#chkXpart').children('input').prop('checked', true)
+                    $('#chkXpart').children('input').prop('checked', true);
                 }
 
                 var s2 = q_getId2(), s4;
@@ -268,7 +268,7 @@
                     $("#chkXpart").children('input')[2].disabled = false;
                     $('#chkXpart').children('input').prop('checked', false);
                     for (var i = 0; i < $('#chkXpart').children('input').length; i++) {
-                        if ($('#chkXpart').children('input')[i].value == r_partno || i == 0) {
+                        if ($('#chkXpart').children('input')[i].value == r_partno || i == 2) {
                             $('#chkXpart').children('input')[i].checked = true;
                             $("#chkXpart").children('input')[i].disabled = false;
                             continue;
@@ -282,7 +282,7 @@
                         }
                     }
                 }else{
-                	for (var i = 3; i < $('#chkXpart').children('input').length; i++) {
+                	for (var i = 2; i < $('#chkXpart').children('input').length; i++) {
                 		$('#chkXpart').children('input').eq(i).prop('checked', true);
                 	}
                 }
