@@ -39,7 +39,7 @@
             var ssspart;
             function q_gfPost() {
                 q_gt('acpart', '', 0, 0, 0, "init1", r_accy + '_' + r_cno);
-                q_gt('ssspart', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "", r_accy + '_' + r_cno);
+                
             }
 
             var init_finish = false, init_acpart = false, init_ssspart = false;
@@ -51,15 +51,13 @@
                         for ( i = 0; i < as.length; i++) {
                             t_data.data['part'] += (t_data.data['part'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
-                        init_acpart = true;
+                        q_gt('ssspart', "where=^^noa='" + r_userno + "'^^", 0, 0, 0, "", r_accy + '_' + r_cno);
                         break;
                     case 'ssspart':
                         ssspart = _q_appendData("ssspart", "", true);
-                        init_ssspart = true;
+                        initfinish();
                         break;
                 }
-                if (init_acpart && init_ssspart && !init_finish)
-                    initfinish();
             }
 
             function initfinish() {
@@ -92,7 +90,7 @@
                     }, {/*4 [9]*/
                         type : '8',
                         name : 'xpart',
-                        value : ('zzzzz@無部門,' + t_data.data['part']).split(',')
+                        value : ('xxxxx@全選,yyyyy@全取消,zzzzz@無部門,' + t_data.data['part']).split(',')
                     }, {/*5 [10]*/
                         type : '8',
                         name : 'xoption03',
@@ -116,6 +114,7 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
                 $('#lblYproject').css('font-weight','bolder').css('color','blue');
                 $('#lblYproject').click(function(e) {
                 	q_box("proj_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno , 'proj', "450px", "600px", q_getMsg("popProj"));
@@ -207,26 +206,20 @@
                     }
                     $('#btnOk').click();
                 });
-
-                if (q_getPara('acc.lockPart') == '1' && r_rank < 8) {
-                    $("#chkXpart").children('input').attr('Disabled', 'Disabled');
-                    $("#chkXpart").children('input')[0].disabled = false;
-                    $('#chkXpart').children('input').prop('checked', false);
-                    for (var i = 0; i < $('#chkXpart').children('input').length; i++) {
-                        if ($('#chkXpart').children('input')[i].value == r_partno || i == 0) {
-                            $('#chkXpart').children('input')[i].checked = true;
-                            $("#chkXpart").children('input')[i].disabled = false;
-                            continue;
-                        }
-                        for (var j = 0; j < ssspart.length; j++) {
-                            if ($('#chkXpart').children('input')[i].value == ssspart[j].partno) {
-                                $('#chkXpart').children('input')[i].checked = true;
-                                $("#chkXpart").children('input')[i].disabled = false;
-                                break;
-                            }
-                        }
-                    }
-                }
+				
+                checkPart();
+                //全選
+                $("#chkXpart").children('input').eq(0).click(function(e){
+                	$("#chkXpart").children('input').eq(0).prop('checked',false);
+                	$("#chkXpart").children('input').eq(1).prop('checked',false);
+                	$("#chkXpart").children('input').eq(2).prop('checked',true);
+                	checkPart();
+                });
+                //全取消
+                $("#chkXpart").children('input').eq(1).click(function(e){
+                	$("#chkXpart").children('input').prop('checked',false);
+                });
+                
                 if (q_getPara('sys.comp').indexOf('旭暉') >= 0) {
                     $('#chkXpart').children('input').prop('checked', true)
                 }
@@ -266,6 +259,33 @@
                     $('#btnOk').click();
                 }
 
+            }
+            function checkPart(){
+            	if (q_getPara('acc.lockPart') == '1' && r_rank < 8) {
+                    $("#chkXpart").children('input').attr('Disabled', 'Disabled');
+                    $("#chkXpart").children('input')[0].disabled = false;
+                    $("#chkXpart").children('input')[1].disabled = false;
+                    $("#chkXpart").children('input')[2].disabled = false;
+                    $('#chkXpart').children('input').prop('checked', false);
+                    for (var i = 0; i < $('#chkXpart').children('input').length; i++) {
+                        if ($('#chkXpart').children('input')[i].value == r_partno || i == 0) {
+                            $('#chkXpart').children('input')[i].checked = true;
+                            $("#chkXpart").children('input')[i].disabled = false;
+                            continue;
+                        }
+                        for (var j = 0; j < ssspart.length; j++) {
+                            if ($('#chkXpart').children('input')[i].value == ssspart[j].partno) {
+                                $('#chkXpart').children('input')[i].checked = true;
+                                $("#chkXpart").children('input')[i].disabled = false;
+                                break;
+                            }
+                        }
+                    }
+                }else{
+                	for (var i = 3; i < $('#chkXpart').children('input').length; i++) {
+                		$('#chkXpart').children('input').eq(i).prop('checked', true);
+                	}
+                }
             }
 
             function q_boxClose(s2) {
